@@ -116,6 +116,20 @@ describe('CardToast — accessibilité (G1-16, G1-18, G1-21)', () => {
       expect(useCardToast.getState().toast).not.toBeNull();
     } finally { vi.useRealTimers(); }
   });
+  it('un clic souris dans la pilule (focus non visible) ne la retient pas', async () => {
+    const { id } = await createPersonalTerm({ term: 'Orthopnoe', explanation: 'Atemnot im Liegen' });
+    const term = toView((await db.personal_terms.get(id))!);
+    render(<CardToast />);
+    vi.useFakeTimers();
+    try {
+      act(() => useCardToast.getState().show({ kind: 'saved', term, deckId: 'deck-favorites' }));
+      const main = screen.getByRole('button', { name: /Rangée dans Favoris/ });
+      fireEvent.click(main); fireEvent.click(main);   // ouvre puis referme la miniature
+      act(() => { main.focus(); });                    // le clic a laissé le focus (souris : pas :focus-visible)
+      act(() => { vi.advanceTimersByTime(SAVED_MS + 100); });
+      expect(useCardToast.getState().toast).toBeNull();
+    } finally { vi.useRealTimers(); }
+  });
 });
 
 describe('CardToast — suppression (m2)', () => {

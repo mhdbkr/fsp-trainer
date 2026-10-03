@@ -35,6 +35,8 @@ const Drain = ({ ms, held = false }: { ms: number; held?: boolean }) => (
   <span aria-hidden data-drain={held ? 'held' : 'running'} className={`pointer-events-none absolute inset-x-5 bottom-[3px] h-0.5 origin-left rounded-full bg-brand-500/60 motion-reduce:hidden dark:bg-brand-300/60 ${held ? '' : 'animate-drain'}`} style={held ? undefined : { animationDuration: `${ms}ms` }} />
 );
 
+const focusVisible = (el: Element): boolean => { try { return el.matches(':focus-visible'); } catch { return false; } };
+
 export function CardToast() {
   const toast = useCardToast((s) => s.toast);
   const show = useCardToast((s) => s.show);
@@ -47,7 +49,8 @@ export function CardToast() {
   const [flipped, setFlipped] = useState(false);
   const [choosing, setChoosing] = useState(false);
   const [hovered, setHovered] = useState(false);
-  // Le clavier retient la pilule dès qu'on y agit (WCAG 2.2.1) — pas le focus que « Créer » y pose.
+  // Le clavier retient la pilule dès qu'on y agit (WCAG 2.2.1) — ni le focus que « Créer » y pose,
+  // ni celui d'un clic souris (`:focus-visible` seulement).
   const [engaged, setEngaged] = useState(false);
   const autoFocusing = useRef(false);
   const termId = toast && 'term' in toast ? toast.term.id : null;
@@ -114,7 +117,7 @@ export function CardToast() {
       <m.div key={`saved-${toast.term.id}`} data-keep-open {...appear}
         onPointerEnter={(e) => { if (e.pointerType === 'mouse') setHovered(true); }} onPointerLeave={() => setHovered(false)}
         onKeyDown={(e) => { if (e.key !== 'Escape') setEngaged(true); }}
-        onFocus={() => { if (!autoFocusing.current) setEngaged(true); }}
+        onFocus={(e) => { if (!autoFocusing.current && focusVisible(e.target)) setEngaged(true); }}
         onBlur={(e) => { if (!e.currentTarget.contains(e.relatedTarget as Node | null)) setEngaged(false); }}
         className="flex max-w-full flex-col items-center gap-2">
         <AnimatePresence>
