@@ -3,11 +3,17 @@ import type { Case, SimTeil, TrainingEvent, TrainingKind } from '@/db/types';
 import { observeModus, modusAProposer, MIN_SEANCES } from './modus';
 
 let seq = 0;
-const ev = (over: Partial<TrainingEvent> = {}): TrainingEvent => ({
-  id: `te-${seq++}`, at: 1_000 + seq * 1_000, kind: 'simulation' as TrainingKind,
-  caseId: 'c1', teile: ['anamnese'] as SimTeil[], source: 'libre', spentMin: 20, scores: {},
-  ...over,
-});
+// Une séance JOUÉE : un score par Teil joué, comme la dérivation §2.3 (M4 : sans
+// score, ce serait une coche, qui ne vote pas).
+const ev = (over: Partial<TrainingEvent> = {}): TrainingEvent => {
+  const teile = over.teile ?? (['anamnese'] as SimTeil[]);
+  return {
+    id: `te-${seq++}`, at: 1_000 + seq * 1_000, kind: 'simulation' as TrainingKind,
+    caseId: 'c1', teile, source: 'libre', spentMin: 20,
+    scores: Object.fromEntries(teile.map((t) => [t, 70])),
+    ...over,
+  };
+};
 
 const cas = (id: string, specialty: Case['specialty']): Case =>
   ({ id, specialty, name: id, pathology: id } as Case);
