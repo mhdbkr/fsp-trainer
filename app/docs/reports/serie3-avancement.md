@@ -14,7 +14,7 @@
 | C2 simulation | `feat/s3-simulation` | ✅ **Approve with minors** | dernier passage du fixeur (7 points courts) |
 | C4 contenu | `feat/s3-contenu` | revue finale : 1 point (I-7) | fixeur sur I-7 → revue de clôture |
 | C1 programme | `feat/s3-programme` | fixeur (sécurité + journal) | re-revue → **déploiement prod** (§2) |
-| C3 IA externe | `feat/s3-ia` | faits sources committés | prompt, lanceur, retour → revue |
+| C3 IA externe | `feat/s3-ia` | livré (8 commits) — prompt 31 906 → 4 088 car., un seul rôle | revue de branche en cours |
 
 ## 2. File d'attente — déclencheurs
 
@@ -25,6 +25,8 @@
 | Q-3 | **Intégration** dans l'ordre primitives → contenu → programme → simulation → IA, avec les branchements transversaux (§4) | chaque branche **Approve** ; primitives d'abord (les autres consomment ses surfaces) | — |
 | Q-4 | **Passation de charte** (segmentés → `.seg`, surfaces → `.panel`, ombres mortes) dans les écrans Programme/Simulation | intégration de `feat/s3-primitives` | les écrans appartiennent à d'autres chantiers |
 | Q-5 | **C6 — l'agent qui teste à la place de la direction** : candidat synthétique 14 jours, horloge injectable, invariants | intégration terminée | il doit jouer l'app intégrée, pas des branches séparées |
+| Q-7 | **ChatGPT « s'ouvre avec le prompt collé »** (`?q=`) : un seul réglage à basculer | test de 5 min **par la direction** dans un navigateur connecté (protocole : `doctopus-s3-ia/app/docs/reports/lead-s3-ia-sources.md` §6) | Cloudflare bloque la mesure automatique de la limite de longueur ; le contrat interdit de pré-remplir sans limite connue |
+| Q-8 | Raccourcir 5 cas dont le prompt patient dépasse 10 000 car. (devient une pièce jointe dans ChatGPT) : delir, karpaltunnel, metabolisches-syndrom, pankreaskarzinom, ulcus-cruris | merge de `feat/s3-contenu` (même déclencheur que Q-1) | contenu, même writer que Q-1 |
 | Q-6 | Débord de la carte « À faire aujourd'hui » à 390 px (103 px) | intégration de `feat/s3-programme` | relevé par le chantier primitives, appartient au programme |
 
 ## 3. Décisions en attente de la direction
@@ -39,7 +41,8 @@
 - Drill → `logTraining` (le travail hors plan est journalisé).
 - Runner → `sim.taskId` ; résolution à l'écriture (une tâche jouée, du plan ou librement, se coche).
 - `saveSimulation` cesse d'écrire `Case.status` / `confidence` / `layerProgress`.
-- Lanceur IA monté dans `PlayArea`, Teils Anamnese et Fallvorstellung.
+- Lanceur IA monté dans `PlayArea` : `{(part === 'anamnese' || part === 'fallvorstellung') && <TeilAiLauncher caseId={c.id} teil={part} />}` ; retirer la puce d'en-tête `SimulationRunner.tsx:275`.
+- Séance IA externe exclue de la confiance du cas (réglé par l'arrêt d'écriture de `Case.status`/`confidence` dans `saveSimulation`) — sinon la carte de retour affirme à tort « pas dans l'indice ».
 - Amendements de contrat : `simulation-run.md` (règle 8, INV-20, INV-26, règle 7, §3.1), `frage-atomique.md` §3.3, `training-journal.md` (second appareil ; « pas de migration serveur » est faux).
 - Lignes CI : `checkQuestionAtomicity`, `checkBudgetFloor` (base de PR / `github.event.before`, `fetch-depth: 0`), tests de mutation, `checkQuestionOrder` informatif, `check-materials`.
 
