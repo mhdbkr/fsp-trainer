@@ -88,3 +88,16 @@ describe('Revue clinique Q0 — C-3 : le NOTFALL psy ne se déclenche pas sur un
     expect(notfall()[0]).toMatch(/NOTFALL — der Patient bleibt stationär/);
   });
 });
+
+describe('Revue Q0 — m1 : mêmes défauts que l\'alcool', () => {
+  it('« Hält der Juckreiz Sie nachts wach ? » attend un « ja » au prurit', () => {
+    const rs = relancesOf('fach-derma-empfinden', 'Hält der Juckreiz');
+    expect(rs).toHaveLength(1);
+    expect(parseFollowUp(rs[0])).toMatchObject({ kind: 'ja', label: 'ja' });
+  });
+  it('« normal entbunden ou Kaiserschnitt ? » attend des naissances : interrupteur « Geburten »', () => {
+    const rs = relancesOf('fach-gyn-schwangerschaften', 'Haben Sie normal entbunden');
+    expect(rs).toHaveLength(1);
+    expect(parseFollowUp(rs[0])).toMatchObject({ kind: 'ja', label: 'Geburten' });
+  });
+});

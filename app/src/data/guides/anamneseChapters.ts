@@ -1058,7 +1058,7 @@ export const FACHANAMNESEN: FachanamneseGuide[] = [
       {
         text: 'Wie viele Schwangerschaften und Geburten hatten Sie? Gab es Fehlgeburten oder Abbrüche?',
         probe: 'fach-gyn-schwangerschaften',
-        followUp: ['Haben Sie normal entbunden oder per Kaiserschnitt? Warum?'],
+        followUp: ['Falls Geburten: Haben Sie normal entbunden oder per Kaiserschnitt? Warum?'],
       },
       {
         text: 'Besteht ein Kinderwunsch, oder gab es Schwierigkeiten, schwanger zu werden?',
@@ -1539,7 +1539,7 @@ export const FACHANAMNESEN: FachanamneseGuide[] = [
       {
         text: 'Juckt es, brennt es oder tut es weh? Und wann ist es am schlimmsten?',
         probe: 'fach-derma-empfinden',
-        followUp: ['Hält der Juckreiz Sie nachts wach?'],
+        followUp: ['Falls ja: Hält der Juckreiz Sie nachts wach?'],
       },
       {
         text: 'Wie sieht die Stelle aus — gerötet, schuppend, mit Bläschen, Knötchen oder nässend? Hat sie sich verändert?',
