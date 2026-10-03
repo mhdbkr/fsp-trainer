@@ -101,7 +101,6 @@ export interface PendingExternalSim {
 }
 type LegacyPending = Omit<PendingExternalSim, 'teil'> & { teil?: AnkerTeil; scope?: string };
 
-export const getPending = (): Promise<PendingExternalSim | null> => getMeta<PendingExternalSim | null>('externalAi.pending', null);
 export const setPending = (p: PendingExternalSim | null): Promise<void> => setMeta('externalAi.pending', p);
 
 /** Lecture tolérante (§5) : les traces posées avant le Teil d'ancrage portent

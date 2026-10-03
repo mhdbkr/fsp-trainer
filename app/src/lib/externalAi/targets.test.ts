@@ -1,7 +1,7 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import {
   AI_TARGETS, CAPABILITY_TTL_DAYS, capabilityProblems, launchPlan, copyText,
-  loadTarget, saveTarget, getPending, setPending, readPending, type AiTarget,
+  loadTarget, saveTarget, setPending, readPending, type AiTarget,
 } from './targets';
 import { db } from '@/db/db';
 
@@ -83,7 +83,7 @@ describe('mémoire et trace', () => {
   });
 
   it('trace : Teil d\'ancrage, et lecture tolérante de l\'ancien `scope`', async () => {
-    expect(await getPending()).toBeNull();
+    expect(await readPending()).toBeNull();
     await setPending({ caseId: 'c1', targetId: 'chatgpt', teil: 'fallvorstellung', at: 1 });
     expect(await readPending()).toEqual({ caseId: 'c1', targetId: 'chatgpt', teil: 'fallvorstellung', at: 1 });
     await db.meta.put({ key: 'externalAi.pending', value: { caseId: 'c1', targetId: 'claude', scope: 'anamnese', at: 2 } });
