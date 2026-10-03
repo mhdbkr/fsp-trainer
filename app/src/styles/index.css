@@ -377,3 +377,8 @@ h1, h2, h3 {
   animation-delay: calc(var(--i, 0) * 70ms);
 }
 @media (prefers-reduced-motion: reduce) { .mm-card .bl { animation: none !important; } }
+
+/* ── Pages de livre (DeckRail, E5) ─────────────────────────────────────────
+   Les pages ne bougent que par translation (ressort de lib/motion) ; la
+   couche GPU n'est promue que pendant l'interaction, pas au repos. */
+.deck-book:hover .deck-page, .deck-book:focus-within .deck-page { will-change: transform; }
