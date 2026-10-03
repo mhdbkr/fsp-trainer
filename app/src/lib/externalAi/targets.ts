@@ -1,70 +1,110 @@
 // ============================================================================
-// Cibles d'IA externes et lancement. Vérifié 2026-09-17 : ChatGPT `?q=`
-// pré-remplit ET envoie ; Claude `/new?q=` pré-remplit (Entrée manuel) ;
-// Perplexity, Grok `?q=` ; Gemini n'a aucun paramètre → presse-papiers.
-// Les prompts réels (12-44 k caractères) dépassent presque toujours
-// PREFILL_MAX (6000, limite d'URL) : le chemin normal est « app ouverte +
-// prompt copié → coller + Entrée » — les voiceHint ci-dessous décrivent ce
-// chemin ; `submits` ne s'applique qu'au cas rare où le prompt tient dans
-// l'URL. Le presse-papiers est TOUJOURS écrit (filet) ; l'ouverture doit
-// rester dans le gestionnaire de clic (mobile bloque les popups différés).
+// Cibles d'IA externes et lancement (contrat docs/contracts/ai-bridge.md §3).
+// Cibles retenues par la direction : ChatGPT et Gemini.
+// Chaque capacité est un relevé daté et sourcé — aucun fait deviné. Les faits
+// et leurs sources : app/docs/reports/lead-s3-ia-sources.md. Le libellé du
+// bouton est une fonction pure de la capacité (`launchPlan`) : il ne promet le
+// pré-remplissage que si le paramètre ET sa limite sont vérifiés et frais.
+// ============================================================================
 import { getMeta, setMeta } from '@/db/db';
-import { PREFILL_MAX, type Scope, type FeedbackLang } from './prompt';
+import type { AnkerTeil } from './prompt';
 
-export type TargetId = 'chatgpt' | 'claude' | 'gemini' | 'perplexity' | 'grok';
-export interface AiTarget { id: TargetId; label: string; base: string; prefill: ((prompt: string) => string) | null; submits: boolean; voiceHint: string }
+export type TargetId = 'chatgpt' | 'gemini';
 
-const q = (base: string) => (p: string) => `${base}${encodeURIComponent(p)}`;
+export interface TargetCapability {
+  targetId: TargetId;
+  prefillParam: string | null;     // null = pas de pré-remplissage vérifié
+  maxPrefillChars: number | null;  // limite EFFECTIVE mesurée (URL encodée)
+  autoSubmits: boolean;
+  nativeScheme: string | null;     // schéma propriétaire documenté, sinon null
+  nativeAcceptsText: boolean;
+  verifiedAt: string;              // date ISO de la vérification à la source
+  evidence: string;
+}
+
+export interface AiTarget {
+  id: TargetId;
+  label: string;
+  origin: string;      // base du pré-remplissage éventuel (`${origin}?${param}=`)
+  openUrl: string;     // ce qu'on ouvre au niveau 2
+  capability: TargetCapability;
+}
+
+const EVIDENCE = 'app/docs/reports/lead-s3-ia-sources.md';
+
 export const AI_TARGETS: AiTarget[] = [
-  { id: 'chatgpt', label: 'ChatGPT', base: 'https://chatgpt.com/', prefill: q('https://chatgpt.com/?q='), submits: true, voiceHint: 'Colle le prompt (déjà copié) et appuie sur Entrée, puis active le mode vocal.' },
-  { id: 'claude', label: 'Claude', base: 'https://claude.ai/new', prefill: q('https://claude.ai/new?q='), submits: false, voiceHint: 'Colle le prompt (déjà copié), appuie sur Entrée, puis active la voix.' },
-  { id: 'gemini', label: 'Gemini', base: 'https://gemini.google.com/app', prefill: null, submits: false, voiceHint: 'Colle le prompt (déjà copié), envoie, puis active Gemini Live.' },
-  { id: 'perplexity', label: 'Perplexity', base: 'https://www.perplexity.ai/', prefill: q('https://www.perplexity.ai/search?q='), submits: true, voiceHint: 'Colle le prompt (déjà copié) et appuie sur Entrée, puis active le mode vocal.' },
-  { id: 'grok', label: 'Grok', base: 'https://grok.com/', prefill: q('https://grok.com/?q='), submits: false, voiceHint: 'Colle le prompt (déjà copié), envoie, puis active la voix.' },
+  {
+    id: 'chatgpt', label: 'ChatGPT', origin: 'https://chatgpt.com/',
+    // Lien universel déclaré par OpenAI : « start a new conversation in-app »
+    // (iOS) ; page d'accueil ailleurs. `?q=` est reconnu mais sa limite n'est
+    // pas mesurable (Cloudflare) ⇒ C3 ⇒ pas de pré-remplissage (sources §1, §2).
+    openUrl: 'https://chatgpt.com/#native',
+    capability: { targetId: 'chatgpt', prefillParam: null, maxPrefillChars: null, autoSubmits: false, nativeScheme: null, nativeAcceptsText: false, verifiedAt: '2026-09-30', evidence: `${EVIDENCE} §1–§2` },
+  },
+  {
+    id: 'gemini', label: 'Gemini', origin: 'https://gemini.google.com/app',
+    openUrl: 'https://gemini.google.com/app',
+    capability: { targetId: 'gemini', prefillParam: null, maxPrefillChars: null, autoSubmits: false, nativeScheme: null, nativeAcceptsText: false, verifiedAt: '2026-09-30', evidence: `${EVIDENCE} §1–§2` },
+  },
 ];
 
-/** PREFILL_MAX s'applique à l'URL ENCODÉE (« » et retours à la ligne triplent la taille), pas au texte brut. */
-export function buildLaunchUrl(t: AiTarget, prompt: string): { url: string; prefilled: boolean } {
-  if (!t.prefill) return { url: t.base, prefilled: false };
-  const url = t.prefill(prompt);
-  if (url.length > PREFILL_MAX) return { url: t.base, prefilled: false };
-  return { url, prefilled: true };
+export const CAPABILITY_TTL_DAYS = 90;
+
+/** Règles C1 et C3 du contrat ; liste vide = capacité valide. */
+export function capabilityProblems(c: TargetCapability): string[] {
+  const out: string[] = [];
+  if (!c.evidence.trim() || Number.isNaN(Date.parse(c.verifiedAt))) out.push('C1');
+  if (c.prefillParam !== null && c.maxPrefillChars === null) out.push('C3');
+  return out;
 }
 
-export async function launch(t: AiTarget, prompt: string, deps: { open?: (url: string) => void; copy?: (text: string) => Promise<void> } = {}): Promise<{ opened: boolean; copied: boolean; prefilled: boolean }> {
-  const copy = deps.copy ?? ((text: string) => navigator.clipboard.writeText(text));
-  // `noopener` fait TOUJOURS renvoyer `null` à window.open (ouverture réussie
-  // ou bloquée par le navigateur) : impossible de distinguer les deux cas ici.
-  const open = deps.open ?? ((url: string) => { window.open(url, '_blank', 'noopener'); });
-  // Ouvrir D'ABORD, de façon synchrone dans le geste utilisateur : Safari/iOS
-  // bloque un window.open qui suit un `await`. Le presse-papiers suit.
-  const { url, prefilled } = buildLaunchUrl(t, prompt);
-  open(url);
-  let copied = false;
-  try { await copy(prompt); copied = true; } catch { copied = false; }
-  // `opened: true` est optimiste, pas mesuré : `noopener` renvoie `null` que
-  // l'ouverture réussisse ou qu'un popup blocker l'ait bloquée (voir ci-dessus).
-  return { opened: true, copied, prefilled };
+export interface LaunchPlan { level: 1 | 2; url: string; label: string }
+
+/** Le barreau atteint pour ce texte, aujourd'hui (§3.3). Pur. */
+export function launchPlan(t: AiTarget, text: string, now: number = Date.now()): LaunchPlan {
+  const c = t.capability;
+  const fresh = now - Date.parse(c.verifiedAt) <= CAPABILITY_TTL_DAYS * 86_400_000;
+  if (c.prefillParam && c.maxPrefillChars !== null && fresh && capabilityProblems(c).length === 0) {
+    const url = `${t.origin}?${c.prefillParam}=${encodeURIComponent(text)}`;
+    if (url.length - t.origin.length <= c.maxPrefillChars) return { level: 1, url, label: `Ouvrir ${t.label} avec le prompt` };
+  }
+  return { level: 2, url: t.openUrl, label: `Copier et ouvrir ${t.label}` };
 }
 
-export interface ExternalAiPrefs { target: TargetId; scope: Scope; feedbackLang: FeedbackLang }
-const DEFAULT_PREFS: ExternalAiPrefs = { target: 'chatgpt', scope: 'exam+feedback', feedbackLang: 'fr' };
-export async function loadPrefs(): Promise<ExternalAiPrefs> {
-  const [target, scope, feedbackLang] = await Promise.all([
-    getMeta<TargetId>('externalAi.target', DEFAULT_PREFS.target),
-    getMeta<Scope>('externalAi.scope', DEFAULT_PREFS.scope),
-    getMeta<FeedbackLang>('externalAi.feedbackLang', DEFAULT_PREFS.feedbackLang),
-  ]);
-  return { target, scope, feedbackLang };
-}
-export async function savePrefs(p: ExternalAiPrefs): Promise<void> {
-  await Promise.all([
-    setMeta('externalAi.target', p.target),
-    setMeta('externalAi.scope', p.scope),
-    setMeta('externalAi.feedbackLang', p.feedbackLang),
-  ]);
+/** Vrai seulement si l'écriture dans le presse-papiers a réussi (F3). */
+export async function copyText(text: string, write: ((t: string) => Promise<void>) | undefined = navigator.clipboard?.writeText?.bind(navigator.clipboard)): Promise<boolean> {
+  if (!write) return false;
+  try { await write(text); return true; } catch { return false; }
 }
 
-export interface PendingExternalSim { caseId: string; targetId: TargetId; scope: Scope; at: number; snoozedUntil?: number }
+// --- La cible mémorisée -------------------------------------------------------
+const isTarget = (x: unknown): x is TargetId => AI_TARGETS.some((t) => t.id === x);
+/** `null` = aucun choix encore (ou une cible retirée depuis). */
+export async function loadTarget(): Promise<TargetId | null> {
+  const v = await getMeta<unknown>('externalAi.target', null);
+  return isTarget(v) ? v : null;
+}
+export const saveTarget = (id: TargetId): Promise<void> => setMeta('externalAi.target', id);
+
+// --- La trace de séance (retour dans l'app, ≤ 12 h) -----------------------------
+export interface PendingExternalSim {
+  caseId: string;
+  targetId: TargetId;
+  teil?: AnkerTeil;        // absent = séance complète (traces anciennes)
+  at: number;
+  snoozedUntil?: number;
+}
+type LegacyPending = Omit<PendingExternalSim, 'teil'> & { teil?: AnkerTeil; scope?: string };
+
 export const getPending = (): Promise<PendingExternalSim | null> => getMeta<PendingExternalSim | null>('externalAi.pending', null);
 export const setPending = (p: PendingExternalSim | null): Promise<void> => setMeta('externalAi.pending', p);
+
+/** Lecture tolérante (§5) : les traces posées avant le Teil d'ancrage portent
+ *  `scope` — 'anamnese' ⇒ Teil Anamnese, 'exam' et 'exam+feedback' ⇒ séance complète. */
+export async function readPending(): Promise<PendingExternalSim | null> {
+  const raw = await getMeta<LegacyPending | null>('externalAi.pending', null);
+  if (!raw) return null;
+  const { scope, teil, ...rest } = raw;
+  const t = teil ?? (scope === 'anamnese' ? 'anamnese' : undefined);
+  return t ? { ...rest, teil: t } : rest;
+}
