@@ -98,7 +98,7 @@ export function FachbegriffePage() {
         </div>
         <div className="flex flex-wrap items-center justify-end gap-2">
           <button type="button" onClick={() => setManager(true)} className="btn-outline min-h-11 gap-1.5" aria-label="Gérer les decks"><Icon name="gear" className="h-4 w-4 shrink-0" /><span className="hidden sm:inline">Decks</span></button>
-          <button type="button" onClick={() => setSrsSheet(true)} className="btn-outline min-h-11 gap-1.5" aria-label="Répétitions"><Icon name="gear" className="h-4 w-4" /><span className="hidden sm:inline">Répétitions</span></button>
+          <button type="button" onClick={() => setSrsSheet(true)} className="btn-outline min-h-11 gap-1.5" aria-label="Répétitions"><Icon name="refresh" className="h-4 w-4" /><span className="hidden sm:inline">Répétitions</span></button>
           <Link to={drillHref} aria-label={`Drill${activeDeck ? ` · ${activeDeck.name}` : ''} (${due + fresh})${due + fresh > 0 ? `, environ ${drillMinutes(due + fresh)} min` : ''}`} className="btn-primary group gap-1.5 whitespace-nowrap">
             <Icon name="nav-abc" className="h-4 w-4" />{`Drill${activeDeck ? ` · ${activeDeck.name}` : ''} (${due + fresh})`}
             {due + fresh > 0 && <DrillClock minutes={drillMinutes(due + fresh)} />}
