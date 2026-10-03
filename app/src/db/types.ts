@@ -526,18 +526,6 @@ export interface SketchNotes {
  *  (les clés viennent de MusterBogenSpec.fields[].key). */
 export type BogenNotes = Record<string, string>;
 
-// ----------------------------------------------------------------------------
-// Planning (session du jour / calendrier)
-// ----------------------------------------------------------------------------
-export interface PlanEntry {
-  id: string;
-  date: string;            // ISO yyyy-MM-dd
-  caseId?: string;
-  kind: 'simulation' | 'drill' | 'revision';
-  label: string;
-  done: boolean;
-}
-
 // Réglages / méta (clé-valeur) : thème, streak, centre visé…
 export interface Meta {
   key: string;
