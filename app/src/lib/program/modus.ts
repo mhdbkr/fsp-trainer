@@ -52,7 +52,9 @@ export function observeModus(
   minSeances = MIN_SEANCES,
 ): Fortschrittsmodus | null {
   // Seules les séances mesurées et rattachées à un cas votent (cf. en-tête).
-  const seances = events.filter((e) => e.caseId && e.selbstbewertet !== true);
+  // M4 : une coche manuelle porte le Teil de la TÂCHE — elle ne ferait que
+  // refléter le plan. Seul un score mesuré fait d'un événement une séance.
+  const seances = events.filter((e) => e.caseId && e.selbstbewertet !== true && !!e.scores && Object.keys(e.scores).length > 0);
   if (seances.length < minSeances) return null;
 
   const recent = seances.slice(-FENETRE);
