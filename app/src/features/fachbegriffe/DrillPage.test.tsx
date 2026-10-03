@@ -126,7 +126,7 @@ describe('DrillPage — pas de boucle de rendu', () => {
     renderAt('/fachbegriffe/drill');
     const startBtn = await screen.findByRole('button', { name: /commencer/i });
     fireEvent.click(startBtn);
-    const revealBtn = await screen.findByRole('button', { name: /révéler/i });
+    const revealBtn = await screen.findByRole('button', { name: 'Verso' });
     fireEvent.click(revealBtn);
     expect((await screen.findAllByText(/Wasser im Bauch/)).length).toBeGreaterThan(0);
     expect((await screen.findAllByText('Ist Ihr Bauch dicker geworden?')).length).toBeGreaterThan(0);
@@ -139,7 +139,7 @@ describe('DrillPage — pas de boucle de rendu', () => {
     const startBtn = await screen.findByRole('button', { name: /commencer/i });
     fireEvent.click(startBtn);
     expect(screen.queryByText(/klagt über/i)).toBeNull();
-    const revealBtn = await screen.findByRole('button', { name: /révéler/i });
+    const revealBtn = await screen.findByRole('button', { name: 'Verso' });
     fireEvent.click(revealBtn);
     expect(await screen.findByText('Contexte')).toBeTruthy();
     expect((await screen.findAllByText(/klagt über/i)).length).toBeGreaterThan(0);
@@ -174,7 +174,7 @@ describe('DrillPage — pas de boucle de rendu', () => {
     const startBtn = await screen.findByRole('button', { name: /commencer/i });
     fireEvent.click(startBtn);
     expect((await screen.findAllByText('Belastungsdyspnoe')).length).toBeGreaterThan(0);
-    const revealBtn = await screen.findByRole('button', { name: /révéler/i });
+    const revealBtn = await screen.findByRole('button', { name: 'Verso' });
     fireEvent.click(revealBtn);
     expect((await screen.findAllByText('à compléter')).length).toBeGreaterThan(0);
   });
@@ -184,7 +184,7 @@ describe('DrillPage — pas de boucle de rendu', () => {
     await createPersonalTerm({ term: 'Orthopnoe', explanation: 'Atemnot im Liegen' });
     renderAt('/fachbegriffe/drill');
     fireEvent.click(await screen.findByRole('button', { name: /commencer/i }));
-    fireEvent.click(await screen.findByRole('button', { name: /révéler/i }));
+    fireEvent.click(await screen.findByRole('button', { name: 'Verso' }));
     fireEvent.click(await screen.findByRole('button', { name: 'Modifier la Bedeutung' }));
     const input = screen.getByRole('textbox', { name: 'Bedeutung' });
     fireEvent.keyDown(input, { key: '2' });
@@ -198,7 +198,7 @@ describe('DrillPage — pas de boucle de rendu', () => {
     await createPersonalTerm({ term: 'Orthopnoe', explanation: 'ancienne signification' });
     renderAt('/fachbegriffe/drill');
     fireEvent.click(await screen.findByRole('button', { name: /commencer/i }));
-    fireEvent.click(await screen.findByRole('button', { name: /révéler/i }));
+    fireEvent.click(await screen.findByRole('button', { name: 'Verso' }));
     fireEvent.click(await screen.findByRole('button', { name: 'Modifier la Bedeutung' }));
     fireEvent.change(screen.getByRole('textbox', { name: 'Bedeutung' }), { target: { value: 'nouvelle signification' } });
     fireEvent.click(screen.getByRole('button', { name: 'Enregistrer' }));
@@ -226,12 +226,13 @@ describe('DrillPage — pas de boucle de rendu', () => {
     vi.mocked(loadDrillContext).mockResolvedValue({ ...defaultCtx, remaining: 1 });   // file du jour = 1 carte
     const spy = vi.spyOn(drillQueueModule, 'buildDrillQueue');
     renderAt('/fachbegriffe/drill');
-    await waitFor(() => expect(screen.getByRole('button', { name: /Fachbegriff → Bedeutung/ }).textContent).toContain('→ ?'), { timeout: 4000 });   // file bâtie
+    await waitFor(() => expect(document.querySelector('[data-example]')).toBeTruthy(), { timeout: 4000 });   // file bâtie
     const q0 = (spy.mock.results[spy.mock.results.length - 1].value as { term: string; translationSimple: string }[])[0];
     const other = q0.term === 'Hepar' ? { term: 'Ren', simple: 'Niere' } : { term: 'Hepar', simple: 'Leber' };
     const t2s = screen.getByRole('button', { name: /Fachbegriff → Bedeutung/ }).textContent!;
     const s2t = screen.getByRole('button', { name: /Bedeutung → Fachbegriff/ }).textContent!;
-    expect(t2s).toContain(`${other.term} → ?`); expect(s2t).toContain(`${other.simple} → ?`);
+    const fronts = [...document.querySelectorAll('[data-example="front"]')].map((f) => f.textContent);   // F4c : la carte d'exemple, recto
+    expect(fronts).toEqual([other.term, other.simple]);
     expect(t2s).not.toContain(q0.term); expect(s2t).not.toContain(q0.translationSimple);
     spy.mockRestore();
   });
@@ -244,7 +245,7 @@ describe('DrillPage — pas de boucle de rendu', () => {
     await waitFor(() => expect(spy.mock.results.some((r) => (r.value as unknown[]).length === 1)).toBe(true), { timeout: 4000 });   // file bâtie (1 carte)
     await new Promise((r) => setTimeout(r, 50));
     spy.mockRestore();
-    expect(t2s.textContent).not.toContain('Hepar'); expect(t2s.textContent).not.toContain('→ ?');
+    expect(t2s.textContent).not.toContain('Hepar'); expect(document.querySelector('[data-example]')).toBeNull();
   });
   it('?specialty= : la spécialité est le titre, pas de puce « Priorité » (G1-5)', async () => {
     renderAt('/fachbegriffe/drill?specialty=Kardiologie');

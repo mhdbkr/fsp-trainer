@@ -125,7 +125,6 @@ export function DrillPage() {
     // pool hors file du jour (avec Bedeutung), sinon la dernière carte de la file si > 1, sinon rien.
     // File pas encore bâtie (l'effet suit le premier rendu) : pas d'exemple, sinon il citerait la future queue[0].
     const first = !queue.length ? undefined : pool.find((b) => !queue.some((q) => q.id === b.id) && b.translationSimple) ?? (queue.length > 1 ? queue[queue.length - 1] : undefined);
-    const example = (d: CardDirection) => (!first ? '' : d === 'term2simple' ? `${first.term} → ?` : first.translationSimple ? `${first.translationSimple} → ?` : '');
     // Prochain terme dû : un terme déjà vu qui revient, ou demain si le budget retient des nouveaux.
     const tomorrow = new Date(); tomorrow.setHours(24, 0, 0, 0);
     const nextAt = budgetLimits ? Math.min(next ?? Infinity, tomorrow.getTime()) : next;
@@ -165,18 +164,7 @@ export function DrillPage() {
                 <Readout label="min environ" value={minutes} />
               </dl>
               {budgetLimits && tomorrowNew > 0 && <p className="mt-2 text-center text-xs text-slate-500 dark:text-slate-400">Encore {tomorrowNew} {tomorrowNew === 1 ? 'nouveau' : 'nouveaux'} demain</p>}
-              <fieldset className="mt-5">
-                <legend className="label mb-1.5">Sens</legend>
-                <div className="grid grid-cols-2 gap-2">
-                  {DIRECTIONS.map((d) => (
-                    <button key={d.id} type="button" aria-pressed={direction === d.id} onClick={() => { setDirection(d.id); saveDirection(d.id); }}
-                      className="min-h-11 rounded-xl border border-slate-200 px-3 py-2 text-left transition-colors hover:border-brand-300 aria-pressed:border-brand-500 aria-pressed:bg-brand-50 dark:border-ink-600 dark:aria-pressed:bg-brand-900/30">
-                      <span className="block text-sm font-semibold">{d.label}</span>
-                      {example(d.id) && <span className="block font-mono text-xs text-slate-500 dark:text-slate-400">{example(d.id)}</span>}
-                    </button>
-                  ))}
-                </div>
-              </fieldset>
+              <DirectionChoice value={direction} sample={first?.translationSimple ? first : undefined} onChange={(d) => { setDirection(d); saveDirection(d); }} />
               <button type="button" onClick={start} className="btn-primary mt-5 min-h-11 w-full gap-1.5 text-base">
                 <Icon name="play" className="h-4 w-4" />Commencer
               </button>
@@ -236,7 +224,8 @@ export function DrillPage() {
         <div className="h-full bg-brand-500 transition-all" style={{ width: `${(idx / queue.length) * 100}%` }} />
       </div>
 
-      <CardFlip card={card} direction={direction} revealed={revealed} onFlip={() => setRevealed(true)} hint=" (Leertaste)" />
+      <CardFlip key={idx} card={card} direction={direction} revealed={revealed} onFlip={setRevealed} />
+      {!revealed && <p className="hidden text-center text-xs text-slate-500 sm:block dark:text-slate-400"><kbd className="mono-tag">Espace</kbd> retourne · <kbd className="mono-tag">1</kbd>–<kbd className="mono-tag">4</kbd> notent</p>}
 
       {revealed && (
         <div className="grid grid-cols-4 gap-2">
@@ -252,10 +241,50 @@ export function DrillPage() {
   );
 }
 
-const DIRECTIONS: { id: CardDirection; label: string }[] = [
-  { id: 'term2simple', label: 'Fachbegriff → Bedeutung' },
-  { id: 'simple2term', label: 'Bedeutung → Fachbegriff' },
+const DIRECTIONS: { id: CardDirection; from: string; to: string; hint: string }[] = [
+  { id: 'term2simple', from: 'Fachbegriff', to: 'Bedeutung', hint: 'Tu vois le mot, tu donnes le sens.' },
+  { id: 'simple2term', from: 'Bedeutung', to: 'Fachbegriff', hint: 'Tu vois le sens, tu retrouves le mot.' },
 ];
+
+/** Choix du sens (F4c) : chaque option MONTRE son sens — une carte d'exemple qui se
+ *  retourne au survol / focus ; à l'arrivée, celle du sens retenu se retourne une fois d'elle-même.
+ *  Exemple = un terme hors de la file du jour (jamais la réponse à venir) ; sans exemple sûr,
+ *  les mots « Fachbegriff » / « Bedeutung ». La démo (animation) et le survol (transition)
+ *  tournent sur DEUX enveloppes distinctes : les rotations se composent, sans saut. */
+function DirectionChoice({ value, sample, onChange }: { value: CardDirection; sample?: AnyTerm; onChange: (d: CardDirection) => void }) {
+  const [initial] = useState(value);
+  return (
+    <fieldset className="mt-6">
+      <legend className="field-label mb-2">Sens</legend>
+      <div className="grid grid-cols-2 gap-3">
+        {DIRECTIONS.map((d) => {
+          const on = value === d.id;
+          const term = sample?.term ?? 'Fachbegriff';
+          const sense = sample?.translationSimple ?? 'Bedeutung';
+          const [front, back] = d.id === 'term2simple' ? [term, sense] : [sense, term];
+          const faceCls = 'grid place-items-center overflow-hidden rounded-xl px-2 text-center [backface-visibility:hidden] [grid-area:1/1] [overflow-wrap:anywhere] [hyphens:auto]';
+          return (
+            <button key={d.id} type="button" aria-pressed={on} onClick={() => onChange(d.id)}
+              className="group rounded-2xl border border-slate-200 bg-white/40 p-2.5 text-left transition-[transform,border-color,background-color] duration-300 ease-fluid hover:-translate-y-0.5 hover:border-brand-300 aria-pressed:border-brand-500 aria-pressed:bg-brand-50/70 motion-reduce:hover:translate-y-0 dark:border-ink-600 dark:bg-white/[0.03] dark:aria-pressed:border-brand-400 dark:aria-pressed:bg-brand-900/30">
+              <span aria-hidden className="block [perspective:800px]">
+                <span className={`block [transform-style:preserve-3d] ${d.id === initial ? 'animate-demo-flip' : ''}`}>
+                <span className="grid h-[4.5rem] transition-transform duration-700 ease-fluid [transform-style:preserve-3d] group-hover:[transform:rotateY(180deg)] group-focus-visible:[transform:rotateY(180deg)]">
+                  <span data-example={sample ? 'front' : undefined} className={`${faceCls} bg-white text-slate-900 ring-1 ring-slate-200 dark:bg-ink-700 dark:text-white dark:ring-white/10 ${d.id === 'term2simple' ? 'font-display text-base font-bold leading-tight tracking-tightish sm:text-lg' : 'text-[13px] leading-snug'}`} lang="de"><span className="line-clamp-2">{front}</span></span>
+                  <span className={`${faceCls} bg-brand-600 text-white [transform:rotateY(180deg)] dark:bg-brand-500 ${d.id === 'term2simple' ? 'text-[13px] leading-snug' : 'font-display text-base font-bold leading-tight tracking-tightish sm:text-lg'}`} lang="de"><span className="line-clamp-2">{back}</span></span>
+                </span>
+                </span>
+              </span>
+              <span className="mt-3 flex flex-wrap items-center gap-x-1.5 px-1 font-display text-[15px] font-semibold tracking-tightish text-slate-900 dark:text-white">
+                {d.from} <span className="whitespace-nowrap"><span className="inline-block text-brand-600 transition-transform duration-300 ease-fluid group-hover:translate-x-0.5 dark:text-brand-300">→</span> {d.to}</span>
+              </span>
+              <span className="mt-0.5 block px-1 pb-0.5 text-xs text-slate-500 dark:text-slate-400">{d.hint}</span>
+            </button>
+          );
+        })}
+      </div>
+    </fieldset>
+  );
+}
 
 /** Un relevé de la carte d'embarquement : chiffre en mono, compté une fois (P10). */
 function Readout({ label, value }: { label: string; value: number }) {
@@ -288,7 +317,7 @@ function KeyboardShortcuts({ revealed, onReveal, onGrade }: { revealed: boolean;
     const h = (e: KeyboardEvent) => {
       const target = e.target as HTMLElement | null;
       if (target?.closest('input, textarea, [contenteditable="true"]')) return;   // ne vole pas la frappe d'un éditeur ouvert (I1)
-      if (e.key === ' ' && !revealed) { e.preventDefault(); onReveal(); }
+      if (e.key === ' ' && !revealed && !target?.closest('button, a, summary')) { e.preventDefault(); onReveal(); }   // Espace sur un bouton focalisé (Recto…) l'active, lui
       else if (revealed) {
         if (e.key === '1') onGrade(0);
         else if (e.key === '2') onGrade(3);
