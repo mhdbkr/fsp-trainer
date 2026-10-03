@@ -1,12 +1,15 @@
 // ============================================================================
 // Confirmation d'une carte (F4a D7/D10 → F4b P5) : UNE pilule verre en bas de
 // l'écran, une ligne, discrète pendant un cas.
-// « Rangée » : ★ Rangée dans <deck> · Révéler · Changer. Toucher la pilule
-// ouvre la miniature (la carte) ; Révéler la retourne ; Changer DÉPLACE (D6 ;
-// masqué sans autre deck). « Supprimée » : Annuler pendant le délai — rien
-// n'a encore été émis (idem « Deck supprimé »). Erreur : même pilule, rôle alert.
-// Se ferme seule (8 s ; le délai de suppression pour « Supprimée »), sauf une
-// fois touchée. Échap DANS la pilule la ferme (une suppression différée suit
+// « Rangée » : ★ Rangée dans <deck> · Changer. Toucher la pilule ouvre la
+// miniature (la carte, retournée par son propre sélecteur Recto | Verso, F4c) ;
+// Changer DÉPLACE (D6 ; masqué sans autre deck). « Supprimée » : Annuler pendant
+// le délai — rien n'a encore été émis (idem « Deck supprimé »). Erreur : même
+// pilule, rôle alert. Se retire SEULE (6 s ; le délai de suppression pour
+// « Supprimée ») ; un filet qui se vide montre le temps qui reste. « Rangée »
+// attend tant qu'on la survole ou qu'elle est ouverte, puis repart pour 6 s —
+// le focus posé par « Créer » ne la retient pas (retour 3 oct. : elle restait
+// affichée). Échap DANS la pilule la ferme (une suppression différée suit
 // son cours) ; Échap ailleurs appartient au calque qui a le focus (tiroir…).
 // Annonce : une région role=status PERSISTANTE (sr-only) dont le texte change —
 // les nœuds animés n'en portent pas ; l'erreur garde role=alert.
@@ -22,10 +25,17 @@ import { CardFlip } from './CardFlip';
 import { Portal } from './Portal';
 import { StarGlyph } from './StarButton';
 
-const SAVED_MS = 8000;
-const pill = 'glass-thin pointer-events-auto flex min-h-11 max-w-full items-center gap-1 rounded-full py-0.5 pl-3 pr-1 text-sm';
+export const SAVED_MS = 6000;
+const pill = 'glass-thin pointer-events-auto relative flex min-h-11 max-w-full items-center gap-1 rounded-full py-0.5 pl-3 pr-1 text-sm';
 const link = 'min-h-11 shrink-0 rounded-full px-2.5 font-medium text-brand-700 hover:bg-white/50 dark:text-brand-300 dark:hover:bg-white/10';
 const Dot = () => <span aria-hidden className="text-slate-400">·</span>;
+/** Le temps qui reste, en filet sous la pilule : plein (et fixe) tant qu'elle est retenue,
+ *  il se vide à chaque nouveau départ. Sous mouvement réduit : pas de filet (le délai reste). */
+const Drain = ({ ms, held = false }: { ms: number; held?: boolean }) => (
+  <span aria-hidden data-drain={held ? 'held' : 'running'} className={`pointer-events-none absolute inset-x-5 bottom-[3px] h-0.5 origin-left rounded-full bg-brand-500/60 motion-reduce:hidden dark:bg-brand-300/60 ${held ? '' : 'animate-drain'}`} style={held ? undefined : { animationDuration: `${ms}ms` }} />
+);
+
+const focusVisible = (el: Element): boolean => { try { return el.matches(':focus-visible'); } catch { return false; } };
 
 export function CardToast() {
   const toast = useCardToast((s) => s.toast);
@@ -38,10 +48,14 @@ export function CardToast() {
   const [open, setOpen] = useState(false);
   const [flipped, setFlipped] = useState(false);
   const [choosing, setChoosing] = useState(false);
-  const [touched, setTouched] = useState(false);
+  const [hovered, setHovered] = useState(false);
+  // Le clavier retient la pilule dès qu'on y agit (WCAG 2.2.1) — ni le focus que « Créer » y pose,
+  // ni celui d'un clic souris (`:focus-visible` seulement).
+  const [engaged, setEngaged] = useState(false);
+  const autoFocusing = useRef(false);
   const termId = toast && 'term' in toast ? toast.term.id : null;
   const deckToastId = toast?.kind === 'deck-deleted' ? toast.deckId : null;
-  useEffect(() => { setOpen(false); setFlipped(false); setChoosing(false); setTouched(false); }, [termId, deckToastId, toast?.kind]);
+  useEffect(() => { setOpen(false); setFlipped(false); setChoosing(false); setHovered(false); setEngaged(false); }, [termId, deckToastId, toast?.kind]);
   focusNext.current = wantFocus && !!toast;
   const returnTo = useRef<HTMLElement | null>(null);   // l'élément focalisé avant que la pilule prenne le focus (G1-28)
   const rootRef = useRef<HTMLDivElement>(null);
@@ -49,7 +63,7 @@ export function CardToast() {
     if (el && focusNext.current) {
       focusNext.current = false; useCardToast.setState({ focus: false });
       returnTo.current = document.activeElement instanceof HTMLElement ? document.activeElement : null;
-      el.focus();
+      autoFocusing.current = true; el.focus(); autoFocusing.current = false;
     }
   };
   // Pilule disparue (Échap, Annuler, délai) alors que le focus y était : on le rend, sinon <main>.
@@ -60,11 +74,13 @@ export function CardToast() {
     if (at && at !== document.body && !rootRef.current?.contains(at)) return;   // l'utilisateur est parti ailleurs
     (back.isConnected && back !== document.body ? back : document.querySelector<HTMLElement>('main'))?.focus();
   }, [toast]);
+  const hold = toast?.kind === 'saved' && (hovered || engaged || open || choosing);
+  const lifeMs = toast?.kind === 'deleted' || toast?.kind === 'deck-deleted' ? DELETE_DELAY_MS : SAVED_MS;
   useEffect(() => {
-    if (!toast || (touched && toast.kind === 'saved')) return;
-    const t = setTimeout(hide, toast.kind === 'deleted' || toast.kind === 'deck-deleted' ? DELETE_DELAY_MS : SAVED_MS);
+    if (!toast || hold) return;
+    const t = setTimeout(hide, lifeMs);
     return () => clearTimeout(t);
-  }, [toast, touched, hide]);
+  }, [toast, hold, lifeMs, hide]);
 
   const targets = [{ id: FAVORITES_DECK_ID, name: 'Favoris' }, ...(decks ?? []).filter((d) => d.kind === 'manual')];
   let body: React.ReactNode = null;
@@ -84,6 +100,7 @@ export function CardToast() {
       <m.div key={`deleted-${toast.term.id}`} data-keep-open {...appear} className={pill}>
         <span className="min-w-0 truncate">Carte « {toast.term.term} » supprimée</span><Dot />
         <button type="button" ref={takeFocus} onClick={() => { if (cancelDeletion(toast.term.id)) hide(); else show({ kind: 'error', message: 'Trop tard : la carte est supprimée.' }); }} className={link}>Annuler</button>
+        <Drain ms={lifeMs} />
       </m.div>
     );
   } else if (toast?.kind === 'deck-deleted') {
@@ -91,18 +108,22 @@ export function CardToast() {
       <m.div key={`deck-deleted-${toast.deckId}`} data-keep-open {...appear} className={pill}>
         <span className="min-w-0 truncate">Deck « {toast.name} » supprimé</span><Dot />
         <button type="button" ref={takeFocus} onClick={() => { if (cancelDeletion(toast.deckId)) hide(); else show({ kind: 'error', message: 'Trop tard : le deck est supprimé.' }); }} className={link}>Annuler</button>
+        <Drain ms={lifeMs} />
       </m.div>
     );
   } else if (toast?.kind === 'saved') {
     const deckName = targets.find((d) => d.id === toast.deckId)?.name ?? 'Favoris';
     body = (
       <m.div key={`saved-${toast.term.id}`} data-keep-open {...appear}
-        onPointerDown={() => setTouched(true)} onFocus={() => setTouched(true)}
+        onPointerEnter={(e) => { if (e.pointerType === 'mouse') setHovered(true); }} onPointerLeave={() => setHovered(false)}
+        onKeyDown={(e) => { if (e.key !== 'Escape') setEngaged(true); }}
+        onFocus={(e) => { if (!autoFocusing.current && focusVisible(e.target)) setEngaged(true); }}
+        onBlur={(e) => { if (!e.currentTarget.contains(e.relatedTarget as Node | null)) setEngaged(false); }}
         className="flex max-w-full flex-col items-center gap-2">
         <AnimatePresence>
           {open && (
-            <m.div key="mini" {...expand} style={{ transformOrigin: 'bottom center' }} className="glass-full pointer-events-auto w-64 rounded-2xl p-2">
-              <CardFlip card={toast.term} direction="term2simple" revealed={flipped} onFlip={() => setFlipped(true)} size="mini" />
+            <m.div key="mini" {...expand} style={{ transformOrigin: 'bottom center' }} className="glass-full pointer-events-auto w-72 rounded-2xl p-2">
+              <CardFlip card={toast.term} direction="term2simple" revealed={flipped} onFlip={setFlipped} size="mini" />
             </m.div>
           )}
           {choosing && (
@@ -123,12 +144,11 @@ export function CardToast() {
             <span className="shrink-0 text-star-600 dark:text-star-400"><StarGlyph filled /></span>
             <span className="min-w-0 truncate">Rangée dans <strong className="font-semibold">{deckName}</strong></span>
           </button>
-          <Dot />
-          <button type="button" onClick={() => { setChoosing(false); if (open) setFlipped((f) => !f); else { setOpen(true); setFlipped(true); } }} className={link}>{open && flipped ? 'Recto' : 'Révéler'}</button>
           {targets.length > 1 && (<>
             <Dot />
             <button type="button" ref={changerRef} aria-label="Changer de deck" aria-expanded={choosing} onClick={() => { setChoosing((c) => !c); setOpen(false); }} className={link}>Changer</button>
           </>)}
+          <Drain key={String(hold)} ms={lifeMs} held={hold} />
         </div>
       </m.div>
     );

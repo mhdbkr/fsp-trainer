@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
+import { ipa } from './TermSheet';
 import { Icon } from '@/components/icons';
 import { useFachbegriffe } from '@/hooks/useData';
 import { useUi } from '@/store/ui';
@@ -185,7 +186,7 @@ export function Doctopus() {
                         <span className="font-semibold text-brand-700 dark:text-brand-300">{h.term}</span>
                         <span className="chip bg-slate-100 text-[10px] text-slate-400 dark:bg-white/10">{h.source === 'fachbegriff' ? 'Fachbegriff' : 'dico'}</span>
                       </div>
-                      {h.pronunciation && <div className="text-xs text-slate-400">/{h.pronunciation}/</div>}
+                      {h.pronunciation && <div className="ipa text-xs">{ipa(h.pronunciation)}</div>}
                       <div className="mt-0.5 text-sm text-slate-600 dark:text-slate-300">{h.translation}</div>
                     </button>
                   ))}

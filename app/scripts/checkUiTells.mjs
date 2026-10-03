@@ -19,7 +19,9 @@ const files = [];
 
 const RULES = [
   { name: 'libellé en capitales (ADR-0016)', re: /\buppercase\b/g },
-  { name: 'mono espacé en libellé (ADR-0016)', re: /font-mono[^"'`]*tracking-|tracking-[^"'`]*font-mono/g },
+  // Dans UNE liste de classes / UNE déclaration CSS : ne traverse ni `;`, ni `{}`, ni la ligne
+  // (sinon le `tracking-` d'une règle et le `font-mono` d'une autre se rejoignaient — faux positif F4c).
+  { name: 'mono espacé en libellé (ADR-0016)', re: /font-mono[^"'`;{}\n]*tracking-|tracking-[^"'`;{}\n]*font-mono/g },
   // `tracking-tightish` est un token du projet (tailwind.config) — exclu.
   { name: 'classe Tailwind cassée', re: /\b(?!tracking-wide(?:r|st)\b)(?:font-(?:bold|semibold|medium|normal)|tracking-wide(?:st|r)?|rounded-(?:lg|xl|full))[a-z]+\b|\btracking-tight(?!ish\b)[a-z]+\b/g },
   { name: 'glyphe en guise d’icône (⇄ ↳)', re: /[⇄↳]/g },

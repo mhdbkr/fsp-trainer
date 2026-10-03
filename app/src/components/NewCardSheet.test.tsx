@@ -189,9 +189,10 @@ describe('NewCardSheet', () => {
     expect(dialog.className).toContain('glass-full');
     expect(screen.getByRole('textbox', { name: 'Mot' }).className).toMatch(/font-display.*text-2xl/);
     expect(screen.getByRole('textbox', { name: 'Bedeutung' }).className).toContain('italic');
-    expect(screen.getByText('Belastungsdyspnoe', { selector: 'mark' }).closest('p')!.className).toContain('text-xs');
+    expect(screen.getByText('Belastungsdyspnoe', { selector: 'mark' }).closest('p')!.className).toContain('text-[13px]');
     expect(screen.getByRole('button', { name: 'Créer la carte' })).toBeTruthy();
     expect(screen.getByText('Ma carte')).toBeTruthy();
+    for (const f of [screen.getByRole('textbox', { name: 'Mot' }), screen.getByRole('textbox', { name: 'Bedeutung' })]) expect(f.className).toContain('field-line');   // F4c : focus = soulignement, pas un cadre décalé
     expect(document.body.innerHTML).not.toMatch(/shadow-/);
   });
   it('miroitement pendant la proposition IA, plus après', async () => {

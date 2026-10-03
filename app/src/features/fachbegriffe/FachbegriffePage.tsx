@@ -96,11 +96,13 @@ export function FachbegriffePage() {
             <b className="text-amber-600 dark:text-amber-400">{due} dus</b> · <b className="text-brand-600 dark:text-brand-400">{fresh} nouveaux proposés</b> · {c.learned} appris
           </p>
         </div>
-        <div className="flex items-center gap-2">
-          <button type="button" onClick={() => setManager(true)} className="btn-outline min-h-11 gap-1.5" aria-label="Gérer les decks"><Icon name="gear" className="h-4 w-4 shrink-0" />Decks</button>
-          <button type="button" onClick={() => setSrsSheet(true)} className="btn-outline min-h-11 gap-1.5" aria-label="Répétitions"><Icon name="gear" className="h-4 w-4" />Répétitions</button>
-          <Link to={drillHref} className="btn-primary gap-1.5"><Icon name="nav-abc" className="h-4 w-4" />{`Drill${activeDeck ? ` · ${activeDeck.name}` : ''} (${due + fresh})`}</Link>
-          {due + fresh > 0 && <span className="text-xs text-slate-500 dark:text-slate-400">≈ {drillMinutes(due + fresh)} min</span>}
+        <div className="flex flex-wrap items-center justify-end gap-2">
+          <button type="button" onClick={() => setManager(true)} className="btn-outline min-h-11 gap-1.5" aria-label="Gérer les decks"><Icon name="gear" className="h-4 w-4 shrink-0" /><span className="hidden sm:inline">Decks</span></button>
+          <button type="button" onClick={() => setSrsSheet(true)} className="btn-outline min-h-11 gap-1.5" aria-label="Répétitions"><Icon name="refresh" className="h-4 w-4" /><span className="hidden sm:inline">Répétitions</span></button>
+          <Link to={drillHref} aria-label={`Drill${activeDeck ? ` · ${activeDeck.name}` : ''} (${due + fresh})${due + fresh > 0 ? `, environ ${drillMinutes(due + fresh)} min` : ''}`} className="btn-primary group gap-1.5 whitespace-nowrap">
+            <Icon name="nav-abc" className="h-4 w-4" />{`Drill${activeDeck ? ` · ${activeDeck.name}` : ''} (${due + fresh})`}
+            {due + fresh > 0 && <DrillClock minutes={drillMinutes(due + fresh)} />}
+          </Link>
         </div>
       </header>
 
@@ -130,5 +132,22 @@ export function FachbegriffePage() {
       </AnimatePresence>
       {srsSheet && <SrsSettingsSheet onClose={() => { setSrsSheet(false); reloadCtx(); }} />}
     </div>
+  );
+}
+
+/** La durée du drill dans le bouton (F4c, retour 3 oct. : plus de « ≈ 14 min » à côté) :
+ *  une horloge et sa durée ; au survol / focus, les aiguilles font un tour. La largeur du
+ *  bouton ne bouge jamais (rien ne glisse à côté). */
+function DrillClock({ minutes }: { minutes: number }) {
+  const hand = 'origin-[12px_12px] transition-transform duration-700 ease-fluid motion-reduce:transition-none';
+  return (
+    <span aria-hidden data-drill-clock className="ml-1 flex items-center border-l border-white/30 pl-2">
+      <svg viewBox="0 0 24 24" className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth={1.8} strokeLinecap="round">
+        <circle cx="12" cy="12" r="8.5" />
+        <path d="M12 12V7.2" className={`${hand} group-hover:rotate-[360deg] group-focus-visible:rotate-[360deg]`} />
+        <path d="M12 12l3 1.8" className={`${hand} group-hover:rotate-[30deg] group-focus-visible:rotate-[30deg]`} />
+      </svg>
+      <span className="whitespace-nowrap pl-1.5 font-mono text-xs tabular-nums opacity-90">{minutes} min</span>
+    </span>
   );
 }
