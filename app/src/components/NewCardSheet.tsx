@@ -221,7 +221,7 @@ export function NewCardSheet({ selection, sentence, caseId, at, onClose }: {
                   ))}
                 </div>
               )}
-              <button type="button" onClick={() => { void create(); }} disabled={!canCreate} className="btn-primary-glass min-h-11 w-full rounded-full disabled:opacity-40">{hit ? `Ranger dans ${deckId === FAVORITES_DECK_ID ? 'Favoris' : manualDecks.find((d) => d.id === deckId)?.name ?? 'Favoris'}` : 'Créer la carte'}</button>
+              <button type="button" onClick={() => { void create(); }} disabled={!canCreate} className="btn-primary min-h-11 w-full rounded-full disabled:opacity-40">{hit ? `Ranger dans ${deckId === FAVORITES_DECK_ID ? 'Favoris' : manualDecks.find((d) => d.id === deckId)?.name ?? 'Favoris'}` : 'Créer la carte'}</button>
               {error && <p role="alert" className="text-xs text-rose-600 dark:text-rose-400">{error}</p>}
             </div>
           </>

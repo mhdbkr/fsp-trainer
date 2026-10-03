@@ -132,8 +132,8 @@ describe('DeckManager (F4b P6, AC-5)', () => {
     fireEvent.click(screen.getByRole('button', { name: 'Nouveau deck' }));
     const sheet = await screen.findByRole('dialog', { name: 'Nouveau deck' });
     expect(sheet.querySelector('.input')).toBeNull();   // pas de 3ᵉ verre (G1-13)
-    expect(screen.getByRole('button', { name: 'Créer' }).className).toMatch(/\bbtn-primary-glass\b/);   // G1-12
-    expect(screen.getByRole('button', { name: 'Nouveau deck' }).className).toMatch(/\bbtn-primary-glass\b/);
+    expect(screen.getByRole('button', { name: 'Créer' }).className).toMatch(/\bbtn-primary\b/);   // G1-12
+    expect(screen.getByRole('button', { name: 'Nouveau deck' }).className).toMatch(/\bbtn-primary\b/);
     fireEvent.keyDown(document, { key: 'Escape' });   // Échap ferme la feuille seule
     await waitFor(() => expect(screen.queryByRole('dialog', { name: 'Nouveau deck' })).toBeNull());
     expect(onClose).not.toHaveBeenCalled();

@@ -40,7 +40,7 @@ const BUBBLE_H = 260;
 const GUTTER = 16;
 // Libellé au survol (souris seulement) : la pilule reste deux icônes.
 const tip = (label: string) => (
-  <span aria-hidden className="glass-thin pointer-events-none absolute left-1/2 top-full z-10 mt-1 -translate-x-1/2 whitespace-nowrap rounded-full px-2 py-0.5 text-[11px] font-medium text-slate-700 opacity-0 transition-opacity dark:text-slate-200 [@media(hover:hover)]:group-hover:opacity-100">{label}</span>
+  <span aria-hidden className="panel pointer-events-none absolute left-1/2 top-full z-10 mt-1 -translate-x-1/2 whitespace-nowrap rounded-full px-2 py-0.5 text-[11px] font-medium text-slate-700 opacity-0 transition-opacity dark:text-slate-200 [@media(hover:hover)]:group-hover:opacity-100">{label}</span>
 );
 type Bubble = { loading: boolean; text?: string; error?: string; source?: 'glossaire' | 'IA'; fb?: Fachbegriff };
 

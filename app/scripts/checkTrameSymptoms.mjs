@@ -7,7 +7,7 @@
 // Usage : node scripts/checkTrameSymptoms.mjs [--report] [--show <case-id>]
 // ============================================================================
 import { build } from 'esbuild';
-import { writeFileSync, mkdtempSync, rmSync } from 'node:fs';
+import { writeFileSync, readFileSync, mkdtempSync, rmSync } from 'node:fs';
 import { fileURLToPath, pathToFileURL } from 'node:url';
 import { dirname, join } from 'node:path';
 import { tmpdir } from 'node:os';
@@ -79,15 +79,61 @@ for (const c of cases) {
     if (!m.phraseIsCaseSpecific(p)) return;
     const t = m.phraseText(p);
     const q = raw.get(t);
-    if (q && typeof q !== 'string' && (q.sucht || q.relu)) return;
+    // `relu` = relecture complète : la question entière est exemptée. `sucht`
+    // n'exempte QUE les symptômes qu'il déclare — un concept inconnu ou non
+    // cité ne fait plus taire la relecture du reste (revue finale I-7 ;
+    // re-revue I-3 pour `sucht: []`).
+    if (q && typeof q !== 'string' && q.relu) return;
+    const declared = q && typeof q !== 'string' ? q.sucht ?? [] : [];
     for (const s of m.symptomsInText(t)) {
+      if (declared.includes(s)) continue;
       const other = rows.find((r, j) => j !== i && m.phraseSymptoms(r.p).includes(s));
       if (other) review.push(`${c.id} [${ch}] « ${t} » cite « ${s} », cherché ${rows.indexOf(other) < i ? 'plus haut' : 'PLUS BAS'} : [${other.ch}] « ${m.phraseText(other.p).slice(0, 55)} »`);
     }
   });
 }
+// --- Socle dégressif (série 3) ---------------------------------------------
+// Porter `Symptom` de 16 à 36 concepts a rendu visibles des doublons qui
+// passaient depuis toujours : ils sont RÉELS mais leur arbitrage (`sucht`,
+// `relu`, `deepens`, `redundant`, reformulation) est du travail clinique, lot
+// par lot. Le socle les gèle : tout constat NOUVEAU fait échouer la porte,
+// et le compteur ne peut que baisser. `--bless` régénère le socle (à ne faire
+// qu'après une relecture, jamais pour faire taire une régression).
+const basePath = join(root, 'scripts/fixtures/trame-symptoms-baseline.json');
+const all = [...errors.map((e) => 'E|' + e), ...review.map((r) => 'R|' + r)].sort();
+// M4 (revue série 3) : `relu: true` éteint cette porte pour une question. Le
+// nombre d'annotations est un compteur du socle : il ne remonte jamais, sinon
+// une annotation posée sans relecture ferait taire un doublon en silence.
+const relu = cases.reduce((t, c) => t + (c.caseSpecificQuestions ?? []).filter((q) => typeof q !== 'string' && q.relu).length, 0);
+let base;
+try { base = JSON.parse(readFileSync(basePath, 'utf8')); }
+catch { console.error(`❌ socle absent ou illisible (${basePath}).`); process.exit(2); }
+if (!Array.isArray(base.findings) || !Number.isInteger(base.relu)) {
+  console.log(`❌ socle incomplet (${basePath}) : \`findings\` et \`relu\` sont obligatoires.`); process.exit(2);
+}
+if (process.argv.includes('--bless')) {
+  const fresh = all.filter((f) => !base.findings.includes(f));
+  if (fresh.length || relu > base.relu) {
+    console.log(`❌ --bless refusé : ${fresh.length} constat(s) nouveau(x), relu ${base.relu} → ${relu}. Le socle ne remonte jamais.`); process.exit(1);
+  }
+  writeFileSync(basePath, JSON.stringify({ ...base, generated: new Date().toISOString().slice(0, 10), count: all.length, relu, findings: all }, null, 2) + '\n');
+  console.log(`socle regravé : ${all.length} constats, ${relu} annotations relu`); process.exit(0);
+}
+if (relu > base.relu) {
+  console.log(`❌ ${relu - base.relu} annotation(s) \`relu\` de plus (${relu}, socle ${base.relu}) : chacune éteint cette porte pour sa question.`);
+  console.log('   Déclarer `sucht` (la question remplace la générale) ou reformuler ; `relu` se justifie en revue, jamais pour faire taire la porte.');
+  process.exit(1);
+}
+const known = new Set(base.findings);
+const fresh = all.filter((f) => !known.has(f));
+const fixed = base.findings.filter((f) => !all.includes(f));
+
 const show = (list) => { for (const p of report ? list : list.slice(0, 40)) console.log('  ✗ ' + p); if (!report && list.length > 40) console.log(`  … ${list.length - 40} de plus (--report)`); };
-if (errors.length) { console.log(`❌ ${errors.length} symptôme(s) cherché(s) deux fois dans la trame jouée (${n} cas) :\n`); show(errors); }
-if (review.length) { console.log(`❌ ${review.length} question(s) du cas à relire — symptôme déjà cherché, sans \`sucht\` ni \`relu\` :\n`); show(review); }
-if (errors.length || review.length) process.exit(1);
-console.log(`✅ UN SYMPTÔME, UNE QUESTION — ${n} cas, aucun symptôme cherché deux fois, questions du cas relues.`);
+if (fresh.length) {
+  console.log(`❌ ${fresh.length} NOUVEAU(X) doublon(s) de symptôme dans la trame jouée (${n} cas) :\n`);
+  show(fresh.map((f) => f.slice(2)));
+  console.log(`\n   Corriger la question, ou l'annoter \`sucht\`/\`relu\`. Le socle ne s'élargit pas.`);
+  process.exit(1);
+}
+if (fixed.length || relu < base.relu) console.log(`   Socle entamé (constats ${all.length}/${base.findings.length}, relu ${relu}/${base.relu}) — lancer \`--bless\` pour le graver.`);
+console.log(`✅ UN SYMPTÔME, UNE QUESTION — ${n} cas, aucun doublon nouveau ; socle série 3 : ${all.length}/${base.findings.length} constats ouverts (${errors.length} erreurs, ${review.length} à relire) ; relu ${relu}/${base.relu}.`);

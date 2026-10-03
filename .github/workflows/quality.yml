@@ -27,6 +27,8 @@ jobs:
         working-directory: app
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0            # checkBudgetFloor lit la base par `git show`
       - uses: actions/setup-node@v4
         with:
           node-version: 22
@@ -56,6 +58,27 @@ jobs:
         run: node scripts/checkPlayedTrame.mjs
       - name: "Un symptôme, une question — trame jouée modulée, questions du cas relues"
         run: node scripts/checkTrameSymptoms.mjs
+      # Série 3 — une question à la fois. Le budget ne peut que baisser.
+      - name: Atomicité des questions — budget dégressif (A B C D D2 D3 E)
+        run: node scripts/checkQuestionAtomicity.mjs          # jamais --rule / --corpus (loupes, exit 0)
+      - name: Aucun compteur dégressif ne remonte face à la base
+        env:
+          EVENT: ${{ github.event_name }}
+          BASE_REF: ${{ github.base_ref }}
+          BEFORE: ${{ github.event.before }}
+        run: |
+          case "$EVENT" in
+            pull_request) BASE="origin/$BASE_REF" ;;
+            push)         BASE="$BEFORE" ;;
+            *)            BASE="origin/main" ;;   # workflow_dispatch
+          esac
+          node scripts/checkBudgetFloor.mjs "$BASE"           # ref introuvable = exit 2 (push forcé : échec fermé)
+      - name: Mutations — atomicité, trame, plancher (copie de travail)
+        run: |
+          node --test scripts/checkQuestionAtomicity.test.mjs
+          node --test scripts/checkTrameSymptoms.test.mjs
+          node --test scripts/checkBudgetFloor.test.mjs
+          node --test scripts/checkProbeCoverage.test.mjs
       - name: "Doctopus — jeu de référence et grille (sans réseau)"
         run: node scripts/evalDoctopus.mjs --dry
       - name: Sections thérapeutiques identiques fiche ↔ cas
@@ -85,6 +108,8 @@ jobs:
         run: node scripts/checkCaseCohesion.mjs || true
       - name: Recouvrement des sondes (informatif)
         run: node scripts/checkProbeOverlap.mjs || true
+      - name: Ordre des questions — présupposition non satisfaite (informatif)
+        run: node scripts/checkQuestionOrder.mjs || true
 
   build:
     name: Types & build
@@ -122,9 +147,14 @@ jobs:
       - run: npm ci
       # Invariants des jetons (teinte unique, filets de lumière, contraste) : le build du site
       # les consomme, ils passent donc avant lui.
+      # Toute la suite (dont elevation.test : aucune ombre portée) puis la parité
+      # tokens.json ↔ app (tailwind.config.js + index.css) : deux vraies portes.
       - name: Invariants des jetons de design
         working-directory: packages/tokens
-        run: node --test test/tokens.test.mjs
+        run: node --test test/*.test.mjs
+      - name: Parité jetons ↔ app
+        working-directory: packages/tokens
+        run: node scripts/check-parity.mjs
       # Tous les validateurs du site lisent le HTML CONSTRUIT (foyer scripts/lib/dist.mjs) :
       # le build vient donc en premier, dans le même ordre que `npm run verify`.
       - run: npm run build

@@ -193,6 +193,16 @@ describe('DrillPage — pas de boucle de rendu', () => {
     expect(screen.getByText('1 / 1')).toBeTruthy();
   });
 
+  it('Espace pendant la sortie ne retourne pas la carte suivante : la question avant la réponse (fix-s3 I1)', async () => {
+    const { container } = renderAt('/fachbegriffe/drill');
+    fireEvent.click(await screen.findByRole('button', { name: /commencer/i }));
+    fireEvent.click(await screen.findByRole('button', { name: 'Verso' }));
+    fireEvent.keyDown(document.body, { key: '3' });   // Gut → la carte part (swap-out, 180 ms)
+    fireEvent.keyDown(document.body, { key: ' ' });   // frappe pendant la sortie
+    await waitFor(() => expect(screen.getByText('2 / 2')).toBeTruthy());
+    expect(container.querySelector('[data-card-flip]')?.getAttribute('data-card-flip')).toBe('recto');
+  });
+
   it('après Enregistrer au dos de la carte personnelle, la fiche affiche la nouvelle Bedeutung (I1 : file figée)', async () => {
     await db.fachbegriffe.clear();
     await createPersonalTerm({ term: 'Orthopnoe', explanation: 'ancienne signification' });

@@ -1,0 +1,90 @@
+✓ light-390 accueil : 0 ombre portée (15 box-shadow rendus, tous internes ou bords)
+✓ light-390 .card (accueil) : gradient de luminance 0.009 au repos contre 0.078 avec `view-transition-name: page` sur .vt-page (ratio 0.12) · écart-type 0.277 contre 0.450
+✓ light-390 arête du popover sur carte : Δ luminance bord − extérieur = -26.4 / -26.3 / -26.4 (gauche / droite / bas)
+✓ light-390 .glass : filet supérieur plus clair (rgba(255, 255, 255, 0.88) > rgba(12, 26, 23, 0.12))
+✓ light-390 .glass : flou rendu — blur(20px) saturate(1.8)
+✓ light-390 .card : filet supérieur plus clair (rgba(255, 255, 255, 0.9) > rgba(255, 255, 255, 0.6))
+✓ light-390 .card : flou rendu — blur(16px) saturate(1.6)
+✓ light-390 .panel : fond rgba(255, 255, 255, 0.45), rayon 12px, ombre « rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px »
+✓ light-390 .panel : aucun flou (règle « pas de verre dans du verre »)
+✓ light-390 .input : fond rgba(255, 255, 255, 0.55), flou blur(8px) saturate(1.4)
+✓ light-390 tiroir Doctopus : 0 ombre portée (22 box-shadow rendus, tous internes ou bords)
+✓ light-390 : le tiroir Doctopus se ferme par son bouton nomme
+· light-390 menu de compte : non mesurable sur un build public — preuve par AccountSwitcher.test.tsx
+✓ light-390 .btn-glass : « rgba(255, 255, 255, 0.55) 0px 1px 0px 0px inset » interne, filet haut rgba(255, 255, 255, 0.85) > bord rgba(255, 255, 255, 0.45), flou blur(20px) saturate(1.8)
+✓ light-390 transition de page : vt-page-out + vt-page-in joués sur ::view-transition-*(page) ; nom au repos après coup « none »
+✓ light-390 .glass (barre du haut, drill) : gradient de luminance 0.150 au repos contre 0.150 avec `view-transition-name: none` sur .glass.sticky (ratio 1.00) · écart-type 1.134 contre 1.134 — le nom est sans effet sur ce flou
+✓ light-390 .seg : cran actif « Terme → sens », fond rgb(255, 255, 255), ombre « rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(255, 255, 255, 0.55) 0px 1px 0px 0px inset » (interne)
+✓ light-390 .seg : cibles 94×44 / 94×44 px
+✓ light-390 .seg : la bascule laisse exactement un cran pressé (false,true)
+✓ light-390 drill : 0 ombre portée (9 box-shadow rendus, tous internes ou bords)
+✓ light-390 : aucune erreur JS
+✓ light-390 : aucune requête en échec
+✓ dark-390 accueil : 0 ombre portée (15 box-shadow rendus, tous internes ou bords)
+✓ dark-390 .card (accueil) : gradient de luminance 0.034 au repos contre 0.196 avec `view-transition-name: page` sur .vt-page (ratio 0.17) · écart-type 0.533 contre 0.948
+✓ dark-390 arête du popover sur carte : Δ luminance bord − extérieur = +24.5 / +24.0 / +24.5 (gauche / droite / bas)
+✓ dark-390 .glass : filet supérieur plus clair (rgba(255, 255, 255, 0.26) > rgba(255, 255, 255, 0.1))
+✓ dark-390 .glass : flou rendu — blur(20px) saturate(1.8)
+✓ dark-390 .card : filet supérieur plus clair (rgba(255, 255, 255, 0.2) > rgba(255, 255, 255, 0.08))
+✓ dark-390 .card : flou rendu — blur(16px) saturate(1.6)
+✓ dark-390 .panel : fond rgba(255, 255, 255, 0.035), rayon 12px, ombre « rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px »
+✓ dark-390 .panel : aucun flou (règle « pas de verre dans du verre »)
+✓ dark-390 .input : fond rgba(18, 33, 30, 0.45), flou blur(8px) saturate(1.4)
+✓ dark-390 tiroir Doctopus : 0 ombre portée (22 box-shadow rendus, tous internes ou bords)
+✓ dark-390 : le tiroir Doctopus se ferme par son bouton nomme
+· dark-390 menu de compte : non mesurable sur un build public — preuve par AccountSwitcher.test.tsx
+✓ dark-390 .btn-glass : « rgba(255, 255, 255, 0.14) 0px 1px 0px 0px inset » interne, filet haut rgba(255, 255, 255, 0.26) > bord rgba(255, 255, 255, 0.1), flou blur(20px) saturate(1.8)
+✓ dark-390 transition de page : vt-page-out + vt-page-in joués sur ::view-transition-*(page) ; nom au repos après coup « none »
+✓ dark-390 .glass (barre du haut, drill) : gradient de luminance 0.197 au repos contre 0.197 avec `view-transition-name: none` sur .glass.sticky (ratio 1.00) · écart-type 1.458 contre 1.458 — le nom est sans effet sur ce flou
+✓ dark-390 .seg : cran actif « Terme → sens », fond rgb(18, 33, 30), ombre « rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(255, 255, 255, 0.1) 0px 1px 0px 0px inset » (interne)
+✓ dark-390 .seg : cibles 94×44 / 94×44 px
+✓ dark-390 .seg : la bascule laisse exactement un cran pressé (false,true)
+✓ dark-390 drill : 0 ombre portée (9 box-shadow rendus, tous internes ou bords)
+✓ dark-390 : aucune erreur JS
+✓ dark-390 : aucune requête en échec
+✓ light-desktop accueil : 0 ombre portée (15 box-shadow rendus, tous internes ou bords)
+✓ light-desktop .card (accueil) : gradient de luminance 0.028 au repos contre 0.255 avec `view-transition-name: page` sur .vt-page (ratio 0.11) · écart-type 0.619 contre 0.791
+✓ light-desktop arête du popover sur carte : Δ luminance bord − extérieur = -26.4 / -26.4 / -26.4 (gauche / droite / bas)
+✓ light-desktop .glass : filet supérieur plus clair (rgba(255, 255, 255, 0.88) > rgba(12, 26, 23, 0.12))
+✓ light-desktop .glass : flou rendu — blur(20px) saturate(1.8)
+✓ light-desktop .card : filet supérieur plus clair (rgba(255, 255, 255, 0.9) > rgba(255, 255, 255, 0.6))
+✓ light-desktop .card : flou rendu — blur(16px) saturate(1.6)
+✓ light-desktop .panel : fond rgba(255, 255, 255, 0.45), rayon 12px, ombre « rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px »
+✓ light-desktop .panel : aucun flou (règle « pas de verre dans du verre »)
+✓ light-desktop .input : fond rgba(255, 255, 255, 0.55), flou blur(8px) saturate(1.4)
+✓ light-desktop tiroir Doctopus : 0 ombre portée (22 box-shadow rendus, tous internes ou bords)
+✓ light-desktop : le tiroir Doctopus se ferme par son bouton nomme
+· light-desktop menu de compte : non mesurable sur un build public — preuve par AccountSwitcher.test.tsx
+✓ light-desktop .btn-glass : « rgba(255, 255, 255, 0.55) 0px 1px 0px 0px inset » interne, filet haut rgba(255, 255, 255, 0.85) > bord rgba(255, 255, 255, 0.45), flou blur(20px) saturate(1.8)
+✓ light-desktop transition de page : vt-page-out + vt-page-in joués sur ::view-transition-*(page) ; nom au repos après coup « none »
+✓ light-desktop .glass (barre du haut, drill) : gradient de luminance 0.367 au repos contre 0.367 avec `view-transition-name: none` sur .glass.sticky (ratio 1.00) · écart-type 0.731 contre 0.731 — le nom est sans effet sur ce flou
+✓ light-desktop .seg : cran actif « Terme → sens », fond rgb(255, 255, 255), ombre « rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(255, 255, 255, 0.55) 0px 1px 0px 0px inset » (interne)
+✓ light-desktop .seg : cibles 94×44 / 94×44 px
+✓ light-desktop .seg : la bascule laisse exactement un cran pressé (false,true)
+✓ light-desktop drill : 0 ombre portée (9 box-shadow rendus, tous internes ou bords)
+✓ light-desktop : aucune erreur JS
+✓ light-desktop : aucune requête en échec
+✓ dark-desktop accueil : 0 ombre portée (15 box-shadow rendus, tous internes ou bords)
+✓ dark-desktop .card (accueil) : gradient de luminance 0.052 au repos contre 0.477 avec `view-transition-name: page` sur .vt-page (ratio 0.11) · écart-type 1.183 contre 1.552
+✓ dark-desktop arête du popover sur carte : Δ luminance bord − extérieur = +24.5 / +24.5 / +24.5 (gauche / droite / bas)
+✓ dark-desktop .glass : filet supérieur plus clair (rgba(255, 255, 255, 0.26) > rgba(255, 255, 255, 0.1))
+✓ dark-desktop .glass : flou rendu — blur(20px) saturate(1.8)
+✓ dark-desktop .card : filet supérieur plus clair (rgba(255, 255, 255, 0.2) > rgba(255, 255, 255, 0.08))
+✓ dark-desktop .card : flou rendu — blur(16px) saturate(1.6)
+✓ dark-desktop .panel : fond rgba(255, 255, 255, 0.035), rayon 12px, ombre « rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px »
+✓ dark-desktop .panel : aucun flou (règle « pas de verre dans du verre »)
+✓ dark-desktop .input : fond rgba(18, 33, 30, 0.45), flou blur(8px) saturate(1.4)
+✓ dark-desktop tiroir Doctopus : 0 ombre portée (22 box-shadow rendus, tous internes ou bords)
+✓ dark-desktop : le tiroir Doctopus se ferme par son bouton nomme
+· dark-desktop menu de compte : non mesurable sur un build public — preuve par AccountSwitcher.test.tsx
+✓ dark-desktop .btn-glass : « rgba(255, 255, 255, 0.14) 0px 1px 0px 0px inset » interne, filet haut rgba(255, 255, 255, 0.26) > bord rgba(255, 255, 255, 0.1), flou blur(20px) saturate(1.8)
+✓ dark-desktop transition de page : vt-page-out + vt-page-in joués sur ::view-transition-*(page) ; nom au repos après coup « none »
+✓ dark-desktop .glass (barre du haut, drill) : gradient de luminance 0.438 au repos contre 0.438 avec `view-transition-name: none` sur .glass.sticky (ratio 1.00) · écart-type 1.053 contre 1.053 — le nom est sans effet sur ce flou
+✓ dark-desktop .seg : cran actif « Terme → sens », fond rgb(18, 33, 30), ombre « rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(255, 255, 255, 0.1) 0px 1px 0px 0px inset » (interne)
+✓ dark-desktop .seg : cibles 94×44 / 94×44 px
+✓ dark-desktop .seg : la bascule laisse exactement un cran pressé (false,true)
+✓ dark-desktop drill : 0 ombre portée (9 box-shadow rendus, tous internes ou bords)
+✓ dark-desktop : aucune erreur JS
+✓ dark-desktop : aucune requête en échec
+
+84 OK / 0 KO · 44 captures → /tmp/claude-501/final

@@ -1,3 +1,4 @@
+import type { SimTeil } from '@/db/types';
 import { useEffect, useRef, useState } from 'react';
 import { useSimSession } from '@/store/simSession';
 
@@ -107,11 +108,11 @@ export const PUBLIC_APP_URL =
  *  LAN), on pointe vers l'URL PUBLIQUE en ligne — ainsi le QR est scannable
  *  depuis n'importe quel téléphone connecté à Internet. Si l'app est déjà servie
  *  en ligne, on réutilise sa propre racine (fonctionne sur sous-chemin Pages). */
-export function patientUrl(caseId: string): string {
+export function patientUrl(caseId: string, teil?: SimTeil): string {
   const { hostname, href } = window.location;
   const isLocal = /^(localhost|127\.0\.0\.1|0\.0\.0\.0|\[?::1\]?|\d{1,3}(\.\d{1,3}){3})$/.test(hostname);
   const base = (isLocal ? PUBLIC_APP_URL : href.split('#')[0]).replace(/#.*$/, '').replace(/\/?$/, '/');
-  return `${base}#/patient/${caseId}`;
+  return `${base}#/patient/${caseId}${teil ? `?teil=${teil}` : ''}`;
 }
 
 /** Vrai si le QR pointe vers l'URL en ligne (app lancée en local). */
@@ -122,6 +123,6 @@ export function patientUrlIsOnline(): boolean {
 /** URL LOCALE de la fiche patient — pour la 2ᵉ fenêtre sur le MÊME appareil :
  *  même origine (suivi live BroadcastChannel) et toujours la version courante
  *  de l'app (jamais une vieille version déployée). */
-export function localPatientUrl(caseId: string): string {
-  return `${window.location.href.split('#')[0]}#/patient/${caseId}`;
+export function localPatientUrl(caseId: string, teil?: SimTeil): string {
+  return `${window.location.href.split('#')[0]}#/patient/${caseId}${teil ? `?teil=${teil}` : ''}`;
 }

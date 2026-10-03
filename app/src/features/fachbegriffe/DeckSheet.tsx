@@ -55,7 +55,7 @@ export function DeckSheet({ initialQuery, onClose }: Props) {
           </div>
         )}
         {error && <p role="alert" className="text-xs text-rose-600 dark:text-rose-400">{error}</p>}
-        <div className="-mx-5 flex justify-end gap-2 border-t border-slate-900/[0.06] px-5 pt-4 dark:border-white/10"><button type="button" onClick={() => onClose()} className="btn-outline min-h-11">Annuler</button><button type="submit" className="btn-primary-glass min-h-11">Créer</button></div>
+        <div className="-mx-5 flex justify-end gap-2 border-t border-slate-900/[0.06] px-5 pt-4 dark:border-white/10"><button type="button" onClick={() => onClose()} className="btn-outline min-h-11">Annuler</button><button type="submit" className="btn-primary min-h-11">Créer</button></div>
       </form>
     </>
   );

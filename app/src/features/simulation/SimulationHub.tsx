@@ -1,6 +1,6 @@
-import { TEILE, scopeLabel } from '@/lib/simScope';
+import { TEILE, isFullSimulation, scopeLabel } from '@/lib/simScope';
 import { ModeChooser } from '@/components/ModeChooser';
-import type { Case } from '@/db/types';
+import type { Case, Simulation } from '@/db/types';
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useCases, useSimulations } from '@/hooks/useData';
@@ -8,6 +8,18 @@ import { FreqBadge, CenterBadge, EmptyState } from '@/components/ui';
 import { Icon } from '@/components/icons';
 import { partScore } from '@/lib/scoring';
 import { AI_TARGETS } from '@/lib/externalAi/targets';
+
+/** La portée d'une ligne d'historique : ce qui a été JOUÉ. La liste des
+ *  parties apparaît dès qu'il y en a plus d'une — un run complet abandonné
+ *  après deux parties ne se lit plus « Anamnese seule » (I3). */
+export function porteeHistorique(sim: Simulation): string {
+  // Les trois Teile seulement : l'Aufklärung n'en est pas un (mineur 3) —
+  // elle ne change pas la portée et ne figure pas comme partie.
+  const gespielt = TEILE.filter((t) => sim.parts[t.key]?.done).map((t) => t.label);
+  const voll = isFullSimulation(sim);
+  const basis = voll || sim.teil || gespielt.length < 2 ? scopeLabel(sim) : 'Simulation partielle';
+  return gespielt.length > 1 && !(voll && gespielt.length >= 3) ? `${basis} (${gespielt.join(', ')})` : basis;
+}
 
 export function SimulationHub() {
   const cases = useCases();
@@ -57,10 +69,10 @@ export function SimulationHub() {
                       )}
                     </div>
                     <div className="text-xs text-slate-400">
-                      {new Date(sim.date).toLocaleDateString('fr-FR')} · {scopeLabel(sim)}{sim.scope !== 'teil' && parts.length < 3 ? ` (${parts.map(([k]) => TEILE.find((t) => t.key === k)?.label ?? k).join(', ')})` : ''}
+                      {new Date(sim.date).toLocaleDateString('fr-FR')} · {porteeHistorique(sim)}
                     </div>
                   </div>
-                  {c && <Link to={`/simulation/${c.id}/pre`} className="btn-ghost text-xs">Rejouer</Link>}
+                  {c && <Link viewTransition to={`/simulation/${c.id}/pre`} className="btn-ghost text-xs">Rejouer</Link>}
                 </div>
               );
             })}
@@ -97,8 +109,8 @@ function FlipCaseCard({ c }: { c: Case }) {
           <button type="button" onClick={() => setFlipped(true)} tabIndex={flipped ? -1 : 0}
             className="btn-primary mt-3 w-full justify-center gap-1.5 text-xs"><Icon name="play" className="h-3.5 w-3.5" />Commencer</button>
         </div>
-        {/* Verso — verre, choix du mode */}
-        <div className="glass glass-edge flex flex-col rounded-2xl p-3 [grid-area:1/1] [backface-visibility:hidden] [transform:rotateY(180deg)]" aria-hidden={!flipped}>
+        {/* Verso — même matière que le recto (`.card`) : plus d'empilement `.card` + `.glass` */}
+        <div className="card flex flex-col p-3 [grid-area:1/1] [backface-visibility:hidden] [transform:rotateY(180deg)]" aria-hidden={!flipped}>
           <div className="mb-1.5 flex items-center justify-between gap-2">
             <div className="min-w-0">
               <div className="truncate text-sm font-semibold">{c.name}</div>

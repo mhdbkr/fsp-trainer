@@ -1,8 +1,68 @@
+import { createRequire } from 'node:module';
+
+// ── Jetons partagés (@doctopus/tokens) ───────────────────────────────────────
+// s3-primitives T2 : le rayon et l'élévation sont LUS ici depuis
+// packages/tokens/tokens.json, ils n'y sont plus recopiés. C'est le seul
+// endroit de l'app où le flux va du paquet vers l'app ; le reste de la charte
+// (couleurs, fontes, verre) reste chez l'app et `check-parity.mjs` en surveille
+// la copie. Repli : les harnais de test copient ce fichier SEUL dans un dossier
+// temporaire (packages/tokens/test/tokens.test.mjs, cas « app qui dérive ») —
+// là packages/ n'existe pas, et ce fichier doit rester importable.
+const tokens = (() => {
+  try {
+    return createRequire(import.meta.url)('../packages/tokens/tokens.json');
+  } catch {
+    process.emitWarning('tailwind.config: packages/tokens/tokens.json introuvable — rounded-card/shadow-e* sans valeur dans ce build.');
+    return { radius: {}, elevation: { dark: {} } };
+  }
+})();
+
+// ── Élévation : UNE classe par cran, le thème change la VARIABLE ─────────────
+// fix-s3 I2 : les jumeaux `shadow-eN-dark` obligeaient chaque appelant à
+// penser au sombre ; cinq ne l'ont pas fait (`.seg` pressé, CardToast,
+// NewCardSheet, ResumeSessionBar, MusterModelPicker) et portaient en sombre le
+// filet CLAIR. Désormais `shadow-eN` = `var(--eN)`, et `:root` / `.dark`
+// posent les valeurs (plugin plus bas, lues dans tokens.json) : impossible
+// d'oublier le sombre, il n'y a plus rien à choisir.
+// `none` devient `0 0 #0000` : Tailwind compose `box-shadow: <ring-offset>,
+// <ring>, var(--tw-shadow)` et `none` n'a pas le droit d'être dans une liste —
+// la déclaration entière tombait, anneau `ring-*` compris.
+const eVars = (scope) => Object.fromEntries(
+  Object.entries(scope ?? {}).filter(([k]) => /^\d$/.test(k)).map(([k, v]) => [`--e${k}`, v === 'none' ? '0 0 #0000' : v]),
+);
+const elevation = Object.fromEntries(Object.keys(eVars(tokens.elevation)).map((v) => [v.slice(2), `var(${v})`]));
+/** radius → { card, control, capsule } pour borderRadius (rounded-card…). */
+const radius = Object.fromEntries(Object.entries(tokens.radius ?? {}).filter(([k]) => !k.startsWith('$')));
+
 /** @type {import('tailwindcss').Config} */
 export default {
   darkMode: 'class',
   content: ['./index.html', './src/**/*.{ts,tsx}'],
+  // ── `.btn-glass` n'existait PAS dans le CSS livré ────────────────────────
+  // Mesuré le 30 sept. 2026 sur `dist/assets/*.css` : des sept règles portant
+  // `.btn-glass`, il restait `:is(.dark) .btn-glass` (× 3) et les deux replis
+  // sous `@media`/`@supports` — mais AUCUNE règle de base en clair, ni son
+  // survol, ni son état pressé. Confirmé dans le navigateur : sur la page
+  // réelle, en clair, un `<button class="btn-glass">` calcule
+  // `border-top-color: rgb(229, 231, 235)` (le gris de preflight), `box-shadow:
+  // none`, `backdrop-filter: none` — c'est-à-dire rien du tout.
+  // Cause : la purge des règles `@layer components` de Tailwind se fonde sur
+  // les classes trouvées dans `content`, et `.btn-glass` a ZÉRO occurrence en
+  // `.tsx`. Les variantes `:is(.dark) …` et celles imbriquées dans une at-rule
+  // échappent à l'extracteur, d'où ce reste en lambeaux — plus trompeur qu'une
+  // absence franche, puisque le mode sombre semblait marcher.
+  // La primitive est destinée à trois moments de `features/simulation` (voir
+  // son commentaire dans index.css) : elle doit survivre jusqu'à ce qu'ils la
+  // branchent. À RETIRER de cette liste le jour où un `.tsx` l'emploie ; si
+  // personne ne l'emploie, c'est la classe qu'il faut supprimer, pas la ligne.
+  safelist: ['btn-glass'],
   theme: {
+    // ── `boxShadow` REMPLACE la palette, il ne l'étend pas (fix-s3 I4) ───────
+    // Sous `extend`, Tailwind gardait `shadow-sm/md/lg/xl/2xl` et `shadow` : des
+    // ombres PORTÉES générées dans le CSS livré, à un nom de classe de revenir
+    // (gate G2-a : aucune ombre portée). Hors d'`extend`, il ne reste que les
+    // crans de lumière (e0…e3), `inner` (interne, donc licite) et `none`.
+    boxShadow: { ...elevation, inner: 'inset 0 2px 4px 0 rgb(0 0 0 / 0.05)', none: 'none' },
     extend: {
       colors: {
         // ── Identité « instrument clinique » ─────────────────────────────────
@@ -46,6 +106,9 @@ export default {
       letterSpacing: {
         tightish: '-0.014em',
       },
+      // Rayon : jetons, plus des valeurs au hasard (audit §2).
+      // `rounded-card` / `rounded-control` / `rounded-capsule`.
+      borderRadius: radius,
       keyframes: {
         'fade-in': { '0%': { opacity: '0', transform: 'translateY(4px)' }, '100%': { opacity: '1', transform: 'translateY(0)' } },
         // Variante courte (≤150 ms, charte) pour un contenu qui apparaît déjà en place (pastille, bulle).
@@ -85,5 +148,9 @@ export default {
       },
     },
   },
-  plugins: [],
+  plugins: [
+    // Les valeurs des crans, par thème. `.dark` est sur <html> (darkMode:
+    // 'class') : la variable descend, le composant n'a rien à savoir.
+    ({ addBase }) => addBase({ ':root': eVars(tokens.elevation), '.dark': eVars(tokens.elevation?.dark) }),
+  ],
 };

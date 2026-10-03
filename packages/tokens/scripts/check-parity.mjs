@@ -68,6 +68,21 @@ expect('card.light.background', tokens.card.light.background, cssRule('.card', '
 expect('card.blur+saturate', `blur(${tokens.card.blur}) saturate(${tokens.card.saturate})`, cssRule('.card', 'backdrop-filter'));
 expect('card.dark.background', tokens.card.dark.background, cssRule('.dark .card', 'background'));
 
+// ── Le filet supérieur (gate G2-a) ──────────────────────────────────────────
+// Depuis que l'ombre portée est interdite, c'est ce bord plus clair en haut qui
+// PORTE la profondeur. Il était dessiné dans le CSS sans jumeau dans tokens.json :
+// une dérive silencieuse l'aurait effacé sans qu'aucune porte ne bouge.
+expect('glass.light.borderTop', tokens.glass.light.borderTop, cssRule('.glass', 'border-top-color'));
+expect('glass.light.border', `1px solid ${tokens.glass.light.border}`, cssRule('.glass', 'border'));
+expect('glass.dark.border', tokens.glass.dark.border, cssRule(':is(.dark) .glass', 'border-color'));
+expect('glass.dark.borderTop', tokens.glass.dark.borderTop, cssRule(':is(.dark) .glass', 'border-top-color'));
+expect('card.light.borderTop', tokens.card.light.borderTop, cssRule('.card', 'border-top-color'));
+expect('card.dark.borderTop', tokens.card.dark.borderTop, cssRule('.dark .card', 'border-top-color'));
+// Verre flottant (glass-thin / glass-full, arrivé avec #53) : même bord que .glass.
+// Il était white/0.55 sur blanc — aucune arête (I-A, Δ ≈ +3,5 mesuré).
+expect('glass-thin/full.light.border', `1px solid ${tokens.glass.light.border}`, cssRule('.glass-thin, .glass-full', 'border'));
+expect('glass-thin/full.light.borderTop', tokens.glass.light.borderTop, cssRule('.glass-thin, .glass-full', 'border-top-color'));
+
 if (drifts.length) {
   console.error(`check-parity: ${drifts.length} dérive(s) entre packages/tokens/tokens.json et ${appDir}\n`);
   for (const d of drifts) console.error('  ✗ ' + d);

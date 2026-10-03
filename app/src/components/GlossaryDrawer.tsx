@@ -114,7 +114,7 @@ export function GlossaryDrawer() {
               <div className="field-label mb-2">Erscheint in Fällen</div>
               <div className="space-y-1.5">
                 {linkedCases.map((c) => (
-                  <Link key={c.id} to={`/cas/${c.id}`} onClick={close} className="block rounded-lg border border-white/40 px-3 py-2 text-sm hover:border-brand-400 hover:bg-brand-50 dark:border-white/10 dark:hover:bg-brand-900/20">
+                  <Link key={c.id} to={`/cas/${c.id}`} onClick={close} className="panel panel-interactive block px-3 py-2 text-sm">
                     {c.name}
                   </Link>
                 ))}

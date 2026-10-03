@@ -79,7 +79,7 @@ export function TermSheet({ term, compact = false, actions }: { term: AnyTerm; c
       </section>
 
       {!compact && term.definitionDetailed && (
-        <details className="group rounded-lg border border-slate-200 dark:border-slate-800">
+        <details className="panel group">
           <summary className="flex min-h-11 cursor-pointer items-center px-3 text-sm font-medium text-slate-600 dark:text-slate-300">Définition complète</summary>
           <p className="px-3 pb-3 text-sm text-slate-600 dark:text-slate-300">{term.definitionDetailed}</p>
         </details>

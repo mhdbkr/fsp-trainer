@@ -47,7 +47,7 @@ describe('NewCardSheet', () => {
     render(<NewCardSheet selection="Belastungsdyspnoe" sentence="" onClose={() => {}} />);
     await waitFor(() => expect((screen.getByRole('textbox', { name: 'Bedeutung' }) as HTMLInputElement).value).toBe('Atemnot bei Belastung'));
     const btn = screen.getByRole('button', { name: 'Créer la carte' });
-    expect(btn.className).toMatch(/\bbtn-primary-glass\b/);   // pas d'ombre sur le verre (G1-12)
+    expect(btn.className).toMatch(/\bbtn-primary\b/);   // pas d'ombre sur le verre (G1-12)
     fireEvent.click(btn); fireEvent.click(btn);
     await waitFor(async () => expect(await db.personal_terms.count()).toBe(1));
     expect((await db.progress_events.toArray()).filter((e) => e.type === 'term.personal_created')).toHaveLength(1);

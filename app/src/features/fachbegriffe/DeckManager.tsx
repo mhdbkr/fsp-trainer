@@ -87,7 +87,7 @@ export function DeckManager({ decks, counts, onClose, initialQuery, onCreated }:
           <li className="flex min-h-11 items-center gap-1 px-1 text-slate-500 dark:text-slate-400">Favoris<span className="ml-auto pr-3 font-mono text-[11px]">{counts[FAVORITES_DECK_ID] ?? 0}</span></li>
           {shown.map((d) => <DeckRow key={d.id} deck={d} count={counts[d.id]} />)}
         </ul>
-        <button type="button" onClick={() => setSheet(true)} aria-haspopup="dialog" className="btn-primary-glass mt-3 min-h-11 w-full rounded-full">Nouveau deck</button>
+        <button type="button" onClick={() => setSheet(true)} aria-haspopup="dialog" className="btn-primary mt-3 min-h-11 w-full rounded-full">Nouveau deck</button>
       </m.aside>
       {sheet && <DeckSheet initialQuery={initialQuery} onClose={(id) => { setSheet(false); if (id) onCreated?.(id); }} />}
     </Portal>

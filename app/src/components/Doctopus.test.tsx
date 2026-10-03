@@ -14,7 +14,10 @@ describe('Doctopus (F3)', () => {
     render(<Doctopus />);
     expect((screen.getByRole('button', { name: /Demander/ }) as HTMLButtonElement).disabled).toBe(false);
     expect(screen.queryByText(/Ajoute ta clé/)).toBeNull();
-    fireEvent.click(screen.getByRole('button', { name: 'gear' }));
+    // Le bouton se nomme par son œuvre, pas par son icône : avant le
+    // 30 sept. il n'avait aucun `aria-label` et son nom accessible tombait
+    // sur le titre du SVG (« gear »). Ce test le verrouille.
+    fireEvent.click(screen.getByRole('button', { name: 'Réglages IA' }));
     expect(await screen.findByText('Repli (optionnel)')).toBeTruthy();
   });
 

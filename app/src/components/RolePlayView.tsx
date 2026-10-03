@@ -79,7 +79,7 @@ export function RolePlayView({ sheet, caseQuestions, followChapterId, followProb
       {/* Recherche + bouton « Corser » */}
       <div className="flex gap-2">
         <input value={query} onChange={(e) => setQuery(e.target.value)} placeholder="Le candidat demande… (Stuhl, Fieber, rauchen…)"
-          className="min-w-0 flex-1 rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm outline-none focus:border-brand-400 dark:border-slate-700 dark:bg-slate-900" />
+          className="input min-w-0 flex-1" />
         {reactions.length > 0 && (
           <button onClick={() => setShowReactions((o) => !o)}
             className={`flex shrink-0 items-center gap-1.5 rounded-lg px-2.5 py-2 text-xs font-semibold transition-colors ${showReactions ? 'bg-rose-600 text-white' : 'bg-rose-100 text-rose-700 dark:bg-rose-900/40 dark:text-rose-200'}`}
@@ -117,7 +117,7 @@ export function RolePlayView({ sheet, caseQuestions, followChapterId, followProb
               const on = ch.id === active.id;
               return (
                 <button key={ch.id} onClick={() => setActiveId(ch.id)} title={ch.title}
-                  className={`flex shrink-0 items-center gap-1.5 rounded-lg px-2.5 py-1.5 text-[12px] font-medium transition-colors ${on ? 'bg-brand-600 text-white shadow-sm' : 'bg-white text-slate-500 ring-1 ring-slate-200 dark:bg-slate-800 dark:ring-slate-700'}`}>
+                  className={`flex shrink-0 items-center gap-1.5 rounded-lg px-2.5 py-1.5 text-[12px] font-medium transition-colors ${on ? 'bg-brand-600 text-white shadow-e2' : 'bg-white text-slate-500 ring-1 ring-slate-200 dark:bg-slate-800 dark:ring-slate-700'}`}>
                   <Icon name={ch.icon} className="h-3.5 w-3.5" />
                   <span className={on ? '' : 'hidden sm:inline'}>{ch.title}</span>
                 </button>
@@ -126,7 +126,7 @@ export function RolePlayView({ sheet, caseQuestions, followChapterId, followProb
           </div>
 
           {/* Contenu du chapitre actif */}
-          <div className="space-y-2.5 rounded-2xl border border-slate-200 bg-white p-3.5 dark:border-slate-800 dark:bg-slate-900">
+          <div className="panel space-y-2.5 rounded-2xl p-3.5">
             <div className="flex items-center gap-2">
               <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-brand-100 text-brand-600 dark:bg-brand-900/30 dark:text-brand-300"><Icon name={active.icon} className="h-5 w-5" /></span>
               <h3 className="text-sm font-bold">{active.title}</h3>

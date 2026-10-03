@@ -1186,9 +1186,10 @@ export function seedCases(): Case[] {
           // Aktuelle Beschwerden (OPQRST)
           'akt-motiv': 'Seit Wochen ist mein Stuhlgang unregelmäßig und ich habe Blut gesehen.',
           'akt-beginn': 'So seit zwei, drei Monaten, ganz langsam.',
-          'akt-ausscheid-was': 'Verändert hat sich der Stuhlgang, das hatte ich ja gesagt — unregelmäßig und mit Blut. Beim Wasserlassen ist nichts anders, und schlucken kann ich auch normal.',
+          'akt-ausscheid-was': 'Verändert hat sich der Stuhlgang, das hatte ich ja gesagt — unregelmäßig und mit Blut. Beim Wasserlassen ist nichts anders.',
           'akt-ausscheid-haeufigkeit': 'Das ist eigentlich bei fast jedem Stuhlgang so inzwischen, nicht nur ab und zu. Nachts ist da nichts, das betrifft ja den Stuhlgang tagsüber. Häufiger ist es schon geworden mit der Zeit, und öfter kommt auch Blut.',
           'akt-ausscheid-aussehen': 'Der Stuhl ist mal dünn, mal wie ein Bleistift, das hatte ich ja erzählt. Und Blut ist dabei, mal hellrot, mal dunkler. Schleim habe ich nicht bemerkt, schaumig ist es auch nicht.',
+          'akt-ausscheid-schlucken': 'Nein, beim Schlucken habe ich überhaupt keine Probleme, das geht alles ganz normal runter.',
           'akt-veraend-was': 'Also... es ist eigentlich mein Stuhlgang. Der ist unregelmäßig geworden, mal dünn, mal wie ein Bleistift, und ich habe ein paarmal Blut gesehen. Das ist mir schon unangenehm, das zu erzählen.',
           'akt-veraend-entwicklung': 'Ja, es ist eher mehr geworden mit der Zeit. Am Anfang war es nur hin und wieder, jetzt ist der Stuhlgang fast ständig komisch und das Blut kommt öfter.',
           'akt-veraend-blutung': 'Wehtun tut es eigentlich nicht, nur das leichte Ziehen, das ich schon erzählt habe. Aber es blutet, ja — im Stuhl, mal hellrot, mal dunkler. Sonst blute ich nirgends, kein Husten, keine Nase.',
@@ -1709,9 +1710,10 @@ export function seedCases(): Case[] {
           // Aktuelle Beschwerden (OPQRST)
           'akt-motiv': 'Seit etwa 4 Wochen bekomme ich das Essen immer schlechter runter.',
           'akt-beginn': 'Langsam, über die letzten vier Wochen, und es wird von Woche zu Woche schlimmer.',
-          'akt-ausscheid-was': 'Verändert hat sich vor allem das Schlucken, das hatte ich ja schon gesagt. Mit dem Wasserlassen oder dem Stuhlgang ist alles wie immer, und an der Haut oder den Augen habe ich auch keine Verfärbung bemerkt.',
+          'akt-ausscheid-was': 'Mit dem Wasserlassen oder dem Stuhlgang ist alles wie immer, und an der Haut oder den Augen habe ich keine Verfärbung bemerkt.',
           'akt-ausscheid-haeufigkeit': 'Das passiert eigentlich bei jeder Mahlzeit, also mehrmals am Tag, nachts nicht, weil ich da nichts esse. Es wird auf jeden Fall mehr — am Anfang nur ab und zu, jetzt fast immer. Mit dem Wasserlassen habe ich keine Probleme, das ist normal.',
-          'akt-ausscheid-aussehen': 'Blut habe ich nicht gesehen, nur dass ich manchmal Essensreste wieder hochwürgen muss. Schleim oder Schaum ist da nicht, aber fest bleibt eher stecken als Flüssiges, das geht noch am ehesten.',
+          'akt-ausscheid-aussehen': 'Blut habe ich nicht gesehen, nur dass ich manchmal Essensreste wieder hochwürgen muss. Schleim oder Schaum ist da nicht.',
+          'akt-ausscheid-schlucken': 'Das Essen bleibt mir stecken, seit einigen Wochen immer öfter — erst Fleisch und Brot, inzwischen auch Weiches. Suppe und Tee laufen bisher durch.',
           'akt-veraend-was': 'Es ist das Schlucken. Am Anfang ist festes Essen stecken geblieben, jetzt geht es auch bei weichem Essen kaum noch.',
           'akt-veraend-entwicklung': 'Es ist schlimmer geworden, jede Woche ein bisschen mehr. Zuerst nur bei festen Sachen, jetzt auch bei Brei fast.',
           'akt-veraend-blutung': 'Blut habe ich keins gesehen, ich musste nur manchmal Essensreste hochwürgen. Aber es tut weh beim Schlucken, so ein Druck, und meine Stimme ist auch heiser geworden.',
@@ -1845,7 +1847,7 @@ export function seedCases(): Case[] {
       caseSpecificQuestions: [
         { frage: 'Bleiben eher feste Speisen stecken, oder mittlerweile auch Flüssigkeiten?', kapitel: 'aktuell' },
         { frage: 'Ist Ihre Stimme in letzter Zeit heiser geworden?', kapitel: 'aktuell' },
-        { frage: 'Haben Sie Schmerzen beim Schlucken?', kapitel: 'aktuell' },
+        { frage: 'Haben Sie Schmerzen beim Schlucken?', kapitel: 'aktuell', relu: true },
         { frage: 'Kommt es vor, dass unverdaute Nahrung wieder hochkommt?', kapitel: 'aktuell' },
       ],
       examinerQuestions: ['Risikofaktoren des Ösophaguskarzinoms?', 'Adeno- vs. Plattenepithelkarzinom?', 'Palliative Optionen?'],
@@ -4479,10 +4481,10 @@ export function seedCases(): Case[] {
         'auf-lumbalpunktion',
       ],
       caseSpecificQuestions: [
-        { frage: 'Hat die Rötung in der Mitte eine hellere Stelle, sodass sie wie eine Zielscheibe aussieht?', kapitel: 'aktuell' },
-        { frage: 'Seit wann haben Sie diese Rötung bemerkt, und wird sie größer?', kapitel: 'aktuell' },
+        { frage: 'Hat die Rötung in der Mitte eine hellere Stelle, sodass sie wie eine Zielscheibe aussieht?', kapitel: 'aktuell', relu: true },
+        { frage: 'Seit wann haben Sie diese Rötung bemerkt, und wird sie größer?', kapitel: 'aktuell', sucht: ['ausschlag'] },
         { frage: 'Haben Sie Herzstolpern, Herzrasen oder Schwindel bemerkt, oder waren Sie schon einmal ohnmächtig?', kapitel: 'aktuell' },
-        { frage: 'Haben Sie ähnliche Rötungen auch an anderen Stellen des Körpers bemerkt?', kapitel: 'aktuell' },
+        { frage: 'Haben Sie ähnliche Rötungen auch an anderen Stellen des Körpers bemerkt?', kapitel: 'aktuell', relu: true },
       ],
       examinerQuestions: [
         'Was hat die Patientin? Wie lautet Ihre Verdachtsdiagnose und warum?',
@@ -4639,6 +4641,7 @@ export function seedCases(): Case[] {
       frequency: 12,
       difficulty: 2,
       patientSheet: {
+        motiv: { trauma: true, region: 'untere' },
         personalia: {
           name: 'Tobias Reinhardt',
           age: 34,
@@ -4970,6 +4973,8 @@ export function seedCases(): Case[] {
       frequency: 14,
       difficulty: 2,
       patientSheet: {
+        motiv: { trauma: false, region: 'lws' },
+        fachSkip: ['fach-ortho-durchblutung'],
         personalia: {
           name: 'Reinhold Ackermann',
           age: 52,
@@ -5088,7 +5093,7 @@ export function seedCases(): Case[] {
           'fam-beruf': 'Ich bin Lagerarbeiter, das ist körperlich anstrengend, den ganzen Tag heben und tragen.',
           'fam-wohnen': 'Ich wohne mit meiner Frau in einer Wohnung im Erdgeschoss, das ist im Moment ganz praktisch ohne Treppen.',
           'fam-haustiere': 'Nein, Haustiere haben wir keine.',
-          'fach-ortho-mechanismus': 'Es ist passiert, als ich bei der Arbeit eine schwere Kiste gehoben habe — gebückt und dabei verdreht. Da hat es sofort ins Kreuz und ins Bein geschossen.',
+          'fach-ortho-mechanismus': 'Nein, kein Unfall — es ist passiert, als ich bei der Arbeit eine schwere Kiste gehoben habe, gebückt und dabei verdreht. Da hat es sofort ins Kreuz und ins Bein geschossen.',
           'fach-ortho-bewegung': 'Die Schmerzen sind ganz klar von der Bewegung abhängig. Beim Sitzen, Bücken und Gehen wird es schlimmer, im Liegen etwas besser; in völliger Ruhe habe ich weniger.',
           'fach-ortho-ausstrahlung': 'Ja, es strahlt vom Kreuz über das Gesäß und die Außenseite des Oberschenkels und Unterschenkels bis in die Großzehe rechts aus.',
           'fach-ortho-sensomotorik': 'Am rechten Fußrücken und an der Großzehe habe ich ein Kribbeln und ein Taubheitsgefühl. Richtig schwach ist das Bein aber nicht, ich kann noch auftreten und auf den Zehen stehen.',
@@ -5169,7 +5174,7 @@ export function seedCases(): Case[] {
         'auf-mrt',
       ],
       caseSpecificQuestions: [
-        { frage: 'Ist ein Bein schwächer geworden — schaffen Sie es noch, auf den Zehenspitzen oder auf den Fersen zu stehen?', kapitel: 'aktuell' },
+        { frage: 'Ist ein Bein schwächer geworden — schaffen Sie es noch, auf den Zehenspitzen oder auf den Fersen zu stehen?', kapitel: 'aktuell', relu: true },
         { frage: 'Werden die Schmerzen beim Husten, Niesen oder Pressen stärker und schießen dann ins Bein?', kapitel: 'aktuell' },
         { frage: 'Strahlt der Schmerz bis in den Fuß oder die große Zehe aus?', kapitel: 'aktuell' },
       ],
@@ -5717,6 +5722,7 @@ export function seedCases(): Case[] {
       frequency: 9,
       difficulty: 3,
       patientSheet: {
+        fachSkip: ['fach-neuro-anfallzeichen'],
         leitsymptomKategorie: 'nerven',
         personalia: {
           name: 'Gabriela Hubert',
@@ -6006,11 +6012,11 @@ export function seedCases(): Case[] {
         'auf-lumbalpunktion',
       ],
       caseSpecificQuestions: [
-        { frage: 'Hatten Sie früher schon einmal ähnliche Beschwerden, die von selbst wieder verschwunden sind — zum Beispiel eine Sehstörung, Doppelbilder oder ein Taubheitsgefühl an einer anderen Körperstelle?', kapitel: 'vorerkrankungen' },
-        { frage: 'Werden die Beschwerden schlimmer, wenn Sie heiß duschen, in die Sauna gehen oder wenn es draußen sehr warm ist?', kapitel: 'aktuell' },
+        { frage: 'Hatten Sie früher schon einmal ähnliche Beschwerden, die von selbst wieder verschwunden sind — zum Beispiel eine Sehstörung, Doppelbilder oder ein Taubheitsgefühl an einer anderen Körperstelle?', kapitel: 'vorerkrankungen', relu: true },
+        { frage: 'Werden die Beschwerden schlimmer, wenn Sie heiß duschen, in die Sauna gehen oder wenn es draußen sehr warm ist?', kapitel: 'aktuell', sucht: ['waerme'] },
         { frage: 'Spüren Sie beim Vorbeugen des Kopfes ein elektrisierendes Gefühl, das den Rücken hinunterzieht?', kapitel: 'aktuell' },
         { frage: 'Haben Sie bemerkt, dass Farben, zum Beispiel Rot, blasser oder weniger kräftig wirken als sonst?', kapitel: 'aktuell' },
-        { frage: 'Haben Sie ein Taubheitsgefühl im Bereich zwischen den Beinen bemerkt?', kapitel: 'aktuell' },
+        { frage: 'Ist das Gefühl auch zwischen den Beinen und am Gesäß verändert?', kapitel: 'aktuell' },
         { frage: 'Wurden Sie von einer Zecke gestochen, oder hatten Sie einen ringförmigen Hautausschlag?', kapitel: 'aktuell' },
       ],
       examinerQuestions: [
@@ -6883,7 +6889,7 @@ export function seedCases(): Case[] {
         { frage: 'Wissen Sie, weshalb Ihnen das Aspirin verschrieben wurde?', kapitel: 'medikamente' },
         { frage: 'Ist Ihnen ein unregelmäßiger Herzschlag bekannt, zum Beispiel Vorhofflimmern?', kapitel: 'vorerkrankungen' },
         { frage: 'Hatten Sie schon einmal einen kurzzeitigen Sehverlust auf einem Auge?', kapitel: 'aktuell' },
-        { frage: 'Haben Sie sich beim Sturz von der Kellertreppe den Kopf gestoßen?', kapitel: 'aktuell' },
+        { frage: 'Haben Sie sich beim Sturz von der Kellertreppe den Kopf gestoßen?', kapitel: 'aktuell', relu: true },
       ],
       examinerQuestions: [
         'Wie lautet Ihre Verdachtsdiagnose und warum?',
@@ -7463,6 +7469,13 @@ export function seedCases(): Case[] {
           'fach-gefaess-wunde': 'Nein, schlecht heilende Wunden habe ich nicht. Und kalt, blass oder bläulich ist der Fuß auch nicht, nur das Bein mit der Rötung, wie ich schon gesagt habe.',
           'fach-gefaess-vorgeschichte': 'Krampfadern habe ich am rechten Bein, schon länger. Untersucht oder operiert wurden meine Gefäße aber noch nie, kein Stent, kein Bypass.',
         },
+        frageAntworten: [
+          {
+            frage: 'Bluten Sie leicht aus der Nase, oder bekommen Sie schnell blaue Flecken?',
+            antwort: 'Nein, Nasenbluten habe ich eigentlich nie, und blaue Flecken bekomme ich nicht schneller als andere.',
+            kapitel: 'vorerkrankungen',
+          },
+        ],
         schwierigeReaktionen: [
           '(zum Rauchen und zur Pille) "Das nehme ich doch schon ewig, das kann doch jetzt nicht plötzlich schuld sein, oder?"',
           '"Muss ich denn wirklich im Krankenhaus bleiben? Ich habe nächste Woche wichtige Termine."',
@@ -7569,6 +7582,7 @@ export function seedCases(): Case[] {
         { frage: 'Wann genau haben die Beschwerden im Verhältnis zu Ihrem Flug begonnen, und wie lange hat der Flug gedauert?', kapitel: 'aktuell' },
         { frage: 'Hatten Sie früher schon einmal eine Thrombose oder eine Lungenembolie?', kapitel: 'vorerkrankungen' },
         { frage: 'Sind in Ihrer Familie Blutgerinnungsstörungen oder Thrombosen bekannt?', kapitel: 'familie-sozial' },
+        { frage: 'Bluten Sie leicht aus der Nase, oder bekommen Sie schnell blaue Flecken?', kapitel: 'vorerkrankungen' },
         { frage: 'Haben Sie Luftnot, Herzrasen oder Schmerzen beim Atmen bemerkt?', kapitel: 'aktuell' },
       ],
       examinerQuestions: [
@@ -8000,7 +8014,7 @@ export function seedCases(): Case[] {
         { frage: 'Trinken Sie oft zuckerhaltige Getränke wie Cola oder Apfelschorle?', kapitel: 'vegetativ' },
         { frage: 'Haben Sie Juckreiz oder einen Pilzbefall im Intimbereich oder im Mund bemerkt?', kapitel: 'aktuell' },
         { frage: 'Wie viele Harnwegsinfekte hatten Sie im letzten Jahr, und wurde dabei jemals Ihr Blutzucker bestimmt?', kapitel: 'vorerkrankungen' },
-        { frage: 'Sehen Sie zwischendurch verschwommen? Waren Sie deswegen schon beim Augenarzt?', kapitel: 'aktuell' },
+        { frage: 'Sehen Sie zwischendurch verschwommen? Waren Sie deswegen schon beim Augenarzt?', kapitel: 'aktuell', relu: true },
         { frage: 'Haben Sie Kribbeln, Brennen oder ein Taubheitsgefühl an den Füßen bemerkt, besonders nachts?', kapitel: 'aktuell' },
         { frage: 'Ist in Ihrer Familie eine Zuckerkrankheit bekannt?', kapitel: 'familie-sozial' },
         { frage: 'Wie sieht Ihr Arbeitstag als Bäcker aus — wann essen Sie, was essen Sie nebenbei, und wie viel bewegen Sie sich außerhalb der Arbeit?', kapitel: 'familie-sozial' },
@@ -9147,7 +9161,8 @@ export function seedCases(): Case[] {
         'Was bedeutet „Salbutamol bei Bedarf nutzen“?',
         'Was raucht der Patient — welche Zigarettenmarke, und welche Farbe hat die Packung? Wie viele Packungsjahre sind das?',
         'Hat er versucht, mit dem Rauchen aufzuhören? Hat ihm sein Hausarzt dazu geraten? Was schlagen Sie ihm jetzt vor?',
-        'Was macht der Patient beruflich? Ist er im Ruhestand? Wo hat er früher gearbeitet? Was bedeutet „Senioren“?',
+        'Was macht der Patient beruflich — arbeitet er noch, und was hat er die dreißig Jahre davor gemacht?',
+        'Er fährt einen Bus für ein Seniorenheim — was bedeutet „Senioren“?',
         'Wie lauten Ihre Verdachtsdiagnose und Ihre Differenzialdiagnosen?',
         'Müssen wir unbedingt ein CT machen?',
         'Wie wurde der Corona-Test durchgeführt?',
@@ -9440,9 +9455,10 @@ export function seedCases(): Case[] {
           'pers-hausarzt': 'Ja, Dr. Sommer. Aber die Praxis hat heute Nachmittag zu, und ich halte das nicht bis Montag aus, deshalb bin ich zu Ihnen gekommen.',
           'akt-motiv': 'Seit vorgestern Abend brennt es fürchterlich, wenn ich Wasser lasse, und ich muss dauernd auf die Toilette, aber es kommt jedes Mal fast nichts.',
           'akt-beginn': 'Vorgestern Abend hat es angefangen, erst ganz leicht, und über ein paar Stunden ist es immer schlimmer geworden.',
-          'akt-ausscheid-was': 'Ja, verändert hat sich das Wasserlassen — das brennt total und ich muss ständig, aber der Stuhlgang ist ganz normal, da ist nichts anders. Schlucken ist auch kein Problem.',
+          'akt-ausscheid-was': 'Ja, verändert hat sich das Wasserlassen — das brennt total und ich muss ständig, aber der Stuhlgang ist ganz normal, da ist nichts anders.',
           'akt-ausscheid-haeufigkeit': 'Also am Tag zähl ich das schon gar nicht mehr, bestimmt fünfzehnmal, und nachts muss ich auch zwei-, dreimal raus. Es kommt jedes Mal ganz plötzlich, dieser Drang, und dann kommt nur ganz wenig, tröpfchenweise fast.',
           'akt-ausscheid-aussehen': 'Der Urin ist trüb und riecht streng, richtig unangenehm. Und gestern war ganz am Ende, als ich schon fast fertig war, ein kleines bisschen rötliches Blut dabei. Schleim oder Schaum habe ich nicht gesehen.',
+          'akt-ausscheid-schlucken': 'Nein, beim Essen und Trinken bleibt nichts stecken, das ist alles wie immer. Bei mir ist es nur das Wasserlassen.',
           'akt-veraend-was': 'Aufgefallen ist mir das Brennen beim Wasserlassen und dass ich alle naselang aufs Klo muss. Kein Knoten, kein Ausschlag, nichts an der Haut.',
           'akt-veraend-entwicklung': 'Seit vorgestern ist es eigentlich gleich schlimm geblieben, vielleicht sogar ein bisschen mehr. Kommt immer in Schüben, wenn ich muss.',
           'akt-veraend-blutung': 'Wehtun tut\'s beim Wasserlassen, das brennt richtig. Jucken tut\'s nicht. Und ja — gestern war ganz am Ende ein kleines bisschen Blut dabei, im Urin. Sonst nirgends.',
@@ -9843,6 +9859,7 @@ export function seedCases(): Case[] {
       frequency: 7,
       difficulty: 2,
       patientSheet: {
+        fachSkip: ['fach-neuro-anfallzeichen'],
         personalia: {
           name: 'Elke Kovermann',
           age: 39,
@@ -10217,7 +10234,7 @@ export function seedCases(): Case[] {
         { frage: 'Ist Ihnen aufgefallen, wann die Attacken kommen — mitten im Stress oder eher danach, am Wochenende?', kapitel: 'aktuell' },
         { frage: 'Kam der Schmerz jemals ganz plötzlich, wie ein Schlag, von einer Sekunde auf die andere?', kapitel: 'aktuell' },
         { frage: 'Wo genau war die Thrombose damals, wie wurde sie behandelt, und wie lange haben Sie Blutverdünner genommen?', kapitel: 'vorerkrankungen' },
-        { frage: 'Gibt es in Ihrer Familie auch jemanden mit ähnlichen Kopfschmerzen?', kapitel: 'familie-sozial' },
+        { frage: 'Gibt es in Ihrer Familie auch jemanden mit ähnlichen Kopfschmerzen?', kapitel: 'familie-sozial', relu: true },
       ],
       examinerQuestions: [
         'Wie lautet Ihre Verdachtsdiagnose?',
@@ -10803,7 +10820,7 @@ export function seedCases(): Case[] {
       caseSpecificQuestions: [
         { frage: 'Sind Sie zwischen den Anfällen völlig beschwerdefrei?', kapitel: 'aktuell' },
         { frage: 'Werden die Beschwerden bei Pollen, Tierkontakt oder zu bestimmten Jahreszeiten schlimmer?', kapitel: 'aktuell' },
-        { frage: 'Beim Sport — kommt die Luftnot während der Belastung oder erst einige Minuten danach? Macht es einen Unterschied, ob Sie draußen laufen oder in der Halle schwimmen?', kapitel: 'aktuell' },
+        { frage: 'Beim Sport — kommt die Luftnot während der Belastung oder erst einige Minuten danach? Macht es einen Unterschied, ob Sie draußen laufen oder in der Halle schwimmen?', kapitel: 'aktuell', relu: true },
         { frage: 'Haben Sie Heuschnupfen, hatten Sie als Kind Neurodermitis oder eine Nahrungsmittelallergie? Wurden Sie jemals hyposensibilisiert?', kapitel: 'allergien' },
         { frage: 'Gibt es in Ihrer Familie Asthma, Heuschnupfen oder Neurodermitis?', kapitel: 'familie-sozial' },
         { frage: 'Haben Sie jemals ein Spray für die Lunge benutzt — auch das eines Angehörigen? Hat es geholfen, und wie schnell?', kapitel: 'medikamente' },
@@ -11007,6 +11024,7 @@ export function seedCases(): Case[] {
       frequency: 3,
       difficulty: 3,
       patientSheet: {
+        fachSkip: ['fach-kardio-ausstrahlung'],
         leitsymptomKategorie: 'atemnot',
         personalia: {
           name: 'Werner Krause',
@@ -12130,6 +12148,7 @@ export function seedCases(): Case[] {
       frequency: 3,
       difficulty: 2,
       patientSheet: {
+        fachSkip: ['fach-infekt-zecke'],
         personalia: {
           name: 'Norbert Mayer',
           age: 65,
@@ -12990,7 +13009,7 @@ export function seedCases(): Case[] {
       ],
       caseSpecificQuestions: [
         { frage: 'Hat sich Ihr Stuhlgang verändert — Häufigkeit, Konsistenz oder Form, zum Beispiel dünner als früher?', kapitel: 'aktuell', sucht: ['stuhl'] },
-        { frage: 'Wann hatten Sie Ihre letzte Regelblutung, und hatten Sie seit den Wechseljahren jemals wieder eine Blutung?', kapitel: 'frauenanamnese' },
+        { frage: 'Wann hatten Sie Ihre letzte Regelblutung, und hatten Sie seit den Wechseljahren jemals wieder eine Blutung?', kapitel: 'frauenanamnese', relu: true },
         { frage: 'Nehmen Sie regelmäßig Schmerzmittel wie Ibuprofen, Diclofenac oder Aspirin ein — wie oft und seit wann?', kapitel: 'medikamente' },
         { frage: 'Wurde bei Ihnen schon einmal eine Darmspiegelung zur Vorsorge durchgeführt?', kapitel: 'vorerkrankungen' },
         { frage: 'Gibt es in Ihrer Familie Darmkrebs oder Darmpolypen?', kapitel: 'familie-sozial' },
@@ -13499,7 +13518,7 @@ export function seedCases(): Case[] {
         { frage: 'Wann und wie wurde Ihre Herzrhythmusstörung festgestellt, und wissen Sie, wie sie genau heißt?', kapitel: 'vorerkrankungen' },
         { frage: 'Welches Medikament nehmen Sie dagegen ein — Aspirin oder einen echten Blutverdünner wie Marcumar, Eliquis oder Xarelto?', kapitel: 'medikamente' },
         { frage: 'Hatten Sie jemals eine kurze Sprach-, Seh- oder Gefühlsstörung oder eine Schwäche einer Körperhälfte, auch wenn sie nach Minuten wieder verschwunden war?', kapitel: 'vorerkrankungen' },
-        { frage: 'Haben Sie ungewollt Gewicht verloren, schwitzen Sie vermehrt, zittern Ihre Hände oder vertragen Sie Wärme schlechter?', kapitel: 'vegetativ', sucht: ['gewicht'] },
+        { frage: 'Haben Sie ungewollt Gewicht verloren, schwitzen Sie vermehrt, zittern Ihre Hände oder vertragen Sie Wärme schlechter?', kapitel: 'vegetativ', sucht: ['gewicht', 'schwitzen'] },
         { frage: 'Schnarchen Sie, und hat Ihre Frau Atempausen im Schlaf beobachtet? Sind Sie tagsüber ungewöhnlich müde?', kapitel: 'vegetativ', relu: true },
         { frage: 'Hatten Sie jemals eine Blutung — schwarzen Stuhl, Blut im Urin, häufiges Nasenbluten — oder ein Magengeschwür?', kapitel: 'vorerkrankungen' },
       ],
@@ -13695,6 +13714,7 @@ export function seedCases(): Case[] {
       frequency: 0,
       difficulty: 2,
       patientSheet: {
+        fachSkip: ['fach-derma-muttermal', 'fach-derma-verlauf'],
         leitsymptomKategorie: 'veraenderung',
         personalia: {
           name: 'Bernd Kowalski',
@@ -14025,13 +14045,13 @@ export function seedCases(): Case[] {
         'auf-sonographie',
       ],
       caseSpecificQuestions: [
-        { frage: 'Können Sie mir die Stelle genau beschreiben — ist die Rötung scharf begrenzt, und sieht man deutlich, wo sie aufhört?', kapitel: 'aktuell' },
+        { frage: 'Können Sie mir die Stelle genau beschreiben — ist die Rötung scharf begrenzt, und sieht man deutlich, wo sie aufhört?', kapitel: 'aktuell', relu: true },
         { frage: 'Gibt es an dem Bein oder am Fuß eine kleine Verletzung, eine offene oder eingerissene Stelle, ein Ekzem oder ein offenes Bein?', kapitel: 'aktuell' },
-        { frage: 'Wie sieht es zwischen Ihren Zehen aus — haben Sie Fußpilz, juckt oder schuppt es dort, ist die Haut eingerissen? Darf ich mir das ansehen?', kapitel: 'aktuell' },
+        { frage: 'Wie sieht es zwischen Ihren Zehen aus — haben Sie Fußpilz, juckt oder schuppt es dort, ist die Haut eingerissen? Darf ich mir das ansehen?', kapitel: 'aktuell', relu: true },
         { frage: 'Haben Sie einen roten Streifen bemerkt, der von der Stelle nach oben zieht? Sind die Lymphknoten in der Leiste geschwollen und schmerzhaft?', kapitel: 'aktuell' },
-        { frage: 'Hatten Sie so eine Rötung schon einmal? Wurden Sie damals mit Antibiotika behandelt oder sogar stationär aufgenommen?', kapitel: 'vorerkrankungen' },
+        { frage: 'Hatten Sie so eine Rötung schon einmal? Wurden Sie damals mit Antibiotika behandelt oder sogar stationär aufgenommen?', kapitel: 'vorerkrankungen', relu: true },
         { frage: 'Sind Ihre Beine abends geschwollen, haben Sie Krampfadern, und tragen Sie Kompressionsstrümpfe?', kapitel: 'vorerkrankungen' },
-        { frage: 'Sind die Schmerzen stärker, als die Rötung vermuten lässt? Hat sich die Farbe bläulich verändert, oder sind Blasen oder schwarze Stellen entstanden?', kapitel: 'aktuell' },
+        { frage: 'Sind die Schmerzen stärker, als die Rötung vermuten lässt? Hat sich die Farbe bläulich verändert, oder sind Blasen oder schwarze Stellen entstanden?', kapitel: 'aktuell', relu: true },
         { frage: 'Wie ist Ihr Blutzucker zuletzt eingestellt gewesen — wissen Sie Ihren Langzeitwert?', kapitel: 'vorerkrankungen' },
       ],
       examinerQuestions: [
@@ -14559,7 +14579,7 @@ export function seedCases(): Case[] {
         'auf-feinnadelpunktion',
       ],
       caseSpecificQuestions: [
-        { frage: 'Verlieren Sie vermehrt Haare, und sind Ihre Augenbrauen außen dünner geworden?', kapitel: 'aktuell' },
+        { frage: 'Sind Ihre Augenbrauen außen dünner geworden?', kapitel: 'aktuell' },
         { frage: 'Wenn Sie auf die geschwollenen Unterschenkel drücken — bleibt eine Delle stehen oder nicht?', kapitel: 'aktuell' },
         { frage: 'Ist Ihre Regelblutung stärker oder länger geworden?', kapitel: 'frauenanamnese' },
         { frage: 'Hatten Sie jemals eine Schilddrüsenoperation, eine Radiojodtherapie oder eine Bestrahlung am Hals?', kapitel: 'vorerkrankungen' },
@@ -16229,7 +16249,6 @@ export function seedCases(): Case[] {
       ],
       fachanamnese: 'Angiologie',
       caseSpecificQuestions: [
-        { frage: 'Wann genau hat die Luftnot begonnen, und was haben Sie in diesem Moment gemacht — kam sie schlagartig oder hat sie sich über Stunden entwickelt?', kapitel: 'aktuell' },
         { frage: 'Wird der Schmerz beim tiefen Einatmen oder Husten stärker, oder spüren Sie eher einen Druck hinter dem Brustbein?', kapitel: 'aktuell', relu: true },
         { frage: 'Waren Sie in den letzten Wochen operiert, längere Zeit bettlägerig, im Gips oder auf einer langen Reise ohne Aufstehen?', kapitel: 'vorerkrankungen', relu: true },
         { frage: 'Haben Sie nach der Operation Spritzen gegen Thrombose bekommen, und wie lange haben Sie diese genommen?', kapitel: 'medikamente' },
@@ -17581,9 +17600,10 @@ export function seedCases(): Case[] {
           'pers-hausarzt': 'Ja, mein Hausarzt ist Dr. Neuhaus, hier im Ort. Er hat mich heute sofort in die Klinik geschickt, als er mich gesehen hat.',
           'akt-motiv': 'Herr Doktor, ich bin ganz gelb geworden. Seit drei Tagen sind meine Augen und meine Haut gelb, und dazu juckt es am ganzen Körper so, dass ich es kaum aushalte. Weh tut mir aber nichts.',
           'akt-beginn': 'Die Gelbfärbung und der Juckreiz sind seit drei Tagen da. Müde und schlapp bin ich aber schon seit ungefähr sechs Wochen, und der Urin ist seit etwa drei Wochen dunkel.',
-          'akt-ausscheid-was': 'Verändert hat sich einiges: die Haut und die Augen sind gelb geworden, der Urin ist dunkel, und der Stuhl ist ganz hell, das hatte ich Ihnen ja schon erzählt. Mit dem Schlucken ist nichts.',
+          'akt-ausscheid-was': 'Verändert hat sich einiges: die Haut und die Augen sind gelb geworden, der Urin ist dunkel, und der Stuhl ist ganz hell, das hatte ich Ihnen ja schon erzählt.',
           'akt-ausscheid-haeufigkeit': 'Beim Wasserlassen selbst ist die Häufigkeit eigentlich gleich geblieben, nur die Farbe ist anders. Auch beim Stuhlgang — wie oft, das hat sich nicht verändert, nur eben wie er aussieht.',
           'akt-ausscheid-aussehen': 'Der Urin ist dunkel wie Bier, und der Stuhl ist hell, fast wie Lehm, glänzt richtig und lässt sich schlecht wegspülen — das hatte ich ja schon gesagt. Blut habe ich nirgends gesehen.',
+          'akt-ausscheid-schlucken': 'Nein, schlucken kann ich ganz normal. Ich habe nur kaum noch Appetit, aber stecken bleibt nichts.',
           'akt-veraend-was': 'Aufgefallen ist mir die Gelbfärbung, zuerst an den Augen, das hat mein Mann bemerkt, dann an der ganzen Haut. Wenn Sie danach fragen: mein Urin ist seit drei Wochen dunkel wie Bier, und mein Stuhl ist ganz hell geworden, fast wie Lehm.',
           'akt-veraend-entwicklung': 'Ja, es ist schnell schlimmer geworden. Erst nur die Augen, dann in wenigen Tagen die ganze Haut, und der Juckreiz ist auch stärker geworden. Die Farbe ändert sich seither nicht mehr, sie bleibt gleich gelb.',
           'akt-veraend-blutung': 'Wehtun tut es nirgends, das kann ich klar sagen. Es juckt aber furchtbar, am ganzen Körper. Blut habe ich keins bemerkt, weder im Stuhl noch im Urin, nur eben diese Farben.',
@@ -18025,6 +18045,7 @@ export function seedCases(): Case[] {
       frequency: 0,
       difficulty: 2,
       patientSheet: {
+        fachSkip: ['fach-derma-muttermal', 'fach-derma-verlauf'],
         personalia: {
           name: 'Brigitte Ostermann',
           age: 63,
@@ -18341,8 +18362,8 @@ export function seedCases(): Case[] {
       ],
       caseSpecificQuestions: [
         { frage: 'Seit wann genau haben Sie die Bläschen bemerkt — an welchem Tag hat es angefangen?', kapitel: 'aktuell' },
-        { frage: 'Hatten Sie Schmerzen, bevor der Ausschlag zu sehen war, und wie lange?', kapitel: 'aktuell' },
-        { frage: 'Bleibt der Ausschlag auf einer Körperseite, oder geht er auch auf die andere Seite über?', kapitel: 'aktuell' },
+        { frage: 'Hatten Sie Schmerzen, bevor der Ausschlag zu sehen war, und wie lange?', kapitel: 'aktuell', relu: true },
+        { frage: 'Bleibt der Ausschlag auf einer Körperseite, oder geht er auch auf die andere Seite über?', kapitel: 'aktuell', relu: true },
         { frage: 'Haben Sie als Kind Windpocken gehabt?', kapitel: 'vorerkrankungen' },
         { frage: 'Haben Sie Bläschen an der Nasenspitze oder am Auge bemerkt, ist Ihr Auge gerötet, oder sehen Sie unscharf?', kapitel: 'aktuell' },
         { frage: 'Haben Sie Bläschen im Ohr bemerkt, hören Sie schlechter, oder ist Ihnen schwindelig?', kapitel: 'aktuell' },
@@ -18522,6 +18543,8 @@ export function seedCases(): Case[] {
       frequency: 9,
       difficulty: 2,
       patientSheet: {
+        motiv: { trauma: false, region: 'bws' },
+        fachSkip: ['fach-ortho-mechanismus'],
         personalia: {
           name: 'Rainer Hober',
           age: 55,
@@ -18870,10 +18893,9 @@ export function seedCases(): Case[] {
         'auf-ct',
       ],
       caseSpecificQuestions: [
-        { frage: 'War es ein Sturz, oder reichte schon eine leichte Bewegung wie Husten, Niesen oder Bücken, um den Schmerz auszulösen?', kapitel: 'aktuell' },
-        { frage: 'Haben Sie irgendwo ein Kribbeln, ein Taubheitsgefühl oder eine Kraftminderung? Können Sie Wasser und Stuhl normal halten?', kapitel: 'aktuell' },
+        { frage: 'War es ein Sturz, oder reichte schon eine leichte Bewegung wie Husten, Niesen oder Bücken, um den Schmerz auszulösen?', kapitel: 'aktuell', relu: true },
         { frage: 'Sind Sie kleiner geworden, oder hat jemand aus Ihrem Umfeld bemerkt, dass Ihr Rücken runder geworden ist?', kapitel: 'vorerkrankungen' },
-        { frage: 'Hatten Sie schon einmal einen Knochenbruch nach einem harmlosen Sturz oder einer Bagatellverletzung?', kapitel: 'vorerkrankungen' },
+        { frage: 'Hatten Sie schon einmal einen Knochenbruch nach einem harmlosen Sturz oder einer Bagatellverletzung?', kapitel: 'vorerkrankungen', relu: true },
         { frage: 'Ist bei Ihnen eine Osteoporose bekannt, und wurde jemals eine Knochendichtemessung durchgeführt? Kennen Sie Ihren Wert?', kapitel: 'vorerkrankungen' },
         { frage: 'Nehmen Sie Kortison ein, und wenn ja, seit wann und in welcher Dosis? Hatten Sie Kortison-Stoßtherapien?', kapitel: 'medikamente' },
         { frage: 'Welche Behandlung haben Sie gegen die Osteoporose bekommen, und nehmen Sie diese Medikamente heute noch ein?', kapitel: 'medikamente' },
@@ -19166,9 +19188,10 @@ export function seedCases(): Case[] {
           'pers-hausarzt': 'Ja, mein Hausarzt ist Dr. Weber. Bei ihm bin ich seit vielen Jahren, wegen dem Blutdruck und dem Zucker.',
           'akt-motiv': 'Herr Doktor, es geht ums Wasserlassen. Ich muss nachts dreimal raus und komme überhaupt nicht mehr zum Schlafen. Und tagsüber dauert es ewig, bis überhaupt etwas kommt.',
           'akt-beginn': 'Angefangen hat das ganz langsam, vor ungefähr acht Monaten. Erst dachte ich, das gehört zum Älterwerden. In den letzten drei Monaten ist es aber deutlich schlimmer geworden.',
-          'akt-ausscheid-was': 'Es geht ums Wasserlassen, Herr Doktor, das hatte ich ja schon gesagt. Der Stuhlgang, die Verdauung, das ist bei mir ganz normal, keine Veränderung. Und schlucken kann ich auch problemlos.',
+          'akt-ausscheid-was': 'Es geht ums Wasserlassen, Herr Doktor, das hatte ich ja schon gesagt. Der Stuhlgang, die Verdauung, das ist bei mir ganz normal, keine Veränderung.',
           'akt-ausscheid-haeufigkeit': 'Am Tag muss ich alle anderthalb bis zwei Stunden, immer nur kleine Mengen. Nachts stehe ich dreimal auf, das ist ja mein Hauptproblem. Mehr ist es geworden, ja, deutlich mehr als früher. Und (etwas leiser) einmal ist mir schon auf dem Weg zur Toilette etwas Urin abgegangen, bevor ich es geschafft habe.',
-          'akt-ausscheid-aussehen': 'Die Farbe vom Urin ist normal, kein Blut, das hatte ich Ihnen ja schon gesagt. Nur eben, dass es nachträufelt hinterher, die Unterwäsche wird dann feucht. Sonst ist nichts Festes oder so, das betrifft ja nur das Wasserlassen.',
+          'akt-ausscheid-aussehen': 'Die Farbe vom Urin ist normal, kein Blut, das hatte ich Ihnen ja schon gesagt. Nur eben, dass es nachträufelt hinterher, die Unterwäsche wird dann feucht.',
+          'akt-ausscheid-schlucken': 'Nein, beim Essen habe ich nie Probleme, ich esse alles. Meine Beschwerden sind wirklich nur beim Wasserlassen.',
           'akt-veraend-was': 'Wie ich schon sagte, es geht ums Wasserlassen — das ist mir aufgefallen. Knoten oder was an der Haut, blaue Flecken, das hab ich nicht bemerkt. Und mit dem Stuhlgang ist alles in Ordnung.',
           'akt-veraend-entwicklung': 'Schlimmer ist es geworden, ja, langsam über die Monate, nie auf einen Schlag. Die Farbe vom Urin hat sich nicht verändert.',
           'akt-veraend-blutung': 'Wehtun tut das Wasserlassen selber nicht, nur dieses Druckgefühl vorher, das hatte ich ja schon gesagt. Jucken tut nichts. Und Blut war nie dabei, im Urin nicht und sonst auch nicht.',
@@ -22200,7 +22223,7 @@ export function seedCases(): Case[] {
         { frage: 'Haben Sie Blut IM Stuhl gesehen, oder nur AM Toilettenpapier beim Abputzen? Brennt es dabei?', kapitel: 'aktuell' },
         { frage: 'Müssen Sie auch nachts wegen des Durchfalls aufstehen?', kapitel: 'aktuell' },
         { frage: 'Ist Ihr Stuhl fettig-glänzend und schwer abzuspülen?', kapitel: 'aktuell' },
-        { frage: 'Waren Sie in den letzten Monaten im Ausland? Wo genau, wie lange, und hatten Sie dort Durchfall?', kapitel: 'vegetativ', sucht: ['reise'] },
+        { frage: 'Waren Sie in den letzten Monaten im Ausland? Wo genau, wie lange, und hatten Sie dort Durchfall?', kapitel: 'vegetativ', sucht: ['reise'], relu: true },
         { frage: 'Haben Sie in den letzten Monaten Antibiotika eingenommen?', kapitel: 'medikamente' },
         { frage: 'Haben Sie schmerzhafte Stellen im Mund, Hautveränderungen an den Schienbeinen, gerötete oder schmerzende Augen?', kapitel: 'aktuell' },
         { frage: 'Haben Sie morgens Rückenschmerzen mit Steifigkeit, die sich durch Bewegung bessern?', kapitel: 'aktuell' },
@@ -22376,6 +22399,8 @@ export function seedCases(): Case[] {
       frequency: 8,
       difficulty: 2,
       patientSheet: {
+        motiv: { trauma: false, region: 'obere' },
+        fachSkip: ['fach-ortho-durchblutung'],
         leitsymptomKategorie: 'nerven',
         personalia: {
           name: 'Karla Mäyerle-Schäubele',
@@ -23044,7 +23069,7 @@ export function seedCases(): Case[] {
           'akt-beginn': 'Seit etwa sechs Monaten. Der erste Anfall kam ganz plötzlich, an der Supermarktkasse, ich stand in einer langen Schlange. Von einer Sekunde auf die andere. Vorher war überhaupt nichts.',
           'akt-anfall-ablauf': 'Es fängt einfach plötzlich an, aus heiterem Himmel, ohne Vorwarnung. Das Herz rast, ich kriege kaum Luft, die Brust schnürt sich zu, und ich habe furchtbare Angst zu sterben. Aufhören tut es meistens von allein, schneller wenn ich rausgehe oder mein Mann bei mir ist.',
           'akt-anfall-dauer': 'Zehn bis zwanzig Minuten dauert so ein Anfall. Am Anfang war es einmal im Monat, jetzt seit zwei Monaten zwei- bis dreimal die Woche.',
-          'akt-anfall-bewusstsein': 'Nein, bewusstlos war ich nie, und schwarz vor Augen auch nicht — nur schwindelig und wie neben mir. Verletzt habe ich mich dabei nie.',
+          'akt-anfall-bewusstsein': 'Nein, bewusstlos war ich nie, und schwarz vor Augen auch nicht — nur schwindelig und wie neben mir. Verletzt habe ich mich dabei nie, auf die Zunge gebissen auch nicht. Eingenässt habe ich auch nie.',
           'akt-verlauf': 'Es kommt anfallsartig, nach zwei, drei Minuten ist es am schlimmsten, nach zehn bis zwanzig Minuten weg. Früher einmal im Monat, seit zwei Monaten zwei- bis dreimal die Woche.',
           'akt-ausloeser': 'Das ist ja das Schlimme — meistens kommt es einfach so, aus dem Nichts. Manchmal im Supermarkt, im Bus, im Aufzug, wenn viele Menschen da sind. Zweimal bin ich sogar nachts davon aufgewacht, ohne dass ich schlecht geträumt hätte. Belastung ist es nicht — beim Treppensteigen habe ich nie etwas.',
           'akt-einfluss': 'Besser, wenn ich sofort an die frische Luft gehe oder mein Mann da ist. Schlimmer in Menschenmengen und wenn ich nur daran denke. Baldrian und Johanniskraut helfen nicht.',
@@ -23287,8 +23312,8 @@ export function seedCases(): Case[] {
       ],
       caseSpecificQuestions: [
         { frage: 'Kommen die Anfälle völlig unerwartet, oder immer in bestimmten Situationen? Sind Sie schon einmal nachts aus dem Schlaf heraus davon aufgewacht?', kapitel: 'aktuell', relu: true },
-        { frage: 'Was denken Sie in dem Moment, wenn es losgeht — wovor haben Sie in diesem Augenblick am meisten Angst?', kapitel: 'aktuell' },
-        { frage: 'Haben Sie zwischen den Anfällen Angst davor, dass wieder einer kommt? Kontrollieren Sie zwischendurch Ihren Puls?', kapitel: 'aktuell' },
+        { frage: 'Was denken Sie in dem Moment, wenn es losgeht — wovor haben Sie in diesem Augenblick am meisten Angst?', kapitel: 'aktuell', relu: true },
+        { frage: 'Haben Sie zwischen den Anfällen Angst davor, dass wieder einer kommt? Kontrollieren Sie zwischendurch Ihren Puls?', kapitel: 'aktuell', relu: true },
         { frage: 'Was machen Sie seitdem nicht mehr — fahren Sie noch Bus oder Straßenbahn, gehen Sie noch allein einkaufen, nehmen Sie den Aufzug?', kapitel: 'aktuell' },
         { frage: 'Wie viel Kaffee, schwarzen Tee, Cola oder Energydrinks trinken Sie am Tag?', kapitel: 'aktuell' },
         { frage: 'Wie sieht Ihr Alltag aus — wer betreut die Kinder, gibt es jemanden, den Sie pflegen, und wann hat die Belastung begonnen?', kapitel: 'familie-sozial' },
@@ -23598,9 +23623,10 @@ export function seedCases(): Case[] {
           'pers-hausarzt': 'Ja, mein Hausarzt ist Dr. Neumann, zu dem gehe ich seit Jahren.',
           'akt-motiv': 'Herr Doktor, das Wasserlassen wird bei mir seit Monaten immer schlechter, obwohl ich doch die Tabletten für die Prostata nehme. Und seit ungefähr zehn Wochen tut mir dazu noch das Kreuz weh, auch nachts.',
           'akt-beginn': 'Das mit dem Wasserlassen geht seit ungefähr acht Monaten wieder los, ganz schleichend. Die Rückenschmerzen sind vor etwa zehn Wochen dazugekommen, auch langsam, ohne dass ich gestürzt wäre oder etwas Schweres gehoben hätte.',
-          'akt-ausscheid-was': 'Wie ich schon sagte, es ist das Wasserlassen, das sich verändert hat. Am Stuhlgang ist nichts anders, und schlucken kann ich auch normal. Die Farbe von der Haut oder den Augen hat sich auch nicht verändert.',
+          'akt-ausscheid-was': 'Wie ich schon sagte, es ist das Wasserlassen, das sich verändert hat. Am Stuhlgang ist nichts anders, und die Farbe von der Haut oder den Augen hat sich auch nicht verändert.',
           'akt-ausscheid-haeufigkeit': 'Tagsüber muss ich häufiger als früher, das hat langsam zugenommen. Nachts sind es inzwischen viermal, früher war es nur einmal. Es kommt nicht plötzlich mit Drang, eher dass ich lange warten muss, bis überhaupt etwas kommt, und hinterher tröpfelt es noch nach.',
           'akt-ausscheid-aussehen': 'Im Urin selbst habe ich nie eine Verfärbung oder Blut gesehen, das ist normal gelb. Nur eben — das hatte ich ja schon erzählt — dieses eine Mal vor zwei Monaten im Samenerguss. Schleim oder Schaum im Urin ist mir nicht aufgefallen.',
+          'akt-ausscheid-schlucken': 'Nein, da ist nichts, weder bei Festem noch bei Flüssigem.',
           'akt-veraend-was': '(zögert, leiser) Na ja... vor ungefähr zwei Monaten war einmal Blut im Samenerguss. Das war\'s eigentlich. Knoten oder so was habe ich nicht gefunden, an der Haut auch nichts, und gelb bin ich auch nicht geworden.',
           'akt-veraend-entwicklung': 'Das mit dem Blut war nur dieses eine Mal, das ist seitdem nicht wiedergekommen. Aber das Wasserlassen wird die ganze Zeit schlechter.',
           'akt-veraend-blutung': 'Weh getan hat das nicht, und jucken tut da auch nichts. Blut im Urin oder im Stuhl habe ich nicht bemerkt, aus der Nase blutet auch nichts.',
@@ -24033,6 +24059,7 @@ export function seedCases(): Case[] {
       frequency: 0,
       difficulty: 2,
       patientSheet: {
+        fachSkip: ['fach-infekt-zecke'],
         leitsymptomKategorie: 'ausscheidung',
         personalia: {
           name: 'Tobias Lindner',
@@ -24142,9 +24169,10 @@ export function seedCases(): Case[] {
           'pers-hausarzt': 'Ja, Dr. Brenner. Bei ihm war ich aber seit zwei Jahren nicht mehr.',
           'akt-motiv': 'Meine Freundin hat vor vier Tagen gesagt, meine Augen seien ganz gelb. Ich selbst hatte das gar nicht gemerkt. Und mein Urin ist seit ein paar Tagen dunkel wie Cola. Ehrlich gesagt macht mir das Angst.',
           'akt-beginn': 'Vor zweieinhalb Wochen, aber ganz anders: müde, kein Appetit, Gelenkschmerzen wie bei Grippe. Dunkler Urin seit fünf Tagen, gelbe Augen seit vier, heller Stuhl seit drei.',
-          'akt-ausscheid-was': 'Verändert hat sich das — die Augen und die Haut sind gelb geworden, der Urin ist dunkel wie Cola, und der Stuhl ist seit drei Tagen ganz hell, fast weiß, das hatte ich ja gesagt. Schlucken geht normal.',
+          'akt-ausscheid-was': 'Verändert hat sich das — die Augen und die Haut sind gelb geworden, der Urin ist dunkel wie Cola, und der Stuhl ist seit drei Tagen ganz hell, fast weiß, das hatte ich ja gesagt.',
           'akt-ausscheid-haeufigkeit': 'Bei Wasserlassen und Stuhlgang hat sich die Häufigkeit eigentlich nicht verändert, nur die Farbe ist anders geworden.',
           'akt-ausscheid-aussehen': 'Der Urin ist dunkel wie Cola, der Stuhl ist hell, fast weiß. Blut habe ich da nirgends gesehen, auch kein Schleim. Schaumig ist es auch nicht.',
+          'akt-ausscheid-schlucken': 'Nein, stecken bleibt nichts. Mir ist nur oft übel, und vor fettem Essen ekelt es mich inzwischen — aber runter geht alles.',
           'akt-veraend-was': 'Das Auffälligste ist die Gelbfärbung an den Augen und der Haut. Und mein Stuhl ist seit drei Tagen ganz hell, fast weiß. Knoten oder blaue Flecken habe ich keine, und mit dem Schlucken ist auch nichts.',
           'akt-veraend-entwicklung': 'Ja, das ist schlimmer geworden. Erst war es nur an den Augen, jetzt sieht man es auch an der Haut, meine Freundin sagt, es wird eher noch gelber.',
           'akt-veraend-blutung': 'Weh tut es nicht, aber es juckt fürchterlich, am ganzen Körper, nachts am schlimmsten. Geblutet hat da nichts, weder im Stuhl noch im Urin noch aus der Nase.',
@@ -24540,6 +24568,7 @@ export function seedCases(): Case[] {
       frequency: 0,
       difficulty: 2,
       patientSheet: {
+        fachSkip: ['fach-neuro-anfallzeichen', 'fach-neuro-aura'],
         leitsymptomKategorie: 'nerven',
         personalia: {
           name: 'Gerhard Vollmer',
@@ -24910,11 +24939,11 @@ export function seedCases(): Case[] {
         { frage: 'Zittert die Hand vor allem, wenn sie ruhig auf dem Bein liegt, und wird das Zittern besser oder schlechter, wenn Sie nach einer Tasse greifen? Zittert es auch, wenn Sie den Arm ausgestreckt halten oder schreiben?', kapitel: 'aktuell' },
         { frage: 'Ändert sich das Zittern nach einem Glas Wein oder Bier?', kapitel: 'aktuell' },
         { frage: 'Schauen Sie sich bitte Ihre eigene Handschrift an: Wird die Schrift zum Ende der Zeile hin kleiner?', kapitel: 'aktuell' },
-        { frage: 'Hat Ihnen jemand gesagt, dass Sie kleinschrittiger gehen, schlurfen, oder dass ein Arm beim Gehen nicht mehr mitschwingt? Bleiben Sie beim Losgehen oder Umdrehen manchmal wie festgeklebt stehen, und sind Sie schon gestürzt?', kapitel: 'aktuell' },
+        { frage: 'Hat Ihnen jemand gesagt, dass Sie kleinschrittiger gehen, schlurfen, oder dass ein Arm beim Gehen nicht mehr mitschwingt? Bleiben Sie beim Losgehen oder Umdrehen manchmal wie festgeklebt stehen, und sind Sie schon gestürzt?', kapitel: 'aktuell', relu: true },
         { frage: 'Riechen Sie noch normal? Haben Sie schon einmal etwas Angebranntes nicht gerochen?', kapitel: 'aktuell' },
         { frage: 'Was sagt Ihre Frau über Ihre Nächte — reden, schreien oder schlagen Sie im Schlaf um sich, als würden Sie Ihre Träume ausleben?', kapitel: 'vegetativ', relu: true },
         { frage: 'Haben Sie regelmäßig Stuhlgang, und seit wann besteht die Verstopfung?', kapitel: 'vegetativ', relu: true },
-        { frage: 'Haben Sie jemals Medikamente gegen Übelkeit, Schwindel oder Nervosität eingenommen — zum Beispiel MCP-Tropfen oder Tabletten vom Nervenarzt? Auch nur kurz?', kapitel: 'medikamente' },
+        { frage: 'Haben Sie jemals Medikamente gegen Übelkeit, Schwindel oder Nervosität eingenommen — zum Beispiel MCP-Tropfen oder Tabletten vom Nervenarzt? Auch nur kurz?', kapitel: 'medikamente', relu: true },
       ],
       examinerQuestions: [
         'Herr Kollege, stellen Sie uns bitte den Patienten vor. Wie lautet Ihre Verdachtsdiagnose?',
@@ -25099,6 +25128,7 @@ export function seedCases(): Case[] {
       frequency: 5,
       difficulty: 2,
       patientSheet: {
+        motiv: { trauma: false, region: 'untere' },
         personalia: {
           name: 'Burkhard Schwulinski',
           age: 69,
@@ -25979,7 +26009,7 @@ export function seedCases(): Case[] {
       ],
       caseSpecificQuestions: [
         { frage: 'Seit wann besteht die Schwellung an Ihrem Hals, und ist sie in den letzten Wochen oder Monaten größer geworden?', kapitel: 'aktuell' },
-        { frage: 'Bewegt sich die Schwellung mit, wenn Sie schlucken? Können Sie mir das einmal zeigen?', kapitel: 'aktuell' },
+        { frage: 'Bewegt sich die Schwellung mit, wenn Sie schlucken? Können Sie mir das einmal zeigen?', kapitel: 'aktuell', relu: true },
         { frage: 'Bekommen Sie schlecht Luft, besonders wenn Sie flach liegen?', kapitel: 'aktuell' },
         { frage: 'Verwenden Sie zu Hause jodiertes Speisesalz, und wie oft essen Sie Seefisch?', kapitel: 'aktuell' },
         { frage: 'Nehmen Sie Jodtabletten oder Amiodaron ein, oder wurde bei Ihnen in den letzten Monaten eine Untersuchung mit Kontrastmittel durchgeführt?', kapitel: 'medikamente' },
@@ -26182,6 +26212,7 @@ export function seedCases(): Case[] {
       frequency: 0,
       difficulty: 2,
       patientSheet: {
+        fachSkip: ['fach-infekt-zecke'],
         personalia: {
           name: 'Katrin Vollmer',
           age: 34,
@@ -27072,7 +27103,7 @@ export function seedCases(): Case[] {
         { frage: 'Hatten Sie schon einmal einen Darmverschluss oder ähnliche Beschwerden, die von allein wieder verschwunden sind?', kapitel: 'vorerkrankungen' },
         { frage: 'Ist Ihnen jemals eine Vorwölbung oder Beule in der Leiste, am Nabel oder an einer Narbe aufgefallen, besonders beim Husten oder Pressen?', kapitel: 'vorerkrankungen' },
         { frage: 'Kommt der Schmerz in Wellen mit ruhigen Pausen, oder ist er inzwischen gleichbleibend und dauerhaft geworden?', kapitel: 'aktuell' },
-        { frage: 'Haben Sie Blut oder schwarzen, teerartigen Stuhl bemerkt, und hat sich Ihre Stuhlgewohnheit in den letzten Monaten verändert?', kapitel: 'aktuell' },
+        { frage: 'Haben Sie Blut oder schwarzen, teerartigen Stuhl bemerkt, und hat sich der Stuhlgang in den letzten Monaten verändert?', kapitel: 'aktuell', relu: true },
         { frage: 'Gibt es in Ihrer Familie Darmkrebs oder Darmverschlüsse?', kapitel: 'familie-sozial' },
         { frage: 'Ist bei Ihnen ein Herzstolpern oder Vorhofflimmern bekannt?', kapitel: 'vorerkrankungen' },
       ],
@@ -27288,6 +27319,7 @@ export function seedCases(): Case[] {
       frequency: 0,
       difficulty: 2,
       patientSheet: {
+        fachSkip: ['fach-neuro-anfallzeichen'],
         leitsymptomKategorie: 'neurologisch',
         personalia: {
           name: 'Renate Bittner',
@@ -27604,11 +27636,11 @@ export function seedCases(): Case[] {
         'auf-sonographie',
       ],
       caseSpecificQuestions: [
-        { frage: 'Dreht sich bei Ihnen alles wie ein Karussell, schwanken Sie wie auf einem Schiff, oder wird Ihnen eher schwarz vor Augen?', kapitel: 'aktuell' },
-        { frage: 'Ist der Schwindel zu einer bestimmten Seite hin schlimmer, zum Beispiel beim Drehen im Bett?', kapitel: 'aktuell' },
+        { frage: 'Dreht sich bei Ihnen alles wie ein Karussell, schwanken Sie wie auf einem Schiff, oder wird Ihnen eher schwarz vor Augen?', kapitel: 'aktuell', relu: true },
+        { frage: 'Ist der Schwindel zu einer bestimmten Seite hin schlimmer, zum Beispiel beim Drehen im Bett?', kapitel: 'aktuell', relu: true },
         { frage: 'Hören Sie auf einem Ohr schlechter? Haben Sie ein Pfeifen, Rauschen oder ein Druckgefühl im Ohr?', kapitel: 'aktuell' },
-        { frage: 'Haben Sie dabei einen neuartigen, ungewohnten Kopfschmerz oder starke Nackenschmerzen, die Sie vorher nicht kannten?', kapitel: 'aktuell' },
-        { frage: 'Gab es in den letzten Wochen einen Sturz auf den Kopf, einen Unfall, eine Behandlung an der Halswirbelsäule oder eine längere Bettlägerigkeit?', kapitel: 'aktuell' },
+        { frage: 'Haben Sie dabei einen neuartigen, ungewohnten Kopfschmerz oder starke Nackenschmerzen, die Sie vorher nicht kannten?', kapitel: 'aktuell', relu: true },
+        { frage: 'Gab es in den letzten Wochen einen Sturz auf den Kopf, einen Unfall, eine Behandlung an der Halswirbelsäule oder eine längere Bettlägerigkeit?', kapitel: 'aktuell', relu: true },
         { frage: 'Fahren Sie Auto? Arbeiten Sie auf Leitern oder Gerüsten, oder mit Absturzgefahr?', kapitel: 'familie-sozial' },
         { frage: 'Wie kommen Sie zu Hause zurecht — gibt es Treppen, ein Geländer, nachts Licht?', kapitel: 'familie-sozial' },
       ],
@@ -28121,7 +28153,7 @@ export function seedCases(): Case[] {
         { frage: 'Was haben Sie in dem Moment gemacht: Sind Sie aufgestanden, haben Sie lange gestanden, oder haben Sie sich angestrengt?', kapitel: 'aktuell' },
         { frage: 'Haben Sie sich beim Sturz noch abfangen können, oder sind Sie ungebremst gefallen?', kapitel: 'aktuell' },
         { frage: 'Hat Ihnen schon einmal ein Arzt gesagt, dass Sie ein Herzgeräusch oder eine Herzklappenerkrankung haben?', kapitel: 'vorerkrankungen' },
-        { frage: 'Gab es schon früher einmal eine Ohnmacht oder ein Beinahe-Umkippen, auch ohne Sturz?', kapitel: 'vorerkrankungen' },
+        { frage: 'Gab es schon früher einmal eine Ohnmacht oder ein Beinahe-Umkippen, auch ohne Sturz?', kapitel: 'vorerkrankungen', relu: true },
         { frage: 'Gibt es in Ihrer Familie jemanden, der jung und plötzlich ungeklärt gestorben ist, vor dem 40. Lebensjahr?', kapitel: 'familie-sozial' },
       ],
       examinerQuestions: [
@@ -28889,6 +28921,7 @@ export function seedCases(): Case[] {
       frequency: 6,
       difficulty: 2,
       patientSheet: {
+        motiv: { trauma: true, region: 'untere' },
         personalia: {
           name: 'Lisele Müller',
           age: 90,
@@ -29255,12 +29288,12 @@ export function seedCases(): Case[] {
         'auf-bluttransfusion',
       ],
       caseSpecificQuestions: [
-        { frage: 'War Ihnen vor dem Sturz schwindelig oder schwarz vor Augen, oder sind Sie einfach gestolpert?', kapitel: 'aktuell' },
+        { frage: 'War Ihnen vor dem Sturz schwindelig oder schwarz vor Augen, oder sind Sie einfach gestolpert?', kapitel: 'aktuell', relu: true },
         { frage: 'Waren Sie kurz bewusstlos? Haben Sie sich auf die Zunge gebissen oder Urin verloren? Erinnern Sie sich an alles?', kapitel: 'aktuell' },
         { frage: 'Sind Sie mit dem Kopf aufgeschlagen? Hatten Sie danach Kopfschmerzen, Erbrechen oder Sehstörungen?', kapitel: 'aktuell', relu: true },
         { frage: 'Wie viel haben Sie an diesem Tag getrunken und gegessen? Nehmen Sie Wassertabletten oder Blutdruckmittel?', kapitel: 'medikamente' },
         { frage: 'Nehmen Sie Blutverdünner — Marcumar, eine der neuen Tabletten, Clopidogrel oder Spritzen?', kapitel: 'medikamente' },
-        { frage: 'Konnten Sie nach dem Sturz noch aufstehen oder auftreten? Wie lange haben Sie am Boden gelegen, und wer hat Ihnen geholfen?', kapitel: 'aktuell' },
+        { frage: 'Konnten Sie nach dem Sturz noch aufstehen oder auftreten? Wie lange haben Sie am Boden gelegen, und wer hat Ihnen geholfen?', kapitel: 'aktuell', relu: true },
         { frage: 'Sehen Sie gut, besonders in der Dämmerung? Liegen bei Ihnen zu Hause Teppiche, gibt es Haltegriffe im Bad und Licht im Flur?', kapitel: 'familie-sozial' },
         { frage: 'Haben Sie sich schon einmal einen Knochen gebrochen, zum Beispiel am Handgelenk oder an der Wirbelsäule, und wie ist das damals passiert?', kapitel: 'vorerkrankungen' },
       ],
@@ -31035,6 +31068,7 @@ export function seedCases(): Case[] {
       frequency: 16,
       difficulty: 2,
       patientSheet: {
+        fachSkip: ['fach-neuro-aura'],
         leitsymptomKategorie: 'neurologisch',
         personalia: {
           name: 'Enga Schäuberle',
@@ -31364,12 +31398,13 @@ export function seedCases(): Case[] {
       ],
       caseSpecificQuestions: [
         { frage: 'Was ist das Letzte, woran Sie sich erinnern — und was ist das Nächste, woran Sie sich wieder erinnern?', kapitel: 'aktuell' },
-        { frage: 'Waren Sie bewusstlos, und wie lange? Hat jemand den Sturz beobachtet und kann uns das sagen?', kapitel: 'aktuell' },
+        { frage: 'Waren Sie bewusstlos, und wie lange? Hat jemand den Sturz beobachtet und kann uns das sagen?', kapitel: 'aktuell', relu: true },
         { frage: 'Haben Sie einen Helm getragen, und ist er beschädigt oder zerbrochen?', kapitel: 'aktuell' },
-        { frage: 'Ist Ihnen vor dem Sturz schwarz vor Augen geworden, waren Sie schwindelig, haben Sie geschwitzt oder Herzrasen gehabt — sind Sie gestürzt, weil Ihnen schlecht wurde, oder wurde Ihnen schlecht, weil Sie gestürzt sind?', kapitel: 'aktuell' },
-        { frage: 'Wann haben Sie zuletzt gegessen, und was hat Ihr Glukosesensor kurz vor dem Unfall angezeigt?', kapitel: 'aktuell' },
-        { frage: 'Mussten Sie sich übergeben — einmal oder mehrfach? Wird der Kopfschmerz stärker?', kapitel: 'aktuell' },
-        { frage: 'Läuft aus Nase oder Ohr Blut oder klare Flüssigkeit? Sehen Sie Doppelbilder?', kapitel: 'aktuell' },
+        { frage: 'Ist Ihnen vor dem Sturz schwarz vor Augen geworden, waren Sie schwindelig, haben Sie geschwitzt oder Herzrasen gehabt — sind Sie gestürzt, weil Ihnen schlecht wurde, oder wurde Ihnen schlecht, weil Sie gestürzt sind?', kapitel: 'aktuell', relu: true },
+        { frage: 'Wann haben Sie zuletzt gegessen?', kapitel: 'vorerkrankungen' },
+        { frage: 'Was hat Ihr Zuckersensor kurz vor dem Unfall angezeigt?', kapitel: 'vorerkrankungen' },
+        { frage: 'Mussten Sie sich übergeben — einmal oder mehrfach? Wird der Kopfschmerz stärker?', kapitel: 'aktuell', relu: true },
+        { frage: 'Läuft aus Nase oder Ohr Blut oder klare Flüssigkeit? Sehen Sie Doppelbilder?', kapitel: 'aktuell', relu: true },
         { frage: 'Wer ist heute Nacht bei Ihnen zu Hause und könnte Sie überwachen?', kapitel: 'familie-sozial' },
       ],
       examinerQuestions: [
@@ -31905,7 +31940,7 @@ export function seedCases(): Case[] {
       ],
       caseSpecificQuestions: [
         { frage: 'Lassen sich die roten Punkte an den Beinen wegdrücken, wenn Sie mit dem Finger oder einem Glas darauf drücken?', kapitel: 'aktuell' },
-        { frage: 'Blutet Ihr Zahnfleisch beim Zähneputzen, und hatten Sie Nasenbluten?', kapitel: 'aktuell' },
+        { frage: 'Blutet Ihr Zahnfleisch beim Zähneputzen, und hatten Sie Nasenbluten?', kapitel: 'aktuell', relu: true },
         { frage: 'Ist Ihre letzte Regelblutung stärker oder länger gewesen als sonst? Wie viele Binden oder Tampons haben Sie gebraucht?', kapitel: 'frauenanamnese' },
         { frage: 'Hatten Sie in den letzten Wochen einen Infekt, eine Erkältung oder eine Impfung?', kapitel: 'vorerkrankungen' },
         { frage: 'Haben Sie in den letzten Monaten Spritzen in den Bauch bekommen, zum Beispiel Thrombosespritzen nach einer Operation?', kapitel: 'medikamente' },
@@ -32446,14 +32481,13 @@ export function seedCases(): Case[] {
         'auf-mrt',
       ],
       caseSpecificQuestions: [
-        { frage: 'Wie lange dauert Ihre Blutung, und wie viele Binden oder Tampons brauchen Sie an den starken Tagen? Müssen Sie auch nachts wechseln?', kapitel: 'aktuell' },
+        { frage: 'Wie lange dauert Ihre Blutung, und wie viele Binden oder Tampons brauchen Sie an den starken Tagen? Müssen Sie auch nachts wechseln?', kapitel: 'aktuell', relu: true },
         { frage: 'Gehen bei Ihnen dabei Blutklumpen ab — wie groß sind die etwa?', kapitel: 'aktuell' },
         { frage: 'Wie lang ist Ihr Zyklus, und hat er sich verändert? Wann war Ihre letzte Regelblutung?', kapitel: 'frauenanamnese' },
-        { frage: 'Haben Sie Blutungen zwischen den Perioden oder nach dem Geschlechtsverkehr?', kapitel: 'aktuell' },
         { frage: 'Müssen Sie häufiger Wasser lassen als früher, auch nachts? Haben Sie das Gefühl, die Blase nicht ganz zu entleeren?', kapitel: 'aktuell' },
         { frage: 'Sind Sie schneller müde als früher, kommen Sie beim Treppensteigen außer Atem, ist Ihnen schwindelig?', kapitel: 'aktuell' },
         { frage: 'Besteht ein Kinderwunsch, oder ist Ihre Familienplanung abgeschlossen? Wie viele Schwangerschaften und Geburten hatten Sie?', kapitel: 'familie-sozial' },
-        { frage: 'Hatten Sie schon als junges Mädchen sehr starke Blutungen? Bluten Sie leicht aus der Nase oder am Zahnfleisch, bekommen Sie schnell blaue Flecken?', kapitel: 'aktuell' },
+        { frage: 'Hatten Sie schon als junges Mädchen sehr starke Blutungen? Bluten Sie leicht aus der Nase oder am Zahnfleisch, bekommen Sie schnell blaue Flecken?', kapitel: 'aktuell', relu: true },
       ],
       examinerQuestions: [
         'Herr Kollege, stellen Sie uns bitte die Patientin vor. Wie lautet Ihre Verdachtsdiagnose?',
@@ -36186,7 +36220,7 @@ export function seedCases(): Case[] {
       caseSpecificQuestions: [
         { frage: 'Seit wann genau ist Ihr Vater so — kam das über Stunden, über Tage oder über Monate?', kapitel: 'aktuell' },
         { frage: 'Wie war er vor der Operation: Hat er seinen Haushalt allein geführt, eingekauft, seine Bankgeschäfte selbst erledigt?', kapitel: 'familie-sozial' },
-        { frage: 'Schwankt sein Zustand im Tagesverlauf? Gibt es Zeiten, in denen er wieder ganz klar ist — und ist es abends und nachts schlimmer?', kapitel: 'aktuell' },
+        { frage: 'Schwankt sein Zustand im Tagesverlauf? Gibt es Zeiten, in denen er wieder ganz klar ist — und ist es abends und nachts schlimmer?', kapitel: 'aktuell', relu: true },
         { frage: 'Sieht oder hört er manchmal Dinge, die nicht da sind? Was genau sieht er dabei?', kapitel: 'aktuell' },
         { frage: 'Welche Medikamente wurden bei ihm zuletzt neu angesetzt oder abgesetzt — auch im Krankenhaus, auch Schlaf- und Beruhigungsmittel?', kapitel: 'medikamente' },
         { frage: 'Hat er Fieber, und wissen Sie, ob er Beschwerden beim Wasserlassen hat oder nur noch kleine Mengen Urin lässt?', kapitel: 'aktuell', sucht: ['fieber', 'miktion'] },
@@ -36491,9 +36525,10 @@ export function seedCases(): Case[] {
           'pers-hausarzt': 'Ja, meine Hausärztin ist Frau Dr. Neumann.',
           'akt-motiv': 'Frau Doktor, das Essen bleibt mir im Hals stecken. Das geht schon seit ungefähr drei Jahren so, aber in den letzten Monaten ist es richtig schlimm geworden.',
           'akt-beginn': 'Angefangen hat es vor etwa drei Jahren, ganz langsam und schleichend. Erst nur ab und zu, inzwischen bei fast jeder Mahlzeit.',
-          'akt-ausscheid-was': 'Verändert hat sich das Schlucken, das habe ich ja schon gesagt. Wasserlassen und Stuhlgang sind ganz normal, und an der Haut oder den Augen ist mir nichts aufgefallen.',
+          'akt-ausscheid-was': 'Wasserlassen und Stuhlgang sind ganz normal, und an der Haut oder den Augen ist mir nichts aufgefallen.',
           'akt-ausscheid-haeufigkeit': 'Das ist inzwischen bei fast jeder Mahlzeit, mehrmals am Tag. Nachts kommt eher die Sache mit dem Hochwürgen, wenn ich liege. Häufiger geworden ist es auf jeden Fall, es wird eher schlimmer.',
-          'akt-ausscheid-aussehen': 'Stecken bleibt bei mir Festes UND Flüssiges, das ist ja gerade das Komische, besonders kalte Getränke gehen schlecht. Blut habe ich nie gesehen, keinen Schleim, keinen Schaum, aber nachts kommt eben unverdautes Essen wieder hoch, ganz ohne Säuregeschmack.',
+          'akt-ausscheid-aussehen': 'Blut habe ich nie gesehen, keinen Schleim, keinen Schaum. Nachts kommt eben unverdautes Essen wieder hoch, ganz ohne Säuregeschmack.',
+          'akt-ausscheid-schlucken': 'Bei mir bleibt beides stecken, Festes UND Flüssiges, das ist ja gerade das Komische. Besonders kalte Getränke gehen schlecht.',
           'akt-veraend-was': 'Aufgefallen ist mir vor allem, dass ich beim Schlucken Probleme habe – wie gesagt, das Essen bleibt stecken. Einen Knoten oder Hautveränderungen habe ich keine bemerkt, blaue Flecken auch nicht, und gelb bin ich auch nicht geworden.',
           'akt-veraend-entwicklung': 'Eine Farbe oder Form gibt es da ja nicht, aber häufiger und schlimmer geworden ist es auf jeden Fall – am Anfang nur ab und zu, inzwischen fast bei jeder Mahlzeit.',
           'akt-veraend-blutung': 'Weh tut das Schlucken selbst nicht, eher dieser Druck und die Enge, die ich schon beschrieben habe. Jucken tut nichts. Und Blut habe ich nirgendwo bemerkt – nicht im Stuhl, nicht im Urin, auch nicht beim Husten oder aus der Nase.',
@@ -36700,7 +36735,7 @@ export function seedCases(): Case[] {
       ],
       caseSpecificQuestions: [
         { frage: 'Bleibt das Essen bei Ihnen nur bei fester Nahrung stecken, oder haben Sie auch bei Getränken Schwierigkeiten — bei Wasser, Suppe, kalten Getränken?', kapitel: 'aktuell' },
-        { frage: 'Wie hat sich die Schluckstörung bei Ihnen entwickelt — eher langsam über Jahre mit besseren und schlechteren Phasen, oder rasch über Wochen?', kapitel: 'aktuell' },
+        { frage: 'Wie hat sich die Schluckstörung bei Ihnen entwickelt — eher langsam über Jahre mit besseren und schlechteren Phasen, oder rasch über Wochen?', kapitel: 'aktuell', relu: true },
         { frage: 'Kommt Ihnen Essen wieder hoch? Ist es unverdaut oder sauer, und passiert das eher im Liegen und nachts?', kapitel: 'aktuell' },
         { frage: 'Ist Ihr Kopfkissen morgens manchmal nass? Husten Sie nachts, und hatten Sie in letzter Zeit eine Lungenentzündung?', kapitel: 'aktuell' },
         { frage: 'Sie nehmen Magenschutztabletten — haben diese Ihre Beschwerden gebessert oder gar nicht gewirkt?', kapitel: 'aktuell' },
@@ -37436,6 +37471,7 @@ export function seedCases(): Case[] {
       frequency: 4,
       difficulty: 2,
       patientSheet: {
+        motiv: { trauma: false, region: 'lws' },
         personalia: {
           name: 'Gerhard Lindner',
           age: 71,
@@ -37974,6 +38010,7 @@ export function seedCases(): Case[] {
       frequency: 14,
       difficulty: 2,
       patientSheet: {
+        motiv: { trauma: false, region: 'hws' },
         personalia: {
           name: 'Konrad Preiss',
           age: 68,
@@ -38320,7 +38357,7 @@ export function seedCases(): Case[] {
         { frage: 'Bis wohin genau strahlt der Schmerz bei Ihnen aus — in den Daumen, in den Mittelfinger oder in den kleinen Finger?', kapitel: 'aktuell' },
         { frage: 'Werden Ihre Schmerzen beim Husten, Niesen oder Pressen auf der Toilette stärker?', kapitel: 'aktuell' },
         { frage: 'Haben Sie bemerkt, dass es besser wird, wenn Sie den Arm über den Kopf legen?', kapitel: 'aktuell' },
-        { frage: 'Haben Sie Kribbeln, ein pelziges Gefühl oder Kraftverlust in der Hand — rutschen Ihnen Gegenstände aus der Hand?', kapitel: 'aktuell' },
+        { frage: 'Haben Sie Kribbeln, ein pelziges Gefühl oder Kraftverlust in der Hand — rutschen Ihnen Gegenstände aus der Hand?', kapitel: 'aktuell', sucht: ['taubheit', 'schwaeche'] },
         { frage: 'Sind Sie beim Gehen unsicher geworden, oder haben Sie Schwierigkeiten beim Knöpfen und Schreiben bemerkt?', kapitel: 'aktuell' },
         { frage: 'Ist bei Ihnen jemals eine Tumorerkrankung festgestellt worden?', kapitel: 'vorerkrankungen' },
       ],
@@ -38614,9 +38651,10 @@ export function seedCases(): Case[] {
           'pers-hausarzt': 'Ja, Dr. Berger. Ich war deswegen schon zweimal bei ihm. Er hat Blut abgenommen und den Bauch abgetastet, aber ein richtiger Name ist nie dabei herausgekommen.',
           'akt-motiv': 'Herr Doktor, mein Bauch macht mir zu schaffen: aufgebläht wie ein Ballon, Krämpfe, dann Durchfall. Das geht seit Jahren, wird aber immer schlimmer.',
           'akt-beginn': 'Seit ungefähr drei Jahren. Das kam ganz langsam, am Anfang nur ab und zu. Seit etwa einem halben Jahr ist es fast jeden Tag.',
-          'akt-ausscheid-was': 'Verändert hat sich eigentlich der Stuhlgang, wie ich schon sagte — Durchfall nach dem Essen. Mit dem Wasserlassen ist alles normal, und schlucken kann ich auch problemlos.',
+          'akt-ausscheid-was': 'Verändert hat sich eigentlich der Stuhlgang, wie ich schon sagte — Durchfall nach dem Essen. Mit dem Wasserlassen ist alles normal.',
           'akt-ausscheid-haeufigkeit': 'Das kommt eben in Episoden, dann bin ich schon mal mehrmals hintereinander auf der Toilette, aber dazwischen ist tagelang gar nichts. Nachts ist da nichts, das passiert eigentlich immer tagsüber nach dem Essen. Schlimmer geworden ist es schon, von hin und wieder zu fast jeden Tag.',
           'akt-ausscheid-aussehen': 'Es ist breiig bis wässrig, keine besondere Farbe eigentlich. Blut oder Schleim habe ich nie gesehen. Schaumig, das kann schon sein, so genau habe ich da nicht hingeschaut.',
+          'akt-ausscheid-schlucken': 'Nein, schlucken geht einwandfrei. Meine Beschwerden fangen erst später an, im Bauch, etwa eine Stunde nach der Milch.',
           'akt-veraend-was': 'Aufgefallen ist mir eigentlich der Bauch – die Blähungen, die Krämpfe und der Durchfall, das hatte ich Ihnen ja schon erzählt. Einen Knoten oder blaue Flecken habe ich nirgendwo, die Haut ist auch unauffällig, und gelb bin ich auch nicht geworden.',
           'akt-veraend-entwicklung': 'Häufiger geworden ist es auf jeden Fall, von hin und wieder zu fast jeden Tag in den letzten Monaten. Schlimmer eigentlich auch, aber eine Farbe oder Form – das kann ich schwer sagen, das ist ja kein Fleck oder so.',
           'akt-veraend-blutung': 'Weh tut es während der Krämpfe schon, so 5 von 10, das hatte ich ja gesagt. Jucken tut nichts. Und Blut habe ich noch nie gesehen, weder im Stuhl noch im Urin, auch nicht beim Husten oder aus der Nase.',
@@ -39360,9 +39398,8 @@ export function seedCases(): Case[] {
         { frage: 'Waren die Beschwerden von der ersten Sekunde an am stärksten, oder haben sie sich bei Ihnen langsam über Minuten ausgebreitet?', kapitel: 'aktuell' },
         { frage: 'Haben sich Ihre Beschwerden jedes Mal vollständig zurückgebildet, oder ist etwas zurückgeblieben?', kapitel: 'aktuell' },
         { frage: 'Werden die Attacken bei Ihnen häufiger oder heftiger als am Anfang?', kapitel: 'aktuell' },
-        { frage: 'Hatten Sie eine Sehstörung — an einem oder an beiden Augen? War es, als ob ein Vorhang herunterfällt, und wie lange hat das gedauert?', kapitel: 'aktuell' },
+        { frage: 'Hatten Sie eine Sehstörung — an einem oder an beiden Augen? War es, als ob ein Vorhang herunterfällt, und wie lange hat das gedauert?', kapitel: 'aktuell', relu: true },
         { frage: 'Wissen Sie, ob bei Ihnen ein Vorhofflimmern bekannt ist, und welches Medikament Sie dagegen einnehmen?', kapitel: 'medikamente' },
-        { frage: 'Waren Sie bei den Attacken bewusstlos, haben Sie sich auf die Zunge gebissen oder Wasser gelassen?', kapitel: 'aktuell' },
         { frage: 'Fahren Sie noch selbst Auto?', kapitel: 'aktuell' },
       ],
       examinerQuestions: [
@@ -39867,10 +39904,10 @@ export function seedCases(): Case[] {
       ],
       caseSpecificQuestions: [
         { frage: 'Wie viel trinken Sie am Tag, und seit wann? Haben Sie immer eine Flasche dabei?', kapitel: 'aktuell' },
-        { frage: 'Wie oft müssen Sie nachts zum Wasserlassen aufstehen — und war das früher auch schon so?', kapitel: 'aktuell', sucht: ['miktion'] },
+        { frage: 'Wie oft müssen Sie nachts zum Wasserlassen aufstehen — und war das früher auch schon so?', kapitel: 'aktuell', sucht: ['polyurie'], relu: true },
         { frage: 'Wie viel haben Sie in welchem Zeitraum abgenommen, und wie ist dabei Ihr Appetit — essen Sie weniger, gleich viel oder sogar mehr als früher?', kapitel: 'fach', sucht: ['gewicht', 'appetit'] },
         { frage: 'Ist Ihnen übel, mussten Sie erbrechen, oder haben Sie Bauchschmerzen? Fällt Ihnen das Atmen schwerer als sonst?', kapitel: 'aktuell', sucht: ['uebelkeit'] },
-        { frage: 'Ist Ihnen aufgefallen, dass Sie zeitweise verschwommen sehen — und geht das von selbst wieder weg?', kapitel: 'aktuell' },
+        { frage: 'Ist Ihnen aufgefallen, dass Sie zeitweise verschwommen sehen — und geht das von selbst wieder weg?', kapitel: 'aktuell', relu: true },
         { frage: 'Juckt Ihre Haut? Haben Sie Pilzinfektionen, eine Rötung im Genitalbereich oder schlecht heilende Wunden bemerkt?', kapitel: 'aktuell' },
         { frage: 'Gibt es in Ihrer Familie eine Zuckerkrankheit — und welchen Typ? Und gibt es Schilddrüsenerkrankungen, Vitiligo oder eine Zöliakie?', kapitel: 'familie-sozial' },
         { frage: 'Hatten Sie in den letzten Wochen einen Infekt, und nehmen Sie Kortison oder andere Medikamente ein?', kapitel: 'medikamente' },
@@ -40070,6 +40107,7 @@ export function seedCases(): Case[] {
       frequency: 6,
       difficulty: 2,
       patientSheet: {
+        fachSkip: ['fach-infekt-zecke'],
         leitsymptomKategorie: 'ausscheidung',
         personalia: {
           name: 'Michael Müller',
@@ -40175,9 +40213,10 @@ export function seedCases(): Case[] {
           'pers-hausarzt': 'Ja, mein Hausarzt ist Dr. Bergmann. Bei ihm war ich vorgestern, er hat mich gleich zu Ihnen geschickt.',
           'akt-motiv': 'Herr Doktor, ich habe seit zwei Wochen ständig Durchfall und Bauchkrämpfe. Das hört einfach nicht auf, und ich habe schon fünf Kilo abgenommen.',
           'akt-beginn': 'Vor zwei Wochen hat das angefangen. Nicht auf einen Schlag, eher über einen, zwei Tage schleichend. Wir waren vorher drei Wochen im Urlaub in Indonesien, auf Bali und Java, und eine Woche nach der Rückkehr ging es los.',
-          'akt-ausscheid-was': 'Verändert hat sich der Stuhlgang, das hatte ich ja gesagt — wässrig und übelriechend. Wasserlassen ist normal, schlucken auch.',
+          'akt-ausscheid-was': 'Verändert hat sich der Stuhlgang, das hatte ich ja gesagt — wässrig und übelriechend. Wasserlassen ist normal.',
           'akt-ausscheid-haeufigkeit': 'In der ersten Woche bis zu zehnmal am Tag, jetzt sind es noch drei bis fünf Mal. Nachts eigentlich nicht, das ist tagsüber. Es ist also schon weniger geworden als am Anfang, aber weg ist es nicht.',
-          'akt-ausscheid-aussehen': 'Hellgelb, wässrig, schäumt richtig und riecht streng, das hatte ich ja beschrieben. Blut oder Schleim ist da nicht drin. Und es bleibt eigentlich alles flüssig, nichts Festes.',
+          'akt-ausscheid-aussehen': 'Hellgelb, wässrig, schäumt richtig und riecht streng, das hatte ich ja beschrieben. Blut oder Schleim ist da nicht drin.',
+          'akt-ausscheid-schlucken': 'Nein, beim Schlucken ist alles normal. Ich traue mich nur kaum noch zu essen, weil ich fürchte, dass ich gleich wieder muss.',
           'akt-veraend-was': 'Aufgefallen ist mir der Stuhlgang – wässrig, hellgelb, das rieche ich schon von Weitem, und dazu eben die Krämpfe im Bauch. Blaue Flecken oder einen Knoten habe ich keine, die Haut ist normal, und gelb bin ich auch nicht geworden.',
           'akt-veraend-entwicklung': 'In der ersten Woche war es schlimmer, bis zu zehnmal am Tag, jetzt sind es drei bis fünf Mal – also eher etwas weniger geworden, aber weg ist es nicht. Die Farbe ist die ganze Zeit gleich geblieben, hellgelb und schaumig.',
           'akt-veraend-blutung': 'Weh tut mir der Bauch, das hatte ich ja gesagt, aber Blut habe ich noch keins gesehen – weder im Stuhl noch im Urin, auch nicht beim Husten oder aus der Nase. Jucken tut auch nichts.',
@@ -41199,6 +41238,7 @@ export function seedCases(): Case[] {
       frequency: 6,
       difficulty: 2,
       patientSheet: {
+        fachSkip: ['fach-infekt-zecke'],
         leitsymptomKategorie: 'infekt',
         personalia: {
           name: 'Susanne Kleinmeier',
@@ -41772,6 +41812,7 @@ export function seedCases(): Case[] {
       frequency: 12,
       difficulty: 2,
       patientSheet: {
+        motiv: { trauma: false, region: 'untere' },
         personalia: {
           name: 'Heiner King',
           age: 57,
@@ -43303,7 +43344,7 @@ export function seedCases(): Case[] {
         'auf-operation',
       ],
       caseSpecificQuestions: [
-        { frage: 'Sie sagen, Ihr Gesicht werde plötzlich rot — wie lange dauert das, wo genau breitet es sich aus, und schwitzen Sie dabei?', kapitel: 'aktuell' },
+        { frage: 'Sie sagen, Ihr Gesicht werde plötzlich rot — wie lange dauert das, wo genau breitet es sich aus, und schwitzen Sie dabei?', kapitel: 'aktuell', relu: true },
         { frage: 'Gibt es etwas, das diese Rötung regelmäßig auslöst — Alkohol, scharfes Essen, Käse, Schokolade, Aufregung oder Anstrengung?', kapitel: 'aktuell' },
         { frage: 'Müssen Sie auch nachts wegen Durchfall aufstehen, und wie oft haben Sie insgesamt Stuhlgang am Tag?', kapitel: 'aktuell', sucht: ['stuhl'] },
         { frage: 'Und wie war es vor diesen sechs Wochen — hatten Sie schon früher Phasen mit Durchfall und Bauchschmerzen?', kapitel: 'aktuell', relu: true },
@@ -43489,6 +43530,7 @@ export function seedCases(): Case[] {
       frequency: 5,
       difficulty: 2,
       patientSheet: {
+        fachSkip: ['fach-derma-muttermal', 'fach-derma-verlauf'],
         personalia: {
           name: 'Bernhard Lauber',
           age: 31,
@@ -43821,7 +43863,7 @@ export function seedCases(): Case[] {
       caseSpecificQuestions: [
         { frage: 'Haben Sie in den letzten Tagen eine Spritze bekommen — und wenn ja, wo genau und weswegen?', kapitel: 'medikamente' },
         { frage: 'Wie viele Tage lagen zwischen der Spritze und den ersten Beschwerden?', kapitel: 'medikamente' },
-        { frage: 'Breitet sich die Rötung von Stunde zu Stunde weiter aus, sind Blasen oder dunkle Stellen aufgetreten, oder knistert die Haut unter den Fingern?', kapitel: 'aktuell' },
+        { frage: 'Breitet sich die Rötung von Stunde zu Stunde weiter aus, sind Blasen oder dunkle Stellen aufgetreten, oder knistert die Haut unter den Fingern?', kapitel: 'aktuell', relu: true },
         { frage: 'Hatten Sie schon einmal ähnliche Eiterbeulen, besonders in den Achseln, in den Leisten oder in der Pofalte?', kapitel: 'aktuell' },
         { frage: 'Wie gut ist Ihr Zucker eingestellt — wann wurde zuletzt der Langzeitzucker bestimmt?', kapitel: 'vorerkrankungen' },
         { frage: 'Nehmen Sie Kortison oder Medikamente, die das Abwehrsystem unterdrücken?', kapitel: 'medikamente' },
@@ -45552,6 +45594,7 @@ export function seedCases(): Case[] {
       frequency: 5,
       difficulty: 2,
       patientSheet: {
+        fachSkip: ['fach-infekt-zecke'],
         leitsymptomKategorie: 'infekt',
         personalia: {
           name: 'Martha Bühreln',
@@ -45853,7 +45896,7 @@ export function seedCases(): Case[] {
         { frage: 'Ging es Ihnen zwischendurch schon einmal besser, bevor es wieder schlimmer wurde — an welchem Krankheitstag war das?', kapitel: 'aktuell', relu: true },
         { frage: 'Riechen und schmecken Sie normal, obwohl die Nase frei ist?', kapitel: 'aktuell' },
         { frage: 'Wie sind Sie gegen Corona geimpft: wie viele Impfungen, wann die letzte, und hatten Sie schon einmal Corona?', kapitel: 'vorerkrankungen' },
-        { frage: 'Bekommen Sie beim Treppensteigen oder beim Sprechen schlechter Luft als sonst? Rast dabei das Herz, schwitzen Sie?', kapitel: 'aktuell' },
+        { frage: 'Bekommen Sie beim Treppensteigen oder beim Sprechen schlechter Luft als sonst?', kapitel: 'aktuell' },
         { frage: 'Haben Sie Schmerzen in der Brust beim Atmen oder ein geschwollenes, schmerzendes Bein?', kapitel: 'aktuell' },
         { frage: 'Nehmen Sie Medikamente, die das Immunsystem unterdrücken, Kortison oder Blutverdünner? Gibt es eine Zuckerkrankheit, ein Herz- oder Lungenleiden?', kapitel: 'vorerkrankungen' },
         { frage: 'Gibt es zu Hause Personen, für die eine Ansteckung besonders gefährlich wäre?', kapitel: 'familie-sozial' },
@@ -46049,6 +46092,7 @@ export function seedCases(): Case[] {
       frequency: 4,
       difficulty: 3,
       patientSheet: {
+        fachSkip: ['fach-derma-muttermal', 'fach-derma-verlauf', 'fach-derma-vorbehandlung'],
         leitsymptomKategorie: 'atemnot',
         aktuellSkip: ['akt-atemnot-nachts'],
         personalia: {
@@ -46352,7 +46396,7 @@ export function seedCases(): Case[] {
         { frage: 'Ist Ihnen schwindlig oder schwarz vor Augen geworden, haben Sie Herzrasen? Sind Sie ohnmächtig geworden?', kapitel: 'aktuell' },
         { frage: 'Nehmen Sie Betablocker, Blutdrucktabletten oder ACE-Hemmer ein?', kapitel: 'medikamente' },
         { frage: 'Besitzen Sie einen Adrenalin-Autoinjektor oder ein Notfallset, und haben Sie einen Allergiepass?', kapitel: 'allergien' },
-        { frage: 'Gibt es in Ihrer Familie Schwellungen von Gesicht oder Hals ohne Juckreiz?', kapitel: 'familie-sozial' },
+        { frage: 'Gibt es in Ihrer Familie Schwellungen von Gesicht oder Hals ohne Juckreiz?', kapitel: 'familie-sozial', relu: true },
       ],
       examinerQuestions: [
         'Was haben Sie gemacht? Schildern Sie das Notfallmanagement.',
@@ -46826,7 +46870,7 @@ export function seedCases(): Case[] {
         { frage: 'Ich muss Ihnen jetzt einige persönliche Fragen stellen, die für die Ursache wichtig sind: Haben Sie einen festen Partner, gab es einen Partnerwechsel, Ausfluss oder Beschwerden im Intimbereich?', kapitel: 'familie-sozial' },
         { frage: 'Sind Ihre Augen gerötet, schmerzhaft oder lichtempfindlich — anders als bei Ihrem Heuschnupfen?', kapitel: 'aktuell' },
         { frage: 'Haben Sie Herzstolpern, Luftnot, Brustschmerzen oder ein Herzrasen bemerkt, das nicht zum Fieber passt?', kapitel: 'aktuell', relu: true },
-        { frage: 'Haben Sie einen Ausschlag, Pusteln an Händen oder Füßen, Bläschen im Mund oder Knötchen unter der Haut bemerkt?', kapitel: 'aktuell' },
+        { frage: 'Haben Sie einen Ausschlag, Pusteln an Händen oder Füßen, Bläschen im Mund oder Knötchen unter der Haut bemerkt?', kapitel: 'aktuell', relu: true },
         { frage: 'Haben Sie Schmerzen an den Fersen oder im unteren Rücken, vor allem nachts oder morgens, die bei Bewegung besser werden?', kapitel: 'aktuell' },
       ],
       examinerQuestions: [
@@ -47579,9 +47623,10 @@ export function seedCases(): Case[] {
           'pers-hausarzt': 'Ja, Dr. Krause in Tübingen. Aber ich war jetzt lange nicht bei ihm — ich hatte Angst, mich im Wartezimmer mit Corona anzustecken, wegen meinem Sohn.',
           'akt-motiv': 'Frau Doktor, ich habe seit Monaten Durchfall, es wird immer schlimmer, und seit ein paar Wochen ist auch Blut dabei. Und diese Krämpfe im Bauch — ich halte das nicht mehr aus.',
           'akt-beginn': 'Angefangen hat es vor ungefähr vier Monaten, ganz schleichend, erst nur weicher Stuhl und ein bisschen Grummeln. Seit etwa zweieinhalb Wochen ist es richtig schlimm geworden.',
-          'akt-ausscheid-was': 'Verändert hat sich der Stuhlgang, das hatte ich ja erzählt — Durchfall mit Blut und Schleim. Mit dem Wasserlassen ist nichts, und schlucken geht auch normal.',
+          'akt-ausscheid-was': 'Verändert hat sich der Stuhlgang, das hatte ich ja erzählt — Durchfall mit Blut und Schleim. Mit dem Wasserlassen ist nichts.',
           'akt-ausscheid-haeufigkeit': 'Acht- bis zehnmal am Tag, und nachts muss ich auch noch ein- bis zweimal raus. Das ist auf jeden Fall mehr geworden, von früher einmal am Tag zu jetzt eben so oft, und der Drang kommt plötzlich, ich schaffe es kaum noch rechtzeitig.',
           'akt-ausscheid-aussehen': 'Es ist hellrotes Blut mit im Stuhl, mit Schleim vermischt, das hatte ich ja gesagt, nicht nur am Papier. Schaumig ist es nicht, aber eher flüssig bis breiig.',
+          'akt-ausscheid-schlucken': 'Nein, damit habe ich nichts. Essen und Trinken gehen normal — mein Problem fängt erst weiter unten an.',
           'akt-veraend-was': 'Aufgefallen ist mir vor allem der Stuhlgang – (zögert) er ist... na ja, am Toilettenpapier ist manchmal etwas Blut, ich dachte, das sind Hämorrhoiden. Einen Knoten oder blaue Flecken habe ich keine, und gelb bin ich auch nicht geworden.',
           'akt-veraend-entwicklung': 'Häufiger und schlimmer geworden, ja, eindeutig. Am Anfang war es nur weicherer Stuhl, jetzt sind es acht-, zehnmal am Tag, und wie gesagt, seit ein paar Wochen kommt noch mehr dazu.',
           'akt-veraend-blutung': '(zögert) Ja... es ist nicht nur am Papier. Es ist richtig mit im Stuhl drin, mit Schleim vermischt, hellrot. Und ich muss auch nachts raus, ein-, zweimal. Weh tut vor allem dieser Drang, dieses Brennen, wenn ich muss. Im Urin oder beim Husten oder aus der Nase habe ich kein Blut.',
@@ -48801,11 +48846,11 @@ export function seedCases(): Case[] {
         'auf-roentgen-thorax',
       ],
       caseSpecificQuestions: [
-        { frage: 'Hatten Sie in den letzten Wochen einen Infekt — eine Erkältung, eine Grippe, einen Magen-Darm-Infekt oder Corona? Wann genau, und wie lange waren Sie beschwerdefrei, bevor die Brustschmerzen anfingen?', kapitel: 'aktuell' },
+        { frage: 'Hatten Sie in den letzten Wochen einen Infekt — eine Erkältung, eine Grippe, einen Magen-Darm-Infekt oder Corona? Wann genau, und wie lange waren Sie beschwerdefrei, bevor die Brustschmerzen anfingen?', kapitel: 'aktuell', relu: true },
         { frage: 'Haben Sie während oder kurz nach dem Infekt wieder Sport getrieben? Wann sind Sie ins Training zurückgekehrt?', kapitel: 'aktuell' },
         { frage: 'Wird der Schmerz im Liegen stärker und beim Sitzen und Vorbeugen besser?', kapitel: 'aktuell' },
-        { frage: 'Wie äußert sich das Herzstolpern genau — ein Aussetzer mit anschließend kräftigem Schlag, oder anhaltendes Herzrasen? Auch in Ruhe?', kapitel: 'aktuell' },
-        { frage: 'Was ist gestern beim Training genau passiert: Wurde es Ihnen schwarz vor Augen, waren Sie bewusstlos, sind Sie gestürzt?', kapitel: 'aktuell' },
+        { frage: 'Wie äußert sich das Herzstolpern genau — ein Aussetzer mit anschließend kräftigem Schlag, oder anhaltendes Herzrasen? Auch in Ruhe?', kapitel: 'aktuell', relu: true },
+        { frage: 'Was ist gestern beim Training genau passiert: Wurde es Ihnen schwarz vor Augen, waren Sie bewusstlos, sind Sie gestürzt?', kapitel: 'aktuell', relu: true },
         { frage: 'Nehmen Sie Kokain, Amphetamine, Anabolika oder Nahrungsergänzungsmittel? Ich frage das jeden Patienten mit Herzbeschwerden.', kapitel: 'noxen' },
         { frage: 'Ist in Ihrer Familie jemand jung und plötzlich am Herzen verstorben, oder gibt es eine Herzmuskelerkrankung?', kapitel: 'familie-sozial' },
       ],
@@ -50256,7 +50301,7 @@ export function seedCases(): Case[] {
         'auf-mrt',
       ],
       caseSpecificQuestions: [
-        { frage: 'Beginnen die Schmerzen schon vor der Blutung, und wann sind sie am stärksten?', kapitel: 'aktuell' },
+        { frage: 'Beginnen die Schmerzen schon vor der Blutung, und wann sind sie am stärksten?', kapitel: 'aktuell', relu: true },
         { frage: 'Sind die Regelschmerzen über die Jahre gleich geblieben, oder sind sie stärker geworden?', kapitel: 'aktuell' },
         { frage: 'Wie viele Schmerztabletten brauchen Sie pro Regel, und wie viele Tage im Monat können Sie deswegen nicht arbeiten?', kapitel: 'aktuell' },
         { frage: 'Haben Sie Schmerzen beim Geschlechtsverkehr — eher am Anfang, oder tief im Inneren?', kapitel: 'aktuell' },
@@ -51216,7 +51261,6 @@ export function seedCases(): Case[] {
         { frage: 'Wie geht es Ihnen mit dem laufenden Rentenverfahren, und was würde es für Sie bedeuten, wenn die Rente bewilligt oder abgelehnt wird?', kapitel: 'familie-sozial' },
         { frage: 'Ist ein Gelenk jemals geschwollen, rot oder heiß gewesen? Haben Sie morgens eine Steifigkeit, die länger als eine halbe Stunde dauert?', kapitel: 'vorerkrankungen' },
         { frage: 'Wachen Sie nachts wegen der Rückenschmerzen auf, und werden sie eher durch Bewegung besser oder schlechter?', kapitel: 'aktuell' },
-        { frage: 'Haben Sie sich in letzter Zeit so schlecht gefühlt, dass Sie daran gedacht haben, nicht mehr leben zu wollen? Gibt es Gedanken, sich etwas anzutun?', kapitel: 'aktuell' },
       ],
       examinerQuestions: [
         'Stellen Sie uns bitte den Patienten vor. Wie lautet Ihre Verdachtsdiagnose, und was spricht dafür?',
@@ -51374,6 +51418,7 @@ export function seedCases(): Case[] {
       frequency: 1,
       difficulty: 3,
       patientSheet: {
+        motiv: { trauma: false, region: 'untere' },
         personalia: {
           name: 'Markus Lindner',
           age: 42,
@@ -51968,9 +52013,10 @@ export function seedCases(): Case[] {
           'pers-hausarzt': 'Ja, mein Hausarzt ist Dr. Baumann. Bei ihm war ich auch vor zwei Wochen wegen der Mandeln.',
           'akt-motiv': 'Frau Doktor, mein Urin ist seit drei Tagen ganz dunkel, richtig braun, wie Cola. Und seit zwei Tagen wache ich morgens mit dicken, geschwollenen Augen auf. Seit gestern habe ich dazu Kopfschmerzen. Ich mache mir Sorgen, das hatte ich noch nie.',
           'akt-beginn': 'Der dunkle Urin ist mir vor drei Tagen aufgefallen, am Morgen. Die geschwollenen Augen seit zwei Tagen, das Druckgefühl in den Flanken auch seit etwa zwei Tagen. Die Kopfschmerzen sind gestern Morgen dazugekommen.',
-          'akt-ausscheid-was': 'Verändert hat sich der Urin, das hatte ich ja gesagt, ganz dunkel wie Cola. Mit dem Stuhlgang ist alles normal, und schlucken auch. Nur eben die Augen sind morgens geschwollen, aber nicht verfärbt.',
+          'akt-ausscheid-was': 'Verändert hat sich der Urin, das hatte ich ja gesagt, ganz dunkel wie Cola. Mit dem Stuhlgang ist alles normal. Nur eben die Augen sind morgens geschwollen, aber nicht verfärbt.',
           'akt-ausscheid-haeufigkeit': 'Also, es kommt insgesamt weniger als sonst, das ist mir schon aufgefallen. Nachts muss ich eigentlich nicht öfter raus, es ist eher tagsüber weniger. Ein plötzlicher Drang oder tröpfchenweise, das ist bei mir nicht, es kommt einfach insgesamt zu wenig.',
           'akt-ausscheid-aussehen': 'Der Urin ist dunkelbraun, wie Cola, das hatte ich ja gesagt. Ob da Blut drin ist, weiß ich nicht genau, aber so dunkel war er noch nie. Schaum oder Schleim habe ich nicht bemerkt, und es tut auch nicht weh beim Wasserlassen.',
+          'akt-ausscheid-schlucken': 'Nein, schlucken kann ich ganz normal. Ich bin nur ständig müde und habe dicke Beine.',
           'akt-veraend-was': 'Aufgefallen ist mir der Urin, wie gesagt, ganz dunkel, braun wie Cola. Und die geschwollenen Augen morgens. Blaue Flecken oder einen Knoten habe ich keine, und gelb bin ich auch nicht geworden.',
           'akt-veraend-entwicklung': 'Der Urin wird eher noch dunkler, und es kommt insgesamt weniger. Die Augen sind morgens am schlimmsten, über den Tag geht es etwas weg, dafür sind jetzt seit gestern die Knöchel dick geworden.',
           'akt-veraend-blutung': 'Weh tut eigentlich nichts direkt, höchstens dieses Druckgefühl in den Flanken, das hatte ich ja gesagt. Jucken tut nichts. Blut... (zögert) im Urin, meinen Sie? Der ist halt so dunkel, ob da Blut drin ist, weiß ich nicht genau, aber Blut im Stuhl oder beim Husten oder aus der Nase habe ich keins.',
@@ -52679,7 +52725,7 @@ export function seedCases(): Case[] {
         { frage: 'Seit wann haben Sie den Knoten in der Leiste bemerkt, und ist er seitdem größer, kleiner oder gleich geblieben?', kapitel: 'aktuell' },
         { frage: 'Tut der Knoten weh, ist er gerötet oder fühlt er sich warm an? Lässt er sich mit den Fingern hin- und herbewegen, oder sitzt er fest?', kapitel: 'aktuell' },
         { frage: 'Haben Sie Schmerzen im Knoten, wenn Sie Alkohol trinken?', kapitel: 'aktuell' },
-        { frage: 'Müssen Sie nachts den Schlafanzug oder das Bettzeug wechseln, weil Sie so stark schwitzen?', kapitel: 'vegetativ' },
+        { frage: 'Müssen Sie nachts den Schlafanzug oder das Bettzeug wechseln, weil Sie so stark schwitzen?', kapitel: 'vegetativ', relu: true },
         { frage: 'Haben Sie Juckreiz am ganzen Körper bemerkt?', kapitel: 'vegetativ' },
         { frage: 'Haben Sie Husten, Luftnot, Schluckbeschwerden oder Herzrasen bemerkt?', kapitel: 'aktuell' },
         { frage: 'Ist Ihr linkes Bein geschwollen, gerötet oder schmerzhaft?', kapitel: 'aktuell' },
@@ -54529,7 +54575,7 @@ export function seedCases(): Case[] {
         { frage: 'Wie haben Sie sich vor Ort verpflegt: Leitungswasser, Eiswürfel, Straßenstände, rohe Salate?', kapitel: 'aktuell' },
         { frage: 'Hatten Sie zuerst Verstopfung oder Durchfall? Wie sieht der Stuhl aus — Blut, Schleim, erbsbreiartig?', kapitel: 'aktuell', sucht: ['stuhl'] },
         { frage: 'Fühlen Sie sich benommen oder verwirrt, oder hat Ihre Frau Sie verändert erlebt?', kapitel: 'aktuell' },
-        { frage: 'Ist Ihnen ein Ausschlag am Bauch aufgefallen, blassrote Flecken?', kapitel: 'aktuell' },
+        { frage: 'Ist Ihnen ein Ausschlag am Bauch aufgefallen, blassrote Flecken?', kapitel: 'aktuell', relu: true },
       ],
       examinerQuestions: [
         'Wie lautet Ihre Verdachtsdiagnose, und wie kommen Sie dahin?',
@@ -54815,9 +54861,10 @@ export function seedCases(): Case[] {
           'pers-hausarzt': 'Ja, Dr. Keller, der hat mir auch die Schlaftablette verschrieben.',
           'akt-motiv': 'Herr Doktor, ich habe seit Wochen kaum noch Stuhlgang. Verstopft war ich ja schon immer ein bisschen, aber jetzt geht fast gar nichts mehr — nur noch mit Abführmitteln. Und meine Tochter hat gesagt, ich soll das endlich untersuchen lassen.',
           'akt-beginn': 'Verstopft bin ich eigentlich seit Jahren, ich würde sagen fünf Jahre, da hatte ich vielleicht alle drei Tage Stuhlgang. Aber seit ungefähr einem Monat ist es viel schlimmer geworden, jetzt nur noch etwa einmal in der Woche. Einmal waren es fünf Tage gar nichts.',
-          'akt-ausscheid-was': 'Verändert hat sich der Stuhlgang, das hatte ich ja schon gesagt — der kommt kaum noch. Beim Wasserlassen ist nichts anders, und mit dem Schlucken habe ich auch keine Probleme.',
+          'akt-ausscheid-was': 'Verändert hat sich der Stuhlgang, das hatte ich ja schon gesagt — der kommt kaum noch. Beim Wasserlassen ist nichts anders.',
           'akt-ausscheid-haeufigkeit': 'Früher hatte ich alle drei Tage Stuhlgang, jetzt nur noch etwa einmal die Woche, einmal waren es sogar fünf Tage gar nichts. Nachts ist da nichts, das ist ja Stuhlgang, nicht Wasserlassen. Es ist also deutlich weniger geworden, nicht mehr.',
           'akt-ausscheid-aussehen': 'Der Stuhl ist hart, wie kleine Kugeln, das hatte ich ja gesagt. Und vor zwei Wochen war einmal hellrotes Blut am Papier, sonst nicht. Schleim oder Schaum ist mir nicht aufgefallen, und die Farbe ist sonst normal.',
+          'akt-ausscheid-schlucken': 'Nein, beim Schlucken bleibt nichts hängen. Ich esse ganz normal, es kommt nur unten nichts mehr an.',
           'akt-veraend-was': 'Aufgefallen ist mir vor allem, dass der Stuhlgang nicht mehr richtig kommt, das hatte ich ja schon gesagt. Knoten oder so habe ich an mir keine bemerkt, Hautveränderungen auch nicht, und gelb bin ich auch nicht geworden, soweit ich weiß. Beim Schlucken habe ich keine Probleme.',
           'akt-veraend-entwicklung': 'Schlimmer ist es geworden, ja, das hatte ich ja erzählt, von alle drei Tage auf jetzt kaum noch einmal die Woche. Die Form vom Stuhl selbst ist hart, wie kleine Kugeln, das ist eigentlich schon länger so. Größer oder häufiger, im Sinne von mehreren Stellen, das verstehe ich jetzt nicht ganz, es ist ja der Stuhlgang, der weniger wird, nicht mehr.',
           'akt-veraend-blutung': 'Weh tut es beim Pressen schon ein bisschen, aber sonst nicht. Jucken tut nichts. Und — das hatte ich ja schon gesagt — vor zwei Wochen war einmal hellrotes Blut am Papier, nach starkem Pressen. Das kommt sicher davon, dass ich so pressen musste. Im Urin, beim Husten oder aus der Nase habe ich nie Blut gesehen.',
@@ -55525,12 +55572,12 @@ export function seedCases(): Case[] {
         'auf-sonographie',
       ],
       caseSpecificQuestions: [
-        { frage: 'Erzählen Sie mir bitte ganz genau, was passiert ist: Was haben Sie gemacht, als Sie gestürzt sind — und wie sind Sie gefallen: gestolpert, weggeknickt, schwindelig, schwarz vor Augen?', kapitel: 'aktuell' },
-        { frage: 'Waren Sie bewusstlos, oder können Sie sich an den ganzen Sturz erinnern?', kapitel: 'aktuell' },
+        { frage: 'Erzählen Sie mir bitte ganz genau, was passiert ist: Was haben Sie gemacht, als Sie gestürzt sind — und wie sind Sie gefallen: gestolpert, weggeknickt, schwindelig, schwarz vor Augen?', kapitel: 'aktuell', relu: true },
+        { frage: 'Waren Sie bewusstlos, oder können Sie sich an den ganzen Sturz erinnern?', kapitel: 'aktuell', sucht: ['bewusstlos'], relu: true },
         { frage: 'Konnten Sie allein wieder aufstehen? Wie lange haben Sie auf dem Boden gelegen, und wer hat den Rettungsdienst gerufen?', kapitel: 'aktuell' },
         { frage: 'Sind Sie mit dem Kopf aufgeschlagen?', kapitel: 'aktuell' },
-        { frage: 'Sind Sie in den letzten zwölf Monaten schon einmal gestürzt oder beinahe gestürzt — auch wenn nichts passiert ist?', kapitel: 'vorerkrankungen' },
-        { frage: 'Wird Ihnen beim Aufstehen aus dem Bett oder vom Stuhl schwindelig oder schwarz vor den Augen?', kapitel: 'aktuell' },
+        { frage: 'Sind Sie in den letzten zwölf Monaten schon einmal gestürzt oder beinahe gestürzt — auch wenn nichts passiert ist?', kapitel: 'vorerkrankungen', relu: true },
+        { frage: 'Wird Ihnen beim Aufstehen aus dem Bett oder vom Stuhl schwindelig oder schwarz vor den Augen?', kapitel: 'aktuell', relu: true },
         { frage: 'Welche Medikamente nehmen Sie — auch Schlaf- oder Beruhigungsmittel, Wassertabletten, Prostatamittel und rezeptfreie Schmerzmittel? Wurde in den letzten Monaten etwas neu angesetzt oder erhöht?', kapitel: 'medikamente' },
         { frage: 'Wie wohnen Sie: Treppe, Geländer, Teppiche, Badvorleger, Haustiere? Leben Sie allein, und wer könnte Ihnen helfen?', kapitel: 'familie-sozial' },
       ],
@@ -55693,6 +55740,8 @@ export function seedCases(): Case[] {
       frequency: 3,
       difficulty: 2,
       patientSheet: {
+        motiv: { trauma: false, region: 'lws' },
+        fachSkip: ['fach-ortho-durchblutung'],
         personalia: {
           name: 'Markus Feldmann',
           age: 42,
@@ -55822,7 +55871,7 @@ export function seedCases(): Case[] {
           'fam-beruf': 'Paketzusteller, seit zwölf Jahren. Zehn Stunden am Tag, 150 Pakete, heben, tragen, Treppen. Seit einem halben Jahr neuer Chef, und ich hab Angst, dass das jetzt Ärger gibt.',
           'fam-wohnen': 'Wir wohnen zu viert in einem Reihenhaus. Das Schlafzimmer ist oben im ersten Stock, die Treppe schaffe ich gerade so, langsam.',
           'fam-haustiere': 'Ja, wir haben eine Katze.',
-          'fach-ortho-mechanismus': 'Beim Heben mit Drehung — ich habe das Paket aus dem Wagen gezogen und mich gleichzeitig nach rechts gedreht, um es abzustellen. Kein Sturz, kein Schlag, kein Unfall. Es hat einfach eingeschossen.',
+          'fach-ortho-mechanismus': 'Nein, kein Unfall — beim Heben mit Drehung: Ich habe das Paket aus dem Wagen gezogen und mich gleichzeitig nach rechts gedreht, um es abzustellen. Kein Sturz, kein Schlag. Es hat einfach eingeschossen.',
           'fach-ortho-bewegung': 'Ich kann mich kaum bücken, ich komme mit den Händen nicht mal bis zu den Knien. Vom Stuhl aufstehen geht nur mit Abstützen, und ich stehe schief — meine Frau sagt, ich hänge nach links. Nach vorne beugen ist am schlimmsten, nach hinten geht etwas besser.',
           'fach-ortho-ausstrahlung': 'Ins rechte Gesäß und hinten in den rechten Oberschenkel, bis etwa eine Handbreit über der Kniekehle. Nicht bis in die Wade, nicht in den Fuß, und auch nicht in die Zehen. Es ist mehr ein Ziehen, kein Brennen und kein Stromgefühl.',
           'fach-ortho-sensomotorik': 'Nein, kein Kribbeln, kein Taubheitsgefühl, weder im Bein noch im Fuß. Schwach ist das Bein auch nicht — ich kann auf den Zehen und auf der Ferse stehen, das habe ich zu Hause ausprobiert, weil ich Angst hatte. Ich knicke nicht ein.',
@@ -56182,6 +56231,7 @@ export function seedCases(): Case[] {
       frequency: 0,
       difficulty: 3,
       patientSheet: {
+        motiv: { trauma: false, region: 'abdomen' },
         personalia: {
           name: 'Herbert Maurer',
           age: 71,
@@ -56673,6 +56723,7 @@ export function seedCases(): Case[] {
       frequency: 2,
       difficulty: 3,
       patientSheet: {
+        motiv: { trauma: false, region: 'thorax' },
         personalia: {
           name: 'Manfred Kessler',
           age: 63,
@@ -57456,7 +57507,6 @@ export function seedCases(): Case[] {
         { frage: 'Wird es besser, wenn Sie sich aufsetzen und nach vorne beugen, und schlimmer, wenn Sie sich flach hinlegen?', kapitel: 'aktuell' },
         { frage: 'Strahlt der Schmerz eher in die Schulter-Nacken-Kante aus als in den Arm?', kapitel: 'aktuell' },
         { frage: 'Hatten Sie in den letzten zwei bis drei Wochen eine Erkältung, Grippe oder einen Magen-Darm-Infekt?', kapitel: 'aktuell' },
-        { frage: 'Haben Sie Luftnot, auch im Liegen, oder das Gefühl, ohnmächtig zu werden? Sind die Beine geschwollen?', kapitel: 'aktuell' },
         { frage: 'Hatten Sie jemals einen Herzinfarkt, eine Herzoperation, eine Nierenerkrankung, eine Rheumaerkrankung oder eine Tumorerkrankung?', kapitel: 'vorerkrankungen' },
         { frage: 'Waren Sie längere Zeit im Ausland, oder hatten Sie Kontakt zu jemandem mit Tuberkulose?', kapitel: 'vegetativ', sucht: ['reise'] },
         { frage: 'Hat Ihnen das Ibuprofen geholfen, und wie lange hat die Wirkung angehalten?', kapitel: 'medikamente' },
@@ -57930,12 +57980,12 @@ export function seedCases(): Case[] {
         'auf-lumbalpunktion',
       ],
       caseSpecificQuestions: [
-        { frage: 'Hatten Sie vorher ein Vorgefühl: ein aufsteigendes Gefühl im Bauch, ein Déjà-vu, einen Geruch, Angst — oder ein Schwarzwerden vor den Augen, Schwitzen, Herzklopfen?', kapitel: 'aktuell' },
-        { frage: 'Wie lange waren Sie danach verwirrt, und sind Sie danach eingeschlafen? Haben Sie jetzt Muskelkater oder Kopfschmerzen?', kapitel: 'aktuell' },
+        { frage: 'Hatten Sie vorher ein Vorgefühl: ein aufsteigendes Gefühl im Bauch, ein Déjà-vu, einen Geruch, Angst — oder ein Schwarzwerden vor den Augen, Schwitzen, Herzklopfen?', kapitel: 'aktuell', relu: true },
+        { frage: 'Wie lange waren Sie danach verwirrt, und sind Sie danach eingeschlafen? Haben Sie jetzt Muskelkater oder Kopfschmerzen?', kapitel: 'aktuell', relu: true },
         { frage: 'Sind Sie in den letzten Monaten schon einmal morgens mit einer angebissenen Zunge, Muskelkater, einem nassen Bett oder unerklärten blauen Flecken aufgewacht?', kapitel: 'aktuell' },
-        { frage: 'Zucken Ihnen morgens manchmal die Arme, sodass Ihnen etwas aus der Hand fällt? Haben Sie kurze Aussetzer, in denen Sie nicht ansprechbar sind?', kapitel: 'aktuell' },
+        { frage: 'Zucken Ihnen morgens manchmal die Arme, sodass Ihnen etwas aus der Hand fällt? Haben Sie kurze Aussetzer, in denen Sie nicht ansprechbar sind?', kapitel: 'aktuell', relu: true },
         { frage: 'Wie viel haben Sie in den letzten Nächten geschlafen? Wie viel Alkohol haben Sie am Wochenende getrunken, und haben Sie Drogen genommen?', kapitel: 'noxen' },
-        { frage: 'Hatten Sie als Kind Fieberkrämpfe, eine Hirnhautentzündung oder eine Kopfverletzung mit Bewusstlosigkeit? Gibt es Epilepsie in der Familie?', kapitel: 'vorerkrankungen' },
+        { frage: 'Hatten Sie als Kind Fieberkrämpfe, eine Hirnhautentzündung oder eine Kopfverletzung mit Bewusstlosigkeit? Gibt es Epilepsie in der Familie?', kapitel: 'vorerkrankungen', relu: true },
         { frage: 'Nehmen Sie neue Medikamente oder haben Sie kürzlich Schlaf- oder Beruhigungsmittel abgesetzt?', kapitel: 'medikamente' },
         { frage: 'Fahren Sie beruflich Auto? Arbeiten Sie auf Leitern, an Maschinen oder allein?', kapitel: 'familie-sozial' },
       ],
@@ -59008,6 +59058,7 @@ export function seedCases(): Case[] {
       frequency: 1,
       difficulty: 2,
       patientSheet: {
+        fachSkip: ['fach-derma-muttermal'],
         leitsymptomKategorie: 'veraenderung',
         personalia: {
           name: 'Clemens Wurster',
@@ -59471,6 +59522,7 @@ export function seedCases(): Case[] {
       frequency: 3,
       difficulty: 2,
       patientSheet: {
+        fachSkip: ['fach-derma-muttermal'],
         leitsymptomKategorie: 'veraenderung',
         personalia: {
           name: 'Sabine Schaubele',
@@ -59761,13 +59813,13 @@ export function seedCases(): Case[] {
       },
       probableAufklaerungIds: [],
       caseSpecificQuestions: [
-        { frage: 'Bleibt eine einzelne Quaddel länger als einen Tag an derselben Stelle, oder verschwindet sie nach Stunden und kommt woanders wieder?', kapitel: 'aktuell' },
+        { frage: 'Bleibt eine einzelne Quaddel länger als einen Tag an derselben Stelle, oder verschwindet sie nach Stunden und kommt woanders wieder?', kapitel: 'aktuell', relu: true },
         { frage: 'Haben Sie Atemnot, ein Engegefühl im Hals, Heiserkeit, ein Pfeifen beim Atmen oder Schwierigkeiten beim Schlucken?', kapitel: 'aktuell' },
         { frage: 'Ist Ihnen schwindelig, haben Sie Herzrasen, waren Sie kurz weggetreten? Haben Sie Bauchkrämpfe, Übelkeit oder Durchfall?', kapitel: 'aktuell', relu: true },
         { frage: 'Haben Sie in den letzten Tagen ein Schmerzmittel, ein Antibiotikum oder ein anderes neues Medikament genommen — auch aus der Apotheke ohne Rezept?', kapitel: 'medikamente' },
         { frage: 'Wie genau war die Reaktion 2022 auf Aspirin — was ist passiert, wie schnell, und wie wurde sie behandelt? Haben Sie einen Allergiepass?', kapitel: 'medikamente' },
         { frage: 'Nehmen Sie Blutdruckmedikamente, insbesondere einen ACE-Hemmer wie Ramipril oder Enalapril?', kapitel: 'medikamente' },
-        { frage: 'Hatten Sie früher schon einmal Schwellungen ohne Quaddeln, kolikartige Bauchschmerzen, oder gibt es solche Schwellungsattacken in Ihrer Familie?', kapitel: 'familie-sozial' },
+        { frage: 'Hatten Sie früher schon einmal Schwellungen ohne Quaddeln, kolikartige Bauchschmerzen, oder gibt es solche Schwellungsattacken in Ihrer Familie?', kapitel: 'familie-sozial', relu: true },
         { frage: 'Wird es schlimmer bei Wärme, unter Druck, beim Kratzen, bei Kälte oder in der Sonne?', kapitel: 'aktuell' },
       ],
       examinerQuestions: [
@@ -61723,11 +61775,10 @@ export function seedCases(): Case[] {
       caseSpecificQuestions: [
         { frage: 'Wie hoch war der Blutdruck heute beim Betriebsarzt, und kennen Sie Ihre üblichen Werte?', kapitel: 'aktuell' },
         { frage: 'Wann haben Sie Ihre Blutdrucktablette zuletzt genommen, und wie oft vergessen Sie sie in einer normalen Woche?', kapitel: 'medikamente' },
-        { frage: 'Treten die Kopfschmerzen vor allem morgens im Hinterkopf auf, und werden sie im Laufe des Tages besser?', kapitel: 'aktuell' },
+        { frage: 'Wo sitzt der Kopfschmerz?', kapitel: 'aktuell' },
         { frage: 'Haben Sie Sehstörungen, Flimmern vor den Augen, eine Lähmung, ein Taubheitsgefühl oder Schwierigkeiten beim Sprechen bemerkt?', kapitel: 'aktuell' },
-        { frage: 'Haben Sie Schmerzen oder ein Engegefühl in der Brust, Luftnot beim Liegen oder geschwollene Beine?', kapitel: 'aktuell' },
         { frage: 'Nehmen Sie Schmerzmittel wie Ibuprofen oder Diclofenac, ein Nasenspray, Kortison oder essen Sie viel Lakritz?', kapitel: 'medikamente' },
-        { frage: 'Haben Sie anfallsartige Schweißausbrüche mit Herzrasen und Blässe, oder vertragen Sie Wärme schlecht?', kapitel: 'vegetativ' },
+        { frage: 'Haben Sie anfallsartige Schweißausbrüche mit Herzrasen und Blässe, oder vertragen Sie Wärme schlecht?', kapitel: 'vegetativ', relu: true },
         { frage: 'Schnarchen Sie? Hat Ihre Frau Atemaussetzer bemerkt, und sind Sie tagsüber müde?', kapitel: 'aktuell' },
       ],
       examinerQuestions: [

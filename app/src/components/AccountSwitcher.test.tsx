@@ -24,6 +24,15 @@ describe('AccountSwitcher', () => {
     expect(screen.getByRole('menuitem', { name: /se déconnecter/i })).toBeTruthy();
   });
 
+  it('ouvrir le menu y porte le focus : téléporté, il est hors de l\'ordre de tabulation', () => {
+    upsertAccount({ userId: 'u1', email: 'a@x.de', displayName: 'Anna', refreshToken: 'r' });
+    upsertAccount({ userId: 'u2', email: 'b@x.de', displayName: 'Ben', refreshToken: 'r' });
+    setActiveUserId('u1');
+    render(<MemoryRouter><AccountSwitcher /></MemoryRouter>);
+    fireEvent.click(screen.getByRole('button', { name: /anna/i }));
+    expect(document.activeElement).toBe(screen.getByRole('menuitem', { name: /ben/i }));
+  });
+
   it('choisir un autre compte → switchAccount(u2)', async () => {
     upsertAccount({ userId: 'u1', email: 'a@x.de', displayName: 'Anna', refreshToken: 'r' });
     upsertAccount({ userId: 'u2', email: 'b@x.de', displayName: 'Ben', refreshToken: 'r' });
@@ -44,6 +53,28 @@ describe('AccountSwitcher', () => {
     expect(screen.getByRole('menu')).toBeTruthy();
     fireEvent.mouseDown(document.body);
     expect(screen.queryByRole('menu')).toBeNull();
+  });
+
+  it('le menu sort du verre de la barre : Portal, `position: fixed`, calé dans le viewport à 390 px (Re-revue 2, I-B)', () => {
+    upsertAccount({ userId: 'u1', email: 'a@x.de', displayName: 'Anna', refreshToken: 'r' });
+    upsertAccount({ userId: 'u2', email: 'b@x.de', displayName: 'Ben', refreshToken: 'r' });
+    setActiveUserId('u1');
+    const vw = window.innerWidth;
+    window.innerWidth = 390;
+    try {
+      render(<MemoryRouter><aside className="glass"><AccountSwitcher dock /></aside></MemoryRouter>);
+      fireEvent.click(screen.getByRole('button', { name: /anna/i }));
+      const menu = screen.getByRole('menu');
+      // Pas de verre dans du verre : aucun ancêtre `.glass` au-dessus du menu.
+      expect(menu.parentElement?.closest('.glass')).toBeNull();
+      expect(menu.style.position).toBe('fixed');
+      const left = parseFloat(menu.style.left);
+      expect(left).toBeGreaterThanOrEqual(8);
+      expect(left + parseFloat(menu.style.width)).toBeLessThanOrEqual(390 - 8);
+      // Un clic DANS le menu (désormais hors de la racine du composant) ne le ferme pas.
+      fireEvent.mouseDown(screen.getByRole('menuitem', { name: /ben/i }));
+      expect(screen.queryByRole('menu')).not.toBeNull();
+    } finally { window.innerWidth = vw; }
   });
 
   it('touche Échap → le menu se ferme', () => {

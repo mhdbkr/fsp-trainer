@@ -20,6 +20,9 @@ vi.mock('@/lib/sync/queue', async () => {
 });
 vi.mock('@/lib/supabase', () => ({ supabase: {}, callFn: vi.fn() }));
 
+// Trace posée avant le Teil d'ancrage (champ `scope`) — lecture tolérante.
+const legacy = (v: Record<string, unknown>) => db.meta.put({ key: 'externalAi.pending', value: v });
+
 const c = {
   id: 'c1', name: 'Ulcus', pathology: 'x', specialty: 'X',
   linkedFachbegriffeIds: [], probableAufklaerungIds: [], caseSpecificQuestions: [], centers: [],
@@ -40,7 +43,7 @@ describe('PendingExternalSimCard', () => {
   it('absente sans trace ; présente avec trace ; « Ce n\'était pas une simulation » efface', async () => {
     const { rerender } = render(<MemoryRouter><PendingExternalSimCard /></MemoryRouter>);
     expect(screen.queryByText(/tu as simulé/i)).toBeNull();
-    await setPending({ caseId: 'c1', targetId: 'chatgpt', scope: 'exam', at: Date.now() });
+    await legacy({ caseId: 'c1', targetId: 'chatgpt', scope: 'exam', at: Date.now() });
     rerender(<MemoryRouter><PendingExternalSimCard /></MemoryRouter>);
     expect(await screen.findByText(/tu as simulé/i)).toBeTruthy();
     fireEvent.click(screen.getByRole('button', { name: /pas une simulation/i }));
@@ -48,23 +51,22 @@ describe('PendingExternalSimCard', () => {
   });
 
   it('« Évaluer » → PartEvaluation → enregistre une simulation external-ai et efface la trace', async () => {
-    await setPending({ caseId: 'c1', targetId: 'claude', scope: 'anamnese', at: Date.now() });
+    await setPending({ caseId: 'c1', targetId: 'gemini', teil: 'anamnese', at: Date.now() });
     render(<MemoryRouter><PendingExternalSimCard /></MemoryRouter>);
     fireEvent.click(await screen.findByRole('button', { name: /évaluer/i }));
     fireEvent.click(await screen.findByRole('button', { name: /enregistrer|valider/i }));
     await waitFor(async () => expect(await db.simulations.count()).toBe(1));
     const sim = (await db.simulations.toArray())[0];
     expect(sim.mode).toBe('external-ai');
-    expect(sim.externalTarget).toBe('claude');
-    // I1 — scope "anamnese" côté trace → sim.scope 'teil'/sim.teil 'anamnese'
-    // (pas 'full' : cette simulation ne couvre que l'anamnèse).
+    expect(sim.externalTarget).toBe('gemini');
+    // Teil d'ancrage 'anamnese' → sim.scope 'teil' / sim.teil 'anamnese'.
     expect(sim.scope).toBe('teil');
     expect(sim.teil).toBe('anamnese');
     await waitFor(async () => expect((await db.meta.get('externalAi.pending'))?.value ?? null).toBeNull());
   });
 
-  it('chip « 30 min+ » + scope anamnese → PartResult.durationSec = 1800 (tout à l\'anamnese)', async () => {
-    await setPending({ caseId: 'c1', targetId: 'claude', scope: 'anamnese', at: Date.now() });
+  it('chip « 30 min+ » + Teil anamnese → PartResult.durationSec = 1800 (tout à l\'anamnese)', async () => {
+    await setPending({ caseId: 'c1', targetId: 'gemini', teil: 'anamnese', at: Date.now() });
     render(<MemoryRouter><PendingExternalSimCard /></MemoryRouter>);
     await screen.findByText(/tu as simulé/i);
     fireEvent.click(screen.getByRole('radio', { name: /30 min/i }));
@@ -75,8 +77,8 @@ describe('PendingExternalSimCard', () => {
     expect(sim.parts.anamnese?.durationSec).toBe(1800);
   });
 
-  it('chip par défaut « 20 min » + scope exam → 2/3 anamnese, 1/3 fallvorstellung (arrondi)', async () => {
-    await setPending({ caseId: 'c1', targetId: 'chatgpt', scope: 'exam', at: Date.now() });
+  it('chip par défaut « 20 min » + ancienne trace scope exam → 2/3 anamnese, 1/3 fallvorstellung (arrondi)', async () => {
+    await legacy({ caseId: 'c1', targetId: 'chatgpt', scope: 'exam', at: Date.now() });
     render(<MemoryRouter><PendingExternalSimCard /></MemoryRouter>);
     fireEvent.click(await screen.findByRole('button', { name: /évaluer/i }));
     fireEvent.click(await screen.findByRole('button', { name: /valider/i })); // anamnese
@@ -88,7 +90,7 @@ describe('PendingExternalSimCard', () => {
   });
 
   it('scope "exam" : anamnese → fallvorstellung → une seule simulation avec les deux parties', async () => {
-    await setPending({ caseId: 'c1', targetId: 'chatgpt', scope: 'exam', at: Date.now() });
+    await legacy({ caseId: 'c1', targetId: 'chatgpt', scope: 'exam', at: Date.now() });
     render(<MemoryRouter><PendingExternalSimCard /></MemoryRouter>);
     fireEvent.click(await screen.findByRole('button', { name: /évaluer/i }));
     fireEvent.click(await screen.findByRole('button', { name: /valider/i })); // anamnese
@@ -104,7 +106,7 @@ describe('PendingExternalSimCard', () => {
   });
 
   it('double clic sur « Valider » : une seule simulation et un seul événement simulation.completed', async () => {
-    await setPending({ caseId: 'c1', targetId: 'claude', scope: 'anamnese', at: Date.now() });
+    await setPending({ caseId: 'c1', targetId: 'gemini', teil: 'anamnese', at: Date.now() });
     render(<MemoryRouter><PendingExternalSimCard /></MemoryRouter>);
     fireEvent.click(await screen.findByRole('button', { name: /évaluer/i }));
     const validate = await screen.findByRole('button', { name: /valider/i });
@@ -116,8 +118,40 @@ describe('PendingExternalSimCard', () => {
     expect(completed.length).toBe(1);
   });
 
+  it('Teil Fallvorstellung : seule la Fallvorstellung est évaluée, avec toute la durée', async () => {
+    await setPending({ caseId: 'c1', targetId: 'chatgpt', teil: 'fallvorstellung', at: Date.now() });
+    render(<MemoryRouter><PendingExternalSimCard /></MemoryRouter>);
+    expect(await screen.findByText(/la fallvorstellung de/i)).toBeTruthy();
+    fireEvent.click(await screen.findByRole('button', { name: /évaluer/i }));
+    fireEvent.click(await screen.findByRole('button', { name: /valider/i }));
+    await waitFor(async () => expect(await db.simulations.count()).toBe(1));
+    const sim = (await db.simulations.toArray())[0];
+    expect(Object.keys(sim.parts)).toEqual(['fallvorstellung']);
+    expect(sim.parts.fallvorstellung?.durationSec).toBe(1200);
+    expect(sim.scope).toBe('teil');
+    expect(sim.teil).toBe('fallvorstellung');
+  });
+
+  it('ancienne trace scope « anamnese » (cible retirée) : lue comme Teil Anamnese', async () => {
+    await legacy({ caseId: 'c1', targetId: 'claude', scope: 'anamnese', at: Date.now() });
+    render(<MemoryRouter><PendingExternalSimCard /></MemoryRouter>);
+    fireEvent.click(await screen.findByRole('button', { name: /évaluer/i }));
+    fireEvent.click(await screen.findByRole('button', { name: /valider/i }));
+    await waitFor(async () => expect(await db.simulations.count()).toBe(1));
+    const sim = (await db.simulations.toArray())[0];
+    expect(sim.teil).toBe('anamnese');
+    expect(sim.externalTarget).toBe('claude');
+  });
+
+  it('dit que la séance est auto-déclarée, sans promettre l\'exclusion de l\'indice (pas encore vraie)', async () => {
+    await setPending({ caseId: 'c1', targetId: 'chatgpt', teil: 'anamnese', at: Date.now() });
+    render(<MemoryRouter><PendingExternalSimCard /></MemoryRouter>);
+    expect((await screen.findByText(/auto-déclarée/i)).textContent).toMatch(/historique et ta série/i);
+    expect(screen.queryByText(/indice de préparation/i)).toBeNull();
+  });
+
   it('« Pas maintenant » : ferme la carte sans effacer la trace, pose snoozedUntil ≈ +1 h', async () => {
-    await setPending({ caseId: 'c1', targetId: 'chatgpt', scope: 'exam', at: Date.now() });
+    await legacy({ caseId: 'c1', targetId: 'chatgpt', scope: 'exam', at: Date.now() });
     render(<MemoryRouter><PendingExternalSimCard /></MemoryRouter>);
     expect(await screen.findByText(/tu as simulé/i)).toBeTruthy();
     fireEvent.click(screen.getByRole('button', { name: /pas maintenant/i }));
@@ -130,7 +164,7 @@ describe('PendingExternalSimCard', () => {
   });
 
   it('« Pas maintenant » : la carte revient une fois snoozedUntil dépassé (après 1 h)', async () => {
-    await setPending({ caseId: 'c1', targetId: 'chatgpt', scope: 'exam', at: Date.now() });
+    await legacy({ caseId: 'c1', targetId: 'chatgpt', scope: 'exam', at: Date.now() });
     const { rerender } = render(<MemoryRouter><PendingExternalSimCard /></MemoryRouter>);
     expect(await screen.findByText(/tu as simulé/i)).toBeTruthy();
     fireEvent.click(screen.getByRole('button', { name: /pas maintenant/i }));
@@ -142,5 +176,14 @@ describe('PendingExternalSimCard', () => {
     await setPending({ ...stored, snoozedUntil: Date.now() - 1000 });
     rerender(<MemoryRouter><PendingExternalSimCard /></MemoryRouter>);
     expect(await screen.findByText(/tu as simulé/i)).toBeTruthy();
+  });
+
+  it('absente quand le cas a été joué et évalué dans l\'app après la trace', async () => {
+    const at = Date.now() - 60_000;
+    await setPending({ caseId: 'c1', targetId: 'gemini', teil: 'anamnese', at });
+    await db.simulations.put({ id: 'sim-local', caseId: 'c1', date: at + 30_000, mode: 'local' } as never);
+    render(<MemoryRouter><PendingExternalSimCard /></MemoryRouter>);
+    await new Promise((r) => setTimeout(r, 50));
+    expect(screen.queryByText(/tu as simulé/i)).toBeNull();
   });
 });
