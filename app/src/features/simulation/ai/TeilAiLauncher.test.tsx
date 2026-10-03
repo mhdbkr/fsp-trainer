@@ -102,6 +102,15 @@ describe('TeilAiLauncher', () => {
     expect((screen.getByRole('textbox', { name: /texte du prompt/i }) as HTMLTextAreaElement).value).toContain(AUSGABE.patient);
   });
 
+  it('M1 — sans texte (cas absent), le lien ne s\'active pas, même au clavier', async () => {
+    render(<TeilAiLauncher caseId="absent" teil="anamnese" />);
+    await open();
+    const link = await screen.findByRole('link', { name: /copier et ouvrir/i });
+    expect(fireEvent.click(link)).toBe(false); // preventDefault
+    expect(write).not.toHaveBeenCalled();
+    expect(await meta('externalAi.pending')).toBeUndefined();
+  });
+
   it('Échap referme', async () => {
     render(<TeilAiLauncher caseId="c1" teil="anamnese" />);
     await open();

@@ -111,7 +111,8 @@ export function TeilAiPanel({ caseId, teil }: { caseId: string; teil: AnkerTeil 
   };
   // Le lien s'ouvre de lui-même (geste natif, lien universel de l'app) ; la
   // copie part dans le même geste, avant que la page ne perde le focus.
-  const onOpen = () => {
+  const onOpen = (e: React.MouseEvent) => {
+    if (!text) { e.preventDefault(); return; } // `pointer-events-none` n'arrête pas le clavier
     const copying = copyText(text);
     record();
     copying.then((ok) => settle(ok, 'open')).catch(() => settle(false, 'open'));
