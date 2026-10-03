@@ -50777,7 +50777,7 @@ export function seedCases(): Case[] {
       caseSpecificQuestions: [
         { frage: 'Manchmal stecken hinter solchen Beschwerden sehr belastende Erlebnisse — haben Sie so etwas erlebt, und war es ein einmaliges Ereignis?', kapitel: 'aktuell' },
         { frage: 'Kommen Ihnen Erinnerungen an das Ereignis ungewollt in den Sinn, oder träumen Sie davon?', kapitel: 'aktuell' },
-        { frage: 'Gibt es Orte, Tätigkeiten oder Gespräche, die Sie seitdem vermeiden? Sitzen Sie noch auf dem Motorrad?', kapitel: 'aktuell' },
+        { frage: 'Gibt es Orte, Tätigkeiten oder Gespräche, die Sie seitdem vermeiden?', kapitel: 'aktuell' },
         { frage: 'Sind Sie schreckhafter als früher? Fühlen Sie sich ständig auf der Hut?', kapitel: 'aktuell' },
         { frage: 'Fühlen Sie sich seitdem anderen Menschen gegenüber fremd oder wie abgeschnitten von Ihren Gefühlen?', kapitel: 'aktuell' },
         { frage: 'Ist der Kopfschmerz morgens am stärksten, nimmt er im Liegen zu, oder mussten Sie sich schon nüchtern erbrechen?', kapitel: 'aktuell', relu: true },
