@@ -1,8 +1,14 @@
 // ============================================================================
-// Mini-fiche de création (F4a D4/D5) : ★ sur un mot hors glossaire. Le mot
-// (modifiable), sa Bedeutung, le Contexte = la seule phrase qui le contient
-// (mot surligné), le deck (Favoris par défaut), « Créer ». Plus de 4 mots
-// sélectionnés : on touche le mot à garder. Fermer sans créer n'écrit rien.
+// Mini-fiche de création (F4a D4/D5 → F4b P8) = la carte EN TRAIN DE SE FAIRE :
+// le mot en grand (police du recto, crayon discret pour corriger), la
+// Bedeutung en italique éditable sur place (miroitement pendant la proposition
+// IA), la phrase de contexte en petit, mot surligné ; pied : bande de decks
+// (s'il existe un deck manuel) + « Créer la carte ». Plus de 4 mots : les
+// pastilles d'abord, le mot touché « vole » à sa place. Champs sans bordure
+// (soulignement fin au survol/focus). Ouverture : la carte s'étend (ancrée
+// sous la sélection sur ordinateur, depuis le bas sur téléphone) ; « Créer »
+// → elle se pose dans la pilule de confirmation (`onClose(dy)`). Clavier :
+// focus sur la Bedeutung, Entrée crée, Échap ferme. Fermer n'écrit rien.
 // Le mot choisi peut recouper deux cas déjà connus (revue re-revue C7) :
 //   - un terme du GLOSSAIRE (N2) : sa Bedeutung s'affiche en lecture, aucun
 //     appel IA, jamais de doublon `pt-` (I1), « Créer » range le terme publié.
@@ -15,7 +21,7 @@
 // jetée si le mot change avant la réponse (m3). IA indisponible : « Écris la
 // signification ».
 // ============================================================================
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useId, useLayoutEffect, useRef, useState } from 'react';
 import { FAVORITES_DECK_ID } from '@/db/types';
 import { db } from '@/db/db';
 import { useDecks, useFachbegriffe, usePersonalTerms } from '@/hooks/useData';
@@ -24,8 +30,10 @@ import { cleanSelection, createPersonalTerm, personalTermId, PT_LIMITS, updatePe
 import { toView } from '@/lib/collections/allTerms';
 import { lookupTerm } from '@/lib/dictionary';
 import { askBedeutung, canAskAi } from '@/lib/onlineAi';
+import { expand, flyFrom, m, settleOrClose, type Settle } from '@/lib/motion';
 import { useCardToast } from '@/store/cardToast';
 import { ContextSentence } from './TermSheet';
+import { Icon } from './icons';
 import { Portal } from './Portal';
 
 export const CHIP_THRESHOLD = 4;
@@ -34,7 +42,14 @@ export function selectionWords(selection: string): string[] {
   return [...new Set(selection.split(/\s+/).map(cleanSelection).filter((w) => w.length >= 2))];
 }
 
-export function NewCardSheet({ selection, sentence, caseId, onClose }: { selection: string; sentence: string; caseId?: string; onClose: () => void }) {
+/** Hauteur réservée sous l'ancre (ordinateur) : la carte ne sort jamais par le bas. */
+const CARD_H = 400;
+const CARD_W = 352;   // w-[22rem]
+
+/** `onClose(settle)` : `{dx, dy}` = trajet jusqu'au centre de la pilule (« se poser ») ; absent = simple fermeture. */
+export function NewCardSheet({ selection, sentence, caseId, at, onClose }: {
+  selection: string; sentence: string; caseId?: string; at?: { x: number; bottom: number }; onClose: (settle?: Settle) => void;
+}) {
   const decks = useDecks();
   const manualDecks = (decks ?? []).filter((d) => d.kind === 'manual');
   const begriffeRaw = useFachbegriffe();
@@ -60,7 +75,14 @@ export function NewCardSheet({ selection, sentence, caseId, onClose }: { selecti
   const autoFilled = useRef(false);   // Bedeutung reprise du glossaire / de la carte, pas tapée
   const firstChipRef = useRef<HTMLButtonElement>(null);
   const bedeutungRef = useRef<HTMLInputElement>(null);
+  const bedeutungId = useId();
+  const wordInputRef = useRef<HTMLInputElement>(null);
+  const wordRowRef = useRef<HTMLDivElement>(null);
+  const cardRef = useRef<HTMLDivElement>(null);
+  const flightFrom = useRef<DOMRect | null>(null);
   useEffect(() => { wordRef.current = word; }, [word]);
+  // Le mot touché en pastille « vole » à sa place (FLIP natif, lib/motion).
+  useLayoutEffect(() => { flyFrom(wordRowRef.current, flightFrom.current); flightFrom.current = null; }, [word]);
 
   // Le mot choisi touche-t-il un terme déjà publié, ou une carte personnelle
   // déjà là (y compris en attente de suppression : elle reste en base tant
@@ -105,6 +127,13 @@ export function NewCardSheet({ selection, sentence, caseId, onClose }: { selecti
 
   const canCreate = !!word.trim() && word.length <= PT_LIMITS.term && !submitting && !loading &&   // pas de doublon du glossaire avant son chargement (m-a)
     (!!hit || !!bedeutung.trim());
+  // Se poser : de son centre jusqu'au centre de la pilule de confirmation (centrée, bas de l'écran, ~32 px).
+  const settleTo = (): Settle => {
+    const r = cardRef.current?.getBoundingClientRect();
+    return r && r.height
+      ? { dx: window.innerWidth / 2 - (r.left + r.width / 2), dy: Math.max(0, window.innerHeight - 32 - (r.top + r.height / 2)) }
+      : { dx: 0, dy: 96 };
+  };
   const create = async () => {
     if (!canCreate || busy.current) return;
     busy.current = true; setSubmitting(true); setError(null);
@@ -112,8 +141,8 @@ export function NewCardSheet({ selection, sentence, caseId, onClose }: { selecti
       // Le mot choisi touche en fait un terme déjà publié : le ranger lui, jamais de doublon (I1/N2).
       if (hit) {
         await addTermToDeck(deckId, hit.id, caseId ? { caseId } : {});
-        show({ kind: 'saved', term: hit, deckId, ...(caseId ? { caseId } : {}) });
-        onClose();
+        show({ kind: 'saved', term: hit, deckId, ...(caseId ? { caseId } : {}) }, { focus: true });
+        onClose(settleTo());
         return;
       }
       const { id, created } = await createPersonalTerm({ term: word, explanation: bedeutung, context: sentence, caseId });
@@ -123,62 +152,77 @@ export function NewCardSheet({ selection, sentence, caseId, onClose }: { selecti
       if (!created && typed.current && nextExplanation && nextExplanation !== (existingPt?.explanation ?? '')) await updatePersonalExplanation(id, nextExplanation);
       await addTermToDeck(deckId, id, caseId ? { caseId } : {});
       const pt = await db.personal_terms.get(id);
-      if (pt) show({ kind: 'saved', term: toView(pt), deckId, ...(caseId ? { caseId } : {}) });
-      onClose();
-    } catch { setError('Impossible de créer la carte : réessaie.'); }
-    finally { busy.current = false; setSubmitting(false); }
+      if (pt) show({ kind: 'saved', term: toView(pt), deckId, ...(caseId ? { caseId } : {}) }, { focus: true });   // après « Créer », le focus va à la pilule (G1-21)
+      onClose(settleTo());
+      // Le verrou (`busy`/`submitting`) reste TENU après succès : la carte
+      // s'anime en sortie mais reste montée quelques ms (`exit="gone"`) — un
+      // second clic pendant ce délai ne doit rien réémettre.
+    } catch { busy.current = false; setSubmitting(false); setError('Impossible de créer la carte : réessaie.'); }
   };
+
+  // Ordinateur (sm+) : ancrée sous la sélection, jamais hors écran ; téléphone : depuis le bas.
+  const anchorStyle = at && typeof window !== 'undefined' ? {
+    '--nc-top': `${Math.max(8, Math.min(at.bottom + 8, window.innerHeight - CARD_H))}px`,
+    '--nc-left': `${Math.max(16, Math.min(at.x - CARD_W / 2, window.innerWidth - CARD_W - 16))}px`,
+  } as React.CSSProperties : undefined;
+  const field = 'w-full min-h-11 border-b border-transparent bg-transparent transition-colors hover:border-slate-300 focus:border-brand-500 dark:hover:border-white/20';
+  const onEnter = (e: React.KeyboardEvent) => { if (e.key === 'Enter') { e.preventDefault(); void create(); } };
 
   return (
     <Portal>
-      <div role="dialog" aria-label="Nouvelle carte" data-keep-open
+      <m.div ref={cardRef} role="dialog" aria-label="Nouvelle carte" data-keep-open style={anchorStyle}
+        {...expand} exit="gone" variants={{ gone: settleOrClose }}
         onKeyDown={(e) => { if (e.key === 'Escape') { e.stopPropagation(); onClose(); } }}
-        className="glass glass-edge fixed inset-x-4 bottom-4 z-[95] mx-auto max-w-md space-y-3 rounded-xl p-4 text-sm motion-safe:animate-fade-in-fast">
-        <div className="flex items-center justify-between">
-          <h3 className="font-semibold">{hit ? 'Déjà dans le glossaire' : 'Nouvelle carte'}</h3>
-          <button type="button" aria-label="Fermer" onClick={onClose} className="btn-ghost h-11 w-11 justify-center">✕</button>
+        className={`glass-full fixed inset-x-4 bottom-4 z-[95] mx-auto max-w-[22rem] origin-bottom space-y-3 rounded-2xl p-4 text-sm ${at ? 'sm:inset-x-auto sm:bottom-auto sm:left-[var(--nc-left)] sm:top-[var(--nc-top)] sm:w-[22rem] sm:origin-top sm:max-h-[calc(100dvh-var(--nc-top)-8px)] sm:overflow-y-auto' : ''}`}>
+        <div className="flex items-start justify-between gap-2">
+          <p className="label pt-1">{hit ? 'Déjà dans le glossaire' : 'Ma carte'}</p>
+          <button type="button" aria-label="Fermer" onClick={() => onClose()} className="-m-2 grid h-11 w-11 shrink-0 place-items-center rounded-full text-slate-500 hover:bg-white/50 dark:hover:bg-white/10">✕</button>
         </div>
         {chips && (
           <div>
-            <p className="label mb-1">Touche le mot à garder</p>
+            <p className="label mb-1.5">Touche le mot à garder</p>
             <div className="flex flex-wrap gap-1.5">
               {chips.map((w, i) => (
                 <button key={w} ref={i === 0 ? firstChipRef : undefined} type="button" aria-pressed={word === w}
-                  onClick={() => { setWord(w); typed.current = false; setBedeutung(''); asked.current = null; }}
-                  className={`min-h-11 rounded-full px-3 ring-1 ${word === w ? 'bg-brand-600 text-white ring-brand-600' : 'ring-slate-300 hover:bg-slate-100 dark:ring-slate-600 dark:hover:bg-white/10'}`}>{w}</button>
+                  onClick={(e) => { flightFrom.current = e.currentTarget.getBoundingClientRect(); setWord(w); typed.current = false; setBedeutung(''); asked.current = null; }}
+                  className={`min-h-11 rounded-full px-3 ring-1 ${word === w ? 'bg-brand-600 text-white ring-brand-600' : 'ring-slate-300 hover:bg-white/50 dark:ring-white/20 dark:hover:bg-white/10'}`}>{w}</button>
               ))}
             </div>
           </div>
         )}
         {word && (
           <>
-            <label className="block"><span className="label">Mot</span>
-              <input value={word} maxLength={PT_LIMITS.term} onChange={(e) => setWord(e.target.value)} className="input mt-1 min-h-11 w-full" />
-            </label>
-            <label className="block"><span className="label">Bedeutung</span>
-              <input ref={bedeutungRef} value={bedeutung} maxLength={PT_LIMITS.explanation} readOnly={!!hit}
-                placeholder={ai === 'loading' ? 'Doctopus propose…' : 'Écris la signification'}
-                aria-busy={ai === 'loading' || undefined}
-                onChange={(e) => { if (hit) return; typed.current = true; setBedeutung(e.target.value); }}
-                className={`input mt-1 min-h-11 w-full ${hit ? 'bg-slate-50 dark:bg-white/5' : ''}`} />
-            </label>
-            {sentence && <div><span className="label">Contexte</span><ContextSentence sentence={sentence} word={word} /></div>}
-            {manualDecks.length > 0 && (
+            <div ref={wordRowRef} className="flex items-center gap-1">
+              <input ref={wordInputRef} aria-label="Mot" value={word} maxLength={PT_LIMITS.term} onChange={(e) => setWord(e.target.value)} onKeyDown={onEnter}
+                className={`${field} min-w-0 font-display text-2xl font-bold tracking-tightish text-slate-900 dark:text-white`} />
+              <button type="button" aria-label="Corriger le mot" onClick={() => { wordInputRef.current?.focus(); wordInputRef.current?.select(); }}
+                className="grid h-11 w-11 shrink-0 place-items-center rounded-full text-slate-500 hover:bg-white/50 hover:text-slate-600 dark:text-slate-300 dark:hover:bg-white/10"><Icon name="pen" className="h-4 w-4" title="Corriger" /></button>
+            </div>
+            <label className="label" htmlFor={bedeutungId}>Bedeutung</label>
+            <input ref={bedeutungRef} id={bedeutungId} value={bedeutung} maxLength={PT_LIMITS.explanation} readOnly={!!hit}
+              placeholder={ai === 'loading' ? 'Doctopus propose…' : 'Écris la signification'}
+              aria-busy={ai === 'loading' || undefined}
+              onChange={(e) => { if (hit) return; typed.current = true; setBedeutung(e.target.value); }} onKeyDown={onEnter}
+              className={`${field} text-base italic placeholder:text-slate-500 ${hit ? 'cursor-default text-slate-600 hover:!border-transparent focus:!border-transparent dark:text-slate-300' : 'text-slate-700 dark:text-slate-200'} ${ai === 'loading' ? 'animate-shimmer bg-[linear-gradient(90deg,transparent,rgb(21_131_117/0.14),transparent)] bg-[length:200%_100%]' : ''}`} />
+            {sentence && (
               <div>
-                <span className="label">Deck</span>
-                <div className="mt-1 flex flex-wrap gap-1.5">
-                  {[{ id: FAVORITES_DECK_ID, name: 'Favoris' }, ...manualDecks].map((d) => (
-                    <button key={d.id} type="button" aria-pressed={deckId === d.id} onClick={() => setDeckId(d.id)}
-                      className={`min-h-11 rounded-full px-3 ring-1 ${deckId === d.id ? 'bg-brand-600 text-white ring-brand-600' : 'ring-slate-300 hover:bg-slate-100 dark:ring-slate-600 dark:hover:bg-white/10'}`}>{d.name}</button>
-                  ))}
-                </div>
+                <p className="label mb-1">Contexte</p>
+                <ContextSentence sentence={sentence} word={word} className="text-xs leading-relaxed" />
               </div>
             )}
-            <button type="button" onClick={() => { void create(); }} disabled={!canCreate} className="btn-primary min-h-11 w-full disabled:opacity-40">{hit ? 'Ranger' : 'Créer'}</button>
+            {manualDecks.length > 0 && (
+              <div role="group" aria-label="Deck" className="-mx-1 flex gap-1.5 overflow-x-auto px-1 pb-0.5">
+                {[{ id: FAVORITES_DECK_ID, name: 'Favoris' }, ...manualDecks].map((d) => (
+                  <button key={d.id} type="button" aria-pressed={deckId === d.id} onClick={() => setDeckId(d.id)}
+                    className={`min-h-11 shrink-0 rounded-full px-3 ring-1 ${deckId === d.id ? 'bg-brand-600 text-white ring-brand-600' : 'ring-slate-300 hover:bg-white/50 dark:ring-white/20 dark:hover:bg-white/10'}`}>{d.name}</button>
+                ))}
+              </div>
+            )}
+            <button type="button" onClick={() => { void create(); }} disabled={!canCreate} className="btn-primary min-h-11 w-full rounded-full disabled:opacity-40">{hit ? `Ranger dans ${deckId === FAVORITES_DECK_ID ? 'Favoris' : manualDecks.find((d) => d.id === deckId)?.name ?? 'Favoris'}` : 'Créer la carte'}</button>
             {error && <p role="alert" className="text-xs text-rose-600 dark:text-rose-400">{error}</p>}
           </>
         )}
-      </div>
+      </m.div>
     </Portal>
   );
 }

@@ -15,18 +15,23 @@ import { sortDe, letterOf } from './letters';
 import { TermList, type TermListHandle } from './TermList';
 import { AlphabetRail } from './AlphabetRail';
 import { DeckTabs } from './DeckTabs';
-import { DeckSheet } from './DeckSheet';
+import { DeckManager } from './DeckManager';
+import { AnimatePresence } from '@/lib/motion';
 import { SrsSettingsSheet } from './SrsSettingsSheet';
 
 const FAV_DECK = { id: FAVORITES_DECK_ID, name: 'Favoris', kind: 'manual' as const, createdAt: '', updatedAt: '' };
 
 export function FachbegriffePage() {
-  const begriffe = useAllTerms(); const decks = useDecks(); const deckTerms = useDeckTerms(); const favorites = useFavorites(); const inDecks = useTermsInDecks();
+  // useDecks()/useDeckTerms()/useTermsInDecks() filtrent déjà les decks en
+  // attente de suppression (Annuler 5 s, F4b P6) : un deck supprimé depuis le
+  // tiroir d'un terme disparaît déjà de ces onglets, sans refiltre ici.
+  const begriffe = useAllTerms(); const decks = useDecks();
+  const deckTerms = useDeckTerms(); const favorites = useFavorites(); const inDecks = useTermsInDecks();
   const openGlossary = useUi((s) => s.openGlossary);
   const [params, setParams] = useSearchParams();
   const activeId = params.get('deck');
   const [filters, setFilters] = useState<DeckQuery>({});
-  const [sheet, setSheet] = useState<null | { mode: 'create' } | { mode: 'edit' }>(null);
+  const [manager, setManager] = useState(false);   // renommer / supprimer : le même tiroir que depuis la fiche d'un terme (F4b P6)
   const listRef = useRef<TermListHandle>(null);
   const pendingIdRef = useRef<string | null>(null);
   const [remaining, setRemaining] = useState(0);
@@ -92,14 +97,14 @@ export function FachbegriffePage() {
           </p>
         </div>
         <div className="flex items-center gap-2">
-          {activeDeck && activeId !== FAVORITES_DECK_ID && <button type="button" onClick={() => setSheet({ mode: 'edit' })} className="btn-outline min-h-11 min-w-11 justify-center" aria-label="Gérer le deck">⋯</button>}
+          <button type="button" onClick={() => setManager(true)} className="btn-outline min-h-11 gap-1.5" aria-label="Gérer les decks"><Icon name="gear" className="h-4 w-4 shrink-0" />Decks</button>
           <button type="button" onClick={() => setSrsSheet(true)} className="btn-outline min-h-11 gap-1.5" aria-label="Répétitions"><Icon name="gear" className="h-4 w-4" />Répétitions</button>
           <Link to={drillHref} className="btn-primary gap-1.5"><Icon name="nav-abc" className="h-4 w-4" />{`Drill${activeDeck ? ` · ${activeDeck.name}` : ''} (${due + fresh})`}</Link>
           {due + fresh > 0 && <span className="text-xs text-slate-500 dark:text-slate-400">≈ {drillMinutes(due + fresh)} min</span>}
         </div>
       </header>
 
-      <DeckTabs decks={decks} activeId={activeId} counts={counts} onSelect={select} onCreate={() => setSheet({ mode: 'create' })} />
+      <DeckTabs decks={decks} activeId={activeId} counts={counts} onSelect={select} />
 
       <div className="card flex flex-wrap items-end gap-3 p-3">
         <div className="min-w-[160px] flex-1"><label className="label">Recherche</label><input value={effective.q ?? ''} onChange={(e) => set('q', e.target.value)} placeholder="Terme, traduction…" className="input mt-1" /></div>
@@ -119,8 +124,10 @@ export function FachbegriffePage() {
         </div>
       )}
 
-      {sheet && <DeckSheet mode={sheet.mode} deck={sheet.mode === 'edit' ? (activeDeck as never) : undefined} initialQuery={filters} specialties={specialties} centers={centers}
-        onClose={(createdId, opts) => { setSheet(null); if (createdId) { pendingIdRef.current = createdId; select(createdId); } else if (opts?.deleted) select(null); }} />}
+      <AnimatePresence>
+        {manager && <DeckManager key="deck-manager" decks={decks ?? []} counts={counts} onClose={() => setManager(false)}
+          initialQuery={filters} onCreated={(createdId) => { setManager(false); pendingIdRef.current = createdId; select(createdId); }} />}
+      </AnimatePresence>
       {srsSheet && <SrsSettingsSheet onClose={() => { setSrsSheet(false); reloadCtx(); }} />}
     </div>
   );

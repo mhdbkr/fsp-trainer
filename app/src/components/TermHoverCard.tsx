@@ -6,11 +6,12 @@ import { armClose, disarmClose } from './hoverTimer';
 import { starRef } from './hoverStarRef';
 import { TermSheet } from './TermSheet';
 import { StarButton } from './StarButton';
+import { AnimatePresence, appear, m } from '@/lib/motion';
 
 // Hover-card ★ (spec F2b D2/D3, F4a D2/D6) : une seule carte, ancrée sur le
 // terme survolé ou tapé — la fiche en version compacte (terme, Bedeutung),
 // l'étoile (Favoris d'un geste, ou les decks du terme si elle est pleine) et
-// « Voir la fiche ». Mouvement : opacity/transform ≤ 150 ms, reduced-motion
+// « Voir la fiche ». Verre plein ; mouvement : geste `appear` (lib/motion), reduced-motion
 // respecté. Le minuteur de fermeture est partagé avec AutoLinkText via
 // `hoverTimer`. `caseId` vient du store (voir ui.ts) : cette carte est montée
 // dans Shell, hors de tout CaseContext.Provider.
@@ -52,7 +53,7 @@ export function TermHoverCard() {
     };
   }, [hover, close]);
 
-  if (!hover) return null;
+  if (!hover) return <AnimatePresence>{null}</AnimatePresence>;   // même instance : la sortie se joue
   const { fb, anchor, caseId } = hover;
 
   const vw = typeof window !== 'undefined' ? window.innerWidth : 1024;
@@ -63,7 +64,10 @@ export function TermHoverCard() {
   const top = Math.max(8, fitsBelow ? belowTop : anchor.top - 8 - measuredH);
 
   return (
-    <div
+    <AnimatePresence>
+    <m.div
+      key={fb.id}
+      {...appear}
       ref={ref}
       role="dialog"
       aria-label={fb.term}
@@ -73,7 +77,7 @@ export function TermHoverCard() {
       onMouseLeave={() => armClose(close, 300)}
       onFocus={disarmClose}
       onBlur={(e) => { if (!ref.current?.contains(e.relatedTarget as Node)) armClose(close, 300); }}
-      className="glass glass-edge rounded-xl p-3 text-sm motion-safe:animate-fade-in"
+      className="glass-full rounded-xl p-3 text-sm"
     >
       <TermSheet term={fb} compact actions={
         <StarButton term={fb} filled={inDecks?.has(fb.id)} caseId={caseId ?? undefined} buttonRef={(el) => { starRef.current = el; }} />
@@ -82,6 +86,7 @@ export function TermHoverCard() {
         <span role="img" aria-label={fb.srs.state} className={`chip ${SRS_TONE[fb.srs.state].chip}`}>{fb.srs.state}</span>
         <button type="button" onClick={() => { close(); openGlossary(fb); }} className="btn-ghost min-h-11">Voir la fiche →</button>
       </div>
-    </div>
+    </m.div>
+    </AnimatePresence>
   );
 }

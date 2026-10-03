@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
-import { adaptChaptersForCase, fachChapterForCase } from './anamneseChapters';
-import { dedupeBySymptom } from './symptoms';
+import { ALLGEMEINE_ANAMNESE, FACHANAMNESEN, LEITSYMPTOM_KATEGORIEN, adaptChaptersForCase, aktuellChapterFor, fachChapterForCase } from './anamneseChapters';
+import { PROBE_SUCHT, dedupeBySymptom } from './symptoms';
 import { phraseFollowUp, phraseProbes, phraseText, splitDimension } from './phrases';
 import type { Case } from '@/db/types';
 
@@ -62,6 +62,43 @@ describe('Un symptôme, une question (FB2-J10)', () => {
     expect(out[1].questions.map(phraseText)).toEqual(['Ausland?']);
     expect(phraseFollowUp(out[1].questions[0])).toEqual(['y']);
     expect(phraseProbes(out[1].questions[0])).toEqual(['veg-fieber']);
+  });
+});
+
+// Revue série 3, I5 : une partie qui ne déclare pas un symptôme de sa sonde
+// laisse la réduction recoller les parties restantes (« Hatten Sie
+// Schüttelfrost? Schwitzen Sie nachts…? » dans 6 cas endocriniens).
+describe('parts ↔ PROBE_SUCHT (I5)', () => {
+  const catalogue = [
+    ...ALLGEMEINE_ANAMNESE, ...FACHANAMNESEN.map((f) => f.chapter), ...LEITSYMPTOM_KATEGORIEN.map((k) => aktuellChapterFor(k)),
+  ].flatMap((ch) => ch.questions);
+  it('l’union des `parts.sucht` d’une phrase égale la carte de sa sonde', () => {
+    const bad: string[] = [];
+    for (const q of catalogue) {
+      if (typeof q === 'string' || !q.parts) continue;
+      const probe = phraseProbes(q)[0];
+      const union = [...new Set(q.parts.flatMap((pt) => pt.sucht))].sort();
+      const map = [...(PROBE_SUCHT[probe] ?? [])].sort();
+      if (union.join() !== map.join()) bad.push(`${probe}: parts [${union}] ≠ carte [${map}]`);
+    }
+    expect(bad).toEqual([]);
+  });
+  it('une réduction à plusieurs parties les pose une par une, jamais recollées', () => {
+    const out = dedupeBySymptom([
+      { id: 'a', questions: [{ text: 'Schwitzen?', probe: 'fach-endo-temperatur' }] },
+      { id: 'b', questions: [{ text: 'Schüttelfrost, Nachtschweiß, Schweißausbrüche?', probe: 'veg-schuettelfrost', parts: [
+        { sucht: ['schuettelfrost'], text: 'Schüttelfrost?' }, { sucht: ['nachtschweiss'], text: 'Nachts?' }, { sucht: ['schwitzen'], text: 'Schweißausbrüche?' }] }] },
+    ]);
+    expect(out[1].questions.map(phraseText)).toEqual(['Schüttelfrost?', 'Nachts?']);
+  });
+});
+
+// Décision D4 : la polyurie n'est pas un trouble mictionnel. Poser la soif et
+// le volume urinaire ne doit pas effacer « Wasserlassen » de la vegetative.
+describe('polyurie ≠ miktion (D4)', () => {
+  it('endocrino : la vegetative demande encore le Wasserlassen', () => {
+    const veg = texts(mk({ specialty: 'Endokrinologie', kategorie: 'allgemein' })).filter(([ch]) => ch === 'vegetativ').map(([, t]) => t);
+    expect(veg.some((t) => /Wasserlassen/.test(t))).toBe(true);
   });
 });
 

@@ -1,7 +1,7 @@
 import { describe, it, expect, beforeEach, vi } from 'vitest';
 import { db } from '@/db/db';
 import { createPersonalTerm } from './personalTerms';
-import { toggleFavorite } from './index';
+import { toggleFavorite, createDeck, addTermToDeck } from './index';
 import { scheduleDeletion, cancelDeletion, flushDeletions, usePendingDeletions } from './pendingDeletion';
 
 vi.mock('@/lib/sync/queue', async () => {
@@ -83,5 +83,37 @@ describe('suppression différée (F4a D10, AC-9)', () => {
     await vi.waitFor(() => expect(usePendingDeletions.getState().ids.has(id)).toBe(false), { timeout: 3000 });
     expect(await db.personal_terms.get(id)).toBeTruthy();
     expect(useCardToast.getState().toast).toMatchObject({ kind: 'error', message: 'Impossible de supprimer : réessaie.' });
+  });
+});
+
+describe('suppression différée d\'un deck (F4b P6, AC-5)', () => {
+  let deckId: string; let termId: string;
+  const deckDeleted = async () => (await db.progress_events.toArray()).filter((e) => e.type === 'deck.deleted');
+  beforeEach(async () => {
+    await db.progress_events.clear(); await db.personal_terms.clear(); await db.favorites.clear(); await db.deck_terms.clear(); await db.decks.clear();
+    deckId = await createDeck('Leber', 'manual');
+    termId = (await createPersonalTerm({ term: 'Aszites', explanation: 'Bauchwasser' })).id;
+    await addTermToDeck(deckId, termId);
+  });
+
+  it('masqué tout de suite, rien émis ; Annuler → aucun événement, deck intact', async () => {
+    await scheduleDeletion(deckId, DELAY, 'deck');
+    expect(usePendingDeletions.getState().ids.has(deckId)).toBe(true);
+    expect(await deckDeleted()).toEqual([]);
+    expect(cancelDeletion(deckId)).toBe(true);
+    await sleep(DELAY * 3);
+    expect(await deckDeleted()).toEqual([]);
+    expect(await db.decks.get(deckId)).toBeTruthy();
+  });
+  it('expiration → deck.deleted émis ; aucune carte supprimée', async () => {
+    await scheduleDeletion(deckId, DELAY, 'deck');
+    await vi.waitFor(() => expect(usePendingDeletions.getState().ids.has(deckId)).toBe(false), { timeout: 3000 });
+    expect(await deckDeleted()).toHaveLength(1);
+    expect(await db.decks.get(deckId)).toBeUndefined();
+    expect(await db.personal_terms.get(termId)).toBeTruthy();
+    expect((await db.progress_events.toArray()).some((e) => e.type === 'term.personal_deleted')).toBe(false);
+  });
+  it('Favoris ne se supprime pas', async () => {
+    await expect(scheduleDeletion('deck-favorites', DELAY, 'deck')).rejects.toThrow('reserved');
   });
 });

@@ -1,5 +1,5 @@
 import { describe, it, expect, beforeEach, vi } from 'vitest';
-import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+import { render, screen, fireEvent, waitFor, act } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
 import { db } from '@/db/db';
 import { freshSrs } from '@/lib/srs';
@@ -50,14 +50,16 @@ describe('FachbegriffePage', () => {
     expect(screen.queryByText('Kardiomyopathie')).toBeNull();
   });
 
-  it('créer un deck manuel depuis « + » ; onglet actif via URL ; état vide', async () => {
+  it('créer un deck manuel depuis « ⋯ » → « Nouveau deck » ; onglet actif via URL ; état vide', async () => {
     renderAt();
     await screen.findByText('Abdomen');
-    fireEvent.click(screen.getByRole('button', { name: /nouveau deck/i }));
+    fireEvent.click(screen.getByRole('button', { name: 'Gérer les decks' }));
+    fireEvent.click(await screen.findByRole('button', { name: 'Nouveau deck' }));
     fireEvent.change(screen.getByLabelText(/nom du deck/i), { target: { value: 'Kardio' } });
     fireEvent.click(screen.getByRole('button', { name: /créer/i }));
     const tab = await screen.findByRole('tab', { name: /kardio/i });
     expect(tab.getAttribute('aria-selected')).toBe('true');
+    await waitFor(() => expect(screen.queryByRole('dialog', { name: 'Decks' })).toBeNull());   // on atterrit sur le deck créé
     const decks = await db.decks.toArray(); expect(decks).toHaveLength(1);
     // deck vide → état vide
     expect(screen.getByText(/ajoute des termes/i)).toBeTruthy();
@@ -66,7 +68,8 @@ describe('FachbegriffePage', () => {
   it('deck intelligent : filtres enregistrés suivent le SRS', async () => {
     renderAt();
     await screen.findByText('Abdomen');
-    fireEvent.click(screen.getByRole('button', { name: /nouveau deck/i }));
+    fireEvent.click(screen.getByRole('button', { name: 'Gérer les decks' }));
+    fireEvent.click(await screen.findByRole('button', { name: 'Nouveau deck' }));
     fireEvent.change(screen.getByLabelText(/nom du deck/i), { target: { value: 'À revoir' } });
     fireEvent.click(screen.getByLabelText(/deck intelligent/i));
     fireEvent.change(screen.getByLabelText(/^état$/i), { target: { value: 'Zu wiederholen' } });
@@ -84,5 +87,31 @@ describe('FachbegriffePage', () => {
     const tab = await screen.findByRole('tab', { name: /mon deck/i });
     expect(tab.getAttribute('aria-selected')).toBe('true');
     expect((screen.getByRole('link', { name: /drill/i }) as HTMLAnchorElement).getAttribute('href')).toContain('deck=d1');
+  });
+  it('un deck en attente de suppression (Annuler 5 s) disparaît des onglets ; Annuler le rend (F4b P6)', async () => {
+    await db.progress_events.put({ id: 'e1', user_id: 'u', type: 'deck.created', subject_id: 'd1', payload: { name: 'Mon deck', kind: 'manual' }, occurred_at: '2026-09-17T10:00:00Z' } as never);
+    const { reprojectCollections } = await import('@/lib/collections'); await reprojectCollections();
+    const { scheduleDeletion, cancelDeletion } = await import('@/lib/collections/pendingDeletion');
+    renderAt();
+    await screen.findByRole('tab', { name: /mon deck/i });
+    await act(async () => { await scheduleDeletion('d1', 60_000, 'deck'); });
+    await waitFor(() => expect(screen.queryByRole('tab', { name: /mon deck/i })).toBeNull());
+    act(() => { cancelDeletion('d1'); });
+    expect(await screen.findByRole('tab', { name: /mon deck/i })).toBeTruthy();
+    expect((await db.progress_events.toArray()).some((e) => e.type === 'deck.deleted')).toBe(false);
+  });
+  it('« ⋯ » ouvre le tiroir de gestion des decks', async () => {
+    renderAt();
+    await screen.findByText('Abdomen');
+    fireEvent.click(screen.getByRole('button', { name: 'Gérer les decks' }));
+    expect(await screen.findByRole('dialog', { name: 'Decks' })).toBeTruthy();
+  });
+  it('une seule entrée de création : plus de « + » dans les onglets ; « Nouveau deck » vit dans la gestion (G1-8)', async () => {
+    renderAt();
+    await screen.findByText('Abdomen');
+    expect(screen.queryByRole('button', { name: 'Nouveau deck' })).toBeNull();
+    fireEvent.click(screen.getByRole('button', { name: 'Gérer les decks' }));
+    fireEvent.click(await screen.findByRole('button', { name: 'Nouveau deck' }));
+    expect(await screen.findByRole('dialog', { name: 'Nouveau deck' })).toBeTruthy();
   });
 });

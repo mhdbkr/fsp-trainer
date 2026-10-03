@@ -39,15 +39,17 @@ async function clickEmptyStar() {
 describe('StarButton + CardToast (F4a D6/D7, AC-6)', () => {
   beforeEach(async () => { await db.progress_events.clear(); await db.favorites.clear(); await db.decks.clear(); await db.deck_terms.clear(); useCardToast.setState({ toast: null }); });
 
-  it('★ vide → Favoris (+caseId), confirmation avec miniature, « Voir la carte » retourne', async () => {
+  it('★ vide → Favoris (+caseId) ; pilule « Rangée dans Favoris » : toucher ouvre la miniature, « Révéler » la retourne (F4b P5)', async () => {
     render(<Harness caseId="case-leberzirrhose" />);
     await clickEmptyStar();
     expect(await screen.findByText('Favoris', { selector: 'strong' })).toBeTruthy();
     expect((await db.progress_events.toArray()).find((e) => e.type === 'term.favorited')!.payload).toEqual({ caseId: 'case-leberzirrhose' });
+    expect(document.querySelector('[data-card-flip]')).toBeNull();   // une ligne : la carte ne s'ouvre qu'au toucher
+    fireEvent.click(screen.getByRole('button', { name: /Rangée dans/ }));
     expect(document.querySelector('[data-card-flip]')!.getAttribute('data-card-flip')).toBe('recto');
     fireEvent.click(screen.getByRole('button', { name: 'Révéler' }));
     expect(document.querySelector('[data-card-flip]')!.getAttribute('data-card-flip')).toBe('verso');
-    expect(await screen.findByRole('button', { name: 'Decks de Aszites' })).toBeTruthy();
+    expect(await screen.findByRole('button', { name: 'Voir la fiche de Aszites' })).toBeTruthy();
   });
   it('« Changer de deck » déplace : retiré de Favoris, ajouté au deck choisi', async () => {
     const deckId = await createDeck('Leber', 'manual');
@@ -59,48 +61,40 @@ describe('StarButton + CardToast (F4a D6/D7, AC-6)', () => {
     expect(await db.favorites.get('fb-aszites')).toBeUndefined();
     expect(await screen.findByText('Leber', { selector: 'strong' })).toBeTruthy();
   });
-  it('★ pleine (terme dans un deck, pas en Favoris) → liste ses decks ; décocher retire', async () => {
+  it('★ pleine (terme dans un deck) → ouvre la fiche du terme, sans rien émettre (F4b P6 : les decks se rangent dans ses onglets)', async () => {
+    const { useUi } = await import('@/store/ui');
+    useUi.setState({ glossaryTerm: null });
     const deckId = await createDeck('Leber', 'manual');
     await addTermToDeck(deckId, 'fb-aszites');
+    const before = (await db.progress_events.toArray()).length;
     render(<Harness />);
-    fireEvent.click(await screen.findByRole('button', { name: 'Decks de Aszites' }));
-    expect((await screen.findByRole('menuitemcheckbox', { name: /Favoris/ })).getAttribute('aria-checked')).toBe('false');
-    fireEvent.click(await screen.findByRole('menuitemcheckbox', { name: /Leber/ }));
-    await waitFor(async () => expect(await db.deck_terms.get([deckId, 'fb-aszites'])).toBeUndefined());
-    expect(await screen.findByRole('button', { name: 'Ajouter aux favoris : Aszites' })).toBeTruthy();
+    const full = await screen.findByRole('button', { name: 'Voir la fiche de Aszites' });
+    expect(full.getAttribute('aria-haspopup')).toBe('dialog');
+    expect(full.getAttribute('aria-pressed')).toBeNull();   // plus une bascule (correctif E4)
+    fireEvent.click(full);
+    expect(useUi.getState().glossaryTerm?.id).toBe('fb-aszites');
+    expect((await db.progress_events.toArray()).length).toBe(before);
     expect(FAVORITES_DECK_ID).toBe('deck-favorites');
+    useUi.setState({ glossaryTerm: null });
   });
-  it('checklist : « + » crée le deck ET y range le terme (revue C4)', async () => {
-    await addTermToDeck(FAVORITES_DECK_ID, 'fb-aszites');
-    render(<Harness />);
-    fireEvent.click(await screen.findByRole('button', { name: 'Decks de Aszites' }));
-    fireEvent.change(await screen.findByRole('textbox', { name: 'Nom du nouveau deck' }), { target: { value: 'Hepato' } });
-    fireEvent.click(screen.getByRole('button', { name: 'Créer le deck et y ranger ce terme' }));
-    await waitFor(async () => {
-      const deck = (await db.decks.toArray()).find((d) => d.name === 'Hepato');
-      expect(deck && (await db.deck_terms.get([deck.id, 'fb-aszites']))).toBeTruthy();
-    });
-  });
-  it("l'ancre du menu decks repart de zéro quand le terme redevient sans deck puis en regagne un (m4)", async () => {
-    const deckId = await createDeck('Leber', 'manual');
-    await addTermToDeck(deckId, 'fb-aszites');
-    render(<Harness />);
-    fireEvent.click(await screen.findByRole('button', { name: 'Decks de Aszites' }));
-    await screen.findByRole('menu');
-    fireEvent.click(await screen.findByRole('menuitemcheckbox', { name: /Leber/ }));
-    await waitFor(() => expect(screen.queryByRole('menu')).toBeNull());
-    await screen.findByRole('button', { name: 'Ajouter aux favoris : Aszites' });
-    await addTermToDeck(deckId, 'fb-aszites');
-    const starBtn = await screen.findByRole('button', { name: 'Decks de Aszites' });
-    fireEvent.click(starBtn);
-    expect(await screen.findByRole('menu')).toBeTruthy();
-  });
-  it('Échap ferme la confirmation (revue C4)', async () => {
+  it('Échap DANS la pilule ferme la confirmation (revue C4 ; Échap ailleurs ne la ferme plus, G1-16)', async () => {
     render(<Harness />);
     await clickEmptyStar();
     expect(await screen.findByText('Favoris', { selector: 'strong' })).toBeTruthy();
-    fireEvent.keyDown(window, { key: 'Escape' });
+    fireEvent.keyDown(screen.getByRole('button', { name: 'Révéler' }), { key: 'Escape' });
     await waitFor(() => expect(screen.queryByText('Favoris', { selector: 'strong' })).toBeNull());
+  });
+  it('matière (F4b P3, AC-2) : vide = cristal, pleine = ambre `star` ; jamais de corail', async () => {
+    const { container } = render(<Harness />);
+    await clickEmptyStar();
+    const full = await screen.findByRole('button', { name: 'Voir la fiche de Aszites' });
+    expect(full.querySelector('[data-star]')!.getAttribute('data-star')).toBe('amber');
+    expect(full.className).toContain('text-star-600');
+    expect(full.className).toContain('dark:text-star-400');
+    render(<StarButton term={{ ...(term as object), id: 'fb-x', term: 'X' } as never} filled={false} />);
+    const empty = screen.getByRole('button', { name: 'Ajouter aux favoris : X' });
+    expect(empty.querySelector('[data-star]')!.getAttribute('data-star')).toBe('crystal');
+    expect(container.ownerDocument.body.innerHTML).not.toMatch(/signal-/);
   });
   it('decks en chargement : étoile inerte, pas de ★ vide cliquable (revue C4)', () => {
     render(<StarButton term={term} filled={undefined} />);

@@ -45,7 +45,7 @@ describe('DrillPage — pas de boucle de rendu', () => {
   beforeEach(async () => {
     await db.fachbegriffe.clear(); await db.progress_events.clear();
     await db.decks.clear(); await db.deck_terms.clear(); await db.favorites.clear(); await db.cases.clear(); await db.personal_terms.clear();
-    vi.mocked(loadDrillContext).mockReset();
+    vi.mocked(loadDrillContext).mockReset(); localStorage.clear();
     vi.mocked(loadDrillContext).mockResolvedValue(defaultCtx);
     await seed();
   });
@@ -77,7 +77,7 @@ describe('DrillPage — pas de boucle de rendu', () => {
     await db.fachbegriffe.bulkPut([{ id: 'fb-a', term: 'Abdomen', translationSimple: 'Bauch', specialty: 'Gastroenterologie', pathologyTags: [], centers: [], linkedCaseIds: [], srs: freshSrs() }, { id: 'fb-z', term: 'Zyste', translationSimple: 'Z', specialty: 'X', pathologyTags: [], centers: [], linkedCaseIds: [], srs: freshSrs() }] as never);
     renderAt('/fachbegriffe/drill?case=c1');
     expect(await screen.findByText(/Termes de Ulcus ventriculi/)).toBeTruthy();
-    expect(screen.getByText(/1 nouveaux/)).toBeTruthy(); // fb-a seulement, jamais fb-z
+    await waitFor(() => expect(document.querySelector('[data-readout="nouveaux"] dd')!.textContent).toBe('1')); // fb-a seulement, jamais fb-z (le relevé suit le pool un rendu plus tard)
   });
 
   it('?case= sans rien à réviser → « Réviser la spécialité »', async () => {
@@ -85,7 +85,7 @@ describe('DrillPage — pas de boucle de rendu', () => {
     await db.cases.put({ id: 'c2', name: 'Angina', specialty: 'Kardiologie', linkedFachbegriffeIds: ['fb-k'] } as never);
     await db.fachbegriffe.put({ id: 'fb-k', term: 'Koronar', translationSimple: 'K', specialty: 'Kardiologie', pathologyTags: [], centers: [], linkedCaseIds: [], srs: freshSrs() } as never);
     renderAt('/fachbegriffe/drill?case=c2');
-    const btn = await screen.findByRole('link', { name: /Réviser la spécialité Kardiologie/ });
+    const btn = await screen.findByRole('link', { name: /Réviser la spécialité Kardiologie/ }, { timeout: 3000 });   // sous charge (suite complète), le cas charge après 1 s
     expect(btn.getAttribute('href')).toContain('specialty=Kardiologie');
   });
 
@@ -149,7 +149,7 @@ describe('DrillPage — pas de boucle de rendu', () => {
     await db.fachbegriffe.clear();
     await db.personal_terms.put({ id: 'pt-ctx02', term: 'Belastungsdyspnoe', context: 'Der Patient klagt über Belastungsdyspnoe seit zwei Wochen.', createdAt: '2026-09-25T10:00:00Z', srs: freshSrs(0) } as never);
     renderAt('/fachbegriffe/drill');
-    fireEvent.click(await screen.findByRole('button', { name: /sens → terme/i }));
+    fireEvent.click(await screen.findByRole('button', { name: /Bedeutung → Fachbegriff/ }));
     const startBtn = await screen.findByRole('button', { name: /commencer/i });
     fireEvent.click(startBtn);
     expect(screen.queryByText('Belastungsdyspnoe')).toBeNull();
@@ -160,7 +160,7 @@ describe('DrillPage — pas de boucle de rendu', () => {
     await db.fachbegriffe.clear();
     await db.personal_terms.put({ id: 'pt-ctx03', term: 'Übelkeit', context: 'Die Patientin berichtet über Übelkeit seit dem Frühstück.', createdAt: '2026-09-25T10:00:00Z', srs: freshSrs(0) } as never);
     renderAt('/fachbegriffe/drill');
-    fireEvent.click(await screen.findByRole('button', { name: /sens → terme/i }));
+    fireEvent.click(await screen.findByRole('button', { name: /Bedeutung → Fachbegriff/ }));
     const startBtn = await screen.findByRole('button', { name: /commencer/i });
     fireEvent.click(startBtn);
     expect(screen.queryByText('Übelkeit')).toBeNull();
@@ -213,5 +213,87 @@ describe('DrillPage — pas de boucle de rendu', () => {
     fireEvent.change(screen.getByRole('textbox', { name: 'Bedeutung' }), { target: { value: 'nouvelle signification' } });
     fireEvent.click(screen.getByRole('button', { name: 'Enregistrer' }));
     expect(await screen.findByText('nouvelle signification')).toBeTruthy();
+  });
+
+  it('carte d\'embarquement (F4b P7, AC-6) : portée, trois relevés, sens avec exemples, UNE action ; plus de SM-2', async () => {
+    renderAt('/fachbegriffe/drill');
+    const start = await screen.findByRole('button', { name: /Commencer$/ });
+    expect(screen.getByRole('heading', { name: 'Tous les termes' })).toBeTruthy();
+    expect([...document.querySelectorAll('[data-readout]')].map((r) => r.getAttribute('data-readout'))).toEqual(['à revoir', 'nouveaux', 'min environ']);
+    expect(document.querySelector('[data-readout="nouveaux"] dd')!.className).toContain('font-mono');
+    expect(screen.getByRole('button', { name: /Fachbegriff → Bedeutung/ }).getAttribute('aria-pressed')).toBe('true');
+    expect(screen.getByRole('button', { name: /Bedeutung → Fachbegriff/ })).toBeTruthy();
+    expect(document.body.textContent).not.toMatch(/SM-2|bidirectionnel|Répétition espacée|Aszites/);
+    expect(screen.queryByText(/demain/)).toBeNull();   // 2 nouveaux ≤ budget 10 : il ne limite pas
+    expect(start).toBeTruthy();
+  });
+  it('l\'exemple ne cite jamais queue[0] : un terme du pool hors file (G1-25)', async () => {
+    await db.fachbegriffe.clear(); await db.favorites.clear();
+    await db.fachbegriffe.bulkPut([
+      { id: 'fb-h', term: 'Hepar', translationSimple: 'Leber', specialty: 'X', pathologyTags: [], centers: [], linkedCaseIds: [], srs: freshSrs() },
+      { id: 'fb-r', term: 'Ren', translationSimple: 'Niere', specialty: 'X', pathologyTags: [], centers: [], linkedCaseIds: [], srs: freshSrs() },
+    ] as never);
+    vi.mocked(loadDrillContext).mockResolvedValue({ ...defaultCtx, remaining: 1 });   // file du jour = 1 carte
+    const spy = vi.spyOn(drillQueueModule, 'buildDrillQueue');
+    renderAt('/fachbegriffe/drill');
+    await waitFor(() => expect(screen.getByRole('button', { name: /Fachbegriff → Bedeutung/ }).textContent).toContain('→ ?'), { timeout: 4000 });   // file bâtie
+    const q0 = (spy.mock.results[spy.mock.results.length - 1].value as { term: string; translationSimple: string }[])[0];
+    const other = q0.term === 'Hepar' ? { term: 'Ren', simple: 'Niere' } : { term: 'Hepar', simple: 'Leber' };
+    const t2s = screen.getByRole('button', { name: /Fachbegriff → Bedeutung/ }).textContent!;
+    const s2t = screen.getByRole('button', { name: /Bedeutung → Fachbegriff/ }).textContent!;
+    expect(t2s).toContain(`${other.term} → ?`); expect(s2t).toContain(`${other.simple} → ?`);
+    expect(t2s).not.toContain(q0.term); expect(s2t).not.toContain(q0.translationSimple);
+    spy.mockRestore();
+  });
+  it('un seul terme, file d\'une carte : pas d\'exemple (jamais la réponse) (G1-25)', async () => {
+    await db.fachbegriffe.clear(); await db.favorites.clear();
+    await db.fachbegriffe.put({ id: 'fb-h', term: 'Hepar', translationSimple: 'Leber', specialty: 'X', pathologyTags: [], centers: [], linkedCaseIds: [], srs: freshSrs() } as never);
+    const spy = vi.spyOn(drillQueueModule, 'buildDrillQueue');
+    renderAt('/fachbegriffe/drill');
+    const t2s = await screen.findByRole('button', { name: /Fachbegriff → Bedeutung/ });
+    await waitFor(() => expect(spy.mock.results.some((r) => (r.value as unknown[]).length === 1)).toBe(true), { timeout: 4000 });   // file bâtie (1 carte)
+    await new Promise((r) => setTimeout(r, 50));
+    spy.mockRestore();
+    expect(t2s.textContent).not.toContain('Hepar'); expect(t2s.textContent).not.toContain('→ ?');
+  });
+  it('?specialty= : la spécialité est le titre, pas de puce « Priorité » (G1-5)', async () => {
+    renderAt('/fachbegriffe/drill?specialty=Kardiologie');
+    expect(await screen.findByRole('heading', { name: 'Kardiologie' })).toBeTruthy();
+    expect(screen.queryByText(/Priorité/)).toBeNull();
+  });
+  it('deck vide : « Ce deck est encore vide », jamais « À jour » (G1-3)', async () => {
+    await db.decks.add({ id: 'd-vide', name: 'Vide', kind: 'manual', createdAt: '', updatedAt: '' } as never);
+    renderAt('/fachbegriffe/drill?deck=d-vide');
+    expect(await screen.findByText('Ce deck est encore vide — range des termes depuis leur fiche.')).toBeTruthy();
+    expect(screen.queryByText(/À jour/)).toBeNull();
+  });
+  it('portée = cas : pas de puce « Ton cas récent » qui nomme ce même cas (G1-4)', async () => {
+    const cases = [{ id: 'c1', name: 'Ulcus ventriculi', linkedFachbegriffeIds: ['fb-a'] }];
+    vi.mocked(loadDrillContext).mockResolvedValue({ ...defaultCtx, relevance: { ...defaultCtx.relevance, now: Date.now(), recentSimulations: [{ caseId: 'c1', date: Date.now() - 1000 }], cases } } as never);
+    await db.cases.put({ id: 'c1', name: 'Ulcus ventriculi', specialty: 'Gastroenterologie', linkedFachbegriffeIds: ['fb-a'] } as never);
+    renderAt('/fachbegriffe/drill?case=c1');
+    expect(await screen.findByText(/Termes de Ulcus ventriculi/)).toBeTruthy();
+    expect(screen.queryByText(/Ton cas récent/)).toBeNull();
+  });
+  it('le sens choisi est retenu d\'une visite à l\'autre (G1-6)', async () => {
+    const first = renderAt('/fachbegriffe/drill');
+    fireEvent.click(await screen.findByRole('button', { name: /Bedeutung → Fachbegriff/ }));
+    first.unmount();
+    renderAt('/fachbegriffe/drill');
+    expect((await screen.findByRole('button', { name: /Bedeutung → Fachbegriff/ })).getAttribute('aria-pressed')).toBe('true');
+  });
+  it('budget du jour affiché seulement quand il retient des nouveaux', async () => {
+    vi.mocked(loadDrillContext).mockResolvedValue({ ...defaultCtx, remaining: 1, daily: { ...defaultCtx.daily, newPerDay: 1 } });
+    renderAt('/fachbegriffe/drill');
+    expect(await screen.findByRole('button', { name: /Commencer$/ })).toBeTruthy();
+    expect(screen.getByText('Encore 1 nouveau demain')).toBeTruthy();
+  });
+  it('état vide : « À jour ✓ — prochain terme dû le … »', async () => {
+    await db.fachbegriffe.clear();
+    const due = new Date(2030, 9, 3).getTime();
+    await db.fachbegriffe.put({ id: 'fb-x', term: 'Zyste', translationSimple: 'Z', specialty: 'X', pathologyTags: [], centers: [], linkedCaseIds: [], srs: { ...freshSrs(), state: 'Gelernt', dueDate: due, repetitions: 2, interval: 6 } } as never);
+    renderAt('/fachbegriffe/drill');
+    expect(await screen.findByText('À jour ✓ — prochain terme dû le 3 octobre')).toBeTruthy();
+    expect(screen.queryByRole('button', { name: /commencer/i })).toBeNull();
   });
 });

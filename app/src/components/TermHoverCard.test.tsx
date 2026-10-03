@@ -45,16 +45,18 @@ describe('TermHoverCard', () => {
     rerender(<MemoryRouter><TermHoverCard /></MemoryRouter>);
     expect(await screen.findByRole('dialog')).toBeTruthy();
     expect(screen.getByText('Abdomen')).toBeTruthy(); expect(screen.getByText(/Bauch/)).toBeTruthy();
+    const card = screen.getByRole('dialog');
+    expect(card.className).toContain('glass-full');   // matière unique (G1-15)
+    expect(card.className).not.toMatch(/shadow-|animate-fade-in|border-slate/);
   });
-  it('★ = Favoris immédiat avec caseId du store ; ★ pleine → decks du terme, décocher Favoris retire (F4a D6)', async () => {
+  it('★ = Favoris immédiat avec caseId du store ; ★ pleine → ouvre la fiche du terme, où vivent ses onglets de decks (F4b P6)', async () => {
     act(() => useUi.getState().openHover(fb, anchor, 'c9'));
     render(<MemoryRouter><TermHoverCard /></MemoryRouter>);
     fireEvent.click(await screen.findByRole('button', { name: /Ajouter aux favoris/ }));
     await waitFor(async () => expect((await db.progress_events.toArray()).find((e) => e.type === 'term.favorited')?.payload).toEqual({ caseId: 'c9' }));
-    fireEvent.click(await screen.findByRole('button', { name: 'Decks de Abdomen' }));
-    fireEvent.click(await screen.findByRole('menuitemcheckbox', { name: /Favoris/ }));
-    await waitFor(async () => expect((await db.progress_events.toArray()).some((e) => e.type === 'term.unfavorited')).toBe(true));
-    expect(screen.getByRole('dialog')).toBeTruthy();   // la liste des decks ne referme pas la carte
+    fireEvent.click(await screen.findByRole('button', { name: 'Voir la fiche de Abdomen' }));
+    expect(useUi.getState().glossaryTerm?.id).toBe('fb-a');
+    expect((await db.progress_events.toArray()).some((e) => e.type === 'term.unfavorited')).toBe(false);
   });
   it('Échap et clic extérieur ferment', async () => {
     act(() => useUi.getState().openHover(fb, anchor));

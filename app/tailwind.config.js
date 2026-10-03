@@ -80,6 +80,9 @@ export default {
           400: '#e8613c', 500: '#d84a24', 600: '#bf3a19', 700: '#9e2d17',
           800: '#80271a', 900: '#6a2418', 950: '#3a0f0a',
         },
+        // star = ambre glassy doux (F4b P3) — l'étoile PLEINE et rien d'autre ;
+        // jamais du texte courant. Trait : 600 sur clair, 400 sur sombre (≥ 3:1).
+        star: { 300: '#f7d48a', 400: '#f1b84a', 500: '#dd9a26', 600: '#a86f0c', 700: '#8a5a09' },
         // Neutres d'identité : papier clinique (clair) & vert-encre (sombre).
         paper: '#f4f5f2',
         ink: {
@@ -122,6 +125,8 @@ export default {
         'split-l': { '0%': { opacity: '0', transform: 'translateX(110%) scaleX(0.6)' }, '100%': { opacity: '1', transform: 'none' } },
         'split-c': { '0%': { opacity: '0', transform: 'scaleX(0.6)' }, '100%': { opacity: '1', transform: 'none' } },
         'split-r': { '0%': { opacity: '0', transform: 'translateX(-110%) scaleX(0.6)' }, '100%': { opacity: '1', transform: 'none' } },
+        // Miroitement (F4b P8) : la Bedeutung se propose — reflet qui passe, figé sous reduced-motion.
+        shimmer: { '0%': { backgroundPosition: '200% 0' }, '100%': { backgroundPosition: '-200% 0' } },
       },
       animation: {
         'fade-in': 'fade-in 0.2s ease-out',
@@ -133,6 +138,7 @@ export default {
         'split-l': 'split-l 0.55s cubic-bezier(0.32, 0.72, 0, 1) both',
         'split-c': 'split-c 0.55s cubic-bezier(0.32, 0.72, 0, 1) both',
         'split-r': 'split-r 0.55s cubic-bezier(0.32, 0.72, 0, 1) both',
+        shimmer: 'shimmer 1.4s linear infinite',
       },
     },
   },

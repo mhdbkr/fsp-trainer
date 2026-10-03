@@ -1,17 +1,19 @@
 import { useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
 import { Link, useNavigate, useParams, useSearchParams } from 'react-router-dom';
 import { useLiveQuery } from 'dexie-react-hooks';
-import { TEILE, isTeil } from '@/lib/simScope';
+import { isTeil } from '@/lib/simScope';
 import { db } from '@/db/db';
-import type { AssistanceMode, BogenNotes, Case, MusterCity, PartResult, SketchNotes, Simulation } from '@/db/types';
+import type { AssistanceMode, BogenNotes, Case, MusterCity, PartResult, SimTeil, Simulation } from '@/db/types';
 import { useCase, useAufklaerungen, useFachbegriffe } from '@/hooks/useData';
 import { useUi } from '@/store/ui';
-import { useSimSession } from '@/store/simSession';
 import { CaseTermsPanel } from '@/features/fachbegriffe/CaseTermsPanel';
 import { CaseContext } from '@/features/fachbegriffe/CaseContext';
 import { termsOfCase } from '@/lib/collections/caseTerms';
-import { saveSimulation } from '@/lib/simulationSave';
 import { useTimer } from './useTimer';
+import { useLauf } from './useLauf';
+import { checklisteFuer, hatSprachgitter, naechsterTeil } from '@/lib/lauf/automat';
+import type { Lauf, LaufTeil } from '@/lib/lauf/types';
+import { emptyLanguageGrid } from '@/lib/scoring';
 import { computeAmbiance } from './timeAmbiance';
 import { TimeAmbianceProvider, TimeFace, timeGlass } from './TimeCapsule';
 import { Portal } from '@/components/Portal';
@@ -21,50 +23,45 @@ import { AnamneseGuide } from './AnamneseGuide';
 import { AnamneseBogen } from './AnamneseBogen';
 import { VorstellungGuide } from './VorstellungGuide';
 import { ArztbriefGuide } from './ArztbriefGuide';
+import { Ende, SimulationBeendenKnopf, istEnde } from './Abschluss';
 import { KommunikationPanel } from './KommunikationPanel';
 import { QrCode } from '@/components/QrCode';
 import { usePatientBroadcast, patientUrl, patientUrlIsOnline, localPatientUrl } from './usePatientSync';
 import { Icon } from '@/components/icons';
+import { TeilAiLauncher } from './ai/TeilAiLauncher';
 import { SidePanel } from '@/components/SidePanel';
 import { ImmersiveMode } from './ImmersiveMode';
 import { CAT_META } from '@/features/aufklaerung/AufklaerungPage';
 
-type Part = 'anamnese' | 'dokumentation' | 'fallvorstellung' | 'aufklaerung';
-const FLOW: { key: Part; label: string; target: number; icon: string }[] = [
+type Part = LaufTeil;
+const FLOW: { key: SimTeil; label: string; target: number; icon: string }[] = [
   { key: 'anamnese', label: 'Anamnese', target: 20 * 60, icon: 'pain' },
   { key: 'dokumentation', label: 'Dokumentation', target: 20 * 60, icon: 'history' },
   { key: 'fallvorstellung', label: 'Fallvorstellung', target: 12 * 60, icon: 'stethoscope' },
 ];
+const LABEL: Record<Part, string> = {
+  anamnese: 'Anamnese', dokumentation: 'Dokumentation',
+  fallvorstellung: 'Fallvorstellung', aufklaerung: 'Aufklärung',
+};
 
 export function SimulationRunner() {
   const { caseId } = useParams();
   const navigate = useNavigate();
-  const [params] = useSearchParams();
+  const [params, setParams] = useSearchParams();
   // Mode (FB2-P) : ?teil=anamnese|dokumentation|fallvorstellung → un seul Teil ;
   // sinon la simulation complète. Le fil des parties se restreint au mode.
-  const teilParam = params.get('teil');
-  const session0 = useSimSession.getState().snapshot;
-  // Reprise d'une session en pause : son mode fait foi si l'URL ne le porte pas.
-  const teil = isTeil(teilParam) ? teilParam : (session0 && session0.caseId === caseId && session0.teil) || null;
-  const flow = teil ? FLOW.filter((f) => f.key === teil) : FLOW;
+  const teil = isTeil(params.get('teil')) ? (params.get('teil') as SimTeil) : null;
+  // `?sim=<id>` — l'écran de résultat est RECHARGEABLE : il relit la partie
+  // enregistrée au lieu de réafficher un runner vierge (audit §1.3).
+  const simId = params.get('sim');
   const c = useCase(caseId);
-  const assistance = useUi((s) => s.assistance);
-  const layer = useUi((s) => s.layer);
-  const muster = useUi((s) => s.muster);
-  const openExternalAi = useUi((s) => s.openExternalAi);
-  const session = useSimSession();
 
-  // Restaure une session en pause pour ce cas (sinon départ à zéro).
-  const restore = session.snapshot && session.snapshot.caseId === caseId ? session.snapshot : null;
-  const [active, setActive] = useState<Part>(restore?.active ?? teil ?? 'anamnese');
-  const [phase, setPhase] = useState<'play' | 'eval'>(restore?.phase ?? 'play');
-  const [notes] = useState<SketchNotes>({}); // legacy croquis (remplacé par le Bogen structuré)
-  const [bogen, setBogen] = useState<BogenNotes>(restore?.bogen ?? {});
-  const [arztbriefText, setArztbriefText] = useState(restore?.arztbriefText ?? '');
-  const [results, setResults] = useState<Partial<Record<Part, PartResult>>>(restore?.results ?? {});
-  const [aufklaerungOpen, setAufklaerungOpen] = useState(restore?.aufklaerungOpen ?? false);
-  const [elapsed, setElapsed] = useState<Partial<Record<Part, number>>>(restore?.elapsed ?? {});
-  const [finished, setFinished] = useState<Simulation | null>(null);
+  // Un seul état : le `Lauf`. Il porte la checklist, les Teile couverts, le
+  // minutage, le score et le brouillon d'évaluation — aucun `useState` ne les
+  // reconstruit (contrat §1).
+  const steuerung = useLauf(simId ? undefined : c, teil);
+  const { lauf, laedt } = steuerung;
+
   const [showQr, setShowQr] = useState(false);
   const [termsOpen, setTermsOpen] = useState(false);
 
@@ -92,6 +89,10 @@ export function SimulationRunner() {
   const ctrlPrev = useRef<DOMRect | null>(null);
   const [merged, setMerged] = useState(false);
   const [headerH, setHeaderH] = useState(0);
+  // Le conteneur réellement défilant, retenu au passage : c'est lui qu'il faut
+  // remonter à chaque transition (contrat §2.1 règle 6). `window.scrollTo` ne
+  // ferait rien — ce n'est pas la fenêtre qui défile.
+  const scrollerRef = useRef<HTMLElement | null>(null);
   // Dépend de `c` : au tout premier rendu le cas n'est pas chargé, l'en-tête
   // n'existe pas encore et l'effet capterait `window` par défaut — sans jamais
   // se réexécuter. On (ré)attache donc dès que l'en-tête est monté.
@@ -112,6 +113,7 @@ export function SimulationRunner() {
       const y = t === document ? window.scrollY : (t as HTMLElement).scrollTop;
       if (typeof y !== 'number') return;
       if (t !== document && !(t as HTMLElement).contains(el)) return;
+      if (t !== document) scrollerRef.current = t as HTMLElement;
       setMerged((prev) => {
         const next = prev ? y > 40 : y > 90;
         // FLIP — on relève la position AVANT que React ne re-dispose. Sans ce
@@ -161,64 +163,59 @@ export function SimulationRunner() {
   // Diffuse le cas actif vers d'éventuelles fenêtres « rôle patient ».
   usePatientBroadcast(c?.id);
 
-  // On rentre dans le Runner → session active (plus minimisée). En quittant le
-  // Runner par N'IMPORTE quel moyen (nav bar, lien, retour…), la session est
-  // mise en pause automatiquement : elle flotte dans la barre « reprendre » au
-  // lieu d'être perdue. (minimize() est sans effet si la session est terminée.)
+  // Chaque transition remonte la page en haut (contrat §2.1 règle 6). Il n'y
+  // avait aucun reset : le défilement de l'exercice précédent survivait au
+  // changement de partie, et l'en-tête restait condensé.
+  const zustand = lauf?.zustand;
+  const aktuell = lauf?.aktuellerTeil;
   useEffect(() => {
-    useSimSession.getState().resume();
-    return () => { useSimSession.getState().minimize(); };
-  }, []);
+    if (!zustand) return;
+    const el = scrollerRef.current;
+    if (el) el.scrollTo({ top: 0, behavior: 'auto' });
+    else window.scrollTo({ top: 0, behavior: 'auto' });
+    setMerged(false);
+  }, [zustand, aktuell]);
 
-  // Miroir de l'état local vers le store persistant (survit à la navigation).
-  useEffect(() => {
-    if (!c || finished) return;
-    useSimSession.getState().sync({ caseId: c.id, caseName: c.name, active, phase, bogen, arztbriefText, results, aufklaerungOpen, elapsed, teil });
-  }, [c, finished, active, phase, bogen, arztbriefText, results, aufklaerungOpen, elapsed]);
-
+  if (simId) return <GespeicherterLauf simId={simId} />;
   if (!c) return <div className="text-slate-400">Chargement…</div>;
-  if (finished) return <ResultScreen sim={finished} c={c} />;
+  if (laedt || !lauf) return <div className="text-slate-400">Chargement…</div>;
 
-  const target = (aufklaerungOpen ? 5 * 60 : flow.find((f) => f.key === active)?.target) ?? 20 * 60;
+  const flow = lauf.geplanteTeile.map((t) => FLOW.find((f) => f.key === t)!);
+  const partKey: Part = lauf.aktuellerTeil ?? lauf.geplanteTeile[0];
+  const target = (partKey === 'aufklaerung' ? 5 * 60 : FLOW.find((f) => f.key === partKey)?.target) ?? 20 * 60;
+  const suivantTeil = lauf.teilVorAufklaerung && !lauf.teileGespielt.includes(lauf.teilVorAufklaerung)
+    ? lauf.teilVorAufklaerung : naechsterTeil(lauf);
 
-  const savePart = async (part: Part, res: PartResult) => {
-    setResults((r) => ({ ...r, [part]: res }));
-    setPhase('play');
-    if (part === 'aufklaerung') { setAufklaerungOpen(false); setActive('anamnese'); return; }
-    // avance à la partie suivante
-    const idx = flow.findIndex((f) => f.key === part);
-    if (idx < flow.length - 1) setActive(flow[idx + 1].key);
+  // La fin passe TOUJOURS par l'automate : bilanz → checkliste → [arztbrief]
+  // → gespeichert. On ne quitte pas une partie en cours d'un seul clic
+  // (décision de `main`, règle 8 amendée) : la Dokumentation en cours ne peut
+  // plus disparaître par un bouton d'en-tête.
+  const enregistrer = async () => {
+    const id = await steuerung.beenden();
+    if (id) { const n = new URLSearchParams(params); n.set('sim', id); setParams(n, { replace: true }); }
   };
-
-  const finishSimulation = async () => {
-    const sim = await saveSimulation({
-      c, parts: results, notes, bogen, arztbriefText, assistance, layer, muster,
-      scope: teil ? 'teil' : 'full', teil: teil ?? undefined,
-    });
-    useSimSession.getState().end(); // session terminée → efface le brouillon persistant
-    setFinished(sim);
-  };
-
-  const doneCount = Object.values(results).filter((p) => p?.done).length;
-
-  const partKey: Part = aufklaerungOpen ? 'aufklaerung' : active;
 
   return (
-    // --panel-offset : hauteur réelle de l'en-tête collant, publiée en variable
-    // CSS pour que les panneaux latéraux (Muster-Bogen, notes, guide) s'y
-    // alignent au lieu de passer dessous. Une seule source de vérité.
     <CaseContext.Provider value={c.id}>
     <div style={{ '--panel-offset': `calc(3.5rem + ${headerH || 148}px + 0.75rem)` } as React.CSSProperties}>
+      {/* L'identité d'un chrono, c'est (partie DE CETTE simulation), pas
+          (partie). Avec `key={partKey}` seul, enchaîner deux simulations sans
+          recharger la page — bilan enregistré → nouvelle simulation, même
+          premier Teil — ne remontait PAS `SimTimer` : il gardait son `elapsed`
+          React de la simulation précédente, et son premier tick l'écrivait dans
+          le Lauf tout neuf. La garde monotone de `tickChrono` (INV-28) le
+          gravait alors définitivement. Mesuré : un Lauf de 119 s portait
+          194 s d'Anamnese, héritées d'un run terminé juste avant. */}
       <SimTimer
-        key={partKey}
+        key={`${lauf.id}:${partKey}`}
         target={target}
-        initialElapsed={elapsed[partKey] ?? 0}
-        running={phase === 'play'}
-        onElapsed={(sec) => setElapsed((e) => (e[partKey] === sec ? e : { ...e, [partKey]: sec }))}
+        initialElapsed={lauf.sekundenProTeil[partKey] ?? 0}
+        running={lauf.zustand === 'laufend'}
+        onElapsed={(sec) => steuerung.tick(partKey, sec)}
       >
         {(timer) => {
           const amb = computeAmbiance(timer.elapsed, target);
-          const navIdx = Math.max(0, flow.findIndex((f) => f.key === active));
+          const navIdx = Math.max(0, flow.findIndex((f) => f.key === lauf.aktuellerTeil));
           return (
             <TimeAmbianceProvider elapsed={timer.elapsed} target={target}>
               {/* Les DEUX étiquettes vivent dans le MÊME conteneur collant.
@@ -252,18 +249,23 @@ export function SimulationRunner() {
 
                   {/* Ligne mode / couche */}
                   <div className={`pointer-events-none absolute left-4 top-[30px] flex items-center gap-1.5 text-[11px] text-slate-400 transition-opacity duration-300 ${merged ? 'opacity-0' : 'opacity-100'}`}>
-                    <span className={`chip whitespace-nowrap py-0 text-[10px] ${assistance === 'autonome' ? 'bg-violet-100 text-violet-700 dark:bg-violet-900/40 dark:text-violet-300' : 'bg-brand-100 text-brand-700 dark:bg-brand-900/40 dark:text-brand-300'}`}>
-                      {assistance === 'autonome' ? 'Autonome' : 'Assisté'} · Couche {layer}{teil ? ` · ${TEILE.find((t) => t.key === teil)?.label} seule` : ''}
+                    <span className={`chip whitespace-nowrap py-0 text-[10px] ${lauf.assistance === 'autonome' ? 'bg-violet-100 text-violet-700 dark:bg-violet-900/40 dark:text-violet-300' : 'bg-brand-100 text-brand-700 dark:bg-brand-900/40 dark:text-brand-300'}`}>
+                      {lauf.assistance === 'autonome' ? 'Autonome' : 'Assisté'} · Couche {lauf.layer}{lauf.modus === 'teil' ? ` · ${LABEL[lauf.geplanteTeile[0]]} seule` : ''}
                     </span>
                   </div>
 
-                  {/* QR + Aufklärung — cèdent le coin aux commandes */}
+                  {/* QR + Aufklärung — cèdent le coin aux commandes.
+                      La puce « IA » a été retirée : elle s'affichait sur les
+                      quatre parties alors que le pont IA n'a de sens qu'en
+                      Anamnese et en Fallvorstellung. Son point de montage est
+                      désormais dans la zone de jeu (contrat `ai-bridge.md`). */}
                   <div className={`absolute right-4 top-[8px] flex items-center gap-2 whitespace-nowrap transition-opacity duration-300 ${merged ? 'pointer-events-none opacity-0' : 'opacity-100'}`}>
                     <button onClick={() => setShowQr(true)} title="Fiche patient sur un 2ᵉ écran" className="btn-ghost text-xs">
                       <Icon name="id" className="h-4 w-4" /> QR
                     </button>
-                    <button onClick={() => { setAufklaerungOpen(true); setPhase('play'); }}
-                      className={`chip shrink-0 ${aufklaerungOpen ? 'bg-amber-500 text-white' : 'bg-amber-100 text-amber-700 dark:bg-amber-900/40 dark:text-amber-300'}`}
+                    <button onClick={steuerung.aufklaerungOeffnen}
+                      disabled={lauf.zustand !== 'laufend' || partKey === 'aufklaerung' || lauf.teileGespielt.includes('aufklaerung')}
+                      className={`chip shrink-0 disabled:opacity-40 ${partKey === 'aufklaerung' ? 'bg-amber-500 text-white' : 'bg-amber-100 text-amber-700 dark:bg-amber-900/40 dark:text-amber-300'}`}
                       title="Le jury peut demander une Aufklärung à tout moment">
                       <Icon name="bolt" className="h-3.5 w-3.5" />Aufklärung
                     </button>
@@ -272,20 +274,21 @@ export function SimulationRunner() {
                       title="Termes du cas — référence libre">
                       <Icon name="nav-abc" className="h-3.5 w-3.5" />Fachbegriffe ({termCount})
                     </button>
-                    <button onClick={() => openExternalAi(c.id)} className="chip shrink-0 bg-brand-100 text-brand-700 dark:bg-brand-900/40 dark:text-brand-300" title="Continuer ou rejouer ce cas avec ton IA">
-                      <Icon name="spark" className="h-3.5 w-3.5" />IA
-                    </button>
                   </div>
 
                   {/* Parcours — en bas au repos ; parfaitement centré (des deux
-                      axes) une fois fusionné. */}
+                      axes) une fois fusionné. C'est un REPÈRE, pas une
+                      navigation : ces pastilles étaient cliquables et
+                      permettaient de revenir sur une partie terminée par un
+                      simple clic — une régression d'état déguisée en bouton.
+                      « Revenir » est une action nommée du bilan, et elle seule. */}
                   <div className={`absolute inset-x-4 overflow-hidden transition-[top,height] duration-[440ms] ease-fluid ${merged ? 'top-[22px] h-[62px]' : 'top-[58px] h-[62px]'}`}>
                     <div className="grid h-full transition-transform duration-[440ms] ease-fluid"
                       style={{ gridTemplateColumns: `repeat(${flow.length}, minmax(0, 1fr))`,
                                transform: `translateX(${merged ? (1 - navIdx) * (100 / flow.length) : 0}%)` }}>
                       {flow.map((f, i) => {
-                        const isActive = active === f.key && !aufklaerungOpen;
-                        const isDone = !!results[f.key]?.done;
+                        const isActive = lauf.aktuellerTeil === f.key;
+                        const isDone = !!lauf.teile[f.key]?.done;
                         return (
                           <div key={f.key} className={`relative flex min-w-0 flex-col items-center justify-center transition-opacity duration-300 ${merged && !isActive ? 'opacity-0' : 'opacity-100'}`}>
                             {i < flow.length - 1 && (
@@ -293,18 +296,16 @@ export function SimulationRunner() {
                                 className={`absolute top-[19px] h-0.5 -translate-y-1/2 rounded transition-opacity duration-300 ${merged ? 'opacity-0' : 'opacity-100'} ${isDone ? 'bg-emerald-400' : 'bg-slate-200 dark:bg-slate-700'}`}
                                 style={{ left: 'calc(50% + 34px)', width: 'calc(100% - 68px)' }} />
                             )}
-                            <button
-                              onClick={() => { setActive(f.key); setPhase('play'); setAufklaerungOpen(false); }}
-                              className="group relative z-10 flex flex-col items-center gap-1"
-                            >
+                            <div aria-current={isActive ? 'step' : undefined}
+                              className="relative z-10 flex flex-col items-center gap-1">
                               <span className={`flex h-10 w-10 items-center justify-center rounded-full border-2 ${
                                 isDone ? 'border-emerald-500 bg-emerald-500 text-white'
                                 : isActive ? 'border-brand-600 bg-brand-600 text-white shadow-md'
-                                : 'border-slate-300 bg-white/70 text-slate-400 group-hover:border-brand-400 dark:border-slate-700 dark:bg-slate-900/70'}`}>
+                                : 'border-slate-300 bg-white/70 text-slate-400 dark:border-slate-700 dark:bg-slate-900/70'}`}>
                                 {isDone ? '✓' : <Icon name={f.icon} className="h-5 w-5" />}
                               </span>
                               <span className={`whitespace-nowrap text-[11px] font-medium ${isActive ? 'text-brand-700 dark:text-brand-300' : 'text-slate-400'}`}>{f.label}</span>
-                            </button>
+                            </div>
                           </div>
                         );
                       })}
@@ -335,34 +336,57 @@ export function SimulationRunner() {
                 <div ref={ctrlRef} className="absolute right-4 z-10"
                   style={{ top: merged ? 50 : 166 }}>
                   <div className="flex -translate-y-1/2 gap-2">
-                    {!timer.running ? (
-                      <button onClick={timer.start} className="btn-primary text-xs"><Icon name="play" className="h-3.5 w-3.5" />{timer.elapsed ? 'Reprendre' : 'Démarrer'}</button>
-                    ) : (
-                      <button onClick={timer.pause} className="btn-outline text-xs">⏸ Pause</button>
+                    {lauf.zustand === 'laufend' && (
+                      <>
+                        {!timer.running ? (
+                          <button onClick={timer.start} className="btn-primary text-xs"><Icon name="play" className="h-3.5 w-3.5" />{timer.elapsed ? 'Reprendre' : 'Démarrer'}</button>
+                        ) : (
+                          <button onClick={timer.pause} className="btn-outline text-xs">⏸ Pause</button>
+                        )}
+                        <button onClick={steuerung.terminerPartie} className="btn-outline text-xs">Terminer la partie ✓</button>
+                      </>
                     )}
-                    <button onClick={() => setPhase('eval')} className="btn-outline text-xs">Terminer la partie ✓</button>
+                    {/* Visible dans le BILAN seulement (règle 8 amendée) :
+                        pendant `laufend`, la seule sortie est « Terminer la
+                        partie ». */}
+                    <SimulationBeendenKnopf lauf={lauf} onClick={steuerung.versChecklist} />
                   </div>
                 </div>
               </div>
 
               <div className="mt-4">
-                {phase === 'eval' ? (
+                {istEnde(lauf) ? (
+                  <Ende lauf={lauf} fehler={steuerung.fehler}
+                    brief={<ArztbriefGuide c={c} assistance={lauf.assistance} text={lauf.arztbriefText}
+                      onText={(t) => steuerung.setzeFeld({ arztbriefText: t })} bogen={lauf.bogen} muster={lauf.muster ?? 'Standard'} />}
+                    onZurueck={steuerung.zurueckZumBilanz} onArztbrief={steuerung.arztbriefSchreiben} onSpeichern={enregistrer} />
+                ) : lauf.zustand === 'bilanz' && lauf.aktuellerTeil ? (
                   <PartEvaluation
-                    part={partKey}
-                    durationSec={timer.elapsed}
-                    onSave={(r) => savePart(partKey, r)}
-                    onCancel={() => setPhase('play')}
+                    part={lauf.aktuellerTeil}
+                    durationSec={lauf.sekundenProTeil[lauf.aktuellerTeil] ?? 0}
+                    checklist={checklisteFuer(lauf, lauf.aktuellerTeil)}
+                    grid={lauf.entwurf[lauf.aktuellerTeil]?.grid ?? emptyLanguageGrid()}
+                    feeling={lauf.entwurf[lauf.aktuellerTeil]?.feeling ?? 50}
+                    onToggle={steuerung.setzeItem}
+                    onGrid={(g) => steuerung.setzeEntwurfFeld(lauf.aktuellerTeil!, { grid: g })}
+                    onFeeling={(v) => steuerung.setzeEntwurfFeld(lauf.aktuellerTeil!, { feeling: v })}
+                    suivant={suivantTeil ? LABEL[suivantTeil] : null}
+                    onSuivant={() => steuerung.dispatch({ typ: 'partieSuivante' })}
+                    onRetour={() => steuerung.dispatch({ typ: 'zurueckZurPartie' })}
                   />
                 ) : (
                   <PlayArea
                     part={partKey}
                     c={c}
-                    assistance={assistance}
-                    muster={muster}
-                    bogen={bogen}
-                    setBogen={setBogen}
-                    arztbriefText={arztbriefText}
-                    setArztbriefText={setArztbriefText}
+                    assistance={lauf.assistance}
+                    muster={lauf.muster ?? 'Standard'}
+                    bogen={lauf.bogen}
+                    setBogen={(b) => steuerung.setzeFeld({ bogen: b })}
+                    arztbriefText={lauf.arztbriefText}
+                    setArztbriefText={(t) => steuerung.setzeFeld({ arztbriefText: t })}
+                    onItem={steuerung.setzeItem}
+                    onHinweis={() => steuerung.setzeEntwurfFeld('anamnese', { hinweise: (lauf.entwurf.anamnese?.hinweise ?? 0) + 1 })}
+                    lauf={lauf}
                   />
                 )}
               </div>
@@ -379,13 +403,13 @@ export function SimulationRunner() {
               <div className="flex items-center justify-center gap-1.5 text-brand-600 dark:text-brand-300"><Icon name="mask" className="h-6 w-6" /><Icon name="phone" className="h-6 w-6" /></div>
               <h3 className="mt-2 font-display font-bold tracking-tightish">Fiche patient sur le smartphone</h3>
               <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">Le partenaire scanne ce code pour ouvrir la fiche de rôle du patient sur son téléphone.</p>
-              <div className="my-4 flex justify-center"><QrCode value={patientUrl(c.id)} size={180} /></div>
-              <code className="block break-all rounded bg-slate-100 px-2 py-1 font-mono text-[10px] text-slate-500 dark:bg-slate-800">{patientUrl(c.id)}</code>
+              <div className="my-4 flex justify-center"><QrCode value={patientUrl(c.id, teilOderNull(partKey))} size={180} /></div>
+              <code className="block break-all rounded bg-slate-100 px-2 py-1 font-mono text-[10px] text-slate-500 dark:bg-slate-800">{patientUrl(c.id, teilOderNull(partKey))}</code>
               {patientUrlIsOnline() && (
                 <p className="callout callout-warn mt-2 text-left text-[11px]"><Icon name="alert" className="mt-0.5 h-3 w-3 shrink-0" />Le QR ouvre la version EN LIGNE de l'app : elle peut être en retard sur ta version locale tant qu'elle n'a pas été republiée. Sur cet appareil, préfère la 2ᵉ fenêtre (contenu à jour + suivi live).</p>
               )}
               <div className="mt-3 flex gap-2">
-                <a href={localPatientUrl(c.id)} target="_blank" rel="noreferrer" className="btn-primary flex-1 justify-center gap-1.5 text-xs"><Icon name="external" className="h-3.5 w-3.5" />Ouvrir en 2ᵉ fenêtre</a>
+                <a href={localPatientUrl(c.id, teilOderNull(partKey))} target="_blank" rel="noreferrer" className="btn-primary flex-1 justify-center gap-1.5 text-xs"><Icon name="external" className="h-3.5 w-3.5" />Ouvrir en 2ᵉ fenêtre</a>
                 <button onClick={() => setShowQr(false)} className="btn-outline flex-1 justify-center text-xs">Fermer</button>
               </div>
             </div>
@@ -393,27 +417,14 @@ export function SimulationRunner() {
         </Portal>
       )}
 
-      {/* Fin de simulation */}
-      {phase === 'play' && doneCount > 0 && (
-        <div className="mt-6 flex justify-center">
-          <button onClick={finishSimulation} className="btn-primary px-6">{teil ? `Terminer — ${TEILE.find((t) => t.key === teil)?.label} seule → bilan` : 'Terminer la simulation & voir le bilan →'}</button>
-        </div>
-      )}
-
-      {/* Termes du cas — référence libre (F2a D6), tiroir. Pause explicite de
-          la session avant de quitter : le sync miroir tourne déjà sur chaque
-          changement, mais on force un dernier appel pour être certain que
-          l'instantané est à jour au moment précis où l'on minimise. */}
+      {/* Termes du cas — référence libre (F2a D6), tiroir. Le `Lauf` est déjà
+          persisté à chaque changement : quitter par ce chemin ne perd rien. */}
       {termsOpen && (
         <CaseTermsPanel
           caseId={c.id}
           mode="drawer"
           onClose={() => setTermsOpen(false)}
-          onDrill={() => {
-            useSimSession.getState().sync({ caseId: c.id, caseName: c.name, active, phase, bogen, arztbriefText, results, aufklaerungOpen, elapsed, teil });
-            useSimSession.getState().minimize();
-            navigate(`/fachbegriffe/drill?case=${c.id}`);
-          }}
+          onDrill={() => navigate(`/fachbegriffe/drill?case=${c.id}`)}
         />
       )}
     </div>
@@ -421,12 +432,26 @@ export function SimulationRunner() {
   );
 }
 
+const teilOderNull = (p: Part): SimTeil | undefined => (p === 'aufklaerung' ? undefined : p);
+
+/** L'écran de résultat, relu depuis la base. `/run?sim=<id>` est rechargeable :
+ *  un reload n'y réaffiche plus un runner vierge sur le même cas. */
+function GespeicherterLauf({ simId }: { simId: string }) {
+  const sim = useLiveQuery(() => db.simulations.get(simId), [simId]);
+  const c = useCase(sim?.caseId);
+  if (sim === undefined || (sim && !c)) return <div className="text-slate-400">Chargement…</div>;
+  if (!sim || !c) return <div className="text-slate-400">Cette simulation n'existe plus.</div>;
+  return <ResultScreen sim={sim} c={c} />;
+}
+
 // --------------------------------------------------------------- Zone de jeu
 /** Porte le chrono de la partie en cours. Monté par `key={partKey}` : changer
  *  d'épreuve le remonte, donc le remet à zéro — c'est le comportement qu'assurait
  *  auparavant le remontage de PlayArea, désormais que le chrono est remonté dans
  *  l'en-tête (il doit vivre au-dessus de la zone d'examen pour pouvoir fusionner
- *  avec l'étiquette titre). */
+ *  avec l'étiquette titre).
+ *  `initialElapsed` vient de `Lauf.sekundenProTeil`, et `tickChrono` refuse
+ *  toute valeur décroissante : un remontage ne peut plus « remettre au début ». */
 function SimTimer({ target, initialElapsed, running, onElapsed, children }: {
   target: number; initialElapsed: number; running: boolean;
   onElapsed: (sec: number) => void;
@@ -434,7 +459,7 @@ function SimTimer({ target, initialElapsed, running, onElapsed, children }: {
 }) {
   const timer = useTimer(target, initialElapsed, onElapsed, true);
   const setRunning = timer.setRunning;
-  // Le chrono ne doit pas continuer à courir pendant l'écran d'évaluation.
+  // Le chrono ne doit pas continuer à courir pendant le bilan.
   useEffect(() => { setRunning(running); }, [running, setRunning]);
   return <>{children(timer)}</>;
 }
@@ -443,23 +468,36 @@ interface PlayAreaProps {
   part: Part; c: Case; assistance: AssistanceMode; muster: MusterCity;
   bogen: BogenNotes; setBogen: (b: BogenNotes) => void;
   arztbriefText: string; setArztbriefText: (t: string) => void;
+  onItem: (id: string, checked: boolean) => void;
+  onHinweis: () => void;
+  lauf: Lauf;
 }
 // Le chrono ne vit plus ici : il est remonté dans l'en-tête pour pouvoir
 // fusionner avec l'étiquette titre au défilement. PlayArea ne s'occupe donc
 // plus que du contenu de l'épreuve.
-function PlayArea({ part, c, assistance, muster, bogen, setBogen, arztbriefText, setArztbriefText }: PlayAreaProps) {
+function PlayArea({ part, c, assistance, muster, bogen, setBogen, arztbriefText, setArztbriefText, onItem, onHinweis, lauf }: PlayAreaProps) {
   return (
     <>
-      {part === 'anamnese' && <AnamneseArea c={c} assistance={assistance} muster={muster} bogen={bogen} setBogen={setBogen} />}
+      {part === 'anamnese' && <AnamneseArea c={c} assistance={assistance} muster={muster} bogen={bogen} setBogen={setBogen} lauf={lauf} onItem={onItem} onHinweis={onHinweis} />}
       {part === 'dokumentation' && <ArztbriefGuide c={c} assistance={assistance} text={arztbriefText} onText={setArztbriefText} bogen={bogen} muster={muster} />}
       {part === 'fallvorstellung' && <VorstellungGuide c={c} assistance={assistance} bogen={bogen} muster={muster} />}
       {part === 'aufklaerung' && <AufklaerungArea c={c} />}
+      {/* Pont IA externe — restreint à Anamnese et Fallvorstellung, les deux
+          seules parties qu'une IA peut jouer (contrat `ai-bridge.md` §3.1).
+          Anamnese : l'IA joue le patient ; Fallvorstellung : l'Oberarzt seul. */}
+      {(part === 'anamnese' || part === 'fallvorstellung') && (
+        <div data-ai-bridge-slot={part} className="mt-4 flex justify-center">
+          <TeilAiLauncher caseId={c.id} teil={part} />
+        </div>
+      )}
     </>
   );
 }
 
-function AnamneseArea({ c, assistance, muster, bogen, setBogen }: {
-  c: Case; assistance: AssistanceMode; muster: MusterCity; bogen: BogenNotes; setBogen: (b: BogenNotes) => void;
+function AnamneseArea({ c, assistance, muster, bogen, setBogen, lauf, onItem, onHinweis }: {
+  c: Case; assistance: AssistanceMode; muster: MusterCity; bogen: BogenNotes;
+  setBogen: (b: BogenNotes) => void; lauf: Lauf;
+  onItem: (id: string, checked: boolean) => void; onHinweis: () => void;
 }) {
   const [immersive, setImmersive] = useState(false);
   return (
@@ -473,9 +511,13 @@ function AnamneseArea({ c, assistance, muster, bogen, setBogen }: {
         <div className="min-w-0 flex-1">
           <div className="mb-2 flex items-center justify-between">
             <div className="label">Guide de questions {assistance === 'autonome' && <span className="text-[10px] text-violet-500">(Autonome : en tête)</span>}</div>
-            <button onClick={() => setImmersive(true)} className="btn gap-1.5 bg-slate-900 text-xs font-semibold text-white shadow-md hover:bg-slate-800 dark:bg-white dark:text-slate-900 dark:hover:bg-slate-100"><Icon name="target" className="h-3.5 w-3.5" />Mode focus</button>
+            <button onClick={() => setImmersive(true)} className="btn-outline gap-1.5 text-xs"><Icon name="target" className="h-3.5 w-3.5" />Mode focus</button>
           </div>
-          <AnamneseGuide c={c} assistance={assistance} />
+          {/* Le guide écrit dans la checklist DU LAUF : cocher un chapitre ici
+              se retrouve dans le bilan (INV-24). Avant, `checked` était un état
+              local jamais levé — tout le travail de la partie était perdu. */}
+          <AnamneseGuide c={c} assistance={assistance} checkliste={lauf.checkliste} onItem={onItem}
+            hinweise={lauf.entwurf.anamnese?.hinweise ?? 0} onHinweis={onHinweis} />
         </div>
       </div>
       <KommunikationPanel situationIds={c.kommunikativeSituationIds} />
@@ -502,7 +544,7 @@ function AufklaerungArea({ c }: { c: Case }) {
           <div className="min-w-0">
             <div className="eyebrow">Aufklärung à la demande</div>
             <h2 className="mt-1 font-display text-[17px] font-semibold tracking-tightish">« Klären Sie den Patienten auf. »</h2>
-            <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">Le jury t'interrompt. Ouvre l'acte concerné : tu arrives directement sur sa trame en 7 étapes, explique à voix haute, gère les questions du patient, puis évalue-toi.</p>
+            <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">Le jury t'interrompt. Ouvre l'acte concerné : tu arrives directement sur sa trame en 7 étapes, explique à voix haute, gère les questions du patient, puis évalue-toi. On te ramènera à la partie que tu étais en train de jouer.</p>
           </div>
         </div>
       </div>
@@ -567,7 +609,7 @@ export function ResultScreen({ sim, c }: { sim: Simulation; c: Case }) {
         <div className={`mx-auto flex h-16 w-16 items-center justify-center rounded-2xl ${passed ? 'bg-emerald-100 text-emerald-600 dark:bg-emerald-900/30 dark:text-emerald-300' : 'bg-amber-100 text-amber-600 dark:bg-amber-900/30 dark:text-amber-300'}`}><Icon name={passed ? 'spark' : 'flame'} className="h-8 w-8" /></div>
         <h1 className="mt-2 text-2xl font-bold">{passed ? 'Bestanden-Simulation !' : 'Encore un effort'}</h1>
         <p className="text-slate-500 dark:text-slate-400">{c.name} · score moyen {avg}%</p>
-        <p className="mt-1 text-sm">{sim.scope === 'teil' ? (passed ? 'Cette partie ≥ 60 % (règle FSP). Elle compte pour un tiers de la maîtrise du cas et remet ton programme à jour.' : 'Cette partie est sous les 60 % — retravaille-la.') : passed ? 'Toutes les parties tentées ≥ 60% (règle FSP).' : 'Au moins une partie sous les 60% — retravaille-la.'}</p>
+        <p className="mt-1 text-sm">{sim.teil ? (passed ? 'Cette partie ≥ 60 % (règle FSP). Elle compte pour un tiers de la maîtrise du cas et remet ton programme à jour.' : 'Cette partie est sous les 60 % — retravaille-la.') : passed ? 'Toutes les parties tentées ≥ 60% (règle FSP).' : 'Au moins une partie sous les 60% — retravaille-la.'}</p>
       </div>
 
       <div className="grid gap-3 sm:grid-cols-3">
@@ -575,9 +617,9 @@ export function ResultScreen({ sim, c }: { sim: Simulation; c: Case }) {
           const sc = partScore(p);
           return (
             <div key={k} className="card p-4 text-center">
-              <div className="label">{k}</div>
+              <div className="label">{LABEL[k] ?? k}</div>
               <div className={`mt-1 text-2xl font-bold ${sc >= 60 ? 'text-emerald-600 dark:text-emerald-400' : 'text-rose-600 dark:text-rose-400'}`}>{sc}%</div>
-              <div className="text-[11px] text-slate-400">contenu {p.contentPct}%{p.languageGrid ? ` · langue ${p.officialPct}%` : ''}</div>
+              <div className="text-[11px] text-slate-400">contenu {p.contentPct}%{p.languageGrid && hatSprachgitter(k) ? ` · langue ${p.officialPct}%` : ''}</div>
             </div>
           );
         })}

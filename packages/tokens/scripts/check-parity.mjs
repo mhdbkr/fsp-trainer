@@ -78,6 +78,10 @@ expect('glass.dark.border', tokens.glass.dark.border, cssRule(':is(.dark) .glass
 expect('glass.dark.borderTop', tokens.glass.dark.borderTop, cssRule(':is(.dark) .glass', 'border-top-color'));
 expect('card.light.borderTop', tokens.card.light.borderTop, cssRule('.card', 'border-top-color'));
 expect('card.dark.borderTop', tokens.card.dark.borderTop, cssRule('.dark .card', 'border-top-color'));
+// Verre flottant (glass-thin / glass-full, arrivé avec #53) : même bord que .glass.
+// Il était white/0.55 sur blanc — aucune arête (I-A, Δ ≈ +3,5 mesuré).
+expect('glass-thin/full.light.border', `1px solid ${tokens.glass.light.border}`, cssRule('.glass-thin, .glass-full', 'border'));
+expect('glass-thin/full.light.borderTop', tokens.glass.light.borderTop, cssRule('.glass-thin, .glass-full', 'border-top-color'));
 
 if (drifts.length) {
   console.error(`check-parity: ${drifts.length} dérive(s) entre packages/tokens/tokens.json et ${appDir}\n`);

@@ -1,5 +1,5 @@
 import { describe, it, expect, beforeEach, vi } from 'vitest';
-import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+import { render, screen, fireEvent, waitFor, within, act } from '@testing-library/react';
 import { MemoryRouter, Route, Routes, Link } from 'react-router-dom';
 import { db } from '@/db/db';
 import { useUi } from '@/store/ui';
@@ -37,17 +37,12 @@ describe('GlossaryDrawer (F4a)', () => {
     expect(await screen.findByText('Bauch')).toBeTruthy();
     expect(document.body.textContent).not.toMatch(/patientengerecht/i);
   });
-  it('★ vide → Favoris ; ★ pleine → decks du terme, cocher un deck l\'y range (D6)', async () => {
-    await db.progress_events.put({ id: 'e1', user_id: 'u', type: 'deck.created', subject_id: 'd1', payload: { name: 'Kardio', kind: 'manual' }, occurred_at: '2020-01-01T00:00:00Z' } as never);
-    const { reprojectCollections } = await import('@/lib/collections'); await reprojectCollections();
+  it('le livre des decks du terme vit DANS le tiroir (piège de focus, Échap) ; plus d\'étoile — détail : DeckRail.test (E5)', async () => {
     renderDrawer();
-    const starBtn = await screen.findByRole('button', { name: 'Ajouter aux favoris : Abdomen' });
-    await waitFor(() => expect(starBtn.hasAttribute('disabled')).toBe(false));   // decks en chargement : étoile inerte (revue C4)
-    fireEvent.click(starBtn);
-    await waitFor(async () => expect(await db.favorites.get('fb-a')).toBeTruthy());
-    fireEvent.click(await screen.findByRole('button', { name: 'Decks de Abdomen' }));
-    fireEvent.click(await screen.findByRole('menuitemcheckbox', { name: /kardio/i }));
-    await waitFor(async () => expect(await db.deck_terms.get(['d1', 'fb-a'])).toBeTruthy());
+    const dlg = await screen.findByRole('dialog', { name: 'Abdomen' });
+    const book = await within(dlg).findByRole('group', { name: 'Decks de ce terme' });
+    expect(within(book).getByRole('button', { name: 'Favoris' })).toBeTruthy();
+    expect(screen.queryByRole('button', { name: /Ajouter aux favoris/ })).toBeNull();
   });
   it('« Carte » retourne la fiche en carte recto/verso comme au drill (D9, AC-8)', async () => {
     renderDrawer();
@@ -59,17 +54,46 @@ describe('GlossaryDrawer (F4a)', () => {
     fireEvent.click(screen.getByRole('button', { name: 'Fiche' }));
     expect(document.querySelector('[data-card-flip]')).toBeNull();
   });
-  it('Échap ferme le panneau ; avec la liste des decks ouverte, Échap ne ferme que la liste', async () => {
-    await db.favorites.put({ termId: 'fb-a', since: '' } as never);
+  it('Tab boucle dans le tiroir : dernier → premier, Maj+Tab premier → dernier (G1-27)', async () => {
     renderDrawer();
-    fireEvent.click(await screen.findByRole('button', { name: 'Decks de Abdomen' }));
-    await screen.findByRole('menu');
+    const dlg = await screen.findByRole('dialog', { name: 'Abdomen' });
+    const f = [...dlg.querySelectorAll<HTMLElement>('button:not([disabled]), input:not([disabled]), [href], select, textarea, [tabindex]:not([tabindex="-1"])')];
+    const first = f[0], last = f[f.length - 1];
+    last.focus(); fireEvent.keyDown(last, { key: 'Tab' });
+    expect(document.activeElement).toBe(first);
+    fireEvent.keyDown(first, { key: 'Tab', shiftKey: true });
+    expect(document.activeElement).toBe(last);
+  });
+  it('« ⋯ Decks » ouvre la gestion ; Échap ne ferme qu\'elle, puis le panneau', async () => {
+    renderDrawer();
+    fireEvent.click(await screen.findByRole('button', { name: 'Gérer les decks' }));
+    expect(await screen.findByRole('dialog', { name: 'Decks' })).toBeTruthy();
     fireEvent.keyDown(document, { key: 'Escape' });
-    await waitFor(() => expect(screen.queryByRole('menu')).toBeNull());
+    await waitFor(() => expect(screen.queryByRole('dialog', { name: 'Decks' })).toBeNull());
     expect(useUi.getState().glossaryTerm).toBeTruthy();
     fireEvent.keyDown(document, { key: 'Escape' });
     await waitFor(() => expect(useUi.getState().glossaryTerm).toBeNull());
     expect(document.querySelectorAll('.fixed.inset-0').length).toBe(0);
+  });
+  it('dialogue nommé par le terme : focus à l\'ouverture, rendu à l\'ouvreur à la fermeture (G1-17)', async () => {
+    useUi.setState({ glossaryTerm: null });
+    render(<MemoryRouter><button type="button">ouvreur</button><GlossaryDrawer /></MemoryRouter>);
+    const opener = screen.getByRole('button', { name: 'ouvreur' });
+    opener.focus();
+    act(() => useUi.getState().openGlossary(fb));
+    const dialog = await screen.findByRole('dialog', { name: 'Abdomen' });
+    expect(dialog.getAttribute('aria-modal')).toBe('true');
+    await waitFor(() => expect(document.activeElement).toBe(dialog));
+    fireEvent.click(screen.getByRole('button', { name: 'Fermer' }));
+    await waitFor(() => expect(document.activeElement).toBe(opener));
+  });
+  it('Échap avec la pilule de sélection ouverte : le tiroir reste (seul le calque du dessus se ferme, G1-22)', async () => {
+    renderDrawer();
+    await screen.findByText('Bauch');
+    const pill = document.createElement('div'); pill.setAttribute('data-selection-pill', ''); document.body.appendChild(pill);
+    fireEvent.keyDown(document, { key: 'Escape' });
+    expect(useUi.getState().glossaryTerm).toBeTruthy();
+    pill.remove();
   });
   it('changer de route ferme le panneau et démonte son fond', async () => {
     render(
@@ -93,6 +117,17 @@ describe('GlossaryDrawer (F4a)', () => {
     useUi.getState().openGlossary(fb);
     await screen.findByText('Abdomen');
     await waitFor(() => expect(useUi.getState().hoverTerm).toBeNull());
+  });
+  it('tiroir en verre plein, sans ombre portée ; fermer le retire (F4b P1/P9)', async () => {
+    renderDrawer();
+    await screen.findByText('Bauch');
+    const aside = document.querySelector('aside')!;
+    expect(aside.className).toContain('glass-full');
+    expect(aside.className).not.toMatch(/animate-slide-in|shadow-/);
+    expect(aside.querySelector('.btn-ghost')).toBeNull();   // boutons icône translucides (G1-14)
+    expect(aside.innerHTML).not.toMatch(/border-slate-(100|200|800)/);
+    fireEvent.click(screen.getAllByRole('button', { name: 'Fermer' })[0]);
+    await waitFor(() => expect(document.querySelector('aside')).toBeNull());
   });
   it('terme du glossaire : pas de corbeille', async () => {
     renderDrawer();

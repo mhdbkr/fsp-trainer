@@ -1,3 +1,4 @@
+import type { Symptom } from '../data/guides/symptoms';
 // ============================================================================
 // FSP-Cockpit — Modèle de données
 // Toutes les entités sont reliées bidirectionnellement pour permettre
@@ -291,7 +292,9 @@ export type CaseQuestionKapitel =
  *  `relu` = relue : elle approfondit ce qui a été demandé, ou ne cherche pas
  *  vraiment ce symptôme (« rheumatisches Fieber »). Sans l'un des deux, la
  *  porte `checkTrameSymptoms` refuse la collision. */
-export type CaseQuestion = string | { frage: string; kapitel: CaseQuestionKapitel; sucht?: string[]; relu?: true };
+// `sucht` non vide et typé : un tableau vide n'efface rien (re-revue I-3), un concept
+// inconnu n'existe pas (revue finale I-7) — tsc le refuse.
+export type CaseQuestion = string | { frage: string; kapitel: CaseQuestionKapitel; sucht?: [Symptom, ...Symptom[]]; relu?: true };
 
 export interface Fachbegriff {
   id: string;

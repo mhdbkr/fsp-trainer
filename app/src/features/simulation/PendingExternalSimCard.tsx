@@ -2,8 +2,8 @@ import { useEffect, useRef, useState } from 'react';
 import { useLiveQuery } from 'dexie-react-hooks';
 import { Link } from 'react-router-dom';
 import { db } from '@/db/db';
-import { getPending, setPending, AI_TARGETS } from '@/lib/externalAi/targets';
-import { PartEvaluation } from './PartEvaluation';
+import { readPending, setPending, AI_TARGETS } from '@/lib/externalAi/targets';
+import { SelbstBewertung } from './PartEvaluation';
 import { saveSimulation } from '@/lib/simulationSave';
 import type { Case, PartResult } from '@/db/types';
 
@@ -15,7 +15,12 @@ type DurationMin = typeof DURATIONS_MIN[number];
 const DEFAULT_DURATION_MIN: DurationMin = 20;
 
 // Carte de retour après une simulation avec une IA externe : la séance ne
-// compte que si le candidat s'auto-évalue (même grille que le runner).
+// compte que si le candidat s'auto-évalue (même grille que le runner). Elle
+// est AUTO-DÉCLARÉE (mode 'external-ai' ⇒ selbstbewertet, contrat
+// training-journal Q3) : historique et série. L'exclusion de l'indice de
+// préparation n'est pas encore tenue par saveSimulation/computeReadiness.
+// Le Teil d'ancrage de la trace dit quelles parties évaluer ; une trace sans
+// Teil (ancienne, `scope` exam) couvre anamnese + fallvorstellung.
 // N'apparaît que si une trace récente (< 12 h) existe (lib/externalAi/targets).
 // useLiveQuery sur `p` : se met à jour dès que la trace (meta) est posée ou
 // effacée. Le cas lié est chargé une fois par trace (pas de liveQuery sur
@@ -32,7 +37,7 @@ export function PendingExternalSimCard({ onlyCaseId }: { onlyCaseId?: string } =
   const savingRef = useRef(false);
 
   const p = useLiveQuery(async () => {
-    const x = await getPending();
+    const x = await readPending();
     if (!x || Date.now() - x.at > 12 * 3600_000 || (onlyCaseId && x.caseId !== onlyCaseId)) return null;
     // Snooze persistant (« Pas maintenant ») : la trace reste posée (elle
     // expire toujours à 12 h), mais la carte reste masquée jusqu'à snoozedUntil.
@@ -61,8 +66,8 @@ export function PendingExternalSimCard({ onlyCaseId }: { onlyCaseId?: string } =
       await saveSimulation({
         c, parts: all, assistance: 'autonome', layer: c.layerProgress ?? 1,
         mode: 'external-ai', externalTarget: p.targetId,
-        scope: p.scope === 'anamnese' ? 'teil' : 'full',
-        teil: p.scope === 'anamnese' ? 'anamnese' : undefined,
+        scope: p.teil ? 'teil' : 'full',
+        teil: p.teil,
       });
       await setPending(null);
       setParts({});
@@ -72,24 +77,27 @@ export function PendingExternalSimCard({ onlyCaseId }: { onlyCaseId?: string } =
     }
   };
 
-  // Durée choisie répartie sur les parties jouées : anamnese seule = tout ;
-  // exam (± feedback) = 2/3 anamnese, 1/3 fallvorstellung (arrondi), le
-  // reste va à fallvorstellung pour que la somme reste exacte.
+  // Durée choisie répartie sur les parties jouées : un Teil seul = tout ;
+  // séance complète = 2/3 anamnese, 1/3 fallvorstellung (arrondi), le reste
+  // va à fallvorstellung pour que la somme reste exacte.
   const totalSec = durationMin * 60;
-  const anamneseSec = p.scope === 'anamnese' ? totalSec : Math.round((totalSec * 2) / 3);
+  const anamneseSec = p.teil === 'anamnese' ? totalSec : p.teil === 'fallvorstellung' ? 0 : Math.round((totalSec * 2) / 3);
   const fallvorstellungSec = totalSec - anamneseSec;
+  const firstStep = p.teil === 'fallvorstellung' ? 'fallvorstellung' : 'anamnese';
+  const what = p.teil === 'anamnese' ? "l'anamnèse de " : p.teil === 'fallvorstellung' ? 'la Fallvorstellung de ' : '';
 
   if (step === 'anamnese' || step === 'fallvorstellung') {
     return (
-      <PartEvaluation
+      <SelbstBewertung
         part={step}
         durationSec={step === 'anamnese' ? anamneseSec : fallvorstellungSec}
+        suivant={step === 'anamnese' && !p.teil ? 'Fallvorstellung' : null}
         onCancel={() => setStep('idle')}
         onSave={(r) => {
           if (savingRef.current) return; // double-tap : la première validation est déjà en cours
           const next = { ...parts, [step]: r };
           setParts(next);
-          if (step === 'anamnese' && p.scope !== 'anamnese') setStep('fallvorstellung');
+          if (step === 'anamnese' && !p.teil) setStep('fallvorstellung');
           else finish(next).catch((e) => console.error('[external-ai]', e));
         }}
       />
@@ -102,7 +110,14 @@ export function PendingExternalSimCard({ onlyCaseId }: { onlyCaseId?: string } =
       <div>
         <div className="label">Simulation avec ton IA</div>
         <p className="font-semibold">
-          Tu as simulé <Link to={`/cas/${c.id}`} className="text-brand-600">{c.name}</Link> avec {target} — comment ça s'est passé ?
+          Tu as simulé {what}<Link to={`/cas/${c.id}`} className="text-brand-600">{c.name}</Link> avec {target} — comment ça s'est passé ?
+        </p>
+        {/* « …, pas dans l'indice de préparation » s'ajoutera quand ce sera vrai :
+            aujourd'hui saveSimulation recalcule encore la confiance du cas et
+            computeReadiness ne filtre pas le mode 'external-ai' (chantier
+            Programme, à l'intégration). On n'affiche que ce qui est tenu. */}
+        <p className="mt-0.5 text-[12px] text-slate-500 dark:text-slate-400">
+          Séance auto-déclarée : elle compte dans ton historique et ta série.
         </p>
         <div role="radiogroup" aria-label="Durée" className="mt-2 flex gap-1.5">
           {DURATIONS_MIN.map((m) => (
@@ -114,7 +129,7 @@ export function PendingExternalSimCard({ onlyCaseId }: { onlyCaseId?: string } =
         </div>
       </div>
       <div className="flex gap-2">
-        <button type="button" onClick={() => setStep('anamnese')} className="btn-primary min-h-11">Évaluer</button>
+        <button type="button" onClick={() => setStep(firstStep)} className="btn-primary min-h-11">Évaluer</button>
         <button type="button" onClick={() => { snooze().catch(() => {}); }} className="btn-ghost min-h-11 text-sm">Pas maintenant</button>
         <button type="button" onClick={() => { dismiss().catch(() => {}); }} className="btn-ghost min-h-11 text-sm">Ce n'était pas une simulation</button>
       </div>

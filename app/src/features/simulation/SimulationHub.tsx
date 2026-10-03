@@ -1,6 +1,6 @@
-import { TEILE, scopeLabel } from '@/lib/simScope';
+import { TEILE, isFullSimulation, scopeLabel } from '@/lib/simScope';
 import { ModeChooser } from '@/components/ModeChooser';
-import type { Case } from '@/db/types';
+import type { Case, Simulation } from '@/db/types';
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useCases, useSimulations } from '@/hooks/useData';
@@ -8,6 +8,18 @@ import { FreqBadge, CenterBadge, EmptyState } from '@/components/ui';
 import { Icon } from '@/components/icons';
 import { partScore } from '@/lib/scoring';
 import { AI_TARGETS } from '@/lib/externalAi/targets';
+
+/** La portée d'une ligne d'historique : ce qui a été JOUÉ. La liste des
+ *  parties apparaît dès qu'il y en a plus d'une — un run complet abandonné
+ *  après deux parties ne se lit plus « Anamnese seule » (I3). */
+export function porteeHistorique(sim: Simulation): string {
+  // Les trois Teile seulement : l'Aufklärung n'en est pas un (mineur 3) —
+  // elle ne change pas la portée et ne figure pas comme partie.
+  const gespielt = TEILE.filter((t) => sim.parts[t.key]?.done).map((t) => t.label);
+  const voll = isFullSimulation(sim);
+  const basis = voll || sim.teil || gespielt.length < 2 ? scopeLabel(sim) : 'Simulation partielle';
+  return gespielt.length > 1 && !(voll && gespielt.length >= 3) ? `${basis} (${gespielt.join(', ')})` : basis;
+}
 
 export function SimulationHub() {
   const cases = useCases();
@@ -57,7 +69,7 @@ export function SimulationHub() {
                       )}
                     </div>
                     <div className="text-xs text-slate-400">
-                      {new Date(sim.date).toLocaleDateString('fr-FR')} · {scopeLabel(sim)}{sim.scope !== 'teil' && parts.length < 3 ? ` (${parts.map(([k]) => TEILE.find((t) => t.key === k)?.label ?? k).join(', ')})` : ''}
+                      {new Date(sim.date).toLocaleDateString('fr-FR')} · {porteeHistorique(sim)}
                     </div>
                   </div>
                   {c && <Link to={`/simulation/${c.id}/pre`} className="btn-ghost text-xs">Rejouer</Link>}
