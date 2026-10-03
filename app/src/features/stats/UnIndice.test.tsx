@@ -27,7 +27,7 @@ beforeEach(async () => {
   await db.training_events.put({ id: 'x', at: new Date(2026, 9, 1, 10).getTime(), kind: 'fiche', caseId: 'c1', teile: [], source: 'libre', spentMin: 10 });
   container = document.createElement('div'); document.body.appendChild(container); root = createRoot(container);
   await act(async () => { root.render(<MemoryRouter><StatsPage /></MemoryRouter>); });
-  await act(async () => { await new Promise((r) => setTimeout(r, 80)); });
+  await vi.waitFor(() => expect(container.querySelector('[aria-label^="Indice de préparation"]')).not.toBeNull(), { timeout: 3000 });
 });
 afterEach(() => { act(() => root.unmount()); container.remove(); resetClock(); });
 
