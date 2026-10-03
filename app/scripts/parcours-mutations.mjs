@@ -43,6 +43,42 @@ export const MUTATIONS = [
     to: 'true;',
     pourquoi: 'la diversité redevient un souhait : deux spécialités identiques se suivent',
   },
+  {
+    id: 'INV-3a', tests: 'tests/invariants.journal.test.tsx', file: 'src/lib/journal.ts',
+    from: "cp?.teile[teil].status === 'fragile';",
+    to: "cp?.teile[teil].status === 'fragile' || cp?.teile[teil].status === 'vierge';",
+    pourquoi: 'un Teil jamais travaillé redevient un point faible (le classement « par absence » de l’audit §5)',
+  },
+  {
+    id: 'INV-3b', tests: 'tests/invariants.journal.test.tsx', file: 'src/lib/stats.ts',
+    from: "if (p.status === 'fragile' && p.lastScore !== null) out.push",
+    to: "if (p.status !== 'solide') out.push",
+    pourquoi: 'la liste « Points faibles » affichée accuse les cas jamais joués',
+  },
+  {
+    id: 'INV-5a', tests: 'tests/invariants.journal.test.tsx', file: 'src/lib/journal.ts',
+    from: '  await db.training_events.put(event);\n  await applyEventToLocalState(event);\n  return event;',
+    to: "  if (event.source !== 'libre') await db.training_events.put(event);\n  await applyEventToLocalState(event);\n  return event;",
+    pourquoi: 'un exercice libre n’entre plus dans le journal : ni historique ni stats',
+  },
+  {
+    id: 'INV-5b', tests: 'tests/invariants.journal.test.tsx', file: 'src/lib/journal.ts',
+    from: 'new Set(trainingEvents.map((te) => dayKey(te.at)));',
+    to: "new Set(trainingEvents.filter((te) => te.kind === 'simulation').map((te) => dayKey(te.at)));",
+    pourquoi: 'INV-6 : une journée 100 % drill n’est plus une journée travaillée (program.ts:320-327)',
+  },
+  {
+    id: 'INV-5c', tests: 'tests/invariants.journal.test.tsx', file: 'src/lib/journal.ts',
+    from: 'for (const te of trainingEvents) { const k = dayKey(te.at); m.set(',
+    to: "for (const te of trainingEvents) { if (te.source === 'libre') continue; const k = dayKey(te.at); m.set(",
+    pourquoi: 'le temps investi ignore les exercices libres',
+  },
+  {
+    id: 'INV-5d', tests: 'tests/invariants.journal.test.tsx', file: 'src/features/program/HistoriquePage.tsx',
+    from: '  const filtered = useMemo(() => (events ?? []).filter((e) => {\n',
+    to: "  const filtered = useMemo(() => (events ?? []).filter((e) => {\n    if (e.source === 'libre') return false;\n",
+    pourquoi: 'l’écran Historique masque les exercices hors plan',
+  },
 ];
 
 function run(cwd, tests) {
