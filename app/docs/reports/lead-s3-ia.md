@@ -17,6 +17,7 @@
 | `aa047c3` | Correctifs relevés au navigateur (ordre d'allumage, débordement à 390 px) |
 | `0fb616f` | Ce rapport |
 | `e161b9a` → `7238cd0` | Corrections de la revue indépendante, un commit par item (§9) |
+| `5a98cb9` → `565d1ad` | Corrections de la re-revue (§10) |
 
 Vérifié par code de sortie après la revue : `npx tsc -b --noEmit` → 0 ;
 `npx vitest run --dir src/lib/externalAi` → 0 (23 tests) ;
@@ -53,7 +54,7 @@ testé sur toute la table de capacités.
 | | Avant | Après |
 |---|---|---|
 | Structure | 3 rôles dans un seul message (patient, Oberarzt, correcteur) | **1 rôle**, choisi par le Teil |
-| Amorce | aucune ; premier tour « Bereit. … Dann … » | min 646 · médiane 725 · p90 772 · **max 821** (≤ 900) |
+| Amorce | aucune ; premier tour « Bereit. … Dann … » | min 646 · médiane 725 · p90 773 · **max 853** (`case-delir`, ≤ 900) |
 | Texte collé, Anamnese | portée `anamnese` : min 9 697 · médiane 17 989 · max 22 890 | **patient** : min 2 897 · médiane **8 307** · p90 9 580 · max 11 873 |
 | Texte collé, complet | `exam+feedback` : min 11 864 · médiane **31 906** · max 44 231 | **Oberarzt** : min 1 280 · médiane **5 713** · p90 6 508 · max 7 627 (≤ 8 000, O2) |
 | Diagnostic en mode patient | dans le message dès le tour 0 (+ 16 fuites « tolérées ») | **0** : aucune chaîne de `medicalView`, aucune tête de diagnostic, aucune justification « (gegen …) » |
@@ -283,7 +284,7 @@ Un test rouge d'abord, puis un commit par item.
 | I1 | La carte promettait « pas dans l'indice de préparation », faux aujourd'hui | Phrase réduite à ce qui est vrai (historique et série) ; commentaire pour la rétablir à l'intégration | `e161b9a` |
 | I2 | `launchPlan` ignorait `autoSubmits` : un `?q=` qui envoie seul partirait avec la salutation vide | `capabilityProblems` refuse `AUTO_SUBMIT` ⇒ jamais de niveau 1 ; ligne ajoutée à la table. Statut rendu pur (`launchStatus`) : au niveau 1 ouvert, un échec de la copie de secours ne dit plus « Copie impossible » | `21e0fcd` |
 | I3 | L'Oberarzt ignorait les faits du cas | `## Der Fall` depuis les champs structurés ; Oberarzt min 1 280 · médiane 5 713 · max 7 627. Un négatif repris dans un champ structuré (`case-morbus-crohn` : « keine Bauchoperationen… ») compte comme fait du dossier dans O1 | `89ce5b9` |
-| M6 | `case-delir` : 44 répliques « Die Tochter: … » sans cadre | Ligne d'amorce « Deine Tochter ist dabei und antwortet manchmal für dich… » quand la fiche contient des répliques d'un proche ; équivalence vérifiée sur les 130 cas | `e859558` |
+| M6 | `case-delir` : 49 répliques du proche sans cadre | Ligne d'amorce « Deine Tochter ist dabei und antwortet manchmal für dich… ». **Ne se déclenchait sur aucun cas** dans ce commit (ancre en début de réplique, le corpus écrit « (Die Tochter: … ») et le test passait à vide — corrigé en re-revue (§10) | `e859558` |
 | M5 | Relevé non bloquant des cas où le patient nomme sa pathologie | Cliquet bloquant `['case-lungenembolie', 'case-migraene']` | `34511e9` |
 | M7 | `getPending` sans appelant | Supprimé ; `readPending` seule lecture | `b2a5b9b` |
 | M1 | Lien activable au clavier avec texte vide | `preventDefault` tant que le texte n'est pas prêt | `d10ba12` |
@@ -293,3 +294,12 @@ Un test rouge d'abord, puis un commit par item.
 | M9 | Chiffres du rapport | Alignés sur la mesure actuelle (§3) | ce commit |
 | M8, M11 | Type `externalTarget`, répliques conditionnelles | Proposition et écart notés (§8, points 9 et 10) | ce commit |
 | M10, I4 | Ombre de `.glass`, montage dans `PlayArea` + retrait de la puce `SimulationRunner.tsx:275` | Laissés à `main`, à l'intégration | — |
+
+## 10. Re-revue de `83c9caf` — corrections
+
+| Item | Constat | Correction | Commit |
+|---|---|---|---|
+| I-A | M6 ne se déclenchait sur aucun cas : le corpus écrit « (Die Tochter: … », « (Die Tochter, leise: … », « (Die Tochter ergänzt: … », l'ancre exigeait un début de réplique ; le test corpus utilisait la même ancre et passait à vide | L'ancre accepte la parenthèse et une incise (≤ 20 caractères avant « : »). Test unitaire sur les trois formes du corpus et sur une phrase neutre (« Meine Tochter hat mich gebracht. » ne déclenche rien). **Cliquet bloquant** sur la liste exacte : `['case-delir']`. Amorce de `case-delir` : 853 caractères | `5a98cb9` |
+| I-B | `autoSubmits: false` pour ChatGPT était un fait deviné (« non établi » dans les sources) | Décision de `main` : `autoSubmits: true` par prudence. Test : la fiche ChatGPT, même avec `q` et une limite renseignés, reste au niveau 2. Protocole §6 des sources complété : le relevé doit établir **aussi** qu'aucun envoi ne part seul avant de passer à `false`. Gemini : `false` sans objet (aucun paramètre), commenté | `36bf754` |
+| m-1 | Une `verifiedAt` future était jugée fraîche | `fresh` exige `0 ≤ maintenant − date ≤ 90 jours` ; test avec `2099-01-01` | `565d1ad` |
+| m-2 | `state.md` non coché | Coché (non suivi par git) | — |
