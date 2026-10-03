@@ -89,8 +89,7 @@ export function DrillPage() {
   // la tâche drill serait une « coche nue » absorbable (isCocheNue).
   const startedAt = useRef<number | null>(null);
   const logged = useRef(false);
-  const noted = useRef(0);
-  noted.current = stats.done;
+  const noted = useRef(0);                                 // compté AU CLIC : quitter juste après avoir noté compte
   const journaliser = useRef(() => {});
   journaliser.current = () => {
     if (logged.current || startedAt.current === null || noted.current === 0) return;
@@ -117,7 +116,7 @@ export function DrillPage() {
     setIdx(0); setRevealed(false); setStats({ done: 0, again: 0 });
     if (q.length === 0) { setStarted(false); return; }
     setQueue(q); setStarted(true);
-    startedAt.current = now(); logged.current = false;   // R-C3 : une séance commence
+    startedAt.current = now(); logged.current = false; noted.current = 0;   // R-C3 : une séance commence
   };
 
   // Sortie de la session en pause si elle porte sur CE cas (FB2 : reprendre le
@@ -234,6 +233,7 @@ export function DrillPage() {
   const card = live ? { ...frozen, translationSimple: live.translationSimple, ...(isPersonalView(live) && live.context !== undefined ? { context: live.context } : {}) } : frozen;
 
   const grade = async (g: Grade) => {
+    noted.current += 1;                                    // R-C3 : avant tout await
     const wasNew = card.srs.state === 'Neu';
     await rateTerm(card, g);
     const newSrs = reviewSrs(card.srs, g);
