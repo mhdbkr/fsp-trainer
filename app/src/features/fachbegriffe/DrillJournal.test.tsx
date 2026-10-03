@@ -34,7 +34,7 @@ beforeEach(async () => {
 });
 
 async function noter() {
-  fireEvent.click(await screen.findByRole('button', { name: /révéler/i }, { timeout: 10_000 }));
+  fireEvent.click(await screen.findByRole('button', { name: 'Verso' }, { timeout: 10_000 }));
   fireEvent.click(await screen.findByRole('button', { name: /^Gut/ }, { timeout: 10_000 }));
 }
 
@@ -59,7 +59,7 @@ describe('R-C3 — le drill dans le journal', () => {
   it('quitter sans aucune carte notée : rien', async () => {
     const v = render(<MemoryRouter initialEntries={['/fachbegriffe/drill']}><DrillPage /></MemoryRouter>);
     fireEvent.click(await screen.findByRole('button', { name: /commencer/i }, { timeout: 10_000 }));
-    await screen.findByRole('button', { name: /révéler/i });
+    await screen.findByRole('button', { name: 'Verso' }, { timeout: 10_000 });   // la carte est montée (F4c : sélecteur Recto / Verso)
     v.unmount();
     await new Promise((r) => setTimeout(r, 200));
     expect(await drills()).toHaveLength(0);
