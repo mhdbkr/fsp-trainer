@@ -171,8 +171,11 @@ describe('INV-3 / INV-11 — la progression par Teil', () => {
   it('INV-11 : un événement `selbstbewertet` laisse le CaseProgress inchangé', () => {
     const base = computeCaseProgress([one('anamnese', 90)]);
     const withSelf = computeCaseProgress([one('anamnese', 90), one('dokumentation', 20, { selbstbewertet: true, at: at + 1000 })]);
-    expect(withSelf[0].teile).toEqual(base[0].teile);
+    // I-4 : seul `nonMesureAt` peut changer — les MESURES sont identiques.
+    const mesures = (cp: typeof base[0]) => Object.fromEntries(Object.entries(cp.teile).map(([k, { nonMesureAt: _n, ...m }]) => [k, m]));
+    expect(mesures(withSelf[0])).toEqual(mesures(base[0]));
     expect(withSelf[0].teile.dokumentation.attempts).toBe(0);
+    expect(withSelf[0].teile.dokumentation.nonMesureAt).toBe(at + 1000);
   });
 
   it('`overall` : vierge / entamé / solide', () => {
