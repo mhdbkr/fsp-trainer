@@ -76,3 +76,15 @@ describe('G4 — relances conditionnelles préfixées', () => {
     expect(relancesOf('fach-psych-suizid', 'Haben Sie sich selbst verletzt').map((r) => parseFollowUp(r).kind)).toEqual(['immer']);
   });
 });
+
+describe('Revue clinique Q0 — C-3 : le NOTFALL psy ne se déclenche pas sur un « oui » vague', () => {
+  const notfall = () => relancesOf('fach-psych-suizid', 'NOTFALL');
+  it('« Falls bejaht » (à quoi ? l\'automutilation, les idées ?) devient une condition explicite', () => {
+    expect(notfall()).toHaveLength(1);
+    expect(notfall()[0]).not.toMatch(/^Falls bejaht/);
+  });
+  it('le parseur en fait un interrupteur lisible (« Konkrete Absicht oder Plan »), pas un « Ja » ni une note', () => {
+    expect(parseFollowUp(notfall()[0])).toMatchObject({ kind: 'ja', label: 'konkrete Absicht oder Plan' });
+    expect(notfall()[0]).toMatch(/NOTFALL — der Patient bleibt stationär/);
+  });
+});

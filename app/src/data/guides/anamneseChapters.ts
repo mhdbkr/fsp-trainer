@@ -1466,7 +1466,7 @@ export const FACHANAMNESEN: FachanamneseGuide[] = [
         alts: ['Haben Sie daran gedacht, sich das Leben zu nehmen? Haben Sie einen konkreten Plan gemacht?'],
         followUp: [
           'Haben Sie sich selbst verletzt, oder haben Sie den Wunsch, sich zu verletzen?',
-          'Falls bejaht: NOTFALL — der Patient bleibt stationär. Rücksprache mit dem Oberarzt nach der Anamnese.',
+          'Falls konkrete Absicht oder Plan: NOTFALL — der Patient bleibt stationär. Rücksprache mit dem Oberarzt nach der Anamnese.',
         ],
       },
       {
