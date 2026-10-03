@@ -283,3 +283,16 @@ describe('m-1 — une séance IA externe n\'est jamais un examen à blanc (sonde
     expect(trainingEventFromSimulation(s).kind).toBe('simulation');
   });
 });
+
+describe('m-2 — une coche n\'est pas un Teil JOUÉ le jour même', () => {
+  it('coche d\'une tâche cas complet (trois Teile déclarés), puis Anamnese réelle : la tâche n\'est pas re-cochée par la partie', async () => {
+    freezeAt(new Date(2026, 9, 1, 8, 0));
+    const t = task({ id: 'tc', caseId: 'c1' });
+    await db.progress_events.put(planEv('plan.materialized', '2026-10-01', [t], '2026-10-01T06:00:00Z'));
+    await rebuildJournal(await db.progress_events.toArray());
+    const coche = await markTaskDone(t);
+    expect(coche.teile).toHaveLength(3);
+    const s = await resolveSimulationTask({ id: 's-ana', caseId: 'c1', date: new Date(2026, 9, 1, 9, 0).getTime(), notes: {}, prioritizedCorrections: [], parts: { anamnese: part(85) } } as unknown as Simulation);
+    expect(s.taskId).toBeUndefined();                                // les Teile de la coche ne complètent pas la partie
+  });
+});
