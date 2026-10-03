@@ -288,7 +288,13 @@ indépendamment du bug de contenu.
 **Aggravants** : `CardFlip.tsx:41` `aria-hidden={revealed}` repasse à `false` dès t=0 → un
 lecteur d'écran **annonce le mot suivant 500 ms avant qu'il soit lisible**. Et
 `DrillPage.tsx:183` (`setQueue([...q, …])` sur « Wieder ») change le dénominateur dans le même
-frame → le compteur `:193` et la barre `:196` **reculent** pendant que la carte tourne.
+frame que la carte.
+
+> **Correction (chantier primitives, 30 sept.)** — cet audit affirmait que la barre
+> *reculait*. C'est faux : elle vaut `idx / queue.length`, et `(i+1)/(n+1) > i/n` dès que
+> `n > i` — elle avance toujours. Le défaut réel, et il est réel : le **dénominateur
+> changeait avant la carte** (« 5 / 10 » → « 6 / 11 » pendant que l'ancienne carte était
+> encore à l'écran), et le compteur n'avait pas `tnum`.
 
 **En une phrase** : il n'existe **aucun état de sortie** — deux états (`revealed` vrai/faux)
 pour trois moments (question / réponse / passage). Le troisième n'est pas modélisé.

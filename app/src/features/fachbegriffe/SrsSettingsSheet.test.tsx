@@ -16,7 +16,7 @@ describe('SrsSettingsSheet', () => {
     fireEvent.change(screen.getByLabelText(/Nouveaux termes par jour/), { target: { value: '99' } });
     fireEvent.change(screen.getByLabelText(/Dus présentés par jour/), { target: { value: '20' } });
     fireEvent.click(screen.getByRole('button', { name: /Enregistrer/ }));
-    await waitFor(async () => expect((await db.progress_events.toArray()).find((e) => e.type === 'srs.settings_changed')?.payload).toEqual({ mode: 'manual', newPerDay: 50, maxReviewsPerDay: 20 }));
+    await waitFor(async () => expect((await db.progress_events.toArray()).find((e) => e.type === 'srs.settings_changed')?.payload).toEqual({ mode: 'manual', newPerDay: 50, maxReviewsPerDay: 20 }), { timeout: 3000 });   // écriture Dexie sous charge (suite complète)
   });
 
   // Revue charte F2b : inline dans « Ajuster », le Field « Fachbegriffe » porte

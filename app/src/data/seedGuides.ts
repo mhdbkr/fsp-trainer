@@ -199,7 +199,8 @@ export function seedGuides(): Guide[] {
           'Bei meldepflichtiger Krankheit: Patient wird isoliert, und im Arztbrief steht "Gesundheitsamt wurde informiert."',
         ] },
         { id: 'k9', title: 'Patient äußert Suizidgedanken', items: [
-          'Direkt und ruhig nachfragen: "Haben Sie daran gedacht, sich das Leben zu nehmen? Haben Sie einen konkreten Plan?"',
+          'Direkt und ruhig nachfragen: "Haben Sie daran gedacht, sich das Leben zu nehmen?"',
+          'Falls ja, weiterfragen: "Haben Sie einen konkreten Plan?"',
           'Falls bejaht: NOTFALL — der Patient bleibt stationär.',
           'Rücksprache mit dem Oberarzt folgt NACH der Anamnese (anders als bei Myokardinfarkt, Lungenembolie, Apoplex oder GI-Blutung).',
         ] },

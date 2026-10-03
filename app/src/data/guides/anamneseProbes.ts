@@ -121,8 +121,8 @@ export const FACH_PROBES: Partial<Record<Specialty, AnamneseProbe[]>> = {
     { id: 'fach-kardio-herzrasen', kapitel: 'fach', frage: 'Haben Sie Herzrasen, Herzklopfen oder Herzstolpern bemerkt?' },
     { id: 'fach-kardio-luft', kapitel: 'fach', frage: 'Bekommen Sie schwer Luft, besonders beim Treppensteigen? Wie viele Stockwerke schaffen Sie ohne Pause?' },
     { id: 'fach-kardio-oedeme', kapitel: 'fach', frage: 'Sind Ihre Beine oder Knöchel geschwollen? Mit wie vielen Kissen schlafen Sie?' },
-    { id: 'fach-kardio-nykturie', kapitel: 'fach', frage: 'Müssen Sie nachts Wasser lassen? Wie oft?' },
-    { id: 'fach-kardio-synkope', kapitel: 'fach', frage: 'Wird es Ihnen manchmal schwarz vor Augen? Sind Sie schon einmal ohnmächtig geworden?' },
+    { id: 'fach-kardio-nykturie', kapitel: 'fach', frage: 'Müssen Sie nachts Wasser lassen? Wie oft?', deepens: 'akt-ausscheid-haeufigkeit' },
+    { id: 'fach-kardio-synkope', kapitel: 'fach', frage: 'Wird es Ihnen manchmal schwarz vor Augen? Sind Sie schon einmal ohnmächtig geworden?', deepens: 'akt-anfall-bewusstsein' },
   ],
   Chirurgie: [
     { id: 'fach-chir-essen', kapitel: 'fach', frage: 'Wann haben Sie zuletzt gegessen und getrunken? Was genau?' },
@@ -270,7 +270,7 @@ export const FACH_PROBES: Partial<Record<Specialty, AnamneseProbe[]>> = {
     { id: 'fach-derma-verlauf', kapitel: 'fach', frage: 'Tritt das in Schüben auf? Wird es zu bestimmten Jahreszeiten oder im Urlaub besser?', deepens: 'akt-verlauf' },
     { id: 'fach-derma-systemisch', kapitel: 'fach', frage: 'Haben Sie dazu Fieber, Gelenkschmerzen oder Veränderungen an Mund, Augen oder im Genitalbereich?' },
     { id: 'fach-derma-vorgeschichte', kapitel: 'fach', frage: 'Hatten Sie früher Hautkrankheiten wie Neurodermitis oder Schuppenflechte? Gibt es so etwas in Ihrer Familie?' },
-    { id: 'fach-derma-muttermal', kapitel: 'fach', frage: 'Hat sich ein Muttermal verändert — in Größe, Farbe oder Form —, juckt es oder blutet es?' },
+    { id: 'fach-derma-muttermal', kapitel: 'fach', frage: 'Hat sich ein Muttermal verändert — in Größe, Farbe oder Form —, juckt es oder blutet es?', deepens: 'akt-veraend-blutung' },
     { id: 'fach-derma-vorbehandlung', kapitel: 'fach', frage: 'Womit haben Sie die Stelle bisher behandelt, und hat das geholfen?' },
   ],
   // Complète la Frauenanamnese générale (règles, grossesse, contraception,
@@ -313,7 +313,7 @@ export const FACH_PROBES: Partial<Record<Specialty, AnamneseProbe[]>> = {
   // demandent quelle que soit la localisation du cancer.
   Onkologie: [
     { id: 'fach-onko-bsymptomatik', kapitel: 'fach', frage: 'Haben Sie Fieber ohne Infekt, Nachtschweiß mit Wäschewechsel oder ungewollt Gewicht verloren — wie viel in welcher Zeit?' },
-    { id: 'fach-onko-leistung', kapitel: 'fach', frage: 'Wie ist Ihre Belastbarkeit im Alltag? Was schaffen Sie nicht mehr, was vor einem halben Jahr noch ging?' },
+    { id: 'fach-onko-leistung', kapitel: 'fach', frage: 'Wie ist Ihre Belastbarkeit im Alltag? Was schaffen Sie nicht mehr, was vor einem halben Jahr noch ging?', deepens: 'akt-allgemein-alltag' },
     { id: 'fach-onko-schmerz', kapitel: 'fach', frage: 'Haben Sie Schmerzen, die nachts oder in Ruhe auftreten und allmählich stärker werden?' },
     { id: 'fach-onko-knoten', kapitel: 'fach', frage: 'Haben Sie irgendwo einen Knoten, eine Schwellung oder eine Verhärtung getastet?' },
     { id: 'fach-onko-blutung', kapitel: 'fach', frage: 'Haben Sie Blutungen bemerkt — im Stuhl, im Urin, beim Husten oder aus der Scheide?' },
@@ -331,59 +331,68 @@ export const FACH_PROBES: Partial<Record<Specialty, AnamneseProbe[]>> = {
 // Un cas répond aux sondes de SA catégorie (patientSheet.leitsymptomKategorie).
 export const AKTUELL_VARIANT_PROBES: Record<LeitsymptomKategorie, AnamneseProbe[]> = {
   schmerz: [
-  { id: 'akt-ort', kapitel: 'aktuell', frage: 'Wo genau spüren Sie die Beschwerden? Können Sie mit dem Finger zeigen?' },
+  { id: 'akt-ort', kapitel: 'aktuell', frage: 'Wo genau spüren Sie die Beschwerden?' },
   { id: 'akt-charakter', kapitel: 'aktuell', frage: 'Wie fühlt es sich an — dumpf, stechend, brennend, drückend, krampfartig?' },
   { id: 'akt-intensitaet', kapitel: 'aktuell', frage: 'Wie stark sind die Beschwerden auf einer Skala von 1 bis 10?' },
-  { id: 'akt-ausstrahlung', kapitel: 'aktuell', frage: 'Strahlen die Beschwerden aus? Wohin?' },
+  { id: 'akt-ausstrahlung', kapitel: 'aktuell', frage: 'Strahlen die Beschwerden irgendwohin aus?' },
   ],
   atemnot: [
-    { id: 'akt-atemnot-belastung', kapitel: 'aktuell', frage: 'Tritt die Luftnot nur bei Anstrengung auf oder auch in Ruhe? Wie viele Treppenstufen schaffen Sie ohne Pause?' },
-    { id: 'akt-atemnot-nachts', kapitel: 'aktuell', frage: 'Müssen Sie mit erhöhtem Oberkörper schlafen? Wachen Sie nachts auf, weil Ihnen die Luft wegbleibt?' },
-    { id: 'akt-atemnot-husten', kapitel: 'aktuell', frage: 'Haben Sie Husten? Trocken oder mit Auswurf — welche Farbe, ist Blut dabei?' },
+    { id: 'akt-atemnot-belastung', kapitel: 'aktuell', frage: 'Tritt die Luftnot nur bei Anstrengung auf oder auch in Ruhe?' },
+    { id: 'akt-atemnot-nachts', kapitel: 'aktuell', frage: 'Müssen Sie mit erhöhtem Oberkörper schlafen?' },
+    { id: 'akt-atemnot-husten', kapitel: 'aktuell', frage: 'Haben Sie Husten?' },
     { id: 'akt-atemnot-geraeusch', kapitel: 'aktuell', frage: 'Hören Sie beim Atmen ein Pfeifen oder Brummen?' },
   ],
   allgemein: [
     { id: 'akt-allgemein-art', kapitel: 'aktuell', frage: 'Was genau spüren Sie: Müdigkeit, Kraftlosigkeit, Schwindel, etwas anderes?' },
-    { id: 'akt-allgemein-alltag', kapitel: 'aktuell', frage: 'Was schaffen Sie im Alltag nicht mehr? Müssen Sie sich tagsüber hinlegen?' },
-    { id: 'akt-allgemein-tageszeit', kapitel: 'aktuell', frage: 'Ist es morgens schlimmer oder im Laufe des Tages? Bessert es sich nach Ruhe?' },
-    { id: 'akt-allgemein-gewicht', kapitel: 'aktuell', frage: 'Hat sich Ihr Gewicht ungewollt verändert? Und Appetit, Durst?' },
-    { id: 'akt-allgemein-schwellung', kapitel: 'aktuell', frage: 'Sind Beine, Gesicht oder Bauch angeschwollen? Hat sich die Urinmenge verändert?' },
+    { id: 'akt-allgemein-alltag', kapitel: 'aktuell', frage: 'Was schaffen Sie im Alltag nicht mehr, was vorher ging?' },
+    { id: 'akt-allgemein-tageszeit', kapitel: 'aktuell', frage: 'Ist es morgens schlimmer oder im Laufe des Tages?' },
+    { id: 'akt-allgemein-gewicht', kapitel: 'aktuell', frage: 'Hat sich Ihr Gewicht ungewollt verändert?' },
+    { id: 'akt-allgemein-schwellung', kapitel: 'aktuell', frage: 'Sind Beine, Gesicht oder Bauch angeschwollen?' },
   ],
   psychisch: [
-    { id: 'akt-psych-stimmung', kapitel: 'aktuell', frage: 'Wie ist Ihre Stimmung im Moment? Gibt es Momente, in denen es besser ist?' },
-    { id: 'akt-psych-antrieb', kapitel: 'aktuell', frage: 'Fällt es Ihnen schwer, den Tag zu beginnen? Haben Sie noch Freude an Dingen?' },
-    { id: 'akt-psych-schlaf', kapitel: 'aktuell', frage: 'Wie schlafen Sie? Können Sie sich konzentrieren?' },
+    { id: 'akt-psych-stimmung', kapitel: 'aktuell', frage: 'Wie ist Ihre Stimmung im Moment?' },
+    // Ni l'Interessenverlust ni la Konzentration ne deviennent des sondes :
+    // `fach-psych-interesse` et `fach-psych-konzentration` les posent déjà,
+    // mot pour mot (série 3, tri des 27 — le garde-fou a renversé mon premier
+    // jet, qui reposait sur un grep faux).
+    { id: 'akt-psych-antrieb', kapitel: 'aktuell', frage: 'Fällt es Ihnen schwer, den Tag zu beginnen?' },
+    { id: 'akt-psych-schlaf', kapitel: 'aktuell', frage: 'Haben Sie Probleme beim Einschlafen, beim Durchschlafen, oder wachen Sie zu früh auf?', deepens: 'veg-schlaf' },
     { id: 'akt-psych-sicherheit', kapitel: 'aktuell', frage: 'Hatten Sie Gedanken, dass das Leben nicht mehr lebenswert ist, oder daran, sich etwas anzutun?' },
   ],
   neurologisch: [
-    { id: 'akt-neuro-ausfall', kapitel: 'aktuell', frage: 'Was genau war anders: Schwäche oder Taubheit — welche Seite? Sprechen, Sehen, Gehen?' },
-    { id: 'akt-neuro-dauer', kapitel: 'aktuell', frage: 'Wie lange hat es angehalten? Ist es ganz weg, teilweise, oder noch da?' },
-    { id: 'akt-neuro-lage', kapitel: 'aktuell', frage: 'Wird es schlimmer beim Kopfdrehen, Hinlegen, Aufstehen? Drehschwindel oder Schwanken?' },
+    { id: 'akt-neuro-ausfall', kapitel: 'aktuell', frage: 'Was war anders: eine Schwäche oder ein Taubheitsgefühl?' },
+    { id: 'akt-neuro-dauer', kapitel: 'aktuell', frage: 'Wie lange hat es angehalten?' },
+    { id: 'akt-neuro-lage', kapitel: 'aktuell', frage: 'Wird es schlimmer beim Kopfdrehen, Hinlegen oder Aufstehen?' },
   ],
   infekt: [
-    { id: 'akt-infekt-fieber', kapitel: 'aktuell', frage: 'Haben Sie gemessen — wie hoch? Wann am höchsten? Schüttelfrost?' },
-    { id: 'akt-infekt-kontakt', kapitel: 'aktuell', frage: 'Waren Sie im Ausland? Kontakt zu Kranken, zu Tieren, ungewöhnliches Essen?' },
+    { id: 'akt-infekt-fieber', kapitel: 'aktuell', frage: 'Haben Sie Fieber gemessen?' },
+    { id: 'akt-infekt-kontakt', kapitel: 'aktuell', frage: 'Waren Sie in den letzten Wochen im Ausland?' },
     { id: 'akt-infekt-herd', kapitel: 'aktuell', frage: 'Husten, Halsschmerzen, Brennen beim Wasserlassen, Durchfall, Ausschlag, Wunde?' },
   ],
   veraenderung: [
     { id: 'akt-veraend-was', kapitel: 'aktuell', frage: 'Was genau ist Ihnen aufgefallen: Knoten, Hautveränderung, blaue Flecken, Blutung, Schlucken, Stuhl, Gelbfärbung?' },
-    { id: 'akt-veraend-entwicklung', kapitel: 'aktuell', frage: 'Ist es seitdem größer, häufiger oder schlimmer geworden? Farbe oder Form verändert?' },
-    { id: 'akt-veraend-blutung', kapitel: 'aktuell', frage: 'Tut es weh, juckt es, blutet es? Blut im Stuhl, im Urin, beim Husten, aus der Nase?' },
+    { id: 'akt-veraend-entwicklung', kapitel: 'aktuell', frage: 'Ist es seitdem größer, häufiger oder schlimmer geworden?' },
+    { id: 'akt-veraend-blutung', kapitel: 'aktuell', frage: 'Tut es weh, juckt es, oder blutet es?' },
   ],
   nerven: [
-    { id: 'akt-nerven-art', kapitel: 'aktuell', frage: 'Was genau spüren Sie: Zittern, Kribbeln, Taubheit, Schwäche, Steifigkeit? Wo, welche Seite?' },
-    { id: 'akt-nerven-alltag', kapitel: 'aktuell', frage: 'Was fällt dadurch schwer: Knöpfe, Schreiben, Tasse halten, Gehen, Treppen? Stürze?' },
-    { id: 'akt-nerven-tageszeit', kapitel: 'aktuell', frage: 'Nachts oder morgens schlimmer? Stärker bei Anstrengung, Wärme, Aufregung, bestimmten Haltungen?' },
+    { id: 'akt-nerven-art', kapitel: 'aktuell', frage: 'Was genau spüren Sie: ein Kribbeln, eine Taubheit oder eine Schwäche?' },
+    { id: 'akt-nerven-alltag', kapitel: 'aktuell', frage: 'Was fällt dadurch schwer: Knöpfe, Schreiben, eine Tasse halten?' },
+    { id: 'akt-nerven-tageszeit', kapitel: 'aktuell', frage: 'Ist es nachts oder morgens schlimmer?' },
   ],
   ausscheidung: [
-    { id: 'akt-ausscheid-was', kapitel: 'aktuell', frage: 'Was hat sich verändert: Wasserlassen, Stuhlgang, Schlucken, Farbe von Haut/Augen/Urin/Stuhl?' },
-    { id: 'akt-ausscheid-haeufigkeit', kapitel: 'aktuell', frage: 'Wie oft am Tag, wie oft nachts? Mehr oder weniger? Plötzlicher Drang, tröpfchenweise?' },
-    { id: 'akt-ausscheid-aussehen', kapitel: 'aktuell', frage: 'Wie sieht es aus: Farbe, Blut, Schleim, schaumig, Geruch? Bleibt Festes oder auch Flüssiges hängen?' },
+    { id: 'akt-ausscheid-was', kapitel: 'aktuell', frage: 'Was hat sich verändert: Wasserlassen, Stuhlgang, Farbe von Haut/Augen/Urin/Stuhl?' },
+    { id: 'akt-ausscheid-haeufigkeit', kapitel: 'aktuell', frage: 'Wie oft müssen Sie am Tag auf die Toilette, und wie oft nachts?' },
+    { id: 'akt-ausscheid-aussehen', kapitel: 'aktuell', frage: 'Ist Ihnen Blut, Schleim oder eine ungewöhnliche Farbe aufgefallen?' },
+    // L'aspect d'une excrétion et la déglutition ne partagent ni organe ni
+    // diagnostic différentiel ; et « nur Festes, oder auch Flüssiges » est la
+    // question qui tranche sténose mécanique ↔ trouble moteur. Aucune autre
+    // sonde ne la pose (série 3, tri des 27 — exemple de la direction).
+    { id: 'akt-ausscheid-schlucken', kapitel: 'aktuell', frage: 'Bleibt beim Schlucken nur Festes stecken, oder auch Flüssiges?' },
   ],
   anfall: [
-    { id: 'akt-anfall-ablauf', kapitel: 'aktuell', frage: 'Wie fängt ein Anfall an, wie hört er auf? Was spüren Sie währenddessen?' },
-    { id: 'akt-anfall-dauer', kapitel: 'aktuell', frage: 'Wie lange dauert ein Anfall? Wie oft kommt das vor?' },
-    { id: 'akt-anfall-bewusstsein', kapitel: 'aktuell', frage: 'Waren Sie dabei bewusstlos, schwarz vor Augen? Haben Sie sich verletzt?' },
+    { id: 'akt-anfall-ablauf', kapitel: 'aktuell', frage: 'Wie fängt ein Anfall an: schlagartig oder langsam?' },
+    { id: 'akt-anfall-dauer', kapitel: 'aktuell', frage: 'Wie lange dauert ein Anfall — Sekunden, Minuten oder Stunden?' },
+    { id: 'akt-anfall-bewusstsein', kapitel: 'aktuell', frage: 'Waren Sie dabei bewusstlos oder ist Ihnen schwarz vor Augen geworden?' },
   ],
 };
 

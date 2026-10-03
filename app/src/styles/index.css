@@ -141,6 +141,8 @@ h1, h2, h3 {
     box-shadow: 0 1px 2px rgb(12 26 23 / 0.12), 0 1px 3px rgb(12 97 87 / 0.28);
   }
   .btn-primary:hover { box-shadow: 0 2px 7px rgb(12 97 87 / 0.38); }
+  /* Sur une surface verre (glass-full) : le même bouton plein, SANS ombre — une seule matière. */
+  .btn-primary-glass { @apply btn bg-brand-600 text-white hover:bg-brand-700; }
   .btn-ghost { @apply btn text-slate-600 hover:bg-slate-100 dark:text-slate-300 dark:hover:bg-ink-700; }
   .btn-outline { @apply btn border border-slate-300 text-slate-700 hover:border-slate-400 hover:bg-slate-100 dark:border-ink-600 dark:text-slate-200 dark:hover:bg-ink-700; }
 
@@ -271,14 +273,40 @@ h1, h2, h3 {
   .glass-tint { background: rgb(21 131 117 / 0.16); }        /* brand-500 */
   :is(.dark) .glass-tint { background: rgb(21 131 117 / 0.20); }
 
-  /* — Accessibilité & repli — */
+  /* Verre FLOTTANT (F4b P1/P2) — la même matière que .glass, en deux densités :
+     `glass-thin` (pilule, onglets) et `glass-full` (carte, tiroir). Liseré de
+     lumière en haut (inset), AUCUNE ombre portée. Réservé à ce qui flotte
+     au-dessus de la lecture ; les surfaces de lecture restent opaques. */
+  .glass-thin, .glass-full {
+    position: relative;
+    border: 1px solid rgb(255 255 255 / 0.55);
+    box-shadow: inset 0 1px 0 0 rgb(255 255 255 / 0.70);
+  }
+  .glass-thin {
+    background: rgb(255 255 255 / 0.52);
+    backdrop-filter: blur(12px) saturate(180%);
+    -webkit-backdrop-filter: blur(12px) saturate(180%);
+  }
+  .glass-full {
+    background: rgb(255 255 255 / 0.68);
+    backdrop-filter: blur(24px) saturate(180%);
+    -webkit-backdrop-filter: blur(24px) saturate(180%);
+  }
+  :is(.dark) .glass-thin, :is(.dark) .glass-full {
+    border-color: rgb(255 255 255 / 0.12);
+    box-shadow: inset 0 1px 0 0 rgb(255 255 255 / 0.10);
+  }
+  :is(.dark) .glass-thin { background: rgb(18 33 30 / 0.52); }
+  :is(.dark) .glass-full { background: rgb(18 33 30 / 0.70); }
+
+  /* — Accessibilité & repli (toutes les densités) — */
   @media (prefers-reduced-transparency: reduce) {
-    .glass { background: rgb(244 245 242 / 0.98); backdrop-filter: none; -webkit-backdrop-filter: none; }
-    :is(.dark) .glass { background: rgb(18 33 30 / 0.98); }
+    .glass, .glass-thin, .glass-full { background: rgb(244 245 242 / 0.98); backdrop-filter: none; -webkit-backdrop-filter: none; }
+    :is(.dark) .glass, :is(.dark) .glass-thin, :is(.dark) .glass-full { background: rgb(18 33 30 / 0.98); }
   }
   @supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
-    .glass { background: rgb(244 245 242 / 0.97); }
-    :is(.dark) .glass { background: rgb(18 33 30 / 0.97); }
+    .glass, .glass-thin, .glass-full { background: rgb(244 245 242 / 0.97); }
+    :is(.dark) .glass, :is(.dark) .glass-thin, :is(.dark) .glass-full { background: rgb(18 33 30 / 0.97); }
   }
 }
 
@@ -349,3 +377,8 @@ h1, h2, h3 {
   animation-delay: calc(var(--i, 0) * 70ms);
 }
 @media (prefers-reduced-motion: reduce) { .mm-card .bl { animation: none !important; } }
+
+/* ── Pages de livre (DeckRail, E5) ─────────────────────────────────────────
+   Les pages ne bougent que par translation (ressort de lib/motion) ; la
+   couche GPU n'est promue que pendant l'interaction, pas au repos. */
+.deck-book:hover .deck-page, .deck-book:focus-within .deck-page { will-change: transform; }

@@ -261,7 +261,7 @@ export function ImmersiveMode({ part, c, onClose, initialChapterId, muster, boge
           feuille est déjà remplie, sans ressaisie. */}
       {canNote && noteKey && (
         <div className={`pointer-events-none absolute inset-x-0 bottom-0 z-[94] flex justify-center px-4 pb-20 transition-[opacity,transform] duration-300 ease-fluid ${notesOpen ? 'translate-y-0 opacity-100' : 'pointer-events-none translate-y-3 opacity-0'}`}>
-          <div className="pointer-events-auto w-full max-w-2xl rounded-2xl border border-white/10 bg-slate-900/80 p-3 shadow-2xl backdrop-blur-xl">
+          <div className="pointer-events-auto w-full max-w-2xl rounded-2xl border border-white/10 bg-slate-900/80 p-3 shadow-[inset_0_1px_0_0_rgb(255_255_255/0.12)] backdrop-blur-xl">
             <div className="mb-1.5 flex items-center justify-between">
               <span className="label flex items-center gap-1.5 text-slate-400">
                 <Icon name={noteField?.icon ?? 'pen'} className="h-3.5 w-3.5" />

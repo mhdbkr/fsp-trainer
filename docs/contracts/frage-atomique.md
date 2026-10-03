@@ -125,17 +125,20 @@ La distinction que le validateur doit tenir, telle que l'audit la dimensionne :
 | `fach-ortho-belastung` — « Können Sie das Bein/den Arm noch belasten? » | **faute** | idem |
 | `fach-neuro-kraft` — « Ist ein Arm oder Bein schwächer geworden? » | **faute** | idem |
 
-Critère mécanique qui sépare les deux groupes :
+Critère mécanique qui sépare les deux groupes *(amendé à l'intégration, série 3 :
+l'ancienne exigence d'un « article répété sur chaque membre » contredisait INV-42 —
+« ein Arm oder Bein » n'en porte pas et doit échouer)* :
 
 ```
-IRRADIATION (exempté) : ≥ 3 membres énumérés            → « A, B, C oder D »
-                        OU verbe d'irradiation présent   (ausstrahlen, strahlen … aus)
-                        OU préposition directionnelle    (in den/die/das …)
-FAUTE (bloqué)        : EXACTEMENT 2 membres
-                        ET article répété sur chaque membre (« die Hand oder der Fuß »)
-                            ou barre oblique (« das Bein/den Arm »)
-                        ET les 2 membres appartiennent au lexique anatomique latéralisable
-                            (Hand/Fuß, Bein/Arm, links/rechts)
+FAUTE (bloqué) : EXACTEMENT 2 membres, l'un SUPÉRIEUR (Hand, Arm), l'autre
+                 INFÉRIEUR (Fuß, Bein), au singulier, reliés par « oder » ou
+                 « / » — article ou préposition FACULTATIFS
+                 (« die Hand oder der Fuß », « ein Arm oder Bein »,
+                 « in Arm oder Bein », « das Bein/den Arm »).
+EXEMPTÉ        : ≥ 3 territoires énumérés ; verbe d'irradiation en début de mot
+                 (ausstrahlen, strahlt … aus, zieht/ziehen — pas « anziehen »,
+                 « beziehen ») ; deux régions du MÊME membre (« am Bein oder am
+                 Fuß », case-erysipel).
 ```
 
 Une faute Règle 3 est un **gabarit non résolu** : la correction est une

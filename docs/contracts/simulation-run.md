@@ -82,7 +82,8 @@ vorbereitung ──démarrer(teil)──▶ laufend(teil)
 laufend(t) ──terminerPartie()──▶ bilanz(t)
 bilanz(t) ──partieSuivante()──▶ laufend(t+1)        [s'il reste un Teil planifié]
 bilanz(t) ──versChecklist()──▶ checkliste            [sinon]
-checkliste ──arztbriefSchreiben()──▶ arztbrief       [facultatif, Q5]
+checkliste ──arztbriefSchreiben()──▶ arztbrief       [facultatif, Q5 ; seulement si la Dokumentation n'a pas été jouée]
+checkliste ──zurueckZumBilanz()──▶ bilanz(dernier Teil joué)   [action régressive nommée]
 checkliste ──speichern()──▶ gespeichert
 arztbrief ──speichern()──▶ gespeichert
 ```
@@ -96,10 +97,13 @@ arztbrief ──speichern()──▶ gespeichert
    Exception unique et nommée : `partieSuivante()`, `bilanz(t) → laufend(t+1)`,
    autorisée **seulement** s'il reste un Teil de `geplanteTeile` non joué. C'est
    une progression dans le run, pas un retour dans l'état.
-2. **« Revenir » est une action nommée.** `zurueckZurPartie()` est la seule
-   transition régressive autorisée, disponible **depuis `bilanz` seulement**,
-   vers `laufend(t)` avec `t = aktuellerTeil`. Elle est déclenchée par un geste
-   explicite, jamais par un effet de bord. Toute autre régression est un bug.
+2. **« Revenir » est une action nommée.** Deux transitions régressives, et
+   deux seulement : `zurueckZurPartie()`, depuis `bilanz` seulement, vers
+   `laufend(t)` avec `t = aktuellerTeil` ; et `zurueckZumBilanz()`, depuis
+   `checkliste` seulement, vers le `bilanz` de la **dernière** partie jouée, la
+   checklist conservée. Toutes deux sont déclenchées par un geste explicite,
+   jamais par un effet de bord. Toute autre régression est un bug.
+   *(Amendé à l'intégration, série 3.)*
 3. **`terminerPartie()` n'a qu'une destination : `bilanz`.** Le bug racine
    (`SimulationRunner.tsx:189-190`, `if (idx < flow.length - 1)`) disparaît :
    il n'existe plus de branche qui, en Teil seul, ne fait rien et réaffiche
@@ -117,12 +121,18 @@ arztbrief ──speichern()──▶ gespeichert
 7. **La branche Aufklärung ne sort jamais du périmètre.** `setActive('anamnese')`
    en dur (`SimulationRunner.tsx:187`) est supprimé : une Aufklärung jouée est
    un Teil du `Lauf` comme un autre, et l'automate revient au Teil courant de
-   `geplanteTeile`, jamais à `'anamnese'`.
-8. **L'action de sortie est toujours atteignable.** Le bouton
-   `versChecklist()` est rendu dans l'en-tête collant, visible dans `bilanz`
-   comme dans `laufend` dès que `teileGespielt.length ≥ 1` (corrige
-   `SimulationRunner.tsx:397-401`, rendu en bas de page et jamais pendant
-   l'évaluation).
+   `geplanteTeile`, jamais à `'anamnese'`. Une Aufklärung **au plus** par
+   `Lauf` ; elle ne compte pas comme « Teil joué » (§3.1).
+8. **On ne quitte pas une partie en cours d'un seul clic.** *(Amendé à
+   l'intégration, série 3 — décision de la direction.)* Pendant `laufend`,
+   l'en-tête n'offre que « Terminer la partie ». « Terminer la simulation »
+   est rendu dans l'en-tête collant **en `bilanz` seulement**, une seule fois
+   à l'écran (« zéro doublon »), et passe toujours par l'automate :
+   `bilanz → versChecklist → checkliste → [arztbriefSchreiben → arztbrief] →
+   speichern → gespeichert`. `speichern` hors de `checkliste`/`arztbrief` est
+   refusé, et l'appelant n'écrit rien quand il est refusé. `gespeichert` est
+   posé dans l'état avant l'écriture. La vue ne décide rien : elle demande à
+   l'automate ce qui est permis (`erlaubt`, `simulationBeendbar`).
 
 ### 2.2 URL et historique
 
@@ -161,8 +171,15 @@ Chaque état a une URL distincte :
 - **Reprise** : à l'ouverture de l'app, s'il existe un `lauf.aktiv` dont
   `zustand !== 'gespeichert'`, une barre de reprise propose de rouvrir son URL.
   Le `Lauf` est restitué **à l'identique**, `zustand` compris.
-- Un `Lauf` actif de plus de 24 h est abandonné : il est écrit tel quel en
-  `gespeichert` s'il a au moins un Teil `done`, sinon supprimé.
+- **Abandon** — un `Lauf` actif de plus de 24 h, un changement de mode ou de
+  cas avec une partie en cours, et le ✕ de la barre de reprise suivent la même
+  règle : le `Lauf` est écrit tel quel en `gespeichert` s'il a au moins un des
+  **trois** Teile joué (l'Aufklärung seule ne compte pas), sinon supprimé. La
+  reprise exige le même cas **et** le même mode. L'abandon ne lève jamais : un
+  cas disparu (perte de droits) est remplacé par un cas minimal, et un `Lauf`
+  de forme invalide est écarté à la lecture — ses éléments illisibles retirés,
+  jamais la partie jouée. La barre de reprise lit `lauf.aktiv`.
+  *(Amendé à l'intégration, série 3.)*
 
 ### 3.2 À la fin — écriture idempotente
 
@@ -317,13 +334,13 @@ export function istVollstaendig(lauf: Lauf): boolean {
 
 | Id | Propriété |
 |---|---|
-| **INV-20** | Pour toute suite de transitions, `indice(zustand)` est non décroissant, sauf par `zurueckZurPartie()`. |
+| **INV-20** | Pour toute suite de transitions, `indice(zustand)` est non décroissant, sauf par `zurueckZurPartie()` ou `zurueckZumBilanz()`. |
 | **INV-21** | `terminerPartie()` depuis `laufend(t)` mène à `bilanz(t)`, pour tout `t`, y compris quand `geplanteTeile.length === 1` et quand `t` est le dernier. |
 | **INV-22** | `speichern(lauf)` appelée n fois (n ≥ 1) produit **une** ligne dans `db.simulations` et **un** `TrainingEvent`. |
 | **INV-23** | Un `Lauf` sérialisé puis restauré est structurellement égal à l'original, `zustand`, `checkliste`, chronos et brouillon d'évaluation compris. |
 | **INV-24** | Un item coché dans `AnamneseGuide` est coché dans `lauf.checkliste` : il n'existe aucun chemin où la checklist de `checkliste` est vierge alors que des chapitres ont été cochés. |
 | **INV-25** | `istVollstaendig(lauf) === true` ⇒ `teileGespielt.length === 3`. |
-| **INV-26** | Tout `Lauf` écrit a un `profileId` non vide. |
+| **INV-26** | Tout `Lauf` écrit a un `profileId` non vide **ou absent** (aucun compte actif) — jamais une valeur fabriquée comme `'local'`. |
 | **INV-27** | Aucun `ChecklistItem.id` produit par le source ne correspond à `/^cl-\d+$/` ; la table de traduction legacy couvre les 44 anciens ids. |
 | **INV-28** | Le chrono total d'un `Lauf` est monotone croissant : aucun aller-retour `bilanz → laufend → bilanz` ne le fait décroître ni doubler. |
 

@@ -20,8 +20,19 @@ export function useAllTerms(): AnyTerm[] | undefined {
   const hidden = usePendingDeletions((s) => s.ids);
   return useMemo(() => (fb && pts ? mergeTerms(fb, pts.filter((p) => !hidden.has(p.id))) : undefined), [fb, pts, hidden]);
 }
-export const useDecks = () => useLiveQuery(() => db.decks.toArray(), [], undefined);
-export const useDeckTerms = () => useLiveQuery(() => db.deck_terms.toArray(), [], undefined);
+/** Decks et rangements SANS les decks en attente de suppression (F4b P6) : pendant les
+ *  5 s d'« Annuler », un deck supprimé n'est proposé nulle part (onglets, « Changer »,
+ *  mini-fiche) et ne tient plus aucune ★ pleine — un seul filtre, ici (revue E1). */
+export function useDecks() {
+  const decks = useLiveQuery(() => db.decks.toArray(), [], undefined);
+  const hidden = usePendingDeletions((s) => s.ids);
+  return useMemo(() => decks?.filter((d) => !hidden.has(d.id)), [decks, hidden]);
+}
+export function useDeckTerms() {
+  const rows = useLiveQuery(() => db.deck_terms.toArray(), [], undefined);
+  const hidden = usePendingDeletions((s) => s.ids);
+  return useMemo(() => rows?.filter((r) => !hidden.has(r.deckId)), [rows, hidden]);
+}
 export const useFavorites = () => useLiveQuery(() => db.favorites.toArray(), [], undefined);
 /** Termes rangés dans au moins un deck (Favoris compris) : l'étoile pleine (F4a D6).
  *  `undefined` tant que Dexie charge : une ★ pleine ne doit pas clignoter vide (revue C4). */

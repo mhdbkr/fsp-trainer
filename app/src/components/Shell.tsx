@@ -9,6 +9,7 @@ import { Doctopus } from './Doctopus';
 import { ResumeSessionBar } from './ResumeSessionBar';
 import { SelectionExplainer } from './SelectionExplainer';
 import { CardToast } from './CardToast';
+import { MotionRoot } from '@/lib/motion';
 
 // Barre latérale déportée dans ./Sidebar (modes déployé / dock immersif).
 // La palette ⌘K double chaque destination au clavier (NAV partagé, ./nav).
@@ -42,11 +43,14 @@ export function Shell() {
   }, [pathname, setAtPageBottom]);
 
   return (
+    // Mouvement (F4b P9) : un seul MotionRoot pour l'app — réglages et fonctions chargés une fois.
+    <MotionRoot>
     <div className="flex h-full">
       <Sidebar />
 
       {/* Contenu */}
-      <main ref={mainRef} onScroll={onMainScroll} className="flex-1 overflow-y-auto">
+      {/* tabIndex -1 : cible de focus quand une couche flottante se ferme sans suite (G1-21). */}
+      <main ref={mainRef} tabIndex={-1} onScroll={onMainScroll} className="flex-1 overflow-y-auto outline-none">
         <TopBar />
         <div key={pathname} className="reveal mx-auto max-w-6xl p-4 md:p-8">
           <Outlet />
@@ -70,6 +74,7 @@ export function Shell() {
       {/* Barre « reprendre » d'une simulation en pause */}
       <ResumeSessionBar />
     </div>
+    </MotionRoot>
   );
 }
 

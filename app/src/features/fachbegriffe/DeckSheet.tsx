@@ -1,59 +1,63 @@
-import { useEffect, useState } from 'react';
-import type { Deck, DeckQuery, Specialty, Srs, Center } from '@/db/types';
-import { createDeck, renameDeck, setDeckQuery, deleteDeck } from '@/lib/collections';
+import { useEffect, useMemo, useRef, useState } from 'react';
+import type { DeckQuery, Specialty, Srs, Center } from '@/db/types';
+import { createDeck } from '@/lib/collections';
+import { useAllTerms } from '@/hooks/useData';
+import { trapFocus } from '@/lib/trapFocus';
 
-interface Props { mode: 'create' | 'edit'; deck?: Deck; initialQuery?: DeckQuery; specialties: Specialty[]; centers: Center[]; onClose: (createdId?: string, opts?: { deleted?: boolean }) => void }
+interface Props { initialQuery?: DeckQuery; onClose: (createdId?: string) => void }
 const STATES: Srs['state'][] = ['Neu', 'Gelernt', 'Zu wiederholen'];
 
-/** Feuille de création / gestion d'un deck. Une seule responsabilité : nom, type, filtres, suppression. */
-export function DeckSheet({ mode, deck, initialQuery, specialties, centers, onClose }: Props) {
-  const [name, setName] = useState(deck?.name ?? '');
-  const [kind, setKind] = useState<'manual' | 'smart'>(deck?.kind ?? 'manual');
-  const [query, setQuery] = useState<DeckQuery>(deck?.query ?? initialQuery ?? {});
+/** Feuille de création d'un deck : nom, type, filtres. Ouverte par « Nouveau deck »
+ *  du tiroir de gestion (DeckManager, seule entrée de création) ; renommer et
+ *  supprimer y vivent aussi. Au-dessus du tiroir (z-70) ; rend le focus à l'ouvreur. */
+export function DeckSheet({ initialQuery, onClose }: Props) {
+  const begriffe = useAllTerms();
+  const specialties = useMemo(() => [...new Set((begriffe ?? []).map((b) => b.specialty))].filter(Boolean).sort() as Specialty[], [begriffe]);
+  const centers = useMemo(() => [...new Set((begriffe ?? []).flatMap((b) => b.centers))].sort() as Center[], [begriffe]);
+  const [name, setName] = useState('');
+  const [kind, setKind] = useState<'manual' | 'smart'>('manual');
+  const [query, setQuery] = useState<DeckQuery>(initialQuery ?? {});
   const [error, setError] = useState<string | null>(null);
+  // Champs sans bordure, soulignés (comme le renommage du tiroir) : pas de 3ᵉ verre sur le verre.
+  const field = 'min-h-11 w-full border-b border-slate-300 bg-transparent px-1 transition-colors hover:border-slate-400 focus:border-brand-500 dark:border-white/20 dark:hover:border-white/30';
   const set = (k: keyof DeckQuery, v: string) => setQuery((q) => ({ ...q, [k]: v || undefined }));
 
+  const formRef = useRef<HTMLFormElement>(null);
+  const onCloseRef = useRef(onClose);
+  onCloseRef.current = onClose;
   useEffect(() => {
-    const onKey = (e: KeyboardEvent) => { if (e.key === 'Escape') onClose(); };
+    const opener = document.activeElement instanceof HTMLElement ? document.activeElement : null;
+    const onKey = (e: KeyboardEvent) => { if (e.key === 'Escape') onCloseRef.current(); };
     document.addEventListener('keydown', onKey);
-    return () => document.removeEventListener('keydown', onKey);
-  }, [onClose]);
+    return () => { document.removeEventListener('keydown', onKey); opener?.focus(); };
+  }, []);
 
   const submit = async (e: React.FormEvent) => {
     e.preventDefault(); setError(null);
-    try {
-      if (mode === 'create') { const id = await createDeck(name, kind, kind === 'smart' ? query : undefined); onClose(id); return; }
-      if (deck) { if (deck.name !== name) await renameDeck(deck.id, name); if (deck.kind === 'smart') await setDeckQuery(deck.id, query); }
-      onClose();
-    } catch (err) { setError((err as Error).message === 'deck_name' ? 'Nom : 1 à 40 caractères.' : (err as Error).message); }
+    try { onClose(await createDeck(name, kind, kind === 'smart' ? query : undefined)); }
+    catch (err) { setError((err as Error).message === 'deck_name' ? 'Nom : 1 à 40 caractères.' : (err as Error).message); }
   };
-  const remove = async () => { if (deck && confirm(`Supprimer le deck « ${deck.name} » ? Les termes restent dans le glossaire.`)) { await deleteDeck(deck.id); onClose(undefined, { deleted: true }); } };
 
   return (
     <>
-      <div className="fixed inset-0 z-40 bg-slate-900/20" onClick={() => onClose()} />
-      <form onSubmit={submit} role="dialog" aria-modal="true" aria-label={mode === 'create' ? 'Nouveau deck' : 'Gérer le deck'} className="glass fixed inset-x-0 bottom-0 z-50 mx-auto max-w-md space-y-3 rounded-t-2xl p-4 sm:inset-auto sm:left-1/2 sm:top-1/3 sm:-translate-x-1/2 sm:rounded-2xl">
-        <div className="label">{mode === 'create' ? 'Nouveau deck' : 'Deck'}</div>
-        <label className="block text-sm"><span className="label">Nom du deck</span><input aria-label="Nom du deck" value={name} onChange={(e) => setName(e.target.value)} maxLength={40} className="input w-full" autoFocus /></label>
-        {mode === 'create' && (
-          <div role="radiogroup" aria-label="Type" className="flex gap-3 text-sm">
-            <label className="flex items-center gap-1.5"><input type="radio" name="kind" checked={kind === 'manual'} onChange={() => setKind('manual')} aria-label="Liste manuelle" />Liste manuelle</label>
-            <label className="flex items-center gap-1.5"><input type="radio" name="kind" checked={kind === 'smart'} onChange={() => setKind('smart')} aria-label="Deck intelligent" />Deck intelligent</label>
-          </div>
-        )}
+      <div className="fixed inset-0 z-[65] bg-slate-900/20" onClick={() => onClose()} />
+      <form ref={formRef} onKeyDown={(e) => trapFocus(e, formRef.current)} onSubmit={submit} role="dialog" aria-modal="true" aria-label="Nouveau deck" className="glass-full fixed inset-x-0 bottom-0 z-[70] mx-auto max-w-md space-y-3 rounded-t-2xl p-4 sm:inset-auto sm:left-1/2 sm:top-1/3 sm:-translate-x-1/2 sm:rounded-2xl">
+        <div className="label">Nouveau deck</div>
+        <label className="block text-sm"><span className="label">Nom du deck</span><input aria-label="Nom du deck" value={name} onChange={(e) => setName(e.target.value)} maxLength={40} className={field} autoFocus /></label>
+        <div role="radiogroup" aria-label="Type" className="flex gap-3 text-sm">
+          <label className="flex items-center gap-1.5"><input type="radio" name="kind" checked={kind === 'manual'} onChange={() => setKind('manual')} aria-label="Liste manuelle" />Liste manuelle</label>
+          <label className="flex items-center gap-1.5"><input type="radio" name="kind" checked={kind === 'smart'} onChange={() => setKind('smart')} aria-label="Deck intelligent" />Deck intelligent</label>
+        </div>
         {kind === 'smart' && (
           <div className="grid grid-cols-2 gap-2 text-sm">
-            <label><span className="label">Recherche</span><input aria-label="Recherche" value={query.q ?? ''} onChange={(e) => set('q', e.target.value)} className="input w-full" /></label>
-            <label><span className="label">Spécialité</span><select aria-label="Spécialité" value={query.specialty ?? ''} onChange={(e) => set('specialty', e.target.value)} className="input w-full"><option value="">Toutes</option>{specialties.map((s) => <option key={s}>{s}</option>)}</select></label>
-            <label><span className="label">État</span><select aria-label="État" value={query.state ?? ''} onChange={(e) => set('state', e.target.value)} className="input w-full"><option value="">Tous</option>{STATES.map((s) => <option key={s}>{s}</option>)}</select></label>
-            <label><span className="label">Centre</span><select aria-label="Centre" value={query.center ?? ''} onChange={(e) => set('center', e.target.value)} className="input w-full"><option value="">Tous</option>{centers.map((c) => <option key={c}>{c}</option>)}</select></label>
+            <label><span className="label">Recherche</span><input aria-label="Recherche" value={query.q ?? ''} onChange={(e) => set('q', e.target.value)} className={field} /></label>
+            <label><span className="label">Spécialité</span><select aria-label="Spécialité" value={query.specialty ?? ''} onChange={(e) => set('specialty', e.target.value)} className={field}><option value="">Toutes</option>{specialties.map((s) => <option key={s}>{s}</option>)}</select></label>
+            <label><span className="label">État</span><select aria-label="État" value={query.state ?? ''} onChange={(e) => set('state', e.target.value)} className={field}><option value="">Tous</option>{STATES.map((s) => <option key={s}>{s}</option>)}</select></label>
+            <label><span className="label">Centre</span><select aria-label="Centre" value={query.center ?? ''} onChange={(e) => set('center', e.target.value)} className={field}><option value="">Tous</option>{centers.map((c) => <option key={c}>{c}</option>)}</select></label>
           </div>
         )}
-        {error && <p role="alert" className="text-xs text-signal-600">{error}</p>}
-        <div className="flex items-center justify-between gap-2">
-          {mode === 'edit' && deck ? <button type="button" onClick={remove} className="text-xs text-signal-600 hover:underline">Supprimer</button> : <span />}
-          <div className="flex gap-2"><button type="button" onClick={() => onClose()} className="btn-outline">Annuler</button><button type="submit" className="btn-primary">{mode === 'create' ? 'Créer' : 'Enregistrer'}</button></div>
-        </div>
+        {error && <p role="alert" className="text-xs text-rose-600 dark:text-rose-400">{error}</p>}
+        <div className="flex justify-end gap-2"><button type="button" onClick={() => onClose()} className="btn-outline min-h-11">Annuler</button><button type="submit" className="btn-primary-glass min-h-11">Créer</button></div>
       </form>
     </>
   );
