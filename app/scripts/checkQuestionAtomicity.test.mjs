@@ -182,3 +182,12 @@ test('m-3 — « anziehen » n\'est pas un verbe d\'irradiation', T, () => {
     () => gate('--rule', 'C', '--report'));
   assert.match(r.stdout, /sondes \(fach-neuro-kraft\)/);
 });
+
+test('7c — le « ？ » pleine chasse compte comme un « ? »', T, () => {
+  const r = sb.mutate(PROBES,
+    "frage: 'Haben Sie einen Hausarzt?'",
+    "frage: 'Haben Sie einen Hausarzt？ Wie heißt er？'",
+    gate);
+  assert.equal(r.status, 1);
+  assert.match(r.stdout, /règle A/);
+});

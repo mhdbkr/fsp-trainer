@@ -204,7 +204,13 @@ for (const c of m.seedCases()) {
 // le candidat, les guillemets marquent ce qu'IL doit dire — « „Wie groß sind
 // Sie?“ Wie viel wiegen Sie? » reste une réplique à deux questions (re-revue I-1).
 const QUOTED = /„[^“”"]*[“”"]|“[^”]*”|»[^«]*«|"[^"]*"/g;
-const countQ = (t, ober = false) => ((ober ? t.replace(QUOTED, '') : t).match(/\?/g) || []).length;
+// « ？ » pleine chasse compte comme « ? » (revue finale 7c).
+// ponytail: chez l'Oberarzt, le retrait des guillemets vaut pour la règle D
+// (D2/D3/D) — c'est ce que la décision D1 de main demandait (« Règle D (Oberarzt)
+// … corrige aussi le comptage des « ? » cités »), l'Oberarzt étant de toute façon
+// hors règle A (Q11). Plafond connu : une salve d'examinateur ENTIÈREMENT écrite
+// entre guillemets échappe à D. Si cela apparaît, compter à part les « ? » cités.
+const countQ = (t, ober = false) => ((ober ? t.replace(QUOTED, '') : t).match(/[?？]/g) || []).length;
 
 // RÈGLE B — énumération. Algorithme de l'audit §2 : retrait du préfixe
 // d'étiquette (`Begleitbeschwerden — `), troncature au premier « ? », découpe
