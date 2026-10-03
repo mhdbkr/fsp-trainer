@@ -10,7 +10,7 @@ vi.mock('react-router-dom', async () => {
 });
 import { upsertAccount, setActiveUserId } from '@/lib/auth/accounts';
 import { useUi } from '@/store/ui';
-import { DoctorCard, PartnerCard } from './SimulationSetup';
+import { DoctorCard, PartnerCard, StartButton } from './SimulationSetup';
 
 // ============================================================================
 // T4 — « Avec qui tu joues » : UN cadre, conscient du Teil. Avant, deux `.card`
@@ -18,36 +18,47 @@ import { DoctorCard, PartnerCard } from './SimulationSetup';
 // patient ne portait pas le Teil.
 // ============================================================================
 
-describe('PartnerCard — choisir avec qui jouer, puis DÉMARRER', () => {
+describe('StartButton — le départ, en haut de la pré-simulation', () => {
   beforeEach(() => { vi.clearAllMocks(); localStorage.clear(); });
 
-  // Retour de la direction (3 oct.) : « Seul » lançait la partie au clic, et le
-  // bouton de départ avait disparu. Choisir un partenaire SÉLECTIONNE ; seul
-  // « Démarrer la simulation » entre dans la partie.
-  it('choisir « Seul » ne lance rien : la partie démarre sur « Démarrer »', () => {
-    render(<MemoryRouter><PartnerCard caseId="c1" teil="fallvorstellung" /></MemoryRouter>);
-    fireEvent.click(screen.getByRole('button', { name: /seul/i }));
-    expect(nav.navigate).not.toHaveBeenCalled();
-    expect(screen.getByRole('button', { name: /seul/i }).getAttribute('aria-pressed')).toBe('true');
+  // Retours de la direction (3 oct.) : le bouton de départ avait disparu, puis
+  // il était « enfoui au milieu de la page ». Il vit désormais dans l'en-tête,
+  // sous le nom du cas — hors du cadre « Avec qui tu joues ».
+  it('entre dans la partie, au Teil demandé', () => {
+    render(<MemoryRouter><StartButton caseId="c1" teil="fallvorstellung" /></MemoryRouter>);
     fireEvent.click(screen.getByRole('button', { name: /démarrer la simulation/i }));
     expect(nav.navigate).toHaveBeenCalledWith('/simulation/c1/run?teil=fallvorstellung');
   });
 
-  it('le bouton « Démarrer » est là dès l’arrivée, « Seul » choisi par défaut', () => {
-    render(<MemoryRouter><PartnerCard caseId="c1" teil={null} /></MemoryRouter>);
-    expect(screen.getByRole('button', { name: /seul/i }).getAttribute('aria-pressed')).toBe('true');
+  it('en simulation complète, l’entrée ne porte aucun Teil', () => {
+    render(<MemoryRouter><StartButton caseId="c1" teil={null} /></MemoryRouter>);
     fireEvent.click(screen.getByRole('button', { name: /démarrer la simulation/i }));
     expect(nav.navigate).toHaveBeenCalledWith('/simulation/c1/run');
   });
+});
 
-  it('« Avec un simulant » montre une fiche qui porte le Teil ; « Démarrer » entre', () => {
+describe('PartnerCard — choisir avec qui jouer (sans lancer)', () => {
+  beforeEach(() => { vi.clearAllMocks(); localStorage.clear(); });
+
+  it('choisir « Seul » ne lance rien ; « Seul » est choisi par défaut', () => {
+    render(<MemoryRouter><PartnerCard caseId="c1" teil="fallvorstellung" /></MemoryRouter>);
+    expect(screen.getByRole('button', { name: /seul/i }).getAttribute('aria-pressed')).toBe('true');
+    fireEvent.click(screen.getByRole('button', { name: /seul/i }));
+    expect(nav.navigate).not.toHaveBeenCalled();
+  });
+
+  it('le cadre ne contient AUCUN bouton de départ (il est en haut de page)', () => {
+    render(<MemoryRouter><PartnerCard caseId="c1" teil="anamnese" /></MemoryRouter>);
+    fireEvent.click(screen.getByRole('button', { name: /simulant/i }));
+    expect(screen.queryByRole('button', { name: /démarrer|entrer/i })).toBeNull();
+  });
+
+  it('« Avec un simulant » montre une fiche qui porte le Teil, sans lancer', () => {
     render(<MemoryRouter><PartnerCard caseId="c1" teil="anamnese" /></MemoryRouter>);
     fireEvent.click(screen.getByRole('button', { name: /simulant/i }));
     expect(nav.navigate).not.toHaveBeenCalled();
     const lien = screen.getByRole('link', { name: /2ᵉ fenêtre/i }) as HTMLAnchorElement;
     expect(lien.href).toContain('teil=anamnese');
-    fireEvent.click(screen.getByRole('button', { name: /démarrer la simulation/i }));
-    expect(nav.navigate).toHaveBeenCalledWith('/simulation/c1/run?teil=anamnese');
   });
 
   it('« Avec ton IA » sélectionne sans rien ouvrir : l’IA se lance DEPUIS la partie', () => {
@@ -55,28 +66,13 @@ describe('PartnerCard — choisir avec qui jouer, puis DÉMARRER', () => {
     fireEvent.click(screen.getByRole('button', { name: /ton ia/i }));
     expect(nav.navigate).not.toHaveBeenCalled();
     expect(useUi.getState().externalAiCaseId).toBeFalsy();
-    fireEvent.click(screen.getByRole('button', { name: /démarrer la simulation/i }));
-    expect(nav.navigate).toHaveBeenCalledWith('/simulation/c1/run?teil=anamnese');
-  });
-
-  it('un seul bouton de départ à l’écran (zéro doublon)', () => {
-    render(<MemoryRouter><PartnerCard caseId="c1" teil="anamnese" /></MemoryRouter>);
-    fireEvent.click(screen.getByRole('button', { name: /simulant/i }));
-    expect(screen.getAllByRole('button', { name: /démarrer|entrer/i })).toHaveLength(1);
+    expect(screen.getByRole('button', { name: /ton ia/i }).getAttribute('aria-pressed')).toBe('true');
   });
 
   it('en Dokumentation, l’IA n’est pas proposée — ce serait un choix qui n’en est pas un', () => {
     render(<MemoryRouter><PartnerCard caseId="c1" teil="dokumentation" /></MemoryRouter>);
     expect(screen.queryByRole('button', { name: /ton ia/i })).toBeNull();
     expect(screen.getByRole('button', { name: /seul/i })).toBeTruthy();
-  });
-
-  it('les choix et le départ vivent dans UN seul cadre', () => {
-    render(<MemoryRouter><PartnerCard caseId="c1" teil={null} /></MemoryRouter>);
-    const cadre = screen.getByRole('region', { name: /avec qui tu joues/i });
-    for (const n of [/seul/i, /simulant/i, /ton ia/i, /démarrer la simulation/i]) {
-      expect(cadre.contains(screen.getByRole('button', { name: n }))).toBe(true);
-    }
   });
 });
 
