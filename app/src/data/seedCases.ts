@@ -46868,7 +46868,7 @@ export function seedCases(): Case[] {
         { frage: 'Haben Sie in letzter Zeit ein Antibiotikum eingenommen? Wofür, wie lange, und haben Sie es bis zum Ende genommen?', kapitel: 'medikamente' },
         { frage: 'Wie viele Tage lagen zwischen dem Abklingen der Halsentzündung und den ersten Gelenkbeschwerden — waren Sie dazwischen ganz gesund?', kapitel: 'aktuell' },
         { frage: 'Ich muss Ihnen jetzt einige persönliche Fragen stellen, die für die Ursache wichtig sind: Haben Sie einen festen Partner, gab es einen Partnerwechsel, Ausfluss oder Beschwerden im Intimbereich?', kapitel: 'familie-sozial' },
-        { frage: 'Sind Ihre Augen gerötet, schmerzhaft oder lichtempfindlich — anders als bei Ihrem Heuschnupfen?', kapitel: 'aktuell' },
+        { frage: 'Sind Ihre Augen gerötet, schmerzhaft oder lichtempfindlich?', kapitel: 'aktuell' },
         { frage: 'Haben Sie Herzstolpern, Luftnot, Brustschmerzen oder ein Herzrasen bemerkt, das nicht zum Fieber passt?', kapitel: 'aktuell', relu: true },
         { frage: 'Haben Sie einen Ausschlag, Pusteln an Händen oder Füßen, Bläschen im Mund oder Knötchen unter der Haut bemerkt?', kapitel: 'aktuell', relu: true },
         { frage: 'Haben Sie Schmerzen an den Fersen oder im unteren Rücken, vor allem nachts oder morgens, die bei Bewegung besser werden?', kapitel: 'aktuell' },
