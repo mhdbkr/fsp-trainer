@@ -166,3 +166,16 @@ describe('S-I1 / S-M1 — un training.logged n\'est pas cru sur parole', () => {
     expect((await db.training_events.get('x1'))!.spentMin).toBe(1440);
   });
 });
+
+describe('M4 — une coche sans score n\'est pas une mesure', () => {
+  const coche = (id: string, caseId: string) => ({ id, at: 1, kind: 'simulation' as const, caseId, teile: ['anamnese' as const], source: 'plan' as const, taskId: `t-${id}`, spentMin: 0 });
+  it('case_progress : vierge ⇔ attempts = 0 ⇔ lastScore = null, même après une coche', async () => {
+    const { computeCaseProgress } = await import('@/lib/journal');
+    const [cp] = computeCaseProgress([coche('a', 'c1')]);
+    expect(cp.teile.anamnese).toEqual({ status: 'vierge', lastScore: null, lastAt: null, attempts: 0 });
+  });
+  it('observeModus ne vote que sur des séances mesurées : trois coches ne « révèlent » aucun mode', async () => {
+    const { observeModus } = await import('@/lib/program/modus');
+    expect(observeModus([coche('a', 'c1'), coche('b', 'c2'), coche('c', 'c3'), coche('d', 'c4')], [])).toBeNull();
+  });
+});
