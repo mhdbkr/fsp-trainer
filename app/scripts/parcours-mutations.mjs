@@ -79,6 +79,42 @@ export const MUTATIONS = [
     to: "  const filtered = useMemo(() => (events ?? []).filter((e) => {\n    if (e.source === 'libre') return false;\n",
     pourquoi: 'l’écran Historique masque les exercices hors plan',
   },
+  {
+    id: 'INV-21', tests: 'tests/invariants.lauf.test.tsx', file: 'src/lib/lauf/automat.ts',
+    from: "if (lauf.zustand !== 'laufend' || !lauf.aktuellerTeil) return lauf;\n      const t = lauf.aktuellerTeil;",
+    to: "if (lauf.zustand !== 'laufend' || !lauf.aktuellerTeil || lauf.geplanteTeile.length === 1) return lauf;\n      const t = lauf.aktuellerTeil;",
+    pourquoi: 'le dernier Teil (ou un Teil seul) ne mène plus nulle part : « Valider » ne fait rien (SimulationRunner.tsx:184-191)',
+  },
+  {
+    id: 'INV-20a', tests: 'tests/invariants.lauf.test.tsx', file: 'src/lib/lauf/automat.ts',
+    from: "if (lauf.zustand !== 'vorbereitung') return lauf;\n      const teil = aktion.teil",
+    to: "if (lauf.zustand === 'gespeichert') return lauf;\n      const teil = aktion.teil",
+    pourquoi: '« démarrer » redevient possible depuis le bilan : la fin de partie recule à laufend',
+  },
+  {
+    id: 'INV-20b', tests: 'tests/invariants.lauf.test.tsx', file: 'src/lib/lauf/automat.ts',
+    from: 'lauf.geplanteTeile.find((t) => !lauf.teileGespielt.includes(t)) ?? null;',
+    to: 'lauf.geplanteTeile[0] ?? null;',
+    pourquoi: 'la partie suivante ré-affiche l’exercice qu’on vient de terminer',
+  },
+  {
+    id: 'INV-20c', tests: 'tests/invariants.lauf.test.tsx', file: 'src/lib/lauf/automat.ts',
+    from: "if (lauf.zustand !== 'checkliste') return lauf;\n      const letzter",
+    to: "if (lauf.zustand !== 'checkliste' && lauf.zustand !== 'gespeichert') return lauf;\n      const letzter",
+    pourquoi: 'une simulation enregistrée peut être rouverte au bilan',
+  },
+  {
+    id: 'INV-28', tests: 'tests/invariants.lauf.test.tsx', file: 'src/lib/lauf/automat.ts',
+    from: 'if (sekunden <= vorher) return lauf;',
+    to: 'if (sekunden === vorher) return lauf;',
+    pourquoi: 'un chrono remis à zéro par un remontage écrase le temps joué (« on m’a remis au début »)',
+  },
+  {
+    id: 'INV-22', tests: 'tests/invariants.lauf.test.tsx', file: 'src/lib/simulationSave.ts',
+    from: '  if (!nouveau) return sim;\n',
+    to: '',
+    pourquoi: 'une partie validée deux fois émet deux événements de synchro et de journal',
+  },
 ];
 
 function run(cwd, tests) {
