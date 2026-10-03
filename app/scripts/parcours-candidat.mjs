@@ -20,6 +20,7 @@
 // ============================================================================
 import process from 'node:process';
 import path from 'node:path';
+import os from 'node:os';
 import fs from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { setTimeout as sleep } from 'node:timers/promises';
@@ -27,14 +28,14 @@ import {
   assertLocalSupabase, barre, buildApp, idb, loadChromium, readEnvFile, rows, startPreview, texte, until, warmContent,
 } from './parcours-lib.mjs';
 import { Rapport } from './parcours-rapport.mjs';
-import { accueil, carteRetourIA, choisirMode, cocher, configurer, drill, jouerPartie, programmeDuMatin } from './parcours-actes.mjs';
+import { accueil, carteRetourIA, choisirMode, cocher, configurer, drill, ficheLue, jouerPartie, programmeDuMatin } from './parcours-actes.mjs';
 
 const APP = fileURLToPath(new URL('..', import.meta.url));
 const argv = process.argv.slice(2);
 const arg = (k, d) => { const i = argv.indexOf(k); return i >= 0 ? argv[i + 1] : d; };
 const PORT = Number(arg('--port', 5192));
 const NB_JOURS = Number(arg('--days', 14));
-const SHOTS = arg('--shots', path.join(APP, '.c6-captures'));
+const SHOTS = arg('--shots', path.join(os.tmpdir(), 'c6-captures'));   // jamais dans le dépôt
 const TODAY = new Date().toISOString().slice(0, 10);
 const OUT = arg('--out', path.join(APP, 'docs/reports', `c6-parcours-${TODAY}.md`));
 const ENV_FILE = arg('--env-file', fs.existsSync(path.join(APP, '.env')) ? path.join(APP, '.env') : null);
@@ -232,6 +233,7 @@ async function parcours({ browser, base, supabaseUrl }) {
         await jouer({ qualite: 0.7 });
         break;
       }
+      case 10: await jouer({ qualite: 0.8 }); await ficheLue(c); break;
       default: await jouer({ qualite: Math.min(0.95, 0.5 + n * 0.03) }); if (n % 2) await cocheUneAutre();
     }
     await soir(n);

@@ -161,7 +161,7 @@ export const MUTATIONS = [
 export const NAV_MUTATIONS = [
   { id: 'D1', days: 1, file: 'src/lib/journal.ts', from: MUTATIONS[0].from, to: MUTATIONS[0].to, pourquoi: 'cocher fait apparaître une tâche de plus' },
   { id: 'D2', days: 1, file: 'src/lib/program/dayPlan.ts', from: 'plan?.tasks.find((t) => t.doneAt === undefined) ?? null;', to: 'plan?.tasks[plan.tasks.length - 1] ?? null;', pourquoi: 'l’accueil propose une autre session que la première tâche du plan (Leberzirrhose)' },
-  { id: 'D3', days: 2, file: 'src/lib/stats.ts', from: "if (p.status === 'fragile' && p.lastScore !== null) out.push", to: "if (p.status !== 'solide') out.push", pourquoi: 'les « points faibles » accusent un Teil jamais tenté' },
+  { id: 'D3', days: 2, file: 'src/lib/stats.ts', from: "if (p.status === 'fragile' && p.lastScore !== null) out.push({ c, teil: t.key, score: p.lastScore });", to: "if (p.status !== 'solide') out.push({ c, teil: t.key, score: p.lastScore ?? 0 });", pourquoi: 'les « points faibles » accusent un Teil jamais tenté' },
   { id: 'D4', days: 1, file: 'src/lib/program/select.ts', from: 'picked.length === 0 || picked[picked.length - 1] !== next;', to: 'true;', pourquoi: 'deux spécialités identiques se suivent' },
   { id: 'D5', days: 1, file: 'src/features/program/HistoriquePage.tsx', from: '  const filtered = useMemo(() => (events ?? []).filter((e) => {\n', to: "  const filtered = useMemo(() => (events ?? []).filter((e) => {\n    if (e.kind === 'drill') return false;\n", pourquoi: 'l’historique masque un genre d’exercice' },
   { id: 'D6', days: 1, file: 'src/lib/program/dayPlan.ts', from: '  if (existing) return existing;                                  // « figé » veut dire que le premier fige\n', to: '', pourquoi: 'le jour est recalculé à chaque ouverture' },
@@ -170,11 +170,15 @@ export const NAV_MUTATIONS = [
   { id: 'D10', days: 3, file: 'src/lib/lauf/speichern.ts', from: '  return restauriere(l);\n}', to: '  return { ...restauriere(l), sekundenProTeil: {} };\n}', pourquoi: 'une partie interrompue reprend avec le chrono à zéro' },
 ];
 
+/** Copie complète (build possible) : <tmp>/app + <tmp>/packages/tokens (lu par tailwind.config.js). Rend le dossier app. */
 function copyAppFull() {
-  const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'c6-nav-'));
-  for (const f of ['src', 'scripts', 'public', 'index.html', 'package.json', 'vite.config.ts', 'tsconfig.json', 'postcss.config.js', 'tailwind.config.js']) {
-    if (fs.existsSync(path.join(APP, f))) fs.cpSync(path.join(APP, f), path.join(dir, f), { recursive: true });
+  const root = fs.mkdtempSync(path.join(os.tmpdir(), 'c6-nav-'));
+  const dir = path.join(root, 'app');
+  fs.mkdirSync(dir);
+  for (const f of ['src', 'scripts', 'supabase/functions/_shared', 'public', 'index.html', 'package.json', 'vite.config.ts', 'tsconfig.json', 'postcss.config.js', 'tailwind.config.js']) {
+    if (fs.existsSync(path.join(APP, f))) fs.cpSync(path.join(APP, f), path.join(dir, f), { recursive: true });   // supabase/functions/_shared : importé par src/lib
   }
+  fs.cpSync(path.join(APP, '../packages/tokens'), path.join(root, 'packages/tokens'), { recursive: true, filter: (p) => !p.includes('node_modules') });
   fs.mkdirSync(path.join(dir, 'docs/reports'), { recursive: true });
   fs.symlinkSync(fs.realpathSync(path.join(APP, 'node_modules')), path.join(dir, 'node_modules'));
   return dir;
@@ -197,7 +201,7 @@ if (argv.includes('--navigateur')) {
     console.log(`${killed ? 'OK  ' : 'FAIL'}  ${m.id} — ${killed ? 'TUÉE' : r.status === 2 ? 'HARNAIS EN DÉFAUT' : 'SURVIVANTE'} · ${m.pourquoi}`);
     for (const l of ko.filter((l) => l.startsWith(`KO  ${m.id} `)).slice(0, 2)) console.log(`        ↳ ${l.slice(0, 220)}`);
     if (!killed) console.log((r.stdout ?? '').slice(-600) + (r.stderr ?? '').slice(-400));
-    if (!keep) fs.rmSync(dir, { recursive: true, force: true });
+    if (!keep) fs.rmSync(path.dirname(dir), { recursive: true, force: true });
   }
   console.log(ok ? '\nToutes les mutations du candidat sont tuées.' : '\nÉCHEC : une mutation survit.');
   process.exit(ok ? 0 : 1);

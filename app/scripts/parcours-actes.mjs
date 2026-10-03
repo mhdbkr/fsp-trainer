@@ -80,6 +80,20 @@ export async function drill(c, { cartes = 4, depuis = 'plan' } = {}) {
   return true;
 }
 
+/** Lecture libre d'une fiche Fachwissen, puis « Fiche lue » : un exercice HORS plan (D5). */
+export async function ficheLue(c) {
+  await c.aller('/fachwissen');
+  await until(c.page, () => !!document.querySelector('main a[href*="fachwissen/"]'), 'liste des fiches');
+  await c.page.locator('main a[href*="fachwissen/"]').first().click();
+  await until(c.page, () => /Fiche lue/.test(document.body.innerText), 'fiche ouverte');
+  await c.page.clock.runFor(150_000);                                  // elle lit deux minutes et demie
+  await btn(c.page, /Fiche lue/).click();
+  await until(c.page, () => /Noté dans ton historique/.test(document.body.innerText), 'lecture notée');
+  c.grand.exercices++; c.grand.joursTravailles.add(c.jourIso);
+  c.rapport.fait('Lit une fiche Fachwissen librement (hors plan) et clique « Fiche lue ».');
+  c.rapport.vu(`Fiche : « ${(await texte(c.page)).match(/Noté dans ton historique · (\d+) min/)?.[0] ?? 'Noté dans ton historique'} ».`);
+}
+
 /** Ouvre le lanceur IA de la partie en cours et copie le prompt (pose la trace `externalAi.pending`). */
 async function lanceurIA(c) {
   await btn(c.page, /Avec ton IA/).click();
