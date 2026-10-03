@@ -7,8 +7,8 @@ import { ScoreBar } from '@/components/ui';
 
 type Part = 'anamnese' | 'dokumentation' | 'fallvorstellung' | 'aufklaerung';
 
-// Écran de scoring d'une partie : checklist contenu + grille langue officielle
-// (60% seuil) + curseur ressenti. Le score global se calcule tout seul.
+// Écran de scoring d'une partie : checklist contenu + grille de langue Doctopus
+// (repère interne 60 %) + curseur ressenti. Le score global se calcule tout seul.
 export function PartEvaluation({ part, durationSec, onSave, onCancel }: {
   part: Part; durationSec: number;
   onSave: (r: PartResult) => void; onCancel: () => void;
@@ -59,14 +59,14 @@ export function PartEvaluation({ part, durationSec, onSave, onCancel }: {
         </div>
 
         <div className="space-y-4">
-          {/* Grille langue officielle */}
+          {/* Grille de langue Doctopus (interne, pas un barème d'examen) */}
           {hasLang && (
             <div className="card p-5">
               <div className="mb-1 flex items-center justify-between">
-                <div className="label">Grille de langue (barème officiel)</div>
+                <div className="label">Grille d'entraînement Doctopus</div>
                 <span className="text-sm font-bold">{officialPct}%</span>
               </div>
-              <p className="mb-3 text-[11px] text-slate-400">Ce que le jury note vraiment (C1). 0 = faible, 5 = excellent.</p>
+              <p className="mb-3 text-[11px] text-slate-400">Les cinq compétences de langue que tu travailles ici. 0 = faible, 5 = excellent.</p>
               <div className="space-y-3">
                 {LANGUAGE_CRITERIA.map((crit) => (
                   <div key={crit.key}>

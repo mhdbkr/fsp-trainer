@@ -430,8 +430,8 @@ export interface ChecklistItem {
   axisWeight?: number; // pondération dans le score contenu (défaut 1)
 }
 
-/** Grille de langue officielle-like (0..5 chacune), commune aux parties orales.
- *  Passe = ≥60% par partie (cf. mémoire fsp-official-grading). */
+/** Grille de langue de Doctopus (0..5 chacune), commune aux parties orales.
+ *  Grille interne d'entraînement, pas un barème officiel ; repère ≥60% par partie. */
 export interface LanguageGrid {
   aussprache: number;      // Aussprache / Intonation
   wortschatz: number;      // différenciation du vocabulaire
@@ -447,7 +447,7 @@ export interface PartResult {
   languageGrid?: LanguageGrid;   // parties orales (Anamnese, Fallvorstellung, Aufklärung)
   feeling: number;               // curseur ressenti 0..100 (Fragile→Solide)
   contentPct: number;            // % de critères contenu cochés
-  officialPct: number;           // % grille langue (0..100)
+  officialPct: number;           // % grille langue (0..100) — nom historique, grille interne
   assistanceUsed?: AssistanceMode; // mode réellement utilisé sur cette partie
 }
 

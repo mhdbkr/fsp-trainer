@@ -41615,7 +41615,7 @@ export function seedCases(): Case[] {
         'Beim gesunden Erwachsenen mit typischer Klinik ist die Diagnose KLINISCH. Wer reflexartig ein volles Labor- und Röntgenprogramm aufzählt, zeigt kein klinisches Urteil — die Indikation muss aus der Risikogruppe, der Therapieentscheidung oder dem unklaren Bild begründet werden.',
         'Die axillär gemessenen 39,0 °C liegen etwa 0,5 °C unter der Körperkerntemperatur — die Messmethode gehört in die Dokumentation, nicht nur der Wert.',
         'Das Asthma bronchiale nicht als Nebendiagnose abtun: Es macht die Patientin zur Risikopatientin, begründet die Impfindikation nach den Empfehlungen der Ständigen Impfkommission, begründet die antivirale Therapie und ist zugleich das Organ der wahrscheinlichsten Komplikation (Exazerbation). Zanamivir wäre hier wegen möglicher Bronchospasmen die schlechtere Wahl.',
-        '„Von der Impfung bekommt man die Grippe“ ruhig und ohne Belehrung widerlegen: Totimpfstoff, Impfreaktion für ein bis zwei Tage, zeitliche Koinzidenz mit anderen Erkältungsviren. Die Prüfer bewerten hier vor allem, WIE patientengerecht gesprochen wird.',
+        '„Von der Impfung bekommt man die Grippe“ ruhig und ohne Belehrung widerlegen: Totimpfstoff, Impfreaktion für ein bis zwei Tage, zeitliche Koinzidenz mit anderen Erkältungsviren.',
         'Die Gräserpollenallergie ist keine Penicillinallergie. Wer daraus eine Kontraindikation gegen Betalaktame konstruiert, macht einen inhaltlichen Fehler — umgekehrt wurde in Karlsruhe und Reutlingen die echte Penicillin- bzw. Amoxicillinallergie zum therapiebestimmenden Punkt und verlangte ein Makrolid.',
       ],
       status: 'À faire',
@@ -41727,7 +41727,7 @@ export function seedCases(): Case[] {
             },
             {
               frage: 'Sie sagt: Von der Impfung bekommt man doch erst die Grippe. Was antworten Sie?',
-              reaktion: 'Erwartet wird eine ruhige, nicht belehrende, patientengerechte Antwort: Der Impfstoff ist ein Totimpfstoff, er enthält keine vermehrungsfähigen Viren und kann keine Grippe auslösen. Was manche spüren — Müdigkeit, Muskelschmerz, leichtes Fieber für ein bis zwei Tage — ist die normale Reaktion des Immunsystems. Und weil im Herbst viele Erkältungsviren unterwegs sind, wird eine zufällig danach auftretende Erkältung der Impfung fälschlich zugeschrieben. Die Prüfer bewerten hier vor allem die Sprache.',
+              reaktion: 'Erwartet wird eine ruhige, nicht belehrende, patientengerechte Antwort: Der Impfstoff ist ein Totimpfstoff, er enthält keine vermehrungsfähigen Viren und kann keine Grippe auslösen. Was manche spüren — Müdigkeit, Muskelschmerz, leichtes Fieber für ein bis zwei Tage — ist die normale Reaktion des Immunsystems. Und weil im Herbst viele Erkältungsviren unterwegs sind, wird eine zufällig danach auftretende Erkältung der Impfung fälschlich zugeschrieben.',
             },
             {
               frage: 'Welche Impfungen gibt es noch außer COVID und Influenza im Zusammenhang mit einer Pneumonie?',
@@ -48352,7 +48352,7 @@ export function seedCases(): Case[] {
       pruefungsfallen: [
         'Die Lipase kann bei dieser Patientin NORMAL sein — die Prüfer fragen gezielt danach. Antwort: im chronischen Stadium ist das enzymbildende Gewebe verloren; Diagnose über Elastase-1 im Stuhl, Sonographie, CT (Verkalkungen), MRCP und Endosonographie.',
         'Die Fettstühle nennt die Patientin nicht spontan („das hat wahrscheinlich nichts damit zu tun“) — nur die gezielte Frage nach Menge, Farbe, Glanz, Geruch und Wegspülbarkeit deckt die exokrine Insuffizienz auf. Ohne diese Frage fehlt in der Fallvorstellung die zweite Säule der Diagnose.',
-        'Die Alkoholanamnese muss präzise UND wertfrei sein: erst „ein Bier oder mehr“, auf ruhige Nachfrage 2–3 Flaschen Bier täglich plus Wein am Wochenende, Tremor, Schlaf nur mit Alkohol, gescheiterter Abstinenzversuch, Vater alkoholkrank. Ein vorwurfsvoller Ton lässt die Patientin dichtmachen — und die Prüfer bewerten das Gespräch.',
+        'Die Alkoholanamnese muss präzise UND wertfrei sein: erst „ein Bier oder mehr“, auf ruhige Nachfrage 2–3 Flaschen Bier täglich plus Wein am Wochenende, Tremor, Schlaf nur mit Alkohol, gescheiterter Abstinenzversuch, Vater alkoholkrank. Ein vorwurfsvoller Ton lässt die Patientin dichtmachen.',
         'Gewichtsverlust, Rückenschmerz und neue Diabetessymptome bei einer Raucherin: das Pankreaskarzinom als Differenzialdiagnose UND Komplikation ausdrücklich nennen und mit CT, Endosonographie und CA 19-9 abklären — nicht nur die Pankreatitis „bestätigen“.',
         'Rauchen (37,5 Packungsjahre) als eigenständigen Risikofaktor nennen — Alkoholkarenz allein reicht dem Prüfer nicht.',
         'Fangfrage fettarme Diät: NEIN — keine strenge Fettrestriktion mehr, sie verschlimmert den Gewichtsverlust. Richtig: häufige kleine Mahlzeiten mit normalem Fettanteil unter ausreichender Enzymsubstitution.',
@@ -60783,7 +60783,7 @@ export function seedCases(): Case[] {
         'Pupillen: WEIT im Entzug, ENG in der Intoxikation. Wer das vertauscht, verliert die Glaubwürdigkeit in der Fallvorstellung.',
         'Naloxon ist hier NICHT indiziert — der Patient ist im Entzug, nicht intoxikiert. Naloxon würde den Entzug verschlimmern. Naloxon gehört als Take-home-Präparat mit nach Hause.',
         'Die Überdosierung vor vier Monaten und die passiven Todeswünsche kommen nur, wenn der Kandidat ohne Vorwurf und ernsthaft nachfragt — der Stift muss weg. Die Suizidalität muss dokumentiert und die Absprachefähigkeit beurteilt werden.',
-        'Registerfalle: „Junkie“, „Drogensüchtiger“, „Missbrauch“ oder ein Verhörstil lassen den Patienten dichtmachen — die Prüfer bewerten die Kommunikation. Sagen Sie „Abhängigkeitserkrankung“ und „viele Menschen kommen nach einem Unfall in diese Situation“.',
+        'Registerfalle: „Junkie“, „Drogensüchtiger“, „Missbrauch“ oder ein Verhörstil lassen den Patienten dichtmachen. Sagen Sie „Abhängigkeitserkrankung“ und „viele Menschen kommen nach einem Unfall in diese Situation“.',
         'Oxycodon wird im Standard-Opiat-Screening des Urins oft NICHT erfasst — ein negatives Opiat-Screening schließt den Oxycodon-Konsum nicht aus; gezielt anfordern, und das Screening nur nach Aufklärung.',
         'Buprenorphin erst bei deutlichen Entzugszeichen beginnen (COWS ≥ 8–12) — bei diesem Patienten mit COWS etwa 22–25 kann sofort begonnen werden; zu frühe Gabe löst einen Entzug aus.',
         'Nach dem Entzug ist die Toleranz weg und die frühere Dosis von 120 mg tödlich — „kein Entzug ohne Anschluss“ ist das Konzept, das die Prüfer hören wollen: Substitutionspraxis, Naloxon, Angehörige.',
