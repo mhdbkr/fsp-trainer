@@ -9,7 +9,7 @@ import {
   tickChrono, transition, type LaufAktion,
 } from '@/lib/lauf/automat';
 import {
-  bereinigeAltenLauf, gibAuf, speichereAktivenLauf, speichern, verwerfeAktivenLauf,
+  bereinigeAltenLauf, gibAuf, retteAktivenLauf, speichereAktivenLauf, speichern,
 } from '@/lib/lauf/speichern';
 import type { Lauf, LaufTeil, TeilEntwurf } from '@/lib/lauf/types';
 
@@ -78,8 +78,10 @@ export function useLauf(c: Case | undefined, teil: SimTeil | null): LaufSteuerun
       // tous les cas. On écarte le Lauf fautif et on continue.
       let alt: Lauf | null = null;
       try { alt = await bereinigeAltenLauf(); } catch (e) {
-        console.warn('[lauf] reprise impossible, Lauf écarté', e);
-        await verwerfeAktivenLauf().catch(() => {});
+        // On tente d'ÉCRIRE la partie jouée avant d'écarter (re-revue 2) :
+        // `retteAktivenLauf` ne lève jamais.
+        console.warn('[lauf] reprise impossible, sauvetage puis écart', e);
+        await retteAktivenLauf();
       }
       if (annule) return;
       // Reprise à l'identique, `zustand` compris — seulement si le cas ET le

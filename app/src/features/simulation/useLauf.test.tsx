@@ -244,3 +244,22 @@ describe('mineur 7 — pas de sortie qui jette une partie jouée', () => {
     expect('abbrechen' in result.current).toBe(false);
   });
 });
+
+describe('Re-revue 2 — item 1 : une partie jouée n’est jamais jetée pour un Lauf corrompu', () => {
+  it('checkliste: [null] sur un run où l’Anamnese est jouée ⇒ le run est ÉCRIT au changement de mode', async () => {
+    const l = await enVol('c1', null, 1);
+    await db.meta.put({ key: LAUF_AKTIV_KEY, value: { ...l, checkliste: [null, ...l.checkliste] } } as never);
+    const { result } = starte(fall('c1'), 'anamnese');
+    await waitFor(() => expect(result.current.laedt).toBe(false));
+    expect((await db.simulations.get(l.id))?.parts.anamnese?.done).toBe(true);
+  });
+
+  it('la reprise lève ⇒ le catch tente d’écrire le run avant de l’écarter', async () => {
+    const l = await enVol('c1', null, 1);
+    const spy = vi.spyOn(db.meta, 'get').mockRejectedValueOnce(new Error('lecture impossible') as never);
+    const { result } = starte(fall('c2'), null);
+    await waitFor(() => expect(result.current.laedt).toBe(false));
+    spy.mockRestore();
+    expect((await db.simulations.get(l.id))?.parts.anamnese?.done).toBe(true);
+  });
+});

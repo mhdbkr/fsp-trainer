@@ -1,7 +1,7 @@
 import { db, getMeta, setMeta } from '@/db/db';
 import { saveSimulation, type SaveInput } from '@/lib/simulationSave';
 import { migriereChecklist } from '@/lib/checklists.legacy';
-import type { Case, PartResult, SimTeil, Simulation } from '@/db/types';
+import type { Case, ChecklistItem, PartResult, SimTeil, Simulation } from '@/db/types';
 import { checklisteFuer, istVollstaendig } from './automat';
 import { ZUSTAENDE, zuPartResult, type Lauf, type LaufTeil } from './types';
 
@@ -48,6 +48,22 @@ async function ladeJetzt(): Promise<Lauf | null> {
 }
 
 const istObjekt = (v: unknown) => typeof v === 'object' && v !== null && !Array.isArray(v);
+const LAUF_TEILE: readonly string[] = ['anamnese', 'dokumentation', 'fallvorstellung', 'aufklaerung'];
+const istItem = (i: unknown): i is ChecklistItem =>
+  istObjekt(i) && typeof (i as ChecklistItem).id === 'string' && typeof (i as ChecklistItem).label === 'string';
+
+/** Dernier recours quand la reprise a levé : relit `lauf.aktiv` BRUT et le
+ *  confie à `gibAuf` — qui écrit une partie jouée et ne lève jamais. Sans lui,
+ *  le `catch` de `useLauf` écartait le Lauf, et l'Anamnese jouée avec. */
+export async function retteAktivenLauf(): Promise<void> {
+  try {
+    const roh = await getMeta<Partial<Lauf> | null>(LAUF_AKTIV_KEY, null);
+    if (roh && typeof roh.id === 'string' && typeof roh.caseId === 'string') {
+      return await gibAuf(restauriere(roh as Partial<Lauf> & { id: string; caseId: string }));
+    }
+  } catch (e) { console.warn('[lauf] sauvetage impossible', e); }
+  await verwerfeAktivenLauf().catch(() => {});
+}
 
 /** La forme minimale d'un Lauf reprenable. Les champs facultatifs (brouillon,
  *  notes…) reprennent leur valeur neutre dans `restauriere` ; ceux-ci, non. */
@@ -168,11 +184,16 @@ export function restauriere(roh: Partial<Lauf> & { id: string; caseId: string })
   return {
     caseName: '', modus: 'komplett', geplanteTeile: [],
     zustand: 'vorbereitung', aktuellerTeil: null, teilVorAufklaerung: null,
-    startedAt: Date.now(), teileGespielt: [], teile: {},
+    startedAt: Date.now(), teile: {},
     sekundenProTeil: {}, entwurf: {}, notes: {}, bogen: {}, arztbriefText: '',
     assistance: 'assiste', layer: 1, mode: 'texte',
     // Un champ présent mais `undefined` ne doit pas écraser sa valeur neutre.
     ...(Object.fromEntries(Object.entries(roh).filter(([, v]) => v !== undefined)) as typeof roh),
-    checkliste: migriereChecklist(roh.checkliste ?? []),
+    // Les ITEMS aussi ont une forme : un élément corrompu (`null`, sans id) est
+    // retiré, le Lauf est gardé. Rejeter tout le Lauf jetterait une partie
+    // jouée pour une case de checklist illisible (re-revue 2, item 1).
+    checkliste: migriereChecklist((Array.isArray(roh.checkliste) ? roh.checkliste : []).filter(istItem)),
+    teileGespielt: (Array.isArray(roh.teileGespielt) ? roh.teileGespielt : [])
+      .filter((t): t is LaufTeil => LAUF_TEILE.includes(t as string)),
   };
 }
