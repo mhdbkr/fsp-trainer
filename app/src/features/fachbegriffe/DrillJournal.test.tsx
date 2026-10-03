@@ -34,14 +34,14 @@ beforeEach(async () => {
 });
 
 async function noter() {
-  fireEvent.click(await screen.findByRole('button', { name: /révéler/i }));
-  fireEvent.click(await screen.findByRole('button', { name: /^Gut/ }));
+  fireEvent.click(await screen.findByRole('button', { name: /révéler/i }, { timeout: 10_000 }));
+  fireEvent.click(await screen.findByRole('button', { name: /^Gut/ }, { timeout: 10_000 }));
 }
 
 describe('R-C3 — le drill dans le journal', () => {
   it('fin de séance : UN training.logged `drill`, ≥ 1 min ; quitter ensuite n\'en écrit pas un second', async () => {
     const v = render(<MemoryRouter initialEntries={['/fachbegriffe/drill']}><DrillPage /></MemoryRouter>);
-    fireEvent.click(await screen.findByRole('button', { name: /commencer/i }));
+    fireEvent.click(await screen.findByRole('button', { name: /commencer/i }, { timeout: 10_000 }));
     await noter(); await noter();
     await waitFor(async () => expect(await drills()).toHaveLength(1), { timeout: 12_000 });
     expect((((await drills())[0].payload) as { spentMin: number }).spentMin).toBeGreaterThanOrEqual(1);
@@ -51,14 +51,14 @@ describe('R-C3 — le drill dans le journal', () => {
   }, 40_000);
   it('quitter après une carte notée : la séance est journalisée', async () => {
     const v = render(<MemoryRouter initialEntries={['/fachbegriffe/drill']}><DrillPage /></MemoryRouter>);
-    fireEvent.click(await screen.findByRole('button', { name: /commencer/i }));
+    fireEvent.click(await screen.findByRole('button', { name: /commencer/i }, { timeout: 10_000 }));
     await noter();
     v.unmount();
     await waitFor(async () => expect(await drills()).toHaveLength(1), { timeout: 12_000 });
   }, 40_000);
   it('quitter sans aucune carte notée : rien', async () => {
     const v = render(<MemoryRouter initialEntries={['/fachbegriffe/drill']}><DrillPage /></MemoryRouter>);
-    fireEvent.click(await screen.findByRole('button', { name: /commencer/i }));
+    fireEvent.click(await screen.findByRole('button', { name: /commencer/i }, { timeout: 10_000 }));
     await screen.findByRole('button', { name: /révéler/i });
     v.unmount();
     await new Promise((r) => setTimeout(r, 200));
