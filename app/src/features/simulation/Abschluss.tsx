@@ -1,4 +1,5 @@
-import { bewerte, checklisteFuer, erlaubt } from '@/lib/lauf/automat';
+import type { ReactNode } from 'react';
+import { bewerte, checklisteFuer, erlaubt, simulationBeendbar } from '@/lib/lauf/automat';
 import type { Lauf, LaufTeil } from '@/lib/lauf/types';
 import { partScore } from '@/lib/scoring';
 
@@ -16,6 +17,46 @@ const LABEL: Record<LaufTeil, string> = {
 // de l'AUTOMATE (`arztbriefSchreiben`) : la vue demande `erlaubt`, elle ne
 // décide pas.
 // ============================================================================
+
+/** La sortie de fin dans l'en-tête collant (règle 8 amendée) : rendue ssi
+ *  l'automate accepte `versChecklist` — au bilan seulement. */
+export function SimulationBeendenKnopf({ lauf, onClick }: { lauf: Lauf; onClick: () => void }) {
+  if (!simulationBeendbar(lauf)) return null;
+  return (
+    <button onClick={onClick} className="btn-primary text-xs" title="Vers la checklist de fin">
+      Terminer la simulation →
+    </button>
+  );
+}
+
+/** Les états de fin `checkliste` / `arztbrief` / `gespeichert`, et l'alerte
+ *  d'un enregistrement échoué. `brief` est la rédaction de l'Arztbrief, fournie
+ *  par le runner (elle dépend du cas). */
+export function Ende({ lauf, fehler, brief, onZurueck, onArztbrief, onSpeichern }: {
+  lauf: Lauf; fehler: string | null; brief: ReactNode;
+  onZurueck: () => void; onArztbrief: () => void; onSpeichern: () => void;
+}) {
+  if (lauf.zustand === 'gespeichert') return <div className="text-slate-400">Enregistrement…</div>;
+  return (
+    <>
+      {fehler && <p role="alert" className="callout callout-warn mx-auto mb-4 max-w-2xl text-sm">{fehler}</p>}
+      {lauf.zustand === 'arztbrief' ? (
+        <div className="space-y-4">
+          {brief}
+          <div className="flex justify-end">
+            <button onClick={onSpeichern} className="btn-primary px-6">Enregistrer la simulation →</button>
+          </div>
+        </div>
+      ) : (
+        <Abschluss lauf={lauf} onZurueck={onZurueck} onArztbrief={onArztbrief} onSpeichern={onSpeichern} />
+      )}
+    </>
+  );
+}
+
+/** Les états où le runner rend `Ende`. */
+export const istEnde = (l: Lauf): boolean =>
+  l.zustand === 'checkliste' || l.zustand === 'arztbrief' || l.zustand === 'gespeichert';
 
 export function Abschluss({ lauf, onZurueck, onArztbrief, onSpeichern }: {
   lauf: Lauf; onZurueck: () => void; onArztbrief: () => void; onSpeichern: () => void;

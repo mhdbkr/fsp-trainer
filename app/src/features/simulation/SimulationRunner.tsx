@@ -11,7 +11,7 @@ import { CaseContext } from '@/features/fachbegriffe/CaseContext';
 import { termsOfCase } from '@/lib/collections/caseTerms';
 import { useTimer } from './useTimer';
 import { useLauf } from './useLauf';
-import { checklisteFuer, hatSprachgitter, naechsterTeil, simulationBeendbar } from '@/lib/lauf/automat';
+import { checklisteFuer, hatSprachgitter, naechsterTeil } from '@/lib/lauf/automat';
 import type { Lauf, LaufTeil } from '@/lib/lauf/types';
 import { emptyLanguageGrid } from '@/lib/scoring';
 import { computeAmbiance } from './timeAmbiance';
@@ -23,7 +23,7 @@ import { AnamneseGuide } from './AnamneseGuide';
 import { AnamneseBogen } from './AnamneseBogen';
 import { VorstellungGuide } from './VorstellungGuide';
 import { ArztbriefGuide } from './ArztbriefGuide';
-import { Abschluss } from './Abschluss';
+import { Ende, SimulationBeendenKnopf, istEnde } from './Abschluss';
 import { KommunikationPanel } from './KommunikationPanel';
 import { QrCode } from '@/components/QrCode';
 import { usePatientBroadcast, patientUrl, patientUrlIsOnline, localPatientUrl } from './usePatientSync';
@@ -349,33 +349,17 @@ export function SimulationRunner() {
                     {/* Visible dans le BILAN seulement (règle 8 amendée) :
                         pendant `laufend`, la seule sortie est « Terminer la
                         partie ». */}
-                    {simulationBeendbar(lauf) && (
-                      <button onClick={steuerung.versChecklist} className="btn-primary text-xs" title="Vers la checklist de fin">
-                        Terminer la simulation →
-                      </button>
-                    )}
+                    <SimulationBeendenKnopf lauf={lauf} onClick={steuerung.versChecklist} />
                   </div>
                 </div>
               </div>
 
               <div className="mt-4">
-                {steuerung.fehler && (lauf.zustand === 'checkliste' || lauf.zustand === 'arztbrief') && (
-                  <p role="alert" className="callout callout-warn mx-auto mb-4 max-w-2xl text-sm">
-                    {steuerung.fehler}
-                  </p>
-                )}
-                {lauf.zustand === 'checkliste' ? (
-                  <Abschluss lauf={lauf} onZurueck={steuerung.zurueckZumBilanz} onArztbrief={steuerung.arztbriefSchreiben} onSpeichern={enregistrer} />
-                ) : lauf.zustand === 'arztbrief' ? (
-                  <div className="space-y-4">
-                    <ArztbriefGuide c={c} assistance={lauf.assistance} text={lauf.arztbriefText}
-                      onText={(t) => steuerung.setzeFeld({ arztbriefText: t })} bogen={lauf.bogen} muster={lauf.muster ?? 'Standard'} />
-                    <div className="flex justify-end">
-                      <button onClick={enregistrer} className="btn-primary px-6">Enregistrer la simulation →</button>
-                    </div>
-                  </div>
-                ) : lauf.zustand === 'gespeichert' ? (
-                  <div className="text-slate-400">Enregistrement…</div>
+                {istEnde(lauf) ? (
+                  <Ende lauf={lauf} fehler={steuerung.fehler}
+                    brief={<ArztbriefGuide c={c} assistance={lauf.assistance} text={lauf.arztbriefText}
+                      onText={(t) => steuerung.setzeFeld({ arztbriefText: t })} bogen={lauf.bogen} muster={lauf.muster ?? 'Standard'} />}
+                    onZurueck={steuerung.zurueckZumBilanz} onArztbrief={steuerung.arztbriefSchreiben} onSpeichern={enregistrer} />
                 ) : lauf.zustand === 'bilanz' && lauf.aktuellerTeil ? (
                   <PartEvaluation
                     part={lauf.aktuellerTeil}
