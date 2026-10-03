@@ -1,0 +1,39 @@
+/* Lanceur « avec ton IA » — mouvement propre au composant.
+   Trois temps : la piste se trace, chaque étape s'allume à son tour, un point
+   de signal parcourt la piste une seule fois. Rien ne boucle. */
+
+@keyframes tal-track { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+@keyframes tal-node { from { opacity: 0; transform: scale(0.6); } to { opacity: 1; transform: none; } }
+@keyframes tal-cap { from { opacity: 0; transform: translateY(3px); } to { opacity: 1; transform: none; } }
+@keyframes tal-signal {
+  0% { left: 16.66%; opacity: 0; }
+  12% { opacity: 1; }
+  88% { opacity: 1; }
+  100% { left: 83.33%; opacity: 0; }
+}
+@keyframes tal-tick { from { opacity: 0; transform: scale(0.4) rotate(-12deg); } to { opacity: 1; transform: none; } }
+
+.tal-track { transform-origin: left center; animation: tal-track 1.1s cubic-bezier(0.32, 0.72, 0, 1) 0.15s both; }
+.tal-node { animation: tal-node 0.42s cubic-bezier(0.16, 1, 0.3, 1) both; }
+.tal-cap { animation: tal-cap 0.4s cubic-bezier(0.16, 1, 0.3, 1) both; }
+.tal-step:nth-child(1) .tal-node { animation-delay: 0.05s; }
+.tal-step:nth-child(1) .tal-cap { animation-delay: 0.12s; }
+.tal-step:nth-child(2) .tal-node { animation-delay: 0.6s; }
+.tal-step:nth-child(2) .tal-cap { animation-delay: 0.67s; }
+.tal-step:nth-child(3) .tal-node { animation-delay: 1.15s; }
+.tal-step:nth-child(3) .tal-cap { animation-delay: 1.22s; }
+.tal-signal { animation: tal-signal 1.25s cubic-bezier(0.45, 0, 0.25, 1) 0.15s both; }
+
+/* Sélection : l'indicateur glisse sous la cible choisie. */
+.tal-thumb { transition: transform 0.32s cubic-bezier(0.32, 0.72, 0, 1); }
+
+/* Copier → copié : les deux glyphes se croisent sur place. */
+.tal-glyph { transition: opacity 0.18s ease-out, transform 0.24s cubic-bezier(0.16, 1, 0.3, 1); }
+.tal-tick { animation: tal-tick 0.28s cubic-bezier(0.16, 1, 0.3, 1) both; }
+
+/* Mouvement réduit : tout est à sa place d'emblée — durées ET délais. */
+@media (prefers-reduced-motion: reduce) {
+  .tal-track, .tal-node, .tal-cap, .tal-tick { animation: none !important; }
+  .tal-signal { animation: none !important; opacity: 0; }
+  .tal-thumb, .tal-glyph { transition: none !important; }
+}
