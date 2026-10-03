@@ -33,7 +33,8 @@ export const TASK_META: Record<TaskKind, { icon: string; badge: string; bar: str
 
 /** Où mène une tâche. Une seule table, partagée par toutes les vues. */
 export function taskLink(t: TaskInstance): string {
-  if ((t.kind === 'simulation' || t.kind === 'examen-blanc') && t.caseId) return `/simulation/${t.caseId}/pre${t.teil ? `?teil=${t.teil}` : ''}`;
+  // R-C4 : la tâche voyage avec la partie (`task=`), la sauvegarde la coche si la partie la satisfait (I-A).
+  if ((t.kind === 'simulation' || t.kind === 'examen-blanc') && t.caseId) return `/simulation/${t.caseId}/pre?${new URLSearchParams({ ...(t.teil ? { teil: t.teil } : {}), task: t.id })}`;
   if (t.kind === 'drill') return `/fachbegriffe/drill${t.caseId ? `?case=${encodeURIComponent(t.caseId)}` : t.specialty ? `?specialty=${encodeURIComponent(t.specialty)}` : ''}`;
   if (t.kind === 'fachwissen') return t.caseId ? `/cas/${t.caseId}` : '/fachwissen';
   return t.caseId ? `/cas/${t.caseId}` : '/simulation';
