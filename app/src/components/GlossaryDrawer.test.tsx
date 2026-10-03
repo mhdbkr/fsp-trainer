@@ -37,79 +37,12 @@ describe('GlossaryDrawer (F4a)', () => {
     expect(await screen.findByText('Bauch')).toBeTruthy();
     expect(document.body.textContent).not.toMatch(/patientengerecht/i);
   });
-  it('onglets du terme (F4b P6) : allumé = rangé ; toucher range / retire ; intelligent ABSENT du rail (G1-9) ; plus d\'étoile', async () => {
-    await db.progress_events.bulkPut([
-      { id: 'e1', user_id: 'u', type: 'deck.created', subject_id: 'd1', payload: { name: 'Kardio', kind: 'manual' }, occurred_at: '2020-01-01T00:00:00Z' },
-      { id: 'e2', user_id: 'u', type: 'deck.created', subject_id: 's1', payload: { name: 'À revoir', kind: 'smart', query: {} }, occurred_at: '2020-01-02T00:00:00Z' },
-    ] as never);
-    const { reprojectCollections } = await import('@/lib/collections'); await reprojectCollections();
+  it('le livre des decks du terme vit DANS le tiroir (piège de focus, Échap) ; plus d\'étoile — détail : DeckRail.test (E5)', async () => {
     renderDrawer();
-    const rail = await screen.findByRole('group', { name: 'Decks de ce terme' });
+    const dlg = await screen.findByRole('dialog', { name: 'Abdomen' });
+    const book = await within(dlg).findByRole('group', { name: 'Decks de ce terme' });
+    expect(within(book).getByRole('button', { name: 'Favoris' })).toBeTruthy();
     expect(screen.queryByRole('button', { name: /Ajouter aux favoris/ })).toBeNull();
-    const fav = within(rail).getByRole('button', { name: /Favoris/ });
-    expect(fav.getAttribute('aria-pressed')).toBe('false');
-    fireEvent.click(fav);
-    await waitFor(async () => expect(await db.favorites.get('fb-a')).toBeTruthy());
-    await waitFor(() => expect(within(rail).getByRole('button', { name: /Favoris/ }).getAttribute('aria-pressed')).toBe('true'));
-    fireEvent.click(within(rail).getByRole('button', { name: 'Kardio' }));
-    await waitFor(async () => expect(await db.deck_terms.get(['d1', 'fb-a'])).toBeTruthy());
-    await waitFor(() => expect(within(rail).getByRole('button', { name: 'Kardio' }).getAttribute('aria-pressed')).toBe('true'));
-    fireEvent.click(within(rail).getByRole('button', { name: 'Kardio' }));
-    await waitFor(async () => expect(await db.deck_terms.get(['d1', 'fb-a'])).toBeUndefined());
-    expect(within(rail).queryByRole('button', { name: /À revoir/ })).toBeNull();
-    for (const b of within(rail).getAllByRole('button')) { expect(b.className).toContain('min-h-11'); expect(b.className).toContain('glass-thin'); }
-    for (const c of ['overflow-x-auto', 'md:absolute', 'md:right-full', 'md:flex-col', 'md:max-h-[calc(100dvh-5rem)]', 'md:overflow-y-auto']) expect(rail.className).toContain(c);
-    expect(rail.className).not.toMatch(/\bflex-wrap\b/);   // une rangée qui défile, jamais plusieurs (revue E4)
-  }, 15_000);   // six écritures Dexie en série : > 5 s sous charge (suite complète)
-  it('onglets : « Gérer » en DERNIER, libellé « Ranger dans », ✓ décoratif et aria-description sur un onglet allumé, allumé sans fond plein (G1-9)', async () => {
-    await db.progress_events.put({ id: 'e1', user_id: 'u', type: 'deck.created', subject_id: 'd1', payload: { name: 'Kardio', kind: 'manual' }, occurred_at: '2020-01-01T00:00:00Z' } as never);
-    const { reprojectCollections } = await import('@/lib/collections'); await reprojectCollections();
-    renderDrawer();
-    const rail = await screen.findByRole('group', { name: 'Decks de ce terme' });
-    expect(within(rail).getByText('Ranger dans').className).toContain('label');
-    const buttons = within(rail).getAllByRole('button');
-    expect(buttons[buttons.length - 1].getAttribute('aria-label')).toBe('Gérer les decks');   // la gestion ferme la rangée
-    expect(buttons[buttons.length - 1].textContent).toContain('Gérer');
-    expect(buttons[buttons.length - 1].className).not.toMatch(/\btext-slate-500\b/);
-    const fav = within(rail).getByRole('button', { name: /Favoris/ });
-    expect(fav.getAttribute('aria-description')).toBe('Ranger dans Favoris');
-    expect(within(fav).queryByText('✓')).toBeNull();   // pas encore allumé
-    fireEvent.click(fav);
-    await waitFor(() => expect(fav.getAttribute('aria-pressed')).toBe('true'));
-    expect(fav.getAttribute('aria-description')).toBe('Retirer de Favoris');
-    expect(within(fav).getByText('✓').getAttribute('aria-hidden')).toBe('true');
-    expect(fav.className).toContain('aria-pressed:text-brand-700');
-    expect(fav.className).not.toMatch(/aria-pressed:bg-brand-600|aria-pressed:text-white/);
-    expect(fav.getAttribute('aria-label')).toBeNull();   // nom accessible = « Favoris », inchangé
-  });
-  it('onglets : double appui pendant l\'écriture est ignoré (verrou par onglet)', async () => {
-    await db.progress_events.put({ id: 'e1', user_id: 'u', type: 'deck.created', subject_id: 'd1', payload: { name: 'Kardio', kind: 'manual' }, occurred_at: '2020-01-01T00:00:00Z' } as never);
-    const { reprojectCollections } = await import('@/lib/collections'); await reprojectCollections();
-    const collections = await import('@/lib/collections');
-    const real = collections.addTermToDeck;
-    let resolveAdd: () => void = () => {};
-    const spy = vi.spyOn(collections, 'addTermToDeck')
-      .mockImplementationOnce((...args) => new Promise((r) => { resolveAdd = () => r(real(...args)); }));
-    renderDrawer();
-    const rail = await screen.findByRole('group', { name: 'Decks de ce terme' });
-    const kardio = within(rail).getByRole('button', { name: 'Kardio' });
-    fireEvent.click(kardio);   // premier appui : lance l'écriture (verrouillée)
-    fireEvent.click(kardio);   // second appui pendant l'écriture : ignoré
-    resolveAdd();
-    await waitFor(async () => expect(await db.deck_terms.get(['d1', 'fb-a'])).toBeTruthy());
-    expect(spy).toHaveBeenCalledTimes(1);
-    spy.mockRestore();
-  });
-  it('onglets : échec de l\'écriture → message visible (role=alert)', async () => {
-    await db.progress_events.put({ id: 'e1', user_id: 'u', type: 'deck.created', subject_id: 'd1', payload: { name: 'Kardio', kind: 'manual' }, occurred_at: '2020-01-01T00:00:00Z' } as never);
-    const { reprojectCollections } = await import('@/lib/collections'); await reprojectCollections();
-    const collections = await import('@/lib/collections');
-    const spy = vi.spyOn(collections, 'addTermToDeck').mockRejectedValueOnce(new Error('offline'));
-    renderDrawer();
-    const rail = await screen.findByRole('group', { name: 'Decks de ce terme' });
-    fireEvent.click(within(rail).getByRole('button', { name: 'Kardio' }));
-    expect((await screen.findByRole('alert')).textContent).toBe('Impossible de ranger : réessaie.');   // sous la bande, hors du défilement
-    spy.mockRestore();
   });
   it('« Carte » retourne la fiche en carte recto/verso comme au drill (D9, AC-8)', async () => {
     renderDrawer();
