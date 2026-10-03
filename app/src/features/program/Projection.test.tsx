@@ -32,7 +32,7 @@ beforeEach(async () => {
   await ensureDayPlan();
   container = document.createElement('div'); document.body.appendChild(container); root = createRoot(container);
   await act(async () => { root.render(<MemoryRouter><ProgramPage /></MemoryRouter>); });
-  await act(async () => { await new Promise((r) => setTimeout(r, 80)); });
+  await vi.waitFor(() => expect(container.textContent).toMatch(/≈ \d+ min/), { timeout: 3000 });   // une cellule projetée est rendue
 });
 afterEach(() => { act(() => root.unmount()); container.remove(); resetClock(); });
 
@@ -51,7 +51,6 @@ describe('I10 — J-x : une seule formule (joursRestants), la même sur tous les
     freezeAt(new Date(2026, 10, 20, 20, 0));                          // 20 nov. 20 h → examen 1er déc. : 11 jours calendaires (loin de l'horloge réelle)
     root = createRoot(container);
     await act(async () => { root.render(<MemoryRouter><ProgramPage /></MemoryRouter>); });
-    await act(async () => { await new Promise((r) => setTimeout(r, 80)); });
-    expect(container.textContent).toMatch(/J-11(?!\d)/);
+    await vi.waitFor(() => expect(container.textContent).toMatch(/J-11(?!\d)/), { timeout: 3000 });
   });
 });
