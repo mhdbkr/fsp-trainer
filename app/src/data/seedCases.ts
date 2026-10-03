@@ -8015,7 +8015,7 @@ export function seedCases(): Case[] {
         { frage: 'Haben Sie Kribbeln, Brennen oder ein Taubheitsgefühl an den Füßen bemerkt, besonders nachts?', kapitel: 'aktuell' },
         { frage: 'Ist in Ihrer Familie eine Zuckerkrankheit bekannt?', kapitel: 'familie-sozial' },
         { frage: 'Wie sieht Ihr Arbeitstag als Bäcker aus — wann essen Sie, was essen Sie nebenbei, und wie viel bewegen Sie sich außerhalb der Arbeit?', kapitel: 'familie-sozial' },
-        { frage: 'Nehmen Sie Kortison ein, und hatten Sie jemals eine Bauchspeicheldrüsenentzündung?', kapitel: 'medikamente' },
+        { frage: 'Hatten Sie jemals eine Bauchspeicheldrüsenentzündung?', kapitel: 'medikamente' },
       ],
       examinerQuestions: [
         'Was ist Ihre Verdachtsdiagnose, und was spricht bei diesem Patienten dafür?',
@@ -22741,7 +22741,6 @@ export function seedCases(): Case[] {
       caseSpecificQuestions: [
         { frage: 'Welche Finger genau schlafen Ihnen ein — ist der kleine Finger auch betroffen, oder bleibt er frei?', kapitel: 'aktuell' },
         { frage: 'Wachen Sie nachts von den Beschwerden auf? Wie oft in einer Nacht, und um welche Uhrzeit?', kapitel: 'aktuell' },
-        { frage: 'Wird es besser, wenn Sie die Hand ausschütteln oder herunterhängen lassen?', kapitel: 'aktuell' },
         { frage: 'Welche Hand ist stärker betroffen — rechts oder links? Und welche ist Ihre Schreibhand?', kapitel: 'aktuell' },
         { frage: 'Fällt Ihnen im Vergleich beider Hände auf, dass der Muskel am Daumenballen dünner geworden ist?', kapitel: 'aktuell' },
         { frage: 'Wie viele Stunden am Tag arbeiten Sie an der Drehscheibe und kneten Sie Ton? Hat sich die Belastung in den letzten Monaten verändert?', kapitel: 'familie-sozial' },
@@ -34659,7 +34658,6 @@ export function seedCases(): Case[] {
         { frage: 'Was haben Sie genau gemacht, als es losging — waren Sie in Ruhe, haben Sie gehustet, gelacht oder etwas Schweres gehoben?', kapitel: 'aktuell' },
         { frage: 'Spüren Sie den Schmerz nur auf einer Seite, und wird er beim tiefen Einatmen und beim Husten deutlich stärker?', kapitel: 'aktuell', relu: true },
         { frage: 'Hatten Sie so ein Stechen schon einmal, auch wenn es damals schwächer war und von allein wieder verschwunden ist?', kapitel: 'aktuell' },
-        { frage: 'Rauchen Sie? Seit wann und wie viel — und rauchen Sie auch gelegentlich Cannabis?', kapitel: 'noxen' },
         { frage: 'Gibt es in Ihrer Familie jemanden, bei dem schon einmal Luft in der Lunge war und der einen Schlauch in der Brust hatte?', kapitel: 'familie-sozial' },
         { frage: 'Ist bei Ihnen jemals eine Lungenerkrankung festgestellt worden — Asthma, eine chronische Bronchitis oder eine Lungenentzündung?', kapitel: 'vorerkrankungen' },
       ],
