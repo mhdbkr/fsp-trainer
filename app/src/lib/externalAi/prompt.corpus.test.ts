@@ -1,182 +1,117 @@
 import { describe, it, expect } from 'vitest';
-import { buildExternalPromptDetailed, PROMPT_MAX, PREFILL_MAX, stripFrenchDirections } from './prompt';
+import { buildPromptPaket, promptText, AUSGABE, ANREDE_MAX, PASTE_MAX, type AnkerTeil } from './prompt';
 import { seedCases } from '@/data/seedCases';
-import { PROBE_BY_ID } from '@/data/guides/anamneseProbes';
-import { buildRollenskript } from '@/lib/rolePlay';
+import type { Case } from '@/db/types';
 
-const TEIL3_MARKER = '# Teil 3 – Oberärztin/Oberarzt';
+// Contrat ai-bridge §7 sur les 130 cas : INV-30 (amorce), INV-31 (non-fuite),
+// INV-32 (bornes O2/O3), INV-36 (aucun français). PASTE_MAX (10 000, seuil de
+// pièce jointe ChatGPT) est plus strict que O3 : tenu par un cliquet.
 
-// E — séquences de régie française qui ne doivent plus jamais survivre dans
-// la section Oberarzt du prompt, quel que soit le cas du corpus (comparaison
-// SENSIBLE À LA CASSE, comme demandé : on vérifie la forme exacte observée
-// dans les fiches, pas une variante). Match sur mot/limite de mot entier —
-// une simple sous-chaîne ferait faussement échouer sur « Teste » contenu
-// dans un nom allemand légitime comme « Testergebnis ».
-const FRENCH_DIRECTION_SEQUENCES = ['Le simulant', 'le candidat', 'Relance', 'Demande un', 'Teste'];
-const containsWholeWordSequence = (text: string, seq: string) => new RegExp(`\\b${seq.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}\\b`).test(text);
+const OBERARZT_MAX = 8000; // O2
+const PATIENT_MAX = 12_000; // O3
+// Cliquet : les seuls cas dont le texte patient dépasse encore PASTE_MAX
+// (ChatGPT le range alors en pièce jointe). Leurs répliques sont les plus
+// longues du corpus ; les raccourcir relève du pôle Contenu. Un cas qui
+// s'ajoute à la liste fait échouer le test ; un cas qui en sort aussi, pour
+// que la liste reste vraie.
+const OVER_PASTE_MAX = ['case-delir', 'case-karpaltunnel', 'case-metabolisches-syndrom', 'case-pankreaskarzinom', 'case-ulcus-cruris'];
+const TEILE: AnkerTeil[] = ['anamnese', 'fallvorstellung'];
 
-// B1 — marqueurs allemands sans ambiguïté : si une phrase RETIRÉE par
-// stripFrenchDirections en contient un, c'est un faux positif (régie
-// française confondue avec de l'allemand courant).
-const GERMAN_MARKER_RE = /\b(und|der|die|das|mit|wegen|ist|nicht|bei|auf)\b/iu;
-// B1 — borne haute documentée : ~8–15 champs reaktion modifiés attendus sur
-// le corpus de 130 cas ; on fixe une borne dure à 20 pour détecter une
-// régression (trop de faux positifs) sans figer le chiffre exact.
-const MAX_REAKTION_FIELDS_TOUCHED = 20;
+// A4 : aucune demande d'évaluation dans l'amorce.
+const EVALUATION_RE = /Feedback|bewerte|Bewertung|Korrektur|Fehler|\bNote\b/;
+// Justification différentielle ou attendu d'examinateur : inférence du diagnostic.
+const INFERENCE_RE = /\((?:spricht |eher )?gegen |\(keine? Hinweise? auf |\(erwartet|Erwartet wird/;
+// INV-36 : une phrase est française si elle porte une expression forte, ou au
+// moins deux mots-outils français distincts (aucun n'est un mot allemand).
+const FR_STRONG = /\b(le simulant|le candidat|tu es|si le|si la|ne \w+ pas)\b/i;
+const FR_WEAK = /\b(le|la|les|une|pour|avec|sans|est|vous|nous|dans|pas|sur|qui|que|ton|tes)\b/gi;
+const frenchSentences = (text: string) => text.split(/(?<=[.!?])\s+|\n/u).filter((s) => {
+  if (FR_STRONG.test(s)) return true;
+  return new Set([...s.matchAll(FR_WEAK)].map((m) => m[1].toLowerCase())).size >= 2;
+});
 
-// Mêmes ids que SECONDARY_CHAPTERS dans prompt.ts (non exporté à dessein — le
-// test vérifie le contrat, pas l'implémentation). Ces chapitres sont, par la
-// règle D7-3c, les SEULS que la cascade peut réduire à leur résumé « Fakten » ;
-// la fidélité intégrale n'est donc garantie que pour les autres — mais comme
-// on impose ici level === 'full' pour les 130 cas, aucune cascade ne joue et
-// la fidélité intégrale vaut pour TOUS les chapitres.
-const SECONDARY_CHAPTERS = new Set(['personalia', 'vegetativ', 'familie-sozial']);
+/** La tête du diagnostic retenu, avant ses précisions (« Akute Lungenembolie rechts »). */
+const diagnoseKopf = (c: Case) => c.medicalView.verdachtsdiagnose.split(/ bei | — | – |;|,|\(/)[0].trim();
 
-// Termes réalistes (8 × ~20 caractères) — proches d'un vrai relevé de
-// Fachbegriffe attendus par cas, pour ne pas sous-tester la taille du prompt.
-const REALISTIC_TOP_TERMS = [
-  'Verdachtsdiagnose stellen',
-  'Differenzialdiagnosen nennen',
-  'Anamnese strukturieren',
-  'Schmerzcharakter erfragen',
-  'Vegetative Anamnese',
-  'Medikamentenanamnese',
-  'Sozialanamnese erheben',
-  'Weiteres Vorgehen planen',
-];
-
-// F3 : aplatit récursivement toutes les chaînes ≥ minLen d'un objet (pour
-// détecter une fuite de medicalView, quelle que soit sa forme interne).
-function flattenStrings(value: unknown, minLen = 12, out: string[] = []): string[] {
-  if (typeof value === 'string') {
-    if (value.length >= minLen) out.push(value);
-  } else if (Array.isArray(value)) {
-    for (const v of value) flattenStrings(v, minLen, out);
-  } else if (value && typeof value === 'object') {
-    for (const v of Object.values(value as Record<string, unknown>)) flattenStrings(v, minLen, out);
-  }
+function strings(v: unknown, min = 12, out: string[] = []): string[] {
+  if (typeof v === 'string') { if (v.length >= min) out.push(v); }
+  else if (Array.isArray(v)) v.forEach((x) => strings(x, min, out));
+  else if (v && typeof v === 'object') Object.values(v).forEach((x) => strings(x, min, out));
   return out;
 }
 
-describe('prompt sur le corpus', () => {
-  it('130/130 cas : level "full" (aucune cascade nécessaire), ≤ PROMPT_MAX, aucune fuite de fiche médicale avant Teil 3, distribution des longueurs', () => {
-    const cases = seedCases();
+const stats = (xs: number[]) => {
+  const s = [...xs].sort((a, b) => a - b);
+  return `min=${s[0]} médiane=${s[Math.floor(s.length / 2)]} p90=${s[Math.floor(s.length * 0.9)]} max=${s[s.length - 1]}`;
+};
+
+describe('prompt externe sur le corpus (130 cas × 2 Teile)', () => {
+  const cases = seedCases();
+
+  it('amorce, rôle unique, bornes, aucune fuite, aucun français', () => {
     expect(cases.length).toBeGreaterThanOrEqual(130);
-    const tooLong: string[] = []; const notFull: string[] = []; const leaks: string[] = []; const lens: number[] = [];
-    const frenchDirectionSurvivors: string[] = [];
-    let toleratedLeakHits = 0;
-    let reaktionFieldsTotal = 0; let reaktionFieldsTouchedByStrip = 0;
-    const removedSentences: string[] = [];
-    const germanMarkerFalsePositives: string[] = [];
+    const fail: string[] = [];
+    const len: Record<AnkerTeil, number[]> = { anamnese: [], fallvorstellung: [] };
+    const anredeLen: number[] = [];
+    const patientOwnWords: string[] = [];
+    const overPaste: string[] = [];
+
     for (const c of cases) {
-      // E/B1 — régie française : combien de champs reaktion sont modifiés par
-      // stripFrenchDirections sur ce cas (compromis compté, voir prompt.ts).
-      for (const sec of c.examinerSheet ?? []) {
-        for (const inter of sec.interactions) {
-          if (!inter.reaktion) continue;
-          reaktionFieldsTotal += 1;
-          const stripped = stripFrenchDirections(inter.reaktion);
-          if (stripped !== inter.reaktion) {
-            reaktionFieldsTouchedByStrip += 1;
-            // Diagnostic : sentences (découpage naïf, à titre de contrôle
-            // uniquement — la vraie règle est dans prompt.ts) présentes dans
-            // l'original mais absentes du résultat stripé = phrases retirées.
-            const roughSentences = inter.reaktion.split(/(?<=[.!?])\s+/u).filter((s) => s.trim().length > 0);
-            for (const sent of roughSentences) {
-              if (stripped.includes(sent.trim())) continue;
-              removedSentences.push(`${c.id}: ${sent.trim()}`);
-              if (GERMAN_MARKER_RE.test(sent)) germanMarkerFalsePositives.push(`${c.id}: ${sent.trim()}`);
-            }
+      for (const teil of TEILE) {
+        const p = buildPromptPaket(c, teil);
+        const full = promptText(p);
+        const id = `${c.id}/${teil}`;
+        len[teil].push(full.length);
+        anredeLen.push(p.anrede.length);
+
+        // INV-30
+        if (p.anrede.length > ANREDE_MAX) fail.push(`${id} A1 ${p.anrede.length}`);
+        if (p.anrede.split(AUSGABE[p.modus]).length !== 2 || full.split('Antworte ausschließlich').length !== 2) fail.push(`${id} A3`);
+        if (EVALUATION_RE.test(p.anrede)) fail.push(`${id} A4`);
+        if (p.modus === 'patient' && /Oberarzt|Oberärztin/.test(p.anrede)) fail.push(`${id} A5`);
+        if (p.modus === 'oberarzt' && /Patient/.test(p.anrede)) fail.push(`${id} A5`);
+        if (/warte[^.]*\.\s*Dann/.test(p.anrede)) fail.push(`${id} A6`);
+        // INV-32
+        if (full.length > PASTE_MAX) overPaste.push(c.id);
+        if (p.modus === 'patient' && full.length > PATIENT_MAX) fail.push(`${id} O3 ${full.length}`);
+        if (p.modus === 'oberarzt' && full.length > OBERARZT_MAX) fail.push(`${id} O2 ${full.length}`);
+        // INV-36
+        for (const s of frenchSentences(full)) fail.push(`${id} FR « ${s.slice(0, 80)} »`);
+
+        if (p.modus === 'patient') {
+          // INV-31 — D1 : le diagnostic retenu n'apparaît jamais.
+          const kopf = diagnoseKopf(c);
+          if (full.toLowerCase().includes(kopf.toLowerCase())) fail.push(`${id} D1 « ${kopf} »`);
+          // Aucun texte de la fiche médicale qui ne soit pas aussi dans la fiche patient.
+          const ps = strings(c.patientSheet);
+          for (const ms of strings(c.medicalView)) {
+            if (full.includes(ms) && !ps.some((x) => x.includes(ms))) fail.push(`${id} D1 medicalView « ${ms.slice(0, 60)} »`);
           }
-        }
-      }
-      const { text: p, level } = buildExternalPromptDetailed({ c, scope: 'exam+feedback', feedbackLang: 'fr', topTerms: REALISTIC_TOP_TERMS });
-      lens.push(p.length);
-      if (p.length > PROMPT_MAX) tooLong.push(`${c.id}:${p.length}`);
-      if (level !== 'full') notFull.push(`${c.id}:${level}`);
-      const [beforeTeil3, afterTeil3] = p.split(TEIL3_MARKER);
-      // E — aucune séquence de régie française ne doit survivre dans la
-      // section Oberarzt (après le marqueur Teil 3), quel que soit le cas.
-      for (const seq of FRENCH_DIRECTION_SEQUENCES) {
-        if (afterTeil3 && containsWholeWordSequence(afterTeil3, seq)) frenchDirectionSurvivors.push(`${c.id}:${seq}`);
-      }
-      const vd = c.medicalView?.verdachtsdiagnose;
-      if (vd && vd.length > 6 && beforeTeil3.includes(vd)) leaks.push(c.id);
-      const verdacht = c.medicalView?.patientWorte?.verdacht;
-      if (verdacht && verdacht.length > 6 && beforeTeil3.includes(verdacht)) leaks.push(`${c.id}:patientWorte`);
-
-      // F3 (étendu) : aucune chaîne de medicalView (aplatie, ≥ 12 car.) ne doit
-      // fuiter avant Teil 3 — SAUF si cette même chaîne apparaît aussi dans le
-      // patientSheet (elle appartient alors légitimement au discours patient,
-      // ex. antécédents familiaux répétés dans les deux fiches).
-      const medicalStrings = flattenStrings(c.medicalView);
-      const patientStrings = flattenStrings(c.patientSheet);
-      const isTolerated = (s: string) => patientStrings.some((ps) => ps.includes(s) || s.includes(ps));
-      for (const ms of medicalStrings) {
-        if (!beforeTeil3.includes(ms)) continue;
-        if (isTolerated(ms)) { toleratedLeakHits += 1; continue; }
-        leaks.push(`${c.id}:medicalView-leak`);
-      }
-
-      // F1 : fidélité — chaque réplique non négative du Rollenskript apparaît
-      // verbatim avant Teil 3 (level 'full' garanti ci-dessous, donc aucune
-      // compaction n'a pu la remplacer par un résumé Fakten).
-      const chapters = buildRollenskript(c.patientSheet);
-      for (const ch of chapters) {
-        for (const line of ch.lines) {
-          if (line.negativ) continue; // stripping F3 : pas de garantie verbatim
-          if (!beforeTeil3.includes(line.antwort)) leaks.push(`${c.id}:${ch.id}:fidélité-manquante`);
+          // D2 + inférence : aucune justification différentielle, aucun attendu.
+          if (INFERENCE_RE.test(full)) fail.push(`${id} D2 ${full.match(INFERENCE_RE)![0]}`);
+          // L'amorce (le gabarit) ne nomme jamais la pathologie.
+          if (p.anrede.toLowerCase().includes(c.pathology.toLowerCase())) fail.push(`${id} D1 pathologie dans l'amorce`);
+          // Relevé (non bloquant) : la pathologie dite par le patient lui-même,
+          // dans ses propres répliques (antécédent connu, famille).
+          if (full.toLowerCase().includes(c.pathology.toLowerCase())) patientOwnWords.push(c.id);
+        } else {
+          // O1 : aucune réplique du patient, aucun négatif.
+          for (const a of Object.values(c.patientSheet.antworten ?? {})) if (a && a.length >= 20 && p.akte.includes(a)) fail.push(`${id} O1 réplique`);
+          for (const n of c.patientSheet.negativeFindings ?? []) if (n.length >= 12 && p.akte.includes(n)) fail.push(`${id} O1 négatif`);
+          if (!p.akte.includes(c.medicalView.verdachtsdiagnose)) fail.push(`${id} diagnostic absent`);
         }
       }
     }
-    // Distribution imprimée AVANT les assertions dures : on veut ces chiffres
-    // même si tooLong/notFull/leaks font échouer le test (diagnostic, pas décoration).
-    const sorted = [...lens].sort((a, b) => a - b);
-    const min = sorted[0];
-    const max = sorted[sorted.length - 1];
-    const median = sorted[Math.floor(sorted.length / 2)];
-    const underPrefill = lens.filter((l) => l <= PREFILL_MAX).length;
-    const underPromptMax = lens.filter((l) => l <= PROMPT_MAX).length;
+
     // eslint-disable-next-line no-console
     console.log(
-      `[prompt corpus] n=${lens.length} min=${min} médiane=${median} max=${max} ` +
-      `≤PREFILL_MAX(${PREFILL_MAX})=${underPrefill}/${lens.length} (${Math.round((underPrefill / lens.length) * 100)}%) ` +
-      `≤PROMPT_MAX(${PROMPT_MAX})=${underPromptMax}/${lens.length} (${Math.round((underPromptMax / lens.length) * 100)}%) ` +
-      `fuites medicalView tolérées (présentes aussi dans patientSheet)=${toleratedLeakHits}`,
+      `[prompt externe] amorce ${stats(anredeLen)}\n` +
+      `[prompt externe] patient (Anamnese) ${stats(len.anamnese)}\n` +
+      `[prompt externe] oberarzt (Fallvorstellung) ${stats(len.fallvorstellung)}\n` +
+      `[prompt externe] > PASTE_MAX : ${overPaste.length}/${cases.length * 2}\n` +
+      `[prompt externe] pathologie dite par le patient lui-même : ${patientOwnWords.length} cas ${patientOwnWords.join(', ')}`,
     );
-    // eslint-disable-next-line no-console
-    console.log(`[prompt corpus] régie française (E) : ${reaktionFieldsTouchedByStrip}/${reaktionFieldsTotal} champs reaktion modifiés par stripFrenchDirections`);
-    // eslint-disable-next-line no-console
-    console.log(`[prompt corpus] B1 — phrases retirées par stripFrenchDirections (contrôle) :\n${removedSentences.map((s) => `  - ${s}`).join('\n')}`);
-
-    expect(tooLong).toEqual([]);
-    expect(notFull).toEqual([]);
-    expect(leaks).toEqual([]);
-    expect(frenchDirectionSurvivors).toEqual([]);
-    // B1 — aucune phrase retirée ne doit contenir un marqueur allemand courant :
-    // signe que la règle confond de l'allemand avec de la régie française.
-    expect(germanMarkerFalsePositives).toEqual([]);
-    // B1 — borne haute documentée sur le nombre de champs reaktion modifiés
-    // (attendu ≈ 8–15 sur ce corpus ; ≤ 20 pour détecter une régression).
-    expect(reaktionFieldsTouchedByStrip).toBeLessThanOrEqual(MAX_REAKTION_FIELDS_TOUCHED);
-  });
-
-  it('3 cas riches : persona et chaque réplique des chapitres non secondaires intégraux, aucune troncature (« … »)', () => {
-    const cases = seedCases();
-    const richest = [...cases]
-      .sort((a, b) => Object.keys(b.patientSheet.antworten ?? {}).length - Object.keys(a.patientSheet.antworten ?? {}).length)
-      .slice(0, 3);
-    expect(richest.length).toBe(3);
-    for (const c of richest) {
-      const p = buildExternalPromptDetailed({ c, scope: 'exam+feedback', feedbackLang: 'fr', topTerms: REALISTIC_TOP_TERMS }).text;
-      expect(p).not.toContain('…'); // jamais de troncature, quel que soit le niveau de repli atteint
-      if (c.patientSheet.persona) expect(p).toContain(c.patientSheet.persona);
-      for (const [probeId, antwort] of Object.entries(c.patientSheet.antworten ?? {})) {
-        if (!antwort) continue;
-        const kapitel = PROBE_BY_ID[probeId]?.kapitel ?? 'aktuell';
-        if (SECONDARY_CHAPTERS.has(kapitel)) continue; // seul repli permis (D7-3c) — résumé Fakten toléré ici
-        expect(p).toContain(antwort);
-      }
-    }
+    expect(fail).toEqual([]);
+    expect([...new Set(overPaste)].sort()).toEqual(OVER_PASTE_MAX);
   });
 });
