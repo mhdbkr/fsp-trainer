@@ -1,9 +1,9 @@
 import type { Deck } from '@/db/types';
 import { FAVORITES_DECK_ID } from '@/db/types';
 
-interface Props { decks: Deck[]; activeId: string | null; counts: Record<string, number>; onSelect: (id: string | null) => void; onCreate: () => void }
-/** Onglets : Tous · ★ Favoris · manuels · intelligents · +. `activeId` null = Tous. */
-export function DeckTabs({ decks, activeId, counts, onSelect, onCreate }: Props) {
+interface Props { decks: Deck[]; activeId: string | null; counts: Record<string, number>; onSelect: (id: string | null) => void }
+/** Onglets : Tous · ★ Favoris · manuels · intelligents. Créer = « ⋯ » (DeckManager, entrée unique). `activeId` null = Tous. */
+export function DeckTabs({ decks, activeId, counts, onSelect }: Props) {
   const manual = decks.filter((d) => d.kind === 'manual').sort((a, b) => a.createdAt.localeCompare(b.createdAt));
   const smart = decks.filter((d) => d.kind === 'smart').sort((a, b) => a.createdAt.localeCompare(b.createdAt));
   const Tab = ({ id, label }: { id: string | null; label: string }) => {
@@ -21,7 +21,6 @@ export function DeckTabs({ decks, activeId, counts, onSelect, onCreate }: Props)
       <Tab id={FAVORITES_DECK_ID} label="★ Favoris" />
       {manual.map((d) => <Tab key={d.id} id={d.id} label={d.name} />)}
       {smart.map((d) => <Tab key={d.id} id={d.id} label={`⚡ ${d.name}`} />)}
-      <button type="button" onClick={onCreate} aria-label="Nouveau deck" className="min-h-11 shrink-0 rounded-full border border-dashed border-slate-300 px-3 py-1.5 text-sm text-slate-500 hover:border-brand-400 hover:text-brand-600 dark:border-slate-700">+</button>
     </div>
   );
 }

@@ -54,17 +54,19 @@ describe('CaseTermsPanel', () => {
     chip.remove();
   });
 
-  it('mode drawer : liste des decks ouverte, Échap la ferme d\'abord, pas le panneau (m3)', async () => {
+  it('mode drawer : ★ pleine ouvre la fiche du terme ; Échap, fiche ouverte, ne ferme pas le panneau (m3, F4b P6)', async () => {
+    const { useUi } = await import('@/store/ui');
+    useUi.setState({ glossaryTerm: null });
     await db.decks.put({ id: 'd1', name: 'Kardio', kind: 'manual', createdAt: '', updatedAt: '' } as never);
     await db.deck_terms.put({ deckId: 'd1', termId: 'fb-a', addedAt: '' } as never);
     const onClose = vi.fn();
     render(<MemoryRouter><CaseTermsPanel caseId="c1" mode="drawer" onClose={onClose} onDrill={() => {}} /></MemoryRouter>);
     await screen.findByRole('dialog');
-    fireEvent.click(await screen.findByRole('button', { name: 'Decks de Abdomen' }));
-    await screen.findByRole('menu');
+    fireEvent.click(await screen.findByRole('button', { name: 'Voir la fiche de Abdomen' }));
+    expect(useUi.getState().glossaryTerm?.id).toBe('fb-a');
     fireEvent.keyDown(document, { key: 'Escape' });
-    await waitFor(() => expect(screen.queryByRole('menu')).toBeNull());
     expect(onClose).not.toHaveBeenCalled();
+    useUi.setState({ glossaryTerm: null });
   });
 
   it('un terme avec register affiche register.patient au lieu de translationSimple (C2)', async () => {

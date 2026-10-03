@@ -75,11 +75,11 @@ describe('SelectionExplainer', () => {
     expect(dialog.textContent).toContain('Seit Wochen Belastungsdyspnoe beim Treppensteigen.');
     expect(dialog.textContent).not.toContain('Fieber');
     expect(screen.getByText('Belastungsdyspnoe', { selector: 'mark' })).toBeTruthy();
-    fireEvent.click(screen.getByRole('button', { name: 'Créer' }));
+    fireEvent.click(screen.getByRole('button', { name: 'Créer la carte' }));
     await waitFor(async () => expect(await db.personal_terms.count()).toBe(1));
     const pt = (await db.personal_terms.toArray())[0];
     expect(pt).toMatchObject({ term: 'Belastungsdyspnoe', explanation: 'Atemnot bei Belastung', context: 'Seit Wochen Belastungsdyspnoe beim Treppensteigen.' });
-    expect(await db.favorites.get(pt.id)).toBeTruthy();
+    await waitFor(async () => expect(await db.favorites.get(pt.id)).toBeTruthy());   // rangée APRÈS la création : attendre, pas lire (course sous charge)
     expect(await screen.findByText('Favoris', { selector: 'strong' })).toBeTruthy();
   });
   it('Créer impossible tant que la Bedeutung est vide ; fermer sans créer n\'écrit rien (AC-4)', async () => {
@@ -91,7 +91,7 @@ describe('SelectionExplainer', () => {
     act(() => vi.advanceTimersByTime(0));
     vi.useRealTimers();
     await waitFor(() => expect(screen.getByRole('textbox', { name: 'Bedeutung' }).getAttribute('placeholder')).toBe('Écris la signification'));
-    expect((screen.getByRole('button', { name: 'Créer' }) as HTMLButtonElement).disabled).toBe(true);
+    expect((screen.getByRole('button', { name: 'Créer la carte' }) as HTMLButtonElement).disabled).toBe(true);
     fireEvent.click(screen.getByRole('button', { name: 'Fermer' }));
     expect(screen.queryByRole('dialog', { name: 'Nouvelle carte' })).toBeNull();
     expect(await db.progress_events.count()).toBe(0);
@@ -106,7 +106,7 @@ describe('SelectionExplainer', () => {
     fireEvent.click(await screen.findByRole('button', { name: 'Belastungsdyspnoe' }));
     await waitFor(() => expect((screen.getByRole('textbox', { name: 'Bedeutung' }) as HTMLInputElement).value).toBe('Atemnot bei Belastung'));
     expect((screen.getByRole('textbox', { name: 'Mot' }) as HTMLInputElement).value).toBe('Belastungsdyspnoe');
-    fireEvent.click(screen.getByRole('button', { name: 'Créer' }));
+    fireEvent.click(screen.getByRole('button', { name: 'Créer la carte' }));
     await waitFor(async () => expect((await db.personal_terms.toArray())[0]).toMatchObject({ term: 'Belastungsdyspnoe', context: 'Der Patient klagt über zunehmende Belastungsdyspnoe seit Wochen.' }));
   });
   it('IA indisponible → aucune demande, invite « Écris la signification »', async () => {
@@ -137,14 +137,100 @@ describe('SelectionExplainer', () => {
     fireEvent.click(await screen.findByRole('button', { name: /Expliquer/ }));
     expect(await screen.findByText('die Dyspnoe = Atemnot')).toBeTruthy();
   });
-  it('★ dans la bulle réponse (fond clair) n\'utilise pas la couleur blanche de la pastille (re-review)', async () => {
+  it('pilule verre à 2 icônes de 44 px (≤ 120 px), libellés au survol ; « Expliquer » l\'étend en carte verre (F4b P4, AC-3)', async () => {
+    render(<><p data-testid="t">Aszites</p><SelectionExplainer /></>);
+    selectText(screen.getByTestId('t')); pill();
+    await screen.findByRole('button', { name: /Ajouter aux favoris : Aszites/ });
+    const p = document.querySelector('[data-pill]') as HTMLElement;
+    expect(p.className).toContain('glass-thin');
+    expect(p.className).toMatch(/\bp-0\.5\b/); expect(p.className).toMatch(/\bgap-0\.5\b/);   // 2 × 44 + 2 + 4 = 94 px
+    const buttons = [...p.querySelectorAll('button')];
+    expect(buttons.map((b) => b.getAttribute('aria-label'))).toEqual(['Expliquer', 'Ajouter aux favoris : Aszites']);
+    for (const b of buttons) { expect(b.className).toMatch(/\bh-11\b/); expect(b.className).toMatch(/\bw-11\b/); }
+    expect(p.textContent).toBe('ExpliquerRanger dans Favoris');   // libellés (aria-hidden), visibles au survol seulement (G1-10)
+    fireEvent.click(screen.getByRole('button', { name: 'Expliquer' }));
+    await screen.findByText(/Bauchwasser/);
+    expect(document.querySelector('[data-pill]')).toBeNull();
+    expect(document.querySelector('.glass-full')).toBeTruthy();
+    expect(document.body.innerHTML).not.toMatch(/shadow-/);
+  });
+  it('infobulle de l\'étoile : terme déjà rangé → « Voir la fiche » (G1-10)', async () => {
+    vi.useRealTimers();
+    await db.favorites.put({ termId: 'fb-aszites', since: new Date().toISOString() } as never);
     render(<><p data-testid="t">Aszites</p><SelectionExplainer /></>);
     selectText(screen.getByTestId('t'));
-    act(() => { document.dispatchEvent(new Event('selectionchange')); vi.advanceTimersByTime(260); });
-    fireEvent.click(await screen.findByRole('button', { name: /Expliquer/ }));
-    const starInBubble = await screen.findByRole('button', { name: /Ajouter aux favoris : Aszites/ });
-    expect(starInBubble.className).not.toMatch(/text-white/);
-    expect(starInBubble.className).not.toMatch(/hover:bg-brand-700/);
+    act(() => { document.dispatchEvent(new Event('selectionchange')); });
+    await waitFor(() => expect(document.querySelector('[data-pill]')?.textContent).toBe('ExpliquerVoir la fiche'));
+  });
+  it('pilule = barre d\'outils « Sélection » ; Échap la ferme (G1-22)', async () => {
+    vi.useRealTimers();
+    render(<><p data-testid="t">Aszites</p><SelectionExplainer /></>);
+    selectText(screen.getByTestId('t'));
+    act(() => { document.dispatchEvent(new Event('selectionchange')); });
+    const bar = await screen.findByRole('toolbar', { name: 'Sélection' });
+    expect(bar.closest('[data-selection-pill]')).toBeTruthy();
+    fireEvent.keyDown(document, { key: 'Escape' });
+    await waitFor(() => expect(screen.queryByRole('toolbar', { name: 'Sélection' })).toBeNull());
+  });
+  it('« Expliquer » → le focus va sur la carte d\'explication ; « cherche… » = status (G1-21, G1-22)', async () => {
+    vi.useRealTimers();
+    const { askBrief } = await import('@/lib/onlineAi');
+    let resolve: (v: string) => void = () => {};
+    vi.mocked(askBrief).mockImplementationOnce(() => new Promise((r) => { resolve = r; }));
+    render(<><p data-testid="t">Belastungsdyspnoe</p><SelectionExplainer /></>);
+    selectText(screen.getByTestId('t'));
+    act(() => { document.dispatchEvent(new Event('selectionchange')); });
+    fireEvent.click(await screen.findByRole('button', { name: 'Expliquer' }));
+    const card = document.querySelector('[data-explain-card]') as HTMLElement;
+    expect(card.getAttribute('role')).toBe('group');
+    expect(card.getAttribute('aria-label')).toBe('Explication : Belastungsdyspnoe');
+    const live = card.querySelector('[aria-live="polite"]') as HTMLElement;
+    expect(live.textContent).toContain('Doctopus cherche');
+    expect(card.querySelector('[role="status"]')).toBeNull();
+    await waitFor(() => expect(document.activeElement).toBe(card));
+    expect(card.getAttribute('tabindex')).toBe('-1');
+    await act(async () => { resolve('Atemnot'); });
+    expect(await screen.findByText('Atemnot')).toBeTruthy();
+    expect(card.querySelector('[aria-live="polite"]')).toBe(live);   // conteneur persistant : chargement → résultat
+    expect(live.textContent).toContain('Atemnot');
+    expect(card.querySelector('.text-slate-500:not([class*="dark:text-slate-"])')).toBeNull();   // contraste sombre (G1-23)
+  });
+  it('Échap sur la carte d\'explication : focus sur <main> avant de fermer (G1-30)', async () => {
+    vi.useRealTimers();
+    render(<><main tabIndex={-1}><p data-testid="t">Belastungsdyspnoe</p></main><SelectionExplainer /></>);
+    selectText(screen.getByTestId('t'));
+    act(() => { document.dispatchEvent(new Event('selectionchange')); });
+    fireEvent.click(await screen.findByRole('button', { name: 'Expliquer' }));
+    const card = document.querySelector('[data-explain-card]') as HTMLElement;
+    await waitFor(() => expect(document.activeElement).toBe(card));
+    fireEvent.keyDown(card, { key: 'Escape' });
+    await waitFor(() => expect(document.querySelector('[data-explain-card]')).toBeNull());
+    expect(document.activeElement).toBe(screen.getByRole('main'));
+  });
+  it('mini-fiche fermée sans créer → focus sur <main> ; après « Créer » → focus sur la pilule de confirmation (G1-21)', async () => {
+    vi.useRealTimers();
+    render(<><main tabIndex={-1}><p data-testid="t">Belastungsdyspnoe</p></main><SelectionExplainer /><CardToast /></>);
+    selectText(screen.getByTestId('t'));
+    act(() => { document.dispatchEvent(new Event('selectionchange')); });
+    fireEvent.click(await screen.findByRole('button', { name: 'Nouvelle carte : Belastungsdyspnoe' }));
+    fireEvent.click(await screen.findByRole('button', { name: 'Fermer' }));
+    await waitFor(() => expect(document.activeElement).toBe(screen.getByRole('main')));
+    selectText(screen.getByTestId('t'), { left: 20 });
+    act(() => { document.dispatchEvent(new Event('selectionchange')); });
+    fireEvent.click(await screen.findByRole('button', { name: 'Nouvelle carte : Belastungsdyspnoe' }));
+    await waitFor(() => expect((screen.getByRole('textbox', { name: 'Bedeutung' }) as HTMLInputElement).value).toBe('Atemnot bei Belastung'), { timeout: 3000 });
+    fireEvent.click(screen.getByRole('button', { name: 'Créer la carte' }));
+    await waitFor(() => expect(document.activeElement).toBe(screen.getByRole('button', { name: /Rangée dans Favoris/ })), { timeout: 3000 });
+  });
+  it('étoile de la pilule : couleurs figées, contraste ≥ 3:1 avec le fond glass-thin clair et sombre (revue B1)', async () => {
+    render(<><p data-testid="t">Aszites</p><SelectionExplainer /></>);
+    selectText(screen.getByTestId('t')); pill();
+    const starInPill = await screen.findByRole('button', { name: /Ajouter aux favoris : Aszites/ });
+    // Classes figées : slate-500/300 (vide) sur glass-thin (52 % blanc/encre sur
+    // paper/ink) → 4.56:1 clair, 11.58:1 sombre (calcul WCAG relative luminance,
+    // rapport de tâche C1) — marge large, aucun ajustement de StarButton requis.
+    expect(starInPill.className).toMatch(/\btext-slate-500\b/);
+    expect(starInPill.className).toMatch(/dark:text-slate-300\b/);
   });
   it('sélection près du haut du viewport → pastille bascule sous la sélection, jamais hors écran (B1)', async () => {
     render(<><p data-testid="t">Aszites</p><SelectionExplainer /></>);
@@ -152,7 +238,7 @@ describe('SelectionExplainer', () => {
     act(() => { document.dispatchEvent(new Event('selectionchange')); vi.advanceTimersByTime(260); });
     await screen.findByRole('button', { name: /Ajouter aux favoris : Aszites/ });
     const box = document.querySelector('.fixed.z-\\[80\\]') as HTMLElement;
-    expect(box.style.transform).toBe('translate(-50%, 0)');
+    expect((box.querySelector('[data-anchor-box]') as HTMLElement).style.transform).toBe('translate(-50%, 0)');
     const top = parseFloat(box.style.top);
     expect(top).toBeGreaterThanOrEqual(36); // sous la sélection (bottom), jamais négatif à l'écran
   });
@@ -185,7 +271,7 @@ describe('SelectionExplainer', () => {
     fireEvent.click(await screen.findByRole('button', { name: /Nouvelle carte/ }));
     fireEvent.click(await screen.findByRole('button', { name: 'Aszites' }));
     await waitFor(() => expect((screen.getByRole('textbox', { name: 'Bedeutung' }) as HTMLInputElement).value).toBe('Bauchwasser'));
-    fireEvent.click(screen.getByRole('button', { name: 'Ranger' }));
+    fireEvent.click(screen.getByRole('button', { name: 'Ranger dans Favoris' }));   // G1-11
     await waitFor(async () => expect(await db.favorites.get('fb-aszites')).toBeTruthy());
     expect((await db.progress_events.toArray()).some((e) => e.type === 'term.personal_created')).toBe(false);
     expect(await db.personal_terms.count()).toBe(0);
@@ -197,7 +283,8 @@ describe('SelectionExplainer', () => {
     const { id } = await createPersonalTerm({ term: 'Belastungsdyspnoe', explanation: 'Atemnot bei Belastung (originale)' });
     // Assez long pour survivre à l'aller-retour réel (plusieurs findByRole/waitFor)
     // entre la planification et le clic « Créer » qui l'annule.
-    const DELAY = 800;
+    // 2,5 s : sous forte charge (plusieurs suites en parallèle), 800 ms expiraient avant le clic.
+    const DELAY = 2500;
     await scheduleDeletion(id, DELAY);
     expect(usePendingDeletions.getState().ids.has(id)).toBe(true);
 
@@ -208,15 +295,15 @@ describe('SelectionExplainer', () => {
     fireEvent.click(await screen.findByRole('button', { name: 'Nouvelle carte : Belastungsdyspnoe' }));
     await waitFor(() => expect((screen.getByRole('textbox', { name: 'Bedeutung' }) as HTMLInputElement).value).toBe('Atemnot bei Belastung (originale)'));
     expect(askBedeutung).not.toHaveBeenCalled();
-    fireEvent.click(screen.getByRole('button', { name: 'Créer' }));
+    fireEvent.click(screen.getByRole('button', { name: 'Créer la carte' }));
     await waitFor(() => expect(usePendingDeletions.getState().ids.has(id)).toBe(false));
     // Laisse largement passer le délai qui aurait déclenché la suppression.
-    await new Promise((r) => setTimeout(r, DELAY * 3));
+    await new Promise((r) => setTimeout(r, DELAY + 300));
     expect((await db.progress_events.toArray()).some((e) => e.type === 'term.personal_deleted')).toBe(false);
     const pt = await db.personal_terms.get(id);
     expect(pt).toBeTruthy();
     expect(pt?.explanation).toBe('Atemnot bei Belastung (originale)');
-  });
+  }, 15_000);
   it('resélection d\'un autre mot puis ★ PENDANT que la mini-fiche reste ouverte (sans Fermer) → le nouveau mot remplace l\'ancien (revue I4)', async () => {
     render(<><p data-testid="a">Belastungsdyspnoe</p><p data-testid="b">Orthopnoe</p><SelectionExplainer /></>);
     selectText(screen.getByTestId('a')); pill();

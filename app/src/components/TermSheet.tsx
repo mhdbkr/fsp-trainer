@@ -11,10 +11,10 @@ import { highlightParts } from '@/lib/sentence';
 import { TermUsage } from './TermUsage';
 import { Icon } from './icons';
 
-export function ContextSentence({ sentence, word }: { sentence: string; word: string }) {
+export function ContextSentence({ sentence, word, className = 'text-sm' }: { sentence: string; word: string; className?: string }) {
   const parts = highlightParts(sentence, word);
   return (
-    <p className="text-sm text-slate-600 dark:text-slate-300">
+    <p className={`${className} text-slate-600 dark:text-slate-300`}>
       {parts ? <>{parts[0]}<mark className="rounded bg-brand-100 px-0.5 text-brand-900 dark:bg-brand-900/50 dark:text-brand-100">{parts[1]}</mark>{parts[2]}</> : sentence}
     </p>
   );
