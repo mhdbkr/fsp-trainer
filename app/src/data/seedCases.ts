@@ -42757,7 +42757,7 @@ export function seedCases(): Case[] {
         { frage: 'Wie hat sich Ihr Gewicht über die letzten Jahre entwickelt? Haben Sie schon einmal versucht abzunehmen, und was ist dabei herausgekommen?', kapitel: 'vorerkrankungen', relu: true },
         { frage: 'Schnarchen Sie? Hat Ihnen jemand gesagt, dass Sie im Schlaf Atempausen haben? Schlafen Sie tagsüber ungewollt ein — auch beim Autofahren?', kapitel: 'vegetativ', relu: true },
         { frage: 'Was genau hat Ihnen Ihr Hausarzt gestern zu Ihrem Blutzucker und Ihren Blutfettwerten gesagt?', kapitel: 'vorerkrankungen' },
-        { frage: 'Waren Sie in letzter Zeit beim Augenarzt? Was hat er zu Ihrer Netzhaut gesagt, und was hat er Ihnen empfohlen?', kapitel: 'aktuell' },
+        { frage: 'Waren Sie in letzter Zeit beim Augenarzt?', kapitel: 'aktuell', followUp: 'Falls ja: Was hat er festgestellt, und was hat er Ihnen empfohlen?' },
         { frage: 'Ist Ihnen an der Haut im Nacken oder in den Achselhöhlen eine Veränderung aufgefallen?', kapitel: 'aktuell' },
         { frage: 'Nehmen Sie Medikamente, die das Gewicht oder den Zucker beeinflussen können — Kortison, Tabletten gegen seelische Beschwerden, Wassertabletten oder Betablocker?', kapitel: 'medikamente', relu: true },
       ],
