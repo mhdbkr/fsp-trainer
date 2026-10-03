@@ -304,36 +304,10 @@ propriétaire de `docs/contracts/`.
 **Concision des 27** : 497 (origine) → **448**. Aucun item ne dépasse son
 total d'origine.
 
-## R5. Lignes CI définitives (job `contrats` de `quality.yml`)
+## R5. Lignes CI définitives
 
-```yaml
-      - uses: actions/checkout@v4
-        with:
-          fetch-depth: 0            # checkBudgetFloor lit la base par git show
-      # … après « Un symptôme, une question » :
-      - name: Atomicité des questions — budget dégressif (A B C D D2 D3 E)
-        run: node scripts/checkQuestionAtomicity.mjs          # jamais --rule / --corpus (loupes, exit 0)
-      - name: Aucun compteur dégressif ne remonte face à la base
-        run: |
-          if [ "${{ github.event_name }}" = "pull_request" ]; then
-            BASE="origin/${{ github.base_ref }}"
-          else
-            BASE="${{ github.event.before }}"
-            # premier push d'une branche : « before » vaut 40 zéros
-            if [ "$BASE" = "0000000000000000000000000000000000000000" ]; then BASE=origin/main; fi
-          fi
-          node scripts/checkBudgetFloor.mjs "$BASE"           # ref introuvable = exit 2
-      - name: Mutations — atomicité, trame, plancher (copie de travail)
-        run: |
-          node --test scripts/checkQuestionAtomicity.test.mjs
-          node --test scripts/checkTrameSymptoms.test.mjs
-          node --test scripts/checkBudgetFloor.test.mjs
-      - name: Ordre des questions (informatif, contrat §3.6)
-        run: node scripts/checkQuestionOrder.mjs || true
-```
-
-`checkBudgetFloor` est vacant pour CE merge : les deux fixtures n'existent pas
-sur `main`. Il devient le verrou dès le merge suivant.
+Version finale : voir **F3** (revue finale). Cette version-ci passait
+`${{ }}` directement dans `run:` et gardait une branche « 40 zéros » morte.
 
 ## R6. Vérification finale (code de sortie, sans pipe, sur `cf49a64`)
 
@@ -363,3 +337,109 @@ sur `main`. Il devient le verrou dès le merge suivant.
   il n'y a pas un commit par correctif.
 - **Non vérifié** : le rendu dans le DOM de l'app (Supabase local toujours à
   l'arrêt).
+
+---
+
+# Revue finale de `0845319` — correctifs
+
+Verdict : *Request changes* sur un point (I-7) et trois mineurs. Mêmes règles :
+test rouge d'abord, un commit par item, mutations sur copie de travail.
+
+## F1. Item → commit
+
+| item | commit | preuve |
+|---|---|---|
+| **I-7** `sucht` n'exempte que les symptômes qu'il déclare ; `relu` reste l'exemption complète ; `CaseQuestion.sucht` typé `[Symptom, ...Symptom[]]` | `9ff6417` | 7a `sucht: ['zzz']` et 7b `sucht: ['durst']` (texte sans soif) : exit 0 sur `0845319` → **1** ; trame 8/8 ; `tsc` accepte toutes les déclarations existantes |
+| ↳ 4 constats démasqués, arbitrés | `9ff6417` | voir F2 ; `relu` 115 → 118, hausse de mesure écrite à la main (`relu_revue_finale`) |
+| **7c** `countQ` compte aussi « ？ » (pleine chasse) | `be2eb65` | test rouge → vert (21/21) |
+| **7d** guillemets chez l'Oberarzt | `be2eb65` | **gardé**, commentaire `ponytail:` (voir F2) |
+
+## F2. Arbitrages
+
+- **`case-vorhofflimmern`** : vrai doublon (« schwitzen Sie vermehrt » contre
+  « starke Schweißausbrüche »). `sucht` est complété avec `schwitzen`. La
+  question du cas prend la place de la partie Schweißausbrüche ; la trame
+  garde « Hatten Sie Schüttelfrost? » et « Schwitzen Sie nachts stark? ».
+- **`case-diabetes-typ1`** : `relu`, par décision de `main` (conséquence
+  assumée de D4 : la nycturie du diabétique est une polyurie, pas un trouble
+  mictionnel).
+- **`case-morbus-crohn`** : `relu`. « … hatten Sie dort Durchfall? » demande
+  une diarrhée **à l'étranger** (DD infectieuse) : la question approfondit le
+  voyage, elle ne redépiste pas les selles.
+- **`case-sturz-im-alter`** : `relu`. « Sturz » nomme l'événement, la question
+  ne dépiste pas les chutes. La reformuler en « an alles erinnern »
+  l'aurait collée à `fach-neuro-anfallzeichen`.
+- **7d, non modifié.** La décision D1 visait explicitement la règle D (« Règle
+  D (Oberarzt) … Corrige aussi le comptage des « ? » cités entre
+  guillemets »). L'Oberarzt est hors règle A (Q11) : « guillemets retirés pour
+  A seulement » ne changerait rien. Le plafond est nommé dans le commentaire
+  `ponytail:` : une salve d'examinateur entièrement écrite entre guillemets
+  échappe à D.
+- **Décisions de `main`, consignées** :
+  - le faux positif lexical `fach-nephro-infekt` ↔ `akt-infekt-kontakt` reste
+    tel quel ;
+  - l'amendement du §3.3 (§ R3) est accepté et sera appliqué au contrat à
+    l'intégration ;
+  - la question Binden d'`uterus-myomatosus` reste.
+
+## F3. Lignes CI définitives (job `contrats` de `quality.yml`)
+
+Déclencheurs du workflow : `push` sur `main`, `pull_request`,
+`workflow_dispatch`.
+
+```yaml
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0            # checkBudgetFloor lit la base par git show
+      # … après « Un symptôme, une question » :
+      - name: Atomicité des questions — budget dégressif (A B C D D2 D3 E)
+        run: node scripts/checkQuestionAtomicity.mjs          # jamais --rule / --corpus (loupes, exit 0)
+      - name: Aucun compteur dégressif ne remonte face à la base
+        env:
+          EVENT: ${{ github.event_name }}
+          BASE_REF: ${{ github.base_ref }}
+          BEFORE: ${{ github.event.before }}
+        run: |
+          case "$EVENT" in
+            pull_request) BASE="origin/$BASE_REF" ;;
+            push)         BASE="$BEFORE" ;;
+            *)            BASE="origin/main" ;;   # workflow_dispatch
+          esac
+          node scripts/checkBudgetFloor.mjs "$BASE"           # ref introuvable = exit 2
+      - name: Mutations — atomicité, trame, plancher (copie de travail)
+        run: |
+          node --test scripts/checkQuestionAtomicity.test.mjs
+          node --test scripts/checkTrameSymptoms.test.mjs
+          node --test scripts/checkBudgetFloor.test.mjs
+      - name: Ordre des questions (informatif, contrat §3.6)
+        run: node scripts/checkQuestionOrder.mjs || true
+```
+
+- **Variables par `env:`.** Les valeurs de l'événement ne sont jamais
+  interpolées dans le script shell.
+- **Pas de branche « 40 zéros ».** Le workflow ne tourne sur `push` que pour
+  `main`, qui existe déjà : `github.event.before` n'y vaut jamais 40 zéros.
+- **Push forcé sur `main` : échec fermé.** Le commit `before` réécrit n'est
+  plus récupéré par le checkout ; `checkBudgetFloor` sort alors à **2** (ref
+  introuvable), jamais à 0. La relance passe par `workflow_dispatch`
+  (comparaison à `origin/main`) après revue.
+- **Vacant pour ce merge.** `checkBudgetFloor` ne compare rien ici : les
+  fixtures n'existent pas encore sur `main`.
+
+## F4. Vérification finale (code de sortie, sans pipe, sur `be2eb65`)
+
+- **`scripts/check*.mjs`** : tous à 0, sauf `checkProbeOverlap`, informatif,
+  à 1 (5 constats : 4 préexistants sur `main` + le faux positif lexical gardé
+  par décision de `main`).
+- **Budget** : A=522 · B=118 · C=8 · D=0 · D2=453 · D3=12 · E=0, sur 4 543
+  énoncés ; socle trame 0 constat, `relu` **118**.
+- **Trame jouée** : 8 571 questions, aucune paire ≥ 0,6.
+- **`node --test scripts/*.test.mjs`** : les 8 fichiers à 0 (atomicité 21,
+  trame 8, plancher 6, bedeutung 4, caseTermLinks 9, termRegister 9,
+  linkCaseTerms 31, registerLots 3).
+- **`npx tsc -b --noEmit`** : 0.
+- **`checkBudgetFloor main`** : 0 (vacant) ; **`checkBudgetFloor no-such-ref`** : 2.
+- **Non relancé** : `vitest --dir src`, qui n'était pas demandé pour cette
+  passe. Son dernier passage vert date de `0845319` (557/557, avant I-7) ;
+  depuis, `src/` n'a changé que par `types.ts` (le type de `sucht`, validé par
+  `tsc`) et par trois annotations `relu` / un `sucht` dans `seedCases.ts`.
