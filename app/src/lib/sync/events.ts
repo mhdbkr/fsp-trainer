@@ -1,5 +1,7 @@
 export type ProgressEventType =
-  | 'simulation.completed' | 'srs.reviewed' | 'plan.done' | 'case.layer_reached' | 'program.configured'
+  // `plan.done` est RETIRÉ du client (déclaré, jamais émis) ; le SERVEUR l'accepte
+  // encore — des lignes existantes le portent (migration 20260930000017).
+  | 'simulation.completed' | 'srs.reviewed' | 'case.layer_reached' | 'program.configured'
   | 'term.favorited' | 'term.unfavorited'
   | 'deck.created' | 'deck.renamed' | 'deck.query_changed' | 'deck.deleted' | 'deck.term_added' | 'deck.term_removed'
   | 'srs.settings_changed'
