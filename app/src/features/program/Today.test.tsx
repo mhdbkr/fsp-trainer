@@ -52,7 +52,7 @@ describe('I-1 — l\'écran change de jour', () => {
     await vi.waitFor(() => expect(container.textContent).toMatch(/Tâche de la veille/), { timeout: 5000 });
     const label = await passerMinuit();
     await vi.waitFor(() => expect(container.textContent).toMatch(/vendredi 2 octobre/i), { timeout: 5000 });
-    expect(container.textContent).not.toMatch(/Tâche de la veille/);
+    await vi.waitFor(() => expect(container.textContent).not.toMatch(/Tâche de la veille/), { timeout: 5000 });
     expect(container.textContent).toContain(label);
   }, 20_000);
   it('programme : le jour choisi suit aujourd\'hui s\'il valait la veille', async () => {
