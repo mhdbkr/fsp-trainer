@@ -20,6 +20,7 @@ import type {
 } from '@/db/types';
 import { db } from '@/db/db';
 import { newId } from '@/lib/sync/events';
+import { fnv1a32 } from '@/lib/collections/personalTerms';
 import { counts } from '@/lib/stats';
 import { INTENSITY_FACTOR } from '@/lib/intensity';
 import { TEILE } from '@/lib/simScope';
@@ -261,6 +262,13 @@ async function loadBuildInput(config: ProgramConfig, date: string, at: number): 
   return { config, date, cases, begriffe, trainingEvents, progress: new Map(progressRows.map((p) => [p.caseId, p])), now: at };
 }
 
+/** Les ids des tâches d'un plan, dérivés de sa graine (M2) : rejouables. */
+export function idsFromSeed(seed: string): () => string {
+  const h = fnv1a32(seed).toString(16).padStart(8, '0');
+  let n = 0;
+  return () => `t-${h}-${n++}`;
+}
+
 /**
  * Matérialise le jour s'il ne l'est pas encore, et le rend.
  *
@@ -290,11 +298,11 @@ export async function ensureDayPlan(date = dayKey(clockNow())): Promise<DayPlan 
 
   const at = clockNow();
   const input = await loadBuildInput(config, date, at);
-  const tasks = buildTasks(input);
-  const plan: DayPlan = {
-    date, materializedAt: at, mode: modusOf(config), seed: `${date}:${modusOf(config)}:${input.trainingEvents.length}`,
-    targetMin: dayTargetMin(config), tasks,
-  };
+  // M2 : la graine porte l'instant de matérialisation et FONDE les ids — le
+  // plan se rejoue depuis elle, et deux appareils n'ont jamais d'ids communs.
+  const seed = `${date}:${modusOf(config)}:${input.trainingEvents.length}:${at}`;
+  const tasks = buildTasks(input, idsFromSeed(seed));
+  const plan: DayPlan = { date, materializedAt: at, mode: modusOf(config), seed, targetMin: dayTargetMin(config), tasks };
   // L'événement D'ABORD, horodaté à l'instant de matérialisation : la
   // reconstruction dérive `materializedAt` de `occurred_at` — un autre
   // horodatage changerait le plan au redémarrage (INV-9).
