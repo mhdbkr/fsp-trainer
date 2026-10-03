@@ -262,6 +262,21 @@ describe('INV-23 — un Lauf sérialisé puis restauré est structurellement ég
     expect(await ladeAktivenLauf()).toBeNull();
   });
 
+  // Re-revue 2, item 4 : chaque clause de la forme minimale a son test.
+  for (const [nom, defaut] of [
+    ['geplanteTeile: []', { geplanteTeile: [] }],
+    ['modus invalide', { modus: 'complet' }],
+    ['teile non-objet', { teile: [] }],
+    ['sekundenProTeil non-objet', { sekundenProTeil: 42 }],
+  ] as const) {
+    it(`${nom} ⇒ écarté et supprimé`, async () => {
+      const l = transition(neuerLauf(), { typ: 'demarrer', checkliste: alleModelle() });
+      await db.meta.put({ key: LAUF_AKTIV_KEY, value: { ...l, ...defaut } } as never);
+      expect(await ladeAktivenLauf()).toBeNull();
+      expect(await db.meta.get(LAUF_AKTIV_KEY)).toBeUndefined();
+    });
+  }
+
   it('un zustand inconnu est écarté', async () => {
     const l = transition(neuerLauf(), { typ: 'demarrer', checkliste: alleModelle() });
     await db.meta.put({ key: LAUF_AKTIV_KEY, value: { ...l, zustand: 'play' } } as never);
