@@ -325,3 +325,79 @@ chaque session (`8e59f58`).
 8. **FB2-L1** — évaluation objective : brainstorming sur les 6 pistes, puis spec.
 9. **FB2-Q1** — notes personnelles : interview d'abord.
 10. **FB2-J8** — réponses dédiées aux questions du cas (dernier lot, décision de la direction du 17 sept.) : 1 466 réponses patient à authorer ou dériver, contrat étendu, relecture langue + clinique.
+
+---
+
+# Série 3 — retours d'usage réel (préparation suivie, 30 sept. 2026)
+
+> Registre fidèle des constats. L'analyse, l'enrichissement et la carte des
+> chantiers : `docs/superpowers/specs/2026-09-30-serie3-analyse-et-chantiers.md`.
+> Quatre dettes d'architecture expliquent les vingt constats : le contenu n'a
+> pas de modèle de question (A), rien ne journalise ce que le candidat fait
+> (D), les parcours n'ont pas d'automate (C), l'identité n'a pas de
+> primitives (E).
+
+## A · Les questions composées — *le contenu ne se pose pas à l'oral*
+
+| Code | Prio | Constat | Réponse visée |
+|---|---|---|---|
+| **FB3-A1** | P0 | Modèles et Muster sont truffés de questions qui en empilent plusieurs dans une phrase (« Trugen Sie einen Helm? Sind Sie dabei ohnmächtig geworden? Haben Sie sich noch woanders verletzt? », « Hatten Sie dabei Kopfschmerzen, Übelkeit, Doppelbilder, Bewusstlosigkeit oder ein Zucken? »). Contre-nature à poser, impossible à mémoriser. | La question devient un **type** : une question = un « ? », relances (`nachfragen`) en arbre replié, rendu en *progressive disclosure* au lieu d'un mur de texte. Validateur `checkFrageAtomar`. |
+| **FB3-A2** | P0 | Doublon : Kopfschmerzen demandés dans les Begleitbeschwerden puis redemandés en Fachanamnese — malgré le dispositif « un symptôme, une question » (FB2-J10). Régression ou trou de couverture à qualifier. | Étendre `checkTrameSymptoms` aux énumérations internes d'une question composée : chaque item énuméré compte comme un symptôme cherché. |
+| **FB3-A3** | P0 | Rupture d'ordre clinique : « was hat Ihr Glukosesensor kurz vor dem Unfall angezeigt? » posé avant d'avoir appris que la patiente est diabétique. | `braucht` : une question déclare ce qui doit déjà avoir été demandé ; validateur `checkFrageOrdnung` sur l'ordre réel de la trame. |
+| **FB3-A4** | P0 | Gabarits non résolus : « Hand oder der Fuß », « das Bein oder der Arm » — le cas sait lequel. Faute `DIRECTION-STYLE` §2.1. | `variante` résolue par le cas ; `checkVarianteAufgeloest` interdit qu'une alternative non résolue atteigne l'écran. |
+| **FB3-A5** | P1 | En orthopédie, « strahlen die Schmerzen » et « was hilft oder verschlimmert » posés deux fois. | Même dispositif que FB3-A2. |
+| **FB3-A6** | P1 | *(enrichissement, corrigé par la mesure)* Le défaut existe côté **réponses patient** (découper les questions sans découper les réponses casserait le contrat sonde ↔ réponse) et dans les **471 questions d'Oberarzt**. En revanche `caseMuster.ts` et `seedAufklaerungen.ts` sont **mesurés propres** (0 occurrence) : ils sont déclaratifs. | Traiter question + réponse dans le même lot ; ne pas toucher aux Muster ni aux Aufklärungen. |
+| **FB3-A7** | P0 | *(mesuré)* **Ampleur** : 1 059 répliques à > 1 « ? », 322 énumérations ≥ 3 items, 75 alternatives collées — 1 399 énoncés sur 15 591 (9,0 %), mais **1 293 textes distincts** (ratio 1,08). Aucun gabarit partagé : rien ne se propage. Pire bloc : `AKTUELL_VARIANT_PROBES` 27/35 (77 %). | **Aucun découpage par script n'est possible** (préfixe d'étiquette, subordonnée portée, ellipse de composé, relance conditionnelle). Semi-auto sur les 322 énumérations via `parts` (déjà supporté). Validateur `checkQuestionAtomicity.mjs` à **budget dégressif** : on part du plancher mesuré et il échoue si le total remonte. |
+| **FB3-A8** | P0 | *(mesuré)* **270 doublons échappent** au garde-fou sur 104/130 cas, parce que `dedupeBySymptom` ne connaît que **16 symptômes** et `PROBE_SUCHT` que **48 sondes sur 229**. `kopfschmerz` n'existe pas dans le type `Symptom` — le doublon vécu était structurellement invisible. Trois paires portent 411/438 : `aktuell→fach`, `aktuell→vegetativ`, `vegetativ→fach`. | Porter le lexique de 16 à ~36 concepts et compléter `PROBE_SUCHT` : **107 des 270 doublons deviennent visibles sans un seul script nouveau**. Premier geste du chantier. |
+| **FB3-A9** | P2 | *(mesuré)* Les ruptures d'ordre sont **rares** : 3 occurrences nettes (dont le Glukosesensor, retrouvé mécaniquement) + 29 candidats à précision ~2/3. Ordre de grandeur ~30, pas ~500. | Job **informatif** en CI, jamais bloquant : le coût du faux positif dépasserait le gain. |
+
+## B · Le pont vers l'IA externe
+
+| Code | Prio | Constat | Réponse visée |
+|---|---|---|---|
+| **FB3-B1** | P1 | UI pauvre : pas de logo des IA cibles, pas d'icône sur « copier », choix d'IA non mémorisé, aucune animation. « Tu n'as pas fourni assez d'effort en motion design et en qualité des éléments visuels. » | Logos, nom révélé au survol, choix mémorisé et rappelé, copier avec icône et état de succès animé. |
+| **FB3-B2** | P0 | « Ouvrir » ne fait que rediriger vers un lien ; on veut l'**application ouverte avec le prompt déjà en place**, l'utilisateur n'ayant qu'à lancer la discussion. | Pré-remplissage **vérifié à la source** par cible ; échelle de repli honnête (pré-remplissage → sinon copie + ouverture avec confirmation visible). Aucune promesse que la cible ne tient pas. |
+| **FB3-B3** | P0 | Choix superflus : forme du prompt (anamnèse seule / examen complet) et langue — l'allemand est le défaut. Le lancement doit se faire **depuis l'intérieur de la simulation**, aux Teile Anamnese et Fallvorstellung. Le cadre « répartition des rôles » doit **fusionner** avec « autre façon de simuler », et sa sélection doit entrer dans la simulation. | Un seul cadre « avec qui tu joues » en pré-simulation ; un lanceur ancré dans le Teil. |
+| **FB3-B4** | P0 | La plupart des IA bloquent ou hallucinent : prompt trop long, mal structuré. | Amorce courte (< 900 car.), allemand, **une seule instruction de sortie** (« réponds uniquement par ta première réplique »), **aucune fuite du diagnostic**, plus de demande d'évaluation. |
+| **FB3-B5** | P2 | Aucune explication de la feature. | Courte animation en trois temps dans le cadre fusionné : on prépare le patient → l'IA l'incarne → tu mènes l'entretien. |
+| **FB3-B6** | P1 | *(enrichissement)* Rien ne capte le **retour** : la simulation faite dans l'IA externe n'existe nulle part. | Émettre un événement d'entraînement au retour ; coller la transcription pour cocher la checklist. |
+
+## C · Le parcours de simulation — entrée, sortie, transitions
+
+| Code | Prio | Constat | Réponse visée |
+|---|---|---|---|
+| **FB3-C1** | P0 | **Gros bug** : après la fin de la simulation, la démarche n'est ni claire ni fluide ; « valider la partie » **renvoie en arrière**. | Automate explicite `préparation → en cours → bilan → checklist → [Arztbrief] → enregistré` ; aucune transition vers un état antérieur ; écriture **idempotente** sur l'identifiant de partie. |
+| **FB3-C2** | P0 | La checklist de fin ne reprend pas les cases cochées **pendant** la simulation ; pas de « tout sélectionner ». | Un seul état de checklist, porté par la partie ; action « tout sélectionner ». |
+| **FB3-C3** | P1 | « Entrer — Dokumentation / Anamnese », pastilles qui se retournent, boutons à fond blanc : AI slop, l'identité Doctopus est tuée. | Surfaces de matière (verre, profondeur) issues des primitives ; le verre marque les moments, il n'est pas une texture de fond. |
+| **FB3-C4** | P1 | La page pré-simulation change selon le Teil choisi. | Une seule page, une seule anatomie ; le Teil change le contenu, jamais la structure. |
+| **FB3-C5** | P1 | Aucune transition entre les pages. | Transitions de page portées par le shell, interruptibles, `prefers-reduced-motion` respecté. |
+| **FB3-C6** | P1 | *(enrichissement)* Une partie interrompue (rafraîchissement, veille) est perdue — inacceptable sur 60 minutes. | `en cours` persisté à chaque étape ; reprise proposée. |
+
+## D · Le programme — *le pilier, et la faiblesse la plus grave*
+
+| Code | Prio | Constat | Réponse visée |
+|---|---|---|---|
+| **FB3-D1** | P0 | Marquer une tâche faite en fait apparaître **une autre à sa place** : le système propose toujours quoi faire, on avance dans le vide. | **Plan du jour figé** : matérialisé une fois, stocké ; cocher marque faite, rien ne prend la place ; ne change qu'à une action nommée « replanifier ». |
+| **FB3-D2** | P0 | Enchaînements de cas de la **même spécialité**, alors que la priorité devrait être la fréquence. | Score = fréquence × urgence × dette de Teil × fraîcheur, **sous contrainte dure de diversité** (jamais deux spécialités identiques consécutives), testée comme invariant. |
+| **FB3-D3** | P0 | « Leberzirrhose bei Alkoholabhängigkeit » reste la session du jour alors qu'il n'est pas au programme du jour. | La session du jour **est** la première tâche non faite du plan figé. Source unique. |
+| **FB3-D4** | P0 | Un cas travaillé volontairement sur **un seul Teil** est compté inachevé et remonte en **point faible**. | Progrès **par Teil**, pas en pourcentage de cas ; un point faible se décide sur la **performance**, jamais sur l'absence. Un **mode d'avancement** explicite (par Teil / cas complet / spécialité / examen blanc) adapte plan, vocabulaire et statistiques. |
+| **FB3-D5** | P0 | Un exercice ou une tâche fait **hors programme** n'est ni historisé, ni compté au jour, ni dans les statistiques. | **Journal d'entraînement append-only** : tout ce qui est fait écrit un événement ; un exercice libre peut **satisfaire une tâche du plan**. |
+| **FB3-D6** | P1 | Pas de page **historique** de ce qui a été fait. | Page dédiée depuis la barre latérale : frise inversée, filtres (Teil, spécialité, source), total honnête. Dérivée du journal. |
+| **FB3-D7** | P1 | « — Anamnese seule », « — Dokumentation seule », comptes du drill « 12/20 » collés au titre : cheap, et la lecture de la tâche en devient confuse. | **Étiquette de partie** exploitant la largeur : marque du Teil, spécialité, mesure en lecture secondaire. Anatomie définie une fois dans les primitives. |
+| **FB3-D8** | P1 | Critique demandée du module et de son aperçu d'accueil. L'utilité de la **heatmap** est mise en doute, comme le format en **jauges empilées** de « Où le plan met l'accent ». | Heatmap **retirée** (mesure l'assiduité, pas la préparation) → **frise de trajectoire** vers la date d'examen. Jauges empilées **retirées** → **champ de couverture** spécialités × Teile, interactif. Aperçu d'accueil resserré à : la tâche du jour, son explication en une ligne, l'avancement du plan figé. |
+| **FB3-D9** | P1 | *(enrichissement)* Le programme ne s'explique jamais. | Chaque proposition porte son « pourquoi aujourd'hui » en une ligne. |
+| **FB3-D10** | P2 | *(enrichissement)* Les jours manqués s'accumulent en silence. | Le rattrapage est une décision proposée, pas une dette imposée. |
+
+## E · Identité et mouvement
+
+| Code | Prio | Constat | Réponse visée |
+|---|---|---|---|
+| **FB3-E1** | P1 | Drill Fachbegriffe : pendant l'animation, **le mot suivant est visible trop tôt** ; fluidité à corriger. | État de sortie manquant dans la transition : le suivant ne peut pas entrer avant la fin de la sortie du précédent. Primitive de transition partagée. |
+| **FB3-E2** | P1 | *(enrichissement)* Chaque écran ré-invente sa surface, d'où l'hétérogénéité. | Primitives livrées **avant** les autres chantiers : surfaces, étiquette de partie, transitions de page, transitions de liste. |
+
+## F · Fiabilité — l'agent qui teste à la place de la direction
+
+| Code | Prio | Constat | Réponse visée |
+|---|---|---|---|
+| **FB3-F1** | P0 | « Il faudrait construire un agent qui teste l'app à ma place et qui simule une préparation réelle, pour un produit 100 % fiable. » | Trois couches : **horloge injectable** (prérequis : sans elle, aucun test ne peut jouer « le jour 2 »), **invariants** testés en propriété, **candidat synthétique** qui joue quatorze jours en accéléré (stratégie par Teil, jours manqués, exercice libre, interruption en pleine partie) ; par-dessus, `ux-user-advocate` pour ce qu'aucune assertion ne dit. |
+| **FB3-F2** | P0 | *(enrichissement)* Les trois bugs les plus graves de la série sont **déterministes** — ils se prouvent, ils ne se jugent pas. | Invariants opposables : cocher une tâche n'augmente jamais les tâches ouvertes du jour ; la session du jour ∈ plan du jour ; aucun cas travaillé n'est point faible par absence ; jamais deux spécialités identiques consécutives ; un exercice libre apparaît toujours dans l'historique ; la fin de partie ne revient jamais en arrière ; valider deux fois produit un seul enregistrement. |

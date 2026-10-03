@@ -1,5 +1,5 @@
 import { create } from 'zustand';
-import type { Fachbegriff, Center, AssistanceMode, MusterCity, Layer } from '@/db/types';
+import type { Fachbegriff, Center, AssistanceMode, MusterCity, Layer, SimTeil } from '@/db/types';
 
 // ============================================================================
 // État global léger (Zustand). UI-only : le contenu vit dans IndexedDB.
@@ -60,7 +60,11 @@ interface UiState {
   // Feuille « Simuler avec ton IA » — id du cas ouvert, ou null si fermée.
   // Montée une fois dans Shell.tsx, ouverte depuis 4 points d'entrée.
   externalAiCaseId: string | null;
-  openExternalAi: (caseId: string) => void;
+  /** Teil depuis lequel la feuille a ete ouverte — le choix « avec qui tu
+   *  joues » ne configure pas, il ENTRE dans la simulation au Teil voulu
+   *  (contrat `ai-bridge.md`). Absent = point d'entree hors partie. */
+  externalAiTeil: SimTeil | null;
+  openExternalAi: (caseId: string, teil?: SimTeil) => void;
   closeExternalAi: () => void;
 }
 
@@ -123,8 +127,9 @@ export const useUi = create<UiState>((set, get) => ({
   setLayer: (l) => { localStorage.setItem('fsp-layer', String(l)); set({ layer: l }); },
 
   externalAiCaseId: null,
-  openExternalAi: (caseId) => set({ externalAiCaseId: caseId }),
-  closeExternalAi: () => set({ externalAiCaseId: null }),
+  externalAiTeil: null,
+  openExternalAi: (caseId, teil) => set({ externalAiCaseId: caseId, externalAiTeil: teil ?? null }),
+  closeExternalAi: () => set({ externalAiCaseId: null, externalAiTeil: null }),
 }));
 
 // Applique le thème au chargement du module.

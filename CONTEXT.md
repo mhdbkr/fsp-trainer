@@ -65,9 +65,47 @@ d'explorer le code et emploient **ce** vocabulaire, pas ses synonymes.
   `guide-probe`) ; devient Supabase Realtime en mode en ligne.
 - **IA externe** — simulation jouée dans l'app d'IA du candidat (ChatGPT,
   Claude, Gemini, Perplexity, Grok) avec un prompt généré depuis le
-  Rollenskript (`lib/externalAi/`). **Portée** : anamnèse seule / examen
-  complet / + feedback. La séance ne compte qu'après **auto-évaluation** au
-  retour (`Simulation.mode: 'external-ai'`, `externalTarget`).
+  Rollenskript (`lib/externalAi/`). Le prompt est **à deux temps** : *amorce*
+  (≤ 900 car., allemand, une seule instruction de sortie) puis *fiche*. Deux
+  **modes de rôle** : `patient` (jamais le diagnostic) et `oberarzt` (le
+  diagnostic, par nécessité). La portée est le **Teil d'ancrage**
+  (`anamnese` | `fallvorstellung`) — la notion de `Scope` disparaît. La séance
+  est **auto-déclarée** au retour et écrit un `TrainingEvent` marqué
+  `selbstbewertet` (`docs/contracts/ai-bridge.md`).
+- **Lauf** — une partie de simulation, objet unique à identifiant stable, qui
+  porte son automate (`vorbereitung → laufend → bilanz → checkliste →
+  [arztbrief] → gespeichert`). La checklist, les Teile joués, le minutage et le
+  score en sont des **champs**, jamais des états parallèles. Aucune transition
+  ne va vers un état antérieur ; « revenir » est une action nommée
+  (`docs/contracts/simulation-run.md`).
+- **Portée déclarée / portée jouée** — `geplanteTeile` est l'intention,
+  `teileGespielt` est le fait. Les statistiques classent sur le fait.
+
+## Entraînement (programme, journal, contenu)
+
+- **TrainingEvent** — le journal d'entraînement, **append-only**. Tout exercice
+  écrit exactement un événement, y compris hors plan. Statistiques, historique,
+  indice de préparation et sélection en **dérivent tous**
+  (`docs/contracts/training-journal.md`).
+- **TaskInstance / DayPlan** — le **plan du jour figé** : matérialisé une fois à
+  la première ouverture du jour, stocké, jamais recalculé au rendu. Cocher une
+  tâche pose `doneAt` ; rien d'autre ne bouge. **Replanifier** est une action
+  nommée. Remplace `ProgramBlock`, `ProgramDay`, `ExtraTask`, `db.plan`.
+- **Session du jour** — la première tâche non faite du plan figé. Source unique.
+- **État par Teil** (`vierge | fragile | acquis | solide`) — un cas n'a plus de
+  pourcentage. `vierge` = « pas encore travaillé », information neutre.
+- **Point faible** — se décide **sur la performance, jamais sur l'absence** :
+  seul `fragile` en est un.
+- **Dette de Teil** — ce qui reste à faire ; elle ordonne le travail. Elle ne se
+  confond **jamais** avec la faiblesse, qui nomme un défaut.
+- **Mode d'avancement** (`teil-first | cas-complet | specialite | examen-blanc`)
+  — la stratégie du candidat, demandée plutôt que devinée.
+- **Frage** — la question atomique : un seul « ? », un chapitre, ses relances
+  (`nachfragen`) et ses sondes couvertes (`deckt`). Une question composée est un
+  arbre aplati (`docs/contracts/frage-atomique.md`).
+- **Gabarit non résolu** — une alternative dépendante du cas laissée dans le
+  texte (« die Hand oder der Fuß ») alors que le cas sait laquelle. Interdit par
+  la CI. À distinguer de l'**énumération d'irradiation**, qui est légitime.
 
 ## Doctopus (SaaS)
 
@@ -102,3 +140,9 @@ d'explorer le code et emploient **ce** vocabulaire, pas ses synonymes.
 
 - « Test » pour une simulation ; « quiz » pour un drill ; « patient IA » pour
   le simulant humain.
+- « Maîtrise du cas », « confiance », « % du cas » — un cas a un **état par
+  Teil**, pas un pourcentage (ADR-0017).
+- « En retard », « assiduité » — un jour non ouvert n'existe pas ; rien ne
+  s'accumule en silence.
+- « Suggestion du jour » pour la tâche du plan figé : c'est une **tâche**, pas
+  une suggestion. Une suggestion se recalcule ; une tâche, non.

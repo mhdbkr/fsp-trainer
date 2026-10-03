@@ -25,7 +25,7 @@ export function PatientScreen() {
 
   return (
     <div className="min-h-full bg-slate-50 dark:bg-slate-950">
-      <header className="sticky top-0 z-10 border-b border-slate-200 bg-white/90 px-4 py-3 backdrop-blur dark:border-slate-800 dark:bg-slate-900/90">
+      <header className="glass glass-edge sticky top-0 z-10 px-4 py-3">
         <div className="mx-auto max-w-2xl">
           <div className="flex items-center gap-2">
             <Icon name="mask" className="h-6 w-6 text-brand-600 dark:text-brand-300" />
@@ -43,8 +43,8 @@ export function PatientScreen() {
           </div>
           {c && (
             <div className="mt-2 flex rounded-lg bg-slate-100 p-0.5 text-sm dark:bg-slate-800">
-              <button onClick={() => setTab('patient')} className={`flex flex-1 items-center justify-center gap-1.5 rounded-md py-1.5 font-medium ${tab === 'patient' ? 'bg-white shadow-sm dark:bg-slate-700' : 'text-slate-500'}`}><Icon name="user" className="h-4 w-4" />Patient · Anamnèse</button>
-              <button onClick={() => setTab('examinateur')} className={`flex flex-1 items-center justify-center gap-1.5 rounded-md py-1.5 font-medium ${tab === 'examinateur' ? 'bg-white shadow-sm dark:bg-slate-700' : 'text-slate-500'}`}><Icon name="stethoscope" className="h-4 w-4" />Médecin · Présentation</button>
+              <button onClick={() => setTab('patient')} className={`flex flex-1 items-center justify-center gap-1.5 rounded-md py-1.5 font-medium ${tab === 'patient' ? 'bg-white/70 shadow-[inset_0_1px_0_0_rgb(255_255_255/0.7)] dark:shadow-[inset_0_1px_0_0_rgb(255_255_255/0.10)] backdrop-blur-sm dark:bg-ink-700/70' : 'text-slate-500'}`}><Icon name="user" className="h-4 w-4" />Patient · Anamnèse</button>
+              <button onClick={() => setTab('examinateur')} className={`flex flex-1 items-center justify-center gap-1.5 rounded-md py-1.5 font-medium ${tab === 'examinateur' ? 'bg-white/70 shadow-[inset_0_1px_0_0_rgb(255_255_255/0.7)] dark:shadow-[inset_0_1px_0_0_rgb(255_255_255/0.10)] backdrop-blur-sm dark:bg-ink-700/70' : 'text-slate-500'}`}><Icon name="stethoscope" className="h-4 w-4" />Médecin · Présentation</button>
             </div>
           )}
         </div>

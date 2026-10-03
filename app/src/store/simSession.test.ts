@@ -1,5 +1,13 @@
-import { describe, it, expect, beforeEach } from 'vitest';
-import { useSimSession, SIM_SESSION_STORAGE_KEY, type SessionSnapshot } from './simSession';
+import { describe, it, expect, beforeEach, vi } from 'vitest';
+import { useSimSession, hydriereAusLauf, snapshotAusLauf, SIM_SESSION_STORAGE_KEY, type SessionSnapshot } from './simSession';
+import { db } from '@/db/db';
+import type { Case } from '@/db/types';
+import { erstelleLauf, transition } from '@/lib/lauf/automat';
+import { LAUF_AKTIV_KEY, speichereAktivenLauf } from '@/lib/lauf/speichern';
+import { checklistFor } from '@/lib/checklists';
+
+vi.mock('@/lib/sync/queue', () => ({ syncQueue: { push: vi.fn(async () => ({})) } }));
+vi.mock('@/lib/supabase', () => ({ supabase: {}, callFn: vi.fn() }));
 
 // Session en pause persistée en sessionStorage (revue UX F2b : un reload
 // pendant « Drill ces termes » perdait silencieusement la simulation).
@@ -60,5 +68,86 @@ describe('simSession — persistance sessionStorage', () => {
     expect(() => useSimSession.persist.rehydrate()).not.toThrow();
     expect(useSimSession.getState().snapshot).toBeNull();
     expect(useSimSession.getState().minimized).toBe(false);
+  });
+});
+
+// ============================================================================
+// La barre « Reprendre » lit `lauf.aktiv` (Dexie), la source de la reprise
+// (contrat §3.1) — plus seulement `sessionStorage`, qui meurt avec l'onglet :
+// après fermeture de l'onglet, rien ne proposait la reprise.
+// ============================================================================
+async function laufEnVol(gespielt: number) {
+  await db.cases.put({ id: 'c1', name: 'Ulcus' } as unknown as Case);
+  let l = erstelleLauf({ caseId: 'c1', caseName: 'Ulcus', profileId: 'p1', geplanteTeile: ['anamnese'], assistance: 'assiste', layer: 1 });
+  l = transition(l, { typ: 'demarrer', checkliste: checklistFor('anamnese') });
+  if (gespielt) l = transition(l, { typ: 'terminerPartie', ergebnis: { done: true, durationSec: 60, checklist: [], feeling: 50, contentPct: 50, officialPct: 50 } });
+  await speichereAktivenLauf(l);
+  return l;
+}
+
+describe('simSession — la barre « Reprendre » lit lauf.aktiv', () => {
+  beforeEach(async () => {
+    sessionStorage.clear();
+    useSimSession.setState({ snapshot: null, minimized: false });
+    await db.meta.clear(); await db.simulations.clear();
+  });
+
+  it('onglet rouvert (sessionStorage vide) : le Lauf en vol est proposé, mode compris', async () => {
+    await laufEnVol(0);
+    await hydriereAusLauf();
+    const s = useSimSession.getState();
+    expect(s.snapshot?.caseId).toBe('c1');
+    expect(s.snapshot?.teil).toBe('anamnese');
+    expect(s.minimized).toBe(true);
+  });
+
+  it('snapshot en pause sans Lauf derrière : fantôme effacé', async () => {
+    useSimSession.getState().sync(draft);
+    useSimSession.getState().minimize();
+    await hydriereAusLauf();
+    expect(useSimSession.getState().snapshot).toBeNull();
+  });
+
+  it('✕ (end) sur un Lauf avec une partie jouée : il est ÉCRIT, pas jeté', async () => {
+    const l = await laufEnVol(1);
+    await hydriereAusLauf();
+    await useSimSession.getState().end();
+    expect(await db.simulations.get(l.id)).toBeDefined();
+    expect(await db.meta.get(LAUF_AKTIV_KEY)).toBeUndefined();
+  });
+
+  it('✕ (end) sur un Lauf sans partie jouée : supprimé, rien d’écrit', async () => {
+    await laufEnVol(0);
+    await useSimSession.getState().end();
+    expect(await db.simulations.count()).toBe(0);
+    expect(await db.meta.get(LAUF_AKTIV_KEY)).toBeUndefined();
+  });
+});
+
+describe('Re-revue IMPORTANT — le ✕ de la barre ne lève jamais', () => {
+  it('Lauf sur un cas disparu : end() résout, lauf.aktiv est nettoyé', async () => {
+    await db.meta.clear(); await db.cases.clear();
+    let l = erstelleLauf({ caseId: 'ghost', caseName: 'Ghost', profileId: 'p1', geplanteTeile: ['anamnese'], assistance: 'assiste', layer: 1 });
+    l = transition(l, { typ: 'demarrer', checkliste: checklistFor('anamnese') });
+    l = transition(l, { typ: 'terminerPartie', ergebnis: { done: true, durationSec: 60, checklist: [], feeling: 50, contentPct: 50, officialPct: 50 } });
+    await speichereAktivenLauf(l);
+    const spy = vi.spyOn(db, 'transaction').mockRejectedValueOnce(new Error('QuotaExceeded') as never);
+    await expect(useSimSession.getState().end()).resolves.toBeUndefined();
+    spy.mockRestore();
+    expect(await db.meta.get(LAUF_AKTIV_KEY)).toBeUndefined();
+  });
+});
+
+describe('mineur 4 — « x/3 parties » ne compte pas l’Aufklärung', () => {
+  it('snapshotAusLauf : results ne porte que les trois Teile', () => {
+    const r = { done: true, durationSec: 60, checklist: [], feeling: 50, contentPct: 50, officialPct: 50 };
+    let l = erstelleLauf({ caseId: 'c1', caseName: 'X', profileId: 'p1', geplanteTeile: ['anamnese', 'dokumentation', 'fallvorstellung'], assistance: 'assiste', layer: 1 });
+    l = transition(l, { typ: 'demarrer', checkliste: checklistFor('anamnese') });
+    l = transition(l, { typ: 'aufklaerungOeffnen', checkliste: checklistFor('aufklaerung') });
+    l = transition(l, { typ: 'terminerPartie', ergebnis: r });
+    l = transition(l, { typ: 'partieSuivante' });
+    l = transition(l, { typ: 'terminerPartie', ergebnis: r });
+    expect(l.teileGespielt).toEqual(['aufklaerung', 'anamnese']);
+    expect(Object.keys(snapshotAusLauf(l).results)).toEqual(['anamnese']);
   });
 });
