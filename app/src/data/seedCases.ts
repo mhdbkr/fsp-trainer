@@ -45639,6 +45639,7 @@ export function seedCases(): Case[] {
           'keine Immunsuppression, keine Kortisontherapie, keine Tumorerkrankung, kein Diabetes mellitus',
           'keine Blutverdünner, keine Schwangerschaft möglich (Menopause seit fünf Jahren)',
           'Selbsttest auf Corona an Tag 3 negativ (nur kurz vorne in der Nase abgestrichen), danach kein weiterer Test',
+          'dieses Herzrasen kennt sie von früher nicht — aus der Burnout-Zeit kennt sie Angstgefühle, grenzt das jetzige aber selbst davon ab ("etwas anderes")',
         ],
         vorerkrankungen: [
           'Gicht: erster Anfall vor drei Jahren am rechten Großzehengrundgelenk, seitdem Allopurinol, seit zwei Jahren kein Anfall mehr',
@@ -45899,7 +45900,7 @@ export function seedCases(): Case[] {
         { frage: 'Haben Sie Schmerzen in der Brust beim Atmen oder ein geschwollenes, schmerzendes Bein?', kapitel: 'aktuell' },
         { frage: 'Nehmen Sie Medikamente, die das Immunsystem unterdrücken, Kortison oder Blutverdünner? Gibt es eine Zuckerkrankheit, ein Herz- oder Lungenleiden?', kapitel: 'vorerkrankungen' },
         { frage: 'Gibt es zu Hause Personen, für die eine Ansteckung besonders gefährlich wäre?', kapitel: 'familie-sozial' },
-        { frage: 'Wie war das mit dem Burnout — sind Sie noch in Behandlung, und kennen Sie dieses Herzrasen schon von früher?', kapitel: 'aktuell' },
+        { frage: 'Kennen Sie dieses Herzrasen schon von früher?', kapitel: 'aktuell' },
       ],
       examinerQuestions: [
         'Frau Kollegin, stellen Sie uns bitte die Patientin vor. Wie lautet Ihre Verdachtsdiagnose, und was spricht dafür?',
