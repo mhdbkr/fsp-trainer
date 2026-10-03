@@ -1,4 +1,4 @@
-import type { Case, LeitsymptomKategorie, Specialty } from '@/db/types';
+import type { Case, LeitsymptomKategorie, PatientSheet, Specialty } from '@/db/types';
 import type { Phrase } from './phrases';
 import { phraseProbes, type PhraseVariant } from './phrases';
 import { cqKapitel, cqText } from '@/lib/caseQuestions';
@@ -1095,7 +1095,11 @@ export const FACHANAMNESEN: FachanamneseGuide[] = [
       },
       { text: 'Haben Sie Sehstörungen bemerkt — Doppelbilder, verschwommenes Sehen, einen Schleier oder Schmerzen bei Augenbewegungen?', probe: 'fach-neuro-sehen' },
       { text: 'Haben Sie Kribbeln, Taubheitsgefühl oder ein pelziges Gefühl? Wo genau, und seit wann?', probe: 'fach-neuro-sensibilitaet' },
-      { text: 'Ist ein Arm oder Bein schwächer geworden? Lassen Sie Dinge fallen oder bleiben Sie mit dem Fuß hängen?', probe: 'fach-neuro-kraft' },
+      {
+        text: 'Haben Sie an Armen oder Beinen eine Schwäche bemerkt?',
+        probe: 'fach-neuro-kraft',
+        followUp: ['Lassen Sie Dinge fallen, oder bleiben Sie mit dem Fuß hängen?'],
+      },
       { text: 'Haben Sie Schwindel, Gangunsicherheit oder das Gefühl zu schwanken? Sind Sie schon gestürzt?', probe: 'fach-neuro-koordination' },
       { text: 'Haben Sie Schwierigkeiten beim Sprechen, beim Finden von Wörtern oder beim Schlucken?', probe: 'fach-neuro-sprache' },
       { text: 'Haben Sie Probleme mit der Blase oder dem Stuhlgang — plötzlichen Drang, Einnässen oder Entleerungsstörungen?', probe: 'fach-neuro-blase' },
@@ -1126,31 +1130,34 @@ export const FACHANAMNESEN: FachanamneseGuide[] = [
     ['Sturz', 'Bewegung', 'Taubheit', 'kälter', 'Ausstrahlung'],
     [
       {
-        text: 'Gab es einen Unfall oder Sturz? Wie genau ist es passiert, und konnten Sie danach noch auftreten oder das Gelenk bewegen?',
+        text: 'Wie ist es passiert?',
         probe: 'fach-ortho-mechanismus',
-        alts: ['Wie ist es passiert — sind Sie gestürzt? Auf welche Seite, und worauf (Erde, Sand, Asphalt, Zement)?'],
-        followUp: ['Trugen Sie einen Helm? Sind Sie dabei ohnmächtig geworden? Haben Sie sich noch woanders verletzt?'],
+        alts: ['Was genau ist passiert?'],
+        followUp: ['Sind Sie dabei ohnmächtig geworden?', 'Haben Sie sich dabei noch woanders verletzt?'],
       },
       {
         text: 'Sind die Schmerzen von Bewegung und Belastung abhängig, oder treten sie auch in Ruhe und nachts auf?',
         probe: 'fach-ortho-bewegung',
       },
+      // Le guide et la question canonique (affichée telle quelle au simulant,
+      // Rollenskript) ne nomment aucun membre ; la trame jouée dit le membre
+      // du cas (FACH_RULES), jamais « Arm oder Bein ».
       {
-        text: 'Strahlen die Schmerzen aus — zum Beispiel ins Bein oder in den Arm? Bis wohin genau?',
+        text: 'Strahlen die Schmerzen aus — und wenn ja, bis wohin genau?',
         probe: 'fach-ortho-ausstrahlung',
       },
       {
-        text: 'Haben Sie Kribbeln, ein Taubheitsgefühl oder Kraftverlust in Arm oder Bein bemerkt?',
+        text: 'Haben Sie Kribbeln, ein Taubheitsgefühl oder weniger Kraft bemerkt?',
         probe: 'fach-ortho-sensomotorik',
         label: 'Sensibilität/Motorik',
       },
       {
-        text: 'Haben Sie das Gefühl, dass die Hand oder der Fuß kälter, blasser oder bläulich geworden ist?',
+        text: 'Ist die betroffene Stelle kälter, blasser oder bläulich geworden?',
         probe: 'fach-ortho-durchblutung',
         label: 'Durchblutung',
       },
       {
-        text: 'Haben Sie Probleme beim Wasserlassen oder Stuhlgang oder ein Taubheitsgefühl im Reithosen- und Genitalbereich?',
+        text: 'Haben Sie Probleme beim Wasserlassen oder Stuhlgang, oder ist die Haut zwischen den Beinen taub?',
         probe: 'fach-ortho-cauda',
         label: 'Notfall',
       },
@@ -1159,7 +1166,7 @@ export const FACHANAMNESEN: FachanamneseGuide[] = [
         probe: 'fach-ortho-schwellung',
       },
       {
-        text: 'Können Sie das Bein oder den Arm noch belasten? Wie weit können Sie gehen, und was hilft oder verschlimmert?',
+        text: 'Können Sie die betroffene Seite noch belasten?',
         probe: 'fach-ortho-belastung',
       },
       {
@@ -1167,7 +1174,7 @@ export const FACHANAMNESEN: FachanamneseGuide[] = [
         probe: 'fach-ortho-vorgeschichte',
       },
     ],
-    'Toujours vérifier le trio « Durchblutung – Motorik – Sensibilität » d\'un membre traumatisé (les 3 questions étiquetées). Devant une lombalgie : le syndrome de la queue de cheval (troubles sphinctériens, anesthésie en selle) est LA question qui fait basculer vers l\'urgence chirurgicale.'),
+    'Toujours vérifier le trio « Durchblutung – Motorik – Sensibilität » d\'un membre traumatisé (les 3 questions étiquetées) — en nommant CE membre : la main ou le pied, jamais les deux. Accident de vélo ou de la route : demander le casque (« Trugen Sie einen Helm? »). Devant une lombalgie : le syndrome de la queue de cheval (troubles sphinctériens, anesthésie en selle) est LA question qui fait basculer vers l\'urgence chirurgicale.'),
   F('Rheumatologie', 'bone', 'rheuma', 'Fachanamnese Rhumatologie',
     ['Gelenke', 'Morgensteifigkeit', 'geschwollen', 'gerötet', 'anfallsartig'],
     [
@@ -1193,9 +1200,10 @@ export const FACHANAMNESEN: FachanamneseGuide[] = [
         probe: 'fach-rheuma-verlauf',
       },
       {
-        text: 'Gab es einen Auslöser — ein üppiges Essen mit Fleisch, Alkohol (besonders Bier), Fasten oder eine neue Tablette, etwa eine Wassertablette?',
+        text: 'Ist Ihnen etwas aufgefallen, das die Beschwerden ausgelöst haben könnte — etwa ein Infekt, ein üppiges Essen oder ein neues Medikament?',
         probe: 'fach-rheuma-ausloeser',
-        label: 'Gicht-Trigger',
+        // La goutte en relance : elle ne se pose qu'après un repas ou un médicament.
+        followUp: ['Falls ein üppiges Essen: Gab es viel Fleisch oder Alkohol, besonders Bier?', 'Falls ein neues Medikament: Ist es eine Wassertablette?'],
       },
       {
         text: 'Haben Sie Hautveränderungen bemerkt — Schuppenflechte, Knötchen unter der Haut oder an den Ohren?',
@@ -1207,8 +1215,9 @@ export const FACHANAMNESEN: FachanamneseGuide[] = [
         alts: ['Gibt es Begleitsymptome wie Hautausschlag, Augenentzündung oder Fieber?'],
       },
       {
-        text: 'Hatten Sie so einen Anfall schon einmal? Sind Nierensteine oder rheumatische Erkrankungen in der Familie bekannt?',
+        text: 'Hatten Sie solche Gelenkbeschwerden schon einmal?',
         probe: 'fach-rheuma-vorgeschichte',
+        followUp: ['Hatten Sie schon einmal einen Gichtanfall oder Nierensteine?', 'Gibt es in Ihrer Familie Rheuma oder Gicht?'],
       },
     ],
     'Deux questions décident presque tout : la DURÉE de la raideur matinale (> 30–60 min = inflammatoire) et le MODE d\'installation (brutal, monoarticulaire, nocturne = goutte / arthrite septique ; lent et symétrique = polyarthrite rhumatoïde). Le déclencheur alimentaire ou diurétique oriente vers la goutte.'),
@@ -1481,6 +1490,9 @@ export const FACHANAMNESEN: FachanamneseGuide[] = [
         text: 'Hatten Sie einen Zeckenstich oder einen Insektenstich bemerkt? Waren Sie im Wald, im hohen Gras oder im Garten?',
         probe: 'fach-infekt-zecke',
         label: 'Exposition',
+        // Critère de la méningite en zone à risque ; ne vit que là où la tique
+        // est posée (fachSkip la retire aux autres trames).
+        followUp: ['Falls ja: Sind Sie gegen FSME geimpft?'],
       },
       {
         text: 'Haben Sie eine Hautveränderung oder Rötung bemerkt? Hat sie sich ausgebreitet, zum Beispiel ringförmig?',
@@ -1507,11 +1519,11 @@ export const FACHANAMNESEN: FachanamneseGuide[] = [
         followUp: ['Arbeiten Sie mit vielen Menschen? Haben Sie ungewöhnliche Lebensmittel gegessen — rohe Milch, rohes Fleisch?'],
       },
       {
-        text: 'Wie ist Ihr Impfstatus, insbesondere gegen FSME und Tetanus?',
+        text: 'Sind Ihre Impfungen auf dem neuesten Stand?',
         probe: 'fach-infekt-impfung',
       },
     ],
-    'Voyage, contage, piqûre de tique et vaccination orientent le diagnostic ET déclenchent l\'isolement. Érythème migrant + arthralgies migratrices + paralysie faciale = borréliose jusqu\'à preuve du contraire. Maladie à déclaration : écrire « Gesundheitsamt wurde informiert » dans l\'Arztbrief.'),
+    'Voyage, contage, piqûre de tique et vaccination orientent le diagnostic ET déclenchent l\'isolement. Le vaccin qui compte dépend du cas : FSME après une tique, tétanos devant une plaie, hépatites et typhus avant un voyage. Érythème migrant + arthralgies migratrices + paralysie faciale = borréliose jusqu\'à preuve du contraire. Maladie à déclaration : écrire « Gesundheitsamt wurde informiert » dans l\'Arztbrief.'),
   F('Dermatologie', 'skin', 'derma', 'Fachanamnese Dermatologie',
     ['Hautausschlag', 'Juckreiz', 'Bläschen', 'Muttermal', 'verändert'],
     [
@@ -1680,8 +1692,54 @@ function caseQuestionsByKapitel(c: Case): Record<string, PhraseVariant[]> {
 // homme ou après 55 ans, contraception à une patiente de 76 ans, Erektion à
 // une femme. Règles explicites par sonde — retirer ou reformuler, jamais
 // laisser passer (FB-A1 : « adapter, pas soustraire à l'aveugle »).
-type Who = { geschlecht?: 'm' | 'w'; age: number };
-const FACH_RULES: Array<{ probe: string; applies?: (w: Who) => boolean; text?: (w: Who) => string | undefined }> = [
+// Série 3, L0 : la NATURE du motif pilote aussi la Fach — catégorie, siège de
+// la douleur, et le motif déclaré (`motiv`, que le texte ne permet pas de
+// déduire : « ohne Sturz » piège toute regex). Une règle retire la sonde
+// (`applies`) ou la reformule (`text` : chaîne, ou relances/alternatives) ;
+// le résidu propre à un cas passe par `fachSkip`.
+type Who = { geschlecht?: 'm' | 'w'; age: number; kategorie: LeitsymptomKategorie; schmerzOrt?: string; motiv?: PatientSheet['motiv'] };
+type FachPatch = string | Pick<PhraseVariant, 'text' | 'alts' | 'followUp'>;
+const ARM = new Set(['obere', 'hws']), RUMPF = new Set(['lws', 'bws']), RACHIS = new Set(['lws', 'bws', 'hws']);
+const region = (w: Who) => w.motiv?.region;
+// « Herz » en début de mot seulement : « Schmerz » contient « herz ».
+const thorakal = (w: Who) => region(w) === 'thorax' || /brust|sternal|thora[kx]|präkordial|(?<![a-zäöüß])herz/i.test(w.schmerzOrt ?? '');
+// Une Fach Angio pour une aorte : ni claudication, ni décubitus, ni plaie de jambe —
+// mais la malperfusion d'un pied reste la question (dissection : « der linke
+// Fuß fühlt sich kälter an »).
+const jambe = (w: Who) => !w.motiv || region(w) === 'untere';
+const FACH_RULES: Array<{ probe: string; applies?: (w: Who) => boolean; text?: (w: Who) => FachPatch | undefined }> = [
+  // Ortho : sans traumatisme, on écarte l'accident — sans le récit de chute.
+  // Le casque n'est d'aucun cas (football, chute du fauteuil) : il vit dans le conseil.
+  { probe: 'fach-ortho-mechanismus', text: (w) => (w.motiv && !w.motiv.trauma
+    ? { text: 'Hatten Sie in letzter Zeit einen Unfall oder einen Sturz?', alts: undefined, followUp: undefined } : undefined) },
+  // Rachis lombaire : la question reste ouverte — c'est la réponse (au-dessus
+  // ou au-dessous du genou) qui départage, pas la question qui la suggère.
+  { probe: 'fach-ortho-ausstrahlung', text: (w) => (ARM.has(region(w) ?? '') ? 'Strahlen die Schmerzen in den Arm aus — und wenn ja, bis wohin?'
+    : region(w) === 'lws' ? 'Ziehen die Schmerzen bis ins Bein hinunter — und wenn ja, wie weit?'
+      : region(w) === 'untere' ? 'Strahlen die Schmerzen ins Bein aus — und wenn ja, bis wohin?'
+        : region(w) === 'bws' ? 'Strahlen die Schmerzen gürtelförmig um den Brustkorb aus?' : undefined) },
+  { probe: 'fach-ortho-sensomotorik', text: (w) => (ARM.has(region(w) ?? '') ? 'Haben Sie im Arm Kribbeln, ein Taubheitsgefühl oder weniger Kraft bemerkt?'
+    : region(w) === 'untere' ? 'Haben Sie im Bein Kribbeln, ein Taubheitsgefühl oder weniger Kraft bemerkt?' : undefined) },
+  // Perfusion d'un membre : pas pour le rachis dorsal ou cervical ; le rachis
+  // lombaire la garde (claudication vasculaire ou spinale à départager).
+  { probe: 'fach-ortho-durchblutung', applies: (w) => region(w) !== 'bws' && region(w) !== 'hws',
+    text: (w) => (region(w) === 'obere' ? 'Ist die Hand kälter, blasser oder bläulich geworden?'
+      : region(w) === 'untere' || region(w) === 'lws' ? 'Ist der Fuß kälter, blasser oder bläulich geworden?' : undefined) },
+  { probe: 'fach-ortho-cauda', applies: (w) => !w.motiv || RACHIS.has(region(w)!) },
+  { probe: 'fach-ortho-schwellung', applies: (w) => !RACHIS.has(region(w) ?? '') },
+  { probe: 'fach-ortho-belastung', text: (w) => (ARM.has(region(w) ?? '') ? 'Was können Sie mit der Hand und dem Arm im Alltag noch machen?'
+    : RUMPF.has(region(w) ?? '') ? 'Wie lange können Sie sitzen, stehen oder gehen, bevor die Schmerzen zu stark werden?'
+      : region(w) === 'untere' ? 'Wie weit können Sie noch gehen?' : undefined) },
+  // Kardio : Nitrospray et irradiation angineuse supposent une douleur thoracique.
+  { probe: 'fach-kardio-nitro', applies: thorakal },
+  { probe: 'fach-kardio-ausstrahlung', applies: thorakal },
+  // Signes autonomes (céphalée en grappe) : une douleur de la tête, rien d'autre.
+  { probe: 'fach-neuro-autonom', applies: (w) => w.kategorie === 'schmerz' && /kopf|schläfe|stirn/i.test(w.schmerzOrt ?? '') },
+  { probe: 'fach-gefaess-gehstrecke', applies: jambe },
+  { probe: 'fach-gefaess-ruheschmerz', applies: jambe },
+  { probe: 'fach-gefaess-wunde', text: (w) => (jambe(w) ? undefined : 'Ist ein Fuß kalt, blass oder bläulich?') },
+  // Le jet urinaire est une question de prostate.
+  { probe: 'fach-uro-strahl', applies: (w) => w.geschlecht !== 'w' },
   { probe: 'fach-gefaess-hormone', applies: (w) => w.geschlecht === 'w' && w.age <= FERTILE_UNTIL },
   { probe: 'fach-uro-funktion', text: (w) => (w.geschlecht === 'w' ? 'Haben Sie Schmerzen oder Blutungen beim oder nach dem Geschlechtsverkehr?' : undefined) },
   { probe: 'fach-uro-vorgeschichte', text: (w) => (w.geschlecht === 'w' ? 'Hatten Sie schon einmal einen Harnwegsinfekt, Nierensteine oder eine Blasenentzündung, die immer wiederkam?' : undefined) },
@@ -1698,17 +1756,20 @@ function adaptFach(questions: Phrase[], who: Who): Phrase[] {
     if (!r) return [q];
     if (r.applies && !r.applies(who)) return [];
     const t = r.text?.(who);
-    return [t && typeof q !== 'string' ? { ...q, text: t } : q];
+    return [t && typeof q !== 'string' ? { ...q, ...(typeof t === 'string' ? { text: t } : t) } : q];
   });
 }
 
-/** La Fachanamnese du cas AVANT modulation par symptôme (sexe, âge, questions
- *  « fach » du cas). */
+/** La Fachanamnese du cas AVANT modulation par symptôme (sexe, âge, nature du
+ *  motif, `fachSkip`, questions « fach » du cas). */
 function fachChapterRaw(c: Case): FachanamneseGuide | undefined {
   const f = fachChapterForSimulation(c.fachanamnese ?? c.specialty);
   if (!f) return undefined;
-  const who: Who = { geschlecht: c.patientSheet.personalia.geschlecht, age: c.patientSheet.personalia.age };
-  const questions = [...adaptFach(f.chapter.questions, who), ...caseQuestionsForFach(c)];
+  const s = c.patientSheet;
+  const who: Who = { geschlecht: s.personalia.geschlecht, age: s.personalia.age, kategorie: leitsymptomOf(c), schmerzOrt: s.schmerz?.ort, motiv: s.motiv };
+  const skip = new Set(s.fachSkip ?? []);
+  const kept = adaptFach(f.chapter.questions, who).filter((q) => !phraseProbes(q).some((p) => skip.has(p)));
+  const questions = [...kept, ...caseQuestionsForFach(c)];
   return { ...f, chapter: { ...f.chapter, questions } };
 }
 

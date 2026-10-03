@@ -4641,6 +4641,7 @@ export function seedCases(): Case[] {
       frequency: 12,
       difficulty: 2,
       patientSheet: {
+        motiv: { trauma: true, region: 'untere' },
         personalia: {
           name: 'Tobias Reinhardt',
           age: 34,
@@ -4972,6 +4973,8 @@ export function seedCases(): Case[] {
       frequency: 14,
       difficulty: 2,
       patientSheet: {
+        motiv: { trauma: false, region: 'lws' },
+        fachSkip: ['fach-ortho-durchblutung'],
         personalia: {
           name: 'Reinhold Ackermann',
           age: 52,
@@ -5090,7 +5093,7 @@ export function seedCases(): Case[] {
           'fam-beruf': 'Ich bin Lagerarbeiter, das ist körperlich anstrengend, den ganzen Tag heben und tragen.',
           'fam-wohnen': 'Ich wohne mit meiner Frau in einer Wohnung im Erdgeschoss, das ist im Moment ganz praktisch ohne Treppen.',
           'fam-haustiere': 'Nein, Haustiere haben wir keine.',
-          'fach-ortho-mechanismus': 'Es ist passiert, als ich bei der Arbeit eine schwere Kiste gehoben habe — gebückt und dabei verdreht. Da hat es sofort ins Kreuz und ins Bein geschossen.',
+          'fach-ortho-mechanismus': 'Nein, kein Unfall — es ist passiert, als ich bei der Arbeit eine schwere Kiste gehoben habe, gebückt und dabei verdreht. Da hat es sofort ins Kreuz und ins Bein geschossen.',
           'fach-ortho-bewegung': 'Die Schmerzen sind ganz klar von der Bewegung abhängig. Beim Sitzen, Bücken und Gehen wird es schlimmer, im Liegen etwas besser; in völliger Ruhe habe ich weniger.',
           'fach-ortho-ausstrahlung': 'Ja, es strahlt vom Kreuz über das Gesäß und die Außenseite des Oberschenkels und Unterschenkels bis in die Großzehe rechts aus.',
           'fach-ortho-sensomotorik': 'Am rechten Fußrücken und an der Großzehe habe ich ein Kribbeln und ein Taubheitsgefühl. Richtig schwach ist das Bein aber nicht, ich kann noch auftreten und auf den Zehen stehen.',
@@ -5719,6 +5722,7 @@ export function seedCases(): Case[] {
       frequency: 9,
       difficulty: 3,
       patientSheet: {
+        fachSkip: ['fach-neuro-anfallzeichen'],
         leitsymptomKategorie: 'nerven',
         personalia: {
           name: 'Gabriela Hubert',
@@ -9855,6 +9859,7 @@ export function seedCases(): Case[] {
       frequency: 7,
       difficulty: 2,
       patientSheet: {
+        fachSkip: ['fach-neuro-anfallzeichen'],
         personalia: {
           name: 'Elke Kovermann',
           age: 39,
@@ -11019,6 +11024,7 @@ export function seedCases(): Case[] {
       frequency: 3,
       difficulty: 3,
       patientSheet: {
+        fachSkip: ['fach-kardio-ausstrahlung'],
         leitsymptomKategorie: 'atemnot',
         personalia: {
           name: 'Werner Krause',
@@ -12142,6 +12148,7 @@ export function seedCases(): Case[] {
       frequency: 3,
       difficulty: 2,
       patientSheet: {
+        fachSkip: ['fach-infekt-zecke'],
         personalia: {
           name: 'Norbert Mayer',
           age: 65,
@@ -13707,6 +13714,7 @@ export function seedCases(): Case[] {
       frequency: 0,
       difficulty: 2,
       patientSheet: {
+        fachSkip: ['fach-derma-muttermal', 'fach-derma-verlauf'],
         leitsymptomKategorie: 'veraenderung',
         personalia: {
           name: 'Bernd Kowalski',
@@ -18037,6 +18045,7 @@ export function seedCases(): Case[] {
       frequency: 0,
       difficulty: 2,
       patientSheet: {
+        fachSkip: ['fach-derma-muttermal', 'fach-derma-verlauf'],
         personalia: {
           name: 'Brigitte Ostermann',
           age: 63,
@@ -18534,6 +18543,8 @@ export function seedCases(): Case[] {
       frequency: 9,
       difficulty: 2,
       patientSheet: {
+        motiv: { trauma: false, region: 'bws' },
+        fachSkip: ['fach-ortho-mechanismus'],
         personalia: {
           name: 'Rainer Hober',
           age: 55,
@@ -22388,6 +22399,8 @@ export function seedCases(): Case[] {
       frequency: 8,
       difficulty: 2,
       patientSheet: {
+        motiv: { trauma: false, region: 'obere' },
+        fachSkip: ['fach-ortho-durchblutung'],
         leitsymptomKategorie: 'nerven',
         personalia: {
           name: 'Karla Mäyerle-Schäubele',
@@ -24046,6 +24059,7 @@ export function seedCases(): Case[] {
       frequency: 0,
       difficulty: 2,
       patientSheet: {
+        fachSkip: ['fach-infekt-zecke'],
         leitsymptomKategorie: 'ausscheidung',
         personalia: {
           name: 'Tobias Lindner',
@@ -24554,6 +24568,7 @@ export function seedCases(): Case[] {
       frequency: 0,
       difficulty: 2,
       patientSheet: {
+        fachSkip: ['fach-neuro-anfallzeichen', 'fach-neuro-aura'],
         leitsymptomKategorie: 'nerven',
         personalia: {
           name: 'Gerhard Vollmer',
@@ -25113,6 +25128,7 @@ export function seedCases(): Case[] {
       frequency: 5,
       difficulty: 2,
       patientSheet: {
+        motiv: { trauma: false, region: 'untere' },
         personalia: {
           name: 'Burkhard Schwulinski',
           age: 69,
@@ -26196,6 +26212,7 @@ export function seedCases(): Case[] {
       frequency: 0,
       difficulty: 2,
       patientSheet: {
+        fachSkip: ['fach-infekt-zecke'],
         personalia: {
           name: 'Katrin Vollmer',
           age: 34,
@@ -27302,6 +27319,7 @@ export function seedCases(): Case[] {
       frequency: 0,
       difficulty: 2,
       patientSheet: {
+        fachSkip: ['fach-neuro-anfallzeichen'],
         leitsymptomKategorie: 'neurologisch',
         personalia: {
           name: 'Renate Bittner',
@@ -28903,6 +28921,7 @@ export function seedCases(): Case[] {
       frequency: 6,
       difficulty: 2,
       patientSheet: {
+        motiv: { trauma: true, region: 'untere' },
         personalia: {
           name: 'Lisele Müller',
           age: 90,
@@ -31049,6 +31068,7 @@ export function seedCases(): Case[] {
       frequency: 16,
       difficulty: 2,
       patientSheet: {
+        fachSkip: ['fach-neuro-aura'],
         leitsymptomKategorie: 'neurologisch',
         personalia: {
           name: 'Enga Schäuberle',
@@ -37451,6 +37471,7 @@ export function seedCases(): Case[] {
       frequency: 4,
       difficulty: 2,
       patientSheet: {
+        motiv: { trauma: false, region: 'lws' },
         personalia: {
           name: 'Gerhard Lindner',
           age: 71,
@@ -37989,6 +38010,7 @@ export function seedCases(): Case[] {
       frequency: 14,
       difficulty: 2,
       patientSheet: {
+        motiv: { trauma: false, region: 'hws' },
         personalia: {
           name: 'Konrad Preiss',
           age: 68,
@@ -40085,6 +40107,7 @@ export function seedCases(): Case[] {
       frequency: 6,
       difficulty: 2,
       patientSheet: {
+        fachSkip: ['fach-infekt-zecke'],
         leitsymptomKategorie: 'ausscheidung',
         personalia: {
           name: 'Michael Müller',
@@ -41215,6 +41238,7 @@ export function seedCases(): Case[] {
       frequency: 6,
       difficulty: 2,
       patientSheet: {
+        fachSkip: ['fach-infekt-zecke'],
         leitsymptomKategorie: 'infekt',
         personalia: {
           name: 'Susanne Kleinmeier',
@@ -41788,6 +41812,7 @@ export function seedCases(): Case[] {
       frequency: 12,
       difficulty: 2,
       patientSheet: {
+        motiv: { trauma: false, region: 'untere' },
         personalia: {
           name: 'Heiner King',
           age: 57,
@@ -43505,6 +43530,7 @@ export function seedCases(): Case[] {
       frequency: 5,
       difficulty: 2,
       patientSheet: {
+        fachSkip: ['fach-derma-muttermal', 'fach-derma-verlauf'],
         personalia: {
           name: 'Bernhard Lauber',
           age: 31,
@@ -45568,6 +45594,7 @@ export function seedCases(): Case[] {
       frequency: 5,
       difficulty: 2,
       patientSheet: {
+        fachSkip: ['fach-infekt-zecke'],
         leitsymptomKategorie: 'infekt',
         personalia: {
           name: 'Martha Bühreln',
@@ -46065,6 +46092,7 @@ export function seedCases(): Case[] {
       frequency: 4,
       difficulty: 3,
       patientSheet: {
+        fachSkip: ['fach-derma-muttermal', 'fach-derma-verlauf', 'fach-derma-vorbehandlung'],
         leitsymptomKategorie: 'atemnot',
         aktuellSkip: ['akt-atemnot-nachts'],
         personalia: {
@@ -51390,6 +51418,7 @@ export function seedCases(): Case[] {
       frequency: 1,
       difficulty: 3,
       patientSheet: {
+        motiv: { trauma: false, region: 'untere' },
         personalia: {
           name: 'Markus Lindner',
           age: 42,
@@ -55711,6 +55740,8 @@ export function seedCases(): Case[] {
       frequency: 3,
       difficulty: 2,
       patientSheet: {
+        motiv: { trauma: false, region: 'lws' },
+        fachSkip: ['fach-ortho-durchblutung'],
         personalia: {
           name: 'Markus Feldmann',
           age: 42,
@@ -55840,7 +55871,7 @@ export function seedCases(): Case[] {
           'fam-beruf': 'Paketzusteller, seit zwölf Jahren. Zehn Stunden am Tag, 150 Pakete, heben, tragen, Treppen. Seit einem halben Jahr neuer Chef, und ich hab Angst, dass das jetzt Ärger gibt.',
           'fam-wohnen': 'Wir wohnen zu viert in einem Reihenhaus. Das Schlafzimmer ist oben im ersten Stock, die Treppe schaffe ich gerade so, langsam.',
           'fam-haustiere': 'Ja, wir haben eine Katze.',
-          'fach-ortho-mechanismus': 'Beim Heben mit Drehung — ich habe das Paket aus dem Wagen gezogen und mich gleichzeitig nach rechts gedreht, um es abzustellen. Kein Sturz, kein Schlag, kein Unfall. Es hat einfach eingeschossen.',
+          'fach-ortho-mechanismus': 'Nein, kein Unfall — beim Heben mit Drehung: Ich habe das Paket aus dem Wagen gezogen und mich gleichzeitig nach rechts gedreht, um es abzustellen. Kein Sturz, kein Schlag. Es hat einfach eingeschossen.',
           'fach-ortho-bewegung': 'Ich kann mich kaum bücken, ich komme mit den Händen nicht mal bis zu den Knien. Vom Stuhl aufstehen geht nur mit Abstützen, und ich stehe schief — meine Frau sagt, ich hänge nach links. Nach vorne beugen ist am schlimmsten, nach hinten geht etwas besser.',
           'fach-ortho-ausstrahlung': 'Ins rechte Gesäß und hinten in den rechten Oberschenkel, bis etwa eine Handbreit über der Kniekehle. Nicht bis in die Wade, nicht in den Fuß, und auch nicht in die Zehen. Es ist mehr ein Ziehen, kein Brennen und kein Stromgefühl.',
           'fach-ortho-sensomotorik': 'Nein, kein Kribbeln, kein Taubheitsgefühl, weder im Bein noch im Fuß. Schwach ist das Bein auch nicht — ich kann auf den Zehen und auf der Ferse stehen, das habe ich zu Hause ausprobiert, weil ich Angst hatte. Ich knicke nicht ein.',
@@ -56200,6 +56231,7 @@ export function seedCases(): Case[] {
       frequency: 0,
       difficulty: 3,
       patientSheet: {
+        motiv: { trauma: false, region: 'abdomen' },
         personalia: {
           name: 'Herbert Maurer',
           age: 71,
@@ -56691,6 +56723,7 @@ export function seedCases(): Case[] {
       frequency: 2,
       difficulty: 3,
       patientSheet: {
+        motiv: { trauma: false, region: 'thorax' },
         personalia: {
           name: 'Manfred Kessler',
           age: 63,
@@ -59025,6 +59058,7 @@ export function seedCases(): Case[] {
       frequency: 1,
       difficulty: 2,
       patientSheet: {
+        fachSkip: ['fach-derma-muttermal'],
         leitsymptomKategorie: 'veraenderung',
         personalia: {
           name: 'Clemens Wurster',
@@ -59488,6 +59522,7 @@ export function seedCases(): Case[] {
       frequency: 3,
       difficulty: 2,
       patientSheet: {
+        fachSkip: ['fach-derma-muttermal'],
         leitsymptomKategorie: 'veraenderung',
         personalia: {
           name: 'Sabine Schaubele',
