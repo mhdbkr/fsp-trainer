@@ -18544,6 +18544,7 @@ export function seedCases(): Case[] {
       difficulty: 2,
       patientSheet: {
         motiv: { trauma: false, region: 'bws' },
+        fachSkip: ['fach-ortho-mechanismus'],
         personalia: {
           name: 'Rainer Hober',
           age: 55,

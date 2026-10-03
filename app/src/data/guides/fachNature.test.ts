@@ -97,6 +97,9 @@ describe('Revue clinique L0', () => {
     expect(fsme('meningitis')).toHaveLength(1);
     for (const id of ['tonsillitis', 'hepatitis-b', 'covid19']) expect(fsme(id)).toEqual([]);
   });
+  it('osteoporose : la question de cas (« War es ein Sturz, oder reichte … ») tient lieu de mécanisme', () => {
+    expect(fachQ('osteoporose', 'fach-ortho-mechanismus')).toBeUndefined();
+  });
   it('rachis lombaire : l’irradiation ne suggère pas la réponse (ni genou ni pied)', () => {
     for (const id of ['lumboischialgie', 'bandscheibenvorfall', 'spinalkanalstenose'])
       expect(phraseText(fachQ(id, 'fach-ortho-ausstrahlung')!)).not.toMatch(/Knie|Fuß/);
