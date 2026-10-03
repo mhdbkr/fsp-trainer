@@ -14,7 +14,7 @@
 // Les questions générales de la trame ne présupposent rien : leurs mots sont
 // exclus (à la place de l'ancien seuil de fréquence `maxDf`).
 //
-// POURQUOI INFORMATIF : ~29 % de vrais positifs (8 sur 28). Le coût du faux
+// POURQUOI INFORMATIF : ≈ 50 % de vrais positifs sur l'échantillon relu (revue Q0). Le coût du faux
 // positif dépasse le gain d'une porte.
 //
 // Usage : node scripts/checkQuestionOrder.mjs [--case <id>]
@@ -78,5 +78,5 @@ for (const c of cases) {
 }
 const by = (r) => hits.filter((h) => h.rule === r).length;
 console.log(`ℹ Rupture d'ordre : ${hits.length} candidat(s) sur ${ONLY ? 1 : cases.length} cas (ordinal ${by('ORD')} · SN ${by('NP')} · affirmation ${by('ASSERT')}).`);
-console.log('  (porte INFORMATIVE : ~29 % de vrais positifs — jamais bloquante)\n');
+console.log('  (porte INFORMATIVE : ≈ 50 % de vrais positifs sur échantillon — jamais bloquante)\n');
 for (const h of hits) console.log(`  · ${h.id} [${h.ch}] ${h.rule} « ${h.hit} »\n      ${h.q.slice(0, 160)}`);

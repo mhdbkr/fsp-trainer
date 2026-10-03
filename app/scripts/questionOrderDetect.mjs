@@ -14,7 +14,7 @@
 //   4. au lieu d'un seuil de fréquence documentaire (maxDf) : on exclut les
 //      mots déjà présents dans les questions GÉNÉRALES de la trame — ce sont
 //      les mots du dialogue, pas des faits du cas.
-// Informatif : ~29 % de vrais positifs. Jamais bloquant.
+// Informatif : précision ≈ 50 % sur l'échantillon relu (revue Q0). Jamais bloquant.
 // ============================================================================
 
 export const lemma = (w) => w.toLowerCase().replace(/[^a-zäöüß]/g, '').slice(0, 6);
