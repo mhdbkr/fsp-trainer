@@ -112,6 +112,26 @@ commun → **L2** motif de consultation → **L1b** guides → **L4–L9** Facha
 cohérence (région, présupposition, ordre, nature du motif) ; audit des premiers
 cas (FB3-G7) soldé.
 
+**Découpage du lot « questions pour ce cas »** (audit rendu le 3 oct. :
+[`audit-questions-du-cas-serie3.md`](audit-questions-du-cas-serie3.md) — 874
+questions, 271 composées, 8 présuppositions, 1 région fausse) :
+
+| Lot | Contenu | Nature |
+|---|---|---|
+| **Q0** | « Falls ja » sur la relance alcool (`:675`) + 12 relances sœurs ; `CaseQuestion.followUp` ; +3 `FACH_COVERS` (irradiation posée 2-3 fois dans 17 cas) ; `checkQuestionOrder` étendu (adjectifs, ordinal, « Sie nehmen… », exclusion par trame) ; garde CI territoire ⊂ région | mécanique |
+| **Q1** | P0 de `aktuell` : 8 présuppositions, coxarthrose ×3, 9 irradiations, 6 répétitions, leberzirrhose ×7 | clinique |
+| **Q2** | 40 composées « fermée ? + W- ? » → relance « Falls ja » | mécanique relue |
+| **Q3–Q5** | composées cliniques de `aktuell` (A 110, B 34), cas tier 1 d'abord | clinique |
+| **Q6–Q8** | chapitres suivants dans l'ordre d'affichage + arbitrage des 6 natures de motif | clinique |
+| **Lc1–Lc3** | FB3-G6/G7 : leberzirrhose (fiche, Fachwissen, `syndrome-map` au lieu du bonhomme), fiches C0 tier 1, puis C1/C2 < 15 k | clinique |
+
+Décisions de `main` : leberzirrhose passe en `motiv` **schmerz** (relecteur
+clinique confirme au lot) ; la note « Vor jedem Schmerzmittel » (`:91`) se
+rattache à la branche « sehr stark » ; la relance automutilation (psy `:1464`)
+est tranchée par le relecteur clinique de Q0. **Q0 démarre au merge de L0**
+(mêmes fichiers : `anamneseChapters.ts`). Ensuite L1 → L15 reprennent ce qui
+reste du budget hors questions du cas.
+
 ## 11. Registre des workflows en vol — à relancer sans exception
 
 Règle : à chaque reprise (limite d'usage, coupure), `main` relit cette table et
@@ -126,6 +146,7 @@ rien de cette table.
 | Intégration programme | `doctopus-s3-programme` · `feat/s3-programme` | `a276d650bc56bda9b` | plan `integration-s3-programme.md` → push → **main ouvre la PR** | non |
 | Lot L0 — revue mécanique | `doctopus-s3-lot0` | `a85f52786072e2105` | rendue : Request changes (I1 fiche simulant « Fuß » sur la main, I2 plancher des paires, I3 `fachSkip` non validé) | **oui** |
 | Lot L0 — fixeur | `doctopus-s3-lot0` · `feat/s3-lot0-fach-nature` | `ac508d333980d928d` | fixe les deux revues (I1–I3, m1–m3, clinique 1–5) → push → **main ouvre la PR** | non |
-| Audit questions du cas + FB3-G | lecture seule | `ac7225d1457bf293d` | rapport attendu → **lot « questions pour ce cas » après merge de L0** | non |
+| Audit questions du cas + FB3-G | lecture seule | `ac7225d1457bf293d` | rendu → `audit-questions-du-cas-serie3.md` | **oui** |
+| Lots Q0 → Q8, Lc1 → Lc3 | — | — | §10, Q0 au merge de L0 | à lancer |
 | C6 — agent testeur | — | — | après intégration programme + primitives | à lancer |
 | Lots L1 → L15 | — | — | §10, l'un après l'autre (mêmes fichiers) | à lancer |
