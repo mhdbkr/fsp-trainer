@@ -71,6 +71,7 @@ export const syncQueue = {
 
   /** Rapatrie les événements des autres appareils (idempotent). */
   async pull(since?: string): Promise<number> {
+    if (!sessionMatchesActive()) return 0;                   // m5 : jamais les événements d'un autre compte dans cette base
     const headers = await auth();
     if (!headers) return 0;
     // Curseur = received_at SERVEUR, jamais occurred_at (horloge client) : un
