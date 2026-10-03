@@ -29,7 +29,7 @@ export function CaseQuestionList({ questions }: { questions: CaseQuestion[] }) {
       {questions.map((q, i) => (
         <li key={i} className="flex gap-2">
           <span className="mt-1.5 h-1 w-1 shrink-0 rounded-full bg-brand-400" />
-          <span><AutoLink>{cqText(q)}</AutoLink>{cqFollowUp(q) && <span className="block text-xs text-slate-400">↳ <AutoLink>{cqFollowUp(q)!}</AutoLink></span>}</span>
+          <span><AutoLink>{cqText(q)}</AutoLink>{cqFollowUp(q) && <span className="mt-0.5 block border-l border-brand-300/70 pl-2 text-xs text-slate-400 dark:border-brand-700/60"><AutoLink>{cqFollowUp(q)!}</AutoLink></span>}</span>
         </li>
       ))}
     </ul>

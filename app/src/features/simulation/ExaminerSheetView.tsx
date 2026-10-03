@@ -30,7 +30,7 @@ export function ExaminerSheetView({ sheet, fallback, caseName, caseSpecificQuest
             {caseSpecificQuestions.map((q, i) => (
               <li key={i} className="flex items-start gap-2 text-sm">
                 <span className="mt-0.5 shrink-0 rounded border border-slate-300 px-1 text-[10px] text-slate-400 dark:border-slate-600">☐</span>
-                <span>{cqText(q)}{cqFollowUp(q) && <span className="block text-xs text-slate-400">↳ {cqFollowUp(q)}</span>}</span>
+                <span>{cqText(q)}{cqFollowUp(q) && <span className="mt-0.5 block border-l border-brand-300/70 pl-2 text-xs text-slate-400 dark:border-brand-700/60">{cqFollowUp(q)}</span>}</span>
               </li>
             ))}
           </ul>
