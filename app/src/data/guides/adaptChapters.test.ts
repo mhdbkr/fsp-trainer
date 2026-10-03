@@ -173,6 +173,11 @@ describe('La Fach suit la nature du motif (série 3, L0)', () => {
       expect(probes(c)).not.toContain('fach-kardio-ausstrahlung');
     }
   });
+  it('la douleur thoracique se reconnaît sous ses noms médicaux, pas dans « Schmerz »', () => {
+    for (const ort of ['linksthorakal', 'thorakal, atemabhängig', 'präkordial', 'in der Herzgegend'])
+      expect(probes(mkF('Kardiologie', { schmerz: { ort } }))).toContain('fach-kardio-nitro');
+    expect(probes(mkF('Kardiologie', { schmerz: { ort: 'Schmerzen im Nacken' } }))).not.toContain('fach-kardio-nitro');
+  });
   it('signes autonomes (cluster) : seulement pour une douleur de la tête', () => {
     expect(probes(mkF('Neurologie', { schmerz: { ort: 'linke Kopfhälfte, Schläfe' } }))).toContain('fach-neuro-autonom');
     expect(probes(mkF('Neurologie', { leitsymptomKategorie: 'neurologisch', schmerz: { ort: 'holozephal, Kopf' } }))).not.toContain('fach-neuro-autonom');

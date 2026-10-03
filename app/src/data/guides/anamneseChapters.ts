@@ -1698,7 +1698,8 @@ type Who = { geschlecht?: 'm' | 'w'; age: number; kategorie: LeitsymptomKategori
 type FachPatch = string | Pick<PhraseVariant, 'text' | 'alts' | 'followUp'>;
 const ARM = new Set(['obere', 'hws']), RUMPF = new Set(['lws', 'bws']), RACHIS = new Set(['lws', 'bws', 'hws']);
 const region = (w: Who) => w.motiv?.region;
-const thorakal = (w: Who) => region(w) === 'thorax' || /brust|sternal|thorax/i.test(w.schmerzOrt ?? '');
+// « Herz » en début de mot seulement : « Schmerz » contient « herz ».
+const thorakal = (w: Who) => region(w) === 'thorax' || /brust|sternal|thora[kx]|präkordial|(?<![a-zäöüß])herz/i.test(w.schmerzOrt ?? '');
 // Une Fach Angio pour une aorte : ni claudication, ni décubitus, ni plaie de jambe.
 const jambe = (w: Who) => !w.motiv || region(w) === 'untere';
 const FACH_RULES: Array<{ probe: string; applies?: (w: Who) => boolean; text?: (w: Who) => FachPatch | undefined }> = [
