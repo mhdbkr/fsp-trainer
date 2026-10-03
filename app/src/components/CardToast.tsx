@@ -74,6 +74,17 @@ export function CardToast() {
     if (at && at !== document.body && !rootRef.current?.contains(at)) return;   // l'utilisateur est parti ailleurs
     (back.isConnected && back !== document.body ? back : document.querySelector<HTMLElement>('main'))?.focus();
   }, [toast]);
+  // Miniature ouverte : Espace la retourne (retour du 4 oct.), avant tout autre raccourci de la
+  // page (drill…) ; jamais quand on écrit dans un champ.
+  useEffect(() => {
+    if (!open) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key !== ' ' || (e.target as HTMLElement | null)?.closest?.('input, textarea, select, [contenteditable="true"]')) return;
+      e.preventDefault(); e.stopImmediatePropagation(); setFlipped((f) => !f);
+    };
+    window.addEventListener('keydown', onKey, true);
+    return () => window.removeEventListener('keydown', onKey, true);
+  }, [open]);
   const hold = toast?.kind === 'saved' && (hovered || engaged || open || choosing);
   const lifeMs = toast?.kind === 'deleted' || toast?.kind === 'deck-deleted' ? DELETE_DELAY_MS : SAVED_MS;
   useEffect(() => {

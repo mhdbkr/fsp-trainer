@@ -10,6 +10,7 @@
 import { useEffect, useState } from 'react';
 import type { AnyTerm } from '@/lib/collections/allTerms';
 import { isPersonalView } from '@/lib/collections/allTerms';
+import { Icon } from './icons';
 import { ipa, TermSheet } from './TermSheet';
 
 export type CardDirection = 'term2simple' | 'simple2term';
@@ -47,7 +48,21 @@ function FaceSwitch({ revealed, onFlip, mini }: { revealed: boolean; onFlip: (re
   );
 }
 
-/** Toucher la carte la retourne (souris, doigt) ; le clavier passe par le sélecteur.
+/** L'indice discret (drill, miniature — retour du 4 oct. : le sélecteur y pesait trop) : une
+ *  ligne fine au pied de la carte, flèche qui tourne au survol, « Espace » (ou « Toucher » sur
+ *  écran tactile). C'est un vrai bouton : le clavier retourne la carte aussi par lui. */
+function FlipHint({ onFlip, revealed, mini }: { onFlip: (revealed: boolean) => void; revealed: boolean; mini: boolean }) {
+  return (
+    <button type="button" data-flip-hint aria-label="Retourner la carte" aria-keyshortcuts="Space" onClick={() => onFlip(!revealed)}
+      className={`absolute left-1/2 z-10 inline-flex min-h-11 -translate-x-1/2 items-center gap-1.5 rounded-full px-3 font-medium text-slate-400 transition-colors duration-300 hover:text-brand-700 group-hover/card:text-slate-500 dark:text-slate-500 dark:hover:text-brand-300 dark:group-hover/card:text-slate-400 ${mini ? 'bottom-0 text-[11px]' : 'bottom-2 text-xs'}`}>
+      <Icon name="refresh" className="h-3.5 w-3.5 transition-transform duration-500 ease-fluid group-hover/card:rotate-180 motion-reduce:transition-none" />
+      <kbd className="rounded border border-current px-1 font-mono text-[10.5px] leading-4 opacity-80 [@media(hover:none)]:hidden">Espace</kbd>
+      <span className="hidden [@media(hover:none)]:inline">Toucher</span>
+    </button>
+  );
+}
+
+/** Toucher la carte la retourne (souris, doigt) ; le clavier passe par le sélecteur ou l'indice.
  *  Un contrôle DANS la carte (Définition complète, Modifier…) garde son clic, une sélection de texte aussi. */
 const isControl = (t: EventTarget) => t instanceof Element && !!t.closest('button, a, input, textarea, summary, select, label');
 const selecting = () => !!window.getSelection?.()?.toString();
@@ -56,8 +71,10 @@ const mayMove = () => typeof window !== 'undefined' && !!window.matchMedia && !w
 /** Une face cachée sort aussi du parcours clavier (ses contrôles ne sont pas atteignables). */
 const hidden = (h: boolean) => (h ? { 'aria-hidden': true, inert: '' } : {}) as object;
 
-export function CardFlip({ card, direction, revealed, onFlip, size = 'full' }: {
-  card: AnyTerm; direction: CardDirection; revealed: boolean; onFlip: (revealed: boolean) => void; size?: 'full' | 'mini';
+/** `control` : « hint » (défaut — drill, miniature) = l'indice discret ; « switch » = le sélecteur
+ *  Recto | Verso (tiroir d'un terme, où l'on va et vient entre les faces). */
+export function CardFlip({ card, direction, revealed, onFlip, size = 'full', control = 'hint' }: {
+  card: AnyTerm; direction: CardDirection; revealed: boolean; onFlip: (revealed: boolean) => void; size?: 'full' | 'mini'; control?: 'hint' | 'switch';
 }) {
   const mini = size === 'mini';
   const personal = isPersonalView(card);
@@ -74,9 +91,9 @@ export function CardFlip({ card, direction, revealed, onFlip, size = 'full' }: {
   }, [revealed, seen]);
   // Faces empilées dans UNE cellule de grille : la carte prend la hauteur de sa face la plus haute
   // (le verso n'a plus à défiler, F4c) ; le recto garde une hauteur de carte.
-  const face = `card flex flex-col items-center [backface-visibility:hidden] [grid-area:1/1] ${mini ? 'px-3 pb-14 pt-3' : 'px-6 pb-20 pt-7 sm:px-8'}`;
+  const face = `card flex flex-col items-center [backface-visibility:hidden] [grid-area:1/1] ${control === 'switch' ? (mini ? 'px-3 pb-14 pt-3' : 'px-6 pb-20 pt-7 sm:px-8') : mini ? 'px-3 pb-9 pt-3' : 'px-6 pb-14 pt-7 sm:px-8'}`;
   return (
-    <div className="relative [perspective:1200px]">
+    <div className="group/card relative [perspective:1200px]">
       <div data-card-flip={revealed ? 'verso' : 'recto'} onClick={(e) => { if (!isControl(e.target) && !selecting()) onFlip(!revealed); }}
         className={`grid cursor-pointer transition-transform duration-500 ease-fluid motion-reduce:transition-none [transform-style:preserve-3d] ${revealed ? '[transform:rotateY(180deg)]' : ''}`}>
         <div className={`${face} ${mini ? 'min-h-40' : 'min-h-[320px]'} justify-center text-center`} {...hidden(revealed)}>
@@ -93,7 +110,7 @@ export function CardFlip({ card, direction, revealed, onFlip, size = 'full' }: {
               </div>)}
         </div>
       </div>
-      <FaceSwitch revealed={revealed} onFlip={onFlip} mini={mini} />
+      {control === 'switch' ? <FaceSwitch revealed={revealed} onFlip={onFlip} mini={mini} /> : <FlipHint revealed={revealed} onFlip={onFlip} mini={mini} />}
     </div>
   );
 }

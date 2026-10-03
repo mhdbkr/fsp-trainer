@@ -126,7 +126,7 @@ describe('DrillPage — pas de boucle de rendu', () => {
     renderAt('/fachbegriffe/drill');
     const startBtn = await screen.findByRole('button', { name: /commencer/i });
     fireEvent.click(startBtn);
-    const revealBtn = await screen.findByRole('button', { name: 'Verso' });
+    const revealBtn = await screen.findByRole('button', { name: 'Retourner la carte' });
     fireEvent.click(revealBtn);
     expect((await screen.findAllByText(/Wasser im Bauch/)).length).toBeGreaterThan(0);
     expect((await screen.findAllByText('Ist Ihr Bauch dicker geworden?')).length).toBeGreaterThan(0);
@@ -139,7 +139,7 @@ describe('DrillPage — pas de boucle de rendu', () => {
     const startBtn = await screen.findByRole('button', { name: /commencer/i });
     fireEvent.click(startBtn);
     expect(screen.queryByText(/klagt über/i)).toBeNull();
-    const revealBtn = await screen.findByRole('button', { name: 'Verso' });
+    const revealBtn = await screen.findByRole('button', { name: 'Retourner la carte' });
     fireEvent.click(revealBtn);
     expect(await screen.findByText('Contexte')).toBeTruthy();
     expect((await screen.findAllByText(/klagt über/i)).length).toBeGreaterThan(0);
@@ -174,7 +174,7 @@ describe('DrillPage — pas de boucle de rendu', () => {
     const startBtn = await screen.findByRole('button', { name: /commencer/i });
     fireEvent.click(startBtn);
     expect((await screen.findAllByText('Belastungsdyspnoe')).length).toBeGreaterThan(0);
-    const revealBtn = await screen.findByRole('button', { name: 'Verso' });
+    const revealBtn = await screen.findByRole('button', { name: 'Retourner la carte' });
     fireEvent.click(revealBtn);
     expect((await screen.findAllByText('à compléter')).length).toBeGreaterThan(0);
   });
@@ -184,7 +184,7 @@ describe('DrillPage — pas de boucle de rendu', () => {
     await createPersonalTerm({ term: 'Orthopnoe', explanation: 'Atemnot im Liegen' });
     renderAt('/fachbegriffe/drill');
     fireEvent.click(await screen.findByRole('button', { name: /commencer/i }));
-    fireEvent.click(await screen.findByRole('button', { name: 'Verso' }));
+    fireEvent.click(await screen.findByRole('button', { name: 'Retourner la carte' }));
     fireEvent.click(await screen.findByRole('button', { name: 'Modifier la Bedeutung' }));
     const input = screen.getByRole('textbox', { name: 'Bedeutung' });
     fireEvent.keyDown(input, { key: '2' });
@@ -193,10 +193,18 @@ describe('DrillPage — pas de boucle de rendu', () => {
     expect(screen.getByText('1 / 1')).toBeTruthy();
   });
 
+  it('carte du drill : un indice discret (Espace), pas de sélecteur Recto|Verso (retour du 4 oct.)', async () => {
+    renderAt('/fachbegriffe/drill');
+    fireEvent.click(await screen.findByRole('button', { name: /commencer/i }));
+    const hint = await screen.findByRole('button', { name: 'Retourner la carte' });
+    expect(hint.getAttribute('aria-keyshortcuts')).toBe('Space');
+    expect(screen.queryByRole('button', { name: 'Recto' })).toBeNull();
+    expect(screen.queryByRole('button', { name: 'Verso' })).toBeNull();
+  });
   it('Espace pendant la sortie ne retourne pas la carte suivante : la question avant la réponse (fix-s3 I1)', async () => {
     const { container } = renderAt('/fachbegriffe/drill');
     fireEvent.click(await screen.findByRole('button', { name: /commencer/i }));
-    fireEvent.click(await screen.findByRole('button', { name: 'Verso' }));
+    fireEvent.click(await screen.findByRole('button', { name: 'Retourner la carte' }));
     fireEvent.keyDown(document.body, { key: '3' });   // Gut → la carte part (swap-out, 180 ms)
     fireEvent.keyDown(document.body, { key: ' ' });   // frappe pendant la sortie
     await waitFor(() => expect(screen.getByText('2 / 2')).toBeTruthy());
@@ -208,7 +216,7 @@ describe('DrillPage — pas de boucle de rendu', () => {
     await createPersonalTerm({ term: 'Orthopnoe', explanation: 'ancienne signification' });
     renderAt('/fachbegriffe/drill');
     fireEvent.click(await screen.findByRole('button', { name: /commencer/i }));
-    fireEvent.click(await screen.findByRole('button', { name: 'Verso' }));
+    fireEvent.click(await screen.findByRole('button', { name: 'Retourner la carte' }));
     fireEvent.click(await screen.findByRole('button', { name: 'Modifier la Bedeutung' }));
     fireEvent.change(screen.getByRole('textbox', { name: 'Bedeutung' }), { target: { value: 'nouvelle signification' } });
     fireEvent.click(screen.getByRole('button', { name: 'Enregistrer' }));

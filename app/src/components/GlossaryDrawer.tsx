@@ -98,7 +98,7 @@ export function GlossaryDrawer() {
 
         <div className="flex-1 space-y-4 overflow-y-auto p-4">
           {view === 'card' ? (
-            <CardFlip key={fb.id} card={fb} direction="term2simple" revealed={revealed} onFlip={setRevealed} />
+            <CardFlip key={fb.id} card={fb} direction="term2simple" revealed={revealed} onFlip={setRevealed} control="switch" />
           ) : (
             <TermSheet term={fb} />
           )}

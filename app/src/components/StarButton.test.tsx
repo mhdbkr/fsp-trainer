@@ -39,7 +39,7 @@ async function clickEmptyStar() {
 describe('StarButton + CardToast (F4a D6/D7, AC-6)', () => {
   beforeEach(async () => { await db.progress_events.clear(); await db.favorites.clear(); await db.decks.clear(); await db.deck_terms.clear(); useCardToast.setState({ toast: null }); });
 
-  it('★ vide → Favoris (+caseId) ; pilule « Rangée dans Favoris » : toucher ouvre la miniature, son sélecteur « Verso » la retourne (F4c)', async () => {
+  it('★ vide → Favoris (+caseId) ; pilule « Rangée dans Favoris » : toucher ouvre la miniature, son indice discret (ou Espace) la retourne, sans sélecteur Recto|Verso (retour du 4 oct.)', async () => {
     render(<Harness caseId="case-leberzirrhose" />);
     await clickEmptyStar();
     expect(await screen.findByText('Favoris', { selector: 'strong' })).toBeTruthy();
@@ -47,8 +47,11 @@ describe('StarButton + CardToast (F4a D6/D7, AC-6)', () => {
     expect(document.querySelector('[data-card-flip]')).toBeNull();   // une ligne : la carte ne s'ouvre qu'au toucher
     fireEvent.click(screen.getByRole('button', { name: /Rangée dans/ }));
     expect(document.querySelector('[data-card-flip]')!.getAttribute('data-card-flip')).toBe('recto');
-    fireEvent.click(screen.getByRole('button', { name: 'Verso' }));
+    fireEvent.click(screen.getByRole('button', { name: 'Retourner la carte' }));
     expect(document.querySelector('[data-card-flip]')!.getAttribute('data-card-flip')).toBe('verso');
+    expect(screen.queryByRole('button', { name: 'Recto' })).toBeNull();
+    fireEvent.keyDown(document.body, { key: ' ' });   // Espace retourne la miniature ouverte
+    expect(document.querySelector('[data-card-flip]')!.getAttribute('data-card-flip')).toBe('recto');
     expect(await screen.findByRole('button', { name: 'Voir la fiche de Aszites' })).toBeTruthy();
   });
   it('« Changer de deck » déplace : retiré de Favoris, ajouté au deck choisi', async () => {
