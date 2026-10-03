@@ -72,7 +72,8 @@ export interface LaunchPlan { level: 1 | 2; url: string; label: string }
  *  exige une capacité sans problème — donc jamais d'envoi automatique. */
 export function launchPlan(t: AiTarget, text: string, now: number = Date.now()): LaunchPlan {
   const c = t.capability;
-  const fresh = now - Date.parse(c.verifiedAt) <= CAPABILITY_TTL_DAYS * 86_400_000;
+  const age = now - Date.parse(c.verifiedAt);
+  const fresh = age >= 0 && age <= CAPABILITY_TTL_DAYS * 86_400_000; // une date future n'est pas une preuve
   if (c.prefillParam && c.maxPrefillChars !== null && fresh && capabilityProblems(c).length === 0) {
     const url = `${t.origin}?${c.prefillParam}=${encodeURIComponent(text)}`;
     if (url.length - t.origin.length <= c.maxPrefillChars) return { level: 1, url, label: `Ouvrir ${t.label} avec le prompt` };

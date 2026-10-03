@@ -62,6 +62,10 @@ describe('INV-33 — le libellé ne promet que ce qui est vérifié', () => {
     expect(launchPlan(stale, 'x', NOW).level).toBe(2);
   });
 
+  it('vérification datée dans le futur → niveau 2 (pas « fraîche »)', () => {
+    expect(launchPlan(verified({ verifiedAt: '2099-01-01' }), 'x', NOW).level).toBe(2);
+  });
+
   it('les cibles livrées sont au niveau 2 : copie + ouverture de l\'app', () => {
     const g = launchPlan(T.chatgpt, 'x', NOW);
     expect(g).toEqual({ level: 2, url: 'https://chatgpt.com/#native', label: 'Copier et ouvrir ChatGPT' });
