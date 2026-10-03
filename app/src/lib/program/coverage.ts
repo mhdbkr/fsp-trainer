@@ -13,7 +13,7 @@
 // ============================================================================
 
 import type { Case, CaseProgress, SimTeil, Specialty } from '@/db/types';
-import { blankProgress } from '@/lib/journal';
+import { blankProgress, estNonMesure } from '@/lib/journal';
 import { TEILE } from '@/lib/simScope';
 
 const TEIL_KEYS: SimTeil[] = TEILE.map((t) => t.key);
@@ -24,6 +24,7 @@ export interface CoverageCell {
   specialty: Specialty;
   teil: SimTeil;
   vierge: number;
+  nonMesure: number;                    // faite — non mesurée (I-4), hors `vierge`
   entame: number;                       // = fragile ∪ acquis (ADR-0020 §4)
   solide: number;
   total: number;
@@ -46,16 +47,18 @@ export function coverageField(cases: Case[], progress: Map<string, CaseProgress>
   const cells: CoverageCell[] = [];
   for (const [specialty, list] of bySpec) {
     for (const teil of TEIL_KEYS) {
-      let vierge = 0, entame = 0, solide = 0;
+      let vierge = 0, nonMesure = 0, entame = 0, solide = 0;
       for (const c of list) {
-        const s = (progress.get(c.id) ?? blankProgress(c.id)).teile[teil].status;
-        if (s === 'vierge') vierge++;
+        const p = (progress.get(c.id) ?? blankProgress(c.id)).teile[teil];
+        const s = p.status;
+        if (estNonMesure(p)) nonMesure++;
+        else if (s === 'vierge') vierge++;
         else if (s === 'solide') solide++;
         else entame++;
       }
       const total = list.length;
       cells.push({
-        specialty, teil, vierge, entame, solide, total,
+        specialty, teil, vierge, nonMesure, entame, solide, total,
         state: solide === total ? 'solide' : solide + entame === 0 ? 'vierge' : 'entame',
       });
     }
