@@ -34,19 +34,21 @@ export interface PartEvaluationProps {
   /** Teil suivant à jouer — `null` quand c'est la dernière partie. */
   suivant: string | null;
   onSuivant: () => void;
-  onTerminer: () => void;
   onRetour: () => void;
+  /** Sortie de validation propre à l'auto-évaluation HORS Lauf
+   *  (`SelbstBewertung`). Le runner ne la passe pas : sa sortie de fin vit
+   *  dans l'en-tête collant (« zéro doublon »). */
+  onTerminer?: () => void;
+  terminerLabel?: string;
   /** Libellés des deux sorties. Ils DISENT la destination — c'est tout l'objet
    *  de la correction : « Valider » et « Retour » menaient au même écran. */
   suivantLabel?: (suivant: string) => string;
-  terminerLabel?: string;
 }
 
 export function PartEvaluation({
   part, durationSec, checklist, grid, feeling,
-  onToggle, onGrid, onFeeling, suivant, onSuivant, onTerminer, onRetour,
+  onToggle, onGrid, onFeeling, suivant, onSuivant, onRetour, onTerminer, terminerLabel,
   suivantLabel = (s) => `Partie suivante — ${s} →`,
-  terminerLabel = 'Terminer la simulation →',
 }: PartEvaluationProps) {
   const hasLang = part !== 'dokumentation';
   const contentPct = checklistPct(checklist);
@@ -162,7 +164,9 @@ export function PartEvaluation({
         </div>
       </div>
 
-      {/* Les deux sorties sont DISTINCTES et nommées par leur destination. */}
+      {/* Les sorties sont DISTINCTES et nommées par leur destination.
+          « Terminer la simulation → » n'est PAS ici : il vit dans l'en-tête
+          collant, toujours visible (décision de main, « zéro doublon »). */}
       <div className="flex flex-wrap items-center justify-end gap-2">
         <button onClick={onRetour} className="btn-ghost" title="Reprendre la partie là où tu l'as laissée — le chrono ne repart pas de zéro">
           <Icon name="refresh" className="h-4 w-4" />Revenir à la partie
@@ -170,9 +174,9 @@ export function PartEvaluation({
         {suivant
           ? <button onClick={onSuivant} className="btn-primary px-6">{suivantLabel(suivant)}</button>
           : null}
-        <button onClick={onTerminer} className={suivant ? 'btn-outline' : 'btn-primary px-6'}>
-          {terminerLabel}
-        </button>
+        {onTerminer && (
+          <button onClick={onTerminer} className={suivant ? 'btn-outline' : 'btn-primary px-6'}>{terminerLabel}</button>
+        )}
       </div>
     </div>
   );

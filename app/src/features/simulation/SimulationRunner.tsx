@@ -388,7 +388,6 @@ export function SimulationRunner() {
                     onFeeling={(v) => steuerung.setzeEntwurfFeld(lauf.aktuellerTeil!, { feeling: v })}
                     suivant={suivantTeil ? LABEL[suivantTeil] : null}
                     onSuivant={() => steuerung.dispatch({ typ: 'partieSuivante' })}
-                    onTerminer={steuerung.versChecklist}
                     onRetour={() => steuerung.dispatch({ typ: 'zurueckZurPartie' })}
                   />
                 ) : (
