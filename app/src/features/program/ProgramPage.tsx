@@ -27,7 +27,6 @@ import { refuserModus, setIntensity, setModus } from '@/lib/programAdjust';
 import { accepterRattrapage, rattrapageAProposer, refuserRattrapage, RATTRAPAGE_REFUS_KEY } from '@/lib/program/rattrapage';
 import { useLiveQuery } from 'dexie-react-hooks';
 import { getMeta } from '@/db/db';
-import { todayKey } from '@/lib/clock';
 import { useToday } from '@/lib/today';
 import { joursRestants } from '@/lib/program/trajectory';
 import type { DayPlan, Fortschrittsmodus, Intensity, TaskInstance, TaskKind } from '@/db/types';
@@ -129,7 +128,7 @@ export function ProgramPage() {
 
 function RattrapageProposal({ plans }: { plans: DayPlan[] }) {
   const refused = useLiveQuery(() => getMeta<string[]>(RATTRAPAGE_REFUS_KEY, []), [], undefined);
-  const today = todayKey();
+  const today = useToday((s) => s.day);                    // m-4 : le jour réactif, jamais l'horloge au rendu
   const p = refused ? rattrapageAProposer(plans, today, refused) : null;
   if (!p) return null;
   const n = p.tasks.length;
@@ -163,8 +162,9 @@ function DaySurface({ date, plan, projection, isTaper, onPick }: {
   date: string; plan: DayPlan | null; projection?: TaskInstance[]; isTaper: boolean; onPick: (d: string) => void;
 }) {
   const d = parseISO(date);
-  const isToday = date === todayKey();
-  const isPast = date < todayKey();
+  const today = useToday((s) => s.day);                    // m-4
+  const isToday = date === today;
+  const isPast = date < today;
   const { done, total } = planProgress(plan);
   const session = sessionDuJour(plan);
   const [busy, setBusy] = useState(false);
@@ -184,7 +184,7 @@ function DaySurface({ date, plan, projection, isTaper, onPick }: {
           </div>
         </div>
         <div className="flex items-center gap-1">
-          {!isToday && <button type="button" onClick={() => onPick(todayKey())} className="btn-ghost px-2 text-xs" title="Revenir à aujourd'hui"><Icon name="target" className="h-3.5 w-3.5" /></button>}
+          {!isToday && <button type="button" onClick={() => onPick(today)} className="btn-ghost px-2 text-xs" title="Revenir à aujourd'hui"><Icon name="target" className="h-3.5 w-3.5" /></button>}
           <button type="button" onClick={() => onPick(format(addDays(d, 1), 'yyyy-MM-dd'))} className="btn-ghost px-2 text-sm" title="Jour suivant">→</button>
         </div>
       </div>
@@ -329,6 +329,7 @@ interface CalProps {
 }
 
 function Calendar(p: CalProps) {
+  const today = useToday((s) => s.day);                    // m-4
   const a = parseISO(p.anchor);
   const step = (dir: 1 | -1) => p.setAnchor(format(p.view === 'semaine' ? addWeeks(a, dir) : addMonths(a, dir), 'yyyy-MM-dd'));
   const periodLabel = p.view === 'semaine'
@@ -342,7 +343,7 @@ function Calendar(p: CalProps) {
           <button type="button" onClick={() => step(-1)} className="btn-ghost px-2 text-sm" title="Période précédente">◀</button>
           <div className="min-w-[9.5rem] text-center text-sm font-semibold capitalize">{periodLabel}</div>
           <button type="button" onClick={() => step(1)} className="btn-ghost px-2 text-sm" title="Période suivante">▶</button>
-          <button type="button" onClick={() => p.setAnchor(todayKey())} className="btn-ghost ml-1 px-2 text-xs">Aujourd'hui</button>
+          <button type="button" onClick={() => p.setAnchor(today)} className="btn-ghost ml-1 px-2 text-xs">Aujourd'hui</button>
         </div>
         <div className="flex rounded-lg bg-slate-100 p-0.5 text-sm dark:bg-slate-800">
           {(['semaine', 'mois'] as View[]).map((v) => (
@@ -392,6 +393,7 @@ function DayCell({ plan, kinds, projection }: { plan?: DayPlan; kinds: TaskKind[
 }
 
 function WeekView({ anchor, byDate, projected, selected, taper, onFocusDay }: Omit<CalProps, 'anchor'> & { anchor: Date }) {
+  const today = useToday((s) => s.day);
   const start = startOfWeek(anchor, { weekStartsOn: 1 });
   return (
     <div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-4">
@@ -401,7 +403,7 @@ function WeekView({ anchor, byDate, projected, selected, taper, onFocusDay }: Om
         const kinds = [...new Set((plan?.tasks ?? []).map((t) => t.kind))];
         return (
           <button key={k} type="button" onClick={() => onFocusDay(k)}
-            className={`card p-3 text-left transition-all hover:-translate-y-0.5 hover:border-brand-400 ${k === selected ? 'border-brand-500 ring-1 ring-brand-400' : k === todayKey() ? 'ring-1 ring-brand-300' : ''}`}>
+            className={`card p-3 text-left transition-all hover:-translate-y-0.5 hover:border-brand-400 ${k === selected ? 'border-brand-500 ring-1 ring-brand-400' : k === today ? 'ring-1 ring-brand-300' : ''}`}>
             <div className="flex items-center justify-between">
               <div className="text-sm font-semibold capitalize">{format(date, 'EEE d', { locale: fr })}</div>
               {taper.has(k) && <Icon name="target" className="h-3.5 w-3.5 text-signal-500" title="Dernière ligne droite" />}
@@ -415,6 +417,7 @@ function WeekView({ anchor, byDate, projected, selected, taper, onFocusDay }: Om
 }
 
 function MonthView({ anchor, byDate, projected, selected, taper, examISO, onZoomToDay }: Omit<CalProps, 'anchor'> & { anchor: Date }) {
+  const today = useToday((s) => s.day);
   const monthStart = startOfMonth(anchor);
   const days = eachDayOfInterval({
     start: startOfWeek(monthStart, { weekStartsOn: 1 }),
@@ -433,7 +436,7 @@ function MonthView({ anchor, byDate, projected, selected, taper, examISO, onZoom
           return (
             <button key={k} type="button" onClick={() => onZoomToDay(k)}
               className={`flex min-h-[58px] flex-col rounded-lg border p-1.5 text-left transition-all hover:-translate-y-0.5 hover:border-brand-400
-                ${k === selected ? 'border-brand-500 ring-1 ring-brand-400' : k === todayKey() ? 'border-brand-300 bg-brand-50 dark:bg-brand-900/20' : taper.has(k) ? 'border-signal-200 dark:border-signal-900/40' : 'border-slate-100 dark:border-slate-800'}
+                ${k === selected ? 'border-brand-500 ring-1 ring-brand-400' : k === today ? 'border-brand-300 bg-brand-50 dark:bg-brand-900/20' : taper.has(k) ? 'border-signal-200 dark:border-signal-900/40' : 'border-slate-100 dark:border-slate-800'}
                 ${isSameMonth(date, monthStart) ? '' : 'opacity-40'}`}>
               <div className="flex items-center justify-between">
                 <span className="text-[11px] font-semibold">{format(date, 'd')}</span>
