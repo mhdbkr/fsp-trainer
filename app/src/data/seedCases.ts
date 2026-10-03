@@ -60,7 +60,7 @@ export function seedCases(): Case[] {
         noxen: {
           tabak: 'Nichtraucher, nie geraucht',
           drogen: 'keine, nie welche probiert',
-          alkohol: '10 Flaschen Bier + 3 Flaschen Schnaps täglich seit 20 Jahren; letzte 3 Monate wegen Schmerzen auf 3 Bier/Tag reduziert',
+          alkohol: '10 Flaschen Bier + 3 Flaschen Schnaps täglich seit 20 Jahren; letzte 3 Monate wegen Schmerzen auf 3 Bier/Tag reduziert; einen Entzug oder eine Entzugsklinik hat er nie versucht, aufhören wollte er bisher nicht, nur weniger trinken wegen der Schmerzen',
         },
         familienanamnese: ['Vater und Mutter gesund gewesen', 'keine bekannten Lebererkrankungen oder Krebs in der Familie'],
         sozialanamnese: ['geschieden, lebe allein', '2 gesunde Töchter (leben bei der Ex-Frau)', 'arbeite als Maschinenarbeiter', 'keine Haustiere'],
