@@ -304,7 +304,9 @@ export type CaseQuestionKapitel =
  *  porte `checkTrameSymptoms` refuse la collision. */
 // `sucht` non vide et typé : un tableau vide n'efface rien (re-revue I-3), un concept
 // inconnu n'existe pas (revue finale I-7) — tsc le refuse.
-export type CaseQuestion = string | { frage: string; kapitel: CaseQuestionKapitel; sucht?: [Symptom, ...Symptom[]]; relu?: true };
+// `followUp` (Q0) : la relance de la question, avec sa condition dans le texte
+// (« Falls ja: … ») — même règle que les relances des questions générales.
+export type CaseQuestion = string | { frage: string; kapitel: CaseQuestionKapitel; sucht?: [Symptom, ...Symptom[]]; relu?: true; followUp?: string };
 
 export interface Fachbegriff {
   id: string;

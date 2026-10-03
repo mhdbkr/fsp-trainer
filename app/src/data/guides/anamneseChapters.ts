@@ -1680,7 +1680,8 @@ function caseQuestionsByKapitel(c: Case): Record<string, PhraseVariant[]> {
   for (const q of c.caseSpecificQuestions ?? []) {
     const k = cqKapitel(q);
     const sucht = typeof q === 'string' ? undefined : q.sucht;
-    (out[k] ??= []).push({ text: cqText(q), caseSpecific: true, ...(sucht ? { sucht } : {}) });
+    const followUp = typeof q === 'string' ? undefined : q.followUp;
+    (out[k] ??= []).push({ text: cqText(q), caseSpecific: true, ...(sucht ? { sucht } : {}), ...(followUp ? { followUp: [followUp] } : {}) });
   }
   return out;
 }
