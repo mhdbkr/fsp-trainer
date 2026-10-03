@@ -97,7 +97,14 @@ describe('prompt externe sur le corpus (130 cas × 2 Teile)', () => {
         } else {
           // O1 : aucune réplique du patient, aucun négatif.
           for (const a of Object.values(c.patientSheet.antworten ?? {})) if (a && a.length >= 20 && p.akte.includes(a)) fail.push(`${id} O1 réplique`);
-          for (const n of c.patientSheet.negativeFindings ?? []) if (n.length >= 12 && p.akte.includes(n)) fail.push(`${id} O1 négatif`);
+          // Un négatif repris tel quel dans un champ structuré (« keine
+          // Bauchoperationen » dans voroperationen) est un fait du dossier, pas
+          // une réplique : il est attendu dans « ## Der Fall ».
+          const ps = c.patientSheet;
+          const strukturiert = strings([ps.vorerkrankungen, ps.voroperationen, ps.medikamente, ps.allergien, ps.unvertraeglichkeiten, ps.noxen], 1);
+          for (const n of ps.negativeFindings ?? []) {
+            if (n.length >= 12 && p.akte.includes(n) && !strukturiert.some((x) => x.includes(n))) fail.push(`${id} O1 négatif`);
+          }
           if (!p.akte.includes(c.medicalView.verdachtsdiagnose)) fail.push(`${id} diagnostic absent`);
         }
       }

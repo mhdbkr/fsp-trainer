@@ -9,8 +9,10 @@
 //   anamnese        → patient. Faits du patient SEULEMENT (patientSheet) :
 //                     rien de medicalView, ni négatifs (ils portent la
 //                     justification différentielle), ni persona française.
-//   fallvorstellung → Oberarzt seul. Diagnostic, différentiels, Leitbefunde,
-//                     questions dans l'ordre — sans le script du patient.
+//   fallvorstellung → Oberarzt seul. Faits structurés du cas (identité,
+//                     antécédents, traitements, allergies, noxes), diagnostic,
+//                     différentiels, Leitbefunde, questions dans l'ordre — sans
+//                     le script du patient ni les réponses attendues (taille).
 // Bornes (prompt.corpus.test.ts) : texte collé ≤ PASTE_MAX, parce que
 // ChatGPT convertit un collage de plus de 10 000 caractères en pièce jointe
 // (notes de version du 22 juin 2026, app/docs/reports/lead-s3-ia-sources.md §3).
@@ -102,9 +104,26 @@ function oberarzt(c: Case): PromptPaket {
   ].join('\n');
 
   const mv = c.medicalView;
+  const s = c.patientSheet;
+  const p = s.personalia;
+  const list = (label: string, xs: (string | undefined | false)[]) => {
+    const v = xs.filter((x): x is string => !!x && x.trim().toLowerCase() !== 'keine');
+    return v.length ? `${label}: ${v.join('; ')}` : null;
+  };
+  // Les faits structurés de la fiche — de quoi vérifier la présentation, sans
+  // aucune réplique du patient (O1).
+  const fall = [
+    [`${p.name}, ${p.age} Jahre`, p.geschlecht === 'w' ? 'weiblich' : p.geschlecht === 'm' ? 'männlich' : null, p.beruf].filter(Boolean).join(', '),
+    list('Vorerkrankungen', s.vorerkrankungen),
+    list('Voroperationen', s.voroperationen),
+    list('Medikamente', s.medikamente),
+    list('Allergien und Unverträglichkeiten', [...s.allergien, ...(s.unvertraeglichkeiten ?? [])]),
+    list('Noxen', [s.noxen.tabak && `Tabak: ${s.noxen.tabak}`, s.noxen.alkohol && `Alkohol: ${s.noxen.alkohol}`, s.noxen.drogen && `Drogen: ${s.noxen.drogen}`]),
+  ].filter((x): x is string => !!x);
   const sheetQuestions = (c.examinerSheet ?? []).flatMap((sec) => sec.interactions.map((i) => i.frage.trim()));
   const fragen = sheetQuestions.length ? sheetQuestions : c.examinerQuestions ?? [];
   const akte = [
+    `## Der Fall\n${bullets(fall)}`,
     `## Diagnose\n${mv.verdachtsdiagnose}`,
     mv.differenzialdiagnosen.length ? `## Differenzialdiagnosen\n${bullets(mv.differenzialdiagnosen.map((d) => d.dd))}` : null,
     `## Leitbefunde\n${bullets([...c.patientSheet.leitsymptome, ...c.patientSheet.begleitsymptome])}`,

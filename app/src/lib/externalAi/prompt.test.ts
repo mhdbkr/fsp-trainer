@@ -97,6 +97,13 @@ describe('buildPromptPaket — Teil Fallvorstellung ⇒ Oberarzt seul', () => {
     expect(full.trimEnd().endsWith(BEGRUESSUNG)).toBe(false);
   });
 
+  it('connaît les faits structurés du cas pour juger la présentation (sans répliques)', () => {
+    const fall = p.akte.slice(p.akte.indexOf('## Der Fall'), p.akte.indexOf('## Diagnose'));
+    expect(p.akte.indexOf('## Der Fall')).toBeGreaterThan(-1);
+    for (const s of ['Karl Müller', '58 Jahre', 'männlich', 'Maschinenarbeiter', 'Ibuprofen bei Bedarf']) expect(fall).toContain(s);
+    expect(fall).not.toContain('Ich habe');
+  });
+
   it('sans examinerSheet, les examinerQuestions servent de liste', () => {
     const p2 = buildPromptPaket({ ...c, examinerSheet: [] } as Case, 'fallvorstellung');
     expect(p2.akte).toContain('Wie gehen Sie weiter vor?');
