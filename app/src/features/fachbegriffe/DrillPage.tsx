@@ -268,7 +268,6 @@ export function DrillPage() {
           </div>
         )}
       </div>
-      {!showAnswer && <p className="hidden text-center text-xs text-slate-500 sm:block dark:text-slate-400"><kbd className="mono-tag">Espace</kbd> retourne · <kbd className="mono-tag">1</kbd>–<kbd className="mono-tag">4</kbd> notent</p>}
 
       {/* AUCUNE touche pendant la sortie : l'objet visé n'est plus là. Ni
           notation, ni Espace — qui retournait la carte SUIVANTE avant qu'elle
