@@ -134,7 +134,12 @@ export function useLauf(c: Case | undefined, teil: SimTeil | null): LaufSteuerun
     useSimSession.getState().sync(snapshotAusLauf(lauf));
   }, [lauf]);
 
-  const dispatch = useCallback((a: LaufAktion) => setLauf((l) => (l ? transition(l, a) : l)), []);
+  // Toute transition voulue efface l'alerte d'échec (item 5) : elle concerne
+  // l'écran où l'on a cliqué « Enregistrer », pas le bilan où l'on revient.
+  const dispatch = useCallback((a: LaufAktion) => {
+    setFehler(null);
+    setLauf((l) => (l ? transition(l, a) : l));
+  }, []);
 
   const terminerPartie = useCallback(() => setLauf((l) => {
     if (!l || !l.aktuellerTeil) return l;
@@ -190,7 +195,9 @@ export function useLauf(c: Case | undefined, teil: SimTeil | null): LaufSteuerun
       // transition, c'est l'annulation d'un `speichern` qui n'a pas abouti) et
       // on le dit. Avant : écran figé sur « Enregistrement… » (mineur 9).
       setLauf(l);
-      setFehler(e instanceof Error ? e.message : String(e));
+      // Message HUMAIN à l'écran ; le détail technique va en console (item 6).
+      console.error('[lauf] enregistrement échoué', e);
+      setFehler("L'enregistrement a échoué. Rien n'est perdu : réessaie.");
       return null;
     }
   }, [lauf, c]);

@@ -227,7 +227,9 @@ describe('Re-revue — mineur 9 : un échec d’écriture ne fige jamais l’éc
     spy.mockRestore();
     expect(id).toBeNull();
     expect(result.current.lauf?.zustand).toBe('checkliste');
-    expect(result.current.fehler).toMatch(/QuotaExceeded/);
+    // Item 6 : un message HUMAIN, jamais le détail technique (qui va en console).
+    expect(result.current.fehler).toMatch(/enregistrement a échoué/i);
+    expect(result.current.fehler).not.toMatch(/Quota/);
     await waitFor(async () => expect((await aktiv())?.zustand).toBe('checkliste'));
 
     await act(async () => { id = await result.current.beenden(); });
@@ -261,5 +263,21 @@ describe('Re-revue 2 — item 1 : une partie jouée n’est jamais jetée pour u
     await waitFor(() => expect(result.current.laedt).toBe(false));
     spy.mockRestore();
     expect((await db.simulations.get(l.id))?.parts.anamnese?.done).toBe(true);
+  });
+});
+
+describe('Re-revue 2 — item 5 : l’alerte d’échec ne survit pas à un changement d’état', () => {
+  it('échec, puis retour au bilan ⇒ fehler effacé', async () => {
+    const { result } = starte(fall('c1'), 'anamnese');
+    await waitFor(() => expect(result.current.lauf?.zustand).toBe('laufend'));
+    act(() => result.current.terminerPartie());
+    act(() => result.current.versChecklist());
+    const spy = vi.spyOn(db, 'transaction').mockRejectedValueOnce(new Error('QuotaExceeded') as never);
+    await act(async () => { await result.current.beenden(); });
+    spy.mockRestore();
+    expect(result.current.fehler).not.toBeNull();
+    act(() => result.current.zurueckZumBilanz());
+    expect(result.current.lauf?.zustand).toBe('bilanz');
+    expect(result.current.fehler).toBeNull();
   });
 });

@@ -361,7 +361,7 @@ export function SimulationRunner() {
               <div className="mt-4">
                 {steuerung.fehler && (lauf.zustand === 'checkliste' || lauf.zustand === 'arztbrief') && (
                   <p role="alert" className="callout callout-warn mx-auto mb-4 max-w-2xl text-sm">
-                    L'enregistrement a échoué ({steuerung.fehler}). Rien n'est perdu : réessaie.
+                    {steuerung.fehler}
                   </p>
                 )}
                 {lauf.zustand === 'checkliste' ? (
