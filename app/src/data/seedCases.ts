@@ -45641,7 +45641,7 @@ export function seedCases(): Case[] {
           'keine Immunsuppression, keine Kortisontherapie, keine Tumorerkrankung, kein Diabetes mellitus',
           'keine Blutverdünner, keine Schwangerschaft möglich (Menopause seit fünf Jahren)',
           'Selbsttest auf Corona an Tag 3 negativ (nur kurz vorne in der Nase abgestrichen), danach kein weiterer Test',
-          'dieses Herzrasen kennt sie von früher nicht — aus der Burnout-Zeit kennt sie Angstgefühle, grenzt das jetzige aber selbst davon ab ("etwas anderes")',
+          'dieses Herzrasen kennt sie von früher nicht — aus der Burnout-Zeit kennt sie Angstgefühle, grenzt das jetzige Herzrasen aber selbst davon ab ("etwas anderes")',
         ],
         vorerkrankungen: [
           'Gicht: erster Anfall vor drei Jahren am rechten Großzehengrundgelenk, seitdem Allopurinol, seit zwei Jahren kein Anfall mehr',
