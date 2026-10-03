@@ -1837,7 +1837,12 @@ function adaptChaptersRaw(c: Case, fach: FachanamneseGuide | undefined): Anamnes
         // Ce que la Fach jouée pose déjà (FACH_COVERS) et ce que le cas exclut
         // (aktuellSkip) ne sont pas posés ici — un seul endroit par trame.
         const skip = new Set(c.patientSheet.aktuellSkip ?? []);
-        const covered = fach ? coveredByFach(fach.chapter.questions) : new Set<string>();
+        // Exception (revue clinique C-1) : « Flanke oder Rücken… strahlen sie in die
+        // Leiste aus ? » ne dit pas où irradie une douleur du TESTICULE (« sie » n'a
+        // pas d'antécédent) : l'irradiation neutre reste, la question de flanc aussi.
+        const hoden = /hoden|skrot/i.test(c.patientSheet.schmerz?.ort ?? '');
+        const covering = fach ? fach.chapter.questions.filter((q) => !(hoden && phraseProbes(q).includes('fach-uro-flanke'))) : [];
+        const covered = coveredByFach(covering);
         const questions = v.questions.filter((q) => !phraseProbes(q).some((pr) => skip.has(pr) || covered.has(pr)));
         return withCase(v, questions);
       }

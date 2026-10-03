@@ -123,6 +123,15 @@ const played = (c: (typeof cases)[number]): Phrase[] => {
 describe('G1 — l’irradiation est posée UNE fois', () => {
   it('aucun cas ne joue à la fois la question neutre et celle de la Fach (ortho, kardio, uro-flanke)', () => {
     const twice = cases.filter((c) => played(c).filter((q) => phraseProbes(q).some((p) => IRRADIATION.includes(p))).length > 1).map((c) => c.id);
-    expect(twice).toEqual([]);
+    // Hodentorsion : la question de flanc (diagnostic différentiel colique) reste, et l'irradiation neutre aussi (revue clinique C-1).
+    expect(twice).toEqual(['case-hodentorsion']);
+  });
+  it('hodentorsion : « Flanke oder Rücken… strahlen sie in die Leiste aus ? » ne couvre pas l\'irradiation d\'une douleur du testicule', () => {
+    const probes = played(byId.get('case-hodentorsion')!).flatMap(phraseProbes);
+    expect(probes).toContain('akt-ausstrahlung');
+    expect(probes).toContain('fach-uro-flanke');
+  });
+  it('une douleur de la flanc (nierenkolik) reste couverte par la question de flanc', () => {
+    expect(played(byId.get('case-nierenkolik')!).flatMap(phraseProbes)).not.toContain('akt-ausstrahlung');
   });
 });
