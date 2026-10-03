@@ -81,3 +81,13 @@ scripts dans le scratchpad de session (`lots/`).
 ## 7. Journal
 
 - 3 oct. — PR #54 et #55 mergées (autorisation de la direction) ; filet encre du verre validé ; lot L0 lancé ; PR #56 ouverte. Incident évité : un `npm install` local avait élagué `ansi-regex` du `node_modules` partagé par les worktrees — réparé par `npm ci`, la CI n'a jamais été touchée.
+
+## 8. Après la série 3 — feuille de route proposée (3 oct., à valider par la direction)
+
+1. **Finir la série 3** : primitives (intégration en cours : 9 conflits avec #53, résolutions tranchées par la vérif finale), programme (clôture → intégration + branchements transversaux → client qui corrige la perte d'événements), lots de contenu L0→L2 puis L4–L15, **C6 l'agent testeur** (candidat synthétique 14 jours).
+2. **Série 4** : usage réel de l'app intégrée par la direction (1–2 semaines) + agent testeur en parallèle → retours.
+3. **Un seul gros chantier ensuite (ADR-0015)** — recommandé : **Prüfungstag** (examen de 60 min, trois parties enchaînées), rebâti sur le programme refondu au lieu de le doubler.
+4. Puis **Arztbrief corrigé par IA** (épic #5).
+5. **Signal stratégique** : à partir du 1ᵉʳ nov. 2026 la Kenntnisprüfung devient la voie normale (diplômes hors UE) → l'extension KP passe avant tout le SaaS (ligue, marketing, pricing), qui reste en pause.
+
+**À trancher par la direction** : les trois branches V1 dormantes depuis le 16 sept. — `feat/pruefungstag` (71 commits), `feat/characters` (71), `feat/site-v2` (291) : reprendre, réutiliser en partie, ou archiver ; et les PR ouvertes #48 (grille d'évaluation), #49 (audit glossaire), #52 (corrections de la revue du site).
