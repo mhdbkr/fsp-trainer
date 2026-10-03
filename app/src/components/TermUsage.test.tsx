@@ -5,9 +5,9 @@ import { TermUsage } from './TermUsage';
 const base = { register: { patient: 'Mein Bauch wird immer dicker.', vorstellung: 'Sonographisch zeigte sich ein Aszites.', anamnese: 'Ist Ihr Bauch dicker geworden?' } };
 
 describe('TermUsage — direction (copie)', () => {
-  it('« Tu présentes le cas » avec la phrase Fallvorstellung/Arztbrief', () => {
+  it('« Vorstellung » (tag de marque, F4c) avec la phrase Fallvorstellung/Arztbrief', () => {
     render(<TermUsage term={base as never} />);
-    expect(screen.getByText('Tu présentes le cas', { selector: 'div' })).toBeTruthy();
+    expect(screen.getByText('Vorstellung', { selector: '.dim-tag' })).toBeTruthy();
     expect(screen.getByText('Fallvorstellung ou Arztbrief : là, avec le Fachbegriff.')).toBeTruthy();
   });
   it('parole patient commençant par une majuscule : entourée de guillemets', () => {

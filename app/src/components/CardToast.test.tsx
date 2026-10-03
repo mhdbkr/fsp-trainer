@@ -5,7 +5,7 @@ import { useCardToast } from '@/store/cardToast';
 import { createPersonalTerm } from '@/lib/collections/personalTerms';
 import { toView } from '@/lib/collections/allTerms';
 import { usePendingDeletions, scheduleDeletion, cancelDeletion } from '@/lib/collections/pendingDeletion';
-import { CardToast } from './CardToast';
+import { CardToast, SAVED_MS } from './CardToast';
 
 vi.mock('@/lib/sync/queue', async () => {
   const { db } = await import('@/db/db'); const { newId } = await import('@/lib/sync/events');
@@ -82,6 +82,54 @@ describe('CardToast — accessibilité (G1-16, G1-18, G1-21)', () => {
     act(() => useCardToast.getState().show({ kind: 'saved', term, deckId: 'deck-favorites' }, { focus: true }));
     await waitFor(() => expect(document.activeElement).toBe(screen.getByRole('button', { name: /Rangée dans Favoris/ })));
   });
+  it('« Rangée » se retire SEULE, même focalisée par « Créer » ; le survol la retient puis elle repart (F4c, retour 3 oct.)', async () => {
+    const { id } = await createPersonalTerm({ term: 'Orthopnoe', explanation: 'Atemnot im Liegen' });
+    const term = toView((await db.personal_terms.get(id))!);
+    render(<CardToast />);
+    vi.useFakeTimers();
+    try {
+      act(() => useCardToast.getState().show({ kind: 'saved', term, deckId: 'deck-favorites' }, { focus: true }));
+      const main = screen.getByRole('button', { name: /Rangée dans Favoris/ });
+      expect(document.activeElement).toBe(main);
+      expect(document.querySelector('[data-drain]')).toBeTruthy();   // le filet du temps qui reste
+      fireEvent.pointerEnter(main.closest('[data-keep-open]')!, { pointerType: 'mouse' });
+      act(() => { vi.advanceTimersByTime(SAVED_MS * 2); });
+      expect(useCardToast.getState().toast).not.toBeNull();   // survolée : elle attend
+      expect(document.querySelector('[data-drain]')!.getAttribute('data-drain')).toBe('held');   // filet plein, fixe
+      fireEvent.pointerLeave(main.closest('[data-keep-open]')!, { pointerType: 'mouse' });
+      act(() => { vi.advanceTimersByTime(SAVED_MS - 100); });
+      expect(useCardToast.getState().toast).not.toBeNull();   // repart pour un délai entier
+      act(() => { vi.advanceTimersByTime(200); });
+      expect(useCardToast.getState().toast).toBeNull();
+    } finally { vi.useRealTimers(); }
+  });
+  it('le clavier retient la pilule dès qu\'on y agit (WCAG 2.2.1), pas le focus posé par « Créer »', async () => {
+    const { id } = await createPersonalTerm({ term: 'Orthopnoe', explanation: 'Atemnot im Liegen' });
+    const term = toView((await db.personal_terms.get(id))!);
+    render(<CardToast />);
+    vi.useFakeTimers();
+    try {
+      act(() => useCardToast.getState().show({ kind: 'saved', term, deckId: 'deck-favorites' }, { focus: true }));
+      const main = screen.getByRole('button', { name: /Rangée dans Favoris/ });
+      fireEvent.keyDown(main, { key: 'Tab' });
+      act(() => { vi.advanceTimersByTime(SAVED_MS * 2); });
+      expect(useCardToast.getState().toast).not.toBeNull();
+    } finally { vi.useRealTimers(); }
+  });
+  it('un clic souris dans la pilule (focus non visible) ne la retient pas', async () => {
+    const { id } = await createPersonalTerm({ term: 'Orthopnoe', explanation: 'Atemnot im Liegen' });
+    const term = toView((await db.personal_terms.get(id))!);
+    render(<CardToast />);
+    vi.useFakeTimers();
+    try {
+      act(() => useCardToast.getState().show({ kind: 'saved', term, deckId: 'deck-favorites' }));
+      const main = screen.getByRole('button', { name: /Rangée dans Favoris/ });
+      fireEvent.click(main); fireEvent.click(main);   // ouvre puis referme la miniature
+      act(() => { main.focus(); });                    // le clic a laissé le focus (souris : pas :focus-visible)
+      act(() => { vi.advanceTimersByTime(SAVED_MS + 100); });
+      expect(useCardToast.getState().toast).toBeNull();
+    } finally { vi.useRealTimers(); }
+  });
 });
 
 describe('CardToast — suppression (m2)', () => {
@@ -112,7 +160,7 @@ describe('CardToast — suppression (m2)', () => {
     expect(pill.getAttribute('role')).toBeNull();   // le nœud animé ne porte pas l'annonce
     expect(document.body.innerHTML).not.toMatch(/shadow-/);
   });
-  it('« Rangée » : une ligne ★ · Révéler · Changer ; aucun miniature tant qu\'on ne touche pas', async () => {
+  it('« Rangée » : une ligne ★ · Changer (plus de « Révéler », F4c) ; aucun miniature tant qu\'on ne touche pas', async () => {
     await db.progress_events.put({ id: 'e1', user_id: 'u', type: 'deck.created', subject_id: 'd1', payload: { name: 'Leber', kind: 'manual' }, occurred_at: '2020-01-01T00:00:00Z' } as never);
     const { reprojectCollections } = await import('@/lib/collections'); await reprojectCollections();
     const { id } = await createPersonalTerm({ term: 'Orthopnoe', explanation: 'Atemnot im Liegen' });
@@ -122,6 +170,7 @@ describe('CardToast — suppression (m2)', () => {
     expect(screen.getByRole('button', { name: 'Changer de deck' }).textContent).toBe('Changer');
     expect(screen.getByRole('button', { name: /Rangée dans Favoris/ }).getAttribute('aria-expanded')).toBe('false');
     expect(document.querySelector('[data-card-flip]')).toBeNull();
+    expect(screen.queryByRole('button', { name: /Révéler|Recto/ })).toBeNull();
     expect(document.body.innerHTML).not.toMatch(/shadow-/);
   });
   it('« Deck supprimé · Annuler » : Annuler → rien n\'est émis, la pilule se ferme (F4b P6)', async () => {

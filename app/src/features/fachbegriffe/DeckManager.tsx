@@ -43,7 +43,7 @@ function DeckRow({ deck, count }: { deck: Deck; count: number | undefined }) {
         {deck.kind === 'smart' && <Icon name="bolt" className="h-4 w-4 shrink-0 text-brand-600 dark:text-brand-300" title="Deck intelligent" />}
         <input aria-label={`Nom du deck ${deck.name}`} value={name} maxLength={40} onChange={(e) => setName(e.target.value)}
           onBlur={() => { void commit(); }} onKeyDown={(e) => { if (e.key === 'Enter') e.currentTarget.blur(); }}
-          className="min-h-11 min-w-0 flex-1 border-b border-transparent bg-transparent px-1 hover:border-slate-300 focus:border-brand-500 dark:hover:border-white/20" />
+          className="field-line min-w-0 flex-1 border-transparent dark:border-transparent" />
         {count !== undefined && <span className="shrink-0 font-mono text-[11px] text-slate-500 dark:text-slate-400">{count}</span>}
         <button type="button" aria-label={`Supprimer le deck ${deck.name}`} onClick={remove}
           className="grid h-11 w-11 shrink-0 place-items-center rounded-full text-slate-500 hover:bg-white/50 hover:text-rose-600 dark:hover:bg-white/10 dark:hover:text-rose-400">
@@ -80,7 +80,7 @@ export function DeckManager({ decks, counts, onClose, initialQuery, onCreated }:
       <m.aside key="deck-manager" ref={ref} tabIndex={-1} role="dialog" aria-modal="true" aria-label="Decks" onKeyDown={(e) => trapFocus(e, ref.current)} {...slide('left')}
         className="glass-full fixed left-0 top-0 z-[60] flex h-full w-full max-w-sm flex-col rounded-r-2xl p-4 outline-none">
         <div className="flex items-center justify-between">
-          <h2 className="text-lg">Decks</h2>
+          <h2 className="sheet-title">Decks</h2>
           <button type="button" aria-label="Fermer" onClick={onClose} className="grid h-11 w-11 place-items-center rounded-full hover:bg-white/50 dark:hover:bg-white/10">✕</button>
         </div>
         <ul className="mt-2 flex-1 divide-y divide-white/40 overflow-y-auto dark:divide-white/10">

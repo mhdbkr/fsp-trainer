@@ -60,7 +60,7 @@ describe('SelectionExplainer', () => {
     vi.useRealTimers();
     fireEvent.click(star); fireEvent.click(star);   // double appui : un seul rangement
     expect(await screen.findByText('Favoris', { selector: 'strong' })).toBeTruthy();
-    expect(screen.getByRole('button', { name: 'Révéler' })).toBeTruthy();
+    expect(screen.getByRole('button', { name: /Rangée dans Favoris/ })).toBeTruthy();
     expect(screen.queryByRole('button', { name: 'Changer de deck' })).toBeNull();   // aucun autre deck : pas d'impasse (revue direction)
     expect((await db.progress_events.toArray()).filter((e) => e.type === 'term.favorited')).toHaveLength(1);
   });
