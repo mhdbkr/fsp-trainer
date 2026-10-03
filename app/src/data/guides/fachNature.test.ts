@@ -85,6 +85,12 @@ describe('Revue clinique L0', () => {
     const q = fachQ('aortendissektion', 'fach-gefaess-wunde');
     expect(q && phraseText(q)).toMatch(/Fuß kalt/);
   });
+  it('une seule question par réplique, même avec un seul « ? » (mécanisme, vaccination)', () => {
+    const mech = fachQ('osg-fraktur', 'fach-ortho-mechanismus')!;
+    expect(phraseText(mech)).toBe('Wie ist es passiert?');
+    expect(phraseAlts(mech).filter((t) => / — |, und /.test(t))).toEqual([]);
+    expect(phraseText(fachQ('lyme', 'fach-infekt-impfung')!)).toBe('Sind Ihre Impfungen auf dem neuesten Stand?');
+  });
   it('rachis lombaire : l’irradiation ne suggère pas la réponse (ni genou ni pied)', () => {
     for (const id of ['lumboischialgie', 'bandscheibenvorfall', 'spinalkanalstenose'])
       expect(phraseText(fachQ(id, 'fach-ortho-ausstrahlung')!)).not.toMatch(/Knie|Fuß/);

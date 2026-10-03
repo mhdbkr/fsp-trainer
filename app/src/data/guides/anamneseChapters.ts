@@ -1130,9 +1130,9 @@ export const FACHANAMNESEN: FachanamneseGuide[] = [
     ['Sturz', 'Bewegung', 'Taubheit', 'kälter', 'Ausstrahlung'],
     [
       {
-        text: 'Wie genau ist es passiert — gab es einen Unfall oder einen Sturz?',
+        text: 'Wie ist es passiert?',
         probe: 'fach-ortho-mechanismus',
-        alts: ['Sind Sie gestürzt — auf welche Seite, und worauf?'],
+        alts: ['Was genau ist passiert?'],
         followUp: ['Sind Sie dabei ohnmächtig geworden?', 'Haben Sie sich dabei noch woanders verletzt?'],
       },
       {
@@ -1516,7 +1516,7 @@ export const FACHANAMNESEN: FachanamneseGuide[] = [
         followUp: ['Arbeiten Sie mit vielen Menschen? Haben Sie ungewöhnliche Lebensmittel gegessen — rohe Milch, rohes Fleisch?'],
       },
       {
-        text: 'Sind Ihre Impfungen auf dem neuesten Stand — haben Sie Ihren Impfpass dabei?',
+        text: 'Sind Ihre Impfungen auf dem neuesten Stand?',
         probe: 'fach-infekt-impfung',
       },
     ],

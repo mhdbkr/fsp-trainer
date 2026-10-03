@@ -171,7 +171,7 @@ export const FACH_PROBES: Partial<Record<Specialty, AnamneseProbe[]>> = {
     { id: 'fach-infekt-neuro', kapitel: 'fach', frage: 'Haben Sie Kopfschmerzen, Nackensteifigkeit, Missempfindungen oder eine Gesichtslähmung bemerkt?' },
     { id: 'fach-infekt-reise', kapitel: 'fach', frage: 'Waren Sie kürzlich im Ausland? Wo, wie lange, und hatten Sie dort Beschwerden?', deepens: 'veg-fieber' },
     { id: 'fach-infekt-kontakt', kapitel: 'fach', frage: 'Hatten Sie Kontakt zu kranken Personen oder zu Tieren?' },
-    { id: 'fach-infekt-impfung', kapitel: 'fach', frage: 'Sind Ihre Impfungen auf dem neuesten Stand — haben Sie Ihren Impfpass dabei?' },
+    { id: 'fach-infekt-impfung', kapitel: 'fach', frage: 'Sind Ihre Impfungen auf dem neuesten Stand?' },
   ],
   Urologie: [
     { id: 'fach-uro-miktion', kapitel: 'fach', frage: 'Haben Sie Schmerzen oder ein Brennen beim Wasserlassen?', deepens: 'veg-ausscheidung' },
@@ -189,7 +189,7 @@ export const FACH_PROBES: Partial<Record<Specialty, AnamneseProbe[]>> = {
     { id: 'fach-uro-vorgeschichte', kapitel: 'fach', frage: 'Hatten Sie schon einmal einen Harnwegsinfekt, Nierensteine oder Probleme mit der Prostata?' },
   ],
   Orthopädie: [
-    { id: 'fach-ortho-mechanismus', kapitel: 'fach', frage: 'Wie genau ist es passiert — gab es einen Unfall oder einen Sturz?' },
+    { id: 'fach-ortho-mechanismus', kapitel: 'fach', frage: 'Wie ist es passiert?' },
     { id: 'fach-ortho-bewegung', kapitel: 'fach', frage: 'Sind die Schmerzen von Bewegung und Belastung abhängig, oder treten sie auch in Ruhe und nachts auf?' },
     { id: 'fach-ortho-ausstrahlung', kapitel: 'fach', frage: 'Strahlen die Schmerzen aus — und wenn ja, bis wohin genau?', deepens: 'akt-ausstrahlung' },
     { id: 'fach-ortho-sensomotorik', kapitel: 'fach', frage: 'Haben Sie Kribbeln, ein Taubheitsgefühl oder weniger Kraft bemerkt?' },
