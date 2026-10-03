@@ -381,7 +381,7 @@ h1, h2, h3 {
   .field-line {
     @apply w-full min-h-11 border-b border-slate-300/80 bg-transparent px-0.5 transition-[border-color,box-shadow] hover:border-slate-400 dark:border-white/20 dark:hover:border-white/35;
   }
-  .field-line:focus, .field-line:focus-visible { outline: none; border-color: var(--focus-ring); box-shadow: 0 1px 0 0 var(--focus-ring); border-radius: 0; }
+  .field-line:focus, .field-line:focus-visible { outline: none; border-color: var(--focus-ring); box-shadow: inset 0 -1px 0 0 var(--focus-ring); border-radius: 0; }
   /* Lecture seule (Bedeutung reprise du glossaire) : le focus reste visible mais neutre — rien à écrire. */
   .field-line[readonly]:focus, .field-line[readonly]:focus-visible { border-color: rgb(148 163 184); box-shadow: none; }
   /* Titre d'une fiche verre (Ma carte, Nouveau deck, Decks) — un seul. */
@@ -391,7 +391,7 @@ h1, h2, h3 {
   /* Rail gravé dans une carte (sélecteur Recto | Verso, F4c) : creusé dans la
      surface, pas un verre posé dessus — lisible sur la carte blanche comme sur l'encre. */
   .engraved { background: rgb(12 26 23 / 0.06); box-shadow: inset 0 1px 2px rgb(12 26 23 / 0.10), inset 0 0 0 1px rgb(12 26 23 / 0.05); }
-  .engraved-thumb { box-shadow: 0 1px 2px rgb(12 26 23 / 0.25); }
+  .engraved-thumb { box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.22); }   /* filet de lumière en haut — aucune ombre portée (G2-a) */
   .dark .engraved { background: rgb(255 255 255 / 0.07); box-shadow: inset 0 1px 2px rgb(0 0 0 / 0.35), inset 0 0 0 1px rgb(255 255 255 / 0.06); }
   /* Tag mono pour terminologie / données. */
   .mono-tag { @apply inline-flex items-center rounded-md bg-slate-100 px-1.5 py-0.5 font-mono text-[11px] text-slate-600 dark:bg-ink-700 dark:text-slate-300; }
