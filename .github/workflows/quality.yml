@@ -146,9 +146,14 @@ jobs:
       - run: npm ci
       # Invariants des jetons (teinte unique, filets de lumière, contraste) : le build du site
       # les consomme, ils passent donc avant lui.
+      # Toute la suite (dont elevation.test : aucune ombre portée) puis la parité
+      # tokens.json ↔ app (tailwind.config.js + index.css) : deux vraies portes.
       - name: Invariants des jetons de design
         working-directory: packages/tokens
-        run: node --test test/tokens.test.mjs
+        run: node --test test/*.test.mjs
+      - name: Parité jetons ↔ app
+        working-directory: packages/tokens
+        run: node scripts/check-parity.mjs
       # Tous les validateurs du site lisent le HTML CONSTRUIT (foyer scripts/lib/dist.mjs) :
       # le build vient donc en premier, dans le même ordre que `npm run verify`.
       - run: npm run build
