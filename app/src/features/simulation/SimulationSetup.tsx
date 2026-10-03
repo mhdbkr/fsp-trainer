@@ -180,7 +180,7 @@ export function PartnerCard({ caseId, teil }: { caseId: string; teil: SimTeil | 
 
       {choix === 'ia' && (
         <p className="mt-3 text-xs text-slate-500 dark:text-slate-400">
-          Dans la partie, le bouton <b>« Avec ton IA »</b> prépare le prompt
+          Dans la partie, la puce <b>« IA »</b> de l’en-tête prépare le prompt
           {teil === 'fallvorstellung' ? ' de l’Oberarzt' : teil === 'anamnese' ? ' du patient' : ' du Teil en cours'}.
         </p>
       )}

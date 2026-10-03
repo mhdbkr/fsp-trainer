@@ -1,12 +1,12 @@
 // ============================================================================
 // TeilAiLauncher — jouer le Teil courant avec une IA externe (ChatGPT, Gemini).
 //
-// CONTRAT DE MONTAGE (intégration dans PlayArea, SimulationRunner.tsx) :
+// CONTRAT DE MONTAGE (en-tête du runner, à côté d'Aufklärung et Fachbegriffe) :
 //   <TeilAiLauncher caseId={c.id} teil={part} />
 //   - à rendre SEULEMENT si part === 'anamnese' || part === 'fallvorstellung'
 //     (contrat ai-bridge §3.1) ; jamais pendant dokumentation / aufklaerung ;
-//   - le parent fournit une ligne d'outils : le composant rend un bouton
-//     discret ; son panneau flotte sous le déclencheur (au-dessus s'il est
+//   - le parent fournit une ligne d'outils : le composant rend une puce
+//     « IA » ; son panneau flotte sous le déclencheur (au-dessus s'il est
 //     près du bas) dans un portail (fixed, z-50, tenu à 16 px des bords,
 //     hauteur bornée à l'espace disponible) ;
 //   - aucune dépendance au store : il lit le cas (Dexie), la cible mémorisée
@@ -262,10 +262,10 @@ export function TeilAiLauncher({ caseId, teil }: { caseId: string; teil: AnkerTe
     <>
       <button
         ref={btnRef} type="button" aria-expanded={open} aria-controls={panelId} onClick={() => setOpen((o) => !o)}
-        className={`btn-ghost min-h-9 gap-1.5 px-2.5 text-sm ${open ? 'text-brand-700 dark:text-brand-200' : ''}`}
+        aria-label="Avec ton IA" title="Jouer cette partie avec ton IA"
+        className={`chip shrink-0 bg-brand-100 text-brand-700 dark:bg-brand-900/40 dark:text-brand-300 ${open ? 'ring-1 ring-brand-500/40' : ''}`}
       >
-        <Icon name="spark" className="h-4 w-4" title="" />
-        Avec ton IA
+        <Icon name="spark" className="h-3.5 w-3.5" title="" />IA
       </button>
       {open && pos && (
         <Portal>
