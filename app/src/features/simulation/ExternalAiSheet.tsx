@@ -34,7 +34,7 @@ export function ExternalAiSheet() {
           </div>
           <button type="button" onClick={close} className="btn-ghost -mr-2 -mt-1 min-h-9 px-2.5 text-sm">Fermer</button>
         </div>
-        <TeilAiPanel caseId={caseId} teil="anamnese" />
+        <TeilAiPanel caseId={caseId} teil="anamnese" autoFocus />
       </div>
     </>
   );

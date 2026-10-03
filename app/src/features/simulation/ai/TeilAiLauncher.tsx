@@ -71,7 +71,7 @@ function Explainer({ teil }: { teil: AnkerTeil }) {
   );
 }
 
-export function TeilAiPanel({ caseId, teil }: { caseId: string; teil: AnkerTeil }) {
+export function TeilAiPanel({ caseId, teil, autoFocus = false }: { caseId: string; teil: AnkerTeil; autoFocus?: boolean }) {
   const c = useCase(caseId);
   const text = useMemo(() => (c ? promptText(buildPromptPaket(c, teil)) : ''), [c, teil]);
   // undefined = la mémoire n'est pas encore lue : on ne rend pas les cibles,
@@ -88,6 +88,11 @@ export function TeilAiPanel({ caseId, teil }: { caseId: string; teil: AnkerTeil 
     loadTarget().then((r) => { if (!alive) return; setRemembered(r); if (r) setTarget(r); }).catch(() => alive && setRemembered(null));
     return () => { alive = false; };
   }, []);
+  const groupRef = useRef<HTMLDivElement>(null);
+  // Une fois les cibles rendues, le clavier part de la cible cochée.
+  useEffect(() => {
+    if (autoFocus && remembered !== undefined) groupRef.current?.querySelector<HTMLElement>('[aria-checked="true"]')?.focus();
+  }, [autoFocus, remembered]);
   useEffect(() => {
     if (result && !result.ok) { areaRef.current?.focus(); areaRef.current?.select(); }
   }, [result]);
@@ -136,7 +141,7 @@ export function TeilAiPanel({ caseId, teil }: { caseId: string; teil: AnkerTeil 
           <div className="h-11 rounded-full bg-slate-100 dark:bg-ink-700" aria-hidden />
         ) : (
           <div
-            role="radiogroup" aria-label="Ton IA"
+            ref={groupRef} role="radiogroup" aria-label="Ton IA"
             className="relative grid grid-cols-2 rounded-full bg-slate-100 p-1 dark:bg-ink-700"
             onKeyDown={(e) => {
               if (e.key !== 'ArrowLeft' && e.key !== 'ArrowRight') return;
@@ -261,7 +266,7 @@ export function TeilAiLauncher({ caseId, teil }: { caseId: string; teil: AnkerTe
             style={{ left: pos.left, top: pos.top, width: pos.width }}
             className="glass glass-edge animate-pop fixed z-50 max-h-[calc(100vh-6rem)] origin-top-left overflow-y-auto rounded-2xl p-4"
           >
-            <TeilAiPanel caseId={caseId} teil={teil} />
+            <TeilAiPanel caseId={caseId} teil={teil} autoFocus />
           </div>
         </Portal>
       )}

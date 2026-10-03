@@ -111,6 +111,13 @@ describe('TeilAiLauncher', () => {
     expect(await meta('externalAi.pending')).toBeUndefined();
   });
 
+  it('M2 — à l\'ouverture, le focus va sur la cible cochée', async () => {
+    await db.meta.put({ key: 'externalAi.target', value: 'gemini' });
+    render(<TeilAiLauncher caseId="c1" teil="anamnese" />);
+    await open();
+    await waitFor(() => expect(document.activeElement).toBe(screen.getByRole('radio', { name: 'Gemini' })));
+  });
+
   it('Échap referme', async () => {
     render(<TeilAiLauncher caseId="c1" teil="anamnese" />);
     await open();
