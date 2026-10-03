@@ -142,7 +142,9 @@ describe('Candidate synthétique — 14 jours ouvrés, 2 jours manqués, un dril
         let avant = open(plan).length;
         for (const t of plan.tasks) {
           if (r.bool(0.12)) continue;                // elle n'a pas tout fini
-          if ((await db.day_plans.get(date))!.tasks.find((x) => x.id === t.id)!.doneAt !== undefined) continue;
+          const courante = (await db.day_plans.get(date))!.tasks.find((x) => x.id === t.id);
+          expect(courante, ctx(`INV-9 : la tâche « ${t.label} » a disparu du plan figé`)).toBeTruthy();
+          if (courante!.doneAt !== undefined) continue;
           await jouer(r, t, tick);
           const p = (await db.day_plans.get(date))!;
           expect(open(p).length, ctx(`INV-1 après « ${t.label} »`)).toBeLessThanOrEqual(avant);
