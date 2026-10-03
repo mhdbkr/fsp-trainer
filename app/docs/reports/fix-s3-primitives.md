@@ -72,3 +72,53 @@ Deux réparations de la sonde ont été nécessaires pour obtenir ce résultat. 
 - Les popovers passés en `.glass glass-edge` (I3) n'ont **pas** été ouverts un par un dans le navigateur : il faut plusieurs comptes pour `AccountSwitcher`, un terme sélectionné pour `SelectionExplainer`, un deck pour `DeckChecklist`. Les matériaux `.glass` et `.glass-edge` eux-mêmes sont mesurés par la sonde : filet supérieur plus clair que le bord, flou rendu. Leur lisibilité au-dessus d'une carte chargée n'est pas mesurée.
 - `html:active-view-transition` n'a été mesuré que dans Chromium (headless shell 1243), pas dans Safari ni Firefox. Attendu, non mesuré : un navigateur qui a les View Transitions sans `:active-view-transition` ne pose jamais le nom et retombe sur le fondu racine par défaut, sans perdre le flou.
 - La suite `vitest` complète de `src/` n'a pas été relancée : seuls `src/components` et `DrillPage.test.tsx` l'ont été, conformément au brief.
+
+---
+
+## Re-revue 2 (front-design-keeper sur `0a0fdcd`)
+
+Points confirmés corrigés par le relecteur : B1, I1, I2, I4, M2.
+Ce qui suit répond au « Request changes ».
+**Statut : DONE_WITH_CONCERNS** (réserves en fin de section).
+
+| Item | Commit | Preuve |
+|---|---|---|
+| **I-A** : le popover clair n'avait pas d'arête | `401cc80` | Mesure rouge d'abord (voir tableau ci-dessous). Décision de `main` appliquée dans le matériau : `.glass` clair a `border: 1px solid rgb(12 26 23 / 0.12)` et `border-top-color` reste blanc à 0,88. `tokens.json` `glass.light.border` suit. `check-parity` vérifie maintenant `glass.light.border` et `glass.dark.border` ; mutation vérifiée : l'ancien bord fait sortir en code 1. La garde (c) d'`elevation.test.mjs` reste verte (0,88 > 0,12). |
+| **I-B** : `AccountSwitcher`, verre dans du verre | `60e6ea1c` | Test rouge d'abord : `expected <aside class="glass"> to be null`. Le menu est en `<Portal>`, `position: fixed`, `left` borné à `[8, vw − 224 − 8]`. Il s'ouvre au-dessus du déclencheur si celui-ci est dans la moitié basse de l'écran, sinon en dessous. Un clic dans le menu, désormais hors de la racine du composant, ne le ferme pas. Le déclencheur reçoit le nom `Compte : <nom>` : en dock et à 390 px, il n'affichait que des initiales. |
+| **`ResumeSessionBar`** | `d1659ee` | Tests rouges d'abord (3 sur 4). Passe en `.glass glass-edge`. Un Teil seul s'écrit une fois, sans « … seule » (l'ancienne ligne doublait : « Anamnese · Anamnese seule »). Le ✕ reçoit `aria-label` et une cible `h-11 w-11` ; la pilule garde sa hauteur grâce à `py-0.5`. |
+| **Passation §3** | `a2584e0` | §3.6 est refait en trois blocs : (1) les segmentés qui ont perdu leur seul signal, à traiter en premier ; (2) les remplacements explicites (`SimulationSetup:163`, `CasesPage:141` sans `card-interactive`, `AufklaerungPage:178`, `GuidesPage:148`, `ProgramPage:423` et `ProgramSetup:66` seulement après I-A, `CasePreviewPanel:26`) ; (3) les classes mortes, vérifiées ligne par ligne (chacune garde son signal par la teinte ou la bordure). §3.4 : `CasePreviewPanel:41,55` devient une exception motivée (l'`aside` est `bg-white` opaque, sans `.card`). |
+| **Commentaires de charte** | `51657f7` | `index.css` renvoie maintenant au bon rapport (`lead-s3-primitives.md` §3.6) et signale les segmentés qui portaient un signal. |
+
+**I-A : mesure en pixels.** La sonde greffe la chaîne exacte des popovers (`glass glass-edge rounded-xl p-1`) au-dessus d'une carte ordinaire. La carte est choisie pour avoir le fond calculé d'une `.card` témoin, et elle est vidée de son contenu. On mesure Δ = luminance de la colonne ou ligne de bord moins luminance de l'extérieur, à 3–6 px.
+
+| | Avant (`60e6ea1c`) | Après (`401cc80`) |
+|---|---|---|
+| clair, 390 (gauche / droite / bas) | +2,2 / +2,4 / +2,5 | **−26,4 / −26,3 / −26,4** |
+| clair, desktop | +2,2 / +2,4 / +2,6 | **−26,4 / −26,4 / −26,4** |
+| sombre, 390 | +24,5 / +24,0 / +24,5 | inchangé |
+| sombre, desktop | +24,5 / +24,5 / +24,5 | inchangé |
+
+- Le « avant » recoupe la mesure du relecteur (+2,2 / +2,1 / +3,7).
+- Le « après » tombe sur la valeur attendue par `main` (≈ −26).
+- Portes de la sonde : en clair, max(Δ) ≤ −10 ; en sombre, min(|Δ|) ≥ 4.
+
+**Captures pour la direction** (effet de bord accepté : la barre du haut et la barre latérale gagnent le filet encre en clair) : `app/docs/reports/fix-s3-primitives/`, pour `chrome-topbar`, `chrome-sidebar` et `popover`, en clair, à 390 px et en desktop, chacune en version `-avant` et `-apres`.
+
+**Portes (code de sortie, build final) :**
+
+- `tsc -b --noEmit` → 0
+- `npm run build` → 0
+- `packages/tokens` `node --test` → 0 (14/14)
+- `check-parity` → 0
+- `vitest --dir src/components` → 0 (27 fichiers, 181 tests)
+- `DrillPage.test.tsx` → 0
+- Sonde → 0, **84 OK / 0 KO** (log : `lead-s3-primitives.verify.log`). Serveur `vite preview :4317` lancé depuis ce worktree ; le CSS servi est identique à `dist/`.
+
+**Hors charte, consigné.** À 390 px, la carte « À faire aujourd'hui » de l'accueil déborde à droite. Mesure dans le DOM : la carte s'étend de x = 80 à x = 493 pour un viewport de 390, soit 103 px de débord. Aucun enfant ne dépasse la carte : c'est la carte elle-même qui est trop large. La page ne défile pas horizontalement (`scrollWidth` du document = 390), donc c'est `main` qui rogne. Cause non instruite ; elle revient au chantier Programme (accueil).
+
+**Réserves et non vérifié :**
+
+- **I-B n'a pas été mesuré dans le navigateur.** `AccountSwitcher` n'existe qu'en build `VITE_AUTH_MODE=founder`, et ce build exige une vraie session : sans compte, la porte « Créer mon compte » ; avec un registre de comptes injecté mais sans session, le navigateur boucle au chargement. Créer un compte aurait voulu dire écrire dans le Supabase local de `main` : pas fait. La preuve d'I-B est donc le test `AccountSwitcher.test.tsx` (pas d'ancêtre `.glass`, `fixed`, borné à 390 px, clic intérieur). La sonde contient la mesure navigateur (débord, premier plan, flou contre un témoin sans `backdrop-filter`) et la consigne « non mesurable » sur un build public, sans faux vert.
+- **Écart de compte avec `main`.** Le message annonçait « quatre » segmentés porteurs de signal ; la lecture ligne par ligne donne cinq occurrences sur trois segmentés (`CaseDetailPage:55,58`, `PatientScreen:46,47`, `ProgramPage:463`). `ProgramPage:208` garde un signal (`text-brand-700`) et n'est pas compté.
+- Le contraste « ≈ 1,07 » est la mesure du relecteur ; je ne l'ai pas refaite.
+- Le filet encre ajouté sur la barre du haut et la barre latérale n'a été vérifié qu'en capture ; il attend le jugement de la direction.
