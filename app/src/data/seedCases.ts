@@ -43592,6 +43592,7 @@ export function seedCases(): Case[] {
         vorerkrankungen: [
           'Diabetes mellitus Typ 2 seit zwei Jahren (Erstdiagnose im Alter von 29 Jahren), zuletzt kein HbA1c bekannt',
           'arterielle Hypertonie, seit etwa drei Jahren behandelt',
+          'Tetanusimpfung zuletzt vor etwa sieben Jahren aufgefrischt (nach der Sprunggelenksoperation), der Impfpass liegt zu Hause',
           'chronische Lumbalgie seit mehreren Jahren bei überwiegend gebückter Tätigkeit als Elektriker',
           'Übergewicht/Präadipositas (89 kg bei 1,82 m, BMI ca. 26,9)',
         ],
