@@ -423,7 +423,7 @@ opposable ; un test qui ne porte pas cet identifiant ne compte pas.
 | **INV-8** | `replanifier()` conserve toutes les tâches `doneAt !== undefined`, à l'identique (id compris). | plan partiellement fait |
 | **INV-9** | Le `DayPlan` d'un jour, une fois matérialisé, est **bit-identique** après n re-rendus de n'importe quelle page. | rendus répétés, horloge qui avance dans la journée |
 | **INV-10** | Aucun `TrainingEvent` n'est jamais modifié ni supprimé : `training_events` reconstruit depuis `progress_events` est identique à lui-même. | `rebuildProjections()` ×2 |
-| **INV-11** | `selbstbewertet === true` ⇒ le `CaseProgress` du cas est inchangé par cet événement. | séances IA externe |
+| **INV-11** | `selbstbewertet === true` ⇒ les MESURES du `CaseProgress` (`status`, `lastScore`, `lastAt`, `attempts`, `overall`) sont inchangées par cet événement ; seul `TeilProgress.nonMesureAt` le note (« faite — non mesurée », décision I-4). Un cas joué seulement en IA externe a donc une ligne `case_progress` « vierge » portant `nonMesureAt`. | séances IA externe |
 | **INV-12** | `taperLen` et toute fenêtre de phase se calculent sur la **date d'examen**, jamais sur les jours restants : la phase d'un jour figé ne change plus. (corrige `program.ts:35-37,136`) | horloge avancée d'un jour |
 
 ---
