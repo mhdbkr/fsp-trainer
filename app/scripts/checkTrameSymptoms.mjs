@@ -79,9 +79,14 @@ for (const c of cases) {
     if (!m.phraseIsCaseSpecific(p)) return;
     const t = m.phraseText(p);
     const q = raw.get(t);
-    // `sucht: []` est vrai en JS mais ne cherche rien : il n'exempte pas (re-revue I-3).
-    if (q && typeof q !== 'string' && (q.sucht?.length || q.relu)) return;
+    // `relu` = relecture complète : la question entière est exemptée. `sucht`
+    // n'exempte QUE les symptômes qu'il déclare — un concept inconnu ou non
+    // cité ne fait plus taire la relecture du reste (revue finale I-7 ;
+    // re-revue I-3 pour `sucht: []`).
+    if (q && typeof q !== 'string' && q.relu) return;
+    const declared = q && typeof q !== 'string' ? q.sucht ?? [] : [];
     for (const s of m.symptomsInText(t)) {
+      if (declared.includes(s)) continue;
       const other = rows.find((r, j) => j !== i && m.phraseSymptoms(r.p).includes(s));
       if (other) review.push(`${c.id} [${ch}] « ${t} » cite « ${s} », cherché ${rows.indexOf(other) < i ? 'plus haut' : 'PLUS BAS'} : [${other.ch}] « ${m.phraseText(other.p).slice(0, 55)} »`);
     }

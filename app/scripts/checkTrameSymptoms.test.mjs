@@ -83,3 +83,15 @@ test('I-3 — `sucht: []` n\'éteint pas la porte', { timeout: 300_000 }, () => 
   assert.equal(r.status, 1);
   assert.match(r.stdout, /case-lyme/);
 });
+
+// Revue finale I-7 : un `sucht` NON VIDE n'exempte que les symptômes qu'il
+// déclare. Ni un concept inconnu (7a) ni un concept que le texte ne cite pas
+// (7b) ne doivent faire taire la relecture de ce que la question cite.
+const ZIEL = "{ frage: 'Hat die Rötung in der Mitte eine hellere Stelle, sodass sie wie eine Zielscheibe aussieht?', kapitel: 'aktuell', relu: true },";
+for (const [name, sucht] of [['7a concept inconnu', "['zzz']"], ['7b concept non cité', "['durst']"]]) {
+  test(`I-7 ${name} — \`sucht\` ne fait pas taire ce qu'il ne déclare pas`, { timeout: 300_000 }, () => {
+    const r = sb.mutate(cases, ZIEL, ZIEL.replace('relu: true', `sucht: ${sucht}`), gate);
+    assert.equal(r.status, 1);
+    assert.match(r.stdout, /case-lyme/);
+  });
+}
