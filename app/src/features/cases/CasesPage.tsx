@@ -6,7 +6,7 @@ import type { Case, CaseProgress, Center, Specialty } from '@/db/types';
 import { CenterBadge, FreqBadge, DifficultyDots, EmptyState } from '@/components/ui';
 import { useCaseProgress } from '@/features/program/useProgram';
 import { blankProgress } from '@/lib/journal';
-import { OVERALL, ProgressBadge, TeilDots, progressRank } from './CaseProgressView';
+import { OVERALL, ProgressBadge, TeilDots, nonMesureSeulement, progressRank } from './CaseProgressView';
 import { Icon, SpecialtyIcon } from '@/components/icons';
 import { CasePreviewPanel } from './CasePreviewPanel';
 
@@ -62,7 +62,8 @@ export function CasesPage() {
 
   const total = cases.length;
   const solides = cases.filter((c) => cpOf(c).overall === 'solide').length;
-  const vierges = cases.filter((c) => cpOf(c).overall === 'vierge').length;
+  const nonMesures = cases.filter((c) => nonMesureSeulement(cpOf(c))).length;
+  const vierges = cases.filter((c) => cpOf(c).overall === 'vierge').length - nonMesures;
   const bySpecialty = specialties.map((sp) => ({ sp, n: cases.filter((c) => c.specialty === sp).length }));
 
   const clearSpecialty = () => { setSpecialty(''); params.delete('specialty'); setParams(params); };
@@ -73,7 +74,7 @@ export function CasesPage() {
         <div className="eyebrow">Bibliothèque</div>
         <h1 className="mt-1.5 text-2xl font-bold tracking-tightish">Cas cliniques</h1>
         <p className="text-slate-500 dark:text-slate-400">
-          <b>{total}</b> cas · <b className="text-brand-600 dark:text-brand-300">{solides}</b> solides · <b>{vierges}</b> pas encore travaillés
+          <b>{total}</b> cas · <b className="text-brand-600 dark:text-brand-300">{solides}</b> solides · <b>{vierges}</b> pas encore travaillés{nonMesures > 0 && <> · <b>{nonMesures}</b> faite{nonMesures > 1 ? 's' : ''} — non mesurée{nonMesures > 1 ? 's' : ''}</>}
         </p>
         <div className="mt-2 flex flex-wrap gap-1.5">
           {bySpecialty.map(({ sp, n }) => (
