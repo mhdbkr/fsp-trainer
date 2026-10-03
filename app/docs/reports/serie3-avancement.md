@@ -134,6 +134,8 @@ reste du budget hors questions du cas.
 
 ## 11. Registre des workflows en vol — à relancer sans exception
 
+**Ne jamais utiliser `git stash` dans un worktree** : les stashs sont partagés ; `stash@{0}` (autostash du 3 oct.) contient le travail en cours d'une autre session (`index.css`, `checkFixedOverlays`).
+
 Règle : à chaque reprise (limite d'usage, coupure), `main` relit cette table et
 relance chaque ligne non close, par son identifiant d'agent (`SendMessage`).
 **Tenue du registre** : la session `main` de la série 3 (confirmé par la direction
@@ -149,7 +151,9 @@ rien de cette table.
 | Audit questions du cas + FB3-G | lecture seule | `ac7225d1457bf293d` | rendu → `audit-questions-du-cas-serie3.md` | **oui** |
 | Suivis programme | — | — | `StatusBadge` sans usage (`components/ui.tsx`) ; tâche figée sur un autre appareil non rapatriée → cochée par le contenu seulement | à lancer après merge |
 | Réserves primitives (suivi) | — | — | `CardFlip` (`.card`) dans le verre de `CardToast` : choisir sa matière en petit ; `.input` flouté dans cartes floutées (antérieur) ; « Dokumentation » touche sa tuile à 390 (`ModeChooser`) | à lancer après merge |
-| Lot Q0 — implémenteur | `doctopus-s3-q0` · `feat/s3-q0-questions-du-cas` | `acd90f173726a129a` | « Falls ja », `CaseQuestion.followUp`, `FACH_COVERS`, détecteur d'ordre, garde G1 → push → revue mécanique + clinique → PR | non |
+| Lot Q0 — implémenteur (devient fixeur) | `doctopus-s3-q0` · `feat/s3-q0-questions-du-cas` | `acd90f173726a129a` | livré `7026a1bb` (irradiation ×2 : 17→0 ; présuppositions détectées 1→8) ; attend les revues | non |
+| Lot Q0 — revue mécanique | lecture seule | `a77b1f874a424ae16` | verdict attendu | non |
+| Lot Q0 — revue clinique | lecture seule | `a5ac25017eaaac724` | verdict attendu (+ décisions automutilation, `veg-fieber`, « sehr stark ») | non |
 | Lots Q1 → Q8, Lc1 → Lc3 | — | — | §10, l'un après l'autre après Q0 | à lancer |
 | C6 — agent testeur | — | — | après intégration programme (primitives mergée) | à lancer |
 | Lots L1 → L15 | — | — | §10, l'un après l'autre (mêmes fichiers) | à lancer |
