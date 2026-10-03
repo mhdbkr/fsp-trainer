@@ -31,7 +31,7 @@ beforeEach(async () => {
   await db.case_progress.put(cp);
   container = document.createElement('div'); document.body.appendChild(container); root = createRoot(container);
   await act(async () => { root.render(<MemoryRouter initialEntries={['/cas']}><Routes><Route path="/cas" element={<CasesPage />} /></Routes></MemoryRouter>); });
-  await act(async () => { await new Promise((r) => setTimeout(r, 30)); });
+  await vi.waitFor(() => expect(container.textContent).toMatch(/Cas c2/), { timeout: 3000 });
 });
 afterEach(() => { act(() => root.unmount()); container.remove(); });
 
