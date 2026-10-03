@@ -29,7 +29,7 @@ Sources : `audit-questions-du-cas-serie3.md` (Synthèse 3, 4, 13, 17 ; §2 G3 ; 
 | karpaltunnel | « Ausschütteln » | retirée : `akt-einfluss` nomme le Ausschütteln | idem |
 | diabetes | Kortison redemandé | « Hatten Sie jemals eine Bauchspeicheldrüsenentzündung ? » (le Kortison est dans `med-blutverduenner`) | :8027 |
 | osteoporose | Kortison redemandé | ne garde que les Stoßtherapien (la dose et la durée sont dans `med-regelmaessig`) | :18906 ; fiche : « mehrfachen Kortison-Stoßtherapien » |
-| osteoporose (bws) | seule irradiation jouée : « gürtelförmig » ; Beine, Arm, Hals/Kiefer non demandés alors que la fiche y répond | question ouverte « Strahlt der Schmerz irgendwohin aus ? » (aucun territoire : la garde G1 limite bws à Brustkorb/Rücken/Bauch), avant « gürtelförmig » | :18902 ; `irradiationRegion.test.ts` vert |
+| osteoporose (bws) | seule irradiation jouée : « gürtelförmig » ; Beine, Arm, Hals/Kiefer non demandés alors que la fiche y répond | **règle `FACH_RULES` bws ouverte** (« Strahlen die Schmerzen irgendwohin aus — und wenn ja, wohin? »), `region: 'bws'` n'existant que dans ce cas ; la question de cas ajoutée d'abord est supprimée (revue, point 2) | `anamneseChapters.ts:1724` ; `irradiationRegion.test.ts` (une seule question d'irradiation, ouverte, sans territoire) |
 | leberzirrhose | nature `allgemein` pour une douleur | `leitsymptomKategorie: 'schmerz'` + `motiv.region: 'abdomen'` | :22 |
 | leberzirrhose | 4 réponses manquantes | `akt-ort`, `akt-charakter`, `akt-intensitaet`, `akt-ausstrahlung` tirées du bloc `schmerz` ; `akt-verlauf` : « Er » → « Die Schmerzen » | :76 et suivantes ; `checkProbeCoverage` 0 |
 | leberzirrhose | « Bauch dicker » double la question Schwellungen | la variante douleur ne pose plus Schwellungen : « Ist Ihr Bauch dicker geworden — passen die Hosen noch ? » + relance « Sind auch die Beine geschwollen ? » | :201 |
@@ -42,9 +42,9 @@ Sonde `playedTrame` (le montage réel, 130 cas) : `…/scratchpad/q1/dump.mjs` +
 
 | Mesure | Avant | Après |
 |---|---|---|
-| Cas avec une sonde d'irradiation **et** une question propre qui la repose | 10 | **1** (osteoporose, volontaire : question ouverte + « gürtelförmig ») |
+| Cas avec une sonde d'irradiation **et** une question propre qui la repose | 10 | **0** (osteoporose compris, après la revue) |
 | Cas à ≥ 2 sondes d'irradiation | 1 (hodentorsion, exception C-1 de Q0) | 1 (inchangé) |
-| Questions du cas jouées | 874 | 866 (−11 retirées, +3 ajoutées) |
+| Questions du cas jouées | 874 | 865 |
 | `checkQuestionOrder` (informatif) | 28 candidats (ordinal 1 · SN 24 · affirmation 3) | **17** (ordinal 0 · SN 16 · affirmation 1) : les 8 de l'audit, plus hws « den Daumen » et hueftkopfnekrose « das Knie » |
 | `checkQuestionAtomicity` A / B / C | 510 / 114 / 0 | **502 / 113 / 0** (gravé par `--bless`, `ae0e75b7`) ; ne monte pas |
 | `checkProbeOverlap` (informatif, exit 1 au socle) | 5 répétitions non marquées | 5, sortie identique |
@@ -66,11 +66,11 @@ Candidats restants de `checkQuestionOrder` : malaria `Sie haben` et hypothyreose
 
 ## Écarts et propositions pour `main`
 
-1. **Persona de coxarthrose** (texte français du simulateur) : elle ordonnait de répondre « au GENOU » à « où avez-vous mal ? », en contradiction avec `akt-ort` / `akt-motiv` (Leiste, Hüfte) — c'était la source de la contradiction relevée par l'audit. Je l'ai réécrite : Leiste d'abord, genou ressenti le plus. Hors de la lettre du brief (« aligne-les sur la fiche »), à valider.
+1. **Persona de coxarthrose** (texte français du simulateur) : elle ordonnait de répondre « au GENOU » à « où avez-vous mal ? », en contradiction avec `akt-ort` / `akt-motiv`. Réécrite, puis corrigée en revue : le patient ouvre par la Hüfte, ressent la douleur surtout vers le genou et s'étonne de la radio de hanche.
 2. **Test `checkQuestionOrder.test.mjs`** : le brief ne le citait pas, mais Q0 avait écrit « la porte sur les données réelles retrouve les 8 » et deux mutations sur ces données. Une fois les 8 fautes corrigées, ces trois tests échouaient. Ils prouvent désormais la détection sur les fixtures (textes réels) et que les 8 ne reviennent pas. Une mutation retrouve coxarthrose **et** covid19.
 3. **Budget** : `atomicity-budget.json` regravé (`--bless`), seul changement du fichier.
 4. **Trailer des commits** : `Co-Authored-By: Claude Sonnet 5.5`, pas « Opus 5.5 » comme demandé — c'est le modèle qui a écrit les commits, et la consigne d'attribution du harnais le fixe.
-5. **Code, à ta décision** (hors périmètre) : la règle Fach `bws` (`anamneseChapters.ts:1724`) ne pose que « gürtelförmig » et masque la question neutre. La correction de fond est d'en faire une question ouverte avec relance ; ma question ajoutée à osteoporose est un contournement au niveau du cas. Contrat `frage-atomique.md` §3.6 : « 28 candidats » devient 17, et « 8/8 détectées » ne vaut plus que sur les fixtures.
+5. **Code** : la règle Fach `bws` est corrigée à la source après la revue (point 2 ci-dessous). Contrat `frage-atomique.md` §3.6 : « 28 candidats » devient 17, et « 8/8 détectées » ne vaut plus que sur les fixtures.
 6. **Skills non invoqués** : l'outil `Skill` est désactivé dans cette session. Je n'ai pas pu invoquer `dept-coordination` / `dept-contenu`. J'ai lu à la place `CLAUDE.md`, `DIRECTION-STYLE.md` et le contrat `frage-atomique.md`.
 
 ## Non vérifié
@@ -79,3 +79,30 @@ Candidats restants de `checkQuestionOrder` : malaria `Sie haben` et hypothyreose
 - Les réponses aux **questions du cas** ne sont pas couvertes par `checkProbeCoverage` (il ne lit que les sondes) : j'ai relu la fiche de chaque cas pour trouver la réponse, citée dans la table. La fiche covid19 a reçu une ligne, aucune autre n'a été inventée.
 - La persona réécrite de coxarthrose n'a pas été jouée contre le modèle.
 - Les 15 candidats restants de `checkQuestionOrder` ne sont pas tous relus.
+
+## Revues (sommet : voir la dernière ligne de `git log`)
+
+- **Mécanique (Opus) : Approve with minors** — chiffres, plancher et tests de garde confirmés.
+- **Clinique : valide sous 3 réserves** (points 1, 6, 7).
+- **Langue : 6 points à corriger** (points 3, 4, 5, 6, 9, 1 pour les formulations).
+- Hors Q1, tracé par `main` : validateur informatif de couverture des questions de cas ; détection des relances « W-, und W- ? » à un seul « ? » ; contrat §3.6 (17 candidats).
+
+| # | Point | Commit | Preuve |
+|---|---|---|---|
+| 1 | coxarthrose : persona, 2 questions d'examinateur (« spürt den Schmerz am deutlichsten im Knie »), 3 phrases `medicalView` (« in das der Schmerz ausstrahlt und das der Patient als besonders schmerzhaft empfindet »), « es kommt vom Knie » ×2 | `7c0ecec5` | grep `käme` / `zuerst` : 0 dans le bloc |
+| 2 | bws : règle `FACH_RULES` ouverte, question de cas supprimée, test | `5021f0cd`, `206b3485` (seuil de la garde non vide 15 → 14) | `region: 'bws'` : une seule occurrence dans `seedCases.ts` ; `adaptChapters.test.ts` ne lit que la présence des sondes (`cauda`, `schwellung`, `durchblutung`) ; `irradiationRegion.test.ts` |
+| 3 | 4 relances à une question (prostatakarzinom, achalasie, influenza, metabolisches-syndrom) | `904932e6` | |
+| 4 | covid19 « das jetzige Herzrasen » | `daa35c15` | |
+| 5 | osteoporose « Kortisonstoß » expliqué | `cb510944` | |
+| 6 | leberzirrhose : questions en langue orale, relance « Beine » et « blaue Flecken » retirées (`akt-begleit` y répond), fatigue rétablie ; réponse « Entzugsklinik » (`noxen.alkohol`) | `1276ac64`, `30ff3ec0` | `akt-allgemein-art` / `-alltag` répondent à la question de fatigue |
+| 7 | abszess : réponse « letzte Tetanusimpfung » (`vorerkrankungen` : rappel il y a ~7 ans après l'opération de la cheville, Impfpass à la maison) | `a6f20ac4` | cohérent avec `voroperationen` et « Tetanusschutz erfragen » |
+| 8 | diabetes : pancréatite → `vorerkrankungen` | `9c6b48e9` | |
+| 9 | coxarthrose : « Einsteigen in Ihr Auto oder in den Bagger » / « Wie kommen Sie mit Treppen zurecht? » | `7c0ecec5` | |
+
+Mesures après revue :
+
+- `checkQuestionAtomicity` A / B / C : **502 / 113 / 0**, identique au budget gravé en Q1 (510 / 114 / 0 au socle) ; `checkBudgetFloor.mjs origin/main` : 0.
+- `checkQuestionOrder` : **19 candidats** (17 avant revue). Les deux nouveaux sont des faux positifs de la revue : metabolisches-syndrom « der Augenarzt » (la question mère vient de le nommer) et abszess « die letzte Tetanusimpfung » (la question demande ce fait, qui est maintenant dans la fiche).
+- `checkProbeOverlap` : sortie identique (5, exit 1 informatif). Tous les autres `check*.mjs` : 0. `node --test` (5 fichiers touchés) : 62/62. `tsc -b --noEmit` : 0. `git merge-tree --write-tree origin/main HEAD` : 0.
+- `vitest run --dir src --maxWorkers=2` (charge 26) : 1 179 / 1 181 ; les 2 échecs sont des timeouts de 5 s dans `FachbegriffePage.test.tsx` (hors lot) ; le fichier seul passe (7/7).
+- Questions du cas jouées : 865 ; sonde d'irradiation + question propre : 0.
