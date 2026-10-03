@@ -1520,7 +1520,7 @@ export const FACHANAMNESEN: FachanamneseGuide[] = [
         probe: 'fach-infekt-impfung',
       },
     ],
-    'Voyage, contage, piqûre de tique et vaccination orientent le diagnostic ET déclenchent l\'isolement. Le vaccin qui compte dépend du cas : FSME après une tique, tétanos devant une plaie, hépatites et typhus avant un voyage.Érythème migrant + arthralgies migratrices + paralysie faciale = borréliose jusqu\'à preuve du contraire. Maladie à déclaration : écrire « Gesundheitsamt wurde informiert » dans l\'Arztbrief.'),
+    'Voyage, contage, piqûre de tique et vaccination orientent le diagnostic ET déclenchent l\'isolement. Le vaccin qui compte dépend du cas : FSME après une tique, tétanos devant une plaie, hépatites et typhus avant un voyage. Érythème migrant + arthralgies migratrices + paralysie faciale = borréliose jusqu\'à preuve du contraire. Maladie à déclaration : écrire « Gesundheitsamt wurde informiert » dans l\'Arztbrief.'),
   F('Dermatologie', 'skin', 'derma', 'Fachanamnese Dermatologie',
     ['Hautausschlag', 'Juckreiz', 'Bläschen', 'Muttermal', 'verändert'],
     [
