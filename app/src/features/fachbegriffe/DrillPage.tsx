@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
 import { useLiveQuery } from 'dexie-react-hooks';
 import { db } from '@/db/db';
@@ -18,6 +18,8 @@ import { drillMinutes, recentCaseAnchor } from '@/lib/collections/relevance';
 import { useSimSession } from '@/store/simSession';
 import { useCountUp } from '@/lib/motion';
 import { getActiveUserId } from '@/lib/auth/accounts';
+import { logTraining } from '@/lib/journal';
+import { now } from '@/lib/clock';
 
 const FAV_DECK = { id: FAVORITES_DECK_ID, name: 'Favoris', kind: 'manual' as const, createdAt: '', updatedAt: '' };
 
@@ -81,6 +83,25 @@ export function DrillPage() {
     [pool, ctx, prioritySpecialty, priorityPathology],
   );
 
+  // R-C3 : la séance entre dans le journal — à la fin, ou au démontage si au
+  // moins une carte a été notée (quitter en cours de route, c'est du travail
+  // fait). Une seule fois par séance. ≥ 1 min : à 0 min, une séance qui coche
+  // la tâche drill serait une « coche nue » absorbable (isCocheNue).
+  const startedAt = useRef<number | null>(null);
+  const logged = useRef(false);
+  const noted = useRef(0);
+  noted.current = stats.done;
+  const journaliser = useRef(() => {});
+  journaliser.current = () => {
+    if (logged.current || startedAt.current === null || noted.current === 0) return;
+    logged.current = true;
+    void logTraining({ kind: 'drill', spentMin: Math.max(1, Math.round((now() - startedAt.current) / 60_000)), ...(caseId ? { caseId } : {}) })
+      .catch((e) => console.warn('[journal]', e));
+  };
+  const finished = started && queue.length > 0 && idx >= queue.length;
+  useEffect(() => { if (finished) journaliser.current(); }, [finished]);
+  useEffect(() => () => journaliser.current(), []);
+
   if (!begriffe || !ctx) return <div className="text-slate-400">Chargement…</div>;
 
   const next = nextDueAt(pool);
@@ -96,6 +117,7 @@ export function DrillPage() {
     setIdx(0); setRevealed(false); setStats({ done: 0, again: 0 });
     if (q.length === 0) { setStarted(false); return; }
     setQueue(q); setStarted(true);
+    startedAt.current = now(); logged.current = false;   // R-C3 : une séance commence
   };
 
   // Sortie de la session en pause si elle porte sur CE cas (FB2 : reprendre le
