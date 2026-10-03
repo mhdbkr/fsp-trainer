@@ -101,3 +101,22 @@ describe('Revue Q0 — m1 : mêmes défauts que l\'alcool', () => {
     expect(parseFollowUp(rs[0])).toMatchObject({ kind: 'ja', label: 'Geburten' });
   });
 });
+
+describe('Revue Q0 — m2 : le sang dépend du crachat', () => {
+  it('« Welche Farbe » et « Ist Blut dabei » partagent l\'interrupteur « Auswurf », dans cet ordre', () => {
+    const q = allQuestions().find((x) => phraseProbes(x).includes('akt-atemnot-husten'))!;
+    const g = groupFollowUps(phraseFollowUp(q));
+    const auswurf = g.find((x) => x.control.kind === 'ja' && x.control.label === 'Auswurf')!;
+    expect(auswurf.questions).toEqual(['Welche Farbe hat das?', 'Ist Blut dabei?']);
+    // Défaut ANTÉRIEUR, non corrigé ici : l'interrupteur « Auswurf » est visible avant « Husten = Ja ».
+  });
+});
+
+describe('Revue Q0 — m7 : héparine, Clexane', () => {
+  it('le blutverdünner demande la dernière DOSE, pas la dernière tablette', () => {
+    const rs = relancesOf('fach-chir-blutverduenner', 'Wichtig vor jeder Operation');
+    expect(rs).toHaveLength(1);
+    expect(rs[0]).toMatch(/die letzte Dosis/);
+    expect(rs[0]).not.toMatch(/Tablette/);
+  });
+});

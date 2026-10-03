@@ -1419,7 +1419,7 @@ export const FACHANAMNESEN: FachanamneseGuide[] = [
       {
         text: 'Nehmen Sie Blutverdünner ein?',
         probe: 'fach-chir-blutverduenner',
-        followUp: ['Falls ja: Wichtig vor jeder Operation: Wann haben Sie die letzte Tablette genommen?'],
+        followUp: ['Falls ja: Wichtig vor jeder Operation: Wann haben Sie die letzte Dosis genommen?'],
       },
       { text: 'Haben Sie bekannte Gallensteine oder einen Leistenbruch?', probe: 'fach-chir-gallensteine' },
     ],
