@@ -10,17 +10,17 @@
 | Chantier | Branche | Étape | Prochaine marche |
 |---|---|---|---|
 | P0 contrats | `feat/s3-contrats` | ✅ mergé (`4fad5b1`) | amendements à appliquer à l'intégration (§4) |
-| C5 primitives | `feat/s3-primitives` | fixeur terminé, 84/0 | **décision direction : filet encre du verre** (§3) puis revue finale |
-| C2 simulation | `feat/s3-simulation` | ✅ **PR #54 — CI verte** | **G6 : merge par la direction** (main = prod) |
-| C4 contenu | `feat/s3-contenu` | ✅ **PR #55 ouverte** — revue finale close, CI + contrat §3.3 inclus | **G6 : merge par la direction** (main = prod) |
-| C1 programme | `feat/s3-programme` | fixeur terminé — **invariants 6/6 au navigateur**, perte de lot et historique fermés | re-revue branche + **re-audit sécurité (verdict GO/NO-GO prod)** |
-| C3 IA externe | `feat/s3-ia` | ✅ **clos** — 2 revues, clôture vérifiée par mutation (prompt Oberarzt 31 906 → médiane 5 713 car., aucune fuite du diagnostic, pré-collage verrouillé tant que l'envoi auto n'est pas exclu) | PR **après merge de #54** : main pose le montage dans `PlayArea` + retrait de la puce d'en-tête |
+| C5 primitives | `feat/s3-primitives` | ✅ fixeur terminé — **filet encre validé par la direction (3 oct.)** | vérification finale + plan de passation post-merge → PR |
+| C2 simulation | — | ✅ **MERGÉ** (PR #54, 3 oct.) | — |
+| C4 contenu | — | ✅ **MERGÉ** (PR #55, 3 oct.) — contenu publié | lots suivants (§6) |
+| C1 programme | `feat/s3-programme` | fixeur terminé (6/6, 698 tests) | revue de clôture + plan d'intégration → PR |
+| C3 IA externe | `feat/s3-ia` | ✅ **PR #56 ouverte** — rebasée, lanceur monté dans `PlayArea` | **G6 : merge** |
 
 ## 2. File d'attente — déclencheurs
 
 | # | Élément | Déclencheur | Pourquoi pas maintenant |
 |---|---|---|---|
-| Q-1 | **Lots de contenu suivants** (faire descendre le budget A=522 / B=118 / C=8 ; Fachanamnese choisie selon la nature du motif — ex. `case-karpaltunnel` reçoit la Fachanamnese Ortho/Trauma : « Helm », « Reithosen », « Hand oder Fuß ») | `feat/s3-contenu` **Approve** puis mergé dans `main` | un seul writer par fichier : les lots touchent `seedCases.ts` / `anamneseChapters.ts`, où le fixeur travaille encore. Le classement par visibilité est mesuré en avance. |
+| Q-1 | ✅ **déclenché le 3 oct.** — L0 (Fachanamnese selon la nature du motif) en cours, `feat/s3-lot0-fach-nature` · **Lots de contenu suivants** (faire descendre le budget A=522 / B=118 / C=8 ; Fachanamnese choisie selon la nature du motif — ex. `case-karpaltunnel` reçoit la Fachanamnese Ortho/Trauma : « Helm », « Reithosen », « Hand oder Fuß ») | `feat/s3-contenu` **Approve** puis mergé dans `main` | un seul writer par fichier : les lots touchent `seedCases.ts` / `anamneseChapters.ts`, où le fixeur travaille encore. Le classement par visibilité est mesuré en avance. |
 | Q-2 | ~~Déploiement production serveur~~ — **FAIT le 3 oct. 2026** : migration `20260930000017` appliquée (contrainte à 20 types, 167 événements intacts, `lock_timeout 5s`) puis fonction `events` v9 (`verify_jwt`). Fumée : 401 propre sans utilisateur, CORS 204, trafic réel en 200 après déploiement. **Reste : le client**, avec le merge de `feat/s3-programme` (il corrige aussi la perte de lot sur 401/429 du client en prod) | — | — |
 | Q-3 | **Intégration** dans l'ordre primitives → contenu → programme → simulation → IA, avec les branchements transversaux (§4) | chaque branche **Approve** ; primitives d'abord (les autres consomment ses surfaces) | — |
 | Q-4 | **Passation de charte** (segmentés → `.seg`, surfaces → `.panel`, ombres mortes) dans les écrans Programme/Simulation | intégration de `feat/s3-primitives` | les écrans appartiennent à d'autres chantiers |
@@ -29,7 +29,7 @@
 | Q-8 | Raccourcir 5 cas dont le prompt patient dépasse 10 000 car. (devient une pièce jointe dans ChatGPT) : delir, karpaltunnel, metabolisches-syndrom, pankreaskarzinom, ulcus-cruris | merge de `feat/s3-contenu` (même déclencheur que Q-1) | contenu, même writer que Q-1 |
 | Q-9 | `setModus` / `setIntensity` n'émettent aucun événement : la configuration du programme ne se synchronise pas entre appareils | après merge du programme (suivi, gravité à confirmer par la re-revue) | hors liste de revue |
 | Q-10 | **Fonction `ai` (assistant intégré) en 503** à répétition en prod (3 fois, 15:49–15:50 le 3 oct.) | dès que possible — diagnostic | hors série 3, relevé dans les journaux |
-| Q-11 | **PR du chantier IA** (rebase sur main + montage `TeilAiLauncher` dans `PlayArea` + retrait de la puce `SimulationRunner.tsx:275`) | merge de **PR #54** | le lanceur vit dans le runner de la simulation |
+| Q-11 | ✅ **fait — PR #56** · **PR du chantier IA** (rebase sur main + montage `TeilAiLauncher` dans `PlayArea` + retrait de la puce `SimulationRunner.tsx:275`) | merge de **PR #54** | le lanceur vit dans le runner de la simulation |
 | Q-6 | Débord de la carte « À faire aujourd'hui » à 390 px (103 px) | intégration de `feat/s3-programme` | relevé par le chantier primitives, appartient au programme |
 
 ## 3. Décisions en attente de la direction
@@ -77,3 +77,7 @@ Le tronc commun pèse **58× plus** à l'écran qu'une question de cas (57,8 con
 `motiv` déclaré (13 cas, réutilisable pour les futurs imports) **et** `fachSkip`
 pour le résidu clinique. Rapport complet : sortie de l'agent `plan-lots-contenu`,
 scripts dans le scratchpad de session (`lots/`).
+
+## 7. Journal
+
+- 3 oct. — PR #54 et #55 mergées (autorisation de la direction) ; filet encre du verre validé ; lot L0 lancé ; PR #56 ouverte. Incident évité : un `npm install` local avait élagué `ansi-regex` du `node_modules` partagé par les worktrees — réparé par `npm ci`, la CI n'a jamais été touchée.
