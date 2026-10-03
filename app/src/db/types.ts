@@ -92,8 +92,10 @@ export interface PatientSheet {
    *  non exigée. Explicite et relu, plutôt qu'un gabarit subi. */
   aktuellSkip?: string[];
   /** Sondes de la Fachanamnese qui n'ont PAS de sens pour CE cas (le grain de
-   *  beauté pour un érysipèle) : retirées de la trame jouée, réponse non
-   *  exigée. Le résidu clinique que les règles par sexe/âge/motif ne voient pas. */
+   *  beauté pour un érysipèle) : retirées de la trame jouée ; la réponse reste
+   *  exigée (le candidat peut la poser de lui-même) et chaque id appartient à
+   *  la Fach jouée (checkProbeCoverage). Le résidu clinique que les règles par
+   *  sexe/âge/motif ne voient pas. */
   fachSkip?: string[];
   /** Nature du motif que le texte ne permet pas de déduire (« ohne Sturz »
    *  piège toute regex) : traumatisme ou non, et région. Requis pour les cas
