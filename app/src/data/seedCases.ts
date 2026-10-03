@@ -18899,7 +18899,6 @@ export function seedCases(): Case[] {
       ],
       caseSpecificQuestions: [
         { frage: 'War es ein Sturz, oder reichte schon eine leichte Bewegung wie Husten, Niesen oder Bücken, um den Schmerz auszulösen?', kapitel: 'aktuell', relu: true },
-        { frage: 'Strahlt der Schmerz irgendwohin aus?', kapitel: 'aktuell' },
         { frage: 'Sind Sie kleiner geworden, oder hat jemand aus Ihrem Umfeld bemerkt, dass Ihr Rücken runder geworden ist?', kapitel: 'vorerkrankungen' },
         { frage: 'Hatten Sie schon einmal einen Knochenbruch nach einem harmlosen Sturz oder einer Bagatellverletzung?', kapitel: 'vorerkrankungen', relu: true },
         { frage: 'Ist bei Ihnen eine Osteoporose bekannt, und wurde jemals eine Knochendichtemessung durchgeführt? Kennen Sie Ihren Wert?', kapitel: 'vorerkrankungen' },

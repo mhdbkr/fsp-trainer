@@ -49,6 +49,12 @@ describe('G1 — garde « territoire ⊂ région » (motiv.region)', () => {
     expect(avecRegion.length).toBeGreaterThanOrEqual(13);
     expect(avecRegion.flatMap(irradiations).length).toBeGreaterThanOrEqual(15);
   });
+  it('osteoporose (bws) : une seule question d\u2019irradiation jouée, ouverte', () => {
+    const c = cases.find((x) => x.id === 'case-osteoporose')!;
+    const qs = irradiations(c);
+    expect(qs.map(phraseText)).toEqual(['Strahlen die Schmerzen irgendwohin aus — und wenn ja, wohin?']);
+    expect(nommes(allTexts(qs[0]).join(' '))).toEqual([]);
+  });
   it('tout territoire nommé appartient à la région du motif', () => {
     const faux = avecRegion.flatMap((c) => irradiations(c).flatMap((q) => {
       const region = c.patientSheet.motiv!.region;
