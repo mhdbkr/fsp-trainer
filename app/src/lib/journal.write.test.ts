@@ -179,3 +179,19 @@ describe('M4 — une coche sans score n\'est pas une mesure', () => {
     expect(observeModus([coche('a', 'c1'), coche('b', 'c2'), coche('c', 'c3'), coche('d', 'c4')], [])).toBeNull();
   });
 });
+
+describe('I-3 — une tâche faite n\'est jamais perdue (décision de main, amende D-I2)', () => {
+  it('deux appareils, plan de A gagnant, sans équivalent : la tâche faite sur B est AJOUTÉE au plan de A, faite', async () => {
+    const a = task({ id: 'ta', caseId: 'c9', teil: 'dokumentation' });     // A n'a pas vu la simulation d'hier : autre Teil du jour
+    const b = task({ id: 'tb', caseId: 'c5', teil: 'anamnese' });
+    const done = { at: Date.parse('2026-10-01T10:00:00Z'), kind: 'simulation', caseId: 'c5', teile: ['anamnese'], source: 'plan', taskId: 'tb', spentMin: 20 };
+    await rebuildJournal([
+      planEv('plan.materialized', '2026-10-01', [a], '2026-10-01T06:00:00Z'),
+      planEv('plan.materialized', '2026-10-01', [b], '2026-10-01T07:00:00Z'),
+      ev('training.logged', 'x1', done, '2026-10-01T10:00:00Z'),
+      ev('training.logged', 'x2', { ...done, at: done.at + 1 }, '2026-10-01T10:00:01Z'),   // un second exercice sur la même tâche : pas de doublon
+    ]);
+    const p = (await db.day_plans.get('2026-10-01'))!;
+    expect(p.tasks.map((t) => [t.id, t.doneAt !== undefined])).toEqual([['ta', false], ['tb', true]]);
+  });
+});
