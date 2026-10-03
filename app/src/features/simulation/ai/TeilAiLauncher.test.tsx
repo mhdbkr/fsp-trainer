@@ -127,6 +127,26 @@ describe('TeilAiLauncher', () => {
     expect(screen.getByRole('radio', { name: 'ChatGPT' }).getAttribute('aria-checked')).toBe('true');
   });
 
+  it('M3 — le panneau reste dans l\'écran : sous le bouton, ou au-dessus près du bas', async () => {
+    const rect = (top: number) => vi.spyOn(HTMLElement.prototype, 'getBoundingClientRect').mockReturnValue({ top, bottom: top + 36, left: 20, right: 140, width: 120, height: 36, x: 20, y: top, toJSON: () => ({}) } as DOMRect);
+    const H = window.innerHeight;
+    const low = rect(20);
+    const { unmount } = render(<TeilAiLauncher caseId="c1" teil="anamnese" />);
+    await open();
+    let panel = screen.getByRole('dialog');
+    expect(panel.style.top).toBe('64px');
+    expect(panel.style.maxHeight).toBe(`${H - 56 - 8 - 16}px`);
+    unmount(); low.mockRestore();
+    const high = rect(H - 68);
+    render(<TeilAiLauncher caseId="c1" teil="anamnese" />);
+    await open();
+    panel = screen.getByRole('dialog');
+    expect(panel.style.top).toBe('');
+    expect(panel.style.bottom).toBe(`${68 + 8}px`);
+    expect(panel.style.maxHeight).toBe(`${H - 68 - 8 - 16}px`);
+    high.mockRestore();
+  });
+
   it('Échap referme', async () => {
     render(<TeilAiLauncher caseId="c1" teil="anamnese" />);
     await open();

@@ -6,8 +6,9 @@
 //   - à rendre SEULEMENT si part === 'anamnese' || part === 'fallvorstellung'
 //     (contrat ai-bridge §3.1) ; jamais pendant dokumentation / aufklaerung ;
 //   - le parent fournit une ligne d'outils : le composant rend un bouton
-//     discret ; son panneau flotte sous le déclencheur dans un portail
-//     (fixed, z-50, recalé dans l'écran à 16 px des bords) ;
+//     discret ; son panneau flotte sous le déclencheur (au-dessus s'il est
+//     près du bas) dans un portail (fixed, z-50, tenu à 16 px des bords,
+//     hauteur bornée à l'espace disponible) ;
 //   - aucune dépendance au store : il lit le cas (Dexie), la cible mémorisée
 //     (`meta.externalAi.target`) et pose la trace `meta.externalAi.pending`
 //     avec le Teil — la PendingExternalSimCard la reprend au retour ;
@@ -213,10 +214,11 @@ export function TeilAiPanel({ caseId, teil, autoFocus = false }: { caseId: strin
 }
 
 const GUTTER = 16;
+const MIN_PANEL = 320; // hauteur sous laquelle on préfère ouvrir au-dessus
 
 export function TeilAiLauncher({ caseId, teil }: { caseId: string; teil: AnkerTeil }) {
   const [open, setOpen] = useState(false);
-  const [pos, setPos] = useState<{ left: number; top: number; width: number } | null>(null);
+  const [pos, setPos] = useState<{ left: number; width: number; maxHeight: number; top?: number; bottom?: number } | null>(null);
   const btnRef = useRef<HTMLButtonElement>(null);
   const panelRef = useRef<HTMLDivElement>(null);
   const panelId = useId();
@@ -230,7 +232,13 @@ export function TeilAiLauncher({ caseId, teil }: { caseId: string; teil: AnkerTe
       if (!r) return;
       const width = Math.min(368, window.innerWidth - 2 * GUTTER);
       const left = Math.max(GUTTER, Math.min(r.left, window.innerWidth - width - GUTTER));
-      setPos({ left, top: r.bottom + 8, width });
+      // Sous le bouton par défaut ; au-dessus s'il reste trop peu de place en
+      // bas et davantage en haut. La hauteur est bornée à l'espace disponible.
+      const below = window.innerHeight - r.bottom - 8 - GUTTER;
+      const above = r.top - 8 - GUTTER;
+      setPos(below < MIN_PANEL && above > below
+        ? { left, width, bottom: window.innerHeight - r.top + 8, maxHeight: above }
+        : { left, width, top: r.bottom + 8, maxHeight: below });
     };
     place();
     window.addEventListener('resize', place);
@@ -264,8 +272,8 @@ export function TeilAiLauncher({ caseId, teil }: { caseId: string; teil: AnkerTe
           <div
             ref={panelRef} id={panelId} role="dialog"
             aria-label={teil === 'anamnese' ? 'Jouer l\'anamnèse avec ton IA' : 'Jouer la Fallvorstellung avec ton IA'}
-            style={{ left: pos.left, top: pos.top, width: pos.width }}
-            className="glass glass-edge animate-pop fixed z-50 max-h-[calc(100vh-6rem)] origin-top-left overflow-y-auto rounded-2xl p-4"
+            style={{ left: pos.left, top: pos.top, bottom: pos.bottom, width: pos.width, maxHeight: pos.maxHeight }}
+            className={`glass glass-edge animate-pop fixed z-50 overflow-y-auto rounded-2xl p-4 ${pos.bottom !== undefined ? 'origin-bottom-left' : 'origin-top-left'}`}
           >
             <TeilAiPanel caseId={caseId} teil={teil} autoFocus />
           </div>
