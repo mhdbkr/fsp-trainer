@@ -12,7 +12,7 @@ import { db } from '@/db/db';
 import type { Case, CaseProgress, ProgramConfig, Specialty, TaskInstance } from '@/db/types';
 import { markTaskDone } from '@/lib/journal';
 import { freezeAt, resetClock } from '@/lib/clock';
-import { buildTasks, dayTargetMin, ensureDayPlan, projectedDays, replanifier, type BuildInput } from './dayPlan';
+import { buildTasks, dayTargetMin, ensureDayPlan, idsFromSeed, projectedDays, replanifier, type BuildInput } from './dayPlan';
 
 const SPECS: Specialty[] = ['Kardiologie', 'Gastroenterologie', 'Pneumologie', 'Neurologie', 'Nephrologie', 'Endokrinologie'];
 const corpus = (n = 24): Case[] => Array.from({ length: n }, (_, i) => ({
@@ -155,5 +155,16 @@ describe('replanifier — le plan reconstruit est le plan rendu', () => {
     const { rebuildJournal } = await import('@/lib/journal');
     await rebuildJournal(await db.progress_events.toArray());
     expect(JSON.stringify(await db.day_plans.get('2026-10-01'))).toBe(rep);
+  });
+});
+
+describe('M2 — la graine est rejouable', () => {
+  it('rejouer buildTasks avec les ids de la graine redonne le plan figé, bit pour bit', async () => {
+    freezeAt('2026-10-01T08:00:00Z');
+    await seed();
+    const plan = (await ensureDayPlan())!;
+    const replay = buildTasks(input({ cases: corpus(), now: plan.materializedAt }), idsFromSeed(plan.seed));
+    expect(JSON.stringify(replay)).toBe(JSON.stringify(plan.tasks));
+    expect(plan.seed).toContain(String(plan.materializedAt));         // unique par matérialisation : deux appareils ne partagent pas d'ids
   });
 });
