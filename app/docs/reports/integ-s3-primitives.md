@@ -129,3 +129,26 @@ Sondes : `scratchpad/integ/probe.mjs` et `drawer.mjs`, sorties `probe.json` et `
 - Le comportement de `viewTransition` sur Safari et Firefox (Chromium seul).
 - `DeckRail.test` a échoué une fois sur un premier run à froid, puis est passé 3 fois sur 3 (29/29). Je le classe instable,
   sans l'avoir prouvé.
+
+## Addendum — re-fusion de `main` avant la PR (`5d9e30f2`)
+
+`origin/main` @ `c6eda957` apporte `ca91c53b` (le départ remonte en tête) et `e6d240cb` (puce IA dans l'en-tête, fusion titre/chrono).
+Trois conflits, résolus en gardant les deux intentions :
+- **`SimulationSetup.tsx`** : la version de `main` est prise (le `StartButton` exporté, plus de bouton dans `PartnerCard`, donc plus de `entrer()`).
+  Le `navigate` de `StartButton` porte `{ viewTransition: true }`. S3 et S10 sont intacts.
+- **`PreSimulationPage.tsx`** : le `StartButton` est dans l'en-tête (version `main`), et le lien « ← Fiche du cas » garde `viewTransition`.
+- **`PartnerCard.test.tsx`** : la structure de `main` est prise. Ses deux attentes `toHaveBeenCalledWith` (celles de `StartButton`) portent
+  `{ viewTransition: true }`. Les quatre attentes d'avant n'existent plus telles quelles : le cadre ne lance plus rien.
+
+Portes (code de sortie, charge 21) : tsc 0 · build 0 · tests des jetons 0 · check-parity 0 ·
+`vitest --maxWorkers=2 src/features/simulation` 0 (74/74).
+
+Navigateur (`vite preview`, Supabase local, un seul Chromium, serveur arrêté), `#/simulation/case-gib/pre?teil=anamnese` :
+
+| | 390 | bureau |
+|---|---|---|
+| Boutons « Démarrer la simulation » | 1, dans `<header>`, avant le choix du Teil, à 209 px du haut, visible sans défiler | 1, dans `<header>`, avant le choix du Teil, à 169 px du haut |
+| Clic | `:active-view-transition` ; `vt-page-out 120`, `vt-page-in 260` ; arrivée `#/simulation/case-gib/run?teil=anamnese` | idem |
+| Erreurs de page | 0 | 0 |
+
+Vu sur la capture à 390 (hors périmètre, antérieur) : le libellé « Dokumentation » de `ModeChooser` touche le bord de sa tuile.
