@@ -116,9 +116,9 @@ describe('D-C4 — résolution à l\'écriture, un seul événement par exercice
     expect((await db.day_plans.get('2026-10-01'))!.tasks[0].eventId).toBe('te-sim-9');
     await expectLocalEqualsRebuild();
   });
-  it('un taskId explicite (lancé depuis le plan) n\'est jamais remplacé', async () => {
+  it('un taskId explicite inconnu des plans locaux ne coche rien (I-A : gardé seulement s\'il est satisfait)', async () => {
     const sim = { id: 'sim-9', caseId: 'c1', date: 1, parts: {}, taskId: 'tX' } as unknown as Simulation;
-    expect((await resolveSimulationTask(sim)).taskId).toBe('tX');
+    expect((await resolveSimulationTask(sim)).taskId).toBeUndefined();
   });
   it('coche manuelle PUIS jeu : un seul exercice dans le journal, la tâche est faite par le jeu', async () => {
     freezeAt(new Date(2026, 9, 1, 10, 0));
@@ -247,5 +247,39 @@ describe('D-C4 révisé — le mode prime : une tâche « cas complet » demande
   it('un run complet coche ; un taskId explicite sur une partie incomplète ne coche pas', async () => {
     expect((await resolveSimulationTask(sim('s3', 9, { anamnese: 80 }, 'tc'))).taskId).toBeUndefined();
     expect((await resolveSimulationTask(sim('s4', 9, { anamnese: 80, dokumentation: 80, fallvorstellung: 80 }))).taskId).toBe('tc');
+  });
+});
+
+describe('I-A — un taskId explicite n\'est gardé que si CETTE partie satisfait la tâche (sonde PA)', () => {
+  const sim = (parts: Record<string, number>, taskId?: string, over: Partial<Simulation> = {}) => ({
+    id: `s-${Object.keys(parts).join('-')}`, caseId: 'c1', date: new Date(2026, 9, 1, 9, 0).getTime(), notes: {}, prioritizedCorrections: [],
+    parts: Object.fromEntries(Object.entries(parts).map(([k, v]) => [k, part(v)])), ...(taskId ? { taskId } : {}), ...over,
+  } as unknown as Simulation);
+  beforeEach(async () => {
+    freezeAt(new Date(2026, 9, 1, 8, 0));
+    await db.progress_events.put(planEv('plan.materialized', '2026-10-01', [
+      task({ id: 'tAna', caseId: 'c1', teil: 'anamnese' }), task({ id: 'tDok', caseId: 'c1', teil: 'dokumentation', kind: 'revision' }),
+    ], '2026-10-01T06:00:00Z'));
+    await rebuildJournal(await db.progress_events.toArray());
+  });
+  it('taskId d\'une tâche Anamnese + partie Dokumentation : la tâche Anamnese n\'est PAS cochée ; la résolution par le contenu prend le relais', async () => {
+    const r = await resolveSimulationTask(sim({ dokumentation: 80 }, 'tAna'));
+    expect(r.taskId).toBe('tDok');
+  });
+  it('un autre cas : taskId retiré', async () => {
+    const r = await resolveSimulationTask({ ...sim({ anamnese: 80 }, 'tAna'), caseId: 'c9' });
+    expect(r.taskId).toBeUndefined();
+  });
+  it('la bonne partie : taskId gardé', async () => {
+    expect((await resolveSimulationTask(sim({ anamnese: 80 }, 'tAna'))).taskId).toBe('tAna');
+  });
+});
+
+describe('m-1 — une séance IA externe n\'est jamais un examen à blanc (sonde PB)', () => {
+  it('run complet, autonome, couche 3, mode external-ai → kind simulation', async () => {
+    const { trainingEventFromSimulation } = await import('@/lib/journal');
+    const s = { id: 'x', caseId: 'c1', date: 1, notes: {}, prioritizedCorrections: [], scope: 'full', assistance: 'autonome', layer: 3, mode: 'external-ai',
+      parts: { anamnese: part(80), dokumentation: part(80), fallvorstellung: part(80) } } as unknown as Simulation;
+    expect(trainingEventFromSimulation(s).kind).toBe('simulation');
   });
 });
