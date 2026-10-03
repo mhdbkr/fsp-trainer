@@ -50,17 +50,22 @@ export const AI_TARGETS: AiTarget[] = [
 
 export const CAPABILITY_TTL_DAYS = 90;
 
-/** Règles C1 et C3 du contrat ; liste vide = capacité valide. */
+/** Règles C1 et C3 du contrat, plus AUTO_SUBMIT : un pré-remplissage qui
+ *  envoie seul (Tenable TRA-2025-22 : « inserted … and submitted ») partirait
+ *  avec `Meine Begrüßung:` vide — l'IA parlerait avant le candidat. Liste
+ *  vide = capacité valide. */
 export function capabilityProblems(c: TargetCapability): string[] {
   const out: string[] = [];
   if (!c.evidence.trim() || Number.isNaN(Date.parse(c.verifiedAt))) out.push('C1');
   if (c.prefillParam !== null && c.maxPrefillChars === null) out.push('C3');
+  if (c.prefillParam !== null && c.autoSubmits) out.push('AUTO_SUBMIT');
   return out;
 }
 
 export interface LaunchPlan { level: 1 | 2; url: string; label: string }
 
-/** Le barreau atteint pour ce texte, aujourd'hui (§3.3). Pur. */
+/** Le barreau atteint pour ce texte, aujourd'hui (§3.3). Pur. Le niveau 1
+ *  exige une capacité sans problème — donc jamais d'envoi automatique. */
 export function launchPlan(t: AiTarget, text: string, now: number = Date.now()): LaunchPlan {
   const c = t.capability;
   const fresh = now - Date.parse(c.verifiedAt) <= CAPABILITY_TTL_DAYS * 86_400_000;

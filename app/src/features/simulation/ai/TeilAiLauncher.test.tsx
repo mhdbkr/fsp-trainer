@@ -2,7 +2,7 @@ import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import { db } from '@/db/db';
 import { AUSGABE, BEGRUESSUNG } from '@/lib/externalAi/prompt';
-import { TeilAiLauncher } from './TeilAiLauncher';
+import { TeilAiLauncher, launchStatus } from './TeilAiLauncher';
 
 const c = {
   id: 'c1', name: 'Bauchschmerzen', pathology: 'Ulcus ventriculi', specialty: 'Gastroenterologie',
@@ -107,5 +107,18 @@ describe('TeilAiLauncher', () => {
     await open();
     fireEvent.keyDown(document, { key: 'Escape' });
     await waitFor(() => expect(screen.queryByRole('radiogroup')).toBeNull());
+  });
+});
+
+describe('launchStatus', () => {
+  it('niveau 1 : le prompt est en place même si la copie de secours échoue', () => {
+    expect(launchStatus({ copied: false, level: 1, via: 'open', teil: 'anamnese', label: 'ChatGPT' })).toEqual({ ok: true, text: 'Le prompt est en place dans ChatGPT — écris ta salutation, envoie.' });
+  });
+  it('niveau 2 : la confirmation suit la copie, l\'échec le dit', () => {
+    expect(launchStatus({ copied: true, level: 2, via: 'open', teil: 'fallvorstellung', label: 'Gemini' }).text).toBe("Prompt copié — colle-le dans Gemini et envoie : l'Oberarzt ouvre.");
+    expect(launchStatus({ copied: false, level: 2, via: 'open', teil: 'anamnese', label: 'Gemini' }).ok).toBe(false);
+  });
+  it('copier seul ne dit jamais « en place », même au niveau 1', () => {
+    expect(launchStatus({ copied: true, level: 1, via: 'copy', teil: 'anamnese', label: 'ChatGPT' }).text).toMatch(/^Prompt copié/);
   });
 });

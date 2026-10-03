@@ -42,7 +42,16 @@ const STEPS: Record<AnkerTeil, { text: string; icon: string }[]> = {
   ],
 };
 
-type Result = { ok: true; prefilled: boolean } | { ok: false };
+interface Outcome { copied: boolean; level: 1 | 2; via: 'open' | 'copy'; teil: AnkerTeil; label: string }
+
+/** Ce qu'on dit après l'action — pur. Au niveau 1 ouvert, le prompt est déjà
+ *  dans l'IA : la copie n'est qu'un filet, son échec ne change rien. */
+export function launchStatus(o: Outcome): { ok: boolean; text: string } {
+  const suite = o.teil === 'anamnese' ? 'écris ta salutation, envoie.' : "envoie : l'Oberarzt ouvre.";
+  if (o.via === 'open' && o.level === 1) return { ok: true, text: `Le prompt est en place dans ${o.label} — ${suite}` };
+  if (!o.copied) return { ok: false, text: `Copie impossible — sélectionne le texte ci-dessous et colle-le dans ${o.label}.` };
+  return { ok: true, text: `Prompt copié — colle-le dans ${o.label}${o.teil === 'anamnese' ? ', écris ta salutation, envoie.' : " et envoie : l'Oberarzt ouvre."}` };
+}
 
 function Explainer({ teil }: { teil: AnkerTeil }) {
   return (
@@ -69,7 +78,7 @@ export function TeilAiPanel({ caseId, teil }: { caseId: string; teil: AnkerTeil 
   // pour qu'elles ne sautent pas de ChatGPT à la cible mémorisée.
   const [remembered, setRemembered] = useState<TargetId | null | undefined>(undefined);
   const [target, setTarget] = useState<TargetId>('chatgpt');
-  const [result, setResult] = useState<Result | null>(null);
+  const [result, setResult] = useState<{ ok: boolean; text: string } | null>(null);
   const [copiedFlash, setCopiedFlash] = useState(false);
   const [preview, setPreview] = useState(false);
   const areaRef = useRef<HTMLTextAreaElement>(null);
@@ -94,25 +103,22 @@ export function TeilAiPanel({ caseId, teil }: { caseId: string; teil: AnkerTeil 
   const record = () => {
     Promise.all([saveTarget(target), setPending({ caseId, targetId: target, teil, at: Date.now() })]).catch(() => {});
   };
-  const settle = (ok: boolean, prefilled: boolean) => {
-    setResult(ok ? { ok: true, prefilled } : { ok: false });
-    setCopiedFlash(ok);
-    if (!ok) setPreview(true);
+  const settle = (copied: boolean, via: Outcome['via']) => {
+    const r = launchStatus({ copied, level: plan.level, via, teil, label: t.label });
+    setResult(r);
+    setCopiedFlash(copied);
+    if (!r.ok) setPreview(true);
   };
   // Le lien s'ouvre de lui-même (geste natif, lien universel de l'app) ; la
   // copie part dans le même geste, avant que la page ne perde le focus.
   const onOpen = () => {
     const copying = copyText(text);
     record();
-    copying.then((ok) => settle(ok, plan.level === 1)).catch(() => settle(false, false));
+    copying.then((ok) => settle(ok, 'open')).catch(() => settle(false, 'open'));
   };
-  const onCopy = async () => { const ok = await copyText(text); record(); settle(ok, false); };
+  const onCopy = async () => { const ok = await copyText(text); record(); settle(ok, 'copy'); };
 
-  const status = result && (result.ok
-    ? result.prefilled
-      ? `Le prompt est en place dans ${t.label}${teil === 'anamnese' ? ' — écris ta salutation, envoie.' : ' — envoie : l\'Oberarzt ouvre.'}`
-      : `Prompt copié — colle-le dans ${t.label}${teil === 'anamnese' ? ', écris ta salutation, envoie.' : ' et envoie : l\'Oberarzt ouvre.'}`
-    : `Copie impossible — sélectionne le texte ci-dessous et colle-le dans ${t.label}.`);
+  const status = result?.text;
   const sizeK = (text.length / 1000).toLocaleString('fr-FR', { maximumFractionDigits: 1 });
   const index = AI_TARGETS.findIndex((x) => x.id === target);
 
@@ -167,7 +173,7 @@ export function TeilAiPanel({ caseId, teil }: { caseId: string; teil: AnkerTeil 
           {plan.label}
           <Icon name="external" className="h-4 w-4 opacity-80" title="" />
         </a>
-        <button type="button" onClick={() => { onCopy().catch(() => settle(false, false)); }} disabled={!text}
+        <button type="button" onClick={() => { onCopy().catch(() => settle(false, 'copy')); }} disabled={!text}
           className="btn-outline min-h-11 min-w-11 justify-center gap-2 px-3 sm:w-[6.5rem]" aria-label={copiedFlash ? 'Copié' : 'Copier'}>
           <span className="relative grid h-4 w-4 place-items-center" aria-hidden>
             <span className={`tal-glyph absolute inset-0 ${copiedFlash ? 'scale-50 opacity-0' : 'opacity-100'}`}><Icon name="copy" className="h-4 w-4" title="" /></span>

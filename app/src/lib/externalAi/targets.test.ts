@@ -24,6 +24,10 @@ describe('cibles retenues par la direction', () => {
     expect(capabilityProblems({ ...base, verifiedAt: '' })).toContain('C1');
     expect(capabilityProblems({ ...base, prefillParam: 'q', maxPrefillChars: null })).toContain('C3');
   });
+
+  it('pré-remplissage qui envoie seul : refusé (le candidat doit saluer avant que l\'IA ne parle)', () => {
+    expect(capabilityProblems({ ...T.chatgpt.capability, prefillParam: 'q', maxPrefillChars: 4000, autoSubmits: true })).toContain('AUTO_SUBMIT');
+  });
 });
 
 describe('INV-33 — le libellé ne promet que ce qui est vérifié', () => {
@@ -37,6 +41,10 @@ describe('INV-33 — le libellé ne promet que ce qui est vérifié', () => {
     expect(p.level).toBe(1);
     expect(p.url).toBe('https://chatgpt.com/?q=Hallo%20Welt');
     expect(p.label).toBe('Ouvrir ChatGPT avec le prompt');
+  });
+
+  it('envoi automatique → niveau 2, quelles que soient longueur et fraîcheur', () => {
+    expect(launchPlan(verified({ autoSubmits: true }), 'Hallo Welt', NOW).level).toBe(2);
   });
 
   it('trop long une fois encodé → niveau 2', () => {
