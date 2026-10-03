@@ -60,11 +60,16 @@ const reineVerneinung = (s: string) => VERNEINUNG_RE.test(s) && !NUANCE_RE.test(
 // Un proche qui répond à la place du patient (« Die Tochter: … », case-delir) :
 // l'amorce le dit, sinon l'IA ne sait pas qui parle.
 const FEMININ = new Set(['Tochter', 'Ehefrau', 'Frau', 'Mutter', 'Partnerin', 'Enkelin', 'Schwester']);
-const BEGLEITUNG_RE = /(?:^|[.!?…]\s+)(?:Die|Der) (Tochter|Sohn|Ehefrau|Ehemann|Frau|Mann|Mutter|Vater|Partnerin|Partner|Enkelin|Enkel|Schwester|Bruder):/u;
+// Forme du corpus : entre parenthèses, avec une incise possible —
+// « (Die Tochter: … », « (Die Tochter, leise: … », « (Die Tochter ergänzt: … ».
+const BEGLEITUNG_RE = /(?:^|[.!?…]\s+|\()(?:Die|Der) (Tochter|Sohn|Ehefrau|Ehemann|Frau|Mann|Mutter|Vater|Partnerin|Partner|Enkelin|Enkel|Schwester|Bruder)[^:)]{0,20}:/u;
 function begleitung(s: Case['patientSheet']): string | null {
   for (const a of Object.values(s.antworten ?? {})) {
     const m = a && BEGLEITUNG_RE.exec(a);
-    if (m) return `${FEMININ.has(m[1]) ? 'Deine' : 'Dein'} ${m[1]} ist dabei und antwortet manchmal für dich; in der Akte beginnen diese Antworten mit „${m[0].trim().replace(/^[.!?…]\s*/u, '')}“.`;
+    if (m) {
+      const art = FEMININ.has(m[1]) ? ['Deine', 'ihre'] : ['Dein', 'seine'];
+      return `${art[0]} ${m[1]} ist dabei und antwortet manchmal für dich; ${art[1]} Antworten sind in der Akte als solche markiert.`;
+    }
   }
   return null;
 }

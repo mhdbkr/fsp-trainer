@@ -19,6 +19,9 @@ const PATIENT_MAX = 12_000; // O3
 // médecin traitant ; mère morte d'une embolie pulmonaire). Toute entrée ou
 // sortie fait échouer le test.
 const PATIENT_NOMME_PATHOLOGIE = ['case-lungenembolie', 'case-migraene'];
+// Cliquet : les cas où un proche répond pour le patient (« (Die Tochter: … »),
+// annoncé dans l'amorce. Liste exacte, pour que le test ne passe jamais à vide.
+const BEGLEITUNG_FAELLE = ['case-delir'];
 const OVER_PASTE_MAX = ['case-delir', 'case-karpaltunnel', 'case-metabolisches-syndrom', 'case-pankreaskarzinom', 'case-ulcus-cruris'];
 const TEILE: AnkerTeil[] = ['anamnese', 'fallvorstellung'];
 
@@ -60,6 +63,7 @@ describe('prompt externe sur le corpus (130 cas × 2 Teile)', () => {
     const anredeLen: number[] = [];
     const patientOwnWords: string[] = [];
     const overPaste: string[] = [];
+    const begleitet: string[] = [];
 
     for (const c of cases) {
       for (const teil of TEILE) {
@@ -94,9 +98,8 @@ describe('prompt externe sur le corpus (130 cas × 2 Teile)', () => {
           }
           // D2 + inférence : aucune justification différentielle, aucun attendu.
           if (INFERENCE_RE.test(full)) fail.push(`${id} D2 ${full.match(INFERENCE_RE)![0]}`);
-          // M6 : un proche qui répond dans la fiche est annoncé dans l'amorce.
-          const proche = Object.values(c.patientSheet.antworten ?? {}).some((a) => /(?:^|[.!?…]\s+)(?:Die|Der) [A-ZÄÖÜ][a-zäöüß]+:/u.test(a ?? ''));
-          if (proche !== /ist dabei und antwortet manchmal für dich/.test(p.anrede)) fail.push(`${id} M6 proche`);
+          // M6 : un proche qui répond dans la fiche est annoncé (cliquet ci-dessus).
+          if (/ist dabei und antwortet manchmal für dich/.test(p.anrede)) begleitet.push(c.id);
           // L'amorce (le gabarit) ne nomme jamais la pathologie.
           if (p.anrede.toLowerCase().includes(c.pathology.toLowerCase())) fail.push(`${id} D1 pathologie dans l'amorce`);
           // La pathologie dite par le patient lui-même (cliquet ci-dessus).
@@ -128,5 +131,6 @@ describe('prompt externe sur le corpus (130 cas × 2 Teile)', () => {
     expect(fail).toEqual([]);
     expect([...new Set(overPaste)].sort()).toEqual(OVER_PASTE_MAX);
     expect([...patientOwnWords].sort()).toEqual(PATIENT_NOMME_PATHOLOGIE);
+    expect([...begleitet].sort()).toEqual(BEGLEITUNG_FAELLE);
   });
 });

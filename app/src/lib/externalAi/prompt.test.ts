@@ -76,6 +76,15 @@ describe('buildPromptPaket — un proche répond pour le patient', () => {
     expect(p.anrede.length).toBeLessThanOrEqual(ANREDE_MAX);
     expect(buildPromptPaket(c, 'anamnese').anrede).not.toContain('ist dabei');
   });
+
+  it('reconnaît la forme du corpus : entre parenthèses, avec une incise', () => {
+    for (const a of ['Er schläft kaum. (Die Tochter ergänzt: Seit zwei Nächten.)', '(Die Tochter, leise: Er hat Angst.)', '(Die Tochter: 68 Kilo.)']) {
+      const x = { ...c, patientSheet: { ...c.patientSheet, antworten: { 'akt-motiv': a } } } as Case;
+      expect(buildPromptPaket(x, 'anamnese').anrede).toContain('Deine Tochter ist dabei und antwortet manchmal für dich');
+    }
+    const neutre = { ...c, patientSheet: { ...c.patientSheet, antworten: { 'akt-motiv': 'Meine Tochter hat mich gebracht.' } } } as Case;
+    expect(buildPromptPaket(neutre, 'anamnese').anrede).not.toContain('ist dabei');
+  });
 });
 
 describe('buildPromptPaket — Teil Fallvorstellung ⇒ Oberarzt seul', () => {
