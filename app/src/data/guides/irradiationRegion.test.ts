@@ -19,19 +19,32 @@ describe('G1 — garde « territoire ⊂ région » (motiv.region)', () => {
   // suggère une douleur projetée que la fiche n'a pas. Les questions neutres
   // (« irgendwohin ») ne nomment rien et passent.
   const TERRITOIRES = ['arm', 'hand', 'finger', 'daumen', 'schulter', 'nacken', 'kopf', 'bein', 'knie', 'fuß', 'zehe', 'hüfte', 'leiste',
-    'gesäß', 'rücken', 'hals', 'unterkiefer', 'kiefer', 'brustkorb', 'oberbauch', 'bauch', 'hoden', 'flanke'];
-  const ARM_ = ['arm', 'hand', 'finger', 'daumen', 'schulter', 'nacken'];
-  const BEIN_ = ['bein', 'knie', 'fuß', 'zehe', 'hüfte', 'leiste', 'gesäß'];
+    'gesäß', 'rücken', 'hals', 'unterkiefer', 'kiefer', 'brustkorb', 'brust', 'oberbauch', 'bauch', 'hoden', 'flanke',
+    'wade', 'oberschenkel', 'ellenbogen'];
+  const ARM_ = ['arm', 'hand', 'finger', 'daumen', 'schulter', 'nacken', 'ellenbogen'];
+  const BEIN_ = ['bein', 'knie', 'fuß', 'zehe', 'hüfte', 'leiste', 'gesäß', 'wade', 'oberschenkel'];
   const ERLAUBT: Record<string, string[]> = {
-    obere: ARM_, hws: [...ARM_, 'kopf'], untere: BEIN_, lws: [...BEIN_, 'rücken'], bws: ['brustkorb', 'rücken', 'bauch'],
-    thorax: ['arm', 'hals', 'unterkiefer', 'kiefer', 'rücken', 'schulter', 'oberbauch'],
+    obere: ARM_, hws: [...ARM_, 'kopf'], untere: BEIN_, lws: [...BEIN_, 'rücken'], bws: ['brustkorb', 'brust', 'rücken', 'bauch'],
+    thorax: ['arm', 'hals', 'unterkiefer', 'kiefer', 'rücken', 'schulter', 'oberbauch', 'brust', 'ellenbogen'],
     abdomen: ['rücken', 'leiste', 'schulter', 'hoden', 'flanke', 'bein', 'gesäß'],
   };
-  const nommes = (txt: string) => TERRITOIRES.filter((t) => new RegExp(`(?<![a-zäöüß])${t}`, 'i').test(txt));
+  // Préfixes de composé : Unterarm, Oberarm, Hinterkopf… (« Oberbauch » est son propre territoire, pas « bauch »).
+  const nommes = (txt: string) => {
+    const hits = TERRITOIRES.filter((t) => new RegExp(`(?<![a-zäöüß])(?:unter|ober|hinter|vorder)?${t}`, 'i').test(txt));
+    return hits.includes('oberbauch') ? hits.filter((t) => t !== 'bauch') : hits;
+  };
   const irradiations = (c: (typeof cases)[number]) => played(c).filter((q) =>
     phraseProbes(q).some((p) => IRRADIATION.includes(p)) || (typeof q !== 'string' && q.caseSpecific && /\bstrahl(t|en)\b|ausstrahl|\bzieht\b/i.test(phraseText(q))));
   const avecRegion = cases.filter((c) => c.patientSheet.motiv?.region);
 
+  it('le détecteur voit les composés : Unterarm, Oberarm, Oberschenkel, Brust, Wade, Ellenbogen', () => {
+    expect(nommes('Strahlen die Schmerzen in den Unterarm aus?')).toContain('arm');
+    expect(nommes('Strahlen die Schmerzen in den Oberarm aus?')).toContain('arm');
+    expect(nommes('Zieht der Schmerz in den Oberschenkel?')).toContain('oberschenkel');
+    expect(nommes('Strahlt es in die Brust, die Wade oder den Ellenbogen?')).toEqual(expect.arrayContaining(['brust', 'wade', 'ellenbogen']));
+    expect(nommes('Strahlt es in den Oberbauch?')).toEqual(['oberbauch']);
+    expect(nommes('Spüren Sie es warm im Bauch?')).toEqual(['bauch']);
+  });
   it('13+ cas déclarent une région et jouent des irradiations (la garde n’est pas vide)', () => {
     expect(avecRegion.length).toBeGreaterThanOrEqual(13);
     expect(avecRegion.flatMap(irradiations).length).toBeGreaterThanOrEqual(15);
