@@ -28,6 +28,7 @@ import { KommunikationPanel } from './KommunikationPanel';
 import { QrCode } from '@/components/QrCode';
 import { usePatientBroadcast, patientUrl, patientUrlIsOnline, localPatientUrl } from './usePatientSync';
 import { Icon } from '@/components/icons';
+import { TeilAiLauncher } from './ai/TeilAiLauncher';
 import { SidePanel } from '@/components/SidePanel';
 import { ImmersiveMode } from './ImmersiveMode';
 import { CAT_META } from '@/features/aufklaerung/AufklaerungPage';
@@ -54,7 +55,6 @@ export function SimulationRunner() {
   // enregistrée au lieu de réafficher un runner vierge (audit §1.3).
   const simId = params.get('sim');
   const c = useCase(caseId);
-  const openExternalAi = useUi((s) => s.openExternalAi);
 
   // Un seul état : le `Lauf`. Il porte la checklist, les Teile couverts, le
   // minutage, le score et le brouillon d'évaluation — aucun `useState` ne les
@@ -387,7 +387,6 @@ export function SimulationRunner() {
                     onItem={steuerung.setzeItem}
                     onHinweis={() => steuerung.setzeEntwurfFeld('anamnese', { hinweise: (lauf.entwurf.anamnese?.hinweise ?? 0) + 1 })}
                     lauf={lauf}
-                    onExternalAi={() => openExternalAi(c.id, partKey === 'aufklaerung' ? undefined : partKey)}
                   />
                 )}
               </div>
@@ -472,27 +471,23 @@ interface PlayAreaProps {
   onItem: (id: string, checked: boolean) => void;
   onHinweis: () => void;
   lauf: Lauf;
-  onExternalAi: () => void;
 }
 // Le chrono ne vit plus ici : il est remonté dans l'en-tête pour pouvoir
 // fusionner avec l'étiquette titre au défilement. PlayArea ne s'occupe donc
 // plus que du contenu de l'épreuve.
-function PlayArea({ part, c, assistance, muster, bogen, setBogen, arztbriefText, setArztbriefText, onItem, onHinweis, lauf, onExternalAi }: PlayAreaProps) {
+function PlayArea({ part, c, assistance, muster, bogen, setBogen, arztbriefText, setArztbriefText, onItem, onHinweis, lauf }: PlayAreaProps) {
   return (
     <>
       {part === 'anamnese' && <AnamneseArea c={c} assistance={assistance} muster={muster} bogen={bogen} setBogen={setBogen} lauf={lauf} onItem={onItem} onHinweis={onHinweis} />}
       {part === 'dokumentation' && <ArztbriefGuide c={c} assistance={assistance} text={arztbriefText} onText={setArztbriefText} bogen={bogen} muster={muster} />}
       {part === 'fallvorstellung' && <VorstellungGuide c={c} assistance={assistance} bogen={bogen} muster={muster} />}
       {part === 'aufklaerung' && <AufklaerungArea c={c} />}
-      {/* Point de montage du pont IA externe — restreint à Anamnese et
-          Fallvorstellung, les deux seules parties qu'une IA peut jouer
-          (contrat `ai-bridge.md`). Le lanceur lui-même est livré par C3 ;
-          ici, l'ancre et la restriction. */}
+      {/* Pont IA externe — restreint à Anamnese et Fallvorstellung, les deux
+          seules parties qu'une IA peut jouer (contrat `ai-bridge.md` §3.1).
+          Anamnese : l'IA joue le patient ; Fallvorstellung : l'Oberarzt seul. */}
       {(part === 'anamnese' || part === 'fallvorstellung') && (
         <div data-ai-bridge-slot={part} className="mt-4 flex justify-center">
-          <button onClick={onExternalAi} className="btn-ghost gap-1.5 text-xs text-slate-400 hover:text-brand-600 dark:hover:text-brand-300">
-            <Icon name="spark" className="h-3.5 w-3.5" />Continuer cette partie avec ton IA
-          </button>
+          <TeilAiLauncher caseId={c.id} teil={part} />
         </div>
       )}
     </>
