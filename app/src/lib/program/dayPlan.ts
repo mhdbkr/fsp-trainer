@@ -135,9 +135,10 @@ export function buildTasks(input: BuildInput, mkId: () => string = newId): TaskI
   //    (audit §2.4 — l'effet existait sans rien cocher).
   const terms = counts(begriffe, input.now);
   const drillTotal = terms.due + Math.min(terms.fresh, 10);
-  if (drillTotal > 0) {
+  if (drillTotal > 0 && targetMin > 0) {
     push({
-      kind: 'drill', label: 'Fachbegriffe', estMin: Math.ceil(drillTotal * 0.4),
+      // M-a : borné au budget du jour — un gros arriéré ne remplit pas la journée au-delà.
+      kind: 'drill', label: 'Fachbegriffe', estMin: Math.min(Math.ceil(drillTotal * 0.4), targetMin),
       reason: `${terms.due} terme${terms.due > 1 ? 's' : ''} dû${terms.due > 1 ? 's' : ''} aujourd'hui, plus les nouveaux du budget.`,
     });
   }
