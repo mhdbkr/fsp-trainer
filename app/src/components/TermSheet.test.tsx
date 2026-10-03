@@ -22,12 +22,15 @@ describe('TermSheet (F4a D2/D3, AC-3)', () => {
   it('ordre : Bedeutung → Définition complète (repliée) → Dans l\'entretien (patient, demande, présentation) avec leur ligne d\'usage', () => {
     const { container } = render(<TermSheet term={aszites} />);
     const text = container.textContent!;
-    const pos = ['Bedeutung', 'Définition complète', "Dans l'entretien", 'Le patient dit', 'Tu demandes', 'Tu présentes'].map((s) => text.indexOf(s));
+    const pos = ['Bedeutung', 'Définition complète', "Dans l'entretien", 'Patient', 'Anamnese', 'Vorstellung'].map((s) => text.indexOf(s));
     expect(pos.every((p) => p >= 0)).toBe(true);
     expect([...pos].sort((a, b) => a - b)).toEqual(pos);
     expect(container.querySelector('details')!.open).toBe(false);
     expect([...container.querySelectorAll('[data-usage]')].map((li) => li.getAttribute('data-usage'))).toEqual(['patient', 'anamnese', 'vorstellung']);
     for (const li of container.querySelectorAll('[data-usage]')) expect(li.querySelectorAll('p').length).toBe(2);
+    expect(container.querySelectorAll('[data-usage] svg').length).toBe(0);   // F4c : tags de marque, plus d'icônes
+    expect([...container.querySelectorAll('[data-usage] .dim-tag')].map((t) => t.textContent)).toEqual(['Patient', 'Anamnese', 'Vorstellung']);
+    expect(container.querySelector('[data-bedeutung]')!.textContent).toContain('Bauchwasser');   // F4c : la Bedeutung, bloc mis en valeur
     expect(screen.getByText('Bauchwasser')).toBeTruthy();
   });
   it('sans registre : seulement la Bedeutung ; jamais « patientengerecht »', () => {
