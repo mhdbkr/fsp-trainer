@@ -145,7 +145,7 @@ rien de cette table.
 | Workflow | Worktree / branche | Agent | Étape | Clos ? |
 |---|---|---|---|---|
 | Intégration primitives | `doctopus-s3-primitives` · `feat/s3-primitives` | `ad901ff9c385851ac` | **PR #58 mergée** (`8e7474f7`, 3 oct.) | **oui** |
-| Intégration programme | `doctopus-s3-programme` · `feat/s3-programme` | `a276d650bc56bda9b` | livré `3e9ae0e` (989/989 sous `--maxWorkers=2`) ; re-merge de `main` (3 conflits avec #58) → push → **main ouvre la PR** → serveur déjà en prod (017 + `events` v9) | non |
+| Intégration programme | `doctopus-s3-programme` · `feat/s3-programme` | `a276d650bc56bda9b` | **PR #60** ouverte (`144c1cb6`) → CI → **merge sur accord de la direction** (client seul, serveur déjà en prod) → débloque C6 | non |
 | Lot L0 — revue mécanique | `doctopus-s3-lot0` | `a85f52786072e2105` | rendue : Request changes (I1 fiche simulant « Fuß » sur la main, I2 plancher des paires, I3 `fachSkip` non validé) | **oui** |
 | Lot L0 — fixeur | `doctopus-s3-lot0` · `feat/s3-lot0-fach-nature` | `ac508d333980d928d` | **PR #59 mergée** (`1b9c03a7`, 3 oct.) | **oui** |
 | Audit questions du cas + FB3-G | lecture seule | `ac7225d1457bf293d` | rendu → `audit-questions-du-cas-serie3.md` | **oui** |
