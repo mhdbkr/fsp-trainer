@@ -68,9 +68,10 @@ const AKTUELL_VARIANTS: Record<LeitsymptomKategorie, AktuellVariant> = {
         alts: ['Welche Beschwerden möchten Sie mir schildern?', 'Welche Symptome bringen Sie heute zu uns?'],
       },
       {
-        text: 'Ort — Wo genau spüren Sie die Beschwerden? Können Sie mit dem Finger zeigen, wo es wehtut?',
+        text: 'Ort — Wo genau spüren Sie die Beschwerden?',
         probe: 'akt-ort',
         alts: ['Könnten Sie mir bitte genauer beschreiben, wo Sie die Schmerzen empfinden?'],
+        followUp: ['Können Sie mir zeigen, wo genau?'],
       },
       {
         text: 'Beginn — Seit wann haben Sie die Schmerzen? Kamen sie plötzlich oder schleichend?',
@@ -91,9 +92,10 @@ const AKTUELL_VARIANTS: Record<LeitsymptomKategorie, AktuellVariant> = {
         ],
       },
       {
-        text: 'Ausstrahlung — Strahlen die Schmerzen aus? Wohin, zum Beispiel in den Arm, den Rücken oder die Schulter?',
+        text: 'Ausstrahlung — Strahlen die Schmerzen irgendwohin aus?',
         probe: 'akt-ausstrahlung',
-        alts: ['Breiten sich die Schmerzen auf andere Körperregionen aus?', 'Sind die Schmerzen lokalisiert oder eher diffus? Wandern sie?'],
+        alts: ['Breiten sich die Schmerzen auf andere Körperregionen aus?', 'Bleiben die Schmerzen an einer Stelle, oder ziehen sie woandershin?'],
+        followUp: ['Falls ja: Wohin genau?'],
       },
       {
         text: 'Verlauf — Sind die Schmerzen dauerhaft da oder treten sie anfallsartig auf?',
@@ -125,19 +127,20 @@ const AKTUELL_VARIANTS: Record<LeitsymptomKategorie, AktuellVariant> = {
       MOTIV,
       { text: 'Beginn — Seit wann bekommen Sie schlechter Luft? Kam das plötzlich oder hat es sich langsam entwickelt?', probe: 'akt-beginn' },
       {
-        text: 'Belastung — Tritt die Luftnot nur bei Anstrengung auf oder auch in Ruhe? Wie viele Treppenstufen schaffen Sie ohne Pause?',
+        text: 'Belastung — Tritt die Luftnot nur bei Anstrengung auf oder auch in Ruhe?',
         probe: 'akt-atemnot-belastung',
         alts: ['Wie weit können Sie gehen, bevor Sie stehen bleiben müssen?'],
+        followUp: ['Wie viele Treppenstufen schaffen Sie ohne Pause?'],
       },
       {
-        text: 'Nachts — Müssen Sie mit erhöhtem Oberkörper schlafen? Wachen Sie nachts auf, weil Ihnen die Luft wegbleibt?',
+        text: 'Nachts — Müssen Sie mit erhöhtem Oberkörper schlafen?',
         probe: 'akt-atemnot-nachts',
-        followUp: ['Falls ja: Mit wie vielen Kissen schlafen Sie?'],
+        followUp: ['Falls ja: Mit wie vielen Kissen?', 'Wachen Sie nachts auf, weil Ihnen die Luft wegbleibt?'],
       },
       {
-        text: 'Husten — Haben Sie Husten? Ist er trocken, oder husten Sie etwas ab — welche Farbe hat der Auswurf?',
+        text: 'Husten — Haben Sie Husten?',
         probe: 'akt-atemnot-husten',
-        followUp: ['Falls Auswurf: Ist Blut dabei?'],
+        followUp: ['Husten Sie dabei etwas ab?', 'Falls Sie etwas abhusten: Welche Farbe hat das?', 'Ist Blut dabei?'],
       },
       { text: 'Geräusche — Hören Sie beim Atmen ein Pfeifen oder Brummen? Beim Ein- oder beim Ausatmen?', probe: 'akt-atemnot-geraeusch' },
       { text: 'Verlauf — Ist die Luftnot dauerhaft da oder kommt sie anfallsartig? Wird es von Tag zu Tag schlimmer?', probe: 'akt-verlauf' },
@@ -159,21 +162,30 @@ const AKTUELL_VARIANTS: Record<LeitsymptomKategorie, AktuellVariant> = {
         probe: 'akt-allgemein-art',
       },
       {
-        text: 'Ausmaß — Was schaffen Sie im Alltag nicht mehr, was vorher ging? Müssen Sie sich tagsüber hinlegen?',
+        text: 'Ausmaß — Was schaffen Sie im Alltag nicht mehr, was vorher ging?',
         probe: 'akt-allgemein-alltag',
         alts: ['Wie sehr schränkt Sie das im Alltag ein — bei der Arbeit, im Haushalt?'],
+        followUp: ['Müssen Sie sich tagsüber hinlegen?'],
       },
-      { text: 'Tageszeit — Ist es morgens schlimmer oder eher im Laufe des Tages? Bessert es sich nach Ruhe oder Schlaf?', probe: 'akt-allgemein-tageszeit' },
       {
-        text: 'Gewicht und Appetit — Hat sich Ihr Gewicht verändert, ohne dass Sie es wollten? Und Ihr Appetit, Ihr Durst?',
+        text: 'Tageszeit — Ist es morgens schlimmer oder eher im Laufe des Tages?',
+        probe: 'akt-allgemein-tageszeit',
+        followUp: ['Bessert es sich nach Ruhe oder Schlaf?'],
+      },
+      {
+        text: 'Gewicht — Hat sich Ihr Gewicht verändert, ohne dass Sie es wollten?',
         probe: 'akt-allgemein-gewicht',
-        followUp: ['Falls ja: Wie viele Kilo, in welchem Zeitraum?'],
+        followUp: ['Falls ja: Wie viele Kilo, in welchem Zeitraum?', 'Und Ihr Appetit, Ihr Durst?'],
         parts: [
           { sucht: ['gewicht'], text: 'Gewicht — Hat sich Ihr Gewicht verändert, ohne dass Sie es wollten?', followUp: ['Falls ja: Wie viele Kilo, in welchem Zeitraum?'] },
-          { sucht: ['appetit'], text: 'Appetit — Wie sind Ihr Appetit und Ihr Durst in letzter Zeit?' },
+          { sucht: ['appetit', 'durst'], text: 'Appetit — Wie sind Ihr Appetit und Ihr Durst in letzter Zeit?' },
         ],
       },
-      { text: 'Schwellungen — Sind Ihre Beine, das Gesicht oder der Bauch angeschwollen? Hat sich die Urinmenge verändert?', probe: 'akt-allgemein-schwellung' },
+      {
+        text: 'Schwellungen — Sind Ihre Beine, das Gesicht oder der Bauch angeschwollen?',
+        probe: 'akt-allgemein-schwellung',
+        followUp: ['Hat sich die Urinmenge verändert?'],
+      },
       { text: 'Verlauf — Ist es gleichbleibend, wird es schlimmer, oder gibt es gute und schlechte Tage?', probe: 'akt-verlauf' },
       { text: 'Auslöser — Ist Ihnen ein Auslöser aufgefallen — eine Krankheit, eine Veränderung der Ernährung, Stress, ein neues Medikament?', probe: 'akt-ausloeser' },
       { text: 'Einflussfaktoren — Gibt es etwas, das es bessert oder verschlimmert?', probe: 'akt-einfluss' },
@@ -189,15 +201,15 @@ const AKTUELL_VARIANTS: Record<LeitsymptomKategorie, AktuellVariant> = {
       MOTIV,
       { text: 'Beginn — Seit wann geht es Ihnen so? Kam das nach und nach oder gab es einen Moment, ab dem es anders war?', probe: 'akt-beginn' },
       {
-        text: 'Stimmung — Wie ist Ihre Stimmung im Moment, wenn Sie sie beschreiben sollen? Gibt es Momente, in denen es besser ist?',
+        text: 'Stimmung — Wie ist Ihre Stimmung im Moment?',
         probe: 'akt-psych-stimmung',
       },
       {
-        text: 'Antrieb und Interesse — Fällt es Ihnen schwer, den Tag zu beginnen? Haben Sie noch Freude an Dingen, die Ihnen früher wichtig waren?',
+        text: 'Antrieb — Fällt es Ihnen schwer, den Tag zu beginnen?',
         probe: 'akt-psych-antrieb',
       },
       {
-        text: 'Schlaf und Konzentration — Wie schlafen Sie — Einschlafen, Durchschlafen, frühes Erwachen? Können Sie sich konzentrieren, zum Beispiel beim Lesen?',
+        text: 'Schlaf — Haben Sie Probleme beim Einschlafen, beim Durchschlafen, oder wachen Sie zu früh auf?',
         probe: 'akt-psych-schlaf',
       },
       {
@@ -228,16 +240,19 @@ const AKTUELL_VARIANTS: Record<LeitsymptomKategorie, AktuellVariant> = {
         followUp: ['Falls schlagartig: Um welche Uhrzeit genau? Wann waren Sie zuletzt sicher beschwerdefrei?'],
       },
       {
-        text: 'Art des Ausfalls — Was genau war anders: eine Schwäche oder Taubheit — auf welcher Seite? Probleme beim Sprechen, beim Sehen, beim Gehen?',
+        text: 'Art des Ausfalls — Was war anders: eine Schwäche oder ein Taubheitsgefühl?',
         probe: 'akt-neuro-ausfall',
+        followUp: ['Auf welcher Seite?', 'Konnten Sie normal sprechen, sehen und gehen?'],
       },
       {
-        text: 'Dauer und Rückbildung — Wie lange hat es angehalten? Ist es vollständig weggegangen, teilweise, oder besteht es noch?',
+        text: 'Dauer — Wie lange hat es angehalten?',
         probe: 'akt-neuro-dauer',
+        followUp: ['Ist es vollständig weggegangen, teilweise, oder besteht es noch?'],
       },
       {
-        text: 'Lage und Bewegung — Wird es schlimmer, wenn Sie den Kopf drehen, sich hinlegen oder aufstehen? Dreht sich alles, oder ist es eher ein Schwanken?',
+        text: 'Lage und Bewegung — Wird es schlimmer, wenn Sie den Kopf drehen, sich hinlegen oder aufstehen?',
         probe: 'akt-neuro-lage',
+        followUp: ['Dreht sich alles, oder schwankt es?'],
       },
       { text: 'Verlauf — Kam es einmal, oder in Schüben? Ist es zwischendurch ganz weg?', probe: 'akt-verlauf' },
       { text: 'Auslöser — Gab es einen Auslöser — Anstrengung, Aufregung, Schlafmangel, Alkohol, ein neues Medikament?', probe: 'akt-ausloeser' },
@@ -254,16 +269,18 @@ const AKTUELL_VARIANTS: Record<LeitsymptomKategorie, AktuellVariant> = {
       MOTIV,
       { text: 'Beginn — Seit wann haben Sie Fieber oder fühlen sich krank? Kam es schlagartig oder langsam?', probe: 'akt-beginn' },
       {
-        text: 'Fieber — Haben Sie gemessen — wie hoch? Zu welcher Tageszeit ist es am höchsten? Hatten Sie Schüttelfrost?',
+        text: 'Fieber — Haben Sie Fieber gemessen?',
         probe: 'akt-infekt-fieber',
+        followUp: ['Wie hoch war es?', 'Wann ist das Fieber am höchsten?'],
       },
       {
         text: 'Verlauf — Ist das Fieber dauerhaft, kommt es in Schüben, oder war es zwischendurch weg?',
         probe: 'akt-verlauf',
       },
       {
-        text: 'Kontakt und Reise — Waren Sie in letzter Zeit im Ausland? Hatten Sie Kontakt zu Kranken, zu Tieren, oder haben Sie etwas Ungewöhnliches gegessen?',
+        text: 'Kontakt und Reise — Waren Sie in den letzten Wochen im Ausland?',
         probe: 'akt-infekt-kontakt',
+        followUp: ['Hatten Sie Kontakt zu Kranken oder Tieren?', 'Haben Sie etwas Ungewöhnliches gegessen?'],
       },
       {
         text: 'Herd — Haben Sie Husten, Halsschmerzen, Brennen beim Wasserlassen, Durchfall, einen Ausschlag oder eine Wunde bemerkt?',
@@ -287,12 +304,14 @@ const AKTUELL_VARIANTS: Record<LeitsymptomKategorie, AktuellVariant> = {
       },
       { text: 'Beginn — Seit wann haben Sie das bemerkt? Wie ist es Ihnen aufgefallen — zufällig, beim Duschen, durch jemand anderen?', probe: 'akt-beginn' },
       {
-        text: 'Größe und Entwicklung — Ist es seitdem größer, häufiger oder schlimmer geworden? Hat es sich in Farbe oder Form verändert?',
+        text: 'Größe und Entwicklung — Ist es seitdem größer, häufiger oder schlimmer geworden?',
         probe: 'akt-veraend-entwicklung',
+        followUp: ['Hat es sich in Farbe oder Form verändert?'],
       },
       {
-        text: 'Schmerz und Blutung — Tut es weh, juckt es, oder blutet es? Haben Sie Blut im Stuhl, im Urin, beim Husten oder aus der Nase bemerkt?',
+        text: 'Schmerz und Blutung — Tut es weh, juckt es, oder blutet es?',
         probe: 'akt-veraend-blutung',
+        followUp: ['Haben Sie Blut im Stuhl oder im Urin bemerkt?', 'Husten Sie Blut ab?'],
       },
       { text: 'Verlauf — Ist es dauernd da, oder kommt und geht es?', probe: 'akt-verlauf' },
       { text: 'Auslöser — Ist Ihnen ein Auslöser aufgefallen — eine Verletzung, Sonne, ein neues Medikament, eine Ernährungsumstellung?', probe: 'akt-ausloeser' },
@@ -309,16 +328,19 @@ const AKTUELL_VARIANTS: Record<LeitsymptomKategorie, AktuellVariant> = {
       MOTIV,
       { text: 'Beginn — Seit wann bemerken Sie das? Ist es langsam gekommen, oder in Schüben mit besseren Phasen dazwischen?', probe: 'akt-beginn' },
       {
-        text: 'Art — Was genau spüren Sie: ein Zittern, ein Kribbeln, ein Taubheitsgefühl, eine Schwäche, eine Steifigkeit? Wo — und auf einer oder beiden Seiten?',
+        text: 'Art — Was genau spüren Sie: ein Kribbeln, eine Taubheit oder eine Schwäche?',
         probe: 'akt-nerven-art',
+        followUp: ['Wo spüren Sie das?', 'Auf einer Seite oder auf beiden?'],
       },
       {
-        text: 'Alltag — Was fällt Ihnen dadurch schwer: Knöpfe schließen, schreiben, eine Tasse halten, gehen, Treppen? Sind Sie schon gestürzt?',
+        text: 'Alltag — Was fällt Ihnen schwer: Knöpfe schließen, schreiben, eine Tasse halten?',
         probe: 'akt-nerven-alltag',
+        followUp: ['Und beim Gehen — sind Sie schon gestürzt?'],
       },
       {
-        text: 'Tageszeit und Auslöser — Ist es nachts oder morgens schlimmer? Wird es bei Anstrengung, Wärme, Aufregung oder in bestimmten Haltungen stärker?',
+        text: 'Tageszeit — Ist es nachts oder morgens schlimmer?',
         probe: 'akt-nerven-tageszeit',
+        followUp: ['Gibt es Körperhaltungen oder Situationen, in denen es stärker wird?'],
       },
       { text: 'Verlauf — Ist es gleichbleibend, wird es langsam schlimmer, oder kommt es und geht wieder ganz weg?', probe: 'akt-verlauf' },
       { text: 'Auslöser — Ist Ihnen ein Auslöser aufgefallen — eine Verletzung, ein Infekt, ein neues Medikament, eine neue Tätigkeit?', probe: 'akt-ausloeser' },
@@ -335,17 +357,16 @@ const AKTUELL_VARIANTS: Record<LeitsymptomKategorie, AktuellVariant> = {
       MOTIV,
       { text: 'Beginn — Seit wann haben Sie das bemerkt? Kam es plötzlich oder hat es sich über Wochen entwickelt?', probe: 'akt-beginn' },
       {
-        text: 'Veränderung — Was hat sich verändert: beim Wasserlassen, beim Stuhlgang, beim Schlucken, oder an der Farbe von Haut, Augen, Urin oder Stuhl?',
+        text: 'Veränderung — Was hat sich verändert: beim Wasserlassen, beim Stuhlgang, oder an der Farbe von Haut, Augen, Urin oder Stuhl?',
         probe: 'akt-ausscheid-was',
       },
       {
-        text: 'Häufigkeit und Menge — Wie oft am Tag, wie oft nachts? Mehr oder weniger als sonst? Müssen Sie plötzlich, oder kommt es nur tröpfchenweise?',
+        text: 'Häufigkeit — Wie oft müssen Sie am Tag auf die Toilette, und wie oft nachts?',
         probe: 'akt-ausscheid-haeufigkeit',
+        followUp: ['Mehr oder weniger als sonst?'],
       },
-      {
-        text: 'Aussehen — Wie sieht es aus: Farbe, Blut, Schleim, schaumig, übel riechend? Bei Schluckbeschwerden: bleibt Festes hängen, oder auch Flüssiges?',
-        probe: 'akt-ausscheid-aussehen',
-      },
+      { text: 'Aussehen — Ist Ihnen Blut, Schleim oder eine ungewöhnliche Farbe aufgefallen?', probe: 'akt-ausscheid-aussehen' },
+      { text: 'Schlucken — Bleibt beim Schlucken nur Festes stecken, oder auch Flüssiges?', probe: 'akt-ausscheid-schlucken' },
       { text: 'Verlauf — Ist es dauernd so, oder gibt es Tage, an denen es normal ist? Wird es schlimmer?', probe: 'akt-verlauf' },
       { text: 'Auslöser — Ist Ihnen ein Auslöser aufgefallen — ein bestimmtes Essen, eine Reise, ein neues Medikament, Stress?', probe: 'akt-ausloeser' },
       { text: 'Einflussfaktoren — Gibt es etwas, das es bessert oder verschlimmert — Essen, Trinken, Bewegung, Medikamente?', probe: 'akt-einfluss' },
@@ -361,17 +382,19 @@ const AKTUELL_VARIANTS: Record<LeitsymptomKategorie, AktuellVariant> = {
       MOTIV,
       { text: 'Beginn — Wann war der erste Anfall? Und der letzte?', probe: 'akt-beginn' },
       {
-        text: 'Ablauf — Wie fängt so ein Anfall an — schlagartig oder langsam? Wie hört er auf? Was spüren Sie währenddessen genau?',
+        text: 'Ablauf — Wie fängt so ein Anfall an: schlagartig oder langsam?',
         probe: 'akt-anfall-ablauf',
+        followUp: ['Was spüren Sie währenddessen?', 'Und wie hört er auf?'],
       },
       {
-        text: 'Dauer und Häufigkeit — Wie lange dauert ein Anfall — Sekunden, Minuten, Stunden? Wie oft kommt das vor?',
+        text: 'Dauer — Wie lange dauert ein Anfall — Sekunden, Minuten oder Stunden?',
         probe: 'akt-anfall-dauer',
+        followUp: ['Wie oft passiert das?'],
       },
       {
-        text: 'Bewusstsein — Waren Sie dabei einmal bewusstlos, oder ist Ihnen schwarz vor Augen geworden? Haben Sie sich verletzt?',
+        text: 'Bewusstsein — Waren Sie dabei bewusstlos, oder ist Ihnen schwarz vor Augen geworden?',
         probe: 'akt-anfall-bewusstsein',
-        followUp: ['Falls ja: Hat jemand gesehen, was passiert ist? Haben Sie eingenässt oder sich auf die Zunge gebissen?'],
+        followUp: ['Haben Sie sich dabei verletzt, etwa auf die Zunge gebissen?', 'Ist dabei Urin abgegangen?', 'Hat jemand gesehen, was passiert ist?'],
       },
       { text: 'Verlauf — Werden die Anfälle häufiger oder länger? Sind Sie zwischen den Anfällen völlig beschwerdefrei?', probe: 'akt-verlauf' },
       { text: 'Auslöser — Gibt es einen Auslöser — Anstrengung, Aufregung, Kaffee, Alkohol, Schlafmangel, schnelles Aufstehen?', probe: 'akt-ausloeser' },
@@ -555,7 +578,8 @@ export const ALLGEMEINE_ANAMNESE: AnamneseChapter[] = [
         probe: 'veg-schuettelfrost',
         parts: [
           { sucht: ['schuettelfrost'], text: 'Hatten Sie Schüttelfrost?' },
-          { sucht: ['nachtschweiss'], text: 'Schwitzen Sie nachts stark, oder haben Sie starke Schweißausbrüche?' },
+          { sucht: ['nachtschweiss'], text: 'Schwitzen Sie nachts stark?' },
+          { sucht: ['schwitzen'], text: 'Haben Sie starke Schweißausbrüche?' },
         ],
       },
       {
@@ -803,7 +827,14 @@ export const FACHANAMNESEN: FachanamneseGuide[] = [
         probe: 'fach-pneumo-schmerz',
         alts: ['Bekommen Sie Brustschmerzen beim Atmen? Eher beim tiefen Einatmen oder beim Ausatmen?'],
       },
-      { text: 'Haben Sie Fieber oder Schüttelfrost?', probe: 'fach-pneumo-fieber' },
+      {
+        text: 'Haben Sie Fieber oder Schüttelfrost?',
+        probe: 'fach-pneumo-fieber',
+        parts: [
+          { sucht: ['fieber'], text: 'Haben Sie Fieber?' },
+          { sucht: ['schuettelfrost'], text: 'Hatten Sie dabei Schüttelfrost?' },
+        ],
+      },
       { text: 'Hören Sie beim Atmen ein Pfeifen oder Giemen?', probe: 'fach-pneumo-giemen' },
       { text: 'Hatten Sie kürzlich einen Atemwegsinfekt, Kontakt zu Kranken oder eine Reise?', probe: 'fach-pneumo-infekt' },
       // « Rauchen Sie ? » est déjà posé dans Noxen, l'exposition générale dans
@@ -1068,9 +1099,27 @@ export const FACHANAMNESEN: FachanamneseGuide[] = [
       { text: 'Haben Sie Schwindel, Gangunsicherheit oder das Gefühl zu schwanken? Sind Sie schon gestürzt?', probe: 'fach-neuro-koordination' },
       { text: 'Haben Sie Schwierigkeiten beim Sprechen, beim Finden von Wörtern oder beim Schlucken?', probe: 'fach-neuro-sprache' },
       { text: 'Haben Sie Probleme mit der Blase oder dem Stuhlgang — plötzlichen Drang, Einnässen oder Entleerungsstörungen?', probe: 'fach-neuro-blase' },
-      { text: 'Hatten Sie einen Krampfanfall, eine Bewusstlosigkeit oder eine Phase, an die Sie sich nicht erinnern können?', probe: 'fach-neuro-anfall' },
+      {
+        text: 'Hatten Sie einen Krampfanfall, eine Bewusstlosigkeit oder eine Phase, an die Sie sich nicht erinnern können?',
+        probe: 'fach-neuro-anfall',
+        // Quand le cas a déjà demandé la perte de connaissance (sturz, TIA), il
+        // reste la crise — elle ne disparaît pas avec la moitié posée.
+        parts: [
+          { sucht: ['krampf'], text: 'Hatten Sie schon einmal einen Krampfanfall?' },
+          { sucht: ['bewusstlos'], text: 'Waren Sie bewusstlos, oder gibt es eine Phase, an die Sie sich nicht erinnern können?' },
+        ],
+      },
       { text: 'Erinnern Sie sich an alles vor und nach der Episode? Haben Sie sich dabei verletzt — Zungenbiss? Ging unwillkürlich Urin ab?', probe: 'fach-neuro-anfallzeichen' },
-      { text: 'Kamen die Beschwerden schubweise und bildeten sich zwischendurch zurück? Werden sie bei Wärme oder Anstrengung schlimmer?', probe: 'fach-neuro-verlauf' },
+      {
+        text: 'Kamen die Beschwerden schubweise und bildeten sich zwischendurch zurück? Werden sie bei Wärme oder Anstrengung schlimmer?',
+        probe: 'fach-neuro-verlauf',
+        // Quand le cas a déjà demandé la chaleur (Uhthoff, case-multiple-sklerose),
+        // il reste l'évolution par poussées.
+        parts: [
+          { sucht: ['schub'], text: 'Kamen die Beschwerden schubweise und bildeten sich zwischendurch zurück?' },
+          { sucht: ['waerme'], text: 'Werden die Beschwerden bei Wärme oder Anstrengung schlimmer?' },
+        ],
+      },
     ],
     'Sépare la céphalée primaire (migraine avec aura, photophobie) des signaux d\'alarme : début en coup de tonnerre (hémorragie méningée), déficit focal, morsure de langue + perte d\'urine (crise épileptique). La latéralité, les prodromes et les signes autonomes (cluster) sont décisifs.'),
   F('Orthopädie', 'bone', 'ortho', 'Fachanamnese Orthopédie/Trauma',
@@ -1285,6 +1334,12 @@ export const FACHANAMNESEN: FachanamneseGuide[] = [
         text: 'Haben Sie vermehrt Durst und müssen Sie häufiger Wasser lassen, auch nachts?',
         probe: 'fach-endo-durst',
         alts: ['Haben Sie großen Durst und müssen viel Wasser lassen?'],
+        // Quand le cas a déjà compté les levers nocturnes (case-diabetes-typ1),
+        // il ne reste que la soif — l'autre moitié de la paire cardinale.
+        parts: [
+          { sucht: ['polyurie'], text: 'Müssen Sie häufiger Wasser lassen als früher, auch nachts?' },
+          { sucht: ['durst'], text: 'Haben Sie dabei vermehrt Durst?' },
+        ],
       },
       {
         text: 'Hat sich Ihr Gewicht verändert, ohne dass Sie etwas umgestellt haben? Und wie ist Ihr Appetit dabei?',
