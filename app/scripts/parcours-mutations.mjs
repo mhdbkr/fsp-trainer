@@ -127,6 +127,30 @@ export const MUTATIONS = [
     to: '.filter((s) => s.date >= 0).count()',
     pourquoi: 'la garde devient trop large : n’importe quelle partie passée du cas fait taire une vraie séance externe',
   },
+  {
+    id: 'INV-9', tests: 'tests/parcours14j.test.ts', file: 'src/lib/program/dayPlan.ts',
+    from: '  if (existing) return existing;                                  // « figé » veut dire que le premier fige\n',
+    to: '',
+    pourquoi: 'le plan est de nouveau recalculé à chaque ouverture (le défaut d’origine de l’audit programme)',
+  },
+  {
+    id: 'INV-10', tests: 'tests/parcours14j.test.ts', file: 'src/lib/journal.ts',
+    from: 'spentMin: event.spentMin, eventId: event.id } : t));',
+    to: 'spentMin: event.spentMin } : t));',
+    pourquoi: 'la projection locale diverge de la reconstruction (état qui ne survit pas au redémarrage)',
+  },
+  {
+    id: 'INV-12', tests: 'tests/parcours14j.test.ts', file: 'src/lib/program/dayPlan.ts',
+    from: '  const start = startOfDay(parseISO(config.startDate));\n  const last = addDays(startOfDay(programEnd(config)), -1);',
+    to: '  const start = startOfDay(new Date(clockNow()));\n  const last = addDays(startOfDay(programEnd(config)), -1);',
+    pourquoi: 'la fenêtre de dernière ligne droite se calcule sur les jours restants : elle glisse chaque jour (program.ts:35-37)',
+  },
+  {
+    id: 'INV-23', tests: 'tests/parcours14j.test.ts', file: 'src/lib/lauf/speichern.ts',
+    from: '  return restauriere(l);\n}',
+    to: '  return { ...restauriere(l), sekundenProTeil: {} };\n}',
+    pourquoi: 'une partie interrompue reprend avec le chrono remis à zéro',
+  },
 ];
 
 function run(cwd, tests) {
@@ -136,7 +160,7 @@ function run(cwd, tests) {
   let failed = [];
   try {
     const j = JSON.parse(fs.readFileSync(out, 'utf8'));
-    failed = j.testResults.flatMap((f) => f.assertionResults.filter((a) => a.status === 'failed').map((a) => a.fullName ?? a.title));
+    failed = j.testResults.flatMap((f) => f.assertionResults.filter((a) => a.status === 'failed').map((a) => `${a.fullName ?? a.title}\n          ⇒ ${String(a.failureMessages?.[0] ?? '').split('\n')[0].slice(0, 170)}`));
   } catch { /* pas de rapport : on s'en tient au code de sortie */ }
   return { code: r.status, failed, tail: (r.stderr ?? '').split('\n').slice(-6).join('\n') };
 }
