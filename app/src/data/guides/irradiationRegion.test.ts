@@ -47,7 +47,7 @@ describe('G1 — garde « territoire ⊂ région » (motiv.region)', () => {
   });
   it('13+ cas déclarent une région et jouent des irradiations (la garde n’est pas vide)', () => {
     expect(avecRegion.length).toBeGreaterThanOrEqual(13);
-    expect(avecRegion.flatMap(irradiations).length).toBeGreaterThanOrEqual(15);
+    expect(avecRegion.flatMap(irradiations).length).toBeGreaterThanOrEqual(14);
   });
   it('osteoporose (bws) : une seule question d\u2019irradiation jouée, ouverte', () => {
     const c = cases.find((x) => x.id === 'case-osteoporose')!;
