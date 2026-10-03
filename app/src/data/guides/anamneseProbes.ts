@@ -195,10 +195,10 @@ export const FACH_PROBES: Partial<Record<Specialty, AnamneseProbe[]>> = {
     { id: 'fach-ortho-sensomotorik', kapitel: 'fach', frage: 'Haben Sie Kribbeln, ein Taubheitsgefühl oder weniger Kraft bemerkt?' },
     // Promue du guide rédigé (harmonisation) : le trio Durchblutung–Motorik–
     // Sensibilität d'un membre traumatisé ; la perfusion manquait aux sondes.
-    { id: 'fach-ortho-durchblutung', kapitel: 'fach', frage: 'Ist der Fuß kälter, blasser oder bläulich geworden?' },
+    { id: 'fach-ortho-durchblutung', kapitel: 'fach', frage: 'Ist die betroffene Stelle kälter, blasser oder bläulich geworden?' },
     { id: 'fach-ortho-cauda', kapitel: 'fach', frage: 'Haben Sie Probleme beim Wasserlassen oder Stuhlgang, oder ist es zwischen den Beinen taub?', deepens: 'veg-ausscheidung' },
     { id: 'fach-ortho-schwellung', kapitel: 'fach', frage: 'Ist das Gelenk geschwollen, gerötet, überwärmt oder haben Sie einen Bluterguss bemerkt?' },
-    { id: 'fach-ortho-belastung', kapitel: 'fach', frage: 'Können Sie das Bein noch belasten — wie weit können Sie gehen?' },
+    { id: 'fach-ortho-belastung', kapitel: 'fach', frage: 'Können Sie die betroffene Seite noch belasten?' },
     { id: 'fach-ortho-vorgeschichte', kapitel: 'fach', frage: 'Hatten Sie an dieser Stelle schon einmal Beschwerden, eine Verletzung oder eine Operation?' },
   ],
   Rheumatologie: [

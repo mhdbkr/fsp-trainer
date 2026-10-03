@@ -1139,8 +1139,9 @@ export const FACHANAMNESEN: FachanamneseGuide[] = [
         text: 'Sind die Schmerzen von Bewegung und Belastung abhängig, oder treten sie auch in Ruhe und nachts auf?',
         probe: 'fach-ortho-bewegung',
       },
-      // Le guide montre le membre inférieur (7 cas sur 11) ; la trame jouée
-      // dit le membre du cas (FACH_RULES), jamais « Arm oder Bein ».
+      // Le guide et la question canonique (affichée telle quelle au simulant,
+      // Rollenskript) ne nomment aucun membre ; la trame jouée dit le membre
+      // du cas (FACH_RULES), jamais « Arm oder Bein ».
       {
         text: 'Strahlen die Schmerzen aus — und wenn ja, bis wohin genau?',
         probe: 'fach-ortho-ausstrahlung',
@@ -1151,7 +1152,7 @@ export const FACHANAMNESEN: FachanamneseGuide[] = [
         label: 'Sensibilität/Motorik',
       },
       {
-        text: 'Ist der Fuß kälter, blasser oder bläulich geworden?',
+        text: 'Ist die betroffene Stelle kälter, blasser oder bläulich geworden?',
         probe: 'fach-ortho-durchblutung',
         label: 'Durchblutung',
       },
@@ -1165,7 +1166,7 @@ export const FACHANAMNESEN: FachanamneseGuide[] = [
         probe: 'fach-ortho-schwellung',
       },
       {
-        text: 'Können Sie das Bein noch belasten — wie weit können Sie gehen?',
+        text: 'Können Sie die betroffene Seite noch belasten?',
         probe: 'fach-ortho-belastung',
       },
       {
@@ -1716,11 +1717,13 @@ const FACH_RULES: Array<{ probe: string; applies?: (w: Who) => boolean; text?: (
   // Perfusion d'un membre : pas pour le rachis dorsal ou cervical ; le rachis
   // lombaire la garde (claudication vasculaire ou spinale à départager).
   { probe: 'fach-ortho-durchblutung', applies: (w) => region(w) !== 'bws' && region(w) !== 'hws',
-    text: (w) => (region(w) === 'obere' ? 'Ist die Hand kälter, blasser oder bläulich geworden?' : undefined) },
+    text: (w) => (region(w) === 'obere' ? 'Ist die Hand kälter, blasser oder bläulich geworden?'
+      : region(w) === 'untere' || region(w) === 'lws' ? 'Ist der Fuß kälter, blasser oder bläulich geworden?' : undefined) },
   { probe: 'fach-ortho-cauda', applies: (w) => !w.motiv || RACHIS.has(region(w)!) },
   { probe: 'fach-ortho-schwellung', applies: (w) => !RACHIS.has(region(w) ?? '') },
   { probe: 'fach-ortho-belastung', text: (w) => (ARM.has(region(w) ?? '') ? 'Was können Sie mit der Hand und dem Arm im Alltag noch machen?'
-    : RUMPF.has(region(w) ?? '') ? 'Wie lange können Sie sitzen, stehen oder gehen, bevor die Schmerzen zu stark werden?' : undefined) },
+    : RUMPF.has(region(w) ?? '') ? 'Wie lange können Sie sitzen, stehen oder gehen, bevor die Schmerzen zu stark werden?'
+      : region(w) === 'untere' ? 'Wie weit können Sie noch gehen?' : undefined) },
   // Kardio : Nitrospray et irradiation angineuse supposent une douleur thoracique.
   { probe: 'fach-kardio-nitro', applies: thorakal },
   { probe: 'fach-kardio-ausstrahlung', applies: thorakal },

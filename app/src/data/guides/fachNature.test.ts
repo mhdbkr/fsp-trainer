@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { seedCases } from '@/data/seedCases';
+import { buildRollenskript } from '@/lib/rolePlay';
 import { fachChapterForCase } from './anamneseChapters';
 import { phraseAlts, phraseFollowUp, phraseProbes, phraseText, type Phrase } from './phrases';
 import pairs from '../../../scripts/fixtures/fach-nature-pairs.json';
@@ -51,7 +52,7 @@ describe('Ortho : un seul membre, celui du cas', () => {
   });
   it('la cheville parle du pied, la main du canal carpien parle de la main', () => {
     expect(phraseText(fachQ('osg-fraktur', 'fach-ortho-durchblutung')!)).toMatch(/Fuß/);
-    expect(phraseText(fachQ('osg-fraktur', 'fach-ortho-belastung')!)).toMatch(/Bein/);
+    expect(phraseText(fachQ('osg-fraktur', 'fach-ortho-belastung')!)).toMatch(/gehen/);
     expect(phraseText(fachQ('karpaltunnel', 'fach-ortho-belastung')!)).toMatch(/Hand|Arm/);
     expect(phraseText(fachQ('hws-diskusprolaps', 'fach-ortho-belastung')!)).not.toMatch(/gehen/);
   });
@@ -65,4 +66,16 @@ describe('Ortho : un seul membre, celui du cas', () => {
     expect(fu).toMatch(/ohnmächtig/);
     expect(fu).toMatch(/woanders verletzt/);
   });
+});
+
+describe('L’écran du simulant (Rollenskript) lit la question canonique : elle ne nomme aucun membre', () => {
+  // buildRollenskript affiche `PROBE_BY_ID[id].frage`, non adaptée au cas :
+  // une `frage` qui dit « Fuß » s'affiche au-dessus de « die Hand ist nicht kalt ».
+  for (const id of ['karpaltunnel', 'hws-diskusprolaps']) {
+    it(`${id} : aucune question de la Fach ne parle du pied ni de la marche`, () => {
+      const c = byId.get(`case-${id}`)!;
+      const fach = buildRollenskript(c.patientSheet).find((ch) => ch.id === 'fach')!;
+      expect(fach.lines.map((l) => l.frage ?? '').filter((f) => /Fuß|Füße|gehen/.test(f))).toEqual([]);
+    });
+  }
 });

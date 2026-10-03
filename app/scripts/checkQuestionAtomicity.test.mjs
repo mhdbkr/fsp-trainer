@@ -19,8 +19,8 @@ const T = { timeout: 300_000 };
 // Les alternatives de membre que le lot L0 a résolues (C = 0). Pour prouver
 // que la règle C les refuse toujours, on les réinjecte dans la copie.
 const HIST = {
-  'fach-ortho-durchblutung': ["frage: 'Ist der Fuß kälter, blasser oder bläulich geworden?'", "frage: 'Haben Sie das Gefühl, dass die Hand oder der Fuß kälter, blasser oder bläulich geworden ist?'"],
-  'fach-ortho-belastung': ["frage: 'Können Sie das Bein noch belasten — wie weit können Sie gehen?'", "frage: 'Können Sie das Bein/den Arm noch belasten?'"],
+  'fach-ortho-durchblutung': ["frage: 'Ist die betroffene Stelle kälter, blasser oder bläulich geworden?'", "frage: 'Haben Sie das Gefühl, dass die Hand oder der Fuß kälter, blasser oder bläulich geworden ist?'"],
+  'fach-ortho-belastung': ["frage: 'Können Sie die betroffene Seite noch belasten?'", "frage: 'Können Sie das Bein/den Arm noch belasten?'"],
   'fach-neuro-kraft': ["frage: 'Haben Sie an Armen oder Beinen eine Schwäche bemerkt?'", "frage: 'Ist ein Arm oder Bein schwächer geworden?'"],
   'fach-ortho-sensomotorik': ["frage: 'Haben Sie Kribbeln, ein Taubheitsgefühl oder weniger Kraft bemerkt?'", "frage: 'Haben Sie Kribbeln oder Kraftverlust in Arm oder Bein bemerkt?'"],
 };
