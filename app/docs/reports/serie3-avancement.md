@@ -14,7 +14,7 @@
 | C2 simulation | `feat/s3-simulation` | ✅ **PR #54 — CI verte** | **G6 : merge par la direction** (main = prod) |
 | C4 contenu | `feat/s3-contenu` | ✅ **PR #55 ouverte** — revue finale close, CI + contrat §3.3 inclus | **G6 : merge par la direction** (main = prod) |
 | C1 programme | `feat/s3-programme` | fixeur terminé — **invariants 6/6 au navigateur**, perte de lot et historique fermés | re-revue branche + **re-audit sécurité (verdict GO/NO-GO prod)** |
-| C3 IA externe | `feat/s3-ia` | livré (8 commits) — prompt 31 906 → 4 088 car., un seul rôle | revue de branche en cours |
+| C3 IA externe | `feat/s3-ia` | revue : Request changes (carte qui promet faux, `?q=` risque d'envoi auto, Oberarzt sans faits du cas) — aucune fuite du diagnostic | fixeur → re-revue ; montage dans `PlayArea` à l'intégration, **après PR #54** |
 
 ## 2. File d'attente — déclencheurs
 
