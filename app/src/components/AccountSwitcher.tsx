@@ -38,6 +38,9 @@ export function AccountSwitcher({ dock = false }: { dock?: boolean }) {
 
   useEffect(() => {
     if (!open) return;
+    // Téléporté dans <body>, le menu est hors de l'ordre de tabulation du
+    // déclencheur : sans ce focus, il était inatteignable au clavier.
+    menuRef.current?.querySelector<HTMLElement>('[role="menuitem"]')?.focus();
     const onMouseDown = (e: MouseEvent) => {
       const t = e.target as Node;
       if (!rootRef.current?.contains(t) && !menuRef.current?.contains(t)) setOpen(false);
@@ -70,7 +73,7 @@ export function AccountSwitcher({ dock = false }: { dock?: boolean }) {
         className={dock ? 'grid h-11 w-11 place-items-center rounded-2xl hover:bg-slate-100 dark:hover:bg-white/10' : 'btn-ghost w-full justify-center gap-2 md:justify-start'}>
         {avatar}{!dock && <span className="hidden md:inline">{active.displayName}</span>}
       </button>
-      {/* Téléporté (Portal) et calé sur le déclencheur, comme DeckChecklist.
+      {/* Téléporté (Portal) et calé sur le déclencheur.
           Monté dans la barre, le menu était du verre DANS du verre (`aside.glass`,
           et le dock dont les tuiles sont transformées) : il n'y floutait pas, et
           à 390 px il débordait de l'écran et passait sous `main` (Re-revue 2, I-B). */}

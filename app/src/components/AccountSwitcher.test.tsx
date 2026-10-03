@@ -24,6 +24,15 @@ describe('AccountSwitcher', () => {
     expect(screen.getByRole('menuitem', { name: /se déconnecter/i })).toBeTruthy();
   });
 
+  it('ouvrir le menu y porte le focus : téléporté, il est hors de l\'ordre de tabulation', () => {
+    upsertAccount({ userId: 'u1', email: 'a@x.de', displayName: 'Anna', refreshToken: 'r' });
+    upsertAccount({ userId: 'u2', email: 'b@x.de', displayName: 'Ben', refreshToken: 'r' });
+    setActiveUserId('u1');
+    render(<MemoryRouter><AccountSwitcher /></MemoryRouter>);
+    fireEvent.click(screen.getByRole('button', { name: /anna/i }));
+    expect(document.activeElement).toBe(screen.getByRole('menuitem', { name: /ben/i }));
+  });
+
   it('choisir un autre compte → switchAccount(u2)', async () => {
     upsertAccount({ userId: 'u1', email: 'a@x.de', displayName: 'Anna', refreshToken: 'r' });
     upsertAccount({ userId: 'u2', email: 'b@x.de', displayName: 'Ben', refreshToken: 'r' });
