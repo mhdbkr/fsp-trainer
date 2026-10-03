@@ -23855,7 +23855,7 @@ export function seedCases(): Case[] {
         'auf-operation',
       ],
       caseSpecificQuestions: [
-        { frage: 'Sie nehmen seit Jahren Tamsulosin: Ist es in letzter Zeit schlimmer geworden, obwohl Sie die Tabletten nehmen?', kapitel: 'aktuell' },
+        { frage: 'Haben die Tabletten für die Prostata Ihnen am Anfang geholfen?', kapitel: 'aktuell', followUp: 'Falls ja: Wie lange, und seit wann lässt die Wirkung nach?' },
         { frage: 'Haben Sie jemals Blut im Urin oder im Samenerguss bemerkt?', kapitel: 'vorerkrankungen' },
         { frage: 'Waren Sie schon einmal bei einem Urologen, und ist bei Ihnen jemals der PSA-Wert bestimmt worden?', kapitel: 'vorerkrankungen' },
         { frage: 'Ihre Rückenschmerzen: Kamen sie nach einer Belastung oder einem Sturz, und sind sie auch nachts und in Ruhe vorhanden?', kapitel: 'aktuell' },
