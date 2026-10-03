@@ -14,7 +14,7 @@
 | C2 simulation | — | ✅ **MERGÉ** (PR #54, 3 oct.) | — |
 | C4 contenu | — | ✅ **MERGÉ** (PR #55, 3 oct.) — contenu publié | lots suivants (§6) |
 | C1 programme | `feat/s3-programme` | fixeur terminé (6/6, 698 tests) | revue de clôture + plan d'intégration → PR |
-| C3 IA externe | `feat/s3-ia` | ✅ **PR #56 ouverte** — rebasée, lanceur monté dans `PlayArea` | **G6 : merge** |
+| C3 IA externe | — | ✅ **MERGÉ** (PR #56, 3 oct.) — lanceur dans la partie jouée | test de 5 min de la direction pour le pré-collage ChatGPT (Q-7) |
 
 ## 2. File d'attente — déclencheurs
 
