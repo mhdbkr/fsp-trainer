@@ -25,6 +25,16 @@ const ref = baseDir ? undefined : args.find((a) => !a.startsWith('--')) ?? 'orig
 const FIXTURES = {
   'app/scripts/fixtures/atomicity-budget.json': (j) => ({ ...j.budget }),
   'app/scripts/fixtures/trame-symptoms-baseline.json': (j) => ({ constats: j.findings?.length, relu: j.relu }),
+  // Lot L0 : chaque paire (cas × sonde) est une clé — une paire retirée de la
+  // liste est une clé disparue ; `kept` (paires conservées) ne remonte pas.
+  'app/scripts/fixtures/fach-nature-pairs.json': (j) => {
+    const out = { kept: 0 };
+    for (const g of j.groups ?? []) {
+      for (const c of g.cases ?? []) out[`paire ${c} × ${g.probe}`] = 0;
+      out.kept += Object.keys(g.kept ?? {}).length;
+    }
+    return out;
+  },
 };
 
 const git = (...a) => execFileSync('git', a, { cwd: repo, encoding: 'utf8', stdio: ['ignore', 'pipe', 'ignore'] });
