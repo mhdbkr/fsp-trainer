@@ -145,7 +145,7 @@ rien de cette table.
 | Intégration primitives | `doctopus-s3-primitives` · `feat/s3-primitives` | `ad901ff9c385851ac` | **PR #58** ouverte (`318352dc`, re-fusionnée avec `main`) → CI → **merge sur accord de la direction** | non |
 | Intégration programme | `doctopus-s3-programme` · `feat/s3-programme` | `a276d650bc56bda9b` | plan `integration-s3-programme.md` → push → **main ouvre la PR** | non |
 | Lot L0 — revue mécanique | `doctopus-s3-lot0` | `a85f52786072e2105` | rendue : Request changes (I1 fiche simulant « Fuß » sur la main, I2 plancher des paires, I3 `fachSkip` non validé) | **oui** |
-| Lot L0 — fixeur | `doctopus-s3-lot0` · `feat/s3-lot0-fach-nature` | `ac508d333980d928d` | livré `376444fc` ; `main` câble `checkProbeCoverage.test.mjs` en CI, revérifie → PR | non |
+| Lot L0 — fixeur | `doctopus-s3-lot0` · `feat/s3-lot0-fach-nature` | `ac508d333980d928d` | **PR #59** ouverte (`d5f5ad1c`) → CI → **merge sur accord de la direction** → déclenche Q0 | non |
 | Audit questions du cas + FB3-G | lecture seule | `ac7225d1457bf293d` | rendu → `audit-questions-du-cas-serie3.md` | **oui** |
 | Réserves primitives (suivi) | — | — | `CardFlip` (`.card`) dans le verre de `CardToast` : choisir sa matière en petit ; `.input` flouté dans cartes floutées (antérieur) ; « Dokumentation » touche sa tuile à 390 (`ModeChooser`) | à lancer après merge |
 | Lots Q0 → Q8, Lc1 → Lc3 | — | — | §10, Q0 au merge de L0 | à lancer |
