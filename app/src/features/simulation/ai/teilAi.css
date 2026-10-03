@@ -16,12 +16,12 @@
 .tal-track { transform-origin: left center; animation: tal-track 1.1s cubic-bezier(0.32, 0.72, 0, 1) 0.15s both; }
 .tal-node { animation: tal-node 0.42s cubic-bezier(0.16, 1, 0.3, 1) both; }
 .tal-cap { animation: tal-cap 0.4s cubic-bezier(0.16, 1, 0.3, 1) both; }
-.tal-step:nth-child(1) .tal-node { animation-delay: 0.05s; }
-.tal-step:nth-child(1) .tal-cap { animation-delay: 0.12s; }
-.tal-step:nth-child(2) .tal-node { animation-delay: 0.6s; }
-.tal-step:nth-child(2) .tal-cap { animation-delay: 0.67s; }
-.tal-step:nth-child(3) .tal-node { animation-delay: 1.15s; }
-.tal-step:nth-child(3) .tal-cap { animation-delay: 1.22s; }
+.tal-step:nth-of-type(1) .tal-node { animation-delay: 0.05s; }
+.tal-step:nth-of-type(1) .tal-cap { animation-delay: 0.12s; }
+.tal-step:nth-of-type(2) .tal-node { animation-delay: 0.6s; }
+.tal-step:nth-of-type(2) .tal-cap { animation-delay: 0.67s; }
+.tal-step:nth-of-type(3) .tal-node { animation-delay: 1.15s; }
+.tal-step:nth-of-type(3) .tal-cap { animation-delay: 1.22s; }
 .tal-signal { animation: tal-signal 1.25s cubic-bezier(0.45, 0, 0.25, 1) 0.15s both; }
 
 /* Sélection : l'indicateur glisse sous la cible choisie. */

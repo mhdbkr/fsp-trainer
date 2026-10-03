@@ -5,8 +5,9 @@
 //   <TeilAiLauncher caseId={c.id} teil={part} />
 //   - à rendre SEULEMENT si part === 'anamnese' || part === 'fallvorstellung'
 //     (contrat ai-bridge §3.1) ; jamais pendant dokumentation / aufklaerung ;
-//   - le parent fournit une ligne d'outils : le composant est `relative
-//     inline-block`, son panneau flotte sous le déclencheur (z-30) ;
+//   - le parent fournit une ligne d'outils : le composant rend un bouton
+//     discret ; son panneau flotte sous le déclencheur dans un portail
+//     (fixed, z-50, recalé dans l'écran à 16 px des bords) ;
 //   - aucune dépendance au store : il lit le cas (Dexie), la cible mémorisée
 //     (`meta.externalAi.target`) et pose la trace `meta.externalAi.pending`
 //     avec le Teil — la PendingExternalSimCard la reprend au retour ;
@@ -20,9 +21,10 @@
 // ouvre l'app par un vrai lien, et la confirmation n'apparaît qu'une fois la
 // copie réussie.
 // ============================================================================
-import { useEffect, useId, useMemo, useRef, useState } from 'react';
+import { useEffect, useId, useLayoutEffect, useMemo, useRef, useState } from 'react';
 import { useCase } from '@/hooks/useData';
 import { Icon } from '@/components/icons';
+import { Portal } from '@/components/Portal';
 import { buildPromptPaket, promptText, type AnkerTeil } from '@/lib/externalAi/prompt';
 import { AI_TARGETS, copyText, launchPlan, loadTarget, saveTarget, setPending, type TargetId } from '@/lib/externalAi/targets';
 import './teilAi.css';
@@ -166,12 +168,12 @@ export function TeilAiPanel({ caseId, teil }: { caseId: string; teil: AnkerTeil 
           <Icon name="external" className="h-4 w-4 opacity-80" title="" />
         </a>
         <button type="button" onClick={() => { onCopy().catch(() => settle(false, false)); }} disabled={!text}
-          className="btn-outline min-h-11 gap-2 px-3" aria-label={copiedFlash ? 'Copié' : 'Copier'}>
+          className="btn-outline min-h-11 min-w-11 justify-center gap-2 px-3 sm:w-[6.5rem]" aria-label={copiedFlash ? 'Copié' : 'Copier'}>
           <span className="relative grid h-4 w-4 place-items-center" aria-hidden>
             <span className={`tal-glyph absolute inset-0 ${copiedFlash ? 'scale-50 opacity-0' : 'opacity-100'}`}><Icon name="copy" className="h-4 w-4" title="" /></span>
             {copiedFlash && <span className="tal-tick absolute inset-0 text-brand-600 dark:text-brand-300"><Icon name="check" className="h-4 w-4" title="" /></span>}
           </span>
-          <span className="text-sm">{copiedFlash ? 'Copié' : 'Copier'}</span>
+          <span className="hidden text-sm sm:inline">{copiedFlash ? 'Copié' : 'Copier'}</span>
         </button>
       </div>
 
@@ -197,37 +199,65 @@ export function TeilAiPanel({ caseId, teil }: { caseId: string; teil: AnkerTeil 
   );
 }
 
+const GUTTER = 16;
+
 export function TeilAiLauncher({ caseId, teil }: { caseId: string; teil: AnkerTeil }) {
   const [open, setOpen] = useState(false);
-  const wrapRef = useRef<HTMLDivElement>(null);
+  const [pos, setPos] = useState<{ left: number; top: number; width: number } | null>(null);
+  const btnRef = useRef<HTMLButtonElement>(null);
+  const panelRef = useRef<HTMLDivElement>(null);
   const panelId = useId();
+
+  // Le panneau vit dans un portail (un ancêtre transformé ferait dériver un
+  // `fixed`) et se cale sous le déclencheur, sans jamais sortir de l'écran.
+  useLayoutEffect(() => {
+    if (!open) return;
+    const place = () => {
+      const r = btnRef.current?.getBoundingClientRect();
+      if (!r) return;
+      const width = Math.min(368, window.innerWidth - 2 * GUTTER);
+      const left = Math.max(GUTTER, Math.min(r.left, window.innerWidth - width - GUTTER));
+      setPos({ left, top: r.bottom + 8, width });
+    };
+    place();
+    window.addEventListener('resize', place);
+    window.addEventListener('scroll', place, true);
+    return () => { window.removeEventListener('resize', place); window.removeEventListener('scroll', place, true); };
+  }, [open]);
 
   useEffect(() => {
     if (!open) return;
-    const onKey = (e: KeyboardEvent) => { if (e.key === 'Escape') setOpen(false); };
-    const onDown = (e: PointerEvent) => { if (!wrapRef.current?.contains(e.target as Node)) setOpen(false); };
+    const onKey = (e: KeyboardEvent) => { if (e.key === 'Escape') { setOpen(false); btnRef.current?.focus(); } };
+    const onDown = (e: PointerEvent) => {
+      const n = e.target as Node;
+      if (!panelRef.current?.contains(n) && !btnRef.current?.contains(n)) setOpen(false);
+    };
     document.addEventListener('keydown', onKey);
     document.addEventListener('pointerdown', onDown);
     return () => { document.removeEventListener('keydown', onKey); document.removeEventListener('pointerdown', onDown); };
   }, [open]);
 
   return (
-    <div ref={wrapRef} className="relative inline-block">
+    <>
       <button
-        type="button" aria-expanded={open} aria-controls={panelId} onClick={() => setOpen((o) => !o)}
+        ref={btnRef} type="button" aria-expanded={open} aria-controls={panelId} onClick={() => setOpen((o) => !o)}
         className={`btn-ghost min-h-9 gap-1.5 px-2.5 text-sm ${open ? 'text-brand-700 dark:text-brand-200' : ''}`}
       >
         <Icon name="spark" className="h-4 w-4" title="" />
         Avec ton IA
       </button>
-      {open && (
-        <div
-          id={panelId} role="dialog" aria-label={teil === 'anamnese' ? 'Jouer l\'anamnèse avec ton IA' : 'Jouer la Fallvorstellung avec ton IA'}
-          className="glass glass-edge animate-pop absolute left-0 top-full z-30 mt-2 w-[min(23rem,calc(100vw-2rem))] origin-top-left rounded-2xl p-4"
-        >
-          <TeilAiPanel caseId={caseId} teil={teil} />
-        </div>
+      {open && pos && (
+        <Portal>
+          <div
+            ref={panelRef} id={panelId} role="dialog"
+            aria-label={teil === 'anamnese' ? 'Jouer l\'anamnèse avec ton IA' : 'Jouer la Fallvorstellung avec ton IA'}
+            style={{ left: pos.left, top: pos.top, width: pos.width }}
+            className="glass glass-edge animate-pop fixed z-50 max-h-[calc(100vh-6rem)] origin-top-left overflow-y-auto rounded-2xl p-4"
+          >
+            <TeilAiPanel caseId={caseId} teil={teil} />
+          </div>
+        </Portal>
       )}
-    </div>
+    </>
   );
 }
