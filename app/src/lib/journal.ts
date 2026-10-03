@@ -222,7 +222,7 @@ const emptyTeil = (): TeilProgress => ({ status: 'vierge', lastScore: null, last
 export function computeCaseProgress(trainingEvents: TrainingEvent[]): CaseProgress[] {
   const byCase = new Map<CaseId, CaseProgress>();
   for (const te of [...trainingEvents].sort((a, b) => a.at - b.at)) {
-    if (!te.caseId || te.selbstbewertet === true) continue;
+    if (!te.caseId) continue;
     let cp = byCase.get(te.caseId);
     if (!cp) {
       cp = { caseId: te.caseId, teile: { anamnese: emptyTeil(), dokumentation: emptyTeil(), fallvorstellung: emptyTeil() }, overall: 'vierge' };
@@ -230,8 +230,10 @@ export function computeCaseProgress(trainingEvents: TrainingEvent[]): CaseProgre
     }
     for (const t of te.teile) {
       if (!TEIL_KEYS.includes(t)) continue;                 // S-M1 : jamais `__proto__` ni une clé inconnue
-      const s = te.scores?.[t];
-      if (s == null) continue;                              // M4 : sans score, pas une mesure — vierge ⇔ attempts 0
+      // INV-11 + M4 : auto-déclaré ou sans score n'est pas une mesure — status,
+      // attempts, lastScore intacts ; seul `nonMesureAt` le note (I-4).
+      const s = te.selbstbewertet === true ? null : te.scores?.[t];
+      if (s == null) { cp.teile[t].nonMesureAt = te.at; continue; }
       const p = cp.teile[t];
       p.attempts += 1;
       p.lastScore = s; p.lastAt = te.at;
@@ -383,6 +385,10 @@ export async function logTraining(input: LogInput): Promise<TrainingEvent> {
 }
 
 const marking = new Map<string, Promise<TrainingEvent>>();
+const FULL_RUN_KINDS = new Set<TaskKind>(['simulation', 'revision', 'examen-blanc']);
+
+/** « Faite — non mesurée » : déclarée faite, jamais mesurée (I-4). */
+export const estNonMesure = (p: TeilProgress): boolean => p.status === 'vierge' && p.nonMesureAt != null;
 
 /**
  * Cocher une tâche — y compris Fachwissen, examen à blanc et reprise de partie
@@ -401,7 +407,8 @@ export function markTaskDone(task: TaskInstance, spentMin = 0): Promise<Training
     return logTraining({
       kind: TASK_TO_TRAINING[task.kind],
       caseId: task.caseId,
-      teile: task.teil ? [task.teil] : [],
+      // I-4 : une tâche « cas complet » (sans teil) déclare les trois Teile.
+      teile: task.teil ? [task.teil] : FULL_RUN_KINDS.has(task.kind) ? [...TEIL_KEYS] : [],
       spentMin,
       taskId: task.id,
     });
