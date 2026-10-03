@@ -223,10 +223,11 @@ export function computeCaseProgress(trainingEvents: TrainingEvent[]): CaseProgre
     }
     for (const t of te.teile) {
       if (!TEIL_KEYS.includes(t)) continue;                 // S-M1 : jamais `__proto__` ni une clé inconnue
+      const s = te.scores?.[t];
+      if (s == null) continue;                              // M4 : sans score, pas une mesure — vierge ⇔ attempts 0
       const p = cp.teile[t];
       p.attempts += 1;
-      const s = te.scores?.[t];
-      if (s != null) { p.lastScore = s; p.lastAt = te.at; }
+      p.lastScore = s; p.lastAt = te.at;
       p.status = statusOf(p.lastScore);
     }
   }
