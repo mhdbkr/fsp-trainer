@@ -115,6 +115,18 @@ export const MUTATIONS = [
     to: '',
     pourquoi: 'une partie validée deux fois émet deux événements de synchro et de journal',
   },
+  {
+    id: 'FB3-3oct', tests: 'tests/invariants.ia-externe.test.tsx', file: 'src/features/simulation/PendingExternalSimCard.tsx',
+    from: "    if (await db.simulations.where('caseId').equals(x.caseId).filter((s) => s.date >= x.at).count()) return null;\n",
+    to: '',
+    pourquoi: 'le correctif dbf87df7 est retiré : l’accueil redemande l’évaluation d’une partie déjà jouée dans l’app',
+  },
+  {
+    id: 'FB3-temoin', tests: 'tests/invariants.ia-externe.test.tsx', file: 'src/features/simulation/PendingExternalSimCard.tsx',
+    from: '.filter((s) => s.date >= x.at).count()',
+    to: '.filter((s) => s.date >= 0).count()',
+    pourquoi: 'la garde devient trop large : n’importe quelle partie passée du cas fait taire une vraie séance externe',
+  },
 ];
 
 function run(cwd, tests) {
