@@ -9,7 +9,7 @@
 // affiché juste en dessous.
 // ============================================================================
 import { Link } from 'react-router-dom';
-import { format } from 'date-fns';
+import { format, parseISO } from 'date-fns';
 import { fr } from 'date-fns/locale';
 import { useCases, useFachbegriffe, useProgramConfig } from '@/hooks/useData';
 import { useCaseProgress, useDayPlan, useTrainingEvents } from '@/features/program/useProgram';
@@ -19,6 +19,7 @@ import { planProgress, sessionDuJour } from '@/lib/program';
 import { TrajectoryStrip } from '@/features/program/TrajectoryStrip';
 import { TaskLine, taskCta, taskLink } from '@/features/program/TaskLine';
 import { nowDate } from '@/lib/clock';
+import { useToday } from '@/lib/today';
 import { TEILE } from '@/lib/simScope';
 import { FreqBadge } from '@/components/ui';
 import { Icon } from '@/components/icons';
@@ -31,6 +32,7 @@ export function HomePage() {
   const begriffe = useFachbegriffe();
   const config = useProgramConfig();
   const plan = useDayPlan();
+  const today = useToday((s) => s.day);
   const events = useTrainingEvents();
   const progress = useCaseProgress();
 
@@ -56,7 +58,7 @@ export function HomePage() {
 
       <header className="flex flex-wrap items-end justify-between gap-4">
         <div>
-          <div className="eyebrow">{format(nowDate(), 'EEEE d MMMM', { locale: fr })}</div>
+          <div className="eyebrow">{format(parseISO(today), 'EEEE d MMMM', { locale: fr })}</div>
           <h1 className="mt-2 font-display text-3xl font-bold tracking-tightish md:text-4xl">{greeting}</h1>
         </div>
         <div className="flex items-center gap-2.5 rounded-xl border border-signal-200 bg-signal-50 px-4 py-2.5 dark:border-signal-900/40 dark:bg-signal-900/15">
