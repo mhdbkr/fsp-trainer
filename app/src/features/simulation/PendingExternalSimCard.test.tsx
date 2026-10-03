@@ -143,12 +143,24 @@ describe('PendingExternalSimCard', () => {
     expect(sim.externalTarget).toBe('claude');
   });
 
-  it('dit que la séance est auto-déclarée, sans promettre l\'exclusion de l\'indice (pas encore vraie)', async () => {
+  it('dit que la séance est auto-déclarée : historique et série, PAS l\'indice de préparation (vrai depuis R-C2/R-C5)', async () => {
     await setPending({ caseId: 'c1', targetId: 'chatgpt', teil: 'anamnese', at: Date.now() });
     render(<MemoryRouter><PendingExternalSimCard /></MemoryRouter>);
-    expect((await screen.findByText(/auto-déclarée/i)).textContent).toMatch(/historique et ta série/i);
-    expect(screen.queryByText(/indice de préparation/i)).toBeNull();
+    expect((await screen.findByText(/auto-déclarée/i)).textContent).toMatch(/historique et ta série, pas dans l.indice de préparation/i);
   });
+
+  it('et c\'est tenu : la séance est aussitôt dans le journal, l\'indice ne bouge pas', async () => {
+    await Promise.all([db.training_events.clear(), db.case_progress.clear()]);
+    await setPending({ caseId: 'c1', targetId: 'chatgpt', teil: 'anamnese', at: Date.now() });
+    render(<MemoryRouter><PendingExternalSimCard /></MemoryRouter>);
+    fireEvent.click(await screen.findByRole('button', { name: /évaluer/i }));
+    fireEvent.click(await screen.findByRole('button', { name: /enregistrer|valider/i }));
+    await waitFor(async () => expect(await db.simulations.count()).toBe(1));
+    const sim = (await db.simulations.toArray())[0];
+    await waitFor(async () => expect((await db.training_events.get(`te-${sim.id}`))?.selbstbewertet).toBe(true));
+    const { indiceAt } = await import('@/lib/program/trajectory');
+    expect(indiceAt(await db.training_events.toArray(), 3, Date.now() + 1)).toBe(0);
+  }, 30_000);
 
   it('« Pas maintenant » : ferme la carte sans effacer la trace, pose snoozedUntil ≈ +1 h', async () => {
     await legacy({ caseId: 'c1', targetId: 'chatgpt', scope: 'exam', at: Date.now() });
