@@ -127,16 +127,17 @@ const AUTONOME_DESC: Record<SimTeil | 'komplett', string> = {
 };
 
 // ============================================================================
-/** « Avec qui tu joues » — UN seul cadre, conscient du Teil.
+/** « Avec qui tu joues » — UN seul cadre, conscient du Teil, qui porte le
+ *  départ.
  *
- *  Avant : deux `.card` sœurs (« Répartition des rôles » et « Autre façon de
- *  simuler »), dont aucune ne savait quelle partie allait être jouée, et dont
- *  le lien patient ne portait pas le Teil. Le choix ne CONFIGURE pas : il
- *  ENTRE dans la simulation au Teil voulu. */
+ *  Choisir un partenaire SÉLECTIONNE ; un seul bouton, « Démarrer la
+ *  simulation », entre dans la partie (retour de la direction, 3 oct. : « Seul »
+ *  lançait la partie au clic et le bouton de départ avait disparu). L'IA
+ *  externe ne s'ouvre pas ici : elle se lance DEPUIS la partie jouée, au Teil
+ *  concerné (contrat `ai-bridge.md` §3.1). */
 export function PartnerCard({ caseId, teil }: { caseId: string; teil: SimTeil | null }) {
   const navigate = useNavigate();
-  const openExternalAi = useUi((s) => s.openExternalAi);
-  const [ouvert, setOuvert] = useState<'simulant' | null>(null);
+  const [partenaire, setPartenaire] = useState<'seul' | 'simulant' | 'ia'>('seul');
   const [copied, setCopied] = useState(false);
   const url = patientUrl(caseId, teil ?? undefined);
   const copyUrl = () => { navigator.clipboard?.writeText(url); setCopied(true); setTimeout(() => setCopied(false), 1600); };
@@ -145,29 +146,39 @@ export function PartnerCard({ caseId, teil }: { caseId: string; teil: SimTeil | 
   // L'IA ne peut jouer que les deux parties dialoguées. En Dokumentation, la
   // proposer serait un choix qui n'en est pas un (contrat `ai-bridge.md`).
   const iaMoeglich = teil !== 'dokumentation';
+  const choix = !iaMoeglich && partenaire === 'ia' ? 'seul' : partenaire;
 
   return (
     <section className="card p-4" aria-label="Avec qui tu joues">
       <div className="label mb-2">Avec qui tu joues</div>
       <div className="grid gap-3 sm:grid-cols-3">
         <PartnerChoice
-          icon="user" title="Seul" desc="Tu joues les deux rôles, guidé par la trame."
-          onClick={entrer}
+          icon="user" title="Seul" active={choix === 'seul'}
+          desc="Tu joues les deux rôles, guidé par la trame."
+          onClick={() => setPartenaire('seul')}
         />
         <PartnerChoice
-          icon="mask" title="Avec un simulant" active={ouvert === 'simulant'}
+          icon="mask" title="Avec un simulant" active={choix === 'simulant'}
           desc="Il lit sa fiche de rôle sur son téléphone et suit ta partie en direct."
-          onClick={() => setOuvert((o) => (o === 'simulant' ? null : 'simulant'))}
+          onClick={() => setPartenaire('simulant')}
         />
         {iaMoeglich && (
           <PartnerChoice
-            icon="spark" title="Avec ton IA" desc="ChatGPT, Claude, Gemini… en vocal, à partir de la fiche du cas."
-            onClick={() => openExternalAi(caseId, teil ?? undefined)}
+            icon="spark" title="Avec ton IA" active={choix === 'ia'}
+            desc="ChatGPT ou Gemini, en vocal : tu la lances depuis la partie."
+            onClick={() => setPartenaire('ia')}
           />
         )}
       </div>
 
-      {ouvert === 'simulant' && (
+      {choix === 'ia' && (
+        <p className="mt-3 text-xs text-slate-500 dark:text-slate-400">
+          Dans la partie, le bouton <b>« Avec ton IA »</b> prépare le prompt
+          {teil === 'fallvorstellung' ? ' de l’Oberarzt' : teil === 'anamnese' ? ' du patient' : ' du Teil en cours'}.
+        </p>
+      )}
+
+      {choix === 'simulant' && (
         <div className="mt-3 flex flex-col items-center gap-3 rounded-xl border border-slate-200 p-4 dark:border-slate-800 sm:flex-row">
           <QrCode value={url} size={130} />
           <div className="min-w-0 flex-1 text-center sm:text-left">
@@ -185,13 +196,16 @@ export function PartnerCard({ caseId, teil }: { caseId: string; teil: SimTeil | 
                 className={`btn-outline px-2.5 text-xs ${copied ? 'border-emerald-300 text-emerald-600 dark:text-emerald-400' : ''}`}>
                 <Icon name={copied ? 'check' : 'copy'} className="h-3.5 w-3.5" />
               </button>
-              <button onClick={entrer} className="btn-primary gap-1.5 text-xs">
-                <Icon name="play" className="h-3.5 w-3.5" />Il est prêt — entrer
-              </button>
             </div>
           </div>
         </div>
       )}
+
+      <div className="mt-4 flex justify-center">
+        <button onClick={entrer} className="btn-primary gap-2 px-6 py-2.5">
+          <Icon name="play" className="h-4 w-4" />Démarrer la simulation
+        </button>
+      </div>
     </section>
   );
 }
