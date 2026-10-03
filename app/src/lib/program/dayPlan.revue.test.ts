@@ -168,3 +168,12 @@ describe('M2 — la graine est rejouable', () => {
     expect(plan.seed).toContain(String(plan.materializedAt));         // unique par matérialisation : deux appareils ne partagent pas d'ids
   });
 });
+
+describe('M-a — le drill reste dans le budget', () => {
+  it('300 termes dus sur un jour de 45 min : le drill ne dépasse pas 45 min', () => {
+    const cfg = config({ hoursPerSession: 0.75 });
+    const due = Array.from({ length: 300 }, (_, i) => ({ id: `fb${i}`, srs: { state: 'Gelernt', repetitions: 2, interval: 3, easeFactor: 2.5, dueDate: 0, lapses: 0 } })) as never;
+    const tasks = buildTasks(input({ config: cfg, begriffe: due }), ids());
+    expect(used(tasks)).toBeLessThanOrEqual(dayTargetMin(cfg));
+  });
+});
