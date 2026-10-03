@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { KOMMUNIKATIVE_STRATEGIEN } from '@/data/guides/kommunikativeStrategien';
 import { Icon } from '@/components/icons';
 
-// Guide dédié « Schwieriger Patient » — 6 situations illustrées + mini-drill
+// Guide dédié « Schwieriger Patient » — situations illustrées + mini-drill
 // (situation tirée → formuler mentalement → révéler la parade).
 export function KommunikationGuide() {
   const [drill, setDrill] = useState(false);
@@ -21,7 +21,7 @@ export function KommunikationGuide() {
           </span>
           <div>
             <h2 className="font-semibold">Kommunikative Strategien — Schwieriger Patient</h2>
-            <p className="text-xs text-slate-400">6 situations d'examen + parades. Entraîne tes réflexes.</p>
+            <p className="text-xs text-slate-400">{KOMMUNIKATIVE_STRATEGIEN.length} situations d'examen + parades. Entraîne tes réflexes.</p>
           </div>
         </div>
         <button onClick={() => { setDrill((d) => !d); setRevealed(false); }} className={`btn text-xs ${drill ? 'bg-brand-600 text-white' : 'btn-outline'}`}>

@@ -331,7 +331,7 @@ export function seedCases(): Case[] {
           'med-blutverduenner': 'Nein, Blutverdünner oder Kortison nehme ich nicht.',
           'med-otc': 'Nein, frei verkäufliche oder pflanzliche Mittel nehme ich nicht.',
           // Allergien
-          'all-allergie': 'Nein, keine Allergien bekannt.',
+          'all-allergie': 'Nein, Allergien habe ich keine.',
           'all-unvertraeglich': 'Nein, ich vertrage alles.',
           // Noxen
           'nox-rauchen': 'Ja, seit etwa 30 Jahren eine Schachtel am Tag. (relativierend) Das bisschen Rauchen wird doch nicht schuld sein …',
@@ -702,7 +702,7 @@ export function seedCases(): Case[] {
           'med-blutverduenner': 'Ja, ich nehme jeden Tag eine Aspirin 100.',
           'med-otc': 'Ja, gegen die Knieschmerzen kaufe ich mir Ibuprofen 600, oft mehrmals am Tag.',
           // Allergien
-          'all-allergie': 'Nein, keine Allergien bekannt.',
+          'all-allergie': 'Nein, Allergien habe ich keine.',
           'all-unvertraeglich': 'Nein, keine.',
           // Noxen
           'nox-rauchen': 'Früher ja — etwa 20 Jahre lang eine Schachtel am Tag; vor 10 Jahren habe ich aufgehört.',
@@ -996,7 +996,7 @@ export function seedCases(): Case[] {
           'keine Brustschmerzen, keine Atemnot',
           'kein gürtelförmiger Schmerz in den Rücken',
           'kein gürtelförmig in den Rücken ausstrahlender Schmerz (Ausstrahlung nur in die rechte Schulter), keine Besserung beim Vornüberbeugen, kein Alkoholkonsum in größeren Mengen, kein solcher Anfall nach Alkohol früher (gegen akute Pankreatitis)',
-          'kein Schmerzmaximum mittig in der Magengrube, keine Beschwerden auf nüchternen Magen oder nachts, keine Besserung nach dem Essen (die Schmerzen kamen gerade nach dem fettigen Essen), keine regelmäßige Einnahme von Schmerzmitteln oder Kortison, kein bekanntes Magengeschwür (gegen Ulcus)',
+          'kein Schmerzmaximum mittig in der Magengrube, keine Beschwerden auf nüchternen Magen oder nachts, keine Besserung nach dem Essen (die Schmerzen kamen gerade nach dem fettigen Essen), keine regelmäßige Einnahme von Schmerzmitteln oder Kortison, kein bekanntes Magengeschwür (gegen ein Ulcus)',
           'kein Druck- oder Engegefühl hinter dem Brustbein, keine Ausstrahlung in linken Arm, Hals oder Kiefer, keine Kaltschweißigkeit oder Todesangst, keine bekannte Herzerkrankung, kein bekannter Bluthochdruck oder Diabetes (gegen Hinterwandinfarkt)',
         ],
         vorerkrankungen: ['Gallensteine bekannt'], voroperationen: ['keine'],
@@ -1214,7 +1214,7 @@ export function seedCases(): Case[] {
           'med-blutverduenner': 'Nein, keinen Blutverdünner, kein Kortison.',
           'med-otc': 'Nein, auch keine Schmerzmittel oder pflanzlichen Mittel.',
           // Allergien
-          'all-allergie': 'Nein, keine Allergien bekannt.',
+          'all-allergie': 'Nein, Allergien habe ich keine.',
           'all-unvertraeglich': 'Nein, keine.',
           // Noxen
           'nox-rauchen': 'Ja, ich rauche — so eine halbe Schachtel am Tag, seit etwa 30 Jahren.',
@@ -1327,20 +1327,20 @@ export function seedCases(): Case[] {
       name: 'Gastroösophageale Refluxkrankheit', pathology: 'GERD (Refluxkrankheit)', specialty: 'Gastroenterologie',
       centers: ['Freiburg', 'Karlsruhe', 'Stuttgart'], frequency: 7, difficulty: 1,
       patientSheet: {
+        leitsymptomKategorie: 'brennen',
         personalia: { name: 'Sabine Wolf', age: 42, geschlecht: 'w', groesseCm: 170, gewichtKg: 84, beruf: 'Bürokauffrau', familienstand: 'ledig' },
         leitsymptome: ['Seit Monaten Sodbrennen, besonders nach dem Essen und im Liegen'],
         begleitsymptome: ['saures Aufstoßen', 'gelegentlich Reizhusten nachts'],
         schmerz: { ort: 'hinter dem Brustbein', charakter: 'brennend', intensitaet: 4, verstaerker: 'Liegen, fettiges Essen, Kaffee', linderer: 'Aufrechtsitzen, Antazida' },
         vegetativeAnamnese: ['nächtlicher Reizhusten gelegentlich'],
         negativeFindings: [
-          'keine Schluckbeschwerden',
-          'kein Gewichtsverlust (Alarmzeichen negativ)',
-          'kein Bluterbrechen, kein schwarzer Stuhl',
-          'kein belastungsabhängiger Brustschmerz, keine Ausstrahlung in den Arm',
+          'keine Dysphagie',
+          'kein Gewichtsverlust',
+          'keine Hämatemesis, keine Meläna',
           'keine Übelkeit, kein Erbrechen',
           'kein Druck hinter dem Brustbein bei Anstrengung oder Kälte, keine Ausstrahlung in Arm, Hals oder Kiefer, keine Luftnot oder Kaltschweißigkeit bei Belastung, keine Besserung in Ruhe nach wenigen Minuten (gegen Angina pectoris)',
-          'keine nüchternen oder nächtlichen Oberbauchschmerzen, keine Besserung der Beschwerden nach dem Essen, kein umschriebener Druckschmerz im Oberbauch, keine Einnahme von Schmerzmitteln (NSAR/ASS) (gegen Ulcus)',
-          'keine Schluckbeschwerden für feste oder flüssige Kost, kein Steckenbleiben von Speisen hinter dem Brustbein, kein ungewollter Gewichtsverlust, keine Heiserkeit (gegen Ösophaguskarzinom)',
+          'keine nüchternen oder nächtlichen Oberbauchschmerzen, keine Besserung der Beschwerden nach dem Essen, kein umschriebener Druckschmerz im Oberbauch, keine Einnahme von Schmerzmitteln (NSAR/ASS) (gegen ein Ulcus)',
+          'keine Heiserkeit, keine Odynophagie (gegen ein Ösophaguskarzinom)',
         ],
         vorerkrankungen: ['Übergewicht (BMI 29)'], voroperationen: ['keine'],
         medikamente: ['gelegentlich Antazida (rezeptfrei)'], allergien: ['keine bekannt'],
@@ -1355,11 +1355,9 @@ export function seedCases(): Case[] {
           'pers-hausarzt': 'Ja, den habe ich.',
           // Aktuelle Beschwerden (OPQRST)
           'akt-motiv': 'Ich habe seit Monaten Sodbrennen, das nervt mich sehr.',
-          'akt-ort': 'Hinter dem Brustbein, es steigt manchmal bis zum Hals hoch.',
+          'akt-ort': 'Hinter dem Brustbein; es steigt manchmal bis in den Hals hoch, in den Arm strahlt nichts aus.',
           'akt-beginn': 'So seit einigen Monaten, ganz allmählich.',
-          'akt-charakter': 'Ein Brennen, ein saures Gefühl.',
           'akt-intensitaet': 'So 4 von 10 — lästig, aber auszuhalten.',
-          'akt-ausstrahlung': 'Es steigt vom Brustbein bis in den Hals hoch; in den Arm strahlt nichts.',
           'akt-verlauf': 'Es kommt vor allem nach dem Essen und im Liegen, nicht dauernd.',
           'akt-ausloeser': 'Fettiges Essen, Kaffee und wenn ich mich nach dem Essen hinlege.',
           'akt-einfluss': 'Schlimmer nach dem Essen und im Liegen; besser, wenn ich aufrecht sitze oder so eine Kautablette gegen Sodbrennen aus der Apotheke nehme.',
@@ -1382,7 +1380,7 @@ export function seedCases(): Case[] {
           'med-blutverduenner': 'Nein, keinen Blutverdünner, kein Kortison.',
           'med-otc': 'Nur eben die Kautabletten gegen das Sodbrennen; sonst nichts.',
           // Allergien
-          'all-allergie': 'Nein, keine Allergien bekannt.',
+          'all-allergie': 'Nein, Allergien habe ich keine.',
           'all-unvertraeglich': 'Nein, keine.',
           // Noxen
           'nox-rauchen': 'Ja, so eine halbe Schachtel am Tag, seit etwa 20 Jahren.',
@@ -1390,7 +1388,7 @@ export function seedCases(): Case[] {
           'nox-drogen': 'Nein, nie.',
           // Familie & Soziales
           'fam-familie': 'Nein, in der Familie ist nichts Besonderes bekannt.',
-          'fam-eltern': 'Meine Eltern leben noch und sind soweit gesund.',
+          'fam-eltern': 'Meine Eltern leben noch und sind so weit gesund.',
           'fam-stand': 'Ich bin ledig und habe keine Kinder.',
           'fam-beruf': 'Ich bin Bürokauffrau; im Büro ist oft viel los — ja, Stress.',
           'fam-wohnen': 'Ich wohne allein in einer Wohnung.',
@@ -1429,21 +1427,21 @@ export function seedCases(): Case[] {
           {
             label: 'Basistherapie: Lebensstil, Ernährung und Meidung der Auslöser (Grundlage jeder Stufe)',
             items: [
-              'Ich bespreche mit dem Patienten zuerst die Auslöser, die sich in seiner Anamnese abzeichnen: die üppigen, fettreichen Mahlzeiten am späten Abend, das Essen kurz vor dem Zubettgehen und die Beschwerden, die genau dann im Liegen auftreten',
-              'Gewichtsreduktion um 5–10 % des Körpergewichts, langsam und kontrolliert, mit regelmäßiger moderater Bewegung — bei diesem Patienten die wirksamste Einzelmaßnahme',
+              'Ich bespreche mit der Patientin zuerst die Auslöser, die sich in ihrer Anamnese abzeichnen: die üppigen, fettreichen Mahlzeiten am späten Abend, das Essen kurz vor dem Zubettgehen und die Beschwerden, die genau dann im Liegen auftreten',
+              'Gewichtsreduktion um 5–10 % des Körpergewichts, langsam und kontrolliert, mit regelmäßiger moderater Bewegung — bei dieser Patientin die wirksamste Einzelmaßnahme',
               'Nikotinkarenz und Verzicht auf Alkohol, besonders am Abend; Reduktion von Kaffee und kohlensäurehaltigen Getränken',
               'Umstellung auf mehrere kleine Mahlzeiten über den Tag; letzte Mahlzeit spätestens 3 Stunden vor dem Zubettgehen, keine Spätmahlzeit vor dem Fernseher',
               'Kopfende des Bettes um 15–20 cm erhöhen — nicht nur ein zusätzliches Kissen, da dies nur den Kopf beugt und den Bauchdruck erhöht; Linksseitenlage empfehlen',
               'Individuelle Auslöser gemeinsam identifizieren (Frittiertes, Zitrusfrüchte, Tomatensoße, Schokolade, Pfefferminze, scharfe Gewürze) und ein kurzes Ernährungstagebuch führen lassen',
               'Enge Gürtel und einschnürende Kleidung sowie schweres Heben vermeiden',
-              'Die Dauermedikation des Patienten durchgehen und sphinktertonussenkende oder schleimhautschädigende Präparate (Nitrate, Kalziumantagonisten, NSAR, Acetylsalicylsäure, Bisphosphonate) nach Möglichkeit ersetzen oder korrekt einnehmen lassen — aufrecht, mit reichlich Wasser',
+              'Die Dauermedikation der Patientin durchgehen und sphinktertonussenkende oder schleimhautschädigende Präparate (Nitrate, Kalziumantagonisten, NSAR, Acetylsalicylsäure, Bisphosphonate) nach Möglichkeit ersetzen oder korrekt einnehmen lassen — aufrecht, mit reichlich Wasser',
               'Aufklärung: Die Erkrankung ist gutartig, aber chronisch-rezidivierend; ohne die Lebensstiländerung kehren die Beschwerden nach dem Absetzen der Tabletten meist zurück',
             ],
           },
           {
             label: 'Medikamentöse Säuresuppression: PPI-Standardtherapie und Step-down',
             items: [
-              'Ich beginne bei diesem Patienten mit Pantoprazol 40 mg 1-0-0, einzunehmen 30–60 Minuten VOR dem Frühstück — ich erkläre ihm den Einnahmezeitpunkt ausdrücklich, weil dies die häufigste Fehlerquelle ist',
+              'Ich beginne bei dieser Patientin mit Pantoprazol 40 mg 1-0-0, einzunehmen 30–60 Minuten VOR dem Frühstück — ich erkläre ihr den Einnahmezeitpunkt ausdrücklich, weil dies die häufigste Fehlerquelle ist',
               'Behandlungsdauer zunächst 4–8 Wochen mit Wiedervorstellung zur Beurteilung des Ansprechens; zeigt die Endoskopie eine Los-Angeles-Grad-C- oder -D-Ösophagitis, gebe ich 8 Wochen 2 × 40 mg mit endoskopischer Kontrolle der Abheilung',
               'Für die rasche Linderung zwischendurch ein Antazidum oder ein Alginat nach Bedarf, insbesondere abends',
               'Nach Beschwerdefreiheit Step-down: Reduktion auf die niedrigste wirksame Dosis, dann Bedarfstherapie („on demand“); bei Grad C/D, Striktur oder Barrett-Ösophagus dagegen dauerhafte Erhaltungstherapie',
@@ -1457,7 +1455,7 @@ export function seedCases(): Case[] {
             items: [
               'Wiedervorstellung nach 8 Wochen: Bestehen die Beschwerden fort, prüfe ich zuerst Adhärenz, Einnahmezeitpunkt, fortbestehendes Rauchen, Alkohol, späte Mahlzeiten und die Begleitmedikation',
               'Danach ÖGD mit Stufenbiopsien aus dem distalen Ösophagus und aus dem Magen — zum Ausschluss einer eosinophilen oder infektiösen Ösophagitis, eines Ulkus, eines Karzinoms und zum Nachweis von Helicobacter pylori',
-              'Ergänzend 24-Stunden-pH-Impedanz-Messung (PPI 7 Tage vorher pausieren) zur Objektivierung des Refluxes und zur Symptomassoziation; ist sie unauffällig, liegt bei diesem Patienten ein funktionelles Sodbrennen oder ein hypersensitiver Ösophagus vor, und die Behandlung wird entsprechend umgestellt',
+              'Ergänzend 24-Stunden-pH-Impedanz-Messung (PPI 7 Tage vorher pausieren) zur Objektivierung des Refluxes und zur Symptomassoziation; ist sie unauffällig, liegt bei dieser Patientin ein funktionelles Sodbrennen oder ein hypersensitiver Ösophagus vor, und die Behandlung wird entsprechend umgestellt',
               'Findet sich ein Barrett-Ösophagus: dauerhafte PPI-Therapie, Beschreibung nach der Prag-C&M-Klassifikation und endoskopische Überwachung mit Vierquadranten-Biopsien alle 3–4 Jahre bei fehlender Dysplasie; bei niedriggradiger Dysplasie Kontrolle nach 6 Monaten oder Ablation, bei hochgradiger Dysplasie endoskopische Mukosaresektion mit anschließender Radiofrequenzablation',
               'Bei einer peptischen Striktur mit Dysphagie endoskopische Bougierung oder Ballondilatation mit Biopsien zum Karzinomausschluss und obligater PPI-Dauertherapie',
               'Bei Hinweisen auf eine Blutung (Anämie, Teerstuhl) sofortige Endoskopie mit Blutstillung und hochdosierter intravenöser PPI-Gabe',
@@ -1466,7 +1464,7 @@ export function seedCases(): Case[] {
           {
             label: 'Antirefluxchirurgie und endoskopische Verfahren (bei Therapieversagen, Unverträglichkeit oder Patientenwunsch)',
             items: [
-              'Eine Operation kommt bei diesem Patienten erst in Betracht, wenn der Reflux objektiv gesichert ist und die Beschwerden trotz optimierter Lebensstilmaßnahmen und ausreichend dosierter PPI-Therapie fortbestehen, wenn er die Medikamente nicht verträgt, wenn eine ausgeprägte Volumenregurgitation oder eine große symptomatische Hiatushernie vorliegt oder wenn er eine lebenslange Tabletteneinnahme ausdrücklich vermeiden möchte',
+              'Eine Operation kommt bei dieser Patientin erst in Betracht, wenn der Reflux objektiv gesichert ist und die Beschwerden trotz optimierter Lebensstilmaßnahmen und ausreichend dosierter PPI-Therapie fortbestehen, wenn sie die Medikamente nicht verträgt, wenn eine ausgeprägte Volumenregurgitation oder eine große symptomatische Hiatushernie vorliegt oder wenn sie eine lebenslange Tabletteneinnahme ausdrücklich vermeiden möchte',
               'Präoperativ obligat: ÖGD, 24-Stunden-pH-Impedanz-Messung und hochauflösende Manometrie zum Ausschluss einer Achalasie oder schweren Motilitätsstörung',
               'Verfahren der Wahl: laparoskopische Fundoplikatio nach Nissen (360-Grad-Manschette), bei eingeschränkter Peristaltik als partielle Manschette nach Toupet, jeweils mit Hiatoplastik',
               'Aufklärung über den Nutzen (85–90 % Erfolg nach fünf Jahren) und die typischen Folgen: Gas-bloat-Syndrom mit Unfähigkeit zu Aufstoßen und Erbrechen, passagere Dysphagie in den ersten Wochen, Blähungen, Diarrhoe sowie die Möglichkeit, dass langfristig doch wieder ein PPI nötig wird',
@@ -1479,10 +1477,8 @@ export function seedCases(): Case[] {
       },
       linkedFachbegriffeIds: [], probableAufklaerungIds: ['auf-gastroskopie'],
       caseSpecificQuestions: [
-        { frage: 'Wann sind die Beschwerden am schlimmsten — nach dem Essen, im Liegen oder nachts?', kapitel: 'aktuell' },
         { frage: 'Haben Sie Schluckbeschwerden bemerkt, zum Beispiel dass Essen stecken bleibt?', kapitel: 'aktuell' },
         { frage: 'Haben Sie nachts Husten oder eine heisere Stimme bemerkt?', kapitel: 'aktuell' },
-        { frage: 'Verschlimmern sich die Beschwerden nach Kaffee, Alkohol oder fettigem Essen?', kapitel: 'aktuell' },
       ],
       examinerQuestions: ['Wann ÖGD indiziert?', 'Nennen Sie Alarmsymptome.'],
       examinerSheet: [
@@ -1557,7 +1553,7 @@ export function seedCases(): Case[] {
           'med-blutverduenner': 'Nein, Blutverdünner oder Kortison nehme ich nicht.',
           'med-otc': 'Nein, frei verkäufliche oder pflanzliche Mittel nicht.',
           // Allergien
-          'all-allergie': 'Nein, keine Allergien bekannt.',
+          'all-allergie': 'Nein, Allergien habe ich keine.',
           'all-unvertraeglich': 'Nein, keine.',
           // Noxen
           'nox-rauchen': 'Ja, viel — seit etwa 40 Jahren eine Schachtel am Tag, und das schon mein halbes Leben.',
@@ -1737,7 +1733,7 @@ export function seedCases(): Case[] {
           'med-blutverduenner': 'Nein, keinen Blutverdünner, kein Kortison.',
           'med-otc': 'Nur eben den Magensäureblocker aus der Apotheke.',
           // Allergien
-          'all-allergie': 'Nein, keine Allergien bekannt.',
+          'all-allergie': 'Nein, Allergien habe ich keine.',
           'all-unvertraeglich': 'Nein, keine.',
           // Noxen
           'nox-rauchen': 'Ja, seit vielen Jahren — so eine Schachtel am Tag, bestimmt seit 30 Jahren.',
@@ -3069,7 +3065,7 @@ export function seedCases(): Case[] {
           {
             label: 'Bei Therapieresistenz / Krise',
             items: [
-              'Stationäre Aufnahme bei Suizidalität, psychotischen Symptomen oder Selbstgefährdung — bei fehlender Absprachefähigkeit ggf. Unterbringung nach dem PsychKHG Baden-Württemberg; bei Therapieresistenz Augmentation (z. B. Lithium) oder Kombinationstherapie nach fachpsychiatrischer Beurteilung',
+              'Stationäre Aufnahme bei Suizidalität, psychotischen Symptomen oder Selbstgefährdung — bei fehlender Absprachefähigkeit ggf. Unterbringung nach dem PsychKG bzw. PsychKHG des jeweiligen Landes; bei Therapieresistenz Augmentation (z. B. Lithium) oder Kombinationstherapie nach fachpsychiatrischer Beurteilung',
             ],
         },
         ],

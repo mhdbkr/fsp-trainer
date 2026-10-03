@@ -17,10 +17,10 @@ import { Icon } from '@/components/icons';
 
 const stripKein = (s: string) => s.replace(/^kein(e|en|em|er)?\s+/i, '').replace(/,\s*kein(e|en|em|er)?\s+/gi, ', ');
 
-export function RolePlayView({ sheet, caseQuestions, followChapterId, followProbeId }: {
-  sheet: PatientSheet; caseQuestions?: CaseQuestion[]; followChapterId?: string | null; followProbeId?: string | null;
+export function RolePlayView({ sheet, caseQuestions, played, followChapterId, followProbeId }: {
+  sheet: PatientSheet; caseQuestions?: CaseQuestion[]; played?: Map<string, string>; followChapterId?: string | null; followProbeId?: string | null;
 }) {
-  const chapters = useMemo(() => buildRollenskript(sheet, caseQuestions), [sheet, caseQuestions]);
+  const chapters = useMemo(() => buildRollenskript(sheet, caseQuestions, played), [sheet, caseQuestions, played]);
   const [activeId, setActiveId] = useState<string>(chapters[0]?.id ?? '');
   const [query, setQuery] = useState('');
   const [showReactions, setShowReactions] = useState(false);

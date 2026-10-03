@@ -17,14 +17,14 @@ export function ExaminerSheetView({ sheet, fallback, caseName, caseSpecificQuest
   return (
     <div className="space-y-4">
       <div className="rounded-xl border border-violet-200 bg-violet-50 p-4 text-sm text-violet-900 dark:border-violet-900/40 dark:bg-violet-900/10 dark:text-violet-200">
-        <Icon name="stethoscope" className="mr-1 inline-block h-4 w-4 align-[-3px]" /><b>Du bist der Oberarzt / die Oberärztin</b> — le candidat te présente <b>{caseName}</b>. Écoute, coche mentalement ce qu'il a couvert, puis pose tes questions. La « réaction attendue » t'indique ce qu'une bonne réponse contient — pour rebondir, pas à lire à voix haute.
+        <Icon name="stethoscope" className="mr-1 inline-block h-4 w-4 align-[-3px]" />Tu joues <b>l'Oberarzt / l'Oberärztin</b> : le candidat te présente <b>{caseName}</b>. Écoute, coche mentalement ce qu'il a couvert, puis pose tes questions. La « réaction attendue » t'indique ce qu'une bonne réponse contient — pour rebondir, pas à lire à voix haute.
       </div>
 
       {/* Checklist : les questions que le candidat AURAIT dû poser pendant l'anamnèse */}
       {caseSpecificQuestions.length > 0 && (
         <div className="card p-4">
           <div className="mb-2 flex items-center gap-1.5 text-xs font-bold text-slate-500">
-            <Icon name="question" className="h-4 w-4" /> Hat der Kandidat danach gefragt?
+            <Icon name="question" className="h-4 w-4" /> Le candidat l'a-t-il demandé ?
           </div>
           <ul className="space-y-1.5">
             {caseSpecificQuestions.map((q, i) => (

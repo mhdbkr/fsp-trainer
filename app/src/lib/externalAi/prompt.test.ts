@@ -159,3 +159,18 @@ describe('stripFrenchDirections', () => {
     expect(stripFrenchDirections(input)).toBe('Gastritis, Pankreatitis');
   });
 });
+
+describe('rôle au genre du cas (revue du site)', () => {
+  it('une patiente : « eine Patientin », jamais « Patient/Patientin »', () => {
+    const w = { ...c, patientSheet: { ...c.patientSheet, personalia: { ...c.patientSheet.personalia, geschlecht: 'w' } } } as Case;
+    const p = buildExternalPrompt({ ...base, c: w, scope: 'exam+feedback' });
+    expect(p).toContain('Sprich wie eine Patientin');
+    expect(p).toContain('Du spielst eine Patientin');
+    expect(p).not.toMatch(/Patient\/Patientin|einen Patienten/);
+  });
+  it('un patient : « ein Patient »', () => {
+    const p = buildExternalPrompt({ ...base, scope: 'anamnese' });
+    expect(p).toContain('Sprich wie ein Patient:');
+    expect(p).toContain('Du spielst einen Patienten');
+  });
+});

@@ -137,7 +137,7 @@ export function RolesCard({ caseId }: { caseId: string }) {
           <div className="flex-1 text-center sm:text-left">
             <div className="text-sm font-semibold">Fiches de rôle du simulant</div>
             <p className="mt-1 text-xs text-slate-500 dark:text-slate-400">
-              Le simulant lit ses fiches (patient + médecin senior) et suit ta simulation en direct.
+              Le simulant lit ses fiches (patient + médecin senior). Dans une 2ᵉ fenêtre de cet appareil, elles suivent ta simulation ; sur téléphone, il les parcourt lui-même.
             </p>
             <div className="mt-2 flex flex-wrap justify-center gap-2 sm:justify-start">
               <a href={localPatientUrl(caseId)} target="_blank" rel="noreferrer" className="btn-primary gap-1.5 text-xs">Ouvrir<Icon name="external" className="h-3.5 w-3.5" /></a>

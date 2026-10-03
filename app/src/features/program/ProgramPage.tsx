@@ -177,7 +177,7 @@ function SerenityBanner({ stats, readiness, hasExam, onFocusToday }: {
     ? { cls: 'from-amber-50 to-orange-50 border-amber-200 dark:from-amber-900/15 dark:to-orange-900/10 dark:border-amber-900/40', icon: 'nav-compass', iconCls: 'bg-amber-100 text-amber-600 dark:bg-amber-900/40 dark:text-amber-300',
         title: 'Léger retard — rien de grave', msg: 'Le plan a déjà rééquilibré tes prochains jours. Concentre-toi sur la séance du jour, une à la fois.' }
     : { cls: 'from-emerald-50 to-teal-50 border-emerald-200 dark:from-emerald-900/15 dark:to-teal-900/10 dark:border-emerald-900/40', icon: 'check', iconCls: 'bg-emerald-100 text-emerald-600 dark:bg-emerald-900/40 dark:text-emerald-300',
-        title: 'Tu es dans les temps', msg: hasExam ? 'Continue à ce rythme et tu arriveras rodé·e le jour J.' : 'Continue à ce rythme, ta préparation avance bien.' };
+        title: 'Tu es dans les temps', msg: hasExam ? 'Continue à ce rythme : ton plan tient jusqu’au jour J.' : 'Continue à ce rythme, ta préparation avance bien.' };
   return (
     <div className={`flex flex-wrap items-center gap-4 rounded-2xl border bg-gradient-to-br p-4 ${tone.cls}`}>
       <div className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-xl ${tone.iconCls}`}><Icon name={tone.icon} className="h-5 w-5" /></div>

@@ -46,8 +46,8 @@ export const BASE_PROBES: AnamneseProbe[] = [
   // Aktuelle Beschwerden (OPQRST)
   { id: 'akt-motiv', kapitel: 'aktuell', frage: 'Was führt Sie heute zu uns?' },
   { id: 'akt-beginn', kapitel: 'aktuell', frage: 'Seit wann haben Sie das? Kam es plötzlich oder schleichend?' },
-  { id: 'akt-verlauf', kapitel: 'aktuell', frage: 'Sind sie dauerhaft da oder treten sie anfallsartig auf? Wie lange dauert eine Episode?' },
-  { id: 'akt-ausloeser', kapitel: 'aktuell', frage: 'Gab es einen Auslöser? Was taten Sie, als es begann?' },
+  { id: 'akt-verlauf', kapitel: 'aktuell', frage: 'Sind die Beschwerden dauerhaft da oder treten sie anfallsartig auf? Wie lange dauert eine Episode?' },
+  { id: 'akt-ausloeser', kapitel: 'aktuell', frage: 'Gab es einen Auslöser? Was haben Sie gemacht, als es angefangen hat?' },
   { id: 'akt-einfluss', kapitel: 'aktuell', frage: 'Was bessert oder verschlimmert es (Essen, Bewegung, Atmung, Körperhaltung)? Haben Sie schon etwas dagegen genommen?' },
   { id: 'akt-frueher', kapitel: 'aktuell', frage: 'Hatten Sie solche Beschwerden schon einmal? Waren Sie deswegen beim Arzt?' },
   { id: 'akt-begleit', kapitel: 'aktuell', frage: 'Haben Sie außerdem noch andere Beschwerden bemerkt?' },
@@ -59,7 +59,7 @@ export const BASE_PROBES: AnamneseProbe[] = [
   { id: 'veg-ausscheidung', kapitel: 'vegetativ', frage: 'Haben Sie Probleme mit dem Stuhlgang oder beim Wasserlassen? Aussehen, wie oft?' },
   { id: 'veg-gewicht', kapitel: 'vegetativ', frage: 'Haben Sie Gewichtsveränderungen bemerkt? Wie viele Kilo, in welchem Zeitraum?' },
   { id: 'veg-appetit', kapitel: 'vegetativ', frage: 'Wie ist Ihr Appetit? Haben sich Ihre Essgewohnheiten geändert?' },
-  { id: 'veg-schlaf', kapitel: 'vegetativ', frage: 'Ist Ihr Schlaf erholsam? Haben Sie Ein- oder Durchschlafstörungen?' },
+  { id: 'veg-schlaf', kapitel: 'vegetativ', frage: 'Ist Ihr Schlaf erholsam? Können Sie gut ein- und durchschlafen?' },
 
   // Vorerkrankungen & Voroperationen
   { id: 'vor-erkrank', kapitel: 'vorerkrankungen', frage: 'Haben Sie Vorerkrankungen (Bluthochdruck, Zuckerkrankheit, erhöhte Blutfette)? Seit wann, behandelt?' },
@@ -83,7 +83,7 @@ export const BASE_PROBES: AnamneseProbe[] = [
   // Familien- & Sozialanamnese
   { id: 'fam-familie', kapitel: 'familie-sozial', frage: 'Gibt es in Ihrer Familie chronische Erkrankungen? Welche, seit wann?' },
   { id: 'fam-eltern', kapitel: 'familie-sozial', frage: 'Leben Ihre Eltern noch? (Falls verstorben: woran und wann?)' },
-  { id: 'fam-stand', kapitel: 'familie-sozial', frage: 'Wie ist Ihr Familienstand? Haben Sie Kinder — wie viele, und sind sie gesund?' },
+  { id: 'fam-stand', kapitel: 'familie-sozial', frage: 'Wie ist Ihr Familienstand? Haben Sie Kinder?' },
   { id: 'fam-beruf', kapitel: 'familie-sozial', frage: 'Was sind Sie von Beruf? Haben Sie Stress bei der Arbeit? (Oder: in Rente?)' },
   // id historique conservé (130 fiches y répondent) ; la sonde a rejoint la Sozialanamnese, juste après le métier (FB2-J2).
   { id: 'pers-beruf', kapitel: 'familie-sozial', frage: 'Arbeiten Sie dabei mit besonderen Stoffen — Staub, Chemikalien, Dämpfen?' },
@@ -104,11 +104,11 @@ export const FRAUEN_PROBES: AnamneseProbe[] = [
 // (Ajouter ici les autres spécialités au fil de la PHASE 2.)
 export const FACH_PROBES: Partial<Record<Specialty, AnamneseProbe[]>> = {
   Gastroenterologie: [
-    { id: 'fach-gastro-uebelkeit', kapitel: 'fach', frage: 'Leiden Sie an Übelkeit oder Erbrechen? Wie sah es aus (wie Kaffeesatz, mit Blut)? Wie lange nach dem Essen? Geht es Ihnen danach besser?', deepens: 'veg-uebelkeit' },
+    { id: 'fach-gastro-uebelkeit', kapitel: 'fach', frage: 'Ist Ihnen übel, oder mussten Sie erbrechen? Wie sah es aus (wie Kaffeesatz, mit Blut)? Wie lange nach dem Essen? Geht es Ihnen danach besser?', deepens: 'veg-uebelkeit' },
     { id: 'fach-gastro-sodbrennen', kapitel: 'fach', frage: 'Haben Sie Sodbrennen? Müssen Sie aufstoßen?' },
     { id: 'fach-gastro-voelle', kapitel: 'fach', frage: 'Haben Sie ein Völlegefühl? Werden Sie schneller satt als früher? Fühlen Sie sich aufgebläht?' },
     { id: 'fach-gastro-speisen', kapitel: 'fach', frage: 'Treten die Beschwerden nach bestimmten Speisen auf? Was haben Sie zuletzt gegessen?' },
-    { id: 'fach-gastro-stuhl', kapitel: 'fach', frage: 'Haben Sie Durchfall oder Verstopfung, evtl. im Wechsel? Welche Farbe (blutig, teerschwarz, hell) und Konsistenz hat der Stuhl?' },
+    { id: 'fach-gastro-stuhl', kapitel: 'fach', frage: 'Haben Sie Durchfall oder Verstopfung, vielleicht auch abwechselnd? Wie sieht der Stuhl aus – Farbe, fest oder flüssig?' },
     { id: 'fach-gastro-tenesmen', kapitel: 'fach', frage: 'Haben Sie manchmal das Gefühl, zur Toilette zu müssen, aber es kommt nichts?' },
     { id: 'fach-gastro-spiegelung', kapitel: 'fach', frage: 'Wann hatten Sie die letzte Magen- oder Darmspiegelung? Was war das Ergebnis?' },
   ],
@@ -137,7 +137,7 @@ export const FACH_PROBES: Partial<Record<Specialty, AnamneseProbe[]>> = {
     { id: 'fach-psych-stimmung', kapitel: 'fach', frage: 'Wie ist Ihre Stimmung in letzter Zeit? Fühlen Sie sich niedergeschlagen, traurig oder innerlich leer?' },
     { id: 'fach-psych-interesse', kapitel: 'fach', frage: 'Haben Sie noch Freude oder Interesse an Dingen, die Ihnen früher wichtig waren?' },
     { id: 'fach-psych-antrieb', kapitel: 'fach', frage: 'Wie ist Ihr Antrieb und Ihre Energie? Fällt es Ihnen schwer, den Alltag zu bewältigen?' },
-    { id: 'fach-psych-schlaf', kapitel: 'fach', frage: 'Wie schlafen Sie? Haben Sie Ein- oder Durchschlafstörungen, oder wachen Sie morgens sehr früh auf?', deepens: 'veg-schlaf' },
+    { id: 'fach-psych-schlaf', kapitel: 'fach', frage: 'Wie schlafen Sie? Können Sie gut ein- und durchschlafen, oder wachen Sie morgens sehr früh auf?', deepens: 'veg-schlaf' },
     { id: 'fach-psych-tagesverlauf', kapitel: 'fach', frage: 'Gibt es Tageszeiten, zu denen es Ihnen besser oder schlechter geht (zum Beispiel ein Morgentief)?' },
     { id: 'fach-psych-konzentration', kapitel: 'fach', frage: 'Können Sie sich noch gut konzentrieren und Entscheidungen treffen?' },
     // Promue du guide rédigé (harmonisation) : l'angoisse et l'attaque de
@@ -336,6 +336,13 @@ export const AKTUELL_VARIANT_PROBES: Record<LeitsymptomKategorie, AnamneseProbe[
   { id: 'akt-intensitaet', kapitel: 'aktuell', frage: 'Wie stark sind die Beschwerden auf einer Skala von 1 bis 10?' },
   { id: 'akt-ausstrahlung', kapitel: 'aktuell', frage: 'Strahlen die Beschwerden aus? Wohin?' },
   ],
+  // Une brûlure (Sodbrennen) se localise et se chiffre comme une douleur, mais
+  // ne se caractérise ni ne s'irradie : mêmes sondes que `schmerz`, sans
+  // Charakter ni Ausstrahlung.
+  brennen: [
+  { id: 'akt-ort', kapitel: 'aktuell', frage: 'Wo genau spüren Sie die Beschwerden? Können Sie mit dem Finger zeigen?' },
+  { id: 'akt-intensitaet', kapitel: 'aktuell', frage: 'Wie stark sind die Beschwerden auf einer Skala von 1 bis 10?' },
+  ],
   atemnot: [
     { id: 'akt-atemnot-belastung', kapitel: 'aktuell', frage: 'Tritt die Luftnot nur bei Anstrengung auf oder auch in Ruhe? Wie viele Treppenstufen schaffen Sie ohne Pause?' },
     { id: 'akt-atemnot-nachts', kapitel: 'aktuell', frage: 'Müssen Sie mit erhöhtem Oberkörper schlafen? Wachen Sie nachts auf, weil Ihnen die Luft wegbleibt?' },
@@ -407,7 +414,8 @@ export const PROBE_ORDER: Record<string, number> = (() => {
   const order: Record<string, number> = {};
   let i = 0;
   for (const p of BASE_PROBES) order[p.id] = i++;
-  for (const arr of Object.values(AKTUELL_VARIANT_PROBES)) for (const p of arr) order[p.id] = i++;
+  // `??=` : une sonde partagée entre deux natures (akt-ort) garde son rang de la première.
+  for (const arr of Object.values(AKTUELL_VARIANT_PROBES)) for (const p of arr) order[p.id] ??= i++;
   for (const p of FRAUEN_PROBES) order[p.id] = i++;
   for (const arr of Object.values(FACH_PROBES)) for (const p of arr ?? []) order[p.id] = i++;
   return order;

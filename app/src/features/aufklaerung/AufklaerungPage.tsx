@@ -195,8 +195,8 @@ function AufkCard({ item, defaultOpen }: { item: AufklaerungItem; defaultOpen?: 
                 <div className="min-w-0 flex-1 pt-0.5">
                   <div className="flex items-center gap-1.5 text-[13px] font-semibold"><Icon name={s.icon} className="h-4 w-4 text-slate-400" />{s.label}</div>
                   {s.key === 'risiken' ? (
-                    <div className="mt-1.5 grid gap-2 sm:grid-cols-2">
-                      <RiskBox tone="brand" title="Standardrisiken (répétables)" items={b.standardRisiken} />
+                    <div className={`mt-1.5 grid gap-2 ${b.standardRisiken.length ? 'sm:grid-cols-2' : ''}`}>
+                      {b.standardRisiken.length > 0 && <RiskBox tone="brand" title="Standardrisiken (répétables)" items={b.standardRisiken} />}
                       <RiskBox tone="rose" title={`Spezifisch — ${item.shortName ?? item.name}`} items={b.spezifischeRisiken} />
                     </div>
                   ) : (
