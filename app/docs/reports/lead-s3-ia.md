@@ -15,11 +15,12 @@
 | `09e5780` | `ExternalAiSheet` réduite à une coquille autour du panneau du lanceur |
 | `37490b5` | `PendingExternalSimCard` : Teil d'ancrage, séance auto-déclarée |
 | `aa047c3` | Correctifs relevés au navigateur (ordre d'allumage, débordement à 390 px) |
+| `0fb616f` | Ce rapport |
+| `e161b9a` → `7238cd0` | Corrections de la revue indépendante, un commit par item (§9) |
 
-Vérifié par code de sortie : `npx tsc -b --noEmit` → 0 ;
-`npx vitest run --dir src/lib/externalAi` → 0 (19 tests) ;
-`npx vitest run --dir src/features/simulation --no-file-parallelism` → 0
-(24 tests). En parallèle, sous une charge machine de 27 (autres agents), deux
+Vérifié par code de sortie après la revue : `npx tsc -b --noEmit` → 0 ;
+`npx vitest run --dir src/lib/externalAi` → 0 (23 tests) ;
+`npx vitest run --dir src/features/simulation` → 0 (31 tests). En parallèle, sous une charge machine de 27 (autres agents), deux
 tests différents à chaque passage dépassent le délai de 5 s sur leur premier
 rendu. En série, tout passe. C'est la charge, pas le code, mais la CI doit le
 confirmer.
@@ -52,9 +53,9 @@ testé sur toute la table de capacités.
 | | Avant | Après |
 |---|---|---|
 | Structure | 3 rôles dans un seul message (patient, Oberarzt, correcteur) | **1 rôle**, choisi par le Teil |
-| Amorce | aucune ; premier tour « Bereit. … Dann … » | min 638 · médiane 725 · p90 772 · **max 821** (≤ 900) |
+| Amorce | aucune ; premier tour « Bereit. … Dann … » | min 646 · médiane 725 · p90 772 · **max 821** (≤ 900) |
 | Texte collé, Anamnese | portée `anamnese` : min 9 697 · médiane 17 989 · max 22 890 | **patient** : min 2 897 · médiane **8 307** · p90 9 580 · max 11 873 |
-| Texte collé, complet | `exam+feedback` : min 11 864 · médiane **31 906** · max 44 231 | **Oberarzt** : min 1 055 · médiane **4 088** · p90 4 864 · max 5 700 |
+| Texte collé, complet | `exam+feedback` : min 11 864 · médiane **31 906** · max 44 231 | **Oberarzt** : min 1 280 · médiane **5 713** · p90 6 508 · max 7 627 (≤ 8 000, O2) |
 | Diagnostic en mode patient | dans le message dès le tour 0 (+ 16 fuites « tolérées ») | **0** : aucune chaîne de `medicalView`, aucune tête de diagnostic, aucune justification « (gegen …) » |
 | Langue | régie `persona` en français, feedback en français par défaut | allemand seul (test INV-36 sur 260 textes) |
 | Évaluation demandée | Konjunktiv I, Fachbegriffe, 3 forces / 3 points faibles | aucune (A4) |
@@ -69,11 +70,22 @@ répliques qui ne font que nier sont retirées aussi : l'amorce pose la règle
 puis l'IA répond par sa première réplique de patient. Un seul comportement par
 tour (A6).
 
-**Oberarzt (Teil Fallvorstellung).** Le texte donne le diagnostic, les
-différentiels, les Leitbefunde et les questions de l'examinateur dans l'ordre.
-Il ne contient ni le script du patient, ni les négatifs, ni les réponses
-attendues (O1), et aucune occurrence de « Patient » dans l'amorce (A5).
-L'Oberarzt ouvre en demandant la présentation du cas.
+**Oberarzt (Teil Fallvorstellung).** Le texte donne :
+- `## Der Fall` : les faits structurés de la fiche (identité, âge, sexe,
+  métier, antécédents, opérations, traitements, allergies, noxes). Ce sont des
+  données du dossier, pas des répliques : O1 tient. Ajouté en revue (I3).
+- le diagnostic, les différentiels, les Leitbefunde ;
+- les questions de l'examinateur, dans l'ordre.
+
+Il ne contient pas le script du patient (O1), et l'amorce ne dit jamais
+« Patient » (A5). L'Oberarzt ouvre en demandant la présentation du cas.
+
+**Écart au contrat §2.5.** Le contrat met `c.examinerSheet` dans l'Akte, réponses
+attendues comprises. Elles en sont retirées **pour la taille**, pas pour O1 :
+elles pèsent à elles seules médiane 8 575, max 17 530 caractères (mesure du
+relecteur). Avec elles, O2 (≤ 8 000) et le seuil de pièce jointe de ChatGPT
+seraient dépassés pour la plupart des cas. L'IA juge les réponses avec son
+propre savoir médical, guidée par le diagnostic et les différentiels.
 
 **Code mort supprimé** : la cascade de compaction (`PROMPT_MAX`, niveaux
 `a`/`ac`), `PREFILL_MAX`, `buildLaunchUrl`, `launch()` et son `opened: true`,
@@ -157,7 +169,11 @@ import { TeilAiLauncher } from './ai/TeilAiLauncher';
   `exam` et `exam+feedback` ⇒ séance complète. Testé avec une trace `claude`
   posée par l'ancien code.
 - La carte affiche : « Séance auto-déclarée : elle compte dans ton historique et
-  ta série, pas dans l'indice de préparation. »
+  ta série. » Vrai aujourd'hui (`computeStreak`, `stats.ts:90`). La suite
+  « …, pas dans l'indice de préparation » est retirée en revue (I1) : elle
+  serait **fausse** tant que `saveSimulation` recalcule la confiance et que
+  `computeReadiness` ne filtre pas le mode. Elle reviendra quand le chantier
+  Programme la rendra vraie (commentaire dans le composant).
 
 ## 7. Ce qui est prouvé, ce qui ne l'est pas
 
@@ -203,8 +219,8 @@ import { TeilAiLauncher } from './ai/TeilAiLauncher';
    - `case-lungenembolie` : « meine Mutter ist an einer Lungenembolie
      gestorben ».
 
-   Les retirer effacerait l'indice que le candidat doit trouver. **À trancher
-   par la direction** si la lettre doit l'emporter.
+   Les retirer effacerait l'indice que le candidat doit trouver. Validé en
+   revue ; la liste est désormais un **cliquet bloquant** dans le test corpus.
 2. **PASTE_MAX plutôt que O3.** Le seuil de 10 000 caractères (pièce jointe
    ChatGPT) est plus strict que O3 (12 000). Les 130 cas tiennent O3. 5 cas
    patient dépassent encore 10 000 caractères, gelés par un cliquet dans le
@@ -220,12 +236,12 @@ import { TeilAiLauncher } from './ai/TeilAiLauncher';
 3. **Faits structurés (« coup d'œil ») écartés** des chapitres secondaires :
    mesuré, ils font entrer des diagnostics nommés (Asthma bronchiale, Erysipel,
    Magenkarzinom…) et du registre médical.
-4. **INV-11 à surveiller.** La carte écrit via `saveSimulation` avec
-   `mode: 'external-ai'`, qui recalcule aujourd'hui la confiance du cas
-   (`lib/simulationSave.ts`, hors périmètre). Le journal (`training-journal.md`)
-   dérive `selbstbewertet` de ce mode. L'exclusion de l'indice et du
-   `case_progress` doit être tenue par le chantier Journal à l'intégration.
-   Sinon, la phrase de la carte serait fausse.
+4. **INV-11 non tenu aujourd'hui.** La carte écrit via `saveSimulation` avec
+   `mode: 'external-ai'`, qui recalcule la confiance du cas
+   (`lib/simulationSave.ts:62-73`, hors périmètre) ; `computeReadiness` ne
+   filtre pas le mode. Le journal (`training-journal.md`) dérive
+   `selbstbewertet` de ce mode. À tenir par le chantier Programme / Journal à
+   l'intégration ; la carte ne promet plus rien à ce sujet (I1).
 5. **Noms de champs de la trace.** On garde `targetId` / `at` (traces existantes)
    au lieu de `target` / `startedAt` (contrat §5) : aucune migration, la
    lecture reste tolérante.
@@ -241,5 +257,39 @@ import { TeilAiLauncher } from './ai/TeilAiLauncher';
      5 cibles.
    - Le contrat lui-même (Q8, §3.4 « 5 cibles ») est à mettre à jour par
      `platform-architect`.
-9. **Graphe.** `graphify update app/src` n'a pas été lancé depuis ce worktree.
+9. **Répliques conditionnelles gardées (écart au contrat §2.3).**
+   « Wenn es schwierig wird » contient des répliques mises en scène
+   (« (auf die Ankündigung einer CT) „Muss das sein?“ »). Le contrat veut des
+   faits, « jamais comme scénario ». Décision de `main` : on les **garde**,
+   elles font réagir l'IA comme un vrai patient aux moments durs. `main`
+   amendera le contrat.
+10. **Type `externalTarget` (proposition, `db/types.ts` hors périmètre).**
+   `Simulation.externalTarget: TargetId` vaut désormais `'chatgpt' | 'gemini'`,
+   mais les simulations déjà enregistrées portent `'claude'`, `'perplexity'`,
+   `'grok'` : le type ment sur les anciennes données. Proposition :
+   `externalTarget?: TargetId | LegacyTargetId`, avec
+   `type LegacyTargetId = 'claude' | 'perplexity' | 'grok'` exporté de
+   `lib/externalAi/targets.ts`. `SimulationHub` affiche déjà l'identifiant brut
+   en repli.
+11. **Graphe.** `graphify update app/src` n'a pas été lancé depuis ce worktree.
    C'est à faire après le merge.
+
+## 9. Revue indépendante de `0fb616f` — corrections
+
+Un test rouge d'abord, puis un commit par item.
+
+| Item | Constat | Correction | Commit |
+|---|---|---|---|
+| I1 | La carte promettait « pas dans l'indice de préparation », faux aujourd'hui | Phrase réduite à ce qui est vrai (historique et série) ; commentaire pour la rétablir à l'intégration | `e161b9a` |
+| I2 | `launchPlan` ignorait `autoSubmits` : un `?q=` qui envoie seul partirait avec la salutation vide | `capabilityProblems` refuse `AUTO_SUBMIT` ⇒ jamais de niveau 1 ; ligne ajoutée à la table. Statut rendu pur (`launchStatus`) : au niveau 1 ouvert, un échec de la copie de secours ne dit plus « Copie impossible » | `21e0fcd` |
+| I3 | L'Oberarzt ignorait les faits du cas | `## Der Fall` depuis les champs structurés ; Oberarzt min 1 280 · médiane 5 713 · max 7 627. Un négatif repris dans un champ structuré (`case-morbus-crohn` : « keine Bauchoperationen… ») compte comme fait du dossier dans O1 | `89ce5b9` |
+| M6 | `case-delir` : 44 répliques « Die Tochter: … » sans cadre | Ligne d'amorce « Deine Tochter ist dabei und antwortet manchmal für dich… » quand la fiche contient des répliques d'un proche ; équivalence vérifiée sur les 130 cas | `e859558` |
+| M5 | Relevé non bloquant des cas où le patient nomme sa pathologie | Cliquet bloquant `['case-lungenembolie', 'case-migraene']` | `34511e9` |
+| M7 | `getPending` sans appelant | Supprimé ; `readPending` seule lecture | `b2a5b9b` |
+| M1 | Lien activable au clavier avec texte vide | `preventDefault` tant que le texte n'est pas prêt | `d10ba12` |
+| M2 | Pas de focus à l'ouverture | Focus sur la cible cochée (lanceur et feuille) | `33c497f` |
+| M4 | Flèches Haut/Bas absentes | Haut/Bas = Gauche/Droite | `daba6d4` |
+| M3 | Le panneau pouvait sortir par le bas | Hauteur bornée à l'espace disponible ; ouverture au-dessus s'il reste moins de 320 px en bas (vérifié en jsdom, pas au navigateur) | `7238cd0` |
+| M9 | Chiffres du rapport | Alignés sur la mesure actuelle (§3) | ce commit |
+| M8, M11 | Type `externalTarget`, répliques conditionnelles | Proposition et écart notés (§8, points 9 et 10) | ce commit |
+| M10, I4 | Ombre de `.glass`, montage dans `PlayArea` + retrait de la puce `SimulationRunner.tsx:275` | Laissés à `main`, à l'intégration | — |
