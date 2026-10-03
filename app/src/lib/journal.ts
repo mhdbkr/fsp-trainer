@@ -38,7 +38,8 @@ const TEIL_KEYS: SimTeil[] = TEILE.map((t) => t.key);
 /** Un run joué en conditions d'examen : complet, autonome, dernière couche.
  *  C'est la définition du mode `examen-blanc` (contrat §6) lue à l'envers. */
 const isExamenBlanc = (sim: Simulation): boolean =>
-  isFullSimulation(sim) && sim.assistance === 'autonome' && sim.layer === 3;
+  isFullSimulation(sim) && sim.assistance === 'autonome' && sim.layer === 3
+  && sim.mode !== 'external-ai';                            // m-1 : une séance IA externe n'est jamais un examen à blanc
 
 /**
  * `simulation.completed` n'est PAS doublé par un `training.logged` : un fait,
@@ -439,17 +440,20 @@ export function markTaskDone(task: TaskInstance, spentMin = 0): Promise<Training
  * PERSISTÉ dans la charge utile, donc rejoué à l'identique au rebuild. Un
  * `taskId` explicite (lancé depuis le plan, R-C4) n'est jamais remplacé.
  */
-export async function resolveSimulationTask(sim: Simulation): Promise<Simulation> {
+export async function resolveSimulationTask(input: Simulation): Promise<Simulation> {
+  let sim = input;
   const te = trainingEventFromSimulation(sim);
   if (sim.taskId) {
-    // Explicite (R-C4) : jamais remplacé — mais une tâche « cas complet » n'est
-    // cochée que par les trois Teile (le mode prime, D-C4 révisé).
-    const task = (await db.day_plans.filter((p) => p.tasks.some((t) => t.id === sim.taskId)).first())?.tasks.find((t) => t.id === sim.taskId);
-    if (task && task.teil === undefined && !completeAssez(task, await teileJouesLeJour(te.at, te.caseId, te.teile))) {
-      const { taskId: _drop, ...rest } = sim;
-      return rest;
-    }
-    return sim;
+    // Explicite (R-C4) : gardé SEULEMENT si cette partie satisfait la tâche —
+    // même cas, Teil compatible, et le mode prime (D-C4). Sinon il tombe et la
+    // résolution par le contenu prend le relais (I-A : une Dokumentation lancée
+    // depuis une tâche Anamnese ne la coche pas).
+    const plan = await db.day_plans.filter((p) => p.tasks.some((t) => t.id === sim.taskId)).first();
+    const task = plan?.tasks.find((t) => t.id === sim.taskId);
+    if (plan && task && satisfiedTask({ ...plan, tasks: [{ ...task, doneAt: undefined }] }, te, new Set(),
+      await teileJouesLeJour(te.at, te.caseId, te.teile))) return sim;
+    const { taskId: _drop, ...rest } = sim;
+    sim = rest;
   }
   const taskId = await resolveTask(te.at, te);
   return taskId ? { ...sim, taskId } : sim;
