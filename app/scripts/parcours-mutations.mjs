@@ -162,10 +162,11 @@ export const NAV_MUTATIONS = [
   { id: 'D1', days: 1, file: 'src/lib/journal.ts', from: MUTATIONS[0].from, to: MUTATIONS[0].to, pourquoi: 'cocher fait apparaître une tâche de plus' },
   { id: 'D2', days: 1, file: 'src/lib/program/dayPlan.ts', from: 'plan?.tasks.find((t) => t.doneAt === undefined) ?? null;', to: 'plan?.tasks[plan.tasks.length - 1] ?? null;', pourquoi: 'l’accueil propose une autre session que la première tâche du plan (Leberzirrhose)' },
   { id: 'D3', days: 2, file: 'src/lib/stats.ts', from: "if (p.status === 'fragile' && p.lastScore !== null) out.push({ c, teil: t.key, score: p.lastScore });", to: "if (p.status !== 'solide') out.push({ c, teil: t.key, score: p.lastScore ?? 0 });", pourquoi: 'les « points faibles » accusent un Teil jamais tenté' },
-  { id: 'D4', days: 1, file: 'src/lib/program/select.ts', from: 'picked.length === 0 || picked[picked.length - 1] !== next;', to: 'true;', pourquoi: 'deux spécialités identiques se suivent' },
+  { id: 'D4', days: 1, file: 'src/lib/program/select.ts', from: 'picked.length === 0 || picked[picked.length - 1] !== next;', to: 'picked.length === 0 || picked[picked.length - 1] !== next || true;', pourquoi: 'deux spécialités identiques se suivent' },
   { id: 'D5', days: 1, file: 'src/features/program/HistoriquePage.tsx', from: '  const filtered = useMemo(() => (events ?? []).filter((e) => {\n', to: "  const filtered = useMemo(() => (events ?? []).filter((e) => {\n    if (e.kind === 'drill') return false;\n", pourquoi: 'l’historique masque un genre d’exercice' },
-  { id: 'D6', days: 1, file: 'src/lib/program/dayPlan.ts', from: '  if (existing) return existing;                                  // « figé » veut dire que le premier fige\n', to: '', pourquoi: 'le jour est recalculé à chaque ouverture' },
-  { id: 'D8', days: 2, file: 'src/lib/simulationSave.ts', from: '  if (!nouveau) return sim;\n', to: '', pourquoi: 'une partie validée deux fois est écrite deux fois' },
+  { id: 'D6', days: 1, file: 'src/lib/program/dayPlan.ts', from: '  if (existing) return existing;                                  // « figé » veut dire que le premier fige\n', to: "  if (existing && existing.date === '') return existing;\n", pourquoi: 'le jour est recalculé à chaque ouverture' },
+  { id: 'D8', days: 2, file: 'src/lib/simulationSave.ts', from: '  if (!nouveau) return sim;\n', to: '  if (!nouveau && nouveau) return sim;\n', pourquoi: 'une partie validée deux fois est écrite deux fois (l\'idempotence ET la garde du bouton sont retirées : le bouton seul tient déjà un double clic, l\'idempotence seule est prouvée par INV-22)',
+    also: [{ file: 'src/features/simulation/useLauf.ts', from: '    setLauf(fertig);\n    setFehler(null);', to: '    setFehler(null);' }] },
   { id: 'D9', days: 7, file: 'src/features/simulation/PendingExternalSimCard.tsx', from: MUTATIONS.find((m) => m.id === 'FB3-3oct').from, to: '', pourquoi: 'le correctif du 3 octobre est retiré' },
   { id: 'D10', days: 3, file: 'src/lib/lauf/speichern.ts', from: '  return restauriere(l);\n}', to: '  return { ...restauriere(l), sekundenProTeil: {} };\n}', pourquoi: 'une partie interrompue reprend avec le chrono à zéro' },
 ];
@@ -193,6 +194,11 @@ if (argv.includes('--navigateur')) {
     const f = path.join(dir, m.file), src = fs.readFileSync(f, 'utf8');
     if (src.split(m.from).length - 1 !== 1) { console.log(`FAIL  ${m.id} — MUTATION INAPPLICABLE`); ok = false; continue; }
     fs.writeFileSync(f, src.replace(m.from, () => m.to));
+    for (const x of m.also ?? []) {
+      const g = path.join(dir, x.file), t = fs.readFileSync(g, 'utf8');
+      if (t.split(x.from).length - 1 !== 1) { console.log(`FAIL  ${m.id} — MUTATION COMPLÉMENTAIRE INAPPLICABLE (${x.file})`); ok = false; continue; }
+      fs.writeFileSync(g, t.replace(x.from, () => x.to));
+    }
     const r = spawnSync('node', ['scripts/parcours-candidat.mjs', '--env-file', envFile, '--days', String(m.days), '--port', String(port++),
       '--out', path.join(dir, 'docs/reports/rapport.md'), '--shots', path.join(dir, 'captures')], { cwd: dir, encoding: 'utf8', maxBuffer: 1 << 26 });
     const ko = (r.stdout ?? '').split('\n').filter((l) => /^KO\s+\w+/.test(l));

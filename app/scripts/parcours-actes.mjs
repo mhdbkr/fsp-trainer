@@ -213,19 +213,21 @@ export async function jouerPartie(c, i, o = {}) {
   const clics = o.doubleSave ? 'double-clique sur' : 'clique sur';
   const simsAvant = (await idb(c.page, 'simulations')).length;
   const teAvant = (await idb(c.page, 'training_events')).length;
+  const evCompleted = async () => (await idb(c.page, 'progress_events')).filter((e) => e.type === 'simulation.completed').length;
+  const evAvant = await evCompleted();
   if (o.doubleSave) await btn(c.page, /Enregistrer la simulation/).dblclick(); else await btn(c.page, /Enregistrer la simulation/).click();
   await until(c.page, () => /score moyen/.test(document.body.innerText), 'écran de résultat');
   await sleep(500);
   const seqFin = await echantillon(c);                         // `lauf.aktiv` doit avoir disparu
-  const sims = await idb(c.page, 'simulations'), tes = await idb(c.page, 'training_events');
+  const sims = await idb(c.page, 'simulations'), tes = await idb(c.page, 'training_events'), evApres = await evCompleted();
   const resultat = (await texte(c.page)).match(/score moyen (\d+)\s*%/)?.[1];
   c.grand.exercices++; c.grand.joursTravailles.add(c.jourIso);
   c.rapport.fait(`Joue « ${ligne.label} » (${ligne.cta || 'Lancer'}), ${nParties} partie(s), ${k_(o)} ; ${clics} « Enregistrer la simulation ». Score moyen affiché : ${resultat ?? '?'} %.`);
 
   // INV-22 : une partie validée (même deux fois) = UN enregistrement.
   await c.verifie('D8', 'une partie validée deux fois produit un seul enregistrement', () => ({
-    ok: sims.length === simsAvant + 1 && tes.length === teAvant + 1,
-    detail: `${o.doubleSave ? 'double clic' : 'un clic'} : simulations ${simsAvant} → ${sims.length}, journal ${teAvant} → ${tes.length}`,
+    ok: sims.length === simsAvant + 1 && tes.length === teAvant + 1 && evApres === evAvant + 1,
+    detail: `${o.doubleSave ? 'double clic' : 'un clic'} : simulations ${simsAvant} → ${sims.length}, journal ${teAvant} → ${tes.length}, événements de synchro ${evAvant} → ${evApres}`,
   }));
   // INV-20/21/28 : l'automate vu depuis la base de l'app.
   await c.verifie('D7', 'la fin de partie ne revient jamais à un état antérieur (automate du Lauf)', () => {
@@ -295,6 +297,11 @@ export async function accueil(c) {
   const motif = premiere?.pourquoi ?? '';
   if (/\b0 terme dû/.test(motif) && h === premiere?.label) c.rapport.observation('la « session du jour » proposée est une révision de Fachbegriffe qui annonce « 0 terme dû aujourd\'hui » : la première chose offerte au matin est une tâche sans objet.');
   if (/\bdûs\b/.test(txt)) c.rapport.observation('orthographe : « termes dûs » à l\'écran — l\'accord correct est « dus » (lib/program/dayPlan.ts, raison de la tâche Fachbegriffe).');
+  const tuile = Number(txt.match(/Tout ce que j'ai fait\s*(\d+)/)?.[1]);
+  await c.verifie('D5', 'tout exercice (plan ou libre) apparaît dans l\'historique et dans les stats', () => ({
+    ok: tuile === c.grand.exercices,
+    detail: `tuile « Tout ce que j'ai fait » de l'accueil : ${tuile} ; la candidate a fait ${c.grand.exercices} exercice(s)`,
+  }));
   await c.verifie('D2', 'la session du jour est la première tâche non faite du plan (accueil = programme)', async () => {
     if (!rs.length) return { ok: !h, detail: 'pas de plan, pas de session' };
     if (!premiere) return { ok: !h && /Journée terminée/.test(txt), detail: 'plan fini : « Journée terminée »' };
@@ -331,12 +338,15 @@ export async function programmeDuMatin(c, jourIso) {
       return { ok: !fautes.length, detail: fautes.length ? fautes.join(' ; ') : `${sp.length} tâches : ${sp.map((t) => t.specialty).join(' → ')}${sp.some((t) => t.diversityRelaxed) ? ' (pool épuisé : relâchement tracé)' : ''}` };
     });
   }
-  // D6 : rechargé deux fois, le jour est le même.
+  // D6 : rechargé, le jour est LE MÊME — pas seulement « pareil » : mêmes identifiants, même graine, même instant de
+  // matérialisation (un plan recalculé à chaque ouverture ressemble au précédent mais n'en est plus le même).
+  const ident = (plans) => JSON.stringify(plans.filter((p) => p.date === jourIso).map((p) => ({ s: p.seed, at: p.materializedAt, ids: p.tasks.map((t) => t.id) })));
   await c.page.reload(); await sleep(900);
   const m2 = await c.mesurePlan('rechargé');
   await c.verifie('D6', 'un jour figé est identique à sa matérialisation, plus tard comme après rechargement', () => ({
-    ok: !!m.b && !!m2.b && m2.b.total === m.b.total && m2.b.min === m.b.min && JSON.stringify(m.rs.map((r) => r.label)) === JSON.stringify(m2.rs.map((r) => r.label)),
-    detail: m.b && m2.b ? `${m.b.total} tâches / ${m.b.min} min avant, ${m2.b.total} / ${m2.b.min} après rechargement` : 'plan absent',
+    ok: !!m.b && !!m2.b && m2.b.total === m.b.total && m2.b.min === m.b.min && ident(m.plans) === ident(m2.plans)
+      && JSON.stringify(m.rs.map((r) => r.label)) === JSON.stringify(m2.rs.map((r) => r.label)),
+    detail: m.b && m2.b ? `${m.b.total} tâches / ${m.b.min} min avant, ${m2.b.total} / ${m2.b.min} après rechargement ; ${ident(m.plans) === ident(m2.plans) ? 'mêmes identifiants et même graine' : 'IDENTIFIANTS OU GRAINE CHANGÉS'}` : 'plan absent',
   }));
   return m;
 }
