@@ -129,11 +129,12 @@ anfall-dauer 13→13 · anfall-bewusstsein 33→32
    la question du cas quantifie (Binden, Dauer, nächtlicher Wechsel). Son
    annotation `relu` est donc légitime : elle approfondit la question Fach.
    SC:32460, lui, est supprimé.
-2. **`akt-nerven-art` : « Zittern » est gardé.** La revue proposait de le
-   remplacer par « Taubheit ». Or `case-parkinson` joue cette variante et y
-   répond « das Zittern … eher diese Steifheit ». Question retenue : « ein
-   Kribbeln, ein Zittern oder eine Schwäche » (3 items, règle B). Relances :
-   « Wo spüren Sie das? » et « Auf einer Seite oder auf beiden? ».
+2. ~~**`akt-nerven-art` : « Zittern » est gardé.**~~ **ANNULÉ par `main`
+   (re-revue) — l'arbitrage reposait sur un fait faux.** J'avais lu la carte
+   des réponses (`case-parkinson` a une réponse `akt-nerven-art`), pas la
+   trame jouée : mesuré sur les 130 cas, seule `case-karpaltunnel` joue cette
+   question. Corrigé en « ein Kribbeln, eine Taubheit oder eine Schwäche »
+   (`cf49a64`).
 3. **Versions prescrites plus longues que l'origine : j'ai pris la plus courte
    qui reste une seule question complète.** Cela concerne B1, `infekt-fieber`,
    `infekt-kontakt`, `anfall-dauer`, `anfall-bewusstsein` et `neuro-ausfall`.
@@ -173,33 +174,17 @@ anfall-dauer 13→13 · anfall-bewusstsein 33→32
     plus que les sourcils) ;
   - 10 constats Tier B : non traités.
 
-## 6. Lignes CI à ajouter au merge (job `contrats` de `quality.yml`)
+## 6. Lignes CI à ajouter au merge
 
-```yaml
-      - uses: actions/checkout@v4
-        with:
-          fetch-depth: 0            # checkBudgetFloor lit la base par git show
-      # … après « Un symptôme, une question » :
-      - name: Atomicité des questions — budget dégressif (A B C D D2 D3 E)
-        run: node scripts/checkQuestionAtomicity.mjs
-      - name: Aucun compteur dégressif ne remonte face à main
-        run: node scripts/checkBudgetFloor.mjs origin/${{ github.base_ref || 'main' }}
-      - name: Mutations — atomicité, trame, plancher (copie de travail)
-        run: |
-          node --test scripts/checkQuestionAtomicity.test.mjs
-          node --test scripts/checkTrameSymptoms.test.mjs
-          node --test scripts/checkBudgetFloor.test.mjs
-      - name: Ordre des questions (informatif, contrat §3.6)
-        run: node scripts/checkQuestionOrder.mjs || true
-```
-
-`checkBudgetFloor` est vacant pour CE merge : les deux fixtures n'existent pas
-sur `main`. Il devient le verrou à partir du merge suivant.
+Remplacées par la version définitive de la re-revue (§ R4 ci-dessous) : la
+première version comparait à `origin/main` y compris sur `push`, et
+`checkBudgetFloor` sortait à 0 sur une ref introuvable.
 
 ## 7. Vérification finale (code de sortie, sans pipe, sur `71a9f16`)
 
 - tous les `scripts/check*.mjs` : 0. Seul `checkProbeOverlap` sort à 1, et il
-  est informatif (`|| true` en CI) : 8 avant mes correctifs, 8 après ;
+  est informatif (`|| true` en CI) : 8 avant mes correctifs, 8 après — **face
+  à `104246b`, pas face à `main`** (corrigé en re-revue : voir § R2, m-5) ;
 - `node --test` : atomicité 18/18, trame 5/5, plancher 5/5 ;
 - `npx tsc -b --noEmit` : 0 ;
 - `npx vitest run --dir src/data` : 64/64 ;
@@ -215,3 +200,166 @@ sur `main`. Il devient le verrou à partir du merge suivant.
   et 9153 n'était pas dans la liste consolidée. Les corrections sont déduites
   des mots cités (« Zuckersensor », « einen Bus ») et de la clinique ; une
   relecture langue doit les confirmer.
+
+---
+
+# Re-revue de `715e416` — correctifs (fixeur `fix-s3-contenu`)
+
+Verdict de la re-revue : *Request changes*, deux relectures indépendantes.
+Même worktree, même méthode (tests rouges d'abord pour le mécanique, mutations
+sur copie de travail uniquement). HEAD final : `cf49a64` + ce rapport.
+
+## R1. Mécanique — item → commit (rouge → vert)
+
+| item | commit | preuve |
+|---|---|---|
+| **I-1** guillemets retirés avant comptage pour l'**Oberarzt seulement** | `83cb99f` | test rouge sur `715e416` (« „Wie groß sind Sie?“ Wie viel wiegen Sie? » sortait à 0) → vert |
+| ↳ vrai positif démasqué : `seedGuides` k9 (suicidalité, deux questions du candidat) | `38f6870` | A 522 → 523 (hausse écrite à la main, `rerevue_s3`) → 522 après correction du contenu |
+| **I-2** `checkBudgetFloor` : ref introuvable = exit 2 (`git rev-parse --verify`) ; seul un fichier absent d'une ref valide est ignoré | `83cb99f` | `checkBudgetFloor.mjs no-such-ref` : 0 → **2** ; test rouge → vert |
+| **I-3** `sucht: []` n'exempte plus `checkTrameSymptoms` (`q.sucht?.length`) ; `CaseQuestion.sucht` typé `[string, ...string[]]` | `83cb99f` | mutation `relu: true → sucht: []` sur `case-lyme` : 0 → **1**. Le type vit dans `src/db/types.ts`, hors de mon périmètre initial, modifié sur demande explicite de `main` |
+| **m-1** `--rule` / `--corpus` documentés comme loupes (exit 0 par construction), **jamais en CI** | `83cb99f` | en-tête du script |
+| **m-2** commentaire aligné sur INV-42 ; amendement du contrat proposé | `83cb99f` | § R3 |
+| **m-3** `RE_IRRAD` en début de mot (`\b(aus)?strahl…`, `\bzieh(t|en)\b`) : « anziehen », « beziehen » n'exemptent plus | `83cb99f` | mutation « … mit einem Arm oder Bein schlechter anziehen? » : non signalée → signalée |
+| **m-4** `case-erysipel` dans le test INV-42 | `83cb99f` | garde-fou (vert d'emblée) |
+| **m-5** `checkProbeOverlap` : les 4 recouvrements nouveaux face à `main` marqués `deepens` | `d132c34` | voir § R2 |
+
+Suites finales : atomicité **20/20**, trame **6/6**, plancher **6/6**.
+
+## R2. `checkProbeOverlap` face à `main` (m-5)
+
+Le « 8 avant, 8 après » du § 7 était vrai face à `104246b`, **faux face à
+`main`**. Mesure face à `main` : **11 → 5**.
+- **4 nouveaux, arbitrés en `deepens`** (chacun approfondit la question
+  générale) :
+  - `fach-kardio-nykturie` → `akt-ausscheid-haeufigkeit` (introduit par ma
+    reformulation « wie oft nachts ») ;
+  - `fach-kardio-synkope` → `akt-anfall-bewusstsein` ;
+  - `fach-derma-muttermal` → `akt-veraend-blutung` ;
+  - `fach-onko-leistung` → `akt-allgemein-alltag`.
+- **4 restants, préexistants sur `main`** : `fach-psych-antrieb`,
+  `fach-psych-suizid`, `fach-pneumo-giemen`, `fach-gefaess-immobilisation`.
+- **1 nouveau, laissé non marqué (faux positif lexical)** :
+  `fach-nephro-infekt` ↔ `akt-infekt-kontakt`. Il vient de « in den letzten
+  Wochen », la formulation demandée par `main` (m4). Les deux sondes ne sont
+  jouées ensemble dans **aucune** des 130 trames (les 4 cas néphro ne jouent
+  pas `akt-infekt-kontakt`). Un `deepens` afficherait « approfondit Kontakt und
+  Reise » dans le guide : ce serait faux. **À trancher par `main`.**
+
+## R3. Proposition d'amendement du contrat `frage-atomique` §3.3 (m-2)
+
+Le §3.3 exige un « article répété sur chaque membre », alors qu'INV-42 exige
+que `fach-neuro-kraft` (« ein Arm oder Bein », sans article répété) échoue.
+Le script suit INV-42. Proposition de texte pour le §3.3 :
+
+```
+FAUTE (bloqué) : EXACTEMENT 2 membres, l'un SUPÉRIEUR (Hand, Arm), l'autre
+                 INFÉRIEUR (Fuß, Bein), au singulier, reliés par « oder » ou
+                 « / » — article ou préposition FACULTATIFS
+                 (« die Hand oder der Fuß », « ein Arm oder Bein »,
+                 « in Arm oder Bein », « das Bein/den Arm »).
+EXEMPTÉ        : ≥ 3 territoires énumérés ; verbe d'irradiation en début de mot
+                 (ausstrahlen, strahlt … aus, zieht/ziehen) ; deux régions du
+                 MÊME membre (« am Bein oder am Fuß », case-erysipel).
+```
+
+Contrat hors de mon périmètre : c'est une proposition, à appliquer par le
+propriétaire de `docs/contracts/`.
+
+## R4. Clinique et langue — `cf49a64`
+
+- **Décision de `main`.** `akt-nerven-art` devient « ein Kribbeln, eine
+  Taubheit oder eine Schwäche » (guide et sonde). La relance « pelzig und
+  taub » n'est pas rétablie : Taubheit est dans la question, et la relance
+  aurait fait dépasser le total d'origine (21).
+- **M2.** Le Zungenbiss n'est plus gardé par « Falls ja » : « Haben Sie sich
+  dabei verletzt, etwa auf die Zunge gebissen? ». La réponse de
+  `case-panikstoerung` reçoit « auf die Zunge gebissen auch nicht. Eingenässt
+  habe ich auch nie. ».
+- **M3.** La question de cas de `case-tia` est supprimée. Sa trame garde
+  `akt-begleit`, `fach-neuro-anfall` (rétablie) et `fach-neuro-anfallzeichen`.
+- **M4.** « Und beim Gehen — sind Sie schon gestürzt? ». La question perd
+  « dadurch » pour tenir 17 mots.
+- **M5.** La phrase Schlucken sort de **13** réponses à `akt-ausscheid-was`
+  (la revue en comptait 12), réécrites une par une, à la main. Pour
+  oesophaguskarzinom et achalasie, la réponse ne dévoile plus la sonde
+  suivante.
+- **m2.** « Sekunden, Minuten oder Stunden? ». La relance devient « Wie oft
+  passiert das? » pour tenir 13 mots.
+- **m3.** Deux concepts, `schub` et `waerme`. `fach-neuro-verlauf` reçoit des
+  `parts`, et la question Uhthoff de `case-multiple-sklerose` déclare
+  `sucht: ['waerme']`. La trame MS garde « Kamen die Beschwerden schubweise…? »
+  ; la chaleur n'est plus demandée qu'une fois. La relance devient
+  « Körperhaltungen ».
+- **m4.** « Haben Sie Fieber gemessen? » + « Wie hoch war es? » ; « Waren Sie
+  in den letzten Wochen im Ausland? ». La relance contact perd « in dieser
+  Zeit » pour tenir 20 mots.
+- **m5.** « Husten Sie dabei etwas ab? », « Falls Sie etwas abhusten: Welche
+  Farbe hat das? », « Ist Blut dabei? ».
+- **m6.** `case-tvt` reçoit « Bluten Sie leicht aus der Nase, oder bekommen
+  Sie schnell blaue Flecken? », avec sa réponse de fiche (`frageAntworten`) :
+  « Nein, Nasenbluten habe ich eigentlich nie … ».
+- **m7.** `case-commotio` : deux questions de cas, « Wann haben Sie zuletzt
+  gegessen? » et « Was hat Ihr Zuckersensor kurz vor dem Unfall angezeigt? ».
+
+**Concision des 27** : 497 (origine) → **448**. Aucun item ne dépasse son
+total d'origine.
+
+## R5. Lignes CI définitives (job `contrats` de `quality.yml`)
+
+```yaml
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0            # checkBudgetFloor lit la base par git show
+      # … après « Un symptôme, une question » :
+      - name: Atomicité des questions — budget dégressif (A B C D D2 D3 E)
+        run: node scripts/checkQuestionAtomicity.mjs          # jamais --rule / --corpus (loupes, exit 0)
+      - name: Aucun compteur dégressif ne remonte face à la base
+        run: |
+          if [ "${{ github.event_name }}" = "pull_request" ]; then
+            BASE="origin/${{ github.base_ref }}"
+          else
+            BASE="${{ github.event.before }}"
+            # premier push d'une branche : « before » vaut 40 zéros
+            if [ "$BASE" = "0000000000000000000000000000000000000000" ]; then BASE=origin/main; fi
+          fi
+          node scripts/checkBudgetFloor.mjs "$BASE"           # ref introuvable = exit 2
+      - name: Mutations — atomicité, trame, plancher (copie de travail)
+        run: |
+          node --test scripts/checkQuestionAtomicity.test.mjs
+          node --test scripts/checkTrameSymptoms.test.mjs
+          node --test scripts/checkBudgetFloor.test.mjs
+      - name: Ordre des questions (informatif, contrat §3.6)
+        run: node scripts/checkQuestionOrder.mjs || true
+```
+
+`checkBudgetFloor` est vacant pour CE merge : les deux fixtures n'existent pas
+sur `main`. Il devient le verrou dès le merge suivant.
+
+## R6. Vérification finale (code de sortie, sans pipe, sur `cf49a64`)
+
+- **`scripts/check*.mjs`** : tous à 0, sauf `checkProbeOverlap`, informatif,
+  à 1 (5 constats, contre 11 sur `main`).
+- **Budget** : A=522 · B=118 · C=8 · D=0 · D2=453 · D3=12 · E=0, sur 4 543
+  énoncés ; socle trame 0 constat, `relu` **115**.
+- **Trame jouée** : 8 570 questions, aucune paire ≥ 0,6.
+- **`node --test scripts/*.test.mjs`** : les 8 fichiers à 0 (atomicité 20,
+  trame 6, plancher 6, bedeutung 4, caseTermLinks 9, termRegister 9,
+  linkCaseTerms 31, registerLots 3).
+- **`npx tsc -b --noEmit`** : 0.
+- **`npx vitest run --dir src`** : **557/557** (88 fichiers). Un passage
+  intermédiaire a sorti 9 échecs : 8 timeouts et rendus d'UI, plus
+  `prompt.corpus.test.ts` en timeout, avec une charge machine de 115–148. Ce
+  dernier, relancé seul, passe 2/2 en 3,7 s. Le passage complet suivant, à
+  charge normale, est vert : ce n'était pas un vrai échec.
+- **`checkBudgetFloor main`** : 0 (vacant) ; **`checkBudgetFloor no-such-ref`** : 2.
+
+## R7. À trancher par `main`, et non vérifié
+
+- **À trancher** : `fach-nephro-infekt` ↔ `akt-infekt-kontakt` (§ R2),
+  l'amendement du §3.3 (§ R3), et la question Binden d'`uterus-myomatosus`
+  (§ 4, point 1, non contestée en re-revue).
+- **Commits groupés** : `cf49a64` regroupe les items clinique et langue,
+  parce qu'ils touchent les mêmes fichiers. Chaque item y est énuméré, mais
+  il n'y a pas un commit par correctif.
+- **Non vérifié** : le rendu dans le DOM de l'app (Supabase local toujours à
+  l'arrêt).
