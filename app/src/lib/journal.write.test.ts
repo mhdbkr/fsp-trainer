@@ -214,3 +214,38 @@ describe('I-4 — « faite — non mesurée » (décision de main)', () => {
     expect(te.teile).toEqual(['anamnese', 'dokumentation', 'fallvorstellung']);
   });
 });
+
+describe('D-C4 révisé — le mode prime : une tâche « cas complet » demande les trois Teile', () => {
+  const sim = (id: string, h: number, parts: Partial<Record<'anamnese' | 'dokumentation' | 'fallvorstellung', number>>, taskId?: string) => ({
+    id, caseId: 'c1', date: new Date(2026, 9, 1, h, 0).getTime(), notes: {}, prioritizedCorrections: [],
+    parts: Object.fromEntries(Object.entries(parts).map(([k, v]) => [k, part(v!)])), ...(taskId ? { taskId } : {}),
+  } as unknown as Simulation);
+  const jouer = async (s: Simulation) => {
+    const r = await resolveSimulationTask(s);
+    await db.progress_events.put(ev('simulation.completed', 'c1', r, new Date(r.date).toISOString()));
+    await applySimulationToJournal(r);
+    return r;
+  };
+  beforeEach(async () => {
+    freezeAt(new Date(2026, 9, 1, 8, 0));
+    await db.progress_events.put(planEv('plan.materialized', '2026-10-01', [task({ id: 'tc', caseId: 'c1' })], '2026-10-01T06:00:00Z'));
+    await rebuildJournal(await db.progress_events.toArray());
+  });
+  it('une Anamnese seule progresse et entre dans l\'historique, sans cocher la tâche complète', async () => {
+    const r = await jouer(sim('s1', 9, { anamnese: 85 }));
+    expect(r.taskId).toBeUndefined();
+    expect((await db.day_plans.get('2026-10-01'))!.tasks[0].doneAt).toBeUndefined();
+    expect((await db.case_progress.get('c1'))!.teile.anamnese.status).toBe('solide');
+    expect(await db.training_events.get('te-s1')).toBeDefined();
+  });
+  it('les trois Teile le même jour, en deux parties : la seconde coche la tâche', async () => {
+    await jouer(sim('s1', 9, { anamnese: 85 }));
+    const r = await jouer(sim('s2', 11, { dokumentation: 70, fallvorstellung: 75 }));
+    expect(r.taskId).toBe('tc');
+    await expectLocalEqualsRebuild();
+  });
+  it('un run complet coche ; un taskId explicite sur une partie incomplète ne coche pas', async () => {
+    expect((await resolveSimulationTask(sim('s3', 9, { anamnese: 80 }, 'tc'))).taskId).toBeUndefined();
+    expect((await resolveSimulationTask(sim('s4', 9, { anamnese: 80, dokumentation: 80, fallvorstellung: 80 }))).taskId).toBe('tc');
+  });
+});
