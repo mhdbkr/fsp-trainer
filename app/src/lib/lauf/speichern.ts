@@ -162,6 +162,7 @@ export function projektion(lauf: Lauf, c: Case): SaveInput {
     // abandonné après deux parties s'affichait « Anamnese seule ».
     teil: gespielteTeile.length === 1 ? gespielteTeile[0] : undefined,
     mode: lauf.mode,
+    ...(lauf.taskId ? { taskId: lauf.taskId } : {}),          // R-C4 : resolveSimulationTask le garde ou le retire (I-A)
   };
 }
 
