@@ -151,9 +151,10 @@ rien de cette table.
 | Audit questions du cas + FB3-G | lecture seule | `ac7225d1457bf293d` | rendu → `audit-questions-du-cas-serie3.md` | **oui** |
 | Suivis programme | — | — | `StatusBadge` sans usage (`components/ui.tsx`) ; tâche figée sur un autre appareil non rapatriée → cochée par le contenu seulement | à lancer après merge |
 | Réserves primitives (suivi) | — | — | `CardFlip` (`.card`) dans le verre de `CardToast` : choisir sa matière en petit ; `.input` flouté dans cartes floutées (antérieur) ; « Dokumentation » touche sa tuile à 390 (`ModeChooser`) | à lancer après merge |
-| Lot Q0 — implémenteur (devient fixeur) | `doctopus-s3-q0` · `feat/s3-q0-questions-du-cas` | `acd90f173726a129a` | livré `7026a1bb` (irradiation ×2 : 17→0 ; présuppositions détectées 1→8) ; attend les revues | non |
-| Lot Q0 — revue mécanique | lecture seule | `a77b1f874a424ae16` | verdict attendu | non |
-| Lot Q0 — revue clinique | lecture seule | `a5ac25017eaaac724` | verdict attendu (+ décisions automutilation, `veg-fieber`, « sehr stark ») | non |
+| Lot Q0 — implémenteur (devient fixeur) | `doctopus-s3-q0` · `feat/s3-q0-questions-du-cas` | `acd90f173726a129a` | livré `7026a1bb` ; fixe I-1, C-1–C-3, m1–m7 → push → **main ouvre la PR** | non |
+| Lot Q0 — revue mécanique | lecture seule | `a77b1f874a424ae16` | rendue : Request changes (I-1 relance de cas hors atomicité) + m1–m7 | **oui** |
+| Lot Q0 — revue clinique | lecture seule | `a5ac25017eaaac724` | rendue : approuvé avec réserves (hodentorsion, épaule péricardite, NOTFALL) ; 3 décisions confirmées | **oui** |
 | Lots Q1 → Q8, Lc1 → Lc3 | — | — | §10, l'un après l'autre après Q0 | à lancer |
+| Reports vers Q1/Q2 (revues Q0) | — | — | Q1 : rheumatoide-arthritis « Schuppenflechte », karpaltunnel « Bruch », malaria « Milz », hypothyreose « Entbindungen » ; 10 irradiations avec question de cas ; osteoporose bws. Q2 : relances à 2 questions (alcool, gastro, Kopfschmerz, onko, chir-op, Fieber, Kraft, suizid, `veg-fieber`) | tracé |
 | C6 — agent testeur | — | — | après intégration programme (primitives mergée) | à lancer |
 | Lots L1 → L15 | — | — | §10, l'un après l'autre (mêmes fichiers) | à lancer |
