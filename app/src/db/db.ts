@@ -1,6 +1,6 @@
 import Dexie, { type Table } from 'dexie';
 import type {
-  Case, Fachbegriff, Fachwissen, AufklaerungItem, Guide, Simulation, PlanEntry, Meta,
+  Case, Fachbegriff, Fachwissen, AufklaerungItem, Guide, Simulation, Meta,
   Deck, DeckTerm, Favorite, PersonalTerm,
   TrainingEvent, DayPlan, CaseProgress,
 } from './types';
@@ -35,7 +35,6 @@ export class FspDatabase extends Dexie {
   aufklaerungen!: Table<AufklaerungItem, string>;
   guides!: Table<Guide, string>;
   simulations!: Table<Simulation, string>;
-  plan!: Table<PlanEntry, string>;
   meta!: Table<Meta, string>;
   progress_events!: Table<ProgressEvent, string>;
   outbox!: Table<OutboxRow, string>;
@@ -76,13 +75,14 @@ export class FspDatabase extends Dexie {
       personal_terms: 'id, term, srs.state, srs.dueDate',
     });
     // v5 — ADR-0017 : le journal d'entrainement devient la seule source, le
-    // plan du jour devient un etat materialise. `db.plan` (PlanEntry) reste
-    // en place jusqu'au retrait des vestiges (T4) : il a encore des lecteurs.
+    // plan du jour devient un etat materialise. `db.plan` (PlanEntry, seed de
+    // demo) est ABANDONNE : `plan: null` supprime la table (contrat §9, M1).
     this.version(5).stores({
       training_events: 'id, at, kind, caseId, [kind+at]',
       day_plans: 'date',
       case_progress: 'caseId',
       simulations: 'id, caseId, date, role, profileId, teil',
+      plan: null,
     });
   }
 }
@@ -112,7 +112,7 @@ export async function wipeDatabase() {
   await Promise.all([
     db.cases.clear(), db.fachbegriffe.clear(), db.fachwissen.clear(),
     db.aufklaerungen.clear(), db.guides.clear(), db.simulations.clear(),
-    db.plan.clear(), db.meta.clear(),
+    db.meta.clear(),
     db.decks.clear(), db.deck_terms.clear(), db.favorites.clear(),
     db.personal_terms.clear(),
     db.training_events.clear(), db.day_plans.clear(), db.case_progress.clear(),
