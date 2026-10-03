@@ -149,3 +149,49 @@ Retour arrière : redéployer la version précédente de `events` ; la contraint
 - `ReadinessGauge.tsx` a été supprimé dans le commit du test `b5516f3` (le `git rm` était déjà indexé) — sans effet, à savoir pour la relecture.
 - `components/nav.ts` est hors du périmètre élargi listé ; touché pour M9 (« à corriger » dans la liste) parce qu'aucun autre chantier ne le modifie (`git diff main...feat/s3-*` : seul `Sidebar.tsx` l'est, par primitives).
 - Le conteneur `supabase_edge_runtime_app` ne tournait pas à mon arrivée ; je l'ai servi depuis ce worktree le temps des tests puis arrêté. Le reste de la pile n'a pas été touché ; aucun `db reset`.
+
+---
+
+## Re-revue (`39a8b19` → `20b17df`) — correctifs demandés par `main`
+
+Migration `20260930000017` et fonction `events` **non modifiées** (déploiement prod en cours par `main`).
+
+### Codes de sortie (HEAD `20b17df`)
+
+| Commande | Code | Détail |
+|---|---|---|
+| `npx tsc -b --noEmit` | **0** | |
+| `npx vitest run --dir src --maxWorkers=2` | **0** | 108 fichiers, 698/698 |
+| `TZ=Europe/Berlin npx vitest run --maxWorkers=2 src/lib/program src/lib/sync/boot.test.ts src/lib/journal.test.ts src/lib/journal.write.test.ts src/features/program` | **0** | 15 fichiers, 139/139 |
+| `node scripts/e2e/programmeInvariants.mjs --port 5183` | **0** | **6/6** (P2 sur une simulation, P3a sur un Teil joué) |
+
+### Items
+
+| Item | Rouge (preuve) | Correctif | Commits |
+|---|---|---|---|
+| **I-2** rebuild concurrent | `rebuildRace.test.ts`, par `rebuildProjections` (le chemin du pull) : un `logTraining` et un `ensureDayPlan` lancés pendant la reconstruction sont absents des projections — 2/2, reproductible | `rebuildJournal` relit `progress_events` **dans** sa transaction `rw` (portée : `progress_events` + les trois projections) ; les appelants de l'app ne passent plus d'instantané ; contournement de `ensureDayPlan` retiré | `0211d71` `e593b89` `5339893` `39bba1e` |
+| **I-1** l'écran change de jour | `Today.test.tsx` (**rendu DOM**) : 23 h → 1 h + `visibilitychange`, plan du 2 en base, l'accueil affiche « jeudi 1 octobre » et la tâche de la veille en « Session du jour » ; le Programme reste sur la veille | `lib/today.ts` (`useToday`, `refreshToday`) ; `watchDayPlan` rafraîchit **après** la matérialisation ; `useDayPlan`, `HomePage` (date d'en-tête comprise), `ProgramPage` (le jour choisi suit s'il valait l'ancien aujourd'hui) | `e780d68` `62c369d` `de3fd46` `89b96cc` `d854a83` `8d0ae6e` `c8d34d7` |
+| **I-3** une tâche faite n'est jamais perdue | deux appareils, plan de A gagnant sans équivalent : la tâche faite sur B disparaissait (faits 1 → 0) | ajoutée au plan gagnant avec son `doneAt`, sans doublon si plusieurs exercices | `b9b2c29` `ea9b573` |
+| **I-4** « faite — non mesurée » | 4/4 rouges : projection, `markTaskDone` sans `teil`, carte de la page Cas, compteur du champ | `TeilProgress.nonMesureAt` posé par `computeCaseProgress` pour une coche et une séance `selbstbewertet` — `status`, `attempts`, `lastScore`, l'indice et la série inchangés ; `estNonMesure()` ; 4e compteur `nonMesure` (`coverage.ts`), titre et légende (`CoverageField`), badge « Faite — non mesurée » et pastille en pointillé (`CaseProgressView`), compte d'en-tête (`CasesPage`) ; `markTaskDone` écrit les trois Teile pour une tâche simulation / révision / examen à blanc sans `teil` | `24c81ae` `26fb8ab` `2fd4b70` `3284770` `9e451ea` `b3a4909` `edcf2f9` `0759a3c` |
+| **D-C4 révisé** le mode prime | une Anamnese seule cochait une tâche « cas complet » | coche seulement si les trois Teile sont joués dans la partie **ou le même jour** (coches exclues) — `resolveSimulationTask` comme la résolution par le contenu, **taskId explicite compris** ; une partie seule progresse et entre dans l'historique | `95dd3b6` `5e42042` `c322817` |
+| **M-a** drill | 120 min sur un jour de 45 | `estMin` borné à `targetMin` | `7de8cd6` `9c606d8` |
+| **M-b** refus du rattrapage | — | **non fait** : le pousser demande un nouveau type d'événement, donc la contrainte et la fonction `events` gelées pour le déploiement. Le refus reste local (`meta.rattrapageRefuse`) : un second appareil peut reproposer un rattrapage déjà refusé. À faire avec la prochaine migration de types. | — |
+| **M-c** double lecture | — (refactor, couvert par 51 tests du journal) | une lecture | `b32d5f2` |
+| **m5** sécurité | `pullGuard.test.ts` : session de B dans le tab de A → fetch appelé, événement de B inséré | `if (!sessionMatchesActive()) return 0;` | `c99a79a` `20b17df` |
+
+### Conséquences sur les tests existants (assumées, liées aux décisions)
+
+- INV-11 compare désormais les **mesures** (`status`, `lastScore`, `lastAt`, `attempts`) et vérifie que `nonMesureAt` est la seule trace d'une séance auto-déclarée (`3284770`).
+- `journal.test.ts` : « une tâche sans `teil` est satisfaite par n'importe quel Teil » est renversé par D-C4 révisé (`5e42042`).
+- Les tests de page qui figent l'horloge appellent `refreshToday()` (le store est initialisé à l'import) (`c8d34d7`).
+
+### Amendements de contrat (en plus du §3)
+
+- §3.4 / D-C4 : une tâche simulation / révision / examen à blanc **sans `teil`** n'est satisfaite que par les trois Teile joués, dans la partie ou le même jour — y compris avec un `taskId` explicite.
+- §4.1 : `TeilProgress.nonMesureAt?: number` — « faite — non mesurée » ⇔ `status === 'vierge'` et `nonMesureAt` posé. Remplace la question ouverte du §3 point 5.
+- D-I2 (texte du §3) : « sans tâche équivalente, rien n'est coché » devient « sans équivalent, la tâche faite est **ajoutée** au plan gagnant ».
+
+### Non vérifié (re-revue)
+
+- I-1 au navigateur réel (le test est un rendu DOM jsdom avec horloge injectée ; l'e2e ne franchit pas minuit).
+- Deux appareils en navigateur réel pour I-3 (tests unitaires seulement, comme D-I2).
