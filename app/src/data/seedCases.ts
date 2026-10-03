@@ -41924,7 +41924,7 @@ export function seedCases(): Case[] {
           'akt-beginn': 'Das hat vor ungefähr fünf Monaten ganz langsam angefangen, ganz von allein. Seit zwei Wochen ist es deutlich schlimmer geworden.',
           'akt-charakter': 'Ziehend und dumpf, wie ein Zahnschmerz im Knochen. Wenn ich auftrete, wird es stechend.',
           'akt-intensitaet': 'Wenn ich gehe, 7 von 10. Wenn ich sitze und Ruhe habe, nur 2 von 10.',
-          'akt-ausstrahlung': 'Es zieht vorne am Oberschenkel runter bis ins linke Knie — da merke ich es manchmal am deutlichsten, ich dachte erst, es käme vom Knie. Aber weiter runter nicht — unter das Knie und in den Fuß geht es nicht.',
+          'akt-ausstrahlung': 'Es zieht vorne am Oberschenkel runter bis ins linke Knie — da merke ich es manchmal am deutlichsten, ich dachte erst, es kommt vom Knie. Aber weiter runter nicht — unter das Knie und in den Fuß geht es nicht.',
           'akt-verlauf': 'Über die Monate immer schlimmer, ganz schleichend. Morgens beim Aufstehen sind die ersten Schritte am schlimmsten, nach zwanzig, dreißig Metern wird es besser. Dasselbe, wenn ich lange gesessen habe. Und je länger ich dann laufe, desto mehr tut es wieder weh.',
           'akt-ausloeser': 'Nein, da war nichts. Kein Sturz, kein Unfall, ich bin nicht umgeknickt und ich habe mich auch nicht verhoben. Es kam einfach von allein.',
           'akt-einfluss': 'Schlimmer beim Gehen, Treppensteigen und wenn ich aus dem Bagger steige. Besser im Sitzen und unter der heißen Dusche. Voltaren 50 hilft ein, zwei Stunden.',
@@ -41956,7 +41956,7 @@ export function seedCases(): Case[] {
           'fam-haustiere': 'Nein, Haustiere haben wir keine.',
           'fach-ortho-mechanismus': 'Da war kein Unfall und kein Sturz, wirklich nicht. Ich habe mich auch nicht verhoben. Es hat einfach angefangen und ist immer schlimmer geworden.',
           'fach-ortho-bewegung': 'Beweglich ist die Hüfte deutlich schlechter geworden. Socken und Schuhe anziehen ist links das Schlimmste, die Fußnägel schneiden geht gar nicht mehr. Morgens ist sie so zehn Minuten steif, dann geht es wieder. Und manchmal knirscht es richtig.',
-          'fach-ortho-ausstrahlung': 'Es zieht vorne am Oberschenkel bis ins Knie — da merke ich es manchmal am deutlichsten, ich dachte erst, es käme vom Knie. Weiter runter geht es nicht, in die Wade und in den Fuß strahlt nichts aus.',
+          'fach-ortho-ausstrahlung': 'Es zieht vorne am Oberschenkel bis ins Knie — da merke ich es manchmal am deutlichsten, ich dachte erst, es kommt vom Knie. Weiter runter geht es nicht, in die Wade und in den Fuß strahlt nichts aus.',
           'fach-ortho-sensomotorik': 'Nein, Kribbeln oder Ameisenlaufen habe ich nicht, taub ist auch nichts. Gelähmt ist nichts — das Bein fühlt sich nur kraftlos an, wenn ich länger gelaufen bin, und dann hinke ich.',
           'fach-ortho-durchblutung': 'Die Füße sind warm und normal gefärbt, blau wird da nichts. Wunden am Fuß habe ich keine. Und in der Wade tut mir beim Gehen nichts weh — die Schmerzen sind oben in der Leiste, nicht unten.',
           'fach-ortho-cauda': 'Nein, überhaupt nicht. Wasserlassen und Stuhlgang kann ich normal halten, und beim Sitzen ist unten herum nichts taub.',
@@ -41972,7 +41972,7 @@ export function seedCases(): Case[] {
           '"Kann ich denn weiter arbeiten? Ich bin siebenundfünfzig, bis zur Rente sind es noch zehn Jahre."',
           '"Warum wollen Sie meine Hüfte röntgen? Weh tut mir doch das Knie."',
         ],
-        persona: 'Tu es Heiner King, 57 ans, conducteur d\'engin sur un chantier depuis plus de trente ans. Costaud, direct, un peu bourru, tu parles fort et tu n\'aimes pas te plaindre. Tu es venu parce que ta femme a insisté. Point clé du jeu : la douleur siège à l\'aine gauche (Leiste) et à la fesse, tu le montres de la main quand on te demande où ça fait mal. Mais elle descend jusqu\'au genou, et c\'est là que tu la sens le plus : tu crois que c\'est ton genou le problème (« Weh tut mir doch das Knie ») et tu t\'étonnes qu\'on s\'occupe de ta hanche. C\'est le piège du cas, la projection hanche → genou. Tu ne précises jusqu\'où ça descend (genou, jamais en dessous) que si on te le demande. Tu minimises l\'alcool (« fünf Bier, das ist auf dem Bau normal ») et tu ne donnes le chiffre exact que si on te le demande sans te juger. Tu es fier de ton travail et tu as peur de perdre ton poste : tu le dis si le médecin t\'interroge sur ton métier ou ton quotidien. Le mot « opération » t\'effraie — tu connais un collègue qui marche moins bien depuis sa prothèse. Tu ne connais pas le nom du médicament contre la goutte, tu dis « eine Tablette gegen die Gicht ».',
+        persona: 'Tu es Heiner King, 57 ans, conducteur d\'engin sur un chantier depuis plus de trente ans. Costaud, direct, un peu bourru, tu parles fort et tu n\'aimes pas te plaindre. Tu es venu parce que ta femme a insisté. Point clé du jeu : la douleur siège à l\'aine gauche (Leiste) et à la fesse, tu le montres de la main quand on te demande où ça fait mal. Mais elle descend jusqu\'au genou, et tu la ressens surtout vers le genou (« Weh tut mir doch das Knie ») : tu t\'étonnes de la radio de hanche. C\'est le piège du cas, la projection hanche → genou. Tu ne précises jusqu\'où ça descend (genou, jamais en dessous) que si on te le demande. Tu minimises l\'alcool (« fünf Bier, das ist auf dem Bau normal ») et tu ne donnes le chiffre exact que si on te le demande sans te juger. Tu es fier de ton travail et tu as peur de perdre ton poste : tu le dis si le médecin t\'interroge sur ton métier ou ton quotidien. Le mot « opération » t\'effraie — tu connais un collègue qui marche moins bien depuis sa prothèse. Tu ne connais pas le nom du médicament contre la goutte, tu dis « eine Tablette gegen die Gicht ».',
       },
       medicalView: {
         verdachtsdiagnose: 'Fortgeschrittene primäre Coxarthrose links (Hüftgelenkarthrose) mit Anlauf-, Belastungs- und beginnendem Nachtschmerz, reduzierter Gehstrecke von 500 m und Kapselmuster; begünstigt durch Adipositas Grad I (110 kg bei 1,80 m, BMI ca. 34,0), schwere körperliche Arbeit mit Vibrationsbelastung als Baggerfahrer sowie chronischen Alkoholkonsum von etwa 100 g täglich',
@@ -42058,7 +42058,7 @@ export function seedCases(): Case[] {
           },
           {
             stufe: 'Anamnese/Klinik',
-            text: 'Abgrenzende Untersuchung: orientierende Untersuchung der Lendenwirbelsäule mit Lasègue-Zeichen, Prüfung von Durchblutung, Motorik und Sensibilität sowie Tasten der Fußpulse (pAVK bei Raucher mit Diabetes mellitus); zusätzlich Untersuchung des linken Knies, das der Patient zuerst als schmerzhaft angibt',
+            text: 'Abgrenzende Untersuchung: orientierende Untersuchung der Lendenwirbelsäule mit Lasègue-Zeichen, Prüfung von Durchblutung, Motorik und Sensibilität sowie Tasten der Fußpulse (pAVK bei Raucher mit Diabetes mellitus); zusätzlich Untersuchung des linken Knies, in das der Schmerz ausstrahlt und das der Patient als besonders schmerzhaft empfindet',
           },
           {
             stufe: 'Labor',
@@ -42149,7 +42149,7 @@ export function seedCases(): Case[] {
         erstmassnahmen: [
           'Vitalparameter einschließlich Temperatur erheben — Fieber würde sofort auf eine septische Coxitis lenken',
           'Größe, Gewicht und BMI bestimmen und dokumentieren (110 kg bei 1,80 m, BMI ca. 34,0 — Adipositas Grad I) und den Patienten darauf ansprechen',
-          'Vollständige orthopädische Untersuchung der linken Hüfte im Seitenvergleich mit Gangbild, Beinlängenmessung, Trendelenburg-Zeichen, Neutral-Null-Methode, Patrick- und Impingementtest — und zusätzlich das linke Knie untersuchen, das der Patient zuerst nennt',
+          'Vollständige orthopädische Untersuchung der linken Hüfte im Seitenvergleich mit Gangbild, Beinlängenmessung, Trendelenburg-Zeichen, Neutral-Null-Methode, Patrick- und Impingementtest — und zusätzlich das linke Knie untersuchen, in das der Schmerz ausstrahlt und das der Patient als besonders schmerzhaft empfindet',
           'Durchblutung, Motorik und Sensibilität prüfen sowie die Fußpulse tasten (Raucher mit Diabetes mellitus)',
           'Röntgen des Beckens in zwei Ebenen mit Darstellung beider Hüftgelenke anmelden',
           'Blutabnahme: Blutbild, CRP, BSG, Kreatinin und eGFR, Blutzucker und HbA1c, Harnsäure, Leberwerte und Gerinnung',
@@ -42167,7 +42167,7 @@ export function seedCases(): Case[] {
         { frage: 'Sind die ersten Schritte nach dem Aufstehen oder nach längerem Sitzen am schlimmsten, und wird es nach einigen Schritten besser?', kapitel: 'aktuell' },
         { frage: 'Wie lange ist Ihre Hüfte morgens steif — Minuten oder mehr als eine halbe Stunde?', kapitel: 'aktuell' },
         { frage: 'Wie hat sich Ihre Gehstrecke in den letzten sechs Monaten verändert — wie weit kamen Sie früher, wie weit heute?', kapitel: 'aktuell' },
-        { frage: 'Fällt Ihnen das Ein- und Aussteigen ins Auto oder in Ihren Bagger schwer?', kapitel: 'aktuell', followUp: 'Wie kommen Sie Treppen hoch?' },
+        { frage: 'Fällt Ihnen das Einsteigen in Ihr Auto oder in den Bagger schwer?', kapitel: 'aktuell', followUp: 'Wie kommen Sie mit Treppen zurecht?' },
         { frage: 'Hatten Sie als Kind eine Hüfterkrankung, eine Spreizhose oder eine Schiene? Ist Ihnen jemals gesagt worden, dass Ihre Hüftpfanne nicht richtig angelegt ist?', kapitel: 'vorerkrankungen' },
         { frage: 'Tut Ihnen beim Gehen die Wade weh, und geht das in Ruhe nach wenigen Minuten wieder weg?', kapitel: 'aktuell' },
         { frage: 'Wie viele Tabletten Voltaren nehmen Sie am Tag, und hat Ihnen jemand einen Magenschutz dazu verordnet?', kapitel: 'medikamente' },
@@ -42175,7 +42175,7 @@ export function seedCases(): Case[] {
       examinerQuestions: [
         'Herr Kollege, stellen Sie uns bitte den Patienten vor. Wie lautet Ihre Verdachtsdiagnose?',
         'Sie sagen, die Schmerzen strahlen nur bis zum Knie und nicht bis zur Fußsohle aus — warum ist diese Information wichtig?',
-        'Der Patient hält das Knie für sein Problem, der Schmerz zieht bis dorthin. Wie kommen Sie trotzdem auf die Hüfte?',
+        'Der Patient spürt den Schmerz am deutlichsten im Knie. Wie kommen Sie trotzdem auf die Hüfte?',
         'Welche Differenzialdiagnosen kommen in Betracht, und wie grenzen Sie sie ab?',
         'Was wissen Sie über die Hüftkopfnekrose? Welche Risikofaktoren hat dieser Patient dafür?',
         'Was verstehen Sie unter einem Anlaufschmerz, und wie erklären Sie ihn dem Patienten?',
@@ -42223,7 +42223,7 @@ export function seedCases(): Case[] {
               reaktion: 'Erwartet wird: fortgeschrittene Coxarthrose links. Begründung: schleichender Beginn über fünf Monate, Leisten- und Gesäßschmerz mit Ausstrahlung an der Oberschenkelvorderseite bis zum Knie, Anlaufschmerz, Belastungsschmerz mit Abnahme der Gehstrecke von 5 km auf 500 m, seit vier Wochen Nachtschmerz, Morgensteifigkeit von nur zehn Minuten, Funktionsverlust beim Socken- und Schuhanziehen. Risikokonstellation: Alter 57 Jahre, Adipositas Grad I mit einem BMI von etwa 34,0, schwere körperliche Arbeit mit Vibrationsbelastung, täglich fünf Flaschen Bier.',
             },
             {
-              frage: 'Der Patient hält das Knie für sein Problem, der Schmerz zieht bis dorthin. Wie kommen Sie trotzdem auf die Hüfte?',
+              frage: 'Der Patient spürt den Schmerz am deutlichsten im Knie. Wie kommen Sie trotzdem auf die Hüfte?',
               reaktion: 'Weil der Coxarthroseschmerz klassisch in die Leiste projiziert wird und über den Nervus obturatorius beziehungsweise den Nervus femoralis an der Vorderseite des Oberschenkels bis zum Knie ausstrahlt. Ein Teil der Patienten klagt ausschließlich über Knieschmerzen. Deshalb lasse ich den Patienten mit dem Finger zeigen, frage gezielt nach der Leiste und untersuche bei jedem Knieschmerz auch die Hüfte — und umgekehrt.',
             },
             {
@@ -42262,7 +42262,7 @@ export function seedCases(): Case[] {
           interactions: [
             {
               frage: 'Worauf würden Sie bei der körperlichen Untersuchung achten?',
-              reaktion: 'Inspektion und Gangbild mit Schonhinken beziehungsweise Trendelenburg-Hinken, Beinlängenmessung, Muskelatrophie am Gesäß und Oberschenkel im Seitenvergleich; Druckschmerz über Leiste und Trochanter major; seitenvergleichende Bewegungsprüfung nach der Neutral-Null-Methode; Patrick- beziehungsweise FABER-Test, anteriorer Impingementtest, Trendelenburg-Zeichen und Thomas-Handgriff; orientierende Untersuchung der Lendenwirbelsäule mit Lasègue-Zeichen; Prüfung von Durchblutung, Motorik, Sensibilität und Fußpulsen — und selbstverständlich auch die Untersuchung des Knies, über das der Patient zuerst geklagt hat.',
+              reaktion: 'Inspektion und Gangbild mit Schonhinken beziehungsweise Trendelenburg-Hinken, Beinlängenmessung, Muskelatrophie am Gesäß und Oberschenkel im Seitenvergleich; Druckschmerz über Leiste und Trochanter major; seitenvergleichende Bewegungsprüfung nach der Neutral-Null-Methode; Patrick- beziehungsweise FABER-Test, anteriorer Impingementtest, Trendelenburg-Zeichen und Thomas-Handgriff; orientierende Untersuchung der Lendenwirbelsäule mit Lasègue-Zeichen; Prüfung von Durchblutung, Motorik, Sensibilität und Fußpulsen — und selbstverständlich auch die Untersuchung des Knies, in das der Schmerz ausstrahlt und das der Patient als besonders schmerzhaft empfindet.',
             },
             {
               frage: 'Welche Bewegungen sind eingeschränkt? In welcher Reihenfolge?',
