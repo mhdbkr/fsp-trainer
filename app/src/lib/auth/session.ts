@@ -141,8 +141,8 @@ export async function switchAccount(userId: string): Promise<'switched' | 'passw
  *  B (pull), et pousser l'outbox de A sous le jeton de B. */
 export async function clearLocalProgress(): Promise<void> {
   const { db } = await import('@/db/db');
-  await db.transaction('rw', [db.progress_events, db.outbox, db.simulations, db.plan, db.meta], async () => {
-    await db.progress_events.clear(); await db.outbox.clear(); await db.simulations.clear(); await db.plan.clear();
+  await db.transaction('rw', [db.progress_events, db.outbox, db.simulations, db.meta], async () => {
+    await db.progress_events.clear(); await db.outbox.clear(); await db.simulations.clear();
     await db.meta.bulkDelete(['migratedLocal', 'migrationDismissed', 'program', 'entitlements']);
   });
   // SRS et couches : remis à neuf (ils appartiennent au compte, pas à l'appareil)
