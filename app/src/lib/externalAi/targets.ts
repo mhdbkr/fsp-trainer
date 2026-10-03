@@ -38,12 +38,16 @@ export const AI_TARGETS: AiTarget[] = [
     // Lien universel déclaré par OpenAI : « start a new conversation in-app »
     // (iOS) ; page d'accueil ailleurs. `?q=` est reconnu mais sa limite n'est
     // pas mesurable (Cloudflare) ⇒ C3 ⇒ pas de pré-remplissage (sources §1, §2).
+    // `autoSubmits: true` par prudence : l'absence d'envoi automatique n'est
+    // PAS établie (Tenable : « inserted … and submitted »). Ne passer à false
+    // qu'après le relevé du protocole §6 des sources.
     openUrl: 'https://chatgpt.com/#native',
-    capability: { targetId: 'chatgpt', prefillParam: null, maxPrefillChars: null, autoSubmits: false, nativeScheme: null, nativeAcceptsText: false, verifiedAt: '2026-09-30', evidence: `${EVIDENCE} §1–§2` },
+    capability: { targetId: 'chatgpt', prefillParam: null, maxPrefillChars: null, autoSubmits: true, nativeScheme: null, nativeAcceptsText: false, verifiedAt: '2026-09-30', evidence: `${EVIDENCE} §1–§2` },
   },
   {
     id: 'gemini', label: 'Gemini', origin: 'https://gemini.google.com/app',
     openUrl: 'https://gemini.google.com/app',
+    // Pas de paramètre de pré-remplissage : `autoSubmits` y est sans objet.
     capability: { targetId: 'gemini', prefillParam: null, maxPrefillChars: null, autoSubmits: false, nativeScheme: null, nativeAcceptsText: false, verifiedAt: '2026-09-30', evidence: `${EVIDENCE} §1–§2` },
   },
 ];

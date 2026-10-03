@@ -123,7 +123,7 @@ changement du lanceur).
 
 | Cible | `prefillParam` | `maxPrefillChars` | URL ouverte | Barreau atteint |
 |---|---|---|---|---|
-| ChatGPT | `null` (paramètre connu, limite inconnue ⇒ C3) | `null` | `https://chatgpt.com/#native` (ouvre l'app iOS, conversation neuve ; page d'accueil ailleurs) | 2 — copie + ouverture + confirmation visible |
+| ChatGPT | `null` (paramètre connu, limite inconnue ⇒ C3 ; `autoSubmits: true` par prudence) | `null` | `https://chatgpt.com/#native` (ouvre l'app iOS, conversation neuve ; page d'accueil ailleurs) | 2 — copie + ouverture + confirmation visible |
 | Gemini | `null` | `null` | `https://gemini.google.com/app` | 2 — copie + ouverture + confirmation visible |
 
 Le commentaire « Vérifié 2026-09-17 » de `targets.ts` disparaît (C4). Chaque
@@ -142,11 +142,18 @@ navigateur connecté (Cloudflare bloque les outils automatiques) :
    rapport).
 2. Ouvrir `https://chatgpt.com/?q=` suivi du texte encodé (sur ordinateur, puis
    sur iPhone avec l'app installée).
-3. Noter : le champ contient-il **tout** le texte ? Le message part-il seul ?
+3. Noter : le champ contient-il **tout** le texte ?
+4. Noter : le message **part-il seul** ? Attendre 5 secondes sans toucher à
+   rien. S'il part, l'IA parle avant que le candidat ait salué : le niveau 1
+   reste exclu.
 
-Si le texte arrive entier et sans envoi : renseigner `prefillParam: 'q'`,
-`maxPrefillChars` = longueur encodée testée, `evidence` = date + appareil. Le
-libellé passe alors de lui-même au niveau 1 (fonction pure, testée).
+Il faut **les deux** relevés pour passer au niveau 1 : texte entier ET aucun
+envoi automatique, sur ordinateur et sur iPhone. Renseigner alors
+`prefillParam: 'q'`, `maxPrefillChars` = longueur encodée testée,
+`autoSubmits: false`, `evidence` = date + appareils. Tant que `autoSubmits`
+reste à `true` (valeur livrée, par prudence), `capabilityProblems` refuse le
+niveau 1 même si la limite est renseignée. Le libellé passe ensuite de
+lui-même au niveau 1 (fonction pure, testée).
 
 ## Sources
 

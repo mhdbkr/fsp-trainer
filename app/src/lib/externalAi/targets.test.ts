@@ -33,7 +33,7 @@ describe('cibles retenues par la direction', () => {
 describe('INV-33 — le libellé ne promet que ce qui est vérifié', () => {
   const verified = (over: Partial<AiTarget['capability']> = {}): AiTarget => ({
     ...T.chatgpt,
-    capability: { ...T.chatgpt.capability, prefillParam: 'q', maxPrefillChars: 4000, verifiedAt: '2026-09-30', ...over },
+    capability: { ...T.chatgpt.capability, prefillParam: 'q', maxPrefillChars: 4000, autoSubmits: false, verifiedAt: '2026-09-30', ...over },
   });
 
   it('niveau 1 seulement si paramètre, longueur et fraîcheur sont tous vrais', () => {
@@ -41,6 +41,12 @@ describe('INV-33 — le libellé ne promet que ce qui est vérifié', () => {
     expect(p.level).toBe(1);
     expect(p.url).toBe('https://chatgpt.com/?q=Hallo%20Welt');
     expect(p.label).toBe('Ouvrir ChatGPT avec le prompt');
+  });
+
+  it('ChatGPT tel que livré, même avec `q` et une limite renseignés, reste au niveau 2 : l\'envoi automatique n\'est pas exclu', () => {
+    expect(T.chatgpt.capability.autoSubmits).toBe(true);
+    const renseigne: AiTarget = { ...T.chatgpt, capability: { ...T.chatgpt.capability, prefillParam: 'q', maxPrefillChars: 4000 } };
+    expect(launchPlan(renseigne, 'Hallo Welt', NOW).level).toBe(2);
   });
 
   it('envoi automatique → niveau 2, quelles que soient longueur et fraîcheur', () => {
