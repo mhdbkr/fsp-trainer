@@ -1708,7 +1708,8 @@ const FACH_RULES: Array<{ probe: string; applies?: (w: Who) => boolean; text?: (
   // Rachis lombaire : le genou départage la radiculalgie de la douleur projetée.
   { probe: 'fach-ortho-ausstrahlung', text: (w) => (ARM.has(region(w) ?? '') ? 'Strahlen die Schmerzen in den Arm aus — und wenn ja, bis wohin?'
     : region(w) === 'lws' ? 'Strahlen die Schmerzen ins Bein aus — bis über das Knie oder bis in den Fuß?'
-      : region(w) === 'untere' ? 'Strahlen die Schmerzen ins Bein aus — und wenn ja, bis wohin?' : undefined) },
+      : region(w) === 'untere' ? 'Strahlen die Schmerzen ins Bein aus — und wenn ja, bis wohin?'
+        : region(w) === 'bws' ? 'Strahlen die Schmerzen gürtelförmig um den Brustkorb aus?' : undefined) },
   { probe: 'fach-ortho-sensomotorik', text: (w) => (ARM.has(region(w) ?? '') ? 'Haben Sie im Arm Kribbeln, ein Taubheitsgefühl oder weniger Kraft bemerkt?'
     : RUMPF.has(region(w) ?? '') ? 'Haben Sie in den Beinen Kribbeln, ein Taubheitsgefühl oder weniger Kraft bemerkt?'
       : region(w) === 'untere' ? 'Haben Sie im Bein Kribbeln, ein Taubheitsgefühl oder weniger Kraft bemerkt?' : undefined) },
