@@ -156,7 +156,8 @@ rien de cette table.
 | Lot Q0 — implémenteur (devient fixeur) | `doctopus-s3-q0` · `feat/s3-q0-questions-du-cas` | `acd90f173726a129a` | **PR #62 mergée** (4 oct.) | **oui** |
 | Lot Q0 — revue mécanique | lecture seule | `a77b1f874a424ae16` | rendue : Request changes (I-1 relance de cas hors atomicité) + m1–m7 | **oui** |
 | Lot Q0 — revue clinique | lecture seule | `a5ac25017eaaac724` | rendue : approuvé avec réserves (hodentorsion, épaule péricardite, NOTFALL) ; 3 décisions confirmées | **oui** |
-| Lot Q1 — implémenteur | `doctopus-s3-q1` · `feat/s3-q1-aktuell` | `aa77839d0d370c0e3` | 12 présuppositions, coxarthrose ×3, 10 irradiations, répétitions, leberzirrhose, osteoporose → push → revues clinique/langue/mécanique → PR | non |
+| Lot Q1 — implémenteur | `doctopus-s3-q1` · `feat/s3-q1-aktuell` | `aa77839d0d370c0e3` | livré (8 présuppositions corrigées, 4 reports sans faute ; irradiation doublée 10→1 ; ordre 28→17 ; A/B 510/114→502/113) ; attend 3 revues → fixeur → PR | non |
+| Lot Q1 — revues | lecture seule | clinique `ae3f2807f69066acc` · langue `a751050b5532bf3d0` · mécanique `a291c2076b053b0db` | verdicts attendus | non |
 | Lots Q2 → Q8, Lc1 → Lc3 | — | — | §10, l'un après l'autre après Q1 | à lancer |
 | Reports vers Q1/Q2 (revues Q0) | — | — | Q1 : rheumatoide-arthritis « Schuppenflechte », karpaltunnel « Bruch », malaria « Milz », hypothyreose « Entbindungen » ; 10 irradiations avec question de cas ; osteoporose bws. Q2 : relances à 2 questions (alcool, gastro, Kopfschmerz, onko, chir-op, Fieber, Kraft, suizid, `veg-fieber`) | tracé |
 | C6 — candidat synthétique | `doctopus-s3-c6` · `feat/s3-c6-candidat` | `a92b4c2e4d2f21ebc` | invariants (+ « partie évaluée jamais redemandée ») + parcours 14 jours headless + rapport → puis `ux-user-advocate` sur le parcours | non |
