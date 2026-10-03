@@ -177,4 +177,13 @@ describe('PendingExternalSimCard', () => {
     rerender(<MemoryRouter><PendingExternalSimCard /></MemoryRouter>);
     expect(await screen.findByText(/tu as simulé/i)).toBeTruthy();
   });
+
+  it('absente quand le cas a été joué et évalué dans l\'app après la trace', async () => {
+    const at = Date.now() - 60_000;
+    await setPending({ caseId: 'c1', targetId: 'gemini', teil: 'anamnese', at });
+    await db.simulations.put({ id: 'sim-local', caseId: 'c1', date: at + 30_000, mode: 'local' } as never);
+    render(<MemoryRouter><PendingExternalSimCard /></MemoryRouter>);
+    await new Promise((r) => setTimeout(r, 50));
+    expect(screen.queryByText(/tu as simulé/i)).toBeNull();
+  });
 });
