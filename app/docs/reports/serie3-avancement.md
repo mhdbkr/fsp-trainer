@@ -11,8 +11,8 @@
 |---|---|---|---|
 | P0 contrats | `feat/s3-contrats` | ✅ mergé (`4fad5b1`) | amendements à appliquer à l'intégration (§4) |
 | C5 primitives | `feat/s3-primitives` | fixeur terminé, 84/0 | **décision direction : filet encre du verre** (§3) puis revue finale |
-| C2 simulation | `feat/s3-simulation` | ✅ **PR #54 ouverte** — contrat amendé dans la PR | **G6 : merge par la direction** (main = prod) |
-| C4 contenu | `feat/s3-contenu` | revue finale : 1 point (I-7) | fixeur sur I-7 → revue de clôture |
+| C2 simulation | `feat/s3-simulation` | ✅ **PR #54 — CI verte** | **G6 : merge par la direction** (main = prod) |
+| C4 contenu | `feat/s3-contenu` | ✅ **PR #55 ouverte** — revue finale close, CI + contrat §3.3 inclus | **G6 : merge par la direction** (main = prod) |
 | C1 programme | `feat/s3-programme` | fixeur (sécurité + journal) | re-revue → **déploiement prod** (§2) |
 | C3 IA externe | `feat/s3-ia` | livré (8 commits) — prompt 31 906 → 4 088 car., un seul rôle | revue de branche en cours |
 
@@ -53,3 +53,24 @@ historique + série, pas l'indice · Q1 mode d'avancement déduit puis proposé 
 zéro ombre portée sous le verre · G2-b relance par défaut, sonde neuve si l'examen
 note la dimension à part · Q8 Gemini + ChatGPT · accord pour la prod (1ᵉʳ oct.) ·
 lots : temporiser ce qui ne peut pas tourner, tracer, lancer dès que possible (3 oct.).
+
+## 6. Plan des lots de contenu (mesuré le 3 oct. — déclencheur : merge de PR #55)
+
+Le budget (648 lignes : A=522 B=118 C=8) s'affiche **4 526 fois** sur les 130
+trames jouées, et c'est très concentré : **19 textes = 50 % de l'écran, 83 = 80 %**.
+Le tronc commun pèse **58× plus** à l'écran qu'une question de cas (57,8 contre
+1,0 apparition par ligne). Ordre : par ce que voit le candidat.
+
+| Lot | Contenu | Budget | À l'écran | Nature |
+|---|---|---|---|---|
+| **L0** | **Fachanamnese choisie selon la nature du motif** (47 cas, 91 paires absurdes : « Helm » aux 11 cas d'ortho dont aucun n'est concerné, Reithosen à 6 cas sans rachis, nitro sans douleur thoracique, FSME/Tetanus à l'hépatite B…) + sondes ortho/neuro-kraft | −21 (**C → 0**) | 104 + 91 paires retirées | règle mécanique (champ déclaré `motiv` pour 13 cas Ortho/Angio + `fachSkip` pour le résidu) + 17 textes relus |
+| **L1** | Tronc commun (pers, veg, vor, med, all, nox, fam) | −44 | **2 543** + 2 600 répliques patient | réécriture relue, même id (0 réponse nouvelle) |
+| **L2** | Aktuell commun + Frauen — dont `FRUEHER()` : **1 édition = −10** | −58 | 717 + 982 | réécriture relue |
+| **L1b** | `seedGuides.ts` (page Guides), aligné sur L1/L2 | −24 | page Guides | quasi-copie |
+| **L4–L9** | Fachanamnesen par poids à l'écran | −230 | ≈ 900 | clinique |
+| **L10–L15** | Questions propres aux cas | −271 | 271 | clinique, en dernier |
+
+**L0 + L1 + L2 ≈ 75 % de ce qui s'affiche.** Décision de `main` (révocable) :
+`motiv` déclaré (13 cas, réutilisable pour les futurs imports) **et** `fachSkip`
+pour le résidu clinique. Rapport complet : sortie de l'agent `plan-lots-contenu`,
+scripts dans le scratchpad de session (`lots/`).
