@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { adaptChaptersForCase, caseQuestionsForFach, fachChapterForCase } from './anamneseChapters';
-import { phraseIsCaseSpecific, phraseProbes, phraseText } from './phrases';
+import { phraseAlts, phraseFollowUp, phraseIsCaseSpecific, phraseProbes, phraseText } from './phrases';
 import type { Case } from '@/db/types';
 
 // Cas minimal : seuls les champs lus par l'adaptation comptent.
@@ -116,8 +116,84 @@ describe('Un seul endroit par trame (FACH_COVERS, aktuellSkip, règles de Fach)'
     expect(probes(w70)).not.toContain('fach-gefaess-hormone');
     expect(probes(w30)).toContain('fach-gefaess-hormone');
   });
+  it('fachSkip retire une sonde de Fach qui n’a pas de sens pour ce cas', () => {
+    const c = mk({ specialty: 'Dermatologie', patientSheet: { personalia: { name: 'X', age: 30, geschlecht: 'w' }, leitsymptomKategorie: 'atemnot', fachSkip: ['fach-derma-muttermal'] } });
+    expect(fachChapterForCase(c)!.chapter.questions.flatMap(phraseProbes)).not.toContain('fach-derma-muttermal');
+  });
   it('la Sexualanamnese urologique ne demande pas la contraception à 76 ans', () => {
     const c = mk({ specialty: 'Urologie', patientSheet: { personalia: { name: 'X', age: 76, geschlecht: 'w' }, schmerz: {} } });
     expect(fachChapterForCase(c)!.chapter.questions.map(phraseText).join(' ')).not.toMatch(/verhüten/);
+  });
+});
+
+describe('La Fach suit la nature du motif (série 3, L0)', () => {
+  type Sheet = Record<string, unknown>;
+  const mkF = (specialty: string, sheet: Sheet, personalia: Sheet = {}) => ({
+    specialty, caseSpecificQuestions: [],
+    patientSheet: { personalia: { name: 'X', age: 50, geschlecht: 'm', ...personalia }, ...sheet },
+  } as unknown as Case);
+  const fq = (c: Case) => fachChapterForCase(c)!.chapter.questions;
+  const probes = (c: Case) => fq(c).flatMap(phraseProbes);
+  const q = (c: Case, probe: string) => fq(c).find((x) => phraseProbes(x).includes(probe));
+  const ortho = (trauma: boolean, region: string) => mkF('Orthopädie', { schmerz: { ort: 'x' }, motiv: { trauma, region } });
+
+  it('ni casque ni relance de chute sans traumatisme ; jamais de casque pour un traumatisme', () => {
+    const non = q(ortho(false, 'lws'), 'fach-ortho-mechanismus')!;
+    expect([phraseText(non), ...phraseAlts(non), ...phraseFollowUp(non)].join(' ')).not.toMatch(/Helm|gestürzt — auf welche Seite/);
+    const tr = q(ortho(true, 'untere'), 'fach-ortho-mechanismus')!;
+    expect([phraseText(tr), ...phraseAlts(tr), ...phraseFollowUp(tr)].join(' ')).not.toMatch(/Helm/);
+    expect(phraseFollowUp(tr).length).toBeGreaterThan(0);
+  });
+  it('queue de cheval : seulement pour le rachis', () => {
+    expect(probes(ortho(false, 'lws'))).toContain('fach-ortho-cauda');
+    expect(probes(ortho(false, 'bws'))).toContain('fach-ortho-cauda');
+    for (const r of ['untere', 'obere']) expect(probes(ortho(true, r))).not.toContain('fach-ortho-cauda');
+  });
+  it('gonflement articulaire : pas pour le rachis', () => {
+    for (const r of ['lws', 'bws', 'hws']) expect(probes(ortho(false, r))).not.toContain('fach-ortho-schwellung');
+    expect(probes(ortho(true, 'untere'))).toContain('fach-ortho-schwellung');
+  });
+  it('perfusion et appui : la main OU le pied, le bras OU la jambe — jamais les deux', () => {
+    const up = ortho(true, 'obere'), low = ortho(true, 'untere');
+    expect(phraseText(q(up, 'fach-ortho-durchblutung')!)).toMatch(/Hand/);
+    expect(phraseText(q(up, 'fach-ortho-durchblutung')!)).not.toMatch(/Fuß/);
+    expect(phraseText(q(low, 'fach-ortho-durchblutung')!)).toMatch(/Fuß/);
+    expect(phraseText(q(low, 'fach-ortho-durchblutung')!)).not.toMatch(/Hand/);
+    expect(phraseText(q(up, 'fach-ortho-belastung')!)).not.toMatch(/Bein|gehen/);
+    expect(phraseText(q(low, 'fach-ortho-belastung')!)).not.toMatch(/Arm/);
+    for (const r of ['bws', 'hws']) expect(probes(ortho(false, r))).not.toContain('fach-ortho-durchblutung');
+  });
+  it('Nitrospray et irradiation angineuse : seulement avec une douleur thoracique', () => {
+    const thorax = mkF('Kardiologie', { schmerz: { ort: 'hinter dem Brustbein' } });
+    const ohne = mkF('Kardiologie', { leitsymptomKategorie: 'anfall' });
+    const kopf = mkF('Kardiologie', { schmerz: { ort: 'Hinterkopf beidseits' }, leitsymptomKategorie: 'allgemein' });
+    expect(probes(thorax)).toEqual(expect.arrayContaining(['fach-kardio-nitro', 'fach-kardio-ausstrahlung']));
+    for (const c of [ohne, kopf]) {
+      expect(probes(c)).not.toContain('fach-kardio-nitro');
+      expect(probes(c)).not.toContain('fach-kardio-ausstrahlung');
+    }
+  });
+  it('la douleur thoracique se reconnaît sous ses noms médicaux, pas dans « Schmerz »', () => {
+    for (const ort of ['linksthorakal', 'thorakal, atemabhängig', 'präkordial', 'in der Herzgegend'])
+      expect(probes(mkF('Kardiologie', { schmerz: { ort } }))).toContain('fach-kardio-nitro');
+    expect(probes(mkF('Kardiologie', { schmerz: { ort: 'Schmerzen im Nacken' } }))).not.toContain('fach-kardio-nitro');
+  });
+  it('signes autonomes (cluster) : seulement pour une douleur de la tête', () => {
+    expect(probes(mkF('Neurologie', { schmerz: { ort: 'linke Kopfhälfte, Schläfe' } }))).toContain('fach-neuro-autonom');
+    expect(probes(mkF('Neurologie', { leitsymptomKategorie: 'neurologisch', schmerz: { ort: 'holozephal, Kopf' } }))).not.toContain('fach-neuro-autonom');
+    expect(probes(mkF('Neurologie', { schmerz: { ort: 'rechte Schulter' } }))).not.toContain('fach-neuro-autonom');
+  });
+  it('claudication, douleur de décubitus et plaie de jambe : pas pour une aorte', () => {
+    const aorta = mkF('Angiologie', { schmerz: { ort: 'Rücken' }, motiv: { trauma: false, region: 'thorax' } });
+    for (const p of ['fach-gefaess-gehstrecke', 'fach-gefaess-ruheschmerz']) expect(probes(aorta)).not.toContain(p);
+    // La malperfusion d'un membre reste la question : sans la plaie de jambe.
+    const wunde = phraseText(q(aorta, 'fach-gefaess-wunde')!);
+    expect(wunde).toMatch(/Fuß kalt/);
+    expect(wunde).not.toMatch(/Wunde/);
+    expect(probes(mkF('Angiologie', { schmerz: { ort: 'Wade' } }))).toContain('fach-gefaess-gehstrecke');
+  });
+  it('jet urinaire : pas chez une femme', () => {
+    expect(probes(mkF('Urologie', { schmerz: {} }, { geschlecht: 'w' }))).not.toContain('fach-uro-strahl');
+    expect(probes(mkF('Urologie', { schmerz: {} }))).toContain('fach-uro-strahl');
   });
 });

@@ -48,13 +48,13 @@ export function PreSimulationPage() {
         {/* Le départ, en tête de page : jamais enfoui sous les réglages. */}
         <div className="mt-3 flex flex-col items-center gap-1">
           <StartButton caseId={c.id} teil={teil} taskId={taskId} />
-          <Link to={`/cas/${c.id}`} className="btn-ghost text-xs">← Fiche du cas</Link>
+          <Link viewTransition to={`/cas/${c.id}`} className="btn-ghost text-xs">← Fiche du cas</Link>
         </div>
       </header>
 
       {/* 2 — La partie : sa propre boîte, au-dessus de l'action ; la complète
              d'un bloc, les trois Teile nés d'une division (FB2-P). */}
-      <section className="mx-auto max-w-lg rounded-2xl border border-slate-200 bg-white/60 p-3 backdrop-blur-sm dark:border-ink-600 dark:bg-ink-800/60" aria-label="Quelle partie">
+      <section className="card mx-auto max-w-lg p-3" aria-label="Quelle partie">
         <ModeChooser value={teil} onChange={(t) => setTeil(t)} />
       </section>
 

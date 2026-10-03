@@ -100,3 +100,56 @@ Agents arrêtés le 3 oct. par la limite hebdomadaire ; tout est sur disque.
 2. **Programme** — revue de clôture interrompue (dernière sonde : trou `taskId` explicite, kind `external-ai`) → relancer, puis intégration + branchements transversaux.
 3. **Lot L0** — relecture clinique interrompue → relancer ; revue mécanique : vérifier si elle a abouti.
 4. **Nouveaux constats FB3-G1→G7** (registre `BACKLOG-FEEDBACK.md` § G) → **nouveau lot en tête de file : les questions « pour ce cas », dans l'ordre d'affichage** (décision de la direction, 3 oct.), qui remplace l'ordre L1→L2 prévu au §6 : audit région/organe ↔ cas (« wirklich im Knie » pour une hanche), présuppositions (« zweiten Stock »), puis irradiation selon la région (FB3-G1, extension de L0), le bug d'affichage de la relance alcool (FB3-G4), et `case-leberzirrhose` (FB3-G5/G6) en premier des « premiers cas » (FB3-G7).
+
+## 10. Objectif de couverture — décision de la direction (3 oct.) : **100 %**
+
+Les lots s'enchaînent jusqu'à épuisement, sans saut : **L0** (en revue) →
+**questions « pour ce cas » dans l'ordre d'affichage** (+ FB3-G) → **L1** tronc
+commun → **L2** motif de consultation → **L1b** guides → **L4–L9** Fachanamnesen
+→ **L10–L15** questions de cas restantes. Critère de fin : budget A = B = C = 0
+(seules exceptions : salves d'Oberarzt `D2`/`D3`, autorisées par la direction le
+30 sept., comptées et jamais à la hausse) ; les 130 cas passés au crible de
+cohérence (région, présupposition, ordre, nature du motif) ; audit des premiers
+cas (FB3-G7) soldé.
+
+**Découpage du lot « questions pour ce cas »** (audit rendu le 3 oct. :
+[`audit-questions-du-cas-serie3.md`](audit-questions-du-cas-serie3.md) — 874
+questions, 271 composées, 8 présuppositions, 1 région fausse) :
+
+| Lot | Contenu | Nature |
+|---|---|---|
+| **Q0** | « Falls ja » sur la relance alcool (`:675`) + 12 relances sœurs ; `CaseQuestion.followUp` ; +3 `FACH_COVERS` (irradiation posée 2-3 fois dans 17 cas) ; `checkQuestionOrder` étendu (adjectifs, ordinal, « Sie nehmen… », exclusion par trame) ; garde CI territoire ⊂ région | mécanique |
+| **Q1** | P0 de `aktuell` : 8 présuppositions, coxarthrose ×3, 9 irradiations, 6 répétitions, leberzirrhose ×7 | clinique |
+| **Q2** | 40 composées « fermée ? + W- ? » → relance « Falls ja » | mécanique relue |
+| **Q3–Q5** | composées cliniques de `aktuell` (A 110, B 34), cas tier 1 d'abord | clinique |
+| **Q6–Q8** | chapitres suivants dans l'ordre d'affichage + arbitrage des 6 natures de motif | clinique |
+| **Lc1–Lc3** | FB3-G6/G7 : leberzirrhose (fiche, Fachwissen, `syndrome-map` au lieu du bonhomme), fiches C0 tier 1, puis C1/C2 < 15 k | clinique |
+
+Décisions de `main` : leberzirrhose passe en `motiv` **schmerz** (relecteur
+clinique confirme au lot) ; la note « Vor jedem Schmerzmittel » (`:91`) se
+rattache à la branche « sehr stark » ; la relance automutilation (psy `:1464`)
+est tranchée par le relecteur clinique de Q0. **Q0 démarre au merge de L0**
+(mêmes fichiers : `anamneseChapters.ts`). Ensuite L1 → L15 reprennent ce qui
+reste du budget hors questions du cas.
+
+## 11. Registre des workflows en vol — à relancer sans exception
+
+Règle : à chaque reprise (limite d'usage, coupure), `main` relit cette table et
+relance chaque ligne non close, par son identifiant d'agent (`SendMessage`).
+**Tenue du registre** : la session `main` de la série 3 (confirmé par la direction
+le 3 oct.) ; les autres sessions travaillent sur d'autres features et ne relancent
+rien de cette table.
+
+| Workflow | Worktree / branche | Agent | Étape | Clos ? |
+|---|---|---|---|---|
+| Intégration primitives | `doctopus-s3-primitives` · `feat/s3-primitives` | `ad901ff9c385851ac` | **PR #58 mergée** (`8e7474f7`, 3 oct.) | **oui** |
+| Intégration programme | `doctopus-s3-programme` · `feat/s3-programme` | `a276d650bc56bda9b` | livré `3e9ae0e` (989/989 sous `--maxWorkers=2`) ; re-merge de `main` (3 conflits avec #58) → push → **main ouvre la PR** → serveur déjà en prod (017 + `events` v9) | non |
+| Lot L0 — revue mécanique | `doctopus-s3-lot0` | `a85f52786072e2105` | rendue : Request changes (I1 fiche simulant « Fuß » sur la main, I2 plancher des paires, I3 `fachSkip` non validé) | **oui** |
+| Lot L0 — fixeur | `doctopus-s3-lot0` · `feat/s3-lot0-fach-nature` | `ac508d333980d928d` | **PR #59 mergée** (`1b9c03a7`, 3 oct.) | **oui** |
+| Audit questions du cas + FB3-G | lecture seule | `ac7225d1457bf293d` | rendu → `audit-questions-du-cas-serie3.md` | **oui** |
+| Suivis programme | — | — | `StatusBadge` sans usage (`components/ui.tsx`) ; tâche figée sur un autre appareil non rapatriée → cochée par le contenu seulement | à lancer après merge |
+| Réserves primitives (suivi) | — | — | `CardFlip` (`.card`) dans le verre de `CardToast` : choisir sa matière en petit ; `.input` flouté dans cartes floutées (antérieur) ; « Dokumentation » touche sa tuile à 390 (`ModeChooser`) | à lancer après merge |
+| Lot Q0 — implémenteur | `doctopus-s3-q0` · `feat/s3-q0-questions-du-cas` | `acd90f173726a129a` | « Falls ja », `CaseQuestion.followUp`, `FACH_COVERS`, détecteur d'ordre, garde G1 → push → revue mécanique + clinique → PR | non |
+| Lots Q1 → Q8, Lc1 → Lc3 | — | — | §10, l'un après l'autre après Q0 | à lancer |
+| C6 — agent testeur | — | — | après intégration programme (primitives mergée) | à lancer |
+| Lots L1 → L15 | — | — | §10, l'un après l'autre (mêmes fichiers) | à lancer |

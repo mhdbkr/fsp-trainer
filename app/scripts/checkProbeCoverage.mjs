@@ -48,19 +48,25 @@ for (const raw of chunks) {
   if (!kat || !VARIANT[kat]) { failures++; rows.push({ id, specialty, weiblich, have: 0, need: 0, missing: [`leitsymptomKategorie manquante ou inconnue (${kat})`], unknown: [] }); continue; }
   // Dimensions exclues pour CE cas (aktuellSkip) : pas de réponse exigée.
   const skip = new Set([...(chunk.match(/aktuellSkip:\s*\[([^\]]*)\]/) || ['', ''])[1].matchAll(/'([a-z0-9-]+)'/g)].map((x) => x[1]));
+  // `fachSkip` (série 3, L0) retire une sonde de la trame JOUÉE, pas de la fiche :
+  // le simulant y répond si le candidat la pose de lui-même — la réponse reste
+  // exigée. Chaque id doit appartenir à la Fach que le cas joue.
+  const fachSkip = [...(chunk.match(/fachSkip:\s*\[([^\]]*)\]/) || ['', ''])[1].matchAll(/'([^']+)'/g)].map((x) => x[1]);
+  const badSkip = fachSkip.filter((id) => !fachFor(specialty).includes(id));
   const applicable = [...BASE, ...VARIANT[kat].filter((id) => !skip.has(id)), ...fachFor(specialty), ...(weiblich ? FRAUEN : [])];
   const missing = applicable.filter((p) => !keys.has(p));
   const unknown = [...keys].filter((k) => !knownIds.has(k));
-  if (missing.length || unknown.length) failures++;
-  rows.push({ id, specialty, weiblich, need: applicable.length, have: keys.size, missing, unknown });
+  if (missing.length || unknown.length || badSkip.length) failures++;
+  rows.push({ id, specialty, weiblich, need: applicable.length, have: keys.size, missing, unknown, badSkip });
 }
 
 // --- 3) Rapport --------------------------------------------------------------
 for (const r of rows) {
-  const status = r.missing.length || r.unknown.length ? '❌' : '✅';
+  const status = r.missing.length || r.unknown.length || r.badSkip?.length ? '❌' : '✅';
   console.log(`${status} ${r.id.padEnd(26)} [${r.specialty}${r.weiblich ? ', ♀' : ''}]  ${r.have}/${r.need} sondes`);
   if (r.missing.length) console.log(`   MANQUE (${r.missing.length}) : ${r.missing.join(', ')}`);
   if (r.unknown.length) console.log(`   INCONNU (${r.unknown.length}) : ${r.unknown.join(', ')}`);
+  if (r.badSkip?.length) console.log(`   fachSkip HORS de la Fach jouée (${r.specialty}) : ${r.badSkip.join(', ')}`);
 }
 console.log(`\n${failures === 0 ? '✅ COUVERTURE COMPLÈTE' : `❌ ${failures} cas incomplet(s)`} — ${rows.length} cas, ${BASE.length} sondes de base + Fach/Frauen.`);
 process.exit(failures === 0 ? 0 : 1);

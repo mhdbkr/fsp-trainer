@@ -7,6 +7,7 @@ import { useAllTerms, useDecks, useDeckTerms, useFavorites, useCase } from '@/ho
 import type { AnyTerm } from '@/lib/collections/allTerms';
 import { isPersonalView, rateTerm } from '@/lib/collections/allTerms';
 import { CardFlip, type CardDirection } from '@/components/CardFlip';
+import { useSwap } from '@/components/useSwap';
 import { FAVORITES_DECK_ID } from '@/db/types';
 import { reviewSrs, type Grade } from '@/lib/srs';
 import { markIntroduced, markReviewed } from '@/lib/srsBudget';
@@ -100,6 +101,19 @@ export function DrillPage() {
   const finished = started && queue.length > 0 && idx >= queue.length;
   useEffect(() => { if (finished) journaliser.current(); }, [finished]);
   useEffect(() => () => journaliser.current(), []);
+
+  // ── L'ÉTAT DE SORTIE (s3-primitives T6) ──────────────────────────────────
+  // Il y avait deux états (`revealed` vrai/faux) pour TROIS moments : question,
+  // réponse, passage. Le troisième n'était pas modélisé, donc `setRevealed(false)`
+  // et `setIdx(i+1)` tombaient dans le même commit : la face recto portait déjà le
+  // mot suivant au frame 0 d'une rotation de 500 ms, il surgissait de biais vers
+  // 250 ms, pendant que le verso — la réponse qu'on venait de noter — se vidait
+  // d'un coup. `useSwap` donne ce moment manquant à toute l'app ; ici il retient
+  // la CARTE affichée (pas seulement son index : une « Nouvelle session »
+  // remplace la file entière, un index retenu pointerait alors la mauvaise carte)
+  // et le dénominateur du compteur, le temps de la sortie.
+  // Appelé avant tout retour anticipé : c'est un hook.
+  const { value: shown, leaving } = useSwap(idx, { idx, total: queue.length, card: queue[idx] as AnyTerm | undefined });
 
   if (!begriffe || !ctx) return <div className="text-slate-400">Chargement…</div>;
 
@@ -209,7 +223,9 @@ export function DrillPage() {
     );
   }
 
-  if (idx >= queue.length) {
+  // Fin de session = plus de carte RETENUE. Gaté sur le swap et non sur `idx`
+  // pour que la dernière carte ait droit à sa sortie comme les autres.
+  if (!shown.card) {
     return (
       <div className="mx-auto max-w-xl space-y-5 text-center">
         <div className="card p-8">
@@ -225,20 +241,25 @@ export function DrillPage() {
     );
   }
 
-  const frozen = queue[idx];
+  const frozen = shown.card;
   // La file (`queue`) est une copie figée au démarrage : une Bedeutung modifiée pendant la
   // session (carte personnelle, TermSheet) doit s'afficher — relire le contenu vivant depuis
   // `begriffe` (live), garder le SRS de la file pour l'ordre de notation.
   const live = begriffe.find((b) => b.id === frozen.id);
   const card = live ? { ...frozen, translationSimple: live.translationSimple, ...(isPersonalView(live) && live.context !== undefined ? { context: live.context } : {}) } : frozen;
+  // Pendant la sortie on continue de montrer la RÉPONSE : c'est la carte qu'on
+  // vient de noter qui s'en va, pas une carte vide qui tourne.
+  const showAnswer = revealed || leaving;
 
-  const grade = async (g: Grade) => {
-    noted.current += 1;                                    // R-C3 : avant tout await
+  const grade = (g: Grade) => {
+    noted.current += 1;                                    // R-C3 : compté au clic
     const wasNew = card.srs.state === 'Neu';
-    await rateTerm(card, g);
     const newSrs = reviewSrs(card.srs, g);
-    if (wasNew) void markIntroduced();
-    else void markReviewed();
+    // Le retour visuel part AVANT l'écriture IndexedDB. `await rateTerm(...)`
+    // précédait tout rendu : le délai clic → début d'animation valait la latence
+    // disque (~5 à ~60 ms selon la pression), donc jamais le même d'un clic à
+    // l'autre — c'était la source mesurée du caractère « saccadé », indépendante
+    // du bug de contenu. L'écriture n'a aucune raison de tenir l'image.
     setStats((s) => ({ done: s.done + 1, again: s.again + (g < 3 ? 1 : 0) }));
     if (g < 3) {
       // remet la carte en fin de file pour la revoir dans la session
@@ -246,30 +267,46 @@ export function DrillPage() {
     }
     setRevealed(false);
     setIdx((i) => i + 1);
+    void rateTerm(card, g).then(() => { if (wasNew) void markIntroduced(); else void markReviewed(); });
   };
 
   return (
     <div className="mx-auto max-w-xl space-y-4">
       <div className="flex items-center justify-between text-sm text-slate-400">
         <Link to={exitTo()} className="hover:text-brand-600">✕ Quitter</Link>
-        <span>{idx + 1} / {queue.length}</span>
+        {/* `tnum` : sans chiffres tabulaires la ligne sautillait au passage de
+            9 à 10. Position ET dénominateur viennent du swap — le compteur
+            change avec la carte, jamais avant elle. */}
+        <span className="tnum">{shown.idx + 1} / {shown.total}</span>
       </div>
       <div className="h-1.5 w-full overflow-hidden rounded-full bg-slate-200 dark:bg-slate-800">
-        <div className="h-full bg-brand-500 transition-all" style={{ width: `${(idx / queue.length) * 100}%` }} />
+        {/* `transition-all` sans durée tombait sur les 150 ms `ease` par défaut de
+            Tailwind — la seule courbe de l'app qui n'est pas la nôtre. Et on
+            anime `transform`, pas `width` : une largeur relance la mise en page
+            à chaque frame, un `scaleX` depuis la gauche reste sur le compositeur. */}
+        <div className="h-full origin-left bg-brand-500 transition-transform duration-300 ease-fluid motion-reduce:transition-none" style={{ transform: `scaleX(${shown.idx / Math.max(shown.total, 1)})` }} />
       </div>
 
-      <CardFlip card={card} direction={direction} revealed={revealed} onFlip={() => setRevealed(true)} hint=" (Leertaste)" />
+      {/* La carte et ses notes sortent ENSEMBLE : ce sont un seul objet à
+          l'écran. `key` sur le bloc : l'entrant est un nouveau nœud, il naît
+          donc recto, sans rotation inverse à rattraper (faute (a) de l'audit). */}
+      <div key={shown.idx} className={leaving ? 'swap-out' : 'swap-in'}>
+        <CardFlip card={card} direction={direction} revealed={showAnswer} onFlip={() => setRevealed(true)} hint=" (Leertaste)" />
 
-      {revealed && (
-        <div className="grid grid-cols-4 gap-2">
-          <GradeBtn label="Wieder" sub="<1 min" color="rose" onClick={() => grade(0)} />
-          <GradeBtn label="Schwer" sub="1 j" color="amber" onClick={() => grade(3)} />
-          <GradeBtn label="Gut" sub={`${card.srs.repetitions >= 2 ? Math.round(card.srs.interval * card.srs.easeFactor) || 6 : card.srs.repetitions === 1 ? 6 : 1} j`} color="emerald" onClick={() => grade(4)} />
-          <GradeBtn label="Einfach" sub="+" color="sky" onClick={() => grade(5)} />
-        </div>
-      )}
+        {showAnswer && (
+          <div className="mt-4 grid grid-cols-4 gap-2">
+            <GradeBtn label="Wieder" sub="<1 min" color="rose" onClick={() => grade(0)} />
+            <GradeBtn label="Schwer" sub="1 j" color="amber" onClick={() => grade(3)} />
+            <GradeBtn label="Gut" sub={`${card.srs.repetitions >= 2 ? Math.round(card.srs.interval * card.srs.easeFactor) || 6 : card.srs.repetitions === 1 ? 6 : 1} j`} color="emerald" onClick={() => grade(4)} />
+            <GradeBtn label="Einfach" sub="+" color="sky" onClick={() => grade(5)} />
+          </div>
+        )}
+      </div>
 
-      <KeyboardShortcuts revealed={revealed} onReveal={() => setRevealed(true)} onGrade={grade} />
+      {/* AUCUNE touche pendant la sortie : l'objet visé n'est plus là. Ni
+          notation, ni Espace — qui retournait la carte SUIVANTE avant qu'elle
+          entre : la réponse s'affichait avant la question (fix-s3 I1). */}
+      <KeyboardShortcuts off={leaving} revealed={revealed} onReveal={() => setRevealed(true)} onGrade={grade} />
     </div>
   );
 }
@@ -305,11 +342,12 @@ function GradeBtn({ label, sub, color, onClick }: { label: string; sub: string; 
   );
 }
 
-function KeyboardShortcuts({ revealed, onReveal, onGrade }: { revealed: boolean; onReveal: () => void; onGrade: (g: Grade) => void }) {
+function KeyboardShortcuts({ off, revealed, onReveal, onGrade }: { off: boolean; revealed: boolean; onReveal: () => void; onGrade: (g: Grade) => void }) {
   useEffect(() => {
     const h = (e: KeyboardEvent) => {
       const target = e.target as HTMLElement | null;
       if (target?.closest('input, textarea, [contenteditable="true"]')) return;   // ne vole pas la frappe d'un éditeur ouvert (I1)
+      if (off) { if (e.key === ' ') e.preventDefault(); return; }   // pendant la sortie : Espace ne fait pas non plus défiler
       if (e.key === ' ' && !revealed) { e.preventDefault(); onReveal(); }
       else if (revealed) {
         if (e.key === '1') onGrade(0);
@@ -320,6 +358,6 @@ function KeyboardShortcuts({ revealed, onReveal, onGrade }: { revealed: boolean;
     };
     window.addEventListener('keydown', h);
     return () => window.removeEventListener('keydown', h);
-  }, [revealed, onReveal, onGrade]);
+  }, [off, revealed, onReveal, onGrade]);
   return null;
 }

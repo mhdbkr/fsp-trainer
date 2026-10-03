@@ -11,7 +11,7 @@ import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const here = dirname(fileURLToPath(import.meta.url));
-const REL = ['app/scripts/fixtures/atomicity-budget.json', 'app/scripts/fixtures/trame-symptoms-baseline.json'];
+const REL = ['app/scripts/fixtures/atomicity-budget.json', 'app/scripts/fixtures/trame-symptoms-baseline.json', 'app/scripts/fixtures/fach-nature-pairs.json'];
 const base = mkdtempSync(join(tmpdir(), 'fsp-floor-'));
 after(() => rmSync(base, { recursive: true, force: true }));
 const write = (edit = (_rel, j) => j) => {
@@ -40,6 +40,23 @@ test('une annotation relu de plus que la base → rouge', () => {
 test('une clé de la base absente de la branche → rouge', () => {
   write((rel, j) => (rel.includes('atomicity') ? { ...j, budget: { ...j.budget, Z: 0 } } : j));
   assert.equal(floor().status, 1);
+});
+
+// Lot L0 : la liste des paires absurdes est un plancher — une paire ne
+// disparaît pas (la porte vitest ne la verrait plus), une exemption `kept`
+// ne s'ajoute pas en silence.
+test('une paire (cas × sonde) de la base absente de la branche → rouge', () => {
+  write((rel, j) => (rel.includes('fach-nature') ? { ...j, groups: [...j.groups, { probe: 'fach-x-test', cases: ['case-fantome'] }] } : j));
+  const r = floor();
+  assert.equal(r.status, 1);
+  assert.match(r.stdout, /fach-x-test/);
+});
+
+test('une exemption `kept` de plus que la base → rouge', () => {
+  write((rel, j) => (rel.includes('fach-nature') ? { ...j, groups: j.groups.map(({ kept: _k, ...g }) => g) } : j));
+  const r = floor();
+  assert.equal(r.status, 1);
+  assert.match(r.stdout, /kept/);
 });
 
 test('fixture absent de la base (introduit par la branche) → vert, et dit pourquoi', () => {

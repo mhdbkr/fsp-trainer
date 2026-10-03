@@ -16,6 +16,15 @@ const PROBES = 'src/data/guides/anamneseProbes.ts';
 const BUDGET = 'scripts/fixtures/atomicity-budget.json';
 const CASES = 'src/data/seedCases.ts';
 const T = { timeout: 300_000 };
+// Les alternatives de membre que le lot L0 a résolues (C = 0). Pour prouver
+// que la règle C les refuse toujours, on les réinjecte dans la copie.
+const HIST = {
+  'fach-ortho-durchblutung': ["frage: 'Ist die betroffene Stelle kälter, blasser oder bläulich geworden?'", "frage: 'Haben Sie das Gefühl, dass die Hand oder der Fuß kälter, blasser oder bläulich geworden ist?'"],
+  'fach-ortho-belastung': ["frage: 'Können Sie die betroffene Seite noch belasten?'", "frage: 'Können Sie das Bein/den Arm noch belasten?'"],
+  'fach-neuro-kraft': ["frage: 'Haben Sie an Armen oder Beinen eine Schwäche bemerkt?'", "frage: 'Ist ein Arm oder Bein schwächer geworden?'"],
+  'fach-ortho-sensomotorik': ["frage: 'Haben Sie Kribbeln, ein Taubheitsgefühl oder weniger Kraft bemerkt?'", "frage: 'Haben Sie Kribbeln oder Kraftverlust in Arm oder Bein bemerkt?'"],
+};
+const withHist = (ids, fn) => ids.reduceRight((inner, id) => () => sb.mutate(PROBES, ...HIST[id], inner), fn)();
 
 test('budget intact → porte verte', T, () => assert.equal(gate().status, 0));
 
@@ -29,7 +38,8 @@ test('règle A — une sonde qui gagne un « ? » fait remonter le compteur → 
 });
 
 test('règle C — l\'alternative binaire du cas est refusée…', T, () => {
-  const r = gate('--rule', 'C', '--report');
+  const r = withHist(['fach-ortho-durchblutung', 'fach-ortho-belastung'], gate);
+  assert.equal(r.status, 1, 'C = 0 : une alternative réintroduite ferme la porte');
   assert.match(r.stdout, /fach-ortho-durchblutung/, 'la main OU le pied : le cas le sait, c\'est un trou');
   assert.match(r.stdout, /fach-ortho-belastung/);
 });
@@ -152,17 +162,17 @@ test('I7 — la salve à trois de case-reizdarm est comptée (D3)', T, () => {
 
 // INV-42 : test de discrimination obligatoire (contrat frage-atomique §3.3).
 test('I8 — INV-42 : les alternatives de membre échouent, l\'irradiation et la topographie passent', T, () => {
-  const out = gate('--rule', 'C', '--report').stdout;
+  const out = withHist(Object.keys(HIST), () => gate('--rule', 'C', '--report')).stdout;
   for (const id of ['fach-ortho-durchblutung', 'fach-ortho-belastung', 'fach-neuro-kraft', 'fach-ortho-sensomotorik']) assert.match(out, new RegExp(id), `${id} : le cas sait quel membre`);
   for (const id of ['fach-kardio-ausstrahlung', 'fach-uro-flanke', 'fach-ortho-ausstrahlung', 'case-cholezystitis', 'case-erysipel']) assert.doesNotMatch(out, new RegExp(id), `${id} : la topographie EST la question`);
 });
 
 test('I8 — la variante résolue par le cas n\'est plus une alternative', T, () => {
-  const r = sb.mutate(PROBES,
-    "frage: 'Ist ein Arm oder Bein schwächer geworden?",
-    "frage: 'Ist der Arm schwächer geworden?",
+  const r = sb.mutate(PROBES, HIST['fach-neuro-kraft'][0], "frage: 'Ist der Arm schwächer geworden?'",
     () => gate('--rule', 'C', '--report'));
   assert.doesNotMatch(r.stdout, /sondes \(fach-neuro-kraft\)/);
+  // « an Armen oder Beinen » dépiste les deux membres (L0) : pas une alternative.
+  assert.doesNotMatch(gate('--rule', 'C', '--report').stdout, /fach-neuro-kraft/);
 });
 
 // --- Re-revue : quatrième contournement et resserrages ----------------------
@@ -177,8 +187,8 @@ test('I-1 — les guillemets ne masquent une interrogation que chez l\'Oberarzt'
 
 test('m-3 — « anziehen » n\'est pas un verbe d\'irradiation', T, () => {
   const r = sb.mutate(PROBES,
-    "frage: 'Ist ein Arm oder Bein schwächer geworden?",
-    "frage: 'Können Sie sich mit einem Arm oder Bein schlechter anziehen?",
+    HIST['fach-neuro-kraft'][0],
+    "frage: 'Können Sie sich mit einem Arm oder Bein schlechter anziehen?'",
     () => gate('--rule', 'C', '--report'));
   assert.match(r.stdout, /sondes \(fach-neuro-kraft\)/);
 });

@@ -42,6 +42,10 @@ export function PendingExternalSimCard({ onlyCaseId }: { onlyCaseId?: string } =
     // Snooze persistant (« Pas maintenant ») : la trace reste posée (elle
     // expire toujours à 12 h), mais la carte reste masquée jusqu'à snoozedUntil.
     if (x.snoozedUntil && Date.now() < x.snoozedUntil) return null;
+    // Le cas a été joué et enregistré dans l'app après le lancement de l'IA
+    // (lanceur ouvert pendant la partie, puis partie finie ici) : la trace est
+    // caduque, ne pas redemander une évaluation déjà faite.
+    if (await db.simulations.where('caseId').equals(x.caseId).filter((s) => s.date >= x.at).count()) return null;
     return x;
   }, [onlyCaseId], null);
   const caseId = p?.caseId;
