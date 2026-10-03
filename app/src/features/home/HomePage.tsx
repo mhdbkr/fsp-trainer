@@ -13,7 +13,6 @@ import { format } from 'date-fns';
 import { fr } from 'date-fns/locale';
 import { useCases, useFachbegriffe, useProgramConfig } from '@/hooks/useData';
 import { useCaseProgress, useDayPlan, useTrainingEvents } from '@/features/program/useProgram';
-import { useUi } from '@/store/ui';
 import { dueCount, streakFromDays, weakCases } from '@/lib/stats';
 import { workedDayKeys } from '@/lib/journal';
 import { planProgress, sessionDuJour } from '@/lib/program';
@@ -34,7 +33,6 @@ export function HomePage() {
   const plan = useDayPlan();
   const events = useTrainingEvents();
   const progress = useCaseProgress();
-  useUi((s) => s.targetCenter);   // abonnement conservé : le centre visé pilote d'autres vues
 
   if (!cases || !begriffe || !events || !progress || config === undefined || plan === undefined) {
     return <div className="flex h-64 items-center justify-center text-slate-400">Chargement…</div>;
