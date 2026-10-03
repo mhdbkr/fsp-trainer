@@ -135,3 +135,11 @@ describe('G1 — l’irradiation est posée UNE fois', () => {
     expect(played(byId.get('case-nierenkolik')!).flatMap(phraseProbes)).not.toContain('akt-ausstrahlung');
   });
 });
+
+describe('Revue clinique Q0 — C-2', () => {
+  it('l\'irradiation angineuse nomme aussi l\'épaule (la péricardite répond « In die linke Schulter… »)', () => {
+    const q = fachQ('perikarditis', 'fach-kardio-ausstrahlung')!;
+    expect(phraseText(q)).toMatch(/Schulter/);
+    expect(byId.get('case-perikarditis')!.patientSheet.antworten!['fach-kardio-ausstrahlung']).toMatch(/Schulter/);
+  });
+});

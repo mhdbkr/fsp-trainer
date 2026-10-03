@@ -115,7 +115,7 @@ export const FACH_PROBES: Partial<Record<Specialty, AnamneseProbe[]>> = {
   Kardiologie: [
     { id: 'fach-kardio-brust', kapitel: 'fach', frage: 'Haben Sie Schmerzen oder ein Engegefühl in der Brust? Wo genau — hinter dem Brustbein oder in der Magengrube?' },
     { id: 'fach-kardio-belastung', kapitel: 'fach', frage: 'Treten die Beschwerden nur bei Belastung oder auch in Ruhe auf? Wie lange dauern sie?' },
-    { id: 'fach-kardio-ausstrahlung', kapitel: 'fach', frage: 'Strahlen sie in den linken Arm, den Hals, den Unterkiefer oder den Rücken aus?', deepens: 'akt-ausstrahlung' },
+    { id: 'fach-kardio-ausstrahlung', kapitel: 'fach', frage: 'Strahlen sie in den linken Arm, die Schulter, den Hals, den Unterkiefer oder den Rücken aus?', deepens: 'akt-ausstrahlung' },
     { id: 'fach-kardio-atem', kapitel: 'fach', frage: 'Hängen die Beschwerden mit dem Atmen, dem Essen oder der Körperlage zusammen?' },
     { id: 'fach-kardio-nitro', kapitel: 'fach', frage: 'Haben Sie ein Nitrospray benutzt? Hat es geholfen?' },
     { id: 'fach-kardio-herzrasen', kapitel: 'fach', frage: 'Haben Sie Herzrasen, Herzklopfen oder Herzstolpern bemerkt?' },

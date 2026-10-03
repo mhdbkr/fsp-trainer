@@ -767,7 +767,7 @@ export const FACHANAMNESEN: FachanamneseGuide[] = [
         label: 'Schlüsselfrage',
       },
       {
-        text: 'Strahlen sie in den linken Arm, den Hals, den Unterkiefer oder den Rücken aus?',
+        text: 'Strahlen sie in den linken Arm, die Schulter, den Hals, den Unterkiefer oder den Rücken aus?',
         probe: 'fach-kardio-ausstrahlung',
       },
       {

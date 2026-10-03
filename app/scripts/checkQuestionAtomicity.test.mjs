@@ -53,7 +53,7 @@ test('…et l\'énumération d\'irradiation ne l\'est PAS', T, () => {
 // la même paire bras/jambe redevient une alternative que le cas tranche.
 test('règle C — sans verbe d\'irradiation, « Arm oder Bein » est refusé', T, () => {
   const r = sb.mutate(PROBES,
-    'Strahlen sie in den linken Arm, den Hals, den Unterkiefer oder den Rücken aus?',
+    'Strahlen sie in den linken Arm, die Schulter, den Hals, den Unterkiefer oder den Rücken aus?',
     'Haben Sie Schmerzen im linken Arm oder im Bein?',
     () => gate('--rule', 'C', '--report'));
   assert.match(r.stdout, /fach-kardio-ausstrahlung/);
