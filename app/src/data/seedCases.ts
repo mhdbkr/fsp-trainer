@@ -41616,7 +41616,7 @@ export function seedCases(): Case[] {
         { frage: 'Sie sagen, Sie hätten sich zweimal auf Corona getestet: Wie genau haben Sie den Abstrich gemacht — nur vorne in der Nase oder tief im Rachen? An welchem Tag, und was für ein Test war das?', kapitel: 'aktuell' },
         { frage: 'Waren Sie während Ihrer Auslandsreise in einem Malariagebiet, und haben Sie dort eine Malariaprophylaxe eingenommen — welche, und wie regelmäßig?', kapitel: 'familie-sozial' },
         { frage: 'Sind Sie gegen Grippe geimpft? Wann zuletzt, und wenn nicht — was hält Sie davon ab?', kapitel: 'vorerkrankungen' },
-        { frage: 'Bekommen Sie Luftnot, ein Engegefühl in der Brust oder pfeifende Atmung? Brauchen Sie Ihr Notfallspray häufiger als sonst?', kapitel: 'aktuell' },
+        { frage: 'Bekommen Sie Luftnot, ein Engegefühl in der Brust oder pfeifende Atmung?', kapitel: 'aktuell', followUp: 'Falls ja: Was nehmen Sie dagegen, und wie oft in den letzten Tagen?' },
         { frage: 'Ist Ihr Urin dunkler geworden, und sind die Muskelschmerzen so stark, dass Sie kaum aufstehen können?', kapitel: 'aktuell' },
       ],
       examinerQuestions: [
