@@ -80,7 +80,7 @@ describe('Candidate synthétique — 14 jours ouvrés, 2 jours manqués, un dril
     await forAll(6, async (r, seed) => {
       await resetWorld();
       const cfg: ProgramConfig = {
-        startDate: '2026-10-05', examDate: '2026-12-18', intensity: 'mittel', hoursPerSession: 3,
+        startDate: '2026-10-05', examDate: r.pick(['2026-12-18', '2026-10-23']), intensity: 'mittel', hoursPerSession: 3,
         offDays: [0, 6], prioritySpecialties: [], selfLevel: {}, createdAt: 0, modus: 'teil-first',
       } as ProgramConfig;
       await db.meta.put({ key: 'program', value: cfg } as never);
@@ -116,6 +116,12 @@ describe('Candidate synthétique — 14 jours ouvrés, 2 jours manqués, un dril
         // Après des jours manqués, le jour ne se gonfle pas pour « rattraper » : même budget, jamais dépassé.
         const prevu = plan.tasks.filter((t) => t.kind !== 'examen-blanc').reduce((n, t) => n + t.estMin, 0);
         expect(prevu, ctx(`rattrapage silencieux : ${prevu} min prévues pour un budget de ${plan.targetMin}`)).toBeLessThanOrEqual(plan.targetMin);
+
+        // Dernière ligne droite : la répétition générale (examen à blanc) entre dans le plan, sans le gonfler.
+        if (taperDays(cfg).has(date)) {
+          bilan.tapers++;
+          expect(plan.tasks.some((t) => t.kind === 'examen-blanc'), ctx('INV-12 : jour de dernière ligne droite sans répétition générale')).toBe(true);
+        }
 
         // INV-4 sur ce plan (teil-first : seul mode où la diversité est une contrainte dure).
         if (plan.mode === 'teil-first') {
@@ -166,7 +172,6 @@ describe('Candidate synthétique — 14 jours ouvrés, 2 jours manqués, un dril
 
         // INV-12 : la phase d'une préparation ne dépend pas du jour où on la regarde.
         expect(JSON.stringify([...taperDays(cfg)]), ctx('INV-12 : la fenêtre de la dernière ligne droite a glissé')).toBe(taper0);
-        if (taperDays(cfg).has(date)) bilan.tapers++;
 
         // INV-3 : aucun point faible sans essai mesuré.
         for (const cp of await db.case_progress.toArray()) {
@@ -187,6 +192,7 @@ describe('Candidate synthétique — 14 jours ouvrés, 2 jours manqués, un dril
     expect(bilan.manques).toBe(6 * 2);
     expect(bilan.interruptions).toBeGreaterThanOrEqual(5);
     expect(bilan.libres).toBe(6);
+    expect(bilan.tapers, 'la dernière ligne droite a été jouée').toBeGreaterThanOrEqual(3);
     expect(bilan.sims).toBeGreaterThan(100);
   }, 300_000);
 });

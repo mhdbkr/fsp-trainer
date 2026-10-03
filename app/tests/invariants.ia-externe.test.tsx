@@ -115,4 +115,20 @@ describe('FB3 — une partie jouée et évaluée dans l’app n’est jamais red
     await jouerDansLApp(FULL[1], ['anamnese']);
     expect(await accueil()).toBe(true);
   });
+
+  // ----------------------------------------------------------------------------
+  // BUG PROBABLE, à trancher par `main` (intention) — gardé en `it.fails` avec sa preuve.
+  // Le correctif du 3 oct. masque la carte dès qu'UNE partie du même cas est enregistrée
+  // dans l'app après le lanceur (PendingExternalSimCard : `where('caseId')…count()`), sans
+  // regarder le Teil. Ouvrir le lanceur pour l'ANAMNESE, puis jouer ici la DOKUMENTATION du
+  // même cas, fait taire la carte : la séance externe d'anamnèse n'est plus jamais proposée à
+  // l'évaluation. Invariant plus fin : la carte d'un Teil T ne se tait que pour une partie
+  // jouée dans l'app sur ce même Teil T. Ce test ÉCHOUE sur le code actuel (donc it.fails).
+  // ----------------------------------------------------------------------------
+  it.fails('PROPOSITION — une partie jouée dans l’app sur un AUTRE Teil ne masque pas la séance externe non évaluée', async () => {
+    await ouvrirLeLanceur(FULL[0].id, 'anamnese');
+    avance(10 * 60_000);
+    await jouerDansLApp(FULL[0], ['dokumentation']);
+    expect(await accueil(), 'la séance externe d’anamnèse a disparu sans avoir été évaluée').toBe(true);
+  });
 });

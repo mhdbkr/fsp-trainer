@@ -13,7 +13,7 @@ vi.mock('@/lib/sync/queue', async () => (await import('./helpers/mocks')).queueM
 vi.mock('@/lib/supabase', async () => (await import('./helpers/mocks')).supabaseMock());
 
 import { db } from '@/db/db';
-import { DAY_MS, dayKey } from '@/lib/clock';
+import { dayKey } from '@/lib/clock';
 import {
   PART_OK, computeCaseProgress, logTraining, pointFaible, rebuildJournal, spentByDay, workedDayKeys,
 } from '@/lib/journal';

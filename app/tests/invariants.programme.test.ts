@@ -11,14 +11,13 @@ vi.mock('@/lib/sync/queue', async () => (await import('./helpers/mocks')).queueM
 vi.mock('@/lib/supabase', async () => (await import('./helpers/mocks')).supabaseMock());
 
 import { db } from '@/db/db';
-import { DAY_MS } from '@/lib/clock';
 import { logTraining, markTaskDone, rebuildJournal } from '@/lib/journal';
 import { saveSimulation } from '@/lib/simulationSave';
 import { ensureDayPlan, sessionDuJour } from '@/lib/program';
 import type { DayPlan, ProgramConfig, TaskInstance } from '@/db/types';
 import { forAll, type Rng } from './helpers/prop';
 import {
-  CORPUS, TEILE, addDaysISO, begriffe, partResult, randomConfig, resetTime, resetWorld, startOn,
+  CORPUS, TEILE, addDaysISO, partResult, randomConfig, resetTime, resetWorld, startOn,
 } from './helpers/world';
 
 beforeEach(() => resetWorld());

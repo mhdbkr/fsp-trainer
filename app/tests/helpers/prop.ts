@@ -34,7 +34,7 @@ export async function forAll(n: number, prop: (r: Rng, seed: number) => void | P
     try { await prop(rng(seed), seed); }
     catch (e) {
       const msg = e instanceof Error ? e.message : String(e);
-      throw new Error(`contre-exemple, graine ${seed} : ${msg}`, { cause: e });
+      throw Object.assign(new Error(`contre-exemple, graine ${seed} : ${msg}`), { cause: e });
     }
   }
 }
