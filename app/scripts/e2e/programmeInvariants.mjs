@@ -273,25 +273,24 @@ const P1b = preuve('P1b', "faire son drill ne libère aucun budget qui attirerai
 });
 
 /** Joue un Teil RÉEL par l'interface : contenu 100 %, grille et ressenti aux
- *  valeurs par défaut ⇒ partie réussie. Puis redémarre l'app : tant que R-C2
- *  (saveSimulation → applySimulationToJournal) n'est pas intégré, c'est la
- *  reconstruction du démarrage (B-C1) qui projette la simulation. */
+ *  valeurs par défaut ⇒ partie réussie. */
 async function jouerTeil(caseId, teil) {
+  // Parcours du runner de main (#54) : Démarrer → Terminer la partie → évaluation
+  // → Terminer la simulation → Enregistrer la simulation → bilan.
   goto(`/simulation/${caseId}/pre?teil=${teil}`);
-  await until(`return bouton((t) => t.startsWith('Entrer —')) ? true : null;`, 'écran pré-simulation');
-  probe(`bouton((t) => t.startsWith('Entrer —')).click(); return await attendre(() => location.hash.includes('/run'));`);
+  await until(`return bouton((t) => t.startsWith('Démarrer la simulation')) ? true : null;`, 'écran pré-simulation');
+  probe(`bouton((t) => t.startsWith('Démarrer la simulation')).click(); return await attendre(() => location.hash.includes('/run'));`);
   await until(`return bouton((t) => t.startsWith('Terminer la partie')) ? true : null;`, 'runner');
-  probe(`bouton((t) => t.startsWith('Terminer la partie')).click(); return await attendre(() => !!bouton((t) => t.startsWith('Valider la partie')));`);
+  probe(`bouton((t) => t.startsWith('Terminer la partie')).click(); return await attendre(() => !!bouton((t) => t.startsWith('Terminer la simulation')));`);
   const pcts = probe(`
     for (const c of document.querySelectorAll('input[type=checkbox]')) if (!c.checked) c.click();
     await attendre(() => false, 300);
     const pcts = [...txt().matchAll(/(\\d+)%/g)].map((m) => +m[1]);
-    bouton((t) => t.startsWith('Valider la partie')).click();
-    await attendre(() => !!bouton((t) => t.startsWith('Terminer — ')));
+    bouton((t) => t.startsWith('Terminer la simulation')).click();
+    await attendre(() => !!bouton((t) => t.startsWith('Enregistrer la simulation')));
     return pcts;
   `);
-  probe(`bouton((t) => t.startsWith('Terminer — ')).click(); return await attendre(() => txt().includes('score moyen'));`);
-  pw('reload');
+  probe(`bouton((t) => t.startsWith('Enregistrer la simulation')).click(); return await attendre(() => txt().includes('score moyen'));`);
   return pcts;
 }
 
@@ -303,9 +302,16 @@ const P3a = preuve('P3a', "travailler un seul Teil ne rend fautif aucun autre Te
     ?? plan.tasks.find((t) => t.kind === 'simulation' && t.teil);
   exige(tache, 'aucune tâche de simulation portée par un seul Teil');
   const score = await jouerTeil(tache.caseId, tache.teil);
+  // R-C2 : la projection existe À L'ENREGISTREMENT, sans redémarrage…
+  const avant = await until(`
+    return (await read('case_progress')).find((p) => p.caseId === '${tache.caseId}') || null;
+  `, `case_progress de ${tache.caseId} sans redémarrage (R-C2)`, 10);
+  // …et survit au redémarrage (reconstruction B-C1).
+  pw('reload');
   const cp = await until(`
     return (await read('case_progress')).find((p) => p.caseId === '${tache.caseId}') || null;
-  `, `case_progress de ${tache.caseId} après la simulation`);
+  `, `case_progress de ${tache.caseId} après redémarrage`);
+  exige(JSON.stringify(avant.teile) === JSON.stringify(cp.teile), 'la reconstruction au redémarrage diffère de la projection écrite à l\'enregistrement');
   // Non vide : le Teil joué A une mesure (revue : P3a passait à vide sur une coche).
   exige(cp.teile[tache.teil].attempts >= 1 && cp.teile[tache.teil].lastScore !== null,
     `le Teil joué n'a aucune mesure : ${JSON.stringify(cp.teile[tache.teil])}`);
