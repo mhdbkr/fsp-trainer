@@ -1490,6 +1490,9 @@ export const FACHANAMNESEN: FachanamneseGuide[] = [
         text: 'Hatten Sie einen Zeckenstich oder einen Insektenstich bemerkt? Waren Sie im Wald, im hohen Gras oder im Garten?',
         probe: 'fach-infekt-zecke',
         label: 'Exposition',
+        // Critère de la méningite en zone à risque ; ne vit que là où la tique
+        // est posée (fachSkip la retire aux autres trames).
+        followUp: ['Falls ja: Sind Sie gegen FSME geimpft?'],
       },
       {
         text: 'Haben Sie eine Hautveränderung oder Rötung bemerkt? Hat sie sich ausgebreitet, zum Beispiel ringförmig?',

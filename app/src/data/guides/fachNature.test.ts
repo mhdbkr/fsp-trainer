@@ -91,6 +91,12 @@ describe('Revue clinique L0', () => {
     expect(phraseAlts(mech).filter((t) => / — |, und /.test(t))).toEqual([]);
     expect(phraseText(fachQ('lyme', 'fach-infekt-impfung')!)).toBe('Sind Ihre Impfungen auf dem neuesten Stand?');
   });
+  it('FSME : en relance de la tique, sur les seules trames qui la posent (décision de main)', () => {
+    const fsme = (id: string) => (fachChapterForCase(byId.get(`case-${id}`)!)?.chapter.questions ?? []).flatMap(allTexts).filter((t) => /FSME/.test(t));
+    expect(phraseFollowUp(fachQ('lyme', 'fach-infekt-zecke')!)).toContain('Falls ja: Sind Sie gegen FSME geimpft?');
+    expect(fsme('meningitis')).toHaveLength(1);
+    for (const id of ['tonsillitis', 'hepatitis-b', 'covid19']) expect(fsme(id)).toEqual([]);
+  });
   it('rachis lombaire : l’irradiation ne suggère pas la réponse (ni genou ni pied)', () => {
     for (const id of ['lumboischialgie', 'bandscheibenvorfall', 'spinalkanalstenose'])
       expect(phraseText(fachQ(id, 'fach-ortho-ausstrahlung')!)).not.toMatch(/Knie|Fuß/);
