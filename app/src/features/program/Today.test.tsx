@@ -61,4 +61,14 @@ describe('I-1 — l\'écran change de jour', () => {
     await passerMinuit();
     await vi.waitFor(() => expect(container.textContent).toMatch(/vendredi 2 octobre\s*Aujourd'hui/i), { timeout: 5000 });
   }, 20_000);
+  it('m-4 : minuit passé AVANT le rafraîchissement, un re-rendu ne met pas le jour affiché en lecture seule', async () => {
+    await act(async () => { root.render(<MemoryRouter><ProgramPage /></MemoryRouter>); });
+    await vi.waitFor(() => expect(container.querySelector('[title="Marquer faite"]')).not.toBeNull(), { timeout: 5000 });
+    advance(2 * 3600_000);                                          // l'horloge passe minuit, aucun événement ne rafraîchit
+    const vue = (v: RegExp) => [...container.querySelectorAll('button')].find((b) => v.test(b.textContent ?? ''))!;
+    await act(async () => { vue(/^mois$/i).click(); });
+    await act(async () => { vue(/^semaine$/i).click(); });           // deux re-rendus
+    expect(container.textContent).toMatch(/jeudi 1 octobre\s*Aujourd'hui/i);
+    expect(container.querySelector('[title="Marquer faite"]')).not.toBeNull();
+  }, 20_000);
 });
