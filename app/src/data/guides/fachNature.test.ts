@@ -85,4 +85,8 @@ describe('Revue clinique L0', () => {
     const q = fachQ('aortendissektion', 'fach-gefaess-wunde');
     expect(q && phraseText(q)).toMatch(/Fuß kalt/);
   });
+  it('rachis lombaire : l’irradiation ne suggère pas la réponse (ni genou ni pied)', () => {
+    for (const id of ['lumboischialgie', 'bandscheibenvorfall', 'spinalkanalstenose'])
+      expect(phraseText(fachQ(id, 'fach-ortho-ausstrahlung')!)).not.toMatch(/Knie|Fuß/);
+  });
 });
