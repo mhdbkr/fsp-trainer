@@ -13,6 +13,7 @@ vi.mock('@/lib/auth/session', () => ({
 import { db } from '@/db/db';
 import type { Case, ProgramConfig, TaskInstance } from '@/db/types';
 import { freezeAt, resetClock } from '@/lib/clock';
+import { refreshToday } from '@/lib/today';
 import { rebuildJournal } from '@/lib/journal';
 import { ProgramPage } from './ProgramPage';
 
@@ -22,6 +23,7 @@ const t = (id: string, date: string, caseId: string): TaskInstance => ({ id, dat
 let container: HTMLDivElement; let root: Root;
 beforeEach(async () => {
   freezeAt(new Date(2026, 9, 2, 8, 0));
+  refreshToday();                                                   // le store « aujourd'hui » suit l'horloge figée (I-1)
   await Promise.all([db.cases.clear(), db.meta.clear(), db.day_plans.clear(), db.training_events.clear(), db.case_progress.clear(), db.progress_events.clear(), db.outbox.clear(), db.fachbegriffe.clear()]);
   await db.cases.bulkPut(['c1', 'c9'].map((id) => ({ id, name: `Cas ${id}`, pathology: 'p', specialty: 'Kardiologie', frequency: 10, centers: [], linkedFachbegriffeIds: [] } as unknown as Case)));
   await db.meta.put({ key: 'program', value: config });
