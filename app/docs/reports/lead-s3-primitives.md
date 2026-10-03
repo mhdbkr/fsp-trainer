@@ -183,7 +183,7 @@ TEINTE (`glass-tint`), pas par un second plan de flou.
 | `CaseDetailPage.tsx:54` | `flex rounded-lg bg-slate-100 p-1 text-sm dark:bg-slate-800` | `seg` |
 | `CaseDetailPage.tsx:67` | `inline-flex rounded-lg border border-slate-200 bg-white p-0.5 text-sm dark:border-slate-700 dark:bg-slate-900` | `seg` (variante bordée du même contrôle) |
 | `CaseDetailPage.tsx:160` | `block rounded-lg border border-slate-200 px-3 py-2 text-sm hover:border-brand-400 dark:border-slate-800` | `panel panel-interactive block px-3 py-2 text-sm` |
-| `CasePreviewPanel.tsx:41` et `:55` | `relative overflow-hidden rounded-xl border border-slate-200 p-3 pl-4 dark:border-slate-800` | `panel relative overflow-hidden p-3 pl-4` |
+| `CasePreviewPanel.tsx:41` et `:55` | `relative overflow-hidden rounded-xl border border-slate-200 p-3 pl-4 dark:border-slate-800` | **EXCEPTION MOTIVÉE — pas `.panel`** (Re-revue 2) : le parent est l'`aside` `:26`, `bg-white` OPAQUE, sans `.card`. `.panel` (fond `white/45`, bord `white/55`) y serait blanc sur blanc, donc invisible. Le bord dessiné `slate-200` reste. À revoir seulement si l'`aside` devient lui-même une surface de la charte |
 | `FachwissenDetailPage.tsx:310` | `group rounded-lg border border-slate-200 dark:border-slate-800` | `panel group` |
 | `FachwissenDetailPage.tsx:325` | `block rounded-lg border border-slate-200 px-3 py-2 text-sm hover:border-brand-400 dark:border-slate-800` | `panel panel-interactive block px-3 py-2 text-sm` |
 | `FachwissenDetailPage.tsx:336` | `flex items-center gap-1.5 rounded-lg border border-slate-200 px-3 py-2 text-sm hover:border-brand-400 dark:border-slate-800` | `panel panel-interactive flex items-center gap-1.5 px-3 py-2 text-sm` |
@@ -213,24 +213,53 @@ Chacun gagne trois choses : `aria-pressed` (l'état existe pour le lecteur
 d'écran, pas seulement pour l'œil), `shadow-e1` interne au lieu de `shadow-sm`
 qui est une ombre portée, et la piste/les crans en jetons.
 
-### 3.6 · Les classes d'ombre portée restantes — INERTES depuis fix-s3 I4
+### 3.6 · Les classes d'ombre portée restantes : inertes depuis fix-s3 I4, PAS toutes sans dommage
 
-`boxShadow` ne s'étend plus, il remplace le thème (`tailwind.config.js`) :
-`shadow-sm/md/lg/xl/2xl` ne sont plus générés (mesuré sur `dist/assets/*.css` :
-classes `shadow-*` produites = `e1 e2 e3 inner` + `hover:shadow-e2`). Les
-occurrences ci-dessous ne peignent donc plus rien : ce sont des **classes
-mortes à retirer**, pas des ombres à arbitrer. Recompte hors commentaires le
-30 sept. 2026 : 23 occurrences dans 15 fichiers.
+`boxShadow` remplace désormais le thème au lieu de l'étendre (`tailwind.config.js`) :
+`shadow-sm/md/lg/xl/2xl` ne sont plus générés. Mesure sur `dist/assets/*.css` :
+les classes `shadow-*` produites sont `e1 e2 e3 inner` et `hover:shadow-e2`.
+Les 23 occurrences, recomptées hors commentaires le 30 sept. 2026 dans 15
+fichiers, ne peignent donc plus rien. **Mais la Re-revue 2 (front-design-keeper) a montré
+que certaines portaient un signal.** Ordre de traitement :
 
-`AufklaerungPage.tsx:178` · `CaseDetailPage.tsx:55,58,87,90,136` ·
-`CasePreviewPanel.tsx:26` · `CasesPage.tsx:141` · `medSections.tsx:28` ·
-`AlphabetRail.tsx:50` · `GuidesPage.tsx:148` · `ProgramPage.tsx:208,423,463` ·
-`ProgramSetup.tsx:66` · `AnamneseBogen.tsx:20` · `ImmersiveMode.tsx:264` ·
-`PatientScreen.tsx:46,47` · `SimulationRunner.tsx:302,476` ·
-`SimulationSetup.tsx:163` · `VorstellungGuide.tsx:56`.
+**1 · EN PREMIER : les segmentés qui ont perdu leur seul signal.** Ces
+segmentés étaient redessinés à la main : le cran choisi n'était signalé que
+par `bg-white shadow-sm` sur une piste `bg-slate-100`. Sans l'ombre, il ne
+reste que du blanc sur `slate-100`, contraste ≈ 1,07 (mesure de la re-revue) :
+on ne voit plus quel cran est pris.
 
-La seule ombre portée encore PEINTE est inline : `TimeCapsule.tsx:43-47`
-(§3.2).
+| Lieu | Chantier | Remplacement |
+|---|---|---|
+| `CaseDetailPage.tsx:55,58` (piste `:54`) | Contenu | `.seg` + `aria-pressed` ; cran choisi `text-brand-700` (fourni par `.seg > button[aria-pressed="true"]`) |
+| `PatientScreen.tsx:46,47` (piste `:45`) | Simulation | idem |
+| `ProgramPage.tsx:463` (piste `:461`) | Programme | idem |
+
+`ProgramPage.tsx:208` n'est PAS dans ce lot : son cran choisi porte déjà
+`text-brand-700`, il garde un signal. Il passe à `.seg` avec la piste `:205`
+(§3.5), sans urgence.
+
+Compte : main annonçait « quatre ». La mesure ligne par ligne donne **cinq
+occurrences sur trois segmentés**. Les cinq sont listées ci-dessus.
+
+**2 · Les remplacements explicites.**
+
+| Lieu | Chantier | Remplacement |
+|---|---|---|
+| `SimulationSetup.tsx:163` | Simulation | `bg-white shadow-sm dark:bg-slate-800` → `bg-slate-100 dark:bg-slate-800` : la pastille d'icône se détache par la teinte, plus par l'ombre |
+| `CasesPage.tsx:141` | Contenu | retirer `transition-all hover:shadow-md`. **Ne PAS** ajouter `card-interactive` : la carte n'est pas cliquable en entier |
+| `AufklaerungPage.tsx:178` | Contenu | retirer `transition-shadow duration-700` et `shadow-md` (l'anneau `ring-2` du repère reste le signal) |
+| `GuidesPage.tsx:148` | Contenu | retirer `transition-shadow` et `shadow-md` (l'anneau `ring-1` de l'état ouvert reste) |
+| `ProgramPage.tsx:423` (menu, `shadow-lg`) | Programme | `glass glass-edge`, en retirant fond, bord et ombre dessinés à la main. **Seulement après I-A** (`401cc80`, bord encre du verre clair), sinon le menu n'a pas d'arête |
+| `ProgramSetup.tsx:66` (modale, `shadow-2xl`) | Programme | idem, après I-A |
+| `CasePreviewPanel.tsx:26` (`aside`, `shadow-2xl`) | Contenu | retirer `shadow-2xl` (voir l'exception §3.4 pour ses sections) |
+
+**3 · Classes mortes, à retirer sans remplacement** (aucune ne portait de
+signal) : `CaseDetailPage.tsx:87,90,136` · `medSections.tsx:28` ·
+`AlphabetRail.tsx:50` · `AnamneseBogen.tsx:20` · `ImmersiveMode.tsx:264` ·
+`SimulationRunner.tsx:302,476` · `VorstellungGuide.tsx:56`.
+
+Il n'en reste qu'**une ombre portée encore PEINTE**, posée inline :
+`TimeCapsule.tsx:43-47` (§3.2).
 
 **Le popover est tranché** (décision de `main`, fix-s3 I3) : c'est le rôle 1,
 `.glass glass-edge`. Donc `ProgramPage.tsx:423` (menu, `shadow-lg`) →
