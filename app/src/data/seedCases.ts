@@ -36738,7 +36738,7 @@ export function seedCases(): Case[] {
         { frage: 'Wie hat sich die Schluckstörung bei Ihnen entwickelt — eher langsam über Jahre mit besseren und schlechteren Phasen, oder rasch über Wochen?', kapitel: 'aktuell', relu: true },
         { frage: 'Kommt Ihnen Essen wieder hoch? Ist es unverdaut oder sauer, und passiert das eher im Liegen und nachts?', kapitel: 'aktuell' },
         { frage: 'Ist Ihr Kopfkissen morgens manchmal nass? Husten Sie nachts, und hatten Sie in letzter Zeit eine Lungenentzündung?', kapitel: 'aktuell' },
-        { frage: 'Sie nehmen Magenschutztabletten — haben diese Ihre Beschwerden gebessert oder gar nicht gewirkt?', kapitel: 'aktuell' },
+        { frage: 'Hat Ihnen schon ein Arzt etwas gegen die Beschwerden verordnet?', kapitel: 'aktuell', followUp: 'Falls ja: Seit wann, und hat es geholfen?' },
         { frage: 'Haben Sie Schmerzen beim Schlucken, Blut erbrochen oder schwarzen Stuhl bemerkt?', kapitel: 'aktuell', relu: true },
         { frage: 'Wie viel Gewicht haben Sie in welchem Zeitraum verloren, und ist Ihr Appetit dabei erhalten geblieben?', kapitel: 'vegetativ', sucht: ['gewicht', 'appetit'] },
         { frage: 'Waren Sie jemals in Mittel- oder Südamerika?', kapitel: 'familie-sozial' },
