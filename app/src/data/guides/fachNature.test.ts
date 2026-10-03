@@ -79,3 +79,10 @@ describe('L’écran du simulant (Rollenskript) lit la question canonique : elle
     });
   }
 });
+
+describe('Revue clinique L0', () => {
+  it('la dissection garde la malperfusion du pied (« der linke Fuß fühlt sich kälter an »)', () => {
+    const q = fachQ('aortendissektion', 'fach-gefaess-wunde');
+    expect(q && phraseText(q)).toMatch(/Fuß kalt/);
+  });
+});

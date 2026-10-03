@@ -1700,7 +1700,9 @@ const ARM = new Set(['obere', 'hws']), RUMPF = new Set(['lws', 'bws']), RACHIS =
 const region = (w: Who) => w.motiv?.region;
 // « Herz » en début de mot seulement : « Schmerz » contient « herz ».
 const thorakal = (w: Who) => region(w) === 'thorax' || /brust|sternal|thora[kx]|präkordial|(?<![a-zäöüß])herz/i.test(w.schmerzOrt ?? '');
-// Une Fach Angio pour une aorte : ni claudication, ni décubitus, ni plaie de jambe.
+// Une Fach Angio pour une aorte : ni claudication, ni décubitus, ni plaie de jambe —
+// mais la malperfusion d'un pied reste la question (dissection : « der linke
+// Fuß fühlt sich kälter an »).
 const jambe = (w: Who) => !w.motiv || region(w) === 'untere';
 const FACH_RULES: Array<{ probe: string; applies?: (w: Who) => boolean; text?: (w: Who) => FachPatch | undefined }> = [
   // Ortho : sans traumatisme, on écarte l'accident — sans le récit de chute.
@@ -1732,7 +1734,7 @@ const FACH_RULES: Array<{ probe: string; applies?: (w: Who) => boolean; text?: (
   { probe: 'fach-neuro-autonom', applies: (w) => w.kategorie === 'schmerz' && /kopf|schläfe|stirn/i.test(w.schmerzOrt ?? '') },
   { probe: 'fach-gefaess-gehstrecke', applies: jambe },
   { probe: 'fach-gefaess-ruheschmerz', applies: jambe },
-  { probe: 'fach-gefaess-wunde', applies: jambe },
+  { probe: 'fach-gefaess-wunde', text: (w) => (jambe(w) ? undefined : 'Ist ein Fuß kalt, blass oder bläulich?') },
   // Le jet urinaire est une question de prostate.
   { probe: 'fach-uro-strahl', applies: (w) => w.geschlecht !== 'w' },
   { probe: 'fach-gefaess-hormone', applies: (w) => w.geschlecht === 'w' && w.age <= FERTILE_UNTIL },

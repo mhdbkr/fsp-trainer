@@ -26,7 +26,7 @@
       "cases": ["bauchaortenaneurysma", "aortendissektion"] },
     { "probe": "fach-gefaess-ruheschmerz", "why": "douleur de décubitus d'ischémie de jambe pour une aorte",
       "cases": ["bauchaortenaneurysma", "aortendissektion"] },
-    { "probe": "fach-gefaess-wunde", "why": "plaie de jambe pour une aorte",
+    { "probe": "fach-gefaess-wunde", "match": "Wunde", "in": "all", "why": "plaie de jambe pour une aorte (la malperfusion d'un pied, elle, reste la question : dissection)",
       "cases": ["bauchaortenaneurysma", "aortendissektion"] },
     { "probe": "fach-derma-muttermal", "why": "grain de beauté sans lésion pigmentée",
       "cases": ["erysipel", "zoster", "abszess", "anaphylaxie", "psoriasis", "urtikaria"] },

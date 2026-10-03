@@ -185,7 +185,11 @@ describe('La Fach suit la nature du motif (série 3, L0)', () => {
   });
   it('claudication, douleur de décubitus et plaie de jambe : pas pour une aorte', () => {
     const aorta = mkF('Angiologie', { schmerz: { ort: 'Rücken' }, motiv: { trauma: false, region: 'thorax' } });
-    for (const p of ['fach-gefaess-gehstrecke', 'fach-gefaess-ruheschmerz', 'fach-gefaess-wunde']) expect(probes(aorta)).not.toContain(p);
+    for (const p of ['fach-gefaess-gehstrecke', 'fach-gefaess-ruheschmerz']) expect(probes(aorta)).not.toContain(p);
+    // La malperfusion d'un membre reste la question : sans la plaie de jambe.
+    const wunde = phraseText(q(aorta, 'fach-gefaess-wunde')!);
+    expect(wunde).toMatch(/Fuß kalt/);
+    expect(wunde).not.toMatch(/Wunde/);
     expect(probes(mkF('Angiologie', { schmerz: { ort: 'Wade' } }))).toContain('fach-gefaess-gehstrecke');
   });
   it('jet urinaire : pas chez une femme', () => {
