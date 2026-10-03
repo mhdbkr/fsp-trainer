@@ -14,6 +14,11 @@ const PATIENT_MAX = 12_000; // O3
 // longues du corpus ; les raccourcir relève du pôle Contenu. Un cas qui
 // s'ajoute à la liste fait échouer le test ; un cas qui en sort aussi, pour
 // que la liste reste vraie.
+// Cliquet : les seuls cas où le PATIENT nomme lui-même sa pathologie, dans ses
+// propres répliques — son savoir, validé en revue (migraine annoncée par son
+// médecin traitant ; mère morte d'une embolie pulmonaire). Toute entrée ou
+// sortie fait échouer le test.
+const PATIENT_NOMME_PATHOLOGIE = ['case-lungenembolie', 'case-migraene'];
 const OVER_PASTE_MAX = ['case-delir', 'case-karpaltunnel', 'case-metabolisches-syndrom', 'case-pankreaskarzinom', 'case-ulcus-cruris'];
 const TEILE: AnkerTeil[] = ['anamnese', 'fallvorstellung'];
 
@@ -94,8 +99,7 @@ describe('prompt externe sur le corpus (130 cas × 2 Teile)', () => {
           if (proche !== /ist dabei und antwortet manchmal für dich/.test(p.anrede)) fail.push(`${id} M6 proche`);
           // L'amorce (le gabarit) ne nomme jamais la pathologie.
           if (p.anrede.toLowerCase().includes(c.pathology.toLowerCase())) fail.push(`${id} D1 pathologie dans l'amorce`);
-          // Relevé (non bloquant) : la pathologie dite par le patient lui-même,
-          // dans ses propres répliques (antécédent connu, famille).
+          // La pathologie dite par le patient lui-même (cliquet ci-dessus).
           if (full.toLowerCase().includes(c.pathology.toLowerCase())) patientOwnWords.push(c.id);
         } else {
           // O1 : aucune réplique du patient, aucun négatif.
@@ -123,5 +127,6 @@ describe('prompt externe sur le corpus (130 cas × 2 Teile)', () => {
     );
     expect(fail).toEqual([]);
     expect([...new Set(overPaste)].sort()).toEqual(OVER_PASTE_MAX);
+    expect([...patientOwnWords].sort()).toEqual(PATIENT_NOMME_PATHOLOGIE);
   });
 });
