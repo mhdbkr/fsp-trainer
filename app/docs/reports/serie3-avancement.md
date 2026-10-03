@@ -14,7 +14,7 @@
 | C2 simulation | `feat/s3-simulation` | ✅ **PR #54 — CI verte** | **G6 : merge par la direction** (main = prod) |
 | C4 contenu | `feat/s3-contenu` | ✅ **PR #55 ouverte** — revue finale close, CI + contrat §3.3 inclus | **G6 : merge par la direction** (main = prod) |
 | C1 programme | `feat/s3-programme` | fixeur terminé — **invariants 6/6 au navigateur**, perte de lot et historique fermés | re-revue branche + **re-audit sécurité (verdict GO/NO-GO prod)** |
-| C3 IA externe | `feat/s3-ia` | revue : Request changes (carte qui promet faux, `?q=` risque d'envoi auto, Oberarzt sans faits du cas) — aucune fuite du diagnostic | fixeur → re-revue ; montage dans `PlayArea` à l'intégration, **après PR #54** |
+| C3 IA externe | `feat/s3-ia` | ✅ **clos** — 2 revues, clôture vérifiée par mutation (prompt Oberarzt 31 906 → médiane 5 713 car., aucune fuite du diagnostic, pré-collage verrouillé tant que l'envoi auto n'est pas exclu) | PR **après merge de #54** : main pose le montage dans `PlayArea` + retrait de la puce d'en-tête |
 
 ## 2. File d'attente — déclencheurs
 
@@ -29,6 +29,7 @@
 | Q-8 | Raccourcir 5 cas dont le prompt patient dépasse 10 000 car. (devient une pièce jointe dans ChatGPT) : delir, karpaltunnel, metabolisches-syndrom, pankreaskarzinom, ulcus-cruris | merge de `feat/s3-contenu` (même déclencheur que Q-1) | contenu, même writer que Q-1 |
 | Q-9 | `setModus` / `setIntensity` n'émettent aucun événement : la configuration du programme ne se synchronise pas entre appareils | après merge du programme (suivi, gravité à confirmer par la re-revue) | hors liste de revue |
 | Q-10 | **Fonction `ai` (assistant intégré) en 503** à répétition en prod (3 fois, 15:49–15:50 le 3 oct.) | dès que possible — diagnostic | hors série 3, relevé dans les journaux |
+| Q-11 | **PR du chantier IA** (rebase sur main + montage `TeilAiLauncher` dans `PlayArea` + retrait de la puce `SimulationRunner.tsx:275`) | merge de **PR #54** | le lanceur vit dans le runner de la simulation |
 | Q-6 | Débord de la carte « À faire aujourd'hui » à 390 px (103 px) | intégration de `feat/s3-programme` | relevé par le chantier primitives, appartient au programme |
 
 ## 3. Décisions en attente de la direction
