@@ -144,9 +144,10 @@ export function TeilAiPanel({ caseId, teil, autoFocus = false }: { caseId: strin
             ref={groupRef} role="radiogroup" aria-label="Ton IA"
             className="relative grid grid-cols-2 rounded-full bg-slate-100 p-1 dark:bg-ink-700"
             onKeyDown={(e) => {
-              if (e.key !== 'ArrowLeft' && e.key !== 'ArrowRight') return;
+              const step = { ArrowRight: 1, ArrowDown: 1, ArrowLeft: -1, ArrowUp: -1 }[e.key];
+              if (!step) return;
               e.preventDefault();
-              const next = AI_TARGETS[(index + (e.key === 'ArrowRight' ? 1 : AI_TARGETS.length - 1)) % AI_TARGETS.length];
+              const next = AI_TARGETS[(index + step + AI_TARGETS.length) % AI_TARGETS.length];
               choose(next.id);
               (e.currentTarget.querySelector(`[data-id="${next.id}"]`) as HTMLElement | null)?.focus();
             }}

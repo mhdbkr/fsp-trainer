@@ -118,6 +118,15 @@ describe('TeilAiLauncher', () => {
     await waitFor(() => expect(document.activeElement).toBe(screen.getByRole('radio', { name: 'Gemini' })));
   });
 
+  it('M4 — flèches Haut/Bas comme Gauche/Droite dans le groupe', async () => {
+    render(<TeilAiLauncher caseId="c1" teil="anamnese" />);
+    const group = await open();
+    fireEvent.keyDown(group, { key: 'ArrowDown' });
+    expect(screen.getByRole('radio', { name: 'Gemini' }).getAttribute('aria-checked')).toBe('true');
+    fireEvent.keyDown(group, { key: 'ArrowUp' });
+    expect(screen.getByRole('radio', { name: 'ChatGPT' }).getAttribute('aria-checked')).toBe('true');
+  });
+
   it('Échap referme', async () => {
     render(<TeilAiLauncher caseId="c1" teil="anamnese" />);
     await open();
