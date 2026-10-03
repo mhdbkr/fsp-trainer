@@ -13,7 +13,7 @@
 | C5 primitives | `feat/s3-primitives` | fixeur terminé, 84/0 | **décision direction : filet encre du verre** (§3) puis revue finale |
 | C2 simulation | `feat/s3-simulation` | ✅ **PR #54 — CI verte** | **G6 : merge par la direction** (main = prod) |
 | C4 contenu | `feat/s3-contenu` | ✅ **PR #55 ouverte** — revue finale close, CI + contrat §3.3 inclus | **G6 : merge par la direction** (main = prod) |
-| C1 programme | `feat/s3-programme` | fixeur (sécurité + journal) | re-revue → **déploiement prod** (§2) |
+| C1 programme | `feat/s3-programme` | fixeur terminé — **invariants 6/6 au navigateur**, perte de lot et historique fermés | re-revue branche + **re-audit sécurité (verdict GO/NO-GO prod)** |
 | C3 IA externe | `feat/s3-ia` | livré (8 commits) — prompt 31 906 → 4 088 car., un seul rôle | revue de branche en cours |
 
 ## 2. File d'attente — déclencheurs
@@ -27,6 +27,7 @@
 | Q-5 | **C6 — l'agent qui teste à la place de la direction** : candidat synthétique 14 jours, horloge injectable, invariants | intégration terminée | il doit jouer l'app intégrée, pas des branches séparées |
 | Q-7 | **ChatGPT « s'ouvre avec le prompt collé »** (`?q=`) : un seul réglage à basculer | test de 5 min **par la direction** dans un navigateur connecté (protocole : `doctopus-s3-ia/app/docs/reports/lead-s3-ia-sources.md` §6) | Cloudflare bloque la mesure automatique de la limite de longueur ; le contrat interdit de pré-remplir sans limite connue |
 | Q-8 | Raccourcir 5 cas dont le prompt patient dépasse 10 000 car. (devient une pièce jointe dans ChatGPT) : delir, karpaltunnel, metabolisches-syndrom, pankreaskarzinom, ulcus-cruris | merge de `feat/s3-contenu` (même déclencheur que Q-1) | contenu, même writer que Q-1 |
+| Q-9 | `setModus` / `setIntensity` n'émettent aucun événement : la configuration du programme ne se synchronise pas entre appareils | après merge du programme (suivi, gravité à confirmer par la re-revue) | hors liste de revue |
 | Q-6 | Débord de la carte « À faire aujourd'hui » à 390 px (103 px) | intégration de `feat/s3-programme` | relevé par le chantier primitives, appartient au programme |
 
 ## 3. Décisions en attente de la direction
