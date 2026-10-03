@@ -448,6 +448,9 @@ export const FACH_COVERS: Record<string, string[]> = {
   'fach-neuro-sensibilitaet': ['akt-nerven-art'], 'fach-neuro-kraft': ['akt-nerven-alltag'], 'fach-neuro-koordination': ['akt-neuro-lage'],
   'fach-neuro-sprache': ['akt-neuro-ausfall'], 'fach-neuro-verlauf': ['akt-verlauf'], 'fach-neuro-anfall': ['akt-anfall-bewusstsein'],
   'fach-neuro-anfallzeichen': ['akt-anfall-bewusstsein'], 'fach-neuro-aura': ['akt-anfall-ablauf'],
+  // Irradiation (Q0) : la Fach nomme déjà les territoires ; la question neutre
+  // « irgendwohin » ne se pose pas en plus (17 cas la jouaient deux fois).
+  'fach-ortho-ausstrahlung': ['akt-ausstrahlung'], 'fach-kardio-ausstrahlung': ['akt-ausstrahlung'], 'fach-uro-flanke': ['akt-ausstrahlung'],
   // Angiologie / Gynäkologie
   'fach-gefaess-schwellung': ['akt-veraend-was', 'akt-veraend-entwicklung'], 'fach-gyn-blutung': ['akt-veraend-blutung', 'akt-veraend-was'], 'fach-gyn-brust': ['akt-veraend-was'],
 };
