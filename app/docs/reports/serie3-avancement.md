@@ -116,13 +116,16 @@ cas (FB3-G7) soldé.
 
 Règle : à chaque reprise (limite d'usage, coupure), `main` relit cette table et
 relance chaque ligne non close, par son identifiant d'agent (`SendMessage`).
+**Tenue du registre** : la session `main` de la série 3 (confirmé par la direction
+le 3 oct.) ; les autres sessions travaillent sur d'autres features et ne relancent
+rien de cette table.
 
 | Workflow | Worktree / branche | Agent | Étape | Clos ? |
 |---|---|---|---|---|
 | Intégration primitives | `doctopus-s3-primitives` · `feat/s3-primitives` | `ad901ff9c385851ac` | finir : 2 fichiers, preuve navigateur, push → **main ouvre la PR** | non |
 | Intégration programme | `doctopus-s3-programme` · `feat/s3-programme` | `a276d650bc56bda9b` | plan `integration-s3-programme.md` → push → **main ouvre la PR** | non |
-| Lot L0 — revue mécanique | `doctopus-s3-lot0` | `a85f52786072e2105` | verdict attendu | non |
-| Lot L0 — fixeur | `doctopus-s3-lot0` · `feat/s3-lot0-fach-nature` | `ac508d333980d928d` | attend les deux revues (clinique rendue : 5 points, dont la sonde « pied froid » des aortes) | non |
+| Lot L0 — revue mécanique | `doctopus-s3-lot0` | `a85f52786072e2105` | rendue : Request changes (I1 fiche simulant « Fuß » sur la main, I2 plancher des paires, I3 `fachSkip` non validé) | **oui** |
+| Lot L0 — fixeur | `doctopus-s3-lot0` · `feat/s3-lot0-fach-nature` | `ac508d333980d928d` | fixe les deux revues (I1–I3, m1–m3, clinique 1–5) → push → **main ouvre la PR** | non |
 | Audit questions du cas + FB3-G | lecture seule | `ac7225d1457bf293d` | rapport attendu → **lot « questions pour ce cas » après merge de L0** | non |
 | C6 — agent testeur | — | — | après intégration programme + primitives | à lancer |
 | Lots L1 → L15 | — | — | §10, l'un après l'autre (mêmes fichiers) | à lancer |
