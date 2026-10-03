@@ -9,6 +9,10 @@
 // (un environnement cassé rougit aussi).
 //
 // Usage :  node scripts/parcours-mutations.mjs [--only INV-1,INV-4] [--keep]
+//          node scripts/parcours-mutations.mjs --navigateur --env-file <.env local> [--only D1,D9]
+//            → la même preuve pour le CANDIDAT SYNTHÉTIQUE : le défaut est réintroduit dans
+//              une copie, l'app est reconstruite, la candidate rejoue — elle doit sortir KO
+//              sur l'invariant attendu (~10 min ; manuel, jamais en CI).
 // Sortie : code 0 si le baseline est vert ET toute mutation est tuée ; 1 sinon.
 // ============================================================================
 import { spawnSync } from 'node:child_process';
@@ -152,6 +156,52 @@ export const MUTATIONS = [
     pourquoi: 'une partie interrompue reprend avec le chrono remis à zéro',
   },
 ];
+
+/** Mutations jouées par le candidat NAVIGATEUR : { id: invariant attendu KO, days: jours à jouer }. */
+export const NAV_MUTATIONS = [
+  { id: 'D1', days: 1, file: 'src/lib/journal.ts', from: MUTATIONS[0].from, to: MUTATIONS[0].to, pourquoi: 'cocher fait apparaître une tâche de plus' },
+  { id: 'D2', days: 1, file: 'src/lib/program/dayPlan.ts', from: 'plan?.tasks.find((t) => t.doneAt === undefined) ?? null;', to: 'plan?.tasks[plan.tasks.length - 1] ?? null;', pourquoi: 'l’accueil propose une autre session que la première tâche du plan (Leberzirrhose)' },
+  { id: 'D3', days: 2, file: 'src/lib/stats.ts', from: "if (p.status === 'fragile' && p.lastScore !== null) out.push", to: "if (p.status !== 'solide') out.push", pourquoi: 'les « points faibles » accusent un Teil jamais tenté' },
+  { id: 'D4', days: 1, file: 'src/lib/program/select.ts', from: 'picked.length === 0 || picked[picked.length - 1] !== next;', to: 'true;', pourquoi: 'deux spécialités identiques se suivent' },
+  { id: 'D5', days: 1, file: 'src/features/program/HistoriquePage.tsx', from: '  const filtered = useMemo(() => (events ?? []).filter((e) => {\n', to: "  const filtered = useMemo(() => (events ?? []).filter((e) => {\n    if (e.kind === 'drill') return false;\n", pourquoi: 'l’historique masque un genre d’exercice' },
+  { id: 'D6', days: 1, file: 'src/lib/program/dayPlan.ts', from: '  if (existing) return existing;                                  // « figé » veut dire que le premier fige\n', to: '', pourquoi: 'le jour est recalculé à chaque ouverture' },
+  { id: 'D8', days: 2, file: 'src/lib/simulationSave.ts', from: '  if (!nouveau) return sim;\n', to: '', pourquoi: 'une partie validée deux fois est écrite deux fois' },
+  { id: 'D9', days: 7, file: 'src/features/simulation/PendingExternalSimCard.tsx', from: MUTATIONS.find((m) => m.id === 'FB3-3oct').from, to: '', pourquoi: 'le correctif du 3 octobre est retiré' },
+  { id: 'D10', days: 3, file: 'src/lib/lauf/speichern.ts', from: '  return restauriere(l);\n}', to: '  return { ...restauriere(l), sekundenProTeil: {} };\n}', pourquoi: 'une partie interrompue reprend avec le chrono à zéro' },
+];
+
+function copyAppFull() {
+  const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'c6-nav-'));
+  for (const f of ['src', 'scripts', 'public', 'index.html', 'package.json', 'vite.config.ts', 'tsconfig.json', 'postcss.config.js', 'tailwind.config.js']) {
+    if (fs.existsSync(path.join(APP, f))) fs.cpSync(path.join(APP, f), path.join(dir, f), { recursive: true });
+  }
+  fs.mkdirSync(path.join(dir, 'docs/reports'), { recursive: true });
+  fs.symlinkSync(fs.realpathSync(path.join(APP, 'node_modules')), path.join(dir, 'node_modules'));
+  return dir;
+}
+
+if (argv.includes('--navigateur')) {
+  const envFile = argv[argv.indexOf('--env-file') + 1];
+  if (!envFile) { console.error('--env-file requis (Supabase LOCAL)'); process.exit(2); }
+  let ok = true, port = 5300;
+  for (const m of NAV_MUTATIONS.filter((x) => !only || only.includes(x.id))) {
+    const dir = copyAppFull();
+    const f = path.join(dir, m.file), src = fs.readFileSync(f, 'utf8');
+    if (src.split(m.from).length - 1 !== 1) { console.log(`FAIL  ${m.id} — MUTATION INAPPLICABLE`); ok = false; continue; }
+    fs.writeFileSync(f, src.replace(m.from, () => m.to));
+    const r = spawnSync('node', ['scripts/parcours-candidat.mjs', '--env-file', envFile, '--days', String(m.days), '--port', String(port++),
+      '--out', path.join(dir, 'docs/reports/rapport.md'), '--shots', path.join(dir, 'captures')], { cwd: dir, encoding: 'utf8', maxBuffer: 1 << 26 });
+    const ko = (r.stdout ?? '').split('\n').filter((l) => /^KO\s+\w+/.test(l));
+    const killed = r.status === 1 && ko.some((l) => l.startsWith(`KO  ${m.id} `));
+    ok &&= killed;
+    console.log(`${killed ? 'OK  ' : 'FAIL'}  ${m.id} — ${killed ? 'TUÉE' : r.status === 2 ? 'HARNAIS EN DÉFAUT' : 'SURVIVANTE'} · ${m.pourquoi}`);
+    for (const l of ko.filter((l) => l.startsWith(`KO  ${m.id} `)).slice(0, 2)) console.log(`        ↳ ${l.slice(0, 220)}`);
+    if (!killed) console.log((r.stdout ?? '').slice(-600) + (r.stderr ?? '').slice(-400));
+    if (!keep) fs.rmSync(dir, { recursive: true, force: true });
+  }
+  console.log(ok ? '\nToutes les mutations du candidat sont tuées.' : '\nÉCHEC : une mutation survit.');
+  process.exit(ok ? 0 : 1);
+}
 
 function run(cwd, tests) {
   const out = path.join(cwd, 'vitest-out.json');

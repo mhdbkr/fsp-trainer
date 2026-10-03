@@ -202,6 +202,73 @@ jobs:
       - if: always()
         run: supabase stop
 
+  # --------------------------------------------------------------------------
+  # C6 — la couche « invariants » : propriétés sur le vrai corpus (130 cas), la
+  # vraie base (fake-indexeddb) et l'horloge injectable, puis la PREUVE que
+  # chacune rougit quand on réintroduit le défaut qu'elle garde (mutation sur
+  # une copie de travail, jamais commitée). `npx vitest run --dir src` (job
+  # « build ») ne descend pas dans app/tests : ce job est la seule porte.
+  # --------------------------------------------------------------------------
+  invariants-c6:
+    name: Invariants C6 — propriétés et preuve par mutation
+    runs-on: ubuntu-latest
+    defaults: { run: { working-directory: app } }
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 22, cache: npm, cache-dependency-path: app/package-lock.json }
+      - run: npm ci
+      - name: Invariants en propriété (INV-1 à INV-28, FB3 du 3 oct.)
+        run: npx vitest run --dir tests
+      - name: Chaque invariant rougit sur sa mutation
+        run: node scripts/parcours-mutations.mjs
+
+  # --------------------------------------------------------------------------
+  # C6 — la couche « candidat synthétique » : 14 jours ouvrés joués à travers
+  # l'interface d'un build servi par `vite preview`, contre le Supabase LOCAL de
+  # la CI, horloge pilotée par Playwright. Le contenu est publié dans ce
+  # Supabase éphémère (publishContent.mjs) : le job ne dépend de rien d'externe.
+  # NON BLOQUANT tant qu'il n'a pas tourné sur un runner (écrit hors CI, où il
+  # a été mesuré) : `continue-on-error`, rapport en artefact. Retirer la ligne
+  # une fois trois exécutions vertes de suite.
+  # --------------------------------------------------------------------------
+  candidat-c6:
+    name: Candidat synthétique C6 (navigateur, Supabase local)
+    runs-on: ubuntu-latest
+    continue-on-error: true
+    timeout-minutes: 25
+    defaults: { run: { working-directory: app } }
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 22, cache: npm, cache-dependency-path: app/package-lock.json }
+      - uses: supabase/setup-cli@v1
+        with: { version: latest }
+      - run: npm ci
+      # Playwright n'est pas une dépendance du dépôt : installé pour ce job seulement.
+      - run: npm i --no-save playwright-core@1.63.0 && npx playwright-core install --with-deps chromium
+      - run: supabase start
+      - run: supabase functions serve --env-file supabase/.env.ci > /tmp/fn.log 2>&1 &
+      - name: Env du Supabase local (clés masquées) et publication du contenu
+        run: |
+          eval "$(supabase status -o env)"
+          echo "::add-mask::$ANON_KEY"; echo "::add-mask::$SERVICE_ROLE_KEY"
+          printf 'VITE_SUPABASE_URL=%s\nVITE_SUPABASE_ANON_KEY=%s\n' "$API_URL" "$ANON_KEY" > /tmp/c6.env
+          SUPABASE_URL="$API_URL" SUPABASE_SERVICE_ROLE_KEY="$SERVICE_ROLE_KEY" node scripts/publishContent.mjs
+      - name: Le candidat joue 14 jours
+        run: node scripts/parcours-candidat.mjs --env-file /tmp/c6.env --out ../c6-parcours-ci.md --shots /tmp/c6-captures
+        env:
+          PLAYWRIGHT_CORE: ${{ github.workspace }}/app/node_modules/playwright-core
+      - if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: c6-parcours
+          path: |
+            c6-parcours-ci.md
+            /tmp/c6-captures
+      - if: always()
+        run: supabase stop
+
   publish:
     name: Publier le contenu
     needs: [contrats, build]
