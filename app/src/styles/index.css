@@ -153,7 +153,7 @@ h1, h2, h3 {
      (deux plans de flou dans la même zone de document), pas un calque qui
      passe au-dessus d'une carte : celui-là échantillonne le rendu fini, pas
      un fond qu'il partage. `TermHoverCard` le faisait déjà. Appliqué à
-     `AccountSwitcher`, `DeckChecklist`, `SelectionExplainer` (l'ancienne
+     `AccountSwitcher`, `SelectionExplainer` (l'ancienne
      chaîne `border-t-white` sur `bg-white` : une arête blanche sur blanc, donc
      aucune arête), `CardToast`, `NewCardSheet` (même défaut en `inset`).
 
@@ -194,18 +194,17 @@ h1, h2, h3 {
      genre de survivance qui fait dire « il en reste une, donc la règle n'est
      pas vraie ». Celle du mascotte (`Doctopus.tsx`) est retirée.
 
-     Reste à NETTOYER, et c'est un chantier ouvert : 23 classes d'ombre
-     portée (`shadow-sm/md/lg/2xl`, survols compris — recomptées le 30 sept.
-     2026 hors commentaires) dans 15 fichiers `.tsx` de `features/`. Depuis
-     fix-s3 I4 elles ne produisent PLUS RIEN (classe absente du CSS livré).
-     PAS toutes mortes sans dommage : cinq, sur trois segmentés redessinés à
-     la main (`CaseDetailPage:55,58`, `PatientScreen:46,47`,
-     `ProgramPage:463`), portaient le SEUL signal du cran choisi — sans
-     l'ombre, blanc sur `slate-100`, contraste ≈ 1,07. Ceux-là passent à
-     `.seg` + `aria-pressed` en premier ; les autres sont des classes mortes à
-     retirer. Une vraie ombre reste, en `style` inline donc invisible aux
-     greps de classes : `features/simulation/TimeCapsule.tsx` (deux couches
-     portées). Liste et remplacement lieu par lieu :
+     Reste à NETTOYER, et c'est un chantier ouvert : 15 classes d'ombre
+     portée (`shadow-sm/md/lg/2xl`, survols compris — recomptées le 3 oct.
+     2026 hors commentaires et tests) dans 9 fichiers `.tsx` de `features/`.
+     Depuis fix-s3 I4 elles ne produisent PLUS RIEN (classe absente du CSS
+     livré). PAS toutes mortes sans dommage : deux segmentés redessinés à la
+     main (`CaseDetailPage:55,58`, `ProgramPage`) portent encore le SEUL
+     signal du cran choisi — sans l'ombre, blanc sur `slate-100`, contraste
+     ≈ 1,07. Ceux-là passent à `.seg` + `aria-pressed` en premier
+     (`PatientScreen` l'a fait) ; les autres sont des classes mortes à
+     retirer. `TimeCapsule.tsx` n'a plus que son filet `inset`.
+     Liste et remplacement lieu par lieu :
      `app/docs/reports/lead-s3-primitives.md` §3.6.
      ─────────────────────────────────────────────────────────────────────
 
