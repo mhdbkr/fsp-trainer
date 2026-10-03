@@ -14,7 +14,7 @@
 //    se recalcule plus, donc il n'y a plus rien à rattraper à la main. La
 //    seule action sur un jour figé est « Replanifier ».
 // ============================================================================
-import { useMemo, useRef, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import {
   addDays, addMonths, addWeeks, eachDayOfInterval, endOfMonth, endOfWeek, format,
   isSameMonth, parseISO, startOfMonth, startOfWeek,
@@ -28,6 +28,7 @@ import { accepterRattrapage, rattrapageAProposer, refuserRattrapage, RATTRAPAGE_
 import { useLiveQuery } from 'dexie-react-hooks';
 import { getMeta } from '@/db/db';
 import { todayKey } from '@/lib/clock';
+import { useToday } from '@/lib/today';
 import { joursRestants } from '@/lib/program/trajectory';
 import type { DayPlan, Fortschrittsmodus, Intensity, TaskInstance, TaskKind } from '@/db/types';
 import { ProgramSetup } from './ProgramSetup';
@@ -47,8 +48,17 @@ export function ProgramPage() {
   const refuse = useModusRefuse();
   const [editing, setEditing] = useState(false);
   const [view, setView] = useState<View>('semaine');
-  const [anchor, setAnchor] = useState(todayKey());
-  const [selected, setSelected] = useState(todayKey());
+  const today = useToday((s) => s.day);
+  const [anchor, setAnchor] = useState(today);
+  const [selected, setSelected] = useState(today);
+  // I-1 : minuit passé, le jour choisi suit aujourd'hui s'il VALAIT aujourd'hui ;
+  // un jour choisi à la main reste choisi.
+  const prevToday = useRef(today);
+  useEffect(() => {
+    if (prevToday.current === today) return;
+    if (selected === prevToday.current) { setSelected(today); setAnchor(today); }
+    prevToday.current = today;
+  }, [today, selected]);
   const dayRef = useRef<HTMLDivElement>(null);
   const focusDay = (d: string) => {
     setSelected(d); setAnchor(d);
