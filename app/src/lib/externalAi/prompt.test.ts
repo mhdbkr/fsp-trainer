@@ -68,6 +68,16 @@ describe('buildPromptPaket — Teil Anamnese ⇒ rôle patient', () => {
   });
 });
 
+describe('buildPromptPaket — un proche répond pour le patient', () => {
+  it('l\'amorce cadre le tiers quand la fiche contient ses répliques', () => {
+    const delir = { ...c, patientSheet: { ...c.patientSheet, antworten: { 'akt-motiv': 'Die Tochter: Er ist seit zwei Tagen völlig durcheinander.' } } } as Case;
+    const p = buildPromptPaket(delir, 'anamnese');
+    expect(p.anrede).toContain('Deine Tochter ist dabei und antwortet manchmal für dich');
+    expect(p.anrede.length).toBeLessThanOrEqual(ANREDE_MAX);
+    expect(buildPromptPaket(c, 'anamnese').anrede).not.toContain('ist dabei');
+  });
+});
+
 describe('buildPromptPaket — Teil Fallvorstellung ⇒ Oberarzt seul', () => {
   const p = buildPromptPaket(c, 'fallvorstellung');
   const full = promptText(p);

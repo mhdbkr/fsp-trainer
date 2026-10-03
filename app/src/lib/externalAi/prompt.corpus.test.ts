@@ -89,6 +89,9 @@ describe('prompt externe sur le corpus (130 cas × 2 Teile)', () => {
           }
           // D2 + inférence : aucune justification différentielle, aucun attendu.
           if (INFERENCE_RE.test(full)) fail.push(`${id} D2 ${full.match(INFERENCE_RE)![0]}`);
+          // M6 : un proche qui répond dans la fiche est annoncé dans l'amorce.
+          const proche = Object.values(c.patientSheet.antworten ?? {}).some((a) => /(?:^|[.!?…]\s+)(?:Die|Der) [A-ZÄÖÜ][a-zäöüß]+:/u.test(a ?? ''));
+          if (proche !== /ist dabei und antwortet manchmal für dich/.test(p.anrede)) fail.push(`${id} M6 proche`);
           // L'amorce (le gabarit) ne nomme jamais la pathologie.
           if (p.anrede.toLowerCase().includes(c.pathology.toLowerCase())) fail.push(`${id} D1 pathologie dans l'amorce`);
           // Relevé (non bloquant) : la pathologie dite par le patient lui-même,

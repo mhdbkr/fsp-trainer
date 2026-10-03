@@ -57,14 +57,28 @@ const VERNEINUNG_RE = /^(?:Nein|Nee|Kein\w*|Nicht|Nie|Noch nie)\b/i;
 const NUANCE_RE = /\b(?:aber|nur|außer|bis auf|seit|früher|damals|mal|manchmal|ab und zu|eigentlich|sondern|doch)\b|\d/i;
 const reineVerneinung = (s: string) => VERNEINUNG_RE.test(s) && !NUANCE_RE.test(s);
 
+// Un proche qui répond à la place du patient (« Die Tochter: … », case-delir) :
+// l'amorce le dit, sinon l'IA ne sait pas qui parle.
+const FEMININ = new Set(['Tochter', 'Ehefrau', 'Frau', 'Mutter', 'Partnerin', 'Enkelin', 'Schwester']);
+const BEGLEITUNG_RE = /(?:^|[.!?…]\s+)(?:Die|Der) (Tochter|Sohn|Ehefrau|Ehemann|Frau|Mann|Mutter|Vater|Partnerin|Partner|Enkelin|Enkel|Schwester|Bruder):/u;
+function begleitung(s: Case['patientSheet']): string | null {
+  for (const a of Object.values(s.antworten ?? {})) {
+    const m = a && BEGLEITUNG_RE.exec(a);
+    if (m) return `${FEMININ.has(m[1]) ? 'Deine' : 'Dein'} ${m[1]} ist dabei und antwortet manchmal für dich; in der Akte beginnen diese Antworten mit „${m[0].trim().replace(/^[.!?…]\s*/u, '')}“.`;
+  }
+  return null;
+}
+
 const bullets = (items: string[]) => items.map((x) => `- ${x}`).join('\n');
 
 function patient(c: Case): PromptPaket {
   const s = c.patientSheet;
   const p = s.personalia;
+  const tiers = begleitung(s);
   const rolle = p.geschlecht === 'w' ? 'die Patientin' : p.geschlecht === 'm' ? 'der Patient' : 'die Patientin oder der Patient';
   const anrede = [
     `Du bist ${p.name}, ${p.age} Jahre alt${p.beruf ? `, ${p.beruf}` : ''}. Wir spielen eine Simulation der Fachsprachprüfung Medizin in Deutschland: Ich bin die Ärztin oder der Arzt und führe mit dir das Anamnesegespräch, du bist ${rolle}.`,
+    ...(tiers ? [tiers] : []),
     '',
     'So spielst du:',
     '- Du antwortest nur auf meine Frage, in ein bis zwei Sätzen, in Alltagssprache, ohne Fachbegriffe.',
