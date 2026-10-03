@@ -91,6 +91,14 @@ export interface PatientSheet {
    *  l'orthopnée pour un rhume des foins) : sondes retirées du guide, réponse
    *  non exigée. Explicite et relu, plutôt qu'un gabarit subi. */
   aktuellSkip?: string[];
+  /** Sondes de la Fachanamnese qui n'ont PAS de sens pour CE cas (le grain de
+   *  beauté pour un érysipèle) : retirées de la trame jouée, réponse non
+   *  exigée. Le résidu clinique que les règles par sexe/âge/motif ne voient pas. */
+  fachSkip?: string[];
+  /** Nature du motif que le texte ne permet pas de déduire (« ohne Sturz »
+   *  piège toute regex) : traumatisme ou non, et région. Requis pour les cas
+   *  qui jouent la Fach Ortho ; pilote les règles de Fach (série 3, L0). */
+  motiv?: { trauma: boolean; region: 'obere' | 'untere' | 'lws' | 'bws' | 'hws' | 'thorax' | 'abdomen' };
   schmerz?: {                   // Schmerzanalyse pré-remplie si douleur
     ort?: string; charakter?: string; intensitaet?: number;
     ausstrahlung?: string; beginn?: string; verlauf?: string;

@@ -4641,6 +4641,7 @@ export function seedCases(): Case[] {
       frequency: 12,
       difficulty: 2,
       patientSheet: {
+        motiv: { trauma: true, region: 'untere' },
         personalia: {
           name: 'Tobias Reinhardt',
           age: 34,
@@ -4972,6 +4973,8 @@ export function seedCases(): Case[] {
       frequency: 14,
       difficulty: 2,
       patientSheet: {
+        motiv: { trauma: false, region: 'lws' },
+        fachSkip: ['fach-ortho-durchblutung'],
         personalia: {
           name: 'Reinhold Ackermann',
           age: 52,
@@ -5719,6 +5722,7 @@ export function seedCases(): Case[] {
       frequency: 9,
       difficulty: 3,
       patientSheet: {
+        fachSkip: ['fach-neuro-anfallzeichen'],
         leitsymptomKategorie: 'nerven',
         personalia: {
           name: 'Gabriela Hubert',
@@ -9855,6 +9859,7 @@ export function seedCases(): Case[] {
       frequency: 7,
       difficulty: 2,
       patientSheet: {
+        fachSkip: ['fach-neuro-anfallzeichen'],
         personalia: {
           name: 'Elke Kovermann',
           age: 39,
@@ -11019,6 +11024,7 @@ export function seedCases(): Case[] {
       frequency: 3,
       difficulty: 3,
       patientSheet: {
+        fachSkip: ['fach-kardio-ausstrahlung'],
         leitsymptomKategorie: 'atemnot',
         personalia: {
           name: 'Werner Krause',
@@ -12142,6 +12148,7 @@ export function seedCases(): Case[] {
       frequency: 3,
       difficulty: 2,
       patientSheet: {
+        fachSkip: ['fach-infekt-zecke'],
         personalia: {
           name: 'Norbert Mayer',
           age: 65,
@@ -13707,6 +13714,7 @@ export function seedCases(): Case[] {
       frequency: 0,
       difficulty: 2,
       patientSheet: {
+        fachSkip: ['fach-derma-muttermal', 'fach-derma-verlauf'],
         leitsymptomKategorie: 'veraenderung',
         personalia: {
           name: 'Bernd Kowalski',
@@ -18037,6 +18045,7 @@ export function seedCases(): Case[] {
       frequency: 0,
       difficulty: 2,
       patientSheet: {
+        fachSkip: ['fach-derma-muttermal', 'fach-derma-verlauf'],
         personalia: {
           name: 'Brigitte Ostermann',
           age: 63,
@@ -18534,6 +18543,7 @@ export function seedCases(): Case[] {
       frequency: 9,
       difficulty: 2,
       patientSheet: {
+        motiv: { trauma: false, region: 'bws' },
         personalia: {
           name: 'Rainer Hober',
           age: 55,
@@ -22388,6 +22398,8 @@ export function seedCases(): Case[] {
       frequency: 8,
       difficulty: 2,
       patientSheet: {
+        motiv: { trauma: false, region: 'obere' },
+        fachSkip: ['fach-ortho-durchblutung'],
         leitsymptomKategorie: 'nerven',
         personalia: {
           name: 'Karla Mäyerle-Schäubele',
@@ -24046,6 +24058,7 @@ export function seedCases(): Case[] {
       frequency: 0,
       difficulty: 2,
       patientSheet: {
+        fachSkip: ['fach-infekt-zecke'],
         leitsymptomKategorie: 'ausscheidung',
         personalia: {
           name: 'Tobias Lindner',
@@ -24554,6 +24567,7 @@ export function seedCases(): Case[] {
       frequency: 0,
       difficulty: 2,
       patientSheet: {
+        fachSkip: ['fach-neuro-anfallzeichen', 'fach-neuro-aura'],
         leitsymptomKategorie: 'nerven',
         personalia: {
           name: 'Gerhard Vollmer',
@@ -25113,6 +25127,7 @@ export function seedCases(): Case[] {
       frequency: 5,
       difficulty: 2,
       patientSheet: {
+        motiv: { trauma: false, region: 'untere' },
         personalia: {
           name: 'Burkhard Schwulinski',
           age: 69,
@@ -26196,6 +26211,7 @@ export function seedCases(): Case[] {
       frequency: 0,
       difficulty: 2,
       patientSheet: {
+        fachSkip: ['fach-infekt-zecke'],
         personalia: {
           name: 'Katrin Vollmer',
           age: 34,
@@ -27302,6 +27318,7 @@ export function seedCases(): Case[] {
       frequency: 0,
       difficulty: 2,
       patientSheet: {
+        fachSkip: ['fach-neuro-anfallzeichen'],
         leitsymptomKategorie: 'neurologisch',
         personalia: {
           name: 'Renate Bittner',
@@ -28903,6 +28920,7 @@ export function seedCases(): Case[] {
       frequency: 6,
       difficulty: 2,
       patientSheet: {
+        motiv: { trauma: true, region: 'untere' },
         personalia: {
           name: 'Lisele Müller',
           age: 90,
@@ -31049,6 +31067,7 @@ export function seedCases(): Case[] {
       frequency: 16,
       difficulty: 2,
       patientSheet: {
+        fachSkip: ['fach-neuro-aura'],
         leitsymptomKategorie: 'neurologisch',
         personalia: {
           name: 'Enga Schäuberle',
@@ -37451,6 +37470,7 @@ export function seedCases(): Case[] {
       frequency: 4,
       difficulty: 2,
       patientSheet: {
+        motiv: { trauma: false, region: 'lws' },
         personalia: {
           name: 'Gerhard Lindner',
           age: 71,
@@ -37989,6 +38009,7 @@ export function seedCases(): Case[] {
       frequency: 14,
       difficulty: 2,
       patientSheet: {
+        motiv: { trauma: false, region: 'hws' },
         personalia: {
           name: 'Konrad Preiss',
           age: 68,
@@ -40085,6 +40106,7 @@ export function seedCases(): Case[] {
       frequency: 6,
       difficulty: 2,
       patientSheet: {
+        fachSkip: ['fach-infekt-zecke'],
         leitsymptomKategorie: 'ausscheidung',
         personalia: {
           name: 'Michael Müller',
@@ -41215,6 +41237,7 @@ export function seedCases(): Case[] {
       frequency: 6,
       difficulty: 2,
       patientSheet: {
+        fachSkip: ['fach-infekt-zecke'],
         leitsymptomKategorie: 'infekt',
         personalia: {
           name: 'Susanne Kleinmeier',
@@ -41788,6 +41811,7 @@ export function seedCases(): Case[] {
       frequency: 12,
       difficulty: 2,
       patientSheet: {
+        motiv: { trauma: false, region: 'untere' },
         personalia: {
           name: 'Heiner King',
           age: 57,
@@ -43505,6 +43529,7 @@ export function seedCases(): Case[] {
       frequency: 5,
       difficulty: 2,
       patientSheet: {
+        fachSkip: ['fach-derma-muttermal', 'fach-derma-verlauf'],
         personalia: {
           name: 'Bernhard Lauber',
           age: 31,
@@ -45568,6 +45593,7 @@ export function seedCases(): Case[] {
       frequency: 5,
       difficulty: 2,
       patientSheet: {
+        fachSkip: ['fach-infekt-zecke'],
         leitsymptomKategorie: 'infekt',
         personalia: {
           name: 'Martha Bühreln',
@@ -46065,6 +46091,7 @@ export function seedCases(): Case[] {
       frequency: 4,
       difficulty: 3,
       patientSheet: {
+        fachSkip: ['fach-derma-muttermal', 'fach-derma-verlauf', 'fach-derma-vorbehandlung'],
         leitsymptomKategorie: 'atemnot',
         aktuellSkip: ['akt-atemnot-nachts'],
         personalia: {
@@ -51390,6 +51417,7 @@ export function seedCases(): Case[] {
       frequency: 1,
       difficulty: 3,
       patientSheet: {
+        motiv: { trauma: false, region: 'untere' },
         personalia: {
           name: 'Markus Lindner',
           age: 42,
@@ -55711,6 +55739,8 @@ export function seedCases(): Case[] {
       frequency: 3,
       difficulty: 2,
       patientSheet: {
+        motiv: { trauma: false, region: 'lws' },
+        fachSkip: ['fach-ortho-durchblutung'],
         personalia: {
           name: 'Markus Feldmann',
           age: 42,
@@ -56200,6 +56230,7 @@ export function seedCases(): Case[] {
       frequency: 0,
       difficulty: 3,
       patientSheet: {
+        motiv: { trauma: false, region: 'abdomen' },
         personalia: {
           name: 'Herbert Maurer',
           age: 71,
@@ -56691,6 +56722,7 @@ export function seedCases(): Case[] {
       frequency: 2,
       difficulty: 3,
       patientSheet: {
+        motiv: { trauma: false, region: 'thorax' },
         personalia: {
           name: 'Manfred Kessler',
           age: 63,
@@ -59025,6 +59057,7 @@ export function seedCases(): Case[] {
       frequency: 1,
       difficulty: 2,
       patientSheet: {
+        fachSkip: ['fach-derma-muttermal'],
         leitsymptomKategorie: 'veraenderung',
         personalia: {
           name: 'Clemens Wurster',
@@ -59488,6 +59521,7 @@ export function seedCases(): Case[] {
       frequency: 3,
       difficulty: 2,
       patientSheet: {
+        fachSkip: ['fach-derma-muttermal'],
         leitsymptomKategorie: 'veraenderung',
         personalia: {
           name: 'Sabine Schaubele',

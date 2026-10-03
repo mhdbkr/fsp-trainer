@@ -146,9 +146,10 @@ export function countTerms(texts, index, { negation = false } = {}) {
 
 // --- Textes d'un cas ---------------------------------------------------------
 const flatten = (v, out = []) => { if (v == null) return out; if (typeof v === 'string') out.push(v); else if (Array.isArray(v)) v.forEach((x) => flatten(x, out)); else if (typeof v === 'object') Object.values(v).forEach((x) => flatten(x, out)); return out; };
-/** Questionnaire standard (réponses aux sondes), signes niés et consignes de jeu
+/** Questionnaire standard (réponses aux sondes), signes niés, ids techniques (sondes
+ *  retirées, motif déclaré : « fach-neuro-aura » n'est pas une aura) et consignes de jeu
  *  du simulant (persona, en français : « t'interrompre » ≈ Interruptio) : jamais lus. */
-export const EXCLUDED_KEYS = ['antworten', 'antwortenEmotional', 'frageAntworten', 'negativeFindings', 'persona'];
+export const EXCLUDED_KEYS = ['antworten', 'antwortenEmotional', 'frageAntworten', 'negativeFindings', 'persona', 'aktuellSkip', 'fachSkip', 'motiv'];
 /** Anamnèse systématique (fiche, Muster, Arztbrief) et diagnostics différentiels :
  *  contextuels — ils ne lient aucun terme à eux seuls. */
 export const CONTEXTUAL_SHEET_KEYS = [
