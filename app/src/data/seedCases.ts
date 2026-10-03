@@ -18902,7 +18902,7 @@ export function seedCases(): Case[] {
         { frage: 'Sind Sie kleiner geworden, oder hat jemand aus Ihrem Umfeld bemerkt, dass Ihr Rücken runder geworden ist?', kapitel: 'vorerkrankungen' },
         { frage: 'Hatten Sie schon einmal einen Knochenbruch nach einem harmlosen Sturz oder einer Bagatellverletzung?', kapitel: 'vorerkrankungen', relu: true },
         { frage: 'Ist bei Ihnen eine Osteoporose bekannt, und wurde jemals eine Knochendichtemessung durchgeführt? Kennen Sie Ihren Wert?', kapitel: 'vorerkrankungen' },
-        { frage: 'Haben Sie zusätzlich zur täglichen Tablette schon einmal eine Kortison-Stoßtherapie bekommen?', kapitel: 'medikamente' },
+        { frage: 'Haben Sie außer der täglichen Kortisontablette schon einmal einen Kortisonstoß bekommen, also für ein paar Tage eine hohe Dosis?', kapitel: 'medikamente' },
         { frage: 'Welche Behandlung haben Sie gegen die Osteoporose bekommen, und nehmen Sie diese Medikamente heute noch ein?', kapitel: 'medikamente' },
         { frage: 'Gibt es in Ihrer Familie eine Osteoporose oder Knochenbrüche im Alter, insbesondere bei Mutter oder Vater?', kapitel: 'familie-sozial' },
       ],
