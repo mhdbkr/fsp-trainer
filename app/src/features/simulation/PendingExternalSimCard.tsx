@@ -91,7 +91,7 @@ export function PendingExternalSimCard({ onlyCaseId }: { onlyCaseId?: string } =
       <SelbstBewertung
         part={step}
         durationSec={step === 'anamnese' ? anamneseSec : fallvorstellungSec}
-        suivant={step === 'anamnese' && p.scope !== 'anamnese' ? 'Fallvorstellung' : null}
+        suivant={step === 'anamnese' && !p.teil ? 'Fallvorstellung' : null}
         onCancel={() => setStep('idle')}
         onSave={(r) => {
           if (savingRef.current) return; // double-tap : la première validation est déjà en cours
