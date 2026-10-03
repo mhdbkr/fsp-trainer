@@ -76,7 +76,7 @@ export function HistoriquePage() {
         <div className="eyebrow">Journal d'entraînement</div>
         <h1 className="mt-2 font-display text-2xl font-bold tracking-tightish">Historique</h1>
         <p className="mt-1 text-slate-500 dark:text-slate-400">
-          Tout ce que tu as fait, du plan ou libre — simulations, fiches lues, Aufklärungen, tâches cochées. Rien n'est arrondi.
+          Tout ce que tu as fait, du plan ou libre — simulations, drill, fiches lues, Aufklärungen, tâches cochées. Rien n'est arrondi.
         </p>
       </header>
 
