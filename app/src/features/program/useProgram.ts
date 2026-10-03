@@ -8,12 +8,17 @@ import { useLiveQuery } from 'dexie-react-hooks';
 import { db } from '@/db/db';
 import type { CaseProgress, DayPlan, Fortschrittsmodus, TaskInstance, TrainingEvent } from '@/db/types';
 import { projectedDays } from '@/lib/program/dayPlan';
-import { todayKey } from '@/lib/clock';
+import { useToday } from '@/lib/today';
 import { MODUS_REFUSE_KEY } from '@/lib/programAdjust';
 
-/** Le plan figé du jour. `undefined` = chargement, `null` = jour pas encore ouvert. */
-export const useDayPlan = (date = todayKey()): DayPlan | null | undefined =>
-  useLiveQuery(async () => (await db.day_plans.get(date)) ?? null, [date], undefined);
+/** Le plan figé du jour. `undefined` = chargement, `null` = jour pas encore ouvert.
+ *  Sans `date`, suit « aujourd'hui » RÉACTIF (I-1) : l'écran change de jour quand
+ *  `watchDayPlan` rouvre la journée, pas au prochain rendu fortuit. */
+export function useDayPlan(date?: string): DayPlan | null | undefined {
+  const today = useToday((s) => s.day);
+  const d = date ?? today;
+  return useLiveQuery(async () => (await db.day_plans.get(d)) ?? null, [d], undefined);
+}
 
 /** Tous les plans figés — l'historique du plan, jamais recalculé. */
 export const useDayPlans = (): DayPlan[] | undefined =>
