@@ -236,8 +236,9 @@ describe('§3.4 — la machine s’adapte à l’humain', () => {
     expect(satisfiedTask(dp, { kind: 'simulation', caseId: 'c1', teile: ['anamnese'] })?.id).toBe('t1');
   });
 
-  it('une tâche sans `teil` (run complet) est satisfaite par n’importe quel Teil joué du cas', () => {
-    expect(satisfiedTask(dp, { kind: 'simulation', caseId: 'c2', teile: ['fallvorstellung'] })?.id).toBe('t2');
+  it('une tâche sans `teil` (run complet) demande les TROIS Teile — le mode prime (D-C4 révisé)', () => {
+    expect(satisfiedTask(dp, { kind: 'simulation', caseId: 'c2', teile: ['fallvorstellung'] })).toBeUndefined();
+    expect(satisfiedTask(dp, { kind: 'simulation', caseId: 'c2', teile: ['anamnese', 'dokumentation', 'fallvorstellung'] })?.id).toBe('t2');
   });
 
   it('un autre cas, ou un autre Teil que celui prévu, ne satisfait rien', () => {
