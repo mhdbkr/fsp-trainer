@@ -197,11 +197,16 @@ h1, h2, h3 {
      Reste à NETTOYER, et c'est un chantier ouvert : 23 classes d'ombre
      portée (`shadow-sm/md/lg/2xl`, survols compris — recomptées le 30 sept.
      2026 hors commentaires) dans 15 fichiers `.tsx` de `features/`. Depuis
-     fix-s3 I4 elles ne produisent PLUS RIEN (classe absente du CSS livré) :
-     ce sont des classes mortes, pas des ombres. Une vraie ombre reste, en
-     `style` inline donc invisible aux greps de classes :
-     `features/simulation/TimeCapsule.tsx` (deux couches portées). Liste par
-     fichier dans `app/docs/reports/fix-s3-primitives.md`.
+     fix-s3 I4 elles ne produisent PLUS RIEN (classe absente du CSS livré).
+     PAS toutes mortes sans dommage : cinq, sur trois segmentés redessinés à
+     la main (`CaseDetailPage:55,58`, `PatientScreen:46,47`,
+     `ProgramPage:463`), portaient le SEUL signal du cran choisi — sans
+     l'ombre, blanc sur `slate-100`, contraste ≈ 1,07. Ceux-là passent à
+     `.seg` + `aria-pressed` en premier ; les autres sont des classes mortes à
+     retirer. Une vraie ombre reste, en `style` inline donc invisible aux
+     greps de classes : `features/simulation/TimeCapsule.tsx` (deux couches
+     portées). Liste et remplacement lieu par lieu :
+     `app/docs/reports/lead-s3-primitives.md` §3.6.
      ─────────────────────────────────────────────────────────────────────
 
      LA RÈGLE : la profondeur DESCEND, elle ne remonte jamais.
