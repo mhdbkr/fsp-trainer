@@ -30,7 +30,7 @@ beforeEach(async () => {
     payload: { at: Date.UTC(2026, 8, 1) + i * 60_000, kind: 'fiche', teile: [], source: 'libre', spentMin: 3 },
   }));
   await db.progress_events.bulkPut(evs);
-});
+}, 60_000);                                                        // m-3 : délai de hook explicite
 afterEach(() => resetClock());
 
 describe('I-2 — une reconstruction concurrente n\'efface rien', () => {
@@ -41,7 +41,7 @@ describe('I-2 — une reconstruction concurrente n\'efface rien', () => {
     const te = await logTraining({ kind: 'fiche', caseId: 'c1', spentMin: 5 });
     await rebuild;
     expect(await db.training_events.get(te.id)).toBeDefined();
-  });
+  }, 60_000);   // m-3 : 3 000 événements, délai explicite (charge CI)
   it('ensureDayPlan pendant rebuildProjections : le plan du jour reste dans day_plans', async () => {
     freezeAt(new Date(2026, 9, 1, 10, 0));
     const rebuild = rebuildProjections();
@@ -49,5 +49,5 @@ describe('I-2 — une reconstruction concurrente n\'efface rien', () => {
     const plan = await ensureDayPlan();
     await rebuild;
     expect((await db.day_plans.get('2026-10-01'))?.seed).toBe(plan!.seed);
-  });
+  }, 60_000);
 });

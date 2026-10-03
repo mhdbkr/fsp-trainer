@@ -121,7 +121,7 @@ describe('10 000 événements — le démarrage reconstruit tout, sans rien perd
     expect(await db.case_progress.count()).toBe(24);
     console.info(`[boot] 10 000 événements reconstruits en ${Math.round(ms)} ms (fake-indexeddb)`);
     expect(ms).toBeLessThan(15_000);
-  }, 60_000);
+  }, 180_000);   // m-3 : le budget mesuré reste 15 s ; le délai couvre la charge CI
 });
 
 describe('I1 — le jour se matérialise aussi APRÈS le démarrage', () => {
