@@ -65,7 +65,7 @@ export function CoverageField({ cases, progress }: { cases: Case[]; progress: Ma
                         type="button"
                         onClick={() => setPicked(on ? null : { specialty: sp, teil: t })}
                         className={`h-8 w-full rounded tnum transition-transform hover:scale-[1.04] ${TONE[cell.state]} ${on ? 'ring-2 ring-brand-400' : ''}`}
-                        title={`${sp} × ${teilLabel(t).label} — ${cell.solide} solide, ${cell.entame} entamé, ${cell.vierge} pas encore travaillé`}
+                        title={`${sp} × ${teilLabel(t).label} — ${cell.solide} solide, ${cell.entame} entamé, ${cell.vierge} pas encore travaillé${cell.nonMesure ? `, ${cell.nonMesure} faite — non mesurée` : ''}`}
                       >
                         {cell.solide}/{cell.total}
                       </button>
@@ -80,6 +80,7 @@ export function CoverageField({ cases, progress }: { cases: Case[]; progress: Ma
 
       <div className="mt-3 flex flex-wrap items-center gap-4 text-[10px] text-slate-400">
         <span className="flex items-center gap-1.5"><span className={`h-2.5 w-2.5 rounded-sm ${TONE.vierge}`} />pas encore travaillé</span>
+        <span className="flex items-center gap-1.5"><span className="h-2.5 w-2.5 rounded-sm border border-dashed border-slate-400" />faite — non mesurée (dans le détail)</span>
         <span className="flex items-center gap-1.5"><span className={`h-2.5 w-2.5 rounded-sm ${TONE.entame}`} />entamé</span>
         <span className="flex items-center gap-1.5"><span className={`h-2.5 w-2.5 rounded-sm ${TONE.solide}`} />solide</span>
       </div>
