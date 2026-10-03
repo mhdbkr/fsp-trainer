@@ -39,7 +39,7 @@ test('données réelles : la porte retrouve les 8, sort 0 (informative)', T, () 
 });
 
 test('mutation — sans la règle « affirmation en tête », Tamsulosin et Magenschutz passent', T, () => {
-  const r = sb.mutate(DETECT, 'if (ASSERT.test(t.q))', 'if (false)', run);
+  const r = sb.mutate(DETECT, 'if (ASSERT.test(t.q) &&', 'if (false &&', run);
   assert.deepEqual(missing(r.stdout), ['prostatakarzinom', 'achalasie']);
 });
 

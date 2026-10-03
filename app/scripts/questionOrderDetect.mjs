@@ -44,6 +44,7 @@ export function trameWords(generalTexts) {
 export function detect(c, trame) {
   const hits = [];
   const known = new Set();
+  const said = new Set(); // mots entiers déjà dits : le lemme tronqué à 6 lettres confond « Magenschmerzen » et « Magenschutztabletten »
   c.turns.forEach((t, i) => {
     // `eroeffnung` : discours tenu, pas d'interrogatoire (rien n'y est présupposé).
     if (t.own && t.ch !== 'eroeffnung') {
@@ -56,9 +57,11 @@ export function detect(c, trame) {
         if (known.has(l) || trame.has(full(m[1])) || !laterL.has(l)) continue;
         hits.push({ rule: 'NP', hit: m[0], ...at });
       }
-      if (ASSERT.test(t.q)) hits.push({ rule: 'ASSERT', hit: t.q.split(/\s+/).slice(0, 2).join(' '), ...at });
+      // Une affirmation qui ne reprend que des mots déjà dits (ou de trame) ne présuppose rien.
+      const fresh = nounsOf(t.q).filter((w) => w.length >= 4 && !said.has(w.toLowerCase()) && !trame.has(full(w)));
+      if (ASSERT.test(t.q) && fresh.length) hits.push({ rule: 'ASSERT', hit: t.q.split(/\s+/).slice(0, 2).join(' '), ...at });
     }
-    for (const w of nounsOf(`${t.q} ${t.a}`)) known.add(lemma(w));
+    for (const w of nounsOf(`${t.q} ${t.a}`)) { known.add(lemma(w)); said.add(w.toLowerCase()); }
   });
   return hits;
 }

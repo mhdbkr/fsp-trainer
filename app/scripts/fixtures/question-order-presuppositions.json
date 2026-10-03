@@ -279,9 +279,36 @@
      "own": false
     }
    ]
+  },
+  {
+   "id": "ctrl-affirmation-deja-dite",
+   "why": "« Sie nehmen… » reprend un fait que le patient a déjà dit : ce n'est pas une présupposition",
+   "facts": "",
+   "turns": [
+    {
+     "ch": "aktuell",
+     "q": "Welche Medikamente nehmen Sie?",
+     "a": "Ich nehme Tamsulosin.",
+     "own": false
+    },
+    {
+     "ch": "aktuell",
+     "q": "Sie nehmen seit Jahren Tamsulosin: Ist es in letzter Zeit schlimmer geworden?",
+     "a": "",
+     "own": true
+    },
+    {
+     "ch": "medikamente",
+     "q": "Medikamente?",
+     "a": "Tamsulosin morgens.",
+     "own": false
+    }
+   ]
   }
  ],
  "trame": [
-  "Beschwerden"
+  "Beschwerden",
+  "Zeit",
+  "Jahre"
  ]
 }
