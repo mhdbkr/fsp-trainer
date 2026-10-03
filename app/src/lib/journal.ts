@@ -479,9 +479,8 @@ export async function applySimulationToJournal(sim: Simulation): Promise<Trainin
 async function applyEventToLocalState(event: TrainingEvent): Promise<void> {
   if (event.taskId) {
     const id = event.taskId;
-    const plan = (await db.day_plans.get(dayKey(event.at)))?.tasks.some((t) => t.id === id)
-      ? await db.day_plans.get(dayKey(event.at))
-      : await db.day_plans.filter((p) => p.tasks.some((t) => t.id === id)).first();
+    const sameDay = await db.day_plans.get(dayKey(event.at));
+    const plan = sameDay?.tasks.some((t) => t.id === id) ? sameDay : await db.day_plans.filter((p) => p.tasks.some((t) => t.id === id)).first();
     if (plan) {
       const prev = plan.tasks.find((t) => t.id === id)?.eventId;
       if (prev && prev !== event.id && !isCocheNue(event)) {
