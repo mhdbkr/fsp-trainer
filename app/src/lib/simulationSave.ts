@@ -2,7 +2,8 @@
 // comportement, pour être partagée avec le retour d'une simulation IA externe.
 import { db } from '@/db/db';
 import { syncQueue } from '@/lib/sync/queue';
-import { caseMastery } from '@/lib/simScope';
+import { now } from '@/lib/clock';
+import { applySimulationToJournal, resolveSimulationTask } from '@/lib/journal';
 import { simulationPassed } from '@/lib/scoring';
 import { getActiveUserId } from '@/lib/auth/accounts';
 import type { AssistanceMode, BogenNotes, Case, Layer, MusterCity, PartResult, SimTeil, SketchNotes, Simulation, SimulationMode } from '@/db/types';
@@ -32,6 +33,8 @@ export interface SaveInput {
   teil?: SimTeil;
   mode?: SimulationMode;
   externalTarget?: Simulation['externalTarget'];
+  /** Tâche du plan lancée (R-C4). Gardée seulement si CETTE partie la satisfait. */
+  taskId?: string;
 }
 
 // Corrections prioritaires : dérivées des critères non cochés + langue faible.
@@ -51,11 +54,11 @@ function buildCorrections(parts: Partial<Record<Part, PartResult>>): string[] {
 
 export async function saveSimulation(i: SaveInput): Promise<Simulation> {
   const parts = { ...i.parts };
-  const id = i.id ?? `sim-${Date.now()}`;
-  const sim: Simulation = {
+  const id = i.id ?? `sim-${now()}`;
+  const draft: Simulation = {
     id,
     caseId: i.c.id,
-    date: Date.now(),
+    date: now(),                                            // horloge de l'app (I10)
     profileId: i.profileId ?? getActiveUserId() ?? undefined,
     parts,
     notes: i.notes ?? {},
@@ -70,8 +73,12 @@ export async function saveSimulation(i: SaveInput): Promise<Simulation> {
     scope: i.scope ?? 'full', teil: i.teil,
     ...(i.mode ? { mode: i.mode } : {}),
     ...(i.externalTarget ? { externalTarget: i.externalTarget } : {}),
+    ...(i.taskId ? { taskId: i.taskId } : {}),
   };
-  sim.passed = simulationPassed(sim);
+  draft.passed = simulationPassed(draft);
+  // D-C4 / R-C4 : la tâche est résolue AVANT l'écriture — persistée dans la
+  // ligne ET dans l'événement, donc rejouée à l'identique au rebuild.
+  const sim = await resolveSimulationTask(draft);
 
   // Idempotence sur l'identifiant de partie (contrat §3.2, INV-22).
   // La lecture et l'écriture sont dans UNE transaction : deux clics vraiment
@@ -82,7 +89,7 @@ export async function saveSimulation(i: SaveInput): Promise<Simulation> {
     const deja = await db.simulations.get(id);
     // La date est celle de la PREMIÈRE écriture (M9) : un second appel
     // idempotent ne déplace pas la simulation dans l'historique.
-    if (deja) sim.date = deja.date;
+    if (deja) { sim.date = deja.date; if (deja.taskId) sim.taskId = deja.taskId; else delete sim.taskId; }
     await db.simulations.put(sim);
     return !deja;
   });
@@ -99,27 +106,18 @@ export async function saveSimulation(i: SaveInput): Promise<Simulation> {
   // Sur le payload seulement — la LIGNE `Simulation` porte déjà `mode`, et
   // `db/types.ts` appartient à un autre chantier.
   const selfDeclared = sim.mode === 'external-ai';
-  syncQueue.push({ type: 'simulation.completed', subject_id: sim.id, payload: { ...sim, selfDeclared } }).catch((e) => console.warn('[sync]', e));
-  // met à jour confiance + statut du cas — confiance pondérée (assistance × couche)
-  //
-  // DÉVIATION ASSUMÉE du contrat `simulation-run.md` §3.2 (« speichern()
-  // n'écrit plus dans db.cases »). La projection `case_progress` qui doit
-  // prendre le relais (`training-journal.md` §4.1) appartient au chantier
-  // Programme et n'existe pas encore ici (`lib/journal.ts` absent de la
-  // branche). La retirer maintenant ferait régresser la progression visible
-  // des cas — exactement la règle que la direction a tranchée (FB2-P : toute
-  // session fait avancer le cas). À retirer dans le MÊME merge que
-  // `case_progress`, pas avant. Escaladé à `main` (GATE G2).
-  const done = Object.values(parts).filter((p): p is PartResult => !!p?.done);
-  // Toute session fait avancer le cas (FB2-P, retour direction) : la
-  // confiance est la maîtrise au prorata des trois parties, dernière
-  // session de chaque partie comprise — celle-ci incluse.
-  if (done.length) {
-    const prior = await db.simulations.where('caseId').equals(i.c.id).toArray();
-    const mastery = caseMastery(prior, i.c.id, sim).score ?? 0;
-    const conf = Math.round(mastery * (i.assistance === 'autonome' ? 1 : 0.9));
-    const status = conf >= 80 ? 'Maîtrisé' : conf >= 40 ? 'En cours' : 'À faire';
-    await db.cases.update(i.c.id, { confidence: conf, status, lastSimulationId: sim.id, layerProgress: i.layer });
+  // AWAIT : le journal se reconstruit depuis progress_events (B-C1) ; la
+  // projection locale ne doit jamais devancer l'événement.
+  await syncQueue.push({ type: 'simulation.completed', subject_id: sim.id, payload: { ...sim, selfDeclared } }).catch((e) => console.warn('[sync]', e));
+  await applySimulationToJournal(sim);                      // R-C2 : historique, case_progress, tâche cochée — aussitôt
+  // R-C5 : plus de confidence / status / lastSimulationId — `case_progress` fait
+  // foi (training-journal.md §4.1). La DÉVIATION de `simulation-run.md` §3.2
+  // est retirée dans ce merge, comme convenu (GATE G2). `layerProgress` garde
+  // des lecteurs (layerAdvice, PendingExternalSimCard) : maximum, comme la
+  // projection `rebuildProjections` — redescendre de couche ne le fait pas baisser.
+  if (Object.values(parts).some((p) => p?.done)) {
+    const prev = (await db.cases.get(i.c.id))?.layerProgress ?? 0;
+    if (i.layer > prev) await db.cases.update(i.c.id, { layerProgress: i.layer });
     syncQueue.push({ type: 'case.layer_reached', subject_id: i.c.id, payload: { layer: i.layer } }).catch((e) => console.warn('[sync]', e));
   }
   return sim;
