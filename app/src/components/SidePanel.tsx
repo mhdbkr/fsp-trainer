@@ -40,7 +40,7 @@ export function SidePanel({ title, icon, children, defaultCollapsed = false, wid
           onClick={toggle}
           title={`Ouvrir : ${title}`}
           aria-hidden={!collapsed}
-          className={`flex min-h-[3rem] w-full items-center gap-2 rounded-xl border border-slate-200 bg-white px-3 py-2 text-brand-600 transition-[opacity,color,background-color,border-color] duration-300 hover:border-brand-400 hover:bg-brand-50 dark:border-slate-800 dark:bg-slate-900 dark:text-brand-300 dark:hover:bg-brand-900/20 lg:min-h-[8rem] lg:w-11 lg:flex-col lg:py-3 ${
+          className={`panel panel-interactive flex min-h-[3rem] w-full items-center gap-2 rounded-xl px-3 py-2 text-brand-600 transition-[opacity,color,background-color,border-color,transform] duration-300 dark:text-brand-300 lg:min-h-[8rem] lg:w-11 lg:flex-col lg:py-3 ${
             collapsed ? 'opacity-100' : 'pointer-events-none absolute inset-0 opacity-0'
           }`}
         >

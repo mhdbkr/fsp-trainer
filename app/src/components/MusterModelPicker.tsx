@@ -24,8 +24,8 @@ export function MusterModelPicker({ value, onChange }: { value: MusterCity; onCh
             <button key={m.id} type="button" onClick={() => onChange(m.cities.includes(value) ? value : m.primary)}
               data-active={active} aria-pressed={active}
               className={`mm-card group flex flex-col gap-3 rounded-2xl border p-3.5 text-left transition-[border-color,box-shadow,transform] duration-300 ease-fluid ${
-                active ? 'border-brand-400 bg-brand-50/50 shadow-md ring-2 ring-brand-400/40 dark:border-brand-600 dark:bg-brand-900/15'
-                       : 'border-slate-200 bg-white/60 hover:-translate-y-0.5 hover:border-brand-300 hover:shadow-md dark:border-ink-600 dark:bg-ink-800/50 dark:hover:border-brand-700'}`}>
+                active ? 'border-brand-400 bg-brand-50/50 shadow-e2 ring-2 ring-brand-400/40 dark:border-brand-600 dark:bg-brand-900/15'
+                       : 'border-slate-200 bg-white/60 hover:-translate-y-0.5 hover:border-brand-300 hover:shadow-e2 dark:border-ink-600 dark:bg-ink-800/50 dark:hover:border-brand-700'}`}>
               <div className="flex items-start justify-between gap-2">
                 <div className="min-w-0">
                   <div className="font-display text-[15px] font-semibold tracking-tightish">{m.name}</div>
@@ -97,7 +97,7 @@ function FieldBox({ field, style, start }: { field: BogenField; style: MusterBog
   return (
     <div className={`flex gap-1 ${field.kind === 'split' ? '' : ''}`}>
       {cells.map((c, k) => (
-        <div key={c.key} className="flex min-w-0 flex-1 gap-1 rounded-md border border-slate-200 px-1.5 py-1 dark:border-ink-600">
+        <div key={c.key} className="panel flex min-w-0 flex-1 gap-1 rounded-md px-1.5 py-1">
           {k === 0 && <Icon name={field.icon} className="mt-px h-2.5 w-2.5 shrink-0 text-brand-500/80" />}
           <div className="flex min-w-0 flex-1 flex-col gap-[3px] pt-px">
             <Lines style={style} seed={start + k} />

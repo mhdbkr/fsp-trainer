@@ -27,7 +27,7 @@ export function KommunikationPanel({ situationIds }: { situationIds?: string[] }
 function SituationCard({ title, icon, cue, parades }: { title: string; icon: string; cue: string; parades: string[] }) {
   const [showParade, setShowParade] = useState(false);
   return (
-    <div className="rounded-lg border border-slate-200 p-2.5 dark:border-slate-800">
+    <div className="panel p-2.5">
       <div className="flex items-center gap-2">
         <Icon name={icon} className="h-4 w-4 text-rose-500" />
         <span className="text-sm font-medium">{title}</span>

@@ -52,7 +52,7 @@ export function ArztbriefGuide({ c, assistance, text, onText, bogen, muster }: {
         <div className="label">Ton Arztbrief</div>
         <textarea value={text} onChange={(e) => onText(e.target.value)} rows={18}
           placeholder="Sehr geehrte Frau Kollegin, sehr geehrter Herr Kollege,&#10;wir berichten Ihnen nachfolgend über …"
-          className="input resize-y p-3 font-mono text-[13px] leading-relaxed" />
+          className="input resize-y p-3 text-[13px] leading-relaxed" />
         <div className="flex items-center justify-between">
           <span className="text-[11px] text-slate-400">{text.trim() ? text.trim().split(/\s+/).length : 0} mots</span>
           <button onClick={() => setFb(compareArztbrief(text, c.referenceArztbrief))} disabled={!text.trim()}

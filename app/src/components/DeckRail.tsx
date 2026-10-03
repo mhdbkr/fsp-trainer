@@ -72,8 +72,10 @@ const Page = memo(function Page({ i, id, name, kind, axis, edge, t, z, named, op
   const tone = ranged
     ? 'bg-brand-50/80 text-brand-700 dark:bg-brand-900/40 dark:text-brand-300'
     : plus ? 'border-dashed border-slate-400/80 bg-transparent text-slate-600 dark:border-white/30 dark:text-slate-300' : 'text-slate-700 dark:text-slate-200';
-  // Tranche lisible sur l'empilement de verre : un filet d'encre (clair) / de lumière (sombre), jamais une ombre.
-  const shape = axis === 'x' ? 'inset-y-0 right-0 w-14 rounded-l-2xl' : 'inset-x-0 bottom-0 h-14 rounded-t-2xl';
+  // Page = aplat (.panel) : elle vit dans le tiroir glass-full, et un verre dans un verre
+  // ne floute rien (backdrop root). Coin collé au tiroir sans rayon, comme avant.
+  // Tranche lisible sur l'empilement : un filet d'encre (clair) / de lumière (sombre), jamais une ombre.
+  const shape = axis === 'x' ? 'inset-y-0 right-0 w-14 rounded-l-2xl rounded-r-none' : 'inset-x-0 bottom-0 h-14 rounded-t-2xl rounded-b-none';
   const edgeLine = plus ? '' : axis === 'x' ? 'border-l-slate-900/15 dark:border-l-white/20' : 'border-t-slate-900/15 dark:border-t-white/20';
   // Nom centré dans la tranche visible (vertical, lu de bas en haut / horizontal au téléphone).
   const label = axis === 'x'
@@ -86,7 +88,7 @@ const Page = memo(function Page({ i, id, name, kind, axis, edge, t, z, named, op
       aria-pressed={plus ? undefined : ranged} aria-disabled={busy || undefined}
       aria-description={plus ? 'Créer, renommer ou supprimer un deck' : `${ranged ? 'Retirer de' : 'Ranger dans'} ${name}`}
       aria-label={plus ? 'Gérer les decks' : undefined} aria-haspopup={plus ? 'dialog' : undefined}
-      className={`deck-page ${plus ? '' : 'glass-full'} pointer-events-auto absolute border text-xs font-medium outline-none transition-colors focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-brand-500 aria-disabled:cursor-progress ${shape} ${edgeLine} ${tone}`}
+      className={`deck-page ${plus ? '' : 'panel'} pointer-events-auto absolute border text-xs font-medium outline-none transition-colors focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-brand-500 aria-disabled:cursor-progress ${shape} ${edgeLine} ${tone}`}
       onClick={() => { if (press.current.fired) { press.current.fired = false; return; } act(plus ? 'manage' : 'toggle', i); }}
       onContextMenu={(e) => { if (plus) return; e.preventDefault(); act('menu', i, e.clientY); }}
       onPointerEnter={(e) => { if (e.pointerType === 'mouse') act('hover', i); }}
@@ -140,7 +142,7 @@ function DeckMenu({ deck, style, onClose }: { deck: { id: string; name: string }
   const item = 'flex min-h-11 w-full items-center rounded-xl px-3 text-left text-sm hover:bg-white/50 focus-visible:bg-white/50 outline-none dark:hover:bg-white/10 dark:focus-visible:bg-white/10';
   return (
     <m.div ref={ref} role="menu" aria-label={`Deck ${deck.name}`} data-keep-open {...expand} style={{ ...style, transformOrigin: 'right top' }}
-      className="glass-full absolute z-20 w-52 rounded-2xl p-1"
+      className="panel absolute z-20 w-52 rounded-2xl bg-white/95 p-1 transition-none dark:bg-ink-800/95"
       onKeyDown={(e) => {
         if (e.key === 'Escape') { e.preventDefault(); e.stopPropagation(); onClose(true); return; }
         if (e.key === 'Tab') { trapFocus(e, ref.current); e.stopPropagation(); return; }
@@ -260,7 +262,7 @@ export function DeckRail({ termId, caseId, onManage }: { termId: string; caseId?
       </AnimatePresence>
       {error && (
         <p role="alert" style={axis === 'x' ? { right: base + 8 } : undefined}
-          className={axis === 'x' ? 'glass-full absolute bottom-4 w-40 rounded-xl px-2 py-1 text-right text-xs text-rose-700 dark:text-rose-300' : 'px-4 py-1 text-xs text-rose-700 dark:text-rose-300'}>{error}</p>
+          className={axis === 'x' ? 'panel absolute bottom-4 w-40 rounded-xl bg-white/95 px-2 py-1 text-right dark:bg-ink-800/95 text-xs text-rose-700 dark:text-rose-300' : 'px-4 py-1 text-xs text-rose-700 dark:text-rose-300'}>{error}</p>
       )}
     </div>
   );

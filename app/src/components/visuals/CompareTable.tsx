@@ -20,7 +20,7 @@ export default function CompareTable({ block }: CompareTableProps) {
   if (data.rows.length < 2) return null;
 
   return (
-    <div className="overflow-hidden rounded-lg border border-slate-200/80 dark:border-slate-800">
+    <div className="panel overflow-hidden">
       <table className="hidden w-full border-collapse text-sm sm:table">
         <thead>
           <tr className="sticky top-0 z-[1] bg-slate-50/90 backdrop-blur dark:bg-ink-800/70">

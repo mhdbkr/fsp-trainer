@@ -17,7 +17,7 @@ export function TimeAmbianceProvider({ elapsed, target, children }: { elapsed: n
 /** PERFORMANCE — l'état ne change qu'une fois par seconde ; la douceur vient de
  *  transitions CSS très longues (2 s) sur la couleur. Rien ne s'anime en boucle,
  *  rien ne clignote : la teinte dérive, c'est tout. */
-const DRIFT = 'background 2000ms linear, border-color 2000ms linear, box-shadow 2000ms linear, color 2000ms linear';
+const DRIFT = 'background 2000ms linear, border-color 2000ms linear, color 2000ms linear';
 
 /** Verre teinté par le temps, partagé par les DEUX étiquettes de l'en-tête.
  *  `strength` dose la présence de la teinte : l'étiquette titre en reçoit une
@@ -26,7 +26,6 @@ const DRIFT = 'background 2000ms linear, border-color 2000ms linear, box-shadow 
 export function timeGlass(amb: TimeAmbiance, strength = 1): CSSProperties {
   const veil = (0.05 + amb.intensity * 0.20) * strength;
   const edge = (0.16 + amb.intensity * 0.46) * strength;
-  const glow = (0.10 + amb.intensity * 0.32) * strength;
   const side = auraColor(amb, Math.max(edge, 0.08));
   return {
     // Vrai verre = BEAUCOUP de flou et PEU d'opacité. L'inverse (peu de flou,
@@ -40,11 +39,9 @@ export function timeGlass(amb: TimeAmbiance, strength = 1): CSSProperties {
     borderStyle: 'solid',
     borderColor: side,
     backgroundImage: `linear-gradient(142deg, ${auraColor(amb, veil)} 0%, ${auraColor(amb, veil * 0.25)} 55%, ${auraColor(amb, veil * 0.7)} 100%)`,
-    boxShadow: [
-      'inset 0 1px 0 0 rgb(255 255 255 / 0.55)',
-      `0 20px 44px -24px ${auraColor(amb, glow)}`,
-      '0 3px 12px -6px rgb(4 30 27 / 0.18)',
-    ].join(', '),
+    // Seul le filet de lumière en haut : la profondeur du verre ne passe plus
+    // par des ombres portées (charte, « la lumière vient d'en haut »).
+    boxShadow: 'inset 0 1px 0 0 rgb(255 255 255 / 0.55)',
     transition: DRIFT,
   };
 }

@@ -27,13 +27,13 @@ describe('StartButton — le départ, en haut de la pré-simulation', () => {
   it('entre dans la partie, au Teil demandé', () => {
     render(<MemoryRouter><StartButton caseId="c1" teil="fallvorstellung" /></MemoryRouter>);
     fireEvent.click(screen.getByRole('button', { name: /démarrer la simulation/i }));
-    expect(nav.navigate).toHaveBeenCalledWith('/simulation/c1/run?teil=fallvorstellung');
+    expect(nav.navigate).toHaveBeenCalledWith('/simulation/c1/run?teil=fallvorstellung', { viewTransition: true });
   });
 
   it('en simulation complète, l’entrée ne porte aucun Teil', () => {
     render(<MemoryRouter><StartButton caseId="c1" teil={null} /></MemoryRouter>);
     fireEvent.click(screen.getByRole('button', { name: /démarrer la simulation/i }));
-    expect(nav.navigate).toHaveBeenCalledWith('/simulation/c1/run');
+    expect(nav.navigate).toHaveBeenCalledWith('/simulation/c1/run', { viewTransition: true });
   });
 });
 

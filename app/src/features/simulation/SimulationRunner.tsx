@@ -304,7 +304,7 @@ export function SimulationRunner() {
                               className="relative z-10 flex flex-col items-center gap-1">
                               <span className={`flex h-10 w-10 items-center justify-center rounded-full border-2 ${
                                 isDone ? 'border-emerald-500 bg-emerald-500 text-white'
-                                : isActive ? 'border-brand-600 bg-brand-600 text-white shadow-md'
+                                : isActive ? 'border-brand-600 bg-brand-600 text-white'
                                 : 'border-slate-300 bg-white/70 text-slate-400 dark:border-slate-700 dark:bg-slate-900/70'}`}>
                                 {isDone ? '✓' : <Icon name={f.icon} className="h-5 w-5" />}
                               </span>
@@ -631,10 +631,10 @@ export function ResultScreen({ sim, c }: { sim: Simulation; c: Case }) {
       )}
 
       <div className="flex flex-wrap justify-center gap-2">
-        <Link to={`/fachbegriffe/drill?case=${c.id}`} className="btn-primary gap-1.5"><Icon name="nav-abc" className="h-4 w-4" />Drill des termes du cas →</Link>
-        <Link to={`/cas/${c.id}`} className="btn-outline">Revoir la fiche</Link>
+        <Link viewTransition to={`/fachbegriffe/drill?case=${c.id}`} className="btn-primary gap-1.5"><Icon name="nav-abc" className="h-4 w-4" />Drill des termes du cas →</Link>
+        <Link viewTransition to={`/cas/${c.id}`} className="btn-outline">Revoir la fiche</Link>
         <button onClick={() => openExternalAi(c.id)} className="btn-outline gap-1.5"><Icon name="spark" className="h-4 w-4" />Rejouer avec ton IA</button>
-        <Link to="/" className="btn-ghost">Accueil</Link>
+        <Link viewTransition to="/" className="btn-ghost">Accueil</Link>
       </div>
     </div>
   );

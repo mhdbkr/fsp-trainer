@@ -13,7 +13,7 @@ import { AutoLink } from '@/components/AutoLink';
 export function DDTable({ items }: { items: { dd: string; unterscheidung: string }[] }) {
   const COLS = 'sm:grid-cols-[auto_minmax(8rem,1fr)_1.85fr]';
   return (
-    <div className="overflow-hidden rounded-lg border border-slate-200/80 dark:border-slate-800">
+    <div className="panel overflow-hidden">
       <div className={`hidden border-b border-slate-200/80 bg-slate-50/70 sm:grid ${COLS} dark:border-slate-800 dark:bg-ink-800/40`}>
         <span className="label py-1.5 pl-3" aria-hidden />
         <div className="label py-1.5 pl-2 pr-3">Differenzialdiagnose</div>
