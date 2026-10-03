@@ -461,11 +461,16 @@ async function applyEventToLocalState(event: TrainingEvent): Promise<void> {
 
 /** Reconstruit `training_events` + `case_progress` + `day_plans` depuis le
  *  journal. Idempotente : deux passages donnent le même état (INV-10). */
-export async function rebuildJournal(events: ProgressEvent[]): Promise<void> {
-  const te = projectTrainingEvents(events);
-  const plans = projectDayPlans(events, te);
-  const progress = computeCaseProgress(te);
-  await db.transaction('rw', [db.training_events, db.day_plans, db.case_progress], async () => {
+export async function rebuildJournal(events?: ProgressEvent[]): Promise<void> {
+  // I-2 : le journal est relu DANS la transaction, qui verrouille aussi
+  // `progress_events` — une écriture concurrente (logTraining, ensureDayPlan)
+  // passe avant ou après la reconstruction, jamais entre sa lecture et son
+  // `clear`. `events` n'est passé que par les tests (journal synthétique).
+  await db.transaction('rw', [db.progress_events, db.training_events, db.day_plans, db.case_progress], async () => {
+    const source = events ?? await db.progress_events.toArray();
+    const te = projectTrainingEvents(source);
+    const plans = projectDayPlans(source, te);
+    const progress = computeCaseProgress(te);
     await db.training_events.clear();
     await db.training_events.bulkPut(te);
     await db.day_plans.clear();
