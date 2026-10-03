@@ -693,6 +693,10 @@ export interface TeilProgress {
   lastScore: number | null;    // null ⇔ status === 'vierge'
   lastAt: number | null;
   attempts: number;
+  /** Dernière fois que ce Teil a été déclaré FAIT sans mesure (coche, séance
+   *  IA auto-déclarée). N'entre ni dans `status`, ni dans `attempts`, ni dans
+   *  l'indice, ni dans la série : « faite — non mesurée » (re-revue I-4). */
+  nonMesureAt?: number;
 }
 
 /** Projection de `training_events`. Un cas n'a PLUS de pourcentage : il a un
