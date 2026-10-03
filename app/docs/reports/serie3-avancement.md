@@ -100,3 +100,29 @@ Agents arrêtés le 3 oct. par la limite hebdomadaire ; tout est sur disque.
 2. **Programme** — revue de clôture interrompue (dernière sonde : trou `taskId` explicite, kind `external-ai`) → relancer, puis intégration + branchements transversaux.
 3. **Lot L0** — relecture clinique interrompue → relancer ; revue mécanique : vérifier si elle a abouti.
 4. **Nouveaux constats FB3-G1→G7** (registre `BACKLOG-FEEDBACK.md` § G) → **nouveau lot en tête de file : les questions « pour ce cas », dans l'ordre d'affichage** (décision de la direction, 3 oct.), qui remplace l'ordre L1→L2 prévu au §6 : audit région/organe ↔ cas (« wirklich im Knie » pour une hanche), présuppositions (« zweiten Stock »), puis irradiation selon la région (FB3-G1, extension de L0), le bug d'affichage de la relance alcool (FB3-G4), et `case-leberzirrhose` (FB3-G5/G6) en premier des « premiers cas » (FB3-G7).
+
+## 10. Objectif de couverture — décision de la direction (3 oct.) : **100 %**
+
+Les lots s'enchaînent jusqu'à épuisement, sans saut : **L0** (en revue) →
+**questions « pour ce cas » dans l'ordre d'affichage** (+ FB3-G) → **L1** tronc
+commun → **L2** motif de consultation → **L1b** guides → **L4–L9** Fachanamnesen
+→ **L10–L15** questions de cas restantes. Critère de fin : budget A = B = C = 0
+(seules exceptions : salves d'Oberarzt `D2`/`D3`, autorisées par la direction le
+30 sept., comptées et jamais à la hausse) ; les 130 cas passés au crible de
+cohérence (région, présupposition, ordre, nature du motif) ; audit des premiers
+cas (FB3-G7) soldé.
+
+## 11. Registre des workflows en vol — à relancer sans exception
+
+Règle : à chaque reprise (limite d'usage, coupure), `main` relit cette table et
+relance chaque ligne non close, par son identifiant d'agent (`SendMessage`).
+
+| Workflow | Worktree / branche | Agent | Étape | Clos ? |
+|---|---|---|---|---|
+| Intégration primitives | `doctopus-s3-primitives` · `feat/s3-primitives` | `ad901ff9c385851ac` | finir : 2 fichiers, preuve navigateur, push → **main ouvre la PR** | non |
+| Intégration programme | `doctopus-s3-programme` · `feat/s3-programme` | `a276d650bc56bda9b` | plan `integration-s3-programme.md` → push → **main ouvre la PR** | non |
+| Lot L0 — revue mécanique | `doctopus-s3-lot0` | `a85f52786072e2105` | verdict attendu | non |
+| Lot L0 — fixeur | `doctopus-s3-lot0` · `feat/s3-lot0-fach-nature` | `ac508d333980d928d` | attend les deux revues (clinique rendue : 5 points, dont la sonde « pied froid » des aortes) | non |
+| Audit questions du cas + FB3-G | lecture seule | `ac7225d1457bf293d` | rapport attendu → **lot « questions pour ce cas » après merge de L0** | non |
+| C6 — agent testeur | — | — | après intégration programme + primitives | à lancer |
+| Lots L1 → L15 | — | — | §10, l'un après l'autre (mêmes fichiers) | à lancer |
