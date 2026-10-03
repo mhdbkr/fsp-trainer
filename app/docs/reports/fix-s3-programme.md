@@ -195,3 +195,45 @@ Migration `20260930000017` et fonction `events` **non modifiées** (déploiement
 
 - I-1 au navigateur réel (le test est un rendu DOM jsdom avec horloge injectée ; l'e2e ne franchit pas minuit).
 - Deux appareils en navigateur réel pour I-3 (tests unitaires seulement, comme D-I2).
+
+---
+
+## Intégration (`8efa388` → HEAD) — plan `integration-s3-programme.md`
+
+`git fetch` + `git merge origin/main` (`8d0406e`, sans conflit textuel) → `1be197f`.
+Serveur (migration 017 + `events` v9, déjà en prod) **non touché**.
+
+### Codes de sortie (HEAD final)
+
+| Commande | Code | Détail |
+|---|---|---|
+| `npx tsc -b --noEmit` | **0** | |
+| `npx vitest run --dir src --maxWorkers=2` | **0** | 124 fichiers, **989/989** |
+| `npx vitest run --dir src` (comme la CI) | 1 | 988/989 : `fachbegriffe/SrsSettingsSheet.test.tsx` (`waitFor` épuisé), hors de mes fichiers, **3/3 seul**. Charge moyenne de la machine pendant les mesures : 14 à 192 (autres sessions Chrome) ; un run précédent n'a même pas pu démarrer ses workers. |
+| `npm run build` | **0** | |
+| `node scripts/e2e/programmeInvariants.mjs --port 5183` | **0** | **6/6** ; P3a lit `case_progress` **avant** rechargement (R-C2 au navigateur) puis après (identique) |
+
+### Points du plan
+
+| Point | Rouge (preuve) | Correctif | Commits |
+|---|---|---|---|
+| **4.1 R-C2 + R-C5** | `simulationSave.test.ts` 4/4 : journal local vide au retour, `confidence`/`lastSimulationId` écrits | base de `main` gardée (id idempotent, **`subject_id: sim.id`**, `selfDeclared`) ; `resolveSimulationTask` avant l'écriture ; push **attendu** ; `applySimulationToJournal` ; plus de `status`/`confidence`/`lastSimulationId` ; `layerProgress` en maximum ; déviation G2 retirée | `bd8c6c7` · `298edb2` |
+| **4.3 I-A + m-1** (avant R-C4) | sonde PA : un `taskId` Anamnese gardé par une partie Dokumentation ; sonde PB : IA externe complète en couche 3 = « examen à blanc » | explicite gardé seulement si la partie satisfait la tâche (sinon résolution par le contenu) ; `isExamenBlanc` exclut `external-ai` | `5951628` · `c1dced4` |
+| **4.2 R-C4** | 4/4 : `taskLink`, `StartButton`, `useLauf`, `projektion` sans `taskId` | `task=` de TaskLine → PreSimulation → StartButton → runner → `useLauf` → `erstelleLauf` → `projektion` → `saveSimulation` | `969a12d` `fb5106f` `e63cec4` `8a5398c` `67b89f7` `d4d91f3` `80f7771` |
+| **4.4 R-C3** | 2/3 : aucun `training.logged` drill | fin de séance, ou démontage si ≥ 1 carte notée ; une seule fois ; ≥ 1 min ; **carte comptée au clic** (sous charge, `grade()` attendait `rateTerm` avant `setStats` : quitter juste après la note perdait la séance) ; Historique : « drill » rétabli | `e927bb0` `271d324` `a1236594` `a0b7dd0` |
+| **4.5** phrase IA | carte sans la phrase ; test de l'exclusion | « …ta série, pas dans l'indice de préparation » ; testé : séance aussitôt au journal, `indiceAt` à 0 | `f2917af` · `9c5b993` |
+| **m-2** | prouvé par **mutation** : sans le filtre `isCocheNue`, la garde rougit | test seul | `f7a75e3` |
+| **m-3** | — | délais explicites (rebuild 60 s, hook 60 s, 10 000 événements 180 s ; budget mesuré inchangé à 15 s) | `a4f6196` |
+| **m-4** | minuit passé avant le rafraîchissement : un re-rendu mettait le jour affiché en lecture seule | `ProgramPage` lit le jour réactif partout (`RattrapageProposal`, `DaySurface`, calendrier) | `bddb4d8` · `dabb96d` |
+| **INV-11** | — | contrat amendé : mesures inchangées, `nonMesureAt` seule trace | `44a3eac` |
+| `caseMastery` | — | supprimée (contrat §4.1) : plus aucun appelant après R-C5 | `4f8082b` · `eee5e0d` |
+| e2e | `jouerTeil` attendait « Entrer — » / « Valider la partie » (runner d'avant #54) | parcours du runner de `main` | `81727d8` |
+
+### Écarts et réserves
+
+- `SimulationSetup.tsx` : changement limité à `StartButton` (paramètre `taskId`, URL). L'arbre fusionné n'a pas de fonction `entrer()` ; aucun `{ viewTransition: true }` n'existait ici, je n'en ai pas ajouté. **Le conflit avec l'intégration des primitives se résout en gardant leur `viewTransition` et ma requête `teil` + `task`.**
+- `DrillPage.tsx` : imports, trois références, deux effets, une ligne dans `start()` et une dans `grade()`.
+- Un `taskId` explicite inconnu des plans locaux est retiré (règle I-A du plan) : une tâche figée sur un autre appareil et pas encore rapatriée ne se coche pas par l'id ; la résolution par le contenu reste.
+- `StatusBadge` (`components/ui.tsx`) n'a plus aucun usage — hors de mon périmètre, laissé.
+- `I-1` au navigateur : vérifié par la revue de clôture ; l'e2e ne franchit pas minuit.
+- Sous la charge de la machine, la commande par défaut de vitest a produit jusqu'à 46 échecs de délai (887/989 tests seulement exécutés) ; le verdict ci-dessus est celui du dernier run, charge 14–25.
