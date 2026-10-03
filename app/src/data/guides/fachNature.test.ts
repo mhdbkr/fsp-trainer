@@ -100,6 +100,13 @@ describe('Revue clinique L0', () => {
   it('osteoporose : la question de cas (« War es ein Sturz, oder reichte … ») tient lieu de mécanisme', () => {
     expect(fachQ('osteoporose', 'fach-ortho-mechanismus')).toBeUndefined();
   });
+  it('mineurs de langue : la peau taube, pas « es » ; pas de pluriel imposé à une sciatique unilatérale ; « Nein, kein Unfall » d’abord', () => {
+    expect(phraseText(fachQ('lumboischialgie', 'fach-ortho-cauda')!)).toMatch(/ist die Haut zwischen den Beinen taub\?$/);
+    for (const id of ['lumboischialgie', 'bandscheibenvorfall']) {
+      expect(phraseText(fachQ(id, 'fach-ortho-sensomotorik') ?? 'absente')).not.toMatch(/in den Beinen/);
+      expect(byId.get(`case-${id}`)!.patientSheet.antworten!['fach-ortho-mechanismus']).toMatch(/^Nein, kein Unfall — /);
+    }
+  });
   it('rachis lombaire : l’irradiation ne suggère pas la réponse (ni genou ni pied)', () => {
     for (const id of ['lumboischialgie', 'bandscheibenvorfall', 'spinalkanalstenose'])
       expect(phraseText(fachQ(id, 'fach-ortho-ausstrahlung')!)).not.toMatch(/Knie|Fuß/);

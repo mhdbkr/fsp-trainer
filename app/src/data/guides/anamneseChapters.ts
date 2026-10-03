@@ -1157,7 +1157,7 @@ export const FACHANAMNESEN: FachanamneseGuide[] = [
         label: 'Durchblutung',
       },
       {
-        text: 'Haben Sie Probleme beim Wasserlassen oder Stuhlgang, oder ist es zwischen den Beinen taub?',
+        text: 'Haben Sie Probleme beim Wasserlassen oder Stuhlgang, oder ist die Haut zwischen den Beinen taub?',
         probe: 'fach-ortho-cauda',
         label: 'Notfall',
       },
@@ -1719,8 +1719,7 @@ const FACH_RULES: Array<{ probe: string; applies?: (w: Who) => boolean; text?: (
       : region(w) === 'untere' ? 'Strahlen die Schmerzen ins Bein aus — und wenn ja, bis wohin?'
         : region(w) === 'bws' ? 'Strahlen die Schmerzen gürtelförmig um den Brustkorb aus?' : undefined) },
   { probe: 'fach-ortho-sensomotorik', text: (w) => (ARM.has(region(w) ?? '') ? 'Haben Sie im Arm Kribbeln, ein Taubheitsgefühl oder weniger Kraft bemerkt?'
-    : RUMPF.has(region(w) ?? '') ? 'Haben Sie in den Beinen Kribbeln, ein Taubheitsgefühl oder weniger Kraft bemerkt?'
-      : region(w) === 'untere' ? 'Haben Sie im Bein Kribbeln, ein Taubheitsgefühl oder weniger Kraft bemerkt?' : undefined) },
+    : region(w) === 'untere' ? 'Haben Sie im Bein Kribbeln, ein Taubheitsgefühl oder weniger Kraft bemerkt?' : undefined) },
   // Perfusion d'un membre : pas pour le rachis dorsal ou cervical ; le rachis
   // lombaire la garde (claudication vasculaire ou spinale à départager).
   { probe: 'fach-ortho-durchblutung', applies: (w) => region(w) !== 'bws' && region(w) !== 'hws',
