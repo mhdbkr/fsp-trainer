@@ -35,7 +35,6 @@ export const useAufklaerungen = () => useLiveQuery(() => db.aufklaerungen.toArra
 export const useGuides = () => useLiveQuery(() => db.guides.toArray(), [], undefined);
 /** Simulations du compte (un compte = une personne : D1, plus de filtre par profil). */
 export const useSimulations = () => useLiveQuery(() => db.simulations.orderBy('date').reverse().toArray(), [], undefined);
-export const usePlan = () => useLiveQuery(() => db.plan.toArray(), [], undefined);
 
 /** Config du programme de révision (meta `program`).
  *  undefined = pas encore chargé, null = non configuré. */
