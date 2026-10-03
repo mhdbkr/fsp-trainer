@@ -233,3 +233,75 @@ correctif (message cité), vert après. Tête : `957249e`.
   que par les tests jsdom/fake-indexeddb ci-dessus.
 - La purge réelle par `content/apply.ts` (perte de droits) n'a pas été jouée :
   le scénario est reproduit en retirant le cas de `db.cases`.
+
+---
+
+## 6. Re-revue 2 de `f4bbb26` (Approve with minors) — corrections
+
+Serveurs dev du worktree arrêtés au préalable (5179, 5199 — cwd vérifié
+`doctopus-s3-simulation/app`). Un commit par item. Pour les items qui
+n'ajoutent que des tests sur un code déjà juste (3, 4), le rouge est prouvé
+**sur mutant** : le code est altéré, les tests échouent, le code est restauré
+(`git diff` vide), les tests passent.
+
+| item | commit | test | rouge observé |
+|---|---|---|---|
+| **1** partie jouée jetée pour un Lauf corrompu | `782d19b` | `useLauf.test.tsx` › « une partie jouée n'est jamais jetée pour un Lauf corrompu » (`checkliste: [null]` ; reprise qui lève) | `expected undefined to be true` ×2 (0 ligne écrite) |
+| **2** câblage de la vue de fin | `333436a` | `Abschluss.test.tsx` (7 tests : en-tête, « ← Revenir au bilan », Arztbrief, Enregistrer, alerte en `checkliste` et en `arztbrief`, `istEnde`) | composants absents (`Element type is invalid … got: undefined`) |
+| **3** `zurueckZumBilanz` à deux parties, checklist conservée | `4341a8b` | `automat.test.ts` › décision 8 (2 tests) | sur mutant (`teileGespielt[0]`, checklist réinitialisée) : 2 échecs |
+| **4** forme minimale, clause par clause | `f81cc03` | `speichern.test.ts` › 4 tests (`geplanteTeile: []`, `modus`, `teile`, `sekundenProTeil`) | sur mutant (clauses retirées) : 4 échecs |
+| **5** alerte qui survit au retour au bilan | `c833165` | `useLauf.test.tsx` › item 5 | `expected 'QuotaExceeded' to be null` |
+| **6** message technique brut | `c833165` | `useLauf.test.tsx` › mineur 9 (attente mise à jour) | `expected 'QuotaExceeded' to match /enregistrement a échoué/i` |
+| **7** « Terminer la simulation » en double | `a976071` | `PartEvaluation.test.tsx` (2 tests) | bouton trouvé en pied de bilan ×2 |
+
+Les items 5 et 6 touchent les mêmes lignes (`beenden`, `dispatch`) : un seul
+commit, deux tests distincts.
+
+### Ce qui change
+
+- **1.** `restauriere` retire les items de checklist illisibles et filtre
+  `teileGespielt` au lieu de lever : le Lauf est gardé, la partie jouée aussi.
+  Si la reprise lève malgré tout, `retteAktivenLauf()` relit le Lauf brut et le
+  confie à `gibAuf` (écrit une partie jouée, ne lève jamais) avant d'écarter.
+  Choix : un item corrompu n'invalide **pas** tout le Lauf — le rejeter
+  jetterait l'Anamnese jouée, ce que l'item demande d'éviter.
+- **2.** `SimulationBeendenKnopf`, `Ende` et `istEnde` sortent du runner vers
+  `Abschluss.tsx` ; le runner ne fait plus que passer les callbacks. Le
+  branchement **au point d'appel** du runner (quel callback va dans quelle
+  prop) reste non testé au rendu : monter le runner en jsdom n'est pas fait.
+- **5 et 6.** `fehler` porte un message humain (« L'enregistrement a échoué.
+  Rien n'est perdu : réessaie. »), le détail technique part en
+  `console.error`. Toute transition voulue (`dispatch`) efface l'alerte.
+- **7.** Le runner ne passe plus `onTerminer` à `PartEvaluation`. La prop reste,
+  **optionnelle**, pour `SelbstBewertung` (auto-évaluation hors Lauf d'une
+  séance IA externe), où elle est la seule validation — la retirer cassait ce
+  chemin (`tsc` l'a signalé).
+
+### Portes (par code de sortie, tête après la re-revue 2)
+
+| commande | exit |
+|---|---|
+| `npx tsc -b --noEmit` | **0** |
+| `npx vitest run --dir src` | voir ci-dessous |
+| `checkGuideCoverage` / `checkUiTells` | **0** / **0** |
+
+Machine sous charge pendant cette passe (`load average` ≈ 25, plusieurs
+navigateurs d'autres agents). Première exécution complète : **exit 1**,
+7 échecs / 737, dont 5 `Test timed out in 5000ms`, dans 6 fichiers que la
+branche ne modifie pas (`GlossaryDrawer`, `NewCardSheet`, `SelectionExplainer`,
+`TermSheet`, `DrillPage`, `PendingExternalSimCard`). Ces 6 fichiers relancés
+seuls : **exit 0**, 68/68. Résultat de la seconde exécution complète : §6 bis.
+
+### 6 bis. Seconde exécution complète
+
+`npx vitest run --dir src` sur `f81cc03`, même charge machine : **exit 0**,
+96 fichiers, **737/737**. La première exécution était donc le flake de minuterie
+sous charge déjà documenté (`lead-s3-simulation.md` §4.1), pas une régression.
+
+### Non vérifié (re-revue 2)
+
+- Pas de rejeu navigateur de cette passe (le relecteur a rejoué la précédente) :
+  l'item 7 (pied de bilan sans « Terminer la simulation ») et l'alerte humaine
+  ne sont prouvés que par les tests de rendu.
+- Le branchement au point d'appel du runner (callbacks → props de `Ende`) n'a
+  pas de test de rendu du runner entier.
