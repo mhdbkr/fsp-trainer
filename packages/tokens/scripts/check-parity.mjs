@@ -73,6 +73,8 @@ expect('card.dark.background', tokens.card.dark.background, cssRule('.dark .card
 // PORTE la profondeur. Il était dessiné dans le CSS sans jumeau dans tokens.json :
 // une dérive silencieuse l'aurait effacé sans qu'aucune porte ne bouge.
 expect('glass.light.borderTop', tokens.glass.light.borderTop, cssRule('.glass', 'border-top-color'));
+expect('glass.light.border', `1px solid ${tokens.glass.light.border}`, cssRule('.glass', 'border'));
+expect('glass.dark.border', tokens.glass.dark.border, cssRule(':is(.dark) .glass', 'border-color'));
 expect('glass.dark.borderTop', tokens.glass.dark.borderTop, cssRule(':is(.dark) .glass', 'border-top-color'));
 expect('card.light.borderTop', tokens.card.light.borderTop, cssRule('.card', 'border-top-color'));
 expect('card.dark.borderTop', tokens.card.dark.borderTop, cssRule('.dark .card', 'border-top-color'));

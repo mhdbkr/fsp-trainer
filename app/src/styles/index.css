@@ -447,7 +447,13 @@ h1, h2, h3 {
     background: rgb(255 255 255 / 0.60);
     backdrop-filter: blur(20px) saturate(180%);
     -webkit-backdrop-filter: blur(20px) saturate(180%);
-    border: 1px solid rgb(255 255 255 / 0.55);
+    /* Bord ENCRE en clair (Re-revue 2, I-A, décision de `main`). Il était
+       `white/0.55` sur un remplissage `white/0.60` : blanc sur blanc. Mesuré
+       sur un popover posé sur une carte : Δ luminance bord − extérieur
+       +2,2 / +2,4 / +2,5, aucune arête. Le filet SUPÉRIEUR reste blanc : la
+       lumière vient toujours d'en haut, le bord dit seulement où finit la
+       matière. Effet voulu : topbar et barre latérale gagnent le même filet. */
+    border: 1px solid rgb(12 26 23 / 0.12);
     border-top-color: rgb(255 255 255 / 0.88);
   }
   :is(.dark) .glass {
