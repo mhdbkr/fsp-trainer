@@ -29,17 +29,18 @@ const aufk = {
 } as unknown as AufklaerungItem;
 
 window.matchMedia ??= (() => ({ matches: false })) as unknown as typeof window.matchMedia;   // jsdom
+Element.prototype.scrollIntoView ??= function () {};                                            // jsdom
 let container: HTMLDivElement; let root: Root;
 async function render(path: string, route: string, el: JSX.Element) {
   container = document.createElement('div'); document.body.appendChild(container); root = createRoot(container);
   await act(async () => { root.render(<MemoryRouter initialEntries={[path]}><Routes><Route path={route} element={el} /></Routes></MemoryRouter>); });
-  await act(async () => { await new Promise((r) => setTimeout(r, 0)); });
 }
 const button = (text: RegExp) => [...container.querySelectorAll('button')].find((b) => text.test(b.textContent ?? ''));
-async function click(b: HTMLElement | undefined) {
-  expect(b).toBeDefined();
-  await act(async () => { b!.click(); });
-  await act(async () => { await new Promise((r) => setTimeout(r, 20)); });
+/** Clique, puis attend la confirmation — posée APRÈS l'écriture du journal. */
+async function click(text: RegExp) {
+  await vi.waitFor(() => expect(button(text)).toBeDefined(), { timeout: 5000 });
+  await act(async () => { button(text)!.click(); });
+  await vi.waitFor(() => expect(container.textContent).toMatch(/noté dans ton historique/i), { timeout: 5000 });
 }
 
 beforeEach(async () => {
@@ -54,8 +55,9 @@ describe('B-C3 — fiche et Aufklärung écrivent leur événement', () => {
     const t: TaskInstance = { id: 'tf', date: '2026-10-01', kind: 'fachwissen', caseId: 'c2', label: 'Pankreatitis', estMin: 15, source: 'plan', reason: 'r' };
     await db.day_plans.put({ date: '2026-10-01', materializedAt: 0, mode: 'teil-first', seed: 's', targetMin: 90, tasks: [t] });
     await render('/fachwissen/fw-x?case=c2', '/fachwissen/:id', <FachwissenDetailPage />);
+    await vi.waitFor(() => expect(button(/fiche lue/i)).toBeDefined(), { timeout: 5000 });   // monté : le chronomètre part
     advance(7 * 60_000);
-    await click(button(/fiche lue/i));
+    await click(/fiche lue/i);
     const [te] = await db.training_events.toArray();
     expect([te.kind, te.caseId, te.spentMin, te.taskId]).toEqual(['fiche', 'c2', 7, 'tf']);
     expect(await db.progress_events.where('type').equals('training.logged').count()).toBe(1);
@@ -66,8 +68,9 @@ describe('B-C3 — fiche et Aufklärung écrivent leur événement', () => {
   it('Aufklärung travaillée : UN training.logged `aufklaerung`, temps mesuré depuis l\'ouverture', async () => {
     const advance = freezeAt(new Date(2026, 9, 1, 10, 0));
     await render('/aufklaerung?open=a1', '/aufklaerung', <AufklaerungPage />);
+    await vi.waitFor(() => expect(button(/aufklärung travaillée/i)).toBeDefined(), { timeout: 5000 });
     advance(4 * 60_000);
-    await click(button(/aufklärung travaillée/i));
+    await click(/aufklärung travaillée/i);
     const [te] = await db.training_events.toArray();
     expect([te.kind, te.spentMin, te.caseId]).toEqual(['aufklaerung', 4, undefined]);
   });
