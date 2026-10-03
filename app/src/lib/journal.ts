@@ -328,13 +328,30 @@ export function satisfiedTask(
   plan: DayPlan | undefined,
   e: Pick<TrainingEvent, 'kind' | 'caseId' | 'teile'>,
   absorbable: ReadonlySet<string> = new Set(),
+  teileDuJour: readonly SimTeil[] = e.teile,
 ): TaskInstance | undefined {
   if (!plan) return undefined;
   const open = (t: TaskInstance) => t.doneAt === undefined || (!!t.eventId && absorbable.has(t.eventId));
   return plan.tasks.find((t) => open(t)
     && (TASK_TO_TRAINING[t.kind] === e.kind || (t.kind === 'simulation' && e.kind === 'examen-blanc'))
     && (t.caseId === undefined ? t.kind === 'drill' : t.caseId === e.caseId)
-    && (t.teil === undefined || e.teile.includes(t.teil)));
+    && (t.teil === undefined ? completeAssez(t, teileDuJour) : e.teile.includes(t.teil)));
+}
+
+const FULL_RUN_KINDS = new Set<TaskKind>(['simulation', 'revision', 'examen-blanc']);
+
+/** D-C4 révisé — le mode prime : une tâche « cas complet » (sans `teil`) ne se
+ *  coche que si les TROIS Teile ont été joués, dans la partie ou le même jour. */
+const completeAssez = (t: TaskInstance, teileDuJour: readonly SimTeil[]): boolean =>
+  !FULL_RUN_KINDS.has(t.kind) || TEIL_KEYS.every((k) => teileDuJour.includes(k));
+
+/** Teile joués ce jour-là sur ce cas, cet exercice compris (coches exclues). */
+async function teileJouesLeJour(at: number, caseId: CaseId | undefined, teile: readonly SimTeil[]): Promise<SimTeil[]> {
+  if (!caseId) return [...teile];
+  const day = dayKey(at);
+  const prior = (await db.training_events.where('caseId').equals(caseId).toArray())
+    .filter((te) => dayKey(te.at) === day && !isCocheNue(te));
+  return TEIL_KEYS.filter((k) => teile.includes(k) || prior.some((te) => te.teile.includes(k)));
 }
 
 /** Résolution à l'écriture (D-C4) : la tâche du plan du jour de `at`. */
@@ -343,7 +360,7 @@ async function resolveTask(at: number, e: Pick<TrainingEvent, 'kind' | 'caseId' 
   if (!plan) return undefined;
   const ids = plan.tasks.map((t) => t.eventId).filter((x): x is string => !!x);
   const bare = new Set((await db.training_events.bulkGet(ids)).filter((te): te is TrainingEvent => !!te && isCocheNue(te)).map((te) => te.id));
-  return satisfiedTask(plan, e, bare)?.id;
+  return satisfiedTask(plan, e, bare, await teileJouesLeJour(at, e.caseId, e.teile))?.id;
 }
 
 /**
@@ -385,7 +402,6 @@ export async function logTraining(input: LogInput): Promise<TrainingEvent> {
 }
 
 const marking = new Map<string, Promise<TrainingEvent>>();
-const FULL_RUN_KINDS = new Set<TaskKind>(['simulation', 'revision', 'examen-blanc']);
 
 /** « Faite — non mesurée » : déclarée faite, jamais mesurée (I-4). */
 export const estNonMesure = (p: TeilProgress): boolean => p.status === 'vierge' && p.nonMesureAt != null;
@@ -424,8 +440,17 @@ export function markTaskDone(task: TaskInstance, spentMin = 0): Promise<Training
  * `taskId` explicite (lancé depuis le plan, R-C4) n'est jamais remplacé.
  */
 export async function resolveSimulationTask(sim: Simulation): Promise<Simulation> {
-  if (sim.taskId) return sim;
   const te = trainingEventFromSimulation(sim);
+  if (sim.taskId) {
+    // Explicite (R-C4) : jamais remplacé — mais une tâche « cas complet » n'est
+    // cochée que par les trois Teile (le mode prime, D-C4 révisé).
+    const task = (await db.day_plans.filter((p) => p.tasks.some((t) => t.id === sim.taskId)).first())?.tasks.find((t) => t.id === sim.taskId);
+    if (task && task.teil === undefined && !completeAssez(task, await teileJouesLeJour(te.at, te.caseId, te.teile))) {
+      const { taskId: _drop, ...rest } = sim;
+      return rest;
+    }
+    return sim;
+  }
   const taskId = await resolveTask(te.at, te);
   return taskId ? { ...sim, taskId } : sim;
 }
