@@ -140,7 +140,9 @@ export function PartnerCard({ caseId, teil }: { caseId: string; teil: SimTeil | 
   const [copied, setCopied] = useState(false);
   const url = patientUrl(caseId, teil ?? undefined);
   const copyUrl = () => { navigator.clipboard?.writeText(url); setCopied(true); setTimeout(() => setCopied(false), 1600); };
-  const entrer = () => navigate(`/simulation/${caseId}/run${teil ? `?teil=${teil}` : ''}`);
+  // `viewTransition` : le passage pré-écran → runner est une navigation de page ;
+  // sans lui, plus rien n'animait ce seuil depuis le retrait de `key={pathname}`.
+  const entrer = () => navigate(`/simulation/${caseId}/run${teil ? `?teil=${teil}` : ''}`, { viewTransition: true });
 
   // L'IA ne peut jouer que les deux parties dialoguées. En Dokumentation, la
   // proposer serait un choix qui n'en est pas un (contrat `ai-bridge.md`).
@@ -168,7 +170,7 @@ export function PartnerCard({ caseId, teil }: { caseId: string; teil: SimTeil | 
       </div>
 
       {ouvert === 'simulant' && (
-        <div className="mt-3 flex flex-col items-center gap-3 rounded-xl border border-slate-200 p-4 dark:border-slate-800 sm:flex-row">
+        <div className="panel mt-3 flex flex-col items-center gap-3 p-4 sm:flex-row">
           <QrCode value={url} size={130} />
           <div className="min-w-0 flex-1 text-center sm:text-left">
             <div className="text-sm font-semibold">
@@ -221,7 +223,7 @@ function ModeCard({ active, onClick, icon, title, tag, desc, tone }: {
   const iconColor = tone === 'brand' ? 'text-brand-600 dark:text-brand-300' : 'text-violet-600 dark:text-violet-300';
   return (
     <button onClick={onClick} className={`card flex items-start gap-3 p-4 text-left transition-all ${active ? `${ring} ring-1 ring-inset` : 'hover:border-slate-300 dark:hover:border-slate-600'}`}>
-      <div className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-white/70 shadow-[inset_0_1px_0_0_rgb(255_255_255/0.7)] dark:shadow-[inset_0_1px_0_0_rgb(255_255_255/0.10)] backdrop-blur-sm dark:bg-slate-800/70 ${iconColor}`}>
+      <div className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-slate-100 dark:bg-slate-800 ${iconColor}`}>
         <Icon name={icon} className="h-6 w-6" />
       </div>
       <div>

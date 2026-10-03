@@ -24,13 +24,13 @@ describe('PartnerCard — le choix ENTRE dans la simulation', () => {
   it('« Seul » entre directement, au Teil demandé', () => {
     render(<MemoryRouter><PartnerCard caseId="c1" teil="fallvorstellung" /></MemoryRouter>);
     fireEvent.click(screen.getByRole('button', { name: /seul/i }));
-    expect(nav.navigate).toHaveBeenCalledWith('/simulation/c1/run?teil=fallvorstellung');
+    expect(nav.navigate).toHaveBeenCalledWith('/simulation/c1/run?teil=fallvorstellung', { viewTransition: true });
   });
 
   it('en simulation complète, l’entrée ne porte aucun Teil', () => {
     render(<MemoryRouter><PartnerCard caseId="c1" teil={null} /></MemoryRouter>);
     fireEvent.click(screen.getByRole('button', { name: /seul/i }));
-    expect(nav.navigate).toHaveBeenCalledWith('/simulation/c1/run');
+    expect(nav.navigate).toHaveBeenCalledWith('/simulation/c1/run', { viewTransition: true });
   });
 
   it('« Avec un simulant » ouvre une fiche qui porte le Teil, puis entre', () => {
@@ -41,7 +41,7 @@ describe('PartnerCard — le choix ENTRE dans la simulation', () => {
     const lien = screen.getByRole('link', { name: /2ᵉ fenêtre/i }) as HTMLAnchorElement;
     expect(lien.href).toContain('teil=anamnese');
     fireEvent.click(screen.getByRole('button', { name: /entrer/i }));
-    expect(nav.navigate).toHaveBeenCalledWith('/simulation/c1/run?teil=anamnese');
+    expect(nav.navigate).toHaveBeenCalledWith('/simulation/c1/run?teil=anamnese', { viewTransition: true });
   });
 
   it('« Avec ton IA » ouvre la feuille EN PORTANT le Teil', () => {

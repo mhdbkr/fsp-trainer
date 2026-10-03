@@ -27,7 +27,7 @@ export function AnamneseBogen({ muster, notes, onChange, assistance }: {
   const showHints = assistance === 'assiste';
 
   return (
-    <div className="card bg-paper/70 p-4 dark:bg-ink-800/60">
+    <div className="panel bg-paper/70 p-4 dark:bg-ink-800/60">
       {/* En-tête « officiel » — le double filet est la signature du document
           papier : il reste, c'est lui qui dit « feuille d'examen ». */}
       <div className="mb-3 flex items-center justify-between border-b-2 border-ink-700/70 pb-2 dark:border-slate-300/60">
@@ -76,7 +76,7 @@ function BogenFieldView({ field, notes, set, showHints }: {
         <FieldLabel field={field} />
         <div className="mt-1 grid grid-cols-2 gap-2">
           {field.subFields.map((sf) => (
-            <div key={sf.key} className="rounded-md border border-slate-200/80 bg-white/40 p-2 focus-within:border-brand-400 dark:border-slate-700 dark:bg-ink-700/30">
+            <div key={sf.key} className="panel p-2 focus-within:border-brand-400">
               <div className="text-[10px] font-medium text-slate-400">{sf.label}</div>
               <textarea value={notes[`${field.key}.${sf.key}`] ?? ''} onChange={(e) => set(`${field.key}.${sf.key}`, e.target.value)}
                 rows={2} className="w-full resize-y bg-transparent text-[13px] outline-none" />

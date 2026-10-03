@@ -72,7 +72,7 @@ export function SimulationHub() {
                       {new Date(sim.date).toLocaleDateString('fr-FR')} · {porteeHistorique(sim)}
                     </div>
                   </div>
-                  {c && <Link to={`/simulation/${c.id}/pre`} className="btn-ghost text-xs">Rejouer</Link>}
+                  {c && <Link viewTransition to={`/simulation/${c.id}/pre`} className="btn-ghost text-xs">Rejouer</Link>}
                 </div>
               );
             })}
@@ -109,8 +109,8 @@ function FlipCaseCard({ c }: { c: Case }) {
           <button type="button" onClick={() => setFlipped(true)} tabIndex={flipped ? -1 : 0}
             className="btn-primary mt-3 w-full justify-center gap-1.5 text-xs"><Icon name="play" className="h-3.5 w-3.5" />Commencer</button>
         </div>
-        {/* Verso — verre, choix du mode */}
-        <div className="glass glass-edge flex flex-col rounded-2xl p-3 [grid-area:1/1] [backface-visibility:hidden] [transform:rotateY(180deg)]" aria-hidden={!flipped}>
+        {/* Verso — même matière que le recto (`.card`) : plus d'empilement `.card` + `.glass` */}
+        <div className="card flex flex-col p-3 [grid-area:1/1] [backface-visibility:hidden] [transform:rotateY(180deg)]" aria-hidden={!flipped}>
           <div className="mb-1.5 flex items-center justify-between gap-2">
             <div className="min-w-0">
               <div className="truncate text-sm font-semibold">{c.name}</div>
