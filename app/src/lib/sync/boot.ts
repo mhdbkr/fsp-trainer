@@ -11,7 +11,6 @@
 // quand même : le délai est court et le pull tardif se reconstruit tout seul.
 // ============================================================================
 
-import { db } from '@/db/db';
 import { rebuildJournal } from '@/lib/journal';
 import { ensureDayPlan } from '@/lib/program/dayPlan';
 import type { DayPlan } from '@/db/types';
@@ -33,7 +32,7 @@ export async function bootJournal(pullMs = BOOT_PULL_MS): Promise<DayPlan | null
   // Un pull qui a rapporté du neuf a déjà tout reconstruit (rebuildProjections).
   // Sinon on reconstruit le journal ici, TOUJOURS : c'est O(n) sur le journal
   // local, et « vide ou incomplet » ne se détecte pas mieux qu'en reconstruisant.
-  if (!pulled) await rebuildJournal(await db.progress_events.toArray());
+  if (!pulled) await rebuildJournal();
   return ensureDayPlan();
 }
 

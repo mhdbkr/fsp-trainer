@@ -41,5 +41,5 @@ export async function rebuildProjections(): Promise<void> {
   // Journal d'entraînement, plans figés, progression par Teil (ADR-0017).
   // Reconstruction intégrale : `training_events`, `day_plans` et
   // `case_progress` sont des projections, jamais des sources.
-  await rebuildJournal(events);
+  await rebuildJournal();                    // relit progress_events dans sa transaction (I-2)
 }
