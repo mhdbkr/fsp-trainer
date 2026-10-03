@@ -170,12 +170,19 @@ export function projectDayPlans(events: ProgressEvent[], trainingEvents: Trainin
     });
     // D-I2 : une tâche faite dans le plan d'un AUTRE appareil (qui a perdu)
     // coche la tâche équivalente du plan gagnant — même (kind, caseId, teil).
+    // I-3 (décision de main) : sans équivalent, la tâche FAITE est AJOUTÉE au
+    // plan gagnant, comme `replanifier` conserve les faites — jamais perdue.
     const ids = new Set(tasks.map((t) => t.id));
+    const carried = new Map<string, number>();                 // taskId perdant → index dans le plan gagnant
     for (const te of trainingEvents) {
       const orig = te.taskId && !ids.has(te.taskId) ? everTask.get(te.taskId) : undefined;
       if (!orig || orig.date !== date) continue;
+      const done = { doneAt: te.at, spentMin: te.spentMin, eventId: te.id };
+      const prev = carried.get(orig.id);
+      if (prev !== undefined) { tasks[prev] = { ...tasks[prev], ...done }; continue; }
       const i = tasks.findIndex((t) => t.doneAt === undefined && t.kind === orig.kind && t.caseId === orig.caseId && t.teil === orig.teil);
-      if (i >= 0) tasks[i] = { ...tasks[i], doneAt: te.at, spentMin: te.spentMin, eventId: te.id };
+      if (i >= 0) { tasks[i] = { ...tasks[i], ...done }; carried.set(orig.id, i); continue; }
+      carried.set(orig.id, tasks.push({ ...orig, ...done }) - 1);
     }
     out.push({
       date,
