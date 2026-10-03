@@ -166,6 +166,26 @@ h1, h2, h3 {
   /* Eyebrow = annotation clinique : filet + libellé pétrole (le liant de la marque). */
   .eyebrow { @apply inline-flex items-center gap-2 text-[11.5px] font-semibold tracking-[0.01em] text-brand-600 dark:text-brand-300; }
   .eyebrow::before { content: ''; @apply h-px w-6 shrink-0 bg-brand-400/60; }
+  /* Libellé d'un champ sur une fiche (Bedeutung, Contexte, Nom du deck) : un
+     cran au-dessus de `.label` — on lit le titre avant le champ (F4c). */
+  .field-label { @apply block text-[13px] font-semibold tracking-[0.01em] text-slate-600 dark:text-slate-300; }
+  /* Champ souligné (fiche verre) : le focus EST le soulignement (2 px pétrole),
+     pas un cadre décalé autour d'un champ qui n'en a pas (F4c, retour 3 oct.). */
+  .field-line {
+    @apply w-full min-h-11 border-b border-slate-300/80 bg-transparent px-0.5 transition-[border-color,box-shadow] hover:border-slate-400 dark:border-white/20 dark:hover:border-white/35;
+  }
+  .field-line:focus, .field-line:focus-visible { outline: none; border-color: var(--focus-ring); box-shadow: 0 1px 0 0 var(--focus-ring); border-radius: 0; }
+  /* Lecture seule (Bedeutung reprise du glossaire) : le focus reste visible mais neutre — rien à écrire. */
+  .field-line[readonly]:focus, .field-line[readonly]:focus-visible { border-color: rgb(148 163 184); box-shadow: none; }
+  /* Titre d'une fiche verre (Ma carte, Nouveau deck, Decks) — un seul. */
+  .sheet-title { @apply font-display text-lg font-semibold tracking-tightish text-slate-800 dark:text-slate-100; }
+  /* Prononciation (IPA) — un seul rendu, contraste AA. */
+  .ipa { @apply font-mono text-sm text-slate-500 dark:text-slate-400; }
+  /* Rail gravé dans une carte (sélecteur Recto | Verso, F4c) : creusé dans la
+     surface, pas un verre posé dessus — lisible sur la carte blanche comme sur l'encre. */
+  .engraved { background: rgb(12 26 23 / 0.06); box-shadow: inset 0 1px 2px rgb(12 26 23 / 0.10), inset 0 0 0 1px rgb(12 26 23 / 0.05); }
+  .engraved-thumb { box-shadow: 0 1px 2px rgb(12 26 23 / 0.25); }
+  .dark .engraved { background: rgb(255 255 255 / 0.07); box-shadow: inset 0 1px 2px rgb(0 0 0 / 0.35), inset 0 0 0 1px rgb(255 255 255 / 0.06); }
   /* Tag mono pour terminologie / données. */
   .mono-tag { @apply inline-flex items-center rounded-md bg-slate-100 px-1.5 py-0.5 font-mono text-[11px] text-slate-600 dark:bg-ink-700 dark:text-slate-300; }
   /* Dimension d'analyse en tête de question (« Beginn », « Verlauf », « Herd » —

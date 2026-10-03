@@ -64,6 +64,10 @@ export default {
         'split-r': { '0%': { opacity: '0', transform: 'translateX(-110%) scaleX(0.6)' }, '100%': { opacity: '1', transform: 'none' } },
         // Miroitement (F4b P8) : la Bedeutung se propose — reflet qui passe, figé sous reduced-motion.
         shimmer: { '0%': { backgroundPosition: '200% 0' }, '100%': { backgroundPosition: '-200% 0' } },
+        // Filet de la pilule (F4c) : le temps qui reste avant qu'elle se retire.
+        drain: { '0%': { transform: 'scaleX(1)' }, '100%': { transform: 'scaleX(0)' } },
+        // Démonstration du sens (F4c) : la carte d'exemple se retourne, montre la réponse, revient.
+        'demo-flip': { '0%,12%': { transform: 'rotateY(0)' }, '38%,72%': { transform: 'rotateY(180deg)' }, '100%': { transform: 'rotateY(360deg)' } },
       },
       animation: {
         'fade-in': 'fade-in 0.2s ease-out',
@@ -76,6 +80,8 @@ export default {
         'split-c': 'split-c 0.55s cubic-bezier(0.32, 0.72, 0, 1) both',
         'split-r': 'split-r 0.55s cubic-bezier(0.32, 0.72, 0, 1) both',
         shimmer: 'shimmer 1.4s linear infinite',
+        drain: 'drain 6s linear forwards',
+        'demo-flip': 'demo-flip 2.2s cubic-bezier(0.32, 0.72, 0, 1) 0.15s backwards',
       },
     },
   },
