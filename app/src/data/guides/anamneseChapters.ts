@@ -140,7 +140,7 @@ const AKTUELL_VARIANTS: Record<LeitsymptomKategorie, AktuellVariant> = {
       {
         text: 'Husten — Haben Sie Husten?',
         probe: 'akt-atemnot-husten',
-        followUp: ['Falls ja: Husten Sie dabei etwas ab?', 'Falls Auswurf: Welche Farbe hat das?', 'Falls ja: Ist Blut dabei?'],
+        followUp: ['Falls ja: Husten Sie dabei etwas ab?', 'Falls Auswurf: Welche Farbe hat das?', 'Falls Auswurf: Ist Blut dabei?'],
       },
       { text: 'Geräusche — Hören Sie beim Atmen ein Pfeifen oder Brummen? Beim Ein- oder beim Ausatmen?', probe: 'akt-atemnot-geraeusch' },
       { text: 'Verlauf — Ist die Luftnot dauerhaft da oder kommt sie anfallsartig? Wird es von Tag zu Tag schlimmer?', probe: 'akt-verlauf' },
