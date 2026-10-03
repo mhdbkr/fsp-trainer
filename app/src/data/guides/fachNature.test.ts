@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { seedCases } from '@/data/seedCases';
 import { buildRollenskript } from '@/lib/rolePlay';
-import { fachChapterForCase } from './anamneseChapters';
+import { fachChapterForCase, playedTrame } from './anamneseChapters';
 import { phraseAlts, phraseFollowUp, phraseProbes, phraseText, type Phrase } from './phrases';
 import pairs from '../../../scripts/fixtures/fach-nature-pairs.json';
 
@@ -110,5 +110,36 @@ describe('Revue clinique L0', () => {
   it('rachis lombaire : l’irradiation ne suggère pas la réponse (ni genou ni pied)', () => {
     for (const id of ['lumboischialgie', 'bandscheibenvorfall', 'spinalkanalstenose'])
       expect(phraseText(fachQ(id, 'fach-ortho-ausstrahlung')!)).not.toMatch(/Knie|Fuß/);
+  });
+});
+
+// ── Série 3, lot Q0 ──────────────────────────────────────────────────────────
+const IRRADIATION = ['akt-ausstrahlung', 'fach-ortho-ausstrahlung', 'fach-kardio-ausstrahlung', 'fach-uro-flanke'];
+const played = (c: (typeof cases)[number]): Phrase[] => {
+  const t = playedTrame(c);
+  return [...t.chapters.flatMap((ch) => ch.questions), ...(t.fach?.chapter.questions ?? [])];
+};
+
+describe('G1 — l’irradiation est posée UNE fois', () => {
+  it('aucun cas ne joue à la fois la question neutre et celle de la Fach (ortho, kardio, uro-flanke)', () => {
+    const twice = cases.filter((c) => played(c).filter((q) => phraseProbes(q).some((p) => IRRADIATION.includes(p))).length > 1).map((c) => c.id);
+    // Hodentorsion : la question de flanc (diagnostic différentiel colique) reste, et l'irradiation neutre aussi (revue clinique C-1).
+    expect(twice).toEqual(['case-hodentorsion']);
+  });
+  it('hodentorsion : « Flanke oder Rücken… strahlen sie in die Leiste aus ? » ne couvre pas l\'irradiation d\'une douleur du testicule', () => {
+    const probes = played(byId.get('case-hodentorsion')!).flatMap(phraseProbes);
+    expect(probes).toContain('akt-ausstrahlung');
+    expect(probes).toContain('fach-uro-flanke');
+  });
+  it('une douleur de la flanc (nierenkolik) reste couverte par la question de flanc', () => {
+    expect(played(byId.get('case-nierenkolik')!).flatMap(phraseProbes)).not.toContain('akt-ausstrahlung');
+  });
+});
+
+describe('Revue clinique Q0 — C-2', () => {
+  it('l\'irradiation angineuse nomme aussi l\'épaule (la péricardite répond « In die linke Schulter… »)', () => {
+    const q = fachQ('perikarditis', 'fach-kardio-ausstrahlung')!;
+    expect(phraseText(q)).toMatch(/Schulter/);
+    expect(byId.get('case-perikarditis')!.patientSheet.antworten!['fach-kardio-ausstrahlung']).toMatch(/Schulter/);
   });
 });

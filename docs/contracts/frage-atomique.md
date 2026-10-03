@@ -93,6 +93,13 @@ Un seul script nouveau : `app/scripts/checkQuestionAtomicity.mjs`, dans le job
 > Une question à un seul « ? » n'énumère pas plus de **3** items cliniques
 > distincts. Au-delà, `parts` est obligatoire.
 > Un `followUp` / `nachfragen` est plafonné à **2** items.
+>
+> **Amendement Q0 (3 oct. 2026)** — `CaseQuestion.followUp?: string` : une
+> question propre au cas porte la même relance que les questions générales
+> (même rendu, même règle). Une relance qui n'a de sens qu'après un « oui »
+> commence par `Falls ja:` (ou `Falls <condition>:`), sinon `parseFollowUp` la
+> classe *toujours visible*. C'est la cible des 40 questions « fermée ? + W- ? »
+> du lot Q2 : une question, une relance, un seul `id`.
 
 Algorithme de comptage, repris littéralement du détecteur d'audit (il est la
 définition, pas une approximation) :
@@ -197,6 +204,13 @@ Validateur : `checkVarianteAufgeloest.mjs`, sur les 130 cas chargés. Une `Frage
   `case-commotio` (« Glukosesensor », `seedCases.ts:31370`, le diabète déclaré
   deux chapitres plus loin, `:31094`), `case-hypothyreose` (« Augenbrauen »),
   `case-ileus` (« Stuhlgewohnheit »).
+- **Amendement Q0 (3 oct. 2026)** : le validateur est
+  `checkQuestionOrder.mjs`, étendu à 4 règles (jusqu'à 2 adjectifs entre
+  article/possessif et nom ; ordinal + nom ; affirmation en tête, « Sie nehmen /
+  haben / hatten… » ; exclusion des lemmes déjà posés par la trame, au lieu du
+  seuil de fréquence). Mesure : 8/8 présuppositions de l'audit des questions du
+  cas détectées, 28 candidats au total (précision ≈ 50 % sur échantillon).
+  Toujours informatif.
 
 ---
 

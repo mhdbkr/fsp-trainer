@@ -95,3 +95,13 @@ for (const [name, sucht] of [['7a concept inconnu', "['zzz']"], ['7b concept non
     assert.match(r.stdout, /case-lyme/);
   });
 }
+
+// Q0 (revue m3) : la relance d'une question du cas est scannée comme sa question.
+// Une relance qui cite la fièvre, déjà cherchée par la vegetative, rouvre la porte.
+test('Q0 — une relance de question du cas qui cite un symptôme déjà cherché ouvre la porte', { timeout: 300_000 }, () => {
+  const stimme = "{ frage: 'Ist Ihre Stimme in letzter Zeit heiser geworden?', kapitel: 'aktuell' }";
+  assert.equal(gate().status, 0);
+  const r = sb.mutate(cases, stimme, stimme.replace(' }', ", followUp: 'Falls ja: Hatten Sie dabei auch Fieber oder Schüttelfrost?' }"), gate);
+  assert.equal(r.status, 1, 'la relance cite « fieber », cherché par la vegetative');
+  assert.match(r.stdout, /case-oesophaguskarzinom/);
+});

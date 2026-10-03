@@ -53,7 +53,7 @@ test('…et l\'énumération d\'irradiation ne l\'est PAS', T, () => {
 // la même paire bras/jambe redevient une alternative que le cas tranche.
 test('règle C — sans verbe d\'irradiation, « Arm oder Bein » est refusé', T, () => {
   const r = sb.mutate(PROBES,
-    'Strahlen sie in den linken Arm, den Hals, den Unterkiefer oder den Rücken aus?',
+    'Strahlen sie in den linken Arm, die Schulter, den Hals, den Unterkiefer oder den Rücken aus?',
     'Haben Sie Schmerzen im linken Arm oder im Bein?',
     () => gate('--rule', 'C', '--report'));
   assert.match(r.stdout, /fach-kardio-ausstrahlung/);
@@ -200,4 +200,29 @@ test('7c — le « ？ » pleine chasse compte comme un « ? »', T, () => {
     gate);
   assert.equal(r.status, 1);
   assert.match(r.stdout, /règle A/);
+});
+
+// --- Q0 (revue I-1) : la relance d'une question du cas est lue --------------
+// `CaseQuestion.followUp` est de l'oral posé par le candidat : même plafond
+// que les relances des questions générales (2 items, un seul « ? »).
+const SCHLUCKEN = "{ frage: 'Haben Sie Schmerzen beim Schlucken?', kapitel: 'aktuell', relu: true }";
+const withRelance = (followUp) => sb.mutate(CASES, SCHLUCKEN, SCHLUCKEN.replace(' }', `, followUp: '${followUp}' }`), gate);
+
+test('Q0 — une relance de question du cas à six items est refusée (règle B, plafond 2)', T, () => {
+  const fu = 'Falls ja: Haben Sie Fieber, Husten, Schnupfen, Durchfall, Erbrechen oder Ausschlag?';
+  const r = withRelance(fu);
+  assert.equal(r.status, 1);
+  assert.match(r.stdout, /règle B/);
+  const rep = sb.mutate(CASES, SCHLUCKEN, SCHLUCKEN.replace(' }', `, followUp: '${fu}' }`), () => gate('--rule', 'B', '--report'));
+  assert.match(rep.stdout, /case-questions\/case-oesophaguskarzinom[^\n]*\n\s+« Falls ja: Haben Sie Fieber/);
+});
+
+test('Q0 — une relance de question du cas à deux « ? » est refusée (règle A)', T, () => {
+  const r = withRelance('Falls ja: Seit wann? Wie oft?');
+  assert.equal(r.status, 1);
+  assert.match(r.stdout, /règle A/);
+});
+
+test('Q0 — une relance propre (1 « ? », 2 items) passe', T, () => {
+  assert.equal(withRelance('Falls ja: Seit wann, und wie oft?').status, 0);
 });

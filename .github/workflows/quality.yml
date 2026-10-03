@@ -79,6 +79,7 @@ jobs:
           node --test scripts/checkTrameSymptoms.test.mjs
           node --test scripts/checkBudgetFloor.test.mjs
           node --test scripts/checkProbeCoverage.test.mjs
+          node --test scripts/checkQuestionOrder.test.mjs
       - name: "Doctopus — jeu de référence et grille (sans réseau)"
         run: node scripts/evalDoctopus.mjs --dry
       - name: Sections thérapeutiques identiques fiche ↔ cas
