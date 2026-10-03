@@ -26,9 +26,11 @@ const teil = (status: 'vierge' | 'fragile' | 'acquis' | 'solide', lastScore: num
 let container: HTMLDivElement; let root: Root;
 beforeEach(async () => {
   await Promise.all([db.cases.clear(), db.case_progress.clear()]);
-  await db.cases.bulkPut([kase('c1'), kase('c2', { status: 'À faire', confidence: 0 })]);
+  await db.cases.bulkPut([kase('c1'), kase('c2', { status: 'À faire', confidence: 0 }), kase('c3')]);
   const cp: CaseProgress = { caseId: 'c1', overall: 'entame', teile: { anamnese: teil('solide', 90), dokumentation: teil('acquis', 70), fallvorstellung: teil('vierge', null) } };
   await db.case_progress.put(cp);
+  // I-4 : une tâche cochée sans jeu — faite, non mesurée.
+  await db.case_progress.put({ caseId: 'c3', overall: 'vierge', teile: { anamnese: { ...teil('vierge', null), nonMesureAt: 1 }, dokumentation: teil('vierge', null), fallvorstellung: teil('vierge', null) } });
   container = document.createElement('div'); document.body.appendChild(container); root = createRoot(container);
   await act(async () => { root.render(<MemoryRouter initialEntries={['/cas']}><Routes><Route path="/cas" element={<CasesPage />} /></Routes></MemoryRouter>); });
   await vi.waitFor(() => expect(container.textContent).toMatch(/Cas c2/), { timeout: 3000 });
@@ -43,5 +45,15 @@ describe('B-C5 — la page Cas lit case_progress', () => {
     expect(card.textContent).toMatch(/Entamé/);
     const blank = [...container.querySelectorAll('h3')].find((h) => h.textContent === 'Cas c2')!.closest('.card')!;
     expect(blank.textContent).toMatch(/Pas encore travaillé/);
+  });
+});
+
+describe('I-4 — la page Cas dit « faite — non mesurée »', () => {
+  it('un cas coché sans jeu n\'est ni « pas encore travaillé » ni « entamé »', async () => {
+    await vi.waitFor(() => expect(container.textContent).toMatch(/Cas c3/), { timeout: 3000 });
+    const card = [...container.querySelectorAll('h3')].find((h) => h.textContent === 'Cas c3')!.closest('.card')!;
+    expect(card.textContent).toMatch(/Faite — non mesurée/i);
+    expect(card.textContent).not.toMatch(/Pas encore travaillé|Entamé/);
+    expect(container.textContent).toMatch(/1\s*faite? — non mesurée?s?/i);
   });
 });

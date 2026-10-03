@@ -172,7 +172,7 @@ describe('M4 — une coche sans score n\'est pas une mesure', () => {
   it('case_progress : vierge ⇔ attempts = 0 ⇔ lastScore = null, même après une coche', async () => {
     const { computeCaseProgress } = await import('@/lib/journal');
     const [cp] = computeCaseProgress([coche('a', 'c1')]);
-    expect(cp.teile.anamnese).toEqual({ status: 'vierge', lastScore: null, lastAt: null, attempts: 0 });
+    expect(cp.teile.anamnese).toEqual({ status: 'vierge', lastScore: null, lastAt: null, attempts: 0, nonMesureAt: 1 });   // I-4 : notée, non mesurée
   });
   it('observeModus ne vote que sur des séances mesurées : trois coches ne « révèlent » aucun mode', async () => {
     const { observeModus } = await import('@/lib/program/modus');
@@ -193,5 +193,24 @@ describe('I-3 — une tâche faite n\'est jamais perdue (décision de main, amen
     ]);
     const p = (await db.day_plans.get('2026-10-01'))!;
     expect(p.tasks.map((t) => [t.id, t.doneAt !== undefined])).toEqual([['ta', false], ['tb', true]]);
+  });
+});
+
+describe('I-4 — « faite — non mesurée » (décision de main)', () => {
+  it('une coche et une séance auto-déclarée posent nonMesureAt, sans toucher status / attempts / lastScore', async () => {
+    const { computeCaseProgress } = await import('@/lib/journal');
+    const coche = { id: 'a', at: 5, kind: 'simulation' as const, caseId: 'c1', teile: ['anamnese' as const], source: 'plan' as const, taskId: 't', spentMin: 0 };
+    const ia = { id: 'b', at: 7, kind: 'simulation' as const, caseId: 'c1', teile: ['dokumentation' as const], source: 'libre' as const, spentMin: 20, scores: { dokumentation: 95 }, selbstbewertet: true };
+    const [cp] = computeCaseProgress([coche, ia]);
+    expect(cp.teile.anamnese).toEqual({ status: 'vierge', lastScore: null, lastAt: null, attempts: 0, nonMesureAt: 5 });
+    expect(cp.teile.dokumentation).toEqual({ status: 'vierge', lastScore: null, lastAt: null, attempts: 0, nonMesureAt: 7 });
+    expect(cp.overall).toBe('vierge');
+  });
+  it('markTaskDone d\'une tâche « cas complet » (sans teil) déclare les trois Teile', async () => {
+    freezeAt('2026-10-01T10:00:00Z');
+    const t = task({ id: 'tc', caseId: 'c1' });                        // simulation, sans teil
+    await db.day_plans.put(plan({ date: '2026-10-01', tasks: [t] }));
+    const te = await markTaskDone(t);
+    expect(te.teile).toEqual(['anamnese', 'dokumentation', 'fallvorstellung']);
   });
 });
