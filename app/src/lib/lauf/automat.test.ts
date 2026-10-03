@@ -209,6 +209,28 @@ describe('décision 8 — zurueckZumBilanz : depuis la checklist de fin, on revi
     expect(l.zustand).toBe('laufend');
     expect(l.aktuellerTeil).toBe('dokumentation');
   });
+  it('deux parties jouées : retour au bilan de la DERNIÈRE, pas de la première', () => {
+    let l = demarre(base());
+    l = transition(l, { typ: 'terminerPartie', ergebnis: resultat() });
+    l = transition(l, { typ: 'partieSuivante' });
+    l = transition(l, { typ: 'terminerPartie', ergebnis: resultat() });
+    l = transition(transition(l, { typ: 'versChecklist' }), { typ: 'zurueckZumBilanz' });
+    expect(l.zustand).toBe('bilanz');
+    expect(l.aktuellerTeil).toBe('dokumentation');
+  });
+
+  it('la checklist cochée survit à l’aller-retour checkliste → bilan', () => {
+    let l = demarre(base());
+    l = setzeChecklistItem(l, 'anam-eroeffnung', true);
+    l = transition(l, { typ: 'terminerPartie', ergebnis: resultat() });
+    const avant = transition(l, { typ: 'versChecklist' });
+    const apres = transition(avant, { typ: 'zurueckZumBilanz' });
+    expect(apres.checkliste).toBe(avant.checkliste);
+    expect(apres.checkliste.find((i) => i.id === 'anam-eroeffnung')?.checked).toBe(true);
+    expect(apres.teile).toBe(avant.teile);
+    expect(apres.sekundenProTeil).toBe(avant.sekundenProTeil);
+  });
+
   it('refusé hors de checkliste (arztbrief compris)', () => {
     let l = demarre(base({ geplanteTeile: ['anamnese'], modus: 'teil' }));
     expect(transition(l, { typ: 'zurueckZumBilanz' })).toBe(l);
