@@ -23,6 +23,7 @@
 import { spawn, spawnSync } from 'node:child_process';
 import { setTimeout as sleep } from 'node:timers/promises';
 import process from 'node:process';
+import { fileURLToPath } from 'node:url';   // `.pathname` garderait les %20 d'un chemin à espaces
 
 const argv = process.argv.slice(2);
 const arg = (k, d) => { const i = argv.indexOf(k); return i >= 0 ? argv[i + 1] : d; };
@@ -42,8 +43,11 @@ function pw(...args) {
 
 /** Prélude injecté dans la page : lecture NATIVE des object stores de l'app. */
 const PRELUDE = `
-  const _names = (await indexedDB.databases()).map((d) => d.name);
-  const _dbName = _names.find((n) => n && n.startsWith('fsp-cockpit'));
+  // M8 : la base que l'APP ouvre — celle du compte actif (db.ts, dbNameFor),
+  // jamais « la première fsp-cockpit* » de la liste.
+  const _uid = localStorage.getItem('fsp.activeUserId');
+  const _dbName = _uid ? 'fsp-cockpit-' + _uid : 'fsp-cockpit';
+  if (!(await indexedDB.databases()).some((d) => d.name === _dbName)) throw new Error('base ' + _dbName + ' absente');
   const read = (store) => new Promise((res, rej) => {
     const rq = indexedDB.open(_dbName);
     rq.onerror = () => rej(rq.error);
@@ -165,11 +169,9 @@ async function arranger() {
   if (probe(`return txt().includes('Aucun programme encore');`)) {
     probe(`bouton((t) => t === 'Générer mon programme').click(); return await attendre(() => !txt().includes('Aucun programme encore'));`);
   }
-  // Le plan n'est matérialisé qu'au DÉMARRAGE de l'app (contrat §3.2) : la page
-  // affiche « Ce jour sera figé à sa première ouverture » tant qu'on n'a pas
-  // rechargé. C'est l'invariant, pas un contournement.
-  pw('reload');
-  return await until(`return barre();`, 'plan du jour matérialisé');
+  // I1 : créer le programme OUVRE la journée — sans rechargement. La
+  // matérialisation reste hors rendu (ProgramSetup appelle ensureDayPlan).
+  return await until(`return barre();`, 'plan du jour matérialisé SANS rechargement (I1)');
 }
 
 const planDuJour = () => probe(`
@@ -215,8 +217,10 @@ const P2 = preuve('P2', "la session du jour appartient au plan du jour", async (
   const plan = planDuJour();
   const attendue = plan.tasks.find((t) => t.doneAt === undefined);
   exige(attendue, 'plan sans tâche restante');
+  // Revue : mesurée sur une SIMULATION (P1b a coché le drill avant), pas drill contre drill.
+  exige(attendue.kind === 'simulation', `la session du jour est « ${attendue.kind} » : P2 doit se mesurer sur une simulation`);
   exige(attendue.label === hero, `plan figé → « ${attendue.label} », écran → « ${hero} »`);
-  return `accueil et programme lisent la même tâche : « ${hero} »`;
+  return `accueil et programme lisent la même tâche, une simulation : « ${hero} » (${attendue.caseId}${attendue.teil ? ', ' + attendue.teil : ''})`;
 });
 
 const P1 = preuve('P1', "cocher une tâche n'en fait pas apparaître une autre", async () => {
@@ -268,47 +272,17 @@ const P1b = preuve('P1b', "faire son drill ne libère aucun budget qui attirerai
   return `drill coché, ${simsAvant} simulations avant et après, budget ${av.barre.min} min inchangé`;
 });
 
-const P3a = preuve('P3a', "travailler un seul Teil ne rend fautif aucun autre Teil", async () => {
-  goto('/programme');
-  const plan = planDuJour();
-  const tache = plan.tasks.find((t) => t.kind === 'simulation' && t.teil && t.doneAt === undefined);
-  exige(tache, 'aucune tâche de simulation non faite portée par un seul Teil');
-
-  const i = probe(`return lignes().findIndex((l) => l.label === ${JSON.stringify(tache.label)});`);
-  exige(i >= 0, `la tâche « ${tache.label} » n'est pas rendue`);
-  probe(`
-    const rows = [...document.querySelectorAll('div.rounded-xl.border.transition-colors')];
-    rows[${i}].querySelector('[title="Marquer faite"]').click();
-    return await attendre(() => lignes()[${i}].fait);
-  `);
-  const cp = await until(`
-    return (await read('case_progress')).find((p) => p.caseId === '${tache.caseId}') || null;
-  `, `case_progress de ${tache.caseId}`);
-
-  const statuts = Object.fromEntries(Object.entries(cp.teile).map(([k, v]) => [k, v.status]));
-  const fautifs = Object.entries(statuts).filter(([, s]) => s === 'fragile');
-  exige(!fautifs.length, `sans performance mesurée, ${fautifs.map(([k]) => k).join(', ')} est déjà « fragile » — l'absence accuse`);
-  for (const t of ['anamnese', 'dokumentation', 'fallvorstellung'].filter((t) => t !== tache.teil)) {
-    exige(statuts[t] === 'vierge', `« ${t} » jamais travaillé mais vaut « ${statuts[t] }»`);
-  }
-  return `${tache.label} (${tache.teil}) : ${Object.entries(statuts).map(([k, v]) => `${k}=${v}`).join(', ')}, overall=${cp.overall}`;
-});
-
-const P3b = preuve('P3b', "une session réussie sur un seul Teil ne fait régresser aucun statut", async () => {
-  goto('/programme');
-  const plan = planDuJour();
-  const tache = plan.tasks.find((t) => t.kind === 'simulation' && t.teil && t.doneAt === undefined)
-    ?? plan.tasks.find((t) => t.kind === 'simulation' && t.teil);
-  exige(tache, 'aucune tâche de simulation portée par un seul Teil');
-
-  // Un run RÉEL, par l'interface : contenu 100 %, grille et ressenti aux
-  // valeurs par défaut (3/5 et 50) ⇒ 55 + 18 + 7,5 = 81 % ⇒ `solide`.
-  goto(`/simulation/${tache.caseId}/pre?teil=${tache.teil}`);
+/** Joue un Teil RÉEL par l'interface : contenu 100 %, grille et ressenti aux
+ *  valeurs par défaut ⇒ partie réussie. Puis redémarre l'app : tant que R-C2
+ *  (saveSimulation → applySimulationToJournal) n'est pas intégré, c'est la
+ *  reconstruction du démarrage (B-C1) qui projette la simulation. */
+async function jouerTeil(caseId, teil) {
+  goto(`/simulation/${caseId}/pre?teil=${teil}`);
   await until(`return bouton((t) => t.startsWith('Entrer —')) ? true : null;`, 'écran pré-simulation');
   probe(`bouton((t) => t.startsWith('Entrer —')).click(); return await attendre(() => location.hash.includes('/run'));`);
   await until(`return bouton((t) => t.startsWith('Terminer la partie')) ? true : null;`, 'runner');
   probe(`bouton((t) => t.startsWith('Terminer la partie')).click(); return await attendre(() => !!bouton((t) => t.startsWith('Valider la partie')));`);
-  const score = probe(`
+  const pcts = probe(`
     for (const c of document.querySelectorAll('input[type=checkbox]')) if (!c.checked) c.click();
     await attendre(() => false, 300);
     const pcts = [...txt().matchAll(/(\\d+)%/g)].map((m) => +m[1]);
@@ -317,25 +291,57 @@ const P3b = preuve('P3b', "une session réussie sur un seul Teil ne fait régres
     return pcts;
   `);
   probe(`bouton((t) => t.startsWith('Terminer — ')).click(); return await attendre(() => txt().includes('score moyen'));`);
+  pw('reload');
+  return pcts;
+}
 
-  const etat = await until(`
-    const cp = (await read('case_progress')).find((p) => p.caseId === '${tache.caseId}');
-    return cp ? { cp, te: (await read('training_events')).filter((t) => t.caseId === '${tache.caseId}') } : null;
-  `, `case_progress de ${tache.caseId} (gate G-JOURNAL-SIM si absent : le journal local n'est pas alimenté par saveSimulation)`, 20);
+let joue = null;   // le Teil joué par P3a, relu par P3b
 
-  const { cp } = etat;
+const P3a = preuve('P3a', "travailler un seul Teil ne rend fautif aucun autre Teil", async () => {
+  const plan = planDuJour();
+  const tache = plan.tasks.find((t) => t.kind === 'simulation' && t.teil && t.doneAt === undefined)
+    ?? plan.tasks.find((t) => t.kind === 'simulation' && t.teil);
+  exige(tache, 'aucune tâche de simulation portée par un seul Teil');
+  const score = await jouerTeil(tache.caseId, tache.teil);
+  const cp = await until(`
+    return (await read('case_progress')).find((p) => p.caseId === '${tache.caseId}') || null;
+  `, `case_progress de ${tache.caseId} après la simulation`);
+  // Non vide : le Teil joué A une mesure (revue : P3a passait à vide sur une coche).
+  exige(cp.teile[tache.teil].attempts >= 1 && cp.teile[tache.teil].lastScore !== null,
+    `le Teil joué n'a aucune mesure : ${JSON.stringify(cp.teile[tache.teil])}`);
+  const statuts = Object.fromEntries(Object.entries(cp.teile).map(([k, v]) => [k, v.status]));
   const autres = ['anamnese', 'dokumentation', 'fallvorstellung'].filter((t) => t !== tache.teil);
+  for (const t of autres) {
+    exige(statuts[t] === 'vierge' && cp.teile[t].attempts === 0, `« ${t} » jamais travaillé mais vaut « ${statuts[t]} » (${cp.teile[t].attempts} essais)`);
+  }
+  // La tâche du plan est cochée par le JEU (D-C4 : taskId posé à l'écriture ou par la résolution).
+  joue = { tache, score };
+  return `${tache.label} (${tache.teil}) joué → ${score.join('/')} % ; ${Object.entries(statuts).map(([k, v]) => `${k}=${v}`).join(', ')}, overall=${cp.overall}`;
+});
+
+const P3b = preuve('P3b', "une session réussie sur un seul Teil ne fait régresser aucun statut", async () => {
+  exige(joue, 'P3a n\'a pas joué de Teil');
+  const { tache } = joue;
+  const cp = probe(`return (await read('case_progress')).find((p) => p.caseId === '${tache.caseId}') || null;`);
+  exige(cp, 'case_progress absent');
   exige(!['vierge', 'fragile'].includes(cp.teile[tache.teil].status),
     `le Teil travaillé est « ${cp.teile[tache.teil].status} » alors que la session a réussi`);
-  for (const t of autres) {
-    exige(cp.teile[t].status === 'vierge',
-      `« ${t} » n'a jamais été travaillé mais vaut « ${cp.teile[t].status} » — l'absence accuse`);
-  }
-  exige(cp.overall === 'entame', `overall « ${cp.overall} » : vierge → entame attendu, jamais une régression`);
+  exige(cp.overall === 'entame', `overall « ${cp.overall} » : vierge → entamé attendu, jamais une régression`);
 
-  // Et l'écran ne l'accuse pas non plus : la cellule du champ de couverture
-  // d'un Teil jamais travaillé reste « pas encore travaillé ».
+  // B-C5 : la page Cas lit case_progress — « Entamé », jamais l'ancien statut
+  // (« Maîtrisé » après un seul Teil, puis « En cours » au Teil suivant).
+  goto('/cas');
+  const carte = await until(`
+    const h = [...document.querySelectorAll('h3')].find((x) => x.textContent.trim() === ${JSON.stringify(tache.label)});
+    const c = h && h.closest('.card');
+    return c ? c.innerText : null;
+  `, `carte du cas « ${tache.label} »`);
+  exige(/Entamé/.test(carte), `la carte du cas ne dit pas « Entamé » : ${carte.replace(/\n/g, ' ')}`);
+  exige(!/Maîtrisé|En cours|À faire/.test(carte), `la carte du cas affiche un statut déprécié : ${carte.replace(/\n/g, ' ')}`);
+
+  // Et le champ de couverture n'accuse pas les Teile jamais travaillés.
   goto('/programme');
+  const autres = ['anamnese', 'dokumentation', 'fallvorstellung'].filter((t) => t !== tache.teil);
   const cellules = await until(`
     const t = [...document.querySelectorAll('button[title]')].filter((b) => b.title.includes('pas encore travaillé'));
     return t.length ? t.map((b) => b.title) : null;
@@ -343,7 +349,7 @@ const P3b = preuve('P3b', "une session réussie sur un seul Teil ne fait régres
   const cible = cellules.filter((t) => t.startsWith(`${tache.specialty} ×`));
   exige(cible.length >= autres.length,
     `champ de couverture : ${cible.length} cellule(s) « pas encore travaillé » pour ${tache.specialty}, ${autres.length} attendues`);
-  return `${tache.label} (${tache.teil}) → ${score.join('/')} % ; ${tache.teil}=${cp.teile[tache.teil].status}, ${autres.map((t) => `${t}=${cp.teile[t].status}`).join(', ')}, overall=${cp.overall}`;
+  return `${tache.caseId} : ${tache.teil}=${cp.teile[tache.teil].status}, ${autres.map((t) => `${t}=${cp.teile[t].status}`).join(', ')} ; carte « Entamé » ; overall=${cp.overall}`;
 });
 
 // --- exécution --------------------------------------------------------------
@@ -373,7 +379,7 @@ async function verifierWorktree() {
 try {
   if (OWN_SERVER) {
     serveur = spawn('npm', ['run', 'dev', '--', '--port', String(PORT), '--strictPort'],
-      { cwd: new URL('../..', import.meta.url).pathname, stdio: 'ignore', detached: true });
+      { cwd: fileURLToPath(new URL('../..', import.meta.url)), stdio: 'ignore', detached: true });
   }
   await attendreServeur();
   await verifierWorktree();
@@ -381,12 +387,12 @@ try {
   const barre0 = await arranger();
   console.log(`\nÉtat figé : ${barre0.total} tâches, ${barre0.min} min prévues.\n`);
 
-  // L'ordre est porteur : les lectures pures d'abord, les gestes ensuite —
-  // P2 lit la PREMIÈRE tâche non faite, elle doit passer avant qu'on ne coche.
+  // L'ordre est porteur : P1b coche le drill, puis P2 lit la PREMIÈRE tâche
+  // non faite — une simulation (revue : pas drill contre drill) — avant P1.
   await P4();
+  await P1b();
   await P2();
   await P1();
-  await P1b();
   await P3a();
   await P3b();
 } catch (e) {
