@@ -59,7 +59,7 @@ export function SimulationRunner() {
   // Un seul état : le `Lauf`. Il porte la checklist, les Teile couverts, le
   // minutage, le score et le brouillon d'évaluation — aucun `useState` ne les
   // reconstruit (contrat §1).
-  const steuerung = useLauf(simId ? undefined : c, teil);
+  const steuerung = useLauf(simId ? undefined : c, teil, params.get('task') ?? undefined);   // R-C4
   const { lauf, laedt } = steuerung;
   const enTete = !laedt && !!lauf;   // l'en-tête (et `headerRef`) est monté
 
