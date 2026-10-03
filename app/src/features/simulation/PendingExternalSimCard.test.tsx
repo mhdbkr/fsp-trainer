@@ -143,11 +143,11 @@ describe('PendingExternalSimCard', () => {
     expect(sim.externalTarget).toBe('claude');
   });
 
-  it('dit que la séance est auto-déclarée : historique et série, pas l\'indice de préparation', async () => {
+  it('dit que la séance est auto-déclarée, sans promettre l\'exclusion de l\'indice (pas encore vraie)', async () => {
     await setPending({ caseId: 'c1', targetId: 'chatgpt', teil: 'anamnese', at: Date.now() });
     render(<MemoryRouter><PendingExternalSimCard /></MemoryRouter>);
-    expect(await screen.findByText(/auto-déclarée/i)).toBeTruthy();
-    expect(screen.getByText(/pas dans l'indice de préparation/i)).toBeTruthy();
+    expect((await screen.findByText(/auto-déclarée/i)).textContent).toMatch(/historique et ta série/i);
+    expect(screen.queryByText(/indice de préparation/i)).toBeNull();
   });
 
   it('« Pas maintenant » : ferme la carte sans effacer la trace, pose snoozedUntil ≈ +1 h', async () => {
