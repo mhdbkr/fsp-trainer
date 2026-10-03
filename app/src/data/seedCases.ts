@@ -609,7 +609,6 @@ export function seedCases(): Case[] {
       linkedFachbegriffeIds: [],
       probableAufklaerungIds: ['auf-gastroskopie'],
       caseSpecificQuestions: [
-        { frage: 'Strahlen die Schmerzen gürtelförmig, also wie ein Band um den Bauch herum, in den Rücken aus?', kapitel: 'aktuell' },
         { frage: 'Kam der Schmerz innerhalb weniger Stunden nach einer fettreichen Mahlzeit oder nach Alkohol?', kapitel: 'aktuell' },
         { frage: 'Ist bei Ihnen bekannt, dass Sie Gallensteine haben?', kapitel: 'vorerkrankungen' },
       ],
@@ -1135,7 +1134,6 @@ export function seedCases(): Case[] {
       },
       linkedFachbegriffeIds: [], probableAufklaerungIds: [],
       caseSpecificQuestions: [
-        { frage: 'Strahlt der Schmerz in die rechte Schulter oder das rechte Schulterblatt aus?', kapitel: 'aktuell' },
         { frage: 'Werden die Schmerzen nach fettigem oder üppigem Essen schlimmer?', kapitel: 'aktuell' },
         { frage: 'Hatten Sie schon einmal ähnliche Schmerzattacken, die von selbst wieder aufgehört haben?', kapitel: 'vorerkrankungen' },
         { frage: 'Haben Sie eine Gelbfärbung der Haut oder der Augen bemerkt?', kapitel: 'aktuell' },
@@ -5176,7 +5174,6 @@ export function seedCases(): Case[] {
       caseSpecificQuestions: [
         { frage: 'Ist ein Bein schwächer geworden — schaffen Sie es noch, auf den Zehenspitzen oder auf den Fersen zu stehen?', kapitel: 'aktuell', relu: true },
         { frage: 'Werden die Schmerzen beim Husten, Niesen oder Pressen stärker und schießen dann ins Bein?', kapitel: 'aktuell' },
-        { frage: 'Strahlt der Schmerz bis in den Fuß oder die große Zehe aus?', kapitel: 'aktuell' },
       ],
       examinerQuestions: [
         'Wie lautet Ihre Verdachtsdiagnose und welche Nervenwurzel ist am ehesten betroffen?',
@@ -11938,7 +11935,6 @@ export function seedCases(): Case[] {
       ],
       caseSpecificQuestions: [
         { frage: 'Finden Sie eine Position, in der es besser wird, oder müssen Sie sich ständig bewegen?', kapitel: 'aktuell' },
-        { frage: 'Strahlt der Schmerz aus — zum Beispiel in die Leiste, den Hoden oder den Rücken?', kapitel: 'aktuell' },
         { frage: 'Wie viel trinken Sie am Tag? Und haben Sie in den letzten Wochen viel geschwitzt, zum Beispiel bei der Arbeit im Garten oder in der Hitze?', kapitel: 'familie-sozial' },
         { frage: 'Haben Sie schon einmal einen Nierenstein gehabt, oder gibt es in Ihrer Familie jemanden mit Nierensteinen?', kapitel: 'familie-sozial' },
         { frage: 'Haben Sie ein Ziehen oder eine Schwellung im Hodensack bemerkt?', kapitel: 'aktuell' },
@@ -38354,7 +38350,6 @@ export function seedCases(): Case[] {
         'auf-operation',
       ],
       caseSpecificQuestions: [
-        { frage: 'Bis wohin genau strahlt der Schmerz bei Ihnen aus — in den Daumen, in den Mittelfinger oder in den kleinen Finger?', kapitel: 'aktuell' },
         { frage: 'Werden Ihre Schmerzen beim Husten, Niesen oder Pressen auf der Toilette stärker?', kapitel: 'aktuell' },
         { frage: 'Haben Sie bemerkt, dass es besser wird, wenn Sie den Arm über den Kopf legen?', kapitel: 'aktuell' },
         { frage: 'Haben Sie Kribbeln, ein pelziges Gefühl oder Kraftverlust in der Hand — rutschen Ihnen Gegenstände aus der Hand?', kapitel: 'aktuell', sucht: ['taubheit', 'schwaeche'] },
@@ -43866,7 +43861,7 @@ export function seedCases(): Case[] {
         { frage: 'Hatten Sie schon einmal ähnliche Eiterbeulen, besonders in den Achseln, in den Leisten oder in der Pofalte?', kapitel: 'aktuell' },
         { frage: 'Wie gut ist Ihr Zucker eingestellt — wann wurde zuletzt der Langzeitzucker bestimmt?', kapitel: 'vorerkrankungen' },
         { frage: 'Nehmen Sie Kortison oder Medikamente, die das Abwehrsystem unterdrücken?', kapitel: 'medikamente' },
-        { frage: 'Strahlen die Schmerzen ins Bein aus, oder haben Sie dort ein Kribbeln, ein Taubheitsgefühl oder eine Schwäche?', kapitel: 'aktuell' },
+        { frage: 'Haben Sie im Bein ein Kribbeln, ein Taubheitsgefühl oder eine Schwäche bemerkt?', kapitel: 'aktuell' },
         { frage: 'Wann hatten Sie die letzte Tetanusimpfung?', kapitel: 'vorerkrankungen' },
       ],
       examinerQuestions: [
@@ -48366,7 +48361,6 @@ export function seedCases(): Case[] {
         'auf-mrt',
       ],
       caseSpecificQuestions: [
-        { frage: 'Zieht der Schmerz wie ein Gürtel in den Rücken, und wird er nach dem Essen oder nach Alkohol schlimmer?', kapitel: 'aktuell' },
         { frage: 'Wie sieht Ihr Stuhlgang aus: ist er voluminös, hell, fettig-glänzend, übelriechend, und lässt er sich schwer wegspülen?', kapitel: 'vegetativ', relu: true },
         { frage: 'Hatten Sie schon einmal eine Bauchspeicheldrüsenentzündung? Wann, und wie wurde sie behandelt?', kapitel: 'vorerkrankungen' },
         { frage: 'Gab es Situationen oder Phasen, in denen es mit dem Alkohol mehr wurde? Seit wie vielen Jahren trinken Sie in dieser Menge?', kapitel: 'noxen' },
@@ -51738,7 +51732,7 @@ export function seedCases(): Case[] {
       caseSpecificQuestions: [
         { frage: 'Haben Sie in den letzten Jahren Kortison bekommen — Tabletten, Infusionen oder Spritzen, zum Beispiel wegen des Darms, der Lunge oder der Gelenke? Wie viel und wie lange?', kapitel: 'medikamente' },
         { frage: 'Seit wie vielen Jahren trinken Sie schon so viel Alkohol wie derzeit?', kapitel: 'noxen' },
-        { frage: 'Zieht der Schmerz bis zum Knie? Haben Sie den Eindruck, das Knie selbst sei das Problem?', kapitel: 'aktuell' },
+        { frage: 'Haben Sie den Eindruck, dass das Knie selbst das Problem ist?', kapitel: 'fach' },
         { frage: 'Können Sie das rechte Bein noch nach innen drehen, Socken anziehen und die Beine überschlagen — und wie ist das links?', kapitel: 'aktuell' },
         { frage: 'Haben Sie auch in der linken Leiste oder in anderen Gelenken, etwa in der Schulter, Beschwerden bemerkt?', kapitel: 'aktuell' },
         { frage: 'Gab es in der letzten Woche einen plötzlichen Sprung, ab dem es deutlich schlimmer wurde?', kapitel: 'aktuell' },
@@ -57505,7 +57499,6 @@ export function seedCases(): Case[] {
       ],
       caseSpecificQuestions: [
         { frage: 'Wird es besser, wenn Sie sich aufsetzen und nach vorne beugen, und schlimmer, wenn Sie sich flach hinlegen?', kapitel: 'aktuell' },
-        { frage: 'Strahlt der Schmerz eher in die Schulter-Nacken-Kante aus als in den Arm?', kapitel: 'aktuell' },
         { frage: 'Hatten Sie in den letzten zwei bis drei Wochen eine Erkältung, Grippe oder einen Magen-Darm-Infekt?', kapitel: 'aktuell' },
         { frage: 'Hatten Sie jemals einen Herzinfarkt, eine Herzoperation, eine Nierenerkrankung, eine Rheumaerkrankung oder eine Tumorerkrankung?', kapitel: 'vorerkrankungen' },
         { frage: 'Waren Sie längere Zeit im Ausland, oder hatten Sie Kontakt zu jemandem mit Tuberkulose?', kapitel: 'vegetativ', sucht: ['reise'] },
@@ -58444,7 +58437,6 @@ export function seedCases(): Case[] {
       caseSpecificQuestions: [
         { frage: 'Sie sagen „Schmerzen im Unterbauch“ — haben Sie auch Schmerzen im Hoden? Das ist eine ganz normale Frage, ich muss das wissen.', kapitel: 'aktuell' },
         { frage: 'Wann genau hat der Schmerz angefangen — können Sie mir die Uhrzeit sagen? Sind Sie davon aufgewacht?', kapitel: 'aktuell' },
-        { frage: 'Strahlt der Schmerz vom Hoden in den Bauch aus?', kapitel: 'aktuell' },
         { frage: 'Ist der Hoden geschwollen oder gerötet, und steht er höher als der andere?', kapitel: 'aktuell' },
         { frage: 'Gab es gestern beim Fußball einen Tritt, einen Ball oder einen Sturz — irgendeine Verletzung im Genitalbereich?', kapitel: 'aktuell' },
         { frage: 'Hatten Sie so einen Schmerz schon einmal, vielleicht kürzer, und ist er dann von allein wieder verschwunden?', kapitel: 'aktuell' },
