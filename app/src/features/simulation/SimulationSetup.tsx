@@ -127,23 +127,30 @@ const AUTONOME_DESC: Record<SimTeil | 'komplett', string> = {
 };
 
 // ============================================================================
-/** « Avec qui tu joues » — UN seul cadre, conscient du Teil, qui porte le
- *  départ.
- *
- *  Choisir un partenaire SÉLECTIONNE ; un seul bouton, « Démarrer la
- *  simulation », entre dans la partie (retour de la direction, 3 oct. : « Seul »
- *  lançait la partie au clic et le bouton de départ avait disparu). L'IA
- *  externe ne s'ouvre pas ici : elle se lance DEPUIS la partie jouée, au Teil
- *  concerné (contrat `ai-bridge.md` §3.1). */
-export function PartnerCard({ caseId, teil }: { caseId: string; teil: SimTeil | null }) {
+/** Le départ — en haut de la pré-simulation, sous le nom du cas (retours de
+ *  la direction, 3 oct. : le bouton avait disparu, puis il était « enfoui au
+ *  milieu de la page »). Un seul bouton de départ sur la page. */
+export function StartButton({ caseId, teil }: { caseId: string; teil: SimTeil | null }) {
   const navigate = useNavigate();
+  return (
+    // `viewTransition` : le passage pré-écran → runner est une navigation de page ;
+    // sans lui, plus rien n'animait ce seuil depuis le retrait de `key={pathname}`.
+    <button onClick={() => navigate(`/simulation/${caseId}/run${teil ? `?teil=${teil}` : ''}`, { viewTransition: true })}
+      className="btn-primary gap-2 px-6 py-2.5">
+      <Icon name="play" className="h-4 w-4" />Démarrer la simulation
+    </button>
+  );
+}
+
+/** « Avec qui tu joues » — UN seul cadre, conscient du Teil. Choisir un
+ *  partenaire SÉLECTIONNE, il ne lance rien : le départ est le `StartButton`
+ *  de l'en-tête. L'IA externe ne s'ouvre pas ici : elle se lance DEPUIS la
+ *  partie jouée, au Teil concerné (contrat `ai-bridge.md` §3.1). */
+export function PartnerCard({ caseId, teil }: { caseId: string; teil: SimTeil | null }) {
   const [partenaire, setPartenaire] = useState<'seul' | 'simulant' | 'ia'>('seul');
   const [copied, setCopied] = useState(false);
   const url = patientUrl(caseId, teil ?? undefined);
   const copyUrl = () => { navigator.clipboard?.writeText(url); setCopied(true); setTimeout(() => setCopied(false), 1600); };
-  // `viewTransition` : le passage pré-écran → runner est une navigation de page ;
-  // sans lui, plus rien n'animait ce seuil depuis le retrait de `key={pathname}`.
-  const entrer = () => navigate(`/simulation/${caseId}/run${teil ? `?teil=${teil}` : ''}`, { viewTransition: true });
 
   // L'IA ne peut jouer que les deux parties dialoguées. En Dokumentation, la
   // proposer serait un choix qui n'en est pas un (contrat `ai-bridge.md`).
@@ -175,7 +182,7 @@ export function PartnerCard({ caseId, teil }: { caseId: string; teil: SimTeil | 
 
       {choix === 'ia' && (
         <p className="mt-3 text-xs text-slate-500 dark:text-slate-400">
-          Dans la partie, le bouton <b>« Avec ton IA »</b> prépare le prompt
+          Dans la partie, la puce <b>« IA »</b> de l’en-tête prépare le prompt
           {teil === 'fallvorstellung' ? ' de l’Oberarzt' : teil === 'anamnese' ? ' du patient' : ' du Teil en cours'}.
         </p>
       )}
@@ -202,12 +209,6 @@ export function PartnerCard({ caseId, teil }: { caseId: string; teil: SimTeil | 
           </div>
         </div>
       )}
-
-      <div className="mt-4 flex justify-center">
-        <button onClick={entrer} className="btn-primary gap-2 px-6 py-2.5">
-          <Icon name="play" className="h-4 w-4" />Démarrer la simulation
-        </button>
-      </div>
     </section>
   );
 }

@@ -91,3 +91,63 @@ scripts dans le scratchpad de session (`lots/`).
 5. **Signal stratégique** : à partir du 1ᵉʳ nov. 2026 la Kenntnisprüfung devient la voie normale (diplômes hors UE) → l'extension KP passe avant tout le SaaS (ligue, marketing, pricing), qui reste en pause.
 
 **À trancher par la direction** : les trois branches V1 dormantes depuis le 16 sept. — `feat/pruefungstag` (71 commits), `feat/characters` (71), `feat/site-v2` (291) : reprendre, réutiliser en partie, ou archiver ; et les PR ouvertes #48 (grille d'évaluation), #49 (audit glossaire), #52 (corrections de la revue du site).
+
+## 9. Reprise après la limite hebdomadaire (6 oct., 6 h) — dans cet ordre
+
+Agents arrêtés le 3 oct. par la limite hebdomadaire ; tout est sur disque.
+
+1. **Primitives** — BLOQUÉ : un second writer dans `doctopus-s3-primitives` (commit `1ca6d35e` de mhdbkr à 19:02 + fusion de `ae0fd2dd` en cours, non lancée par l'intégrateur). **Question à la direction : qui écrit là ?** Fait par l'intégrateur : `bb9afa10` (fusion main, M1–M5) et `7d279283` (passation simulation S1–S13). Restent : 2 fichiers non commités (`index.css` commentaires, `quality.yml` tokens), finir la fusion de `ae0fd2dd` (garder `viewTransition` dans `entrer()`), preuve navigateur, push, PR.
+2. **Programme** — revue de clôture interrompue (dernière sonde : trou `taskId` explicite, kind `external-ai`) → relancer, puis intégration + branchements transversaux.
+3. **Lot L0** — relecture clinique interrompue → relancer ; revue mécanique : vérifier si elle a abouti.
+4. **Nouveaux constats FB3-G1→G7** (registre `BACKLOG-FEEDBACK.md` § G) → **nouveau lot en tête de file : les questions « pour ce cas », dans l'ordre d'affichage** (décision de la direction, 3 oct.), qui remplace l'ordre L1→L2 prévu au §6 : audit région/organe ↔ cas (« wirklich im Knie » pour une hanche), présuppositions (« zweiten Stock »), puis irradiation selon la région (FB3-G1, extension de L0), le bug d'affichage de la relance alcool (FB3-G4), et `case-leberzirrhose` (FB3-G5/G6) en premier des « premiers cas » (FB3-G7).
+
+## 10. Objectif de couverture — décision de la direction (3 oct.) : **100 %**
+
+Les lots s'enchaînent jusqu'à épuisement, sans saut : **L0** (en revue) →
+**questions « pour ce cas » dans l'ordre d'affichage** (+ FB3-G) → **L1** tronc
+commun → **L2** motif de consultation → **L1b** guides → **L4–L9** Fachanamnesen
+→ **L10–L15** questions de cas restantes. Critère de fin : budget A = B = C = 0
+(seules exceptions : salves d'Oberarzt `D2`/`D3`, autorisées par la direction le
+30 sept., comptées et jamais à la hausse) ; les 130 cas passés au crible de
+cohérence (région, présupposition, ordre, nature du motif) ; audit des premiers
+cas (FB3-G7) soldé.
+
+**Découpage du lot « questions pour ce cas »** (audit rendu le 3 oct. :
+[`audit-questions-du-cas-serie3.md`](audit-questions-du-cas-serie3.md) — 874
+questions, 271 composées, 8 présuppositions, 1 région fausse) :
+
+| Lot | Contenu | Nature |
+|---|---|---|
+| **Q0** | « Falls ja » sur la relance alcool (`:675`) + 12 relances sœurs ; `CaseQuestion.followUp` ; +3 `FACH_COVERS` (irradiation posée 2-3 fois dans 17 cas) ; `checkQuestionOrder` étendu (adjectifs, ordinal, « Sie nehmen… », exclusion par trame) ; garde CI territoire ⊂ région | mécanique |
+| **Q1** | P0 de `aktuell` : 8 présuppositions, coxarthrose ×3, 9 irradiations, 6 répétitions, leberzirrhose ×7 | clinique |
+| **Q2** | 40 composées « fermée ? + W- ? » → relance « Falls ja » | mécanique relue |
+| **Q3–Q5** | composées cliniques de `aktuell` (A 110, B 34), cas tier 1 d'abord | clinique |
+| **Q6–Q8** | chapitres suivants dans l'ordre d'affichage + arbitrage des 6 natures de motif | clinique |
+| **Lc1–Lc3** | FB3-G6/G7 : leberzirrhose (fiche, Fachwissen, `syndrome-map` au lieu du bonhomme), fiches C0 tier 1, puis C1/C2 < 15 k | clinique |
+
+Décisions de `main` : leberzirrhose passe en `motiv` **schmerz** (relecteur
+clinique confirme au lot) ; la note « Vor jedem Schmerzmittel » (`:91`) se
+rattache à la branche « sehr stark » ; la relance automutilation (psy `:1464`)
+est tranchée par le relecteur clinique de Q0. **Q0 démarre au merge de L0**
+(mêmes fichiers : `anamneseChapters.ts`). Ensuite L1 → L15 reprennent ce qui
+reste du budget hors questions du cas.
+
+## 11. Registre des workflows en vol — à relancer sans exception
+
+Règle : à chaque reprise (limite d'usage, coupure), `main` relit cette table et
+relance chaque ligne non close, par son identifiant d'agent (`SendMessage`).
+**Tenue du registre** : la session `main` de la série 3 (confirmé par la direction
+le 3 oct.) ; les autres sessions travaillent sur d'autres features et ne relancent
+rien de cette table.
+
+| Workflow | Worktree / branche | Agent | Étape | Clos ? |
+|---|---|---|---|---|
+| Intégration primitives | `doctopus-s3-primitives` · `feat/s3-primitives` | `ad901ff9c385851ac` | livré `700e0378` ; re-merge de `main` (3 conflits avec `ca91c53b`/`e6d240cb`) → push → **main ouvre la PR** | non |
+| Intégration programme | `doctopus-s3-programme` · `feat/s3-programme` | `a276d650bc56bda9b` | plan `integration-s3-programme.md` → push → **main ouvre la PR** | non |
+| Lot L0 — revue mécanique | `doctopus-s3-lot0` | `a85f52786072e2105` | rendue : Request changes (I1 fiche simulant « Fuß » sur la main, I2 plancher des paires, I3 `fachSkip` non validé) | **oui** |
+| Lot L0 — fixeur | `doctopus-s3-lot0` · `feat/s3-lot0-fach-nature` | `ac508d333980d928d` | fixe les deux revues (I1–I3, m1–m3, clinique 1–5) → push → **main ouvre la PR** | non |
+| Audit questions du cas + FB3-G | lecture seule | `ac7225d1457bf293d` | rendu → `audit-questions-du-cas-serie3.md` | **oui** |
+| Réserves primitives (suivi) | — | — | `CardFlip` (`.card`) dans le verre de `CardToast` : choisir sa matière en petit ; `.input` flouté dans cartes floutées (antérieur) | à lancer après merge |
+| Lots Q0 → Q8, Lc1 → Lc3 | — | — | §10, Q0 au merge de L0 | à lancer |
+| C6 — agent testeur | — | — | après intégration programme + primitives | à lancer |
+| Lots L1 → L15 | — | — | §10, l'un après l'autre (mêmes fichiers) | à lancer |

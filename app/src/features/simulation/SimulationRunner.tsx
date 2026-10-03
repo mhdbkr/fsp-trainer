@@ -61,6 +61,7 @@ export function SimulationRunner() {
   // reconstruit (contrat §1).
   const steuerung = useLauf(simId ? undefined : c, teil);
   const { lauf, laedt } = steuerung;
+  const enTete = !laedt && !!lauf;   // l'en-tête (et `headerRef`) est monté
 
   const [showQr, setShowQr] = useState(false);
   const [termsOpen, setTermsOpen] = useState(false);
@@ -138,7 +139,10 @@ export function SimulationRunner() {
 
     return () => { document.removeEventListener('scroll', onScroll, true); ro.disconnect(); };
     // `c?.id` et NON `c` : useCase renvoie un nouvel objet à chaque rendu.
-  }, [c?.id]);
+    // `enTete` : le Lauf se charge APRÈS le cas ; tant qu'il charge, l'en-tête
+    // n'est pas monté — sans cette dépendance l'effet sortait sur `!el` et ne
+    // se rattachait jamais (fusion perdue, série 3).
+  }, [c?.id, enTete]);
 
   // FLIP : on inverse l'écart puis on laisse filer vers zéro. `el.animate`
   // s'exécute sur le compositeur, hors du cycle de rendu React — aucune classe
@@ -254,11 +258,10 @@ export function SimulationRunner() {
                     </span>
                   </div>
 
-                  {/* QR + Aufklärung — cèdent le coin aux commandes.
-                      La puce « IA » a été retirée : elle s'affichait sur les
-                      quatre parties alors que le pont IA n'a de sens qu'en
-                      Anamnese et en Fallvorstellung. Son point de montage est
-                      désormais dans la zone de jeu (contrat `ai-bridge.md`). */}
+                  {/* QR + Aufklärung + Fachbegriffe + IA — cèdent le coin aux
+                      commandes. La puce IA ne paraît qu'en Anamnese et en
+                      Fallvorstellung, les deux parties qu'une IA peut jouer
+                      (contrat `ai-bridge.md` §3.1). */}
                   <div className={`absolute right-4 top-[8px] flex items-center gap-2 whitespace-nowrap transition-opacity duration-300 ${merged ? 'pointer-events-none opacity-0' : 'opacity-100'}`}>
                     <button onClick={() => setShowQr(true)} title="Fiche patient sur un 2ᵉ écran" className="btn-ghost text-xs">
                       <Icon name="id" className="h-4 w-4" /> QR
@@ -274,6 +277,7 @@ export function SimulationRunner() {
                       title="Termes du cas — référence libre">
                       <Icon name="nav-abc" className="h-3.5 w-3.5" />Fachbegriffe ({termCount})
                     </button>
+                    {(partKey === 'anamnese' || partKey === 'fallvorstellung') && <TeilAiLauncher caseId={c.id} teil={partKey} />}
                   </div>
 
                   {/* Parcours — en bas au repos ; parfaitement centré (des deux
@@ -482,14 +486,6 @@ function PlayArea({ part, c, assistance, muster, bogen, setBogen, arztbriefText,
       {part === 'dokumentation' && <ArztbriefGuide c={c} assistance={assistance} text={arztbriefText} onText={setArztbriefText} bogen={bogen} muster={muster} />}
       {part === 'fallvorstellung' && <VorstellungGuide c={c} assistance={assistance} bogen={bogen} muster={muster} />}
       {part === 'aufklaerung' && <AufklaerungArea c={c} />}
-      {/* Pont IA externe — restreint à Anamnese et Fallvorstellung, les deux
-          seules parties qu'une IA peut jouer (contrat `ai-bridge.md` §3.1).
-          Anamnese : l'IA joue le patient ; Fallvorstellung : l'Oberarzt seul. */}
-      {(part === 'anamnese' || part === 'fallvorstellung') && (
-        <div data-ai-bridge-slot={part} className="mt-4 flex justify-center">
-          <TeilAiLauncher caseId={c.id} teil={part} />
-        </div>
-      )}
     </>
   );
 }

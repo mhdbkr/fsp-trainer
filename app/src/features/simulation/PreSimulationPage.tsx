@@ -7,7 +7,7 @@ import { useCase, useFachwissen, useFachbegriffe } from '@/hooks/useData';
 import { useUi } from '@/store/ui';
 import { Icon } from '@/components/icons';
 import { AutoLink, AutoLinkList } from '@/components/AutoLink';
-import { SimulationSetup, PartnerCard } from './SimulationSetup';
+import { SimulationSetup, PartnerCard, StartButton } from './SimulationSetup';
 import { termsInOrder } from '@/lib/collections/caseTerms';
 
 // ============================================================================
@@ -44,7 +44,11 @@ export function PreSimulationPage() {
         <div className="text-sm font-semibold text-brand-500">Échauffement</div>
         <h1 className="text-2xl font-bold">{c.name}</h1>
         <p className="text-slate-500 dark:text-slate-400">Révise 2 minutes, respire, puis entre en simulation.</p>
-        <Link viewTransition to={`/cas/${c.id}`} className="btn-ghost mt-1 text-xs">← Fiche du cas</Link>
+        {/* Le départ, en tête de page : jamais enfoui sous les réglages. */}
+        <div className="mt-3 flex flex-col items-center gap-1">
+          <StartButton caseId={c.id} teil={teil} />
+          <Link viewTransition to={`/cas/${c.id}`} className="btn-ghost text-xs">← Fiche du cas</Link>
+        </div>
       </header>
 
       {/* 2 — La partie : sa propre boîte, au-dessus de l'action ; la complète
@@ -57,8 +61,8 @@ export function PreSimulationPage() {
              `assistance` et `layer`, et la sauvegarde les enregistre. */}
       <SimulationSetup caseId={c.id} teil={teil} />
 
-      {/* 4 — Avec qui tu joues = le départ. Le choix n'est pas un réglage :
-             il entre dans la simulation, au Teil voulu. */}
+      {/* 4 — Avec qui tu joues : un choix, pas un départ (le départ est en
+             tête de page). */}
       <PartnerCard caseId={c.id} teil={teil} />
 
       {/* 5 — De quoi te remettre en tête. Les quatre blocs sont TOUJOURS là ;
