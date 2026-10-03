@@ -8024,7 +8024,7 @@ export function seedCases(): Case[] {
         { frage: 'Haben Sie Kribbeln, Brennen oder ein Taubheitsgefühl an den Füßen bemerkt, besonders nachts?', kapitel: 'aktuell' },
         { frage: 'Ist in Ihrer Familie eine Zuckerkrankheit bekannt?', kapitel: 'familie-sozial' },
         { frage: 'Wie sieht Ihr Arbeitstag als Bäcker aus — wann essen Sie, was essen Sie nebenbei, und wie viel bewegen Sie sich außerhalb der Arbeit?', kapitel: 'familie-sozial' },
-        { frage: 'Hatten Sie jemals eine Bauchspeicheldrüsenentzündung?', kapitel: 'medikamente' },
+        { frage: 'Hatten Sie jemals eine Bauchspeicheldrüsenentzündung?', kapitel: 'vorerkrankungen' },
       ],
       examinerQuestions: [
         'Was ist Ihre Verdachtsdiagnose, und was spricht bei diesem Patienten dafür?',
