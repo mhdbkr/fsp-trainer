@@ -8,11 +8,11 @@
 // et le travail hors plan aussi.
 // ============================================================================
 
-import { differenceInCalendarDays, parseISO, startOfDay } from 'date-fns';
+import { addDays, differenceInCalendarDays, parseISO, startOfDay } from 'date-fns';
 import type { Case, ProgramConfig, SimTeil, TrainingEvent } from '@/db/types';
 import { computeCaseProgress } from '@/lib/journal';
 import { TEILE } from '@/lib/simScope';
-import { DAY_MS, dayKey, now as clockNow } from '@/lib/clock';
+import { dayKey, now as clockNow } from '@/lib/clock';
 import { programEnd } from './dayPlan';
 
 const TEIL_KEYS: SimTeil[] = TEILE.map((t) => t.key);
@@ -67,18 +67,23 @@ export function trajectory(
   const today = dayKey(now);
   const examDate = config?.examDate ?? null;
 
+  // I11 : on avance par JOUR CALENDAIRE (addDays), jamais par `i × 24 h` — un
+  // jour de 25 h (fin de l'heure d'été) dédoublait une date et décalait les
+  // suivantes. Départ : la veille du premier événement (l'indice avant tout
+  // travail), borné à `windowDays` ; arrivée : aujourd'hui, jamais demain.
+  const today0 = startOfDay(new Date(now));
   const first = events.length ? Math.min(...events.map((e) => e.at)) : now;
-  const startMs = Math.max(startOfDay(new Date(first)).getTime(), now - windowDays * DAY_MS);
-  const days = Math.max(1, Math.round((now - startMs) / DAY_MS));
+  const start = new Date(Math.max(addDays(startOfDay(new Date(first)), -1).getTime(), addDays(today0, -windowDays).getTime()));
+  const days = differenceInCalendarDays(today0, start);
 
   const spent = new Map<string, number>();
   for (const e of events) { const k = dayKey(e.at); spent.set(k, (spent.get(k) ?? 0) + Math.max(0, e.spentMin)); }
 
   const points: TrajectoryPoint[] = [];
   for (let i = 0; i <= days; i++) {
-    const at = startMs + i * DAY_MS;
-    const date = dayKey(at);
-    points.push({ date, indice: indiceAt(events, totalTeile, at + DAY_MS - 1), spentMin: spent.get(date) ?? 0 });
+    const d = addDays(start, i);
+    const date = dayKey(d);
+    points.push({ date, indice: indiceAt(events, totalTeile, addDays(d, 1).getTime() - 1), spentMin: spent.get(date) ?? 0 });
   }
 
   // Pente = progression réelle des `slopeDays` derniers jours. Aucune pente
@@ -94,7 +99,7 @@ export function trajectory(
     const last = points[points.length - 1];
     for (let i = 1; i <= remaining; i++) {
       projection.push({
-        date: dayKey(now + i * DAY_MS),
+        date: dayKey(addDays(today0, i)),
         indice: Math.min(100, Math.round(last.indice + perDay * i)),
         spentMin: 0,
       });
