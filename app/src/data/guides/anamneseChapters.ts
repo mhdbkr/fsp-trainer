@@ -88,7 +88,7 @@ const AKTUELL_VARIANTS: Record<LeitsymptomKategorie, AktuellVariant> = {
         probe: 'akt-intensitaet',
         followUp: [
           'Falls sehr stark: „Können Sie die Schmerzen bis zum Ende unseres Gesprächs (ca. 15 Minuten) ertragen, oder soll ich Ihnen ein Schmerzmittel geben?“',
-          'Vor jedem Schmerzmittel zuerst fragen: „Gibt es Allergien oder Unverträglichkeiten gegenüber Medikamenten?“',
+          'Falls sehr stark: Vor jedem Schmerzmittel zuerst fragen: „Gibt es Allergien oder Unverträglichkeiten gegenüber Medikamenten?“',
         ],
       },
       {
@@ -140,7 +140,7 @@ const AKTUELL_VARIANTS: Record<LeitsymptomKategorie, AktuellVariant> = {
       {
         text: 'Husten — Haben Sie Husten?',
         probe: 'akt-atemnot-husten',
-        followUp: ['Husten Sie dabei etwas ab?', 'Falls Sie etwas abhusten: Welche Farbe hat das?', 'Ist Blut dabei?'],
+        followUp: ['Falls ja: Husten Sie dabei etwas ab?', 'Falls Auswurf: Welche Farbe hat das?', 'Falls ja: Ist Blut dabei?'],
       },
       { text: 'Geräusche — Hören Sie beim Atmen ein Pfeifen oder Brummen? Beim Ein- oder beim Ausatmen?', probe: 'akt-atemnot-geraeusch' },
       { text: 'Verlauf — Ist die Luftnot dauerhaft da oder kommt sie anfallsartig? Wird es von Tag zu Tag schlimmer?', probe: 'akt-verlauf' },
@@ -271,7 +271,7 @@ const AKTUELL_VARIANTS: Record<LeitsymptomKategorie, AktuellVariant> = {
       {
         text: 'Fieber — Haben Sie Fieber gemessen?',
         probe: 'akt-infekt-fieber',
-        followUp: ['Wie hoch war es?', 'Wann ist das Fieber am höchsten?'],
+        followUp: ['Falls ja: Wie hoch war es?', 'Falls ja: Wann ist das Fieber am höchsten?'],
       },
       {
         text: 'Verlauf — Ist das Fieber dauerhaft, kommt es in Schüben, oder war es zwischendurch weg?',
@@ -672,7 +672,7 @@ export const ALLGEMEINE_ANAMNESE: AnamneseChapter[] = [
         probe: 'nox-alkohol',
         followUp: [
           'Falls ja: Welche Getränke bevorzugen Sie — Bier, Wein, Schnaps?',
-          'Trinken Sie täglich oder nur zu besonderen Anlässen? Wie viel ungefähr pro Woche?',
+          'Falls ja: Trinken Sie täglich oder nur zu besonderen Anlässen? Wie viel ungefähr pro Woche?',
         ],
       },
       {
@@ -756,7 +756,7 @@ export const FACHANAMNESEN: FachanamneseGuide[] = [
       {
         text: 'Haben Sie Schmerzen oder ein Engegefühl in der Brust? Wo genau — hinter dem Brustbein oder eher in der Magengrube?',
         probe: 'fach-kardio-brust',
-        followUp: ['Können Sie mit einem Finger auf die Stelle zeigen, oder ist es eher flächig?'],
+        followUp: ['Falls ja: Können Sie mit einem Finger auf die Stelle zeigen, oder ist es eher flächig?'],
       },
       {
         text: 'Treten die Beschwerden nur bei Belastung oder auch in Ruhe auf? Wie lange dauern sie?',
@@ -856,7 +856,7 @@ export const FACHANAMNESEN: FachanamneseGuide[] = [
         probe: 'fach-gastro-uebelkeit',
         followUp: [
           'Falls ja: Wie oft, wie viel? Wie sah es aus — wie Kaffeesatz, mit Blut? Wie lange nach dem Essen?',
-          'Geht es Ihnen besser, nachdem Sie sich erbrochen haben?',
+          'Falls ja: Geht es Ihnen besser, nachdem Sie sich erbrochen haben?',
         ],
       },
       { text: 'Haben Sie Sodbrennen? Müssen Sie aufstoßen?', probe: 'fach-gastro-sodbrennen' },
@@ -985,7 +985,7 @@ export const FACHANAMNESEN: FachanamneseGuide[] = [
       {
         text: 'Müssen Sie häufiger als sonst Wasser lassen, auch nachts? Kommt dabei nur wenig?',
         probe: 'fach-uro-frequenz',
-        followUp: ['Wie oft müssen Sie nachts aufstehen?'],
+        followUp: ['Falls ja: Wie oft müssen Sie nachts aufstehen?'],
       },
       {
         text: 'Haben Sie plötzlichen, starken Harndrang? Können Sie den Urin noch halten?',
@@ -1083,7 +1083,7 @@ export const FACHANAMNESEN: FachanamneseGuide[] = [
         text: 'Haben Sie Kopfschmerzen? Wo genau — einseitig oder beidseitig? Bleiben sie auf einer Seite oder wechseln sie?',
         probe: 'fach-neuro-kopfschmerz',
         alts: ['Haben Sie Kopfschmerzen? Wie fühlen sie sich an — pochend, drückend oder stechend?'],
-        followUp: ['Ist Ihnen während der Schmerzen übel? Sind Sie licht- oder lärmempfindlich?'],
+        followUp: ['Falls ja: Ist Ihnen während der Schmerzen übel? Sind Sie licht- oder lärmempfindlich?'],
       },
       {
         text: 'Kamen die Beschwerden plötzlich wie ein Schlag, oder gab es Vorboten — Lichtblitze, Zickzacklinien, Kribbeln in den Fingern oder im Gesicht?',
@@ -1098,7 +1098,7 @@ export const FACHANAMNESEN: FachanamneseGuide[] = [
       {
         text: 'Haben Sie an Armen oder Beinen eine Schwäche bemerkt?',
         probe: 'fach-neuro-kraft',
-        followUp: ['Lassen Sie Dinge fallen, oder bleiben Sie mit dem Fuß hängen?'],
+        followUp: ['Falls ja: Lassen Sie Dinge fallen, oder bleiben Sie mit dem Fuß hängen?'],
       },
       { text: 'Haben Sie Schwindel, Gangunsicherheit oder das Gefühl zu schwanken? Sind Sie schon gestürzt?', probe: 'fach-neuro-koordination' },
       { text: 'Haben Sie Schwierigkeiten beim Sprechen, beim Finden von Wörtern oder beim Schlucken?', probe: 'fach-neuro-sprache' },
@@ -1290,7 +1290,7 @@ export const FACHANAMNESEN: FachanamneseGuide[] = [
         alts: ['Wann haben Sie diese Veränderung / diesen Knoten das erste Mal bemerkt?'],
         followUp: [
           'Falls ja: Ist er hart oder weich? Lässt er sich verschieben, oder sitzt er fest?',
-          'Tut er beim Tasten weh? Ist er seitdem größer geworden?',
+          'Falls ja: Tut er beim Tasten weh? Ist er seitdem größer geworden?',
         ],
       },
       {
@@ -1411,12 +1411,12 @@ export const FACHANAMNESEN: FachanamneseGuide[] = [
       {
         text: 'Wurden Sie schon einmal am Bauch operiert? Haben Sie Narben?',
         probe: 'fach-chir-op',
-        followUp: ['Wann war das, und weswegen? Gab es Komplikationen bei der Narkose?'],
+        followUp: ['Falls ja: Wann war das, und weswegen? Gab es Komplikationen bei der Narkose?'],
       },
       {
         text: 'Nehmen Sie Blutverdünner ein?',
         probe: 'fach-chir-blutverduenner',
-        followUp: ['Wichtig vor jeder Operation: Wann haben Sie die letzte Tablette genommen?'],
+        followUp: ['Falls ja: Wichtig vor jeder Operation: Wann haben Sie die letzte Tablette genommen?'],
       },
       { text: 'Haben Sie bekannte Gallensteine oder einen Leistenbruch?', probe: 'fach-chir-gallensteine' },
     ],
@@ -1484,7 +1484,7 @@ export const FACHANAMNESEN: FachanamneseGuide[] = [
         text: 'Haben Sie Fieber gemessen? Wie hoch, seit wann, und verläuft es in Schüben?',
         probe: 'fach-infekt-fieber',
         alts: ['Hatten Sie Fieber — haben Sie es gemessen, wie hoch?'],
-        followUp: ['Haben Sie Schüttelfrost oder Nachtschweiß dabei?'],
+        followUp: ['Falls ja: Haben Sie Schüttelfrost oder Nachtschweiß dabei?'],
       },
       {
         text: 'Hatten Sie einen Zeckenstich oder einen Insektenstich bemerkt? Waren Sie im Wald, im hohen Gras oder im Garten?',
