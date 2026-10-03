@@ -1,0 +1,287 @@
+{
+ "note": "Les 8 présuppositions de l'audit questions du cas §4 (3 oct.), textes réels des cas ; la réponse qui introduit le fait vient APRÈS la question.",
+ "cases": [
+  {
+   "id": "case-coxarthrose",
+   "rule": "NP",
+   "hit": "den zweiten Stock",
+   "facts": "",
+   "turns": [
+    {
+     "ch": "aktuell",
+     "q": "Seit wann haben Sie die Beschwerden?",
+     "a": "Seit etwa drei Wochen.",
+     "own": false
+    },
+    {
+     "ch": "aktuell",
+     "q": "Fällt Ihnen das Ein- und Aussteigen ins Auto oder in Ihren Bagger schwer? Wie kommen Sie die Treppe in den zweiten Stock hoch?",
+     "a": "",
+     "own": true
+    },
+    {
+     "ch": "vorerkrankungen",
+     "q": "Haben Sie Vorerkrankungen?",
+     "a": "Ich wohne im zweiten Stock, ohne Aufzug.",
+     "own": false
+    }
+   ]
+  },
+  {
+   "id": "case-covid19",
+   "rule": "NP",
+   "hit": "das mit dem Burnout",
+   "facts": "",
+   "turns": [
+    {
+     "ch": "aktuell",
+     "q": "Seit wann haben Sie die Beschwerden?",
+     "a": "Seit etwa drei Wochen.",
+     "own": false
+    },
+    {
+     "ch": "aktuell",
+     "q": "Wie war das mit dem Burnout — sind Sie noch in Behandlung, und kennen Sie dieses Herzrasen schon von früher?",
+     "a": "",
+     "own": true
+    },
+    {
+     "ch": "vorerkrankungen",
+     "q": "Haben Sie Vorerkrankungen?",
+     "a": "Vor zwei Jahren hatte ich ein Burnout.",
+     "own": false
+    }
+   ]
+  },
+  {
+   "id": "case-reaktive-arthritis",
+   "rule": "NP",
+   "hit": "Ihrem Heuschnupfen",
+   "facts": "",
+   "turns": [
+    {
+     "ch": "aktuell",
+     "q": "Seit wann haben Sie die Beschwerden?",
+     "a": "Seit etwa drei Wochen.",
+     "own": false
+    },
+    {
+     "ch": "aktuell",
+     "q": "Sind Ihre Augen gerötet, schmerzhaft oder lichtempfindlich — anders als bei Ihrem Heuschnupfen?",
+     "a": "",
+     "own": true
+    },
+    {
+     "ch": "vorerkrankungen",
+     "q": "Haben Sie Vorerkrankungen?",
+     "a": "Ja, ich habe Heuschnupfen.",
+     "own": false
+    }
+   ]
+  },
+  {
+   "id": "case-influenza",
+   "rule": "NP",
+   "hit": "Ihr Notfallspray",
+   "facts": "",
+   "turns": [
+    {
+     "ch": "aktuell",
+     "q": "Seit wann haben Sie die Beschwerden?",
+     "a": "Seit etwa drei Wochen.",
+     "own": false
+    },
+    {
+     "ch": "aktuell",
+     "q": "Bekommen Sie Luftnot, ein Engegefühl in der Brust oder pfeifende Atmung? Brauchen Sie Ihr Notfallspray häufiger als sonst?",
+     "a": "",
+     "own": true
+    },
+    {
+     "ch": "vorerkrankungen",
+     "q": "Haben Sie Vorerkrankungen?",
+     "a": "Ich habe Asthma und ein Notfallspray.",
+     "own": false
+    }
+   ]
+  },
+  {
+   "id": "case-prostatakarzinom",
+   "rule": "ASSERT",
+   "hit": "Sie nehmen",
+   "facts": "",
+   "turns": [
+    {
+     "ch": "aktuell",
+     "q": "Seit wann haben Sie die Beschwerden?",
+     "a": "Seit etwa drei Wochen.",
+     "own": false
+    },
+    {
+     "ch": "aktuell",
+     "q": "Sie nehmen seit Jahren Tamsulosin: Ist es in letzter Zeit schlimmer geworden, obwohl Sie die Tabletten nehmen?",
+     "a": "",
+     "own": true
+    },
+    {
+     "ch": "vorerkrankungen",
+     "q": "Haben Sie Vorerkrankungen?",
+     "a": "Ich nehme Tamsulosin.",
+     "own": false
+    }
+   ]
+  },
+  {
+   "id": "case-achalasie",
+   "rule": "ASSERT",
+   "hit": "Sie nehmen",
+   "facts": "",
+   "turns": [
+    {
+     "ch": "aktuell",
+     "q": "Seit wann haben Sie die Beschwerden?",
+     "a": "Seit etwa drei Wochen.",
+     "own": false
+    },
+    {
+     "ch": "aktuell",
+     "q": "Sie nehmen Magenschutztabletten — haben diese Ihre Beschwerden gebessert oder gar nicht gewirkt?",
+     "a": "",
+     "own": true
+    },
+    {
+     "ch": "vorerkrankungen",
+     "q": "Haben Sie Vorerkrankungen?",
+     "a": "Ich nehme Magenschutztabletten.",
+     "own": false
+    }
+   ]
+  },
+  {
+   "id": "case-ptbs",
+   "rule": "NP",
+   "hit": "dem Motorrad",
+   "facts": "",
+   "turns": [
+    {
+     "ch": "aktuell",
+     "q": "Seit wann haben Sie die Beschwerden?",
+     "a": "Seit etwa drei Wochen.",
+     "own": false
+    },
+    {
+     "ch": "aktuell",
+     "q": "Gibt es Orte, Tätigkeiten oder Gespräche, die Sie seitdem vermeiden? Sitzen Sie noch auf dem Motorrad?",
+     "a": "",
+     "own": true
+    },
+    {
+     "ch": "vorerkrankungen",
+     "q": "Haben Sie Vorerkrankungen?",
+     "a": "Mein Motorrad steht in der Garage.",
+     "own": false
+    }
+   ]
+  },
+  {
+   "id": "case-metabolisches-syndrom",
+   "rule": "NP",
+   "hit": "Ihrer Netzhaut",
+   "facts": "\"Diabetische Veränderungen der Netzhaut\"",
+   "turns": [
+    {
+     "ch": "aktuell",
+     "q": "Seit wann haben Sie die Beschwerden?",
+     "a": "Seit etwa drei Wochen.",
+     "own": false
+    },
+    {
+     "ch": "aktuell",
+     "q": "Waren Sie in letzter Zeit beim Augenarzt? Was hat er zu Ihrer Netzhaut gesagt, und was hat er Ihnen empfohlen?",
+     "a": "",
+     "own": true
+    },
+    {
+     "ch": "vorerkrankungen",
+     "q": "Haben Sie Vorerkrankungen?",
+     "a": "",
+     "own": false
+    }
+   ]
+  }
+ ],
+ "controls": [
+  {
+   "id": "ctrl-deja-dit",
+   "why": "le fait est introduit AVANT la question",
+   "facts": "",
+   "turns": [
+    {
+     "ch": "aktuell",
+     "q": "Seit wann?",
+     "a": "Seit drei Wochen, ich nehme Tamsulosin.",
+     "own": false
+    },
+    {
+     "ch": "aktuell",
+     "q": "Wie wirkt Ihr Tamsulosin?",
+     "a": "Ja.",
+     "own": true
+    },
+    {
+     "ch": "vorerkrankungen",
+     "q": "Vorerkrankungen?",
+     "a": "Asthma, Tamsulosin morgens.",
+     "own": false
+    }
+   ]
+  },
+  {
+   "id": "ctrl-mot-de-trame",
+   "why": "« Beschwerden » est un mot des questions générales de la trame",
+   "facts": "",
+   "turns": [
+    {
+     "ch": "aktuell",
+     "q": "Seit wann?",
+     "a": "Seit drei Wochen.",
+     "own": false
+    },
+    {
+     "ch": "aktuell",
+     "q": "Wie haben sich die Beschwerden verändert?",
+     "a": "",
+     "own": true
+    },
+    {
+     "ch": "vorerkrankungen",
+     "q": "Vorerkrankungen?",
+     "a": "Keine Beschwerden früher.",
+     "own": false
+    }
+   ]
+  },
+  {
+   "id": "ctrl-question-ouverte",
+   "why": "« Haben Sie… » n'est pas une affirmation",
+   "facts": "",
+   "turns": [
+    {
+     "ch": "aktuell",
+     "q": "Haben Sie Tamsulosin genommen?",
+     "a": "",
+     "own": true
+    },
+    {
+     "ch": "medikamente",
+     "q": "Medikamente?",
+     "a": "Tamsulosin.",
+     "own": false
+    }
+   ]
+  }
+ ],
+ "trame": [
+  "Beschwerden"
+ ]
+}
