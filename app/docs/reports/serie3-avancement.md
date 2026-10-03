@@ -11,7 +11,7 @@
 |---|---|---|---|
 | P0 contrats | `feat/s3-contrats` | ✅ mergé (`4fad5b1`) | amendements à appliquer à l'intégration (§4) |
 | C5 primitives | `feat/s3-primitives` | fixeur terminé, 84/0 | **décision direction : filet encre du verre** (§3) puis revue finale |
-| C2 simulation | `feat/s3-simulation` | ✅ **Approve with minors** | dernier passage du fixeur (7 points courts) |
+| C2 simulation | `feat/s3-simulation` | ✅ **PR #54 ouverte** — contrat amendé dans la PR | **G6 : merge par la direction** (main = prod) |
 | C4 contenu | `feat/s3-contenu` | revue finale : 1 point (I-7) | fixeur sur I-7 → revue de clôture |
 | C1 programme | `feat/s3-programme` | fixeur (sécurité + journal) | re-revue → **déploiement prod** (§2) |
 | C3 IA externe | `feat/s3-ia` | livré (8 commits) — prompt 31 906 → 4 088 car., un seul rôle | revue de branche en cours |
