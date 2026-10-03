@@ -55,7 +55,7 @@ export interface LaufSteuerung {
   beenden: () => Promise<string | null>;
 }
 
-export function useLauf(c: Case | undefined, teil: SimTeil | null): LaufSteuerung {
+export function useLauf(c: Case | undefined, teil: SimTeil | null, taskId?: string): LaufSteuerung {
   const [lauf, setLauf] = useState<Lauf | null>(null);
   const [laedt, setLaedt] = useState(true);
   const [fehler, setFehler] = useState<string | null>(null);
@@ -105,6 +105,7 @@ export function useLauf(c: Case | undefined, teil: SimTeil | null): LaufSteuerun
         profileId: getActiveUserId() ?? undefined,
         geplanteTeile: geplant,
         modus: teil ? 'teil' : 'komplett',
+        ...(taskId ? { taskId } : {}),                         // R-C4
         assistance: reglage.current.assistance,
         layer: reglage.current.layer,
         muster: reglage.current.muster,

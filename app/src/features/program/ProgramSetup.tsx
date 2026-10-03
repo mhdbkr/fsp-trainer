@@ -2,6 +2,8 @@ import { useState } from 'react';
 import { format } from 'date-fns';
 import { setMeta } from '@/db/db';
 import { syncQueue } from '@/lib/sync/queue';
+import { ensureDayPlan } from '@/lib/program/dayPlan';
+import { now, nowDate } from '@/lib/clock';
 import { AXES, type Axis, type Intensity, type ProgramConfig, type Specialty } from '@/db/types';
 import { Icon, SpecialtyIcon } from '@/components/icons';
 import { Portal } from '@/components/Portal';
@@ -30,7 +32,6 @@ export function ProgramSetup({ onDone, onCancel, initial }: { onDone: () => void
   const [examDate, setExamDate] = useState(initial?.examDate ?? '');
   const [weeks, setWeeks] = useState(initial?.weeks ?? 8);
   const [intensity, setIntensity] = useState<Intensity>(initial?.intensity ?? 'mittel');
-  const [strategy, setStrategy] = useState<NonNullable<ProgramConfig['strategy']>>(initial?.strategy ?? 'teil-first');
   const [hours, setHours] = useState(initial?.hoursPerSession ?? 2);
   const [offDays, setOffDays] = useState<number[]>(initial?.offDays ?? [0]);
   const [priority, setPriority] = useState<Specialty[]>(initial?.prioritySpecialties ?? []);
@@ -45,16 +46,20 @@ export function ProgramSetup({ onDone, onCancel, initial }: { onDone: () => void
     const config: ProgramConfig = {
       // On CONSERVE l'ancrage temporel et les ajustements manuels lors d'un ajustement :
       // changer l'intensité ou les jours off ne doit pas effacer les tâches faites/reports.
-      startDate: initial?.startDate ?? format(new Date(), 'yyyy-MM-dd'),
+      startDate: initial?.startDate ?? format(nowDate(), 'yyyy-MM-dd'),
       examDate: mode === 'exam' && examDate ? examDate : undefined,
       weeks: mode === 'weeks' ? weeks : undefined,
       intensity, hoursPerSession: hours, offDays, prioritySpecialties: priority,
-      selfLevel, createdAt: initial?.createdAt ?? Date.now(),
-      adjust: initial?.adjust,
-      strategy,
+      selfLevel, createdAt: initial?.createdAt ?? now(),
+      // Le mode d'avancement n'est PAS choisi ici : absent a la creation,
+      // il sera deduit puis propose. Un mode deja etabli est preserve.
+      ...(initial?.modus ? { modus: initial.modus } : {}),
     };
     await setMeta('program', config);
     await syncQueue.push({ type: 'program.configured', subject_id: null, payload: config });
+    // I1 : un programme tout juste créé ouvre la journée sans rechargement.
+    // Sur un jour déjà figé, ensureDayPlan ne fait que le relire.
+    await ensureDayPlan().catch((e) => console.warn('[programme]', e));
     onDone();
   };
 
@@ -109,23 +114,12 @@ export function ProgramSetup({ onDone, onCancel, initial }: { onDone: () => void
             <SrsSettingsSheet inline onClose={() => {}} />
           </Field>
 
-          {/* Courbe d'apprentissage (FB2-P) : par parties d'abord, ou directement en complète.
-              Le plan se recalcule à chaque session : ce choix fixe l'ordre, pas le rythme. */}
-          <Field label="Courbe d'apprentissage">
-            <div className="grid grid-cols-2 gap-1.5">
-              {([
-                { v: 'teil-first', l: 'Par parties, puis complète', d: 'Anamnese seule → Dokumentation seule → Fallvorstellung seule, puis les simulations complètes. Chaque partie acquise (≥ 60 %) fait passer à la suivante.', icon: 'branch' },
-                { v: 'full', l: 'Complète d’emblée', d: 'Simulations complètes dès la première couche ; les parties seules restent possibles à tout moment et comptent.', icon: 'play' },
-              ] as const).map((it) => (
-                <button key={it.v} type="button" onClick={() => setStrategy(it.v)} title={it.d} aria-pressed={strategy === it.v}
-                  className={`flex flex-col items-center gap-1 rounded-xl border px-2 py-2.5 text-center transition-colors ${strategy === it.v ? 'border-brand-500 bg-brand-50 text-brand-700 dark:bg-brand-900/30 dark:text-brand-200' : 'border-slate-200 text-slate-600 hover:border-brand-300 dark:border-slate-700 dark:text-slate-300'}`}>
-                  <Icon name={it.icon} className="h-5 w-5" />
-                  <span className="text-xs font-semibold">{it.l}</span>
-                </button>
-              ))}
-            </div>
-            <p className="mt-1.5 text-[11px] text-slate-500">Toute session — complète ou par partie — fait avancer le cas au prorata de ses trois parties et remet le plan à jour.</p>
-          </Field>
+          {/* PAS de question « comment tu veux avancer » ici — décision de
+              direction du 30 sept. 2026. Personne ne sait, au jour zéro, quelle
+              stratégie lui convient : la question demandait au candidat de
+              trancher ce que seul l'usage révèle. L'app OBSERVE le journal
+              (`observeModus`) et PROPOSE au bout de ~3 séances, depuis la page
+              Programme. Le réglage explicite y reste disponible (`ModusSwitch`). */}
 
           {/* Volume */}
           <Field label={`Volume par session : ${hours} h`}>

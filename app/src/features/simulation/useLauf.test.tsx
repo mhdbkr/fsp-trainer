@@ -281,3 +281,11 @@ describe('Re-revue 2 — item 5 : l’alerte d’échec ne survit pas à un chan
     expect(result.current.fehler).toBeNull();
   });
 });
+
+describe('R-C4 — la tâche du plan suit la partie', () => {
+  it('useLauf(c, teil, taskId) crée un Lauf qui porte le taskId', async () => {
+    const { result } = renderHook(() => useLauf(fall('c2'), 'anamnese', 'tA'));   // c2 : une partie NEUVE, pas la reprise d'un Lauf laissé par un test précédent
+    await waitFor(() => expect(result.current.lauf).not.toBeNull());
+    expect(result.current.lauf?.taskId).toBe('tA');
+  });
+});

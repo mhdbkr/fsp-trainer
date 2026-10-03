@@ -32,6 +32,7 @@ describe('saveSimulation', () => {
     await db.progress_events.clear();
     await db.cases.clear();
     await db.cases.put(c);
+    await Promise.all([db.training_events.clear(), db.case_progress.clear(), db.day_plans.clear()]);
   });
 
   it('M9 — un second appel idempotent conserve la date d’origine', async () => {
@@ -44,7 +45,7 @@ describe('saveSimulation', () => {
     expect(zweite.date).toBe(1_000);
   });
 
-  it('external-ai : enregistre, émet simulation.completed avec mode/externalTarget, met à jour la confiance du cas', async () => {
+  it('external-ai : enregistre, émet simulation.completed avec mode/externalTarget, n\'écrit plus la confiance du cas (R-C5)', async () => {
     const sim = await saveSimulation({ c, parts: { anamnese: part }, assistance: 'autonome', layer: 1 as never, mode: 'external-ai', externalTarget: 'chatgpt' });
     expect(sim.mode).toBe('external-ai');
     expect(sim.externalTarget).toBe('chatgpt');
@@ -52,8 +53,8 @@ describe('saveSimulation', () => {
     const ev = (await db.progress_events.toArray()).find((e) => e.type === 'simulation.completed');
     expect((ev?.payload as { mode?: string }).mode).toBe('external-ai');
     const updated = await db.cases.get('c1');
-    expect(updated?.lastSimulationId).toBe(sim.id);
-    expect(typeof updated?.confidence).toBe('number');
+    expect(updated?.lastSimulationId).toBeUndefined();
+    expect(updated?.confidence).toBeUndefined();
   });
 
   // Décision de direction : une séance faite dans l'IA externe compte dans
@@ -75,5 +76,33 @@ describe('saveSimulation', () => {
     const dehors = await saveSimulation({ c, parts: { anamnese: part }, assistance: 'autonome', layer: 1 as never, mode: 'external-ai', externalTarget: 'chatgpt' });
     const ev = (await db.progress_events.toArray()).find((e) => e.type === 'simulation.completed' && e.subject_id === dehors.id);
     expect((ev?.payload as { selfDeclared?: boolean }).selfDeclared).toBe(true);
+  });
+
+  // R-C2 / R-C5 (intégration s3-programme) : le journal LOCAL est alimenté à
+  // l'enregistrement — sans attendre un redémarrage — et `case_progress` est la
+  // seule vérité : plus de confidence / status / lastSimulationId.
+  it('R-C2 : training_events et case_progress existent dès le retour, identiques à une reconstruction', async () => {
+    const good = { done: true, checklist: [], contentPct: 90, feeling: 90, durationSec: 600 } as never;
+    const sim = await saveSimulation({ id: 'lauf-2', c, parts: { anamnese: good }, assistance: 'autonome', layer: 2 as never });
+    expect(await db.training_events.get(`te-${sim.id}`)).toBeDefined();
+    expect((await db.case_progress.get('c1'))?.teile.anamnese.status).toBe('solide');
+    const { rebuildJournal } = await import('@/lib/journal');
+    const avant = JSON.stringify(await db.training_events.toArray());
+    await rebuildJournal();
+    expect(JSON.stringify(await db.training_events.toArray())).toBe(avant);   // l'événement était DÉJÀ dans progress_events
+  });
+  it('R-C5 : status / confidence / lastSimulationId jamais écrits ; layerProgress ne redescend pas', async () => {
+    await db.cases.update('c1', { layerProgress: 3 } as never);
+    await saveSimulation({ c, parts: { anamnese: part }, assistance: 'assiste', layer: 1 as never });
+    const k = await db.cases.get('c1');
+    expect([k?.status, k?.confidence, k?.lastSimulationId, k?.layerProgress]).toEqual([undefined, undefined, undefined, 3]);
+  });
+  it('R-C4 : le taskId passé est persisté dans la ligne et l\'événement', async () => {
+    await db.day_plans.put({ date: '2026-10-01', materializedAt: 0, mode: 'teil-first', seed: 's', targetMin: 90,
+      tasks: [{ id: 'tA', date: '2026-10-01', kind: 'simulation', caseId: 'c1', teil: 'anamnese', label: 'X', estMin: 20, source: 'plan', reason: 'r' }] });
+    const sim = await saveSimulation({ c, parts: { anamnese: part }, assistance: 'autonome', layer: 1 as never, scope: 'teil', teil: 'anamnese', taskId: 'tA' });
+    expect(sim.taskId).toBe('tA');
+    const ev = (await db.progress_events.toArray()).find((e) => e.type === 'simulation.completed' && e.subject_id === sim.id);
+    expect((ev?.payload as { taskId?: string }).taskId).toBe('tA');
   });
 });

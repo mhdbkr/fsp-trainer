@@ -60,9 +60,9 @@ describe('projectCollections', () => {
   });
 
   it('sortEvents : occurred_at, puis received_at (absent = dernier), puis id', () => {
-    const a = { ...ev('plan.done', 'p', {}, 1, 'b'), received_at: '2026-09-17T10:00:00Z' };
-    const b = { ...ev('plan.done', 'p', {}, 1, 'a') };
-    const c = { ...ev('plan.done', 'p', {}, 1, 'c'), received_at: '2026-09-17T09:00:00Z' };
+    const a = { ...ev('srs.reviewed', 'p', {}, 1, 'b'), received_at: '2026-09-17T10:00:00Z' };
+    const b = { ...ev('srs.reviewed', 'p', {}, 1, 'a') };
+    const c = { ...ev('srs.reviewed', 'p', {}, 1, 'c'), received_at: '2026-09-17T09:00:00Z' };
     expect(sortEvents([a, b, c]).map((e) => e.id)).toEqual(['c', 'b', 'a']);
   });
 

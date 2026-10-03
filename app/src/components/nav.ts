@@ -3,6 +3,7 @@
 export const NAV: { to: string; label: string; icon: string }[] = [
   { to: '/', label: 'Accueil', icon: 'nav-home' },
   { to: '/programme', label: 'Programme', icon: 'nav-calendar' },
+  { to: '/historique', label: 'Historique', icon: 'history' },
   { to: '/cas', label: 'Cas cliniques', icon: 'nav-cases' },
   { to: '/simulation', label: 'Simulation', icon: 'nav-sim' },
   { to: '/fachwissen', label: 'Fachwissen', icon: 'nav-book' },

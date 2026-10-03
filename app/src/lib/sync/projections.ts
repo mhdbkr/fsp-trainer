@@ -4,6 +4,7 @@ import type { ProgressEvent } from './events';
 import { projectCollections, writeCollections } from '@/lib/collections/project';
 import { projectSrsSettings } from '@/lib/srsSettings';
 import { isPersonalId, projectPersonalTerms, writePersonalTerms } from '@/lib/collections/personalTerms';
+import { rebuildJournal } from '@/lib/journal';
 
 export function latestSrs(events: ProgressEvent[], fachbegriffId: string): Srs | null {
   let best: ProgressEvent | null = null;
@@ -37,4 +38,8 @@ export async function rebuildProjections(): Promise<void> {
   await writePersonalTerms(projectPersonalTerms(events));
   // Réglages quotidiens du SRS (F2b)
   await setMeta('srs.settings', projectSrsSettings(events));
+  // Journal d'entraînement, plans figés, progression par Teil (ADR-0017).
+  // Reconstruction intégrale : `training_events`, `day_plans` et
+  // `case_progress` sont des projections, jamais des sources.
+  await rebuildJournal();                    // relit progress_events dans sa transaction (I-2)
 }

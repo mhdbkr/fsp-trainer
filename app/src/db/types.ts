@@ -249,14 +249,18 @@ export interface Case {
   fachanamnese?: Specialty;
   examinerQuestions: string[];       // questions Arzt-Arzt réellement posées
   pruefungsfallen?: string[];        // pièges du cas (Cave-Radar)
+  /** @deprecated ADR-0017 — plus jamais écrit. Lire `case_progress`. */
   status: CaseStatus;
+  /** @deprecated ADR-0017 — plus jamais écrit (le `/3` de `caseMastery`). */
   confidence: number;                // 0..100, dérivé des simulations
+  /** @deprecated ADR-0017 — plus jamais écrit. */
   lastSimulationId?: string;
   sourceDates?: string[];            // dates réelles d'apparition (timeline)
   // --- Itération 2 ---
   referenceArztbrief?: string;       // corrigé-type (comparaison, jamais auto-inséré)
   kommunikativeSituationIds?: string[]; // situations "patient difficile" du cas
   examinerSheet?: ExaminerSheetSection[]; // fiche de rôle du médecin senior (Teil 3)
+  /** @deprecated ADR-0017 — plus jamais écrit (source du saut de couche). */
   layerProgress?: Layer;             // couche la plus haute validée sur ce cas
   /** SCHÉMA DE COUVERTURE (Muster) — phrases-modèles AUTHORÉES par chapitre,
    *  personnalisées à 100 % aux données du cas et au registre du guide. La
@@ -510,6 +514,9 @@ export interface Simulation {
    *  et le streak, pas la maîtrise du cas (lib/simScope.ts). */
   scope?: 'full' | 'teil';
   teil?: SimTeil;
+  /** TaskInstance du plan figé que ce run satisfait (ADR-0017 §3.4). Absent =
+   *  exercice libre. Écrit par le lanceur de simulation (chantier C2). */
+  taskId?: string;
 }
 export type SimTeil = 'anamnese' | 'dokumentation' | 'fallvorstellung';
 
@@ -533,18 +540,6 @@ export interface SketchNotes {
 /** Anamnese-Bogen structuré : valeur libre par clé de champ du Muster choisi
  *  (les clés viennent de MusterBogenSpec.fields[].key). */
 export type BogenNotes = Record<string, string>;
-
-// ----------------------------------------------------------------------------
-// Planning (session du jour / calendrier)
-// ----------------------------------------------------------------------------
-export interface PlanEntry {
-  id: string;
-  date: string;            // ISO yyyy-MM-dd
-  caseId?: string;
-  kind: 'simulation' | 'drill' | 'revision';
-  label: string;
-  done: boolean;
-}
 
 // Réglages / méta (clé-valeur) : thème, streak, centre visé…
 export interface Meta {
@@ -572,8 +567,13 @@ export interface ProgramConfig {
   /** Courbe d'apprentissage (FB2-P, retour direction) : « teil-first » entraîne
    *  d'abord chaque partie seule (Anamnese, puis Dokumentation, puis
    *  Fallvorstellung) avant les simulations complètes ; « full » commence
-   *  directement en complète. Le plan se recalcule à chaque session. */
+   *  directement en complète.
+   *  @deprecated ADR-0017 — remplacé par `modus`. Lecture tolérante :
+   *  `strategy === 'full'` -> `modus = 'cas-complet'`. */
   strategy?: 'teil-first' | 'full';
+  /** Mode d'avancement explicite (ADR-0017 §7) : demande une fois, jamais
+   *  devine. Fige dans chaque `DayPlan.mode` a la materialisation. */
+  modus?: Fortschrittsmodus;
 }
 
 /** Interventions manuelles sur le plan, prises en compte à chaque recalcul :
@@ -621,4 +621,104 @@ export interface ProgramDay {
   blocks: ProgramBlock[];
   worked: boolean;                // ≥1 activité ce jour (dérivé des simulations)
   spentMin: number;               // temps réellement passé ce jour
+}
+
+// ----------------------------------------------------------------------------
+// Journal d'entraînement, plan du jour figé, progression par Teil
+// Contrat : docs/contracts/training-journal.md · ADR-0017
+// ----------------------------------------------------------------------------
+
+/** Identifiant d'un cas. Alias de lisibilité : `Case.id` est une chaîne. */
+export type CaseId = string;
+
+export type TrainingKind =
+  | 'simulation'      // une partie ou un run, joués dans l'app
+  | 'drill'           // une SÉANCE de répétition espacée (pas une carte)
+  | 'fiche'           // Fachwissen / guide lu de bout en bout
+  | 'aufklaerung'     // une Aufklärung jouée
+  | 'examen-blanc';   // run complet en conditions d'examen
+
+export type TrainingSource = 'plan' | 'libre';
+
+/** Un exercice fait = exactement un événement. Append-only : jamais modifié,
+ *  jamais supprimé ; une correction est un nouvel événement. */
+export interface TrainingEvent {
+  id: string;                  // uuid v4 ; JAMAIS `${prefix}-${Date.now()}`
+  at: number;                  // epoch ms, début de l'exercice
+  kind: TrainingKind;
+  caseId?: CaseId;             // absent pour un drill non lié à un cas
+  teile: SimTeil[];            // ce qui a RÉELLEMENT été joué (fait, pas intention)
+  source: TrainingSource;
+  taskId?: string;             // TaskInstance satisfaite, si une l'a été
+  spentMin: number;            // entier ≥ 0, MESURÉ — jamais estimé
+  laufId?: string;             // run de simulation associé
+  scores?: Partial<Record<SimTeil, number>>; // 0..100 par Teil joué
+  selbstbewertet?: boolean;    // true = score déclaré par le candidat, pas mesuré
+  profileId?: string;          // profil crédité
+}
+
+export type TaskKind = 'simulation' | 'drill' | 'fachwissen' | 'aufklaerung' | 'revision' | 'examen-blanc';
+
+/** Une tâche MATÉRIALISÉE : elle a une identité, une date, et un état « faite ».
+ *  C'est l'entité qui manquait — sans elle, figer le jour n'a aucune prise. */
+export interface TaskInstance {
+  id: string;                  // uuid v4, stable pour toujours
+  date: string;                // ISO yyyy-MM-dd, = la clé du DayPlan porteur
+  kind: TaskKind;
+  caseId?: CaseId;
+  /** Le sujet, et lui seul. Le type, le Teil, la couche et le coût se lisent
+   *  dans les champs — l'étiquette ne les concatène JAMAIS (ADR-0020 §8). */
+  label: string;
+  teil?: SimTeil;              // absent = run complet
+  layer?: Layer;
+  specialty?: Specialty;
+  assistance?: AssistanceMode;
+  estMin: number;
+  source: 'plan';              // une TaskInstance vient toujours du plan
+  reason: string;              // le « pourquoi aujourd'hui », FIGÉ avec la tâche
+  doneAt?: number;             // epoch ms ; absent = non faite
+  spentMin?: number;           // renseigné en même temps que doneAt
+  eventId?: string;            // TrainingEvent qui l'a satisfaite
+  diversityRelaxed?: boolean;  // contrainte de diversité relâchée (pool épuisé)
+}
+
+/** Mode d'avancement : la stratégie du candidat, demandée une fois, jamais
+ *  devinée. Figée dans chaque jour au moment de la matérialisation. */
+export type Fortschrittsmodus =
+  | 'teil-first'     // un geste à la fois : le même Teil sur plusieurs cas
+  | 'cas-complet'    // les trois Teile d'un cas avant de passer au suivant
+  | 'specialite'     // une spécialité travaillée à fond, puis la suivante
+  | 'examen-blanc';  // runs complets chronométrés, sans assistance
+
+/** Le plan d'un jour, matérialisé UNE FOIS à la première ouverture de ce jour. */
+export interface DayPlan {
+  date: string;                // ISO yyyy-MM-dd — clé primaire
+  materializedAt: number;      // epoch ms de la matérialisation
+  mode: Fortschrittsmodus;     // figé avec le jour
+  seed: string;                // graine de la sélection, rejouable
+  targetMin: number;
+  tasks: TaskInstance[];
+  replannedAt?: number;
+}
+
+export type TeilStatus = 'vierge' | 'fragile' | 'acquis' | 'solide';
+
+export interface TeilProgress {
+  status: TeilStatus;
+  lastScore: number | null;    // null ⇔ status === 'vierge'
+  lastAt: number | null;
+  attempts: number;
+  /** Dernière fois que ce Teil a été déclaré FAIT sans mesure (coche, séance
+   *  IA auto-déclarée). N'entre ni dans `status`, ni dans `attempts`, ni dans
+   *  l'indice, ni dans la série : « faite — non mesurée » (re-revue I-4). */
+  nonMesureAt?: number;
+}
+
+/** Projection de `training_events`. Un cas n'a PLUS de pourcentage : il a un
+ *  état par Teil. `vierge` n'est jamais un point faible — c'est « pas encore
+ *  travaillé », une information neutre. */
+export interface CaseProgress {
+  caseId: CaseId;
+  teile: Record<SimTeil, TeilProgress>;   // les TROIS clés, toujours présentes
+  overall: 'vierge' | 'entame' | 'solide';
 }

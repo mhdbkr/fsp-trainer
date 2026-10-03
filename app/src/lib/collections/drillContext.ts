@@ -1,10 +1,11 @@
 // Construit le contexte de pertinence et le budget du jour depuis la base du compte.
 import { db } from '@/db/db';
-import type { Case, Fachbegriff, ProgramConfig, Simulation, Specialty } from '@/db/types';
+import type { DayPlan, ProgramConfig, Specialty } from '@/db/types';
 import type { RelevanceContext } from './relevance';
 import { newBudget, remainingToday, retention7d, reviewedToday } from '@/lib/srsBudget';
 import { isNew } from '@/lib/srs';
-import { generateProgram, workingDaysUntilExam } from '@/lib/program';
+import { workingDaysUntilExam } from '@/lib/program';
+import { dayKey, nowDate } from '@/lib/clock';
 import { getSrsSettings, effectiveDaily, type SrsSettings } from '@/lib/srsSettings';
 import { usePendingDeletions } from './pendingDeletion';
 
@@ -20,21 +21,15 @@ export interface DrillContext {
   reviewsRemaining: number;
 }
 
-/** Cas et spécialité du PROGRAMME du jour (spec F2a D3 : +40 / +20). Le programme
- *  réel est calculé à la volée par `generateProgram` (`db.plan` n'est qu'une table
- *  de démo, vidée à la connexion) ; sans config, rien n'est « du jour ». */
-export function todayProgramContext(
-  config: ProgramConfig | undefined | null,
-  data: { cases: Case[]; sims: Simulation[]; begriffe: Fachbegriff[] },
-  now = new Date(),
-): { todayCaseIds: string[]; todaySpecialty?: Specialty } {
-  if (!config) return { todayCaseIds: [] };
-  const today = generateProgram(config, data, 1, now)[0];
-  const sims = (today?.blocks ?? []).filter((b) => b.kind === 'simulation' && b.caseId);
-  return { todayCaseIds: [...new Set(sims.map((b) => b.caseId!))], todaySpecialty: sims[0]?.specialty };
+/** Cas et spécialité du PLAN FIGÉ du jour (spec F2a D3 : +40 / +20). Le plan
+ *  n'est plus recalculé au vol : il est matérialisé une fois et lu ici. Un jour
+ *  non ouvert n'a pas de plan — rien n'est « du jour ». */
+export function todayProgramContext(plan: DayPlan | undefined | null): { todayCaseIds: string[]; todaySpecialty?: Specialty } {
+  const sims = (plan?.tasks ?? []).filter((t) => t.kind === 'simulation' && t.caseId);
+  return { todayCaseIds: [...new Set(sims.map((t) => t.caseId!))], todaySpecialty: sims[0]?.specialty };
 }
 
-export async function loadDrillContext(now = new Date()): Promise<DrillContext> {
+export async function loadDrillContext(now = nowDate()): Promise<DrillContext> {
   const [favorites, deckTerms, allSims, cases, begriffe, personalTerms, events, config, settings] = await Promise.all([
     db.favorites.toArray(),
     db.deck_terms.toArray(),
@@ -46,6 +41,7 @@ export async function loadDrillContext(now = new Date()): Promise<DrillContext> 
     db.meta.get('program').then((m) => m?.value as ProgramConfig | undefined),
     getSrsSettings(),
   ]);
+  const todayPlan = await db.day_plans.get(dayKey(now));
 
   // Une carte en attente de suppression (masquage local, F4a D10) reste 5 s
   // dans `db.personal_terms` : une session lancée pendant ce délai ne doit
@@ -54,7 +50,7 @@ export async function loadDrillContext(now = new Date()): Promise<DrillContext> 
   const livePersonalTerms = pendingIds.size ? personalTerms.filter((p) => !pendingIds.has(p.id)) : personalTerms;
 
   const sims = [...allSims].sort((a, b) => b.date - a.date).slice(0, 30);
-  const { todayCaseIds, todaySpecialty } = todayProgramContext(config, { cases, sims: allSims, begriffe }, now);
+  const { todayCaseIds, todaySpecialty } = todayProgramContext(todayPlan);
 
   const relevance: RelevanceContext = {
     now: now.getTime(),

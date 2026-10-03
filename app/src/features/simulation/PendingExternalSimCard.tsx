@@ -17,8 +17,8 @@ const DEFAULT_DURATION_MIN: DurationMin = 20;
 // Carte de retour après une simulation avec une IA externe : la séance ne
 // compte que si le candidat s'auto-évalue (même grille que le runner). Elle
 // est AUTO-DÉCLARÉE (mode 'external-ai' ⇒ selbstbewertet, contrat
-// training-journal Q3) : historique et série. L'exclusion de l'indice de
-// préparation n'est pas encore tenue par saveSimulation/computeReadiness.
+// training-journal Q3) : historique et série, hors de l'indice : `indiceAt`
+// lit `case_progress`, où une séance auto-déclarée ne bouge aucun statut (INV-11).
 // Le Teil d'ancrage de la trace dit quelles parties évaluer ; une trace sans
 // Teil (ancienne, `scope` exam) couvre anamnese + fallvorstellung.
 // N'apparaît que si une trace récente (< 12 h) existe (lib/externalAi/targets).
@@ -116,12 +116,8 @@ export function PendingExternalSimCard({ onlyCaseId }: { onlyCaseId?: string } =
         <p className="font-semibold">
           Tu as simulé {what}<Link to={`/cas/${c.id}`} className="text-brand-600">{c.name}</Link> avec {target} — comment ça s'est passé ?
         </p>
-        {/* « …, pas dans l'indice de préparation » s'ajoutera quand ce sera vrai :
-            aujourd'hui saveSimulation recalcule encore la confiance du cas et
-            computeReadiness ne filtre pas le mode 'external-ai' (chantier
-            Programme, à l'intégration). On n'affiche que ce qui est tenu. */}
         <p className="mt-0.5 text-[12px] text-slate-500 dark:text-slate-400">
-          Séance auto-déclarée : elle compte dans ton historique et ta série.
+          Séance auto-déclarée : elle compte dans ton historique et ta série, pas dans l'indice de préparation.
         </p>
         <div role="radiogroup" aria-label="Durée" className="mt-2 flex gap-1.5">
           {DURATIONS_MIN.map((m) => (

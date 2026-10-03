@@ -402,3 +402,9 @@ describe('§3.1 — la suppression de fin ne peut pas être doublée', () => {
     expect((await ladeAktivenLauf())?.zustand).toBe('checkliste');
   });
 });
+
+describe('R-C4 — projektion transmet la tâche du plan', () => {
+  it('lauf.taskId → SaveInput.taskId', () => {
+    expect(projektion({ ...neuerLauf(), taskId: 'tA' }, c).taskId).toBe('tA');
+  });
+});

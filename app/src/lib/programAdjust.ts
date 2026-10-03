@@ -1,74 +1,46 @@
-import { db } from '@/db/db';
-import type { ExtraTask, ProgramAdjust, ProgramConfig } from '@/db/types';
+import { db, setMeta } from '@/db/db';
+import type { Fortschrittsmodus, ProgramConfig } from '@/db/types';
 
-// Clé meta unique du programme (un compte = une personne : D1).
+// ============================================================================
+// Réglages du programme. Ce qui a disparu, et pourquoi (ADR-0017 §9) :
+//
+//  • `markLayerDone` / `doneLayers` — « fait » est une propriété d'une TÂCHE
+//    datée (`TaskInstance.doneAt`), pas d'un cas. Marquer « fait » un bloc Teil
+//    validait toute la couche et effaçait les deux Teile restants (audit §5).
+//  • `postpone` — un cas reporté décalait toute sa chaîne de couches à chaque
+//    recalcul. Le plan ne se recalcule plus.
+//  • `extras` / `ExtraTask` — une tâche ajoutée à la main est une
+//    `TaskInstance` ordinaire posée par `replanifier()`. Les extras étaient
+//    réinjectés indéfiniment : on ne pouvait que les retirer, jamais les
+//    terminer (audit §6).
+//  • `skipDrillDates` — un jour non matérialisé n'a pas de drill.
+//
+// Ce qui reste : le mode d'avancement et l'intensité, deux choix de l'utilisateur.
+// ============================================================================
+
 const key = () => 'program';
 
-// ============================================================================
-// Actions manuelles sur le programme de révision. Elles écrivent dans
-// `config.adjust` (persisté dans db.meta['program']). Le planificateur relit
-// ces ajustements à chaque recalcul et RE-RAISONNE la suite du plan :
-//  • marquer une couche faite → le cas avance, la couche suivante se replanifie ;
-//  • reporter un cas → toute sa chaîne de couches glisse plus tard ;
-//  • ajouter une révision → tâche injectée à la date choisie ;
-//  • annuler le drill d'un jour → libéré du budget de ce jour.
-// ============================================================================
+/** Clé du mode explicitement REFUSÉ par le candidat, pour ne pas le reproposer. */
+export const MODUS_REFUSE_KEY = 'modusRefuse';
 
-async function patch(config: ProgramConfig, mutate: (a: ProgramAdjust) => void): Promise<void> {
-  const adjust: ProgramAdjust = {
-    doneLayers: { ...(config.adjust?.doneLayers ?? {}) },
-    postpone: { ...(config.adjust?.postpone ?? {}) },
-    skipDrillDates: [...(config.adjust?.skipDrillDates ?? [])],
-    extras: [...(config.adjust?.extras ?? [])],
-  };
-  mutate(adjust);
-  await db.meta.put({ key: key(), value: { ...config, adjust } });
+/**
+ * Le mode d'avancement. Il n'est plus DEMANDÉ à l'inscription (décision de
+ * direction du 30 sept. 2026) : l'app l'observe et le propose. Ce réglage reste
+ * la commande explicite — confirmer une proposition passe par ici. Changer de
+ * mode ne réécrit AUCUN jour déjà figé : `DayPlan.mode` est figé à la
+ * matérialisation.
+ */
+export function setModus(config: ProgramConfig, modus: Fortschrittsmodus) {
+  return db.meta.put({ key: key(), value: { ...config, modus } });
 }
 
-/** Marque la couche `layer` d'un cas comme faite (sans lancer de simulation). */
-export function markLayerDone(config: ProgramConfig, caseId: string, layer: number) {
-  return patch(config, (a) => {
-    a.doneLayers![caseId] = Math.max(a.doneLayers![caseId] ?? 0, layer);
-    // Un cas repris n'est plus reporté.
-    delete a.postpone![caseId];
-  });
-}
-
-/** Annule la dernière validation manuelle d'un cas (retour en arrière). */
-export function unmarkCase(config: ProgramConfig, caseId: string) {
-  return patch(config, (a) => { delete a.doneLayers![caseId]; });
-}
-
-/** Reporte la couche suivante d'un cas de `days` jours ouvrés (par défaut +2). */
-export function postponeCase(config: ProgramConfig, caseId: string, days = 2) {
-  return patch(config, (a) => { a.postpone![caseId] = (a.postpone![caseId] ?? 0) + days; });
-}
-
-/** Ajoute une tâche (révision, drill, fachwissen…) à une date donnée. */
-export function addExtra(config: ProgramConfig, task: Omit<ExtraTask, 'id'>) {
-  return patch(config, (a) => { a.extras!.push({ ...task, id: `x-${Date.now()}-${Math.random().toString(36).slice(2, 7)}` }); });
-}
-
-/** Retire une tâche ajoutée manuellement. */
-export function removeExtra(config: ProgramConfig, id: string) {
-  return patch(config, (a) => { a.extras = a.extras!.filter((e) => e.id !== id); });
-}
-
-/** Bascule l'annulation du drill d'un jour (date ISO). */
-export function toggleSkipDrill(config: ProgramConfig, date: string) {
-  return patch(config, (a) => {
-    a.skipDrillDates = a.skipDrillDates!.includes(date)
-      ? a.skipDrillDates!.filter((d) => d !== date)
-      : [...a.skipDrillDates!, date];
-  });
-}
-
-/** Change l'intensité du plan (recalcul immédiat du budget horaire quotidien). */
+/** Change l'intensité : le budget du jour suivant en tient compte. Les jours
+ *  déjà figés gardent leur `targetMin`. */
 export function setIntensity(config: ProgramConfig, intensity: ProgramConfig['intensity']) {
   return db.meta.put({ key: key(), value: { ...config, intensity } });
 }
 
-/** Réinitialise tous les ajustements manuels (repart d'un plan « propre »). */
-export function resetAdjust(config: ProgramConfig) {
-  return db.meta.put({ key: key(), value: { ...config, adjust: undefined } });
-}
+/** « Non, laisse » — le refus se retient, sinon la proposition harcèle. Il ne
+ *  vaut que pour CE mode : si l'usage change et en désigne un autre, la
+ *  question redevient légitime (`modusAProposer`). */
+export const refuserModus = (modus: Fortschrittsmodus) => setMeta(MODUS_REFUSE_KEY, modus);

@@ -27,6 +27,8 @@ import { DrillPage } from '@/features/fachbegriffe/DrillPage';
 import { StatsPage } from '@/features/stats/StatsPage';
 import { PatientScreen } from '@/features/simulation/PatientScreen';
 import { ProgramPage } from '@/features/program/ProgramPage';
+import { HistoriquePage } from '@/features/program/HistoriquePage';
+import { bootJournal, watchDayPlan } from '@/lib/sync/boot';
 import { SignInPage } from '@/features/account/SignInPage';
 import { OnboardingPage } from '@/features/account/OnboardingPage';
 import { AuthCallback } from '@/features/account/AuthCallback';
@@ -69,6 +71,7 @@ const router = createHashRouter([
       { path: 'fachbegriffe', element: <FachbegriffePage /> },
       { path: 'fachbegriffe/drill', element: <DrillPage /> },
       { path: 'stats', element: <StatsPage /> },
+      { path: 'historique', element: <HistoriquePage /> },
       { path: 'signin', element: <SignInPage /> },
       { path: 'onboarding', element: <OnboardingPage /> },
       { path: 'auth/callback', element: <AuthCallback /> },
@@ -129,6 +132,11 @@ if (AUTH_MODE === 'founder' && !getActiveUserId()) {
     .then(() => { watchEntitlements(); })
     .then(() => contentLoader.sync())
     .then(() => ensureDemoData())
+    // Le plan du jour est materialise ICI, une fois, au demarrage — JAMAIS par
+    // un composant (contrat training-journal.md 3.2). AVANT : pull borne (D-I2)
+    // et reconstruction du journal (B-C1). Un echec n'empeche pas l'app de
+    // demarrer : l'ecran affiche « pas encore ouvert ».
+    .then(() => bootJournal().catch((e) => { console.warn('[programme]', e); }))
     .then(() => {
       ReactDOM.createRoot(document.getElementById('root')!).render(
         <React.StrictMode>
@@ -136,6 +144,7 @@ if (AUTH_MODE === 'founder' && !getActiveUserId()) {
         </React.StrictMode>,
       );
       startSyncLoop();
+      watchDayPlan();          // I1 : retour au premier plan, minuit
     })
     .catch((e) => {
       if (e instanceof Error && e.message === 'halt') return;

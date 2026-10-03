@@ -2,24 +2,29 @@ import { useMemo, useState, useEffect } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
 import { useCases } from '@/hooks/useData';
 import { useUi } from '@/store/ui';
-import type { Case, Center, Specialty, CaseStatus } from '@/db/types';
-import { CenterBadge, StatusBadge, FreqBadge, DifficultyDots, ConfidenceRing, EmptyState } from '@/components/ui';
+import type { Case, CaseProgress, Center, Specialty } from '@/db/types';
+import { CenterBadge, FreqBadge, DifficultyDots, EmptyState } from '@/components/ui';
+import { useCaseProgress } from '@/features/program/useProgram';
+import { blankProgress } from '@/lib/journal';
+import { OVERALL, ProgressBadge, TeilDots, nonMesureSeulement, progressRank } from './CaseProgressView';
 import { Icon, SpecialtyIcon } from '@/components/icons';
 import { CasePreviewPanel } from './CasePreviewPanel';
 
 const CENTERS: Center[] = ['Freiburg', 'Karlsruhe', 'Reutlingen', 'Stuttgart', 'Complément'];
-const STATUSES: CaseStatus[] = ['À faire', 'En cours', 'Maîtrisé'];
-type SortKey = 'frequency' | 'alpha' | 'specialty' | 'confidence';
+const OVERALLS = Object.keys(OVERALL) as CaseProgress['overall'][];
+type SortKey = 'frequency' | 'alpha' | 'specialty' | 'progress';
 
 export function CasesPage() {
   const cases = useCases();
+  const progress = useCaseProgress();
+  const cpOf = (c: Case) => progress?.get(c.id) ?? blankProgress(c.id);
   const { openCasePreview, previewCaseId } = useUi();
   const [params, setParams] = useSearchParams();
 
   const [q, setQ] = useState('');
   const [center, setCenter] = useState<Center | ''>('');
   const [specialty, setSpecialty] = useState<Specialty | ''>((params.get('specialty') as Specialty) || '');
-  const [status, setStatus] = useState<CaseStatus | ''>('');
+  const [status, setStatus] = useState<CaseProgress['overall'] | ''>('');
   const [minFreq, setMinFreq] = useState(0);
   const [sort, setSort] = useState<SortKey>('frequency');
 
@@ -38,7 +43,7 @@ export function CasesPage() {
       if (q && !`${c.name} ${c.pathology}`.toLowerCase().includes(q.toLowerCase())) return false;
       if (center && !c.centers.includes(center)) return false;
       if (specialty && c.specialty !== specialty) return false;
-      if (status && c.status !== status) return false;
+      if (status && cpOf(c).overall !== status) return false;
       if (c.frequency < minFreq) return false;
       return true;
     });
@@ -47,17 +52,18 @@ export function CasesPage() {
         case 'frequency': return b.frequency - a.frequency;
         case 'alpha': return a.name.localeCompare(b.name);
         case 'specialty': return a.specialty.localeCompare(b.specialty) || b.frequency - a.frequency;
-        case 'confidence': return a.confidence - b.confidence;
+        case 'progress': return progressRank(cpOf(a)) - progressRank(cpOf(b)) || b.frequency - a.frequency;
       }
     });
     return list;
-  }, [cases, q, center, specialty, status, minFreq, sort]);
+  }, [cases, progress, q, center, specialty, status, minFreq, sort]);
 
-  if (!cases) return <div className="text-slate-400">Chargement…</div>;
+  if (!cases || !progress) return <div className="text-slate-400">Chargement…</div>;
 
   const total = cases.length;
-  const mastered = cases.filter((c) => c.status === 'Maîtrisé').length;
-  const todo = cases.filter((c) => c.status === 'À faire').length;
+  const solides = cases.filter((c) => cpOf(c).overall === 'solide').length;
+  const nonMesures = cases.filter((c) => nonMesureSeulement(cpOf(c))).length;
+  const vierges = cases.filter((c) => cpOf(c).overall === 'vierge').length - nonMesures;
   const bySpecialty = specialties.map((sp) => ({ sp, n: cases.filter((c) => c.specialty === sp).length }));
 
   const clearSpecialty = () => { setSpecialty(''); params.delete('specialty'); setParams(params); };
@@ -68,7 +74,7 @@ export function CasesPage() {
         <div className="eyebrow">Bibliothèque</div>
         <h1 className="mt-1.5 text-2xl font-bold tracking-tightish">Cas cliniques</h1>
         <p className="text-slate-500 dark:text-slate-400">
-          <b>{total}</b> cas · <b className="text-emerald-600 dark:text-emerald-400">{mastered}</b> maîtrisés · <b>{todo}</b> à faire
+          <b>{total}</b> cas · <b className="text-brand-600 dark:text-brand-300">{solides}</b> solides · <b>{vierges}</b> pas encore travaillés{nonMesures > 0 && <> · <b>{nonMesures}</b> faite{nonMesures > 1 ? 's' : ''} — non mesurée{nonMesures > 1 ? 's' : ''}</>}
         </p>
         <div className="mt-2 flex flex-wrap gap-1.5">
           {bySpecialty.map(({ sp, n }) => (
@@ -93,10 +99,10 @@ export function CasesPage() {
           </select>
         </div>
         <div>
-          <label className="label">Statut</label>
+          <label className="label">Progression</label>
           <select value={status} onChange={(e) => setStatus(e.target.value as never)} className="input mt-1">
             <option value="">Tous</option>
-            {STATUSES.map((s) => <option key={s}>{s}</option>)}
+            {OVERALLS.map((s) => <option key={s} value={s}>{OVERALL[s].label}</option>)}
           </select>
         </div>
         <div>
@@ -109,7 +115,7 @@ export function CasesPage() {
             <option value="frequency">Fréquence</option>
             <option value="alpha">Alphabétique</option>
             <option value="specialty">Spécialité</option>
-            <option value="confidence">Confiance (faible→fort)</option>
+            <option value="progress">Progression (moins avancés d'abord)</option>
           </select>
         </div>
         {(specialty || center || status || q || minFreq > 0) && (
@@ -125,7 +131,7 @@ export function CasesPage() {
       ) : (
         <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-3">
           {filtered.map((c) => (
-            <CaseCard key={c.id} c={c} onPreview={() => openCasePreview(c.id)} active={previewCaseId === c.id} />
+            <CaseCard key={c.id} c={c} cp={cpOf(c)} onPreview={() => openCasePreview(c.id)} active={previewCaseId === c.id} />
           ))}
         </div>
       )}
@@ -136,7 +142,7 @@ export function CasesPage() {
   );
 }
 
-function CaseCard({ c, onPreview, active }: { c: Case; onPreview: () => void; active: boolean }) {
+function CaseCard({ c, cp, onPreview, active }: { c: Case; cp: CaseProgress; onPreview: () => void; active: boolean }) {
   return (
     <div className={`card flex flex-col p-4 transition-all hover:shadow-md ${active ? 'ring-2 ring-brand-400' : ''}`}>
       <div className="flex items-start justify-between gap-2">
@@ -149,11 +155,11 @@ function CaseCard({ c, onPreview, active }: { c: Case; onPreview: () => void; ac
             <p className="mt-0.5 text-xs text-slate-400">{c.specialty}</p>
           </span>
         </button>
-        <ConfidenceRing pct={c.confidence} size={40} />
+        <TeilDots cp={cp} />
       </div>
       <div className="mt-3 flex flex-wrap items-center gap-1.5">
         <FreqBadge n={c.frequency} />
-        <StatusBadge status={c.status} />
+        <ProgressBadge cp={cp} />
         <DifficultyDots level={c.difficulty} />
       </div>
       <div className="mt-2 flex flex-wrap gap-1">

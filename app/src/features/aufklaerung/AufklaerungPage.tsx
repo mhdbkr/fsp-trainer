@@ -4,6 +4,7 @@ import { useAufklaerungen, useCases } from '@/hooks/useData';
 import { AutoLink } from '@/components/AutoLink';
 import { Icon } from '@/components/icons';
 import type { AufklaerungItem } from '@/db/types';
+import { MarkWorked } from '@/features/program/MarkWorked';
 
 // ============================================================================
 // Espace Aufklärung — présenté comme un PARCOURS visuel : les 7 blocs standards
@@ -228,6 +229,9 @@ function AufkCard({ item, defaultOpen }: { item: AufklaerungItem; defaultOpen?: 
               {linked.map((c) => <Link key={c.id} to={`/cas/${c.id}`} className="chip bg-slate-100 text-slate-600 hover:bg-brand-100 dark:bg-slate-800 dark:text-slate-300">{c.name}</Link>)}
             </div>
           )}
+
+          {/* Monté à l'ouverture de la carte : le temps se mesure depuis là (B-C3). */}
+          <div className="mt-4 flex justify-end"><MarkWorked kind="aufklaerung" label="Aufklärung travaillée" /></div>
         </div>
       )}
     </div>

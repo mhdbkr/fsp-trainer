@@ -42,6 +42,7 @@ export function PreSimulationPage() {
   // modifiable ici, porté par l'entrée en simulation.
   const [params, setParams] = useSearchParams();
   const teil = isTeil(params.get('teil')) ? (params.get('teil') as SimTeil) : null;
+  const taskId = params.get('task') ?? undefined;                  // R-C4 : tâche du plan, si lancée depuis le plan
   const setTeil = (t: string | null) => { const n = new URLSearchParams(params); if (t) n.set('teil', t); else n.delete('teil'); setParams(n, { replace: true }); };
   const c = useCase(caseId);
   const fw = useFachwissen(c?.linkedFachwissenId);
@@ -60,7 +61,7 @@ export function PreSimulationPage() {
         <p className="text-slate-500 dark:text-slate-400">Révise 2 minutes, respire, puis entre en simulation.</p>
         {/* Le départ, en tête de page : jamais enfoui sous les réglages. */}
         <div className="mt-3 flex flex-col items-center gap-1">
-          <StartButton caseId={c.id} teil={teil} />
+          <StartButton caseId={c.id} teil={teil} taskId={taskId} />
           <Link viewTransition to={`/cas/${c.id}`} className="btn-ghost text-xs">← Fiche du cas</Link>
         </div>
       </header>

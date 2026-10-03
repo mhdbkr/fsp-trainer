@@ -1,6 +1,6 @@
-import { format, subDays } from 'date-fns';
+import { subDays } from 'date-fns';
 import { db } from '@/db/db';
-import type { Case, Fachbegriff, Fachwissen, AufklaerungItem, Simulation, PlanEntry, PartResult, ChecklistItem } from '@/db/types';
+import type { Case, Fachbegriff, Fachwissen, AufklaerungItem, Simulation, PartResult, ChecklistItem } from '@/db/types';
 import { checklistFor } from '@/lib/checklists';
 import { checklistPct, languagePct, emptyLanguageGrid } from '@/lib/scoring';
 import { useSession } from '@/lib/auth/session';
@@ -124,19 +124,8 @@ function demoSimulations(): Simulation[] {
   ];
 }
 
-function demoPlan(): PlanEntry[] {
-  const today = format(new Date(), 'yyyy-MM-dd');
-  const tomorrow = format(subDays(new Date(), -1), 'yyyy-MM-dd');
-  return [
-    { id: 'plan-1', date: today, caseId: 'case-leberzirrhose', kind: 'simulation', label: 'Simulation Leberzirrhose', done: false },
-    { id: 'plan-2', date: today, kind: 'drill', label: 'Drill Fachbegriffe (Gastro)', done: false },
-    { id: 'plan-3', date: tomorrow, caseId: 'case-gib', kind: 'simulation', label: 'Simulation Obere GI-Blutung', done: false },
-    { id: 'plan-4', date: format(subDays(new Date(), -3), 'yyyy-MM-dd'), caseId: 'case-angina-pectoris', kind: 'simulation', label: 'Simulation Angina pectoris', done: false },
-  ];
-}
-
 /**
- * Seed des données de démo (simulations/plan) uniquement — le contenu
+ * Seed des données de démo (simulations) uniquement — le contenu
  * (cas, Fachwissen, Aufklärungen, guides, Fachbegriffe) est désormais géré
  * par contentLoader.sync() (src/lib/content/loader.ts), qui remplace
  * l'ancien ensureSeeded. Ne touche jamais aux tables de contenu.
@@ -149,8 +138,5 @@ function demoPlan(): PlanEntry[] {
 export async function ensureDemoData(): Promise<void> {
   if (useSession.getState().status !== 'anonymous') return;
   if ((await db.progress_events.count()) > 0) return;
-  await db.transaction('rw', [db.simulations, db.plan], async () => {
-    if ((await db.simulations.count()) === 0) await db.simulations.bulkPut(demoSimulations());
-    if ((await db.plan.count()) === 0) await db.plan.bulkPut(demoPlan());
-  });
+  if ((await db.simulations.count()) === 0) await db.simulations.bulkPut(demoSimulations());
 }

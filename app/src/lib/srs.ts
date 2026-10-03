@@ -1,4 +1,5 @@
 import type { Srs } from '@/db/types';
+import { now as clockNow } from '@/lib/clock';
 
 // ============================================================================
 // Algorithme SM-2 (SuperMemo 2) — répétition espacée native, remplace Anki.
@@ -8,12 +9,12 @@ export type Grade = 0 | 3 | 4 | 5;
 
 export const DAY_MS = 24 * 60 * 60 * 1000;
 
-export function freshSrs(now = Date.now()): Srs {
+export function freshSrs(now = clockNow()): Srs {
   return { interval: 0, easeFactor: 2.5, dueDate: now, repetitions: 0, lapses: 0, state: 'Neu' };
 }
 
 /** Applique une note SM-2 et renvoie le nouvel état SRS. */
-export function reviewSrs(prev: Srs, grade: Grade, now = Date.now()): Srs {
+export function reviewSrs(prev: Srs, grade: Grade, now = clockNow()): Srs {
   let { interval, easeFactor, repetitions, lapses } = prev;
 
   if (grade < 3) {
@@ -45,7 +46,7 @@ export function reviewSrs(prev: Srs, grade: Grade, now = Date.now()): Srs {
 }
 
 /** Dû = déjà présenté (state ≠ Neu) et échéance passée. Un Neu n'est jamais réclamé (spec F2a D1). */
-export function isDue(srs: Srs, now = Date.now()): boolean {
+export function isDue(srs: Srs, now = clockNow()): boolean {
   return srs.state !== 'Neu' && srs.dueDate <= now;
 }
 export const isNew = (srs: Srs): boolean => srs.state === 'Neu';

@@ -1,210 +1,317 @@
+// ============================================================================
+// Programme — le plan FIGÉ du jour, le champ de couverture, le calendrier.
+//
+// Ce qui a été retiré, et pourquoi (ADR-0020, audit §8) :
+//  • le bandeau de sérénité et la tuile « Assiduité » — basés sur un
+//    `adherencePct` aveugle au drill : une journée entière de drill affichait
+//    0 % et déclenchait « Léger retard ». Ils punissaient le travail réel ;
+//  • la tuile « Prêt·e » — c'était « Reste à couvrir » inversé. Deux tuiles
+//    pour une information ;
+//  • les jauges « Où le plan met l'accent » — leur explication décrivait un
+//    seuil binaire quand l'algorithme était continu ;
+//  • « Prochaines échéances » — doublon de la vue Semaine ;
+//  • « Ajouter une révision » / « Reporter » / « Réinitialiser » — le plan ne
+//    se recalcule plus, donc il n'y a plus rien à rattraper à la main. La
+//    seule action sur un jour figé est « Replanifier ».
+// ============================================================================
 import { useEffect, useMemo, useRef, useState } from 'react';
-import { Link } from 'react-router-dom';
 import {
-  format, parseISO, isSameDay, startOfWeek, startOfMonth, endOfMonth, endOfWeek, eachDayOfInterval,
-  isSameMonth, addDays, addWeeks, addMonths, differenceInCalendarDays,
+  addDays, addMonths, addWeeks, eachDayOfInterval, endOfMonth, endOfWeek, format,
+  isSameMonth, parseISO, startOfMonth, startOfWeek,
 } from 'date-fns';
 import { fr } from 'date-fns/locale';
-import { useCases, useSimulations, useFachbegriffe, useProgramConfig } from '@/hooks/useData';
-import { generateProgram, programStats, programEnd, disciplineStats, type DisciplineStat, type DrillBudgets } from '@/lib/program';
-import { loadDrillContext } from '@/lib/collections/drillContext';
-import { markLayerDone, postponeCase, addExtra, removeExtra, toggleSkipDrill, setIntensity, resetAdjust } from '@/lib/programAdjust';
-import type { Case, Intensity, ProgramBlock, ProgramConfig, ProgramDay } from '@/db/types';
+import { useCases, useProgramConfig } from '@/hooks/useData';
+import { useCaseProgress, useDayPlans, useModusRefuse, useProjectedDays, useTrainingEvents } from './useProgram';
+import { modusAProposer, modusOf, observeModus, planProgress, programEnd, replanifier, sessionDuJour, taperDays } from '@/lib/program';
+import { refuserModus, setIntensity, setModus } from '@/lib/programAdjust';
+import { accepterRattrapage, rattrapageAProposer, refuserRattrapage, RATTRAPAGE_REFUS_KEY } from '@/lib/program/rattrapage';
+import { useLiveQuery } from 'dexie-react-hooks';
+import { getMeta } from '@/db/db';
+import { useToday } from '@/lib/today';
+import { joursRestants } from '@/lib/program/trajectory';
+import type { DayPlan, Fortschrittsmodus, Intensity, TaskInstance, TaskKind } from '@/db/types';
 import { ProgramSetup } from './ProgramSetup';
+import { TaskLine, TASK_META } from './TaskLine';
+import { CoverageField } from './CoverageField';
 import { Icon } from '@/components/icons';
 import { EmptyState } from '@/components/ui';
 
-export const BLOCK_META: Record<ProgramBlock['kind'], { icon: string; badge: string; bar: string; label: string }> = {
-  simulation: { icon: 'stethoscope', badge: 'bg-brand-100 text-brand-600 dark:bg-brand-900/30 dark:text-brand-300', bar: 'bg-brand-500', label: 'Simulation' },
-  drill: { icon: 'id', badge: 'bg-sky-100 text-sky-600 dark:bg-sky-900/30 dark:text-sky-300', bar: 'bg-sky-400', label: 'Drill' },
-  fachwissen: { icon: 'brain', badge: 'bg-violet-100 text-violet-600 dark:bg-violet-900/30 dark:text-violet-300', bar: 'bg-violet-400', label: 'Fachwissen' },
-  aufklaerung: { icon: 'syringe', badge: 'bg-amber-100 text-amber-600 dark:bg-amber-900/30 dark:text-amber-300', bar: 'bg-amber-400', label: 'Aufklärung' },
-  revision: { icon: 'history', badge: 'bg-emerald-100 text-emerald-600 dark:bg-emerald-900/30 dark:text-emerald-300', bar: 'bg-emerald-400', label: 'Révision' },
-};
 type View = 'semaine' | 'mois';
-const todayISO = () => format(new Date(), 'yyyy-MM-dd');
-const plannedMinOf = (d?: ProgramDay) => d?.blocks.reduce((s, b) => s + b.estMin, 0) ?? 0;
-const isTaperDay = (d?: ProgramDay) => !!d?.blocks.some((b) => b.phase === 'taper');
 
 export function ProgramPage() {
   const config = useProgramConfig();
   const cases = useCases();
-  const sims = useSimulations();
-  const begriffe = useFachbegriffe();
-  const [drill, setDrill] = useState<DrillBudgets>({});
-  useEffect(() => { loadDrillContext().then((ctx) => setDrill({ drillBudget: ctx.remaining, drillBudgetFull: ctx.daily.newPerDay })).catch(() => {}); }, []);
+  const progress = useCaseProgress();
+  const plans = useDayPlans();
+  const events = useTrainingEvents();
+  const refuse = useModusRefuse();
   const [editing, setEditing] = useState(false);
   const [view, setView] = useState<View>('semaine');
-  const [anchor, setAnchor] = useState<string>(todayISO());   // période affichée dans le calendrier
-  const [selected, setSelected] = useState<string>(todayISO()); // jour au focus (surface du jour)
+  const today = useToday((s) => s.day);
+  const [anchor, setAnchor] = useState(today);
+  const [selected, setSelected] = useState(today);
+  // I-1 : minuit passé, le jour choisi suit aujourd'hui s'il VALAIT aujourd'hui ;
+  // un jour choisi à la main reste choisi.
+  const prevToday = useRef(today);
+  useEffect(() => {
+    if (prevToday.current === today) return;
+    if (selected === prevToday.current) { setSelected(today); setAnchor(today); }
+    prevToday.current = today;
+  }, [today, selected]);
   const dayRef = useRef<HTMLDivElement>(null);
-  const scrollToDay = () => setTimeout(() => dayRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' }), 40);
-  const focusDay = (d: string) => { setSelected(d); setAnchor(d); scrollToDay(); };
+  const focusDay = (d: string) => {
+    setSelected(d); setAnchor(d);
+    setTimeout(() => dayRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' }), 40);
+  };
 
-  // Horizon : couvrir tout le programme jusqu'à l'examen (borné), pour que la
-  // navigation semaine/mois ait toujours du contenu à montrer.
-  const horizon = useMemo(() => {
-    if (!config) return 40;
-    return Math.min(200, Math.max(40, differenceInCalendarDays(programEnd(config), new Date()) + 1));
-  }, [config]);
+  const byDate = useMemo(() => new Map((plans ?? []).map((p) => [p.date, p])), [plans]);
+  // I6 : la projection NON FIGÉE des jours à venir visibles (calendrier + jour choisi).
+  const calDates = useMemo(() => [...visibleDates(view, anchor), selected], [view, anchor, selected]);
+  const projected = useProjectedDays(calDates) ?? NO_PROJECTION;
+  const taper = useMemo(() => (config ? taperDays(config) : new Set<string>()), [config]);
 
-  const days = useMemo(() => {
-    if (!config || !cases || !sims || !begriffe) return [];
-    return generateProgram(config, { cases, sims, begriffe, ...drill }, horizon);
-  }, [config, cases, sims, begriffe, horizon, drill]);
-  const byDate = useMemo(() => new Map(days.map((d) => [d.date, d])), [days]);
-  const stats = useMemo(() => (config && cases && sims && begriffe ? programStats(config, { cases, sims, begriffe }) : null), [config, cases, sims, begriffe]);
-  const disciplines = useMemo(() => (config && cases && sims ? disciplineStats(config, cases, sims) : []), [config, cases, sims]);
-
-  if (config === undefined || !cases || !sims || !begriffe) return <div className="text-slate-400">Chargement…</div>;
+  if (config === undefined || !cases || !progress || !plans || !events || refuse === undefined) return <div className="text-slate-400">Chargement…</div>;
   if (config === null) {
     return (
       <>
-        <EmptyState icon="nav-calendar" title="Aucun programme encore" hint="Configure ta préparation pour obtenir un plan quotidien adaptatif." />
-        <ProgramSetup onDone={() => { /* la live-query rafraîchit automatiquement */ }} />
+        <EmptyState icon="nav-calendar" title="Aucun programme encore" hint="Configure ta préparation : le plan de chaque journée sera figé à sa première ouverture." />
+        <ProgramSetup onDone={() => { /* live-query */ }} />
       </>
     );
   }
   if (editing) return <ProgramSetup initial={config} onDone={() => setEditing(false)} onCancel={() => setEditing(false)} />;
 
   const end = programEnd(config);
-  const readiness = cases.length ? Math.round(100 * (1 - (stats?.backlogUnits ?? 0) / (cases.length * 3))) : 0;
-  // Prochaines échéances clés : simulations + examens à blanc à venir (hors aujourd'hui).
-  const upcoming = days
-    .flatMap((d) => d.blocks.filter((b) => b.kind === 'simulation' || b.id?.startsWith('mock:')).map((b) => ({ date: d.date, b })))
-    .filter((x) => x.date > todayISO()).slice(0, 6);
+  const jRestants = joursRestants(config);                       // I10 : la formule de la frise, pas une seconde
 
   return (
     <div className="space-y-6">
-      <style>{`@keyframes progFade{from{opacity:0;transform:translateY(6px) scale(.994)}to{opacity:1;transform:none}}
-        @media (prefers-reduced-motion: reduce){.prog-anim{animation:none!important}}`}</style>
-
       <header className="flex flex-wrap items-start justify-between gap-3">
         <div>
           <h1 className="text-2xl font-bold">Programme</h1>
           <p className="text-slate-500 dark:text-slate-400">
-            Objectif : {config.examDate ? `examen le ${format(end, 'd MMM yyyy', { locale: fr })}` : `${config.weeks} semaines`}
-            {stats?.daysUntilExam != null && <> · <b className="text-brand-600 dark:text-brand-300">J-{stats.daysUntilExam}</b></>}
+            {config.examDate ? `Examen le ${format(end, 'd MMM yyyy', { locale: fr })}` : `${config.weeks} semaines`}
+            {jRestants !== null && <> · <b className="text-brand-600 dark:text-brand-300">J-{jRestants}</b></>}
           </p>
         </div>
-        <div className="flex items-center gap-2">
+        <div className="flex flex-wrap items-center gap-2">
+          <ModusSwitch value={modusOf(config)} onChange={(m) => setModus(config, m)} />
           <IntensitySwitch value={config.intensity} onChange={(i) => setIntensity(config, i)} />
-          <button onClick={() => { if (confirm('Réinitialiser tous les ajustements manuels (tâches faites, reports, révisions ajoutées) ?')) resetAdjust(config); }}
-            className="btn-ghost text-sm" title="Repartir d'un plan propre">↻</button>
-          <button onClick={() => setEditing(true)} className="btn-outline gap-1.5 text-sm"><Icon name="gear" className="h-4 w-4" />Ajuster</button>
+          <button type="button" onClick={() => setEditing(true)} className="btn-outline gap-1.5 text-sm">
+            <Icon name="gear" className="h-4 w-4" />Ajuster
+          </button>
         </div>
       </header>
 
-      {/* Bandeau de sérénité — état honnête + prochaine action, jamais culpabilisant */}
-      {stats && <SerenityBanner stats={stats} readiness={readiness} hasExam={config.examDate != null} onFocusToday={() => focusDay(todayISO())} />}
-
-      {stats && (
-        <div className="grid gap-3 sm:grid-cols-4">
-          <StatCard icon="flame" label="Assiduité" value={`${stats.adherencePct}%`} sub={`${stats.workedDays}/${stats.plannedDaysElapsed} jours`} />
-          <StatCard icon="clock" label="Temps investi" value={`${Math.floor(stats.totalSpentMin / 60)}h${String(stats.totalSpentMin % 60).padStart(2, '0')}`} sub="cumulé" />
-          <StatCard icon="target" label="Reste à couvrir" value={`${stats.backlogUnits}`} sub="couches de cas" />
-          <StatCard icon="gauge" label="Prêt·e" value={`${readiness}%`} sub="couches faites" />
-        </div>
-      )}
-
-      {/* Surface d'édition du JOUR sélectionné — c'est ici qu'on agit */}
-      <div ref={dayRef} className="scroll-mt-24">
-        <DaySection day={byDate.get(selected)} date={selected} onPick={focusDay} config={config} cases={cases} />
-      </div>
-
-      {/* Où le plan met l'accent — rend visible le raisonnement adaptatif */}
-      {disciplines.length > 0 && <DisciplinePanel stats={disciplines} />}
-
-      {/* Calendrier navigable — zoom Mois → Semaine → Jour, période paginable */}
-      <Calendar
-        view={view} setView={setView} anchor={anchor} setAnchor={setAnchor}
-        byDate={byDate} selected={selected}
-        onFocusDay={focusDay}
-        onZoomToDay={(d) => { setView('semaine'); setAnchor(d); setSelected(d); }}
-        end={end}
+      <ModusProposal
+        propose={modusAProposer(observeModus(events, cases), modusOf(config), refuse)}
+        onAccept={(m) => setModus(config, m)}
+        onRefuse={(m) => refuserModus(m)}
       />
 
-      {/* Prochaines échéances — agenda clair des simulations et examens à blanc */}
-      {upcoming.length > 0 && (
-        <section className="card p-5">
-          <h2 className="mb-3 flex items-center gap-2 font-semibold"><Icon name="clock" className="h-5 w-5 text-brand-500" /> Prochaines échéances</h2>
-          <div className="space-y-2">
-            {upcoming.map(({ date, b }, i) => {
-              const meta = BLOCK_META[b.kind];
-              const inDays = differenceInCalendarDays(parseISO(date), new Date());
-              return (
-                <Link key={i} to={b.caseId ? `/simulation/${b.caseId}/pre${b.teil ? `?teil=${b.teil}` : ''}` : '/cas'}
-                  className="group flex items-center gap-3 rounded-xl border border-slate-200 px-3 py-2.5 transition-colors hover:border-brand-400 dark:border-slate-800">
-                  <div className="w-14 shrink-0 text-center">
-                    <div className="text-sm font-bold capitalize leading-tight">{format(parseISO(date), 'EEE', { locale: fr })}</div>
-                    <div className="text-[11px] text-slate-400">{format(parseISO(date), 'd MMM', { locale: fr })}</div>
-                  </div>
-                  <span className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-lg ${meta.badge}`}><Icon name={meta.icon} className="h-5 w-5" /></span>
-                  <div className="min-w-0 flex-1">
-                    <div className="truncate text-sm font-medium">{b.label}</div>
-                    {b.reason && <div className="truncate text-[11px] text-slate-400">{b.reason}</div>}
-                  </div>
-                  {b.layer && <span className="chip shrink-0 bg-slate-100 text-[10px] dark:bg-slate-800">Couche {b.layer}</span>}
-                  <span className="shrink-0 text-[11px] font-medium text-slate-400">dans {inDays} j</span>
-                </Link>
-              );
-            })}
-          </div>
-        </section>
-      )}
+      <RattrapageProposal plans={plans} />
+
+      <div ref={dayRef} className="scroll-mt-24">
+        <DaySurface date={selected} plan={byDate.get(selected) ?? null} projection={projected.get(selected)} isTaper={taper.has(selected)} onPick={focusDay} />
+      </div>
+
+      <CoverageField cases={cases} progress={progress} />
+
+      <Calendar view={view} setView={setView} anchor={anchor} setAnchor={setAnchor}
+        byDate={byDate} projected={projected} selected={selected} taper={taper} examISO={format(end, 'yyyy-MM-dd')}
+        onFocusDay={focusDay} onZoomToDay={(d) => { setView('semaine'); setAnchor(d); setSelected(d); }} />
     </div>
   );
 }
 
-function StatCard({ icon, label, value, sub }: { icon: string; label: string; value: string; sub: string }) {
+// --- Le rattrapage : proposé, jamais imposé (D-I7) -----------------------------
+
+function RattrapageProposal({ plans }: { plans: DayPlan[] }) {
+  const refused = useLiveQuery(() => getMeta<string[]>(RATTRAPAGE_REFUS_KEY, []), [], undefined);
+  const today = useToday((s) => s.day);                    // m-4 : le jour réactif, jamais l'horloge au rendu
+  const p = refused ? rattrapageAProposer(plans, today, refused) : null;
+  if (!p) return null;
+  const n = p.tasks.length;
   return (
-    <div className="card p-4">
-      <div className="label flex items-center gap-1.5"><Icon name={icon} className="h-3.5 w-3.5 text-brand-500" />{label}</div>
-      <div className="mt-1.5 text-2xl font-bold tnum">{value}</div>
-      <div className="mt-0.5 text-[11px] text-slate-400">{sub}</div>
-    </div>
+    <section className="card flex flex-wrap items-center justify-between gap-3 border-slate-200 p-4 dark:border-slate-800">
+      <p className="text-sm text-slate-600 dark:text-slate-300">
+        Il reste {n} tâche{n > 1 ? 's' : ''} du {format(parseISO(p.from), 'EEEE d MMMM', { locale: fr })}. Les ajouter à aujourd'hui ?
+      </p>
+      <div className="flex gap-2">
+        <button type="button" onClick={() => refuserRattrapage(p.from)} className="btn-ghost text-xs">Non, laisser</button>
+        <button type="button" onClick={() => accepterRattrapage(today, p.from)} className="btn-outline text-xs">Les reprendre</button>
+      </div>
+    </section>
   );
 }
 
-// --- Bandeau de sérénité -----------------------------------------------------
-function SerenityBanner({ stats, readiness, hasExam, onFocusToday }: {
-  stats: { adherencePct: number; daysUntilExam: number | null; backlogUnits: number; plannedDaysElapsed: number };
-  readiness: number; hasExam: boolean; onFocusToday: () => void;
+// --- La surface du jour ------------------------------------------------------
+
+const NO_PROJECTION = new Map<string, TaskInstance[]>();
+
+/** Les jours affichés par le calendrier — ceux dont on demande la projection. */
+function visibleDates(view: View, anchor: string): string[] {
+  const a = parseISO(anchor);
+  const days = view === 'semaine'
+    ? Array.from({ length: 7 }, (_, i) => addDays(startOfWeek(a, { weekStartsOn: 1 }), i))
+    : eachDayOfInterval({ start: startOfWeek(startOfMonth(a), { weekStartsOn: 1 }), end: endOfWeek(endOfMonth(a), { weekStartsOn: 1 }) });
+  return days.map((d) => format(d, 'yyyy-MM-dd'));
+}
+
+function DaySurface({ date, plan, projection, isTaper, onPick }: {
+  date: string; plan: DayPlan | null; projection?: TaskInstance[]; isTaper: boolean; onPick: (d: string) => void;
 }) {
-  // On ne juge l'assiduité qu'après quelques jours planifiés, pour ne pas alarmer au démarrage.
-  const behind = stats.plannedDaysElapsed >= 3 && stats.adherencePct < 60;
-  const tone = behind
-    ? { cls: 'from-amber-50 to-orange-50 border-amber-200 dark:from-amber-900/15 dark:to-orange-900/10 dark:border-amber-900/40', icon: 'nav-compass', iconCls: 'bg-amber-100 text-amber-600 dark:bg-amber-900/40 dark:text-amber-300',
-        title: 'Léger retard — rien de grave', msg: 'Le plan a déjà rééquilibré tes prochains jours. Concentre-toi sur la séance du jour, une à la fois.' }
-    : { cls: 'from-emerald-50 to-teal-50 border-emerald-200 dark:from-emerald-900/15 dark:to-teal-900/10 dark:border-emerald-900/40', icon: 'check', iconCls: 'bg-emerald-100 text-emerald-600 dark:bg-emerald-900/40 dark:text-emerald-300',
-        title: 'Tu es dans les temps', msg: hasExam ? 'Continue à ce rythme et tu arriveras rodé·e le jour J.' : 'Continue à ce rythme, ta préparation avance bien.' };
+  const d = parseISO(date);
+  const today = useToday((s) => s.day);                    // m-4
+  const isToday = date === today;
+  const isPast = date < today;
+  const { done, total } = planProgress(plan);
+  const session = sessionDuJour(plan);
+  const [busy, setBusy] = useState(false);
+
   return (
-    <div className={`flex flex-wrap items-center gap-4 rounded-2xl border bg-gradient-to-br p-4 ${tone.cls}`}>
-      <div className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-xl ${tone.iconCls}`}><Icon name={tone.icon} className="h-5 w-5" /></div>
-      <div className="min-w-0 flex-1">
-        <div className="font-semibold">{tone.title}</div>
-        <p className="text-[13px] text-slate-600 dark:text-slate-300">{tone.msg}</p>
-      </div>
-      <div className="flex items-center gap-4">
-        <div className="text-center">
-          <div className="text-lg font-bold tabular-nums">{readiness}%</div>
-          <div className="text-[10px] text-slate-400">Prêt·e</div>
+    <section className="card overflow-hidden border-brand-200 dark:border-brand-900/40">
+      <div className="flex items-center justify-between gap-2 border-b border-slate-100 bg-brand-50/50 px-4 py-3 dark:border-slate-800 dark:bg-brand-900/10">
+        <button type="button" onClick={() => onPick(format(addDays(d, -1), 'yyyy-MM-dd'))} className="btn-ghost px-2 text-sm" title="Jour précédent">←</button>
+        <div className="min-w-0 flex-1 text-center">
+          <h2 className="flex flex-wrap items-center justify-center gap-2 font-semibold capitalize">
+            {format(d, 'EEEE d MMMM', { locale: fr })}
+            {isToday && <span className="chip bg-brand-600 py-0 text-[10px] text-white">Aujourd'hui</span>}
+            {isTaper && <span className="chip bg-signal-500 py-0 text-[10px] text-white"><Icon name="target" className="h-2.5 w-2.5" />Dernière ligne droite</span>}
+          </h2>
+          <div className="text-[11px] text-slate-400">
+            {plan ? `${done}/${total} fait${done > 1 ? 's' : ''} · ${plan.tasks.reduce((s, t) => s + t.estMin, 0)} min prévues` : '—'}
+          </div>
         </div>
-        <button onClick={onFocusToday} className="btn-primary shrink-0 px-4 py-2 text-sm">Séance du jour →</button>
+        <div className="flex items-center gap-1">
+          {!isToday && <button type="button" onClick={() => onPick(today)} className="btn-ghost px-2 text-xs" title="Revenir à aujourd'hui"><Icon name="target" className="h-3.5 w-3.5" /></button>}
+          <button type="button" onClick={() => onPick(format(addDays(d, 1), 'yyyy-MM-dd'))} className="btn-ghost px-2 text-sm" title="Jour suivant">→</button>
+        </div>
+      </div>
+
+      <div className="p-4">
+        {!plan && projection?.length ? (
+          <>
+            <p className="mb-3 rounded-lg border border-dashed border-slate-300 px-3 py-2 text-center text-[12px] text-slate-500 dark:border-slate-700 dark:text-slate-400">
+              Projection, non figée : ce jour sera figé à sa première ouverture et peut changer d'ici là.
+            </p>
+            <div className="space-y-2 opacity-80">
+              {projection.map((t) => <TaskLine key={t.id} task={t} readOnly />)}
+            </div>
+          </>
+        ) : !plan ? (
+          <p className="py-6 text-center text-sm text-slate-400">
+            {isPast
+              // Un jour sans plan est un jour où l'app n'a pas été ouverte. Il
+              // s'affiche vide, JAMAIS « en retard » : rien ne s'accumule.
+              ? 'Journée non ouverte — rien n\'a été figé ce jour-là.'
+              : 'Ce jour sera figé à sa première ouverture.'}
+          </p>
+        ) : plan.tasks.length === 0 ? (
+          <p className="py-6 text-center text-sm text-slate-400">Jour off — récupère bien.</p>
+        ) : (
+          <>
+            <div className="space-y-2">
+              {plan.tasks.map((t) => <TaskLine key={t.id} task={t} readOnly={isPast} />)}
+            </div>
+            {session === null && (
+              <p className="mt-3 text-center text-[13px] text-emerald-600 dark:text-emerald-300">
+                Journée terminée. Rien d'autre n'est proposé — c'est voulu.
+              </p>
+            )}
+            {isToday && (
+              <div className="mt-3 flex flex-wrap items-center justify-between gap-2 border-t border-slate-100 pt-3 dark:border-slate-800">
+                <p className="text-[11px] text-slate-400">
+                  Ce plan est figé. Cocher marque fait ; rien ne prend la place.
+                </p>
+                <button
+                  type="button" disabled={busy}
+                  onClick={async () => {
+                    if (!confirm('Replanifier la journée ? Les tâches déjà faites sont conservées ; les autres sont remplacées.')) return;
+                    setBusy(true); try { await replanifier(date); } finally { setBusy(false); }
+                  }}
+                  className="btn-outline gap-1.5 text-xs"
+                >
+                  <Icon name="refresh" className="h-3.5 w-3.5" />Replanifier la journée
+                </button>
+              </div>
+            )}
+            {plan.replannedAt && (
+              <p className="mt-2 text-center text-[10px] text-slate-400">Replanifiée à {format(new Date(plan.replannedAt), 'HH:mm')}.</p>
+            )}
+          </>
+        )}
+      </div>
+    </section>
+  );
+}
+
+// --- Réglages ----------------------------------------------------------------
+
+const MODUS_META: { id: Fortschrittsmodus; label: string; hint: string }[] = [
+  { id: 'teil-first', label: 'Par partie', hint: 'La même partie sur plusieurs cas — un geste à la fois.' },
+  { id: 'cas-complet', label: 'Cas complet', hint: 'Les trois parties d\'un cas avant de passer au suivant.' },
+  { id: 'specialite', label: 'Spécialité', hint: 'Une spécialité travaillée à fond, puis la suivante.' },
+  { id: 'examen-blanc', label: 'Examen blanc', hint: 'Des runs complets chronométrés, sans assistance.' },
+];
+
+/**
+ * La PROPOSITION de mode d'avancement (direction, 30 sept. 2026).
+ *
+ * L'inscription ne pose plus la question : au jour zéro, personne ne sait
+ * « comment il veut avancer ». L'app observe le journal et, au bout de ~3
+ * séances, propose ce qu'elle VOIT — une phrase, deux réponses, aucune modale.
+ * Refuser est un vrai choix, retenu : la proposition ne revient pas pour ce
+ * mode-là. `propose === null` ⇒ rien ne s'affiche, et c'est le cas normal.
+ */
+function ModusProposal({ propose, onAccept, onRefuse }: {
+  propose: Fortschrittsmodus | null;
+  onAccept: (m: Fortschrittsmodus) => void;
+  onRefuse: (m: Fortschrittsmodus) => void;
+}) {
+  if (!propose) return null;
+  const meta = MODUS_META.find((m) => m.id === propose)!;
+  return (
+    <div className="flex flex-wrap items-center gap-x-4 gap-y-2 rounded-xl border border-brand-200 bg-brand-50/60 px-4 py-3 dark:border-brand-900/50 dark:bg-brand-900/20">
+      <Icon name="spark" className="h-4 w-4 shrink-0 text-brand-600 dark:text-brand-300" />
+      <p className="min-w-0 flex-1 text-sm text-slate-700 dark:text-slate-200">
+        {/* On DIT ce qu'on a vu avant de demander : la proposition doit être
+            vérifiable par le candidat, pas un oracle. */}
+        Tu avances <b>{meta.label.toLowerCase()}</b> ces derniers temps. Je cale le programme là-dessus ?
+        <span className="block text-[11px] text-slate-500 dark:text-slate-400">{meta.hint}</span>
+      </p>
+      <div className="flex shrink-0 items-center gap-2">
+        <button type="button" onClick={() => onRefuse(propose)} className="btn-ghost text-xs">Non, laisse</button>
+        <button type="button" onClick={() => onAccept(propose)} className="btn-primary px-3 py-1.5 text-xs">Oui, cale-le</button>
       </div>
     </div>
   );
 }
 
-// --- Réglage rapide de l'intensité ------------------------------------------
+/** Le réglage explicite du mode. L'app le DÉDUIT et le PROPOSE
+ *  (`ModusProposal`) ; ce sélecteur reste la commande directe. Changer de mode
+ *  ne réécrit AUCUN jour déjà figé. */
+function ModusSwitch({ value, onChange }: { value: Fortschrittsmodus; onChange: (m: Fortschrittsmodus) => void }) {
+  const current = MODUS_META.find((m) => m.id === value)!;
+  return (
+    <label className="flex items-center gap-1.5" title={current.hint}>
+      <span className="label hidden sm:inline">Avancement</span>
+      <select value={value} onChange={(e) => onChange(e.target.value as Fortschrittsmodus)}
+        className="rounded-lg border border-slate-300 bg-white px-2 py-1.5 text-xs outline-none focus:border-brand-400 dark:border-slate-700 dark:bg-slate-900">
+        {MODUS_META.map((m) => <option key={m.id} value={m.id}>{m.label}</option>)}
+      </select>
+    </label>
+  );
+}
+
 const INTENSITY_META: { id: Intensity; label: string; icon: string }[] = [
   { id: 'leicht', label: 'Léger', icon: 'leaf' }, { id: 'mittel', label: 'Moyen', icon: 'bolt' }, { id: 'intensiv', label: 'Intensif', icon: 'flame' },
 ];
 function IntensitySwitch({ value, onChange }: { value: Intensity; onChange: (i: Intensity) => void }) {
   return (
-    <div className="flex rounded-lg bg-slate-100 p-0.5 text-xs dark:bg-ink-700" title="Intensité — ajuste le volume quotidien">
+    <div className="flex rounded-lg bg-slate-100 p-0.5 text-xs dark:bg-ink-700" title="Intensité — volume des jours à venir">
       {INTENSITY_META.map((m) => (
-        <button key={m.id} onClick={() => onChange(m.id)}
+        <button key={m.id} type="button" onClick={() => onChange(m.id)}
           className={`flex items-center gap-1 rounded-md px-2 py-1.5 font-medium transition-colors ${value === m.id ? 'bg-white text-brand-700 shadow-sm dark:bg-ink-800 dark:text-brand-200' : 'text-slate-500'}`}>
           <Icon name={m.icon} className="h-3.5 w-3.5" /><span className="hidden sm:inline">{m.label}</span>
         </button>
@@ -213,237 +320,19 @@ function IntensitySwitch({ value, onChange }: { value: Intensity; onChange: (i: 
   );
 }
 
-// --- Surface d'édition du jour sélectionné ----------------------------------
-function DaySection({ day, date, onPick, config, cases }: {
-  day?: ProgramDay; date: string; onPick: (d: string) => void; config: ProgramConfig; cases: Case[];
-}) {
-  const d = parseISO(date);
-  const isToday = date === todayISO();
-  const move = (delta: number) => onPick(format(addDays(d, delta), 'yyyy-MM-dd'));
-  const [adding, setAdding] = useState(false);
-  const blocks = day?.blocks ?? [];
-  const plannedMin = plannedMinOf(day);
-  const taper = isTaperDay(day);
+// --- Calendrier --------------------------------------------------------------
 
-  return (
-    <section className="card overflow-hidden border-brand-200 dark:border-brand-900/40">
-      <div className="flex items-center justify-between gap-2 border-b border-slate-100 bg-brand-50/50 px-4 py-3 dark:border-slate-800 dark:bg-brand-900/10">
-        <button onClick={() => move(-1)} className="btn-ghost px-2 text-sm" title="Jour précédent">←</button>
-        <div className="min-w-0 flex-1 text-center">
-          <h2 className="flex items-center justify-center gap-2 font-semibold capitalize">
-            {isToday && <span className="h-2 w-2 shrink-0 rounded-full bg-brand-500" />}
-            {format(d, 'EEEE d MMMM', { locale: fr })}
-            {isToday && <span className="chip bg-brand-600 py-0 text-[10px] text-white">Aujourd'hui</span>}
-            {taper && <span className="chip bg-amber-500 py-0 text-[10px] text-white"><Icon name="target" className="h-2.5 w-2.5" /> Dernière ligne droite</span>}
-          </h2>
-          <div className="text-[11px] text-slate-400">
-            {day?.isOff ? 'Jour off — repos' : plannedMin > 0 ? `${blocks.length} tâche${blocks.length > 1 ? 's' : ''} · ~${plannedMin} min` : 'Rien de prévu'}
-            {day?.worked && <span className="ml-1.5 text-emerald-500">· ✓ travaillé</span>}
-          </div>
-        </div>
-        <div className="flex items-center gap-1">
-          {!isToday && <button onClick={() => onPick(todayISO())} className="btn-ghost px-2 text-xs" title="Revenir à aujourd'hui"><Icon name="target" className="h-3.5 w-3.5" /></button>}
-          <button onClick={() => move(1)} className="btn-ghost px-2 text-sm" title="Jour suivant">→</button>
-        </div>
-      </div>
-
-      <div className="p-4">
-        {blocks.length > 0 ? (
-          <div className="space-y-2">{blocks.map((b, i) => <BlockRow key={b.id ?? i} b={b} date={date} config={config} onPick={onPick} />)}</div>
-        ) : (
-          <p className="py-6 text-center text-sm text-slate-400">{day?.isOff ? 'Jour off programmé — récupère bien.' : 'Aucune tâche planifiée ce jour.'}</p>
-        )}
-
-        {adding ? (
-          <AddRevision cases={cases} onAdd={(c) => {
-            addExtra(config, { date, kind: 'revision', label: `Révision : ${c.name}`, caseId: c.id, specialty: c.specialty, estMin: 20 });
-            setAdding(false);
-          }} onCancel={() => setAdding(false)} />
-        ) : (
-          <button onClick={() => setAdding(true)} className="mt-3 flex w-full items-center justify-center gap-1.5 rounded-lg border border-dashed border-brand-300 py-2 text-xs font-medium text-brand-600 hover:bg-brand-50 dark:border-brand-900/50 dark:text-brand-300 dark:hover:bg-brand-900/10">
-            <span className="text-base leading-none">+</span> Ajouter une révision ce jour
-          </button>
-        )}
-      </div>
-    </section>
-  );
-}
-
-// --- Panneau « Où le plan met l'accent » (par discipline) -------------------
-const PRIO_META: Record<DisciplineStat['priority'], { label: string; cls: string }> = {
-  haute: { label: 'Priorité haute', cls: 'bg-rose-100 text-rose-700 dark:bg-rose-900/40 dark:text-rose-300' },
-  moyenne: { label: 'Moyenne', cls: 'bg-amber-100 text-amber-700 dark:bg-amber-900/40 dark:text-amber-300' },
-  basse: { label: 'Maîtrisée', cls: 'bg-emerald-100 text-emerald-700 dark:bg-emerald-900/40 dark:text-emerald-300' },
-};
-function DisciplinePanel({ stats }: { stats: DisciplineStat[] }) {
-  return (
-    <section className="card p-4">
-      <div className="mb-1 flex items-center gap-2">
-        <Icon name="brain" className="h-5 w-5 text-brand-500" />
-        <h2 className="font-semibold">Où le plan met l'accent</h2>
-      </div>
-      <p className="mb-3 text-[11px] text-slate-400">Le plan se recalcule seul selon ton avancement et tes scores par discipline — les disciplines faibles ou prioritaires passent devant.</p>
-      <div className="space-y-2.5">
-        {stats.map((s) => {
-          const pct = Math.round((s.layersDone / s.layersTotal) * 100);
-          return (
-            <div key={s.specialty} className="flex items-center gap-3">
-              <div className="w-32 shrink-0 truncate text-sm font-medium" title={s.specialty}>{s.specialty}</div>
-              <div className="min-w-0 flex-1">
-                <div className="h-2 w-full overflow-hidden rounded-full bg-slate-200 dark:bg-slate-800">
-                  <div className="h-full rounded-full bg-brand-500 transition-all" style={{ width: `${Math.max(2, pct)}%` }} />
-                </div>
-              </div>
-              <div className="w-10 shrink-0 text-right text-[11px] tabular-nums text-slate-400">{pct}%</div>
-              <div className="w-14 shrink-0 text-right text-[11px] tabular-nums">
-                {s.avgScore != null ? <span className={s.avgScore >= 60 ? 'text-emerald-600 dark:text-emerald-400' : 'text-rose-600 dark:text-rose-400'}>{s.avgScore}%</span> : <span className="text-slate-300">—</span>}
-              </div>
-              <span className={`chip shrink-0 hidden py-0 text-[9px] sm:inline ${PRIO_META[s.priority].cls}`}>{PRIO_META[s.priority].label}</span>
-            </div>
-          );
-        })}
-      </div>
-      <div className="mt-3 flex gap-4 text-[10px] text-slate-400">
-        <span>Barre = couches faites</span><span>Chiffre coloré = score moyen</span>
-      </div>
-    </section>
-  );
-}
-
-// --- Légende des types de blocs ---------------------------------------------
-function Legend() {
-  return (
-    <div className="hidden items-center gap-3 text-[11px] text-slate-400 sm:flex">
-      {(['simulation', 'revision', 'fachwissen', 'drill'] as ProgramBlock['kind'][]).map((k) => (
-        <span key={k} className="flex items-center gap-1">
-          <span className={`h-2.5 w-2.5 rounded-sm ${BLOCK_META[k].bar}`} />{BLOCK_META[k].label}
-        </span>
-      ))}
-    </div>
-  );
-}
-
-export function AddRevision({ cases, onAdd, onCancel }: { cases: Case[]; onAdd: (c: Case) => void; onCancel: () => void }) {
-  const [q, setQ] = useState('');
-  const list = cases.filter((c) => c.name.toLowerCase().includes(q.toLowerCase())).slice(0, 6);
-  return (
-    <div className="mt-3 rounded-lg border border-brand-200 bg-brand-50/50 p-3 dark:border-brand-900/40 dark:bg-brand-900/10">
-      <div className="mb-2 flex items-center justify-between">
-        <span className="text-xs font-semibold">Réviser quel cas ?</span>
-        <button onClick={onCancel} className="text-slate-400 hover:text-rose-500">✕</button>
-      </div>
-      <input autoFocus value={q} onChange={(e) => setQ(e.target.value)} placeholder="Filtrer un cas…"
-        className="mb-2 w-full rounded-lg border border-slate-300 bg-white px-2 py-1.5 text-sm outline-none focus:border-brand-400 dark:border-slate-700 dark:bg-slate-900" />
-      <div className="space-y-1">
-        {list.map((c) => (
-          <button key={c.id} onClick={() => onAdd(c)} className="flex w-full items-center gap-2 rounded-lg px-2 py-1.5 text-left text-sm hover:bg-white dark:hover:bg-slate-800">
-            <Icon name="history" className="h-4 w-4 text-slate-400" /><span className="flex-1 truncate">{c.name}</span><span className="text-slate-300">+</span>
-          </button>
-        ))}
-        {list.length === 0 && <p className="px-2 py-1 text-xs text-slate-400">Aucun cas.</p>}
-      </div>
-    </div>
-  );
-}
-
-export function BlockRow({ b, date, config, onPick }: { b: ProgramBlock; date: string; config: ProgramConfig; onPick: (d: string) => void }) {
-  const meta = BLOCK_META[b.kind];
-  const to = b.kind === 'simulation' && b.caseId
-    ? `/simulation/${b.caseId}/pre`
-    : b.kind === 'drill'
-      ? `/fachbegriffe/drill${b.caseId ? `?case=${encodeURIComponent(b.caseId)}` : b.specialty ? `?specialty=${encodeURIComponent(b.specialty)}` : ''}`
-      : b.caseId ? `/cas/${b.caseId}` : '/simulation';
-  const cta = b.kind === 'simulation' ? 'Lancer' : b.kind === 'drill' ? 'Réviser' : 'Ouvrir';
-  const doneNextDay = (days: number) => { if (b.caseId) postponeCase(config, b.caseId, days); onPick(format(addDays(parseISO(date), days), 'yyyy-MM-dd')); };
-
-  return (
-    <div className="rounded-xl border border-slate-200 dark:border-slate-800">
-      <div className="flex items-center gap-3 px-3 py-2.5">
-        <span className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-lg ${meta.badge}`}><Icon name={meta.icon} className="h-5 w-5" /></span>
-        <div className="min-w-0 flex-1">
-          <div className="truncate text-sm font-medium">{b.label}{b.manual && <span className="ml-1 rounded bg-brand-100 px-1 text-[10px] font-bold text-brand-600 dark:bg-brand-900/40 dark:text-brand-300">Ajouté</span>}</div>
-          {/* Micro-raison — transparence : pourquoi cette tâche, aujourd'hui */}
-          {b.reason && <div className="truncate text-[11px] text-slate-400">{b.reason}</div>}
-          <div className="mt-0.5 flex flex-wrap items-center gap-1.5 text-[11px] text-slate-400">
-            {meta.label} · {b.estMin} min
-            {b.layer && <span className="chip py-0 text-[10px] bg-slate-100 dark:bg-slate-800">Couche {b.layer} · {b.assistance === 'assiste' ? 'Assisté' : 'Autonome'}</span>}
-          </div>
-        </div>
-        <Link to={to} className="btn-primary shrink-0 gap-1 px-3 py-1.5 text-xs"><Icon name="play" className="h-3 w-3" />{cta}</Link>
-      </div>
-      <div className="flex flex-wrap items-center gap-1.5 border-t border-slate-100 px-3 py-1.5 dark:border-slate-800">
-        {b.kind === 'simulation' && b.caseId && b.layer && (
-          <>
-            <ActionBtn icon="✓" label="Fait" tone="emerald" onClick={() => markLayerDone(config, b.caseId!, b.layer!)} title="Marquer fait — le plan se réajuste" />
-            <ReporterMenu onPick={doneNextDay} />
-          </>
-        )}
-        {b.kind === 'drill' && (
-          <ActionBtn icon="✕" label="Sauter aujourd'hui" tone="rose" onClick={() => toggleSkipDrill(config, date)} title="Annuler le drill de ce jour" />
-        )}
-        {b.manual && b.id && (
-          <ActionBtn icon="✕" label="Retirer" tone="rose" onClick={() => removeExtra(config, b.id!)} title="Retirer cette tâche ajoutée" />
-        )}
-        {b.kind === 'revision' && !b.manual && (
-          <span className="text-[11px] text-slate-400">Répétition générale — conditions réelles</span>
-        )}
-        {b.kind === 'fachwissen' && (
-          <span className="text-[11px] text-slate-400">Théorie liée au cas</span>
-        )}
-      </div>
-    </div>
-  );
-}
-
-const ACTION_TONE = {
-  emerald: 'text-emerald-700 hover:bg-emerald-50 dark:text-emerald-300 dark:hover:bg-emerald-900/20',
-  amber: 'text-amber-700 hover:bg-amber-50 dark:text-amber-300 dark:hover:bg-amber-900/20',
-  rose: 'text-rose-700 hover:bg-rose-50 dark:text-rose-300 dark:hover:bg-rose-900/20',
-  slate: 'text-slate-600 hover:bg-slate-100 dark:text-slate-300 dark:hover:bg-slate-800',
-};
-function ActionBtn({ icon, label, tone, onClick, title }: { icon: string; label: string; tone: keyof typeof ACTION_TONE; onClick: () => void; title?: string }) {
-  return (
-    <button onClick={onClick} title={title} className={`flex items-center gap-1 rounded-md px-2 py-1 text-[11px] font-medium transition-colors ${ACTION_TONE[tone]}`}>
-      <span>{icon}</span>{label}
-    </button>
-  );
-}
-
-function ReporterMenu({ onPick }: { onPick: (days: number) => void }) {
-  const [open, setOpen] = useState(false);
-  const opts = [{ label: 'Demain', d: 1 }, { label: 'Dans 2 jours', d: 2 }, { label: 'Semaine prochaine', d: 7 }];
-  return (
-    <div className="relative">
-      <button onClick={() => setOpen((o) => !o)} className={`flex items-center gap-1 rounded-md px-2 py-1 text-[11px] font-medium transition-colors ${ACTION_TONE.amber}`} title="Reporter cette tâche">
-        <span>⤳</span>Reporter <span className="text-[9px]">▾</span>
-      </button>
-      {open && (
-        <>
-          <div className="fixed inset-0 z-10" onClick={() => setOpen(false)} />
-          <div className="absolute left-0 top-full z-20 mt-1 w-44 overflow-hidden rounded-lg border border-slate-200 bg-white py-1 shadow-lg dark:border-slate-700 dark:bg-slate-900">
-            {opts.map((o) => (
-              <button key={o.d} onClick={() => { onPick(o.d); setOpen(false); }} className="block w-full px-3 py-1.5 text-left text-xs hover:bg-slate-50 dark:hover:bg-slate-800">
-                {o.label} <span className="text-slate-400">(+{o.d}j)</span>
-              </button>
-            ))}
-          </div>
-        </>
-      )}
-    </div>
-  );
-}
-
-// ====================================================================== CALENDRIER
-// Un seul composant navigable : période paginable (◀ ▶), bascule fluide Semaine/Mois
-// façon zoom, et clic sur un jour qui « zoome » vers le jour (surface du haut).
-function Calendar({ view, setView, anchor, setAnchor, byDate, selected, onFocusDay, onZoomToDay, end }: {
+interface CalProps {
   view: View; setView: (v: View) => void; anchor: string; setAnchor: (d: string) => void;
-  byDate: Map<string, ProgramDay>; selected: string;
-  onFocusDay: (d: string) => void; onZoomToDay: (d: string) => void; end: Date;
-}) {
-  const a = parseISO(anchor);
-  const step = (dir: 1 | -1) => setAnchor(format(view === 'semaine' ? addWeeks(a, dir) : addMonths(a, dir), 'yyyy-MM-dd'));
-  const periodLabel = view === 'semaine'
+  byDate: Map<string, DayPlan>; projected: Map<string, TaskInstance[]>; selected: string; taper: Set<string>; examISO: string;
+  onFocusDay: (d: string) => void; onZoomToDay: (d: string) => void;
+}
+
+function Calendar(p: CalProps) {
+  const today = useToday((s) => s.day);                    // m-4
+  const a = parseISO(p.anchor);
+  const step = (dir: 1 | -1) => p.setAnchor(format(p.view === 'semaine' ? addWeeks(a, dir) : addMonths(a, dir), 'yyyy-MM-dd'));
+  const periodLabel = p.view === 'semaine'
     ? `Semaine du ${format(startOfWeek(a, { weekStartsOn: 1 }), 'd MMM', { locale: fr })}`
     : format(a, 'MMMM yyyy', { locale: fr });
 
@@ -451,83 +340,75 @@ function Calendar({ view, setView, anchor, setAnchor, byDate, selected, onFocusD
     <section className="card p-4">
       <div className="mb-3 flex flex-wrap items-center justify-between gap-3">
         <div className="flex items-center gap-1">
-          <button onClick={() => step(-1)} className="btn-ghost px-2 text-sm" title="Période précédente">◀</button>
+          <button type="button" onClick={() => step(-1)} className="btn-ghost px-2 text-sm" title="Période précédente">◀</button>
           <div className="min-w-[9.5rem] text-center text-sm font-semibold capitalize">{periodLabel}</div>
-          <button onClick={() => step(1)} className="btn-ghost px-2 text-sm" title="Période suivante">▶</button>
-          <button onClick={() => setAnchor(todayISO())} className="btn-ghost ml-1 px-2 text-xs" title="Revenir à aujourd'hui">Aujourd'hui</button>
+          <button type="button" onClick={() => step(1)} className="btn-ghost px-2 text-sm" title="Période suivante">▶</button>
+          <button type="button" onClick={() => p.setAnchor(today)} className="btn-ghost ml-1 px-2 text-xs">Aujourd'hui</button>
         </div>
-        <div className="flex items-center gap-3">
-          <Legend />
-          <div className="flex rounded-lg bg-slate-100 p-0.5 text-sm dark:bg-slate-800">
-            {(['semaine', 'mois'] as View[]).map((v) => (
-              <button key={v} onClick={() => setView(v)} className={`rounded-md px-3 py-1.5 font-medium capitalize transition-colors ${view === v ? 'bg-white shadow-sm dark:bg-slate-700' : 'text-slate-500'}`}>{v}</button>
-            ))}
-          </div>
+        <div className="flex rounded-lg bg-slate-100 p-0.5 text-sm dark:bg-slate-800">
+          {(['semaine', 'mois'] as View[]).map((v) => (
+            <button key={v} type="button" onClick={() => p.setView(v)}
+              className={`rounded-md px-3 py-1.5 font-medium capitalize transition-colors ${p.view === v ? 'bg-white shadow-sm dark:bg-slate-700' : 'text-slate-500'}`}>{v}</button>
+          ))}
         </div>
       </div>
-      <div key={`${view}-${anchor}`} className="prog-anim" style={{ animation: 'progFade .22s ease' }}>
-        {view === 'semaine'
-          ? <WeekView anchor={a} byDate={byDate} selected={selected} onPick={onFocusDay} />
-          : <MonthView anchor={a} byDate={byDate} selected={selected} onZoom={onZoomToDay} end={end} />}
-      </div>
+      {p.view === 'semaine' ? <WeekView {...p} anchor={a} /> : <MonthView {...p} anchor={a} />}
       <p className="mt-3 text-center text-[11px] text-slate-400">
-        {view === 'mois' ? 'Clique un jour pour zoomer sur sa semaine' : 'Clique un jour pour ouvrir sa séance en haut'}
+        Un jour se fige à sa première ouverture. Les jours à venir montrent une projection, non figée, en pointillé.
       </p>
     </section>
   );
 }
 
-// Petite barre de charge segmentée par type de tâche — lit la « nature » du jour.
-function LoadBar({ day, target, height = 'h-1.5' }: { day?: ProgramDay; target: number; height?: string }) {
-  if (!day || day.isOff || day.blocks.length === 0) return null;
-  const byKind = new Map<ProgramBlock['kind'], number>();
-  for (const b of day.blocks) byKind.set(b.kind, (byKind.get(b.kind) ?? 0) + b.estMin);
-  const planned = plannedMinOf(day);
-  const fill = Math.max(12, Math.min(100, Math.round((planned / Math.max(target, 1)) * 100)));
+/** Deux dimensions dans 1,5 px étaient illisibles (`LoadBar`, audit §8) : une
+ *  seule barre d'AVANCEMENT, et le détail des natures en pastilles. */
+function DayCell({ plan, kinds, projection }: { plan?: DayPlan; kinds: TaskKind[]; projection?: TaskInstance[] }) {
+  if (!plan && projection?.length) {
+    return (
+      <div className="flex items-center justify-between rounded-md border border-dashed border-slate-300 px-1.5 py-1 dark:border-slate-700" title="Projection, non figée">
+        <span className="text-[10px] text-slate-400">projection</span>
+        <span className="text-[11px] tnum text-slate-400">≈ {projection.reduce((m, t) => m + t.estMin, 0)} min</span>
+      </div>
+    );
+  }
+  if (!plan || plan.tasks.length === 0) return null;
+  const { done, total } = planProgress(plan);
   return (
-    <div className={`flex ${height} overflow-hidden rounded-full bg-slate-100 dark:bg-slate-800`} style={{ width: `${fill}%` }} title={`~${planned} min`}>
-      {[...byKind].map(([k, min]) => (
-        <div key={k} className={BLOCK_META[k].bar} style={{ width: `${(min / planned) * 100}%` }} />
-      ))}
-    </div>
+    <>
+      <div className="h-1.5 w-full overflow-hidden rounded-full bg-slate-100 dark:bg-slate-800">
+        <div className="h-full rounded-full bg-brand-500 transition-all" style={{ width: `${Math.round((done / Math.max(1, total)) * 100)}%` }} />
+      </div>
+      <div className="mt-2 flex items-center justify-between">
+        <div className="flex gap-1">
+          {kinds.slice(0, 4).map((k) => (
+            <span key={k} title={TASK_META[k].label} className={`flex h-5 w-5 items-center justify-center rounded ${TASK_META[k].badge}`}>
+              <Icon name={TASK_META[k].icon} className="h-3 w-3" />
+            </span>
+          ))}
+        </div>
+        <span className="text-[11px] font-medium tnum text-slate-400">{done}/{total}</span>
+      </div>
+    </>
   );
 }
 
-// ---------------------------------------------------------------- Vue Semaine
-function WeekView({ anchor, byDate, selected, onPick }: { anchor: Date; byDate: Map<string, ProgramDay>; selected: string; onPick: (d: string) => void }) {
+function WeekView({ anchor, byDate, projected, selected, taper, onFocusDay }: Omit<CalProps, 'anchor'> & { anchor: Date }) {
+  const today = useToday((s) => s.day);
   const start = startOfWeek(anchor, { weekStartsOn: 1 });
-  const week = Array.from({ length: 7 }, (_, i) => addDays(start, i));
   return (
     <div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-4">
-      {week.map((date) => {
+      {Array.from({ length: 7 }, (_, i) => addDays(start, i)).map((date) => {
         const k = format(date, 'yyyy-MM-dd');
-        const d = byDate.get(k);
-        const today = isSameDay(date, new Date());
-        const isSel = k === selected;
-        const kinds = new Set((d?.blocks ?? []).map((b) => b.kind));
-        const count = d?.blocks.length ?? 0;
-        const taper = isTaperDay(d);
+        const plan = byDate.get(k);
+        const kinds = [...new Set((plan?.tasks ?? []).map((t) => t.kind))];
         return (
-          <button key={k} onClick={() => onPick(k)}
-            className={`card p-3 text-left transition-all hover:-translate-y-0.5 hover:border-brand-400 ${isSel ? 'border-brand-500 ring-1 ring-brand-400' : today ? 'ring-1 ring-brand-300' : ''}`}>
+          <button key={k} type="button" onClick={() => onFocusDay(k)}
+            className={`card p-3 text-left transition-all hover:-translate-y-0.5 hover:border-brand-400 ${k === selected ? 'border-brand-500 ring-1 ring-brand-400' : k === today ? 'ring-1 ring-brand-300' : ''}`}>
             <div className="flex items-center justify-between">
               <div className="text-sm font-semibold capitalize">{format(date, 'EEE d', { locale: fr })}</div>
-              {d?.isOff ? <span className="text-[11px] text-slate-400">off</span> : d?.worked ? <span className="text-xs text-emerald-500">✓</span> : taper ? <Icon name="target" className="h-3.5 w-3.5 text-amber-500" title="Dernière ligne droite" /> : null}
+              {taper.has(k) && <Icon name="target" className="h-3.5 w-3.5 text-signal-500" title="Dernière ligne droite" />}
             </div>
-            {!d?.isOff && (
-              <>
-                <div className="mt-2"><LoadBar day={d} target={d?.targetMin ?? 120} /></div>
-                <div className="mt-2 flex items-center justify-between">
-                  <div className="flex gap-1">
-                    {[...kinds].slice(0, 4).map((kk) => (
-                      <span key={kk} title={BLOCK_META[kk].label} className={`flex h-5 w-5 items-center justify-center rounded ${BLOCK_META[kk].badge}`}><Icon name={BLOCK_META[kk].icon} className="h-3 w-3" /></span>
-                    ))}
-                    {count === 0 && <span className="text-[11px] text-slate-400">—</span>}
-                  </div>
-                  {count > 0 && <span className="text-[11px] font-medium text-slate-400">{count} tâche{count > 1 ? 's' : ''}</span>}
-                </div>
-              </>
-            )}
+            <div className="mt-2"><DayCell plan={plan} kinds={kinds} projection={projected.get(k)} /></div>
           </button>
         );
       })}
@@ -535,13 +416,13 @@ function WeekView({ anchor, byDate, selected, onPick }: { anchor: Date; byDate: 
   );
 }
 
-// ------------------------------------------------------------------ Vue Mois
-function MonthView({ anchor, byDate, selected, onZoom, end }: { anchor: Date; byDate: Map<string, ProgramDay>; selected: string; onZoom: (d: string) => void; end: Date }) {
+function MonthView({ anchor, byDate, projected, selected, taper, examISO, onZoomToDay }: Omit<CalProps, 'anchor'> & { anchor: Date }) {
+  const today = useToday((s) => s.day);
   const monthStart = startOfMonth(anchor);
-  const gridStart = startOfWeek(monthStart, { weekStartsOn: 1 });
-  const gridEnd = endOfWeek(endOfMonth(monthStart), { weekStartsOn: 1 });
-  const days = eachDayOfInterval({ start: gridStart, end: gridEnd });
-  const examISO = format(end, 'yyyy-MM-dd');
+  const days = eachDayOfInterval({
+    start: startOfWeek(monthStart, { weekStartsOn: 1 }),
+    end: endOfWeek(endOfMonth(monthStart), { weekStartsOn: 1 }),
+  });
   return (
     <div>
       <div className="mb-2 grid grid-cols-7 gap-1 text-center text-[10px] font-medium text-slate-400">
@@ -550,34 +431,30 @@ function MonthView({ anchor, byDate, selected, onZoom, end }: { anchor: Date; by
       <div className="grid grid-cols-7 gap-1">
         {days.map((date) => {
           const k = format(date, 'yyyy-MM-dd');
-          const d = byDate.get(k);
-          const today = isSameDay(date, new Date());
-          const isSel = k === selected;
-          const inMonth = isSameMonth(date, monthStart);
-          const count = d?.blocks.length ?? 0;
-          const isExam = k === examISO;
-          const taper = isTaperDay(d);
-          const kinds = [...new Set((d?.blocks ?? []).map((b) => b.kind))];
+          const plan = byDate.get(k);
+          const { done, total } = planProgress(plan);
           return (
-            <button key={k} onClick={() => onZoom(k)}
-              className={`flex min-h-[64px] flex-col rounded-lg border p-1.5 text-left transition-all hover:-translate-y-0.5 hover:border-brand-400
-                ${isSel ? 'border-brand-500 ring-1 ring-brand-400' : today ? 'border-brand-300 bg-brand-50 dark:bg-brand-900/20' : taper ? 'border-amber-200 dark:border-amber-900/40' : 'border-slate-100 dark:border-slate-800'}
-                ${inMonth ? '' : 'opacity-40'}`}>
+            <button key={k} type="button" onClick={() => onZoomToDay(k)}
+              className={`flex min-h-[58px] flex-col rounded-lg border p-1.5 text-left transition-all hover:-translate-y-0.5 hover:border-brand-400
+                ${k === selected ? 'border-brand-500 ring-1 ring-brand-400' : k === today ? 'border-brand-300 bg-brand-50 dark:bg-brand-900/20' : taper.has(k) ? 'border-signal-200 dark:border-signal-900/40' : 'border-slate-100 dark:border-slate-800'}
+                ${isSameMonth(date, monthStart) ? '' : 'opacity-40'}`}>
               <div className="flex items-center justify-between">
-                <span className={`text-[11px] font-semibold ${today ? 'text-brand-600 dark:text-brand-300' : ''}`}>{format(date, 'd')}</span>
-                {isExam ? <Icon name="flag" className="h-3.5 w-3.5 text-signal-500" title="Jour de l'examen" /> : d?.worked ? <span className="text-[10px] text-emerald-500">✓</span> : taper ? <Icon name="target" className="h-3 w-3 text-amber-500" /> : null}
+                <span className="text-[11px] font-semibold">{format(date, 'd')}</span>
+                {k === examISO
+                  ? <Icon name="flag" className="h-3.5 w-3.5 text-signal-500" title="Jour de l'examen" />
+                  : total > 0 && done === total ? <Icon name="check" className="h-3 w-3 text-emerald-500" /> : null}
               </div>
-              {d?.isOff ? (
-                <div className="mt-auto text-[9px] text-slate-400">off</div>
-              ) : count > 0 ? (
-                <div className="mt-auto space-y-1">
-                  <LoadBar day={d} target={d?.targetMin ?? 120} height="h-1" />
-                  <div className="flex items-center gap-0.5">
-                    {kinds.slice(0, 3).map((kk) => <span key={kk} className={`h-1.5 w-1.5 rounded-full ${BLOCK_META[kk].bar}`} title={BLOCK_META[kk].label} />)}
-                    <span className="ml-auto text-[10px] font-medium text-slate-400">{count}</span>
+              {total === 0 && projected.get(k) && (
+                <div className="mt-auto h-1 w-full rounded-full border border-dashed border-slate-300 dark:border-slate-700" title="Projection, non figée" />
+              )}
+              {total > 0 && (
+                <div className="mt-auto">
+                  <div className="h-1 w-full overflow-hidden rounded-full bg-slate-100 dark:bg-slate-800">
+                    <div className="h-full rounded-full bg-brand-500" style={{ width: `${Math.round((done / total) * 100)}%` }} />
                   </div>
+                  <div className="mt-1 text-right text-[10px] font-medium tnum text-slate-400">{done}/{total}</div>
                 </div>
-              ) : null}
+              )}
             </button>
           );
         })}
