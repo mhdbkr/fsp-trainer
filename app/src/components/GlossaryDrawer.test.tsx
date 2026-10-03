@@ -48,7 +48,7 @@ describe('GlossaryDrawer (F4a)', () => {
     renderDrawer();
     fireEvent.click(await screen.findByRole('button', { name: 'Carte' }));
     expect(document.querySelector('[data-card-flip]')!.getAttribute('data-card-flip')).toBe('recto');
-    fireEvent.click(screen.getByRole('button', { name: /révéler/i }));
+    fireEvent.click(screen.getByRole('button', { name: 'Verso' }));
     expect(document.querySelector('[data-card-flip]')!.getAttribute('data-card-flip')).toBe('verso');
     expect(screen.getAllByText('Bauch').length).toBeGreaterThan(0);
     fireEvent.click(screen.getByRole('button', { name: 'Fiche' }));

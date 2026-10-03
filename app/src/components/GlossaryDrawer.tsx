@@ -98,10 +98,7 @@ export function GlossaryDrawer() {
 
         <div className="flex-1 space-y-4 overflow-y-auto p-4">
           {view === 'card' ? (
-            <div className="space-y-2">
-              <CardFlip card={fb} direction="term2simple" revealed={revealed} onFlip={() => setRevealed(true)} />
-              {revealed && <button type="button" onClick={() => setRevealed(false)} className="btn-outline min-h-11 w-full">Recto</button>}
-            </div>
+            <CardFlip key={fb.id} card={fb} direction="term2simple" revealed={revealed} onFlip={setRevealed} />
           ) : (
             <TermSheet term={fb} />
           )}
@@ -114,7 +111,7 @@ export function GlossaryDrawer() {
 
           {linkedCases.length > 0 && (
             <div>
-              <div className="label mb-2">Erscheint in Fällen</div>
+              <div className="field-label mb-2">Erscheint in Fällen</div>
               <div className="space-y-1.5">
                 {linkedCases.map((c) => (
                   <Link key={c.id} to={`/cas/${c.id}`} onClick={close} className="block rounded-lg border border-white/40 px-3 py-2 text-sm hover:border-brand-400 hover:bg-brand-50 dark:border-white/10 dark:hover:bg-brand-900/20">
