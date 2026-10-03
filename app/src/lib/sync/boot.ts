@@ -15,6 +15,7 @@ import { rebuildJournal } from '@/lib/journal';
 import { ensureDayPlan } from '@/lib/program/dayPlan';
 import type { DayPlan } from '@/db/types';
 import { now } from '@/lib/clock';
+import { refreshToday } from '@/lib/today';
 import { syncQueue } from './queue';
 
 export const BOOT_PULL_MS = 2500;
@@ -46,7 +47,8 @@ export const msToNextDay = (t: number): number => { const d = new Date(t); d.set
  * relire. Jamais appelée par un rendu (contrat §3.2). Rend le désabonnement.
  */
 export function watchDayPlan(): () => void {
-  const open = () => { void ensureDayPlan().catch((e) => console.warn('[programme]', e)); };
+  // Le jour à l'écran ne change qu'APRÈS la matérialisation : jamais « pas encore figé » en transition (I-1).
+  const open = () => { void ensureDayPlan().catch((e) => console.warn('[programme]', e)).finally(refreshToday); };
   const onVisible = () => { if (document.visibilityState !== 'hidden') open(); };
   let timer: ReturnType<typeof setTimeout>;
   const arm = () => { timer = setTimeout(() => { open(); arm(); }, msToNextDay(now()) + 1000); };
