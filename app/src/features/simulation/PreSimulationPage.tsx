@@ -1,7 +1,7 @@
-import { cqText } from '@/lib/caseQuestions';
+import { cqText, cqFollowUp } from '@/lib/caseQuestions';
 import { Link, useParams, useSearchParams } from 'react-router-dom';
 import { ModeChooser } from '@/components/ModeChooser';
-import type { SimTeil } from '@/db/types';
+import type { CaseQuestion, SimTeil } from '@/db/types';
 import { isTeil } from '@/lib/simScope';
 import { useCase, useFachwissen, useFachbegriffe } from '@/hooks/useData';
 import { useUi } from '@/store/ui';
@@ -21,6 +21,20 @@ import { termsInOrder } from '@/lib/collections/caseTerms';
 // blocs, jamais leur présence ni leur ordre : on ne peut plus jouer avec des
 // réglages hérités, invisibles et non modifiables.
 // ============================================================================
+
+/** Les questions du cas, chacune avec sa relance (Q0) en repère discret. */
+export function CaseQuestionList({ questions }: { questions: CaseQuestion[] }) {
+  return (
+    <ul className="space-y-1.5 text-sm">
+      {questions.map((q, i) => (
+        <li key={i} className="flex gap-2">
+          <span className="mt-1.5 h-1 w-1 shrink-0 rounded-full bg-brand-400" />
+          <span><AutoLink>{cqText(q)}</AutoLink>{cqFollowUp(q) && <span className="block text-xs text-slate-400">↳ <AutoLink>{cqFollowUp(q)!}</AutoLink></span>}</span>
+        </li>
+      ))}
+    </ul>
+  );
+}
 
 export function PreSimulationPage() {
   const { caseId } = useParams();
@@ -84,7 +98,7 @@ export function PreSimulationPage() {
         <div className="card p-5">
           <div className="label mb-2 flex items-center gap-1.5"><Icon name="question" className="h-3.5 w-3.5" />Questions d'anamnèse à ne pas oublier</div>
           <p className="mb-2 text-[11px] text-slate-400">{QUESTIONS_HINT[teil ?? 'komplett']}</p>
-          <AutoLinkList items={c.caseSpecificQuestions.map(cqText)} />
+          <CaseQuestionList questions={c.caseSpecificQuestions} />
         </div>
 
         <div className="card p-5">

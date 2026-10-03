@@ -179,7 +179,7 @@ function Bubble({ line, live = false }: { line: RoleLine; live?: boolean }) {
     <div ref={ref} className={`rounded-xl px-3 py-2 transition-[box-shadow,background-color] duration-500 ${live ? 'bg-brand-50 ring-2 ring-brand-400/70 dark:bg-brand-900/25' : 'bg-slate-50 dark:bg-slate-800/50'}`}>
       {line.frage && <div className={`flex items-center gap-1.5 text-[11px] leading-tight ${live ? 'font-semibold text-brand-600 dark:text-brand-300' : 'text-slate-400'}`}>{live && <span className="inline-block h-1.5 w-1.5 animate-pulse rounded-full bg-brand-500" />}{line.frage}</div>}
       {line.improvise
-        ? <div className="mt-0.5 text-[12.5px] italic leading-snug text-slate-500 dark:text-slate-400">Antworte frei aus den Fakten oben — diese Frage gehört zu diesem Fall.</div>
+        ? <div className="mt-0.5 text-[12.5px] italic leading-snug text-slate-500 dark:text-slate-400">Antworte frei aus den Fakten oben — diese Frage gehört zu diesem Fall.{line.nachfrage && <span className="mt-0.5 block text-[11px] not-italic text-slate-400">↳ {line.nachfrage}</span>}</div>
         : <div className="mt-0.5 text-sm font-medium leading-snug text-slate-800 dark:text-slate-100">{line.antwort}</div>}
     </div>
   );

@@ -18,6 +18,16 @@ describe('Rollenskript — questions du cas', () => {
     expect(line.improvise).toBe(true);
     expect(line.antwort).toBe('');
   });
+  it('Q0 : la relance de la question du cas suit sur la ligne (nachfrage)', () => {
+    const qs: CaseQuestion[] = [{ frage: 'Nehmen Sie Blutverdünner?', kapitel: 'medikamente', followUp: 'Falls ja: Welche, und seit wann?' }];
+    const ch = buildRollenskript(sheet, qs).find((c) => c.id === 'medikamente')!;
+    expect(ch.lines.find((l) => l.frage === 'Nehmen Sie Blutverdünner?')!.nachfrage).toBe('Falls ja: Welche, und seit wann?');
+  });
+  it('Q0 : sans relance, pas de nachfrage', () => {
+    const qs: CaseQuestion[] = ['Haben Sie Fieber?'];
+    const lines = buildRollenskript(sheet, qs).flatMap((c) => c.lines);
+    expect(lines.find((l) => l.frage === 'Haben Sie Fieber?')!.nachfrage).toBeUndefined();
+  });
   it('sans questions du cas, le script est inchangé', () => {
     expect(buildRollenskript(sheet).every((c) => c.lines.every((l) => !l.improvise))).toBe(true);
   });

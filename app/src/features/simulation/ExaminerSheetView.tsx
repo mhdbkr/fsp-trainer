@@ -1,4 +1,4 @@
-import { cqText } from '@/lib/caseQuestions';
+import { cqText, cqFollowUp } from '@/lib/caseQuestions';
 import type { CaseQuestion } from '@/db/types';
 import type { ExaminerSheetSection } from '@/db/types';
 import { Icon } from '@/components/icons';
@@ -30,7 +30,7 @@ export function ExaminerSheetView({ sheet, fallback, caseName, caseSpecificQuest
             {caseSpecificQuestions.map((q, i) => (
               <li key={i} className="flex items-start gap-2 text-sm">
                 <span className="mt-0.5 shrink-0 rounded border border-slate-300 px-1 text-[10px] text-slate-400 dark:border-slate-600">☐</span>
-                <span>{cqText(q)}</span>
+                <span>{cqText(q)}{cqFollowUp(q) && <span className="block text-xs text-slate-400">↳ {cqFollowUp(q)}</span>}</span>
               </li>
             ))}
           </ul>

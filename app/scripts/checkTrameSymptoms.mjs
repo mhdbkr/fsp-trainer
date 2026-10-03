@@ -19,7 +19,7 @@ const entry = join(dir, 'entry.ts');
 writeFileSync(entry, `
   export { seedCases } from ${JSON.stringify(join(root, 'src/data/seedCases.ts'))};
   export { playedTrame } from ${JSON.stringify(join(root, 'src/data/guides/anamneseChapters.ts'))};
-  export { phraseText, phraseIsCaseSpecific } from ${JSON.stringify(join(root, 'src/data/guides/phrases.ts'))};
+  export { phraseText, phraseFollowUp, phraseIsCaseSpecific } from ${JSON.stringify(join(root, 'src/data/guides/phrases.ts'))};
   export { phraseSymptoms, symptomsInText } from ${JSON.stringify(join(root, 'src/data/guides/symptoms.ts'))};
   export { cqText, cqKapitel } from ${JSON.stringify(join(root, 'src/lib/caseQuestions.ts'))};
 `);
@@ -85,7 +85,8 @@ for (const c of cases) {
     // re-revue I-3 pour `sucht: []`).
     if (q && typeof q !== 'string' && q.relu) return;
     const declared = q && typeof q !== 'string' ? q.sucht ?? [] : [];
-    for (const s of m.symptomsInText(t)) {
+    // Q0 : la relance de la question se scanne comme la question.
+    for (const s of m.symptomsInText([t, ...m.phraseFollowUp(p)].join(' '))) {
       if (declared.includes(s)) continue;
       const other = rows.find((r, j) => j !== i && m.phraseSymptoms(r.p).includes(s));
       if (other) review.push(`${c.id} [${ch}] « ${t} » cite « ${s} », cherché ${rows.indexOf(other) < i ? 'plus haut' : 'PLUS BAS'} : [${other.ch}] « ${m.phraseText(other.p).slice(0, 55)} »`);
