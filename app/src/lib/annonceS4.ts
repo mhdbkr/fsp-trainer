@@ -3,8 +3,9 @@
 // (simulation-run.md §10.7, décision (f) de la direction).
 //
 // Trois changements, annoncés UNE FOIS, par appareil, sans événement synchronisé :
-//   • `teile`  — des Teile solides sur une seule réussite sont redevenus acquis
-//                (et reviennent donc dans le plan) ;
+//   • `teile`  — des Teile solides sur une seule réussite repassent à « acquis » :
+//                « solide » se confirme en deux fois (leur dette est celle d'un Teil
+//                à confirmer, pas d'un Teil jamais travaillé — revue P1) ;
 //   • `mode`   — un `teil-first` explicite est devenu « cas complet » ;
 //   • `muster` — un Muster de ville par défaut est devenu « libre ».
 // Chaque annonce est tracée par `db.meta['annonce.s4.<sujet>']`. Un sujet n'est
@@ -12,6 +13,8 @@
 // à CE candidat : un candidat neuf n'a rien à qui annoncer.
 // ============================================================================
 
+import { format, parseISO } from 'date-fns';
+import { fr } from 'date-fns/locale';
 import type { ProgramConfig, TrainingEvent } from '@/db/types';
 import { dayKey } from '@/lib/clock';
 import { computeCaseProgress } from '@/lib/progression';
@@ -66,10 +69,11 @@ export function annoncesEnAttente({ events, config, musterLocal, vues, actifs = 
   if (actifs.teile && !vues.has('teile')) {
     const { teile } = teilesRedevenusAcquis(events);
     if (teile > 0) {
+      const date = format(parseISO(DATE_NOUVELLE_REGLE), 'd MMMM', { locale: fr });
       out.push({
         sujet: 'teile',
-        titre: 'Solide demande maintenant deux réussites',
-        texte: `Un Teil est solide après deux réussites à 80 ou plus, à trois jours d'écart au moins. ${teile === 1 ? 'Un de tes Teile, solide sur une seule réussite, redevient acquis et revient' : `${teile} de tes Teile, solides sur une seule réussite, redeviennent acquis et reviennent`} dans ton plan. Ta courbe passée ne change pas.`,
+        titre: '« Solide » se confirme maintenant en deux fois',
+        texte: `Un Teil devient solide quand tu refais 80 ou plus au moins trois jours après une première réussite : la première peut tenir à un cas encore frais, la seconde montre qu'il tient. ${teile === 1 ? 'Un de tes Teile repasse donc à « acquis ». Pour lui' : `${teile} de tes Teile repassent donc à « acquis ». Pour chacun`}, une nouvelle partie à 80 ou plus suffit. Ta frise garde son passé : la marche du ${date} vient de cette règle, pas d'un recul.`,
       });
     }
   }

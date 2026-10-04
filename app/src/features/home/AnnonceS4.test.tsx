@@ -20,7 +20,7 @@ describe('AnnonceS4', () => {
   it('annonce, se ferme, trace la clé locale, et ne revient pas au lancement suivant', async () => {
     await seed();
     const { unmount } = render(<AnnonceS4 />);
-    await waitFor(() => expect(screen.getByRole('region', { name: 'Ce qui change' }).textContent).toContain('redevient acquis'));
+    await waitFor(() => expect(screen.getByRole('region', { name: 'Ce qui change' }).textContent).toContain('repasse donc à « acquis »'));
     fireEvent.click(screen.getByRole('button', { name: 'Compris' }));
     await waitFor(() => expect(screen.queryByRole('region', { name: 'Ce qui change' })).toBeNull());
     expect((await db.meta.get(annonceKey('teile')))?.value).toBe(true);
