@@ -13,7 +13,7 @@ import { useTimer } from './useTimer';
 import { useLauf } from './useLauf';
 import { checklisteFuer, hatSprachgitter, naechsterTeil } from '@/lib/lauf/automat';
 import type { Lauf, LaufTeil } from '@/lib/lauf/types';
-import { emptyLanguageGrid } from '@/lib/scoring';
+import { NOT_ENTERED, emptyLanguageGrid, languageGridEntered } from '@/lib/scoring';
 import { computeAmbiance } from './timeAmbiance';
 import { TimeAmbianceProvider, TimeFace, timeGlass } from './TimeCapsule';
 import { Portal } from '@/components/Portal';
@@ -179,6 +179,15 @@ export function SimulationRunner() {
     else window.scrollTo({ top: 0, behavior: 'auto' });
     setMerged(false);
   }, [zustand, aktuell]);
+
+  // Le ressenti ne démarre pas à 50. Tant qu'aucun brouillon n'existe, le
+  // Lauf (`bewerte`, lib/lauf) retombe sur 50 : à l'ouverture du bilan on pose
+  // donc un brouillon VIDE (aucune valeur saisie) qui prend sa place.
+  const sansBrouillon = zustand === 'bilanz' && !!aktuell && !lauf?.entwurf[aktuell];
+  const { setzeEntwurfFeld } = steuerung;
+  useEffect(() => {
+    if (sansBrouillon && aktuell) setzeEntwurfFeld(aktuell, { grid: emptyLanguageGrid(), feeling: NOT_ENTERED });
+  }, [sansBrouillon, aktuell, setzeEntwurfFeld]);
 
   if (simId) return <GespeicherterLauf simId={simId} />;
   if (!c) return <div className="text-slate-400">Chargement…</div>;
@@ -370,7 +379,7 @@ export function SimulationRunner() {
                     durationSec={lauf.sekundenProTeil[lauf.aktuellerTeil] ?? 0}
                     checklist={checklisteFuer(lauf, lauf.aktuellerTeil)}
                     grid={lauf.entwurf[lauf.aktuellerTeil]?.grid ?? emptyLanguageGrid()}
-                    feeling={lauf.entwurf[lauf.aktuellerTeil]?.feeling ?? 50}
+                    feeling={lauf.entwurf[lauf.aktuellerTeil]?.feeling ?? NOT_ENTERED}
                     onToggle={steuerung.setzeItem}
                     onGrid={(g) => steuerung.setzeEntwurfFeld(lauf.aktuellerTeil!, { grid: g })}
                     onFeeling={(v) => steuerung.setzeEntwurfFeld(lauf.aktuellerTeil!, { feeling: v })}
@@ -615,7 +624,7 @@ export function ResultScreen({ sim, c }: { sim: Simulation; c: Case }) {
             <div key={k} className="card p-4 text-center">
               <div className="label">{LABEL[k] ?? k}</div>
               <div className={`mt-1 text-2xl font-bold ${sc >= 60 ? 'text-emerald-600 dark:text-emerald-400' : 'text-rose-600 dark:text-rose-400'}`}>{sc}%</div>
-              <div className="text-[11px] text-slate-400">contenu {p.contentPct}%{p.languageGrid && hatSprachgitter(k) ? ` · langue ${p.officialPct}%` : ''}</div>
+              <div className="text-[11px] text-slate-400">contenu {p.contentPct}%{hatSprachgitter(k) && languageGridEntered(p.languageGrid) ? ` · langue ${p.officialPct}%` : ''}</div>
             </div>
           );
         })}

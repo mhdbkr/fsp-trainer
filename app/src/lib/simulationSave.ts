@@ -4,7 +4,7 @@ import { db } from '@/db/db';
 import { syncQueue } from '@/lib/sync/queue';
 import { now } from '@/lib/clock';
 import { applySimulationToJournal, resolveSimulationTask } from '@/lib/journal';
-import { simulationPassed } from '@/lib/scoring';
+import { isEntered, simulationPassed } from '@/lib/scoring';
 import { getActiveUserId } from '@/lib/auth/accounts';
 import type { AssistanceMode, BogenNotes, Case, Layer, MusterCity, PartResult, SimTeil, SketchNotes, Simulation, SimulationMode } from '@/db/types';
 
@@ -45,7 +45,7 @@ function buildCorrections(parts: Partial<Record<Part, PartResult>>): string[] {
     const missed = res.checklist.filter((it) => !it.checked).slice(0, 2);
     for (const m of missed) out.push(`${part} — ${m.label}`);
     if (res.languageGrid) {
-      const weak = Object.entries(res.languageGrid).filter(([, v]) => v <= 2);
+      const weak = Object.entries(res.languageGrid).filter(([, v]) => isEntered(v) && v <= 2);
       for (const [k] of weak) out.push(`${part} — Sprache: ${k} verbessern`);
     }
   }

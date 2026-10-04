@@ -2,7 +2,7 @@ import { useState } from 'react';
 import type { ChecklistItem, LanguageGrid, PartResult } from '@/db/types';
 import { Icon } from '@/components/icons';
 import { checklistFor } from '@/lib/checklists';
-import { LANGUAGE_CRITERIA, checklistPct, emptyLanguageGrid, languagePct, partScore, PASS_THRESHOLD } from '@/lib/scoring';
+import { LANGUAGE_CRITERIA, NOT_ENTERED, checklistPct, emptyLanguageGrid, isEntered, languageGridEntered, languagePct, partScore, scoreBasis, scoreBasisLabel, PASS_THRESHOLD } from '@/lib/scoring';
 import { ScoreBar } from '@/components/ui';
 
 type Part = 'anamnese' | 'dokumentation' | 'fallvorstellung' | 'aufklaerung';
@@ -53,12 +53,15 @@ export function PartEvaluation({
   const hasLang = part !== 'dokumentation';
   const contentPct = checklistPct(checklist);
   const officialPct = hasLang ? languagePct(grid) : 0;
+  const langueNotee = hasLang && languageGridEntered(grid);
+  const nbNotes = Object.values(grid).filter(isEntered).length;
   const preview: PartResult = {
     done: true, durationSec, checklist,
     languageGrid: hasLang ? grid : undefined, feeling,
     contentPct, officialPct,
   };
   const total = partScore(preview);
+  const basis = scoreBasis(preview);
   const passed = total >= PASS_THRESHOLD;
   const coches = checklist.filter((i) => i.checked).length;
   const toutCoche = coches === checklist.length && checklist.length > 0;
@@ -115,22 +118,16 @@ export function PartEvaluation({
             <div className="card p-5">
               <div className="mb-1 flex items-center justify-between">
                 <div className="label">Grille de langue (barème officiel)</div>
-                <span className="text-sm font-bold">{officialPct}%</span>
+                <span className="text-sm font-bold">{langueNotee ? `${officialPct}%` : `${nbNotes}/5 notés`}</span>
               </div>
-              <p className="mb-3 text-[11px] text-slate-400">Ce que le jury note vraiment (C1). 0 = faible, 5 = excellent.</p>
+              <p className="mb-3 text-[11px] text-slate-400">Ce que le jury note vraiment (C1). 0 = faible, 5 = excellent. La langue compte dans le score quand les 5 critères sont notés.</p>
               <div className="space-y-3">
                 {LANGUAGE_CRITERIA.map((crit) => (
-                  <div key={crit.key}>
-                    <div className="flex items-center justify-between text-xs">
-                      <span className="font-medium" title={crit.hint}>{crit.label}</span>
-                      <span className="font-bold text-brand-600 dark:text-brand-300">{grid[crit.key]}/5</span>
-                    </div>
-                    <input
-                      type="range" min={0} max={5} value={grid[crit.key]}
-                      onChange={(e) => onGrid({ ...grid, [crit.key]: +e.target.value })}
-                      className="w-full accent-brand-600"
-                    />
-                  </div>
+                  <Curseur
+                    key={crit.key} id={`langue-${crit.key}`} label={crit.label} hint={crit.hint}
+                    min={0} max={5} value={grid[crit.key]} suffix="/5"
+                    onValue={(v) => onGrid({ ...grid, [crit.key]: v })}
+                  />
                 ))}
               </div>
             </div>
@@ -138,11 +135,10 @@ export function PartEvaluation({
 
           {/* Ressenti */}
           <div className="card p-5">
-            <div className="mb-2 flex items-center justify-between">
-              <div className="label">Ressenti</div>
-              <span className="text-sm font-bold">{feeling}</span>
-            </div>
-            <input type="range" min={0} max={100} value={feeling} onChange={(e) => onFeeling(+e.target.value)} className="w-full accent-brand-600" />
+            <Curseur
+              id="ressenti" label="Ressenti" min={0} max={100} value={feeling} display="ressenti-valeur" heading
+              onValue={onFeeling}
+            />
             <div className="mt-1 flex justify-between text-[11px] text-slate-400"><span>Fragile</span><span>Solide</span></div>
           </div>
         </div>
@@ -158,10 +154,14 @@ export function PartEvaluation({
           </div>
           <div className="w-48 space-y-2">
             <ScoreBar pct={contentPct} label="Contenu" />
-            {hasLang && <ScoreBar pct={officialPct} label="Langue" />}
-            <ScoreBar pct={feeling} label="Ressenti" />
+            {langueNotee && <ScoreBar pct={officialPct} label="Langue" />}
+            {isEntered(feeling) && <ScoreBar pct={feeling} label="Ressenti" />}
           </div>
         </div>
+        <p className="mt-2 text-xs text-slate-500 dark:text-slate-400">
+          Calculé sur : {scoreBasisLabel(basis)}
+          {hasLang && !langueNotee && ' — note les 5 critères de langue pour qu\'elle compte.'}
+        </p>
       </div>
 
       {/* Les sorties sont DISTINCTES et nommées par leur destination.
@@ -182,6 +182,34 @@ export function PartEvaluation({
   );
 }
 
+/** Curseur « vide » tant que le candidat n'y a pas touché : valeur affichée « — »,
+ *  poignée atténuée. Un clic sans déplacement le saisit aussi (`pointerup`), car
+ *  la poignée est posée au milieu. Défini hors du parent (leçon `Seg`). */
+function Curseur({ id, label, hint, min, max, value, suffix = '', display, heading, onValue }: {
+  id: string; label: string; hint?: string; min: number; max: number; value: number; suffix?: string;
+  display?: string; heading?: boolean; onValue: (v: number) => void;
+}) {
+  const vide = !isEntered(value);
+  return (
+    <div>
+      <div className={`flex items-center justify-between ${heading ? 'mb-2' : 'text-xs'}`}>
+        <label htmlFor={id} className={heading ? 'label' : 'font-medium'} title={hint}>{label}</label>
+        <span data-testid={display} className={`font-bold ${heading ? 'text-sm' : 'text-brand-600 dark:text-brand-300'} ${vide ? 'text-slate-400 dark:text-slate-500' : ''}`}>
+          {vide ? `—${suffix}` : `${value}${suffix}`}
+        </span>
+      </div>
+      <input
+        id={id} type="range" min={min} max={max} value={vide ? Math.round((min + max) / 2) : value}
+        aria-valuetext={vide ? 'pas encore noté' : undefined}
+        data-vide={vide || undefined}
+        onChange={(e) => onValue(+e.target.value)}
+        onPointerUp={(e) => { if (vide) onValue(+e.currentTarget.value); }}
+        className={`w-full accent-brand-600 ${vide ? 'opacity-40' : ''}`}
+      />
+    </div>
+  );
+}
+
 function label(p: Part) {
   return p === 'dokumentation' ? 'Dokumentation' : p === 'anamnese' ? 'Anamnese' : p === 'fallvorstellung' ? 'Fallvorstellung' : 'Aufklärung';
 }
@@ -197,7 +225,7 @@ export function SelbstBewertung({ part, durationSec, suivant, onSave, onCancel }
 }) {
   const [checklist, setChecklist] = useState<ChecklistItem[]>(() => checklistFor(part));
   const [grid, setGrid] = useState<LanguageGrid>(emptyLanguageGrid);
-  const [feeling, setFeeling] = useState(50);
+  const [feeling, setFeeling] = useState(NOT_ENTERED);
   const hasLang = part !== 'dokumentation';
 
   const valider = () => {
