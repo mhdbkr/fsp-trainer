@@ -4,6 +4,13 @@
 > Source mesurée : `app/docs/reports/audit-simflow-serie3.md`.
 > Dépend de : `docs/contracts/training-journal.md` (§8 sortie du journal).
 > Consommé par : C2 (simulation), C3 (pont IA), C6 (harnais).
+>
+> **Amendé — série 4 (4 oct. 2026)** · `platform-architect` · ADR-0021.
+> L'entrée est unique et la partie porte toujours les trois Teile. Le candidat
+> peut s'arrêter avec « Terminer ici », ou partir sur un autre Teil. Un marqueur
+> d'enchaînement s'ajoute, et le Muster passe à guidé ou libre : voir §10. La
+> sentinelle « non saisi » (lot C6-A) est décrite au §1.1. Les sections
+> amendées sont marquées *[S4]*.
 
 ---
 
@@ -13,7 +20,7 @@
 |---|---|---|
 | **Q5** | L'Arztbrief est-il une **étape du run** (obligatoire en Dokumentation) ou un **exercice séparé** lancé depuis le bilan ? | Étape **facultative** : l'état `arztbrief` n'est atteint que si le candidat le demande depuis `checkliste`. Sauter l'étape n'est jamais signalé comme un manque. |
 | **Q6** | « Tout cocher » sur la checklist de fin est-il autorisé, et si oui comment est-il rendu visiblement comme **raccourci de saisie** et non comme un score offert ? | Le bouton **existe** (`toutCocher()`), il est neutre visuellement, placé au-dessus de la liste, et son action est annulable (`toutDecocher()`). Aucun libellé de félicitation. |
-| **Q7** | Le périmètre de `motionSafe.test.ts:14-23` (qui exclut aujourd'hui `features/simulation`) doit-il être étendu ? | **Non tranché ici** — contrat de la catégorie E (C5). Aucune transition nouvelle n'est ajoutée à `features/simulation` tant que Q7 n'est pas répondue. Contradiction relevée au §8. |
+| **Q7** | Le périmètre de `motionSafe.test.ts:14-23` (qui exclut aujourd'hui `features/simulation`) doit-il être étendu ? | *[S4]* **Tranchée le 30 sept.** (s3-primitives T7, `motionSafe.test.ts:6-30`). Règle A, universelle : la garde globale de `index.css` remet durées et délais à zéro sous mouvement réduit. Règle B, locale : préfixe `motion-safe:` pour `components/visuals/*`. Le blocage de C2 est levé. `CaseDial` vit dans `components/visuals/` et suit la règle B. |
 
 ---
 
@@ -34,8 +41,9 @@ export interface Lauf {
   id: string;                        // uuid v4, posé à l'entrée dans `laufend`
   caseId: CaseId;
   profileId: string;                 // TOUJOURS écrit (§6)
-  modus: LaufModus;                  // l'INTENTION déclarée
-  geplanteTeile: SimTeil[];          // l'intention : 3 Teile, ou 1
+  modus: LaufModus;                  // l'INTENTION déclarée — [S4] toujours 'komplett' pour un Lauf neuf ; 'teil' lu seulement
+  geplanteTeile: SimTeil[];          // l'intention : 3 Teile, ou 1 — [S4] toujours les 3 pour un Lauf neuf
+  unterbrochen?: true;               // [S4] posé à la première reprise, jamais retiré (§10.4)
   zustand: LaufZustand;
   aktuellerTeil: SimTeil | null;     // null hors de `laufend`
   startedAt: number;
@@ -52,7 +60,7 @@ export interface Lauf {
   arztbriefText?: string;
   assistance: AssistanceMode;
   layer: Layer;
-  muster?: MusterCity;
+  muster?: MusterArt;                // [S4] 'guide' | 'libre' ; les villes série 3 se lisent par `musterArt()` (§10.6)
   mode: SimulationMode;              // 'texte' | 'tts' | 'vocal' | 'external-ai'
   taskId?: string;                   // TaskInstance du plan, si lancé depuis le plan
 }
@@ -60,14 +68,49 @@ export interface Lauf {
 export interface TeilLauf {
   done: boolean;
   durationSec: number;
-  languageGrid?: LanguageGrid;
-  feeling: number;
+  languageGrid?: LanguageGrid;       // [C6-A] chaque critère 0..5, ou NOT_ENTERED (−1) = non noté (§1.1)
+  feeling: number;                   // [C6-A] 0..100, ou NOT_ENTERED (−1) = non saisi (§1.1)
   contentPct: number;
   officialPct: number;
   assistanceUsed: AssistanceMode;    // RENSEIGNÉ (corrige db/types.ts:451, jamais écrit)
   hints: number;                     // aides consultées (corrige AnamneseGuide.tsx:33)
 }
 ```
+
+### 1.1 *[C6-A]* La sentinelle « non saisi »
+
+Source : `origin/feat/s3-c6a-chiffres`, `app/src/lib/scoring.ts:22-85`.
+
+```ts
+export const NOT_ENTERED = -1;
+export const isEntered = (v: number | undefined | null): v is number => typeof v === 'number' && v >= 0;
+export const emptyLanguageGrid = (): LanguageGrid   // les cinq critères à NOT_ENTERED
+export const languageGridEntered = (g?: LanguageGrid): g is LanguageGrid  // les cinq critères saisis
+export type ScoreBasis = 'contenu' | 'langue' | 'ressenti';
+export function scoreBasis(p: PartResult): ScoreBasis[]   // 'contenu' toujours ; 'langue' si grille complète ; 'ressenti' si isEntered(feeling)
+export function scoreBasisLabel(b: ScoreBasis[]): string  // « contenu seul », « contenu et ressenti »…
+```
+
+1. **Une valeur que le candidat n'a pas touchée vaut `NOT_ENTERED` (−1)**, pour
+   `feeling` et pour chaque critère de `languageGrid`. Elle figure telle quelle
+   dans `PartResult`, `Simulation.parts[t]` et le payload
+   `simulation.completed`. Le serveur accepte ce payload sans schéma
+   (`events/index.ts:14`). `0` reste une note.
+2. **Le score ne porte que ce qui a été saisi.** `partScore` applique
+   55/30/15 (oral) ou 80/20 (Dokumentation), **renormalisés** sur
+   `scoreBasis(p)`. La langue n'entre que si les cinq critères sont saisis.
+   Quand tout est saisi, on retrouve la formule historique **au point près**.
+3. **L'historique n'est pas recalculé.** Une partie enregistrée avant C6-A
+   porte de vraies valeurs (3, 50…). Elle est lue comme saisie, et son score
+   ne bouge pas.
+4. Le bilan affiche la base : « Calculé sur : contenu seul », via
+   `scoreBasisLabel`.
+5. **Aucune moyenne, aucun seuil ni aucun agrégat ne lit une valeur `−1`.**
+   Tout lecteur de `feeling` ou de `languageGrid` hors de `scoring.ts` passe
+   par `isEntered` / `languageGridEntered`. Exemple, sur la branche :
+   `buildCorrections` (`simulationSave.ts:48`, `isEntered(v) && v <= 2`).
+   Gardé par **INV-29**.
+
 
 **Règle de modèle.** `checkliste`, `teileGespielt`, `minutenProTeil` et `score`
 sont des **champs du `Lauf`**. Aucun composant n'en tient une copie locale.
@@ -86,6 +129,11 @@ checkliste ──arztbriefSchreiben()──▶ arztbrief       [facultatif, Q5 ;
 checkliste ──zurueckZumBilanz()──▶ bilanz(dernier Teil joué)   [action régressive nommée]
 checkliste ──speichern()──▶ gespeichert
 arztbrief ──speichern()──▶ gespeichert
+
+[S4]
+laufend(t0) ──springeZu(t)──▶ laufend(t)            [aucun SimTeil terminé ; t ∈ geplanteTeile, t ≠ t0 ; exception nommée nº 4]
+bilanz(t) ──partieSuivante(t'?)──▶ laufend(t')       [t' ∈ geplanteTeile \ teileGespielt ; défaut : naechsterTeil]
+bilanz(t) ──versChecklist()──▶ checkliste            [« Terminer ici » : permis dès UN Teil joué, quel que soit le reste]
 ```
 
 ### 2.1 Règles opposables
@@ -139,7 +187,7 @@ arztbrief ──speichern()──▶ gespeichert
 Chaque état a une URL distincte :
 
 ```
-/simulation/:caseId/pre?teil=        vorbereitung
+/simulation/:caseId/pre?teil=        vorbereitung   [S4] → ?depart=<teil>&task=<id> ; `?teil=` lu comme `?depart=`
 /simulation/:laufId/teil/:teil       laufend
 /simulation/:laufId/bilan/:teil      bilanz
 /simulation/:laufId/checklist        checkliste
@@ -180,6 +228,12 @@ Chaque état a une URL distincte :
   de forme invalide est écarté à la lecture — ses éléments illisibles retirés,
   jamais la partie jouée. La barre de reprise lit `lauf.aktiv`.
   *(Amendé à l'intégration, série 3.)*
+- *[S4]* **Toute reprise pose `unterbrochen: true`** : restitution depuis
+  `lauf.aktiv` par la barre, au rechargement, ou au retour sur le runner
+  après l'avoir quitté. La marque n'est jamais retirée. Elle n'est pas posée
+  par la sérialisation : INV-23 compare le `Lauf` **modulo `unterbrochen`**.
+  La reprise exige le même cas. Un `Lauf` neuf est toujours `komplett`, et un
+  `lauf.aktiv` série 3 en `teil` se reprend tel quel jusqu'à son écriture.
 
 ### 3.2 À la fin — écriture idempotente
 
@@ -205,6 +259,8 @@ speichern(lauf: Lauf): Promise<void>
 - `speichern()` **n'écrit plus dans `db.cases`** : `confidence`, `status`,
   `layerProgress` ne sont plus touchés (`training-journal.md` §4.1). Le saut de
   couche sur un Teil raté (`simulationSave.ts:72`) disparaît avec l'écriture.
+- *[S4]* La projection écrit `Simulation.enchaine = true` **si et seulement
+  si** `enchainiert(lauf)` (§10.4). Sinon, le champ est absent.
 
 ---
 
@@ -343,6 +399,28 @@ export function istVollstaendig(lauf: Lauf): boolean {
 | **INV-26** | Tout `Lauf` écrit a un `profileId` non vide **ou absent** (aucun compte actif) — jamais une valeur fabriquée comme `'local'`. |
 | **INV-27** | Aucun `ChecklistItem.id` produit par le source ne correspond à `/^cl-\d+$/` ; la table de traduction legacy couvre les 44 anciens ids. |
 | **INV-28** | Le chrono total d'un `Lauf` est monotone croissant : aucun aller-retour `bilanz → laufend → bilanz` ne le fait décroître ni doubler. |
+| **INV-29** *[C6-A]* | **Aucune moyenne ne lit une valeur `−1`.** Pour tout journal de parties où `feeling` et les critères de `languageGrid` valent `NOT_ENTERED` en tout ou partie, chaque agrégat (score de partie, moyennes et séries de `stats.ts`, `readiness`, `buildCorrections`, `case_progress`, maîtrise) est égal à celui calculé sur les seules valeurs saisies. Une partie entièrement saisie redonne la formule historique au point près. *Mutation qui doit rougir* : retirer un `isEntered` dans un lecteur (par exemple `v <= 2` nu dans `buildCorrections`, qui signale « Sprache verbessern » sur un critère non noté). |
+
+**Modifiés *[S4]*.**
+- **INV-21** : « Teil seul » désigne désormais un `Lauf` à trois Teile planifiés
+  dont **un seul** est joué. `terminerPartie()` mène toujours à `bilanz(t)`.
+- **INV-23** : l'égalité structurelle se lit **modulo `unterbrochen`**.
+  `serialize ∘ deserialize` est l'identité stricte, et seule la *reprise* pose
+  la marque (§3.1). Le test C6 (`parcours14j.test.ts:144`, `toEqual(l)`) est
+  réécrit en conséquence.
+- **INV-20** : `springeZu` (`laufend → laufend`, même indice) est la quatrième
+  exception nommée à la règle 1. INV-20, qui interdit seulement les baisses
+  d'indice, est inchangé.
+
+### 7.1 Invariants série 4 — la partie
+
+| Id | Propriété | Mutation qui doit rougir |
+|---|---|---|
+| **INV-70** | **Entrée unique** : tout `Lauf` créé par un client série 4 a `geplanteTeile` = les trois, dans l'ordre d'examen, et `modus = 'komplett'`. `?depart=t` (ou l'ancien `?teil=t`) ne change que le Teil de `demarrer`, jamais `geplanteTeile`. | `useLauf` relit `?teil=` comme périmètre (`useLauf.ts:100`) |
+| **INV-71** | **« Terminer ici »** : depuis `bilanz(t)`, `versChecklist` est permis dès qu'un `SimTeil` est joué. La `Simulation` écrite a `parts` = `teileGespielt`, jamais `geplanteTeile`. | `versChecklist` refusé tant que `naechsterTeil(lauf) !== null` |
+| **INV-72** | **Départ ailleurs** : `springeZu(t)` n'est permis que depuis `laufend(t0)`, quand aucun `SimTeil` n'est encore joué, avec `t ≠ t0` et `t` non joué. `partieSuivante(t')` n'accepte que `t' ∈ geplanteTeile \ teileGespielt`. Un Teil n'est jamais joué deux fois dans un `Lauf`. Le chrono de `t0` est conservé (INV-28). | `partieSuivante(t')` accepte un Teil déjà joué (second score écrasant le premier), ou `springeZu` permis après un Teil terminé |
+| **INV-73** | **Enchaînement réel** : `Simulation.enchaine === true` ⇔ les trois `SimTeil` ∈ `teileGespielt` ∧ `unterbrochen !== true` ∧ `mode !== 'external-ai'`. Toute reprise rend l'enchaînement impossible pour ce `Lauf`. | `enchaine = istVollstaendig(lauf)` seul, ou `unterbrochen` remis à `undefined` par la reprise |
+| **INV-74** | **Muster sans perte de notes** : pour tout `bogen` enregistré et tout `muster` (série 3 ou série 4), l'ensemble des valeurs non vides rendues par l'aperçu (`BogenPreview`) est **égal** à l'ensemble des valeurs non vides stockées. `musterArt(m)` est total sur `MusterCity ∪ MusterArt ∪ {undefined}`. | l'aperçu n'itère que `spec.fields` du nouveau Muster (`BogenPreview.tsx:33`) : une note `allergien` d'une simulation « Stuttgart » lue en « libre » disparaît |
 
 ---
 
@@ -356,6 +434,11 @@ export function istVollstaendig(lauf: Lauf): boolean {
 | `app/src/lib/checklists.stable.test.ts` | INV-27 + mapping legacy total |
 | `app/src/lib/lauf/checklistBridge.test.ts` | INV-24 |
 | `app/src/lib/simScope.test.ts` | INV-25 + non-régression du mis-classement `scope:'full'` à une partie |
+| *[C6-A]* `app/src/lib/scoring.saisi.test.ts` (existe sur la branche) + `app/tests/invariants.sentinelle.test.ts` | INV-29 : parcours de tous les lecteurs de `feeling`/`languageGrid` sur un journal à valeurs `−1` |
+| *[S4]* `app/src/lib/lauf/automat.test.ts` (étendu) | INV-70, INV-71, INV-72 ; table de transitions avec `springeZu` et `partieSuivante(t')` |
+| *[S4]* `app/src/lib/lauf/enchaine.test.ts` | INV-73 : reprise par barre, par rechargement et par retour au runner |
+| *[S4]* `app/src/lib/muster.legacy.test.ts` | INV-74 : 5 villes × bogens générés, et aperçu rendu |
+| *[S4]* `app/tests/invariants.lauf.test.tsx` (C6 réécrit) | INV-20/21/28 avec `springeZu` dans les 500 suites aléatoires ; INV-23 modulo `unterbrochen` |
 
 ---
 
@@ -378,3 +461,143 @@ export function istVollstaendig(lauf: Lauf): boolean {
    complet. **Tranché ici par l'architecture** (§2, règle 1, exception unique) :
    `bilanz(t) → laufend(t+1)` est une progression, pas un retour. Sans cette
    exception l'automate ne peut pas jouer trois Teile.
+4. *[S4]* Registre unique des contradictions de la série 4 : ADR-0021,
+   « Contradictions relevées ». Deux d'entre elles touchent ce contrat : Q7
+   périmée (n° 10) et le Muster à double sens (n° 8). Une troisième relève du
+   lot C6-A :
+5. *[C6-A]* **`feeling` vaut 50 par défaut sur le chemin du `Lauf`.**
+   `setzeEntwurf` (`automat.ts:144`, `feeling: 50`) et `bewerte`
+   (`automat.ts:174`, `e?.feeling ?? 50`) donnent 50, et non `NOT_ENTERED`,
+   à un ressenti jamais touché. `PartEvaluation.tsx:228` part bien de
+   `NOT_ENTERED`. Sur `origin/feat/s3-c6a-chiffres`, le runner amorce le
+   brouillon à `NOT_ENTERED`, **mais seulement s'il n'existe pas encore**
+   (`SimulationRunner.tsx:189`, `sansBrouillon`). Or consulter un indice
+   pendant l'Anamnese (`SimulationRunner.tsx:401`, `setzeEntwurfFeld('anamnese', { hinweise })`)
+   crée ce brouillon **avant** le bilan, par `setzeEntwurf`, avec
+   `feeling: 50`. L'amorce ne s'applique plus, et un ressenti jamais touché
+   entre dans le score comme 50, contre §1.1.1. **Non vérifié en
+   exécution** (lecture du code seulement). C'est le cas que la génération
+   d'INV-29 doit couvrir. Correctif attendu : la valeur par défaut de
+   `setzeEntwurf` et de `bewerte` devient `NOT_ENTERED`.
+
+---
+
+## 10. *[S4]* La partie, le cas entier
+
+> ADR-0021, décisions 1, 2, 5, 8 et 9.
+
+### 10.1 Entrée unique et pré-simulation
+
+- `vorbereitung` n'offre **aucun choix de Teil** : `ModeChooser` et le paramètre
+  `?teil=` comme périmètre disparaissent. Un seul bouton, « Démarrer ».
+- **Ordre de l'écran, opposable** : (1) en-tête du cas avec `CaseDial` grand
+  format et détail ouvert (`training-journal.md` §12.6) → (2) « Avec qui tu
+  joues » (`PartnerCard`) → (3) niveau d'assistance → (4) Muster (§10.6).
+  Comportement provisoire pour la couche (`Layer`), absente de la décision :
+  elle reste dans le bloc (3), sans nouvelle position (ADR-0021,
+  contradiction 9).
+- `PartnerCard` et les textes d'aide dépendaient de `teil` (`SimulationSetup.tsx:150-204`) ;
+  ils lisent désormais le Teil de **départ** (`?depart=`), ou l'Anamnese par
+  défaut. Le pont IA reste restreint à `anamnese | fallvorstellung`
+  (`ai-bridge.md`).
+
+### 10.2 Transitions ajoutées ou étendues
+
+1. **`springeZu(t)`**, exception nommée nº 4 à la règle 1 (§2.1), de
+   `laufend` vers `laufend`. Elle est permise depuis `laufend(t0)` si et
+   seulement si aucun `SimTeil` n'est encore dans `teileGespielt`,
+   `t ∈ geplanteTeile` et `t ≠ t0`. C'est le fil d'étapes : « commencer par
+   un autre Teil ». Le chrono de `t0` est conservé et ne compte pas comme
+   joué. Elle est refusée pendant une Aufklärung.
+2. **`partieSuivante(t'?)`** : `t'` est facultatif, et vaut par défaut
+   `naechsterTeil(lauf)` (règle 7 inchangée après une Aufklärung). Il doit
+   appartenir à `geplanteTeile \ teileGespielt`. Le fil d'étapes du bilan
+   l'emploie pour choisir le Teil suivant.
+3. **« Continuer » / « Terminer ici »** sont les deux sorties de **chaque**
+   `bilanz` : `partieSuivante` et `versChecklist`. La règle 8 reste en
+   vigueur. La sortie est rendue une seule fois à l'écran, et son libellé
+   devient « Terminer ici ». S'il ne reste aucun Teil, seule « Terminer ici »
+   existe : elle est la seule transition permise, et la vue demande à
+   `erlaubt`.
+
+### 10.3 Lancer depuis une tâche
+
+`/simulation/:caseId/pre?task=<id>&depart=<t>` : `depart` = premier Teil de
+`teileDeTache(task)` non encore joué ce jour (`training-journal.md` §12.2).
+`geplanteTeile` reste à trois Teile (INV-70) : le candidat peut faire plus
+que ce qui reste, jamais moins que ce qu'il veut. `taskId` suit la règle R-C4
+existante (`resolveSimulationTask`).
+
+### 10.4 Le marqueur d'enchaînement
+
+```ts
+export const enchainiert = (lauf: Lauf): boolean =>
+  (['anamnese', 'dokumentation', 'fallvorstellung'] as SimTeil[]).every((t) => lauf.teileGespielt.includes(t))
+  && lauf.unterbrochen !== true
+  && lauf.mode !== 'external-ai';
+```
+
+- « D'un trait » = les trois Teile dans **une même partie**, sans reprise.
+  L'ordre n'est pas contraint (question ouverte, posée à la direction). Une
+  Aufklärung intercalée ne l'interrompt pas : le jury peut l'appeler à tout
+  moment. `zurueckZurPartie` et `zurueckZumBilanz` ne l'interrompent pas non
+  plus : ce sont des gestes dans la partie.
+- **Interruption** = toute reprise depuis la persistance (§3.1) : barre de
+  reprise, rechargement d'onglet, retour au runner après l'avoir quitté.
+- `speichern` écrit `Simulation.enchaine = true` seulement si
+  `enchainiert(lauf)` (§3.2). `TrainingEvent.enchaine` s'en dérive
+  (`training-journal.md` §2.3), et l'état `prêt` du cas aussi (§12.5,
+  INV-56).
+
+### 10.5 Écran de fin de partie
+
+`gespeichert` affiche le `CaseDial` du cas avec
+`vientDEtreJoue = teileGespielt ∩ SimTeil` (`training-journal.md` §12.6).
+Ce Teil n'est plus annoncé comme un résultat isolé.
+
+### 10.6 Muster guidé / libre
+
+**Ce qui change** : `MusterCity` (`'Standard' | 'Freiburg' | 'Karlsruhe' |
+'Reutlingen' | 'Stuttgart'`, `db/types.ts:65`) devient
+
+```ts
+export type MusterArt = 'guide' | 'libre';
+/** Lecture tolérante, totale (INV-74). */
+export const musterArt = (m: MusterArt | MusterCity | undefined | null): MusterArt =>
+  m === 'libre' ? 'libre'
+  : m === 'guide' || m === 'Standard' || m == null ? 'guide'
+  : 'libre';                                        // Freiburg, Karlsruhe, Reutlingen, Stuttgart
+```
+
+- **Guidé** : toutes les rubriques de l'anamnèse, avec un champ par rubrique.
+  Ses clés **incluent toutes les clés** du `Standard` actuel (`personalia`,
+  `hauptbeschwerde`, `vegetativ`, `vorerkrankungen`, `sozial`, `familie`,
+  `allergien`, `impfung`, `noxen.*`, `frauen`), plus `medikamente`. La liste
+  exacte est un contenu, au pôle Expérience. Contrat : pas de clé `Standard`
+  retirée.
+- **Libre** : les rubriques d'identité (`personalia`), puis un grand champ de
+  rédaction libre, à la clé **nouvelle** `freitext`.
+- Les villes sont rangées en « libre » : leur forme réelle est « données de
+  fond + Bericht » (`musterBogen.ts:56-86`).
+
+**Inventaire de ce qui lit `MusterCity` / `muster` / `bogen`** (vérifié par
+`grep` sur `app/src`, `app/supabase`, `app/scripts`) :
+
+| Lecteur | Ce qu'il lit | Migration |
+|---|---|---|
+| `data/guides/musterBogen.ts:36-88` (`MUSTER_BOGEN`, `MUSTER_CITIES`) | specs par ville | remplacés par deux specs `guide` / `libre`. Les cinq specs de ville sont **conservées en lecture seule** (`MUSTER_BOGEN_LEGACY`), pour leurs libellés. |
+| `data/guides/musterModels.ts`, `components/MusterModelPicker.tsx` | regroupement par forme, sélecteur à cinq villes | remplacés par un choix à deux options |
+| `store/ui.ts:55,124-125` (`localStorage['fsp-muster']`) | réglage par défaut | lu par `musterArt()`, et réécrit en `guide`/`libre` au premier `setMuster` |
+| `features/simulation/AnamneseBogen.tsx:25` | `MUSTER_BOGEN[muster]` pour la saisie | spec de `musterArt(lauf.muster)`. Une clé déjà saisie absente du nouveau spec reste éditable dans une rubrique « Autres notes ». |
+| `features/simulation/ImmersiveMode.tsx:115-120` | champ de note courant | idem. Le repli `hauptbeschwerde` existe en guidé, `freitext` en libre. |
+| `components/BogenPreview.tsx:15,33` (Dokumentation, Fallvorstellung) | itère **`spec.fields` seulement** | **doit** rendre toute clé non vide de `bogen`, libellée par le spec courant, sinon par `MUSTER_BOGEN_LEGACY`, sinon par la clé elle-même (INV-74). C'est le seul vrai risque de perte (d'affichage). |
+| `ArztbriefGuide.tsx:22,35`, `VorstellungGuide.tsx:21,51`, `SimulationRunner.tsx:365,386,472,494` | transmettent `muster` à `BogenPreview` | type `MusterArt`. Aucune autre logique. |
+| `lib/lauf/{types,automat,speichern}.ts`, `lib/simulationSave.ts:31,72`, `store/simSession.ts:33,124` | stockent `muster`/`bogen` tels quels | type `MusterArt`. `bogen` inchangé (`Record<string,string>`). |
+| `db/types.ts:505` `Simulation.muster` | historique | **jamais réécrit**. Il est lu par `musterArt()`. |
+| sync `simulation.completed` | payload sans schéma serveur (`events/index.ts`) | aucune migration. Un client série 3 qui lit `'guide'`/`'libre'` indexe `MUSTER_BOGEN[m]` → `undefined` (**plantage d'affichage possible** chez un client non mis à jour, lecture seule de l'historique). Accepté : deux comptes, une seule app déployée. |
+| scoring (`scoring.ts`), Arztbrief IA, `case_progress` | **ne lisent pas** `muster` ni `bogen` | — |
+| `data/caseMuster.ts` (`musterSaetze`) | **autre notion** : phrases modèles d'Arztbrief/Fallvorstellung | non concerné (ADR-0021, contradiction 8) |
+| `content_items.kind = 'muster'` (`20260915000004_content.sql:9`) | contenu `caseMuster` publié | non concerné |
+
+**Aucune perte de notes** : `bogen` n'est jamais réécrit, aucune clé n'est
+renommée, et l'aperçu rend toutes les clés non vides (INV-74).
