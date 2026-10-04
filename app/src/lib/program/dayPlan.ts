@@ -139,7 +139,7 @@ export function buildTasks(input: BuildInput, mkId: () => string = newId): TaskI
     push({
       // M-a : borné au budget du jour — un gros arriéré ne remplit pas la journée au-delà.
       kind: 'drill', label: 'Fachbegriffe', estMin: Math.min(Math.ceil(drillTotal * 0.4), targetMin),
-      reason: `${terms.due} terme${terms.due > 1 ? 's' : ''} dû${terms.due > 1 ? 's' : ''} aujourd'hui, plus les nouveaux du budget.`,
+      reason: `${terms.due} terme${terms.due > 1 ? 's' : ''} ${terms.due > 1 ? 'dus' : 'dû'} aujourd'hui, plus les nouveaux du budget.`,
     });
   }
 

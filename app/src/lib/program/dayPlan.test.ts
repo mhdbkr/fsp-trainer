@@ -263,3 +263,21 @@ describe('INV-8 — replanifier conserve tout ce qui est fait', () => {
     expect(await db.day_plans.count()).toBe(0);
   });
 });
+
+// C6-B point 2 — l'accord : « dus », jamais « dûs » (participe passé de devoir,
+// pluriel masculin : « dus » ; « dû » au singulier seulement).
+const terme = (id: string, state: 'Neu' | 'Gelernt', dueDate: number) => ({
+  id, term: id, srs: { interval: 6, easeFactor: 2.5, dueDate, repetitions: 2, lapses: 0, state },
+}) as never;
+const NOW = Date.parse('2026-10-01T08:00:00Z');
+const dus = (n: number) => Array.from({ length: n }, (_, i) => terme(`d${i}`, 'Gelernt', NOW - DAY_MS));
+const nouveaux = (n: number) => Array.from({ length: n }, (_, i) => terme(`n${i}`, 'Neu', NOW));
+const drillDe = (begriffe: never[]) => buildTasks(input({ begriffe, now: NOW }), ids()).find((t) => t.kind === 'drill');
+
+describe('C6-B · l’accord de « dus »', () => {
+  it('pluriel : « dus » ; singulier : « dû » ; jamais « dûs »', () => {
+    expect(drillDe(dus(4) as never[])!.reason).toMatch(/\b4 termes dus\b/);
+    expect(drillDe(dus(1) as never[])!.reason).toMatch(/\b1 terme dû(?!s)/);
+    expect(drillDe([...dus(4), ...nouveaux(3)] as never[])!.reason).not.toContain('dûs');
+  });
+});
