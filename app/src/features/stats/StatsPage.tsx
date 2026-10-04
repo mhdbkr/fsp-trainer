@@ -12,7 +12,7 @@ import { useProgramConfig } from '@/hooks/useData';
 import { TEILE } from '@/lib/simScope';
 import { Icon } from '@/components/icons';
 import { AXES } from '@/db/types';
-import { FACHBEGRIFFE_MIN_VUES, axisScoresFull, fachbegriffeVus, specialtyScores, progressSeries, weakCases, weakestAxis } from '@/lib/stats';
+import { FACHBEGRIFFE_MIN_VUES, axisScoresFull, fachbegriffeVus, radarData, specialtyScores, progressSeries, weakCases, weakestAxis } from '@/lib/stats';
 import { ScoreBar, EmptyState } from '@/components/ui';
 
 export function StatsPage() {
@@ -39,7 +39,7 @@ export function StatsPage() {
   const bySpecialty = specialtyScores(sims, cases);
   const series = progressSeries(sims);
   const weakList = weakCases(progress, cases, 5);
-  const radarData = AXES.map((a) => ({ axis: a.slice(0, 8), score: scores[a] ?? 0 }));
+  const radar = radarData(scores);
 
   return (
     <div className="space-y-6">
@@ -72,14 +72,18 @@ export function StatsPage() {
         {/* Radar par axe */}
         <section className="card p-5">
           <h2 className="mb-3 font-semibold">Profil par axe</h2>
+          {radar === null ? (
+            <p className="text-sm text-slate-500 dark:text-slate-400">Le profil se dessine dès que 3 axes sont mesurés.</p>
+          ) : (
           <ResponsiveContainer width="100%" height={280}>
-            <RadarChart data={radarData}>
+            <RadarChart data={radar}>
               <PolarGrid className="stroke-slate-200 dark:stroke-slate-700" />
               <PolarAngleAxis dataKey="axis" tick={{ fontSize: 11, fill: 'currentColor' }} className="text-slate-500" />
               <PolarRadiusAxis domain={[0, 100]} tick={{ fontSize: 9 }} />
               <Radar name="Score" dataKey="score" stroke="#2b9689" fill="#2b9689" fillOpacity={0.4} />
             </RadarChart>
           </ResponsiveContainer>
+          )}
         </section>
 
         {/* Progression */}

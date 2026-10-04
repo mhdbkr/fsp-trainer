@@ -61,6 +61,16 @@ export function axisScoresFull(sims: Simulation[], begriffe: Fachbegriff[], case
   return base;
 }
 
+/** Minimum d'axes mesurés pour que le radar ait une forme. */
+export const RADAR_MIN_AXES = 3;
+
+/** Points du radar : seulement les axes MESURÉS (un `null` n'est pas un creux à 0),
+ *  ou `null` s'il y en a trop peu pour dessiner un polygone. */
+export function radarData(scores: Record<Axis, number | null>): { axis: string; score: number }[] | null {
+  const pts = AXES.filter((a) => scores[a] !== null).map((a) => ({ axis: a.slice(0, 8), score: scores[a]! }));
+  return pts.length >= RADAR_MIN_AXES ? pts : null;
+}
+
 export function weakestAxis(scores: Record<Axis, number | null>): { axis: Axis; score: number } | null {
   let best: { axis: Axis; score: number } | null = null;
   for (const a of AXES) {

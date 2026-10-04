@@ -93,3 +93,12 @@ describe('premier lancement — Stats vide', () => {
     expect(container.textContent).not.toMatch(/simulations complètes/);
   });
 });
+
+describe('Radar — pas de creux pour un axe non mesuré', () => {
+  it('une seule partie jouée : pas de polygone, une phrase', async () => {
+    await db.simulations.put(sim('vraie', { anamnese: part(40) }, { scope: 'teil', teil: 'anamnese' }));
+    await monte();
+    expect(container.textContent).toContain('Le profil se dessine dès que 3 axes sont mesurés.');
+    expect(container.querySelector('.recharts-radar')).toBeNull();
+  });
+});
