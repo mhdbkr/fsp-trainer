@@ -193,9 +193,17 @@ describe('PendingExternalSimCard', () => {
   it('absente quand le cas a été joué et évalué dans l\'app après la trace', async () => {
     const at = Date.now() - 60_000;
     await setPending({ caseId: 'c1', targetId: 'gemini', teil: 'anamnese', at });
-    await db.simulations.put({ id: 'sim-local', caseId: 'c1', date: at + 30_000, mode: 'local' } as never);
+    await db.simulations.put({ id: 'sim-local', caseId: 'c1', date: at + 30_000, mode: 'local', parts: { anamnese: { done: true } } } as never);
     render(<MemoryRouter><PendingExternalSimCard /></MemoryRouter>);
     await new Promise((r) => setTimeout(r, 50));
     expect(screen.queryByText(/tu as simulé/i)).toBeNull();
+  });
+
+  it('présente quand la partie jouée dans l\'app après la trace porte sur un AUTRE Teil', async () => {
+    const at = Date.now() - 60_000;
+    await setPending({ caseId: 'c1', targetId: 'gemini', teil: 'anamnese', at });
+    await db.simulations.put({ id: 'sim-doku', caseId: 'c1', date: at + 30_000, mode: 'local', scope: 'teil', teil: 'dokumentation', parts: { dokumentation: { done: true } } } as never);
+    render(<MemoryRouter><PendingExternalSimCard /></MemoryRouter>);
+    expect(await screen.findByText(/tu as simulé/i)).toBeTruthy();
   });
 });
