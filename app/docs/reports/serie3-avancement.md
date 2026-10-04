@@ -156,14 +156,46 @@ rien de cette table.
 | Lot Q0 — implémenteur (devient fixeur) | `doctopus-s3-q0` · `feat/s3-q0-questions-du-cas` | `acd90f173726a129a` | **PR #62 mergée** (4 oct.) | **oui** |
 | Lot Q0 — revue mécanique | lecture seule | `a77b1f874a424ae16` | rendue : Request changes (I-1 relance de cas hors atomicité) + m1–m7 | **oui** |
 | Lot Q0 — revue clinique | lecture seule | `a5ac25017eaaac724` | rendue : approuvé avec réserves (hodentorsion, épaule péricardite, NOTFALL) ; 3 décisions confirmées | **oui** |
-| Lot Q1 — implémenteur | `doctopus-s3-q1` · `feat/s3-q1-aktuell` | `aa77839d0d370c0e3` | **PR #63** ouverte (`341f0eab`, 3 revues corrigées) → CI → **merge sur accord de la direction** → déclenche Q2 | non |
+| Lot Q1 — implémenteur | `doctopus-s3-q1` · `feat/s3-q1-aktuell` | `aa77839d0d370c0e3` | **PR #63 mergée** (`3ac9f820`, 4 oct.) | **oui** |
 | Lot Q1 — revues | lecture seule | clinique `ae3f2807f69066acc` · langue `a751050b5532bf3d0` · mécanique `a291c2076b053b0db` | rendues : clinique 3 réserves (coxarthrose persona/medicalView, bws → règle Fach), langue 6, méca Approve with minors | **oui** |
 | Mécanique à ajouter (revues Q1) | — | — | (a) `checkCaseQuestionAnswers.mjs` informatif + compteur gravé (129/866 questions de cas sans mot retrouvé dans la fiche, ≈ 20 trous réels) ; (b) relance « W-, und W- ? » à un seul « ? » non détectée par la règle A ; (c) ~~contrat §3.6~~ fait dans #63 | avec Q2 |
-| Lots Q2 → Q8, Lc1 → Lc3 | — | — | §10, l'un après l'autre après Q1 | à lancer |
+| **Série 4 — contrat** | `doctopus-s4-contrat` · `feat/s4-contrat-structure` | `a4f5342846f51c81c` | **PR #64** ouverte (`b2c7af16`, docs seulement, 3 revues soldées) → CI → **merge sur accord de la direction**. Prérequis S4-1 : merge C6-A + C6-B | non |
+| Suivi contenu (S4-2) | — | — | table de fréquences par cas × ville dans l'app depuis `apps/site/src/data/frequencies.json` (20/81 pathologies ventilées) | à planifier avec S4-2 |
+| Lot C6-A — revue | lecture seule | `af6bb30623f1df590` | rendue : Needs fixes (I1 Fachwissen point faible par absence ; I2 contrat → S4-0 ; I3 bascule `it.fails` après C6) | **oui** |
+| Lot Q2 — implémenteur | `doctopus-s3-q2` · `feat/s3-q2-relances` | `a49100e50b7d8eee7` | `checkCaseQuestionAnswers` + règle « W-, und W- ? » ; 40 composées → relance ; 9 relances doubles ; trous de réponses → push → revues → PR | non |
+| Lots Q3 → Q8, Lc1 → Lc3 | — | — | §10, l'un après l'autre après Q2 | à lancer |
 | Reports vers Q1/Q2 (revues Q0) | — | — | Q1 : rheumatoide-arthritis « Schuppenflechte », karpaltunnel « Bruch », malaria « Milz », hypothyreose « Entbindungen » ; 10 irradiations avec question de cas ; osteoporose bws. Q2 : relances à 2 questions (alcool, gastro, Kopfschmerz, onko, chir-op, Fieber, Kraft, suizid, `veg-fieber`) | tracé |
 | C6 — candidat synthétique | `doctopus-s3-c6` · `feat/s3-c6-candidat` | `a92b4c2e4d2f21ebc` | revue Opus rendue : Request changes (I1 absence conclue après 80 ms = faux vert ; I2 job jamais tourné, pas de timeout) + m1–m6 → fixeur (autorisé sur `package.json` `test:c6` et tsconfig `tests`) → PR → **à merger AVANT C6-A** | non |
 | C6 — jugement UX | lecture seule | `a06644a85b277a992` | rendu → `c6-jugement-ux-2026-10-04.md` (7 ruptures) | **oui** |
-| Lot C6-A « chiffres honnêtes » | `doctopus-s3-c6a-chiffres` · `feat/s3-c6a-chiffres` | `a09833e671b2389b9` | démos hors base candidat (+ migration), axe Fachbegriffe = rétention des cartes vues, score sans valeurs fantômes, EXAM_CLAIM « barème officiel », série en jours du programme, trajectoire expliquée → push → revue → PR | non |
-| Lot C6-B « le jour du candidat » | `doctopus-s3-c6b-jour` · `feat/s3-c6b-jour` | `ad84ab89cbdc39047` | session du jour Fachbegriffe nommée/déplacée, « dus », ligne jours manqués (Rattraper/Laisser), titres non tronqués à l'accueil, `Date.now()` → `lib/clock` → push → revue → PR | non |
+| Lot C6-A « chiffres honnêtes » | `doctopus-s3-c6a-chiffres` · `feat/s3-c6a-chiffres` | `a09833e671b2389b9` | revue corrigée `f840a923` (Fachwissen sur Teile joués, radar sans axe nul, verdict « Réussi sur le contenu », `?? 50` corrigé à la racine) ; attend le merge de C6 → re-merge `main`, `it.fails`→`it`, retrait `CONNUS.D5s`/D5r → PR | non |
+| Lot C6-B « le jour du candidat » | `doctopus-s3-c6b-jour` · `feat/s3-c6b-jour` | `ad84ab89cbdc39047` | livré `ffd7ca5d` (5 points + 2 décisions de main) ; revue Opus en vol → PR après C6-A ; à brancher après C6-A : `streakFromDays(…, offDays)` Home/Historique, `automat.ts` `?? 50` → `NOT_ENTERED` ; `programmeInvariants.mjs` à rejouer machine calme | non |
 | `main` après C6 | — | — | `test:c6` dans `package.json`, `tests` dans tsconfig ; test instable `ExternalAiSheet` corrigé (`48a36bd3`) | à faire au merge de C6 |
 | Lots L1 → L15 | — | — | §10, l'un après l'autre (mêmes fichiers) | à lancer |
+
+## 12. Plan d'ensemble (4 oct. 2026) — trois voies, fichiers disjoints
+
+Décisions du 4 oct. : les 4 recommandations « cas entier » ; pré-simulation réordonnée ; Muster guidé / libre ; Examen en dernier ; état `prêt` (anneau soudé) ; les 6 ajouts du cerveau (consolidation espacée, solide stable, erreurs transversales, durées apprises, rythme proposé, couverture pondérée par la fréquence).
+
+**Voie A — Contenu (un lot à la fois, `seedCases.ts` / guides / `check*.mjs`)** : Q2 (en vol) → Q3 → Q4 → Q5 → Q6 → Q7 → Q8 → Lc1 (leberzirrhose : fiche, Fachwissen, visuel) → Lc2 (fiches C0 gratuites) → Lc3 (C1/C2 < 15 k) → reliquat L1–L15 jusqu'à A = B = C = 0 et 130 cas audités. Q-8 (5 prompts > 10 k car.) entre dans Lc. Indépendante des voies B et C.
+
+**Voie B — Clôture série 3 (fiabilité)**, dans cet ordre (mêmes fichiers) : PR C6 (harnais) → PR C6-A (chiffres honnêtes) → PR C6-B (le jour du candidat). Puis la série 3 est close.
+
+**Voie C — Série 4 « le cas entier, mesuré au Teil »**, chaque chantier = implémenteur → revues (mécanique Opus + métier) → C6 étendu au nouveau parcours → PR → merge par la direction :
+- S4-0 contrat + ADR-0021/0022 (en vol) → revue → PR.
+- S4-1 la mesure : échelle vierge/entamé/couvert/solide/prêt, solide stable, couverture et maîtrise séparées. Après C6-A.
+- S4-2 le plan : tâche de cas (« il te reste… »), règle de complétion, consolidation espacée, « d'un trait », durées apprises, rythme proposé, erreurs transversales, couverture pondérée par la fréquence ; absorbe Q-9 (config non synchronisée) et M-b (refus de rattrapage multi-appareils). Après C6-B. **Chantier critique : invariants d'abord.**
+- S4-3 la partie : entrée unique, « Terminer ici », départ sur un autre Teil, marqueur d'enchaînement ; pré-simulation réordonnée, Muster guidé/libre ; retire « Couche 1 ».
+- S4-4 le cadran `CaseDial` : carte de cas, ligne de tâche, pré-simulation, fin de partie, anneau soudé.
+- S4-5 Programme refait (aujourd'hui / semaine / jusqu'à l'examen / carte de couverture) ; absorbe Q-6 (débord 390 px).
+- S4-6 Historique « carnet de séances » (+ événement local « terme cherché »).
+- S4-7 Examen (audit `feat/pruefungstag` puis remplacement de la page Simulation). En dernier.
+S4-1 peut démarrer pendant la voie B (fichiers `lib/journal`, `lib/stats` après C6-A) ; S4-2 et S4-3 attendent C6-B.
+
+**Décisions du 4 oct. (suite)** : voies A, B, C d'abord, **KP après** ; verdict d'une partie sans langue notée = **réussite sur le contenu** (le verdict complet attend la langue).
+
+**Ajouts du 4 oct. (retours d'usage)** :
+- **Voie A, lot Q-gyn, juste après Q2** (même fichier `anamneseChapters.ts`) : quand la Fach Gynäkologie est jouée, la Frauenanamnese s'y FOND — un seul bloc gynéco dans l'ordre clinique, sans doublon (`frau-wechseljahre` « Frauenarzt » ⊂ `fach-gyn-vorsorge` ; `frau-periode` recoupe `fach-gyn-blutung` ; `frau-verhuetung` / `fach-gyn-kinderwunsch` / « Hormone » de `fach-gyn-eingriffe` à départager) ; les 2–3 questions propres à la Frauenanamnese (dernières règles, possibilité de grossesse, contraception) restent, placées en tête du bloc. Mécanisme existant étendu (`FACH_COVERS` ou repli de chapitre), garde CI : aucun signe demandé deux fois quand la Fach gynéco est jouée. Relecture clinique gynéco obligatoire.
+- **Lot F « favoris → drill », juste après le merge de C6-B** (fichiers `lib/collections/*`, `DrillPage`, partie drill de `dayPlan.ts`) : un terme mis en favori est « à revoir bientôt » — jamais vu : il entre au drill suivant, TOUS les favoris de la séance (pas 3 places) ; déjà appris : son échéance SRS est avancée au lendemain ; le drill qui suit le cas commence par les favoris de ce cas ; la tâche drill du programme compte « dont N favoris de ta séance ». Aujourd'hui : bonus de pertinence 48 h seulement sur les termes `Neu` et 3 places réservées (`drillQueue.ts:RESERVED_NEW`, `relevance.ts:36`).
+
+**Restent à la direction** : Q-7 (test ChatGPT 5 min) ; Q-10 (secrets de la fonction `ai`, 503) ; PR #48, #49, #52 ; branches dormantes `feat/characters`, `feat/site-v2` ; ~~calendrier KP~~ (tranché : après A, B, C).
+**Suivis techniques** (absorbés quand le fichier est rouvert) : `StatusBadge` mort ; `CardFlip` dans le verre de `CardToast` ; `.input` flouté dans cartes floutées ; « tournures officielles » `SimulationSetup.tsx:119` (S4-3) ; `Hero.astro:21` (site) ; contrat `simulation-run.md` sentinelle `-1` (S4-0).
