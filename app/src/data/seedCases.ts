@@ -21169,8 +21169,8 @@ export function seedCases(): Case[] {
         { frage: 'Ist die Brust irgendwo gerötet, überwärmt oder wie eine Orangenhaut verändert?', kapitel: 'aktuell' },
         { frage: 'Haben Sie Knoten in der Achselhöhle, am Schlüsselbein oder am Hals getastet?', kapitel: 'aktuell' },
         { frage: 'Sind Sie an der Brust gestürzt, gestoßen, operiert oder bestrahlt worden?', kapitel: 'vorerkrankungen' },
-        { frage: 'Wann hatten Sie Ihre erste und Ihre letzte Regel, wie viele Kinder haben Sie geboren, in welchem Alter, und haben Sie gestillt?', kapitel: 'frauenanamnese' },
-        { frage: 'Nehmen Sie Hormone — eine Hormonersatztherapie gegen Wechseljahresbeschwerden oder früher die Pille?', kapitel: 'medikamente' },
+        { frage: 'In welchem Alter hatten Sie Ihre erste Regel?', kapitel: 'frauenanamnese' },
+        { frage: 'Haben Sie schon einmal gestillt?', kapitel: 'fach' },
         { frage: 'Gibt es in Ihrer Familie Brustkrebs oder Eierstockkrebs?', kapitel: 'familie-sozial', followUp: 'Falls ja: In welchem Alter sind die Angehörigen erkrankt?' },
         { frage: 'Haben Sie Knochenschmerzen oder Husten bemerkt, die neu aufgetreten sind?', kapitel: 'vegetativ' },
       ],
@@ -32500,10 +32500,8 @@ export function seedCases(): Case[] {
       caseSpecificQuestions: [
         { frage: 'Wie lange dauert Ihre Blutung, und wie viele Binden oder Tampons brauchen Sie an den starken Tagen? Müssen Sie auch nachts wechseln?', kapitel: 'aktuell', relu: true },
         { frage: 'Gehen bei Ihnen dabei Blutklumpen ab — wie groß sind die etwa?', kapitel: 'aktuell' },
-        { frage: 'Wie lang ist Ihr Zyklus, und hat er sich verändert? Wann war Ihre letzte Regelblutung?', kapitel: 'frauenanamnese' },
         { frage: 'Müssen Sie häufiger Wasser lassen als früher, auch nachts? Haben Sie das Gefühl, die Blase nicht ganz zu entleeren?', kapitel: 'aktuell' },
         { frage: 'Sind Sie schneller müde als früher, kommen Sie beim Treppensteigen außer Atem, ist Ihnen schwindelig?', kapitel: 'aktuell' },
-        { frage: 'Besteht ein Kinderwunsch, oder ist Ihre Familienplanung abgeschlossen?', kapitel: 'familie-sozial', followUp: 'Wie viele Schwangerschaften hatten Sie?' },
         { frage: 'Hatten Sie schon als junges Mädchen sehr starke Blutungen? Bluten Sie leicht aus der Nase oder am Zahnfleisch, bekommen Sie schnell blaue Flecken?', kapitel: 'aktuell', relu: true },
       ],
       examinerQuestions: [
@@ -50322,7 +50320,7 @@ export function seedCases(): Case[] {
         { frage: 'Wie viele Schmerztabletten brauchen Sie pro Regel, und wie viele Tage im Monat können Sie deswegen nicht arbeiten?', kapitel: 'aktuell' },
         { frage: 'Haben Sie Schmerzen beim Geschlechtsverkehr — eher am Anfang, oder tief im Inneren?', kapitel: 'aktuell' },
         { frage: 'Haben Sie während der Regel Beschwerden beim Wasserlassen oder Blut im Urin?', kapitel: 'aktuell', relu: true },
-        { frage: 'Haben Sie die Pille genommen — und wie waren die Schmerzen unter der Pille im Vergleich zu heute?', kapitel: 'medikamente' },
+        { frage: 'Wie waren die Schmerzen unter der Pille im Vergleich zu heute?', kapitel: 'medikamente' },
         { frage: 'Hat Ihre Mutter oder Ihre Schwester ähnliche Beschwerden oder eine Gebärmutteroperation gehabt?', kapitel: 'familie-sozial' },
       ],
       examinerQuestions: [
@@ -53678,7 +53676,6 @@ export function seedCases(): Case[] {
         { frage: 'Haben die Unterbauchschmerzen kurz nach Ihrer letzten Periode begonnen?', kapitel: 'frauenanamnese' },
         { frage: 'Ich stelle diese Fragen allen Patientinnen mit solchen Beschwerden, weil sie für die Behandlung wichtig sind: Haben Sie einen neuen Partner, benutzen Sie Kondome, und hat Ihr Partner Beschwerden?', kapitel: 'familie-sozial' },
         { frage: 'Hatten Sie schon einmal eine Geschlechtskrankheit oder eine Entzündung im Unterleib?', kapitel: 'vorerkrankungen' },
-        { frage: 'Haben Sie eine Spirale, oder wurde in letzter Zeit ein Eingriff an der Gebärmutter durchgeführt?', kapitel: 'frauenanamnese' },
         { frage: 'Ist der Schmerz vom Bauchnabel in den rechten Unterbauch gewandert?', kapitel: 'aktuell' },
         { frage: 'Haben Sie Schmerzen im rechten Oberbauch oder in der Schulter, vor allem beim Atmen?', kapitel: 'aktuell' },
       ],
