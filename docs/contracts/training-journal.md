@@ -5,6 +5,13 @@
 > `app/docs/reports/audit-simflow-serie3.md`,
 > `docs/superpowers/specs/2026-09-30-serie3-analyse-et-chantiers.md` §4 et §6.2.
 > Consommé par : C1 (programme & historique), C2 (simulation), C3 (pont IA), C6 (harnais).
+>
+> **Amendé — série 4 (4 oct. 2026)** · `platform-architect` · ADR-0021 et ADR-0022.
+> Le cas devient l'unité d'intention, et le Teil reste l'unité de mesure.
+> Nouvelles sections : §12 (tâche de cas, complétion, couverture et maîtrise,
+> échelle d'états, cadran) et §13 (le cerveau du programme). Les sections
+> amendées sont marquées *[S4]* ; la règle série 4 l'emporte sur le texte
+> d'origine qui la précède.
 
 ---
 
@@ -16,7 +23,7 @@ provisoires n'est une décision produit : ce sont des no-op conservateurs.
 
 | # | Question | Comportement provisoire opposable |
 |---|---|---|
-| **Q1** | Quel `Fortschrittsmodus` est le **défaut** quand le candidat n'a jamais répondu, et **à quel moment** la question lui est posée (onboarding / première ouverture du programme / jamais) ? | `mode = 'teil-first'` (c'est la seule valeur déjà présente dans `ProgramConfig.strategy`), **jamais demandé**. Un écran de choix n'est pas construit tant que Q1 n'est pas tranchée. |
+| **Q1** | Quel `Fortschrittsmodus` est le **défaut** quand le candidat n'a jamais répondu, et **à quel moment** la question lui est posée (onboarding / première ouverture du programme / jamais) ? | **Tranchée** — d'abord en « déduit puis proposé » (30 sept., `modus.ts:1-10`), puis *[S4]* en **« observé, jamais proposé ni demandé »** (direction, 4 oct., ADR-0021). Mode effectif = `observeModus(journal)`, ou `'cas-complet'` à défaut (§12.4). |
 | **Q2** | « Replanifier » réécrit-il **le jour courant seulement** ou **le jour courant et tous les jours futurs déjà matérialisés** ? | Le jour courant seulement. Aucun jour futur n'est matérialisé d'avance (§3.1). |
 | **Q3** | Une séance **auto-déclarée** (IA externe, entraînement hors app) compte-t-elle dans l'indice de préparation et la série (streak) **au même titre** qu'une séance jouée dans l'app ? | Elle entre dans l'historique et dans le temps investi ; elle **n'entre pas** dans l'indice de préparation ni dans les scores par axe. `TrainingEvent.selbstbewertet = true` la marque. |
 | **Q4** | Le rattrapage d'un jour manqué est-il **proposé** (accord explicite) ou **ignoré** ? | Ignoré : un jour non matérialisé n'existe pas, rien ne s'accumule. Aucune notion de « retard » n'est affichée. |
@@ -50,6 +57,10 @@ export interface TrainingEvent {
   scores?: Partial<Record<SimTeil, number>>; // 0..100 par Teil joué
   selbstbewertet?: boolean;    // true = score déclaré par le candidat, pas mesuré
   profileId?: string;          // profil crédité
+  // [S4] — DÉRIVÉS de `simulation.completed` (§2.3), jamais écrits par `training.logged`
+  enchaine?: true;             // les 3 Teile joués d'un trait (simulation-run.md §10.4)
+  minutesParTeil?: Partial<Record<SimTeil, number>>; // durée mesurée par Teil (§13.4)
+  manques?: Partial<Record<SimTeil, ChecklistItemId[]>>; // items NON cochés par Teil joué (§13.3)
 }
 ```
 
@@ -132,7 +143,16 @@ TrainingEvent.id      = `te-${sim.id}`        // déterministe, idempotent
         .scores       = { t: partScore(parts[t]) } pour chaque t joué
         .selbstbewertet = sim.mode === 'external-ai'
         .profileId    = sim.profileId
+  [S4]  .enchaine     = sim.enchaine === true && teile.length === 3 && !selbstbewertet ? true : absent
+        .minutesParTeil = { t: round(parts[t].durationSec / 60) } pour chaque t joué, si durationSec > 0
+        .manques      = { t: ids des items de parts[t].checklist avec checked === false } pour chaque t joué,
+                        ids legacy `cl-N` traduits à la lecture (simulation-run.md §4.4) ; absent si selbstbewertet
 ```
+
+*[S4]* Une `Simulation` antérieure n'a pas `enchaine` : elle n'est **jamais**
+enchaînée rétroactivement (ADR-0021, contradiction 12). Les trois champs
+dérivés ne passent pas par `training.logged` : son schéma serveur est
+`.strict()` (`events/index.ts:30-37`) et n'a pas à changer.
 
 Rétrocompatibilité de l'historique : les `Simulation` déjà enregistrées se
 projettent par la même règle. Aucune migration destructive, aucun backfill
@@ -152,7 +172,10 @@ export interface TaskInstance {
   date: string;                // ISO yyyy-MM-dd, = la clé du DayPlan porteur
   kind: TaskKind;
   caseId?: CaseId;
-  teil?: SimTeil;              // absent = run complet
+  teil?: SimTeil;              // [S4] LECTURE SEULE (plans série 3) ; jamais écrit — voir `teileDeTache` §12.1
+  teile?: SimTeil[];           // [S4] ce qui RESTAIT au moment du plan, ordre d'examen ; non vide sur toute tâche de cas
+  rappel?: ChecklistItemId;    // [S4] erreur transversale à rappeler, au plus une, figée (§13.3)
+  dUnTrait?: true;             // [S4] ne se coche que par une partie enchaînée (§12.2, §13.1)
   layer?: Layer;
   specialty?: Specialty;
   estMin: number;
@@ -214,6 +237,13 @@ Si trouvée : poser `doneAt = event.at`, `spentMin = event.spentMin`,
 Sinon : l'événement reste `'libre'`. **La machine s'adapte à l'humain** ; aucune
 tâche n'est créée pour absorber un exercice libre.
 
+*[S4]* La dernière condition devient
+`teileDeTache(task) ⊆ teileJouesLeJour(task.date, task.caseId)`, cet
+événement compris (règle de complétion, §12.2). Pour une tâche `dUnTrait`, la
+condition est `event.enchaine === true`. Le code série 3 applique déjà ce
+cumul aux tâches sans `teil` (`completeAssez`, `journal.ts:346-347`). La
+série 4 l'étend à toute tâche de cas.
+
 ---
 
 ## 4. La progression par Teil
@@ -270,6 +300,15 @@ overall   = tous 'vierge'                     → 'vierge'
 60 = seuil de réussite déjà porté par `simulationPassed()` (`scoring.ts:77-81`).
 80 = seuil de maîtrise déjà porté par `simulationSave.ts:71`. Aucun seuil neuf.
 
+*[S4]* **`status` n'est plus une fonction du seul `lastScore`** : il suit
+l'automate « solide stable » de §13.2 (deux réussites espacées de ≥ 3 jours,
+descente d'un cran). `attempts`, `lastScore` et `lastAt` gardent la définition
+ci-dessus. `CaseProgress` gagne `couverture`, `maitrise`, `etat`, `pretAt`,
+`solideDepuis` et `prochaineConsolidation` (§12.5). `overall` est **déprécié**
+et se dérive de `etat` : `vierge → 'vierge'`, `entame | couvert → 'entame'`,
+`solide | pret → 'solide'`. Ainsi, `coverage.ts` et `layerFor`
+(`dayPlan.ts:110-111`) restent lisibles sans changement.
+
 Les événements `selbstbewertet: true` sont **exclus** du calcul de
 `case_progress` — de `attempts`, de `lastScore`, de `lastAt`. Sans quoi un Teil
 passerait de `vierge` à `fragile` sans qu'aucune performance ait été mesurée
@@ -324,6 +363,11 @@ fraicheur(c) = jamais joué ? 1
 
 - `detteTeil === 0` ⇒ `score === 0` ⇒ le cas **sort** des candidats. C'est la
   seule exclusion ; il n'y a pas de liste d'exclus.
+  *[S4]* **Amendé par §13.1** : un cas solide sort **jusqu'à sa prochaine
+  consolidation**, plus pour toujours. Ce jour-là, son score vaut
+  `freq × urgence × POIDS_CONSOLIDATION × fraicheur`.
+- *[S4]* `now` dans `SelectContext` = **début du jour `date`**, jamais
+  l'instant de matérialisation (INV-55, §12.3).
 - **`disciplineBoost` est supprimé** (`program.ts:57-69,76`) : une boucle de
   rétroaction par spécialité rend le classement monochrome (13 cas de Gastro,
   les plus fréquents du corpus).
@@ -383,6 +427,11 @@ Effet, et rien d'autre :
 `ProgramConfig.strategy` (`'teil-first' | 'full'`) est **remplacé** par `modus`.
 Lecture tolérante : `strategy === 'full'` → `modus = 'cas-complet'`.
 
+*[S4]* **Remplacé par §12.4.** Le mode n'est plus choisi, ni proposé, ni lu
+dans `ProgramConfig` : il est **observé**. Aucune tâche ne porte plus de Teil
+seul. Le tableau ci-dessus vaut pour les plans série 3 déjà figés, et pour eux
+seuls.
+
 ---
 
 ## 7. La source unique de la session du jour
@@ -426,6 +475,41 @@ opposable ; un test qui ne porte pas cet identifiant ne compte pas.
 | **INV-11** | `selbstbewertet === true` ⇒ les MESURES du `CaseProgress` (`status`, `lastScore`, `lastAt`, `attempts`, `overall`) sont inchangées par cet événement ; seul `TeilProgress.nonMesureAt` le note (« faite — non mesurée », décision I-4). Un cas joué seulement en IA externe a donc une ligne `case_progress` « vierge » portant `nonMesureAt`. | séances IA externe |
 | **INV-12** | `taperLen` et toute fenêtre de phase se calculent sur la **date d'examen**, jamais sur les jours restants : la phase d'un jour figé ne change plus. (corrige `program.ts:35-37,136`) | horloge avancée d'un jour |
 
+**Modifié *[S4]*.** **INV-4** s'applique à **tout** plan dont `mode !== 'specialite'`,
+et plus seulement à `teil-first` : C1/C2 ne sont plus suspendues en
+`cas-complet` (ADR-0021, contradiction 7). Le test C6
+(`invariants.programme.test.ts:113`, « en teil-first ») est réécrit sur le
+mode observé `cas-complet`. INV-1 à INV-3 et INV-5 à INV-12 sont inchangés.
+
+### 8.1 Invariants série 4 — le cas entier (§12)
+
+Chaque ligne nomme la **mutation** qui doit faire rougir le test. Un test qui
+reste vert sous sa mutation ne garde rien.
+
+| Id | Propriété | Générateur | Mutation qui doit rougir |
+|---|---|---|---|
+| **INV-50** | Toute tâche `simulation \| revision \| examen-blanc` matérialisée par un client série 4 porte `teile` non vide, sans `teil`. Pour `simulation`, `teile` = les Teile non `solide` du cas au moment du plan, dans l'ordre d'examen. Pour `revision` et `examen-blanc`, `teile` = les trois. | 14 jours, corpus complet, journaux aléatoires | `buildTasks` repose `teil: teilDuJour` (`dayPlan.ts:185`), ou `teile` = le seul Teil fragile |
+| **INV-51** | **Une partie partielle ne coche jamais une tâche de cas incomplète** : `T.doneAt !== undefined` ⇔ `teileDeTache(T) ⊆ teileJouesLeJour(T.date, T.caseId)`, ou, si `T.dUnTrait`, ⇔ il existe un événement `enchaine` du cas ce jour-là. | parties libres d'un, deux ou trois Teile, réparties dans la journée, dans tous les ordres | `completeAssez` en `some` au lieu de `every` (`journal.ts:347`), ou bien `dUnTrait` ignoré |
+| **INV-52** | **Une partie partielle n'est jamais comptée manquée** : `statutTache(T) ∈ {'faite', 'entamee', 'a-faire'}`, et l'avancement non vide d'une tâche non faite ⇒ `'entamee'`. Aucun état « manquée » n'existe. Le rattrapage d'une tâche entamée propose **exactement** `teileDeTache(T) \ avancement(T)`, sans rien modifier avant `accepterRattrapage`. | plan de la veille avec des tâches entamées, faites et vierges | `statutTache` rend `'a-faire'` pour une tâche entamée, ou une reprise porte `teileDeTache(T)` en entier |
+| **INV-53** | **La maîtrise d'un cas ne baisse jamais par absence d'un Teil** : `maitrise === null` ⇔ `couverture === 0`. Sinon, `min(lastScore joués) ≤ maitrise ≤ max(lastScore joués)`. | tout journal, un seul Teil joué à 90 compris | `maitrise = Σ lastScore / 3` (le `/3` de `simScope.ts:42`, série 2) |
+| **INV-54** | **Un ancien plan figé reste lisible** : pour un plan série 3 (tâches `teil` sans `teile`), `projectDayPlans` et `satisfiedTask` donnent exactement les mêmes `doneAt` que la règle série 3. `teileDeTache` vaut `[teil]`, ou les trois pour un run complet sans `teil`. | fixture gelée : journal C6 série 3 et ses plans | `teileDeTache` ignore `teil` (toute tâche ancienne exigerait les trois Teile) |
+| **INV-55** | **Deux appareils, même journal, même plan** : `buildTasks` appelé à deux instants du même jour `date`, avec le même journal, la même config et le même état SRS, rend les mêmes tâches **modulo `id`**. | paires d'instants dans `[00:00, 23:59]` du même jour | `selectContext` lit `input.now` (`dayPlan.ts:230`) ou `counts(begriffe, input.now)` (`dayPlan.ts:136`) — **rouge sur le code actuel** (ADR-0021, contradiction 6) |
+| **INV-56** | **Un cas `prêt` exige un enchaînement réel** : `etat === 'pret'` ⇒ trois Teile `solide`, **et** il existe un `TrainingEvent` non `selbstbewertet` avec `enchaine === true`, `teile.length === 3` et chaque score ≥ `PART_SOLIDE`. `pretAt` = `at` du plus récent de ces événements. | journaux mêlant runs complets enchaînés, interrompus, et trois Teile séparés le même jour | `prêt` dérivé de « trois Teile solides le même jour » ou de `isFullSimulation` |
+| **INV-57** | **Le mode est observé, jamais lu dans la config** : `DayPlan.mode === observeModus(journal à materializedAt) ?? 'cas-complet'`, quel que soit `ProgramConfig.modus` ou `strategy`. | configs portant `modus`/`strategy` de toutes valeurs | `modusOf(config)` (`dayPlan.ts:39-42`) reste la source du mode |
+| **INV-58** | **Une tâche de cas existe chaque jour ouvré où un candidat existe**, même si son `estMin` dépasse `targetMin` (ADR-0021, contradiction 5). Les tâches suivantes respectent le budget. | budgets de 15 à 180 min, cas vierges (Σ ≈ 52 min) | `if (used + estMin > targetMin) break` avant la première tâche de cas |
+
+### 8.2 Invariants série 4 — le cerveau du programme (§13)
+
+| Id | Propriété | Générateur | Mutation qui doit rougir |
+|---|---|---|---|
+| **INV-60** | **Consolidation** : un cas dont les trois Teile sont `solide` a `score > 0` à toute date `≥ prochaineConsolidation`, et `score === 0` avant. Les échéances successives d'un cas rejoué à chaque échéance sont espacées de 7, 21, 45, 45… jours. | cas rendus solides puis rejoués aux échéances, en avance, en retard | retour à `detteTeil = 0 ⇒ 0` (`select.ts:79`), ou intervalle constant |
+| **INV-61** | **Solide stable** : `status === 'solide'` ⇒ il existe deux scores mesurés ≥ 80 sur ce Teil dont les `dayKey` diffèrent d'au moins `SOLIDE_ECART_JOURS` (3). | séquences de scores, de même jour et espacées | `status = statusOf(lastScore)` (`journal.ts:211`) |
+| **INV-62** | **Un cran** : si un Teil est `solide` avant une partie mesurée de score `s < 80`, il est `acquis` après, **jamais** `fragile`, même pour `s = 0`. | Teil solide puis `s ∈ [0, 79]` | `statusOf(s)` appliqué sans tenir compte de l'état précédent |
+| **INV-63** | **Erreurs transversales** : un item signalé a été manqué dans ≥ 3 des 5 dernières parties mesurées de son Teil, sur ≥ 2 cas distincts. Un item coché dans ≥ 3 de ces 5 parties n'est jamais signalé. Une tâche porte au plus un `rappel`, d'un Teil de `teileDeTache`. | journaux de checklists aléatoires, dont un item manqué 3 fois sur le **même** cas | fenêtre ignorée (compte sur toute la vie), seuil « 2 cas distincts » ignoré, ou lecture de `prioritizedCorrections` |
+| **INV-64** | **Durées apprises** : `estMin` d'une tâche de cas = Σ `dureeTeil(t)`. Avec moins de 3 mesures pour `t`, `dureeTeil(t) = TEIL_MIN[t]`. Toujours dans `[5, 45]`. Ni les séances `selbstbewertet` ni les durées nulles n'y entrent. | mesures aléatoires, dont une valeur aberrante de 300 min | moyenne au lieu de médiane (la valeur de 300 déplace l'estimation), ou repli absent |
+| **INV-65** | **Rythme proposé, jamais imposé** : `hoursPerSession` ne change que par `accepterRythme()`, et aucun `DayPlan` figé ne change à l'acceptation. Une proposition n'existe que si Σ `spentMin` < 0,6 × Σ `targetMin` sur ≥ 3 jours figés de la fenêtre. La valeur proposée est `< targetMin` actuel et `≥ 20`. | semaines de temps réel aléatoires | budget appliqué sans geste, ou proposition à la hausse |
+| **INV-66** | **Couverture pondérée sourcée** : `couverturePonderee()` rend `{ pct, base, ville }` avec `0 ≤ pct ≤ 100` et `base > 0` dès que `pct` est défini. Un cas sans donnée de fréquence ne change ni le numérateur ni la base. Sans ville, `base` = Σ des totaux. Le texte rendu contient `base` et passe la garde EXAM_CLAIM. | corpus avec et sans ventilation par ville, ville `Alle` | dénominateur = `centers[ville].n` (182 à Stuttgart) au lieu de la base ventilée |
+
 ---
 
 ## 9. Migration Dexie — ce qui est ajouté, dérivé, abandonné
@@ -463,6 +547,22 @@ Migration serveur REQUISE : la contrainte `progress_events_type_check` et la fon
 Porte mécanique : ces tests sont dans le job existant ; ils tournent **sans
 `.env`** (mocker `@/lib/supabase`).
 
+*[S4]* — écrits **avant** le code, avec la mutation de chaque ligne vérifiée
+rouge :
+
+| Fichier | Ce qu'il prouve |
+|---|---|
+| `app/src/lib/program/tacheDeCas.test.ts` | INV-50, INV-51, INV-52, INV-58 ; `teileDeTache` et `statutTache` en table de vérité |
+| `app/src/lib/program/plansAnciens.test.ts` | INV-54 sur la fixture gelée série 3 |
+| `app/src/lib/program/memePlan.test.ts` | INV-55, INV-57 |
+| `app/src/lib/journal/etatCas.test.ts` | INV-53, INV-56, INV-61, INV-62 ; table de vérité de l'échelle `etat` |
+| `app/src/lib/program/consolidation.test.ts` | INV-60 |
+| `app/src/lib/program/erreurs.test.ts` | INV-63 |
+| `app/src/lib/program/durees.test.ts` | INV-64 |
+| `app/src/lib/program/rythme.test.ts` | INV-65 |
+| `app/src/lib/program/couverturePonderee.test.ts` | INV-66, garde EXAM_CLAIM sur le texte |
+| `app/tests/parcours14j.test.ts` (C6 réécrit) | nouveau profil « un Teil ici, un cas entier là » : INV-1, 2, 4, 9, 10, 12 et INV-50 à INV-58, chaque soir |
+
 ---
 
 ## 11. Contradictions relevées entre sources — non tranchées en silence
@@ -478,3 +578,372 @@ Porte mécanique : ces tests sont dans le job existant ; ils tournent **sans
    quatre. **Tranché ici** : `modus` remplace `strategy`, avec la lecture
    tolérante §6. Ce n'est pas une décision produit — la sémantique des deux
    valeurs existantes est préservée.
+3. *[S4]* Les contradictions de la série 4 (Q1, ADR-0020, budget contre cas
+   entier, INV-55 rouge sur le code actuel, solide stable contre frise,
+   historique non enchaîné, fréquences par ville partielles, etc.) sont tenues
+   dans **un seul registre** : ADR-0021, « Contradictions relevées ».
+
+---
+
+## 12. *[S4]* Le cas entier — tâche de cas, complétion, mesure, cadran
+
+> ADR-0021. Le candidat voit des cas, jamais des fractions de cas ; le plan sait
+> au Teil près ce qui reste.
+
+### 12.1 La tâche de cas
+
+```ts
+/** Lecture tolérante — LE SEUL point qui lit `teil`. */
+export function teileDeTache(t: TaskInstance): SimTeil[] {
+  if (t.teile?.length) return t.teile;
+  if (t.teil) return [t.teil];                                     // plan série 3
+  return ['simulation', 'revision', 'examen-blanc'].includes(t.kind) ? [...TEILE] : [];
+}
+```
+
+- Une tâche `simulation` porte `teile` = les Teile **non `solide`** du cas
+  au moment du plan (vierge, fragile ou acquis), dans l'ordre d'examen. C'est
+  la dette de §4.3, rendue explicite. **Un Teil fragile revient dans la tâche
+  du cas, jamais en tâche à part.**
+- `revision` (consolidation, §13.1) et `examen-blanc` portent les trois Teile.
+- Une tâche de cas dont `teile.length === 1` reste une **tâche de cas**. Elle
+  s'affiche comme le cas (cadran, nom), avec « il te reste la
+  Dokumentation ». Elle ne s'affiche jamais comme « Dokumentation de X ».
+- `label` = le nom du cas (ADR-0020 §8). Le texte « il te reste … · N min »
+  se **lit** depuis `teile` et `estMin` : il n'est jamais concaténé dans
+  `label` ni dans `reason`.
+- `estMin` = Σ `dureeTeil(t)` sur `teile` (§13.4).
+- `TaskInstance.teil` n'est plus jamais écrit (INV-50).
+
+### 12.2 La règle de complétion
+
+```ts
+teileJouesLeJour(date, caseId) = ⋃ e.teile  pour e : e.caseId === caseId,
+                                 dayKey(e.at) === date, !isCocheNue(e)
+avancement(T)  = teileDeTache(T) ∩ teileJouesLeJour(T.date, T.caseId)
+faite(T)       = T.dUnTrait
+                   ? ∃ e enchaîné du cas, dayKey(e.at) === T.date
+                   : avancement(T) ⊇ teileDeTache(T)
+statutTache(T) = faite ? 'faite' : avancement(T).length > 0 ? 'entamee' : 'a-faire'
+```
+
+- **Une tâche de cas est faite quand tout ce qui restait au moment du plan est
+  joué**, dans une ou plusieurs parties du même jour, dans n'importe quel ordre.
+  Le `taskId` est posé sur l'événement qui **complète** l'ensemble (§3.4). Les
+  parties précédentes restent `libre` : elles alimentent l'avancement,
+  qui est dérivé et jamais stocké.
+- « Joué » ne dépend pas du score. Une séance `selbstbewertet` joue son Teil
+  d'ancrage (règle série 3 inchangée : `teileJouesLeJour` n'exclut que les
+  coches nues).
+- **Aucun état « manquée ».** `planProgress` rend `{ faites, entamees, total }`.
+  Une tâche entamée et non finie à minuit n'est **ni** manquée **ni** en
+  retard. Son reste peut revenir le lendemain (§12.7).
+- La coche manuelle (`markTaskDone`) d'une tâche de cas déclare
+  `teileDeTache(T)`, comme la série 3 (I-4).
+- Report entre appareils (D-I2, `journal.ts:184`) : l'équivalence de tâche
+  devient `kind`, `caseId` **et** `teileDeTache` égaux.
+- **Limite connue** : après `replanifier()` en cours de journée, un Teil joué
+  le matin compte pour la tâche replanifiée du même cas. Cette limite est
+  acceptée : le jour reste l'unité du plan.
+
+### 12.3 Construction du plan — ce qui change dans `buildTasks`
+
+Ordre inchangé : drill → (dernière ligne droite) examen à blanc → cas →
+Fachwissen. Ce qui change :
+
+1. `SelectContext.now` = **début du jour `date`**. `counts(begriffe, …)` lit
+   la **fin** du jour `date`. Aucune lecture de l'instant de matérialisation
+   n'entre dans le contenu du plan (INV-55). L'instant reste dans `seed` et
+   `materializedAt`.
+2. **La première tâche de cas est toujours posée** si un candidat existe, même
+   si son `estMin` dépasse le budget. Les suivantes respectent
+   `used + estMin ≤ targetMin` (INV-58).
+3. C1/C2 (§5.2) s'appliquent à **toutes** les tâches portant une `specialty`,
+   dans tous les modes sauf `specialite` (INV-4 amendé).
+4. Les candidats incluent les cas solides **dus** pour consolidation (§13.1).
+5. Dans la dernière ligne droite (`taperDays`), la tâche `examen-blanc`
+   choisit d'abord un cas `solide` et non `prêt`, de `freq ≥ SEUIL_FREQUENT`,
+   par fréquence décroissante. À défaut, elle prend le meilleur classé. Elle
+   porte `dUnTrait: true`.
+
+### 12.4 Le mode, observé en silence
+
+```ts
+modeEffectif(journal) = observeModus(journal, cases) ?? 'cas-complet'
+```
+
+- Calculé à la matérialisation et figé dans `DayPlan.mode`, dont l'enum ne
+  change pas (le schéma serveur de `plan.materialized` est `.strict()`).
+- `ProgramConfig.modus` et `ProgramConfig.strategy` ne sont **plus lus** et ne
+  sont plus écrits par l'interface (dépréciés, conservés dans les données).
+  `modusAProposer` et la clé de refus sortent de l'interface.
+- `observeModus` est étendu pour rendre aussi `teilHabituel` (le Teil dominant
+  qui justifie `teil-first`). Ses seuils sont inchangés (`modus.ts:21-26`).
+
+| Mode observé | Effet sur la sélection, et rien d'autre |
+|---|---|
+| `cas-complet` (et défaut) | aucun filtre |
+| `teil-first` | les candidats sont restreints aux cas dont `teilHabituel` n'est pas `solide`, **si** ce sous-ensemble n'est pas vide. La tâche reste un cas, avec tous ses Teile restants. La durée suit l'habitude (§13.4). |
+| `specialite` | filtre sur la spécialité de plus forte dette (§6) ; C1/C2 suspendues |
+| `examen-blanc` | inchangé (§6) |
+
+### 12.5 Couverture, maîtrise, échelle d'états du cas
+
+```ts
+export type CaseEtat = 'vierge' | 'entame' | 'couvert' | 'solide' | 'pret';
+
+export interface CaseProgress {
+  caseId: CaseId;
+  teile: Record<SimTeil, TeilProgress>;
+  couverture: 0 | 1 | 2 | 3;           // Teile avec attempts ≥ 1 (MESURÉS)
+  maitrise: number | null;             // 0..100, arrondi ; null ⇔ couverture === 0
+  etat: CaseEtat;
+  pretAt: number | null;               // la soudure : `at` de l'enchaînement qui fonde `prêt`
+  solideDepuis: number | null;         // §13.1
+  prochaineConsolidation: string | null; // yyyy-MM-dd, §13.1 ; null si etat ∉ {solide, pret}
+  overall: 'vierge' | 'entame' | 'solide'; // DÉPRÉCIÉ, dérivé de etat (§4.1 [S4])
+}
+```
+
+```
+couverture = |{ t : teile[t].attempts ≥ 1 }|
+maitrise   = couverture === 0 ? null : round(moyenne des teile[t].lastScore pour attempts ≥ 1)
+etat       = couverture === 0                                → 'vierge'
+             couverture < 3                                  → 'entame'
+             ∃ t : status ≠ 'solide'                         → 'couvert'
+             ∃ e enchaîné, 3 scores ≥ PART_SOLIDE (INV-56)   → 'pret'
+             sinon                                           → 'solide'
+```
+
+- **Couverture et maîtrise sont deux mesures.** Un cas inachevé ne baisse
+  jamais la maîtrise (INV-53). La maîtrise est une moyenne **des Teile joués**
+  et jamais un pourcentage du cas (`CONTEXT.md`).
+- La maîtrise lit `lastScore`, pas `status` : une Anamnese à 85 non encore
+  confirmée affiche 85, avec l'état `acquis` (§13.2).
+- Les séances `selbstbewertet` n'entrent ni dans la couverture ni dans la
+  maîtrise (INV-11). `nonMesureAt` les signale à part.
+- `prêt` exige que le cas soit **encore** solide : un Teil qui retombe défait
+  la soudure, et `pretAt` repasse à `null`.
+
+### 12.6 Le contrat de données du cadran (`CaseDial`)
+
+Le cadran **lit** une valeur et ne calcule rien. Il ne lit jamais
+`db.simulations` ni le journal brut.
+
+```ts
+export interface CaseDialData {
+  caseId: CaseId;
+  teile: Record<SimTeil, {             // position FIXE par clé : anamnese, dokumentation, fallvorstellung
+    status: TeilStatus;                // couleur : vierge neutre, fragile, acquis, solide
+    lastScore: number | null;
+    lastAt: number | null;
+    nonMesure: boolean;                // estNonMesure(), journal.ts:408
+  }>;
+  couverture: 0 | 1 | 2 | 3;           // anneau extérieur
+  maitrise: number | null;             // centre ; null → aucun chiffre, jamais « 0 »
+  soude: boolean;                      // etat === 'pret' : arcs soudés en anneau continu
+  pretAt: number | null;
+  prochaineConsolidation: string | null;
+  tache?: { teile: SimTeil[]; avancement: SimTeil[] };  // taille « ligne de tâche » : le cadran de LA TÂCHE
+  vientDEtreJoue?: SimTeil[];          // fin de partie / retour liste : arcs à dessiner une fois
+}
+
+dialData(cp: CaseProgress, ctx?: { tache?: TaskInstance; avancement?: SimTeil[]; lauf?: Lauf }): CaseDialData
+```
+
+- **Une seule source** : `case_progress` (projection) + la tâche figée + le
+  `Lauf` en fin de partie. `vientDEtreJoue` = `lauf.teileGespielt` limité aux
+  `SimTeil`.
+- Les quatre tailles (carte de cas, ligne de tâche, pré-simulation, fin de
+  partie) lisent **le même** `CaseDialData`. Le rendu est hors contrat.
+  `CaseDial` vit dans `components/visuals/`, et la règle B de
+  `motionSafe.test.ts` (préfixe `motion-safe:`) s'y applique.
+- Étiquette accessible : se dérive de `CaseDialData` seul (état, couverture,
+  maîtrise, Teile). La couleur n'est jamais le seul signal.
+
+### 12.7 « Finir hier » — le reste revient en tête, proposé
+
+Le rattrapage (`rattrapage.ts`, Q4) est amendé ; le reste est inchangé
+(dernier jour figé seulement, refus retenu, drill exclu, cas déjà planifié
+aujourd'hui exclu) :
+
+- Une tâche **entamée** de la veille est proposée avec
+  `teile = teileDeTache(T) \ avancement(T)`, avec la raison « Finir <cas> ».
+  Une tâche **à faire** est proposée avec `teileDeTache(T)`. Une tâche
+  série 3 à `teil` devient une tâche de cas : `teile = [teil]`, sans `teil`.
+- `accepterRattrapage` insère les reprises **avant la première tâche non
+  faite** du jour (en tête), par `plan.replanned` (raison `rattrapage`). Avant
+  le geste, rien ne bouge (INV-52).
+
+### 12.8 Les fréquences dans les encarts
+
+Une phrase de fréquence (« revient souvent dans les protocoles de ta ville »)
+n'est rendue que si elle nomme sa base (« … dans 11 des 182 protocoles de
+Stuttgart ») et passe la garde EXAM_CLAIM. Source et ville : §13.6. Sans
+donnée, la phrase n'est pas rendue : le texte ne fait jamais de repli
+générique.
+
+### 12.9 Synchronisation et compatibilité
+
+- **Aucune migration SQL, aucun type d'événement nouveau.** `teile`, `rappel`
+  et `dUnTrait` voyagent dans `plan.materialized`/`plan.replanned`, que le
+  serveur laisse passer (`Tasks … .passthrough()`, `events/index.ts:25-28`).
+  `enchaine` voyage dans `simulation.completed`, sans schéma serveur.
+- **Proposé** (Fondations, non requis) : ajouter
+  `teile: z.array(Teil).max(3).optional()` au schéma `Tasks`. À la lecture,
+  le client filtre `teile` sur les trois clés connues, comme `sanitizeLogged`.
+- Client série 3 face à un plan série 4 : une tâche sans `teil` y exige les
+  trois Teile. Il ne coche jamais à tort, et ne décoche jamais : `doneAt` se
+  dérive du journal.
+- Dexie : aucune version nouvelle. `case_progress` et `training_events` sont
+  des projections reconstruites (`rebuildJournal`) avec leurs nouveaux champs.
+
+---
+
+## 13. *[S4]* Le cerveau du programme
+
+> ADR-0022. Paramètres **nommés**, un seul endroit chacun
+> (`app/src/lib/program/parametres.ts`, à créer). Toute valeur en dur ailleurs
+> est un défaut de contrat.
+
+| Paramètre | Valeur | § |
+|---|---|---|
+| `CONSOLIDATION_JOURS` | `[7, 21, 45]` (plafond : le dernier) | 13.1 |
+| `POIDS_CONSOLIDATION` | `1/3` | 13.1 |
+| `SEUIL_FREQUENT` | `0.5` (de `freq`, déjà le seuil de `pourquoiAujourdhui`) | 13.1, 12.3 |
+| `SOLIDE_ECART_JOURS` | `3` (jours calendaires, `dayKey`) | 13.2 |
+| `ERREUR_FENETRE` / `ERREUR_SEUIL` / `ERREUR_CAS_MIN` | `5` / `3` / `2` | 13.3 |
+| `DUREE_FENETRE` / `DUREE_MIN_MESURES` / `DUREE_BORNES` | `10` / `3` / `[5, 45]` min | 13.4 |
+| `RYTHME_FENETRE_JOURS` / `RYTHME_SEUIL` / `RYTHME_MIN_JOURS` / `BUDGET_PLANCHER_MIN` | `7` / `0.6` / `3` / `20` | 13.5 |
+
+### 13.1 Consolidation espacée
+
+```
+solideDepuis           = at de l'événement qui a fait passer les 3 Teile à 'solide'
+                         (le plus récent passage) ; null si etat ∉ {solide, pret}
+k                      = nombre de jours calendaires distincts, STRICTEMENT après dayKey(solideDepuis),
+                         portant ≥ 1 partie mesurée du cas
+dernierJeu             = max(teile[t].lastAt)
+prochaineConsolidation = dayKey(dernierJeu) + CONSOLIDATION_JOURS[min(k, 2)] jours
+dû(c, date)            = etat ∈ {solide, pret} ∧ date ≥ prochaineConsolidation
+score(c) [cas dû]      = freq × urgence × POIDS_CONSOLIDATION × fraicheur
+score(c) [solide non dû] = 0
+```
+
+- La tâche est `kind: 'revision'`, avec les trois Teile et la raison
+  « Consolidation : vu il y a N jours ». Elle se coche par §12.2.
+- Une partie d'un seul Teil compte pour un passage (k + 1). Limite connue :
+  rafraîchir un Teil repousse l'échéance du cas entier.
+- Dernière ligne droite : une `revision` d'un cas de `freq ≥ SEUIL_FREQUENT`
+  porte `dUnTrait: true`. Les cas solides non `prêt` passent par la tâche
+  examen à blanc (§12.3.5).
+
+### 13.2 Solide stable
+
+Automate par Teil, appliqué dans l'ordre chronologique des événements mesurés
+(non `selbstbewertet`, score présent) :
+
+```
+s = score de l'événement ; avant = status courant
+si avant === 'solide' :
+    s ≥ 80 → 'solide'
+    s < 80 → 'acquis'                        // un cran, quel que soit s (INV-62)
+sinon :
+    s < 60 → 'fragile'
+    s < 80 → 'acquis'
+    s ≥ 80 → ∃ réussite antérieure ≥ 80 sur ce Teil avec
+             dayKey(s.at) − dayKey(antérieure.at) ≥ SOLIDE_ECART_JOURS
+             ? 'solide' : 'acquis'
+```
+
+`attempts`, `lastScore` et `lastAt` sont inchangés (§4.1). INV-3 tient
+toujours. `pointFaible` (= `fragile`) ne change pas de définition.
+
+### 13.3 Erreurs transversales
+
+- **Source** : `TrainingEvent.manques` (§2.3), c'est-à-dire les ids sémantiques
+  stables de `ChecklistItem` (`anam-allergien`…, `simulation-run.md` §4).
+  **Jamais** `prioritizedCorrections`. La grille de langue n'entre pas ici :
+  limite connue.
+- **Fenêtre** : par Teil `t`, les `ERREUR_FENETRE` dernières parties
+  **mesurées** où `t` a été joué, tous cas confondus.
+- **Signal** : un item est récurrent s'il est manqué dans
+  `≥ ERREUR_SEUIL` parties de la fenêtre, sur `≥ ERREUR_CAS_MIN` cas
+  distincts.
+
+```ts
+erreursTransversales(events): { itemId: ChecklistItemId; teil: SimTeil; manque: number; sur: number }[]
+  // tri : manque décroissant, puis itemId
+```
+
+- **Sortie, tâche** : à la matérialisation, chaque tâche de cas reçoit au plus
+  un `rappel`, la première erreur dont le `teil` appartient à
+  `teileDeTache(T)`, sans doublon dans le jour. Le libellé se lit depuis
+  `checklistFor(teil)`, jamais figé en texte. Exemple : « Cette fois : pense
+  aux Allergien ».
+- **Sortie, bilan** : en `bilanz(t)`, pour chaque erreur active de `t` :
+  « cochée cette fois » ou « encore manquée (n/5) ». Le point disparaît de
+  lui-même quand il repasse sous le seuil. Aucun état n'est stocké.
+
+### 13.4 Durées apprises
+
+```
+mesures(t) = les DUREE_FENETRE derniers TrainingEvent.minutesParTeil[t] > 0, hors selbstbewertet
+dureeTeil(t) = |mesures(t)| < DUREE_MIN_MESURES ? TEIL_MIN[t]
+             : clamp(médiane(mesures(t)), DUREE_BORNES)
+```
+
+`TEIL_MIN` (20/20/12) devient le repli, et `SIM_MIN` (40) disparaît. Un run
+complet vaut Σ `dureeTeil`, soit 52 min par défaut (ADR-0021, contradiction 5).
+
+### 13.5 Rythme proposé
+
+```
+fenêtre   = les RYTHME_FENETRE_JOURS jours calendaires finissant hier
+figés     = jours de la fenêtre ayant un DayPlan
+propose   ⇔ |figés| ≥ RYTHME_MIN_JOURS
+            ∧ Σ spentByDay(figés) < RYTHME_SEUIL × Σ DayPlan.targetMin(figés)
+            ∧ semaine ISO courante non refusée
+valeur    = max(BUDGET_PLANCHER_MIN, arrondi à 5 min (Σ spentByDay(figés) / |figés|))
+            et seulement si valeur < dayTargetMin(config)
+```
+
+- **Proposé, jamais imposé** : une carte sur la page Programme, avec deux
+  gestes. `accepterRythme(valeur)` écrit
+  `hoursPerSession = valeur / 60 / INTENSITY_FACTOR[intensity]` par
+  `program.configured`. `refuserRythme()` retient la semaine ISO
+  (`db.meta['rythmeRefuse']`, local).
+- Aucun `DayPlan` figé ne change. Les jours projetés (`projectedDays`) et
+  le budget des jours suivants suivent la config. La frise de trajectoire
+  dépend du gain réel et non du budget : elle n'a rien à recalculer.
+
+### 13.6 Couverture pondérée par la fréquence
+
+```ts
+couverturePonderee(cases, progress, freqs, ville?: Center):
+  { pct: number | null; base: number; ville: Center | null }
+
+poids(c)  = ville ? freqs[c].parVille[ville] : freqs[c].total      // undefined ⇒ le cas est HORS calcul
+base      = Σ poids(c)            sur les cas où poids défini
+pct       = base === 0 ? null : round(100 × Σ poids(c) × couverture(c)/3 / base)
+```
+
+- **Source** : `apps/site/src/data/frequencies.json` (généré depuis
+  `ANALYSE.md` §3, sept invariants dans `check-frequencies.mjs`), avec
+  `pathologies[].total` et `byCenter`. **Proposition au pôle Contenu** :
+  publier côté app, avec le contenu, une table
+  `FrequenceProtocoles { caseId; total: number | null; parVille: Partial<Record<Center, number>> }`,
+  rapprochée par `Case.pathology` → `pathologies[].id`, et validée en CI.
+  Tant qu'elle n'existe pas, `freqs[c].total = Case.frequency` et
+  `parVille = {}`.
+- **Ville** : `targetCenter` (`store/ui.ts:49`). `'Alle'` ou `'Complément'`
+  ⇒ pas de ville. Avec une ville **sans donnée ventilée**, la ville est
+  ignorée : `ville: null`, base « tous centres ». Jamais un pourcentage de ville
+  sur une base vide.
+- **Texte** : « Les cas que tu as travaillés représentent {pct} % des {base}
+  protocoles {de Stuttgart | des quatre centres} rattachés à un cas. » Aucune
+  formule du type « ce que le jury note », « ce qui tombe à coup sûr » (garde
+  EXAM_CLAIM, mémoire `fsp-official-grading`).
+- **Le plan ne lit ni la ville ni `couverturePonderee`** : la ville est un
+  réglage local non synchronisé (INV-55). La sélection garde `freq` sur
+  `Case.frequency`.
