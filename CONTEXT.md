@@ -59,7 +59,9 @@ d'explorer le code et emploient **ce** vocabulaire, pas ses synonymes.
 - **Candidat / Simulant** — le médecin joué par l'utilisateur / le partenaire
   qui joue patient puis examinateur. **Binôme** — les deux.
 - **Modes** — *Assisté* / *Autonome* (assistance) ; **Couche** 1–3
-  (progression) ; **Mode focus** = immersif plein écran.
+  (progression), fondue dans le niveau d'assistance à l'écran depuis la
+  série 4 : le mot « Couche » n'y figure plus. **Mode focus** = immersif plein
+  écran.
 - **Bogen** (`BogenNotes`) — la feuille de notes de l'anamnèse, une valeur par
   clé de champ. Elle n'est jamais réécrite, et aucune note n'est perdue au
   changement de Muster.
@@ -97,8 +99,11 @@ d'explorer le code et emploient **ce** vocabulaire, pas ses synonymes.
   Chaque Teil a son état, son score et sa date. Il ne paraît jamais en
   surface comme un choix ou une tâche à part.
 - **D'un trait** — les trois Teile joués dans **une même partie, sans
-  reprise** (`Simulation.enchaine`). L'examen enchaîne les trois Teile :
-  l'endurance fait partie de la préparation.
+  reprise de plus de 5 min** (`Simulation.enchaine`). L'examen enchaîne les
+  trois Teile : l'endurance fait partie de la préparation.
+- **Conditions d'examen** (`conditionsExamen`) — une partie d'un trait, en
+  Autonome, dans l'ordre A → D → F, avec la grille de langue saisie. C'est
+  **une** définition, qui fonde à la fois l'examen à blanc et l'état `prêt`.
 - **Non saisi** (`NOT_ENTERED = −1`) — un curseur (ressenti, critère de langue)
   que le candidat n'a pas touché. Le score ne porte que ce qui est saisi, et
   aucune moyenne ne lit `−1`. `0` reste une note.
@@ -117,8 +122,10 @@ d'explorer le code et emploient **ce** vocabulaire, pas ses synonymes.
 - **Tâche de cas** — une tâche est un cas. Son contenu dit **ce qui reste**
   (`TaskInstance.teile`, figé au moment du plan) : « il te reste la
   Dokumentation · 10 min ». Elle est **faite** quand tout ce qui restait est
-  joué le jour même. Sinon elle est **entamée**, jamais « manquée ». Le reste
-  revient en tête le lendemain, proposé et jamais imposé.
+  joué le jour même ; c'est une **dérivation du journal**, identique sur tous
+  les appareils. Sinon elle est **entamée**, jamais « manquée ». Le reste
+  revient en tête le lendemain, proposé et jamais imposé. Une tâche **d'un
+  trait** ne se fait qu'en une partie enchaînée.
 - **État par Teil** (`vierge | fragile | acquis | solide`) — un cas n'a plus de
   pourcentage. `vierge` = « pas encore travaillé », information neutre.
   **Solide** = deux réussites ≥ 80 espacées d'au moins 3 jours. Une mauvaise
@@ -128,7 +135,9 @@ d'explorer le code et emploient **ce** vocabulaire, pas ses synonymes.
   baisse jamais parce qu'un Teil manque. Ce n'est pas un « % du cas ».
 - **État du cas** (`vierge → entamé → couvert → solide → prêt`) — **entamé** :
   ≥ 1 Teil joué ; **couvert** : 3 Teile joués ; **solide** : 3 Teile solides ;
-  **prêt** : solide, et les 3 Teile joués d'un trait, chacun ≥ 80.
+  **prêt** : solide, et un run en conditions d'examen, chaque Teil ≥ 80,
+  joué **après** que le cas est devenu solide. Une retombée défait la
+  soudure.
 - **Cadran** (`CaseDial`) — le signe unique d'un cas, partout où il apparaît
   (carte, ligne de tâche, pré-simulation, fin de partie). La position dit le
   Teil, la couleur dit l'état. Le centre affiche la maîtrise, l'anneau
@@ -143,9 +152,10 @@ d'explorer le code et emploient **ce** vocabulaire, pas ses synonymes.
 - **Dette de Teil** — ce qui reste à faire ; elle ordonne le travail. Elle ne se
   confond **jamais** avec la faiblesse, qui nomme un défaut.
 - **Mode d'avancement** (`teil-first | cas-complet | specialite | examen-blanc`)
-  — la façon dont le candidat travaille, **observée** sur le journal. Elle
-  oriente la sélection en silence : elle n'est ni demandée ni proposée, et
-  n'apparaît jamais en surface (ADR-0021).
+  — `examen-blanc` et `specialite` sont des **choix explicites** du candidat.
+  Le reste est **observé** sur le journal (`cas-complet` ou `teil-first`), et
+  oriente la sélection en silence : ni demandé, ni proposé, jamais en
+  surface (ADR-0021).
 - **Frage** — la question atomique : un seul « ? », un chapitre, ses relances
   (`nachfragen`) et ses sondes couvertes (`deckt`). Une question composée est un
   arbre aplati (`docs/contracts/frage-atomique.md`).
