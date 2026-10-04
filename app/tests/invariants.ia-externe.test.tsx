@@ -17,6 +17,9 @@ vi.mock('@/lib/auth/session', async () => (await import('./helpers/mocks')).auth
 vi.mock('@/lib/sync/queue', async () => (await import('./helpers/mocks')).queueMock());
 vi.mock('@/lib/supabase', async () => (await import('./helpers/mocks')).supabaseMock());
 
+// Sous charge machine (CI partagée, agents concurrents) le délai vitest de 5 s fait déborder un test sur le suivant : base commune.
+vi.setConfig({ testTimeout: 180_000, hookTimeout: 60_000 });
+
 import { db } from '@/db/db';
 import { seedCases } from '@/data/seedCases';
 import { checklistFor } from '@/lib/checklists';
@@ -116,16 +119,9 @@ describe('FB3 — une partie jouée et évaluée dans l’app n’est jamais red
     expect(await accueil()).toBe(true);
   });
 
-  // ----------------------------------------------------------------------------
-  // BUG PROBABLE, à trancher par `main` (intention) — gardé en `it.fails` avec sa preuve.
-  // Le correctif du 3 oct. masque la carte dès qu'UNE partie du même cas est enregistrée
-  // dans l'app après le lanceur (PendingExternalSimCard : `where('caseId')…count()`), sans
-  // regarder le Teil. Ouvrir le lanceur pour l'ANAMNESE, puis jouer ici la DOKUMENTATION du
-  // même cas, fait taire la carte : la séance externe d'anamnèse n'est plus jamais proposée à
-  // l'évaluation. Invariant plus fin : la carte d'un Teil T ne se tait que pour une partie
-  // jouée dans l'app sur ce même Teil T. Ce test ÉCHOUE sur le code actuel (donc it.fails).
-  // ----------------------------------------------------------------------------
-  it.fails('PROPOSITION — une partie jouée dans l’app sur un AUTRE Teil ne masque pas la séance externe non évaluée', async () => {
+  // Corrigé sur main (0560198d) : la carte d'un Teil T ne se tait que pour une partie jouée dans
+  // l'app qui COUVRE T. Trouvé par C6 ; ce test était un `it.fails`, il garde maintenant le correctif.
+  it('une partie jouée dans l’app sur un AUTRE Teil ne masque pas la séance externe non évaluée', async () => {
     await ouvrirLeLanceur(FULL[0].id, 'anamnese');
     avance(10 * 60_000);
     await jouerDansLApp(FULL[0], ['dokumentation']);

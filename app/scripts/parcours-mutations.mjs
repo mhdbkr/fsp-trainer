@@ -121,14 +121,20 @@ export const MUTATIONS = [
   },
   {
     id: 'FB3-3oct', tests: 'tests/invariants.ia-externe.test.tsx', file: 'src/features/simulation/PendingExternalSimCard.tsx',
-    from: "    if (await db.simulations.where('caseId').equals(x.caseId).filter((s) => s.date >= x.at).count()) return null;\n",
+    from: "    if (await db.simulations.where('caseId').equals(x.caseId).filter((s) => s.date >= x.at && couvre(s)).count()) return null;\n",
     to: '',
     pourquoi: 'le correctif dbf87df7 est retiré : l’accueil redemande l’évaluation d’une partie déjà jouée dans l’app',
   },
   {
+    id: 'FB3-teil', tests: 'tests/invariants.ia-externe.test.tsx', file: 'src/features/simulation/PendingExternalSimCard.tsx',
+    from: '.filter((s) => s.date >= x.at && couvre(s)).count()',
+    to: '.filter((s) => s.date >= x.at).count()',
+    pourquoi: 'le correctif 0560198d est retiré : une partie d’un AUTRE Teil du même cas fait taire la séance externe',
+  },
+  {
     id: 'FB3-temoin', tests: 'tests/invariants.ia-externe.test.tsx', file: 'src/features/simulation/PendingExternalSimCard.tsx',
-    from: '.filter((s) => s.date >= x.at).count()',
-    to: '.filter((s) => s.date >= 0).count()',
+    from: '.filter((s) => s.date >= x.at && couvre(s)).count()',
+    to: '.filter((s) => s.date >= 0 && couvre(s)).count()',
     pourquoi: 'la garde devient trop large : n’importe quelle partie passée du cas fait taire une vraie séance externe',
   },
   {
@@ -169,7 +175,7 @@ export const NAV_MUTATIONS = [
   { id: 'D6', days: 1, file: 'src/lib/program/dayPlan.ts', from: '  if (existing) return existing;                                  // « figé » veut dire que le premier fige\n', to: "  if (existing && existing.date === '') return existing;\n", pourquoi: 'le jour est recalculé à chaque ouverture' },
   { id: 'D8', days: 2, file: 'src/lib/simulationSave.ts', from: '  if (!nouveau) return sim;\n', to: '  if (!nouveau && nouveau) return sim;\n', pourquoi: 'une partie validée deux fois est écrite deux fois (l\'idempotence ET la garde du bouton sont retirées : le bouton seul tient déjà un double clic, l\'idempotence seule est prouvée par INV-22)',
     also: [{ file: 'src/features/simulation/useLauf.ts', from: '    setLauf(fertig);\n    setFehler(null);', to: '    setFehler(null);' }] },
-  { id: 'D9', days: 7, file: 'src/features/simulation/PendingExternalSimCard.tsx', from: MUTATIONS.find((m) => m.id === 'FB3-3oct').from, to: '', pourquoi: 'le correctif du 3 octobre est retiré' },
+  { id: 'D9', days: 7, file: 'src/features/simulation/PendingExternalSimCard.tsx', from: MUTATIONS.find((m) => m.id === 'FB3-3oct').from, to: "    if (couvre === undefined) return null;\n", pourquoi: 'le correctif du 3 octobre est retiré' },
   { id: 'D10', days: 3, file: 'src/lib/lauf/speichern.ts', from: '  return restauriere(l);\n}', to: '  return { ...restauriere(l), sekundenProTeil: {} };\n}', pourquoi: 'une partie interrompue reprend avec le chrono à zéro' },
 ];
 
