@@ -180,7 +180,7 @@ function Bubble({ line, live = false }: { line: RoleLine; live?: boolean }) {
       {line.frage && <div className={`flex items-center gap-1.5 text-[11px] leading-tight ${live ? 'font-semibold text-brand-600 dark:text-brand-300' : 'text-slate-400'}`}>{live && <span className="inline-block h-1.5 w-1.5 animate-pulse rounded-full bg-brand-500" />}{line.frage}</div>}
       {line.improvise
         ? <div className="mt-0.5 text-[12.5px] italic leading-snug text-slate-500 dark:text-slate-400">Antworte frei aus den Fakten oben — diese Frage gehört zu diesem Fall.{line.nachfrage && <span className="mt-1 block border-l border-brand-300/70 pl-2 text-[11px] not-italic text-slate-400 dark:border-brand-700/60">{line.nachfrage}</span>}</div>
-        : <div className="mt-0.5 text-sm font-medium leading-snug text-slate-800 dark:text-slate-100">{line.antwort}</div>}
+        : <div className="mt-0.5 text-sm font-medium leading-snug text-slate-800 dark:text-slate-100">{line.antwort}{line.nachfrage && <span className="mt-1 block border-l border-brand-300/70 pl-2 text-[11px] font-normal text-slate-400 dark:border-brand-700/60">{line.nachfrage}</span>}</div>}
     </div>
   );
 }
