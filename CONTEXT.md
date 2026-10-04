@@ -162,6 +162,26 @@ d'explorer le code et emploient **ce** vocabulaire, pas ses synonymes.
 - **Gabarit non résolu** — une alternative dépendante du cas laissée dans le
   texte (« die Hand oder der Fuß ») alors que le cas sait laquelle. Interdit par
   la CI. À distinguer de l'**énumération d'irradiation**, qui est légitime.
+- **Signe** (`Signe`, ex-`Symptom`) — l'information clinique qu'une question
+  cherche : une dimension de plainte (Ort, Verlauf…) ou un signe (fièvre,
+  fréquence des selles…). Deux questions cherchent le même signe **si et
+  seulement si la fiche y répondrait par la même réplique**. Nommer un signe
+  dans une énumération, c'est le demander (D1). Toute question jouable déclare
+  ses signes (`sucht`) (ADR-0023).
+- **Profil clinique** (`patientSheet.profil`) — ce que le cas rend pertinent
+  (`tags`), ce qu'il impose de demander (`exige`) et ce qu'il exclut, avec sa
+  raison (`exclut`). Il est déclaré et relu ; seul le tag de la nature du motif
+  se dérive.
+- **Cohérence (de la trame)** — la trame jouée ne demande chaque signe qu'une
+  fois, rien hors profil, tout ce que le profil exige, et rien avant ce qu'elle
+  présuppose. Le montage l'obtient par `cohere` (quatre règles pures), et la
+  porte `checkCoherence` la vérifie.
+- **Journal de cohérence** — la liste, par cas, de ce que `cohere` a retiré,
+  réduit, ajouté, déplacé ou détaché, chaque ligne avec sa règle et sa raison.
+  Tout écart entre la trame brute et la trame jouée y a exactement une ligne.
+- **Banque de sondes** — pour chaque signe exigible, une sonde canonique qui
+  cherche ce signe seul (`SIGNE_DEF[s].bank`). C'est la seule source d'une
+  question ajoutée par le montage : jamais de texte inventé.
 
 ## Doctopus (SaaS)
 
@@ -205,5 +225,8 @@ d'explorer le code et emploient **ce** vocabulaire, pas ses synonymes.
   toujours « dans N protocoles », jamais une prédiction (garde EXAM_CLAIM).
 - « En retard », « assiduité » — un jour non ouvert n'existe pas ; rien ne
   s'accumule en silence.
+- « Symptôme » pour ce qu'une question cherche : c'est un **signe**
+  (`Symptom` n'est plus qu'un alias). « Doublon » mesuré par les mots : un
+  doublon est **un signe demandé deux fois**.
 - « Suggestion du jour » pour la tâche du plan figé : c'est une **tâche**, pas
   une suggestion. Une suggestion se recalcule ; une tâche, non.
