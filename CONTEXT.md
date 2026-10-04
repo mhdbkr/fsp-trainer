@@ -26,8 +26,10 @@ d'explorer le code et emploient **ce** vocabulaire, pas ses synonymes.
   `probeId` ; toute fiche patient répond à toutes ses sondes applicables
   (`antworten: Record<probeId,string>`). BASE_PROBES + FRAUEN + FACH_PROBES par
   spécialité.
-- **Muster** — phrase modèle d'Arztbrief (9 chapitres) ou de Fallvorstellung
-  (12 chapitres). Contrat de couverture par cas.
+- **Mustersätze** (`musterSaetze`, `caseMuster.ts`) — phrase modèle
+  d'Arztbrief (9 chapitres) ou de Fallvorstellung (12 chapitres). Contrat de
+  couverture par cas. À ne pas confondre avec le **Muster** de notes
+  (ci-dessous, Simulation).
 - **Fachwissen** — fiche pathologie. **Fachbegriff** — terme du glossaire, avec
   SRS.
 - **Favori** — Fachbegriff marqué ★ par la personne ; événements `term.favorited` /
@@ -58,7 +60,14 @@ d'explorer le code et emploient **ce** vocabulaire, pas ses synonymes.
   qui joue patient puis examinateur. **Binôme** — les deux.
 - **Modes** — *Assisté* / *Autonome* (assistance) ; **Couche** 1–3
   (progression) ; **Mode focus** = immersif plein écran.
-- **Bogen** (`BogenNotes`) — feuille de notes structurée par modèle de ville.
+- **Bogen** (`BogenNotes`) — la feuille de notes de l'anamnèse, une valeur par
+  clé de champ. Elle n'est jamais réécrite, et aucune note n'est perdue au
+  changement de Muster.
+- **Muster guidé / libre** (`MusterArt`) — la **forme** de la feuille de notes,
+  choisie à la pré-simulation. **Guidé** : toutes les rubriques de l'anamnèse,
+  un champ par rubrique. **Libre** : les rubriques d'identité, puis un grand
+  champ de rédaction libre. Il remplace les cinq Muster-Bogen par ville
+  (`MusterCity`, lus avec tolérance : `Standard` → guidé, villes → libre).
 - **Rollenskript** — répliques déterministes du simulant, dérivées des sondes
   (`lib/rolePlay.ts`). Base de la pré-génération vocale.
 - **Sync patient** — canal `fsp-patient-sync` (`active-case`, `guide-chapter`,
@@ -80,6 +89,19 @@ d'explorer le code et emploient **ce** vocabulaire, pas ses synonymes.
   (`docs/contracts/simulation-run.md`).
 - **Portée déclarée / portée jouée** — `geplanteTeile` est l'intention,
   `teileGespielt` est le fait. Les statistiques classent sur le fait.
+- **Cas entier** — l'unité d'**intention** : le candidat choisit, lance et voit
+  des cas, jamais des fractions de cas. Une partie planifie toujours les trois
+  Teile. À la fin de chacun : « Continuer » ou « Terminer ici ». Le fil
+  d'étapes permet de commencer par un autre Teil (ADR-0021).
+- **Teil** — l'unité de **mesure** : Anamnese, Dokumentation, Fallvorstellung.
+  Chaque Teil a son état, son score et sa date. Il ne paraît jamais en
+  surface comme un choix ou une tâche à part.
+- **D'un trait** — les trois Teile joués dans **une même partie, sans
+  reprise** (`Simulation.enchaine`). L'examen enchaîne les trois Teile :
+  l'endurance fait partie de la préparation.
+- **Non saisi** (`NOT_ENTERED = −1`) — un curseur (ressenti, critère de langue)
+  que le candidat n'a pas touché. Le score ne porte que ce qui est saisi, et
+  aucune moyenne ne lit `−1`. `0` reste une note.
 
 ## Entraînement (programme, journal, contenu)
 
@@ -92,14 +114,38 @@ d'explorer le code et emploient **ce** vocabulaire, pas ses synonymes.
   tâche pose `doneAt` ; rien d'autre ne bouge. **Replanifier** est une action
   nommée. Remplace `ProgramBlock`, `ProgramDay`, `ExtraTask`, `db.plan`.
 - **Session du jour** — la première tâche non faite du plan figé. Source unique.
+- **Tâche de cas** — une tâche est un cas. Son contenu dit **ce qui reste**
+  (`TaskInstance.teile`, figé au moment du plan) : « il te reste la
+  Dokumentation · 10 min ». Elle est **faite** quand tout ce qui restait est
+  joué le jour même. Sinon elle est **entamée**, jamais « manquée ». Le reste
+  revient en tête le lendemain, proposé et jamais imposé.
 - **État par Teil** (`vierge | fragile | acquis | solide`) — un cas n'a plus de
   pourcentage. `vierge` = « pas encore travaillé », information neutre.
+  **Solide** = deux réussites ≥ 80 espacées d'au moins 3 jours. Une mauvaise
+  partie ne fait descendre un Teil solide que d'un cran (ADR-0022).
+- **Couverture** — le nombre de Teile d'un cas travaillés et mesurés (0–3).
+- **Maîtrise** — la moyenne des derniers scores **des Teile joués**. Elle ne
+  baisse jamais parce qu'un Teil manque. Ce n'est pas un « % du cas ».
+- **État du cas** (`vierge → entamé → couvert → solide → prêt`) — **entamé** :
+  ≥ 1 Teil joué ; **couvert** : 3 Teile joués ; **solide** : 3 Teile solides ;
+  **prêt** : solide, et les 3 Teile joués d'un trait, chacun ≥ 80.
+- **Cadran** (`CaseDial`) — le signe unique d'un cas, partout où il apparaît
+  (carte, ligne de tâche, pré-simulation, fin de partie). La position dit le
+  Teil, la couleur dit l'état. Le centre affiche la maîtrise, l'anneau
+  extérieur la couverture. Un cas **prêt** a ses arcs **soudés** en anneau
+  continu.
+- **Consolidation** — le retour planifié d'un cas solide, après 7, 21, puis
+  45 jours (ADR-0022).
+- **Erreur transversale** — un item de checklist manqué dans ≥ 3 des 5
+  dernières parties d'un Teil, sur ≥ 2 cas. La tâche suivante le rappelle.
 - **Point faible** — se décide **sur la performance, jamais sur l'absence** :
   seul `fragile` en est un.
 - **Dette de Teil** — ce qui reste à faire ; elle ordonne le travail. Elle ne se
   confond **jamais** avec la faiblesse, qui nomme un défaut.
 - **Mode d'avancement** (`teil-first | cas-complet | specialite | examen-blanc`)
-  — la stratégie du candidat, demandée plutôt que devinée.
+  — la façon dont le candidat travaille, **observée** sur le journal. Elle
+  oriente la sélection en silence : elle n'est ni demandée ni proposée, et
+  n'apparaît jamais en surface (ADR-0021).
 - **Frage** — la question atomique : un seul « ? », un chapitre, ses relances
   (`nachfragen`) et ses sondes couvertes (`deckt`). Une question composée est un
   arbre aplati (`docs/contracts/frage-atomique.md`).
@@ -140,8 +186,13 @@ d'explorer le code et emploient **ce** vocabulaire, pas ses synonymes.
 
 - « Test » pour une simulation ; « quiz » pour un drill ; « patient IA » pour
   le simulant humain.
-- « Maîtrise du cas », « confiance », « % du cas » — un cas a un **état par
-  Teil**, pas un pourcentage (ADR-0017).
+- « Confiance », « % du cas », « taux de complétion du cas » — un cas a un
+  **état par Teil**, une **couverture** et une **maîtrise**, pas un pourcentage
+  (ADR-0017, ADR-0021). « Maîtrise » ne désigne que la moyenne des Teile joués.
+- « Manquée » pour une tâche entamée, « Anamnese de X » pour une tâche — une
+  tâche est un cas, entamé ou fait.
+- « Ce que le jury note », « ce qui tombe à coup sûr » — une fréquence est
+  toujours « dans N protocoles », jamais une prédiction (garde EXAM_CLAIM).
 - « En retard », « assiduité » — un jour non ouvert n'existe pas ; rien ne
   s'accumule en silence.
 - « Suggestion du jour » pour la tâche du plan figé : c'est une **tâche**, pas
