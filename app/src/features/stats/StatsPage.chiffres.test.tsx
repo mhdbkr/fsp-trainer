@@ -84,3 +84,12 @@ describe('Trajectoire — une phrase dit ce que l\'indice mesure', () => {
     expect(container.textContent).not.toMatch(/couche|budget/i);
   });
 });
+
+describe('premier lancement — Stats vide', () => {
+  it('rien dans le journal et aucune démo : « Ta première partie dessinera ta courbe. »', async () => {
+    await db.training_events.clear();
+    await act(async () => { root.render(<MemoryRouter><StatsPage /></MemoryRouter>); });
+    await vi.waitFor(() => expect(container.textContent).toContain('Ta première partie dessinera ta courbe.'), { timeout: 3000 });
+    expect(container.textContent).not.toMatch(/simulations complètes/);
+  });
+});

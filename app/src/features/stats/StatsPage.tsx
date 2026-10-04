@@ -29,7 +29,7 @@ export function StatsPage() {
       <div className="space-y-5">
         <div className="eyebrow">Analyse</div>
         <h1 className="mt-1.5 text-2xl font-bold tracking-tightish">Stats / Performances</h1>
-        <EmptyState icon="nav-chart" title="Pas encore de données" hint="Ta première séance alimentera les stats — simulation, drill ou fiche." />
+        <EmptyState icon="nav-chart" title="Pas encore de données" hint="Ta première partie dessinera ta courbe." />
       </div>
     );
   }
