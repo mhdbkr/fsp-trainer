@@ -1,6 +1,6 @@
 import { useMemo } from 'react';
 import { useLiveQuery } from 'dexie-react-hooks';
-import { db } from '@/db/db';
+import { db, isDemoSimulation } from '@/db/db';
 import { buildLinkIndex } from '@/lib/autolink';
 import { mergeTerms, type AnyTerm } from '@/lib/collections/allTerms';
 import { usePendingDeletions } from '@/lib/collections/pendingDeletion';
@@ -45,7 +45,8 @@ export const useFachwissen = (id?: string) => useLiveQuery(() => (id ? db.fachwi
 export const useAufklaerungen = () => useLiveQuery(() => db.aufklaerungen.toArray(), [], undefined);
 export const useGuides = () => useLiveQuery(() => db.guides.toArray(), [], undefined);
 /** Simulations du compte (un compte = une personne : D1, plus de filtre par profil). */
-export const useSimulations = () => useLiveQuery(() => db.simulations.orderBy('date').reverse().toArray(), [], undefined);
+/** Les séances du candidat — jamais les démos héritées (`sim-demo-*`). */
+export const useSimulations = () => useLiveQuery(() => db.simulations.orderBy('date').reverse().filter((s) => !isDemoSimulation(s.id)).toArray(), [], undefined);
 
 /** Config du programme de révision (meta `program`).
  *  undefined = pas encore chargé, null = non configuré. */

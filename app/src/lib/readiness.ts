@@ -1,4 +1,5 @@
 import type { Simulation } from '@/db/types';
+import { isDemoSimulation } from '@/db/db';
 
 // ============================================================================
 // Ce qui est MESURÉ. L'indice de préparation de l'app est UN : celui de la
@@ -18,5 +19,6 @@ import type { Simulation } from '@/db/types';
 // ============================================================================
 
 /** Une séance auto-déclarée : le score vient du candidat, pas d'une mesure.
- *  Un seul prédicat, un seul endroit — les appelants n'ont rien à filtrer. */
-export const estMesuree = (sim: Simulation): boolean => sim.mode !== 'external-ai';
+ *  Un seul prédicat, un seul endroit — les appelants n'ont rien à filtrer.
+ *  Une démo héritée (`sim-demo-*`) n'est pas non plus une mesure du candidat. */
+export const estMesuree = (sim: Simulation): boolean => sim.mode !== 'external-ai' && !isDemoSimulation(sim.id);

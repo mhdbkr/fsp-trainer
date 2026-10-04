@@ -82,6 +82,9 @@ export function StatsPage() {
         {/* Progression */}
         <section className="card p-5">
           <h2 className="mb-3 font-semibold">Progression dans le temps</h2>
+          {series.length === 0 ? (
+            <p className="text-sm text-slate-500 dark:text-slate-400">Ta première partie dessinera ta courbe.</p>
+          ) : (
           <ResponsiveContainer width="100%" height={280}>
             <LineChart data={series} margin={{ top: 5, right: 10, left: -20, bottom: 0 }}>
               <CartesianGrid strokeDasharray="3 3" className="stroke-slate-200 dark:stroke-slate-800" />
@@ -91,6 +94,7 @@ export function StatsPage() {
               <Line type="monotone" dataKey="score" stroke="#2b9689" strokeWidth={2} dot={{ r: 3 }} />
             </LineChart>
           </ResponsiveContainer>
+          )}
         </section>
       </div>
 

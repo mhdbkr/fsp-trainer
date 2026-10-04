@@ -1,5 +1,5 @@
 // Construit le contexte de pertinence et le budget du jour depuis la base du compte.
-import { db } from '@/db/db';
+import { db, isDemoSimulation } from '@/db/db';
 import type { DayPlan, ProgramConfig, Specialty } from '@/db/types';
 import type { RelevanceContext } from './relevance';
 import { newBudget, remainingToday, retention7d, reviewedToday } from '@/lib/srsBudget';
@@ -49,7 +49,7 @@ export async function loadDrillContext(now = nowDate()): Promise<DrillContext> {
   const pendingIds = usePendingDeletions.getState().ids;
   const livePersonalTerms = pendingIds.size ? personalTerms.filter((p) => !pendingIds.has(p.id)) : personalTerms;
 
-  const sims = [...allSims].sort((a, b) => b.date - a.date).slice(0, 30);
+  const sims = allSims.filter((s) => !isDemoSimulation(s.id)).sort((a, b) => b.date - a.date).slice(0, 30);
   const { todayCaseIds, todaySpecialty } = todayProgramContext(todayPlan);
 
   const relevance: RelevanceContext = {

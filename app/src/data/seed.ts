@@ -1,9 +1,4 @@
-import { subDays } from 'date-fns';
-import { db } from '@/db/db';
-import type { Case, Fachbegriff, Fachwissen, AufklaerungItem, Simulation, PartResult, ChecklistItem } from '@/db/types';
-import { checklistFor } from '@/lib/checklists';
-import { checklistPct, languagePct, emptyLanguageGrid } from '@/lib/scoring';
-import { useSession } from '@/lib/auth/session';
+import type { Case, Fachbegriff, Fachwissen, AufklaerungItem } from '@/db/types';
 
 // ----------------------------------------------------------------------------
 // Linkage automatique : relie cas ↔ Fachbegriffe ↔ Fachwissen ↔ Aufklärungen
@@ -67,76 +62,4 @@ export function wireLinks(
   for (const auf of aufklaerungen) {
     auf.linkedCaseIds = cases.filter((c) => c.probableAufklaerungIds.includes(auf.id)).map((c) => c.id);
   }
-}
-
-// ----------------------------------------------------------------------------
-// Simulations de démonstration (pour peupler les stats dès le 1er lancement).
-// ----------------------------------------------------------------------------
-function mkPart(part: 'anamnese' | 'dokumentation' | 'fallvorstellung' | 'aufklaerung', checkedRatio: number, feeling: number, withLang: boolean): PartResult {
-  const checklist: ChecklistItem[] = checklistFor(part).map((it, i) => ({
-    ...it,
-    checked: i / checklistFor(part).length < checkedRatio,
-  }));
-  const grid = withLang ? { ...emptyLanguageGrid(), aussprache: 3, wortschatz: 3, grammatik: 4, redefluss: 3, kommunikation: 4 } : undefined;
-  return {
-    done: true,
-    durationSec: part === 'anamnese' ? 1180 : part === 'dokumentation' ? 1150 : 720,
-    checklist,
-    languageGrid: grid,
-    feeling,
-    contentPct: checklistPct(checklist),
-    officialPct: languagePct(grid),
-  };
-}
-
-function demoSimulations(): Simulation[] {
-  return [
-    {
-      id: 'sim-demo-1', caseId: 'case-angina-pectoris', date: subDays(new Date(), 6).getTime(), role: 'Candidat',
-      parts: {
-        anamnese: mkPart('anamnese', 0.7, 60, true),
-        dokumentation: mkPart('dokumentation', 0.55, 45, false),
-        fallvorstellung: mkPart('fallvorstellung', 0.5, 40, true),
-      },
-      notes: { aktuell: 'retrosternaler Druck, belastungsabh.', verdacht: 'Stabile AP bei KHK' },
-      prioritizedCorrections: ['Konjunktiv I im Arztbrief üben', 'DD systematischer nennen'],
-    },
-    {
-      id: 'sim-demo-2', caseId: 'case-pankreatitis', date: subDays(new Date(), 3).getTime(), role: 'Partenaire',
-      parts: {
-        anamnese: mkPart('anamnese', 0.85, 75, true),
-        dokumentation: mkPart('dokumentation', 0.75, 65, false),
-        fallvorstellung: mkPart('fallvorstellung', 0.7, 60, true),
-        aufklaerung: mkPart('aufklaerung', 0.6, 55, true),
-      },
-      notes: { aktuell: 'gürtelförmiger Oberbauchschmerz', verdacht: 'akute biliäre Pankreatitis' },
-      prioritizedCorrections: ['Aufklärung ÖGD flüssiger'],
-    },
-    {
-      id: 'sim-demo-3', caseId: 'case-leberzirrhose', date: subDays(new Date(), 1).getTime(), role: 'Candidat',
-      parts: {
-        anamnese: mkPart('anamnese', 0.6, 50, true),
-        fallvorstellung: mkPart('fallvorstellung', 0.45, 35, true),
-      },
-      notes: { aktuell: 'diffuse Bauchschmerzen, Aszites', verdacht: 'Leberzirrhose bei C2-Abusus' },
-      prioritizedCorrections: ['Komplikationen der Zirrhose auswendig', 'Empathie beim Alkoholthema'],
-    },
-  ];
-}
-
-/**
- * Seed des données de démo (simulations) uniquement — le contenu
- * (cas, Fachwissen, Aufklärungen, guides, Fachbegriffe) est désormais géré
- * par contentLoader.sync() (src/lib/content/loader.ts), qui remplace
- * l'ancien ensureSeeded. Ne touche jamais aux tables de contenu.
- *
- * Un compte = une personne (D1) : la démo n'a de sens que pour un visiteur
- * qui n'a encore ni compte ni progression réelle (journal `progress_events`
- * vide). Dès qu'un événement existe ou qu'un compte est actif, on ne seed
- * plus jamais — la démo écraserait sinon une vraie progression rapatriée.
- */
-export async function ensureDemoData(): Promise<void> {
-  if (useSession.getState().status !== 'anonymous') return;
-  if ((await db.progress_events.count()) > 0) return;
-  if ((await db.simulations.count()) === 0) await db.simulations.bulkPut(demoSimulations());
 }

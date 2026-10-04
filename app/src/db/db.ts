@@ -84,10 +84,19 @@ export class FspDatabase extends Dexie {
       simulations: 'id, caseId, date, role, profileId, teil',
       plan: null,
     });
+    // v6 — C6-A (BUG-C6-1) : les 3 démos que les premières versions semaient dans
+    // la base de chaque visiteur faussaient les stats (« 3 simulations complètes »,
+    // une courbe qui « retombe » à la première vraie partie). Fausses données,
+    // jamais synchronisées (migrateLocal les écartait) : on les supprime.
+    this.version(6).stores({}).upgrade((tx) => tx.table('simulations').filter((s) => isDemoSimulation(s.id)).delete());
   }
 }
 
 export const db = new FspDatabase();
+
+/** `sim-demo-*` : anciennes simulations de démonstration (retirées en v6). Jamais
+ *  des données du candidat : aucun score ne les lit, aucune synchro ne les pousse. */
+export const isDemoSimulation = (id: string): boolean => id.startsWith('sim-demo-');
 
 // --- Meta helpers -----------------------------------------------------------
 export async function getMeta<T>(key: string, fallback: T): Promise<T> {
