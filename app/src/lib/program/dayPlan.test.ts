@@ -321,3 +321,22 @@ describe('C6-B · rien de dû : les nouveaux termes passent APRÈS la première 
     expect(kinds(nouveaux(5) as never[], { config: config({ modus: 'examen-blanc' }) }).slice(0, 2)).toEqual(['examen-blanc', 'drill']);
   });
 });
+
+describe('C6-B · « N nouveaux » suit le réglage du drill (newPerDay)', () => {
+  it('newPerDay plafonne les nouveaux annoncés ; 0 = pas de tâche', () => {
+    const r = (n?: number) => buildTasks(input({ begriffe: nouveaux(25) as never[], now: NOW, newPerDay: n }), ids()).find((t) => t.kind === 'drill')?.reason;
+    expect(r(3)).toBe('3 nouveaux termes');
+    expect(r(40)).toBe('25 nouveaux termes');            // jamais plus que ce qui existe
+    expect(r(undefined)).toBe('10 nouveaux termes');     // repli
+    expect(r(0)).toBeUndefined();
+  });
+  it('ensureDayPlan lit le réglage manuel enregistré', async () => {
+    freezeAt('2026-10-01T08:00:00Z');
+    await db.cases.bulkPut(corpus());
+    await db.fachbegriffe.bulkPut(nouveaux(25).map((b, i) => ({ ...(b as object), id: `n${i}`, srs: { interval: 0, easeFactor: 2.5, dueDate: 0, repetitions: 0, lapses: 0, state: 'Neu' } })) as never[]);
+    await db.meta.put({ key: 'program', value: config() });
+    await db.meta.put({ key: 'srs.settings', value: { mode: 'manual', newPerDay: 4 } });
+    const plan = await ensureDayPlan();
+    expect(plan!.tasks.find((t) => t.kind === 'drill')!.reason).toBe('4 nouveaux termes');
+  });
+});

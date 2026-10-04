@@ -28,6 +28,7 @@ import { blankProgress } from '@/lib/journal';
 import { dayKey, now as clockNow } from '@/lib/clock';
 import { pickWithDiversity, pourquoiAujourdhui, rankCandidates, violatesDiversity, type SelectContext } from './select';
 
+const NEW_PER_DAY_DEFAULT = 10;
 const SIM_MIN = 40;
 const TEIL_MIN: Record<SimTeil, number> = { anamnese: 20, dokumentation: 20, fallvorstellung: 12 };
 const MOCK_MIN = 60;
@@ -95,6 +96,9 @@ export interface BuildInput {
   trainingEvents: TrainingEvent[];
   begriffe: Fachbegriff[];
   now: number;
+  /** Nouveaux termes par jour : le réglage EFFECTIF du drill (`effectiveDaily`).
+   *  Absent ⇒ 10, comme le repli du drill. */
+  newPerDay?: number;
   /** Budget restant, s'il n'est pas le budget plein du jour (replanifier, I3). */
   budgetMin?: number;
 }
@@ -149,7 +153,7 @@ export function buildTasks(input: BuildInput, mkId: () => string = newId): TaskI
   //    plus de minutes, donc n'attire plus de nouvelles simulations
   //    (audit §2.4 — l'effet existait sans rien cocher).
   const terms = counts(begriffe, input.now);
-  const fresh = Math.min(terms.fresh, 10);
+  const fresh = Math.min(terms.fresh, input.newPerDay ?? NEW_PER_DAY_DEFAULT);
   const drillTotal = terms.due + fresh;
   if (drillTotal > 0 && targetMin > 0) {   // ni dû ni nouveau : pas de tâche, donc jamais la session de tête (C6-B)
     push({
@@ -276,7 +280,11 @@ async function loadBuildInput(config: ProgramConfig, date: string, at: number): 
   const [cases, begriffe, trainingEvents, progressRows] = await Promise.all([
     db.cases.toArray(), db.fachbegriffe.toArray(), db.training_events.toArray(), db.case_progress.toArray(),
   ]);
-  return { config, date, cases, begriffe, trainingEvents, progress: new Map(progressRows.map((p) => [p.caseId, p])), now: at };
+  // Le MÊME réglage que le drill annonce (auto = budget × intensité, ou manuel).
+  // Import paresseux : `drillContext` importe `@/lib/program` (cycle sinon).
+  const { loadDrillContext } = await import('@/lib/collections/drillContext');
+  const newPerDay = await loadDrillContext(new Date(at)).then((c) => c.daily.newPerDay).catch(() => undefined);
+  return { config, date, cases, begriffe, trainingEvents, progress: new Map(progressRows.map((p) => [p.caseId, p])), now: at, newPerDay };
 }
 
 /** Les ids des tâches d'un plan, dérivés de sa graine (M2) : rejouables. */
