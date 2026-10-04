@@ -66,8 +66,8 @@ export async function accepterRattrapage(today: string, from: string): Promise<D
   const { syncQueue } = await import('@/lib/sync/queue');
   await syncQueue.push({ type: 'plan.replanned', subject_id: today, occurred_at: new Date(next.replannedAt!).toISOString(), payload: { tasks, reason: 'rattrapage' } })
     .catch((e) => console.warn('[sync]', e));
+  await refuserRattrapage(from);                                  // traité : la ligne « ce qui a glissé » ne revient pas (AVANT le plan : l'écran suit le plan)
   await db.day_plans.put(next);
-  await refuserRattrapage(from);                                  // traité : la ligne « ce qui a glissé » ne revient pas
   return next;
 }
 
