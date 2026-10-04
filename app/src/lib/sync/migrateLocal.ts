@@ -1,4 +1,5 @@
-import { db, getMeta, setMeta, isDemoSimulation } from '@/db/db';
+import { db, getMeta, setMeta } from '@/db/db';
+import { isDemoSimulation } from '@/lib/demoSimulation';
 import { syncQueue } from './queue';
 import type { NewEvent } from './events';
 

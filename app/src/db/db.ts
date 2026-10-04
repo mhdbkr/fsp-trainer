@@ -6,6 +6,7 @@ import type {
 } from './types';
 import type { ProgressEvent, OutboxRow } from '@/lib/sync/events';
 import { getActiveUserId } from '@/lib/auth/accounts';
+import { isDemoSimulation } from '@/lib/demoSimulation';
 
 // ============================================================================
 // IndexedDB via Dexie. Tout est local, aucune requête réseau à l'exécution.
@@ -94,9 +95,6 @@ export class FspDatabase extends Dexie {
 
 export const db = new FspDatabase();
 
-/** `sim-demo-*` : anciennes simulations de démonstration (retirées en v6). Jamais
- *  des données du candidat : aucun score ne les lit, aucune synchro ne les pousse. */
-export const isDemoSimulation = (id: string): boolean => id.startsWith('sim-demo-');
 
 // --- Meta helpers -----------------------------------------------------------
 export async function getMeta<T>(key: string, fallback: T): Promise<T> {

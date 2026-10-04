@@ -1,6 +1,7 @@
 import { useMemo } from 'react';
 import { useLiveQuery } from 'dexie-react-hooks';
-import { db, isDemoSimulation } from '@/db/db';
+import { db } from '@/db/db';
+import { isDemoSimulation } from '@/lib/demoSimulation';
 import { buildLinkIndex } from '@/lib/autolink';
 import { mergeTerms, type AnyTerm } from '@/lib/collections/allTerms';
 import { usePendingDeletions } from '@/lib/collections/pendingDeletion';

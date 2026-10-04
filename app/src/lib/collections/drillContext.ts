@@ -1,5 +1,6 @@
 // Construit le contexte de pertinence et le budget du jour depuis la base du compte.
-import { db, isDemoSimulation } from '@/db/db';
+import { db } from '@/db/db';
+import { isDemoSimulation } from '@/lib/demoSimulation';
 import type { DayPlan, ProgramConfig, Specialty } from '@/db/types';
 import type { RelevanceContext } from './relevance';
 import { newBudget, remainingToday, retention7d, reviewedToday } from '@/lib/srsBudget';

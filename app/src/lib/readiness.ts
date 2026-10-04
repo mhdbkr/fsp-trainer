@@ -1,5 +1,5 @@
 import type { Simulation } from '@/db/types';
-import { isDemoSimulation } from '@/db/db';
+import { isDemoSimulation } from '@/lib/demoSimulation';
 
 // ============================================================================
 // Ce qui est MESURÉ. L'indice de préparation de l'app est UN : celui de la
