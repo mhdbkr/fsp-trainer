@@ -208,7 +208,8 @@ export const SUCHT_AFFINE: Record<ProbeId, Signe[]> = {
   'akt-ausscheid-haeufigkeit': ['stuhlfrequenz'], 'akt-ausscheid-aussehen': ['stuhlaussehen'], 'akt-ausscheid-schlucken': ['schluck'],
   'veg-gewicht': ['gewicht'],
   // paires de granularité (INV-78) et cible de SUCHT_AUSSER
-  'akt-ausscheid-was': ['stuhl', 'miktion'],
+  // D1 : l'énumération « Wasserlassen, Stuhlgang, Farbe von Haut/Augen/Urin/Stuhl » cherche chaque signe nommé.
+  'akt-ausscheid-was': ['stuhl', 'miktion', 'gelbfaerbung', 'urin_aspekt', 'stuhlaussehen'],
   'fach-endo-durst': ['durst', 'polyurie'], 'fach-uro-miktion': ['miktion'],
   'fach-neuro-kraft': ['schwaeche'], 'fach-haem-leistung': ['muedigkeit'],
   'fach-neuro-sensibilitaet': ['taubheit'], 'fach-ortho-cauda': ['sattel', 'miktion', 'stuhl'],

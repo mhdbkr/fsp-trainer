@@ -168,6 +168,11 @@ describe('Lexique de signes — INV-77 (cohérent) et INV-78 (granularité)', ()
     expect(lexiqueIncoherences(mutated({ ausser: { 'fach-uro-flanke': { hoden: ['fieber'] } } })).some((m) => /ne cherche pas « fieber »/.test(m))).toBe(true);
   });
 
+  // D1 : une énumération cherche chaque signe qu'elle nomme. Le lexique dit la même chose que la mesure.
+  it('D1 : akt-ausscheid-was (« Wasserlassen, Stuhlgang, Farbe von Haut/Augen/Urin/Stuhl ») cherche tout ce qu\u2019elle nomme', () => {
+    expect(SUCHT_AFFINE['akt-ausscheid-was']).toEqual(expect.arrayContaining(['stuhl', 'miktion', 'gelbfaerbung', 'urin_aspekt', 'stuhlaussehen']));
+  });
+
   it('INV-78 : les paires de discrimination ont des sucht disjoints', () => {
     expect(GRANULARITE_PAIRES.length).toBeGreaterThanOrEqual(4);
     for (const [a, b] of GRANULARITE_PAIRES) expect(SUCHT_AFFINE[a].filter((s) => SUCHT_AFFINE[b].includes(s)), `${a} / ${b}`).toEqual([]);
