@@ -1,0 +1,468 @@
+<title>Le cas entier, mesuré au Teil</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Mise en page : une colonne de lecture (68ch) avec des planches de démonstration pleine largeur, charte « instrument clinique » de Doctopus. */
+:root {
+  --paper: #f4f5f2; --surface: #ffffff; --ink: #0c1a17; --muted: #55635f; --line: rgb(12 26 23 / 0.12);
+  --petrol: #0c6157; --petrol-2: #158375; --petrol-soft: #6bbdb0; --petrol-wash: #ecf7f4;
+  --coral: #e8613c; --coral-wash: #fdf1ec;
+  --s-vierge: rgb(12 26 23 / 0.14); --s-fragile: #e8613c; --s-acquis: #6bbdb0; --s-solide: #0c6157;
+  --f-display: "Bricolage Grotesque", "Avenir Next", system-ui, sans-serif;
+  --f-body: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --f-mono: "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, monospace;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --paper: #0c1a17; --surface: #12211e; --ink: #e9efec; --muted: #9db1ab; --line: rgb(233 239 236 / 0.12);
+  --petrol: #6bbdb0; --petrol-2: #379e8f; --petrol-soft: #2a6d64; --petrol-wash: #0e3530;
+  --coral: #f09374; --coral-wash: #3a0f0a;
+  --s-vierge: rgb(233 239 236 / 0.16); --s-fragile: #f09374; --s-acquis: #379e8f; --s-solide: #a2d7cd;
+  color-scheme: dark; } }
+:root[data-theme="dark"] {
+  --paper: #0c1a17; --surface: #12211e; --ink: #e9efec; --muted: #9db1ab; --line: rgb(233 239 236 / 0.12);
+  --petrol: #6bbdb0; --petrol-2: #379e8f; --petrol-soft: #2a6d64; --petrol-wash: #0e3530;
+  --coral: #f09374; --coral-wash: #3a0f0a;
+  --s-vierge: rgb(233 239 236 / 0.16); --s-fragile: #f09374; --s-acquis: #379e8f; --s-solide: #a2d7cd;
+  color-scheme: dark; }
+
+* { box-sizing: border-box; }
+body { background: var(--paper); color: var(--ink); font: 400 16px/1.6 var(--f-body); }
+.wrap { max-width: 1060px; margin: 0 auto; padding-inline: 20px; padding-block: 40px 96px; }
+.read { max-width: 68ch; }
+h1, h2, h3 { font-family: var(--f-display); text-wrap: balance; line-height: 1.12; margin: 0; }
+h1 { font-size: clamp(2rem, 5vw, 3.1rem); font-weight: 700; letter-spacing: -0.02em; }
+h2 { font-size: clamp(1.45rem, 3vw, 1.9rem); font-weight: 700; letter-spacing: -0.01em; }
+h3 { font-size: 1.12rem; font-weight: 600; font-family: var(--f-body); }
+p { margin: 0; }
+.eyebrow { font: 500 0.72rem/1 var(--f-mono); letter-spacing: 0.12em; text-transform: uppercase; color: var(--petrol-2); }
+.lede { font-size: 1.12rem; color: var(--muted); }
+section { display: grid; gap: 18px; padding-block: 44px; border-top: 1px solid var(--line); }
+section:first-of-type { border-top: 0; }
+.stack { display: grid; gap: 12px; }
+ul.plain { margin: 0; padding-left: 1.1em; display: grid; gap: 6px; }
+strong { font-weight: 600; }
+.mono { font-family: var(--f-mono); font-variant-numeric: tabular-nums; }
+.note { font-size: 0.92rem; color: var(--muted); }
+
+/* Hero */
+.hero { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); gap: 36px; align-items: center; }
+@media (max-width: 760px) { .hero { grid-template-columns: 1fr; } }
+.hero-stage { display: grid; place-items: center; min-height: 300px; background: var(--surface); border: 1px solid var(--line); border-radius: 22px; padding: 18px; position: relative; }
+.hint { position: absolute; bottom: 12px; left: 0; right: 0; text-align: center; font: 400 0.74rem/1 var(--f-mono); color: var(--muted); letter-spacing: 0.04em; }
+
+/* Le cadran */
+.dial { position: relative; display: inline-grid; justify-items: center; gap: 8px; cursor: pointer; outline: none; -webkit-tap-highlight-color: transparent; user-select: none; -webkit-user-select: none; touch-action: manipulation; }
+.dial svg { overflow: visible; display: block; transition: transform 420ms cubic-bezier(.2,.8,.2,1); }
+.dial .arc { transition: transform 420ms cubic-bezier(.2,.8,.2,1), stroke-width 420ms; }
+.dial .core-num { font-family: var(--f-mono); font-weight: 500; fill: var(--ink); font-variant-numeric: tabular-nums; }
+.dial .core-sub { font-family: var(--f-mono); fill: var(--muted); letter-spacing: 0.06em; }
+.dial .tlabel { font-family: var(--f-mono); fill: var(--muted); opacity: 0; transition: opacity 260ms 120ms; letter-spacing: 0.04em; }
+.dial.open svg { transform: scale(1.14); }
+.dial.open .tlabel { opacity: 1; }
+.dial:focus-visible { outline: 2px solid var(--petrol); outline-offset: 6px; border-radius: 50%; }
+.dial-name { font-weight: 600; font-size: 0.95rem; text-align: center; }
+.detail { width: min(300px, 100%); background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 12px 14px; display: grid; gap: 8px;
+  opacity: 0; transform: translateY(-6px); max-height: 0; overflow: hidden; transition: opacity 260ms, transform 300ms, max-height 360ms; pointer-events: none; }
+.dial.open .detail { opacity: 1; transform: none; max-height: 260px; pointer-events: auto; }
+.trow { display: grid; grid-template-columns: 10px 1fr auto; gap: 8px; align-items: center; font-size: 0.86rem; }
+.chip { width: 10px; height: 10px; border-radius: 3px; }
+.trow .v { font-family: var(--f-mono); font-size: 0.8rem; color: var(--muted); font-variant-numeric: tabular-nums; }
+.cta { font: 500 0.84rem/1 var(--f-body); color: var(--paper); background: var(--petrol); border: 0; border-radius: 999px; padding: 9px 14px; justify-self: start; cursor: pointer; }
+:root .cta { color: #fff; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .cta { color: #0c1a17; } }
+:root[data-theme="dark"] .cta { color: #0c1a17; }
+
+/* Galerie d'états */
+.states { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 16px; align-items: start; }
+.state-card { background: var(--surface); border: 1px solid var(--line); border-radius: 16px; padding: 18px 12px 14px; display: grid; justify-items: center; gap: 6px; }
+.state-cap { font-size: 0.84rem; color: var(--muted); text-align: center; max-width: 26ch; }
+
+/* Légende */
+.legend { display: flex; flex-wrap: wrap; gap: 8px 18px; font-size: 0.86rem; }
+.legend span { display: inline-flex; align-items: center; gap: 7px; }
+
+/* Tableaux */
+.tbl { overflow-x: auto; border: 1px solid var(--line); border-radius: 14px; background: var(--surface); }
+table { border-collapse: collapse; width: 100%; min-width: 560px; font-size: 0.92rem; }
+th, td { text-align: left; padding: 11px 14px; border-bottom: 1px solid var(--line); vertical-align: top; }
+th { font: 500 0.72rem/1.2 var(--f-mono); letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
+tr:last-child td { border-bottom: 0; }
+td:first-child { font-weight: 600; white-space: nowrap; }
+
+/* Maquettes */
+.mock { background: var(--surface); border: 1px solid var(--line); border-radius: 20px; padding: 20px; display: grid; gap: 18px; }
+.mock-title { font: 600 0.78rem/1 var(--f-mono); letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); }
+.task { display: grid; grid-template-columns: 44px minmax(0, 1fr) auto; gap: 14px; align-items: center; padding: 10px 0; border-bottom: 1px solid var(--line); }
+.task:last-child { border-bottom: 0; }
+.task .t-name { font-weight: 600; }
+.task .t-why { font-size: 0.86rem; color: var(--muted); }
+.task .t-min { font: 500 0.82rem/1 var(--f-mono); color: var(--muted); white-space: nowrap; }
+.go { font: 500 0.9rem/1 var(--f-body); background: var(--petrol); border: 0; border-radius: 12px; padding: 12px 18px; cursor: pointer; justify-self: start; }
+:root .go { color: #fff; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .go { color: #0c1a17; } }
+:root[data-theme="dark"] .go { color: #0c1a17; }
+.week { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 8px; }
+.day { display: grid; justify-items: center; gap: 6px; padding: 10px 4px; border-radius: 12px; border: 1px solid var(--line); font: 500 0.72rem/1 var(--f-mono); color: var(--muted); }
+.day.today { border-color: var(--petrol); color: var(--petrol); }
+.day .dots { display: flex; gap: 3px; flex-wrap: wrap; justify-content: center; min-height: 14px; }
+.cov { display: grid; gap: 14px; }
+.cov-row { display: grid; grid-template-columns: 130px minmax(0, 1fr); gap: 12px; align-items: center; }
+@media (max-width: 520px) { .cov-row { grid-template-columns: 1fr; gap: 6px; } }
+.cov-name { font-size: 0.86rem; font-weight: 500; }
+.cov-dots { display: flex; flex-wrap: wrap; gap: 5px; }
+.insight { border-left: 3px solid var(--coral); background: var(--coral-wash); padding: 12px 14px; border-radius: 0 12px 12px 0; font-size: 0.95rem; }
+.two { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 18px; }
+@media (max-width: 760px) { .two { grid-template-columns: 1fr; } }
+.session-head { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px; align-items: baseline; }
+.session-head h3 { font-family: var(--f-display); font-size: 1.25rem; }
+.delta { display: grid; grid-template-columns: 34px 16px 34px minmax(0, 1fr); gap: 8px; align-items: center; font-size: 0.9rem; }
+.arrow { color: var(--muted); text-align: center; }
+.tags { display: flex; flex-wrap: wrap; gap: 6px; }
+.tag { font-size: 0.82rem; border: 1px solid var(--line); border-radius: 999px; padding: 4px 10px; background: var(--petrol-wash); }
+.row-actions { display: flex; flex-wrap: wrap; gap: 8px; }
+.ghost { font: 500 0.84rem/1 var(--f-body); color: var(--petrol); background: transparent; border: 1px solid var(--line); border-radius: 999px; padding: 8px 12px; cursor: pointer; }
+.q { display: grid; gap: 8px; background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 16px 18px; }
+.q .rec { font-size: 0.92rem; }
+.q .rec b { color: var(--petrol); font-weight: 600; }
+.steps { counter-reset: s; display: grid; gap: 10px; margin: 0; padding: 0; list-style: none; }
+.steps li { counter-increment: s; display: grid; grid-template-columns: 34px minmax(0, 1fr); gap: 10px; }
+.steps li::before { content: counter(s); font: 500 0.8rem/1 var(--f-mono); width: 26px; height: 26px; border-radius: 50%; border: 1px solid var(--line); display: grid; place-items: center; color: var(--petrol); }
+@media (prefers-reduced-motion: reduce) { .dial svg, .dial .arc, .detail, .dial .tlabel { transition: none; } .dial.open svg { transform: none; } }
+</style>
+
+<div class="wrap">
+
+<section>
+  <div class="hero">
+    <div class="stack">
+      <span class="eyebrow">Doctopus · proposition de structure · 4 oct. 2026</span>
+      <h1>Le cas entier à l'écran, mesuré au Teil en dessous</h1>
+      <p class="lede">Le candidat voit des cas, jamais des fractions de cas. Le programme, lui, sait au Teil près ce qui est fait, ce qui est fragile et ce qui reste. C'est ta stratégie, et je la soutiens : les données de Doctopus suivent déjà chaque Teil séparément, donc le changement porte sur l'interface et la génération du plan, pas sur la mémoire.</p>
+    </div>
+    <div class="hero-stage">
+      <div id="hero-dial"></div>
+      <div class="hint">survole et attends · appui long sur mobile</div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <span class="eyebrow">1 · Le principe</span>
+  <h2>Ce que le candidat choisit, ce que l'app mesure</h2>
+  <div class="read stack">
+    <p>La division en trois Teile reste la bonne unité de <strong>mesure</strong> : à l'examen, l'Anamnese, la Dokumentation et la Fallvorstellung sont trois gestes distincts, et un candidat peut être solide sur l'un et fragile sur l'autre. Elle était une mauvaise unité d'<strong>intention</strong> : demander « quel Teil veux-tu faire ? » avant d'entrer, ou poser « Anamnese de Leberzirrhose » comme tâche, morcelle la journée et brouille l'avancement.</p>
+    <p>La règle devient : <strong>une tâche est un cas</strong>, et son contenu dit ce qui reste. « Leberzirrhose · il te reste la Dokumentation · 10 min » au lieu de trois tâches éparses.</p>
+  </div>
+  <div class="tbl"><table>
+    <thead><tr><th>Où</th><th>Aujourd'hui</th><th>Proposé</th></tr></thead>
+    <tbody>
+      <tr><td>Pré-simulation</td><td>Choix « complète » ou un Teil seul avant d'entrer</td><td>Un seul bouton « Démarrer ». Le cadran du cas montre ce qui est fait.</td></tr>
+      <tr><td>Pendant la partie</td><td>Le Teil est fixé à l'entrée</td><td>Les trois Teile s'enchaînent. À la fin de chacun : « Continuer » ou « Terminer ici ». Le fil d'étapes permet de commencer directement par un autre Teil.</td></tr>
+      <tr><td>Programme</td><td>Mode « par Teil » : tâches d'un seul Teil sur plusieurs cas</td><td>Tâches = cas. Le plan choisit les cas selon ce qui reste à chaque Teil, sans l'afficher comme une fraction.</td></tr>
+      <tr><td>Tâche cochée</td><td>Par une partie du bon Teil</td><td>Quand ce qui restait est joué. Une partie partielle fait avancer le cadran de la tâche sans la cocher, et n'est jamais comptée comme manquée.</td></tr>
+      <tr><td>Statistiques</td><td>Un score de cas se lit mal quand un Teil manque</td><td>Deux mesures séparées : <strong>couverture</strong> (combien de Teile travaillés) et <strong>maîtrise</strong> (score des Teile joués). Un cas inachevé ne baisse jamais la maîtrise.</td></tr>
+    </tbody>
+  </table></div>
+  <div class="read stack">
+    <h3>Le suivi intelligent, sans le montrer</h3>
+    <ul class="plain">
+      <li>L'app continue d'observer comment la personne travaille. Si elle fait souvent l'Anamnese seule, le plan propose des cas dont l'Anamnese est à faire et estime la durée sur son habitude. La proposition « tu avances par Teil, je cale le programme ? » disparaît : l'adaptation devient silencieuse.</li>
+      <li>Un cas commencé hier passe en tête demain : « Finir Leberzirrhose · Dokumentation et Fallvorstellung ». Proposé, jamais imposé.</li>
+      <li>Un Teil fragile revient de lui-même dans la tâche du cas, pas en tâche à part.</li>
+    </ul>
+  </div>
+</section>
+
+<section>
+  <span class="eyebrow">2 · Le cadran</span>
+  <h2>Un seul instrument, partout où un cas apparaît</h2>
+  <div class="read stack">
+    <p>Ton idée de double anneau est la bonne. Je propose une correction sur la couleur : si chaque Teil a sa couleur <em>et</em> que la couleur doit aussi dire « fait », l'œil doit décoder deux choses à la fois. Je sépare les deux : <strong>la position dit le Teil</strong> (Anamnese en haut à droite, Dokumentation en bas, Fallvorstellung à gauche, toujours au même endroit) et <strong>la couleur dit l'état</strong>.</p>
+  </div>
+  <div class="legend" aria-label="Légende des états">
+    <span><i class="chip" style="background:var(--s-vierge)"></i>Pas encore joué (neutre, jamais un défaut)</span>
+    <span><i class="chip" style="background:var(--s-fragile)"></i>Fragile</span>
+    <span><i class="chip" style="background:var(--s-acquis)"></i>Acquis</span>
+    <span><i class="chip" style="background:var(--s-solide)"></i>Solide</span>
+  </div>
+  <div class="read"><p>L'anneau intérieur et le chiffre central donnent la maîtrise : la moyenne des Teile joués, jamais pénalisée par un Teil absent. L'anneau extérieur donne la couverture. Survole ou appuie longuement : le cadran s'ouvre, les arcs s'écartent et chaque Teil donne son score, sa date et l'action suivante.</p></div>
+  <div class="states" id="states"></div>
+  <div class="read stack">
+    <h3>Les règles du mouvement</h3>
+    <ul class="plain">
+      <li>Ouverture après 300 ms de survol, 450 ms d'appui sur mobile avec une vibration courte. Jamais au simple passage de la souris.</li>
+      <li>Quand un Teil vient d'être joué, son arc se dessine une fois au retour sur la liste. Quand les trois sont solides, l'anneau se ferme d'un trait. Pas de confettis.</li>
+      <li>Mouvement réduit : pas d'agrandissement, le détail s'ouvre en panneau.</li>
+      <li>Accessibilité : la couleur n'est jamais seule. Le détail est un texte lisible, et le cadran a une étiquette complète pour les lecteurs d'écran.</li>
+    </ul>
+    <h3>Où il apparaît</h3>
+    <p>Une seule primitive, <span class="mono">CaseDial</span>, en quatre tailles : carte de cas (64 px), ligne de tâche du programme (36 px), en-tête de la pré-simulation (96 px, avec le détail ouvert), écran de fin de partie (l'arc du Teil joué se remplit sous les yeux). Le candidat apprend un signe une fois et le relit partout.</p>
+  </div>
+</section>
+
+<section>
+  <span class="eyebrow">3 · La page Simulation</span>
+  <h2>La remplacer par « Examen »</h2>
+  <div class="read stack">
+    <p>Tu as raison : elle refait la liste des cas, et sa seule particularité, la carte qui se retourne pour choisir un Teil, disparaît avec la décision 1. La supprimer serait propre. La fondre dans l'Historique mélangerait « ce que j'ai fait » et « ce que je vais faire ».</p>
+    <p>Je propose de lui donner la seule chose qu'aucune autre page ne fait : <strong>simuler le jour de l'examen</strong>. À la FSP, on ne choisit pas son cas. La page « Examen » tire un cas au sort, pondéré par ce qui tombe le plus et par ce que la personne n'a jamais vu, puis enchaîne les trois Teile en conditions réelles, au chronomètre, sans aide. Le choix libre d'un cas reste dans « Cas cliniques », où le cadran sert d'entrée.</p>
+    <p class="note">La branche dormante <span class="mono">feat/pruefungstag</span> (71 commits) porte déjà ce chantier. Je la ferais auditer avant de repartir de zéro. Les « simulations récentes » de la page actuelle vont dans l'Historique.</p>
+  </div>
+</section>
+
+<section>
+  <span class="eyebrow">4 · Programme</span>
+  <h2>Une page qui répond à trois questions, dans l'ordre</h2>
+  <div class="read"><p>Qu'est-ce que je fais maintenant ? Est-ce que je tiens ma semaine ? Où en suis-je avant l'examen ? Le champ de couverture actuel (spécialités × Teile, avec ses chiffres) disparaît : la décision 1 retire l'axe des Teile de la surface, et c'est lui qui rendait la grille chargée.</p><p class="note">Les maquettes de cette page utilisent des données d'exemple.</p></div>
+  <div class="mock">
+    <div class="mock-title">Aujourd'hui · mardi 14 oct.</div>
+    <div id="today"></div>
+    <button class="go" type="button">Commencer par Leberzirrhose</button>
+  </div>
+  <div class="two">
+    <div class="mock">
+      <div class="mock-title">La semaine</div>
+      <div class="week" id="week"></div>
+      <p class="note">Un point par cas prévu, rempli quand il est joué. Les jours off sont neutres : ils ne cassent rien.</p>
+    </div>
+    <div class="mock">
+      <div class="mock-title">Jusqu'à l'examen · 58 jours</div>
+      <p class="insight">À ton rythme des deux dernières semaines, tu auras travaillé les 40 cas les plus fréquents le <strong>2 déc.</strong>, avec 23 jours de marge pour les reprendre.</p>
+      <p class="note">Une projection sur ton rythme réel, recalculée chaque soir. Si le rythme baisse, la date recule, sans alarme.</p>
+    </div>
+  </div>
+  <div class="mock">
+    <div class="mock-title">Carte de couverture</div>
+    <div class="cov" id="cov"></div>
+    <p class="insight">Kardiologie : 3 cas jamais ouverts sur 9. Elle revient souvent dans les protocoles de ta ville. <strong>Ajouter Vorhofflimmern demain ?</strong></p>
+    <p class="note">Chaque point est un cadran miniature. Pas de pourcentage à lire : on voit d'un coup d'œil où la carte est blanche. Toucher une spécialité l'agrandit en cadrans complets. L'encart ne dit qu'une chose à la fois, et toujours avec une action.</p>
+  </div>
+</section>
+
+<section>
+  <span class="eyebrow">5 · Historique</span>
+  <h2>Un carnet de séances, plus un journal d'événements</h2>
+  <div class="read"><p>Une séance regroupe ce qui a été fait d'un trait, et dit ce que ça a changé : les cadrans avant et après, les scores, les termes ajoutés, les corrections à revoir. Chaque chiffre mène à une action, sinon il n'a pas sa place.</p></div>
+  <div class="mock">
+    <div class="session-head"><h3>Mardi 14 oct. · soirée</h3><span class="mono note">52 min · 2 cas · 1 drill</span></div>
+    <div class="stack" id="session"></div>
+    <div class="stack">
+      <div class="mock-title">Pendant cette séance</div>
+      <div class="tags"><span class="tag">Aszites ★</span><span class="tag">Caput medusae ★</span><span class="tag">Ikterus · cherché 2 fois</span></div>
+      <p class="note">Les Fachbegriffe ajoutés en favori et les mots cherchés plusieurs fois. Un mot cherché deux fois est un mot qu'on ne sait pas encore : un toucher l'envoie au drill.</p>
+    </div>
+    <div class="row-actions"><button class="ghost" type="button">Revoir mes 2 corrections prioritaires</button><button class="ghost" type="button">Rejouer la Fallvorstellung</button><button class="ghost" type="button">Envoyer Ikterus au drill</button></div>
+  </div>
+  <div class="read"><p class="note">En haut de page, une seule ligne de semaine (« Cette semaine : 4 cas, 3 Teile acquis, 12 Fachbegriffe ») avec sa tendance. Les mots cherchés ne sont pas journalisés aujourd'hui : il faut un événement local de plus, sans rien envoyer au serveur.</p></div>
+</section>
+
+<section>
+  <span class="eyebrow">6 · Faisabilité et garde-fous</span>
+  <h2>Comment le construire sans casser le programme</h2>
+  <div class="read stack">
+    <p>Tu ne tolères aucune faille dans le programme. Le filet existe maintenant : C6 joue 14 jours de préparation et vérifie des invariants à chaque jour. La règle est donc de <strong>réécrire les invariants avant le code</strong>, puis de faire passer C6 avec un nouveau profil : quelqu'un qui joue librement un Teil ici, un cas entier là.</p>
+  </div>
+  <ol class="steps">
+    <li><div><strong>Contrat et ADR.</strong> La décision, la règle « une tâche coche quand ce qui restait est joué », les nouveaux invariants. Les plans déjà figés avec des tâches d'un seul Teil restent valides jusqu'à la fin de leur journée.</div></li>
+    <li><div><strong>La mesure.</strong> Couverture et maîtrise séparées dans les statistiques. Petit chantier : le suivi par Teil existe.</div></li>
+    <li><div><strong>Le plan.</strong> Tâches par cas avec « ce qui reste », durée estimée sur l'habitude, « finir hier » en tête. Retrait du mode « par Teil » en surface. C'est le chantier critique.</div></li>
+    <li><div><strong>La partie.</strong> Une seule entrée, « Terminer ici » après chaque Teil, départ possible sur un autre Teil. L'automate de partie gagne une transition, son contrat est amendé.</div></li>
+    <li><div><strong>Le cadran.</strong> La primitive, puis la carte de cas, la ligne de tâche, la pré-simulation, la fin de partie.</div></li>
+    <li><div><strong>Programme, puis Historique.</strong> Les deux pages refaites autour du cadran.</div></li>
+    <li><div><strong>Examen.</strong> Audit de <span class="mono">feat/pruefungstag</span>, puis remplacement de la page Simulation.</div></li>
+  </ol>
+  <div class="read stack">
+    <p class="note">Effet sur ce qui tourne : les lots de contenu Q2 à Q8 ne sont pas touchés. Les lots C6-A (chiffres honnêtes) et C6-B (le jour du candidat) restent utiles et passent avant. Une partie du travail par Teil de la série 3 (mode « par Teil », proposition du mode, carte retournable) sera retirée de la surface : c'est assumé, la mesure qu'elle a construite sert la nouvelle version.</p>
+  </div>
+</section>
+
+<section>
+  <span class="eyebrow">7 · À trancher</span>
+  <h2>Quatre décisions, avec ma recommandation</h2>
+  <div class="stack">
+    <div class="q"><h3>1. Quand une tâche de cas est-elle « faite » ?</h3><p class="rec"><b>Recommandé :</b> quand tout ce qui restait au moment du plan est joué. Une partie partielle fait avancer le cadran de la tâche, n'est jamais comptée comme manquée, et le reste revient en tête le lendemain. L'autre option, cocher dès qu'un Teil est joué, est plus gratifiante mais rend l'avancement moins honnête.</p></div>
+    <div class="q"><h3>2. Que dit le centre du cadran ?</h3><p class="rec"><b>Recommandé :</b> la maîtrise (moyenne des Teile joués), l'anneau extérieur portant la couverture. L'inverse, un taux de complétion au centre, mettrait l'accent sur « finir » plutôt que sur « bien faire ».</p></div>
+    <div class="q"><h3>3. La page Simulation</h3><p class="rec"><b>Recommandé :</b> la remplacer par « Examen » (cas tiré au sort, conditions réelles), en partant de la branche existante. Autres options : la supprimer, ou la fondre dans l'Historique.</p></div>
+    <div class="q"><h3>4. Les fréquences dans les encarts</h3><p class="rec"><b>Recommandé :</b> les utiliser (« revient souvent dans les protocoles de ta ville »), toujours sourcées par le nombre de protocoles, jamais présentées comme ce que le jury note. Elles donnent à la carte de couverture son intelligence.</p></div>
+  </div>
+</section>
+
+</div>
+
+<script>
+(function () {
+  var TEILE = [
+    { key: 'A', name: 'Anamnese', from: -90, to: 30 },
+    { key: 'D', name: 'Dokumentation', from: 30, to: 150 },
+    { key: 'F', name: 'Fallvorstellung', from: 150, to: 270 }
+  ];
+  var STATE_VAR = { vierge: '--s-vierge', fragile: '--s-fragile', acquis: '--s-acquis', solide: '--s-solide' };
+  var STATE_LABEL = { vierge: 'pas encore joué', fragile: 'fragile', acquis: 'acquis', solide: 'solide' };
+  var NS = 'http://www.w3.org/2000/svg';
+
+  function polar(cx, cy, r, deg) { var a = deg * Math.PI / 180; return [cx + r * Math.cos(a), cy + r * Math.sin(a)]; }
+  function arcPath(cx, cy, r, a0, a1) {
+    var p0 = polar(cx, cy, r, a0), p1 = polar(cx, cy, r, a1), large = (a1 - a0) > 180 ? 1 : 0;
+    return 'M' + p0[0].toFixed(2) + ' ' + p0[1].toFixed(2) + ' A' + r + ' ' + r + ' 0 ' + large + ' 1 ' + p1[0].toFixed(2) + ' ' + p1[1].toFixed(2);
+  }
+  function el(tag, attrs) { var e = document.createElementNS(NS, tag); for (var k in attrs) e.setAttribute(k, attrs[k]); return e; }
+  function mastery(c) {
+    var played = c.t.filter(function (x) { return x.s !== 'vierge'; });
+    if (!played.length) return null;
+    return Math.round(played.reduce(function (a, x) { return a + x.score; }, 0) / played.length);
+  }
+
+  function svgDial(c, size, opts) {
+    opts = opts || {};
+    var svg = el('svg', { viewBox: '0 0 120 120', width: size, height: size, role: 'img' });
+    var m = mastery(c);
+    var cx = 60, cy = 60, rIn = 33, rOut = 48, gap = 7;
+    svg.appendChild(el('circle', { cx: cx, cy: cy, r: rIn, fill: 'none', stroke: 'var(--line)', 'stroke-width': 7 }));
+    if (m !== null) {
+      var end = -90 + Math.max(2, m) * 3.6;
+      var p = el('path', { d: arcPath(cx, cy, rIn, -90, Math.min(end, 269.9)), fill: 'none', stroke: 'var(--petrol)', 'stroke-width': 7, 'stroke-linecap': 'round' });
+      svg.appendChild(p);
+    }
+    TEILE.forEach(function (T, i) {
+      var t = c.t[i];
+      var mid = (T.from + T.to) / 2, d = polar(0, 0, 5, mid);
+      var g = el('g', { 'class': 'arc', 'data-dx': d[0].toFixed(2), 'data-dy': d[1].toFixed(2) });
+      g.appendChild(el('path', { d: arcPath(cx, cy, rOut, T.from + gap / 2, T.to - gap / 2), fill: 'none', stroke: 'var(' + STATE_VAR[t.s] + ')', 'stroke-width': t.s === 'vierge' ? 3 : 7, 'stroke-linecap': 'round' }));
+      if (opts.labels) {
+        var lp = polar(cx, cy, 64, mid);
+        var lab = el('text', { x: lp[0].toFixed(1), y: (lp[1] + 3).toFixed(1), 'text-anchor': lp[0] < cx - 4 ? 'end' : (lp[0] > cx + 4 ? 'start' : 'middle'), 'font-size': 8, 'class': 'tlabel' });
+        lab.textContent = T.key + (t.s === 'vierge' ? ' ·' : ' ' + t.score);
+        g.appendChild(lab);
+      }
+      svg.appendChild(g);
+    });
+    if (opts.core !== false) {
+      var num = el('text', { x: cx, y: cy + (size > 60 ? 5 : 6), 'text-anchor': 'middle', 'font-size': size > 60 ? 17 : 22, 'class': 'core-num' });
+      num.textContent = m === null ? '—' : m;
+      svg.appendChild(num);
+      if (size > 80) { var sub = el('text', { x: cx, y: cy + 17, 'text-anchor': 'middle', 'font-size': 6.5, 'class': 'core-sub' }); sub.textContent = 'MAÎTRISE'; svg.appendChild(sub); }
+    }
+    var done = c.t.filter(function (x) { return x.s !== 'vierge'; }).length;
+    svg.setAttribute('aria-label', c.name + ' : ' + done + ' Teile sur 3 travaillés, maîtrise ' + (m === null ? 'non mesurée' : m + ' %') + '. ' + TEILE.map(function (T, i) { return T.name + ' ' + STATE_LABEL[c.t[i].s]; }).join(', '));
+    return svg;
+  }
+
+  function nextAction(c) {
+    var idx = c.t.findIndex(function (x) { return x.s === 'vierge'; });
+    if (idx >= 0) return 'Reprendre par la ' + TEILE[idx].name;
+    var f = c.t.findIndex(function (x) { return x.s === 'fragile'; });
+    if (f >= 0) return 'Retravailler la ' + TEILE[f].name;
+    return 'Rejouer le cas entier';
+  }
+
+  function interactiveDial(c, size) {
+    var wrap = document.createElement('div');
+    wrap.className = 'dial'; wrap.tabIndex = 0;
+    var svg = svgDial(c, size, { labels: true });
+    wrap.appendChild(svg);
+    var name = document.createElement('div'); name.className = 'dial-name'; name.textContent = c.name; wrap.appendChild(name);
+    var det = document.createElement('div'); det.className = 'detail';
+    c.t.forEach(function (t, i) {
+      var r = document.createElement('div'); r.className = 'trow';
+      r.innerHTML = '<i class="chip" style="background:var(' + STATE_VAR[t.s] + ')"></i><span>' + TEILE[i].name + '</span><span class="v">' + (t.s === 'vierge' ? 'à faire' : t.score + ' % · ' + t.when) + '</span>';
+      det.appendChild(r);
+    });
+    var b = document.createElement('button'); b.className = 'cta'; b.type = 'button'; b.textContent = nextAction(c); det.appendChild(b);
+    wrap.appendChild(det);
+
+    var timer = null, open = false;
+    function setOpen(v) {
+      open = v; wrap.classList.toggle('open', v);
+      svg.querySelectorAll('.arc').forEach(function (g) {
+        g.style.transform = v ? 'translate(' + g.dataset.dx + 'px,' + g.dataset.dy + 'px)' : '';
+      });
+    }
+    wrap.addEventListener('pointerenter', function (e) { if (e.pointerType === 'mouse') { clearTimeout(timer); timer = setTimeout(function () { setOpen(true); }, 300); } });
+    wrap.addEventListener('pointerleave', function (e) { if (e.pointerType === 'mouse') { clearTimeout(timer); setOpen(false); } });
+    wrap.addEventListener('pointerdown', function (e) {
+      if (e.pointerType !== 'mouse') { clearTimeout(timer); timer = setTimeout(function () { setOpen(!open); try { navigator.vibrate && navigator.vibrate(12); } catch (x) {} }, 450); }
+    });
+    ['pointerup', 'pointercancel'].forEach(function (ev) { wrap.addEventListener(ev, function (e) { if (e.pointerType !== 'mouse') clearTimeout(timer); }); });
+    wrap.addEventListener('contextmenu', function (e) { e.preventDefault(); });
+    wrap.addEventListener('keydown', function (e) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); setOpen(!open); } if (e.key === 'Escape') setOpen(false); });
+    return wrap;
+  }
+
+  var CASES = {
+    leber: { name: 'Leberzirrhose', t: [{ s: 'acquis', score: 78, when: 'il y a 3 j' }, { s: 'vierge' }, { s: 'fragile', score: 54, when: 'il y a 3 j' }] },
+    vierge: { name: 'Coxarthrose', t: [{ s: 'vierge' }, { s: 'vierge' }, { s: 'vierge' }] },
+    pankreas: { name: 'Pankreatitis', t: [{ s: 'fragile', score: 41, when: 'hier' }, { s: 'vierge' }, { s: 'vierge' }] },
+    angina: { name: 'Angina pectoris', t: [{ s: 'solide', score: 88, when: 'il y a 9 j' }, { s: 'solide', score: 82, when: 'il y a 9 j' }, { s: 'solide', score: 90, when: 'il y a 2 j' }] }
+  };
+
+  document.getElementById('hero-dial').appendChild(interactiveDial(CASES.leber, 168));
+
+  var states = document.getElementById('states');
+  [
+    [CASES.vierge, 'Jamais ouvert. Aucun chiffre, aucune alerte : c\'est « pas encore ».'],
+    [CASES.pankreas, 'Anamnese jouée hier, fragile. La maîtrise ne compte que ce Teil.'],
+    [CASES.leber, 'Deux Teile joués, la Dokumentation reste. Le plan la proposera.'],
+    [CASES.angina, 'Les trois solides : l\'anneau est fermé.']
+  ].forEach(function (pair) {
+    var card = document.createElement('div'); card.className = 'state-card';
+    card.appendChild(interactiveDial(pair[0], 112));
+    var cap = document.createElement('p'); cap.className = 'state-cap'; cap.textContent = pair[1]; card.appendChild(cap);
+    states.appendChild(card);
+  });
+
+  var today = document.getElementById('today');
+  [
+    [CASES.leber, 'Leberzirrhose', 'Il te reste la Dokumentation. La Fallvorstellung était fragile, on la reprend dans la foulée.', '25 min'],
+    [CASES.pankreas, 'Pankreatitis', 'Commencée hier : finir le cas.', '30 min'],
+    [CASES.vierge, 'Coxarthrose', 'Jamais vue. Orthopédie peu couverte.', '35 min']
+  ].forEach(function (r) {
+    var row = document.createElement('div'); row.className = 'task';
+    var d = document.createElement('div'); d.appendChild(svgDial(r[0], 44, { core: false })); row.appendChild(d);
+    var mid = document.createElement('div'); mid.innerHTML = '<div class="t-name">' + r[1] + '</div><div class="t-why">' + r[2] + '</div>'; row.appendChild(mid);
+    var m = document.createElement('div'); m.className = 't-min'; m.textContent = r[3]; row.appendChild(m);
+    today.appendChild(row);
+  });
+
+  var week = document.getElementById('week');
+  var plan = [['L', 2, 2], ['M', 3, 1], ['M', 2, 0], ['J', 2, 0], ['V', 2, 0], ['S', 0, 0], ['D', 0, 0]];
+  plan.forEach(function (p, i) {
+    var d = document.createElement('div'); d.className = 'day' + (i === 1 ? ' today' : '');
+    var dots = document.createElement('div'); dots.className = 'dots';
+    for (var k = 0; k < p[1]; k++) { var s = document.createElement('i'); s.style.cssText = 'width:9px;height:9px;border-radius:50%;display:block;' + (k < p[2] ? 'background:var(--petrol)' : 'border:1.5px solid var(--petrol-soft)'); dots.appendChild(s); }
+    if (!p[1]) { var o = document.createElement('span'); o.textContent = 'off'; o.style.fontSize = '0.62rem'; dots.appendChild(o); }
+    d.textContent = p[0]; d.appendChild(dots); week.appendChild(d);
+  });
+
+  var seed = 7; function rnd() { seed = (seed * 9301 + 49297) % 233280; return seed / 233280; }
+  var specs = [['Gastroenterologie', 14, 0.55], ['Kardiologie', 9, 0.25], ['Pneumologie', 8, 0.5], ['Orthopädie', 10, 0.2], ['Neurologie', 9, 0.35], ['Endokrinologie', 7, 0.6]];
+  var cov = document.getElementById('cov');
+  specs.forEach(function (sp) {
+    var row = document.createElement('div'); row.className = 'cov-row';
+    var n = document.createElement('div'); n.className = 'cov-name'; n.textContent = sp[0]; row.appendChild(n);
+    var dots = document.createElement('div'); dots.className = 'cov-dots';
+    for (var k = 0; k < sp[1]; k++) {
+      var t = [0, 1, 2].map(function () {
+        var x = rnd(); if (x > sp[2] + 0.25) return { s: 'vierge' };
+        var y = rnd(); return y < 0.25 ? { s: 'fragile', score: 45 } : y < 0.6 ? { s: 'acquis', score: 70 } : { s: 'solide', score: 88 };
+      });
+      dots.appendChild(svgDial({ name: sp[0] + ' ' + (k + 1), t: t }, 22, { core: false }));
+    }
+    row.appendChild(dots); cov.appendChild(row);
+  });
+
+  var session = document.getElementById('session');
+  [
+    [{ name: 'Leberzirrhose', t: [{ s: 'acquis', score: 78 }, { s: 'vierge' }, { s: 'vierge' }] }, CASES.leber, 'Leberzirrhose · Fallvorstellung jouée : 54 %, fragile'],
+    [{ name: 'Pankreatitis', t: [{ s: 'vierge' }, { s: 'vierge' }, { s: 'vierge' }] }, CASES.pankreas, 'Pankreatitis · Anamnese jouée : 41 %, 9 questions sur 22']
+  ].forEach(function (r) {
+    var row = document.createElement('div'); row.className = 'delta';
+    row.appendChild(svgDial(r[0], 34, { core: false }));
+    var a = document.createElement('span'); a.className = 'arrow'; a.textContent = '→'; row.appendChild(a);
+    row.appendChild(svgDial(r[1], 34, { core: false }));
+    var txt = document.createElement('span'); txt.textContent = r[2]; row.appendChild(txt);
+    session.appendChild(row);
+  });
+})();
+</script>
