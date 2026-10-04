@@ -284,7 +284,7 @@ export const FACH_PROBES: Partial<Record<Specialty, AnamneseProbe[]>> = {
     { id: 'fach-gyn-kinderwunsch', kapitel: 'fach', frage: 'Besteht ein Kinderwunsch, oder gab es Schwierigkeiten, schwanger zu werden?' },
     { id: 'fach-gyn-brust', kapitel: 'fach', frage: 'Haben Sie in der Brust einen Knoten, Schmerzen, Absonderungen aus der Brustwarze oder Hautveränderungen bemerkt?' },
     { id: 'fach-gyn-vorsorge', kapitel: 'fach', frage: 'Wann waren Sie zuletzt bei der Vorsorge — Krebsabstrich, Mammographie?' },
-    { id: 'fach-gyn-eingriffe', kapitel: 'fach', frage: 'Wurden Sie schon an der Gebärmutter oder den Eierstöcken operiert?' },
+    { id: 'fach-gyn-eingriffe', kapitel: 'fach', frage: 'Wurden Sie schon an der Gebärmutter oder den Eierstöcken operiert?', deepens: 'vor-op' },
   ],
   // Le rein est longtemps muet : on interroge donc les signes indirects (urine
   // mousseuse, œdèmes, tension) et les néphrotoxiques, que le patient ne cite
