@@ -276,14 +276,16 @@ export const planProgress = (plan: DayPlan | null | undefined): { done: number; 
 // Matérialisation et replanification
 // ---------------------------------------------------------------------------
 
-async function loadBuildInput(config: ProgramConfig, date: string, at: number): Promise<BuildInput> {
+/** `restant` : ce que le drill servira ENCORE aujourd'hui (budget − déjà introduits) —
+ *  ensureDayPlan et replanifier. La projection d'un jour futur prend le budget plein. */
+async function loadBuildInput(config: ProgramConfig, date: string, at: number, restant = true): Promise<BuildInput> {
   const [cases, begriffe, trainingEvents, progressRows] = await Promise.all([
     db.cases.toArray(), db.fachbegriffe.toArray(), db.training_events.toArray(), db.case_progress.toArray(),
   ]);
   // Le MÊME réglage que le drill annonce (auto = budget × intensité, ou manuel).
   // Import paresseux : `drillContext` importe `@/lib/program` (cycle sinon).
   const { loadDrillContext } = await import('@/lib/collections/drillContext');
-  const newPerDay = await loadDrillContext(new Date(at)).then((c) => c.daily.newPerDay).catch(() => undefined);
+  const newPerDay = await loadDrillContext(new Date(at)).then((c) => (restant ? c.remaining : c.daily.newPerDay)).catch(() => undefined);
   return { config, date, cases, begriffe, trainingEvents, progress: new Map(progressRows.map((p) => [p.caseId, p])), now: at, newPerDay };
 }
 
@@ -376,7 +378,7 @@ export async function projectedDays(dates: string[]): Promise<Map<string, TaskIn
   const future = dates.filter((d) => d > today);
   const config = (await db.meta.get('program'))?.value as ProgramConfig | undefined;
   if (!config || !future.length) return out;
-  const input = await loadBuildInput(config, today, at);
+  const input = await loadBuildInput(config, today, at, false);
   for (const date of future) {
     let n = 0;
     const tasks = buildTasks({ ...input, date }, () => `projection:${date}:${n++}`);

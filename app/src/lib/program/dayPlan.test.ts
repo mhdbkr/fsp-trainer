@@ -340,3 +340,17 @@ describe('C6-B · « N nouveaux » suit le réglage du drill (newPerDay)', () =>
     expect(plan!.tasks.find((t) => t.kind === 'drill')!.reason).toBe('4 nouveaux termes');
   });
 });
+
+describe('C6-B m-1 · la tâche annonce ce que le drill servira (remaining, pas newPerDay)', () => {
+  it('après « Replanifier », 3 nouveaux déjà introduits sur 4 : « 1 nouveau terme »', async () => {
+    freezeAt('2026-10-01T08:00:00Z');
+    await db.cases.bulkPut(corpus());
+    await db.fachbegriffe.bulkPut(nouveaux(25).map((b, i) => ({ ...(b as object), id: `n${i}`, srs: { interval: 0, easeFactor: 2.5, dueDate: 0, repetitions: 0, lapses: 0, state: 'Neu' } })) as never[]);
+    await db.meta.put({ key: 'program', value: config() });
+    await db.meta.put({ key: 'srs.settings', value: { mode: 'manual', newPerDay: 4 } });
+    expect((await ensureDayPlan())!.tasks.find((t) => t.kind === 'drill')!.reason).toBe('4 nouveaux termes');
+    await db.meta.put({ key: 'srs.newIntroduced:2026-10-01', value: 3 });
+    const re = await replanifier();
+    expect(re!.tasks.find((t) => t.kind === 'drill')!.reason).toBe('1 nouveau terme');
+  });
+});
