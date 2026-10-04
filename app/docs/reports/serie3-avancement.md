@@ -163,7 +163,7 @@ rien de cette table.
 | Suivi contenu (S4-2) | — | — | table de fréquences par cas × ville dans l'app depuis `apps/site/src/data/frequencies.json` (20/81 pathologies ventilées) | à planifier avec S4-2 |
 | Lot C6-A — revue | lecture seule | `af6bb30623f1df590` | rendue : Needs fixes (I1 Fachwissen point faible par absence ; I2 contrat → S4-0 ; I3 bascule `it.fails` après C6) | **oui** |
 | Lot Q2 — implémenteur | `doctopus-s3-q2` · `feat/s3-q2-relances` | `a49100e50b7d8eee7` | **PR #67 mergée** (`395aadf0`, 4 oct.) | **oui** |
-| Lot Q-gyn | `doctopus-s3-qgyn` · `feat/s3-qgyn` | lot-qgyn | Frauenanamnese fondue dans la Fach gynéco, sans doublon ; garde CI → push → revues (clinique gynéco, langue, méca) → PR | non |
+| Lot Q-gyn | `doctopus-s3-qgyn` · `feat/s3-qgyn` | `a901861e0ac10b346` | livré (un seul bloc gynéco, doublons 16→0, A 448→426, garde CI) ; 3 revues en vol (clinique gynéco + 9 questions, langue, méca) → fixeur → PR | non |
 | Reliquat sans lot (Q2) | — | — | 24 relances de guide à deux « ? » ; 22 énoncés de `guide-anamnese-v4` ; sondes en A2 ; `CaseQuestion.followUp` en `string | string[]` (contrat §3.2) pour récupérer ~15 sous-questions abandonnées | à placer dans Q3 |
 | Lots Q3 → Q8, Lc1 → Lc3 | — | — | §10, l'un après l'autre après Q2 | à lancer |
 | Reports vers Q1/Q2 (revues Q0) | — | — | Q1 : rheumatoide-arthritis « Schuppenflechte », karpaltunnel « Bruch », malaria « Milz », hypothyreose « Entbindungen » ; 10 irradiations avec question de cas ; osteoporose bws. Q2 : relances à 2 questions (alcool, gastro, Kopfschmerz, onko, chir-op, Fieber, Kraft, suizid, `veg-fieber`) | tracé |
