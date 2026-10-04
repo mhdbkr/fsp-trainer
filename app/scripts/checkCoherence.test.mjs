@@ -87,6 +87,14 @@ test('ordre : « dort » avant toute question de voyage ; le voyage posé avant 
   assert.equal(mesurerCas(cas([dort]), lex(), ['NP « Ihre Augenbrauen » [aktuell]']).ord.length, 2);
 });
 
+test('m1 : « vergesslich / Gedächtnis » (gedaechtnis) n\'est pas « Konzentration » : pas de faux doublon', () => {
+  const lit = (t) => signesDe(t, { mother: true, ch: 'fach' });
+  assert.ok(lit('Haben Sie Konzentrationsprobleme?').has('konzentration') && !lit('Haben Sie Konzentrationsprobleme?').has('gedaechtnis'));
+  assert.ok(lit('Sind Sie vergesslich geworden?').has('gedaechtnis') && !lit('Sind Sie vergesslich geworden?').has('konzentration'));
+  const r = mesurerCas(cas([row('aktuell', 'Sind Sie vergesslich geworden?', { cs: true }), row('fach', 'Fällt Ihnen die Konzentration schwer?', { probes: ['fach-psych-konzentration'] })]), lex());
+  assert.equal(r.dup.length, 0);
+});
+
 test('questions du cas muettes : celles sans `sucht` déclaré', () => {
   const r = mesurerCas(cas([row('aktuell', 'A?', { cs: true }), row('aktuell', 'B?', { cs: true, sucht: ['fieber'] })]), lex());
   assert.equal(r.muettes, 1);

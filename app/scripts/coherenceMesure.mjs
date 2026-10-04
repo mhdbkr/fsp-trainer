@@ -61,7 +61,7 @@ export const SIG = {
   schluck: /\bschluck(beschwerden|störung\w*|en)\b/i, gelbfaerbung: /\bgelbfärbung\w*|\bgelbsucht\b|gelb(e|lich)? (haut|augen)/i,
   sturz: /\bsturz\b|\bstürz\w*|\bgestürzt\b/i, stimmung: /\bstimmung\b|\bniedergeschlagen\b|\btraurig\b|freudlos/i,
   angst: /\bangst\b|\bängste\b|\bpanikattack\w*/i, suizid: /\blebenswert\b|etwas anzutun|\bsuizid\w*|selbst(mord|tötung)/i,
-  konzentration: /konzentrier|wortfind|auf wörter zu kommen|vergesslich|gedächtnis/i,
+  konzentration: /konzentr(ation|ier)|wortfind|auf wörter zu kommen/i, gedaechtnis: /vergesslich|gedächtnis|erinnerungslück/i,
   familie_rheuma: /familie.{0,30}(rheuma|gicht)/i, nierensteine: /nierenstein/i,
 };
 /** Les signes que la mesure sait lire : un `sucht` déclaré hors de cet ensemble n'entre pas dans le compte. */
