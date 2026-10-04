@@ -28,11 +28,19 @@ import { blankProgress } from '@/lib/journal';
 import { dayKey, now as clockNow } from '@/lib/clock';
 import { pickWithDiversity, pourquoiAujourdhui, rankCandidates, violatesDiversity, type SelectContext } from './select';
 
+const NEW_PER_DAY_DEFAULT = 10;
 const SIM_MIN = 40;
 const TEIL_MIN: Record<SimTeil, number> = { anamnese: 20, dokumentation: 20, fallvorstellung: 12 };
 const MOCK_MIN = 60;
 const FACHWISSEN_MIN = 15;
 const TEIL_KEYS: SimTeil[] = TEILE.map((t) => t.key);
+
+/** Ce que la tâche Fachbegriffe contient VRAIMENT : « 3 termes dus · 10 nouveaux termes ».
+ *  Jamais « 0 terme dû » — une tâche ne se présente pas par ce qu'elle n'a pas. */
+const drillReason = (due: number, fresh: number): string => [
+  due > 0 ? `${due} terme${due > 1 ? 's dus' : ' dû'}` : null,
+  fresh > 0 ? `${fresh} nouveau${fresh > 1 ? 'x termes' : ' terme'}` : null,
+].filter(Boolean).join(' · ');
 
 /** Le mode par défaut tant que le candidat n'a rien choisi. Lecture tolérante
  *  de l'ancien `strategy` (contrat §6 et §11.2) : aucune sémantique perdue. */
@@ -41,7 +49,7 @@ export function modusOf(config: ProgramConfig): Fortschrittsmodus {
   return config.strategy === 'full' ? 'cas-complet' : 'teil-first';
 }
 
-export const isWorkingDay = (d: Date, config: ProgramConfig): boolean => !config.offDays.includes(getDay(d));
+export const isWorkingDay = (d: Date, config: Pick<ProgramConfig, 'offDays'>): boolean => !config.offDays.includes(getDay(d));
 
 export function nextWorkingDay(d: Date, config: ProgramConfig): Date {
   let x = d;
@@ -72,6 +80,14 @@ export function taperDays(config: ProgramConfig): Set<string> {
   return new Set(working.slice(-len).map((d) => format(d, 'yyyy-MM-dd')));
 }
 
+/** Sans terme DÛ, les nouveaux termes ne sont jamais urgents : le drill passe
+ *  juste APRÈS la première tâche de travail (C6-B). Dû ⇒ il reste en tête.
+ *  Ne touche qu'à la génération : un jour déjà figé n'est jamais retraité. */
+function drillApresLaPremierePartie(tasks: TaskInstance[], due: number): TaskInstance[] {
+  if (due > 0 || tasks.length < 2 || tasks[0].kind !== 'drill') return tasks;
+  return [tasks[1], tasks[0], ...tasks.slice(2)];
+}
+
 export interface BuildInput {
   config: ProgramConfig;
   date: string;                       // ISO yyyy-MM-dd
@@ -80,6 +96,9 @@ export interface BuildInput {
   trainingEvents: TrainingEvent[];
   begriffe: Fachbegriff[];
   now: number;
+  /** Nouveaux termes par jour : le réglage EFFECTIF du drill (`effectiveDaily`).
+   *  Absent ⇒ 10, comme le repli du drill. */
+  newPerDay?: number;
   /** Budget restant, s'il n'est pas le budget plein du jour (replanifier, I3). */
   budgetMin?: number;
 }
@@ -134,12 +153,13 @@ export function buildTasks(input: BuildInput, mkId: () => string = newId): TaskI
   //    plus de minutes, donc n'attire plus de nouvelles simulations
   //    (audit §2.4 — l'effet existait sans rien cocher).
   const terms = counts(begriffe, input.now);
-  const drillTotal = terms.due + Math.min(terms.fresh, 10);
-  if (drillTotal > 0 && targetMin > 0) {
+  const fresh = Math.min(terms.fresh, input.newPerDay ?? NEW_PER_DAY_DEFAULT);
+  const drillTotal = terms.due + fresh;
+  if (drillTotal > 0 && targetMin > 0) {   // ni dû ni nouveau : pas de tâche, donc jamais la session de tête (C6-B)
     push({
       // M-a : borné au budget du jour — un gros arriéré ne remplit pas la journée au-delà.
       kind: 'drill', label: 'Fachbegriffe', estMin: Math.min(Math.ceil(drillTotal * 0.4), targetMin),
-      reason: `${terms.due} terme${terms.due > 1 ? 's' : ''} dû${terms.due > 1 ? 's' : ''} aujourd'hui, plus les nouveaux du budget.`,
+      reason: drillReason(terms.due, fresh),
     });
   }
 
@@ -156,7 +176,7 @@ export function buildTasks(input: BuildInput, mkId: () => string = newId): TaskI
         reason: isTaper ? `Répétition générale : conditions réelles, sans aide.` : pourquoiAujourdhui(best, ctx),
       });
     }
-    if (modus === 'examen-blanc') return tasks;
+    if (modus === 'examen-blanc') return drillApresLaPremierePartie(tasks, terms.due);
   }
 
   // 3. Les simulations. Un seul moteur de sélection dans le dépôt.
@@ -210,7 +230,7 @@ export function buildTasks(input: BuildInput, mkId: () => string = newId): TaskI
       reason: `La théorie du cas que tu découvres aujourd'hui.`,
     });
   }
-  return tasks;
+  return drillApresLaPremierePartie(tasks, terms.due);
 }
 
 export const dayTargetMin = (config: ProgramConfig): number =>
@@ -256,11 +276,17 @@ export const planProgress = (plan: DayPlan | null | undefined): { done: number; 
 // Matérialisation et replanification
 // ---------------------------------------------------------------------------
 
-async function loadBuildInput(config: ProgramConfig, date: string, at: number): Promise<BuildInput> {
+/** `restant` : ce que le drill servira ENCORE aujourd'hui (budget − déjà introduits) —
+ *  ensureDayPlan et replanifier. La projection d'un jour futur prend le budget plein. */
+async function loadBuildInput(config: ProgramConfig, date: string, at: number, restant = true): Promise<BuildInput> {
   const [cases, begriffe, trainingEvents, progressRows] = await Promise.all([
     db.cases.toArray(), db.fachbegriffe.toArray(), db.training_events.toArray(), db.case_progress.toArray(),
   ]);
-  return { config, date, cases, begriffe, trainingEvents, progress: new Map(progressRows.map((p) => [p.caseId, p])), now: at };
+  // Le MÊME réglage que le drill annonce (auto = budget × intensité, ou manuel).
+  // Import paresseux : `drillContext` importe `@/lib/program` (cycle sinon).
+  const { loadDrillContext } = await import('@/lib/collections/drillContext');
+  const newPerDay = await loadDrillContext(new Date(at)).then((c) => (restant ? c.remaining : c.daily.newPerDay)).catch(() => undefined);
+  return { config, date, cases, begriffe, trainingEvents, progress: new Map(progressRows.map((p) => [p.caseId, p])), now: at, newPerDay };
 }
 
 /** Les ids des tâches d'un plan, dérivés de sa graine (M2) : rejouables. */
@@ -279,7 +305,18 @@ export function idsFromSeed(seed: string): () => string {
  * passé ne l'est jamais rétroactivement — un jour sans `DayPlan` est un jour où
  * l'app n'a pas été ouverte ; il s'affiche vide, pas « en retard ».
  */
-export async function ensureDayPlan(date = dayKey(clockNow())): Promise<DayPlan | null> {
+export function ensureDayPlan(date = dayKey(clockNow())): Promise<DayPlan | null> {
+  // Single-flight par date : deux appels concurrents partagent LA MÊME matérialisation
+  // (sinon deux `plan.materialized` pour un jour, `loadDrillContext` ayant élargi la fenêtre).
+  const enVol = materialisations.get(date);
+  if (enVol) return enVol;
+  const p = materialiser(date).finally(() => materialisations.delete(date));
+  materialisations.set(date, p);
+  return p;
+}
+const materialisations = new Map<string, Promise<DayPlan | null>>();
+
+async function materialiser(date: string): Promise<DayPlan | null> {
   const existing = await db.day_plans.get(date);
   if (existing) return existing;                                  // « figé » veut dire que le premier fige
   // M7 : une horloge qui recule (réglage manuel, fuseau) ne matérialise jamais
@@ -352,7 +389,7 @@ export async function projectedDays(dates: string[]): Promise<Map<string, TaskIn
   const future = dates.filter((d) => d > today);
   const config = (await db.meta.get('program'))?.value as ProgramConfig | undefined;
   if (!config || !future.length) return out;
-  const input = await loadBuildInput(config, today, at);
+  const input = await loadBuildInput(config, today, at, false);
   for (const date of future) {
     let n = 0;
     const tasks = buildTasks({ ...input, date }, () => `projection:${date}:${n++}`);

@@ -108,8 +108,8 @@ describe('buildTasks — fonction PURE, et tout ce qu’elle produit est cochabl
       id: `b${i}`, term: `t${i}`, srs: { state: 'Neu', dueDate: 0, ease: 2.5, interval: 0, reps: 0 },
     })) as never[];
     const avec = buildTasks(input({ begriffe }), ids());
-    expect(avec[0].kind).toBe('drill');
-    expect(avec[0].reason).toMatch(/nouveaux|dû/);
+    const drill = avec.find((t) => t.kind === 'drill')!;
+    expect(drill.reason).toMatch(/nouveaux|dû/);
   });
 
   it('un Teil FRAGILE passe devant le Teil du jour', () => {
@@ -261,5 +261,116 @@ describe('INV-8 — replanifier conserve tout ce qui est fait', () => {
     await db.meta.put({ key: 'program', value: config() });
     expect(await replanifier('2026-10-01')).toBeNull();
     expect(await db.day_plans.count()).toBe(0);
+  });
+});
+
+// C6-B point 2 — l'accord : « dus », jamais « dûs » (participe passé de devoir,
+// pluriel masculin : « dus » ; « dû » au singulier seulement).
+const terme = (id: string, state: 'Neu' | 'Gelernt', dueDate: number) => ({
+  id, term: id, srs: { interval: 6, easeFactor: 2.5, dueDate, repetitions: 2, lapses: 0, state },
+}) as never;
+const NOW = Date.parse('2026-10-01T08:00:00Z');
+const dus = (n: number) => Array.from({ length: n }, (_, i) => terme(`d${i}`, 'Gelernt', NOW - DAY_MS));
+const nouveaux = (n: number) => Array.from({ length: n }, (_, i) => terme(`n${i}`, 'Neu', NOW));
+const drillDe = (begriffe: never[]) => buildTasks(input({ begriffe, now: NOW }), ids()).find((t) => t.kind === 'drill');
+
+describe('C6-B · l’accord de « dus »', () => {
+  it('pluriel : « dus » ; singulier : « dû » ; jamais « dûs »', () => {
+    expect(drillDe(dus(4) as never[])!.reason).toMatch(/\b4 termes dus\b/);
+    expect(drillDe(dus(1) as never[])!.reason).toMatch(/\b1 terme dû(?!s)/);
+    expect(drillDe([...dus(4), ...nouveaux(3)] as never[])!.reason).not.toContain('dûs');
+  });
+});
+
+describe('C6-B · la tâche Fachbegriffe nomme ce qu’elle contient', () => {
+  it('rien de dû : elle dit les nouveaux termes, jamais « 0 terme dû »', () => {
+    const d = drillDe(nouveaux(25) as never[])!;
+    expect(d.reason).toBe('10 nouveaux termes');            // le budget de nouveaux est plafonné à 10
+    expect(d.reason).not.toMatch(/\b0\b/);
+  });
+  it('du dû ET du nouveau : les deux, dans cet ordre', () => {
+    expect(drillDe([...dus(3), ...nouveaux(2)] as never[])!.reason).toBe('3 termes dus · 2 nouveaux termes');
+    expect(drillDe([...dus(1), ...nouveaux(1)] as never[])!.reason).toBe('1 terme dû · 1 nouveau terme');
+  });
+  it('rien de dû ET aucun nouveau : pas de tâche Fachbegriffe, donc jamais la session de tête', () => {
+    const tasks = buildTasks(input({ begriffe: [], now: NOW }), ids());
+    expect(tasks.some((t) => t.kind === 'drill')).toBe(false);
+    expect(sessionDuJour({ date: '2026-10-01', materializedAt: 0, mode: 'teil-first', seed: 's', targetMin: 90, tasks })!.kind).toBe('simulation');
+  });
+});
+
+describe('C6-B · rien de dû : les nouveaux termes passent APRÈS la première partie', () => {
+  const kinds = (b: never[], over: Partial<BuildInput> = {}) => buildTasks(input({ begriffe: b, now: NOW, ...over }), ids()).map((t) => t.kind);
+
+  it('seulement des nouveaux : la session de tête est une partie de cas, le drill vient juste après', () => {
+    const tasks = buildTasks(input({ begriffe: nouveaux(25) as never[], now: NOW }), ids());
+    expect(tasks[0].kind).toBe('simulation');
+    expect(tasks[1].kind).toBe('drill');
+    expect(sessionDuJour({ date: '2026-10-01', materializedAt: 0, mode: 'teil-first', seed: 's', targetMin: 90, tasks })!.kind).toBe('simulation');
+  });
+  it('des termes dus : le drill reste en tête', () => {
+    expect(kinds([...dus(2), ...nouveaux(5)] as never[])[0]).toBe('drill');
+  });
+  it('le coût du drill reste réservé (budget) et les identifiants restent rejouables', () => {
+    const a = buildTasks(input({ begriffe: nouveaux(25) as never[], now: NOW }), ids());
+    const b = buildTasks(input({ begriffe: nouveaux(25) as never[], now: NOW }), ids());
+    expect(a).toEqual(b);
+    expect(a.reduce((s, t) => s + t.estMin, 0)).toBeLessThanOrEqual(120);
+  });
+  it('mode examen-blanc : sans dû, l’examen passe avant le drill', () => {
+    expect(kinds(nouveaux(5) as never[], { config: config({ modus: 'examen-blanc' }) }).slice(0, 2)).toEqual(['examen-blanc', 'drill']);
+  });
+});
+
+describe('C6-B · « N nouveaux » suit le réglage du drill (newPerDay)', () => {
+  it('newPerDay plafonne les nouveaux annoncés ; 0 = pas de tâche', () => {
+    const r = (n?: number) => buildTasks(input({ begriffe: nouveaux(25) as never[], now: NOW, newPerDay: n }), ids()).find((t) => t.kind === 'drill')?.reason;
+    expect(r(3)).toBe('3 nouveaux termes');
+    expect(r(40)).toBe('25 nouveaux termes');            // jamais plus que ce qui existe
+    expect(r(undefined)).toBe('10 nouveaux termes');     // repli
+    expect(r(0)).toBeUndefined();
+  });
+  it('ensureDayPlan lit le réglage manuel enregistré', async () => {
+    freezeAt('2026-10-01T08:00:00Z');
+    await db.cases.bulkPut(corpus());
+    await db.fachbegriffe.bulkPut(nouveaux(25).map((b, i) => ({ ...(b as object), id: `n${i}`, srs: { interval: 0, easeFactor: 2.5, dueDate: 0, repetitions: 0, lapses: 0, state: 'Neu' } })) as never[]);
+    await db.meta.put({ key: 'program', value: config() });
+    await db.meta.put({ key: 'srs.settings', value: { mode: 'manual', newPerDay: 4 } });
+    const plan = await ensureDayPlan();
+    expect(plan!.tasks.find((t) => t.kind === 'drill')!.reason).toBe('4 nouveaux termes');
+  });
+});
+
+describe('C6-B m-1 · la tâche annonce ce que le drill servira (remaining, pas newPerDay)', () => {
+  it('après « Replanifier », 3 nouveaux déjà introduits sur 4 : « 1 nouveau terme »', async () => {
+    freezeAt('2026-10-01T08:00:00Z');
+    await db.cases.bulkPut(corpus());
+    await db.fachbegriffe.bulkPut(nouveaux(25).map((b, i) => ({ ...(b as object), id: `n${i}`, srs: { interval: 0, easeFactor: 2.5, dueDate: 0, repetitions: 0, lapses: 0, state: 'Neu' } })) as never[]);
+    await db.meta.put({ key: 'program', value: config() });
+    await db.meta.put({ key: 'srs.settings', value: { mode: 'manual', newPerDay: 4 } });
+    expect((await ensureDayPlan())!.tasks.find((t) => t.kind === 'drill')!.reason).toBe('4 nouveaux termes');
+    await db.meta.put({ key: 'srs.newIntroduced:2026-10-01', value: 3 });
+    const re = await replanifier();
+    expect(re!.tasks.find((t) => t.kind === 'drill')!.reason).toBe('1 nouveau terme');
+  });
+});
+
+describe('C6-B m-4 · matérialisation single-flight', () => {
+  it('deux ensureDayPlan simultanés : UN plan, UN événement plan.materialized, le même résultat', async () => {
+    freezeAt('2026-10-01T08:00:00Z');
+    await db.cases.bulkPut(corpus());
+    await db.meta.put({ key: 'program', value: config() });
+    const [a, b, c] = await Promise.all([ensureDayPlan(), ensureDayPlan(), ensureDayPlan()]);
+    expect(JSON.stringify(b)).toBe(JSON.stringify(a));
+    expect(JSON.stringify(c)).toBe(JSON.stringify(a));
+    expect(await db.day_plans.count()).toBe(1);
+    expect((await db.progress_events.where('type').equals('plan.materialized').count())).toBe(1);
+  });
+  it('le vol est libéré après coup : un échec n’empoisonne pas l’appel suivant', async () => {
+    freezeAt('2026-10-01T08:00:00Z');
+    expect(await ensureDayPlan()).toBeNull();                 // pas de programme
+    await db.cases.bulkPut(corpus());
+    await db.meta.put({ key: 'program', value: config() });
+    expect((await ensureDayPlan())!.date).toBe('2026-10-01');
   });
 });

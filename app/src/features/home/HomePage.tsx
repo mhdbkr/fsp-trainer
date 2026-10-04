@@ -16,8 +16,9 @@ import { useCaseProgress, useDayPlan, useTrainingEvents } from '@/features/progr
 import { dueCount, streakFromDays, weakCases } from '@/lib/stats';
 import { workedDayKeys } from '@/lib/journal';
 import { planProgress, sessionDuJour } from '@/lib/program';
+import { RattrapageLine } from '@/features/program/RattrapageLine';
 import { TrajectoryStrip } from '@/features/program/TrajectoryStrip';
-import { TaskLine, taskCta, taskLink } from '@/features/program/TaskLine';
+import { TaskList, taskCta, taskLink } from '@/features/program/TaskLine';
 import { nowDate } from '@/lib/clock';
 import { useToday } from '@/lib/today';
 import { TEILE } from '@/lib/simScope';
@@ -40,7 +41,7 @@ export function HomePage() {
     return <div className="flex h-64 items-center justify-center text-slate-400">Chargement…</div>;
   }
 
-  const streak = streakFromDays(workedDayKeys(events));
+  const streak = streakFromDays(workedDayKeys(events), nowDate(), config?.offDays ?? []);
   const due = dueCount(begriffe);
   const session = sessionDuJour(plan);
   const { done, total } = planProgress(plan);
@@ -94,7 +95,7 @@ export function HomePage() {
               </div>
               <h2 className="mt-1.5 text-xl font-bold tracking-tightish md:text-2xl">{session.label}</h2>
               {/* L'explication, en une ligne, figée avec la tâche. */}
-              <p className="mt-1.5 max-w-xl text-sm text-brand-100/90">{session.reason}</p>
+              <p className="mt-1.5 max-w-xl text-sm text-brand-100/90">{session.reason} · <span className="tnum">{session.estMin} min</span></p>
             </div>
             <Link to={taskLink(session)} className="btn shrink-0 gap-2 bg-white px-6 py-3 text-base font-bold text-brand-700 hover:bg-brand-50">
               <Icon name="play" className="h-4 w-4" />{taskCta(session)}
@@ -115,15 +116,17 @@ export function HomePage() {
         </Tilt>
       )}
 
+      <RattrapageLine />
+
       <div className="grid gap-6 lg:grid-cols-3">
-        <div className="space-y-6 lg:col-span-2">
+        <div className="min-w-0 space-y-6 lg:col-span-2">
           {plan && plan.tasks.length > 0 && (
             <section className="card p-5">
               <div className="mb-3 flex items-center justify-between">
                 <h3 className="font-semibold">Le plan du jour</h3>
                 <Link to="/programme" className="text-xs text-brand-600 hover:underline dark:text-brand-300">Programme →</Link>
               </div>
-              <div className="space-y-2">{plan.tasks.map((t) => <TaskLine key={t.id} task={t} />)}</div>
+              <TaskList tasks={plan.tasks} />
             </section>
           )}
 
@@ -131,7 +134,7 @@ export function HomePage() {
           <TrajectoryStrip config={config} cases={cases} events={events} />
         </div>
 
-        <div className="space-y-6">
+        <div className="min-w-0 space-y-6">
           <section className="card p-5">
             <h3 className="mb-3 font-semibold">Aujourd'hui</h3>
             <div className="space-y-3">
@@ -158,7 +161,7 @@ export function HomePage() {
                     className="flex items-center gap-3 rounded-lg border border-slate-200 p-2 hover:border-brand-400 dark:border-slate-800">
                     <span className="mono-tag tnum shrink-0">{score} %</span>
                     <div className="min-w-0 flex-1">
-                      <div className="truncate text-sm font-medium">{c.name}</div>
+                      <div className="text-sm font-medium [overflow-wrap:anywhere]">{c.name}</div>
                       <div className="text-xs text-slate-400">{TEILE.find((t) => t.key === teil)?.label}</div>
                     </div>
                     <FreqBadge n={c.frequency} />
