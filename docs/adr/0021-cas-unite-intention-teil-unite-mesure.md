@@ -1,7 +1,7 @@
 # ADR-0021 — Le cas comme unité d'intention, le Teil comme unité de mesure
 
-**Statut** : accepté — décisions de la direction du 4 oct. 2026 (y compris
-l'échelle d'états jusqu'à `prêt` et l'anneau soudé, validés le même jour)
+**Statut** : accepté — décisions de la direction du 4 oct. 2026 (voir
+« Journal des décisions ») ; corrigé après deux revues (voir « Revues »)
 · **Date** : 2026-10-04 · **Chantier** : série 4 « le cas entier à l'écran,
 mesuré au Teil en dessous »
 · **Source** : `docs/superpowers/specs/2026-10-04-cas-entier-cadran.html`
@@ -34,51 +34,76 @@ plan et l'automate de partie.
 
 1. **L'interface montre le cas entier.** La pré-simulation ne propose plus de
    choix de Teil, le programme ne pose plus de tâche d'un seul Teil et aucun
-   mode « par Teil » n'apparaît en surface. Le mode reste **observé** en
-   interne et oriente la sélection en silence. La proposition de mode disparaît.
+   mode « par Teil » n'apparaît en surface. L'observation, silencieuse, ne
+   choisit qu'entre `cas-complet` et une pondération interne par Teil.
+   `examen-blanc` et `specialite` restent des choix **explicites** du
+   candidat, respectés (I8). La proposition de mode disparaît.
 2. **Pendant la partie, les trois Teile s'enchaînent.** À la fin de chacun :
    « Continuer » ou « Terminer ici ». Le fil d'étapes permet de commencer par un
-   autre Teil (`springeZu`, nouvelle transition nommée de l'automate,
+   autre Teil (`springeZu`, exception nommée nº 4 de l'automate,
    `simulation-run.md` §10.2).
-3. **Une tâche est un cas, et son texte dit ce qui reste.** « Leberzirrhose ·
-   il te reste la Dokumentation · 10 min ». **Une tâche de cas est faite quand
-   tout ce qui restait au moment du plan est joué.** Une partie partielle fait
-   avancer le cadran de la tâche. Elle n'est jamais comptée manquée, et le reste
-   revient en tête le lendemain, proposé et jamais imposé. Les plans déjà figés
-   avec des tâches d'un seul Teil restent valides jusqu'à la fin de leur
-   journée (lecture tolérante, INV-54).
+3. **Une tâche est un cas, et son texte dit ce qui reste.** Par exemple :
+   « Leberzirrhose · il te reste la Dokumentation · 10 min ».
+   - **Une tâche de cas est faite quand tout ce qui restait au moment du plan
+     est joué.** Cette complétion est **dérivée du journal synchronisé** et
+     jamais figée à l'écriture (I4). Le genre de la partie n'y compte pas (I3).
+   - Une partie partielle fait avancer le cadran de la tâche. Elle n'est jamais
+     comptée manquée, et le reste revient en tête le lendemain, proposé et
+     jamais imposé.
+   - Une tâche « d'un trait » se fait en une seule partie, tout ou rien (I5).
+   - Les plans déjà figés avec des tâches d'un seul Teil restent valides
+     jusqu'à la fin de leur journée (INV-54).
 4. **La couverture et la maîtrise sont séparées.** Couverture = nombre de Teile
    travaillés (0–3). Maîtrise = moyenne des derniers scores des Teile joués. Un
    cas inachevé ne baisse jamais la maîtrise (INV-53).
 5. **L'échelle d'états d'un cas**, dérivée du journal :
    `vierge` → `entamé` (≥ 1 Teil joué) → `couvert` (3 Teile joués) → `solide`
-   (3 Teile solides) → **`prêt`** (les 3 Teile joués **d'un trait**, dans une
-   même partie sans interruption, chacun ≥ seuil solide, et le cas encore
-   solide). Raison : l'examen enchaîne les trois Teile, et l'endurance fait
-   partie de la préparation. Un `prêt` exige un enchaînement réel (INV-56) :
-   la donnée est `Simulation.enchaine`, posée par l'automate (INV-73).
+   (3 Teile solides) → **`prêt`**.
+   - `prêt` exige un cas encore solide et un run **en conditions d'examen**,
+     chaque Teil ≥ 80.
+   - Les conditions d'examen sont : une même partie sans interruption,
+     Autonome, ordre A → D → F, grille de langue saisie (décision (b)). C'est
+     **une** définition, partagée avec le classement « examen à blanc ».
+   - Ce run doit être **postérieur** au moment où les trois Teile sont devenus
+     solides. Une retombée défait la soudure jusqu'au run suivant (I11,
+     INV-56).
+   - Raison : l'examen enchaîne les trois Teile, et l'endurance fait partie de
+     la préparation.
 6. **Le cadran `CaseDial`** est une primitive unique en quatre tailles : carte
-   de cas, ligne de tâche, pré-simulation, fin de partie. La position dit le
-   Teil, toujours au même endroit, et la couleur dit l'état (vierge neutre,
-   fragile, acquis, solide). Le centre affiche la **maîtrise** et l'anneau
-   extérieur la couverture. Des Teile complétés séparément donnent trois arcs
-   séparés. Un cas `prêt` donne des arcs **soudés** en anneau continu. Le
-   contrat fixe la **donnée** lue par le cadran (`CaseDialData`,
-   `training-journal.md` §12.6), pas son rendu.
-7. **Les fréquences** peuvent figurer dans les encarts (« revient souvent dans
-   les protocoles de ta ville »). Elles sont toujours sourcées par le nombre de
-   protocoles et ne sont jamais présentées comme « ce que le jury note »
-   (garde EXAM_CLAIM).
+   de cas, ligne de tâche, pré-simulation, fin de partie.
+   - La position dit le Teil, toujours au même endroit, et la couleur dit
+     l'état.
+   - Le centre affiche la **maîtrise** et l'anneau extérieur la couverture.
+   - Des Teile complétés séparément donnent trois arcs séparés ; un cas
+     `prêt` a ses arcs **soudés**.
+   - Quand un Teil n'est pas encore solide, le cadran dit pourquoi et
+     à partir de quand (R1).
+   - Le contrat fixe la **donnée** (`CaseDialData`, `training-journal.md`
+     §12.7), pas le rendu.
+7. **Les fréquences** peuvent figurer dans les encarts. Chacune nomme toujours
+   sa base et sa portée : ventilée par ville, ou toutes villes (I10). Aucune
+   n'est présentée comme « ce que le jury note » (garde EXAM_CLAIM).
 8. **Ordre de la pré-simulation** : en-tête du cas (cadran) → « Avec qui tu
-   joues » → niveau d'assistance → Muster.
+   joues » → niveau d'assistance → Muster. La couche se fond dans le niveau
+   d'assistance, présélectionnée par `layerAdvice`, sans le mot « Couche »
+   (décision (d)).
 9. **Le Muster offre deux choix au lieu de cinq.** **Guidé** : toutes les
    rubriques de l'anamnèse, un champ par rubrique. **Libre** : les rubriques
    d'identité, puis un grand champ de rédaction libre. Les simulations
    existantes sont lues avec tolérance et aucune note n'est perdue (INV-74).
-10. **Ordre des chantiers** : contrat → mesure (couverture et maîtrise) →
-    plan → partie (avec la pré-simulation et le Muster) → cadran → Programme →
-    Historique → **Examen en dernier**. L'Examen remplace la page Simulation,
-    après un audit préalable de `feat/pruefungstag`.
+10. **Ordre des chantiers** (I9) : contrat → **S4-1** mesure (avec la
+    dérivation de l'enchaînement et la mesure de la couverture pondérée) →
+    **S4-4** primitive `CaseDial` → **S4-3** partie ∥ **S4-2** plan (fichiers
+    disjoints) → **S4-5** Programme → **S4-6** Historique → **S4-7** Examen,
+    en dernier. L'Examen remplace la page Simulation, après un audit préalable
+    de `feat/pruefungstag`. Les tâches « d'un trait » ne sont générées qu'une
+    fois S4-3 en production (garde `D_UN_TRAIT_ACTIF`).
+11. **La frise de trajectoire** quitte le Programme. Le Programme n'a plus
+    qu'une projection, en cas et en jours. La frise survit dans l'Historique,
+    sans projection, et son passé est figé (décisions (c) et (e)).
+12. **Les changements rétroactifs** sont annoncés une fois dans l'app :
+    Teile solides redevenus acquis, `teil-first` explicite devenu cas complet,
+    Muster de ville devenu libre (décision (f)).
 
 ## Ce qui est retiré de la série 3, et pourquoi
 
@@ -88,7 +113,7 @@ plan et l'automate de partie.
 | Carte retournable pour choisir un Teil (FB2-P) | `SimulationHub.tsx` | Sa seule raison d'être était le choix de Teil. La page entière est remplacée par « Examen » en dernier chantier. |
 | Tâches d'un seul Teil (`TaskInstance.teil`) | `dayPlan.ts:173-195` | Décision 3. Le champ est **lu** pour les anciens plans, et n'est plus jamais écrit. |
 | Proposition de mode (`modusAProposer`, refus retenu) | `modus.ts:97-104`, `ProgramPage.tsx:107`, `ProgramSetup.tsx:121` | Décision 1 : l'adaptation devient silencieuse. `observeModus` est conservé. |
-| Mode par défaut `teil-first` (`modusOf`) | `dayPlan.ts:39-42` | Le mode effectif devient le mode observé, `cas-complet` à défaut (§12.4 du contrat). |
+| Mode par défaut `teil-first` (`modusOf`) | `dayPlan.ts:39-42` | Le mode du jour devient le mode observé (`cas-complet` ou `teil-first`). `examen-blanc` et `specialite` restent explicites (§12.5 du contrat). |
 | Champ de couverture spécialités × Teile | ADR-0020 §3–4, `lib/program/coverage.ts` | L'axe des Teile quitte la surface. La carte de couverture est faite de cadrans, au chantier Programme. |
 | `Lauf.modus = 'teil'` pour les parties nouvelles | `useLauf.ts:100-107` | Toute partie nouvelle planifie les trois Teile. `'teil'` reste lisible pour un `lauf.aktiv` antérieur. |
 
@@ -119,38 +144,47 @@ cumul des Teile du jour) est **conservée** : elle porte la nouvelle surface.
 
 ## Conséquences
 
-- `TaskInstance` gagne `teile` (ce qui restait au moment du plan), ainsi que
-  `rappel` et `dUnTrait` (ADR-0022). `teil` devient lecture seule.
-  `Simulation` gagne `enchaine`. `Lauf` gagne `unterbrochen`. `MusterCity`
-  devient `MusterArt`, avec une lecture tolérante des villes.
-- `CaseProgress` gagne `couverture`, `maitrise`, `etat`, `pretAt`,
-  `solideDepuis` et `prochaineConsolidation`. `overall` est déprécié et dérivé
-  de `etat`.
-- **Aucune table Supabase, aucune migration SQL.** `plan.materialized` accepte
-  déjà des champs de tâche supplémentaires (`events/index.ts:25-28`,
-  `.passthrough()`), et `simulation.completed` n'a pas de schéma serveur. Une
-  validation de `teile` côté serveur est **proposée** (`training-journal.md`
-  §12.9) ; elle n'est pas requise.
-- Un client série 3 qui lit un plan série 4 voit des tâches sans `teil`. Il les
-  traite comme des runs complets, donc il exige les trois Teile : il ne coche
-  jamais **à tort**. `doneAt` se dérivant du journal, il ne décoche jamais non
-  plus.
-- Le harnais C6 (`feat/s3-c6-candidat`) est réécrit **avant** le code, avec un
-  nouveau profil : quelqu'un qui joue librement un Teil ici et un cas entier
-  là. Liste des invariants : `training-journal.md` §8 et
+- **Nouveaux champs :**
+  - `TaskInstance` gagne `teile` (ce qui restait au moment du plan) et
+    `creeA` ; ADR-0022 lui ajoute `rappel` et `dUnTrait`. `teil` passe en
+    lecture seule. `DayPlan` gagne `tz`.
+  - `Simulation` gagne `enchaine`, `reihenfolge` et `dauerGesamtSec`.
+    `date` = début de la partie.
+  - `Lauf` gagne `unterbrochen` et `zuletztAktiv`.
+  - `MusterCity` devient `MusterArt`, avec une lecture tolérante des villes.
+  - `CaseProgress` gagne `couverture`, `maitrise`, `etat`, `pretAt`,
+    `solideDepuis` et `prochaineConsolidation`. `overall` est déprécié et
+    dérivé de `etat`.
+- **Le plan d'un jour ne dépend que du journal antérieur à ce jour** (I1).
+  Deux appareils qui ont le même journal produisent le même plan.
+- **La configuration devient synchronisée** (I2) : `program.configured` est
+  projeté, et les refus de rythme et de rattrapage deviennent des événements.
+- **Une migration SQL est requise** pour S4-2 :
+  `20261004000018_s4_preference_events.sql`, avec deux types d'événements et
+  les schémas de la fonction `events` (`training-journal.md` §12.10). Elle
+  est appliquée au projet EU avant la fonction et le client. Les autres champs
+  passent par `.passthrough()` ou par des payloads sans schéma.
+- **Compatibilité série 3** : un client série 3 qui lit un plan série 4
+  exige les trois Teile ; il ne coche jamais à tort. Il ignore les nouveaux
+  types d'événements.
+- **Harnais C6** : réécrit **avant** le code, avec un profil « un Teil ici, un
+  cas entier là » sur deux appareils. Liste : `training-journal.md` §8 et
   `simulation-run.md` §7.
+
+## Journal des décisions
+
+| Date | Qui | Décision |
+|---|---|---|
+| 4 oct. 2026 | direction | Décisions 1 à 8 de la proposition « le cas entier, mesuré au Teil » (cas entier, mesure au Teil, couverture et maîtrise, cadran, fréquences, ordre de la pré-simulation, Muster guidé/libre, ordre des chantiers) |
+| 4 oct. 2026 | direction | État `prêt`, anneau soudé, proposition « d'un trait » à l'approche de l'examen |
+| 4 oct. 2026 | direction | Les six améliorations du cerveau du programme (ADR-0022) |
+| 4 oct. 2026 | `main` | Décisions techniques I1 à I11 et mineurs m1 à m13 (sauf m9, non transmis), après la revue de cohérence |
+| 4 oct. 2026 | `main` | Réserves pédagogiques adoptées : R1, R2, T1, T2, P1, P2, C1, tolérance de 5 min pour INV-73 |
+| 4 oct. 2026 | direction | (a) fenêtre « d'un trait » = 15 derniers jours ouvrés ; (b) `prêt` = Autonome, ordre A → D → F, grille saisie, une seule définition des conditions d'examen ; (c) la frise quitte le Programme et survit dans l'Historique sans projection ; (d) la couche se fond dans le niveau d'assistance ; (e) états recalculés, frise passée figée avec un repère, anciens runs non soudés ; (f) changements rétroactifs annoncés une fois |
 
 ## Propositions non tranchées
 
-N'y figure que ce que `main` a soumis à l'architecte. L'échelle jusqu'à
-`prêt`, l'anneau soudé et la proposition « d'un trait » ont été **décidés** le
-4 oct. Il ne reste qu'un paramètre, posé par l'architecte :
-
-- **Fenêtre « d'un trait » = la dernière ligne droite existante**
-  (`taperDays`, `dayPlan.ts:66-73` : 15 % des jours ouvrés, entre 3 et 8). Elle
-  est cohérente avec INV-12 (la fenêtre se calcule sur la date d'examen et ne
-  glisse pas). Si elle paraît trop courte pour proposer tous les cas `solide`
-  non `prêt`, l'alternative est de la doubler. **À confirmer.**
+Aucune. La fenêtre « d'un trait » est tranchée par la décision (a) du 4 oct.
 
 ## Contradictions relevées — nommées, non tranchées en silence
 
@@ -240,3 +274,90 @@ N'y figure que ce que `main` a soumis à l'architecte. L'échelle jusqu'à
     (`SimulationRunner.tsx:189,401` sur `feat/s3-c6a-chiffres`). Un ressenti
     jamais touché compterait alors 50. Non vérifié en exécution. Détail et
     correctif : `simulation-run.md` §9.5. Garde : INV-29.
+
+### Statut des contradictions après revue (4 oct.)
+
+- **Résolues par une décision** :
+  - n° 2 : décision (c) ;
+  - n° 6 : I1 (entrée = journal antérieur au jour) ;
+  - n° 9 : décision (d) ;
+  - n° 11 : décision (e) (états recalculés, frise passée figée) ;
+  - n° 12 : décision (e) (anciens runs non soudés) ;
+  - n° 13 : I10 (portée dite dans la phrase) ;
+  - n° 14 : m12 (corrigée par le lot C6-A, déjà dispatché).
+- **n° 5** : I7 précise la dérogation. Il y a une seule tâche forcée par jour
+  (première tâche de cas, ou examen à blanc en dernière ligne droite), puis
+  un remplissage glouton.
+- **n° 7** : restreinte aux plans série 4 (m1).
+
+15. **Le plafond Assisté évoqué par la revue pédagogique (R1) n'existe pas dans
+    la mesure.** `creditMultiplier`/`weightedPartScore` (`scoring.ts:64-73`)
+    n'ont **aucun appelant** hors de `scoring.ts` (vérifié par `grep`).
+    `case_progress` lit `partScore`, sans pondération (`journal.ts:52`). Un
+    Teil joué en Assisté peut donc devenir solide. Afficher « en Assisté le
+    plafond est 80,75 » serait faux. **Tranché ici** : R1 est inscrit pour
+    l'écart de 3 jours (`solideDes`) et pour les conditions d'examen
+    (`pretManque`, qui exige l'Autonome), pas pour un plafond. `main` doit le
+    confirmer.
+16. **Les URL par état (`simulation-run.md` §2.2) ne sont pas implémentées.**
+    Seules `/simulation/:caseId/pre` et `/simulation/:caseId/run` existent
+    (`main.tsx:64-66`). Le contrat décrit désormais les routes réelles (m7),
+    et §2.2 reste une cible hors de la série 4.
+17. **« Partie mesurée » (I3) et la séance IA externe.** I3 parle de « partie
+    mesurée ». Une séance `selbstbewertet` n'est pas une mesure (INV-11), mais
+    elle joue son Teil en série 3, et elle fait avancer une tâche aujourd'hui
+    (`teileJouesLeJour` n'exclut que les coches nues). **Comportement
+    retenu** : elle continue de faire avancer la tâche, sans entrer dans
+    aucune mesure. **Question à `main`** : faut-il au contraire l'exclure de
+    la complétion ?
+
+## Revues
+
+Deux revues de `0ff1dd08`, puis les corrections de ce commit. Les textes des
+revues n'ont pas été transmis à l'architecte, seulement les décisions de
+`main`. Le tableau suit ces décisions.
+
+**Cohérence (Opus)** — *à corriger avant merge* : 11 points importants (I1–I11)
+et 13 mineurs (m1–m13).
+
+| Point | Décision | Où |
+|---|---|---|
+| I1 Déterminisme | Le plan du jour D a pour entrée le journal d'`occurred_at < debutJour(D)`, l'état SRS reconstruit compris. INV-55 et INV-57 sont reformulés ; leur générateur fait varier les événements **du** jour. | TJ §12.4, INV-55, INV-57 |
+| I2 Config synchronisée | `program.configured` est projeté, validé à la lecture et doté d'un schéma serveur. `rythme.refused` et `rattrapage.refused` sont synchronisés. Migration 18. | TJ §12.10, INV-68 |
+| I3 Genre de tâche | Toute partie du cas satisfait une tâche de cas ; le genre ne sert qu'au libellé. `dUnTrait` n'exige qu'`enchaine`. | TJ §12.3 ; contradiction 17 |
+| I4 Complétion | `doneAt` est dérivé à la projection. La coche manuelle est un événement explicite qui compte. INV-51 devient une équivalence multi-appareils. | TJ §12.3, INV-51 |
+| I5 `dUnTrait` | Tout ou rien. La reprise ne porte pas `dUnTrait`. Trois Teile joués séparément laissent la tâche ouverte : « à rejouer d'un trait ». | TJ §12.2, §12.3, §12.8, INV-52 |
+| I6 « Ce qui reste » | Une fonction, deux usages : `resteTache` dans la journée, `restePlan` pour planifier. Un Teil non solide joué depuis moins de 3 jours vaut 0 dans la dette. | TJ §12.2, INV-67 |
+| I7 Budget | Une seule tâche forcée par jour (première tâche de cas, ou examen à blanc en dernière ligne droite) ; `estMin` de l'examen = Σ durées apprises ; remplissage glouton ; une reprise hors budget remplace. | TJ §12.4, §12.8, INV-58 |
+| I8 Mode observé | L'observation choisit entre `cas-complet` et `teil-first`. `examen-blanc` et `specialite` sont explicites. Un `teil-first` explicite devient `cas-complet`. Pas de boucle. | TJ §12.5, INV-57 |
+| I9 Ordre | S4-1 → S4-4 → S4-3 ∥ S4-2 → S4-5 → S4-6 → S4-7 ; garde `D_UN_TRAIT_ACTIF`. | TJ §12.12, décision 10 |
+| I10 Fréquences | La base ventilée par ville, sinon le repli toutes villes, est dite dans la phrase. L'exemple et le texte sont corrigés. | TJ §12.9, §13.6, INV-66 |
+| I11 Soudure | Un run qualifiant postérieur à `solideDepuis` ; une retombée défait la soudure. | TJ §12.6, INV-56 |
+| m1 | INV-4 restreint aux plans série 4. | TJ §8 |
+| m2 | Aucun changement de budget sans geste. | INV-65 |
+| m3 | « Partie mesurée » définie pour les erreurs transversales : checklist présente, ids stables. | TJ §13.3, INV-63 |
+| m4 | Filtrage obligatoire de `teile`, `rappel`, `dUnTrait` et `creeA` à la lecture (`lireTache`). | TJ §12.1 |
+| m5 | `TrainingEvent.at` = début de la partie (`Lauf.startedAt`). | TJ §2.3, SR §3.2, INV-75 |
+| m6 | `dauerGesamtSec` garde le Teil abandonné. `partieSuivante` est refusé hors du Teil interrompu par l'Aufklärung. INV-72 est complété. | SR §3.2, §10.2, INV-72 |
+| m7 | `nimmWiederAuf`, point d'entrée unique ; `?depart` hors des dépendances de l'effet ; routes réelles décrites. | SR §3.1, §10.3 |
+| m8 | Lien de lancement des tâches `revision`. | TJ §12.1, SR §10.3 |
+| m9 | **Non transmis** à l'architecte. | — |
+| m10 | `nonMesureAt` inscrit dans `TeilProgress` ; INV-59 pour `CaseDialData`. | TJ §12.6, §12.7 |
+| m11 | Fin du jour = minuit local du fuseau de l'appareil qui a matérialisé, `DayPlan.tz`. | TJ §3.1, §12.4 |
+| m12 | La sentinelle `?? 50` est corrigée par C6-A, déjà dispatché. | SR §9.5 |
+| m13 | En mode observé « par Teil », l'estimation porte sur le Teil le plus probable. | TJ §13.4, INV-64 |
+
+**Pédagogie (droit de veto)** — *accord avec réserves, aucun veto*.
+
+| Réserve | Décision | Où |
+|---|---|---|
+| R1 | Le cadran dit la raison et la date (`solideDes`, `pretManque`). Pas de plafond Assisté, qui n'existe pas dans la mesure. | TJ §12.7 ; contradiction 15 |
+| R2 | Un Teil non solide joué depuis moins de 3 jours vaut 0 dans la dette. | TJ §12.2, INV-67 |
+| T1 | Aucun `rappel` sur une tâche `dUnTrait` ou `examen-blanc`. | TJ §13.3, INV-63 |
+| T2 | Formulation neutre : « 3 de tes 5 dernières Anamnesen ». | TJ §13.3 |
+| P1 | La carte de rythme montre la conséquence sur la projection, jamais l'écart en %. | TJ §13.5 |
+| P2 | Deux refus de suite : plus de proposition jusqu'à la prochaine modification du programme. | TJ §13.5, INV-65 |
+| C1 | Une reprise hors budget remplace la première tâche de cas. | TJ §12.8, INV-58 |
+| INV-73 | Une reprise de moins de 5 min ne casse pas l'enchaînement. | SR §3.1, INV-73 |
+
+*TJ = `training-journal.md`, SR = `simulation-run.md`.*
