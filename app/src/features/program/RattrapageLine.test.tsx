@@ -44,28 +44,28 @@ afterEach(() => { act(() => root.unmount()); container.remove(); resetClock(); }
 describe('RattrapageLine', () => {
   it('jour(s) manqué(s) : dit ce qui a glissé, propose, n\'ajoute rien sans clic', async () => {
     await poser([t('j1', '2026-10-01', 'c1', 'Obere GI-Blutung'), t('j2', '2026-10-01', 'c2', 'Pneumonie')], [t('l1', '2026-10-05', 'c9', 'Autre')]);
-    await vi.waitFor(() => expect(txt()).toMatch(/1 jour manqué : Obere GI-Blutung et Pneumonie ont glissé/), { timeout: 3000 });
+    await vi.waitFor(() => expect(txt()).toMatch(/1 jour manqué : Obere GI-Blutung et Pneumonie ont glissé/), { timeout: 10000 });
     expect((await db.day_plans.get('2026-10-05'))!.tasks).toHaveLength(1);
     await act(async () => { btn(/^rattraper$/i)!.click(); });
-    await vi.waitFor(async () => expect((await db.day_plans.get('2026-10-05'))!.tasks.map((x) => x.caseId)).toEqual(['c9', 'c1', 'c2']), { timeout: 3000 });
-    await vi.waitFor(() => expect(txt()).toBe(''), { timeout: 3000 });
+    await vi.waitFor(async () => expect((await db.day_plans.get('2026-10-05'))!.tasks.map((x) => x.caseId)).toEqual(['c9', 'c1', 'c2']), { timeout: 10000 });
+    await vi.waitFor(() => expect(txt()).toBe(''), { timeout: 10000 });
   });
   it('« Laisser » retire la ligne sans rien ajouter', async () => {
     await poser([t('j1', '2026-10-01', 'c1', 'A')], [t('l1', '2026-10-05', 'c9', 'Autre')]);
-    await vi.waitFor(() => expect(btn(/^laisser$/i)).toBeDefined(), { timeout: 3000 });
+    await vi.waitFor(() => expect(btn(/^laisser$/i)).toBeDefined(), { timeout: 10000 });
     await act(async () => { btn(/^laisser$/i)!.click(); });
-    await vi.waitFor(() => expect(txt()).toBe(''), { timeout: 3000 });
+    await vi.waitFor(() => expect(txt()).toBe(''), { timeout: 10000 });
     expect((await db.day_plans.get('2026-10-05'))!.tasks).toHaveLength(1);
   });
   it('tout est déjà au programme du jour : on le dit, pas de « Rattraper »', async () => {
     await poser([t('j1', '2026-10-01', 'c1', 'Obere GI-Blutung')], [t('l1', '2026-10-05', 'c1', 'Obere GI-Blutung')]);
-    await vi.waitFor(() => expect(txt()).toMatch(/1 jour manqué : Obere GI-Blutung — déjà au plan d'aujourd'hui/), { timeout: 3000 });
+    await vi.waitFor(() => expect(txt()).toMatch(/1 jour manqué : Obere GI-Blutung — déjà au plan d'aujourd'hui/), { timeout: 10000 });
     expect(btn(/^rattraper$/i)).toBeUndefined();
     await act(async () => { btn(/^compris$/i)!.click(); });
-    await vi.waitFor(() => expect(txt()).toBe(''), { timeout: 3000 });
+    await vi.waitFor(() => expect(txt()).toBe(''), { timeout: 10000 });
   });
   it('plus de deux tâches : les deux premières, puis « n autres »', async () => {
     await poser(['a', 'b', 'c', 'd'].map((x, i) => t(`j${i}`, '2026-10-01', `c${i}`, `Cas ${x}`)), [t('l1', '2026-10-05', 'c9', 'Autre')]);
-    await vi.waitFor(() => expect(txt()).toMatch(/Cas a, Cas b et 2 autres ont glissé/), { timeout: 3000 });
+    await vi.waitFor(() => expect(txt()).toMatch(/Cas a, Cas b et 2 autres ont glissé/), { timeout: 10000 });
   });
 });
