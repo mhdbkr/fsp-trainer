@@ -6,8 +6,8 @@ import { RolePlayView } from '@/components/RolePlayView';
 // rôle PRÜFER (Fallspezifische Fragen, Fragen Teil 3) vivent dans la fiche
 // Prüfer (ExaminerSheetView), pas ici.
 // ============================================================================
-export function PatientSheetView({ sheet, caseQuestions, followChapterId, followProbeId }: {
-  sheet: PatientSheet; caseQuestions?: CaseQuestion[]; followChapterId?: string | null; followProbeId?: string | null;
+export function PatientSheetView({ sheet, caseQuestions, followChapterId, followProbeId, frauInFach }: {
+  sheet: PatientSheet; caseQuestions?: CaseQuestion[]; followChapterId?: string | null; followProbeId?: string | null; frauInFach?: boolean;
 }) {
-  return <RolePlayView sheet={sheet} caseQuestions={caseQuestions} followChapterId={followChapterId} followProbeId={followProbeId} />;
+  return <RolePlayView sheet={sheet} caseQuestions={caseQuestions} followChapterId={followChapterId} followProbeId={followProbeId} frauInFach={frauInFach} />;
 }

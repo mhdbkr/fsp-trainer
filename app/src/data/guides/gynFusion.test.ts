@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { seedCases } from '@/data/seedCases';
 import type { Case } from '@/db/types';
-import { playedTrame } from './anamneseChapters';
+import { fusesFrauenanamnese, playedTrame } from './anamneseChapters';
 import { phraseAlts, phraseFollowUp, phraseProbes, phraseText, type Phrase } from './phrases';
 
 // Série 3, lot Q-gyn — garde CI : quand la Fachanamnese Gynäkologie est jouée,
@@ -120,6 +120,12 @@ describe('Q-gyn — la Frauenanamnese se fond dans la Fach gynéco', () => {
     const fautes = variants.flatMap((v) => (playedTrame(v.c).fach?.chapter.questions ?? []).flatMap((q) =>
       said(q).filter((t) => (t.match(/\?/g) ?? []).length > 1).map((t) => `${v.id} : ${t}`)));
     expect(fautes).toEqual([]);
+  });
+
+  it('fusesFrauenanamnese (lu par l’écran du simulant) : vrai pour les 5 cas gynéco, faux pour un autre cas de patiente', () => {
+    expect(gynCases.map((c) => fusesFrauenanamnese(c, playedTrame(c).fach))).toEqual(gynCases.map(() => true));
+    const autre = cases.find((c) => c.patientSheet.personalia.geschlecht === 'w' && playedTrame(c).fach?.chapter.id !== 'fach-gyn')!;
+    expect(fusesFrauenanamnese(autre, playedTrame(autre).fach)).toBe(false);
   });
 
   it('hors Fach gynéco, une patiente garde sa Frauenanamnese en chapitre (rien ne change)', () => {

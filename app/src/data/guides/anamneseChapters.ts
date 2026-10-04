@@ -1821,7 +1821,8 @@ function fachChapterRaw(c: Case): FachanamneseGuide | undefined {
 // dit une fois, là où le bloc le demande le mieux (`frauenQuestionsForAge`,
 // `fach-gyn-*`). Sans Fach gynéco, la Frauenanamnese reste son chapitre.
 const GYN_FACH = 'fach-gyn';
-const fusesFrauenanamnese = (c: Case, f: FachanamneseGuide | undefined): boolean =>
+/** Vrai quand la Frauenanamnese de cette patiente est portée par la Fach gynéco (écran du simulant : `buildRollenskript`). */
+export const fusesFrauenanamnese = (c: Case, f: FachanamneseGuide | undefined): boolean =>
   f?.chapter.id === GYN_FACH && c.patientSheet.personalia.geschlecht === 'w';
 
 /** La Frauenanamnese d'une patiente telle qu'elle se joue : modulée par l'âge, + les questions du cas. */

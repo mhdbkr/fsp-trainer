@@ -17,10 +17,12 @@ import { Icon } from '@/components/icons';
 
 const stripKein = (s: string) => s.replace(/^kein(e|en|em|er)?\s+/i, '').replace(/,\s*kein(e|en|em|er)?\s+/gi, ', ');
 
-export function RolePlayView({ sheet, caseQuestions, followChapterId, followProbeId }: {
+export function RolePlayView({ sheet, caseQuestions, followChapterId, followProbeId, frauInFach }: {
   sheet: PatientSheet; caseQuestions?: CaseQuestion[]; followChapterId?: string | null; followProbeId?: string | null;
+  /** Q-gyn : la Frauenanamnese du médecin est fondue dans sa Fach gynéco. */
+  frauInFach?: boolean;
 }) {
-  const chapters = useMemo(() => buildRollenskript(sheet, caseQuestions), [sheet, caseQuestions]);
+  const chapters = useMemo(() => buildRollenskript(sheet, caseQuestions, frauInFach), [sheet, caseQuestions, frauInFach]);
   const [activeId, setActiveId] = useState<string>(chapters[0]?.id ?? '');
   const [query, setQuery] = useState('');
   const [showReactions, setShowReactions] = useState(false);
