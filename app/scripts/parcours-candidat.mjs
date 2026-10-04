@@ -84,6 +84,11 @@ async function main() {
   finally { await browser.close().catch(() => {}); server.stop(); }
   rapport.write(OUT);
   const tous = rapport.tousLesChecks();
+  // Faux vert : un parcours qui n'a rien joué ou n'a pas évalué ce qu'il prétend garder ne prouve rien (sortie 2 = harnais en défaut).
+  const attendus = { D7: 1, D8: 1, ...(NB_JOURS >= 3 ? { D10: 1 } : {}), ...(NB_JOURS >= 7 ? { D9: 1 } : {}) };
+  const manquants = Object.entries(attendus).filter(([id, n]) => tous.filter((x) => x.id === id).length < n).map(([id]) => id);
+  if (NB_JOURS >= 14 && rapport.jouees < 10) manquants.push(`parties jouées (${rapport.jouees} < 10)`);
+  if (manquants.length) { console.error(`HARNAIS EN DÉFAUT : vérification(s) jamais évaluée(s) — ${manquants.join(', ')} : faux vert écarté.`); process.exit(2); }
   const nouveaux = tous.filter((x) => !x.ok && !x.connu);
   const connusOk = [...new Set(tous.filter((x) => x.ok && CONNUS[x.id]).map((x) => x.id))];
   const connusKo = [...new Set(tous.filter((x) => !x.ok && x.connu).map((x) => x.id))];
@@ -119,6 +124,7 @@ async function parcours({ browser, base, supabaseUrl }) {
   // Le registre de la candidate : la VÉRITÉ (ce qu'elle a vraiment fait) à laquelle l'app est comparée.
   const grand = { exercices: 0, completes: 0, parties: 0, joursTravailles: new Set(), figes: new Map(), ouverts: [] };
   const c = { page, base, rapport, grand, erreurs, jourIso: '' };
+  Object.defineProperty(rapport, 'jouees', { get: () => grand.parties + grand.completes });
 
   c.capture = async (nom) => { const f = path.join(SHOTS, `${nom}.png`); await page.screenshot({ path: f, fullPage: true }).catch(() => {}); return f; };
   c.aller = async (hash) => { await page.evaluate((h) => { location.hash = h; }, hash); await sleep(250); };
