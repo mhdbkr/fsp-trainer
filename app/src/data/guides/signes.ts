@@ -96,7 +96,7 @@ const DEFS: Record<Signe, Omit<SigneDef, 'id'>> = {
   beginn: { kapitel: 'aktuell', pertinence: S, bank: 'akt-beginn' },
   charakter: { kapitel: 'aktuell', pertinence: S, bank: 'akt-charakter' },
   intensitaet: { kapitel: 'aktuell', pertinence: S, bank: 'akt-intensitaet' },
-  ausstrahlung: { kapitel: 'aktuell', pertinence: ['schmerz', 'anfall', 'neurologisch', 'nerven'], bank: 'akt-ausstrahlung' },
+  ausstrahlung: { kapitel: 'aktuell', pertinence: ['schmerz', 'anfall', 'neurologisch', 'nerven', 'stein', 'hoden'], bank: 'akt-ausstrahlung' },
   verlauf: { kapitel: 'aktuell', pertinence: S, bank: 'akt-verlauf' },
   ausloeser: { kapitel: 'aktuell', pertinence: S, bank: 'akt-ausloeser' },
   einfluss: { kapitel: 'aktuell', pertinence: S, bank: 'akt-einfluss' },
