@@ -209,8 +209,10 @@ Validateur : `checkVarianteAufgeloest.mjs`, sur les 130 cas chargés. Une `Frage
   article/possessif et nom ; ordinal + nom ; affirmation en tête, « Sie nehmen /
   haben / hatten… » ; exclusion des lemmes déjà posés par la trame, au lieu du
   seuil de fréquence). Mesure : 8/8 présuppositions de l'audit des questions du
-  cas détectées, 28 candidats au total (précision ≈ 50 % sur échantillon).
-  Toujours informatif.
+  cas détectées (Q0, 28 candidats, précision ≈ 50 % sur échantillon). Après Q1,
+  les 8 sont corrigées : la preuve de détection vit sur les fixtures, et un test
+  sur les données réelles garantit qu'elles ne reviennent pas ; 19 candidats
+  restent (dont 2 faux positifs connus). Toujours informatif.
 
 ---
 

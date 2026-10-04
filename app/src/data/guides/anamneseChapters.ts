@@ -1718,10 +1718,11 @@ const FACH_RULES: Array<{ probe: string; applies?: (w: Who) => boolean; text?: (
     ? { text: 'Hatten Sie in letzter Zeit einen Unfall oder einen Sturz?', alts: undefined, followUp: undefined } : undefined) },
   // Rachis lombaire : la question reste ouverte — c'est la réponse (au-dessus
   // ou au-dessous du genou) qui départage, pas la question qui la suggère.
+  // Rachis dorsal : ouverte aussi (une question « gürtelförmig » masquait Arm, Hals, Beine).
   { probe: 'fach-ortho-ausstrahlung', text: (w) => (ARM.has(region(w) ?? '') ? 'Strahlen die Schmerzen in den Arm aus — und wenn ja, bis wohin?'
     : region(w) === 'lws' ? 'Ziehen die Schmerzen bis ins Bein hinunter — und wenn ja, wie weit?'
       : region(w) === 'untere' ? 'Strahlen die Schmerzen ins Bein aus — und wenn ja, bis wohin?'
-        : region(w) === 'bws' ? 'Strahlen die Schmerzen gürtelförmig um den Brustkorb aus?' : undefined) },
+        : region(w) === 'bws' ? 'Strahlen die Schmerzen irgendwohin aus — und wenn ja, wohin?' : undefined) },
   { probe: 'fach-ortho-sensomotorik', text: (w) => (ARM.has(region(w) ?? '') ? 'Haben Sie im Arm Kribbeln, ein Taubheitsgefühl oder weniger Kraft bemerkt?'
     : region(w) === 'untere' ? 'Haben Sie im Bein Kribbeln, ein Taubheitsgefühl oder weniger Kraft bemerkt?' : undefined) },
   // Perfusion d'un membre : pas pour le rachis dorsal ou cervical ; le rachis

@@ -19,7 +19,10 @@ export function seedCases(): Case[] {
       frequency: 26,
       difficulty: 2,
       patientSheet: {
-        leitsymptomKategorie: 'allgemein',
+        leitsymptomKategorie: 'schmerz',
+        motiv: { trauma: false, region: 'abdomen' },
+        // « in den letzten Stunden gegessen » ne convient pas à une évolution sur 3 mois ; la réponse reste dans la fiche.
+        fachSkip: ['fach-gastro-speisen'],
         personalia: {
           name: 'Karl Aupperle', age: 58, geschlecht: 'm', groesseCm: 178, gewichtKg: 82,
           beruf: 'Maschinenarbeiter', hausarzt: 'Dr. Kiis',
@@ -57,7 +60,7 @@ export function seedCases(): Case[] {
         noxen: {
           tabak: 'Nichtraucher, nie geraucht',
           drogen: 'keine, nie welche probiert',
-          alkohol: '10 Flaschen Bier + 3 Flaschen Schnaps täglich seit 20 Jahren; letzte 3 Monate wegen Schmerzen auf 3 Bier/Tag reduziert',
+          alkohol: '10 Flaschen Bier + 3 Flaschen Schnaps täglich seit 20 Jahren; letzte 3 Monate wegen Schmerzen auf 3 Bier/Tag reduziert; einen Entzug oder eine Entzugsklinik hat er nie versucht, aufhören wollte er bisher nicht, nur weniger trinken wegen der Schmerzen',
         },
         familienanamnese: ['Vater und Mutter gesund gewesen', 'keine bekannten Lebererkrankungen oder Krebs in der Familie'],
         sozialanamnese: ['geschieden, lebe allein', '2 gesunde Töchter (leben bei der Ex-Frau)', 'arbeite als Maschinenarbeiter', 'keine Haustiere'],
@@ -70,13 +73,17 @@ export function seedCases(): Case[] {
           'pers-hausarzt': 'Ja, Dr. Kiis — der hat mich hergeschickt.',
           // Aktuelle Beschwerden (OPQRST)
           'akt-motiv': 'Mein Hausarzt Dr. Kiis hat mir geraten, ins Krankenhaus zu gehen — wegen des dicken Bauchs und der Schmerzen.',
+          'akt-ort': 'Im ganzen Bauch, überall ein bisschen, nicht an einer bestimmten Stelle. (fährt mit der flachen Hand über den Bauch)',
           'akt-beginn': 'Seit etwa drei Monaten, es hat ganz langsam angefangen und wird eher mehr.',
+          'akt-charakter': 'Dumpf, und es ist eigentlich immer da.',
+          'akt-intensitaet': 'Ich würde sagen 5 von 10. Auszuhalten, aber es hört nicht auf.',
+          'akt-ausstrahlung': 'Nein, es bleibt im Bauch, ausstrahlen tut nichts.',
           'akt-allgemein-art': 'Vor allem Kraftlosigkeit, ich hab überhaupt keine Power mehr. Schwindel ist es nicht, das nicht.',
           'akt-allgemein-alltag': 'Na ja, die schweren Sachen auf der Arbeit gehen nicht mehr so wie früher. Hinlegen tu ich mich nicht extra, aber am Abend bin ich fix und fertig.',
           'akt-allgemein-tageszeit': 'Morgens geht\'s noch, im Laufe vom Tag wird\'s schlimmer. Nach Ruhe wird\'s a bisschen besser, aber nie richtig weg.',
           'akt-allgemein-gewicht': 'Zugenommen hab ich, so an die fünf Kilo in den letzten drei Monaten — aber das ist Wasser, meine Hosen passen nimmer. Essen mag ich nicht mehr viel. Durst ist normal.',
           'akt-allgemein-schwellung': 'Die Beine sind dick geworden, geschwollen, und der Bauch ist dicker, das hab ich ja schon gesagt. Im Gesicht seh ich nix. Mit dem Wasserlassen selber ist nix Besonderes, das kommt normal.',
-          'akt-verlauf': 'Er ist eigentlich ständig da, nicht in Anfällen.',
+          'akt-verlauf': 'Die Schmerzen sind eigentlich ständig da, nicht in Anfällen.',
           'akt-ausloeser': 'Einen richtigen Auslöser gab es nicht, es kam so von selbst.',
           'akt-einfluss': 'Nein, es ist eigentlich immer gleich; besser wird es durch nichts, und genommen habe ich nichts dagegen.',
           'akt-frueher': 'Nein, so etwas hatte ich früher nie.',
@@ -191,8 +198,10 @@ export function seedCases(): Case[] {
       linkedFachbegriffeIds: [],
       probableAufklaerungIds: ['auf-gastroskopie', 'auf-aszitespunktion'],
       caseSpecificQuestions: [
-        { frage: 'Ist Ihr Bauch dicker geworden? Passen die Hosen noch?', kapitel: 'aktuell' },
-        { frage: 'Bekommen Sie in letzter Zeit leicht blaue Flecken, auch ohne sich zu stoßen?', kapitel: 'aktuell' },
+        { frage: 'Fühlen Sie sich schlapper oder weniger belastbar als früher?', kapitel: 'aktuell' },
+        { frage: 'Ist Ihr Bauch dicker geworden, sodass die Hosen nicht mehr passen?', kapitel: 'aktuell' },
+        { frage: 'Sind Ihre Haut oder Ihre Augen in letzter Zeit gelblich geworden?', kapitel: 'aktuell' },
+        { frage: 'Haben Sie in letzter Zeit Mühe, sich zu konzentrieren, oder sind Sie vergesslicher geworden?', kapitel: 'aktuell' },
         { frage: 'Haben Sie eine Veränderung der Farbe von Ihrem Stuhl oder Urin bemerkt — zum Beispiel einen helleren Stuhl oder einen dunkleren Urin?', kapitel: 'vegetativ' },
         { frage: 'Seit wie vielen Jahren trinken Sie in etwa so viel Alkohol wie jetzt?', kapitel: 'noxen' },
         { frage: 'Haben Sie schon einmal versucht, mit dem Trinken aufzuhören, zum Beispiel in einer Entzugsklinik?', kapitel: 'noxen' },
@@ -609,7 +618,6 @@ export function seedCases(): Case[] {
       linkedFachbegriffeIds: [],
       probableAufklaerungIds: ['auf-gastroskopie'],
       caseSpecificQuestions: [
-        { frage: 'Strahlen die Schmerzen gürtelförmig, also wie ein Band um den Bauch herum, in den Rücken aus?', kapitel: 'aktuell' },
         { frage: 'Kam der Schmerz innerhalb weniger Stunden nach einer fettreichen Mahlzeit oder nach Alkohol?', kapitel: 'aktuell' },
         { frage: 'Ist bei Ihnen bekannt, dass Sie Gallensteine haben?', kapitel: 'vorerkrankungen' },
       ],
@@ -1135,7 +1143,6 @@ export function seedCases(): Case[] {
       },
       linkedFachbegriffeIds: [], probableAufklaerungIds: [],
       caseSpecificQuestions: [
-        { frage: 'Strahlt der Schmerz in die rechte Schulter oder das rechte Schulterblatt aus?', kapitel: 'aktuell' },
         { frage: 'Werden die Schmerzen nach fettigem oder üppigem Essen schlimmer?', kapitel: 'aktuell' },
         { frage: 'Hatten Sie schon einmal ähnliche Schmerzattacken, die von selbst wieder aufgehört haben?', kapitel: 'vorerkrankungen' },
         { frage: 'Haben Sie eine Gelbfärbung der Haut oder der Augen bemerkt?', kapitel: 'aktuell' },
@@ -5176,7 +5183,6 @@ export function seedCases(): Case[] {
       caseSpecificQuestions: [
         { frage: 'Ist ein Bein schwächer geworden — schaffen Sie es noch, auf den Zehenspitzen oder auf den Fersen zu stehen?', kapitel: 'aktuell', relu: true },
         { frage: 'Werden die Schmerzen beim Husten, Niesen oder Pressen stärker und schießen dann ins Bein?', kapitel: 'aktuell' },
-        { frage: 'Strahlt der Schmerz bis in den Fuß oder die große Zehe aus?', kapitel: 'aktuell' },
       ],
       examinerQuestions: [
         'Wie lautet Ihre Verdachtsdiagnose und welche Nervenwurzel ist am ehesten betroffen?',
@@ -8018,7 +8024,7 @@ export function seedCases(): Case[] {
         { frage: 'Haben Sie Kribbeln, Brennen oder ein Taubheitsgefühl an den Füßen bemerkt, besonders nachts?', kapitel: 'aktuell' },
         { frage: 'Ist in Ihrer Familie eine Zuckerkrankheit bekannt?', kapitel: 'familie-sozial' },
         { frage: 'Wie sieht Ihr Arbeitstag als Bäcker aus — wann essen Sie, was essen Sie nebenbei, und wie viel bewegen Sie sich außerhalb der Arbeit?', kapitel: 'familie-sozial' },
-        { frage: 'Nehmen Sie Kortison ein, und hatten Sie jemals eine Bauchspeicheldrüsenentzündung?', kapitel: 'medikamente' },
+        { frage: 'Hatten Sie jemals eine Bauchspeicheldrüsenentzündung?', kapitel: 'vorerkrankungen' },
       ],
       examinerQuestions: [
         'Was ist Ihre Verdachtsdiagnose, und was spricht bei diesem Patienten dafür?',
@@ -11938,7 +11944,6 @@ export function seedCases(): Case[] {
       ],
       caseSpecificQuestions: [
         { frage: 'Finden Sie eine Position, in der es besser wird, oder müssen Sie sich ständig bewegen?', kapitel: 'aktuell' },
-        { frage: 'Strahlt der Schmerz aus — zum Beispiel in die Leiste, den Hoden oder den Rücken?', kapitel: 'aktuell' },
         { frage: 'Wie viel trinken Sie am Tag? Und haben Sie in den letzten Wochen viel geschwitzt, zum Beispiel bei der Arbeit im Garten oder in der Hitze?', kapitel: 'familie-sozial' },
         { frage: 'Haben Sie schon einmal einen Nierenstein gehabt, oder gibt es in Ihrer Familie jemanden mit Nierensteinen?', kapitel: 'familie-sozial' },
         { frage: 'Haben Sie ein Ziehen oder eine Schwellung im Hodensack bemerkt?', kapitel: 'aktuell' },
@@ -18897,7 +18902,7 @@ export function seedCases(): Case[] {
         { frage: 'Sind Sie kleiner geworden, oder hat jemand aus Ihrem Umfeld bemerkt, dass Ihr Rücken runder geworden ist?', kapitel: 'vorerkrankungen' },
         { frage: 'Hatten Sie schon einmal einen Knochenbruch nach einem harmlosen Sturz oder einer Bagatellverletzung?', kapitel: 'vorerkrankungen', relu: true },
         { frage: 'Ist bei Ihnen eine Osteoporose bekannt, und wurde jemals eine Knochendichtemessung durchgeführt? Kennen Sie Ihren Wert?', kapitel: 'vorerkrankungen' },
-        { frage: 'Nehmen Sie Kortison ein, und wenn ja, seit wann und in welcher Dosis? Hatten Sie Kortison-Stoßtherapien?', kapitel: 'medikamente' },
+        { frage: 'Haben Sie außer der täglichen Kortisontablette schon einmal einen Kortisonstoß bekommen, also für ein paar Tage eine hohe Dosis?', kapitel: 'medikamente' },
         { frage: 'Welche Behandlung haben Sie gegen die Osteoporose bekommen, und nehmen Sie diese Medikamente heute noch ein?', kapitel: 'medikamente' },
         { frage: 'Gibt es in Ihrer Familie eine Osteoporose oder Knochenbrüche im Alter, insbesondere bei Mutter oder Vater?', kapitel: 'familie-sozial' },
       ],
@@ -22745,7 +22750,6 @@ export function seedCases(): Case[] {
       caseSpecificQuestions: [
         { frage: 'Welche Finger genau schlafen Ihnen ein — ist der kleine Finger auch betroffen, oder bleibt er frei?', kapitel: 'aktuell' },
         { frage: 'Wachen Sie nachts von den Beschwerden auf? Wie oft in einer Nacht, und um welche Uhrzeit?', kapitel: 'aktuell' },
-        { frage: 'Wird es besser, wenn Sie die Hand ausschütteln oder herunterhängen lassen?', kapitel: 'aktuell' },
         { frage: 'Welche Hand ist stärker betroffen — rechts oder links? Und welche ist Ihre Schreibhand?', kapitel: 'aktuell' },
         { frage: 'Fällt Ihnen im Vergleich beider Hände auf, dass der Muskel am Daumenballen dünner geworden ist?', kapitel: 'aktuell' },
         { frage: 'Wie viele Stunden am Tag arbeiten Sie an der Drehscheibe und kneten Sie Ton? Hat sich die Belastung in den letzten Monaten verändert?', kapitel: 'familie-sozial' },
@@ -23855,7 +23859,7 @@ export function seedCases(): Case[] {
         'auf-operation',
       ],
       caseSpecificQuestions: [
-        { frage: 'Sie nehmen seit Jahren Tamsulosin: Ist es in letzter Zeit schlimmer geworden, obwohl Sie die Tabletten nehmen?', kapitel: 'aktuell' },
+        { frage: 'Haben Ihnen die Tabletten für die Prostata am Anfang geholfen?', kapitel: 'aktuell', followUp: 'Falls ja: Seit wann lässt die Wirkung nach?' },
         { frage: 'Haben Sie jemals Blut im Urin oder im Samenerguss bemerkt?', kapitel: 'vorerkrankungen' },
         { frage: 'Waren Sie schon einmal bei einem Urologen, und ist bei Ihnen jemals der PSA-Wert bestimmt worden?', kapitel: 'vorerkrankungen' },
         { frage: 'Ihre Rückenschmerzen: Kamen sie nach einer Belastung oder einem Sturz, und sind sie auch nachts und in Ruhe vorhanden?', kapitel: 'aktuell' },
@@ -34663,7 +34667,6 @@ export function seedCases(): Case[] {
         { frage: 'Was haben Sie genau gemacht, als es losging — waren Sie in Ruhe, haben Sie gehustet, gelacht oder etwas Schweres gehoben?', kapitel: 'aktuell' },
         { frage: 'Spüren Sie den Schmerz nur auf einer Seite, und wird er beim tiefen Einatmen und beim Husten deutlich stärker?', kapitel: 'aktuell', relu: true },
         { frage: 'Hatten Sie so ein Stechen schon einmal, auch wenn es damals schwächer war und von allein wieder verschwunden ist?', kapitel: 'aktuell' },
-        { frage: 'Rauchen Sie? Seit wann und wie viel — und rauchen Sie auch gelegentlich Cannabis?', kapitel: 'noxen' },
         { frage: 'Gibt es in Ihrer Familie jemanden, bei dem schon einmal Luft in der Lunge war und der einen Schlauch in der Brust hatte?', kapitel: 'familie-sozial' },
         { frage: 'Ist bei Ihnen jemals eine Lungenerkrankung festgestellt worden — Asthma, eine chronische Bronchitis oder eine Lungenentzündung?', kapitel: 'vorerkrankungen' },
       ],
@@ -36738,7 +36741,7 @@ export function seedCases(): Case[] {
         { frage: 'Wie hat sich die Schluckstörung bei Ihnen entwickelt — eher langsam über Jahre mit besseren und schlechteren Phasen, oder rasch über Wochen?', kapitel: 'aktuell', relu: true },
         { frage: 'Kommt Ihnen Essen wieder hoch? Ist es unverdaut oder sauer, und passiert das eher im Liegen und nachts?', kapitel: 'aktuell' },
         { frage: 'Ist Ihr Kopfkissen morgens manchmal nass? Husten Sie nachts, und hatten Sie in letzter Zeit eine Lungenentzündung?', kapitel: 'aktuell' },
-        { frage: 'Sie nehmen Magenschutztabletten — haben diese Ihre Beschwerden gebessert oder gar nicht gewirkt?', kapitel: 'aktuell' },
+        { frage: 'Hat Ihnen schon ein Arzt etwas gegen die Beschwerden verordnet?', kapitel: 'aktuell', followUp: 'Falls ja: Hat es Ihnen geholfen?' },
         { frage: 'Haben Sie Schmerzen beim Schlucken, Blut erbrochen oder schwarzen Stuhl bemerkt?', kapitel: 'aktuell', relu: true },
         { frage: 'Wie viel Gewicht haben Sie in welchem Zeitraum verloren, und ist Ihr Appetit dabei erhalten geblieben?', kapitel: 'vegetativ', sucht: ['gewicht', 'appetit'] },
         { frage: 'Waren Sie jemals in Mittel- oder Südamerika?', kapitel: 'familie-sozial' },
@@ -38354,7 +38357,6 @@ export function seedCases(): Case[] {
         'auf-operation',
       ],
       caseSpecificQuestions: [
-        { frage: 'Bis wohin genau strahlt der Schmerz bei Ihnen aus — in den Daumen, in den Mittelfinger oder in den kleinen Finger?', kapitel: 'aktuell' },
         { frage: 'Werden Ihre Schmerzen beim Husten, Niesen oder Pressen auf der Toilette stärker?', kapitel: 'aktuell' },
         { frage: 'Haben Sie bemerkt, dass es besser wird, wenn Sie den Arm über den Kopf legen?', kapitel: 'aktuell' },
         { frage: 'Haben Sie Kribbeln, ein pelziges Gefühl oder Kraftverlust in der Hand — rutschen Ihnen Gegenstände aus der Hand?', kapitel: 'aktuell', sucht: ['taubheit', 'schwaeche'] },
@@ -41616,7 +41618,7 @@ export function seedCases(): Case[] {
         { frage: 'Sie sagen, Sie hätten sich zweimal auf Corona getestet: Wie genau haben Sie den Abstrich gemacht — nur vorne in der Nase oder tief im Rachen? An welchem Tag, und was für ein Test war das?', kapitel: 'aktuell' },
         { frage: 'Waren Sie während Ihrer Auslandsreise in einem Malariagebiet, und haben Sie dort eine Malariaprophylaxe eingenommen — welche, und wie regelmäßig?', kapitel: 'familie-sozial' },
         { frage: 'Sind Sie gegen Grippe geimpft? Wann zuletzt, und wenn nicht — was hält Sie davon ab?', kapitel: 'vorerkrankungen' },
-        { frage: 'Bekommen Sie Luftnot, ein Engegefühl in der Brust oder pfeifende Atmung? Brauchen Sie Ihr Notfallspray häufiger als sonst?', kapitel: 'aktuell' },
+        { frage: 'Bekommen Sie Luftnot, ein Engegefühl in der Brust oder pfeifende Atmung?', kapitel: 'aktuell', followUp: 'Falls ja: Was nehmen Sie dagegen?' },
         { frage: 'Ist Ihr Urin dunkler geworden, und sind die Muskelschmerzen so stark, dass Sie kaum aufstehen können?', kapitel: 'aktuell' },
       ],
       examinerQuestions: [
@@ -41921,7 +41923,7 @@ export function seedCases(): Case[] {
           'akt-beginn': 'Das hat vor ungefähr fünf Monaten ganz langsam angefangen, ganz von allein. Seit zwei Wochen ist es deutlich schlimmer geworden.',
           'akt-charakter': 'Ziehend und dumpf, wie ein Zahnschmerz im Knochen. Wenn ich auftrete, wird es stechend.',
           'akt-intensitaet': 'Wenn ich gehe, 7 von 10. Wenn ich sitze und Ruhe habe, nur 2 von 10.',
-          'akt-ausstrahlung': 'Es zieht vorne am Oberschenkel runter bis ins linke Knie. Aber weiter runter nicht — unter das Knie und in den Fuß geht es nicht.',
+          'akt-ausstrahlung': 'Es zieht vorne am Oberschenkel runter bis ins linke Knie — da merke ich es manchmal am deutlichsten, ich dachte erst, es kommt vom Knie. Aber weiter runter nicht — unter das Knie und in den Fuß geht es nicht.',
           'akt-verlauf': 'Über die Monate immer schlimmer, ganz schleichend. Morgens beim Aufstehen sind die ersten Schritte am schlimmsten, nach zwanzig, dreißig Metern wird es besser. Dasselbe, wenn ich lange gesessen habe. Und je länger ich dann laufe, desto mehr tut es wieder weh.',
           'akt-ausloeser': 'Nein, da war nichts. Kein Sturz, kein Unfall, ich bin nicht umgeknickt und ich habe mich auch nicht verhoben. Es kam einfach von allein.',
           'akt-einfluss': 'Schlimmer beim Gehen, Treppensteigen und wenn ich aus dem Bagger steige. Besser im Sitzen und unter der heißen Dusche. Voltaren 50 hilft ein, zwei Stunden.',
@@ -41953,7 +41955,7 @@ export function seedCases(): Case[] {
           'fam-haustiere': 'Nein, Haustiere haben wir keine.',
           'fach-ortho-mechanismus': 'Da war kein Unfall und kein Sturz, wirklich nicht. Ich habe mich auch nicht verhoben. Es hat einfach angefangen und ist immer schlimmer geworden.',
           'fach-ortho-bewegung': 'Beweglich ist die Hüfte deutlich schlechter geworden. Socken und Schuhe anziehen ist links das Schlimmste, die Fußnägel schneiden geht gar nicht mehr. Morgens ist sie so zehn Minuten steif, dann geht es wieder. Und manchmal knirscht es richtig.',
-          'fach-ortho-ausstrahlung': 'Es zieht vorne am Oberschenkel bis ins Knie. Weiter runter geht es nicht, in die Wade und in den Fuß strahlt nichts aus.',
+          'fach-ortho-ausstrahlung': 'Es zieht vorne am Oberschenkel bis ins Knie — da merke ich es manchmal am deutlichsten, ich dachte erst, es kommt vom Knie. Weiter runter geht es nicht, in die Wade und in den Fuß strahlt nichts aus.',
           'fach-ortho-sensomotorik': 'Nein, Kribbeln oder Ameisenlaufen habe ich nicht, taub ist auch nichts. Gelähmt ist nichts — das Bein fühlt sich nur kraftlos an, wenn ich länger gelaufen bin, und dann hinke ich.',
           'fach-ortho-durchblutung': 'Die Füße sind warm und normal gefärbt, blau wird da nichts. Wunden am Fuß habe ich keine. Und in der Wade tut mir beim Gehen nichts weh — die Schmerzen sind oben in der Leiste, nicht unten.',
           'fach-ortho-cauda': 'Nein, überhaupt nicht. Wasserlassen und Stuhlgang kann ich normal halten, und beim Sitzen ist unten herum nichts taub.',
@@ -41969,7 +41971,7 @@ export function seedCases(): Case[] {
           '"Kann ich denn weiter arbeiten? Ich bin siebenundfünfzig, bis zur Rente sind es noch zehn Jahre."',
           '"Warum wollen Sie meine Hüfte röntgen? Weh tut mir doch das Knie."',
         ],
-        persona: 'Tu es Heiner King, 57 ans, conducteur d\'engin sur un chantier depuis plus de trente ans. Costaud, direct, un peu bourru, tu parles fort et tu n\'aimes pas te plaindre. Tu es venu parce que ta femme a insisté. Point clé du jeu : si le médecin te demande simplement « où avez-vous mal ? », réponds d\'abord et spontanément « au GENOU gauche » en montrant ton genou — ce n\'est que si le médecin te demande de montrer précisément avec la main, ou s\'il demande si la douleur commence plus haut, que tu portes la main à l\'aine et que tu dis « ah, eigentlich fängt es hier oben in der Leiste an ». C\'est le piège du cas. Tu minimises l\'alcool (« fünf Bier, das ist auf dem Bau normal ») et tu ne donnes le chiffre exact que si on te le demande sans te juger. Tu es fier de ton travail et tu as peur de perdre ton poste : tu le dis si le médecin t\'interroge sur ton métier ou ton quotidien. Le mot « opération » t\'effraie — tu connais un collègue qui marche moins bien depuis sa prothèse. Tu ne connais pas le nom du médicament contre la goutte, tu dis « eine Tablette gegen die Gicht ».',
+        persona: 'Tu es Heiner King, 57 ans, conducteur d\'engin sur un chantier depuis plus de trente ans. Costaud, direct, un peu bourru, tu parles fort et tu n\'aimes pas te plaindre. Tu es venu parce que ta femme a insisté. Point clé du jeu : la douleur siège à l\'aine gauche (Leiste) et à la fesse, tu le montres de la main quand on te demande où ça fait mal. Mais elle descend jusqu\'au genou, et tu la ressens surtout vers le genou (« Weh tut mir doch das Knie ») : tu t\'étonnes de la radio de hanche. C\'est le piège du cas, la projection hanche → genou. Tu ne précises jusqu\'où ça descend (genou, jamais en dessous) que si on te le demande. Tu minimises l\'alcool (« fünf Bier, das ist auf dem Bau normal ») et tu ne donnes le chiffre exact que si on te le demande sans te juger. Tu es fier de ton travail et tu as peur de perdre ton poste : tu le dis si le médecin t\'interroge sur ton métier ou ton quotidien. Le mot « opération » t\'effraie — tu connais un collègue qui marche moins bien depuis sa prothèse. Tu ne connais pas le nom du médicament contre la goutte, tu dis « eine Tablette gegen die Gicht ».',
       },
       medicalView: {
         verdachtsdiagnose: 'Fortgeschrittene primäre Coxarthrose links (Hüftgelenkarthrose) mit Anlauf-, Belastungs- und beginnendem Nachtschmerz, reduzierter Gehstrecke von 500 m und Kapselmuster; begünstigt durch Adipositas Grad I (110 kg bei 1,80 m, BMI ca. 34,0), schwere körperliche Arbeit mit Vibrationsbelastung als Baggerfahrer sowie chronischen Alkoholkonsum von etwa 100 g täglich',
@@ -42055,7 +42057,7 @@ export function seedCases(): Case[] {
           },
           {
             stufe: 'Anamnese/Klinik',
-            text: 'Abgrenzende Untersuchung: orientierende Untersuchung der Lendenwirbelsäule mit Lasègue-Zeichen, Prüfung von Durchblutung, Motorik und Sensibilität sowie Tasten der Fußpulse (pAVK bei Raucher mit Diabetes mellitus); zusätzlich Untersuchung des linken Knies, das der Patient zuerst als schmerzhaft angibt',
+            text: 'Abgrenzende Untersuchung: orientierende Untersuchung der Lendenwirbelsäule mit Lasègue-Zeichen, Prüfung von Durchblutung, Motorik und Sensibilität sowie Tasten der Fußpulse (pAVK bei Raucher mit Diabetes mellitus); zusätzlich Untersuchung des linken Knies, in das der Schmerz ausstrahlt und das der Patient als besonders schmerzhaft empfindet',
           },
           {
             stufe: 'Labor',
@@ -42146,7 +42148,7 @@ export function seedCases(): Case[] {
         erstmassnahmen: [
           'Vitalparameter einschließlich Temperatur erheben — Fieber würde sofort auf eine septische Coxitis lenken',
           'Größe, Gewicht und BMI bestimmen und dokumentieren (110 kg bei 1,80 m, BMI ca. 34,0 — Adipositas Grad I) und den Patienten darauf ansprechen',
-          'Vollständige orthopädische Untersuchung der linken Hüfte im Seitenvergleich mit Gangbild, Beinlängenmessung, Trendelenburg-Zeichen, Neutral-Null-Methode, Patrick- und Impingementtest — und zusätzlich das linke Knie untersuchen, das der Patient zuerst nennt',
+          'Vollständige orthopädische Untersuchung der linken Hüfte im Seitenvergleich mit Gangbild, Beinlängenmessung, Trendelenburg-Zeichen, Neutral-Null-Methode, Patrick- und Impingementtest — und zusätzlich das linke Knie untersuchen, in das der Schmerz ausstrahlt und das der Patient als besonders schmerzhaft empfindet',
           'Durchblutung, Motorik und Sensibilität prüfen sowie die Fußpulse tasten (Raucher mit Diabetes mellitus)',
           'Röntgen des Beckens in zwei Ebenen mit Darstellung beider Hüftgelenke anmelden',
           'Blutabnahme: Blutbild, CRP, BSG, Kreatinin und eGFR, Blutzucker und HbA1c, Harnsäure, Leberwerte und Gerinnung',
@@ -42161,11 +42163,10 @@ export function seedCases(): Case[] {
         'auf-operation',
       ],
       caseSpecificQuestions: [
-        { frage: 'Beginnt der Schmerz wirklich im Knie, oder eigentlich weiter oben in der Leiste?', kapitel: 'aktuell' },
         { frage: 'Sind die ersten Schritte nach dem Aufstehen oder nach längerem Sitzen am schlimmsten, und wird es nach einigen Schritten besser?', kapitel: 'aktuell' },
         { frage: 'Wie lange ist Ihre Hüfte morgens steif — Minuten oder mehr als eine halbe Stunde?', kapitel: 'aktuell' },
         { frage: 'Wie hat sich Ihre Gehstrecke in den letzten sechs Monaten verändert — wie weit kamen Sie früher, wie weit heute?', kapitel: 'aktuell' },
-        { frage: 'Fällt Ihnen das Ein- und Aussteigen ins Auto oder in Ihren Bagger schwer? Wie kommen Sie die Treppe in den zweiten Stock hoch?', kapitel: 'aktuell' },
+        { frage: 'Fällt Ihnen das Einsteigen in Ihr Auto oder in den Bagger schwer?', kapitel: 'aktuell', followUp: 'Wie kommen Sie mit Treppen zurecht?' },
         { frage: 'Hatten Sie als Kind eine Hüfterkrankung, eine Spreizhose oder eine Schiene? Ist Ihnen jemals gesagt worden, dass Ihre Hüftpfanne nicht richtig angelegt ist?', kapitel: 'vorerkrankungen' },
         { frage: 'Tut Ihnen beim Gehen die Wade weh, und geht das in Ruhe nach wenigen Minuten wieder weg?', kapitel: 'aktuell' },
         { frage: 'Wie viele Tabletten Voltaren nehmen Sie am Tag, und hat Ihnen jemand einen Magenschutz dazu verordnet?', kapitel: 'medikamente' },
@@ -42173,7 +42174,7 @@ export function seedCases(): Case[] {
       examinerQuestions: [
         'Herr Kollege, stellen Sie uns bitte den Patienten vor. Wie lautet Ihre Verdachtsdiagnose?',
         'Sie sagen, die Schmerzen strahlen nur bis zum Knie und nicht bis zur Fußsohle aus — warum ist diese Information wichtig?',
-        'Der Patient klagt zuerst über Knieschmerzen. Wie kommen Sie trotzdem auf die Hüfte?',
+        'Der Patient spürt den Schmerz am deutlichsten im Knie. Wie kommen Sie trotzdem auf die Hüfte?',
         'Welche Differenzialdiagnosen kommen in Betracht, und wie grenzen Sie sie ab?',
         'Was wissen Sie über die Hüftkopfnekrose? Welche Risikofaktoren hat dieser Patient dafür?',
         'Was verstehen Sie unter einem Anlaufschmerz, und wie erklären Sie ihn dem Patienten?',
@@ -42221,7 +42222,7 @@ export function seedCases(): Case[] {
               reaktion: 'Erwartet wird: fortgeschrittene Coxarthrose links. Begründung: schleichender Beginn über fünf Monate, Leisten- und Gesäßschmerz mit Ausstrahlung an der Oberschenkelvorderseite bis zum Knie, Anlaufschmerz, Belastungsschmerz mit Abnahme der Gehstrecke von 5 km auf 500 m, seit vier Wochen Nachtschmerz, Morgensteifigkeit von nur zehn Minuten, Funktionsverlust beim Socken- und Schuhanziehen. Risikokonstellation: Alter 57 Jahre, Adipositas Grad I mit einem BMI von etwa 34,0, schwere körperliche Arbeit mit Vibrationsbelastung, täglich fünf Flaschen Bier.',
             },
             {
-              frage: 'Der Patient klagt zuerst über Knieschmerzen. Wie kommen Sie trotzdem auf die Hüfte?',
+              frage: 'Der Patient spürt den Schmerz am deutlichsten im Knie. Wie kommen Sie trotzdem auf die Hüfte?',
               reaktion: 'Weil der Coxarthroseschmerz klassisch in die Leiste projiziert wird und über den Nervus obturatorius beziehungsweise den Nervus femoralis an der Vorderseite des Oberschenkels bis zum Knie ausstrahlt. Ein Teil der Patienten klagt ausschließlich über Knieschmerzen. Deshalb lasse ich den Patienten mit dem Finger zeigen, frage gezielt nach der Leiste und untersuche bei jedem Knieschmerz auch die Hüfte — und umgekehrt.',
             },
             {
@@ -42260,7 +42261,7 @@ export function seedCases(): Case[] {
           interactions: [
             {
               frage: 'Worauf würden Sie bei der körperlichen Untersuchung achten?',
-              reaktion: 'Inspektion und Gangbild mit Schonhinken beziehungsweise Trendelenburg-Hinken, Beinlängenmessung, Muskelatrophie am Gesäß und Oberschenkel im Seitenvergleich; Druckschmerz über Leiste und Trochanter major; seitenvergleichende Bewegungsprüfung nach der Neutral-Null-Methode; Patrick- beziehungsweise FABER-Test, anteriorer Impingementtest, Trendelenburg-Zeichen und Thomas-Handgriff; orientierende Untersuchung der Lendenwirbelsäule mit Lasègue-Zeichen; Prüfung von Durchblutung, Motorik, Sensibilität und Fußpulsen — und selbstverständlich auch die Untersuchung des Knies, über das der Patient zuerst geklagt hat.',
+              reaktion: 'Inspektion und Gangbild mit Schonhinken beziehungsweise Trendelenburg-Hinken, Beinlängenmessung, Muskelatrophie am Gesäß und Oberschenkel im Seitenvergleich; Druckschmerz über Leiste und Trochanter major; seitenvergleichende Bewegungsprüfung nach der Neutral-Null-Methode; Patrick- beziehungsweise FABER-Test, anteriorer Impingementtest, Trendelenburg-Zeichen und Thomas-Handgriff; orientierende Untersuchung der Lendenwirbelsäule mit Lasègue-Zeichen; Prüfung von Durchblutung, Motorik, Sensibilität und Fußpulsen — und selbstverständlich auch die Untersuchung des Knies, in das der Schmerz ausstrahlt und das der Patient als besonders schmerzhaft empfindet.',
             },
             {
               frage: 'Welche Bewegungen sind eingeschränkt? In welcher Reihenfolge?',
@@ -42758,7 +42759,7 @@ export function seedCases(): Case[] {
         { frage: 'Wie hat sich Ihr Gewicht über die letzten Jahre entwickelt? Haben Sie schon einmal versucht abzunehmen, und was ist dabei herausgekommen?', kapitel: 'vorerkrankungen', relu: true },
         { frage: 'Schnarchen Sie? Hat Ihnen jemand gesagt, dass Sie im Schlaf Atempausen haben? Schlafen Sie tagsüber ungewollt ein — auch beim Autofahren?', kapitel: 'vegetativ', relu: true },
         { frage: 'Was genau hat Ihnen Ihr Hausarzt gestern zu Ihrem Blutzucker und Ihren Blutfettwerten gesagt?', kapitel: 'vorerkrankungen' },
-        { frage: 'Waren Sie in letzter Zeit beim Augenarzt? Was hat er zu Ihrer Netzhaut gesagt, und was hat er Ihnen empfohlen?', kapitel: 'aktuell' },
+        { frage: 'Waren Sie schon einmal wegen Ihrer Augen beim Augenarzt?', kapitel: 'aktuell', followUp: 'Falls ja: Was hat der Augenarzt festgestellt?' },
         { frage: 'Ist Ihnen an der Haut im Nacken oder in den Achselhöhlen eine Veränderung aufgefallen?', kapitel: 'aktuell' },
         { frage: 'Nehmen Sie Medikamente, die das Gewicht oder den Zucker beeinflussen können — Kortison, Tabletten gegen seelische Beschwerden, Wassertabletten oder Betablocker?', kapitel: 'medikamente', relu: true },
       ],
@@ -43591,6 +43592,7 @@ export function seedCases(): Case[] {
         vorerkrankungen: [
           'Diabetes mellitus Typ 2 seit zwei Jahren (Erstdiagnose im Alter von 29 Jahren), zuletzt kein HbA1c bekannt',
           'arterielle Hypertonie, seit etwa drei Jahren behandelt',
+          'Tetanusimpfung zuletzt vor etwa sieben Jahren aufgefrischt (nach der Sprunggelenksoperation), der Impfpass liegt zu Hause',
           'chronische Lumbalgie seit mehreren Jahren bei überwiegend gebückter Tätigkeit als Elektriker',
           'Übergewicht/Präadipositas (89 kg bei 1,82 m, BMI ca. 26,9)',
         ],
@@ -43867,7 +43869,7 @@ export function seedCases(): Case[] {
         { frage: 'Hatten Sie schon einmal ähnliche Eiterbeulen, besonders in den Achseln, in den Leisten oder in der Pofalte?', kapitel: 'aktuell' },
         { frage: 'Wie gut ist Ihr Zucker eingestellt — wann wurde zuletzt der Langzeitzucker bestimmt?', kapitel: 'vorerkrankungen' },
         { frage: 'Nehmen Sie Kortison oder Medikamente, die das Abwehrsystem unterdrücken?', kapitel: 'medikamente' },
-        { frage: 'Strahlen die Schmerzen ins Bein aus, oder haben Sie dort ein Kribbeln, ein Taubheitsgefühl oder eine Schwäche?', kapitel: 'aktuell' },
+        { frage: 'Haben Sie im Bein ein Kribbeln, ein Taubheitsgefühl oder eine Schwäche bemerkt?', kapitel: 'aktuell' },
         { frage: 'Wann hatten Sie die letzte Tetanusimpfung?', kapitel: 'vorerkrankungen' },
       ],
       examinerQuestions: [
@@ -45640,6 +45642,7 @@ export function seedCases(): Case[] {
           'keine Immunsuppression, keine Kortisontherapie, keine Tumorerkrankung, kein Diabetes mellitus',
           'keine Blutverdünner, keine Schwangerschaft möglich (Menopause seit fünf Jahren)',
           'Selbsttest auf Corona an Tag 3 negativ (nur kurz vorne in der Nase abgestrichen), danach kein weiterer Test',
+          'dieses Herzrasen kennt sie von früher nicht — aus der Burnout-Zeit kennt sie Angstgefühle, grenzt das jetzige Herzrasen aber selbst davon ab ("etwas anderes")',
         ],
         vorerkrankungen: [
           'Gicht: erster Anfall vor drei Jahren am rechten Großzehengrundgelenk, seitdem Allopurinol, seit zwei Jahren kein Anfall mehr',
@@ -45900,7 +45903,7 @@ export function seedCases(): Case[] {
         { frage: 'Haben Sie Schmerzen in der Brust beim Atmen oder ein geschwollenes, schmerzendes Bein?', kapitel: 'aktuell' },
         { frage: 'Nehmen Sie Medikamente, die das Immunsystem unterdrücken, Kortison oder Blutverdünner? Gibt es eine Zuckerkrankheit, ein Herz- oder Lungenleiden?', kapitel: 'vorerkrankungen' },
         { frage: 'Gibt es zu Hause Personen, für die eine Ansteckung besonders gefährlich wäre?', kapitel: 'familie-sozial' },
-        { frage: 'Wie war das mit dem Burnout — sind Sie noch in Behandlung, und kennen Sie dieses Herzrasen schon von früher?', kapitel: 'aktuell' },
+        { frage: 'Kennen Sie dieses Herzrasen schon von früher?', kapitel: 'aktuell' },
       ],
       examinerQuestions: [
         'Frau Kollegin, stellen Sie uns bitte die Patientin vor. Wie lautet Ihre Verdachtsdiagnose, und was spricht dafür?',
@@ -46868,7 +46871,7 @@ export function seedCases(): Case[] {
         { frage: 'Haben Sie in letzter Zeit ein Antibiotikum eingenommen? Wofür, wie lange, und haben Sie es bis zum Ende genommen?', kapitel: 'medikamente' },
         { frage: 'Wie viele Tage lagen zwischen dem Abklingen der Halsentzündung und den ersten Gelenkbeschwerden — waren Sie dazwischen ganz gesund?', kapitel: 'aktuell' },
         { frage: 'Ich muss Ihnen jetzt einige persönliche Fragen stellen, die für die Ursache wichtig sind: Haben Sie einen festen Partner, gab es einen Partnerwechsel, Ausfluss oder Beschwerden im Intimbereich?', kapitel: 'familie-sozial' },
-        { frage: 'Sind Ihre Augen gerötet, schmerzhaft oder lichtempfindlich — anders als bei Ihrem Heuschnupfen?', kapitel: 'aktuell' },
+        { frage: 'Sind Ihre Augen gerötet, schmerzhaft oder lichtempfindlich?', kapitel: 'aktuell' },
         { frage: 'Haben Sie Herzstolpern, Luftnot, Brustschmerzen oder ein Herzrasen bemerkt, das nicht zum Fieber passt?', kapitel: 'aktuell', relu: true },
         { frage: 'Haben Sie einen Ausschlag, Pusteln an Händen oder Füßen, Bläschen im Mund oder Knötchen unter der Haut bemerkt?', kapitel: 'aktuell', relu: true },
         { frage: 'Haben Sie Schmerzen an den Fersen oder im unteren Rücken, vor allem nachts oder morgens, die bei Bewegung besser werden?', kapitel: 'aktuell' },
@@ -48366,7 +48369,6 @@ export function seedCases(): Case[] {
         'auf-mrt',
       ],
       caseSpecificQuestions: [
-        { frage: 'Zieht der Schmerz wie ein Gürtel in den Rücken, und wird er nach dem Essen oder nach Alkohol schlimmer?', kapitel: 'aktuell' },
         { frage: 'Wie sieht Ihr Stuhlgang aus: ist er voluminös, hell, fettig-glänzend, übelriechend, und lässt er sich schwer wegspülen?', kapitel: 'vegetativ', relu: true },
         { frage: 'Hatten Sie schon einmal eine Bauchspeicheldrüsenentzündung? Wann, und wie wurde sie behandelt?', kapitel: 'vorerkrankungen' },
         { frage: 'Gab es Situationen oder Phasen, in denen es mit dem Alkohol mehr wurde? Seit wie vielen Jahren trinken Sie in dieser Menge?', kapitel: 'noxen' },
@@ -50777,7 +50779,7 @@ export function seedCases(): Case[] {
       caseSpecificQuestions: [
         { frage: 'Manchmal stecken hinter solchen Beschwerden sehr belastende Erlebnisse — haben Sie so etwas erlebt, und war es ein einmaliges Ereignis?', kapitel: 'aktuell' },
         { frage: 'Kommen Ihnen Erinnerungen an das Ereignis ungewollt in den Sinn, oder träumen Sie davon?', kapitel: 'aktuell' },
-        { frage: 'Gibt es Orte, Tätigkeiten oder Gespräche, die Sie seitdem vermeiden? Sitzen Sie noch auf dem Motorrad?', kapitel: 'aktuell' },
+        { frage: 'Gibt es Orte, Tätigkeiten oder Gespräche, die Sie seitdem vermeiden?', kapitel: 'aktuell' },
         { frage: 'Sind Sie schreckhafter als früher? Fühlen Sie sich ständig auf der Hut?', kapitel: 'aktuell' },
         { frage: 'Fühlen Sie sich seitdem anderen Menschen gegenüber fremd oder wie abgeschnitten von Ihren Gefühlen?', kapitel: 'aktuell' },
         { frage: 'Ist der Kopfschmerz morgens am stärksten, nimmt er im Liegen zu, oder mussten Sie sich schon nüchtern erbrechen?', kapitel: 'aktuell', relu: true },
@@ -51738,7 +51740,7 @@ export function seedCases(): Case[] {
       caseSpecificQuestions: [
         { frage: 'Haben Sie in den letzten Jahren Kortison bekommen — Tabletten, Infusionen oder Spritzen, zum Beispiel wegen des Darms, der Lunge oder der Gelenke? Wie viel und wie lange?', kapitel: 'medikamente' },
         { frage: 'Seit wie vielen Jahren trinken Sie schon so viel Alkohol wie derzeit?', kapitel: 'noxen' },
-        { frage: 'Zieht der Schmerz bis zum Knie? Haben Sie den Eindruck, das Knie selbst sei das Problem?', kapitel: 'aktuell' },
+        { frage: 'Haben Sie den Eindruck, dass das Knie selbst das Problem ist?', kapitel: 'fach' },
         { frage: 'Können Sie das rechte Bein noch nach innen drehen, Socken anziehen und die Beine überschlagen — und wie ist das links?', kapitel: 'aktuell' },
         { frage: 'Haben Sie auch in der linken Leiste oder in anderen Gelenken, etwa in der Schulter, Beschwerden bemerkt?', kapitel: 'aktuell' },
         { frage: 'Gab es in der letzten Woche einen plötzlichen Sprung, ab dem es deutlich schlimmer wurde?', kapitel: 'aktuell' },
@@ -57505,7 +57507,6 @@ export function seedCases(): Case[] {
       ],
       caseSpecificQuestions: [
         { frage: 'Wird es besser, wenn Sie sich aufsetzen und nach vorne beugen, und schlimmer, wenn Sie sich flach hinlegen?', kapitel: 'aktuell' },
-        { frage: 'Strahlt der Schmerz eher in die Schulter-Nacken-Kante aus als in den Arm?', kapitel: 'aktuell' },
         { frage: 'Hatten Sie in den letzten zwei bis drei Wochen eine Erkältung, Grippe oder einen Magen-Darm-Infekt?', kapitel: 'aktuell' },
         { frage: 'Hatten Sie jemals einen Herzinfarkt, eine Herzoperation, eine Nierenerkrankung, eine Rheumaerkrankung oder eine Tumorerkrankung?', kapitel: 'vorerkrankungen' },
         { frage: 'Waren Sie längere Zeit im Ausland, oder hatten Sie Kontakt zu jemandem mit Tuberkulose?', kapitel: 'vegetativ', sucht: ['reise'] },
@@ -58444,7 +58445,6 @@ export function seedCases(): Case[] {
       caseSpecificQuestions: [
         { frage: 'Sie sagen „Schmerzen im Unterbauch“ — haben Sie auch Schmerzen im Hoden? Das ist eine ganz normale Frage, ich muss das wissen.', kapitel: 'aktuell' },
         { frage: 'Wann genau hat der Schmerz angefangen — können Sie mir die Uhrzeit sagen? Sind Sie davon aufgewacht?', kapitel: 'aktuell' },
-        { frage: 'Strahlt der Schmerz vom Hoden in den Bauch aus?', kapitel: 'aktuell' },
         { frage: 'Ist der Hoden geschwollen oder gerötet, und steht er höher als der andere?', kapitel: 'aktuell' },
         { frage: 'Gab es gestern beim Fußball einen Tritt, einen Ball oder einen Sturz — irgendeine Verletzung im Genitalbereich?', kapitel: 'aktuell' },
         { frage: 'Hatten Sie so einen Schmerz schon einmal, vielleicht kürzer, und ist er dann von allein wieder verschwunden?', kapitel: 'aktuell' },
