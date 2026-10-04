@@ -649,10 +649,11 @@ Décision (f) de la direction, 4 oct. Trois changements sont annoncés **une
 fois** dans l'app, au premier lancement après S4-1 (Teile) ou S4-3 (mode et
 Muster), par un encart neutre et fermable :
 
-- des Teile solides redevenus acquis ;
+- des Teile solides redevenus acquis, qui reviennent donc dans le plan ;
 - un `teil-first` explicite devenu cas complet ;
-- un Muster de ville devenu « libre ».
+- un Muster de ville par défaut devenu « libre ».
 
-Chaque annonce est tracée par une clé `db.meta['annonce.s4.<sujet>']`.
-Ponytail : la trace est locale, donc chaque appareil annonce une fois. Elle
-devient un événement synchronisé si cela gêne.
+Chaque annonce est tracée par une clé locale `db.meta['annonce.s4.<sujet>']`.
+**Décidé** (`main`, 4 oct.) : l'annonce est faite une fois **par appareil**,
+sans événement synchronisé, ce qui suffit pour deux utilisateurs. C'est la
+résolution de m9.
