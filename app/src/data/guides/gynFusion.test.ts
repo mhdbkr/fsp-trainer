@@ -56,6 +56,8 @@ const SIGNES: Array<{ nom: string; paire: string; re: RegExp }> = [
     re: /kinderwunsch|familienplanung|schwanger zu werden/i },
   { nom: 'gestité / parité', paire: 'fach-gyn-schwangerschaften ⇔ question du cas « Kinder geboren » (mammakarzinom) ⇔ relance « Wie viele Schwangerschaften » (myomatosus)',
     re: /wie viele (schwangerschaften|kinder)|schwangerschaften und geburten|fehlgeburt|kinder[^?]*geboren/i },
+  { nom: 'douleur au rapport', paire: 'fach-gyn-dyspareunie ⇔ question du cas « Schmerzen beim Geschlechtsverkehr — am Anfang oder tief » (endometriose, aktuell)',
+    re: /schmerzen beim geschlechtsverkehr/i },
   { nom: 'ménopause', paire: 'frau-wechseljahre ⇔ question du cas « Hormonersatztherapie gegen Wechseljahresbeschwerden » (mammakarzinom)',
     re: /wechseljahre|menopause|hitzewallung/i },
 ];

@@ -49997,6 +49997,8 @@ export function seedCases(): Case[] {
       frequency: 0,
       difficulty: 2,
       patientSheet: {
+        // La question du cas en « Aktuelle Beschwerden » (Anfang oder tief ?) cherche déjà les douleurs au rapport.
+        fachSkip: ['fach-gyn-dyspareunie'],
         personalia: {
           name: 'Lena Hartmann',
           age: 31,
