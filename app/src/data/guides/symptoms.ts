@@ -1,4 +1,5 @@
 import type { Phrase, PhraseVariant } from './phrases';
+import type { Signe } from './signes';
 import { phraseIsCaseSpecific, phraseProbes } from './phrases';
 import { PROBE_BY_ID } from './anamneseProbes';
 
@@ -19,7 +20,7 @@ import { PROBE_BY_ID } from './anamneseProbes';
 // Geschwüre… » en rhumato) n'est pas une question sur ce symptôme.
 // ============================================================================
 
-// Le lexique porte 36 concepts (série 3). Les 16 premiers sont les symptômes
+// Les 39 concepts d'origine (série 3). Les 16 premiers sont les symptômes
 // « végétatifs » d'origine ; les 20 suivants sont ceux que l'audit série 3
 // (§4.2) a mesurés comme échappant au garde-fou — 107 des 270 doublons joués
 // citaient un concept que le type `Symptom` ne nommait pas.
@@ -39,18 +40,12 @@ import { PROBE_BY_ID } from './anamneseProbes';
 //     (paire cardinale avec la soif). Ce n'est pas `miktion` (brûlure,
 //     jet, rétention) : les confondre effaçait « Wasserlassen » de la
 //     Vegetative Anamnese dans les cas endocriniens (décision D4).
-export type Symptom =
-  | 'fieber' | 'schuettelfrost' | 'nachtschweiss' | 'reise' | 'kontakt'
-  | 'uebelkeit' | 'stuhl' | 'miktion' | 'gewicht' | 'appetit' | 'schlaf'
-  | 'husten' | 'oedeme' | 'orthopnoe' | 'blutung' | 'schwindel'
-  // --- série 3 : les concepts que l'audit a vus passer ----------------------
-  | 'kopfschmerz' | 'atemnot' | 'brustschmerz' | 'bewusstlos' | 'sehstoerung'
-  | 'krampf' | 'taubheit' | 'schwaeche' | 'herzrasen' | 'schwitzen'
-  | 'durst' | 'juckreiz' | 'ausschlag' | 'schluck' | 'gelbfaerbung'
-  | 'sturz' | 'stimmung' | 'angst' | 'suizid' | 'gedaechtnis' | 'polyurie'
-  // re-revue : l'Uhthoff (chaleur) et l'évolution par poussées, séparés pour
-  // que `fach-neuro-verlauf` ne perde que la moitié déjà posée par le cas.
-  | 'schub' | 'waerme';
+// K0 (ADR-0023) : `Symptom` devient `Signe` — un seul lexique, déclaré dans
+// `signes.ts` (les 39 concepts ci-dessus, les 11 dimensions de plainte et les
+// signes ajoutés). L'alias reste, déprécié, jusqu'à K5. Le montage n'a pas
+// changé : `PROBE_SUCHT` et `dedupeBySymptom` lisent les mêmes ids qu'avant.
+export * from './signes';
+export type Symptom = Signe;
 
 export const PROBE_SUCHT: Record<string, Symptom[]> = {
   // Vegetative Anamnese — les questions générales, celles qui « répètent ».

@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { ALLGEMEINE_ANAMNESE, FACHANAMNESEN, LEITSYMPTOM_KATEGORIEN, adaptChaptersForCase, aktuellChapterFor, fachChapterForCase } from './anamneseChapters';
-import { PROBE_SUCHT, dedupeBySymptom } from './symptoms';
+import { GRANULARITE_PAIRES, LEXIQUE, PROBE_SUCHT, PROFIL_EXIGE, SIGNES, SIGNE_DEF, SUCHT_AFFINE, dedupeBySymptom, lexiqueIncoherences, type LexiqueTables } from './symptoms';
 import { phraseFollowUp, phraseProbes, phraseText, splitDimension } from './phrases';
 import type { Case } from '@/db/types';
 
@@ -120,5 +120,64 @@ describe('Familienstand (FB2-J12)', () => {
     const q = adaptChaptersForCase(mk()).find((ch) => ch.id === 'familie-sozial')!.questions.find((x) => phraseProbes(x).includes('fam-stand'))!;
     expect(phraseText(q)).toBe('Wie ist Ihr Familienstand? Haben Sie Kinder?');
     expect(phraseFollowUp(q)).toEqual(['Falls ja: Wie viele, und sind sie gesund?']);
+  });
+});
+
+// K0 — le lexique de signes (ADR-0023, contrat frage-atomique §10.1). Il n'est pas
+// branché sur le montage : ce qui suit ne vérifie que sa cohérence statique.
+// Chaque invariant a sa mutation : la même validation, sur une table abîmée, doit rougir.
+describe('Lexique de signes — INV-77 (cohérent) et INV-78 (granularité)', () => {
+  const mutated = (over: Partial<LexiqueTables>): LexiqueTables => ({ ...LEXIQUE, ...over });
+
+  it('le lexique réel est cohérent', () => {
+    expect(lexiqueIncoherences()).toEqual([]);
+  });
+  it('porte 69 signes : 11 dimensions, 39 concepts d\u2019origine, 19 ajouts K0 ; un SIGNE_DEF chacun', () => {
+    expect(SIGNES).toHaveLength(69);
+    expect(Object.keys(SIGNE_DEF)).toEqual([...SIGNES]);
+    expect(SIGNES.slice(0, 11)).toEqual(['ort', 'beginn', 'charakter', 'intensitaet', 'ausstrahlung', 'verlauf', 'ausloeser', 'einfluss', 'frueher', 'begleit', 'gelenke']);
+  });
+  it('tout signe de PROBE_SUCHT (montage actuel) est un signe du lexique', () => {
+    const inconnus = Object.values(PROBE_SUCHT).flat().filter((s) => !SIGNES.includes(s));
+    expect(inconnus).toEqual([]);
+  });
+
+  it('INV-77 mutation : ausstrahlung exigé par « generalisiert » (qu\u2019il exclut) rougit', () => {
+    const bad = lexiqueIncoherences(mutated({ exige: { ...PROFIL_EXIGE, generalisiert: ['ausstrahlung'] } }));
+    expect(bad.some((m) => /generalisiert.*exige ET exclut|ne lui est pas pertinent/.test(m))).toBe(true);
+  });
+  it('INV-77 mutation : « stuhl » ajouté à la banque de stuhlfrequenz rougit', () => {
+    const bad = lexiqueIncoherences(mutated({ affine: { ...SUCHT_AFFINE, 'akt-ausscheid-haeufigkeit': ['stuhlfrequenz', 'stuhl'] } }));
+    expect(bad.some((m) => /akt-ausscheid-haeufigkeit.*ne cherche pas exactement/.test(m))).toBe(true);
+  });
+  it('INV-77 mutation : un signe exigé sans banque rougit', () => {
+    const def = { ...SIGNE_DEF, ort: { ...SIGNE_DEF.ort, bank: undefined } };
+    expect(lexiqueIncoherences(mutated({ def })).some((m) => /« ort » est exigé.*pas de banque/.test(m))).toBe(true);
+  });
+  it('INV-77 mutation : PROFIL_EXCLUT qui vise un signe de dépistage rougit', () => {
+    expect(lexiqueIncoherences(mutated({ exclut: { generalisiert: ['fieber'] } })).some((m) => /signe de dépistage/.test(m))).toBe(true);
+  });
+  it('INV-77 mutation : un signe sans définition rougit', () => {
+    const { ort: _o, ...def } = SIGNE_DEF;
+    expect(lexiqueIncoherences(mutated({ def: def as typeof SIGNE_DEF })).some((m) => /« ort » n'a pas de définition/.test(m))).toBe(true);
+  });
+  it('INV-77 mutation : un tag exigeant un signe qui ne lui est pas pertinent rougit', () => {
+    expect(lexiqueIncoherences(mutated({ exige: { ...PROFIL_EXIGE, diarrhoe: ['stuhlfrequenz', 'zecke'] } })).some((m) => /diarrhoe.*zecke.*pertinent/.test(m))).toBe(true);
+  });
+  it('INV-77 mutation : SUCHT_AUSSER sur un signe que la sonde ne cherche pas rougit', () => {
+    expect(lexiqueIncoherences(mutated({ ausser: { 'fach-uro-flanke': { hoden: ['fieber'] } } })).some((m) => /ne cherche pas « fieber »/.test(m))).toBe(true);
+  });
+
+  it('INV-78 : les paires de discrimination ont des sucht disjoints', () => {
+    expect(GRANULARITE_PAIRES.length).toBeGreaterThanOrEqual(4);
+    for (const [a, b] of GRANULARITE_PAIRES) expect(SUCHT_AFFINE[a].filter((s) => SUCHT_AFFINE[b].includes(s)), `${a} / ${b}`).toEqual([]);
+  });
+  it('INV-78 mutation : stuhlfrequenz fusionné dans stuhl — les deux sondes partagent un signe', () => {
+    const bad = lexiqueIncoherences(mutated({ affine: { ...SUCHT_AFFINE, 'akt-ausscheid-haeufigkeit': ['stuhl'] } }));
+    expect(bad.some((m) => /INV-78.*akt-ausscheid-was.*akt-ausscheid-haeufigkeit.*stuhl/.test(m))).toBe(true);
+  });
+  it('INV-78 mutation : polyurie fusionnée dans miktion rougit', () => {
+    const bad = lexiqueIncoherences(mutated({ affine: { ...SUCHT_AFFINE, 'fach-endo-durst': ['durst', 'miktion'] } }));
+    expect(bad.some((m) => /INV-78.*fach-endo-durst.*fach-uro-miktion/.test(m))).toBe(true);
   });
 });
