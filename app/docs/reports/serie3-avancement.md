@@ -169,7 +169,7 @@ rien de cette table.
 | C6 — candidat synthétique | `doctopus-s3-c6` · `feat/s3-c6-candidat` | `a92b4c2e4d2f21ebc` | **PR #65 mergée** (`4bf3473b`, 4 oct.) — premier run CI vert d'`invariants-c6` et `candidat-c6` | **oui** |
 | C6 — jugement UX | lecture seule | `a06644a85b277a992` | rendu → `c6-jugement-ux-2026-10-04.md` (7 ruptures) | **oui** |
 | Lot C6-A « chiffres honnêtes » | `doctopus-s3-c6a-chiffres` · `feat/s3-c6a-chiffres` | `a09833e671b2389b9` | C6 mergé → re-merge `main`, `it.fails`→`it`, retrait `CONNUS.D5s`/D5r en cours → **main ouvre la PR** | non |
-| Lot C6-B « le jour du candidat » | `doctopus-s3-c6b-jour` · `feat/s3-c6b-jour` | `ad84ab89cbdc39047` | revue Opus : **Ready** ; fixeur sur m-1 (`remaining`), m-4 (single-flight de la matérialisation — course antérieure), m-6, nits ; après C6-A : branchement `streakFromDays(…, offDays)` ; `programmeInvariants.mjs` à rejouer par main avant merge → PR en dernier | non |
+| Lot C6-B « le jour du candidat » | `doctopus-s3-c6b-jour` · `feat/s3-c6b-jour` | `ad84ab89cbdc39047` | mineurs corrigés `53b1d48b` (single-flight de la matérialisation : 3 appels → 1 plan) ; attend le merge de C6-A → re-merge + branchement `streakFromDays(…, offDays)` → `programmeInvariants.mjs` rejoué par main → PR | non |
 | `main` après C6 | — | — | `test:c6` dans `package.json`, `tests` dans tsconfig ; test instable `ExternalAiSheet` corrigé (`48a36bd3`) | à faire au merge de C6 |
 | Lots L1 → L15 | — | — | §10, l'un après l'autre (mêmes fichiers) | à lancer |
 
