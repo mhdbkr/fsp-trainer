@@ -717,9 +717,14 @@ statutTache(T)     = faite ? 'faite' : avancement(T).length > 0 ? 'entamee' : 'a
     pas ;
   - trois Teile joués séparément laissent la tâche **ouverte** avec le libellé
     « à rejouer d'un trait », et `resteTache` = les trois.
-- **Partie** : une séance `selbstbewertet` (IA externe déclarée) est une
-  partie qui joue son Teil d'ancrage, comme en série 3. Elle n'est pas une
-  **mesure** (§12.6). Lecture de `main` à confirmer (ADR-0021, « Revues »).
+- **Séance IA externe auto-déclarée** (`selbstbewertet`) — **décidé** : elle
+  est une partie qui joue son Teil d'ancrage. Elle fait avancer la tâche de
+  cas et **peut la cocher** quand elle complète ce qui restait. Elle n'entre
+  **jamais** dans une mesure : statut, maîtrise, couverture, solide, `prêt`,
+  indice. Comme `enchaine` est absent pour elle, elle ne coche jamais une
+  tâche `dUnTrait`. Référence : décision de la direction Q3/Q9 du 30 sept.
+  (« historique + série oui, ça coche la tâche du jour ; l'indice non »),
+  confirmée par `main` le 4 oct.
 - **Coche manuelle** : un événement explicite (`markTaskDone`, coche nue
   portant `taskId`) qui fait la tâche. D-I2 est conservé pour elle seule : la
   coche d'une tâche d'un plan perdant (un autre appareil) vaut pour la tâche
