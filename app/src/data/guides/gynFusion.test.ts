@@ -36,22 +36,24 @@ function played(c: Case): Array<{ ch: string; q: Phrase }> {
 // question (texte + alternatives + relances comptent pour elle). Chaque entrée
 // porte la paire qui fut un doublon avant le lot.
 // `abschluss` (le médecin annonce, il ne cherche pas) est hors trame de recherche.
-const SIGNES: Array<{ nom: string; paire: string; re: RegExp }> = [
+const SIGNES: Array<{ nom: string; paire: string; re: RegExp; sauf?: RegExp }> = [
   { nom: 'dernière règle', paire: 'frau-periode ⇔ question du cas « Wie lang ist Ihr Zyklus… letzte Regelblutung » (myomatosus) ⇔ « erste und letzte Regel » (mammakarzinom)',
-    re: /wann (war|waren|hatten|haben)[^?]*letzte/i },
+    re: /wann (war|waren|hatten|haben)[^?]*letzte|zuletzt[^?]*(tage|regel|periode)/i },
   { nom: 'régularité du cycle', paire: 'frau-periode ⇔ alternative de fach-gyn-blutung « Bekommen Sie Ihre Tage regelmäßig? »',
     re: /monatsblutung[^?]*regelmäßig|tage regelmäßig|zyklus[^?]*(lang|verändert)|regelmäßig[^?]*(monatsblutung|periode)/i },
   { nom: 'saignement depuis la ménopause', paire: 'frau-periode (> 55 ans) ⇔ relance de fach-gyn-blutung « Falls die Periode schon aufgehört hat »',
     re: /seitdem[^?]*blutung/i },
   { nom: 'grossesse possible', paire: 'frau-schwanger ⇔ toute autre question « schwanger sind »',
-    re: /möglichkeit[^?]*schwanger|schwanger sind/i },
+    re: /möglichkeit[^?]*schwanger|schwanger (sind|sein|gewesen)|schon einmal schwanger/i },
   { nom: 'contraception', paire: 'frau-verhuetung ⇔ question du cas « Spirale » (adnexitis) ⇔ « die Pille genommen » (endometriose, mammakarzinom)',
-    // « außer zur Verhütung » (fach-gyn-eingriffe) BORNE la question des hormones : il ne la cherche pas.
-    re: /verhütungsmethode|verhüten\b|spirale|(nehmen|genommen|nahmen)[^?]*pille/i },
+    // « außer zur Verhütung » BORNE la question des hormones : il ne la cherche pas.
+    re: /(?<!außer zur )verhütung|verhüten\b|spirale|(nehmen|genommen|nahmen)[^?]*pille/i,
+    // La question des hormones nomme Pille et Spirale « als Behandlung » : elle ne cherche pas la contraception.
+    sauf: /als behandlung/i },
   { nom: 'gynécologue / dépistage', paire: 'frau-wechseljahre « Frauenarzt regelmäßig » ⇔ fach-gyn-vorsorge',
-    re: /frauenarzt|frauenärztin|vorsorge|krebsabstrich/i },
+    re: /frauenarzt|frauenärztin|gynäkolog|vorsorge|krebsabstrich/i },
   { nom: 'hormones', paire: 'fach-gyn-eingriffe « Hormone » ⇔ frau-verhuetung (Pille) ⇔ frau-wechseljahre (> 55 ans) ⇔ question « Hormone » du cas (mammakarzinom)',
-    re: /hormon/i },
+    re: /hormon|östrogen|gestagen/i },
   { nom: 'désir d’enfant', paire: 'fach-gyn-kinderwunsch ⇔ question du cas « Kinderwunsch / Familienplanung » (myomatosus)',
     re: /kinderwunsch|familienplanung|schwanger zu werden/i },
   { nom: 'gestité / parité', paire: 'fach-gyn-schwangerschaften ⇔ question du cas « Kinder geboren » (mammakarzinom) ⇔ relance « Wie viele Schwangerschaften » (myomatosus)',
@@ -59,14 +61,16 @@ const SIGNES: Array<{ nom: string; paire: string; re: RegExp }> = [
   { nom: 'douleur au rapport', paire: 'fach-gyn-dyspareunie ⇔ question du cas « Schmerzen beim Geschlechtsverkehr — am Anfang oder tief » (endometriose, aktuell)',
     re: /schmerzen beim geschlechtsverkehr/i },
   { nom: 'ménopause', paire: 'frau-wechseljahre ⇔ question du cas « Hormonersatztherapie gegen Wechseljahresbeschwerden » (mammakarzinom)',
-    re: /wechseljahre|menopause|hitzewallung/i },
+    re: /wechseljahre|menopause|hitzewallung/i,
+    // « Hormonersatz in den Wechseljahren » est un exemple de la question des hormones.
+    sauf: /als behandlung/i },
 ];
 
 /** Signes cherchés par plus d'une question (même Phrase = une seule fois). */
 function doublons(trame: Array<{ ch: string; q: Phrase }>): string[] {
   const cherche = trame.filter((x) => x.ch !== 'abschluss' && x.ch !== 'eroeffnung');
   return SIGNES.flatMap((s) => {
-    const hits = cherche.filter((x) => said(x.q).some((t) => s.re.test(t)));
+    const hits = cherche.filter((x) => said(x.q).some((t) => s.re.test(t) && !s.sauf?.test(t)));
     return hits.length > 1 ? [`${s.nom} ← ${hits.map((h) => `[${h.ch}] ${phraseText(h.q).slice(0, 60)}`).join(' | ')}`] : [];
   });
 }
