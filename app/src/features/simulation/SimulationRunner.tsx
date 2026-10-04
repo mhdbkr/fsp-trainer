@@ -180,15 +180,6 @@ export function SimulationRunner() {
     setMerged(false);
   }, [zustand, aktuell]);
 
-  // Le ressenti ne démarre pas à 50. Tant qu'aucun brouillon n'existe, le
-  // Lauf (`bewerte`, lib/lauf) retombe sur 50 : à l'ouverture du bilan on pose
-  // donc un brouillon VIDE (aucune valeur saisie) qui prend sa place.
-  const sansBrouillon = zustand === 'bilanz' && !!aktuell && !lauf?.entwurf[aktuell];
-  const { setzeEntwurfFeld } = steuerung;
-  useEffect(() => {
-    if (sansBrouillon && aktuell) setzeEntwurfFeld(aktuell, { grid: emptyLanguageGrid(), feeling: NOT_ENTERED });
-  }, [sansBrouillon, aktuell, setzeEntwurfFeld]);
-
   if (simId) return <GespeicherterLauf simId={simId} />;
   if (!c) return <div className="text-slate-400">Chargement…</div>;
   if (laedt || !lauf) return <div className="text-slate-400">Chargement…</div>;
