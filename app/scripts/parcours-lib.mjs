@@ -58,17 +58,42 @@ export function buildApp(appDir, env) {
   if (r.status !== 0) throw new Error(`npm run build → ${r.status}\n${(r.stdout ?? '').slice(-1500)}${(r.stderr ?? '').slice(-1500)}`);
 }
 
-/** `vite preview` sur le build : un 200 ne dit PAS que le serveur sert CE dist. */
+/**
+ * `vite preview` sur le build. Un 200 ne dit PAS que le serveur sert CE dist : avec `--strictPort`, si le port est
+ * déjà pris, NOTRE serveur meurt et le `fetch` tombe sur celui d'un autre (un dev server, un autre worktree, un
+ * build contre la prod). Trois gardes : notre processus doit être vivant, l'`index.html` servi doit être
+ * identique à `dist/index.html`, et aucun `dist/assets/*.js` ne contient d'hôte `*.supabase.co` (build prod).
+ */
 export async function startPreview(appDir, port) {
   const child = spawn('npx', ['vite', 'preview', '--port', String(port), '--strictPort', '--host', '127.0.0.1'],
     { cwd: appDir, stdio: 'ignore', detached: true });
   const base = `http://127.0.0.1:${port}`;
-  for (let i = 0; i < 60; i++) {
-    try { const r = await fetch(base, { signal: AbortSignal.timeout(2000) }); if (r.ok) return { base, stop: () => { try { process.kill(-child.pid); } catch { /* déjà mort */ } } }; } catch { /* pas encore */ }
-    await sleep(500);
-  }
-  try { process.kill(-child.pid); } catch { /* */ }
-  throw new Error(`vite preview injoignable sur ${base} (port pris ? --strictPort)`);
+  const stop = () => { try { process.kill(-child.pid); } catch { /* déjà mort */ } };
+  const dist = path.join(appDir, 'dist');
+  let sorti = null;
+  child.on('exit', (code) => { sorti = code ?? -1; });
+  try {
+    if (!fs.existsSync(path.join(dist, 'index.html'))) throw new Error('dist/index.html absent : lance sans --no-build');
+    const assets = fs.existsSync(path.join(dist, 'assets')) ? fs.readdirSync(path.join(dist, 'assets')).filter((f) => f.endsWith('.js')) : [];
+    for (const f of assets) {
+      if (/[a-z0-9-]+\.supabase\.(co|in)\b/i.test(fs.readFileSync(path.join(dist, 'assets', f), 'utf8'))) {
+        throw new Error(`REFUS : dist/assets/${f} contient un hôte *.supabase.co — ce build vise la PROD. Reconstruis contre le Supabase local.`);
+      }
+    }
+    for (let i = 0; i < 60; i++) {
+      if (sorti !== null) throw new Error(`vite preview s'est arrêté (code ${sorti}) : le port ${port} est pris par un autre serveur`);
+      try {
+        const r = await fetch(base, { signal: AbortSignal.timeout(2000) });
+        if (r.ok) {
+          if (sorti !== null) throw new Error(`le port ${port} est servi par un AUTRE processus (vite preview est mort)`);
+          if ((await r.text()) !== fs.readFileSync(path.join(dist, 'index.html'), 'utf8')) throw new Error(`REFUS : ${base} ne sert pas ce dist (index.html différent)`);
+          return { base, stop };
+        }
+      } catch (e) { if (/REFUS|AUTRE processus|arrêté/.test(e.message)) throw e; }
+      await sleep(500);
+    }
+    throw new Error(`vite preview injoignable sur ${base}`);
+  } catch (e) { stop(); throw e; }
 }
 
 /** L'Edge Function de contenu boote à froid (546/502 au premier appel) : on la chauffe. */
