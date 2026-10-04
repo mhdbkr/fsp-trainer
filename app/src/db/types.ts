@@ -699,7 +699,8 @@ export interface TaskInstance {
   /** Le sujet, et lui seul. Le type, le Teil, la couche et le coût se lisent
    *  dans les champs — l'étiquette ne les concatène JAMAIS (ADR-0020 §8). */
   label: string;
-  /** @deprecated [S4] LECTURE SEULE (plans série 3) : jamais écrit. Lire par `teileDeTache`. */
+  /** @deprecated [S4] À lire par `teileDeTache`. Plans série 3 : LECTURE SEULE. Encore ÉCRIT par `dayPlan.ts`
+   *  (tâches `teil-first`) jusqu'à S4-2, qui cesse de l'écrire (INV-50). */
   teil?: SimTeil;              // absent = run complet
   teile?: SimTeil[];           // [S4] ce qui RESTAIT au moment du plan, ordre d'examen
   rappel?: ChecklistItemId;    // [S4] erreur transversale à rappeler, au plus une, figée
