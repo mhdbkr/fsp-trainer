@@ -81,6 +81,7 @@ jobs:
           node --test scripts/checkProbeCoverage.test.mjs
           node --test scripts/checkQuestionOrder.test.mjs
           node --test scripts/checkCaseQuestionAnswers.test.mjs
+          node --test scripts/checkCoherence.test.mjs
       - name: "Doctopus — jeu de référence et grille (sans réseau)"
         run: node scripts/evalDoctopus.mjs --dry
       - name: Sections thérapeutiques identiques fiche ↔ cas
@@ -114,6 +115,10 @@ jobs:
         run: node scripts/checkQuestionOrder.mjs || true
       - name: Réponse des questions du cas — la fiche répond-elle ? (informatif ; plancher dans checkBudgetFloor + test)
         run: node scripts/checkCaseQuestionAnswers.mjs || true
+      # K0 (ADR-0023) : la mesure du moteur de cohérence. INFORMATIVE jusqu'à K3 (`|| true`) ;
+      # le plancher coherence-budget.json est dans checkBudgetFloor, ses mutations ci-dessus.
+      - name: Cohérence de l'anamnèse — mesure des 130 cas (informatif jusqu'à K3)
+        run: node scripts/checkCoherence.mjs || true
 
   build:
     name: Types & build
