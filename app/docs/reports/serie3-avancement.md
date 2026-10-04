@@ -162,7 +162,7 @@ rien de cette table.
 | **Série 4 — contrat** | `doctopus-s4-contrat` · `feat/s4-contrat-structure` | `a4f5342846f51c81c` | **PR #64 mergée** (`8ef10cdb`, 4 oct.) | **oui** |
 | Suivi contenu (S4-2) | — | — | table de fréquences par cas × ville dans l'app depuis `apps/site/src/data/frequencies.json` (20/81 pathologies ventilées) | à planifier avec S4-2 |
 | Lot C6-A — revue | lecture seule | `af6bb30623f1df590` | rendue : Needs fixes (I1 Fachwissen point faible par absence ; I2 contrat → S4-0 ; I3 bascule `it.fails` après C6) | **oui** |
-| Lot Q2 — implémenteur | `doctopus-s3-q2` · `feat/s3-q2-relances` | `a49100e50b7d8eee7` | livré (A 502→448, A2 nouvelle règle 48, 9 trous comblés, `rolePlay.ts` touché hors brief) ; 3 revues en vol (méca Opus, clinique, langue) → fixeur → PR | non |
+| Lot Q2 — implémenteur | `doctopus-s3-q2` · `feat/s3-q2-relances` | `a49100e50b7d8eee7` | 3 revues rendues (méca : I-1 A2 sans préposition → 6 relances cachées ; clinique : 5 relances qui cachaient l'info + question « Pläne » ; langue : 3 + 15) → fixeur → PR | non |
 | Reliquat sans lot (Q2) | — | — | 24 relances de guide à deux « ? » ; 22 énoncés de `guide-anamnese-v4` ; sondes en A2 ; `CaseQuestion.followUp` en `string | string[]` (contrat §3.2) pour récupérer ~15 sous-questions abandonnées | à placer dans Q3 |
 | Lots Q3 → Q8, Lc1 → Lc3 | — | — | §10, l'un après l'autre après Q2 | à lancer |
 | Reports vers Q1/Q2 (revues Q0) | — | — | Q1 : rheumatoide-arthritis « Schuppenflechte », karpaltunnel « Bruch », malaria « Milz », hypothyreose « Entbindungen » ; 10 irradiations avec question de cas ; osteoporose bws. Q2 : relances à 2 questions (alcool, gastro, Kopfschmerz, onko, chir-op, Fieber, Kraft, suizid, `veg-fieber`) | tracé |
