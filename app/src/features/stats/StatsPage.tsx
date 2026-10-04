@@ -55,6 +55,9 @@ export function StatsPage() {
       {/* Où j'en suis, et où ça mène — la même frise qu'à l'accueil. C'est le
           SEUL indice de préparation de l'app (D-I9) : une formule, un nom. */}
       <TrajectoryStrip config={config} cases={cases} events={events} />
+      <p className="-mt-3 px-1 text-[12px] text-slate-500 dark:text-slate-400">
+        Ce chiffre mesure la part de toutes les parties de tous les cas que tu maîtrises déjà — pas la moyenne de tes scores : une partie jamais jouée compte pour zéro.
+      </p>
 
       {weak && weak.score < 60 && (
         <div className="card border-amber-200 bg-amber-50 p-4 dark:border-amber-900/40 dark:bg-amber-900/10">

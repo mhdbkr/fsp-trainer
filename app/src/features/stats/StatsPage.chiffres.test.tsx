@@ -73,3 +73,14 @@ describe('Fachbegriffe — jamais « point faible » par absence', () => {
     expect(container.textContent).toMatch(/Point faible détecté : Fachbegriffe \(0%\)/);
   });
 });
+
+describe('Trajectoire — une phrase dit ce que l\'indice mesure', () => {
+  it('sous la frise, en mots du candidat : ni « couche » ni « budget »', async () => {
+    await monte();
+    const frise = container.querySelector('[aria-label^="Indice de préparation"]')!.closest('section')!;
+    const phrase = frise.nextElementSibling as HTMLElement;
+    expect(phrase.tagName).toBe('P');
+    expect(phrase.textContent).toBe('Ce chiffre mesure la part de toutes les parties de tous les cas que tu maîtrises déjà — pas la moyenne de tes scores : une partie jamais jouée compte pour zéro.');
+    expect(container.textContent).not.toMatch(/couche|budget/i);
+  });
+});
