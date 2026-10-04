@@ -228,7 +228,7 @@ function run(cwd, tests) {
   let failed = [];
   try {
     const j = JSON.parse(fs.readFileSync(out, 'utf8'));
-    failed = j.testResults.flatMap((f) => f.assertionResults.filter((a) => a.status === 'failed').map((a) => `${a.fullName ?? a.title}\n          ⇒ ${String(a.failureMessages?.[0] ?? '').split('\n')[0].slice(0, 170)}`));
+    failed = j.testResults.flatMap((f) => f.assertionResults.filter((a) => a.status === 'failed' && !/timed out/i.test(String(a.failureMessages?.[0] ?? ''))).map((a) => `${a.fullName ?? a.title}\n          ⇒ ${String(a.failureMessages?.[0] ?? '').split('\n')[0].slice(0, 170)}`));
   } catch { /* pas de rapport : on s'en tient au code de sortie */ }
   return { code: r.status, failed, tail: (r.stderr ?? '').split('\n').slice(-6).join('\n') };
 }
