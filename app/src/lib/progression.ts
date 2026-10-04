@@ -67,6 +67,10 @@ interface Acc {
   cp: CaseProgress;
   premiere: Record<SimTeil, number | null>;   // première réussite ≥ 80 de chaque Teil
   solideDepuis: number | null;
+  /** Position, dans `mesures`, de l'événement qui a soudé les trois Teile. On compare des POSITIONS
+   *  et non des instants : deux événements d'un même instant se départagent par l'id, et seul ce qui
+   *  suit réellement la soudure compte (revue I2). */
+  soudureIdx: number | null;
   mesures: TrainingEvent[];                   // les `partieMesuree` du cas, dans l'ordre
 }
 
@@ -85,7 +89,7 @@ export function computeCaseProgress(trainingEvents: TrainingEvent[], opts: { reg
     if (!te.caseId) continue;
     let acc = byCase.get(te.caseId);
     if (!acc) {
-      acc = { cp: blankProgress(te.caseId), premiere: { anamnese: null, dokumentation: null, fallvorstellung: null }, solideDepuis: null, mesures: [] };
+      acc = { cp: blankProgress(te.caseId), premiere: { anamnese: null, dokumentation: null, fallvorstellung: null }, solideDepuis: null, soudureIdx: null, mesures: [] };
       byCase.set(te.caseId, acc);
     }
     let mesure = false;
@@ -105,11 +109,15 @@ export function computeCaseProgress(trainingEvents: TrainingEvent[], opts: { reg
     if (mesure) {
       acc.mesures.push(te);
       // `solideDepuis` : l'événement du DERNIER passage aux trois Teile solides ; une retombée l'efface.
-      acc.solideDepuis = TEIL_KEYS.every((t) => acc!.cp.teile[t].status === 'solide') ? acc.solideDepuis ?? te.at : null;
+      if (!TEIL_KEYS.every((t) => acc!.cp.teile[t].status === 'solide')) { acc.solideDepuis = null; acc.soudureIdx = null; }
+      else if (acc.solideDepuis === null) { acc.solideDepuis = te.at; acc.soudureIdx = acc.mesures.length - 1; }
     }
   }
   return [...byCase.values()].map(finalise);
 }
+
+/** Les événements qui suivent la soudure, celui qui soude compris. */
+const depuisSoudure = (acc: Acc): TrainingEvent[] => (acc.soudureIdx === null ? [] : acc.mesures.slice(acc.soudureIdx));
 
 /** Les mesures dérivées d'un cas, une fois tout le journal lu. */
 function finalise(acc: Acc): CaseProgress {
@@ -122,8 +130,7 @@ function finalise(acc: Acc): CaseProgress {
     if (p.status !== 'solide' && acc.premiere[t] !== null) p.solideDes = dayKey(addDays(new Date(acc.premiere[t]!), SOLIDE_ECART_JOURS));
   }
   const toutSolide = joues.length === 3 && TEIL_KEYS.every((t) => cp.teile[t].status === 'solide');
-  const depuis = acc.solideDepuis ?? Infinity;
-  const qual = toutSolide ? acc.mesures.filter((e) => qualifiant(e) && e.at >= depuis) : [];
+  const qual = toutSolide ? depuisSoudure(acc).filter(qualifiant) : [];
   cp.solideDepuis = toutSolide ? acc.solideDepuis : null;
   cp.etat = joues.length === 0 ? 'vierge' : joues.length < 3 ? 'entame' : !toutSolide ? 'couvert' : qual.length ? 'pret' : 'solide';
   cp.pretAt = qual.length ? qual[qual.length - 1].at : null;
@@ -144,7 +151,7 @@ function prochaineConsolidation(acc: Acc): string {
 /** R1 : ce qui manque au run le plus proche de souder, depuis la soudure des trois Teile. Sans run
  *  série 4 depuis, il manque tout. À égalité, le plus récent. */
 function pretManque(acc: Acc): ConditionExamen[] {
-  const runs = acc.mesures.filter((e) => e.examenManque && e.at >= acc.solideDepuis!);
+  const runs = depuisSoudure(acc).filter((e) => e.examenManque && e.examenManque.length > 0);   // `[]` = déjà qualifiant : il aurait soudé
   if (!runs.length) return [...TOUTES_CONDITIONS];
   const best = runs.reduce((b, e) => (e.examenManque!.length <= b.examenManque!.length ? e : b));
   return [...best.examenManque!];

@@ -125,7 +125,7 @@ describe('INV-61 — solide stable : deux réussites ≥ 80 espacées d’au moi
     expect(st([0, 10], [0, 20])).toBe('acquis');         // même jour
     expect(st([0, 10], [2, 10])).toBe('acquis');         // 2 jours
     expect(st([0, 23], [2, 23])).toBe('acquis');         // 48 h exactes, 2 jours calendaires
-    expect(st([0, 23], [3, 1])).toBe('solide');          // 26 h, mais 3 jours calendaires
+    expect(st([0, 23], [3, 1])).toBe('solide');          // 50 h, mais 3 jours calendaires
     expect(st([0, 10], [3, 10])).toBe('solide');
     expect(st([0, 10], [9, 10])).toBe('solide');
   });
@@ -209,33 +209,79 @@ describe('INV-56 — `prêt` exige un enchaînement réel et récent', () => {
     expect(progressOf(ev).etat).toBe('solide');
   });
 
-  it('propriété : prêt ⇔ trois solides ∧ un run examen, tous scores ≥ 80, postérieur à solideDepuis ; pretAt = le plus récent', async () => {
-    let prets = 0, solidesSansPret = 0;
-    await forAll(500, (r) => {
-      const evs: TrainingEvent[] = [];
-      for (let i = 0, n = r.int(2, 16); i < n; i++) {
-        const j = r.int(0, 30), h = r.int(6, 22);
-        if (r.bool(0.3)) evs.push(mesure('c1', jour(j), tous(r.pick([55, 85, 90, 95])), r.bool(0.7) ? { enchaine: true, examen: true, examenManque: [] } : { enchaine: true, examenManque: ['ordre'] }, h));
-        else evs.push(mesure('c1', jour(j), Object.fromEntries(r.shuffle(TEILE).slice(0, r.int(1, 3)).map((t) => [t, r.pick([40, 70, 85, 90])])), {}, h));
-      }
+  it('propriété : prêt ⇔ trois solides ∧ un run examen, tous scores ≥ 80, à partir de la soudure ; pretAt = le plus récent', async () => {
+    let prets = 0, solidesSansPret = 0, egalites = 0;
+    await forAll(600, (r) => {
+      const evs = journalAvecEgalites(r);
       const cp = progressOf(evs);
-      const sorted = [...evs].sort((a, b) => a.at - b.at);
-      const qual = sorted.filter((e) => e.examen === true && TEILE.every((t) => (e.scores?.[t] ?? -1) >= 80));
-      const toutSolide = TEILE.every((t) => cp.teile[t].status === 'solide');
-      if (cp.etat === 'pret') {
-        prets++;
-        expect(toutSolide).toBe(true);
-        const apres = qual.filter((e) => e.at >= cp.solideDepuis!);
-        expect(apres.length, 'prêt sans run qualifiant postérieur à la soudure').toBeGreaterThan(0);
-        expect(cp.pretAt).toBe(apres[apres.length - 1].at);
-        expect(sorted.some((e) => e.at === cp.solideDepuis), 'solideDepuis n’est l’instant d’aucun événement').toBe(true);
-      } else {
-        expect(cp.pretAt).toBeNull();
-        if (toutSolide) { solidesSansPret++; expect(qual.filter((e) => e.at >= cp.solideDepuis!).length, 'solide avec un run qualifiant postérieur, mais pas prêt').toBe(0); }
-      }
+      const sorted = trie(evs);
+      const soudure = soudureParPrefixes(sorted);          // recalculée sur les PRÉFIXES du journal, pas lue dans cp
+      expect(cp.solideDepuis ?? null, 'solideDepuis diffère de celui recalculé par préfixes').toBe(soudure ? soudure.at : null);
+      const qual = soudure ? sorted.slice(soudure.idx).filter((e) => e.examen === true && TEILE.every((t) => (e.scores?.[t] ?? -1) >= 80)) : [];
+      if (new Set(sorted.map((e) => e.at)).size < sorted.length) egalites++;
+      if (qual.length) { prets++; expect(cp.etat).toBe('pret'); expect(cp.pretAt).toBe(qual[qual.length - 1].at); }
+      else { expect(cp.etat === 'pret', 'prêt sans run qualifiant à partir de la soudure').toBe(false); expect(cp.pretAt).toBeNull(); if (soudure) solidesSansPret++; }
     });
     expect(prets).toBeGreaterThan(15);
     expect(solidesSansPret).toBeGreaterThan(15);
+    expect(egalites, 'le générateur doit produire des instants ÉGAUX').toBeGreaterThan(100);
+  });
+});
+
+// ------------------------------------------------- solide ⇔ pretManque (revue I2)
+
+/** Tri total du journal : celui de la mesure (instant, puis id). */
+const trie = (evs: TrainingEvent[]): TrainingEvent[] => [...evs].sort((a, b) => a.at - b.at || (a.id < b.id ? -1 : a.id > b.id ? 1 : 0));
+const toutSolide = (p: CaseProgress | undefined): boolean => !!p && TEILE.every((t) => p.teile[t].status === 'solide');
+
+/** La soudure recalculée par PRÉFIXES : le dernier événement qui fait passer le cas de « pas tout solide » à « tout solide ». */
+function soudureParPrefixes(sorted: TrainingEvent[]): { idx: number; at: number } | null {
+  let soudure: { idx: number; at: number } | null = null, avant = false;
+  for (let i = 0; i < sorted.length; i++) {
+    const maintenant = toutSolide(computeCaseProgress(sorted.slice(0, i + 1)).find((p) => p.caseId === 'c1'));
+    if (maintenant && !avant) soudure = { idx: i, at: sorted[i].at };
+    if (!maintenant) soudure = null;
+    avant = maintenant;
+  }
+  return soudure;
+}
+
+/** Un journal d'un cas où PLUSIEURS événements partagent le même instant exact (ordre départagé par l'id). */
+function journalAvecEgalites(r: Rng): TrainingEvent[] {
+  const instants = [0, 1, 4, 5, 8, 9].map((j) => morning(jour(j), 10));
+  const evs: TrainingEvent[] = [];
+  for (let i = 0, n = r.int(2, 14); i < n; i++) {
+    const at = r.bool(0.8) ? r.pick(instants) : r.pick(instants) + r.int(1, 3_600_000);
+    const e = r.bool(0.35)
+      ? mesure('c1', jour(0), tous(r.pick([55, 70, 85, 90])), r.bool(0.7) ? { enchaine: true, examen: true, examenManque: [] } : { enchaine: true, examenManque: r.pick([['ordre'], ['grille'], ['autonome', 'ordre']] as const).slice() as never }, 12)
+      : mesure('c1', jour(0), Object.fromEntries(r.shuffle(TEILE).slice(0, r.int(1, 3)).map((t) => [t, r.pick([40, 70, 85, 90])])), {}, 12);
+    evs.push({ ...e, at });
+  }
+  return evs;
+}
+
+describe('§12.6 — `etat === solide ⇔ pretManque non vide`, y compris à instants égaux (revue I2)', () => {
+  it('le contre-exemple de la revue : un run d’examen et la partie qui soude partagent le même instant', () => {
+    const T = morning(jour(5), 10);
+    const e0 = mesure('c1', jour(0), tous(85));
+    const ea = { ...mesure('c1', jour(5), { anamnese: 70, dokumentation: 85, fallvorstellung: 85 }, { kind: 'examen-blanc', enchaine: true, examen: true, examenManque: [] }), at: T };
+    const eb = { ...mesure('c1', jour(5), { anamnese: 85 }), at: T };
+    expect(ea.id < eb.id).toBe(true);
+    const cp = progressOf([e0, ea, eb]);
+    expect(cp.etat).toBe('solide');
+    expect(cp.pretManque, 'ea ne soude pas : sa note de 70 est précisément ce qu’eb rattrape').toEqual(['enchaine', 'autonome', 'ordre', 'grille']);
+  });
+
+  it('propriété sur journaux à instants égaux : solide ⇔ pretManque non vide ; vide partout ailleurs', async () => {
+    const vus: Record<string, number> = {};
+    await forAll(800, (r) => {
+      const cp = progressOf(journalAvecEgalites(r));
+      vus[cp.etat!] = (vus[cp.etat!] ?? 0) + 1;
+      expect(cp.pretManque!.length > 0, `${cp.etat} avec pretManque = ${JSON.stringify(cp.pretManque)}`).toBe(cp.etat === 'solide');
+    });
+    expect(vus.solide).toBeGreaterThan(30);
+    expect(vus.pret).toBeGreaterThan(30);
+    expect(vus.couvert).toBeGreaterThan(30);
   });
 });
 
