@@ -52,9 +52,9 @@ describe('solideDes (R1) — à partir de quand un ≥ 80 rendrait le Teil solid
     const p = cp([ev(0, { anamnese: 85, dokumentation: 70, fallvorstellung: 40 }), ev(1, { anamnese: 85 })]);
     expect(p.teile.anamnese.status).toBe('acquis');
     expect(p.teile.anamnese.solideDes).toBe(iso(3));
-    expect(p.teile.dokumentation.solideDes).toBeNull();
-    expect(p.teile.fallvorstellung.solideDes).toBeNull();
-    expect(cp(solide).teile.anamnese.solideDes).toBeNull();
+    expect(p.teile.dokumentation.solideDes ?? null).toBeNull();                       // absent dans la projection, `null` dans le cadran
+    expect(p.teile.fallvorstellung.solideDes ?? null).toBeNull();
+    expect(cp(solide).teile.anamnese.solideDes ?? null).toBeNull();
   });
 });
 
