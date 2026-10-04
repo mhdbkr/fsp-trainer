@@ -607,13 +607,17 @@ export function ResultScreen({ sim, c }: { sim: Simulation; c: Case }) {
   const parts = Object.entries(sim.parts).filter(([, p]) => p?.done) as [Part, PartResult][];
   const avg = parts.length ? Math.round(parts.reduce((s, [, p]) => s + partScore(p), 0) / parts.length) : 0;
   const passed = sim.passed;
+  // Décision direction (4 oct.) : sans langue notée, la réussite ne porte que sur le
+  // contenu — le verdict complet n'apparaît qu'une fois la grille de langue saisie.
+  const langueNonNotee = parts.some(([k, p]) => hatSprachgitter(k) && !languageGridEntered(p.languageGrid));
 
   return (
     <div className="mx-auto max-w-3xl space-y-5">
       <div className={`card p-6 text-center ${passed ? 'border-emerald-300 dark:border-emerald-800' : 'border-amber-300 dark:border-amber-800'}`}>
         <div className={`mx-auto flex h-16 w-16 items-center justify-center rounded-2xl ${passed ? 'bg-emerald-100 text-emerald-600 dark:bg-emerald-900/30 dark:text-emerald-300' : 'bg-amber-100 text-amber-600 dark:bg-amber-900/30 dark:text-amber-300'}`}><Icon name={passed ? 'spark' : 'flame'} className="h-8 w-8" /></div>
-        <h1 className="mt-2 text-2xl font-bold">{passed ? 'Bestanden-Simulation !' : 'Encore un effort'}</h1>
+        <h1 className="mt-2 text-2xl font-bold">{!passed ? 'Encore un effort' : langueNonNotee ? 'Réussi sur le contenu' : 'Au-dessus du seuil Doctopus'}</h1>
         <p className="text-slate-500 dark:text-slate-400">{c.name} · score moyen {avg}%</p>
+        {passed && langueNonNotee && <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">Ta langue n'est pas notée (langue non notée) : le verdict complet viendra une fois la grille de langue renseignée.</p>}
         <p className="mt-1 text-sm">{sim.teil ? (passed ? 'Cette partie ≥ 60 % (seuil Doctopus). Elle compte pour un tiers de la maîtrise du cas et remet ton programme à jour.' : 'Cette partie est sous les 60 % — retravaille-la.') : passed ? 'Toutes les parties tentées ≥ 60% (seuil Doctopus).' : 'Au moins une partie sous les 60% — retravaille-la.'}</p>
       </div>
 

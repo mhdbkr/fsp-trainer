@@ -31,4 +31,26 @@ describe('ResultScreen', () => {
     expect(container.textContent).toContain('seuil Doctopus');
     expect(container.textContent).not.toMatch(/règle FSP|officiel/);
   });
+
+  describe('verdict : « Réussi sur le contenu » tant que la langue n\'est pas notée (décision direction, 4 oct.)', () => {
+    const vide = { aussprache: -1, wortschatz: -1, grammatik: -1, redefluss: -1, kommunikation: -1 };
+    const notee = { aussprache: 4, wortschatz: 4, grammatik: 4, redefluss: 4, kommunikation: 4 };
+    const rendu = (grid: object | undefined, passed = true) => render(<MemoryRouter><ResultScreen sim={{ id: 'v', caseId: 'c1', date: Date.now(), passed, parts: { anamnese: { done: true, durationSec: 60, checklist: [], feeling: -1, contentPct: 80, officialPct: grid === notee ? 80 : 0, languageGrid: grid } }, prioritizedCorrections: [], scope: 'teil', teil: 'anamnese' } as never} c={{ id: 'c1', name: 'Ulcus', specialty: 'G' } as never} /></MemoryRouter>).container;
+
+    it('langue non notée : « Réussi sur le contenu », jamais le verdict complet', () => {
+      const c = rendu(vide);
+      expect(screen.getByRole('heading', { level: 1 }).textContent).toBe('Réussi sur le contenu');
+      expect(c.textContent).toContain('langue non notée');
+      expect(c.textContent).not.toMatch(/Bestanden|Au-dessus du seuil Doctopus/);
+    });
+    it('langue notée : le verdict complet, sans « Bestanden » (EXAM_CLAIM)', () => {
+      const c = rendu(notee);
+      expect(screen.getByRole('heading', { level: 1 }).textContent).toBe('Au-dessus du seuil Doctopus');
+      expect(c.textContent).not.toMatch(/Bestanden|langue non notée/);
+    });
+    it('non réussi : inchangé, que la langue soit notée ou non', () => {
+      rendu(vide, false);
+      expect(screen.getByRole('heading', { level: 1 }).textContent).toBe('Encore un effort');
+    });
+  });
 });
