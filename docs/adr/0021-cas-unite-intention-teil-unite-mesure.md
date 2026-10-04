@@ -178,7 +178,8 @@ cumul des Teile du jour) est **conservée** : elle porte la nouvelle surface.
 | 4 oct. 2026 | direction | Décisions 1 à 8 de la proposition « le cas entier, mesuré au Teil » (cas entier, mesure au Teil, couverture et maîtrise, cadran, fréquences, ordre de la pré-simulation, Muster guidé/libre, ordre des chantiers) |
 | 4 oct. 2026 | direction | État `prêt`, anneau soudé, proposition « d'un trait » à l'approche de l'examen |
 | 4 oct. 2026 | direction | Les six améliorations du cerveau du programme (ADR-0022) |
-| 4 oct. 2026 | `main` | Décisions techniques I1 à I11 et mineurs m1 à m13 (sauf m9, non transmis), après la revue de cohérence |
+| 4 oct. 2026 | `main` | Décisions techniques I1 à I11 et mineurs m1 à m13 après la revue de cohérence (m9 résolu par (f)) |
+| 4 oct. 2026 | `main` | R1 sans plafond Assisté (contradiction 15) ; la séance IA externe coche la tâche de cas sans mesure (contradiction 17, réf. Q3/Q9 du 30 sept.) ; une seule tâche forcée en dernière ligne droite (18) ; annonce (f) locale, une fois par appareil |
 | 4 oct. 2026 | `main` | Réserves pédagogiques adoptées : R1, R2, T1, T2, P1, P2, C1, tolérance de 5 min pour INV-73 |
 | 4 oct. 2026 | direction | (a) fenêtre « d'un trait » = 15 derniers jours ouvrés ; (b) `prêt` = Autonome, ordre A → D → F, grille saisie, une seule définition des conditions d'examen ; (c) la frise quitte le Programme et survit dans l'Historique sans projection ; (d) la couche se fond dans le niveau d'assistance ; (e) états recalculés, frise passée figée avec un repère, anciens runs non soudés ; (f) changements rétroactifs annoncés une fois |
 
@@ -297,8 +298,8 @@ Aucune. La fenêtre « d'un trait » est tranchée par la décision (a) du 4 oct
     Teil joué en Assisté peut donc devenir solide. Afficher « en Assisté le
     plafond est 80,75 » serait faux. **Tranché ici** : R1 est inscrit pour
     l'écart de 3 jours (`solideDes`) et pour les conditions d'examen
-    (`pretManque`, qui exige l'Autonome), pas pour un plafond. `main` doit le
-    confirmer.
+    (`pretManque`, qui exige l'Autonome), pas pour un plafond. **Confirmé par
+    `main` le 4 oct.**
 16. **Les URL par état (`simulation-run.md` §2.2) ne sont pas implémentées.**
     Seules `/simulation/:caseId/pre` et `/simulation/:caseId/run` existent
     (`main.tsx:64-66`). Le contrat décrit désormais les routes réelles (m7),
@@ -306,10 +307,14 @@ Aucune. La fenêtre « d'un trait » est tranchée par la décision (a) du 4 oct
 17. **« Partie mesurée » (I3) et la séance IA externe.** I3 parle de « partie
     mesurée ». Une séance `selbstbewertet` n'est pas une mesure (INV-11), mais
     elle joue son Teil en série 3, et elle fait avancer une tâche aujourd'hui
-    (`teileJouesLeJour` n'exclut que les coches nues). **Comportement
-    retenu** : elle continue de faire avancer la tâche, sans entrer dans
-    aucune mesure. **Question à `main`** : faut-il au contraire l'exclure de
-    la complétion ?
+    (`teileJouesLeJour` n'exclut que les coches nues). **Décidé** (direction,
+    Q3/Q9 du 30 sept. : « historique + série oui, ça coche la tâche du jour ;
+    l'indice non », confirmée par `main` le 4 oct.) : elle fait avancer et
+    peut cocher la tâche de cas, sans jamais entrer dans une mesure (statut,
+    maîtrise, solide, `prêt`).
+18. **Dernière ligne droite** : une seule tâche forcée par jour. Ce jour-là,
+    c'est l'examen à blanc, et les tâches de cas respectent le budget.
+    **Confirmé par `main` le 4 oct.** (INV-58).
 
 ## Revues
 
@@ -324,7 +329,7 @@ et 13 mineurs (m1–m13).
 |---|---|---|
 | I1 Déterminisme | Le plan du jour D a pour entrée le journal d'`occurred_at < debutJour(D)`, l'état SRS reconstruit compris. INV-55 et INV-57 sont reformulés ; leur générateur fait varier les événements **du** jour. | TJ §12.4, INV-55, INV-57 |
 | I2 Config synchronisée | `program.configured` est projeté, validé à la lecture et doté d'un schéma serveur. `rythme.refused` et `rattrapage.refused` sont synchronisés. Migration 18. | TJ §12.10, INV-68 |
-| I3 Genre de tâche | Toute partie du cas satisfait une tâche de cas ; le genre ne sert qu'au libellé. `dUnTrait` n'exige qu'`enchaine`. | TJ §12.3 ; contradiction 17 |
+| I3 Genre de tâche | Toute partie du cas satisfait une tâche de cas ; le genre ne sert qu'au libellé. `dUnTrait` n'exige qu'`enchaine`. La séance IA externe coche aussi, sans mesure (décidé). | TJ §12.3 ; contradiction 17 |
 | I4 Complétion | `doneAt` est dérivé à la projection. La coche manuelle est un événement explicite qui compte. INV-51 devient une équivalence multi-appareils. | TJ §12.3, INV-51 |
 | I5 `dUnTrait` | Tout ou rien. La reprise ne porte pas `dUnTrait`. Trois Teile joués séparément laissent la tâche ouverte : « à rejouer d'un trait ». | TJ §12.2, §12.3, §12.8, INV-52 |
 | I6 « Ce qui reste » | Une fonction, deux usages : `resteTache` dans la journée, `restePlan` pour planifier. Un Teil non solide joué depuis moins de 3 jours vaut 0 dans la dette. | TJ §12.2, INV-67 |
@@ -341,7 +346,7 @@ et 13 mineurs (m1–m13).
 | m6 | `dauerGesamtSec` garde le Teil abandonné. `partieSuivante` est refusé hors du Teil interrompu par l'Aufklärung. INV-72 est complété. | SR §3.2, §10.2, INV-72 |
 | m7 | `nimmWiederAuf`, point d'entrée unique ; `?depart` hors des dépendances de l'effet ; routes réelles décrites. | SR §3.1, §10.3 |
 | m8 | Lien de lancement des tâches `revision`. | TJ §12.1, SR §10.3 |
-| m9 | **Non transmis** à l'architecte. | — |
+| m9 | **Résolu par (f)** : annoncer une fois les Teile solides redevenus acquis (qui reviennent dans le plan), le `teil-first` explicite devenu cas complet et le Muster de ville par défaut devenu libre. | SR §10.7 |
 | m10 | `nonMesureAt` inscrit dans `TeilProgress` ; INV-59 pour `CaseDialData`. | TJ §12.6, §12.7 |
 | m11 | Fin du jour = minuit local du fuseau de l'appareil qui a matérialisé, `DayPlan.tz`. | TJ §3.1, §12.4 |
 | m12 | La sentinelle `?? 50` est corrigée par C6-A, déjà dispatché. | SR §9.5 |
@@ -351,7 +356,7 @@ et 13 mineurs (m1–m13).
 
 | Réserve | Décision | Où |
 |---|---|---|
-| R1 | Le cadran dit la raison et la date (`solideDes`, `pretManque`). Pas de plafond Assisté, qui n'existe pas dans la mesure. | TJ §12.7 ; contradiction 15 |
+| R1 | Le cadran dit la raison et la date (`solideDes`, `pretManque`). Pas de plafond Assisté, qui n'existe pas dans la mesure (confirmé par `main`). | TJ §12.7 ; contradiction 15 |
 | R2 | Un Teil non solide joué depuis moins de 3 jours vaut 0 dans la dette. | TJ §12.2, INV-67 |
 | T1 | Aucun `rappel` sur une tâche `dUnTrait` ou `examen-blanc`. | TJ §13.3, INV-63 |
 | T2 | Formulation neutre : « 3 de tes 5 dernières Anamnesen ». | TJ §13.3 |
