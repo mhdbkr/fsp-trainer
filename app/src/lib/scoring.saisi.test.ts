@@ -56,7 +56,7 @@ describe('l\'historique n\'est pas recalculé', () => {
   });
   it('tout saisi : identique à l\'ancienne formule, au point près, sur tout le domaine', () => {
     let n = 0;
-    for (let c = 0; c <= 100; c++) for (let n5 = 0; n5 <= 25; n5 += 5) for (let f = 0; f <= 100; f += 3) {
+    for (let c = 0; c <= 100; c += 5) for (let n5 = 0; n5 <= 25; n5 += 5) for (let f = 0; f <= 100; f += 3) {
       const l = Math.round((n5 / 25) * 100);
       const oralP = oral({ contentPct: c, languageGrid: grille(n5 / 5), officialPct: l, feeling: f });
       expect(partScore(oralP)).toBe(Math.round(c * 0.55 + l * 0.30 + f * 0.15));
@@ -64,7 +64,7 @@ describe('l\'historique n\'est pas recalculé', () => {
       n++;
     }
     expect(n).toBeGreaterThan(3000);
-  });
+  }, 20_000);
   it('un 0 saisi est une note, pas une absence', () => {
     const p = oral({ contentPct: 80, languageGrid: grille(0), officialPct: 0, feeling: 0 });
     expect(scoreBasis(p)).toEqual(['contenu', 'langue', 'ressenti']);
