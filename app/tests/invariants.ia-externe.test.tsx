@@ -71,11 +71,26 @@ async function jouerDansLApp(c: Case, teile: SimTeil[], entre?: () => Promise<vo
   await speichern(l, c);
 }
 
-/** L'accueil monte la carte ; on attend que sa requête ait répondu avant de conclure à l'absence. */
-async function accueil(): Promise<boolean> {
+/**
+ * L'accueil monte la carte. PRÉSENCE : on l'attend (`findByText`, 8 s) — jamais un délai fixe, la carte passe par
+ * un `useLiveQuery` puis `db.cases.get`. ABSENCE : un rendu vide ne prouve rien tant que la requête n'a pas
+ * répondu ; le signal d'achèvement est l'appel de `db.simulations.where('caseId')` — la garde elle-même — suivi
+ * d'une lecture de la même table et d'un vidage des tâches en attente de React. Si la trace n'était pas lue, `where`
+ * ne serait jamais appelé : le test ÉCHOUE au lieu de conclure « absente » à vide.
+ */
+async function carteVisible(): Promise<boolean> {
   render(<MemoryRouter><PendingExternalSimCard /></MemoryRouter>);
-  await act(async () => { await new Promise((r) => setTimeout(r, 80)); });   // setTimeout reste réel : seul Date est simulé
-  return !!screen.queryByText(/tu as simulé/i);
+  try { await screen.findByText(/tu as simulé/i, {}, { timeout: 8000 }); return true; } catch { return false; }
+}
+async function carteAbsente(): Promise<boolean> {
+  const garde = vi.spyOn(db.simulations, 'where');
+  try {
+    render(<MemoryRouter><PendingExternalSimCard /></MemoryRouter>);
+    await waitFor(() => expect(garde, 'la requête de la carte n’a jamais atteint sa garde').toHaveBeenCalled(), { timeout: 8000 });
+    await db.simulations.toArray();                                         // les lectures déjà lancées sont terminées
+    await act(async () => { for (let i = 0; i < 6; i++) await new Promise((r) => setTimeout(r, 0)); });   // setTimeout reste réel : seul Date est simulé
+    return !screen.queryByText(/tu as simulé/i);
+  } finally { garde.mockRestore(); }
 }
 
 describe('FB3 — une partie jouée et évaluée dans l’app n’est jamais redemandée à l’accueil', () => {
@@ -89,7 +104,7 @@ describe('FB3 — une partie jouée et évaluée dans l’app n’est jamais red
       avance(r.int(0, 3_600_000));
       await jouerDansLApp(c, teile, async () => { avance(r.int(1000, 600_000)); await ouvrirLeLanceur(c.id, ancre); avance(r.int(0, 2 * 3_600_000)); });
       expect(await db.simulations.count()).toBe(1);
-      expect(await accueil(), `la carte « tu as simulé… » est revenue (${c.id}, ancre ${ancre}, parties ${teile.join('+')})`).toBe(false);
+      expect(await carteAbsente(), `la carte « tu as simulé… » est revenue (${c.id}, ancre ${ancre}, parties ${teile.join('+')})`).toBe(true);
       if (teile.length === 1) vu.ancre++; else vu.tard++;
       cleanup();
     });
@@ -101,7 +116,7 @@ describe('FB3 — une partie jouée et évaluée dans l’app n’est jamais red
   it('témoin 1 — lanceur ouvert, RIEN joué dans l’app : la carte apparaît (elle sait apparaître)', async () => {
     await ouvrirLeLanceur(FULL[0].id, 'anamnese');
     avance(30 * 60_000);
-    expect(await accueil()).toBe(true);
+    expect(await carteVisible()).toBe(true);
   });
 
   it('témoin 2 — une partie du même cas jouée AVANT le lanceur ne masque pas la séance externe', async () => {
@@ -109,14 +124,14 @@ describe('FB3 — une partie jouée et évaluée dans l’app n’est jamais red
     avance(60 * 60_000);
     await ouvrirLeLanceur(FULL[0].id, 'anamnese');
     avance(10 * 60_000);
-    expect(await accueil()).toBe(true);
+    expect(await carteVisible()).toBe(true);
   });
 
   it('témoin 3 — une partie jouée dans l’app sur UN AUTRE cas ne masque pas la séance externe', async () => {
     await ouvrirLeLanceur(FULL[0].id, 'anamnese');
     avance(10 * 60_000);
     await jouerDansLApp(FULL[1], ['anamnese']);
-    expect(await accueil()).toBe(true);
+    expect(await carteVisible()).toBe(true);
   });
 
   // Corrigé sur main (0560198d) : la carte d'un Teil T ne se tait que pour une partie jouée dans
@@ -125,6 +140,6 @@ describe('FB3 — une partie jouée et évaluée dans l’app n’est jamais red
     await ouvrirLeLanceur(FULL[0].id, 'anamnese');
     avance(10 * 60_000);
     await jouerDansLApp(FULL[0], ['dokumentation']);
-    expect(await accueil(), 'la séance externe d’anamnèse a disparu sans avoir été évaluée').toBe(true);
+    expect(await carteVisible(), 'la séance externe d’anamnèse a disparu sans avoir été évaluée').toBe(true);
   });
 });
