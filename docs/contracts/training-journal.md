@@ -26,7 +26,7 @@ provisoires n'est une décision produit : ce sont des no-op conservateurs.
 | **Q1** | Quel `Fortschrittsmodus` est le **défaut** quand le candidat n'a jamais répondu, et **à quel moment** la question lui est posée (onboarding / première ouverture du programme / jamais) ? | **Tranchée** — d'abord en « déduit puis proposé » (30 sept., `modus.ts:1-10`), puis *[S4]* en **« observé, jamais proposé ni demandé »** (direction, 4 oct., ADR-0021). Mode du jour = `examen-blanc` ou `specialite` s'ils sont choisis explicitement, sinon le mode observé, qui vaut `cas-complet` ou `teil-first` (§12.5, décision I8 de `main`). |
 | **Q2** | « Replanifier » réécrit-il **le jour courant seulement** ou **le jour courant et tous les jours futurs déjà matérialisés** ? | Le jour courant seulement. Aucun jour futur n'est matérialisé d'avance (§3.1). |
 | **Q3** | Une séance **auto-déclarée** (IA externe, entraînement hors app) compte-t-elle dans l'indice de préparation et la série (streak) **au même titre** qu'une séance jouée dans l'app ? | Elle entre dans l'historique et dans le temps investi ; elle **n'entre pas** dans l'indice de préparation ni dans les scores par axe. `TrainingEvent.selbstbewertet = true` la marque. |
-| **Q4** | Le rattrapage d'un jour manqué est-il **proposé** (accord explicite) ou **ignoré** ? | Ignoré : un jour non matérialisé n'existe pas, rien ne s'accumule. Aucune notion de « retard » n'est affichée. |
+| **Q4** | Le rattrapage d'un jour manqué est-il **proposé** (accord explicite) ou **ignoré** ? | **Tranchée — proposé, jamais imposé** (direction, 4 oct. 2026, FB3-D10, jugement C6 point 6 ; mis en œuvre par le lot C6-B). Au retour après un jour manqué, une ligne discrète dit « N jours manqués : X et Y ont glissé », avec **[Rattraper]** / **[Laisser]**. N compte les jours **ouvrés** du programme sans plan entre le dernier jour figé et aujourd'hui (un jour off n'est pas manqué). X et Y sont les tâches non faites du dernier jour figé. Rien ne s'accumule en silence, aucun jour n'est matérialisé rétroactivement, et le vocabulaire est « manqués / ont glissé », **jamais « en retard »**. Rattraper : §12.8. |
 
 ---
 
@@ -111,7 +111,7 @@ Deux types d'événements nouveaux dans `ProgressEventType`
 |---|---|---|---|
 | `training.logged` | `TrainingEvent.id` | le `TrainingEvent` **sans** `id` | insère dans `training_events` |
 | `plan.materialized` | `yyyy-MM-dd` | `{ tasks: TaskInstance[], mode, seed }` | insère dans `day_plans` — **le PLUS ANCIEN `occurred_at` gagne** |
-| `plan.replanned` | `yyyy-MM-dd` | `{ tasks: TaskInstance[], reason: 'manuel' }` | remplace `day_plans[date].tasks` — dernier `occurred_at` gagne, bat toujours `plan.materialized` |
+| `plan.replanned` | `yyyy-MM-dd` | `{ tasks: TaskInstance[], reason: 'manuel' \| 'rattrapage' }` — *[S4]* `'rattrapage'` est écrit par `accepterRattrapage` (Q4, FB3-D10, 4 oct.) | remplace `day_plans[date].tasks` — dernier `occurred_at` gagne, bat toujours `plan.materialized` |
 | ~~`plan.done`~~ | — | — | **RETIRÉ** : déclaré depuis la v1, jamais émis (`sync/events.ts:2`). |
 
 **Motivation du premier-gagne sur `plan.materialized`** : deux appareils ouvrant
@@ -229,7 +229,11 @@ export interface DayPlan {
 - **Aucun jour futur n'est matérialisé.** Le calendrier affiche une projection
   non figée, marquée comme telle ; elle n'a pas d'identité et ne se coche pas.
 - Le passé n'est jamais matérialisé rétroactivement : un jour sans `DayPlan`
-  est un jour où l'app n'a pas été ouverte. Il s'affiche vide, pas « en retard ».
+  est un jour où l'app n'a pas été ouverte. Il s'affiche vide, jamais « en
+  retard ». *[S4]* Au retour, il est **compté** dans la ligne « N jours
+  manqués : X et Y ont glissé » (Q4, décision du 4 oct., FB3-D10). Il n'est
+  pas matérialisé pour autant ; ce qui peut être repris vient du dernier jour
+  figé, et seulement sur [Rattraper].
 - La matérialisation est **pure de tout rendu** : elle ne peut être déclenchée
   par un composant. Un rendu qui ne trouve pas le `DayPlan` du jour affiche
   l'état « pas encore ouvert », il ne le crée pas.
