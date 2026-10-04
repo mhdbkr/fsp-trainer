@@ -60,9 +60,12 @@ export interface TrainingEvent {
   // [S4] — DÉRIVÉS de `simulation.completed` (§2.3), jamais écrits par `training.logged`
   enchaine?: true;             // les 3 Teile joués d'un trait (simulation-run.md §10.4)
   examen?: true;               // conditions d'examen : enchaîné + Autonome + ordre A→D→F + grilles saisies (§12.6)
+  examenManque?: ConditionExamen[]; // conditions d'examen NON remplies (§2.3) ; présent ⇔ simulation série 4 ; [] ⇔ examen
   minutesParTeil?: Partial<Record<SimTeil, number>>; // durée mesurée par Teil (§13.4)
   manques?: Partial<Record<SimTeil, ChecklistItemId[]>>; // items NON cochés par Teil joué (§13.3)
 }
+
+export type ConditionExamen = 'enchaine' | 'autonome' | 'ordre' | 'grille';
 ```
 
 ### 1.2 Règles opposables
@@ -148,10 +151,40 @@ TrainingEvent.id      = `te-${sim.id}`        // déterministe, idempotent
         .kind         = conditionsExamen(sim) ? 'examen-blanc' : 'simulation'   (série 4 ; règle série 3 pour les anciennes)
         .spentMin     = round((sim.dauerGesamtSec ?? Σ parts[t].durationSec) / 60)   // m6 : le Teil abandonné compte
         .enchaine     = sim.enchaine === true && teile.length === 3 && !selbstbewertet ? true : absent
-        .examen       = conditionsExamen(sim) ? true : absent
+        .examen       = série 4 ∧ conditionsExamen(sim) ? true : absent
+        .examenManque = série 4 ? conditionsManquantes(sim) : absent        // [] ⇔ examen === true
         .minutesParTeil = { t: round(parts[t].durationSec / 60) } pour chaque t joué, si durationSec > 0
-        .manques      = { t: ids des items de parts[t].checklist avec checked === false } pour chaque t joué,
-                        ids legacy `cl-N` traduits à la lecture (simulation-run.md §4.4) ; absent si selbstbewertet
+        .manques      = { t: ids des items de parts[t].checklist avec checked === false } pour chaque t joué
+                        dont la checklist est non vide et ne porte AUCUN id legacy `cl-N` ;
+                        absent si selbstbewertet ; absent si aucun Teil ne qualifie
+```
+
+*[S4]* **Ids legacy `cl-N` et `manques`** (décision de `main`, 4 oct.,
+contradiction 3 du rapport S4-1). La dérivation lit les ids **bruts** de
+`sim.parts[t].checklist`, **avant** toute traduction. Une checklist dont un id
+correspond à `/^cl-\d+$/` (`LEGACY_ID_PATTERN`) ne donne **pas** de
+`manques[t]` : la partie n'est pas une `partieAvecChecklist` pour ce Teil
+(§12.3), et elle n'entre ni dans les erreurs transversales (§13.3) ni dans
+INV-63. La traduction « à la lecture » de `simulation-run.md` §4.4 vaut pour
+l'**affichage** de l'historique, jamais pour le journal. Une fois traduits, les
+ids ne disent plus qu'ils étaient legacy, et une checklist reconstruite
+décochée signalerait tout. Code : `journal.ts` (`trainingEventFromSimulation`).
+
+*[S4]* **`examenManque`** (ajout S4-1, accepté par `main` le 4 oct.). C'est la
+liste ordonnée `enchaine`, `autonome`, `ordre`, `grille` des conditions **non**
+remplies, par `conditionsManquantes(sim)` (`lib/examen.ts`). Cette fonction est
+la seule source de `conditionsExamen`, qui vaut `conditionsManquantes(sim).length === 0`.
+Le champ est présent **si et seulement si** la simulation est série 4. Une
+ancienne partie n'en a pas : elle n'est jamais un run candidat à la soudure
+(décision (e)). Comme `enchaine` et `examen`, il ne passe jamais par
+`training.logged`. C'est la source de `CaseProgress.pretManque` (§12.6).
+
+```ts
+conditionsManquantes(sim): ConditionExamen[]   // dans cet ordre, chacune si non remplie :
+  'enchaine' : ¬(sim.enchaine === true ∧ sim.mode !== 'external-ai' ∧ les 3 parts done)
+  'autonome' : sim.assistance !== 'autonome'
+  'ordre'    : sim.reihenfolge?.join() !== 'anamnese,dokumentation,fallvorstellung'
+  'grille'   : grille de langue de l'Anamnese ou de la Fallvorstellung non saisie
 ```
 
 ```ts
@@ -867,6 +900,7 @@ export interface TeilProgress {
   lastAt: number | null;
   attempts: number;
   nonMesureAt?: number;                // déjà dans le code (journal.ts:237) ; inscrit au contrat (m10)
+  solideDes?: string | null;           // [S4-1] yyyy-MM-dd ; absent ou null ⇔ pas de date ; source de CaseDialData.teile[t].solideDes (§12.7)
 }
 
 export type CaseEtat = 'vierge' | 'entame' | 'couvert' | 'solide' | 'pret';
@@ -880,6 +914,7 @@ export interface CaseProgress {
   solideDepuis: number | null;         // at de l'événement qui a rendu les 3 Teile solides (dernier passage)
   pretAt: number | null;               // la soudure (I11)
   prochaineConsolidation: string | null; // §13.1
+  pretManque: ConditionExamen[];       // [S4-1] source de CaseDialData.pretManque (§12.7)
   overall: 'vierge' | 'entame' | 'solide'; // DÉPRÉCIÉ, dérivé de etat (§4.1 [S4])
 }
 ```
@@ -893,7 +928,48 @@ etat       = couverture === 0                         → 'vierge'
              ∃ e qualifiant, e.at ≥ solideDepuis      → 'pret'      (INV-56)
              sinon                                    → 'solide'
 qualifiant(e) = e.examen === true ∧ ∀ t : e.scores[t] ≥ PART_SOLIDE
+
+premiere(t)  = at de la PREMIÈRE partieMesuree où scores[t] ≥ PART_SOLIDE (jamais remise à zéro)
+solideDes(t) = status ≠ 'solide' ∧ premiere(t) existe
+                 ? dayKey(premiere(t) + SOLIDE_ECART_JOURS jours) : absent
+pretManque   = etat === 'solide'
+                 ? (runs = partieMesuree e du cas avec e.examenManque présent ∧ e.at ≥ solideDepuis ;
+                    runs vide ? ['enchaine','autonome','ordre','grille']
+                              : e.examenManque du run qui en a le MOINS — à égalité, le plus récent)
+                 : []
 ```
+
+*[S4-1]* **`solideDes` et `pretManque`** (ajouts S4-1, acceptés par `main` le
+4 oct.). Ce sont les sources des deux champs R1 du cadran (§12.7), qui n'en
+avaient pas en §12.6. Code : `lib/progression.ts` (`finalise`, `pretManque`).
+
+- `solideDes` découle de l'automate §13.2. Une réussite ≥ 80 rend le Teil
+  solide si une réussite **antérieure** ≥ 80 a eu lieu au moins
+  `SOLIDE_ECART_JOURS` jours calendaires avant. La plus ancienne, `premiere(t)`,
+  donne donc la date la plus tôt. Une retombée (solide → acquis) ne l'efface
+  pas. La date peut être passée : « un ≥ 80 dès aujourd'hui suffit ». Le
+  champ est **absent** quand il vaudrait `null`. `dialData` normalise :
+  `solideDes: status === 'solide' ? null : cp.solideDes ?? null`.
+- `pretManque` n'est non vide **que** pour `etat === 'solide'`. C'est la même
+  fonction que la soudure : un run postérieur à `solideDepuis` avec
+  `examenManque = []` a ses trois scores mesurés. S'ils sont tous ≥ 80, il est
+  qualifiant et l'état devient `pret`. Sinon, le Teil sous 80 retombe d'un cran
+  (INV-62), ce qui défait `solideDepuis`. D'où l'invariant
+  **`etat === 'solide' ⇔ pretManque.length > 0`**.
+- Lecture tolérante : les deux champs sont optionnels dans `db/types.ts`, pour
+  qu'une ligne `case_progress` d'avant la série 4 reste lisible jusqu'à la
+  reconstruction du démarrage (ADR-0021, m-d). `computeCaseProgress` et
+  `blankProgress` posent toujours `pretManque`.
+- **Compatibilité** : ce sont des champs de projection locale (`case_progress`,
+  Dexie). Ils ne sont pas synchronisés et sont reconstruits depuis le journal.
+  Aucun événement, schéma serveur ou migration n'est touché. Un client
+  série 3 les ignore.
+- **Tests de contrat** : `lib/journal.etatCas.test.ts`, blocs « solideDes (R1) »
+  et « pretManque (R1) » (moins de manques, égalité au plus récent, run d'avant
+  la soudure ignoré, parties sans `examenManque` ignorées) ;
+  `tests/invariants.mesure.test.ts` (décision (b) : `kind` ⇔ `examen` ⇔
+  `examenManque = []`). **À ajouter** : une propriété sur journaux aléatoires
+  pour `etat === 'solide' ⇔ pretManque.length > 0`.
 
 - Couverture et maîtrise sont deux mesures, et la maîtrise ne baisse jamais
   par absence d'un Teil (INV-53). La maîtrise lit `lastScore` : une
@@ -941,7 +1017,9 @@ dialData(cp, ctx?: { tache?: TaskInstance; avancement?: SimTeil[]; lauf?: Lauf }
 ```
 
 - **Une seule source** : `case_progress`, la tâche figée et le `Lauf` en fin de
-  partie. Le cadran ne lit jamais `db.simulations`.
+  partie. Le cadran ne lit jamais `db.simulations`. `solideDes` recopie
+  `TeilProgress.solideDes`, et `pretManque` recopie `CaseProgress.pretManque`
+  (§12.6, ajouts S4-1). `dialData` ne les calcule pas.
 - **R1, la raison et la date** : quand un Teil n'est pas encore solide, le
   détail dit pourquoi et quand. Par exemple : « solide si tu refais ≥ 80 à
   partir du jeudi 9 » (`solideDes`), ou « pour souder l'anneau : une partie
@@ -1089,6 +1167,13 @@ S4-1 mesure ──▶ S4-4 primitive CaseDial ──▶ S4-3 partie ∥ S4-2 pla
   `enchaine`/`examen` (§2.3), même s'ils restent absents avant S4-3. Elle
   porte aussi la **mesure** de la couverture pondérée (§13.6) ; son affichage
   revient à S4-5.
+- *[S4-1, livré]* S4-1 a aussi posé deux fonctions pures de mesure que **S4-2
+  consomme** sans les redéfinir. La première est `prochaineConsolidation`
+  (§13.1), un champ de `CaseProgress` calculé dans `lib/progression.ts`. La
+  seconde est `teileDeTache` (§12.1, `lib/program/tacheDeCas.ts`), dont le
+  cadran a besoin. S4-2 garde `resteTache`, `statutTache`, `lireTache` et
+  `restePlan`. Un changement de ces deux fonctions passe par une proposition de
+  contrat.
 - **S4-3 ∥ S4-2** : périmètres de fichiers disjoints (S4-3 :
   `lib/lauf`, `features/simulation`, **`lib/simulationSave.ts`** ; S4-2 :
   `lib/program`, `lib/journal.ts`, `lib/programAdjust.ts`,
@@ -1124,7 +1209,7 @@ S4-1 mesure ──▶ S4-4 primitive CaseDial ──▶ S4-3 partie ∥ S4-2 pla
 | `FENETRE_D_UN_TRAIT_JOURS_OUVRES` | `15` — décision (a) de la direction | 13.1 |
 | `D_UN_TRAIT_ACTIF` | `false` jusqu'à S4-3 en production | 12.12 |
 | `SOLIDE_ECART_JOURS` | `3` (jours calendaires, `dayKey`) | 12.2, 13.2 |
-| `DATE_NOUVELLE_REGLE` | date du déploiement de S4-1 (`yyyy-MM-dd`) | 13.2 |
+| `DATE_NOUVELLE_REGLE` | jour du merge de S4-1 en production (`yyyy-MM-dd`), posé par `main` au moment du merge | 13.2 |
 | `ERREUR_FENETRE` / `ERREUR_SEUIL` / `ERREUR_CAS_MIN` | `5` / `3` / `2` | 13.3 |
 | `DUREE_FENETRE` / `DUREE_MIN_MESURES` / `DUREE_BORNES` | `10` / `3` / `[5, 45]` min | 13.4 |
 | `RYTHME_FENETRE_JOURS` / `RYTHME_SEUIL` / `RYTHME_MIN_JOURS` / `BUDGET_PLANCHER_MIN` / `RYTHME_REFUS_MAX` | `7` / `0.6` / `3` / `20` / `2` | 13.5 |
@@ -1171,6 +1256,12 @@ sinon : s < 60 → 'fragile' ; s < 80 → 'acquis'
   `at < DATE_NOUVELLE_REGLE`, `indiceAt` applique la règle série 3
   (`statusOf(lastScore)`). La frise porte un repère « nouvelle règle » à
   cette date.
+- **Date de bascule** (décision de `main`, 4 oct.) : `DATE_NOUVELLE_REGLE` est
+  le **jour du merge de S4-1 en production**. `main` pose la constante
+  (`lib/program/parametres.ts`) dans le commit de merge. La valeur portée par
+  la branche (`2026-10-05`) n'est qu'une hypothèse de travail. Une date trop
+  précoce réécrirait des points de frise déjà montrés (INV-69). Une date trop
+  tardive figerait quelques jours de plus, ce qui est inoffensif.
 - Ces changements rétroactifs sont **annoncés une fois** dans l'app
   (décision (f), `simulation-run.md` §10.7) : Teile redevenus acquis,
   `teil-first` devenu cas complet, Muster de ville devenu libre.
@@ -1182,7 +1273,8 @@ sinon : s < 60 → 'fragile' ; s < 80 → 'acquis'
 - **`partieAvecChecklist(e, t)`** (m3, m-f, défini en §12.3) : une
   `partieMesuree` dont `manques[t]` est défini, c'est-à-dire qui a une
   checklist pour le Teil `t`, et dont **tous** les ids d'origine sont stables
-  (aucun `cl-N`). Une partie d'avant le pont de checklist (INV-24/INV-27) avait sa
+  (aucun `cl-N`). Concrètement, une telle partie n'a pas de `manques[t]` (§2.3).
+  Une partie d'avant le pont de checklist (INV-24/INV-27) avait sa
   checklist reconstruite décochée : elle signalerait tout, elle est donc
   exclue.
 - **Fenêtre** : par Teil, les `ERREUR_FENETRE` dernières `partieAvecChecklist`.
