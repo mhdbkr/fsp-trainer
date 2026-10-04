@@ -115,8 +115,9 @@ jobs:
         run: node scripts/checkQuestionOrder.mjs || true
       - name: Réponse des questions du cas — la fiche répond-elle ? (informatif ; plancher dans checkBudgetFloor + test)
         run: node scripts/checkCaseQuestionAnswers.mjs || true
-      # K0 (ADR-0023) : la mesure du moteur de cohérence. INFORMATIVE jusqu'à K3 (`|| true`) ;
-      # le plancher coherence-budget.json est dans checkBudgetFloor, ses mutations ci-dessus.
+      # K0 (ADR-0023) : la mesure du moteur de cohérence. Seul l'AFFICHAGE est informatif (`|| true`,
+      # jusqu'à K3). Sont BLOQUANTS : le plancher coherence-budget.json (checkBudgetFloor), l'égalité
+      # mesure = fixture, et la structure du lexique INV-77/78 (checkCoherence.test.mjs, étape Mutations).
       - name: Cohérence de l'anamnèse — mesure des 130 cas (informatif jusqu'à K3)
         run: node scripts/checkCoherence.mjs || true
 
