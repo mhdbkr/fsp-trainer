@@ -149,9 +149,20 @@ async function parcours({ browser, base, supabaseUrl }) {
   /** Elle ouvre l'app le matin : l'horloge passe au jour J, l'onglet est rechargé. */
   const ouvrir = async (date) => {
     await page.clock.setSystemTime(date);
-    await page.goto(`${base}/#/`);
-    await page.reload();
-    await until(page, () => document.querySelector('main') && !/Chargement…/.test(document.body.innerText), 'app chargée', 40000);
+    // Première ouverture : UN chargement (un rechargement immédiat avorte la synchro du contenu, qui repart de zéro —
+    // fatal quand la machine est chargée). Ensuite : l'onglet est rechargé, comme au matin d'un nouveau jour.
+    if (page.url() === 'about:blank') await page.goto(`${base}/#/`);
+    else { await page.evaluate(() => { location.hash = '/'; }); await page.reload(); }
+    // Le premier chargement tire le contenu de l'Edge Function, qui peut répondre 546/502 quand elle est froide ou la
+    // machine saturée : l'app affiche alors « Réessayer ». Une candidate réessaie ; le harnais aussi (jamais plus de 6 fois).
+    for (let essai = 0; ; essai++) {
+      try { await until(page, () => document.querySelector('main') && !/Chargement…/.test(document.body.innerText), 'app chargée', 60000); break; }
+      catch (e) {
+        const retry = page.getByRole('button', { name: /Réessayer/ });
+        if (essai >= 6 || !(await retry.count())) throw e;
+        await retry.click();
+      }
+    }
     await sleep(500);
   };
   const premiereSim = (rs) => rs.findIndex((r) => !r.fait && r.cta === 'Lancer');

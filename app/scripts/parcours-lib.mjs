@@ -156,7 +156,7 @@ export const hero = (page) => page.evaluate(() => {
 export const texte = (page) => page.evaluate(() => (document.querySelector('main') ?? document.body).innerText);
 
 /** Attend qu'une condition évaluée DANS la page soit vraie. */
-export async function until(page, fn, label, ms = 15000) {
+export async function until(page, fn, label, ms = 45000) {
   const t0 = Date.now();
   while (Date.now() - t0 < ms) {
     const v = await page.evaluate(fn).catch(() => null);
