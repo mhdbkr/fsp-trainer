@@ -230,15 +230,9 @@ export const MUTATIONS = [
   },
   {
     id: "INV-69a", tests: 'tests/invariants.mesure.test.ts', file: "src/lib/program/trajectory.ts",
-    from: "{ regle: dayKey(at) < DATE_NOUVELLE_REGLE ? 'serie3' : undefined }",
-    to: "{}",
+    from: "regle: 'serie3' | 'serie4' = dayKey(at) < DATE_NOUVELLE_REGLE ? 'serie3' : 'serie4'",
+    to: "regle: 'serie3' | 'serie4' = 'serie4'",
     pourquoi: "la nouvelle règle est appliquée rétroactivement à la frise : tout le passé descend",
-  },
-  {
-    id: "INV-69b", tests: 'tests/invariants.mesure.test.ts', file: "src/lib/program/trajectory.ts",
-    from: "const memeRegle = points.filter((p) => ancienne(p) === ancienne(points[points.length - 1]));",
-    to: "const memeRegle = points;",
-    pourquoi: "la pente de la projection traverse la marche de la nouvelle règle",
   },
   {
     id: "INV-75", tests: 'tests/invariants.mesure.test.ts', file: "src/lib/journal.ts",
@@ -269,6 +263,37 @@ export const MUTATIONS = [
     from: "...(serie4 && manque.length === 0 ? { examen: true as const } : {}),",
     to: "...(manque.length === 0 || isExamenBlanc(sim) ? { examen: true as const } : {}),",
     pourquoi: "les anciens runs complets soudent l’anneau rétroactivement (décision (e), contradiction 12)",
+  },
+  // --- S4-1, revues (4 oct.) ---
+  {
+    id: "INV-61c", tests: 'tests/invariants.mesure.test.ts', file: "src/lib/progression.ts",
+    from: "if (s >= PART_SOLIDE && acc.premiere[t] === null) acc.premiere[t] = { at: te.at, score: s };",
+    to: "if (s >= PART_SOLIDE) acc.premiere[t] = { at: te.at, score: s };",
+    pourquoi: "le témoin de l’écart devient la DERNIÈRE réussite : une série de réussites rapprochées ne s’additionne plus (revue P1/m1)",
+  },
+  {
+    id: "P3-solideDepuis", tests: 'tests/invariants.mesure.test.ts', file: "src/lib/progression.ts",
+    from: "else if (acc.solideDepuis === null) { acc.solideDepuis = te.at;",
+    to: "else { acc.solideDepuis = te.at;",
+    pourquoi: "`solideDepuis` avance à chaque partie : un run d’examen déjà fait cesse de souder (revue P3)",
+  },
+  {
+    id: "I2-egalite", tests: 'tests/invariants.mesure.test.ts', file: "src/lib/progression.ts",
+    from: "(acc.soudureIdx === null ? [] : acc.mesures.slice(acc.soudureIdx))",
+    to: "(acc.solideDepuis === null ? [] : acc.mesures.filter((e) => e.at >= acc.solideDepuis!))",
+    pourquoi: "la soudure se compare par INSTANT : à instants égaux, un run qui la précède compte (revue I2, solide ⇔ pretManque)",
+  },
+  {
+    id: "I1-pente", tests: 'tests/invariants.mesure.test.ts', file: "src/lib/program/trajectory.ts",
+    from: ".map((p) => indiceAt(events, totalTeile, addDays(parseISO(p.date), 1).getTime() - 1, 'serie4'));",
+    to: ".map((p) => p.indice);",
+    pourquoi: "la pente se lit sur les points AFFICHÉS : elle traverse la marche, ou disparaît le jour de la bascule (revue I1)",
+  },
+  {
+    id: "P1-dette", tests: 'tests/invariants.mesure.test.ts', file: "src/lib/journal.ts",
+    from: "teilAConfirmer(cp.teile[t], jour) ? POIDS_CONSOLIDATION : 1)",
+    to: "teilAConfirmer(cp.teile[t], jour) ? 1 : 1)",
+    pourquoi: "un Teil à confirmer pèse comme un Teil jamais travaillé : dix cas redevenus acquis remplissent le plan (revue P1)",
   },
 ];
 

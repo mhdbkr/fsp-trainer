@@ -122,6 +122,38 @@ describe('INV-61 — solide stable : deux réussites ≥ 80 espacées d’au moi
     expect(nonSolidesAvec80).toBeGreaterThan(20);       // des cas « deux ≥ 80 mais trop proches » existent vraiment
   });
 
+  it('équivalence (revue m1) : le statut de CHAQUE Teil est celui d’un automate écrit à part, dans les deux sens', async () => {
+    /** L'oracle garde TOUTES les réussites passées (et non la première) : si les deux lectures divergent, un des deux ment. */
+    function oracle(suite: { at: number; s: number }[]): string {
+      let st = 'vierge';
+      const reussites: number[] = [];
+      for (const { at, s } of suite) {
+        if (st === 'solide') st = s >= 80 ? 'solide' : 'acquis';
+        else if (s < 60) st = 'fragile';
+        else if (s < 80) st = 'acquis';
+        else st = reussites.some((r) => differenceInCalendarDays(at, r) >= SOLIDE_ECART_JOURS) ? 'solide' : 'acquis';
+        if (s >= 80) reussites.push(at);
+      }
+      return st;
+    }
+    const vus: Record<string, number> = {};
+    await forAll(500, (r) => {
+      const evs = Array.from({ length: r.int(1, 16) }, () => {
+        const teile = r.shuffle(TEILE).slice(0, r.int(1, 3));
+        return { ...mesure('c1', jour(r.int(0, 12)), Object.fromEntries(teile.map((t) => [t, r.pick([20, 55, 62, 79, 80, 84, 100])])), {}, r.int(6, 22)) };
+      });
+      const cp = progressOf(evs);
+      for (const t of TEILE) {
+        const suite = trie(evs).filter((e) => e.scores?.[t] != null).map((e) => ({ at: e.at, s: e.scores![t]! }));
+        const attendu = oracle(suite);
+        expect(cp.teile[t].status, `${t} après ${suite.map((x) => `${dayKey(x.at)}:${x.s}`).join(' ')}`).toBe(attendu);
+        vus[attendu] = (vus[attendu] ?? 0) + 1;
+      }
+    });
+    for (const k of ['fragile', 'acquis', 'solide']) expect(vus[k], k).toBeGreaterThan(100);
+    expect(vus.vierge).toBeGreaterThan(20);
+  });
+
   it('table de vérité de l’écart (jours calendaires, pas 24 h)', () => {
     const st = (a: [number, number], b: [number, number]) =>
       progressOf([mesure('c1', jour(a[0]), { anamnese: 85 }, {}, a[1]), mesure('c1', jour(b[0]), { anamnese: 85 }, {}, b[1])]).teile.anamnese.status;
@@ -566,9 +598,10 @@ describe('INV-69 — la frise passée est figée', () => {
 
   it('la frise : aucun point antérieur à la date ne change ; un repère marque la marche ; la pente est recalculée sur la nouvelle règle', () => {
     const cases = CORPUS.slice(0, 4);
-    // Un mauvais score la veille : série 3 → `fragile` (0,3) ; série 4 → un cran seulement, `acquis` (0,7).
-    // La marche des points AFFICHÉS est donc montante — une pente lue sur eux projetterait un progrès qui n'a pas eu lieu.
+    // Une réussite unique au début de la fenêtre de la pente : « solide » en série 3 (points affichés),
+    // « acquis » en série 4. Une pente lue sur les points AFFICHÉS mélange les deux règles.
     const evs = [
+      mesure(cases[1].id, addDaysISO(DATE_NOUVELLE_REGLE, -13), tous(90)),
       mesure(cases[0].id, addDaysISO(DATE_NOUVELLE_REGLE, -9), tous(90)), mesure(cases[0].id, addDaysISO(DATE_NOUVELLE_REGLE, -5), tous(90)),
       mesure(cases[0].id, addDaysISO(DATE_NOUVELLE_REGLE, -2), { anamnese: 40 }),
     ];
@@ -579,7 +612,7 @@ describe('INV-69 — la frise passée est figée', () => {
     for (const p of passes) expect(p.indice, p.date).toBe(indice3(evs, cases.length * 3, morning(p.date, 23) + 3_599_000));
     expect(t.repere).toEqual({ date: DATE_NOUVELLE_REGLE });
     const apres = t.points.find((p) => p.date === DATE_NOUVELLE_REGLE)!;
-    expect(apres.indice, 'la marche affichée (anamnese : fragile → acquis)').toBeGreaterThan(passes[passes.length - 1].indice);
+    expect(apres.indice, 'la marche affichée à la date de bascule').not.toBe(passes[passes.length - 1].indice);
     const att = projectionAttendue(evs, cases.length * 3, t.points.map((p) => p.date), t.projection.length);
     expect(att.parJour).toBeGreaterThan(0);
     expect(t.projection.map((p) => p.indice), 'la projection suit la pente de la nouvelle règle, pas celle des points affichés').toEqual(att.pts);
