@@ -29,6 +29,7 @@ import { Portal } from '@/components/Portal';
 import { buildPromptPaket, promptText, type AnkerTeil } from '@/lib/externalAi/prompt';
 import { AI_TARGETS, copyText, launchPlan, loadTarget, saveTarget, setPending, type TargetId } from '@/lib/externalAi/targets';
 import './teilAi.css';
+import { now } from '@/lib/clock';
 
 const STEPS: Record<AnkerTeil, { text: string; icon: string }[]> = {
   anamnese: [
@@ -107,7 +108,7 @@ export function TeilAiPanel({ caseId, teil, autoFocus = false }: { caseId: strin
     saveTarget(id).catch(() => {});
   };
   const record = () => {
-    Promise.all([saveTarget(target), setPending({ caseId, targetId: target, teil, at: Date.now() })]).catch(() => {});
+    Promise.all([saveTarget(target), setPending({ caseId, targetId: target, teil, at: now() })]).catch(() => {});
   };
   const settle = (copied: boolean, via: Outcome['via']) => {
     const r = launchStatus({ copied, level: plan.level, via, teil, label: t.label });

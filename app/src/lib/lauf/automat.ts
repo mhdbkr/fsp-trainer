@@ -3,6 +3,7 @@ import type {
 } from '@/db/types';
 import { checklistPct, emptyLanguageGrid, languagePct } from '@/lib/scoring';
 import { ZUSTAENDE, type Lauf, type LaufTeil, type LaufZustand, type TeilEntwurf } from './types';
+import { now } from '@/lib/clock';
 
 // ============================================================================
 // L'automate d'une partie de simulation. Contrat §2, ADR-0018.
@@ -80,7 +81,7 @@ export function erstelleLauf(i: LaufEingabe): Lauf {
     zustand: 'vorbereitung',
     aktuellerTeil: null,
     teilVorAufklaerung: null,
-    startedAt: Date.now(),
+    startedAt: now(),
     teileGespielt: [],
     teile: {},
     checkliste: [],
@@ -344,7 +345,7 @@ export function transition(lauf: Lauf, aktion: LaufAktion): Lauf {
       // Transition d'état seulement. L'écriture en base vit dans `speichern.ts`
       // et est idempotente sur `lauf.id`.
       if (lauf.zustand !== 'checkliste' && lauf.zustand !== 'arztbrief') return lauf;
-      return { ...lauf, zustand: 'gespeichert', aktuellerTeil: null, endedAt: Date.now() };
+      return { ...lauf, zustand: 'gespeichert', aktuellerTeil: null, endedAt: now() };
     }
   }
 }
