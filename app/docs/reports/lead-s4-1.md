@@ -5,6 +5,25 @@ Branche `feat/s4-1-mesure` (base `origin/main` @ `bc5382ed`), worktree `doctopus
 Skills : l'outil Skill n'était pas disponible dans ce contexte ; j'ai lu à la main `dept-fondations` et `dept-coordination`
 (`.claude/skills/*/SKILL.md`). Pas de `state.md` (aucun pipeline nommé) : le brief est le message de dispatch.
 
+## Revues et corrections (4–5 oct.)
+
+**Verdicts.** Mécanique (Opus) : *Needs fixes* — mesure juste, pure, déterministe ; rejeu sur 3 journaux réalistes : INV-69 tenu, l'annonce compte exactement les Teile qui changent. Pédagogie (droit de veto) : *accord avec réserves*, aucun veto. Le contrat a été amendé en conséquence (`bd61914e` : grille = cinq critères, bascule au lendemain du merge, invariant `solide ⇔ pretManque non vide`).
+
+| Item | Correction | Commit | Preuve |
+|---|---|---|---|
+| I1 la projection disparaissait le jour de la bascule | la pente se lit sur les `slopeDays+1` derniers jours **recalculés avec la nouvelle règle** (`indiceAt(…, regle)`) ; points affichés inchangés | `c79863f7` | rouge : `indiceProjete` nul à J+0, J+1, J+3, J+10 ; mutation `I1-pente` tuée (le test d'origine ne la discriminait pas : la pente ne dépend que des extrémités, il lui faut une réussite unique au début de la fenêtre) |
+| I2 `solide ⇔ pretManque` faux à instants égaux | la soudure retient sa **position** (`soudureIdx`) ; `qual` et `pretManque` se cherchent après elle | `1cdba8a0` | rouge : contre-exemple de la revue + propriété à instants égaux (800 tirages, > 100 journaux à instants égaux) ; mutation `I2-egalite` tuée |
+| P1 les cas redevenus acquis envahissaient le plan | `detteTeil(cp, jour)` : Teil « à confirmer » (acquis, déjà réussi ≥ 80, `solideDes` passé) = `POIDS_CONSOLIDATION`. `raisonAConfirmer(cp, jour)` pure : « Réussi à 85 le 12 sept. — une seconde partie à 80 ou plus le confirme. » | `cadd3e42` | rouge : dix cas fréquents redevenus acquis ; le plan du lendemain garde un cas jamais joué ; mutation `P1-dette` tuée |
+| P2 « jamais travaillé » sur un cas joué | `select.ts` : `&& !ctx.lastPlayedAt.has(s.c.id)` (une ligne) | `ded8c592` | rouge d'abord (`select.test.ts`) |
+| m1 | INV-61 : automate indépendant, **deux sens**, 500 tirages ; INV-56 : `solideDepuis` recalculé par préfixes ; mutations `INV-61c` (témoin = dernière réussite) et `P3-solideDepuis` | `1cdba8a0`, `c7e1932a` | 44 mutations |
+| m2 texte de l'annonce | titre et corps de la pédagogie, date de la marche = `DATE_NOUVELLE_REGLE` formatée | `08137c6a` | texte comparé au caractère près |
+| m3 / m4 | commentaire `TaskInstance.teil` ; « 26 h » → « 50 h » | `55eb2b47`, `1cdba8a0` | — |
+
+Ajouts de contrat qui en découlent (à ratifier) : `TeilProgress.premiereReussite { at, score }` (la phrase de P1 a besoin du score) ; `detteTeil` prend un jour (défaut : l'horloge, `dayKey(now())`) — **S4-2 doit le passer explicitement** (`restePlan` le remplacera) ; `pretManque` ignore les runs à `examenManque = []` (déjà qualifiants : ils auraient soudé).
+Non fait, comme demandé : `DATE_NOUVELLE_REGLE` (`main` la pose au merge) ; l'affichage de `solideDes` et de la maîtrise (S4-4).
+Réserve de l'annonce : « une nouvelle partie à 80 ou plus suffit » est exact une fois `solideDes` passé ; pour une réussite de la veille de la bascule, il faut attendre l'écart de trois jours. C'est le texte validé.
+Un `git stash` (`stash@{0}: autostash`) existe dans ce dépôt : il n'est pas de moi (je n'en ai jamais fait), je n'y ai pas touché.
+
 ## Ce qui est livré
 
 | Fichier | Rôle |
@@ -46,12 +65,12 @@ Vert : `a0e2c1f2`. Mutations dans `scripts/parcours-mutations.mjs` (`a13ba333`),
 | Commande | Résultat |
 |---|---|
 | `npx tsc -b --noEmit` | 0 |
-| `npm run test:c6` | 0 — 6 fichiers, 52 tests |
-| `node scripts/parcours-mutations.mjs` (**complet**, load 8) | 0 — baseline vert, **40/40** tuées (22 anciennes + 18 nouvelles) |
-| `npx vitest run --dir src` | Dernière passe complète (load 11 → 80, la machine était saturée par d'autres) : 1293 passés, 8 échecs, **tous des délais dépassés dans des fichiers que je n'ai pas touchés** (7 « timed out » ; le huitième est dans le même cas) — les 6 fichiers relancés avec `--testTimeout=60000` : 36/36 verts. Une passe précédente à load ~10 : 1314 passés, 1 échec à moi (corrigé, ci-dessous). Baseline : 25 délais dépassés à load 22–29. |
+| `npm run test:c6` | 0 — 6 fichiers, 59 tests |
+| `node scripts/parcours-mutations.mjs` (**complet**) | 0 — baseline vert, **44/44** tuées (22 anciennes, 17 de la livraison, 5 des revues ; INV-69b remplacée par I1-pente), load 10 |
+| `npx vitest run --dir src` (après les revues) | 1314 passés, 2 échecs (`TermSheet`, `ResultScreen`) : délais dépassés sous charge (load 20), fichiers non touchés ; relancés avec `--testTimeout=60000` : 12/12 verts. |
 | `npm run build` | 0 |
 | `scripts/check*.mjs` (31) | 30 à 0. `checkProbeOverlap.mjs` = 1, **déjà 1 sur la base** et `|| true` dans la CI. `checkProtocolCoverage.py` = 1 ici (division par zéro : les sources brutes ne sont pas dans le worktree), 0 dans le dépôt principal. |
-| `git merge-tree --write-tree origin/main HEAD` | 0 (origin/main a avancé jusqu'à `c1f99ff6`) |
+| `git merge-tree --write-tree origin/main HEAD` | 0 |
 
 Le 1 échec `src` (`journal.etatCas.test.ts`, `solideDes` attendu `null`, reçu `undefined`) a été corrigé et ce fichier relancé : 20/20. La passe complète faite après n'a eu que des délais dépassés (ligne ci-dessus).
 Navigateur : `vite` local (`VITE_AUTH_MODE=public`, Supabase factice sur un port refusé : aucun contact avec le projet EU), base IndexedDB neuve, journal semé dans `progress_events`. Mesuré dans le DOM : l'encart apparaît, « Compris » le ferme et pose `annonce.s4.teile`, il ne revient pas au rechargement. Capture relue : sobre.

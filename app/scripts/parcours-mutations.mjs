@@ -188,8 +188,8 @@ export const MUTATIONS = [
   },
   {
     id: "INV-56a", tests: 'tests/invariants.mesure.test.ts', file: "src/lib/progression.ts",
-    from: "qualifiant(e) && e.at >= depuis)",
-    to: "qualifiant(e))",
+    from: "const qual = toutSolide ? depuisSoudure(acc).filter(qualifiant) : [];",
+    to: "const qual = toutSolide ? acc.mesures.filter(qualifiant) : [];",
     pourquoi: "un run en conditions d’examen ANTÉRIEUR à la soudure (ou à une retombée) soude l’anneau",
   },
   {
@@ -200,8 +200,8 @@ export const MUTATIONS = [
   },
   {
     id: "INV-56c", tests: 'tests/invariants.mesure.test.ts', file: "src/lib/progression.ts",
-    from: "? acc.solideDepuis ?? te.at : null;",
-    to: "? acc.solideDepuis ?? te.at : acc.solideDepuis;",
+    from: "{ acc.solideDepuis = null; acc.soudureIdx = null; }",
+    to: "{ }",
     pourquoi: "une retombée ne défait pas la soudure : le vieux run redevient qualifiant à la re-solidification",
   },
   {
