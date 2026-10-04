@@ -189,15 +189,15 @@ describe('INV-5 / INV-6 — un exercice libre apparaît dans l’historique et d
 });
 
 // ---------------------------------------------------------------------------
-// BUG RÉEL BUG-C6-1, trouvé par le candidat synthétique navigateur (jour 1) — gardé en
-// `it.fails` avec sa preuve. Un·e candidat·e anonyme reçoit 3 simulations de démonstration
+// BUG RÉEL BUG-C6-1, trouvé par le candidat synthétique navigateur (jour 1) — CORRIGÉ au
+// lot C6-A (garde `estMesuree` + `useSimulations`, migration Dexie v6) ; ce test le garde. Un·e candidat·e anonyme reçoit 3 simulations de démonstration
 // (`sim-demo-*`, data/seed.ts `ensureDemoData`). Dès sa première séance réelle, les Stats les
 // comptent : « 3 simulations complètes · 1 par partie » alors qu'elle n'a joué qu'UNE partie.
 // Les scores par axe, la courbe et les spécialités lisent les mêmes `simulations`. Les démos
 // sont déjà reconnues à la migration (`isDemoSimulation`, lib/sync/migrateLocal.ts), pas ici.
 // ---------------------------------------------------------------------------
 describe('BUG-C6-1 — les simulations de démonstration ne comptent pas dans les stats', () => {
-  it.fails('une candidate anonyme qui a joué UNE partie voit « 0 simulations complètes · 1 par partie »', async () => {
+  it('une candidate anonyme qui a joué UNE partie voit « 0 simulations complètes · 1 par partie »', async () => {
     globalThis.ResizeObserver ??= class { observe() {} unobserve() {} disconnect() {} } as unknown as typeof ResizeObserver;
     startOn('2026-10-05');
     await db.meta.put({ key: 'program', value: randomConfig(rng(1)) } as never);

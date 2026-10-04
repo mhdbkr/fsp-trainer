@@ -47,9 +47,7 @@ const T0 = Date.now();
  * est listé en tête du rapport avec sa preuve. Si l'invariant repasse au vert, la sortie est 1 :
  * il faut retirer l'entrée ici, sinon le bug corrigé ne serait plus gardé.
  */
-const CONNUS = {
-  D5s: 'BUG-C6-1 — les 3 simulations de démonstration (« sim-demo-* », data/seed.ts ensureDemoData) restent dans la base de la candidate anonyme et sont comptées dans les Stats dès sa première séance : « 3 simulations complètes » avant d\'avoir joué une seule partie complète, scores par axe compris (lib/stats.ts, features/stats/StatsPage.tsx).',
-};
+const CONNUS = {};   // BUG-C6-1 corrigé (lot C6-A) : D5s n'est plus un bug connu, il est gardé pour de bon.
 
 const DOW = ['dimanche', 'lundi', 'mardi', 'mercredi', 'jeudi', 'vendredi', 'samedi'];
 const MOIS = ['janvier', 'février', 'mars', 'avril', 'mai', 'juin', 'juillet', 'août', 'septembre', 'octobre', 'novembre', 'décembre'];
@@ -200,16 +198,10 @@ async function parcours({ browser, base, supabaseUrl }) {
     await c.aller('/stats');
     await until(page, () => /Stats \/ Performances/.test(document.body.innerText), 'stats');
     const st = (await texte(page)).match(/(\d+) simulations complètes · (\d+) par partie/);
-    const demos = (await idb(page, 'simulations')).filter((x) => x.id.startsWith('sim-demo-'));
-    const dC = demos.filter((x) => (x.scope ?? (Object.keys(x.parts).length >= 2 ? 'full' : 'teil')) === 'full').length, dP = demos.length - dC;
     const lu = st ? `stats : ${st[1]} complètes · ${st[2]} par partie` : 'compte absent';
     await c.verifie('D5s', 'les stats comptent exactement ce que la candidate a joué', () => ({
       ok: !!st && Number(st[1]) === grand.completes && Number(st[2]) === grand.parties,
-      detail: `${lu} ; jouées : ${grand.completes} complètes · ${grand.parties} par partie ; démos présentes en base : ${demos.length}`,
-    }));
-    await c.verifie('D5r', 'ce que la candidate a joué est compté et classé juste dans les stats (complète / par partie), démos déduites', () => ({
-      ok: !!st && Number(st[1]) - dC === grand.completes && Number(st[2]) - dP === grand.parties,
-      detail: `${lu} − démos (${dC} complètes, ${dP} par partie) ; jouées : ${grand.completes} complètes · ${grand.parties} par partie`,
+      detail: `${lu} ; jouées : ${grand.completes} complètes · ${grand.parties} par partie`,
     }));
 
     const plans = await idb(page, 'day_plans');
