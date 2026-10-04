@@ -42,7 +42,7 @@ const SIGNES: Array<{ nom: string; paire: string; re: RegExp; sauf?: RegExp }> =
   { nom: 'régularité du cycle', paire: 'frau-periode ⇔ alternative de fach-gyn-blutung « Bekommen Sie Ihre Tage regelmäßig? »',
     re: /monatsblutung[^?]*regelmäßig|tage regelmäßig|zyklus[^?]*(lang|verändert)|regelmäßig[^?]*(monatsblutung|periode)/i },
   { nom: 'saignement depuis la ménopause', paire: 'frau-periode (> 55 ans) ⇔ relance de fach-gyn-blutung « Falls die Periode schon aufgehört hat »',
-    re: /seitdem[^?]*blutung/i },
+    re: /seitdem[^?]*blutung|seit ihrer letzten regelblutung[^?]*blutung/i },
   { nom: 'grossesse possible', paire: 'frau-schwanger ⇔ toute autre question « schwanger sind »',
     re: /möglichkeit[^?]*schwanger|schwanger (sind|sein|gewesen)|schon einmal schwanger/i },
   { nom: 'contraception', paire: 'frau-verhuetung ⇔ question du cas « Spirale » (adnexitis) ⇔ « die Pille genommen » (endometriose, mammakarzinom)',
@@ -60,6 +60,8 @@ const SIGNES: Array<{ nom: string; paire: string; re: RegExp; sauf?: RegExp }> =
     re: /wie viele (schwangerschaften|kinder)|schwangerschaften und geburten|fehlgeburt|kinder[^?]*geboren/i },
   { nom: 'douleur au rapport', paire: 'fach-gyn-dyspareunie ⇔ question du cas « Schmerzen beim Geschlechtsverkehr — am Anfang oder tief » (endometriose, aktuell)',
     re: /schmerzen beim geschlechtsverkehr/i },
+  { nom: 'opérations gynécologiques', paire: 'fach-gyn-eingriffe (Gebärmutter, Eileiter, Eierstöcke) ⇔ question du cas « Operation an den Eileitern » (eug)',
+    re: /an der gebärmutter[^?]*operiert|operation an den eileitern/i },
   { nom: 'ménopause', paire: 'frau-wechseljahre ⇔ question du cas « Hormonersatztherapie gegen Wechseljahresbeschwerden » (mammakarzinom)',
     re: /wechseljahre|menopause|hitzewallung/i,
     // « Hormonersatz in den Wechseljahren » est un exemple de la question des hormones.
@@ -169,4 +171,96 @@ describe('Q-gyn — mutations (la garde rougit)', () => {
   for (const [ch, texte, signe] of REFORMULATIONS) {
     it(`reformulation « ${texte} » rougit`, () => { expect(doublons(inject(ch, texte)).join()).toMatch(signe); });
   }
+});
+
+// ── Revue clinique gynéco (C1–C4 + décisions) et revue de langue (L1–L3) ─────
+describe('Q-gyn — revues clinique et langue', () => {
+  const byId = (id: string) => cases.find((c) => c.id === id)!;
+  const bloc = (c: Case) => playedTrame(c).fach!.chapter.questions;
+  const parSonde = (c: Case, probe: string) => bloc(c).find((q) => phraseProbes(q).includes(probe))!;
+  const dit = (c: Case, probe: string) => said(parSonde(c, probe));
+  const tousTextes = (c: Case) => bloc(c).flatMap(said);
+  const adnexitis = byId('case-adnexitis');
+
+  it('C1 — une seule question « Hormone », au passé et au thérapeutique, en forme orale', () => {
+    const q = parSonde(adnexitis, 'fach-gyn-eingriffe');
+    expect(phraseFollowUp(q)).toEqual(['Nehmen oder nahmen Sie Hormone ein — etwa Hormonersatz in den Wechseljahren, oder die Pille oder Spirale als Behandlung?']);
+  });
+  it('C1 — après 55 ans, la ménopause ne porte plus que « Beschwerden » (les hormones sont celles du bloc)', () => {
+    const q = parSonde(withAge(byId('case-endometriose'), 76), 'frau-wechseljahre');
+    expect(phraseText(q)).toBe('Wie haben Sie die Wechseljahre erlebt — hatten Sie Beschwerden?');
+    expect(phraseFollowUp(q)).toEqual([]);
+  });
+  it('C2 — la longueur du cycle est une relance de frau-periode', () => {
+    expect(phraseFollowUp(parSonde(byId('case-uterus-myomatosus'), 'frau-periode')))
+      .toEqual(['Wann war Ihre letzte Regelblutung?', 'Wie viele Tage liegen zwischen dem Beginn einer Blutung und dem Beginn der nächsten?']);
+  });
+  it('C3 — HPV jusqu’à 35 ans, mammographie dès 50 ans (clones de cas)', () => {
+    const fautes = [23, 31, 35, 36, 44, 49, 50, 54, 76].flatMap((age) => {
+      const t = dit(withAge(adnexitis, age), 'fach-gyn-vorsorge').join(' ');
+      return [(/HPV/.test(t) !== age <= 35) && `HPV @${age}`, (/Mammographie/.test(t) !== age >= 50) && `Mammographie @${age}`].filter(Boolean);
+    });
+    expect(fautes).toEqual([]);
+  });
+  it('C3 — fiches : HPV répondu pour endometriose (31 ans), EUG ne dit plus « zu alt »', () => {
+    expect(byId('case-endometriose').patientSheet.antworten!['fach-gyn-vorsorge']).toMatch(/HPV/);
+    const eug = byId('case-eug').patientSheet.antworten!['fach-gyn-vorsorge'];
+    expect(eug).not.toMatch(/zu alt/);
+    expect(eug).toMatch(/nie angeboten/);
+  });
+  it('C4 — adnexitis : plus de question du cas sur le début après la période ; la réponse le dit', () => {
+    expect(tousTextes(adnexitis).join(' ')).not.toMatch(/kurz nach Ihrer letzten Periode/);
+    expect(adnexitis.patientSheet.antworten!['fach-gyn-unterbauch']).toContain('Die Schmerzen haben etwa drei Tage nach dem Ende der letzten Periode begonnen.');
+  });
+  it('décision — dyspareunie : une question, deux relances', () => {
+    const q = parSonde(adnexitis, 'fach-gyn-dyspareunie');
+    expect(phraseText(q)).toBe('Haben Sie Schmerzen beim Geschlechtsverkehr?');
+    expect(phraseFollowUp(q)).toEqual(['Falls ja: Eher am Anfang oder tief im Inneren?', 'Brennt oder schmerzt es beim Wasserlassen?']);
+  });
+  it('décision — opérations : Gebärmutter, Eileiter ou Eierstöcke', () => {
+    expect(phraseText(parSonde(adnexitis, 'fach-gyn-eingriffe'))).toBe('Wurden Sie schon an der Gebärmutter, an den Eileitern oder an den Eierstöcken operiert?');
+  });
+  it('mineur — mammakarzinom : « erste Regel » juste après la régularité, « gestillt » juste après la gestité', () => {
+    const texte = bloc(byId('case-mammakarzinom')).map((q) => phraseProbes(q)[0] ?? phraseText(q));
+    expect(texte[texte.indexOf('frau-periode') + 1]).toBe('In welchem Alter hatten Sie Ihre erste Regel?');
+    expect(texte[texte.indexOf('fach-gyn-schwangerschaften') + 1]).toBe('Haben Sie schon einmal gestillt?');
+  });
+  it('mineur — eug : « Schwangerschaftstest » juste après la grossesse possible', () => {
+    const texte = bloc(byId('case-eug')).map((q) => phraseProbes(q)[0] ?? phraseText(q));
+    expect(texte[texte.indexOf('frau-schwanger') + 1]).toBe('Haben Sie bereits einen Schwangerschaftstest gemacht?');
+  });
+  it('mineur — après 55 ans : le saignement depuis la dernière règle est la relance du rang 1, pas de la Blutung', () => {
+    const c = withAge(byId('case-endometriose'), 70);
+    expect(phraseFollowUp(bloc(c)[0])).toEqual(['Hatten Sie seitdem noch einmal eine Blutung?']);
+    expect(phraseFollowUp(parSonde(c, 'fach-gyn-blutung'))).toEqual([]);
+    expect(doublons(played(c))).toEqual([]);
+  });
+  it('mineur — le conseil du bloc ne redit pas l’alarme et ne parle ni grossesse ni contraception après 55 ans', () => {
+    const tip = playedTrame(withAge(byId('case-endometriose'), 70)).fach!.chapter.tip!;
+    expect((tip.match(/post-ménopausique/g) ?? []).length).toBe(1);
+    expect(tip).not.toMatch(/grossesse|contraception|enceinte|pré-éclampsie/i);
+    expect(playedTrame(adnexitis).fach!.chapter.tip).toMatch(/grossesse possible, contraception/);
+  });
+  it('mineur — paire « opérations gynécologiques » : l’opération des trompes n’est cherchée qu’une fois (eug)', () => {
+    expect(doublons(played(byId('case-eug')))).toEqual([]);
+    expect(tousTextes(byId('case-eug')).join(' ')).not.toMatch(/Operation an den Eileitern/);
+  });
+  it('L1–L2 + mineurs de langue — textes du bloc', () => {
+    const t = tousTextes(adnexitis);
+    for (const attendu of [
+      'Gab es dabei auch Fehlgeburten oder Schwangerschaftsabbrüche?',
+      'Falls ja: Hat der Ausfluss einen auffälligen Geruch?',
+      'Falls ja: Seit wann bemerken Sie den Ausfluss?',
+      'Falls Ihre Periode schon aufgehört hat: Hatten Sie seit Ihrer letzten Regelblutung noch einmal eine Blutung?',
+      'Falls ja: Wo genau sitzen die Schmerzen?',
+      'Falls ja: Hängen die Schmerzen mit Ihrem Zyklus zusammen?',
+      'Falls ja: Welche Methode verwenden Sie?',
+      'Falls Kaiserschnitt: Aus welchem Grund wurde der Kaiserschnitt gemacht?',
+    ]) expect(t, attendu).toContain(attendu);
+  });
+  it('L3 — endometriose : la Pille, au bon temps', () => {
+    expect(tousTextes(byId('case-endometriose')).join(' ')).not.toMatch(/Wie waren die Schmerzen unter der Pille/);
+    const cq = (byId('case-endometriose').caseSpecificQuestions ?? []).map((q) => (typeof q === 'string' ? q : q.frage));
+    expect(cq).toContain('Falls Sie die Pille genommen haben oder genommen hatten: Wie waren die Schmerzen damals im Vergleich zu heute?');
+  });
 });
