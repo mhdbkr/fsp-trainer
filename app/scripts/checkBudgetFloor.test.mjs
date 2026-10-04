@@ -53,6 +53,18 @@ test('K0 — un compteur de résidu plus haut que la base → rouge ; un `null` 
   assert.equal(floor().status, 0);
 });
 
+test('K0 — base entière, tête `null` (le compteur a cessé d\'être mesuré) → rouge', () => {
+  write((rel, j) => (rel.includes('coherence-budget') ? { ...j, residu: { ...j.residu, nonReduit: 5 } } : j));
+  const r = floor();
+  assert.equal(r.status, 1);
+  assert.match(r.stdout, /nonReduit/);
+});
+
+test('K0 — base `null`, tête entière (le compteur devient mesurable) → vert', () => {
+  write((rel, j) => (rel.includes('coherence-budget') ? { ...j, brut: { ...j.brut, doublons: null } } : j));
+  assert.equal(floor().status, 0);
+});
+
 test('une annotation relu de plus que la base → rouge', () => {
   write((rel, j) => (rel.includes('trame') ? { ...j, relu: j.relu - 1 } : j));
   assert.equal(floor().status, 1);
