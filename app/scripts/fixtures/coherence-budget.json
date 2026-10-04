@@ -1,0 +1,21 @@
+{
+  "mesureLe": "2026-10-04",
+  "cas": 130,
+  "source": "K0 — lecture du texte et profil PROPOSÉ ; exacts quand les déclarations remplacent la lecture (K1 sondes, K2 profils, K4 questions du cas).",
+  "brut": {
+    "doublons": 266,
+    "doublonsCas": 20,
+    "horsProfil": 56,
+    "exigeAbsent": 58,
+    "relancesOrphelines": 0,
+    "brauchtViole": 20,
+    "ajouteSansReponse": 56
+  },
+  "residu": {
+    "questionsMuettes": 829,
+    "sondesMuettes": 148,
+    "nonReduit": null,
+    "casRetiresParR1": null
+  },
+  "allowed": []
+}
