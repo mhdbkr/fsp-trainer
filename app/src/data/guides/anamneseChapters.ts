@@ -565,7 +565,7 @@ export const ALLGEMEINE_ANAMNESE: AnamneseChapter[] = [
         text: 'Haben Sie Ihre Körpertemperatur in letzter Zeit gemessen? Haben Sie Fieber festgestellt?',
         probe: 'veg-fieber',
         followUp: [
-          'Falls ja: Seit wann?',
+          'Falls Fieber: Seit wann haben Sie Fieber?',
           'Falls ja: Wie hoch war die Temperatur?',
           'Falls ja: Wo haben Sie gemessen (z. B. im Mund)?',
           'Waren Sie kürzlich im Ausland?',
@@ -673,7 +673,7 @@ export const ALLGEMEINE_ANAMNESE: AnamneseChapter[] = [
           'Falls ja: Wie viele Zigaretten ungefähr pro Tag?',
           'Falls aufgehört: Wann haben Sie aufgehört?',
           'Falls aufgehört: Wie viele Jahre haben Sie geraucht?',
-          'Falls aufgehört: Wie viel pro Tag davor?',
+          'Falls aufgehört: Wie viel haben Sie davor pro Tag geraucht?',
         ],
       },
       {
@@ -1302,10 +1302,10 @@ export const FACHANAMNESEN: FachanamneseGuide[] = [
         probe: 'fach-onko-knoten',
         alts: ['Wann haben Sie diese Veränderung / diesen Knoten das erste Mal bemerkt?'],
         followUp: [
-          'Falls ja: Ist er hart oder weich?',
-          'Falls ja: Lässt er sich verschieben, oder sitzt er fest?',
-          'Falls ja: Tut er beim Tasten weh?',
-          'Falls ja: Ist er seitdem größer geworden?',
+          'Falls ja: Ist es hart oder weich?',
+          'Falls ja: Lässt es sich verschieben, oder sitzt es fest?',
+          'Falls ja: Tut es beim Tasten weh?',
+          'Falls ja: Ist es seitdem größer geworden?',
         ],
       },
       {

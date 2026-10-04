@@ -39,7 +39,7 @@ describe('G4 — relances conditionnelles préfixées', () => {
   const CASES: [probe: string, start: string, kind: 'ja' | 'skala'][] = [
     ['nox-alkohol', 'Trinken Sie täglich', 'ja'],
     ['fach-gastro-uebelkeit', 'Geht es Ihnen besser', 'ja'],
-    ['fach-onko-knoten', 'Tut er beim Tasten weh', 'ja'],
+    ['fach-onko-knoten', 'Tut es beim Tasten weh', 'ja'],
     ['akt-atemnot-husten', 'Husten Sie dabei etwas ab', 'ja'],
     ['akt-atemnot-husten', 'Ist Blut dabei', 'ja'],
     ['fach-uro-frequenz', 'Wie oft müssen Sie nachts', 'ja'],
@@ -139,7 +139,7 @@ describe('Q2 — relances découpées, l\'information est gardée', () => {
       }
     });
   }
-  it('veg-fieber : le voyage est une question, les vaccins sa relance (partie « reise »)', () => {
+  it('veg-fieber : le voyage est une question (partie « reise »), les vaccins une question autonome (revue Q2)', () => {
     const q = allQuestions().find((x) => phraseProbes(x).includes('veg-fieber'))!;
     const reise = (q as { parts: { sucht: string[]; text: string; followUp?: string[] }[] }).parts.find((p) => p.sucht.includes('reise'))!;
     expect(reise).toEqual({ sucht: ['reise'], text: 'Waren Sie kürzlich im Ausland?' });

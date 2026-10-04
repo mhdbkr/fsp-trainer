@@ -8581,7 +8581,7 @@ export function seedCases(): Case[] {
         'auf-operation',
       ],
       caseSpecificQuestions: [
-        { frage: 'Haben Sie abgenommen, obwohl Sie normal oder sogar mehr essen?', kapitel: 'fach', sucht: ['gewicht', 'appetit'], followUp: 'Falls ja: Wie viele Kilo in welchem Zeitraum?' },
+        { frage: 'Haben Sie abgenommen, obwohl Sie normal oder sogar mehr essen?', kapitel: 'fach', sucht: ['gewicht', 'appetit'], followUp: 'Falls ja: Wie viele Kilo haben Sie abgenommen?' },
         { frage: 'Kommen Sie noch gut die Treppe hoch, oder haben Sie es schwerer, aus der Hocke wieder hochzukommen?', kapitel: 'aktuell' },
         { frage: 'Ist Ihre Regelblutung schwächer oder unregelmäßiger geworden?', kapitel: 'frauenanamnese' },
         { frage: 'Haben Sie in den letzten Monaten eine Untersuchung mit Kontrastmittel gehabt oder jodhaltige Medikamente eingenommen?', kapitel: 'medikamente' },
@@ -11396,7 +11396,7 @@ export function seedCases(): Case[] {
       ],
       caseSpecificQuestions: [
         { frage: 'Mit wie vielen Kissen schlafen Sie, und wachen Sie nachts auf, weil Sie keine Luft bekommen?', kapitel: 'aktuell', sucht: ['orthopnoe'] },
-        { frage: 'Haben Sie sich gewogen?', kapitel: 'vegetativ', sucht: ['gewicht'], followUp: 'Falls ja: Um wie viel hat sich Ihr Gewicht in welchem Zeitraum verändert?' },
+        { frage: 'Haben Sie sich gewogen?', kapitel: 'vegetativ', sucht: ['gewicht'], followUp: 'Falls ja: Wie viel haben Sie zugenommen?' },
         { frage: 'Sind beide Beine gleich stark geschwollen? Bleibt eine Delle stehen, wenn Sie mit dem Finger daraufdrücken?', kapitel: 'aktuell' },
         { frage: 'Nehmen Sie alle Ihre Tabletten so ein, wie sie verschrieben wurden — haben Sie eine davon weggelassen, zum Beispiel die Entwässerungstablette?', kapitel: 'medikamente' },
         { frage: 'Haben Sie in den letzten Wochen Schmerzmittel wie Ibuprofen oder Diclofenac genommen — wie oft?', kapitel: 'medikamente' },
@@ -32503,7 +32503,7 @@ export function seedCases(): Case[] {
         { frage: 'Wie lang ist Ihr Zyklus, und hat er sich verändert? Wann war Ihre letzte Regelblutung?', kapitel: 'frauenanamnese' },
         { frage: 'Müssen Sie häufiger Wasser lassen als früher, auch nachts? Haben Sie das Gefühl, die Blase nicht ganz zu entleeren?', kapitel: 'aktuell' },
         { frage: 'Sind Sie schneller müde als früher, kommen Sie beim Treppensteigen außer Atem, ist Ihnen schwindelig?', kapitel: 'aktuell' },
-        { frage: 'Besteht ein Kinderwunsch, oder ist Ihre Familienplanung abgeschlossen?', kapitel: 'familie-sozial', followUp: 'Wie viele Schwangerschaften und Geburten hatten Sie?' },
+        { frage: 'Besteht ein Kinderwunsch, oder ist Ihre Familienplanung abgeschlossen?', kapitel: 'familie-sozial', followUp: 'Wie viele Schwangerschaften hatten Sie?' },
         { frage: 'Hatten Sie schon als junges Mädchen sehr starke Blutungen? Bluten Sie leicht aus der Nase oder am Zahnfleisch, bekommen Sie schnell blaue Flecken?', kapitel: 'aktuell', relu: true },
       ],
       examinerQuestions: [
@@ -33012,7 +33012,7 @@ export function seedCases(): Case[] {
       caseSpecificQuestions: [
         { frage: 'Wie viel Urin lassen Sie ungefähr an einem ganzen Tag — können Sie es mit einem Glas oder einer Flasche vergleichen? Und wie viel war es vorher?', kapitel: 'vegetativ' },
         { frage: 'Wie viel haben Sie in den letzten Tagen wirklich getrunken, und wie oft mussten Sie erbrechen oder zur Toilette wegen des Durchfalls?', kapitel: 'vegetativ', relu: true },
-        { frage: 'Haben Sie sich in den letzten Tagen gewogen?', kapitel: 'aktuell', sucht: ['gewicht'], followUp: 'Falls ja: Wie viel Gewicht haben Sie verloren oder zugenommen?' },
+        { frage: 'Haben Sie sich in den letzten Tagen gewogen?', kapitel: 'aktuell', sucht: ['gewicht'], followUp: 'Falls ja: Wie viel haben Sie abgenommen oder zugenommen?' },
         { frage: 'Nehmen Sie Schmerzmittel ein, die Sie ohne Rezept in der Apotheke bekommen — Ibuprofen, Diclofenac oder Voltaren?', kapitel: 'medikamente', followUp: 'Falls ja: Wie viele Tabletten nehmen Sie pro Tag?' },
         { frage: 'Können Sie mir Ihre Blutdrucktablette genau beschreiben oder die Packung zeigen? Ist eine Entwässerungstablette darin enthalten?', kapitel: 'medikamente' },
         { frage: 'Hatten Sie in den letzten Tagen oder Wochen eine Untersuchung mit Kontrastmittel, also ein Röntgen oder eine Computertomographie mit einer Spritze?', kapitel: 'vorerkrankungen' },
@@ -35206,7 +35206,7 @@ export function seedCases(): Case[] {
       caseSpecificQuestions: [
         { frage: 'Schlafen Sie ausreichend lange?', kapitel: 'vegetativ', sucht: ['schlaf'], followUp: 'Falls ja: Fühlen Sie sich morgens trotzdem wie gerädert?' },
         { frage: 'Was sagt Ihre Ehefrau über Ihren Schlaf? Schnarchen Sie, und ist das Schnarchen gleichmäßig oder unregelmäßig?', kapitel: 'vegetativ', relu: true },
-        { frage: 'Hat Ihre Frau schon einmal beobachtet, dass Sie im Schlaf für eine Zeit lang nicht atmen?', kapitel: 'aktuell', relu: true, followUp: 'Falls ja: Wie lange dauern diese Pausen etwa?' },
+        { frage: 'Hat Ihre Frau schon einmal beobachtet, dass Sie im Schlaf eine Zeit lang nicht atmen?', kapitel: 'aktuell', relu: true, followUp: 'Falls ja: Wie lange dauern diese Pausen etwa?' },
         { frage: 'Wachen Sie nachts manchmal mit einem Erstickungs- oder Würgegefühl auf, oder mit Herzrasen?', kapitel: 'aktuell' },
         { frage: 'Schlafen Sie tagsüber unwillkürlich ein — beim Fernsehen, beim Lesen, im Gespräch, im Wartezimmer?', kapitel: 'vegetativ', relu: true },
         { frage: 'Sind Sie am Steuer schon einmal eingenickt? Ist Ihnen an einer Ampel oder auf der Autobahn etwas passiert, was gerade noch gut gegangen ist?', kapitel: 'aktuell' },
@@ -35681,7 +35681,7 @@ export function seedCases(): Case[] {
         'auf-lumbalpunktion',
       ],
       caseSpecificQuestions: [
-        { frage: 'Sie sagen, Sie werden beobachtet — können Sie mir beschreiben, wie Sie das merken?', kapitel: 'aktuell', followUp: 'Woran erkennen Sie, dass jemand da ist?' },
+        { frage: 'Sie sagen, Sie werden beobachtet — können Sie mir beschreiben, wie Sie das merken?', kapitel: 'aktuell', followUp: 'Seit wann haben Sie dieses Gefühl, beobachtet zu werden?' },
         { frage: 'Haben Sie den Eindruck, dass Sendungen im Radio, im Fernsehen oder Beiträge im Internet etwas mit Ihnen persönlich zu tun haben?', kapitel: 'aktuell' },
         { frage: 'Hören Sie manchmal Stimmen, obwohl niemand im Raum ist? Sprechen sie mit Ihnen, sprechen sie über Sie, oder kommentieren sie, was Sie gerade tun?', kapitel: 'aktuell' },
         { frage: 'Sagen Ihnen die Stimmen jemals, dass Sie etwas tun sollen — auch etwas, das Ihnen oder anderen schaden könnte?', kapitel: 'aktuell' },
@@ -36237,7 +36237,7 @@ export function seedCases(): Case[] {
         { frage: 'Seit wann genau ist Ihr Vater so — kam das über Stunden, über Tage oder über Monate?', kapitel: 'aktuell' },
         { frage: 'Wie war er vor der Operation: Hat er seinen Haushalt allein geführt, eingekauft, seine Bankgeschäfte selbst erledigt?', kapitel: 'familie-sozial' },
         { frage: 'Schwankt sein Zustand im Tagesverlauf? Gibt es Zeiten, in denen er wieder ganz klar ist — und ist es abends und nachts schlimmer?', kapitel: 'aktuell', relu: true },
-        { frage: 'Sieht oder hört er manchmal Dinge, die nicht da sind?', kapitel: 'aktuell', followUp: 'Falls ja: Was genau sieht er dabei?' },
+        { frage: 'Sieht oder hört er manchmal Dinge, die nicht da sind?', kapitel: 'aktuell', followUp: 'Falls ja: Was sieht oder hört er dabei?' },
         { frage: 'Welche Medikamente wurden bei ihm zuletzt neu angesetzt oder abgesetzt — auch im Krankenhaus, auch Schlaf- und Beruhigungsmittel?', kapitel: 'medikamente' },
         { frage: 'Hat er Fieber, und wissen Sie, ob er Beschwerden beim Wasserlassen hat oder nur noch kleine Mengen Urin lässt?', kapitel: 'aktuell', sucht: ['fieber', 'miktion'] },
         { frage: 'Trägt er normalerweise eine Brille und ein Hörgerät — hat er beides jetzt bei sich im Krankenhaus?', kapitel: 'aktuell' },
@@ -41012,7 +41012,7 @@ export function seedCases(): Case[] {
       ],
       caseSpecificQuestions: [
         { frage: 'Hatten Sie in den letzten vier Wochen Halsschmerzen, eine Mandelentzündung oder eine Erkältung — auch wenn sie inzwischen längst wieder abgeklungen ist?', kapitel: 'aktuell' },
-        { frage: 'Haben Sie ein Antibiotikum bekommen?', kapitel: 'medikamente', followUp: 'Falls ja: Wie lange haben Sie es tatsächlich eingenommen — bis zum Ende der Packung?' },
+        { frage: 'Haben Sie ein Antibiotikum bekommen?', kapitel: 'medikamente', followUp: 'Falls ja: Wie lange haben Sie es eingenommen?' },
         { frage: 'Wandern die Schmerzen bei Ihnen von einem Gelenk zum anderen, und wird das zuerst betroffene Gelenk wieder besser, wenn das nächste anfängt?', kapitel: 'aktuell' },
         { frage: 'Ist Ihnen an der Haut etwas aufgefallen — blasse rötliche Ringe oder Flecken am Bauch oder Rücken, die nicht jucken und wieder verschwinden?', kapitel: 'aktuell' },
         { frage: 'Haben Sie kleine schmerzlose Knötchen unter der Haut bemerkt, zum Beispiel über den Ellenbogen, an den Knöcheln oder am Hinterkopf?', kapitel: 'aktuell' },
@@ -48385,7 +48385,7 @@ export function seedCases(): Case[] {
       caseSpecificQuestions: [
         { frage: 'Wie sieht Ihr Stuhlgang aus: ist er voluminös, hell, fettig-glänzend, übelriechend, und lässt er sich schwer wegspülen?', kapitel: 'vegetativ', relu: true },
         { frage: 'Hatten Sie schon einmal eine Bauchspeicheldrüsenentzündung?', kapitel: 'vorerkrankungen', followUp: 'Falls ja: Wann war das?' },
-        { frage: 'Gab es Situationen oder Phasen, in denen es mit dem Alkohol mehr wurde?', kapitel: 'noxen', followUp: 'Seit wie vielen Jahren trinken Sie in dieser Menge?' },
+        { frage: 'Gab es Situationen oder Phasen, in denen es mit dem Alkohol mehr wurde?', kapitel: 'noxen', followUp: 'Seit wie vielen Jahren trinken Sie so viel?' },
         { frage: 'Zittern Ihnen morgens die Hände, schwitzen Sie, oder schlafen Sie schlecht, wenn Sie abends nichts trinken? Haben Sie schon einmal versucht aufzuhören?', kapitel: 'noxen', relu: true },
         { frage: 'Sind Ihnen eine Gelbfärbung der Augen, dunkler Urin oder Juckreiz aufgefallen?', kapitel: 'aktuell' },
         { frage: 'Gibt es in Ihrer Familie Erkrankungen der Bauchspeicheldrüse, Bauchspeicheldrüsenkrebs oder Mukoviszidose?', kapitel: 'familie-sozial' },
@@ -48862,7 +48862,7 @@ export function seedCases(): Case[] {
         'auf-roentgen-thorax',
       ],
       caseSpecificQuestions: [
-        { frage: 'Hatten Sie in den letzten Wochen einen Infekt — eine Erkältung, eine Grippe, einen Magen-Darm-Infekt oder Corona?', kapitel: 'aktuell', relu: true, followUp: 'Falls ja: Wie lange waren Sie beschwerdefrei, bevor die Brustschmerzen anfingen?' },
+        { frage: 'Hatten Sie in den letzten Wochen einen Infekt — eine Erkältung, eine Grippe, einen Magen-Darm-Infekt oder Corona?', kapitel: 'aktuell', relu: true, followUp: 'Falls ja: Wie viele Tage nach dem Infekt haben die Brustschmerzen angefangen?' },
         { frage: 'Haben Sie während oder kurz nach dem Infekt wieder Sport getrieben?', kapitel: 'aktuell', followUp: 'Falls ja: Wann sind Sie ins Training zurückgekehrt?' },
         { frage: 'Wird der Schmerz im Liegen stärker und beim Sitzen und Vorbeugen besser?', kapitel: 'aktuell' },
         { frage: 'Wie äußert sich das Herzstolpern genau — ein Aussetzer mit anschließend kräftigem Schlag, oder anhaltendes Herzrasen? Auch in Ruhe?', kapitel: 'aktuell', relu: true },
@@ -54589,7 +54589,7 @@ export function seedCases(): Case[] {
         { frage: 'Haben Sie eine Malariaprophylaxe genommen?', kapitel: 'medikamente', followUp: 'Falls ja: Welches Präparat haben Sie genommen?' },
         { frage: 'Sind Sie gegen Typhus geimpft, und wann war das?', kapitel: 'vorerkrankungen' },
         { frage: 'Wie haben Sie sich vor Ort verpflegt: Leitungswasser, Eiswürfel, Straßenstände, rohe Salate?', kapitel: 'aktuell' },
-        { frage: 'Hatten Sie zuerst Verstopfung oder Durchfall?', kapitel: 'aktuell', sucht: ['stuhl'], followUp: 'Wie sieht der Stuhl aus — Blut, Schleim, erbsbreiartig?' },
+        { frage: 'Hatten Sie zuerst Verstopfung oder Durchfall?', kapitel: 'aktuell', sucht: ['stuhl'], followUp: 'Wie sieht der Stuhl aus — Blut, Schleim, sehr dünn?' },
         { frage: 'Fühlen Sie sich benommen oder verwirrt, oder hat Ihre Frau Sie verändert erlebt?', kapitel: 'aktuell' },
         { frage: 'Ist Ihnen ein Ausschlag am Bauch aufgefallen, blassrote Flecken?', kapitel: 'aktuell', relu: true },
       ],
