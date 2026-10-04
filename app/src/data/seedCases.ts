@@ -11396,7 +11396,7 @@ export function seedCases(): Case[] {
       ],
       caseSpecificQuestions: [
         { frage: 'Mit wie vielen Kissen schlafen Sie, und wachen Sie nachts auf, weil Sie keine Luft bekommen?', kapitel: 'aktuell', sucht: ['orthopnoe'] },
-        { frage: 'Haben Sie sich gewogen?', kapitel: 'vegetativ', sucht: ['gewicht'], followUp: 'Falls ja: Wie viel hat sich Ihr Gewicht in welchem Zeitraum verändert?' },
+        { frage: 'Haben Sie sich gewogen?', kapitel: 'vegetativ', sucht: ['gewicht'], followUp: 'Falls ja: Um wie viel hat sich Ihr Gewicht in welchem Zeitraum verändert?' },
         { frage: 'Sind beide Beine gleich stark geschwollen? Bleibt eine Delle stehen, wenn Sie mit dem Finger daraufdrücken?', kapitel: 'aktuell' },
         { frage: 'Nehmen Sie alle Ihre Tabletten so ein, wie sie verschrieben wurden — haben Sie eine davon weggelassen, zum Beispiel die Entwässerungstablette?', kapitel: 'medikamente' },
         { frage: 'Haben Sie in den letzten Wochen Schmerzmittel wie Ibuprofen oder Diclofenac genommen — wie oft?', kapitel: 'medikamente' },
