@@ -30,4 +30,11 @@ describe('streakFromDays — jours off du programme', () => {
   it('un programme où tous les jours sont off ne boucle pas', () => {
     expect(streakFromDays(jours(9), lundi12, [0, 1, 2, 3, 4, 5, 6])).toBe(0);
   });
+  it('m7 — relit le passé avec la config ACTUELLE : changer offDays réécrit rétroactivement la série', () => {
+    // Même journal (lundi 5 → vendredi 9 travaillés, week-end au repos) : la série dépend des jours off d'AUJOURD'HUI.
+    const journal = jours(5, 6, 7, 8, 9);
+    expect(streakFromDays(journal, lundi12, WEEK_END)).toBe(5);
+    expect(streakFromDays(journal, lundi12, [0, 6, 3])).toBe(5);    // mercredi devenu off : rien de cassé
+    expect(streakFromDays(journal, lundi12, [1, 2])).toBe(0);       // le week-end redevient un jour ouvré : la série casse aussi pour le passé
+  });
 });

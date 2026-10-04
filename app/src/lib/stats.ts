@@ -123,7 +123,11 @@ export const dueCount = (begriffe: Fachbegriff[], now = clockNow()): number => c
  *  `offDays` (jours de repos du programme, 0=dim … 6=sam) : un jour off au repos
  *  ne casse PAS la série et ne la gonfle pas ; travaillé, il compte. C'est le
  *  programme du candidat qui met le week-end au repos : 5 jours ouvrés sur 5,
- *  la série est intacte le lundi. Sans programme (`[]`) : comportement d'avant. */
+ *  la série est intacte le lundi. Sans programme (`[]`) : comportement d'avant.
+ *
+ *  LIMITE ASSUMÉE : le passé est relu avec les jours off ACTUELS. Si le candidat
+ *  change son programme (week-end travaillé, jour off déplacé), la série se
+ *  recalcule rétroactivement — l'historique des configs n'est pas conservé. */
 export function streakFromDays(workedDays: Set<string>, now = nowDate(), offDays: number[] = []): number {
   // ponytail : un programme sans aucun jour travaillé n'a pas de sens ; on l'ignore plutôt que de boucler.
   const off = offDays.length >= 7 ? [] : offDays;
