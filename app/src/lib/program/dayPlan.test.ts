@@ -108,8 +108,8 @@ describe('buildTasks — fonction PURE, et tout ce qu’elle produit est cochabl
       id: `b${i}`, term: `t${i}`, srs: { state: 'Neu', dueDate: 0, ease: 2.5, interval: 0, reps: 0 },
     })) as never[];
     const avec = buildTasks(input({ begriffe }), ids());
-    expect(avec[0].kind).toBe('drill');
-    expect(avec[0].reason).toMatch(/nouveaux|dû/);
+    const drill = avec.find((t) => t.kind === 'drill')!;
+    expect(drill.reason).toMatch(/nouveaux|dû/);
   });
 
   it('un Teil FRAGILE passe devant le Teil du jour', () => {
@@ -296,5 +296,28 @@ describe('C6-B · la tâche Fachbegriffe nomme ce qu’elle contient', () => {
     const tasks = buildTasks(input({ begriffe: [], now: NOW }), ids());
     expect(tasks.some((t) => t.kind === 'drill')).toBe(false);
     expect(sessionDuJour({ date: '2026-10-01', materializedAt: 0, mode: 'teil-first', seed: 's', targetMin: 90, tasks })!.kind).toBe('simulation');
+  });
+});
+
+describe('C6-B · rien de dû : les nouveaux termes passent APRÈS la première partie', () => {
+  const kinds = (b: never[], over: Partial<BuildInput> = {}) => buildTasks(input({ begriffe: b, now: NOW, ...over }), ids()).map((t) => t.kind);
+
+  it('seulement des nouveaux : la session de tête est une partie de cas, le drill vient juste après', () => {
+    const tasks = buildTasks(input({ begriffe: nouveaux(25) as never[], now: NOW }), ids());
+    expect(tasks[0].kind).toBe('simulation');
+    expect(tasks[1].kind).toBe('drill');
+    expect(sessionDuJour({ date: '2026-10-01', materializedAt: 0, mode: 'teil-first', seed: 's', targetMin: 90, tasks })!.kind).toBe('simulation');
+  });
+  it('des termes dus : le drill reste en tête', () => {
+    expect(kinds([...dus(2), ...nouveaux(5)] as never[])[0]).toBe('drill');
+  });
+  it('le coût du drill reste réservé (budget) et les identifiants restent rejouables', () => {
+    const a = buildTasks(input({ begriffe: nouveaux(25) as never[], now: NOW }), ids());
+    const b = buildTasks(input({ begriffe: nouveaux(25) as never[], now: NOW }), ids());
+    expect(a).toEqual(b);
+    expect(a.reduce((s, t) => s + t.estMin, 0)).toBeLessThanOrEqual(120);
+  });
+  it('mode examen-blanc : sans dû, l’examen passe avant le drill', () => {
+    expect(kinds(nouveaux(5) as never[], { config: config({ modus: 'examen-blanc' }) }).slice(0, 2)).toEqual(['examen-blanc', 'drill']);
   });
 });

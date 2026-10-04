@@ -79,6 +79,14 @@ export function taperDays(config: ProgramConfig): Set<string> {
   return new Set(working.slice(-len).map((d) => format(d, 'yyyy-MM-dd')));
 }
 
+/** Sans terme DÛ, les nouveaux termes ne sont jamais urgents : le drill passe
+ *  juste APRÈS la première tâche de travail (C6-B). Dû ⇒ il reste en tête.
+ *  Ne touche qu'à la génération : un jour déjà figé n'est jamais retraité. */
+function drillApresLaPremierePartie(tasks: TaskInstance[], due: number): TaskInstance[] {
+  if (due > 0 || tasks.length < 2 || tasks[0].kind !== 'drill') return tasks;
+  return [tasks[1], tasks[0], ...tasks.slice(2)];
+}
+
 export interface BuildInput {
   config: ProgramConfig;
   date: string;                       // ISO yyyy-MM-dd
@@ -164,7 +172,7 @@ export function buildTasks(input: BuildInput, mkId: () => string = newId): TaskI
         reason: isTaper ? `Répétition générale : conditions réelles, sans aide.` : pourquoiAujourdhui(best, ctx),
       });
     }
-    if (modus === 'examen-blanc') return tasks;
+    if (modus === 'examen-blanc') return drillApresLaPremierePartie(tasks, terms.due);
   }
 
   // 3. Les simulations. Un seul moteur de sélection dans le dépôt.
@@ -218,7 +226,7 @@ export function buildTasks(input: BuildInput, mkId: () => string = newId): TaskI
       reason: `La théorie du cas que tu découvres aujourd'hui.`,
     });
   }
-  return tasks;
+  return drillApresLaPremierePartie(tasks, terms.due);
 }
 
 export const dayTargetMin = (config: ProgramConfig): number =>
