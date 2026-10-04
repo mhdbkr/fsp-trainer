@@ -46,7 +46,8 @@ const SIGNES: Array<{ nom: string; paire: string; re: RegExp }> = [
   { nom: 'grossesse possible', paire: 'frau-schwanger ⇔ toute autre question « schwanger sind »',
     re: /möglichkeit[^?]*schwanger|schwanger sind/i },
   { nom: 'contraception', paire: 'frau-verhuetung ⇔ question du cas « Spirale » (adnexitis) ⇔ « die Pille genommen » (endometriose, mammakarzinom)',
-    re: /verhütung|verhüten|spirale|(nehmen|genommen|nahmen)[^?]*pille/i },
+    // « außer zur Verhütung » (fach-gyn-eingriffe) BORNE la question des hormones : il ne la cherche pas.
+    re: /verhütungsmethode|verhüten\b|spirale|(nehmen|genommen|nahmen)[^?]*pille/i },
   { nom: 'gynécologue / dépistage', paire: 'frau-wechseljahre « Frauenarzt regelmäßig » ⇔ fach-gyn-vorsorge',
     re: /frauenarzt|frauenärztin|vorsorge|krebsabstrich/i },
   { nom: 'hormones', paire: 'fach-gyn-eingriffe « Hormone » ⇔ frau-verhuetung (Pille) ⇔ frau-wechseljahre (> 55 ans) ⇔ question « Hormone » du cas (mammakarzinom)',

@@ -36,6 +36,8 @@ const CHAPTER_TO_BOGEN: Record<string, string[]> = {
   noxen: ['noxen', 'genussmittel'],
   'familie-sozial': ['sozial', 'familie'],
   frauenanamnese: ['frauen'],
+  // La Frauenanamnese est fondue dans la Fach gynéco : les notes du bloc vont à la même rubrique.
+  'fach-gyn': ['frauen'],
 };
 
 export function ImmersiveMode({ part, c, onClose, initialChapterId, muster, bogen, setBogen }: {

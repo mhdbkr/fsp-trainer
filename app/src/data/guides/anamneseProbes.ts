@@ -93,10 +93,10 @@ export const BASE_PROBES: AnamneseProbe[] = [
 
 // --- Frauenanamnese (uniquement patientes) ----------------------------------
 export const FRAUEN_PROBES: AnamneseProbe[] = [
-  { id: 'frau-periode', kapitel: 'frauenanamnese', frage: 'Ist Ihre Monatsblutung regelmäßig? Wann war Ihre letzte Regelblutung?' },
+  { id: 'frau-periode', kapitel: 'frauenanamnese', frage: 'Ist Ihre Monatsblutung regelmäßig?' },
   { id: 'frau-schwanger', kapitel: 'frauenanamnese', frage: 'Besteht die Möglichkeit, dass Sie schwanger sind?' },
-  { id: 'frau-verhuetung', kapitel: 'frauenanamnese', frage: 'Verwenden Sie Verhütungsmethoden? Wenn ja, welche?' },
-  { id: 'frau-wechseljahre', kapitel: 'frauenanamnese', frage: 'Sind Sie in den Wechseljahren? Gehen Sie regelmäßig zum Frauenarzt?' },
+  { id: 'frau-verhuetung', kapitel: 'frauenanamnese', frage: 'Verwenden Sie Verhütungsmethoden?' },
+  { id: 'frau-wechseljahre', kapitel: 'frauenanamnese', frage: 'Sind Sie in den Wechseljahren?' },
 ];
 
 // --- Spezielle Anamnese par spécialité --------------------------------------
@@ -277,14 +277,14 @@ export const FACH_PROBES: Partial<Record<Specialty, AnamneseProbe[]>> = {
   // ménopause) : ici on entre dans le motif gynécologique lui-même.
   Gynäkologie: [
     { id: 'fach-gyn-blutung', kapitel: 'fach', frage: 'Hat sich Ihre Blutung verändert — stärker, länger, Zwischenblutungen oder Blutungen nach dem Geschlechtsverkehr?' },
-    { id: 'fach-gyn-unterbauch', kapitel: 'fach', frage: 'Haben Sie Unterbauchschmerzen? Wo genau, und hängen sie mit Ihrem Zyklus zusammen?' },
-    { id: 'fach-gyn-fluor', kapitel: 'fach', frage: 'Haben Sie Ausfluss bemerkt? Welche Farbe hat er, riecht er, und juckt oder brennt es dabei?' },
+    { id: 'fach-gyn-unterbauch', kapitel: 'fach', frage: 'Haben Sie Unterbauchschmerzen?' },
+    { id: 'fach-gyn-fluor', kapitel: 'fach', frage: 'Haben Sie Ausfluss bemerkt?' },
     { id: 'fach-gyn-dyspareunie', kapitel: 'fach', frage: 'Haben Sie Schmerzen beim Geschlechtsverkehr oder beim Wasserlassen?', deepens: 'veg-ausscheidung' },
-    { id: 'fach-gyn-schwangerschaften', kapitel: 'fach', frage: 'Wie viele Schwangerschaften und Geburten hatten Sie? Gab es Fehlgeburten oder Abbrüche?' },
+    { id: 'fach-gyn-schwangerschaften', kapitel: 'fach', frage: 'Wie viele Schwangerschaften und Geburten hatten Sie?' },
     { id: 'fach-gyn-kinderwunsch', kapitel: 'fach', frage: 'Besteht ein Kinderwunsch, oder gab es Schwierigkeiten, schwanger zu werden?' },
     { id: 'fach-gyn-brust', kapitel: 'fach', frage: 'Haben Sie in der Brust einen Knoten, Schmerzen, Absonderungen aus der Brustwarze oder Hautveränderungen bemerkt?' },
-    { id: 'fach-gyn-vorsorge', kapitel: 'fach', frage: 'Wann waren Sie zuletzt bei der Vorsorge — Krebsabstrich, Mammographie? Sind Sie gegen HPV geimpft?' },
-    { id: 'fach-gyn-eingriffe', kapitel: 'fach', frage: 'Wurden Sie schon an der Gebärmutter oder den Eierstöcken operiert? Nehmen Sie Hormone ein?' },
+    { id: 'fach-gyn-vorsorge', kapitel: 'fach', frage: 'Wann waren Sie zuletzt bei der Vorsorge — Krebsabstrich, Mammographie?' },
+    { id: 'fach-gyn-eingriffe', kapitel: 'fach', frage: 'Wurden Sie schon an der Gebärmutter oder den Eierstöcken operiert?' },
   ],
   // Le rein est longtemps muet : on interroge donc les signes indirects (urine
   // mousseuse, œdèmes, tension) et les néphrotoxiques, que le patient ne cite
