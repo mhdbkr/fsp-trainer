@@ -24,6 +24,8 @@ const ref = baseDir ? undefined : args.find((a) => !a.startsWith('--')) ?? 'orig
 // Fixture → ses compteurs dégressifs.
 const FIXTURES = {
   'app/scripts/fixtures/atomicity-budget.json': (j) => ({ ...j.budget }),
+  // Lot Q2 : questions du cas sans réponse dans la fiche.
+  'app/scripts/fixtures/case-question-answers.json': (j) => ({ ...j.budget }),
   'app/scripts/fixtures/trame-symptoms-baseline.json': (j) => ({ constats: j.findings?.length, relu: j.relu }),
   // Lot L0 : chaque paire (cas × sonde) est une clé — une paire retirée de la
   // liste est une clé disparue ; `kept` (paires conservées) ne remonte pas.

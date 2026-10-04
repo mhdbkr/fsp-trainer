@@ -11,6 +11,11 @@
 //   1 atomicité   — au plus un « ? » par réplique. Exception nominative
 //                   (ALLOWED_COMPOSED), chaque entrée avec sa raison écrite.
 //                   NE S'APPLIQUE PAS AUX QUESTIONS D'OBERARZT (règle D).
+//   A2 W-coordonnés — un SEUL « ? » peut contenir deux questions : « Wie lange
+//                   …, und wann …? » (lot Q2). Deux interrogatifs allemands,
+//                   le second introduit par « und / oder » : la réponse du
+//                   simulant ne porte que sur le dernier. Disjoint de A (A2
+//                   ne lit que les énoncés à UN « ? »), non appliqué à l'Oberarzt.
 //   2 énumération — une question à un « ? » n'énumère pas plus de 3 items
 //                   cliniques distincts ; un followUp est plafonné à 2.
 //   3 alternative — pas d'alternative BINAIRE dépendante du cas
@@ -216,6 +221,35 @@ const QUOTED = /„[^“”"]*[“”"]|“[^”]*”|»[^«]*«|"[^"]*"/g;
 // entre guillemets échappe à D. Si cela apparaît, compter à part les « ? » cités.
 const countQ = (t, ober = false) => ((ober ? t.replace(QUOTED, '') : t).match(/[?？]/g) || []).length;
 
+// RÈGLE A2 — deux interrogatifs coordonnés sous un seul « ? » (lot Q2).
+// L'interrogatif ouvre une proposition (début, virgule, tiret, deux-points,
+// parenthèse ou « und/oder ») : « so … wie » (comparatif) n'est pas visé.
+// Le second est introduit par « und » ou « oder », éventuellement précédé d'une
+// virgule : « Wann hat es begonnen, und wie lange dauert es? ». Le second peut,
+// lui aussi, suivre une préposition (« …, und seit wann ? », « …, und in welchem
+// Bein ? » — revue Q2, I-1).
+// ponytail : trous CONNUS, mesurés et laissés. (1) La juxtaposition sans « und »
+// (« Wie viele Kilo, in welchem Zeitraum ? », anamneseChapters.ts:178 :
+// deux questions, aucun « und ») n'est pas vue : sans coordination
+// on ne distingue plus l'énumération d'une même question. (2) Le « wie »
+// comparatif n'est écarté que s'il précède un substantif à majuscule (« oder wie
+// Kaffeesatz ») ; « oder wie üblich » compterait à tort — aucun cas au corpus.
+// (3) « wann und wo » (deux adverbes nus) compte : deux questions quand même.
+const WORD = '(?:wie|was|wann|wo|wer|wen|wem|wessen|welche[rsmn]?|warum|wieso|weshalb|wohin|woher|wofür|womit|wodurch|wogegen|worauf|woran|worin|wovon|wozu)';
+const PREP = '(?:(?:seit|bis|vor|nach|in|an|auf|mit|bei|für|von|zu|um|über|wegen|ab|aus|unter|gegen)\\s+)?';
+const RE_W1 = new RegExp(`(?:^|[,;:—–(]\\s*)${PREP}${WORD}\\b`, 'i');
+// « oder wie Kaffeesatz » : le « wie » comparatif est suivi d'un substantif (majuscule), l'interrogatif non.
+const RE_W2 = new RegExp(`(?:,\\s*)?\\b(?:und|oder)\\s+${PREP}(?:wie\\b(?!\\s+[A-ZÄÖÜ])|${WORD.replace('wie|', '')}\\b)`);
+function wCoord(text) {
+  if (countQ(text) !== 1) return null;
+  const body = m.splitDimension(text).body;
+  const head = body.split(/[?？]/)[0];
+  const w2 = head.match(RE_W2);
+  if (!w2) return null;
+  // Un premier interrogatif doit précéder la coordination.
+  return RE_W1.test(head.slice(0, w2.index)) ? w2[0].trim() : null;
+}
+
 // RÈGLE B — énumération. Algorithme de l'audit §2 : retrait du préfixe
 // d'étiquette (`Begleitbeschwerden — `), troncature au premier « ? », découpe
 // sur `, / und / oder / bzw. / sowie`, conservation des segments de ≤ 6 mots
@@ -275,13 +309,14 @@ function altIssue(text) {
 // sans rapport (décision Q11, et la mesure ci-dessus).
 const SALVE_MAX = 3;
 
-const findings = { A: [], B: [], C: [], D: [], D2: [], D3: [], E: [] };
+const findings = { A: [], A2: [], B: [], C: [], D: [], D2: [], D3: [], E: [] };
 for (const id of Object.keys(ALLOWED_COMPOSED)) findings.E.push({ where: 'ALLOWED_COMPOSED', id, text: ALLOWED_COMPOSED[id] });
 for (const r of rows) {
   const exempt = r.id && ALLOWED_COMPOSED[r.id];
   const ober = r.kind === 'oberarzt';
   const n = countQ(r.text, ober);
   if (n >= 2 && !exempt && !ober) findings.A.push(r);
+  if (n === 1 && !exempt && !ober) { const w = wCoord(r.text); if (w) findings.A2.push({ ...r, w }); }
   if (ober && n > SALVE_MAX) findings.D.push({ ...r, n });
   if (ober && n === 2) findings.D2.push({ ...r, n });
   if (ober && n === 3) findings.D3.push({ ...r, n });
@@ -293,7 +328,7 @@ for (const r of rows) {
   const why = altIssue(r.text); if (why) findings.C.push({ ...r, why });
 }
 
-const KEYS = ['A', 'B', 'C', 'D', 'D2', 'D3', 'E'];
+const KEYS = ['A', 'A2', 'B', 'C', 'D', 'D2', 'D3', 'E'];
 const counts = Object.fromEntries(KEYS.map((k) => [k, findings[k].length]));
 const total = KEYS.reduce((t, k) => t + counts[k], 0);
 
@@ -332,12 +367,12 @@ if (bless) {
   process.exit(0);
 }
 
-const LABEL = { A: 'plus d\'un « ? » dans une réplique', B: 'énumération au-delà du plafond', C: 'alternative dépendante du cas', D: 'salve d\'examinateur incohérente (> 3 interrogations)', D2: 'salve d\'examinateur à 2 interrogations', D3: 'salve d\'examinateur à 3 interrogations', E: 'exemption nominative ALLOWED_COMPOSED (Q12 : la liste ne grossit pas sans décision)' };
+const LABEL = { A: 'plus d\'un « ? » dans une réplique', A2: 'deux interrogatifs coordonnés sous un seul « ? »', B: 'énumération au-delà du plafond', C: 'alternative dépendante du cas', D: 'salve d\'examinateur incohérente (> 3 interrogations)', D2: 'salve d\'examinateur à 2 interrogations', D3: 'salve d\'examinateur à 3 interrogations', E: 'exemption nominative ALLOWED_COMPOSED (Q12 : la liste ne grossit pas sans décision)' };
 const show = (k) => {
   const list = findings[k];
   const head = report ? list : list.slice(0, 15);
   for (const r of head) {
-    const extra = k === 'B' ? ` [${r.items} items > ${r.cap}]` : k === 'C' ? ` [${r.why}]` : k.startsWith('D') ? ` [${r.n} interrogations]` : k === 'E' ? '' : ` [${countQ(r.text)} « ? »]`;
+    const extra = k === 'B' ? ` [${r.items} items > ${r.cap}]` : k === 'C' ? ` [${r.why}]` : k === 'A2' ? ` [« ${r.w} »]` : k.startsWith('D') ? ` [${r.n} interrogations]` : k === 'E' ? '' : ` [${countQ(r.text)} « ? »]`;
     console.log(`  ✗ ${r.where}${r.id ? ` (${r.id})` : ''}${extra}\n      « ${r.text.slice(0, 150)} »`);
   }
   if (!report && list.length > head.length) console.log(`  … ${list.length - head.length} de plus (--report)`);

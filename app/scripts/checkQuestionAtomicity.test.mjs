@@ -223,6 +223,36 @@ test('Q0 — une relance de question du cas à deux « ? » est refusée (règle
   assert.match(r.stdout, /règle A/);
 });
 
-test('Q0 — une relance propre (1 « ? », 2 items) passe', T, () => {
-  assert.equal(withRelance('Falls ja: Seit wann, und wie oft?').status, 0);
+test('Q0 — une relance propre (1 « ? », 2 items, un seul interrogatif) passe', T, () => {
+  assert.equal(withRelance('Falls ja: Seit wann hat sich das geändert?').status, 0);
+  assert.equal(withRelance('Falls ja: Seit wann?').status, 0);
+});
+
+// --- Q2 : deux interrogatifs coordonnés sous UN « ? » (règle A2) ------------
+test('Q2 — « Wann …, und wie …? » à un seul « ? » est refusé (A2) — pour une relance comme pour une question', T, () => {
+  const r = withRelance('Falls ja: Seit wann, und wie oft?');
+  assert.equal(r.status, 1);
+  assert.match(r.stdout, /règle A2/);
+  const rep = sb.mutate(CASES, SCHLUCKEN, SCHLUCKEN.replace(' }', ", followUp: 'Falls ja: Seit wann, und wie oft?' }"), () => gate('--rule', 'A2', '--report'));
+  assert.match(rep.stdout, /case-questions\/case-oesophaguskarzinom[^\n]*\[« , und wie »\]\n\s+« Falls ja: Seit wann, und wie oft\? »/);
+  const q = sb.mutate(PROBES, "frage: 'Haben Sie einen Hausarzt?'", "frage: 'Wer ist Ihr Hausarzt oder wo sind Sie in Behandlung?'", gate);
+  assert.equal(q.status, 1);
+  assert.match(q.stdout, /règle A2/);
+});
+
+test('Q2 — A2 ne lit que les énoncés à UN « ? » (A les compte déjà) et ignore le « wie » comparatif', T, () => {
+  const two = withRelance('Falls ja: Seit wann? Und wie oft?');
+  assert.match(two.stdout, /règle A —/, 'deux « ? » : règle A');
+  assert.doesNotMatch(two.stdout, /règle A2/);
+  const cmp = sb.mutate(PROBES, "frage: 'Haben Sie einen Hausarzt?'", "frage: 'Ist der Stuhl hell oder wie Lehm?'", gate);
+  assert.equal(cmp.status, 0, '« oder wie Lehm » n\'est pas un second interrogatif');
+});
+
+// Revue Q2 (I-1) : le SECOND interrogatif peut lui aussi être précédé d'une préposition.
+test('Q2 I-1 — « …, und seit wie vielen Tagen ? » / « …, und in welchem Bein ? » sont refusés (A2)', T, () => {
+  for (const fu of ['Falls ja: Wann war das, und seit wie vielen Tagen?', 'Falls ja: Seit wann, und in welchem Bein?']) {
+    const r = withRelance(fu);
+    assert.equal(r.status, 1, fu);
+    assert.match(r.stdout, /règle A2/, fu);
+  }
 });

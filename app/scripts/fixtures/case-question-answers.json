@@ -1,0 +1,9 @@
+{
+  "note": "Plancher DÉGRESSIF des questions du cas sans réponse dans la fiche (série 3, lot Q2). Il ne remonte jamais ; `--bless` ne grave qu'une baisse. Règle et limites : scripts/caseQuestionAnswersDetect.mjs.",
+  "budget": {
+    "candidats": 74
+  },
+  "generated": "2026-10-04",
+  "total": 865,
+  "unjudged": 439
+}

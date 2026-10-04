@@ -565,15 +565,18 @@ export const ALLGEMEINE_ANAMNESE: AnamneseChapter[] = [
         text: 'Haben Sie Ihre Körpertemperatur in letzter Zeit gemessen? Haben Sie Fieber festgestellt?',
         probe: 'veg-fieber',
         followUp: [
-          'Falls ja: Seit wann? Wie hoch war die Temperatur, und wo gemessen (z. B. im Mund)?',
-          'Waren Sie kürzlich im Ausland? Sind Sie regelmäßig geimpft?',
+          'Falls Fieber: Seit wann haben Sie Fieber?',
+          'Falls ja: Wie hoch war die Temperatur?',
+          'Falls ja: Wo haben Sie gemessen (z. B. im Mund)?',
+          'Waren Sie kürzlich im Ausland?',
+          'Sind Ihre Impfungen auf dem neuesten Stand?',
         ],
         // Trame du cas (FB2-J10) : si la fièvre a déjà été cherchée plus haut
         // (Aktuelle Beschwerden, Fach), il ne reste que le voyage ; si c'est
         // le voyage qui l'a été, il reste la fièvre.
         parts: [
-          { sucht: ['fieber'], text: 'Haben Sie Ihre Körpertemperatur in letzter Zeit gemessen? Haben Sie Fieber festgestellt?', followUp: ['Falls ja: Seit wann? Wie hoch war die Temperatur, und wo gemessen (z. B. im Mund)?'] },
-          { sucht: ['reise'], text: 'Waren Sie kürzlich im Ausland? Sind Sie regelmäßig geimpft?' },
+          { sucht: ['fieber'], text: 'Haben Sie Ihre Körpertemperatur in letzter Zeit gemessen? Haben Sie Fieber festgestellt?', followUp: ['Falls Fieber: Seit wann haben Sie Fieber?', 'Falls ja: Wie hoch war die Temperatur?', 'Falls ja: Wo haben Sie gemessen (z. B. im Mund)?'] },
+          { sucht: ['reise'], text: 'Waren Sie kürzlich im Ausland?' },
         ],
       },
       {
@@ -602,7 +605,7 @@ export const ALLGEMEINE_ANAMNESE: AnamneseChapter[] = [
       {
         text: 'Haben Sie in letzter Zeit Gewichtsveränderungen bemerkt?',
         probe: 'veg-gewicht',
-        followUp: ['Falls ja: Wie viele Kilogramm, und in welchem Zeitraum?'],
+        followUp: ['Falls ja: Wie viel hat sich Ihr Gewicht verändert?', 'Falls ja: In welchem Zeitraum war das?'],
       },
       { text: 'Wie ist Ihr Appetit? Haben sich Ihre Essgewohnheiten kürzlich geändert?', probe: 'veg-appetit' },
       { text: 'Ist Ihr Schlaf erholsam? Haben Sie Probleme, ein- oder durchzuschlafen?', probe: 'veg-schlaf' },
@@ -638,7 +641,7 @@ export const ALLGEMEINE_ANAMNESE: AnamneseChapter[] = [
       {
         text: 'Nehmen Sie regelmäßig oder gelegentlich Medikamente ein?',
         probe: 'med-regelmaessig',
-        followUp: ['Falls ja: Welche, seit wann, in welcher Dosierung und wie oft am Tag?'],
+        followUp: ['Falls ja: Welche Medikamente sind das?', 'Falls ja: Seit wann nehmen Sie sie?', 'Falls ja: In welcher Dosierung?', 'Falls ja: Wie oft am Tag?'],
       },
       { text: 'Nehmen Sie Blutverdünner oder Kortison?', probe: 'med-blutverduenner' },
       { text: 'Nehmen Sie frei verkäufliche Schmerzmittel, pflanzliche Mittel oder Nahrungsergänzung?', probe: 'med-otc' },
@@ -666,8 +669,11 @@ export const ALLGEMEINE_ANAMNESE: AnamneseChapter[] = [
         text: 'Rauchen Sie?',
         probe: 'nox-rauchen',
         followUp: [
-          'Falls ja: Seit wann, und wie viele Zigaretten ungefähr pro Tag?',
-          'Falls aufgehört: Wann haben Sie aufgehört? Wie viele Jahre und wie viel pro Tag davor?',
+          'Falls ja: Seit wann rauchen Sie?',
+          'Falls ja: Wie viele Zigaretten ungefähr pro Tag?',
+          'Falls aufgehört: Wann haben Sie aufgehört?',
+          'Falls aufgehört: Wie viele Jahre haben Sie geraucht?',
+          'Falls aufgehört: Wie viel haben Sie davor pro Tag geraucht?',
         ],
       },
       {
@@ -675,7 +681,8 @@ export const ALLGEMEINE_ANAMNESE: AnamneseChapter[] = [
         probe: 'nox-alkohol',
         followUp: [
           'Falls ja: Welche Getränke bevorzugen Sie — Bier, Wein, Schnaps?',
-          'Falls ja: Trinken Sie täglich oder nur zu besonderen Anlässen? Wie viel ungefähr pro Woche?',
+          'Falls ja: Trinken Sie täglich oder nur zu besonderen Anlässen?',
+          'Falls ja: Wie viel trinken Sie ungefähr pro Woche?',
         ],
       },
       {
@@ -693,12 +700,12 @@ export const ALLGEMEINE_ANAMNESE: AnamneseChapter[] = [
       {
         text: 'Haben Familienmitglieder — Großeltern, Eltern, Geschwister oder Kinder — chronische Erkrankungen?',
         probe: 'fam-familie',
-        followUp: ['Falls ja: Welche, und seit wann?'],
+        followUp: ['Falls ja: Welche Erkrankungen sind das?', 'Falls ja: Seit wann sind sie bekannt?'],
       },
       {
         text: 'Leben Ihre Eltern noch?',
         probe: 'fam-eltern',
-        followUp: ['Falls verstorben: Woran, und wann? (Avec empathie : „Mein herzliches Beileid.“)'],
+        followUp: ['Falls verstorben: Woran ist Ihre Mutter / Ihr Vater gestorben? (Avec empathie : „Mein herzliches Beileid.“)', 'Falls verstorben: Wann war das?'],
       },
       {
         text: 'Wie ist Ihr Familienstand? Haben Sie Kinder?',
@@ -858,7 +865,10 @@ export const FACHANAMNESEN: FachanamneseGuide[] = [
         text: 'Leiden Sie an Übelkeit oder Erbrechen?',
         probe: 'fach-gastro-uebelkeit',
         followUp: [
-          'Falls ja: Wie oft, wie viel? Wie sah es aus — wie Kaffeesatz, mit Blut? Wie lange nach dem Essen?',
+          'Falls Sie sich übergeben haben: Wie oft müssen Sie sich übergeben?',
+          'Falls Sie sich übergeben haben: Wie viel erbrechen Sie dann jeweils?',
+          'Falls Sie sich übergeben haben: Wie sah das Erbrochene aus — wie Kaffeesatz, mit Blut?',
+          'Falls ja: Wie lange nach dem Essen ist Ihnen übel?',
           'Falls ja: Geht es Ihnen besser, nachdem Sie sich erbrochen haben?',
         ],
       },
@@ -1049,7 +1059,7 @@ export const FACHANAMNESEN: FachanamneseGuide[] = [
         text: 'Haben Sie Ausfluss bemerkt? Welche Farbe hat er, riecht er, und juckt oder brennt es dabei?',
         probe: 'fach-gyn-fluor',
         alts: ['Haben Sie einen Ausfluss aus der Scheide bemerkt?'],
-        followUp: ['Falls ja: Welche Konsistenz, und seit wann?'],
+        followUp: ['Falls ja: Welche Konsistenz hat der Ausfluss?', 'Falls ja: Seit wann haben Sie ihn?'],
       },
       {
         text: 'Haben Sie Schmerzen beim Geschlechtsverkehr oder beim Wasserlassen?',
@@ -1086,7 +1096,7 @@ export const FACHANAMNESEN: FachanamneseGuide[] = [
         text: 'Haben Sie Kopfschmerzen? Wo genau — einseitig oder beidseitig? Bleiben sie auf einer Seite oder wechseln sie?',
         probe: 'fach-neuro-kopfschmerz',
         alts: ['Haben Sie Kopfschmerzen? Wie fühlen sie sich an — pochend, drückend oder stechend?'],
-        followUp: ['Falls ja: Ist Ihnen während der Schmerzen übel? Sind Sie licht- oder lärmempfindlich?'],
+        followUp: ['Falls ja: Ist Ihnen während der Schmerzen übel?', 'Falls ja: Sind Sie licht- oder lärmempfindlich?'],
       },
       {
         text: 'Kamen die Beschwerden plötzlich wie ein Schlag, oder gab es Vorboten — Lichtblitze, Zickzacklinien, Kribbeln in den Fingern oder im Gesicht?',
@@ -1101,7 +1111,7 @@ export const FACHANAMNESEN: FachanamneseGuide[] = [
       {
         text: 'Haben Sie an Armen oder Beinen eine Schwäche bemerkt?',
         probe: 'fach-neuro-kraft',
-        followUp: ['Falls ja: Lassen Sie Dinge fallen, oder bleiben Sie mit dem Fuß hängen?'],
+        followUp: ['Falls ja: Lassen Sie Dinge fallen?', 'Falls ja: Bleiben Sie mit dem Fuß hängen?'],
       },
       { text: 'Haben Sie Schwindel, Gangunsicherheit oder das Gefühl zu schwanken? Sind Sie schon gestürzt?', probe: 'fach-neuro-koordination' },
       { text: 'Haben Sie Schwierigkeiten beim Sprechen, beim Finden von Wörtern oder beim Schlucken?', probe: 'fach-neuro-sprache' },
@@ -1258,11 +1268,11 @@ export const FACHANAMNESEN: FachanamneseGuide[] = [
         probe: 'fach-haem-bsymptomatik',
         label: 'B-Symptomatik',
         alts: ['Haben Sie Fieber, Schüttelfrost oder Nachtschweiß bemerkt?'],
-        followUp: ['Falls Gewichtsverlust: Wie viele Kilo, und in welchem Zeitraum?'],
+        followUp: ['Falls Gewichtsverlust: Wie viele Kilo haben Sie abgenommen?', 'Falls Gewichtsverlust: In welchem Zeitraum?'],
         parts: [
           { sucht: ['fieber'], text: 'Haben Sie Fieber?' },
           { sucht: ['nachtschweiss'], text: 'Schwitzen Sie nachts so stark, dass Sie die Wäsche wechseln müssen?' },
-          { sucht: ['gewicht'], text: 'Haben Sie ungewollt Gewicht verloren?', followUp: ['Falls ja: Wie viele Kilo, und in welchem Zeitraum?'] },
+          { sucht: ['gewicht'], text: 'Haben Sie ungewollt Gewicht verloren?', followUp: ['Falls ja: Wie viele Kilo haben Sie abgenommen?', 'Falls ja: In welchem Zeitraum?'] },
         ],
       },
       {
@@ -1292,8 +1302,10 @@ export const FACHANAMNESEN: FachanamneseGuide[] = [
         probe: 'fach-onko-knoten',
         alts: ['Wann haben Sie diese Veränderung / diesen Knoten das erste Mal bemerkt?'],
         followUp: [
-          'Falls ja: Ist er hart oder weich? Lässt er sich verschieben, oder sitzt er fest?',
-          'Falls ja: Tut er beim Tasten weh? Ist er seitdem größer geworden?',
+          'Falls ja: Ist es hart oder weich?',
+          'Falls ja: Lässt es sich verschieben, oder sitzt es fest?',
+          'Falls ja: Tut es beim Tasten weh?',
+          'Falls ja: Ist es seitdem größer geworden?',
         ],
       },
       {
@@ -1357,7 +1369,7 @@ export const FACHANAMNESEN: FachanamneseGuide[] = [
         text: 'Hat sich Ihr Gewicht verändert, ohne dass Sie etwas umgestellt haben? Und wie ist Ihr Appetit dabei?',
         probe: 'fach-endo-gewicht',
         alts: ['Haben Sie ohne Grund an Gewicht zu- oder abgenommen?'],
-        followUp: ['Falls ja: Wie viele Kilo, und in welchem Zeitraum?'],
+        followUp: ['Falls ja: Wie viel hat sich Ihr Gewicht verändert?', 'Falls ja: In welchem Zeitraum war das?'],
       },
       {
         text: 'Schwitzen Sie vermehrt oder frieren Sie leicht? Vertragen Sie Wärme oder Kälte schlechter als früher?',
@@ -1414,7 +1426,7 @@ export const FACHANAMNESEN: FachanamneseGuide[] = [
       {
         text: 'Wurden Sie schon einmal am Bauch operiert? Haben Sie Narben?',
         probe: 'fach-chir-op',
-        followUp: ['Falls ja: Wann war das, und weswegen? Gab es Komplikationen bei der Narkose?'],
+        followUp: ['Falls ja: Wann war das?', 'Falls ja: Weswegen wurden Sie operiert?', 'Falls ja: Gab es Komplikationen bei der Narkose?'],
       },
       {
         text: 'Nehmen Sie Blutverdünner ein?',
@@ -1465,7 +1477,9 @@ export const FACHANAMNESEN: FachanamneseGuide[] = [
         label: 'Pflichtfrage',
         alts: ['Haben Sie daran gedacht, sich das Leben zu nehmen? Haben Sie einen konkreten Plan gemacht?'],
         followUp: [
-          'Haben Sie sich selbst verletzt, oder haben Sie den Wunsch, sich zu verletzen?',
+          'Haben Sie sich selbst verletzt?',
+          'Haben Sie den Wunsch, sich zu verletzen?',
+          'Haben Sie konkrete Pläne, sich das Leben zu nehmen?',
           'Falls konkrete Absicht oder Plan: NOTFALL — der Patient bleibt stationär. Rücksprache mit dem Oberarzt nach der Anamnese.',
         ],
       },
@@ -1487,7 +1501,7 @@ export const FACHANAMNESEN: FachanamneseGuide[] = [
         text: 'Haben Sie Fieber gemessen? Wie hoch, seit wann, und verläuft es in Schüben?',
         probe: 'fach-infekt-fieber',
         alts: ['Hatten Sie Fieber — haben Sie es gemessen, wie hoch?'],
-        followUp: ['Falls ja: Haben Sie Schüttelfrost oder Nachtschweiß dabei?'],
+        followUp: ['Falls ja: Haben Sie Schüttelfrost dabei?', 'Falls ja: Haben Sie Nachtschweiß?'],
       },
       {
         text: 'Hatten Sie einen Zeckenstich oder einen Insektenstich bemerkt? Waren Sie im Wald, im hohen Gras oder im Garten?',

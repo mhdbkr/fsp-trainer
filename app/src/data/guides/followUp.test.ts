@@ -39,7 +39,7 @@ describe('G4 — relances conditionnelles préfixées', () => {
   const CASES: [probe: string, start: string, kind: 'ja' | 'skala'][] = [
     ['nox-alkohol', 'Trinken Sie täglich', 'ja'],
     ['fach-gastro-uebelkeit', 'Geht es Ihnen besser', 'ja'],
-    ['fach-onko-knoten', 'Tut er beim Tasten weh', 'ja'],
+    ['fach-onko-knoten', 'Tut es beim Tasten weh', 'ja'],
     ['akt-atemnot-husten', 'Husten Sie dabei etwas ab', 'ja'],
     ['akt-atemnot-husten', 'Ist Blut dabei', 'ja'],
     ['fach-uro-frequenz', 'Wie oft müssen Sie nachts', 'ja'],
@@ -118,5 +118,41 @@ describe('Revue Q0 — m7 : héparine, Clexane', () => {
     expect(rs).toHaveLength(1);
     expect(rs[0]).toMatch(/die letzte Dosis/);
     expect(rs[0]).not.toMatch(/Tablette/);
+  });
+});
+
+// ── Série 3, lot Q2 : une relance = une question ─────────────────────────────
+describe('Q2 — relances découpées, l\'information est gardée', () => {
+  const ALL = (probe: string) => allQuestions().filter((q) => phraseProbes(q).includes(probe)).flatMap(phraseFollowUp);
+  const SPLIT: [probe: string, expected: string[]][] = [
+    ['nox-alkohol', ['Trinken Sie täglich oder nur zu besonderen Anlässen?', 'Wie viel trinken Sie ungefähr pro Woche?']],
+    ['fach-neuro-kopfschmerz', ['Ist Ihnen während der Schmerzen übel?', 'Sind Sie licht- oder lärmempfindlich?']],
+    ['fach-chir-op', ['Wann war das?', 'Weswegen wurden Sie operiert?', 'Gab es Komplikationen bei der Narkose?']],
+    ['fach-psych-suizid', ['Haben Sie sich selbst verletzt?', 'Haben Sie den Wunsch, sich zu verletzen?']],
+  ];
+  for (const [probe, expected] of SPLIT) {
+    it(`${probe} : ${expected.length} relances d'une question chacune`, () => {
+      const rs = ALL(probe).map((r) => r.replace(/^Falls [^:]+:\s*/, ''));
+      for (const e of expected) {
+        expect(rs).toContain(e);
+        expect(e.match(/\?/g)).toHaveLength(1);
+      }
+    });
+  }
+  it('veg-fieber : le voyage est une question (partie « reise »), les vaccins une question autonome (revue Q2)', () => {
+    const q = allQuestions().find((x) => phraseProbes(x).includes('veg-fieber'))!;
+    const reise = (q as { parts: { sucht: string[]; text: string; followUp?: string[] }[] }).parts.find((p) => p.sucht.includes('reise'))!;
+    expect(reise).toEqual({ sucht: ['reise'], text: 'Waren Sie kürzlich im Ausland?' });
+    expect(phraseFollowUp(q)).toEqual(expect.arrayContaining(['Waren Sie kürzlich im Ausland?', 'Sind Ihre Impfungen auf dem neuesten Stand?']));
+  });
+  it('suizid : « konkrete Pläne » est une relance inconditionnelle (la note NOTFALL en dépend, revue Q2)', () => {
+    const rs = relancesOf('fach-psych-suizid', 'Haben Sie konkrete Pläne');
+    expect(rs).toEqual(['Haben Sie konkrete Pläne, sich das Leben zu nehmen?']);
+    expect(parseFollowUp(rs[0]).kind).toBe('immer');
+  });
+  it('gastro : les relances du Erbrochenen attendent le vomissement, pas un « ja » vague (revue Q2)', () => {
+    const rs = relancesOf('fach-gastro-uebelkeit', 'Wie sah das Erbrochene aus');
+    expect(rs).toHaveLength(1);
+    expect(parseFollowUp(rs[0])).toMatchObject({ kind: 'ja', label: 'Sie sich übergeben haben' });
   });
 });

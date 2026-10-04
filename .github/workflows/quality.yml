@@ -80,6 +80,7 @@ jobs:
           node --test scripts/checkBudgetFloor.test.mjs
           node --test scripts/checkProbeCoverage.test.mjs
           node --test scripts/checkQuestionOrder.test.mjs
+          node --test scripts/checkCaseQuestionAnswers.test.mjs
       - name: "Doctopus — jeu de référence et grille (sans réseau)"
         run: node scripts/evalDoctopus.mjs --dry
       - name: Sections thérapeutiques identiques fiche ↔ cas
@@ -111,6 +112,8 @@ jobs:
         run: node scripts/checkProbeOverlap.mjs || true
       - name: Ordre des questions — présupposition non satisfaite (informatif)
         run: node scripts/checkQuestionOrder.mjs || true
+      - name: Réponse des questions du cas — la fiche répond-elle ? (informatif ; plancher dans checkBudgetFloor + test)
+        run: node scripts/checkCaseQuestionAnswers.mjs || true
 
   build:
     name: Types & build
