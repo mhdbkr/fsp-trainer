@@ -184,18 +184,29 @@ conditionsManquantes(sim): ConditionExamen[]   // dans cet ordre, chacune si non
   'enchaine' : ¬(sim.enchaine === true ∧ sim.mode !== 'external-ai' ∧ les 3 parts done)
   'autonome' : sim.assistance !== 'autonome'
   'ordre'    : sim.reihenfolge?.join() !== 'anamnese,dokumentation,fallvorstellung'
-  'grille'   : grille de langue de l'Anamnese ou de la Fallvorstellung non saisie
+  'grille'   : ¬(grilleSaisie(parts.anamnese.languageGrid) ∧ grilleSaisie(parts.fallvorstellung.languageGrid))
 ```
 
 ```ts
 /** UNE définition des conditions d'examen (décision (b) de la direction), partagée par
- *  `kind: 'examen-blanc'` et par l'état `prêt` (§12.6). */
-conditionsExamen(sim) = sim.enchaine === true && sim.mode !== 'external-ai'
-  && sim.assistance === 'autonome'
-  && sim.reihenfolge?.join() === 'anamnese,dokumentation,fallvorstellung'
-  && languageGridEntered(sim.parts.anamnese?.languageGrid)
-  && languageGridEntered(sim.parts.fallvorstellung?.languageGrid)
+ *  `kind: 'examen-blanc'` et par l'état `prêt` (§12.6). Code : `lib/examen.ts`. */
+conditionsExamen(sim) = conditionsManquantes(sim).length === 0
+  // ⇔ sim.enchaine === true && sim.mode !== 'external-ai' && les 3 parts done
+  //   && sim.assistance === 'autonome'
+  //   && sim.reihenfolge?.join() === 'anamnese,dokumentation,fallvorstellung'
+  //   && grilleSaisie(sim.parts.anamnese?.languageGrid)
+  //   && grilleSaisie(sim.parts.fallvorstellung?.languageGrid)
+
+/** Grille saisie = les CINQ critères nommés (`LANGUAGE_CRITERIA`) notés. La sentinelle −1
+ *  n'est pas une note, 0 en est une. `languageGridEntered` seul ne suffit pas : il vaut
+ *  `true` sur un objet vide. */
+grilleSaisie(g) = languageGridEntered(g) && LANGUAGE_CRITERIA.every(c => isEntered(g[c.key]))
 ```
+
+*[S4]* **« Grille saisie »** (décision de `main`, 4 oct., point 5 du rapport
+S4-1) : les **cinq** critères nommés sont notés. C'est la même règle que le
+score depuis C6-A, où la langue ne compte qu'une fois les cinq critères notés.
+Une grille partielle ne remplit pas la condition `grille`.
 
 *[S4]* **Discriminant série 4 (m-e)** : une `Simulation` est « série 4 » si et
 seulement si `reihenfolge` est présent. Pour elle, `kind` vaut
@@ -635,6 +646,7 @@ rouge :
 | `app/src/lib/program/plansAnciens.test.ts` | INV-54 sur la fixture gelée série 3 |
 | `app/src/lib/program/memePlan.test.ts` | INV-55, INV-57 : événements du jour D tirés au hasard ⇒ plan identique |
 | `app/src/lib/journal/etatCas.test.ts` | INV-53, INV-56, INV-59, INV-61, INV-62, INV-69 ; table de vérité de l'échelle `etat` |
+| `app/tests/invariants.mesure.test.ts` | *[S4-1, à écrire par le fixeur de S4-1]* propriété sur journaux aléatoires : `etat === 'solide' ⇔ pretManque.length > 0` (§12.6), et `pretManque = []` hors de `solide` |
 | `app/src/lib/sync/configProjetee.test.ts` | INV-68, INV-76 |
 | `scripts/testRls.mjs` + test de la fonction `events` | contrainte SQL et schémas des trois types, séparément (m-k) ; bornes non plus strictes que l'interface (N2c) |
 | `app/src/lib/program/consolidation.test.ts` | INV-60 |
@@ -968,8 +980,8 @@ avaient pas en §12.6. Code : `lib/progression.ts` (`finalise`, `pretManque`).
   et « pretManque (R1) » (moins de manques, égalité au plus récent, run d'avant
   la soudure ignoré, parties sans `examenManque` ignorées) ;
   `tests/invariants.mesure.test.ts` (décision (b) : `kind` ⇔ `examen` ⇔
-  `examenManque = []`). **À ajouter** : une propriété sur journaux aléatoires
-  pour `etat === 'solide' ⇔ pretManque.length > 0`.
+  `examenManque = []`). **À écrire par le fixeur de S4-1** : une propriété sur
+  journaux aléatoires pour `etat === 'solide' ⇔ pretManque.length > 0` (§10).
 
 - Couverture et maîtrise sont deux mesures, et la maîtrise ne baisse jamais
   par absence d'un Teil (INV-53). La maîtrise lit `lastScore` : une
@@ -986,7 +998,8 @@ avaient pas en §12.6. Code : `lib/progression.ts` (`finalise`, `pretManque`).
   - elle est enchaînée ;
   - elle est jouée en **Autonome** ;
   - elle suit l'ordre **A → D → F** ;
-  - la **grille de langue est saisie** pour l'Anamnese et la Fallvorstellung.
+  - la **grille de langue est saisie** pour l'Anamnese et la Fallvorstellung,
+    c'est-à-dire que les cinq critères nommés sont notés (§2.3, `grilleSaisie`).
 
   C'est la **même** définition que celle qui classe un run en `examen-blanc`
   (§2.3, `conditionsExamen`).
@@ -1209,7 +1222,7 @@ S4-1 mesure ──▶ S4-4 primitive CaseDial ──▶ S4-3 partie ∥ S4-2 pla
 | `FENETRE_D_UN_TRAIT_JOURS_OUVRES` | `15` — décision (a) de la direction | 13.1 |
 | `D_UN_TRAIT_ACTIF` | `false` jusqu'à S4-3 en production | 12.12 |
 | `SOLIDE_ECART_JOURS` | `3` (jours calendaires, `dayKey`) | 12.2, 13.2 |
-| `DATE_NOUVELLE_REGLE` | jour du merge de S4-1 en production (`yyyy-MM-dd`), posé par `main` au moment du merge | 13.2 |
+| `DATE_NOUVELLE_REGLE` | **lendemain** du jour du merge de S4-1 en production (`yyyy-MM-dd`), posé par `main` au moment du merge | 13.2 |
 | `ERREUR_FENETRE` / `ERREUR_SEUIL` / `ERREUR_CAS_MIN` | `5` / `3` / `2` | 13.3 |
 | `DUREE_FENETRE` / `DUREE_MIN_MESURES` / `DUREE_BORNES` | `10` / `3` / `[5, 45]` min | 13.4 |
 | `RYTHME_FENETRE_JOURS` / `RYTHME_SEUIL` / `RYTHME_MIN_JOURS` / `BUDGET_PLANCHER_MIN` / `RYTHME_REFUS_MAX` | `7` / `0.6` / `3` / `20` / `2` | 13.5 |
@@ -1257,7 +1270,9 @@ sinon : s < 60 → 'fragile' ; s < 80 → 'acquis'
   (`statusOf(lastScore)`). La frise porte un repère « nouvelle règle » à
   cette date.
 - **Date de bascule** (décision de `main`, 4 oct.) : `DATE_NOUVELLE_REGLE` est
-  le **jour du merge de S4-1 en production**. `main` pose la constante
+  le **lendemain du jour du merge de S4-1 en production**. Le jour du merge
+  lui-même garde l'ancienne règle, donc une partie déjà montrée avant le
+  déploiement n'est jamais réécrite. `main` pose la constante
   (`lib/program/parametres.ts`) dans le commit de merge. La valeur portée par
   la branche (`2026-10-05`) n'est qu'une hypothèse de travail. Une date trop
   précoce réécrirait des points de frise déjà montrés (INV-69). Une date trop
