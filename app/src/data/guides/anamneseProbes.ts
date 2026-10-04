@@ -279,12 +279,12 @@ export const FACH_PROBES: Partial<Record<Specialty, AnamneseProbe[]>> = {
     { id: 'fach-gyn-blutung', kapitel: 'fach', frage: 'Hat sich Ihre Blutung verändert — stärker, länger, Zwischenblutungen oder Blutungen nach dem Geschlechtsverkehr?' },
     { id: 'fach-gyn-unterbauch', kapitel: 'fach', frage: 'Haben Sie Unterbauchschmerzen?' },
     { id: 'fach-gyn-fluor', kapitel: 'fach', frage: 'Haben Sie Ausfluss bemerkt?' },
-    { id: 'fach-gyn-dyspareunie', kapitel: 'fach', frage: 'Haben Sie Schmerzen beim Geschlechtsverkehr oder beim Wasserlassen?', deepens: 'veg-ausscheidung' },
+    { id: 'fach-gyn-dyspareunie', kapitel: 'fach', frage: 'Haben Sie Schmerzen beim Geschlechtsverkehr?', deepens: 'veg-ausscheidung' },
     { id: 'fach-gyn-schwangerschaften', kapitel: 'fach', frage: 'Wie viele Schwangerschaften und Geburten hatten Sie?' },
     { id: 'fach-gyn-kinderwunsch', kapitel: 'fach', frage: 'Besteht ein Kinderwunsch, oder gab es Schwierigkeiten, schwanger zu werden?' },
     { id: 'fach-gyn-brust', kapitel: 'fach', frage: 'Haben Sie in der Brust einen Knoten, Schmerzen, Absonderungen aus der Brustwarze oder Hautveränderungen bemerkt?' },
     { id: 'fach-gyn-vorsorge', kapitel: 'fach', frage: 'Wann waren Sie zuletzt bei der Vorsorge — Krebsabstrich, Mammographie?' },
-    { id: 'fach-gyn-eingriffe', kapitel: 'fach', frage: 'Wurden Sie schon an der Gebärmutter oder den Eierstöcken operiert?', deepens: 'vor-op' },
+    { id: 'fach-gyn-eingriffe', kapitel: 'fach', frage: 'Wurden Sie schon an der Gebärmutter, an den Eileitern oder an den Eierstöcken operiert?', deepens: 'vor-op' },
   ],
   // Le rein est longtemps muet : on interroge donc les signes indirects (urine
   // mousseuse, œdèmes, tension) et les néphrotoxiques, que le patient ne cite
