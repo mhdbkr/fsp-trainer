@@ -2,7 +2,7 @@
 
 Branche `feat/s3-c6b-jour` (base `origin/main` @ `faa53727`), un seul writer. Sources : `c6-jugement-ux-2026-10-04.md` (ruptures 4, 6, 7b) et le rapport de parcours C6 (bugs « 0 terme dû », « dûs », dette `Date.now()`).
 
-**Statut : DONE_WITH_CONCERNS.** Les 5 points sont livrés, rouge → vert, mesurés dans le DOM à 390 et 1280 px. Une porte n'a pas pu tourner (voir « Non vérifié »).
+**Statut : DONE_WITH_CONCERNS.** Les 5 points et les 2 décisions de `main` sont livrés, rouge → vert, mesurés dans le DOM à 390 et 1280 px. Une porte n'a pas pu tourner (voir « Non vérifié »).
 
 ## Point × cause × correction × preuve
 
@@ -19,8 +19,8 @@ Branche `feat/s3-c6b-jour` (base `origin/main` @ `faa53727`), un seul writer. So
 - **Q4** : proposé, jamais imposé. Vérifié : aucun `db.day_plans` modifié sans clic (test et DOM).
 
 ## À trancher / à noter
-1. **Fachbegriffe en tête quand seuls des nouveaux restent.** Consigne appliquée à la lettre : « ni dû ni nouveau » ⇒ pas de tâche, donc jamais la session de tête. Or ce cas n'arrive pas dans le parcours (il reste toujours des nouveaux). La session du jour reste donc Fachbegriffe, mais nommée (« 10 nouveaux termes · 4 min »). Le jugement UX demandait de la placer après la première partie dès que rien n'est dû. `main` doit dire si « rien de dû » suffit.
-2. **« 10 nouveaux » est un plafond en dur** (`Math.min(fresh, 10)`, `dayPlan.ts`), pas le budget réglé dans le drill (`newPerDay`, réglable). Si le candidat règle 5 par jour, la tâche annoncera 10. Hors périmètre de ce lot (le plan est pur, sans accès aux réglages) ; à traiter avec le contrat du plan.
+1. **Tranché par `main` et livré** (`c1974694`) : sans terme DÛ, la tâche Fachbegriffe (nouveaux seuls) passe juste après la première partie ; avec des dus, elle reste en tête (y compris en mode examen à blanc : l'examen d'abord). Budget du drill toujours réservé, ids rejouables. Tests : `C6-B · rien de dû…` (rouges avant).
+2. **Tranché par `main` et livré** (dernier commit) : « N nouveaux termes » suit `effectiveDaily().newPerDay` (auto ou manuel), lu à la matérialisation et passé par `BuildInput.newPerDay` ; repli 10 ; 0 = pas de tâche. Import paresseux de `drillContext` (cycle avec `@/lib/program`).
 3. **Jours déjà figés** : le texte « 0 terme dû » / « dûs » reste dans les plans matérialisés avant ce commit (volontaire, INV-9). Les plans de Mehdi du jour en gardent la trace jusqu'à demain.
 4. **Hors périmètre, non touché** (relevé) : `store/simSession.ts:81` (`startedAt: Date.now()`), `lib/externalAi/targets.ts:73` (`launchPlan(now = Date.now())`), `lib/sync/queue.ts` (horodatage d'événement), `lib/collections/drillQueue.ts` (`Date.now()` par défaut). Même dette, pas dans la liste ; `simSession` est le candidat le plus probable pour une incohérence d'horloge.
 5. **À brancher après le merge de C6-A** (consigne de `main`, C6-A n'est pas dans `main` : `git merge-base --is-ancestor origin/feat/s3-c6a-chiffres origin/main` → non). Appels exacts, la signature C6-A étant `streakFromDays(workedDays, now = nowDate(), offDays = [])` :
