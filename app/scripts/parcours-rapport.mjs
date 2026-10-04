@@ -1,0 +1,104 @@
+// ============================================================================
+// Le rapport « direction » du candidat synthétique : jour par jour, ce que la
+// persona a fait, ce que l'app a montré, chaque invariant OK/KO — avec la
+// capture quand il est KO. Écrit en français, lisible sans avoir lu le code.
+// ============================================================================
+import fs from 'node:fs';
+import path from 'node:path';
+
+export class Rapport {
+  constructor(meta) {
+    this.meta = meta;
+    this.jours = [];
+    this.observations = new Map();     // ce qu'aucune assertion ne tranche : pour l'agent de jugement (texte → { premier, n })
+    this.cur = null;
+  }
+
+  /** Ouvre un jour. `etiquette` : « jour 3 · lundi 12 octobre ». */
+  jour(etiquette, contexte = '') {
+    this.cur = { etiquette, contexte, fait: [], vu: [], checks: [] };
+    this.jours.push(this.cur);
+    return this.cur;
+  }
+  fait(s) { this.cur.fait.push(s); }
+  vu(s) { this.cur.vu.push(s); }
+  observation(s) {
+    const o = this.observations.get(s);
+    if (o) o.n++; else this.observations.set(s, { premier: this.cur?.etiquette ?? '', n: 1 });
+  }
+
+  /** Enregistre le verdict d'un invariant. `shot` : chemin d'une capture (KO seulement). */
+  check(id, titre, ok, detail, shot, connu) {
+    this.cur.checks.push({ id, titre, ok: !!ok, detail: detail ?? '', shot: ok ? undefined : shot, connu: ok ? undefined : connu });
+  }
+
+  tousLesChecks() { return this.jours.flatMap((j) => j.checks.map((c) => ({ ...c, jour: j.etiquette }))); }
+  echecs() { return this.tousLesChecks().filter((c) => !c.ok && !c.connu); }
+  connus() { return this.tousLesChecks().filter((c) => !c.ok && c.connu); }
+
+  markdown() {
+    const all = this.tousLesChecks();
+    const ko = all.filter((c) => !c.ok && !c.connu), connus = all.filter((c) => !c.ok && c.connu);
+    const ids = [...new Set(all.map((c) => c.id))];
+    const L = [];
+    L.push(`# Candidat synthétique — parcours de ${this.meta.nbJours} jours (${this.meta.date})`, '');
+    L.push(`> Généré par \`app/scripts/parcours-candidat.mjs\` — ne pas éditer à la main.`, '');
+    L.push(`**Verdict : ${ko.length === 0 ? 'aucun invariant nouveau n\'est violé' : `${ko.length} invariant(s) KO sur ${all.length} vérifications`}`
+      + `${connus.length ? `, ${new Set(connus.map((c) => c.id)).size} bug(s) réel(s) connu(s) toujours ouvert(s)` : ''}.** `
+      + `${all.filter((c) => c.ok).length}/${all.length} vérifications OK ; durée du parcours : ${this.meta.dureeS} s.`, '');
+    L.push('', `- **Persona** : ${this.meta.persona}`);
+    L.push(`- **Build** : \`${this.meta.build}\` servi par \`vite preview\` (jamais le dev server) · **Base** : Supabase local (${this.meta.supabase})`);
+    L.push(`- **Horloge** : injectée dans le navigateur (\`page.clock\`) — du ${this.meta.premierJour} au ${this.meta.dernierJour}, le code de l'app lit l'heure par \`lib/clock\`, donc Playwright la pilote sans toucher \`src/\`.`);
+    L.push(`- **Contenu** : ${this.meta.contenu}`, '');
+
+    if (ko.length || connus.length) {
+      L.push('## Bugs réels trouvés', '');
+      L.push('Chaque ligne est un invariant violé par l\'app telle qu\'elle est construite — pas une erreur du harnais (le harnais est prouvé par mutation : `parcours-mutations.mjs`, `--navigateur`).', '');
+      for (const id of [...new Set(connus.map((c) => c.id))]) {
+        const xs = connus.filter((c) => c.id === id);
+        L.push(`- **${id}** — **bug réel connu, non corrigé (hors périmètre du harnais)** : ${xs[0].connu}`);
+        L.push(`  - Preuve : ${xs.length} jour(s) KO sur ${all.filter((c) => c.id === id).length} ; premier constat ${xs[0].jour} — ${xs[0].detail}${xs[0].shot ? ` · capture \`${path.basename(xs[0].shot)}\` (hors dépôt)` : ''}`);
+      }
+      for (const c of ko) L.push(`- **${c.id}** — ${c.titre} (${c.jour}) : ${c.detail}${c.shot ? ` · capture : \`${path.basename(c.shot)}\` (hors dépôt)` : ''}`);
+      L.push('');
+      if (connus.some((c) => c.id === 'D5s')) {
+        L.push('## Pour le lot C6-A', '');
+        L.push('Quand les simulations de démonstration cessent de compter dans les Stats, trois gardes doivent être mises à jour ENSEMBLE — sinon le bug corrigé n\'est plus gardé, ou la CI reste rouge :', '');
+        L.push('1. retirer `D5s` de `CONNUS` dans `app/scripts/parcours-candidat.mjs` (le parcours sort en 1 tant que `D5s` repasse au vert sans ce retrait) ;');
+        L.push('2. retirer le calcul de décompte des démos de `D5r` (même fichier) : sans démos en base, `D5r` et `D5s` disent la même chose ;');
+        L.push('3. passer `it.fails` en `it` dans `app/tests/invariants.journal.test.tsx` (« BUG-C6-1 »).', '');
+      }
+    }
+
+    L.push('## Invariants, vus depuis le DOM', '');
+    L.push('| Invariant | Ce qu\'il garde | Vérifié | KO |', '|---|---|---|---|');
+    for (const id of ids) {
+      const xs = all.filter((c) => c.id === id);
+      L.push(`| ${id} | ${xs[0].titre} | ${xs.length} | ${xs.filter((c) => !c.ok).length || '0'}${xs.some((c) => !c.ok && c.connu) ? ' (bug connu)' : ''} |`);
+    }
+    L.push('');
+
+    if (this.observations.size) {
+      L.push('## Observations pour l\'agent de jugement', '');
+      L.push('Ce qu\'aucune assertion ne tranche — à lire avec `ux-user-advocate` : ça donne envie ? ça s\'explique ? ça respecte l\'intention ?', '');
+      for (const [t, o] of this.observations) L.push(`- ${t} _(${o.n === 1 ? o.premier : `vu ${o.n} fois, dès ${o.premier}`})_`);
+      L.push('');
+    }
+
+    L.push('## Jour par jour', '');
+    for (const j of this.jours) {
+      L.push(`### ${j.etiquette}`, '');
+      if (j.contexte) L.push(`_${j.contexte}_`, '');
+      if (j.fait.length) { L.push('**Ce que la candidate a fait**', ''); for (const f of j.fait) L.push(`- ${f}`); L.push(''); }
+      if (j.vu.length) { L.push('**Ce que l\'app a montré**', ''); for (const v of j.vu) L.push(`- ${v}`); L.push(''); }
+      if (j.checks.length) {
+        L.push('**Invariants**', '');
+        for (const c of j.checks) L.push(`- ${c.ok ? 'OK' : c.connu ? '**KO (bug connu)**' : '**KO**'} · ${c.id} — ${c.titre}${c.detail ? ` : ${c.detail}` : ''}${c.shot ? ` · capture \`${path.basename(c.shot)}\` (hors dépôt)` : ''}`);
+        L.push('');
+      }
+    }
+    return L.join('\n');
+  }
+
+  write(file) { fs.writeFileSync(file, this.markdown()); }
+}
