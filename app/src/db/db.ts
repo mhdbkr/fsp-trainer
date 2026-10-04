@@ -6,6 +6,7 @@ import type {
 } from './types';
 import type { ProgressEvent, OutboxRow } from '@/lib/sync/events';
 import { getActiveUserId } from '@/lib/auth/accounts';
+import { isDemoSimulation } from '@/lib/demoSimulation';
 
 // ============================================================================
 // IndexedDB via Dexie. Tout est local, aucune requête réseau à l'exécution.
@@ -84,10 +85,16 @@ export class FspDatabase extends Dexie {
       simulations: 'id, caseId, date, role, profileId, teil',
       plan: null,
     });
+    // v6 — C6-A (BUG-C6-1) : les 3 démos que les premières versions semaient dans
+    // la base de chaque visiteur faussaient les stats (« 3 simulations complètes »,
+    // une courbe qui « retombe » à la première vraie partie). Fausses données,
+    // jamais synchronisées (migrateLocal les écartait) : on les supprime.
+    this.version(6).stores({}).upgrade((tx) => tx.table('simulations').filter((s) => isDemoSimulation(s.id)).delete());
   }
 }
 
 export const db = new FspDatabase();
+
 
 // --- Meta helpers -----------------------------------------------------------
 export async function getMeta<T>(key: string, fallback: T): Promise<T> {

@@ -1,9 +1,9 @@
 import { db, getMeta, setMeta } from '@/db/db';
+import { isDemoSimulation } from '@/lib/demoSimulation';
 import { syncQueue } from './queue';
 import type { NewEvent } from './events';
 
-/** `sim-demo-*` : données de démonstration, jamais de la vraie progression. */
-export const isDemoSimulation = (id: string) => id.startsWith('sim-demo-');
+export { isDemoSimulation };
 
 /** Convertit la progression de la bêta locale en événements (idempotent via meta 'migratedLocal'). */
 export async function migrateLocalProgress(uid: string): Promise<{ events: number }> {

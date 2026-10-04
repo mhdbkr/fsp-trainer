@@ -12,7 +12,7 @@ import { useProgramConfig } from '@/hooks/useData';
 import { TEILE } from '@/lib/simScope';
 import { Icon } from '@/components/icons';
 import { AXES } from '@/db/types';
-import { axisScoresFull, specialtyScores, progressSeries, weakCases, weakestAxis } from '@/lib/stats';
+import { FACHBEGRIFFE_MIN_VUES, axisScoresFull, fachbegriffeVus, radarData, specialtyScores, progressSeries, weakCases, weakestAxis } from '@/lib/stats';
 import { ScoreBar, EmptyState } from '@/components/ui';
 
 export function StatsPage() {
@@ -29,7 +29,7 @@ export function StatsPage() {
       <div className="space-y-5">
         <div className="eyebrow">Analyse</div>
         <h1 className="mt-1.5 text-2xl font-bold tracking-tightish">Stats / Performances</h1>
-        <EmptyState icon="nav-chart" title="Pas encore de données" hint="Ta première séance alimentera les stats — simulation, drill ou fiche." />
+        <EmptyState icon="nav-chart" title="Pas encore de données" hint="Ta première partie dessinera ta courbe." />
       </div>
     );
   }
@@ -39,7 +39,7 @@ export function StatsPage() {
   const bySpecialty = specialtyScores(sims, cases);
   const series = progressSeries(sims);
   const weakList = weakCases(progress, cases, 5);
-  const radarData = AXES.map((a) => ({ axis: a.slice(0, 8), score: scores[a] ?? 0 }));
+  const radar = radarData(scores);
 
   return (
     <div className="space-y-6">
@@ -55,6 +55,9 @@ export function StatsPage() {
       {/* Où j'en suis, et où ça mène — la même frise qu'à l'accueil. C'est le
           SEUL indice de préparation de l'app (D-I9) : une formule, un nom. */}
       <TrajectoryStrip config={config} cases={cases} events={events} />
+      <p className="-mt-3 px-1 text-[12px] text-slate-500 dark:text-slate-400">
+        Ce chiffre mesure la part de toutes les parties de tous les cas que tu maîtrises déjà — pas la moyenne de tes scores : une partie jamais jouée compte pour zéro.
+      </p>
 
       {weak && weak.score < 60 && (
         <div className="card border-amber-200 bg-amber-50 p-4 dark:border-amber-900/40 dark:bg-amber-900/10">
@@ -69,19 +72,26 @@ export function StatsPage() {
         {/* Radar par axe */}
         <section className="card p-5">
           <h2 className="mb-3 font-semibold">Profil par axe</h2>
+          {radar === null ? (
+            <p className="text-sm text-slate-500 dark:text-slate-400">Le profil se dessine dès que 3 axes sont mesurés.</p>
+          ) : (
           <ResponsiveContainer width="100%" height={280}>
-            <RadarChart data={radarData}>
+            <RadarChart data={radar}>
               <PolarGrid className="stroke-slate-200 dark:stroke-slate-700" />
               <PolarAngleAxis dataKey="axis" tick={{ fontSize: 11, fill: 'currentColor' }} className="text-slate-500" />
               <PolarRadiusAxis domain={[0, 100]} tick={{ fontSize: 9 }} />
               <Radar name="Score" dataKey="score" stroke="#2b9689" fill="#2b9689" fillOpacity={0.4} />
             </RadarChart>
           </ResponsiveContainer>
+          )}
         </section>
 
         {/* Progression */}
         <section className="card p-5">
           <h2 className="mb-3 font-semibold">Progression dans le temps</h2>
+          {series.length === 0 ? (
+            <p className="text-sm text-slate-500 dark:text-slate-400">Ta première partie dessinera ta courbe.</p>
+          ) : (
           <ResponsiveContainer width="100%" height={280}>
             <LineChart data={series} margin={{ top: 5, right: 10, left: -20, bottom: 0 }}>
               <CartesianGrid strokeDasharray="3 3" className="stroke-slate-200 dark:stroke-slate-800" />
@@ -91,6 +101,7 @@ export function StatsPage() {
               <Line type="monotone" dataKey="score" stroke="#2b9689" strokeWidth={2} dot={{ r: 3 }} />
             </LineChart>
           </ResponsiveContainer>
+          )}
         </section>
       </div>
 
@@ -100,7 +111,9 @@ export function StatsPage() {
           <h2 className="mb-3 font-semibold">Détail par axe</h2>
           <div className="space-y-3">
             {AXES.map((a) => (
-              <ScoreBar key={a} pct={scores[a] ?? 0} label={a} />
+              scores[a] === null
+                ? <ScoreBar key={a} pct={0} showValue={false} label={`${a} · ${a === 'Fachbegriffe' ? `${fachbegriffeVus(begriffe).vues}/${FACHBEGRIFFE_MIN_VUES} cartes vues` : 'pas encore mesuré'}`} />
+                : <ScoreBar key={a} pct={scores[a]!} label={a} />
             ))}
           </div>
         </section>

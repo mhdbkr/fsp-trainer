@@ -105,4 +105,10 @@ describe('saveSimulation', () => {
     const ev = (await db.progress_events.toArray()).find((e) => e.type === 'simulation.completed' && e.subject_id === sim.id);
     expect((ev?.payload as { taskId?: string }).taskId).toBe('tA');
   });
+
+  it('C6-A — une grille de langue non notée ne produit aucune correction « Sprache »', async () => {
+    const vide = { aussprache: -1, wortschatz: -1, grammatik: -1, redefluss: -1, kommunikation: -1 };
+    const sim = await saveSimulation({ c, parts: { anamnese: { ...(part as object), languageGrid: vide } as never }, assistance: 'autonome', layer: 1 as never });
+    expect(sim.prioritizedCorrections.filter((x) => x.includes('Sprache'))).toEqual([]);
+  });
 });
