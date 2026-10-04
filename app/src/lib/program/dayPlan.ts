@@ -34,6 +34,13 @@ const MOCK_MIN = 60;
 const FACHWISSEN_MIN = 15;
 const TEIL_KEYS: SimTeil[] = TEILE.map((t) => t.key);
 
+/** Ce que la tâche Fachbegriffe contient VRAIMENT : « 3 termes dus · 10 nouveaux termes ».
+ *  Jamais « 0 terme dû » — une tâche ne se présente pas par ce qu'elle n'a pas. */
+const drillReason = (due: number, fresh: number): string => [
+  due > 0 ? `${due} terme${due > 1 ? 's dus' : ' dû'}` : null,
+  fresh > 0 ? `${fresh} nouveau${fresh > 1 ? 'x termes' : ' terme'}` : null,
+].filter(Boolean).join(' · ');
+
 /** Le mode par défaut tant que le candidat n'a rien choisi. Lecture tolérante
  *  de l'ancien `strategy` (contrat §6 et §11.2) : aucune sémantique perdue. */
 export function modusOf(config: ProgramConfig): Fortschrittsmodus {
@@ -134,12 +141,13 @@ export function buildTasks(input: BuildInput, mkId: () => string = newId): TaskI
   //    plus de minutes, donc n'attire plus de nouvelles simulations
   //    (audit §2.4 — l'effet existait sans rien cocher).
   const terms = counts(begriffe, input.now);
-  const drillTotal = terms.due + Math.min(terms.fresh, 10);
-  if (drillTotal > 0 && targetMin > 0) {
+  const fresh = Math.min(terms.fresh, 10);
+  const drillTotal = terms.due + fresh;
+  if (drillTotal > 0 && targetMin > 0) {   // ni dû ni nouveau : pas de tâche, donc jamais la session de tête (C6-B)
     push({
       // M-a : borné au budget du jour — un gros arriéré ne remplit pas la journée au-delà.
       kind: 'drill', label: 'Fachbegriffe', estMin: Math.min(Math.ceil(drillTotal * 0.4), targetMin),
-      reason: `${terms.due} terme${terms.due > 1 ? 's' : ''} ${terms.due > 1 ? 'dus' : 'dû'} aujourd'hui, plus les nouveaux du budget.`,
+      reason: drillReason(terms.due, fresh),
     });
   }
 

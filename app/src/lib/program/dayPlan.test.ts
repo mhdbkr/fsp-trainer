@@ -281,3 +281,20 @@ describe('C6-B · l’accord de « dus »', () => {
     expect(drillDe([...dus(4), ...nouveaux(3)] as never[])!.reason).not.toContain('dûs');
   });
 });
+
+describe('C6-B · la tâche Fachbegriffe nomme ce qu’elle contient', () => {
+  it('rien de dû : elle dit les nouveaux termes, jamais « 0 terme dû »', () => {
+    const d = drillDe(nouveaux(25) as never[])!;
+    expect(d.reason).toBe('10 nouveaux termes');            // le budget de nouveaux est plafonné à 10
+    expect(d.reason).not.toMatch(/\b0\b/);
+  });
+  it('du dû ET du nouveau : les deux, dans cet ordre', () => {
+    expect(drillDe([...dus(3), ...nouveaux(2)] as never[])!.reason).toBe('3 termes dus · 2 nouveaux termes');
+    expect(drillDe([...dus(1), ...nouveaux(1)] as never[])!.reason).toBe('1 terme dû · 1 nouveau terme');
+  });
+  it('rien de dû ET aucun nouveau : pas de tâche Fachbegriffe, donc jamais la session de tête', () => {
+    const tasks = buildTasks(input({ begriffe: [], now: NOW }), ids());
+    expect(tasks.some((t) => t.kind === 'drill')).toBe(false);
+    expect(sessionDuJour({ date: '2026-10-01', materializedAt: 0, mode: 'teil-first', seed: 's', targetMin: 90, tasks })!.kind).toBe('simulation');
+  });
+});

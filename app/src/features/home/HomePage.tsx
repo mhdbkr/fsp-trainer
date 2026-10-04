@@ -94,7 +94,7 @@ export function HomePage() {
               </div>
               <h2 className="mt-1.5 text-xl font-bold tracking-tightish md:text-2xl">{session.label}</h2>
               {/* L'explication, en une ligne, figée avec la tâche. */}
-              <p className="mt-1.5 max-w-xl text-sm text-brand-100/90">{session.reason}</p>
+              <p className="mt-1.5 max-w-xl text-sm text-brand-100/90">{session.reason} · <span className="tnum">{session.estMin} min</span></p>
             </div>
             <Link to={taskLink(session)} className="btn shrink-0 gap-2 bg-white px-6 py-3 text-base font-bold text-brand-700 hover:bg-brand-50">
               <Icon name="play" className="h-4 w-4" />{taskCta(session)}
