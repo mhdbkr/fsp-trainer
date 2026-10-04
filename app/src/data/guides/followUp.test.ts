@@ -120,3 +120,29 @@ describe('Revue Q0 — m7 : héparine, Clexane', () => {
     expect(rs[0]).not.toMatch(/Tablette/);
   });
 });
+
+// ── Série 3, lot Q2 : une relance = une question ─────────────────────────────
+describe('Q2 — relances découpées, l\'information est gardée', () => {
+  const ALL = (probe: string) => allQuestions().filter((q) => phraseProbes(q).includes(probe)).flatMap(phraseFollowUp);
+  const SPLIT: [probe: string, expected: string[]][] = [
+    ['nox-alkohol', ['Trinken Sie täglich oder nur zu besonderen Anlässen?', 'Wie viel trinken Sie ungefähr pro Woche?']],
+    ['fach-neuro-kopfschmerz', ['Ist Ihnen während der Schmerzen übel?', 'Sind Sie licht- oder lärmempfindlich?']],
+    ['fach-chir-op', ['Wann war das?', 'Weswegen wurden Sie operiert?', 'Gab es Komplikationen bei der Narkose?']],
+    ['fach-psych-suizid', ['Haben Sie sich selbst verletzt?', 'Haben Sie den Wunsch, sich zu verletzen?']],
+  ];
+  for (const [probe, expected] of SPLIT) {
+    it(`${probe} : ${expected.length} relances d'une question chacune`, () => {
+      const rs = ALL(probe).map((r) => r.replace(/^Falls [^:]+:\s*/, ''));
+      for (const e of expected) {
+        expect(rs).toContain(e);
+        expect(e.match(/\?/g)).toHaveLength(1);
+      }
+    });
+  }
+  it('veg-fieber : le voyage est une question, les vaccins sa relance (partie « reise »)', () => {
+    const q = allQuestions().find((x) => phraseProbes(x).includes('veg-fieber'))!;
+    const reise = (q as { parts: { sucht: string[]; text: string; followUp?: string[] }[] }).parts.find((p) => p.sucht.includes('reise'))!;
+    expect(reise).toMatchObject({ text: 'Waren Sie kürzlich im Ausland?', followUp: ['Sind Sie regelmäßig geimpft?'] });
+    expect(phraseFollowUp(q)).toEqual(expect.arrayContaining(['Waren Sie kürzlich im Ausland?', 'Sind Sie regelmäßig geimpft?']));
+  });
+});
