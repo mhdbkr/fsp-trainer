@@ -12,6 +12,7 @@ import { useTimeAmbiance, FocusTimeAura } from './TimeCapsule';
 import { MUSTER_BOGEN } from '@/data/guides/musterBogen';
 import { FollowUpControls, ProgressiveSteps, VariantPicker } from '@/components/PhraseControls';
 import { getPreferredVariant, setPreferredVariant } from '@/lib/variantPrefs';
+import { bogenKeysFor } from './bogenKeys';
 
 // ============================================================================
 // Mode focus / immersif — concentre l'attention sur UN chapitre et UNE
@@ -21,24 +22,6 @@ import { getPreferredVariant, setPreferredVariant } from '@/lib/variantPrefs';
 // ============================================================================
 
 interface FocusChapter { id: string; title: string; icon: string; items: Phrase[]; tip?: string }
-
-/** Chapitre d'anamnèse → rubrique(s) candidates du Muster-Bogen, par ordre de
- *  préférence : les modèles n'ont pas tous les mêmes rubriques, on prend la
- *  première que le modèle courant possède. */
-const CHAPTER_TO_BOGEN: Record<string, string[]> = {
-  personalia: ['personalia'],
-  eroeffnung: ['personalia'],
-  aktuell: ['hauptbeschwerde'],
-  vegetativ: ['vegetativ', 'hauptbeschwerde'],
-  vorerkrankungen: ['vorerkrankungen', 'medikamente'],
-  medikamente: ['medikamente', 'vorerkrankungen'],
-  allergien: ['allergien'],
-  noxen: ['noxen', 'genussmittel'],
-  'familie-sozial': ['sozial', 'familie'],
-  frauenanamnese: ['frauen'],
-  // La Frauenanamnese est fondue dans la Fach gynéco : les notes du bloc vont à la même rubrique.
-  'fach-gyn': ['frauen'],
-};
 
 export function ImmersiveMode({ part, c, onClose, initialChapterId, muster, bogen, setBogen }: {
   part: 'anamnese' | 'fallvorstellung'; c: Case; onClose: () => void; initialChapterId?: string;
@@ -118,9 +101,9 @@ export function ImmersiveMode({ part, c, onClose, initialChapterId, muster, boge
   const noteKey = useMemo(() => {
     if (!spec) return null;
     const has = (k: string) => spec.fields.some((f) => f.key === k);
-    const wanted = CHAPTER_TO_BOGEN[chapters[ci]?.id] ?? [];
+    const wanted = bogenKeysFor(chapters[ci]?.id, chapters[ci]?.items ?? [], ii);
     return wanted.find(has) ?? (has('hauptbeschwerde') ? 'hauptbeschwerde' : spec.fields.find((f) => f.kind === 'box')?.key ?? null);
-  }, [spec, chapters, ci]);
+  }, [spec, chapters, ci, ii]);
   const noteField = spec?.fields.find((f) => f.key === noteKey);
 
   // Mémorise la position à chaque déplacement (reprise après fermeture).
