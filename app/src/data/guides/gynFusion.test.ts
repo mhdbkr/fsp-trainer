@@ -145,4 +145,18 @@ describe('Q-gyn — mutations (la garde rougit)', () => {
     expect(doublons(inject('frauenanamnese', 'Wann war Ihre letzte Regelblutung?')).join()).not.toBe('');
     expect(doublons([...base(), { ch: 'frauenanamnese', q: 'Wann war Ihre letzte Regelblutung?' }, { ch: 'fach', q: 'Wann hatten Sie Ihre letzte Regel?' }]).join()).toMatch(/dernière règle/);
   });
+
+  // Revue mécanique I1 : la garde lexicale se contournait par reformulation.
+  // Six paraphrases mesurées ; chacune, injectée à côté de sa jumelle, doit rougir.
+  const REFORMULATIONS: Array<[chapitre: string, texte: string, signe: RegExp]> = [
+    ['fach', 'Wann hatten Sie zuletzt Ihre Tage?', /dernière règle/],
+    ['fach', 'Welche Verhütung benutzen Sie?', /contraception/],
+    ['fach', 'Könnten Sie schwanger sein?', /grossesse possible/],
+    ['fach', 'Wann waren Sie zuletzt beim Gynäkologen?', /gynécologue/],
+    ['fach', 'Waren Sie schon einmal schwanger?', /grossesse possible/],
+    ['medikamente', 'Nehmen Sie Östrogene oder Gestagene ein?', /hormones/],
+  ];
+  for (const [ch, texte, signe] of REFORMULATIONS) {
+    it(`reformulation « ${texte} » rougit`, () => { expect(doublons(inject(ch, texte)).join()).toMatch(signe); });
+  }
 });
