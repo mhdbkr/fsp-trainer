@@ -13,13 +13,13 @@ import { useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { format, parseISO } from 'date-fns';
 import { fr } from 'date-fns/locale';
-import { useCases } from '@/hooks/useData';
+import { useCases, useProgramConfig } from '@/hooks/useData';
 import { useTrainingEvents } from './useProgram';
 import type { SimTeil, Specialty, TrainingEvent, TrainingKind, TrainingSource } from '@/db/types';
 import { spentByDay, workedDayKeys } from '@/lib/journal';
 import { streakFromDays } from '@/lib/stats';
 import { TEILE } from '@/lib/simScope';
-import { dayKey } from '@/lib/clock';
+import { dayKey, nowDate } from '@/lib/clock';
 import { Icon } from '@/components/icons';
 import { EmptyState } from '@/components/ui';
 import { TASK_META } from './TaskLine';
@@ -36,6 +36,7 @@ const hhmm = (min: number) => `${Math.floor(min / 60)} h ${String(min % 60).padS
 
 export function HistoriquePage() {
   const cases = useCases();
+  const config = useProgramConfig();
   const events = useTrainingEvents();
   const [teil, setTeil] = useState<SimTeil | 'tous'>('tous');
   const [specialty, setSpecialty] = useState<Specialty | 'toutes'>('toutes');
@@ -58,7 +59,7 @@ export function HistoriquePage() {
 
   const totalMin = filtered.reduce((s, e) => s + Math.max(0, e.spentMin), 0);
   const jours = workedDayKeys(filtered);
-  const streak = streakFromDays(workedDayKeys(events));
+  const streak = streakFromDays(workedDayKeys(events), nowDate(), config?.offDays ?? []);
 
   // Regroupement par jour — la frise se lit du plus récent au plus ancien.
   const groups: { date: string; events: TrainingEvent[]; min: number }[] = [];

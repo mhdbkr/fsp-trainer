@@ -41,7 +41,7 @@ export function HomePage() {
     return <div className="flex h-64 items-center justify-center text-slate-400">Chargement…</div>;
   }
 
-  const streak = streakFromDays(workedDayKeys(events));
+  const streak = streakFromDays(workedDayKeys(events), nowDate(), config?.offDays ?? []);
   const due = dueCount(begriffe);
   const session = sessionDuJour(plan);
   const { done, total } = planProgress(plan);
