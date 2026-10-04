@@ -19,7 +19,10 @@ describe('ExternalAiSheet', () => {
     expect(await screen.findByRole('dialog', { name: /simuler avec ton ia/i })).toBeTruthy();
     await screen.findByRole('radiogroup', { name: /ton ia/i });
     expect(screen.queryByText(/anamnèse seule|examen complet|français/i)).toBeNull();
-    fireEvent.click(screen.getByRole('button', { name: /^copier$/i }));
+    // « Copier » reste désactivé tant que le prompt n'est pas construit : sous charge, cliquer avant = clic perdu.
+    const copier = screen.getByRole('button', { name: /^copier$/i });
+    await waitFor(() => expect((copier as HTMLButtonElement).disabled).toBe(false));
+    fireEvent.click(copier);
     await waitFor(() => expect(write).toHaveBeenCalled());
     expect(write.mock.calls[0][0]).toContain(AUSGABE.patient);
     expect((await db.meta.get('externalAi.pending'))?.value).toMatchObject({ caseId: 'c1', teil: 'anamnese' });

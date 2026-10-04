@@ -134,6 +134,8 @@ reste du budget hors questions du cas.
 
 ## 11. Registre des workflows en vol — à relancer sans exception
 
+**Conflits d'autostash résolus par `main`** : `index.css` (3 oct., `.reveal` en `backwards` + `.swap-*` de #58) ; `ProgramPage.tsx` (4 oct., `ReporterMenu` supprimé par #60 → version de `main`). `stash@{0}`/`stash@{1}` = copies intactes de l'autre session, à ne pas supprimer sans elle.
+
 **Ne jamais utiliser `git stash` dans un worktree** : les stashs sont partagés ; `stash@{0}` (autostash du 3 oct.) contient le travail en cours d'une autre session (`index.css`, `checkFixedOverlays`).
 
 Règle : à chaque reprise (limite d'usage, coupure), `main` relit cette table et
@@ -145,16 +147,23 @@ rien de cette table.
 | Workflow | Worktree / branche | Agent | Étape | Clos ? |
 |---|---|---|---|---|
 | Intégration primitives | `doctopus-s3-primitives` · `feat/s3-primitives` | `ad901ff9c385851ac` | **PR #58 mergée** (`8e7474f7`, 3 oct.) | **oui** |
-| Intégration programme | `doctopus-s3-programme` · `feat/s3-programme` | `a276d650bc56bda9b` | **PR #60** (`2cb0633a`, fusionnée avec #57, test aligné sur « Verso », 1139/1139 en local) → CI → **merge sur accord de la direction** → débloque C6 | non |
+| Intégration programme | `doctopus-s3-programme` · `feat/s3-programme` | `a276d650bc56bda9b` | **PR #60 mergée** (`2604ff8c`, 4 oct.) ; CI de `main` rouge après coup (`9f975394`, autre session, a retiré « Verso » au drill) → test réaligné par `main` (`76899950`) | **oui** |
 | Lot L0 — revue mécanique | `doctopus-s3-lot0` | `a85f52786072e2105` | rendue : Request changes (I1 fiche simulant « Fuß » sur la main, I2 plancher des paires, I3 `fachSkip` non validé) | **oui** |
 | Lot L0 — fixeur | `doctopus-s3-lot0` · `feat/s3-lot0-fach-nature` | `ac508d333980d928d` | **PR #59 mergée** (`1b9c03a7`, 3 oct.) | **oui** |
 | Audit questions du cas + FB3-G | lecture seule | `ac7225d1457bf293d` | rendu → `audit-questions-du-cas-serie3.md` | **oui** |
 | Suivis programme | — | — | `StatusBadge` sans usage (`components/ui.tsx`) ; tâche figée sur un autre appareil non rapatriée → cochée par le contenu seulement | à lancer après merge |
 | Réserves primitives (suivi) | — | — | `CardFlip` (`.card`) dans le verre de `CardToast` : choisir sa matière en petit ; `.input` flouté dans cartes floutées (antérieur) ; « Dokumentation » touche sa tuile à 390 (`ModeChooser`) | à lancer après merge |
-| Lot Q0 — implémenteur (devient fixeur) | `doctopus-s3-q0` · `feat/s3-q0-questions-du-cas` | `acd90f173726a129a` | **PR #62** (`37d77134`) **CI verte** → **merge sur accord de la direction** → déclenche Q1 | non |
+| Lot Q0 — implémenteur (devient fixeur) | `doctopus-s3-q0` · `feat/s3-q0-questions-du-cas` | `acd90f173726a129a` | **PR #62 mergée** (4 oct.) | **oui** |
 | Lot Q0 — revue mécanique | lecture seule | `a77b1f874a424ae16` | rendue : Request changes (I-1 relance de cas hors atomicité) + m1–m7 | **oui** |
 | Lot Q0 — revue clinique | lecture seule | `a5ac25017eaaac724` | rendue : approuvé avec réserves (hodentorsion, épaule péricardite, NOTFALL) ; 3 décisions confirmées | **oui** |
-| Lots Q1 → Q8, Lc1 → Lc3 | — | — | §10, l'un après l'autre après Q0 | à lancer |
+| Lot Q1 — implémenteur | `doctopus-s3-q1` · `feat/s3-q1-aktuell` | `aa77839d0d370c0e3` | **PR #63** ouverte (`341f0eab`, 3 revues corrigées) → CI → **merge sur accord de la direction** → déclenche Q2 | non |
+| Lot Q1 — revues | lecture seule | clinique `ae3f2807f69066acc` · langue `a751050b5532bf3d0` · mécanique `a291c2076b053b0db` | rendues : clinique 3 réserves (coxarthrose persona/medicalView, bws → règle Fach), langue 6, méca Approve with minors | **oui** |
+| Mécanique à ajouter (revues Q1) | — | — | (a) `checkCaseQuestionAnswers.mjs` informatif + compteur gravé (129/866 questions de cas sans mot retrouvé dans la fiche, ≈ 20 trous réels) ; (b) relance « W-, und W- ? » à un seul « ? » non détectée par la règle A ; (c) ~~contrat §3.6~~ fait dans #63 | avec Q2 |
+| Lots Q2 → Q8, Lc1 → Lc3 | — | — | §10, l'un après l'autre après Q1 | à lancer |
 | Reports vers Q1/Q2 (revues Q0) | — | — | Q1 : rheumatoide-arthritis « Schuppenflechte », karpaltunnel « Bruch », malaria « Milz », hypothyreose « Entbindungen » ; 10 irradiations avec question de cas ; osteoporose bws. Q2 : relances à 2 questions (alcool, gastro, Kopfschmerz, onko, chir-op, Fieber, Kraft, suizid, `veg-fieber`) | tracé |
-| C6 — agent testeur | — | — | après intégration programme (primitives mergée) | à lancer |
+| C6 — candidat synthétique | `doctopus-s3-c6` · `feat/s3-c6-candidat` | `a92b4c2e4d2f21ebc` | livré (17 invariants + 1 `it.fails` BUG-C6-1, 21+11 mutations tuées, parcours 14 j : 212/224 en 206 s) ; re-merge `main` + bascule de l'`it.fails` IA (corrigé `0560198d`) → push → revue → PR | non |
+| C6 — jugement UX | lecture seule | `a06644a85b277a992` | rendu → `c6-jugement-ux-2026-10-04.md` (7 ruptures) | **oui** |
+| Lot C6-A « chiffres honnêtes » | `doctopus-s3-c6a-chiffres` · `feat/s3-c6a-chiffres` | `a09833e671b2389b9` | démos hors base candidat (+ migration), axe Fachbegriffe = rétention des cartes vues, score sans valeurs fantômes, EXAM_CLAIM « barème officiel », série en jours du programme, trajectoire expliquée → push → revue → PR | non |
+| Lot C6-B « le jour du candidat » | `doctopus-s3-c6b-jour` · `feat/s3-c6b-jour` | `ad84ab89cbdc39047` | session du jour Fachbegriffe nommée/déplacée, « dus », ligne jours manqués (Rattraper/Laisser), titres non tronqués à l'accueil, `Date.now()` → `lib/clock` → push → revue → PR | non |
+| `main` après C6 | — | — | `test:c6` dans `package.json`, `tests` dans tsconfig ; test instable `ExternalAiSheet` corrigé (`48a36bd3`) | à faire au merge de C6 |
 | Lots L1 → L15 | — | — | §10, l'un après l'autre (mêmes fichiers) | à lancer |

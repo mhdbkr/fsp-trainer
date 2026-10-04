@@ -5,7 +5,7 @@ import { db } from '@/db/db';
 import { readPending, setPending, AI_TARGETS } from '@/lib/externalAi/targets';
 import { SelbstBewertung } from './PartEvaluation';
 import { saveSimulation } from '@/lib/simulationSave';
-import type { Case, PartResult } from '@/db/types';
+import type { Case, PartResult, Simulation } from '@/db/types';
 
 const SNOOZE_MS = 3600_000; // 1 h — « Pas maintenant » persiste dans la trace (snoozedUntil), pas en sessionStorage
 // Les 3 durées proposées ; « 30 min+ » vaut 30 min comme les autres, le
@@ -44,8 +44,12 @@ export function PendingExternalSimCard({ onlyCaseId }: { onlyCaseId?: string } =
     if (x.snoozedUntil && Date.now() < x.snoozedUntil) return null;
     // Le cas a été joué et enregistré dans l'app après le lancement de l'IA
     // (lanceur ouvert pendant la partie, puis partie finie ici) : la trace est
-    // caduque, ne pas redemander une évaluation déjà faite.
-    if (await db.simulations.where('caseId').equals(x.caseId).filter((s) => s.date >= x.at).count()) return null;
+    // caduque, ne pas redemander une évaluation déjà faite — seulement si cette
+    // partie couvre le Teil de la trace (séance complète : Anamnese + Fallvorstellung).
+    const couvre = (s: Simulation) => x.teil
+      ? !!s.parts?.[x.teil]?.done
+      : !!(s.parts?.anamnese?.done && s.parts?.fallvorstellung?.done);
+    if (await db.simulations.where('caseId').equals(x.caseId).filter((s) => s.date >= x.at && couvre(s)).count()) return null;
     return x;
   }, [onlyCaseId], null);
   const caseId = p?.caseId;
