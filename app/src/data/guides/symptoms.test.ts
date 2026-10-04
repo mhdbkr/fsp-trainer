@@ -173,6 +173,9 @@ describe('Lexique de signes — INV-77 (cohérent) et INV-78 (granularité)', ()
     expect(SUCHT_AFFINE['akt-ausscheid-was']).toEqual(expect.arrayContaining(['stuhl', 'miktion', 'gelbfaerbung', 'urin_aspekt', 'stuhlaussehen']));
   });
 
+  it('D1 : fach-endo-durst (« häufiger Wasser lassen, auch nachts ») cherche aussi la nykturie', () => {
+    expect(SUCHT_AFFINE['fach-endo-durst']).toEqual(expect.arrayContaining(['durst', 'polyurie', 'nykturie']));
+  });
   it('INV-78 : les paires de discrimination ont des sucht disjoints', () => {
     expect(GRANULARITE_PAIRES.length).toBeGreaterThanOrEqual(4);
     for (const [a, b] of GRANULARITE_PAIRES) expect(SUCHT_AFFINE[a].filter((s) => SUCHT_AFFINE[b].includes(s)), `${a} / ${b}`).toEqual([]);
