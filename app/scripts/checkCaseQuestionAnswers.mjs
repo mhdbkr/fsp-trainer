@@ -67,7 +67,7 @@ if (bless) {
 const shown = candidates.filter((c) => !ONLY || c.id === ONLY);
 console.log(`ℹ Réponse des questions du cas : ${count} candidat(s) sur ${total} questions (plancher ${floor}) ; ${unjudged} sans mot distinctif (non jugeables).`);
 console.log('  (porte INFORMATIVE ; le compteur ne remonte jamais — checkBudgetFloor.mjs et le test)\n');
-for (const c of report || ONLY ? shown : shown.slice(0, 15)) console.log(`  · ${c.id} [${c.words.join(', ')}]\n      ${c.frage.slice(0, 170)}`);
+for (const c of report || ONLY ? shown : shown.slice(0, 15)) console.log(`  · ${c.id} [${c.words.join(', ')}]\n      ${c.frage.slice(0, 170)}${c.followUp ? ` — relance : ${c.followUp.slice(0, 100)}` : ''}`);
 if (!report && !ONLY && shown.length > 15) console.log(`  … ${shown.length - 15} de plus (--report)`);
 if (count > floor) console.log(`\n⚠ ${count} > plancher ${floor} : une question du cas n'a pas de réponse dans la fiche.`);
 else if (count < floor) console.log(`\n   Plancher entamé (−${floor - count}) — lancer \`--bless\` pour le graver.`);
