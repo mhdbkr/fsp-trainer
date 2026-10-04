@@ -39,3 +39,11 @@ export const RYTHME_SEUIL = 0.6;
 export const RYTHME_MIN_JOURS = 3;
 export const BUDGET_PLANCHER_MIN = 20;
 export const RYTHME_REFUS_MAX = 2;
+
+// --- simulation-run.md §10.7 : l'annonce unique des changements rétroactifs ---
+// Chaque sujet a sa garde : l'annonce ne parle d'un changement qu'une fois LIVRÉ.
+// `teile` est livré par S4-1. `mode` passe à `true` avec S4-2 en production,
+// `muster` avec S4-3 — dans le commit qui les déploie, comme `D_UN_TRAIT_ACTIF`.
+export const ANNONCE_TEILE_ACTIVE = true;
+export const ANNONCE_MODE_ACTIVE = false;
+export const ANNONCE_MUSTER_ACTIVE = false;

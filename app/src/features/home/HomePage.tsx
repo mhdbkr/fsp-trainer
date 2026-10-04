@@ -27,6 +27,7 @@ import { Icon } from '@/components/icons';
 import { Tilt } from '@/components/Tilt';
 import { MigrationPrompt } from '@/features/account/MigrationPrompt';
 import { PendingExternalSimCard } from '@/features/simulation/PendingExternalSimCard';
+import { AnnonceS4 } from './AnnonceS4';
 
 export function HomePage() {
   const cases = useCases();
@@ -55,6 +56,7 @@ export function HomePage() {
   return (
     <div className="space-y-6">
       <MigrationPrompt />
+      <AnnonceS4 />
       <PendingExternalSimCard />
 
       <header className="flex flex-wrap items-end justify-between gap-4">
