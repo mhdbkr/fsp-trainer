@@ -5,7 +5,7 @@ Retour d'usage : « la Frauenanamnese vers la fin entre en conflit de questions 
 
 ## Ce qui est fait, en une phrase
 
-Quand la Fach **Gynäkologie** est jouée chez une patiente, il n'y a plus qu'**un bloc** : les sondes propres à la Frauenanamnese (régularité du cycle et dernière règle, grossesse possible, contraception, ménopause dès 45 ans) ouvrent le bloc gynéco, puis viennent les signes gynécologiques ; le chapitre « Frauenanamnese » n'est plus affiché à part. Sans Fach gynéco, la Frauenanamnese est un chapitre comme avant.
+Quand la Fach **Gynäkologie** est jouée chez une patiente, il n'y a plus qu'**un bloc** : les sondes propres à la Frauenanamnese (régularité du cycle et dernière règle, grossesse possible, contraception, ménopause dès 45 ans) ouvrent le bloc gynéco, puis viennent les signes gynécologiques ; le chapitre « Frauenanamnese » n'est plus affiché à part. Pour les patientes sans Fach gynéco, la Frauenanamnese reste un chapitre : mêmes sondes, même ordre, même conseil ; seuls ses textes sont découpés en question + relances (une réplique, un « ? »).
 
 ## 1. Inventaire (mesuré sur la trame jouée, `playedTrame`)
 

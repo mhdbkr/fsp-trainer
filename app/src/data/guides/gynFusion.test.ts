@@ -128,7 +128,7 @@ describe('Q-gyn — la Frauenanamnese se fond dans la Fach gynéco', () => {
     expect(fusesFrauenanamnese(autre, playedTrame(autre).fach)).toBe(false);
   });
 
-  it('hors Fach gynéco, une patiente garde sa Frauenanamnese en chapitre (rien ne change)', () => {
+  it('hors Fach gynéco, une patiente garde son chapitre Frauenanamnese : mêmes sondes, même ordre, même conseil — seuls les textes sont découpés en relances', () => {
     const autre = cases.find((c) => c.patientSheet.personalia.geschlecht === 'w' && c.patientSheet.personalia.age < 45 && !playedTrame(c).fach?.chapter.id.endsWith('gyn'))!;
     const t = playedTrame(autre);
     expect(t.chapters.some((ch) => ch.id === 'frauenanamnese')).toBe(true);
