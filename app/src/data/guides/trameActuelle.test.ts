@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { seedCases } from '@/data/seedCases';
 import { FACH_COVERS, playedTrame } from './anamneseChapters';
-import { phraseIsCaseSpecific, phraseProbes, type Phrase } from './phrases';
+import { phraseFollowUp, phraseIsCaseSpecific, phraseProbes, type Phrase } from './phrases';
 
 // K0 — non-régression du montage ACTUEL (ADR-0023). `FACH_COVERS` et
 // `dedupeBySymptom` seront remplacés par `cohere` en K3 ; ce test fige ce qu'ils
@@ -13,12 +13,15 @@ import { phraseIsCaseSpecific, phraseProbes, type Phrase } from './phrases';
 // rédaction ne fait pas rougir. Un lot qui change la trame jouée d'un cas
 // (DM1 en K1, `sucht` du cas, une sonde ajoutée) régénère le gel — `vitest -u` —
 // et le diff du commit dit quels cas ont bougé.
+// Les relances comptent (`↳n`, via phraseFollowUp) : une relance déplacée ou détachée par K1 / K3
+// change le nombre de relances de sa mère, donc le diff du gel ; les mots d'une relance, eux, ne sont pas gelés.
 const key = (p: Phrase): string => {
+  const relances = phraseFollowUp(p).length ? `↳${phraseFollowUp(p).length}` : '';
+  if (phraseIsCaseSpecific(p)) return `cas${relances}`;
   const probes = phraseProbes(p).join('+');
-  if (phraseIsCaseSpecific(p)) return 'cas';
   // une question réduite par `parts` (dedupeBySymptom) porte le `sucht` de ce qui reste
   const reduced = typeof p !== 'string' && p.sucht ? `~${p.sucht.join(',')}` : '';
-  return `${probes || '·'}${reduced}`;
+  return `${probes || '·'}${reduced}${relances}`;
 };
 
 describe('Montage actuel gelé (FACH_COVERS + dedupeBySymptom, 130 cas)', () => {
