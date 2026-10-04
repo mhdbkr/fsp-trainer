@@ -128,11 +128,18 @@ async function arranger() {
     catch (e) { if (i === 2) throw e; await sleep(2000); }
   }
   goto('/programme');
-  const pret = await until(`
-    if (txt().includes("besoin d'une connexion")) return 'PREMIER_CHARGEMENT';
-    return txt().includes('Aucun programme encore') || txt().includes('min prévues') || txt().includes('figé à sa première ouverture')
-      ? 'OK' : null;
-  `, 'app chargée');
+  // Le profil de `playwright-cli` est en mémoire : chaque `open` refait le
+  // premier chargement (content?since=0), que l'edge runtime local coupe parfois
+  // sous charge (546, « CPU time hard limit »). Trois essais, comme « Réessayer ».
+  let pret = null;
+  for (let essai = 0; essai < 3 && pret !== 'OK'; essai++) {
+    if (essai) { pw('reload'); await sleep(2000); }
+    pret = await until(`
+      if (txt().includes("besoin d'une connexion")) return 'PREMIER_CHARGEMENT';
+      return txt().includes('Aucun programme encore') || txt().includes('min prévues') || txt().includes('figé à sa première ouverture')
+        ? 'OK' : null;
+    `, 'app chargée', 240);
+  }
   exige(pret === 'OK',
     `l'app n'a jamais chargé son contenu dans ce navigateur. Prérequis : un Supabase joignable UNE fois `
     + `(VITE_SUPABASE_URL de app/.env). Ensuite le contenu reste en IndexedDB et ce script n'a plus besoin du réseau.`);
@@ -167,7 +174,25 @@ async function arranger() {
   await until(`return txt().includes('Aucun programme encore') ? true : null;`, 'programme remis à zéro');
 
   if (probe(`return txt().includes('Aucun programme encore');`)) {
-    probe(`bouton((t) => t === 'Générer mon programme').click(); return await attendre(() => !txt().includes('Aucun programme encore'));`);
+    // Aujourd'hui doit être un jour TRAVAILLÉ : le formulaire coche le dimanche
+    // en jour off par défaut, et un jour off a un plan vide (buildTasks) — la
+    // preuve passait en semaine et tombait à 0/6 chaque dimanche. On décoche le
+    // jour courant s'il est off (seul indicateur rendu : la classe du bouton).
+    probe(`
+      const jour = ['Di', 'Lu', 'Ma', 'Me', 'Je', 'Ve', 'Sa'][new Date().getDay()];
+      const b = bouton((t) => t === jour);
+      if (b && b.className.includes('bg-slate-300')) b.click();
+      await attendre(() => false, 200);
+      bouton((t) => t === 'Générer mon programme').click();
+      return await attendre(() => !txt().includes('Aucun programme encore'));
+    `);
+    // Vérifié dans ce que l'app a écrit, pas dans la classe : si le marquage
+    // change, l'arrangement échoue en clair au lieu de donner un faux 0/6.
+    const off = probe(`
+      const p = (await read('meta')).find((m) => m.key === 'program');
+      return p ? p.value.offDays.includes(new Date().getDay()) : 'absent';
+    `);
+    exige(off === false, `aujourd'hui reste un jour off du programme (${off}) : le plan du jour serait vide`);
   }
   // I1 : créer le programme OUVRE la journée — sans rechargement. La
   // matérialisation reste hors rendu (ProgramSetup appelle ensureDayPlan).
