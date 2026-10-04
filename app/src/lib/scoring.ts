@@ -1,11 +1,12 @@
 import type { Axis, LanguageGrid, PartResult, Simulation, ChecklistItem, AssistanceMode, Layer } from '@/db/types';
 
 // ============================================================================
-// Système d'évaluation hybride (cf. ANALYSE.md §6 + mémoire officielle).
+// Système d'évaluation hybride (cf. ANALYSE.md §6).
 //   1) Checklist de contenu  → contentPct = % de critères cochés
-//   2) Grille de langue "officielle" (5 axes, 0..5) → officialPct
+//   2) Grille de langue Doctopus (5 critères, 0..5) → officialPct (nom historique du champ)
 //   3) Curseur ressenti (feeling 0..100)
-// Verdict officiel: PASS si CHAQUE partie tentée atteint ≥ 60% (règle BW).
+// Verdict : PASS si CHAQUE partie tentée atteint ≥ 60 %. Ce seuil et cette grille
+// sont INTERNES à Doctopus — jamais « ce que le jury note » (garde EXAM_CLAIM).
 // ============================================================================
 
 export const PASS_THRESHOLD = 60;

@@ -9,7 +9,7 @@ type Part = 'anamnese' | 'dokumentation' | 'fallvorstellung' | 'aufklaerung';
 
 // ============================================================================
 // Le BILAN de la partie qui vient d'être jouée : checklist de contenu + grille
-// de langue officielle + curseur ressenti. Le score se calcule seul.
+// de langue Doctopus + curseur ressenti. Le score se calcule seul.
 //
 // Ce composant n'a plus AUCUN état. La checklist, la grille et le ressenti sont
 // des champs du `Lauf` (contrat §1) : il les reçoit et les repousse. Avant, un
@@ -113,14 +113,14 @@ export function PartEvaluation({
         </div>
 
         <div className="space-y-4">
-          {/* Grille langue officielle */}
+          {/* Grille de langue Doctopus */}
           {hasLang && (
             <div className="card p-5">
               <div className="mb-1 flex items-center justify-between">
-                <div className="label">Grille de langue (barème officiel)</div>
+                <div className="label">Grille Doctopus · langue</div>
                 <span className="text-sm font-bold">{langueNotee ? `${officialPct}%` : `${nbNotes}/5 notés`}</span>
               </div>
-              <p className="mb-3 text-[11px] text-slate-400">Ce que le jury note vraiment (C1). 0 = faible, 5 = excellent. La langue compte dans le score quand les 5 critères sont notés.</p>
+              <p className="mb-3 text-[11px] text-slate-400">Notre grille de travail, pas le barème du jury. 0 = faible, 5 = excellent. La langue compte dans le score quand les 5 critères sont notés.</p>
               <div className="space-y-3">
                 {LANGUAGE_CRITERIA.map((crit) => (
                   <Curseur

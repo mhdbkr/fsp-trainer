@@ -24,4 +24,11 @@ describe('ResultScreen', () => {
     expect(screen.getByText(/contenu 30%/)).toBeTruthy();
     expect(screen.getByText(/score moyen 30%/)).toBeTruthy();
   });
+
+  it('EXAM_CLAIM — le seuil de 60 % est celui de Doctopus, pas « la règle FSP »', () => {
+    const p = { done: true, durationSec: 60, checklist: [], feeling: 50, contentPct: 80, officialPct: 80 };
+    const { container } = render(<MemoryRouter><ResultScreen sim={{ id: 's4', caseId: 'c1', date: Date.now(), passed: true, parts: { anamnese: p }, prioritizedCorrections: [], scope: 'full' } as never} c={{ id: 'c1', name: 'Ulcus', specialty: 'G' } as never} /></MemoryRouter>);
+    expect(container.textContent).toContain('seuil Doctopus');
+    expect(container.textContent).not.toMatch(/règle FSP|officiel/);
+  });
 });
