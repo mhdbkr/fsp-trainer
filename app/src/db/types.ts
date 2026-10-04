@@ -64,6 +64,11 @@ export type Layer = 1 | 2 | 3;
  *  (+ ODAK = modèle pédagogique complet). */
 export type MusterCity = 'Standard' | 'Freiburg' | 'Karlsruhe' | 'Reutlingen' | 'Stuttgart';
 
+/** [S4] Les deux Muster de la série 4 (simulation-run.md §10.6). Les villes se
+ *  lisent par `musterArt()` (S4-3) ; ce type n'est ajouté ici que parce que
+ *  `db/types.ts` est de la propriété de S4-1 (training-journal.md §12.12, m-d). */
+export type MusterArt = 'guide' | 'libre';
+
 // ----------------------------------------------------------------------------
 // Fiche patient (jouable par le partenaire) — reproduit la structure réelle
 // des protocoles (Personalia, Noxen, Vorerkrankungen…).
@@ -502,7 +507,7 @@ export interface Simulation {
   // --- Itération 2 ---
   assistance?: AssistanceMode;
   layer?: Layer;
-  muster?: MusterCity;
+  muster?: MusterCity | MusterArt;   // [S4] les villes série 3 restent lisibles
   arztbriefText?: string;  // ce que le candidat a rédigé (jamais auto-généré)
   /** PHASE 2b (optionnel) — journal de conversation (continuité IA + analytics). */
   conversation?: ConversationTurn[];
@@ -517,6 +522,15 @@ export interface Simulation {
   /** TaskInstance du plan figé que ce run satisfait (ADR-0017 §3.4). Absent =
    *  exercice libre. Écrit par le lanceur de simulation (chantier C2). */
   taskId?: string;
+  // --- [S4] la partie entière (simulation-run.md §3.2, §10.4) — écrits par S4-3,
+  // lus ici avec tolérance : absents de toute simulation antérieure. ----------
+  /** Les trois Teile joués d'un trait, sans reprise de plus de 5 min (`enchainiert`). */
+  enchaine?: true;
+  /** L'ordre dans lequel les Teile ont été joués. Sa présence est le discriminant
+   *  « simulation série 4 » (training-journal.md §2.3, m-e). */
+  reihenfolge?: SimTeil[];
+  /** Durée totale de la partie, Teil abandonné compris (m6). `date` = début. */
+  dauerGesamtSec?: number;
 }
 export type SimTeil = 'anamnese' | 'dokumentation' | 'fallvorstellung';
 
@@ -655,7 +669,23 @@ export interface TrainingEvent {
   scores?: Partial<Record<SimTeil, number>>; // 0..100 par Teil joué
   selbstbewertet?: boolean;    // true = score déclaré par le candidat, pas mesuré
   profileId?: string;          // profil crédité
+  // --- [S4] DÉRIVÉS de `simulation.completed` (training-journal.md §2.3) ;
+  // jamais écrits par `training.logged` (son schéma serveur est `.strict()`). ---
+  enchaine?: true;             // les 3 Teile joués d'un trait
+  examen?: true;               // conditions d'examen (`conditionsExamen`)
+  /** Ce qui manque pour que la partie soit « en conditions d'examen » ; présent
+   *  seulement pour une simulation série 4. Même fonction que `examen` : `[]` ⇔ `examen`.
+   *  Ajout de S4-1 (le contrat §12.7 `pretManque` n'a sinon aucune source). */
+  examenManque?: ConditionExamen[];
+  minutesParTeil?: Partial<Record<SimTeil, number>>;       // durée mesurée par Teil joué
+  manques?: Partial<Record<SimTeil, ChecklistItemId[]>>;  // items NON cochés par Teil joué
 }
+
+/** Identifiant sémantique et stable d'un item de checklist (simulation-run.md §4). */
+export type ChecklistItemId = string;
+
+/** Ce qu'il faut pour qu'une partie soit « en conditions d'examen » (décision (b)). */
+export type ConditionExamen = 'enchaine' | 'autonome' | 'ordre' | 'grille';
 
 export type TaskKind = 'simulation' | 'drill' | 'fachwissen' | 'aufklaerung' | 'revision' | 'examen-blanc';
 
@@ -669,7 +699,12 @@ export interface TaskInstance {
   /** Le sujet, et lui seul. Le type, le Teil, la couche et le coût se lisent
    *  dans les champs — l'étiquette ne les concatène JAMAIS (ADR-0020 §8). */
   label: string;
+  /** @deprecated [S4] LECTURE SEULE (plans série 3) : jamais écrit. Lire par `teileDeTache`. */
   teil?: SimTeil;              // absent = run complet
+  teile?: SimTeil[];           // [S4] ce qui RESTAIT au moment du plan, ordre d'examen
+  rappel?: ChecklistItemId;    // [S4] erreur transversale à rappeler, au plus une, figée
+  dUnTrait?: true;             // [S4] ne se coche que par une partie enchaînée
+  creeA?: number;              // [S4] instant de création ; absent = début du jour
   layer?: Layer;
   specialty?: Specialty;
   assistance?: AssistanceMode;
@@ -699,6 +734,7 @@ export interface DayPlan {
   targetMin: number;
   tasks: TaskInstance[];
   replannedAt?: number;
+  tz?: string;                 // [S4] fuseau IANA de l'appareil qui a matérialisé : bornes du jour
 }
 
 export type TeilStatus = 'vierge' | 'fragile' | 'acquis' | 'solide';
@@ -712,13 +748,30 @@ export interface TeilProgress {
    *  IA auto-déclarée). N'entre ni dans `status`, ni dans `attempts`, ni dans
    *  l'indice, ni dans la série : « faite — non mesurée » (re-revue I-4). */
   nonMesureAt?: number;
+  /** [S4] R1 : jour (yyyy-MM-dd) à partir duquel un ≥ 80 rendrait ce Teil solide ;
+   *  `null` s'il l'est déjà ou si aucune réussite ≥ 80 n'a encore eu lieu. */
+  solideDes?: string | null;
 }
 
 /** Projection de `training_events`. Un cas n'a PLUS de pourcentage : il a un
  *  état par Teil. `vierge` n'est jamais un point faible — c'est « pas encore
  *  travaillé », une information neutre. */
+export type CaseEtat = 'vierge' | 'entame' | 'couvert' | 'solide' | 'pret';
+
 export interface CaseProgress {
   caseId: CaseId;
   teile: Record<SimTeil, TeilProgress>;   // les TROIS clés, toujours présentes
+  /** @deprecated [S4] dérivé de `etat` : vierge → vierge ; entame|couvert → entame ; solide|pret → solide. */
   overall: 'vierge' | 'entame' | 'solide';
+  // --- [S4] training-journal.md §12.6. Toujours posés par `computeCaseProgress` ;
+  // optionnels dans le type pour qu'une ligne `case_progress` d'avant la série 4
+  // reste lisible (lecture tolérante) jusqu'à la reconstruction du démarrage. ---
+  couverture?: 0 | 1 | 2 | 3;             // Teile avec ≥ 1 essai MESURÉ
+  maitrise?: number | null;               // moyenne des derniers scores des Teile joués ; null ⇔ couverture 0
+  etat?: CaseEtat;
+  solideDepuis?: number | null;           // `at` de l'événement qui a rendu les 3 Teile solides (dernier passage)
+  pretAt?: number | null;                 // la soudure
+  prochaineConsolidation?: string | null; // yyyy-MM-dd (§13.1)
+  /** Ce qui manque au meilleur run récent pour souder (R1) ; `[]` si soudé ou non solide. */
+  pretManque?: ConditionExamen[];
 }
