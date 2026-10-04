@@ -268,7 +268,9 @@ speichern(lauf: Lauf): Promise<void>
   couche sur un Teil raté (`simulationSave.ts:72`) disparaît avec l'écriture.
 - *[S4]* La projection vers `Simulation` change sur quatre points :
   - `date = lauf.startedAt` : le jour d'une partie est celui de son début, y
-    compris à cheval sur minuit ou après une reprise le lendemain (m5) ;
+    compris à cheval sur minuit ou après une reprise le lendemain (m5).
+    **Prérequis (m-h)** : `feat/s3-c6b-jour` (lot C6-B) est mergée, ce qui
+    pose `startedAt` par `now()` de `lib/clock` et non par `Date.now()` ;
   - `enchaine = true` si et seulement si `enchainiert(lauf)` (§10.4), sinon
     le champ est absent ;
   - `reihenfolge` = `teileGespielt` limité aux `SimTeil`, dans l'ordre joué
@@ -504,6 +506,10 @@ export function istVollstaendig(lauf: Lauf): boolean {
 ## 10. *[S4]* La partie, le cas entier
 
 > ADR-0021, décisions 1, 2, 5, 8 et 9.
+>
+> **Propriétaires (m-d)** : S4-3 possède `lib/lauf`, `features/simulation` et
+> `lib/simulationSave.ts`. Les nouveaux champs de `db/types.ts` (`Lauf` mis à
+> part, qui vit dans `lib/lauf/types.ts`) sont ajoutés par S4-1.
 
 ### 10.1 Entrée unique et pré-simulation
 
