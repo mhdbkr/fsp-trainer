@@ -32,16 +32,28 @@ describe('axe Fachbegriffe', () => {
   });
 });
 
-describe('axe Fachwissen — même règle : seulement sur les cas déjà travaillés', () => {
+describe('axe Fachwissen — mesuré sur les Teile JOUÉS, jamais sur les cas entiers', () => {
+  type St = 'vierge' | 'fragile' | 'acquis' | 'solide';
   const cases = Array.from({ length: 130 }, (_, i) => ({ id: `c${i}` }) as unknown as Case);
-  const prog = (n: number, overall: CaseProgress['overall'], from = 0) =>
-    new Map(Array.from({ length: n }, (_, i) => [`c${from + i}`, { caseId: `c${from + i}`, overall } as unknown as CaseProgress]));
-  it('aucun cas travaillé : pas de mesure', () => {
-    expect(axisScoresFull([], [], cases, new Map()).Fachwissen).toBeNull();
-    expect(axisScoresFull([], [], cases, prog(FACHWISSEN_MIN_TENTES - 1, 'entame')).Fachwissen).toBeNull();
+  const cp = (i: number, a: St, d: St = 'vierge', f: St = 'vierge') => [`c${i}`, { caseId: `c${i}`, overall: 'entame', teile: { anamnese: { status: a }, dokumentation: { status: d }, fallvorstellung: { status: f } } } as unknown as CaseProgress] as const;
+  const axes = (entries: (readonly [string, CaseProgress])[]) => axisScoresFull([], [], cases, new Map(entries));
+
+  it('5 cas, Anamnese seule à 90 % : Fachwissen n\'est ni l\'axe le plus faible ni un point faible', () => {
+    const s = axes(Array.from({ length: 5 }, (_, i) => cp(i, 'solide')));
+    expect(s.Fachwissen).toBe(100);
+    const faible = weakestAxis(s);
+    expect(faible === null || faible.score >= 60, 'la bannière « Point faible » exige un score < 60').toBe(true);
   });
-  it('au seuil : part des cas travaillés qui sont solides', () => {
-    const p = new Map([...prog(2, 'solide'), ...prog(FACHWISSEN_MIN_TENTES - 2, 'entame', 2)]);
-    expect(axisScoresFull([], [], cases, p).Fachwissen).toBe(Math.round((2 / FACHWISSEN_MIN_TENTES) * 100));
+  it('aucun Teil joué, ou moins de FACHWISSEN_MIN_TENTES : pas de mesure', () => {
+    expect(axes([]).Fachwissen).toBeNull();
+    expect(axes(Array.from({ length: FACHWISSEN_MIN_TENTES - 1 }, (_, i) => cp(i, 'solide'))).Fachwissen).toBeNull();
+  });
+  it('au seuil : part des Teile joués qui sont acquis ou solides (les vierges ne comptent pas)', () => {
+    const s = axes([cp(0, 'solide', 'acquis', 'fragile'), cp(1, 'fragile', 'fragile'), cp(2, 'solide')]);   // 6 Teile joués, 3 acquis/solides
+    expect(FACHWISSEN_MIN_TENTES).toBe(5);
+    expect(s.Fachwissen).toBe(50);
+  });
+  it('des Teile joués et ratés restent un vrai point faible', () => {
+    expect(weakestAxis(axes(Array.from({ length: 5 }, (_, i) => cp(i, 'fragile'))))).toEqual({ axis: 'Fachwissen', score: 0 });
   });
 });

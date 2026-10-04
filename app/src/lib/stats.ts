@@ -35,7 +35,8 @@ export function axisScores(sims: Simulation[]): Record<Axis, number | null> {
  *  dessous, 4 cartes/jour sur 2 000 ne disent rien de fiable (et un axe sans
  *  mesure n'est jamais un « point faible »). */
 export const FACHBEGRIFFE_MIN_VUES = 20;
-/** Idem pour l'axe Fachwissen : nombre minimum de cas déjà travaillés. */
+/** Idem pour l'axe Fachwissen : nombre minimum de Teile déjà joués (pas de cas :
+ *  un cas n'est « solide » qu'avec ses 3 Teile, jouer un seul Teil ne le sera jamais). */
 export const FACHWISSEN_MIN_TENTES = 5;
 
 /** Cartes déjà présentées (≠ Neu). `retenues` : la dernière révision a été
@@ -47,16 +48,16 @@ export function fachbegriffeVus(begriffe: Fachbegriff[]): { vues: number; retenu
 
 /** Ajoute les axes "data-driven" pour compléter la heatmap. Ce sont des axes
  *  de PERFORMANCE sur ce qui a été travaillé — jamais de couverture du corpus :
- *  Fachbegriffe = rétention des cartes déjà vues ; Fachwissen = part de cas
- *  solides parmi les cas déjà travaillés. Sous leur minimum : null. */
+ *  Fachbegriffe = rétention des cartes déjà vues ; Fachwissen = part des Teile
+ *  déjà joués qui sont acquis ou solides. Sous leur minimum : null. */
 export function axisScoresFull(sims: Simulation[], begriffe: Fachbegriff[], cases: Case[], progress: Map<string, CaseProgress>): Record<Axis, number | null> {
   const base = axisScores(sims);
   const { vues, retenues } = fachbegriffeVus(begriffe);
   if (vues >= FACHBEGRIFFE_MIN_VUES) base.Fachbegriffe = Math.round((retenues / vues) * 100);
   // `Case.status` est déprécié (ADR-0017 §4.1) : la couverture se lit sur
   // `case_progress`, la seule projection qui dise ce qui a été fait.
-  const travailles = cases.map((c) => (progress.get(c.id) ?? blankProgress(c.id)).overall).filter((o) => o !== 'vierge');
-  if (travailles.length >= FACHWISSEN_MIN_TENTES) base.Fachwissen = Math.round((travailles.filter((o) => o === 'solide').length / travailles.length) * 100);
+  const teile = cases.flatMap((c) => TEILE.map((t) => (progress.get(c.id) ?? blankProgress(c.id)).teile[t.key].status)).filter((st) => st !== 'vierge');
+  if (teile.length >= FACHWISSEN_MIN_TENTES) base.Fachwissen = Math.round((teile.filter((st) => st === 'acquis' || st === 'solide').length / teile.length) * 100);
   return base;
 }
 
