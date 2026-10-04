@@ -305,7 +305,18 @@ export function idsFromSeed(seed: string): () => string {
  * passé ne l'est jamais rétroactivement — un jour sans `DayPlan` est un jour où
  * l'app n'a pas été ouverte ; il s'affiche vide, pas « en retard ».
  */
-export async function ensureDayPlan(date = dayKey(clockNow())): Promise<DayPlan | null> {
+export function ensureDayPlan(date = dayKey(clockNow())): Promise<DayPlan | null> {
+  // Single-flight par date : deux appels concurrents partagent LA MÊME matérialisation
+  // (sinon deux `plan.materialized` pour un jour, `loadDrillContext` ayant élargi la fenêtre).
+  const enVol = materialisations.get(date);
+  if (enVol) return enVol;
+  const p = materialiser(date).finally(() => materialisations.delete(date));
+  materialisations.set(date, p);
+  return p;
+}
+const materialisations = new Map<string, Promise<DayPlan | null>>();
+
+async function materialiser(date: string): Promise<DayPlan | null> {
   const existing = await db.day_plans.get(date);
   if (existing) return existing;                                  // « figé » veut dire que le premier fige
   // M7 : une horloge qui recule (réglage manuel, fuseau) ne matérialise jamais

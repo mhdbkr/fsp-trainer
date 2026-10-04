@@ -354,3 +354,23 @@ describe('C6-B m-1 · la tâche annonce ce que le drill servira (remaining, pas 
     expect(re!.tasks.find((t) => t.kind === 'drill')!.reason).toBe('1 nouveau terme');
   });
 });
+
+describe('C6-B m-4 · matérialisation single-flight', () => {
+  it('deux ensureDayPlan simultanés : UN plan, UN événement plan.materialized, le même résultat', async () => {
+    freezeAt('2026-10-01T08:00:00Z');
+    await db.cases.bulkPut(corpus());
+    await db.meta.put({ key: 'program', value: config() });
+    const [a, b, c] = await Promise.all([ensureDayPlan(), ensureDayPlan(), ensureDayPlan()]);
+    expect(JSON.stringify(b)).toBe(JSON.stringify(a));
+    expect(JSON.stringify(c)).toBe(JSON.stringify(a));
+    expect(await db.day_plans.count()).toBe(1);
+    expect((await db.progress_events.where('type').equals('plan.materialized').count())).toBe(1);
+  });
+  it('le vol est libéré après coup : un échec n’empoisonne pas l’appel suivant', async () => {
+    freezeAt('2026-10-01T08:00:00Z');
+    expect(await ensureDayPlan()).toBeNull();                 // pas de programme
+    await db.cases.bulkPut(corpus());
+    await db.meta.put({ key: 'program', value: config() });
+    expect((await ensureDayPlan())!.date).toBe('2026-10-01');
+  });
+});
