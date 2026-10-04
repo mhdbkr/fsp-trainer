@@ -212,15 +212,16 @@ jobs:
   invariants-c6:
     name: Invariants C6 — propriétés et preuve par mutation
     runs-on: ubuntu-latest
+    timeout-minutes: 40
     defaults: { run: { working-directory: app } }
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with: { node-version: 22, cache: npm, cache-dependency-path: app/package-lock.json }
       - run: npm ci
-      - name: Invariants en propriété (INV-1 à INV-28, FB3 du 3 oct.)
-        run: npx vitest run --dir tests
-      - name: Chaque invariant rougit sur sa mutation
+      # Pas d'étape « vitest run --dir tests » à part : le socle de parcours-mutations la joue (copie
+      # intacte) et sort en 1 si elle est rouge — la rejouer ici doublerait le temps pour rien.
+      - name: Invariants en propriété (INV-1 à INV-28, FB3) puis preuve que chacun rougit sur sa mutation
         run: node scripts/parcours-mutations.mjs
 
   # --------------------------------------------------------------------------
