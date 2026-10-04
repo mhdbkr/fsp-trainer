@@ -43,7 +43,8 @@ export interface Lauf {
   profileId: string;                 // TOUJOURS écrit (§6)
   modus: LaufModus;                  // l'INTENTION déclarée — [S4] toujours 'komplett' pour un Lauf neuf ; 'teil' lu seulement
   geplanteTeile: SimTeil[];          // l'intention : 3 Teile, ou 1 — [S4] toujours les 3 pour un Lauf neuf
-  unterbrochen?: true;               // [S4] posé à la première reprise, jamais retiré (§10.4)
+  unterbrochen?: true;               // [S4] posé par `nimmWiederAuf` après une pause ≥ 5 min, jamais retiré (§3.1)
+  zuletztAktiv?: number;             // [S4] epoch ms de la dernière persistance de `lauf.aktiv` (§3.1)
   zustand: LaufZustand;
   aktuellerTeil: SimTeil | null;     // null hors de `laufend`
   startedAt: number;
@@ -228,12 +229,18 @@ Chaque état a une URL distincte :
   de forme invalide est écarté à la lecture — ses éléments illisibles retirés,
   jamais la partie jouée. La barre de reprise lit `lauf.aktiv`.
   *(Amendé à l'intégration, série 3.)*
-- *[S4]* **Toute reprise pose `unterbrochen: true`** : restitution depuis
-  `lauf.aktiv` par la barre, au rechargement, ou au retour sur le runner
-  après l'avoir quitté. La marque n'est jamais retirée. Elle n'est pas posée
-  par la sérialisation : INV-23 compare le `Lauf` **modulo `unterbrochen`**.
-  La reprise exige le même cas. Un `Lauf` neuf est toujours `komplett`, et un
-  `lauf.aktiv` série 3 en `teil` se reprend tel quel jusqu'à son écriture.
+- *[S4]* **Point d'entrée unique de l'interruption** (m7) :
+  `nimmWiederAuf(lauf, jetzt): Lauf` (`lib/lauf/automat.ts`). Il est appelé
+  par la **seule** branche de reprise de `useLauf`, `useLauf.ts:90-95` :
+  restitution depuis `lauf.aktiv` par la barre, au rechargement, ou au retour
+  sur le runner. Il pose `unterbrochen: true` si
+  `jetzt − zuletztAktiv ≥ REPRISE_TOLERANZ_MIN` (5 min), et ne fait rien
+  d'autre. Une reprise plus courte (incident technique) ne casse pas
+  l'enchaînement (réserve INV-73). `speichereAktivenLauf` met à jour
+  `zuletztAktiv` à chaque persistance. Un `Lauf` sans `zuletztAktiv` (série 3)
+  repris est `unterbrochen`. La marque n'est jamais retirée.
+- La reprise exige le même cas. Un `Lauf` neuf est toujours `komplett`, et
+  un `lauf.aktiv` série 3 en `teil` se reprend tel quel jusqu'à son écriture.
 
 ### 3.2 À la fin — écriture idempotente
 
@@ -259,8 +266,16 @@ speichern(lauf: Lauf): Promise<void>
 - `speichern()` **n'écrit plus dans `db.cases`** : `confidence`, `status`,
   `layerProgress` ne sont plus touchés (`training-journal.md` §4.1). Le saut de
   couche sur un Teil raté (`simulationSave.ts:72`) disparaît avec l'écriture.
-- *[S4]* La projection écrit `Simulation.enchaine = true` **si et seulement
-  si** `enchainiert(lauf)` (§10.4). Sinon, le champ est absent.
+- *[S4]* La projection vers `Simulation` change sur quatre points :
+  - `date = lauf.startedAt` : le jour d'une partie est celui de son début, y
+    compris à cheval sur minuit ou après une reprise le lendemain (m5) ;
+  - `enchaine = true` si et seulement si `enchainiert(lauf)` (§10.4), sinon
+    le champ est absent ;
+  - `reihenfolge` = `teileGespielt` limité aux `SimTeil`, dans l'ordre joué
+    (sert aux conditions d'examen, `training-journal.md` §2.3) ;
+  - `dauerGesamtSec` = Σ `sekundenProTeil`, **tous** les Teile commencés, y
+    compris un Teil abandonné par `springeZu` ou « Terminer ici », et
+    l'Aufklärung. `TrainingEvent.spentMin` s'en dérive (m6).
 
 ---
 
@@ -418,9 +433,10 @@ export function istVollstaendig(lauf: Lauf): boolean {
 |---|---|---|
 | **INV-70** | **Entrée unique** : tout `Lauf` créé par un client série 4 a `geplanteTeile` = les trois, dans l'ordre d'examen, et `modus = 'komplett'`. `?depart=t` (ou l'ancien `?teil=t`) ne change que le Teil de `demarrer`, jamais `geplanteTeile`. | `useLauf` relit `?teil=` comme périmètre (`useLauf.ts:100`) |
 | **INV-71** | **« Terminer ici »** : depuis `bilanz(t)`, `versChecklist` est permis dès qu'un `SimTeil` est joué. La `Simulation` écrite a `parts` = `teileGespielt`, jamais `geplanteTeile`. | `versChecklist` refusé tant que `naechsterTeil(lauf) !== null` |
-| **INV-72** | **Départ ailleurs** : `springeZu(t)` n'est permis que depuis `laufend(t0)`, quand aucun `SimTeil` n'est encore joué, avec `t ≠ t0` et `t` non joué. `partieSuivante(t')` n'accepte que `t' ∈ geplanteTeile \ teileGespielt`. Un Teil n'est jamais joué deux fois dans un `Lauf`. Le chrono de `t0` est conservé (INV-28). | `partieSuivante(t')` accepte un Teil déjà joué (second score écrasant le premier), ou `springeZu` permis après un Teil terminé |
-| **INV-73** | **Enchaînement réel** : `Simulation.enchaine === true` ⇔ les trois `SimTeil` ∈ `teileGespielt` ∧ `unterbrochen !== true` ∧ `mode !== 'external-ai'`. Toute reprise rend l'enchaînement impossible pour ce `Lauf`. | `enchaine = istVollstaendig(lauf)` seul, ou `unterbrochen` remis à `undefined` par la reprise |
+| **INV-72** | **Départ ailleurs** : `springeZu(t)` n'est permis que depuis `laufend(t0)`, avec `t0 ≠ 'aufklaerung'`, quand aucun `SimTeil` n'est encore joué, `t ≠ t0` et `t` non joué. `partieSuivante(t')` n'accepte que `t' ∈ geplanteTeile \ teileGespielt` ; en `bilanz('aufklaerung')` avec un `teilVorAufklaerung` non joué, il n'accepte que celui-ci. Un Teil n'est jamais joué deux fois dans un `Lauf`. Le chrono de `t0` est conservé (INV-28) et compté dans `dauerGesamtSec`. | `partieSuivante(t')` accepte un Teil déjà joué, ou saute le Teil interrompu par l'Aufklärung ; `springeZu` permis après un Teil terminé ou pendant une Aufklärung ; `dauerGesamtSec` = Σ des seuls Teile joués |
+| **INV-73** | **Enchaînement réel** : `Simulation.enchaine === true` ⇔ les trois `SimTeil` ∈ `teileGespielt` ∧ `unterbrochen !== true` ∧ `mode !== 'external-ai'`. Seul `nimmWiederAuf` pose `unterbrochen`, et seulement si la pause mesure ≥ 5 min : une reprise de moins de 5 min ne casse pas l'enchaînement. | `enchaine = istVollstaendig(lauf)` seul ; `unterbrochen` posé à toute reprise (même de 30 s) ou remis à `undefined` ; un second chemin qui pose `unterbrochen` |
 | **INV-74** | **Muster sans perte de notes** : pour tout `bogen` enregistré et tout `muster` (série 3 ou série 4), l'ensemble des valeurs non vides rendues par l'aperçu (`BogenPreview`) est **égal** à l'ensemble des valeurs non vides stockées. `musterArt(m)` est total sur `MusterCity ∪ MusterArt ∪ {undefined}`. | l'aperçu n'itère que `spec.fields` du nouveau Muster (`BogenPreview.tsx:33`) : une note `allergien` d'une simulation « Stuttgart » lue en « libre » disparaît |
+| **INV-75** | **Le jour d'une partie est celui de son début** : `Simulation.date === lauf.startedAt`, donc `TrainingEvent.at` aussi, pour tout `Lauf` série 4, y compris à cheval sur minuit ou repris le lendemain. `TrainingEvent.spentMin = round(dauerGesamtSec / 60)`. | `date = now()` à l'écriture (`simulationSave.ts:57`) ; `spentMin` sur les seuls Teile joués |
 
 ---
 
@@ -436,7 +452,8 @@ export function istVollstaendig(lauf: Lauf): boolean {
 | `app/src/lib/simScope.test.ts` | INV-25 + non-régression du mis-classement `scope:'full'` à une partie |
 | *[C6-A]* `app/src/lib/scoring.saisi.test.ts` (existe sur la branche) + `app/tests/invariants.sentinelle.test.ts` | INV-29 : parcours de tous les lecteurs de `feeling`/`languageGrid` sur un journal à valeurs `−1` |
 | *[S4]* `app/src/lib/lauf/automat.test.ts` (étendu) | INV-70, INV-71, INV-72 ; table de transitions avec `springeZu` et `partieSuivante(t')` |
-| *[S4]* `app/src/lib/lauf/enchaine.test.ts` | INV-73 : reprise par barre, par rechargement et par retour au runner |
+| *[S4]* `app/src/lib/lauf/enchaine.test.ts` | INV-73 : reprise par barre, par rechargement et par retour au runner, avec des pauses de 30 s, 4 min 59 s et 5 min |
+| *[S4]* `app/src/lib/lauf/speichern.test.ts` (étendu) | INV-75 : partie commencée à 23 h 50, finie à 0 h 20 ; Teil abandonné |
 | *[S4]* `app/src/lib/muster.legacy.test.ts` | INV-74 : 5 villes × bogens générés, et aperçu rendu |
 | *[S4]* `app/tests/invariants.lauf.test.tsx` (C6 réécrit) | INV-20/21/28 avec `springeZu` dans les 500 suites aléatoires ; INV-23 modulo `unterbrochen` |
 
@@ -478,7 +495,9 @@ export function istVollstaendig(lauf: Lauf): boolean {
    entre dans le score comme 50, contre §1.1.1. **Non vérifié en
    exécution** (lecture du code seulement). C'est le cas que la génération
    d'INV-29 doit couvrir. Correctif attendu : la valeur par défaut de
-   `setzeEntwurf` et de `bewerte` devient `NOT_ENTERED`.
+   `setzeEntwurf` et de `bewerte` devient `NOT_ENTERED`. **Pris en charge
+   par le lot C6-A** (décision de `main`, m12, déjà dispatché). Ce contrat
+   n'ajoute rien ; INV-29 garde le résultat.
 
 ---
 
@@ -491,11 +510,13 @@ export function istVollstaendig(lauf: Lauf): boolean {
 - `vorbereitung` n'offre **aucun choix de Teil** : `ModeChooser` et le paramètre
   `?teil=` comme périmètre disparaissent. Un seul bouton, « Démarrer ».
 - **Ordre de l'écran, opposable** : (1) en-tête du cas avec `CaseDial` grand
-  format et détail ouvert (`training-journal.md` §12.6) → (2) « Avec qui tu
+  format et détail ouvert (`training-journal.md` §12.7) → (2) « Avec qui tu
   joues » (`PartnerCard`) → (3) niveau d'assistance → (4) Muster (§10.6).
-  Comportement provisoire pour la couche (`Layer`), absente de la décision :
-  elle reste dans le bloc (3), sans nouvelle position (ADR-0021,
-  contradiction 9).
+- **La couche se fond dans le niveau d'assistance** (décision (d) de la
+  direction, 4 oct.). Plus de bloc ni de mot « Couche » à l'écran. Le niveau
+  est présélectionné par `layerAdvice` (`SimulationSetup.tsx:86`) ;
+  `Lauf.layer` reste écrit, déduit de ce choix, pour l'historique et le
+  scoring.
 - `PartnerCard` et les textes d'aide dépendaient de `teil` (`SimulationSetup.tsx:150-204`) ;
   ils lisent désormais le Teil de **départ** (`?depart=`), ou l'Anamnese par
   défaut. Le pont IA reste restreint à `anamnese | fallvorstellung`
@@ -507,12 +528,16 @@ export function istVollstaendig(lauf: Lauf): boolean {
    `laufend` vers `laufend`. Elle est permise depuis `laufend(t0)` si et
    seulement si aucun `SimTeil` n'est encore dans `teileGespielt`,
    `t ∈ geplanteTeile` et `t ≠ t0`. C'est le fil d'étapes : « commencer par
-   un autre Teil ». Le chrono de `t0` est conservé et ne compte pas comme
-   joué. Elle est refusée pendant une Aufklärung.
+   un autre Teil ». Le chrono de `t0` est conservé : il ne compte pas comme
+   joué, mais il entre dans `dauerGesamtSec` (m6). Elle est refusée pendant
+   une Aufklärung (`aktuellerTeil === 'aufklaerung'`).
 2. **`partieSuivante(t'?)`** : `t'` est facultatif, et vaut par défaut
    `naechsterTeil(lauf)` (règle 7 inchangée après une Aufklärung). Il doit
    appartenir à `geplanteTeile \ teileGespielt`. Le fil d'étapes du bilan
-   l'emploie pour choisir le Teil suivant.
+   l'emploie pour choisir le Teil suivant. Après une Aufklärung
+   (`bilanz('aufklaerung')`), si `teilVorAufklaerung` n'est pas joué, tout
+   `t' ≠ teilVorAufklaerung` est **refusé** : on revient d'abord au Teil
+   interrompu (règle 7, m6).
 3. **« Continuer » / « Terminer ici »** sont les deux sorties de **chaque**
    `bilanz` : `partieSuivante` et `versChecklist`. La règle 8 reste en
    vigueur. La sortie est rendue une seule fois à l'écran, et son libellé
@@ -520,13 +545,25 @@ export function istVollstaendig(lauf: Lauf): boolean {
    existe : elle est la seule transition permise, et la vue demande à
    `erlaubt`.
 
-### 10.3 Lancer depuis une tâche
+### 10.3 Routes et lancement depuis une tâche
 
-`/simulation/:caseId/pre?task=<id>&depart=<t>` : `depart` = premier Teil de
-`teileDeTache(task)` non encore joué ce jour (`training-journal.md` §12.2).
-`geplanteTeile` reste à trois Teile (INV-70) : le candidat peut faire plus
-que ce qui reste, jamais moins que ce qu'il veut. `taskId` suit la règle R-C4
-existante (`resolveSimulationTask`).
+**Routes réelles** (m7, `main.tsx:64-66`) : `/simulation` (hub),
+`/simulation/:caseId/pre` (pré-simulation) et `/simulation/:caseId/run`
+(runner, qui porte tous les états de `laufend` à `gespeichert`). Les URL par
+état du §2.2 **ne sont pas implémentées**. Elles restent une cible, hors de
+la série 4.
+
+- `/simulation/:caseId/pre?task=<id>&depart=<t>` → « Démarrer » →
+  `/simulation/:caseId/run?task=<id>&depart=<t>`.
+- `depart` = premier Teil de `resteTache(task)` (`training-journal.md`
+  §12.2), ou l'Anamnese. Il ne sert qu'à `demarrer(depart)`.
+  **`depart` est lu une fois et n'entre pas dans les dépendances de l'effet
+  de création** (`useLauf.ts:118`, aujourd'hui `[c?.id, teil]`). Un
+  changement de `depart` ne recrée ni ne reprend le `Lauf`.
+- `?teil=` (anciens liens) est lu comme `?depart=`.
+- `geplanteTeile` reste à trois Teile (INV-70). `taskId` suit la règle
+  R-C4, à titre informatif (`training-journal.md` §12.3).
+- Toute tâche de cas, `revision` comprise, se lance ainsi (m8).
 
 ### 10.4 Le marqueur d'enchaînement
 
@@ -537,22 +574,26 @@ export const enchainiert = (lauf: Lauf): boolean =>
   && lauf.mode !== 'external-ai';
 ```
 
-- « D'un trait » = les trois Teile dans **une même partie**, sans reprise.
-  L'ordre n'est pas contraint (question ouverte, posée à la direction). Une
+- « D'un trait » = les trois Teile dans **une même partie**, sans reprise de
+  plus de 5 min. `enchaine` ne contraint pas l'ordre. Les **conditions
+  d'examen** (décision (b)) — enchaîné, Autonome, ordre A → D → F, grilles
+  saisies — sont une définition distincte, unique et partagée
+  (`conditionsExamen`, `training-journal.md` §2.3). Elle fonde `prêt` et le
+  classement `examen-blanc`. Une tâche `dUnTrait` n'exige qu'`enchaine`. Une
   Aufklärung intercalée ne l'interrompt pas : le jury peut l'appeler à tout
   moment. `zurueckZurPartie` et `zurueckZumBilanz` ne l'interrompent pas non
   plus : ce sont des gestes dans la partie.
-- **Interruption** = toute reprise depuis la persistance (§3.1) : barre de
-  reprise, rechargement d'onglet, retour au runner après l'avoir quitté.
+- **Interruption** = une reprise depuis la persistance après une pause
+  ≥ `REPRISE_TOLERANZ_MIN` (§3.1, `nimmWiederAuf`).
 - `speichern` écrit `Simulation.enchaine = true` seulement si
   `enchainiert(lauf)` (§3.2). `TrainingEvent.enchaine` s'en dérive
-  (`training-journal.md` §2.3), et l'état `prêt` du cas aussi (§12.5,
-  INV-56).
+  (`training-journal.md` §2.3). L'état `prêt` du cas se dérive de
+  `examen` (§12.6, INV-56).
 
 ### 10.5 Écran de fin de partie
 
 `gespeichert` affiche le `CaseDial` du cas avec
-`vientDEtreJoue = teileGespielt ∩ SimTeil` (`training-journal.md` §12.6).
+`vientDEtreJoue = teileGespielt ∩ SimTeil` (`training-journal.md` §12.7).
 Ce Teil n'est plus annoncé comme un résultat isolé.
 
 ### 10.6 Muster guidé / libre
@@ -601,3 +642,17 @@ export const musterArt = (m: MusterArt | MusterCity | undefined | null): MusterA
 
 **Aucune perte de notes** : `bogen` n'est jamais réécrit, aucune clé n'est
 renommée, et l'aperçu rend toutes les clés non vides (INV-74).
+
+### 10.7 Annonce unique des changements rétroactifs
+
+Décision (f) de la direction, 4 oct. Trois changements sont annoncés **une
+fois** dans l'app, au premier lancement après S4-1 (Teile) ou S4-3 (mode et
+Muster), par un encart neutre et fermable :
+
+- des Teile solides redevenus acquis ;
+- un `teil-first` explicite devenu cas complet ;
+- un Muster de ville devenu « libre ».
+
+Chaque annonce est tracée par une clé `db.meta['annonce.s4.<sujet>']`.
+Ponytail : la trace est locale, donc chaque appareil annonce une fois. Elle
+devient un événement synchronisé si cela gêne.
