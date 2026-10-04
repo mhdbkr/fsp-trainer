@@ -554,10 +554,17 @@ describe('INV-69 — la frise passée est figée', () => {
     expect(indiceAt([e], 3, morning(DATE_NOUVELLE_REGLE, 23))).toBe(23);                       // 0,7 / 3
   });
 
-  it('la frise : aucun point antérieur à la date ne change ; un repère marque la marche ; la pente ne la traverse pas', () => {
+  /** La pente de référence : les `slopeDays + 1` derniers jours, RECALCULÉS avec la nouvelle règle (revue I1). */
+  function projectionAttendue(evs: TrainingEvent[], total: number, dates: string[], horizon: number) {
+    const n = dates.slice(-15).map((d) => indiceAt(evs, total, morning(d, 23) + 3_599_000, 'serie4'));
+    const parJour = n.length > 1 ? (n[n.length - 1] - n[0]) / (n.length - 1) : 0;
+    return { parJour, base: n[n.length - 1], pts: parJour > 0 ? Array.from({ length: horizon }, (_, i) => Math.min(100, Math.round(n[n.length - 1] + parJour * (i + 1)))) : [] };
+  }
+
+  it('la frise : aucun point antérieur à la date ne change ; un repère marque la marche ; la pente est recalculée sur la nouvelle règle', () => {
     const cases = CORPUS.slice(0, 4);
     // Un mauvais score la veille : série 3 → `fragile` (0,3) ; série 4 → un cran seulement, `acquis` (0,7).
-    // La marche est donc MONTANTE — une pente naïve qui la traverse projetterait un progrès qui n'a pas eu lieu.
+    // La marche des points AFFICHÉS est donc montante — une pente lue sur eux projetterait un progrès qui n'a pas eu lieu.
     const evs = [
       mesure(cases[0].id, addDaysISO(DATE_NOUVELLE_REGLE, -9), tous(90)), mesure(cases[0].id, addDaysISO(DATE_NOUVELLE_REGLE, -5), tous(90)),
       mesure(cases[0].id, addDaysISO(DATE_NOUVELLE_REGLE, -2), { anamnese: 40 }),
@@ -569,10 +576,22 @@ describe('INV-69 — la frise passée est figée', () => {
     for (const p of passes) expect(p.indice, p.date).toBe(indice3(evs, cases.length * 3, morning(p.date, 23) + 3_599_000));
     expect(t.repere).toEqual({ date: DATE_NOUVELLE_REGLE });
     const apres = t.points.find((p) => p.date === DATE_NOUVELLE_REGLE)!;
-    expect(apres.indice, 'la marche (anamnese : fragile → acquis)').toBeGreaterThan(passes[passes.length - 1].indice);
-    expect(t.points[t.points.length - 1].indice).toBe(apres.indice);   // aucun travail depuis : la courbe est plate sur la nouvelle règle
-    expect(t.projection, 'la pente ne doit pas traverser la marche').toEqual([]);
-    expect(t.indiceProjete).toBeNull();
+    expect(apres.indice, 'la marche affichée (anamnese : fragile → acquis)').toBeGreaterThan(passes[passes.length - 1].indice);
+    const att = projectionAttendue(evs, cases.length * 3, t.points.map((p) => p.date), t.projection.length);
+    expect(att.parJour).toBeGreaterThan(0);
+    expect(t.projection.map((p) => p.indice), 'la projection suit la pente de la nouvelle règle, pas celle des points affichés').toEqual(att.pts);
+    expect(t.projection.length).toBeGreaterThan(30);
+  });
+
+  it('I1 — le jour de la bascule, avec une progression régulière avant, la projection existe', () => {
+    const cases = CORPUS.slice(0, 14);
+    // un cas neuf travaillé chaque jour des 12 jours qui précèdent : une progression régulière
+    const evs = Array.from({ length: 12 }, (_, i) => mesure(cases[i].id, addDaysISO(DATE_NOUVELLE_REGLE, -12 + i), tous(65)));
+    for (const dj of [0, 1, 3, 10]) {
+      const t = trajectory({ examDate: addDaysISO(DATE_NOUVELLE_REGLE, 60) } as never, cases, evs, { now: morning(addDaysISO(DATE_NOUVELLE_REGLE, dj), 12) });
+      expect(t.indiceProjete, `à J+${dj} de la bascule`).not.toBeNull();
+      expect(t.projection.length, `à J+${dj} de la bascule`).toBeGreaterThan(0);
+    }
   });
 
   it('hors de la fenêtre de la frise, aucun repère', () => {

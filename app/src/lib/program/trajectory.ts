@@ -49,9 +49,9 @@ export interface Trajectory {
  *  **Le passé est figé** (INV-69, décision (e)) : avant `DATE_NOUVELLE_REGLE`, la règle
  *  de statut est celle de la série 3 (un seul score suffit). Sans cela, le déploiement
  *  de « solide stable » ferait descendre toute la courbe déjà montrée. */
-export function indiceAt(events: TrainingEvent[], totalTeile: number, at: number): number {
+export function indiceAt(events: TrainingEvent[], totalTeile: number, at: number, regle: 'serie3' | 'serie4' = dayKey(at) < DATE_NOUVELLE_REGLE ? 'serie3' : 'serie4'): number {
   if (!totalTeile) return 0;
-  const progress = computeCaseProgress(events.filter((e) => e.at <= at), { regle: dayKey(at) < DATE_NOUVELLE_REGLE ? 'serie3' : undefined });
+  const progress = computeCaseProgress(events.filter((e) => e.at <= at), { regle: regle === 'serie3' ? 'serie3' : undefined });
   let sum = 0;
   for (const cp of progress) for (const t of TEIL_KEYS) sum += POIDS[cp.teile[t].status];
   return Math.round((sum / totalTeile) * 100);
@@ -94,29 +94,30 @@ export function trajectory(
     points.push({ date, indice: indiceAt(events, totalTeile, addDays(d, 1).getTime() - 1), spentMin: spent.get(date) ?? 0 });
   }
 
-  // Pente = progression réelle des `slopeDays` derniers jours. Aucune pente
-  // inventée : sans travail récent, il n'y a pas de projection à afficher. Elle ne
-  // traverse jamais la marche de la nouvelle règle : seuls comptent les points
-  // calculés par la MÊME règle que le dernier.
+  // Pente = progression réelle des `slopeDays` derniers jours. Aucune pente inventée : sans
+  // travail récent, il n'y a pas de projection à afficher. Elle se lit sur ces jours RECALCULÉS
+  // avec la NOUVELLE règle (revue I1) : les points affichés restent figés (INV-69), mais la
+  // projection ne doit ni traverser la marche de la règle, ni disparaître le jour de la bascule
+  // faute de points comparables.
   const ancienne = (p: TrajectoryPoint) => p.date < DATE_NOUVELLE_REGLE;
-  const memeRegle = points.filter((p) => ancienne(p) === ancienne(points[points.length - 1]));
-  const tail = memeRegle.slice(-Math.min(slopeDays + 1, memeRegle.length));
-  const gained = tail.length > 1 ? tail[tail.length - 1].indice - tail[0].indice : 0;
+  const tail = points.slice(-Math.min(slopeDays + 1, points.length))
+    .map((p) => indiceAt(events, totalTeile, addDays(parseISO(p.date), 1).getTime() - 1, 'serie4'));
+  const gained = tail.length > 1 ? tail[tail.length - 1] - tail[0] : 0;
   const perDay = tail.length > 1 ? gained / (tail.length - 1) : 0;
+  const base = tail[tail.length - 1];
 
   const projection: TrajectoryPoint[] = [];
   let indiceProjete: number | null = null;
   if (examDate && perDay > 0) {
     const remaining = Math.max(0, differenceInCalendarDays(parseISO(examDate), new Date(now)));
-    const last = points[points.length - 1];
     for (let i = 1; i <= remaining; i++) {
       projection.push({
         date: dayKey(addDays(today0, i)),
-        indice: Math.min(100, Math.round(last.indice + perDay * i)),
+        indice: Math.min(100, Math.round(base + perDay * i)),
         spentMin: 0,
       });
     }
-    indiceProjete = projection.length ? projection[projection.length - 1].indice : last.indice;
+    indiceProjete = projection.length ? projection[projection.length - 1].indice : base;
   }
   const repere = points.some(ancienne) && points.some((p) => !ancienne(p)) ? { date: DATE_NOUVELLE_REGLE } : null;
   return { points, projection, indiceProjete, examDate, today, repere };
