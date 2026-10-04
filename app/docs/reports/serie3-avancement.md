@@ -169,7 +169,7 @@ rien de cette table.
 | C6 — candidat synthétique | `doctopus-s3-c6` · `feat/s3-c6-candidat` | `a92b4c2e4d2f21ebc` | **PR #65** ouverte (`38f1964b`, revue corrigée, 22/22 mutations) → CI (premier run réel d'`invariants-c6`) → **merge sur accord** → déclenche le re-merge de C6-A | non |
 | C6 — jugement UX | lecture seule | `a06644a85b277a992` | rendu → `c6-jugement-ux-2026-10-04.md` (7 ruptures) | **oui** |
 | Lot C6-A « chiffres honnêtes » | `doctopus-s3-c6a-chiffres` · `feat/s3-c6a-chiffres` | `a09833e671b2389b9` | revue corrigée `f840a923` (Fachwissen sur Teile joués, radar sans axe nul, verdict « Réussi sur le contenu », `?? 50` corrigé à la racine) ; attend le merge de C6 → re-merge `main`, `it.fails`→`it`, retrait `CONNUS.D5s`/D5r → PR | non |
-| Lot C6-B « le jour du candidat » | `doctopus-s3-c6b-jour` · `feat/s3-c6b-jour` | `ad84ab89cbdc39047` | livré `ffd7ca5d` (5 points + 2 décisions de main) ; revue Opus en vol → PR après C6-A ; à brancher après C6-A : `streakFromDays(…, offDays)` Home/Historique, `automat.ts` `?? 50` → `NOT_ENTERED` ; `programmeInvariants.mjs` à rejouer machine calme | non |
+| Lot C6-B « le jour du candidat » | `doctopus-s3-c6b-jour` · `feat/s3-c6b-jour` | `ad84ab89cbdc39047` | revue Opus : **Ready** ; fixeur sur m-1 (`remaining`), m-4 (single-flight de la matérialisation — course antérieure), m-6, nits ; après C6-A : branchement `streakFromDays(…, offDays)` ; `programmeInvariants.mjs` à rejouer par main avant merge → PR en dernier | non |
 | `main` après C6 | — | — | `test:c6` dans `package.json`, `tests` dans tsconfig ; test instable `ExternalAiSheet` corrigé (`48a36bd3`) | à faire au merge de C6 |
 | Lots L1 → L15 | — | — | §10, l'un après l'autre (mêmes fichiers) | à lancer |
 
