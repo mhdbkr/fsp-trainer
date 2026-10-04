@@ -569,14 +569,14 @@ export const ALLGEMEINE_ANAMNESE: AnamneseChapter[] = [
           'Falls ja: Wie hoch war die Temperatur?',
           'Falls ja: Wo haben Sie gemessen (z. B. im Mund)?',
           'Waren Sie kürzlich im Ausland?',
-          'Sind Sie regelmäßig geimpft?',
+          'Sind Ihre Impfungen auf dem neuesten Stand?',
         ],
         // Trame du cas (FB2-J10) : si la fièvre a déjà été cherchée plus haut
         // (Aktuelle Beschwerden, Fach), il ne reste que le voyage ; si c'est
         // le voyage qui l'a été, il reste la fièvre.
         parts: [
-          { sucht: ['fieber'], text: 'Haben Sie Ihre Körpertemperatur in letzter Zeit gemessen? Haben Sie Fieber festgestellt?', followUp: ['Falls ja: Seit wann?', 'Falls ja: Wie hoch war die Temperatur?', 'Falls ja: Wo haben Sie gemessen (z. B. im Mund)?'] },
-          { sucht: ['reise'], text: 'Waren Sie kürzlich im Ausland?', followUp: ['Sind Sie regelmäßig geimpft?'] },
+          { sucht: ['fieber'], text: 'Haben Sie Ihre Körpertemperatur in letzter Zeit gemessen? Haben Sie Fieber festgestellt?', followUp: ['Falls Fieber: Seit wann haben Sie Fieber?', 'Falls ja: Wie hoch war die Temperatur?', 'Falls ja: Wo haben Sie gemessen (z. B. im Mund)?'] },
+          { sucht: ['reise'], text: 'Waren Sie kürzlich im Ausland?' },
         ],
       },
       {
@@ -865,10 +865,10 @@ export const FACHANAMNESEN: FachanamneseGuide[] = [
         text: 'Leiden Sie an Übelkeit oder Erbrechen?',
         probe: 'fach-gastro-uebelkeit',
         followUp: [
-          'Falls ja: Wie oft müssen Sie sich übergeben?',
-          'Falls ja: Wie viel erbrechen Sie dann jeweils?',
-          'Falls ja: Wie sah es aus — wie Kaffeesatz, mit Blut?',
-          'Falls ja: Wie lange nach dem Essen tritt es auf?',
+          'Falls Sie sich übergeben haben: Wie oft müssen Sie sich übergeben?',
+          'Falls Sie sich übergeben haben: Wie viel erbrechen Sie dann jeweils?',
+          'Falls Sie sich übergeben haben: Wie sah das Erbrochene aus — wie Kaffeesatz, mit Blut?',
+          'Falls ja: Wie lange nach dem Essen ist Ihnen übel?',
           'Falls ja: Geht es Ihnen besser, nachdem Sie sich erbrochen haben?',
         ],
       },
@@ -1479,6 +1479,7 @@ export const FACHANAMNESEN: FachanamneseGuide[] = [
         followUp: [
           'Haben Sie sich selbst verletzt?',
           'Haben Sie den Wunsch, sich zu verletzen?',
+          'Haben Sie konkrete Pläne, sich das Leben zu nehmen?',
           'Falls konkrete Absicht oder Plan: NOTFALL — der Patient bleibt stationär. Rücksprache mit dem Oberarzt nach der Anamnese.',
         ],
       },

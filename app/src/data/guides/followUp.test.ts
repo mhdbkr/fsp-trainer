@@ -142,7 +142,17 @@ describe('Q2 — relances découpées, l\'information est gardée', () => {
   it('veg-fieber : le voyage est une question, les vaccins sa relance (partie « reise »)', () => {
     const q = allQuestions().find((x) => phraseProbes(x).includes('veg-fieber'))!;
     const reise = (q as { parts: { sucht: string[]; text: string; followUp?: string[] }[] }).parts.find((p) => p.sucht.includes('reise'))!;
-    expect(reise).toMatchObject({ text: 'Waren Sie kürzlich im Ausland?', followUp: ['Sind Sie regelmäßig geimpft?'] });
-    expect(phraseFollowUp(q)).toEqual(expect.arrayContaining(['Waren Sie kürzlich im Ausland?', 'Sind Sie regelmäßig geimpft?']));
+    expect(reise).toEqual({ sucht: ['reise'], text: 'Waren Sie kürzlich im Ausland?' });
+    expect(phraseFollowUp(q)).toEqual(expect.arrayContaining(['Waren Sie kürzlich im Ausland?', 'Sind Ihre Impfungen auf dem neuesten Stand?']));
+  });
+  it('suizid : « konkrete Pläne » est une relance inconditionnelle (la note NOTFALL en dépend, revue Q2)', () => {
+    const rs = relancesOf('fach-psych-suizid', 'Haben Sie konkrete Pläne');
+    expect(rs).toEqual(['Haben Sie konkrete Pläne, sich das Leben zu nehmen?']);
+    expect(parseFollowUp(rs[0]).kind).toBe('immer');
+  });
+  it('gastro : les relances du Erbrochenen attendent le vomissement, pas un « ja » vague (revue Q2)', () => {
+    const rs = relancesOf('fach-gastro-uebelkeit', 'Wie sah das Erbrochene aus');
+    expect(rs).toHaveLength(1);
+    expect(parseFollowUp(rs[0])).toMatchObject({ kind: 'ja', label: 'Sie sich übergeben haben' });
   });
 });

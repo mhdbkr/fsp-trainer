@@ -15163,7 +15163,7 @@ export function seedCases(): Case[] {
       ],
       caseSpecificQuestions: [
         { frage: 'Hatten Sie in den letzten Monaten eine Untersuchung mit Kontrastmittel, etwa eine Computertomographie oder eine Herzkatheteruntersuchung?', kapitel: 'vorerkrankungen' },
-        { frage: 'Wurden Ihnen schon einmal erhöhte Nierenwerte mitgeteilt?', kapitel: 'vorerkrankungen', followUp: 'Falls ja: Was hat Ihr Hausarzt bei der letzten Blutabnahme dazu gesagt?' },
+        { frage: 'Wurden Ihnen schon einmal erhöhte Nierenwerte mitgeteilt?', kapitel: 'vorerkrankungen', followUp: 'Falls ja: Wann war Ihre letzte Blutabnahme?' },
         { frage: 'Seit wann besteht Ihr Diabetes, und waren Sie in augenärztlicher Kontrolle?', kapitel: 'vorerkrankungen' },
         { frage: 'Ist Ihr Harnstrahl abgeschwächt, tröpfelt es nach, oder haben Sie das Gefühl, die Blase nicht ganz zu entleeren?', kapitel: 'aktuell' },
         { frage: 'Bekommen Sie Luftnot beim Treppensteigen, und schlafen Sie flach oder mit mehreren Kissen?', kapitel: 'aktuell', sucht: ['orthopnoe'] },
@@ -20604,7 +20604,7 @@ export function seedCases(): Case[] {
       ],
       caseSpecificQuestions: [
         { frage: 'Hat sich Ihr Husten verändert — klingt er anders als Ihr gewohnter Raucherhusten, und seit wann genau?', kapitel: 'aktuell' },
-        { frage: 'War Blut in Ihrem Auswurf?', kapitel: 'aktuell', followUp: 'Falls ja: Wie sah das Blut aus — hellrot oder dunkel?' },
+        { frage: 'War Blut in Ihrem Auswurf?', kapitel: 'aktuell', followUp: 'Falls ja: Wie viel Blut war es etwa?' },
         { frage: 'Hatten Sie in den letzten Monaten eine Lungenentzündung? Wurde danach ein Kontrollröntgen gemacht, und war es wieder vollständig unauffällig?', kapitel: 'aktuell' },
         { frage: 'Ist Ihre Stimme heiser geworden?', kapitel: 'aktuell', followUp: 'Falls ja: Seit wann ist Ihre Stimme heiser?' },
         { frage: 'Ist Ihnen morgens ein geschwollenes Gesicht, ein Engegefühl am Hals oder eine Schwellung der Arme aufgefallen?', kapitel: 'aktuell' },
@@ -22764,7 +22764,7 @@ export function seedCases(): Case[] {
         { frage: 'Welche Hand ist stärker betroffen — rechts oder links? Und welche ist Ihre Schreibhand?', kapitel: 'aktuell' },
         { frage: 'Fällt Ihnen im Vergleich beider Hände auf, dass der Muskel am Daumenballen dünner geworden ist?', kapitel: 'aktuell' },
         { frage: 'Wie viele Stunden am Tag arbeiten Sie an der Drehscheibe und kneten Sie Ton? Hat sich die Belastung in den letzten Monaten verändert?', kapitel: 'familie-sozial' },
-        { frage: 'Ist bei Ihnen eine Schilddrüsenerkrankung oder eine Zuckerkrankheit bekannt?', kapitel: 'vorerkrankungen', followUp: 'Falls ja: Was hat Ihr Hausarzt zuletzt zum Blutzucker gesagt?' },
+        { frage: 'Ist bei Ihnen eine Schilddrüsenerkrankung oder eine Zuckerkrankheit bekannt?', kapitel: 'vorerkrankungen', followUp: 'Was hat Ihr Hausarzt zuletzt zum Blutzucker gesagt?' },
         { frage: 'Sie hatten vor acht Jahren einen Bruch des rechten Handgelenks — wie war die Hand direkt nach dem Bruch?', kapitel: 'vorerkrankungen' },
       ],
       examinerQuestions: [
@@ -24388,7 +24388,7 @@ export function seedCases(): Case[] {
       ],
       caseSpecificQuestions: [
         { frage: 'Wie ging es Ihnen in den zwei Wochen vor der Gelbfärbung — hatten Sie Gliederschmerzen, Übelkeit oder leichtes Fieber wie bei einer Grippe?', kapitel: 'aktuell', relu: true },
-        { frage: 'Haben Sie sich tätowieren oder piercen lassen?', kapitel: 'familie-sozial', followUp: 'Falls ja: Wissen Sie, ob die Nadel steril war?' },
+        { frage: 'Haben Sie sich tätowieren oder piercen lassen?', kapitel: 'familie-sozial', followUp: 'Falls ja: Wann war das?' },
         { frage: 'Ich muss Sie einige persönliche Fragen stellen, die für die Ursache wichtig sind: Hatten Sie ungeschützten Geschlechtsverkehr, gegebenenfalls mit einem neuen Partner?', kapitel: 'familie-sozial' },
         { frage: 'Haben Sie jemals Drogen konsumiert — auch geschnupft, mit einem gemeinsam benutzten Röhrchen?', kapitel: 'noxen' },
         { frage: 'Sind Sie gegen Hepatitis A oder B geimpft? Haben Sie Ihren Impfpass dabei?', kapitel: 'vorerkrankungen' },
@@ -35204,7 +35204,7 @@ export function seedCases(): Case[] {
         'auf-bronchoskopie',
       ],
       caseSpecificQuestions: [
-        { frage: 'Fühlen Sie sich morgens wie gerädert, obwohl Sie ausreichend lange schlafen?', kapitel: 'vegetativ', sucht: ['schlaf'], followUp: 'Wie viele Stunden liegen Sie im Bett?' },
+        { frage: 'Schlafen Sie ausreichend lange?', kapitel: 'vegetativ', sucht: ['schlaf'], followUp: 'Falls ja: Fühlen Sie sich morgens trotzdem wie gerädert?' },
         { frage: 'Was sagt Ihre Ehefrau über Ihren Schlaf? Schnarchen Sie, und ist das Schnarchen gleichmäßig oder unregelmäßig?', kapitel: 'vegetativ', relu: true },
         { frage: 'Hat Ihre Frau schon einmal beobachtet, dass Sie im Schlaf für eine Zeit lang nicht atmen?', kapitel: 'aktuell', relu: true, followUp: 'Falls ja: Wie lange dauern diese Pausen etwa?' },
         { frage: 'Wachen Sie nachts manchmal mit einem Erstickungs- oder Würgegefühl auf, oder mit Herzrasen?', kapitel: 'aktuell' },
@@ -41631,7 +41631,7 @@ export function seedCases(): Case[] {
         { frage: 'Hatten Sie zuerst Schnupfen und Niesen, oder standen Fieber und Gliederschmerzen von Anfang an im Vordergrund?', kapitel: 'aktuell', relu: true },
         { frage: 'Sie sagen, Sie hätten sich zweimal auf Corona getestet: Wie genau haben Sie den Abstrich gemacht — nur vorne in der Nase oder tief im Rachen? An welchem Tag, und was für ein Test war das?', kapitel: 'aktuell' },
         { frage: 'Waren Sie während Ihrer Auslandsreise in einem Malariagebiet, und haben Sie dort eine Malariaprophylaxe eingenommen — welche, und wie regelmäßig?', kapitel: 'familie-sozial' },
-        { frage: 'Sind Sie gegen Grippe geimpft?', kapitel: 'vorerkrankungen', followUp: 'Falls ja: Wann wurden Sie zuletzt geimpft?' },
+        { frage: 'Sind Sie gegen Grippe geimpft?', kapitel: 'vorerkrankungen', followUp: 'Falls nein: Was hält Sie davon ab, sich gegen Grippe impfen zu lassen?' },
         { frage: 'Bekommen Sie Luftnot, ein Engegefühl in der Brust oder pfeifende Atmung?', kapitel: 'aktuell', followUp: 'Falls ja: Was nehmen Sie dagegen?' },
         { frage: 'Ist Ihr Urin dunkler geworden, und sind die Muskelschmerzen so stark, dass Sie kaum aufstehen können?', kapitel: 'aktuell' },
       ],
@@ -44461,7 +44461,7 @@ export function seedCases(): Case[] {
         { frage: 'Ich frage das ganz ohne Vorwurf: Kommt es vor, dass Sie sich nach dem Essen übergeben?', kapitel: 'aktuell' },
         { frage: 'Nehmen Sie Abführmittel, Entwässerungstabletten, Appetitzügler oder Diätmittel ein — auch pflanzliche Mittel oder etwas aus dem Internet?', kapitel: 'medikamente' },
         { frage: 'Wie viel bewegen Sie sich am Tag? Wie geht es Ihnen an einem Tag, an dem Sie nicht laufen können?', kapitel: 'aktuell' },
-        { frage: 'Haben Sie Angst davor, zuzunehmen?', kapitel: 'aktuell', relu: true, followUp: 'Falls ja: Was würde passieren, wenn die Waage zwei Kilo mehr anzeigen würde?' },
+        { frage: 'Haben Sie Angst davor, zuzunehmen?', kapitel: 'aktuell', relu: true, followUp: 'Was würde passieren, wenn die Waage zwei Kilo mehr anzeigen würde?' },
         { frage: 'Wenn Sie sich im Spiegel ansehen — was sehen Sie da?', kapitel: 'aktuell' },
         { frage: 'Haben Sie in dieser Zeit manchmal daran gedacht, dass Sie nicht mehr leben möchten oder dass es einfacher wäre, nicht mehr da zu sein?', kapitel: 'aktuell' },
       ],
