@@ -5,14 +5,32 @@
 //     dépassé → rouge, `--bless` refuse une hausse, la mesure LIT le lexique.
 // Usage : node --test scripts/checkCoherence.test.mjs
 import test, { after } from 'node:test';
+import { build } from 'esbuild';
+import { mkdtempSync, rmSync } from 'node:fs';
+import { tmpdir } from 'node:os';
+import { join, dirname } from 'node:path';
+import { fileURLToPath, pathToFileURL } from 'node:url';
 import assert from 'node:assert/strict';
 import { readFileSync, writeFileSync } from 'node:fs';
 import { sandbox } from './mutationSandbox.mjs';
 import { mesurerCas, profilPropose, signesDe } from './coherenceMesure.mjs';
 
 // ── La mesure : un lexique minimal, des trames de poche ──────────────────────
+// La lecture du texte est CELLE du lexique (`symptomsInText`, symptoms.ts) : on la charge pour de vrai.
+const root = join(dirname(fileURLToPath(import.meta.url)), '..');
+const lire = await (async () => {
+  const dir = mkdtempSync(join(tmpdir(), 'fsp-lire-'));
+  try {
+    writeFileSync(join(dir, 'e.ts'), `export { symptomsInText } from ${JSON.stringify(join(root, 'src/data/guides/symptoms.ts'))};`);
+    await build({ entryPoints: [join(dir, 'e.ts')], outfile: join(dir, 'b.mjs'), bundle: true, format: 'esm', platform: 'node', logLevel: 'silent',
+      plugins: [{ name: 'alias', setup(b) { b.onResolve({ filter: /^@\// }, (a) => ({ path: join(root, 'src', a.path.slice(2)) + (a.path.endsWith('.ts') ? '' : '.ts') })); } }] });
+    return (await import(pathToFileURL(join(dir, 'b.mjs')).href)).symptomsInText;
+  } finally { rmSync(dir, { recursive: true, force: true }); }
+})();
+const lis = (t, opts) => signesDe(t, opts, lire);
 const def = (kapitel, pertinence, bank) => ({ kapitel, pertinence, bank });
 const lex = () => ({
+  symptomsInText: lire,
   PROFIL_EXIGE: { schmerz: ['ort', 'intensitaet'], diarrhoe: ['stuhlfrequenz'], dysphagie: ['schluck'] },
   PROFIL_EXCLUT: { generalisiert: ['ausstrahlung'] },
   SIGNE_DEF: {
@@ -32,10 +50,10 @@ test('un signe cherché par deux unités → un doublon, avec sa raison ; une se
 });
 
 test('D1 : une énumération cherche chaque signe qu\'elle nomme ; une dimension sur le motif ne cherche pas le symptôme nommé', () => {
-  assert.ok(signesDe('Haben Sie Fieber, Augenentzündungen oder Durchfall?', { mother: true, ch: 'fach' }).has('fieber'));
-  const dim = signesDe('Seit wann haben Sie Fieber?', { mother: true, ch: 'aktuell' });
+  assert.ok(lis('Haben Sie Fieber, Augenentzündungen oder Durchfall?', { mother: true, ch: 'fach' }).has('fieber'));
+  const dim = lis('Seit wann haben Sie Fieber?', { mother: true, ch: 'aktuell' });
   assert.ok(dim.has('beginn') && !dim.has('fieber'));
-  assert.ok(!signesDe('Auslöser — Ist Ihnen ein Auslöser aufgefallen — ein Essen, eine Reise?', { mother: true, ch: 'aktuell' }).has('reise'), '(f) les exemples d\'un Auslöser ne sont pas demandés');
+  assert.ok(!lis('Auslöser — Ist Ihnen ein Auslöser aufgefallen — ein Essen, eine Reise?', { mother: true, ch: 'aktuell' }).has('reise'), '(f) les exemples d\'un Auslöser ne sont pas demandés');
 });
 
 test('hors profil : « Schlucken » sans dysphagie → constat ; avec dysphagie → rien ; mutation : signe de dépistage → rien', () => {
@@ -88,11 +106,28 @@ test('ordre : « dort » avant toute question de voyage ; le voyage posé avant 
 });
 
 test('m1 : « vergesslich / Gedächtnis » (gedaechtnis) n\'est pas « Konzentration » : pas de faux doublon', () => {
-  const lit = (t) => signesDe(t, { mother: true, ch: 'fach' });
+  const lit = (t) => lis(t, { mother: true, ch: 'fach' });
   assert.ok(lit('Haben Sie Konzentrationsprobleme?').has('konzentration') && !lit('Haben Sie Konzentrationsprobleme?').has('gedaechtnis'));
   assert.ok(lit('Sind Sie vergesslich geworden?').has('gedaechtnis') && !lit('Sind Sie vergesslich geworden?').has('konzentration'));
   const r = mesurerCas(cas([row('aktuell', 'Sind Sie vergesslich geworden?', { cs: true }), row('fach', 'Fällt Ihnen die Konzentration schwer?', { probes: ['fach-psych-konzentration'] })]), lex());
   assert.equal(r.dup.length, 0);
+});
+
+test('m6 : UNE lecture — les 34 signes d\'origine lus par symptomsInText ; « Ruhe oder Schlaf » (Einfluss) n\'est pas la question du sommeil', () => {
+  const lit2 = (t) => lis(t, { mother: false, ch: 'aktuell' });
+  assert.ok(lit2('Haben Sie Schüttelfrost oder Schweißausbrüche?').has('schuettelfrost'));
+  assert.ok(!lit2('Bessert es sich nach Ruhe oder Schlaf?').has('schlaf'));
+  assert.ok(lit2('Wie ist Ihr Schlaf?').has('schlaf'));
+  assert.ok(lit2('Wie lange sind Sie morgens steif?').has('steifigkeit'), 'les signes ajoutés gardent leur motif propre');
+});
+
+test('m6 : les parties d\'une question réduite (une même sonde) ne sont pas des unités concurrentes', () => {
+  const r = mesurerCas(cas([row('vegetativ', 'Hatten Sie Schüttelfrost?', { probes: ['veg-schuettelfrost'], sucht: ['schuettelfrost'] }), row('vegetativ', 'Schwitzen Sie nachts?', { probes: ['veg-schuettelfrost'], sucht: ['nachtschweiss', 'schwitzen'] })]), lex());
+  assert.equal(r.dup.length, 0);
+});
+
+test('ordre : « im Urlaub » nomme son contexte, ce n\'est pas une anaphore', () => {
+  assert.equal(mesurerCas(cas([row('fach', 'Wird es im Urlaub besser?')]), lex()).ord.length, 0);
 });
 
 test('questions du cas muettes : celles sans `sucht` déclaré', () => {
@@ -131,8 +166,8 @@ test('la mesure (--json, brut et residu) ÉGALE le plancher gravé', () => {
   assert.equal(o.residu.casRetiresParR1, null);
 });
 
-test('mutation : la lecture de « stuhl » désactivée fait baisser la mesure, et l\'égalité au plancher rougit', () => {
-  const m = sb.mutate('scripts/coherenceMesure.mjs', '  stuhl: /\\b(stuhlgang|durchfall|durchfälle|verstopfung)\\b/i,', '  stuhl: /(?!)/,', () => json(run('--json')));
+test('m6 mutation : la lecture de « stuhl » (UNE seule, symptomsInText) désactivée fait baisser la mesure, et l\'égalité au plancher rougit', () => {
+  const m = sb.mutate('src/data/guides/symptoms.ts', "['stuhl', /\\b(stuhlgang|durchfall|verstopfung)\\b/i]", "['stuhl', /(?!)/]", () => json(run('--json')));
   assert.ok(m.brut.doublons < attendu().doublons, `${m.brut.doublons} < ${attendu().doublons}`);
   assert.notDeepEqual(mesure(m), attendu());
 });

@@ -26,7 +26,9 @@ export const DIM = {
   frueher: /^frühere episoden —|schon früher (phasen|beschwerden|episoden)|solche (beschwerden|gelenkbeschwerden|schmerzen|anfälle|episoden|kopfschmerzen) schon (einmal|früher|mal)|schon einmal so (etwas|ähnliche)/i,
   begleit: /^begleitbeschwerden —/i,
 };
-// Signes cliniques (toutes questions, mères et relances). Les clés sont des ids de `Signe`.
+// Signes que `symptomsInText` (TEXT_RE de symptoms.ts — la lecture du lexique, UNE seule) ne lit pas :
+// les 3 concepts d'origine sans motif (kontakt, oedeme, polyurie) et les ajouts de K0. Les clés sont des ids de `Signe`.
+// Les 34 autres signes d'origine ne sont lus que par `symptomsInText` (injecté) : un motif se corrige à un seul endroit.
 export const SIG = {
   steifigkeit: /(?<!nacken)steif(igkeit|heit)?\b|morgensteif|eingerostet/i,
   gelenk_entzuendung: /(gelenk\w*).{0,50}(geschwollen|gerötet|überwärmt)|(geschwollen|gerötet|überwärmt).{0,50}gelenk/i,
@@ -34,38 +36,21 @@ export const SIG = {
   stuhlfrequenz: /wie (oft|häufig|viele mal).{0,50}(stuhlgang|toilette|durchfall)|^häufigkeit —/i,
   stuhlaussehen: /wie sieht (ihr|der) stuhl|stuhl.{0,40}(farbe|aussehen|wässrig|breiig|schleim|blut)|(blut|schleim).{0,30}(im stuhl|beigemengt|aufgefallen)|teerstuhl|schwarz.{0,15}stuhl|^aussehen —/i,
   essen_expo: /\bgegessen\b|lebensmittel gegessen|eiswürfel|leitungswasser|rohe(s|n)? (milch|fleisch|salat|eier)/i,
-  zecke: /zecke/i, erythem_ring: /ringförmig/i, meningismus: /nackensteif/i, fazialis: /gesichtslähmung/i,
+  zecke: /zecke/i,
+  erythem_ring: /ringförmig/i,
+  meningismus: /nackensteif/i,
+  fazialis: /gesichtslähmung/i,
   nitro: /nitro/i,
-  fieber: /\bfieber\b|körpertemperatur|temperatur (gemessen|erhöht)/i, schuettelfrost: /schüttelfrost/i, nachtschweiss: /nachtschwei|schwitzen sie nachts|nachts .{0,12}schwitz/i,
-  reise: /(?<!zum beispiel (im|auf) )\b(ausland|verreist|reise|urlaub|tropen)\b/i, kontakt: /kontakt zu (kranken|tieren|personen)|angesteckt|in ihrer umgebung .{0,30}krank/i,
-  uebelkeit: /\b(übel|übelkeit|übergeben|erbrochen|erbrechen)\b/i,
-  stuhl: /\b(stuhlgang|durchfall|durchfälle|verstopfung)\b/i,
-  miktion: /(brennen|schmerzen|schwierigkeiten|probleme) (beim|mit dem) wasserlassen|beim wasserlassen/i,
+  kontakt: /kontakt zu (kranken|tieren|personen)|angesteckt|in ihrer umgebung .{0,30}krank/i,
   polyurie: /(häufiger|mehr|öfter) wasser lassen|große (urin)?mengen|wie oft .{0,30}wasser lassen/i,
   nykturie: /nachts .{0,25}(wasser lassen|toilette)|wasser lassen, auch nachts/i,
   inkontinenz: /einnässen|urin (ab|verloren)|inkontinen|wasser nicht halten/i,
   urin_aspekt: /(farbe|aussehen) (des|von) .{0,12}urin|urin .{0,30}(dunkel|rot|blut|schäum)|blut im (stuhl oder im )?urin/i,
-  gewicht: /\b(gewicht\w*|kilo\w*|zugenommen)\b|(?<!blut )\babgenommen\b/i, appetit: /\bappetit\b/i,
-  schlaf: /(?<!ruhe oder |nach )\bschlaf\b(?!-)|schlafen sie (gut|schlecht)|\b(ein|durch)zuschlafen|morgens erholt/i,
-  husten: /\bhusten\b/i, orthopnoe: /\bkissen\b|flach liegen/i, oedeme: /geschwollene (beine|knöchel|füße)|wasser in den beinen|ödem/i,
-  blutung: /\bblutung\w*|\bblutet\b|nasenbluten|zahnfleischbluten|blut im (stuhl|urin)|blaue flecke/i,
-  schwindel: /\bschwindel\w*/i, kopfschmerz: /\bkopfschmerz\w*|\bkopfweh\b/i,
-  atemnot: /\b(atemnot|luftnot|kurzatmig\w*)\b|schwer luft|die luft weg|außer atem/i,
-  brustschmerz: /\bbrustschmerz\w*|engegefühl in der brust|schmerzen in der brust/i,
-  bewusstlos: /\b(bewusstlos\w*|ohnmächtig|ohnmacht|synkope)\b|schwarz vor augen/i,
-  sehstoerung: /\b(sehstörung\w*|doppelbild\w*)\b|verschwommen|schlechter seh/i,
-  krampf: /\bkrampfanf\w*|\bepilep\w*/i, taubheit: /\btaubheit\w*|\bkribbeln\b|\bpelzig\w*|missempfindung/i,
-  schwaeche: /\bkraftverlust\b|\bkraftlos\w*|schwächer geworden|\blähmung\b|\bgelähmt\b|weniger kraft/i,
-  herzrasen: /\bherz(rasen|klopfen|stolpern)\b/i, schwitzen: /(?<!nachts )\bschwitz(en|t)\b(?! sie nachts)(?!.{0,6}nachts)|\bschweißausbr\w*/i, durst: /\bdurst\w*/i,
-  juckreiz: /\bjuck(t|en|reiz\w*)\b/i, ausschlag: /\b(haut)?ausschlag\w*|\bhautveränderung\w*|\bquaddel\w*/i,
-  schluck: /\bschluck(beschwerden|störung\w*|en)\b/i, gelbfaerbung: /\bgelbfärbung\w*|\bgelbsucht\b|gelb(e|lich)? (haut|augen)/i,
-  sturz: /\bsturz\b|\bstürz\w*|\bgestürzt\b/i, stimmung: /\bstimmung\b|\bniedergeschlagen\b|\btraurig\b|freudlos/i,
-  angst: /\bangst\b|\bängste\b|\bpanikattack\w*/i, suizid: /\blebenswert\b|etwas anzutun|\bsuizid\w*|selbst(mord|tötung)/i,
-  konzentration: /konzentr(ation|ier)|wortfind|auf wörter zu kommen/i, gedaechtnis: /vergesslich|gedächtnis|erinnerungslück/i,
-  familie_rheuma: /familie.{0,30}(rheuma|gicht)/i, nierensteine: /nierenstein/i,
+  oedeme: /geschwollene (beine|knöchel|füße)|wasser in den beinen|ödem/i,
+  konzentration: /konzentr(ation|ier)|wortfind|auf wörter zu kommen/i,
+  familie_rheuma: /familie.{0,30}(rheuma|gicht)/i,
+  nierensteine: /nierenstein/i,
 };
-/** Les signes que la mesure sait lire : un `sucht` déclaré hors de cet ensemble n'entre pas dans le compte. */
-export const LUS = new Set([...Object.keys(DIM), ...Object.keys(SIG)]);
 /** Dimensions / signes dont l'objet est le motif : une question qui en lit un ne « cherche » pas les autres symptômes qu'elle nomme. */
 const GARDES = ['steifigkeit', 'gelenk_entzuendung', 'stuhlfrequenz', 'stuhlaussehen'];
 /** Chapitres où se mesure un doublon : le cœur de l'entretien. */
@@ -78,15 +63,17 @@ const demande = (t) => {
   return /^(ist ihnen ein auslöser|gibt es etwas, das|gibt es einen auslöser|ist ihnen etwas aufgefallen, das)/i.test(body) ? body.split(' — ')[0] : body;
 };
 
-/** Les signes qu'un texte CHERCHE (D1 : une énumération cherche chaque signe qu'elle nomme). */
-export function signesDe(text, { mother, ch }) {
+/** Les signes qu'un texte CHERCHE (D1 : une énumération cherche chaque signe qu'elle nomme).
+ *  `lire` = `symptomsInText` du lexique (injecté : ce module reste pur, sans import du bundle). */
+export function signesDe(text, { mother, ch }, lire = () => []) {
   const out = new Set();
   const t = text.trim();
   if (mother && (ch === 'aktuell' || ch === 'fach')) for (const [k, re] of Object.entries(DIM)) if (re.test(t)) out.add(k);
   const a = demande(t);
+  for (const k of lire(a)) out.add(k);
   for (const [k, re] of Object.entries(SIG)) if (re.test(a)) out.add(k);
   // Une dimension (Beginn, Verlauf…) porte SUR le motif : le symptôme nommé est son objet (« Seit wann haben Sie Fieber ? »).
-  if ([...out].some((k) => DIM[k] && k !== 'begleit')) for (const k of [...out]) if (SIG[k] && !GARDES.includes(k)) out.delete(k);
+  if ([...out].some((k) => DIM[k] && k !== 'begleit')) for (const k of [...out]) if (!DIM[k] && !GARDES.includes(k)) out.delete(k);
   if (out.has('ausloeser')) out.delete('essen_expo');
   if (out.has('gelenk_entzuendung')) out.delete('steifigkeit');
   return out;
@@ -143,19 +130,20 @@ export function profilEffectif(c, kategorie, lex) {
 }
 
 // ── 3. Mesurer un cas ────────────────────────────────────────────────────────
-const ANAPHOR = [[/\bdort\b|\bdorthin\b|(?<!zum beispiel )im urlaub|auf der reise|nach der rückkehr|von der reise/i, 'reise']];
+// « im Urlaub » n'est pas une anaphore : la question nomme son propre contexte (« Wird es im Urlaub besser ? »).
+const ANAPHOR = [[/\bdort\b|\bdorthin\b|auf der reise|nach der rückkehr|von der reise/i, 'reise']];
 const ECARTE = new Set(['eroeffnung', 'personalia', 'abschluss']);
 
 /** Une unité = question mère + ses relances. `rows` = la trame jouée ({ ch, text, probes, cs, sucht, fu }). */
-export function unitesDe(rows) {
+export function unitesDe(rows, lire = () => [], connu = () => true) {
   const units = [];
   let rank = 0;
   for (const r of rows) {
     if (ECARTE.has(r.ch)) continue;
     rank++;
-    const ms = signesDe(r.text, { mother: true, ch: r.ch });
-    for (const s of r.sucht ?? []) if (LUS.has(s)) ms.add(s);
-    const fus = (r.fu ?? []).map((f) => ({ text: f, signs: signesDe(f.replace(/^Falls [^:]{2,40}:\s*/, ''), { mother: false, ch: r.ch }), cond: /^Falls /.test(f) }));
+    const ms = signesDe(r.text, { mother: true, ch: r.ch }, lire);
+    for (const s of r.sucht ?? []) if (connu(s)) ms.add(s);
+    const fus = (r.fu ?? []).map((f) => ({ text: f, signs: signesDe(f.replace(/^Falls [^:]{2,40}:\s*/, ''), { mother: false, ch: r.ch }, lire), cond: /^Falls /.test(f) }));
     const all = new Set([...ms, ...fus.flatMap((f) => [...f.signs])]);
     units.push({ rank, ch: r.ch, cs: r.cs, probe: r.probes.join(',') || (r.cs ? 'CAS' : '-'), text: r.text, declared: !!r.sucht?.length, ms, fus, all });
   }
@@ -164,18 +152,20 @@ export function unitesDe(rows) {
 
 /**
  * @param c    { id, kategorie, antworten, rows, ... } (la fiche + la trame jouée)
- * @param lex  { PROFIL_EXIGE, PROFIL_EXCLUT, SIGNE_DEF }
+ * @param lex  { PROFIL_EXIGE, PROFIL_EXCLUT, SIGNE_DEF, symptomsInText } — `sucht` déclaré : tout signe du lexique compte
  * @param qo   constats du détecteur d'ordre Q0 pour ce cas (chaînes)
  */
 export function mesurerCas(c, lex, qo = []) {
   const profil = profilEffectif(c, c.kategorie, lex);
-  const units = unitesDe(c.rows);
+  const units = unitesDe(c.rows, lex.symptomsInText, (s) => s in lex.SIGNE_DEF);
   const tagsTxt = profil.tags.join(', ');
   // (a) doublons : un signe cherché par ≥ 2 unités (aktuell / fach / vegetativ).
   const bySign = new Map();
   for (const u of units) if (CHAPITRES_MESURES.has(u.ch)) for (const s of u.all) (bySign.get(s) ?? bySign.set(s, []).get(s)).push(u);
   const dup = [], dupCas = [];
-  for (const [s, us] of bySign) {
+  for (const [s, all] of bySign) {
+    // Les parties d'une question réduite par `parts` sont UNE sonde, pas des unités concurrentes.
+    const us = all.filter((u, i) => u.cs || u.probe === '-' || all.findIndex((v) => v.probe === u.probe && !v.cs) === i);
     if (us.length < 2) continue;
     const at = us.map((u) => `#${u.rank} ${u.ch}:${u.probe}`);
     dup.push({ s, at, why: `« ${s} » est cherché par ${us.length} unités ; r2 n'en garderait qu'une (question du cas > Fach > aktuell > vegetativ)` });

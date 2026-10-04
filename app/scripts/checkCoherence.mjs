@@ -41,7 +41,7 @@ writeFileSync(entry, `
   export { seedCases } from ${src('data/seedCases.ts')};
   export { playedTrame, leitsymptomOf } from ${src('data/guides/anamneseChapters.ts')};
   export { phraseText, phraseAlts, phraseFollowUp, phraseProbes, phraseIsCaseSpecific } from ${src('data/guides/phrases.ts')};
-  export { phraseSymptoms, PROBE_SUCHT, SIGNES, SIGNE_DEF, PROFIL_EXIGE, PROFIL_EXCLUT, lexiqueIncoherences } from ${src('data/guides/symptoms.ts')};
+  export { phraseSymptoms, symptomsInText, PROBE_SUCHT, SIGNES, SIGNE_DEF, PROFIL_EXIGE, PROFIL_EXCLUT, lexiqueIncoherences } from ${src('data/guides/symptoms.ts')};
   export { PROBE_BY_ID } from ${src('data/guides/anamneseProbes.ts')};
 `);
 const out = join(dir, 'bundle.mjs');
@@ -91,7 +91,7 @@ const factsOf = (s = {}) => JSON.stringify([s.sozialanamnese, s.vorerkrankungen,
 const walks = new Map(cases.map((c) => [c.id, walk(c)]));
 const trame = trameWords([...walks.values()].flatMap((ts) => ts.filter((t) => !t.own).flatMap((t) => t.all)));
 
-const lex = { PROFIL_EXIGE: m.PROFIL_EXIGE, PROFIL_EXCLUT: m.PROFIL_EXCLUT, SIGNE_DEF: m.SIGNE_DEF };
+const lex = { PROFIL_EXIGE: m.PROFIL_EXIGE, PROFIL_EXCLUT: m.PROFIL_EXCLUT, SIGNE_DEF: m.SIGNE_DEF, symptomsInText: m.symptomsInText };
 const results = cases.map((c) => {
   const s = c.patientSheet;
   const qo = detect({ id: c.id, facts: factsOf(s), turns: walks.get(c.id) }, trame).map((h) => `${h.rule} « ${h.hit.trim()} » [${h.ch}]`);

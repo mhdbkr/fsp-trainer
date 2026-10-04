@@ -140,7 +140,7 @@ const TEXT_RE: Array<[Symptom, RegExp]> = [
   ['gewicht', /\b(gewicht\w*|kilo\w*|zugenommen)\b|(?<!blut )\babgenommen\b/i], ['appetit', /\bappetit\b/i],
   // « Schlaf » le nom (pas « Schlaf- oder Beruhigungsmittel », pas « mit wie
   // vielen Kissen schlafen Sie », pas « die Finger schlafen ein »).
-  ['schlaf', /\bschlaf\b(?!-)|\bschlafen sie (gut|schlecht|ausreichend|tagsüber)/i],
+  ['schlaf', /(?<!ruhe oder |nach )\bschlaf\b(?!-)|\bschlafen sie (gut|schlecht|ausreichend|tagsüber)/i],
   ['husten', /\bhusten\b/i], ['orthopnoe', /\bkissen\b/i],
   // --- série 3 -------------------------------------------------------------
   // `blutung` et `schwindel` manquaient alors qu'ils étaient DÉJÀ dans
