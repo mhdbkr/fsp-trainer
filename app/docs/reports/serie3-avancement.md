@@ -170,3 +170,25 @@ rien de cette table.
 | Lot C6-B « le jour du candidat » | `doctopus-s3-c6b-jour` · `feat/s3-c6b-jour` | `ad84ab89cbdc39047` | session du jour Fachbegriffe nommée/déplacée, « dus », ligne jours manqués (Rattraper/Laisser), titres non tronqués à l'accueil, `Date.now()` → `lib/clock` → push → revue → PR | non |
 | `main` après C6 | — | — | `test:c6` dans `package.json`, `tests` dans tsconfig ; test instable `ExternalAiSheet` corrigé (`48a36bd3`) | à faire au merge de C6 |
 | Lots L1 → L15 | — | — | §10, l'un après l'autre (mêmes fichiers) | à lancer |
+
+## 12. Plan d'ensemble (4 oct. 2026) — trois voies, fichiers disjoints
+
+Décisions du 4 oct. : les 4 recommandations « cas entier » ; pré-simulation réordonnée ; Muster guidé / libre ; Examen en dernier ; état `prêt` (anneau soudé) ; les 6 ajouts du cerveau (consolidation espacée, solide stable, erreurs transversales, durées apprises, rythme proposé, couverture pondérée par la fréquence).
+
+**Voie A — Contenu (un lot à la fois, `seedCases.ts` / guides / `check*.mjs`)** : Q2 (en vol) → Q3 → Q4 → Q5 → Q6 → Q7 → Q8 → Lc1 (leberzirrhose : fiche, Fachwissen, visuel) → Lc2 (fiches C0 gratuites) → Lc3 (C1/C2 < 15 k) → reliquat L1–L15 jusqu'à A = B = C = 0 et 130 cas audités. Q-8 (5 prompts > 10 k car.) entre dans Lc. Indépendante des voies B et C.
+
+**Voie B — Clôture série 3 (fiabilité)**, dans cet ordre (mêmes fichiers) : PR C6 (harnais) → PR C6-A (chiffres honnêtes) → PR C6-B (le jour du candidat). Puis la série 3 est close.
+
+**Voie C — Série 4 « le cas entier, mesuré au Teil »**, chaque chantier = implémenteur → revues (mécanique Opus + métier) → C6 étendu au nouveau parcours → PR → merge par la direction :
+- S4-0 contrat + ADR-0021/0022 (en vol) → revue → PR.
+- S4-1 la mesure : échelle vierge/entamé/couvert/solide/prêt, solide stable, couverture et maîtrise séparées. Après C6-A.
+- S4-2 le plan : tâche de cas (« il te reste… »), règle de complétion, consolidation espacée, « d'un trait », durées apprises, rythme proposé, erreurs transversales, couverture pondérée par la fréquence ; absorbe Q-9 (config non synchronisée) et M-b (refus de rattrapage multi-appareils). Après C6-B. **Chantier critique : invariants d'abord.**
+- S4-3 la partie : entrée unique, « Terminer ici », départ sur un autre Teil, marqueur d'enchaînement ; pré-simulation réordonnée, Muster guidé/libre ; retire « Couche 1 ».
+- S4-4 le cadran `CaseDial` : carte de cas, ligne de tâche, pré-simulation, fin de partie, anneau soudé.
+- S4-5 Programme refait (aujourd'hui / semaine / jusqu'à l'examen / carte de couverture) ; absorbe Q-6 (débord 390 px).
+- S4-6 Historique « carnet de séances » (+ événement local « terme cherché »).
+- S4-7 Examen (audit `feat/pruefungstag` puis remplacement de la page Simulation). En dernier.
+S4-1 peut démarrer pendant la voie B (fichiers `lib/journal`, `lib/stats` après C6-A) ; S4-2 et S4-3 attendent C6-B.
+
+**Restent à la direction** : Q-7 (test ChatGPT 5 min) ; Q-10 (secrets de la fonction `ai`, 503) ; verdict « réussie » sans langue notée (C6-A) ; PR #48, #49, #52 ; branches dormantes `feat/characters`, `feat/site-v2` ; calendrier KP (réforme au 1.11.2026) face à la série 4.
+**Suivis techniques** (absorbés quand le fichier est rouvert) : `StatusBadge` mort ; `CardFlip` dans le verre de `CardToast` ; `.input` flouté dans cartes floutées ; « tournures officielles » `SimulationSetup.tsx:119` (S4-3) ; `Hero.astro:21` (site) ; contrat `simulation-run.md` sentinelle `-1` (S4-0).
