@@ -14,6 +14,7 @@ import { computeCaseProgress } from '@/lib/journal';
 import { TEILE } from '@/lib/simScope';
 import { dayKey, now as clockNow } from '@/lib/clock';
 import { programEnd } from './dayPlan';
+import { DATE_NOUVELLE_REGLE } from './parametres';
 
 const TEIL_KEYS: SimTeil[] = TEILE.map((t) => t.key);
 
@@ -36,14 +37,21 @@ export interface Trajectory {
   indiceProjete: number | null;
   examDate: string | null;
   today: string;
+  /** Le jour où la règle « solide stable » prend le relais (INV-69) : la courbe fait une marche
+   *  entre la veille et ce jour. `null` si la fenêtre ne contient pas les deux règles. */
+  repere: { date: string } | null;
 }
 
 /** L'indice de préparation à un instant donné : la part du corpus rendue solide,
  *  pondérée par l'état de chaque Teil. Il se recalcule sur le journal TRONQUÉ à
- *  cet instant — donc il ne peut pas être révisé après coup. */
+ *  cet instant — donc il ne peut pas être révisé après coup.
+ *
+ *  **Le passé est figé** (INV-69, décision (e)) : avant `DATE_NOUVELLE_REGLE`, la règle
+ *  de statut est celle de la série 3 (un seul score suffit). Sans cela, le déploiement
+ *  de « solide stable » ferait descendre toute la courbe déjà montrée. */
 export function indiceAt(events: TrainingEvent[], totalTeile: number, at: number): number {
   if (!totalTeile) return 0;
-  const progress = computeCaseProgress(events.filter((e) => e.at <= at));
+  const progress = computeCaseProgress(events.filter((e) => e.at <= at), { regle: dayKey(at) < DATE_NOUVELLE_REGLE ? 'serie3' : undefined });
   let sum = 0;
   for (const cp of progress) for (const t of TEIL_KEYS) sum += POIDS[cp.teile[t].status];
   return Math.round((sum / totalTeile) * 100);
@@ -87,8 +95,12 @@ export function trajectory(
   }
 
   // Pente = progression réelle des `slopeDays` derniers jours. Aucune pente
-  // inventée : sans travail récent, il n'y a pas de projection à afficher.
-  const tail = points.slice(-Math.min(slopeDays + 1, points.length));
+  // inventée : sans travail récent, il n'y a pas de projection à afficher. Elle ne
+  // traverse jamais la marche de la nouvelle règle : seuls comptent les points
+  // calculés par la MÊME règle que le dernier.
+  const ancienne = (p: TrajectoryPoint) => p.date < DATE_NOUVELLE_REGLE;
+  const memeRegle = points.filter((p) => ancienne(p) === ancienne(points[points.length - 1]));
+  const tail = memeRegle.slice(-Math.min(slopeDays + 1, memeRegle.length));
   const gained = tail.length > 1 ? tail[tail.length - 1].indice - tail[0].indice : 0;
   const perDay = tail.length > 1 ? gained / (tail.length - 1) : 0;
 
@@ -106,7 +118,8 @@ export function trajectory(
     }
     indiceProjete = projection.length ? projection[projection.length - 1].indice : last.indice;
   }
-  return { points, projection, indiceProjete, examDate, today };
+  const repere = points.some(ancienne) && points.some((p) => !ancienne(p)) ? { date: DATE_NOUVELLE_REGLE } : null;
+  return { points, projection, indiceProjete, examDate, today, repere };
 }
 
 /** Jours calendaires restants avant l'examen. `null` sans date d'examen. */

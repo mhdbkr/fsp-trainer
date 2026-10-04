@@ -474,13 +474,18 @@ describe('INV-69 — la frise passée est figée', () => {
   const POIDS3 = { vierge: 0, fragile: 0.3, acquis: 0.7, solide: 1 } as const;
   /** L'indice de la série 3, réécrit ici indépendamment : le dernier score MESURÉ de chaque Teil. */
   function indice3(events: TrainingEvent[], total: number, at: number): number {
-    const last = new Map<string, number>();
+    const last = new Map<string, Partial<Record<SimTeil, number>>>();     // cas → dernier score mesuré par Teil
     for (const e of [...events].sort((a, b) => a.at - b.at)) {
-      if (e.at > at || !e.caseId || e.selbstbewertet) continue;
-      for (const t of e.teile) { const s = e.scores?.[t]; if (s != null) last.set(`${e.caseId}/${t}`, s); }
+      if (e.at > at || !e.caseId) continue;
+      const m = last.get(e.caseId) ?? {};
+      last.set(e.caseId, m);
+      if (e.selbstbewertet) continue;
+      for (const t of e.teile) { const s = e.scores?.[t]; if (s != null) m[t] = s; }
     }
+    // même ordre d'addition que l'indice d'avant la série 4 (cas par ordre d'apparition, Teile par ordre d'examen) :
+    // les arrondis à .5 sont ceux qui ont été montrés.
     let sum = 0;
-    for (const s of last.values()) sum += POIDS3[s < 60 ? 'fragile' : s < 80 ? 'acquis' : 'solide'];
+    for (const m of last.values()) for (const t of TEILE) if (m[t] != null) sum += POIDS3[m[t]! < 60 ? 'fragile' : m[t]! < 80 ? 'acquis' : 'solide'];
     return Math.round((sum / total) * 100);
   }
   const veille = addDaysISO(DATE_NOUVELLE_REGLE, -1);

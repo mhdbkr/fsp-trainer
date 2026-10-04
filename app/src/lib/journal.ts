@@ -17,17 +17,19 @@ import { db } from '@/db/db';
 import { newId, type ProgressEvent } from '@/lib/sync/events';
 import { sortEvents } from '@/lib/collections/project';
 import { partScore } from '@/lib/scoring';
-import { TEILE, isFullSimulation } from '@/lib/simScope';
+import { TEILE } from '@/lib/simScope';
 import { now, dayKey } from '@/lib/clock';
+import { LEGACY_ID_PATTERN } from '@/lib/checklists.legacy';
+import { conditionsManquantes, estEnchaine, estSerie4, isExamenBlanc } from '@/lib/examen';
+import { computeCaseProgress } from '@/lib/progression';
 import type {
-  CaseId, CaseProgress, DayPlan, SimTeil, Simulation, TaskInstance, TaskKind,
-  TeilProgress, TeilStatus, TrainingEvent, TrainingKind,
+  CaseId, CaseProgress, ChecklistItemId, DayPlan, SimTeil, Simulation, TaskInstance, TaskKind,
+  TrainingEvent, TrainingKind,
 } from '@/db/types';
 
-/** Seuils déjà portés par le dépôt : `simulationPassed()` (60) et l'ancien
- *  `status === 'Maîtrisé'` (80). Aucun seuil neuf n'est introduit. */
-export const PART_OK = 60;
-export const PART_SOLIDE = 80;
+// La mesure vit dans `progression.ts` (pure) ; ce module la ré-exporte pour ses appelants historiques.
+export { PART_OK, PART_SOLIDE, blankProgress, computeCaseProgress, estNonMesure, statusOf } from '@/lib/progression';
+export { isExamenBlanc } from '@/lib/examen';
 
 const TEIL_KEYS: SimTeil[] = TEILE.map((t) => t.key);
 
@@ -35,22 +37,32 @@ const TEIL_KEYS: SimTeil[] = TEILE.map((t) => t.key);
 // 1. Dérivation d'un TrainingEvent depuis une Simulation (contrat §2.3)
 // ---------------------------------------------------------------------------
 
-/** Un run joué en conditions d'examen : complet, autonome, dernière couche.
- *  C'est la définition du mode `examen-blanc` (contrat §6) lue à l'envers. */
-const isExamenBlanc = (sim: Simulation): boolean =>
-  isFullSimulation(sim) && sim.assistance === 'autonome' && sim.layer === 3
-  && sim.mode !== 'external-ai';                            // m-1 : une séance IA externe n'est jamais un examen à blanc
-
 /**
  * `simulation.completed` n'est PAS doublé par un `training.logged` : un fait,
  * un événement. Le `TrainingEvent` s'en dérive avec un id déterministe, donc
  * la dérivation est idempotente quel que soit le nombre de reconstructions.
  */
 export function trainingEventFromSimulation(sim: Simulation): TrainingEvent {
-  const teile = TEIL_KEYS.filter((t) => sim.parts[t]?.done === true);
+  const parts = sim.parts ?? {};
+  const teile = TEIL_KEYS.filter((t) => parts[t]?.done === true);
   const scores: Partial<Record<SimTeil, number>> = {};
-  for (const t of teile) scores[t] = partScore(sim.parts[t]!);
-  const secs = Object.values(sim.parts).reduce((s, p) => s + (p?.durationSec ?? 0), 0);
+  for (const t of teile) scores[t] = partScore(parts[t]!);
+  const secs = Object.values(parts).reduce((s, p) => s + (p?.durationSec ?? 0), 0);
+  // m6 : `dauerGesamtSec` garde le Teil abandonné ; une partie antérieure n'en a pas.
+  const total = typeof sim.dauerGesamtSec === 'number' && Number.isFinite(sim.dauerGesamtSec) && sim.dauerGesamtSec >= 0 ? sim.dauerGesamtSec : secs;
+  const serie4 = estSerie4(sim);
+  const manque = serie4 ? conditionsManquantes(sim) : [];
+  const minutesParTeil: Partial<Record<SimTeil, number>> = {};
+  const manques: Partial<Record<SimTeil, ChecklistItemId[]>> = {};
+  for (const t of teile) {
+    const d = parts[t]!.durationSec;
+    if (typeof d === 'number' && d > 0) minutesParTeil[t] = Math.round(d / 60);
+    const cl = parts[t]!.checklist;
+    // Une checklist à ids legacy `cl-N` a été reconstruite DÉCOCHÉE : elle signalerait tout. Elle n'entre pas (§13.3).
+    if (sim.mode !== 'external-ai' && Array.isArray(cl) && cl.length > 0 && !cl.some((i) => LEGACY_ID_PATTERN.test(String(i.id)))) {
+      manques[t] = cl.filter((i) => i.checked === false).map((i) => i.id);
+    }
+  }
   return {
     id: `te-${sim.id}`,
     at: sim.date,
@@ -59,11 +71,17 @@ export function trainingEventFromSimulation(sim: Simulation): TrainingEvent {
     teile,
     source: sim.taskId ? 'plan' : 'libre',
     ...(sim.taskId ? { taskId: sim.taskId } : {}),
-    spentMin: Math.round(secs / 60),
+    spentMin: Math.round(total / 60),
     laufId: sim.id,
     scores,
     selbstbewertet: sim.mode === 'external-ai',
     ...(sim.profileId ? { profileId: sim.profileId } : {}),
+    // --- [S4] dérivés (§2.3) : jamais écrits par `training.logged` ---
+    ...(estEnchaine(sim) ? { enchaine: true as const } : {}),
+    ...(serie4 && manque.length === 0 ? { examen: true as const } : {}),
+    ...(serie4 ? { examenManque: manque } : {}),
+    ...(Object.keys(minutesParTeil).length ? { minutesParTeil } : {}),
+    ...(Object.keys(manques).length ? { manques } : {}),
   };
 }
 
@@ -204,59 +222,8 @@ const taskList = (payload: unknown): TaskInstance[] => {
 };
 
 // ---------------------------------------------------------------------------
-// 3. La progression par Teil (contrat §4)
+// 3. La progression par Teil (contrat §4) — le calcul est dans `progression.ts`
 // ---------------------------------------------------------------------------
-
-const statusOf = (lastScore: number | null): TeilStatus =>
-  lastScore === null ? 'vierge' : lastScore < PART_OK ? 'fragile' : lastScore < PART_SOLIDE ? 'acquis' : 'solide';
-
-const emptyTeil = (): TeilProgress => ({ status: 'vierge', lastScore: null, lastAt: null, attempts: 0 });
-
-/**
- * Un cas n'a plus de pourcentage : il a un état par Teil. Le `sum / 3`
- * systématique de `simScope.ts:42` — qui faisait régresser un cas après une
- * Anamnese réussie à 90 % — n'a plus de raison d'exister.
- *
- * Les événements `selbstbewertet` sont EXCLUS (INV-11) : sans quoi un Teil
- * passerait de `vierge` à `fragile` sans qu'aucune performance ait été mesurée.
- */
-export function computeCaseProgress(trainingEvents: TrainingEvent[]): CaseProgress[] {
-  const byCase = new Map<CaseId, CaseProgress>();
-  for (const te of [...trainingEvents].sort((a, b) => a.at - b.at)) {
-    if (!te.caseId) continue;
-    let cp = byCase.get(te.caseId);
-    if (!cp) {
-      cp = { caseId: te.caseId, teile: { anamnese: emptyTeil(), dokumentation: emptyTeil(), fallvorstellung: emptyTeil() }, overall: 'vierge' };
-      byCase.set(te.caseId, cp);
-    }
-    for (const t of te.teile) {
-      if (!TEIL_KEYS.includes(t)) continue;                 // S-M1 : jamais `__proto__` ni une clé inconnue
-      // INV-11 + M4 : auto-déclaré ou sans score n'est pas une mesure — status,
-      // attempts, lastScore intacts ; seul `nonMesureAt` le note (I-4).
-      const s = te.selbstbewertet === true ? null : te.scores?.[t];
-      if (s == null) { cp.teile[t].nonMesureAt = te.at; continue; }
-      const p = cp.teile[t];
-      p.attempts += 1;
-      p.lastScore = s; p.lastAt = te.at;
-      p.status = statusOf(p.lastScore);
-    }
-  }
-  for (const cp of byCase.values()) cp.overall = overallOf(cp);
-  return [...byCase.values()];
-}
-
-function overallOf(cp: CaseProgress): CaseProgress['overall'] {
-  const all = TEIL_KEYS.map((t) => cp.teile[t].status);
-  if (all.every((s) => s === 'vierge')) return 'vierge';
-  if (all.every((s) => s === 'solide')) return 'solide';
-  return 'entame';
-}
-
-/** L'état d'un cas jamais rencontré : trois Teile vierges. Jamais `undefined`,
- *  pour qu'aucun appelant n'ait à traiter l'absence comme un défaut. */
-export const blankProgress = (caseId: CaseId): CaseProgress => ({
-  caseId, teile: { anamnese: emptyTeil(), dokumentation: emptyTeil(), fallvorstellung: emptyTeil() }, overall: 'vierge',
-});
 
 /**
  * **Un point faible se décide sur la performance, jamais sur l'absence.**
@@ -403,9 +370,6 @@ export async function logTraining(input: LogInput): Promise<TrainingEvent> {
 }
 
 const marking = new Map<string, Promise<TrainingEvent>>();
-
-/** « Faite — non mesurée » : déclarée faite, jamais mesurée (I-4). */
-export const estNonMesure = (p: TeilProgress): boolean => p.status === 'vierge' && p.nonMesureAt != null;
 
 /**
  * Cocher une tâche — y compris Fachwissen, examen à blanc et reprise de partie

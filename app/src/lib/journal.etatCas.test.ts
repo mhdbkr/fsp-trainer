@@ -23,14 +23,14 @@ describe('l’échelle d’états du cas', () => {
     ['aucun événement', [], 'vierge', 0, null, 'vierge'],
     ['un Teil joué', [ev(0, { anamnese: 70 })], 'entame', 1, 70, 'entame'],
     ['deux Teile joués', [ev(0, { anamnese: 70, fallvorstellung: 90 })], 'entame', 2, 80, 'entame'],
-    ['trois Teile joués, un acquis', [ev(0, tous(85)), ev(1, { anamnese: 60 })], 'couvert', 3, 78, 'entame'],
+    ['trois Teile joués, un acquis', [ev(0, tous(85)), ev(1, { anamnese: 60 })], 'couvert', 3, 77, 'entame'],
     ['trois Teile solides', solide, 'solide', 3, 85, 'solide'],
-    ['trois Teile solides + run d’examen', [...solide, run(4)], 'pret', 3, 85, 'solide'],
+    ['trois Teile solides + run d’examen', [...solide, run(4)], 'pret', 3, 90, 'solide'],
   ] as const)('%s → %s', (_n, events, etat, couverture, maitrise, overall) => {
     const p = events.length ? cp([...events]) : blankProgress('c');
     expect(p.etat).toBe(etat);
     expect(p.couverture).toBe(couverture);
-    expect(p.maitrise).toBe(maitrise === 90 ? p.maitrise : maitrise);
+    expect(p.maitrise).toBe(maitrise);
     expect(p.overall).toBe(overall);
   });
 

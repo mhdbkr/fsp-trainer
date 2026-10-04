@@ -85,7 +85,7 @@ describe('saveSimulation', () => {
     const good = { done: true, checklist: [], contentPct: 90, feeling: 90, durationSec: 600 } as never;
     const sim = await saveSimulation({ id: 'lauf-2', c, parts: { anamnese: good }, assistance: 'autonome', layer: 2 as never });
     expect(await db.training_events.get(`te-${sim.id}`)).toBeDefined();
-    expect((await db.case_progress.get('c1'))?.teile.anamnese.status).toBe('solide');
+    expect((await db.case_progress.get('c1'))?.teile.anamnese.status).toBe('acquis');   // S4-1 : une réussite unique ≥ 80 = acquis
     const { rebuildJournal } = await import('@/lib/journal');
     const avant = JSON.stringify(await db.training_events.toArray());
     await rebuildJournal();
