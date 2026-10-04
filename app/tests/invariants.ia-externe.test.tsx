@@ -17,8 +17,8 @@ vi.mock('@/lib/auth/session', async () => (await import('./helpers/mocks')).auth
 vi.mock('@/lib/sync/queue', async () => (await import('./helpers/mocks')).queueMock());
 vi.mock('@/lib/supabase', async () => (await import('./helpers/mocks')).supabaseMock());
 
-// Sous charge machine (CI partagée, agents concurrents) le délai vitest de 5 s fait déborder un test sur le suivant : base commune.
-vi.setConfig({ testTimeout: 180_000, hookTimeout: 60_000 });
+// 30 s par défaut ; les tests de PROPRIÉTÉ (boucles de tirages) déclarent leur propre délai, plus long.
+vi.setConfig({ testTimeout: 30_000, hookTimeout: 30_000 });
 
 import { db } from '@/db/db';
 import { seedCases } from '@/data/seedCases';

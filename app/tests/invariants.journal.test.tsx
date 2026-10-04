@@ -12,8 +12,8 @@ vi.mock('@/lib/auth/session', async () => (await import('./helpers/mocks')).auth
 vi.mock('@/lib/sync/queue', async () => (await import('./helpers/mocks')).queueMock());
 vi.mock('@/lib/supabase', async () => (await import('./helpers/mocks')).supabaseMock());
 
-// Sous charge machine (CI partagée, agents concurrents) le délai vitest de 5 s fait déborder un test sur le suivant : base commune.
-vi.setConfig({ testTimeout: 180_000, hookTimeout: 60_000 });
+// 30 s par défaut ; les tests de PROPRIÉTÉ (boucles de tirages) déclarent leur propre délai, plus long.
+vi.setConfig({ testTimeout: 30_000, hookTimeout: 30_000 });
 
 import { db } from '@/db/db';
 import { dayKey } from '@/lib/clock';
@@ -77,7 +77,7 @@ describe('INV-3 — aucun cas n’est point faible par absence', () => {
     });
     expect(faibles).toBeGreaterThan(50);       // la preuve ne passe pas à vide : des échecs réels existent…
     expect(vierges).toBeGreaterThan(50_000);   // …et des Teile jamais travaillés aussi (ils ne sont jamais accusés)
-  });
+  }, 120_000);
 
   it('un cas travaillé sur un Teil seulement ne rend fautifs ni les autres Teile ni lui-même s’il a réussi', async () => {
     await forAll(60, async (r) => {
@@ -88,7 +88,7 @@ describe('INV-3 — aucun cas n’est point faible par absence', () => {
       const cp = (await db.case_progress.get(c.id))!;
       for (const t of TEILE) expect(pointFaible(cp, t), `${c.id}/${t} accusé après un seul Teil réussi (${teil} à ${score} %)`).toBe(false);
     });
-  });
+  }, 120_000);
 });
 
 // ------------------------------------------------------------------ INV-5 / 6

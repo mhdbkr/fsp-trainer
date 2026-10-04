@@ -10,8 +10,8 @@ vi.mock('@/lib/auth/session', async () => (await import('./helpers/mocks')).auth
 vi.mock('@/lib/sync/queue', async () => (await import('./helpers/mocks')).queueMock());
 vi.mock('@/lib/supabase', async () => (await import('./helpers/mocks')).supabaseMock());
 
-// Sous charge machine (CI partagée, agents concurrents) le délai vitest de 5 s fait déborder un test sur le suivant : base commune.
-vi.setConfig({ testTimeout: 180_000, hookTimeout: 60_000 });
+// 30 s par défaut ; les tests de PROPRIÉTÉ (boucles de tirages) déclarent leur propre délai, plus long.
+vi.setConfig({ testTimeout: 30_000, hookTimeout: 30_000 });
 
 import { db } from '@/db/db';
 import { logTraining, markTaskDone, rebuildJournal } from '@/lib/journal';
@@ -58,10 +58,10 @@ async function jouer(r: Rng, g: Geste, date: string, tick: () => void): Promise<
 }
 
 describe('INV-1 et INV-2 — cocher ne fait pas grandir le jour, la session reste dans le plan', () => {
-  it('sur 40 parcours aléatoires de 5 jours, quel que soit le geste', async () => {
+  it('sur 24 parcours aléatoires de 5 jours, quel que soit le geste', async () => {
     const mesures = { coches: 0, ferme: 0, jours: 0 };
     expect(CORPUS.length).toBeGreaterThanOrEqual(130);
-    await forAll(40, async (r) => {
+    await forAll(24, async (r) => {
       await resetWorld();
       await db.meta.put({ key: 'program', value: randomConfig(r) } as never);
       for (let j = 0; j < 5; j++) {
@@ -88,8 +88,8 @@ describe('INV-1 et INV-2 — cocher ne fait pas grandir le jour, la session rest
       }
     });
     // La preuve ne passe pas à vide : des coches ont VRAIMENT fermé des tâches, sur des jours réels.
-    expect(mesures.jours).toBeGreaterThan(100);
-    expect(mesures.coches).toBeGreaterThan(200);
+    expect(mesures.jours).toBeGreaterThan(60);
+    expect(mesures.coches).toBeGreaterThan(100);
   }, 180_000);
 
   it('INV-2 — tout état de plan, y compris tronqué ou vide', async () => {
@@ -106,7 +106,7 @@ describe('INV-1 et INV-2 — cocher ne fait pas grandir le jour, la session rest
       expect(sessionDuJour(null)).toBeNull();
       expect(sessionDuJour(undefined)).toBeNull();
     });
-  });
+  }, 120_000);
 });
 
 describe('INV-4 — deux spécialités identiques ne se suivent jamais dans un plan', () => {

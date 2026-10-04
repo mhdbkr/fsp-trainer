@@ -11,8 +11,8 @@ vi.mock('@/lib/auth/session', async () => (await import('./helpers/mocks')).auth
 vi.mock('@/lib/sync/queue', async () => (await import('./helpers/mocks')).queueMock());
 vi.mock('@/lib/supabase', async () => (await import('./helpers/mocks')).supabaseMock());
 
-// Sous charge machine (CI partagée, agents concurrents) le délai vitest de 5 s fait déborder un test sur le suivant : base commune.
-vi.setConfig({ testTimeout: 180_000, hookTimeout: 60_000 });
+// 30 s par défaut ; les tests de PROPRIÉTÉ (boucles de tirages) déclarent leur propre délai, plus long.
+vi.setConfig({ testTimeout: 30_000, hookTimeout: 30_000 });
 
 import { db } from '@/db/db';
 import { checklistFor } from '@/lib/checklists';
@@ -98,7 +98,7 @@ describe('INV-20 / INV-21 / INV-28 — l’automate du Lauf ne revient jamais en
     expect(vu.retours).toBeGreaterThan(20);
     expect(vu.refus).toBeGreaterThan(3000);
     expect(vu.gespeichert).toBeGreaterThan(50);
-  });
+  }, 120_000);
 
   it('INV-21 — jouer un Teil seul, y compris le dernier, finit toujours par le bilan', () => {
     for (const plan of [['anamnese'], ['dokumentation'], ['fallvorstellung'], TEILE] as SimTeil[][]) {
@@ -147,7 +147,7 @@ describe('INV-22 — une partie validée plusieurs fois produit un seul enregist
       else await Promise.all(Array.from({ length: n }, () => speichern(l, cas())));
       expect(await compte()).toEqual({ lignes: 1, completed: 1, journal: 1 });
     });
-  });
+  }, 120_000);
 
   it('le double clic sur « Enregistrer » dans le runner (beenden × 2 sans attendre) : un seul enregistrement', async () => {
     await db.cases.put(cas());
