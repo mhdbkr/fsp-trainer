@@ -296,6 +296,7 @@ export function seedCases(): Case[] {
           'kein Anhalten der Beschwerden über 20 Minuten, keine Ruhebeschwerden und keine nächtlichen Anfälle, keine Zunahme von Häufigkeit oder Intensität in den letzten Tagen, keine Vernichtungsangst, keine Kaltschweißigkeit in Ruhe (gegen akutes Koronarsyndrom)',
           'kein brennender Schmerz hinter dem Brustbein, kein saures Aufstoßen, keine Beschwerden im Liegen oder direkt nach dem Essen, keine Schluckbeschwerden (gegen Refluxkrankheit)',
           'kein plötzlicher Beginn mit Luftnot in Ruhe, kein atemabhängiger stechender Schmerz, kein Bluthusten, keine längere Bettlägerigkeit, Operation oder Flugreise in den letzten Wochen (gegen Lungenembolie)',
+          'kein früherer Herzkatheter, kein Stent, keine Bypass-Operation',
         ],
         vorerkrankungen: ['arterielle Hypertonie seit 10 Jahren', 'Diabetes mellitus Typ 2', 'Hypercholesterinämie'],
         voroperationen: ['keine'],
@@ -1524,6 +1525,7 @@ export function seedCases(): Case[] {
           'kein atemabhängiger, stechender Schmerz, keine plötzliche Luftnot, keine einseitige Beinschwellung oder Wadenschmerzen, keine lange Immobilisation, Reise oder Operation in den letzten Wochen (gegen Lungenembolie)',
           'kein reißender oder wandernder Schmerz zwischen den Schulterblättern, keine Ausstrahlung in Rücken oder Bauch, keine Gefühlsstörung oder Schwäche in Armen oder Beinen (gegen Aortendissektion)',
           'kein lage- oder atemabhängiger Schmerz, keine Besserung beim Aufsetzen und Vornüberbeugen, kein vorausgegangener Atemwegsinfekt (gegen Perikarditis)',
+          'kein früherer Herzkatheter, kein Stent, keine Bypass-Operation (Erstereignis)',
         ],
         vorerkrankungen: ['arterielle Hypertonie', 'Hypercholesterinämie'], voroperationen: ['keine'],
         medikamente: ['Amlodipin 5 mg 1-0-0'], allergien: ['keine bekannt'],
@@ -2264,6 +2266,7 @@ export function seedCases(): Case[] {
           'kein Steckenbleiben von Speisen hinter dem Brustbein, kein Hochwürgen unverdauter Speisen, keine Heiserkeit, keine Umstellung auf breiige oder flüssige Kost nötig (gegen Ösophaguskarzinom)',
           'kein gürtelförmiger Schmerz mit Ausstrahlung in den Rücken, kein heller, entfärbter Stuhl, kein dunkler Urin, kein Juckreiz der Haut (gegen Pankreas-/Gallenwegskarzinom)',
           'keine seit Jahren wechselnden, stressabhängigen Beschwerden (Beginn vor 4 Monaten, seither stetig zunehmend), keine beschwerdefreien Intervalle, kein führendes Sodbrennen mit Verschlechterung im Liegen (gegen funktionelle Dyspepsie/GERD)',
+          'keine bekannte chronische Gastritis und keine bekannte Helicobacter-Infektion',
         ],
         vorerkrankungen: [
           'arterielle Hypertonie seit 8 Jahren',
@@ -16615,6 +16618,13 @@ export function seedCases(): Case[] {
           'frau-verhuetung': 'Nein, ich verhüte gar nicht. Die Pille habe ich vor einem Jahr abgesetzt, wegen des Kinderwunsches. Eine Spirale hatte ich nie.',
           'frau-wechseljahre': 'Nein, davon merke ich nichts. Ich bin 35 — keine Hitzewallungen, kein Nachtschweiß, keine Trockenheit.',
         },
+        frageAntworten: [
+          {
+            frage: 'Wissen Sie Ihre Blutgruppe und Ihren Rhesusfaktor?',
+            antwort: 'Ja, A positiv. Das steht in meinem Mutterpass von der Geburt meines Sohnes.',
+            kapitel: 'aktuell',
+          },
+        ],
         schwierigeReaktionen: [
           '"Bin ich schwanger? Wir versuchen es seit einem Jahr!"',
           '"Kann ich das Kind denn behalten, wenn ich schwanger bin?"',
@@ -19138,7 +19148,7 @@ export function seedCases(): Case[] {
           'kein Kribbeln oder Taubheitsgefühl an den Füßen, keine Gangunsicherheit, kein Zittern und keine Verlangsamung der Bewegungen, keine Rückenschmerzen mit Ausstrahlung ins Bein, keine Gefühlsstörung im Reithosenbereich, keine Stuhlinkontinenz; das Blasenfüllungsgefühl ist erhalten (gegen eine neurogene Blasenentleerungsstörung bei diabetischer Neuropathie, Morbus Parkinson oder Kaudasyndrom)',
           'die Beschwerden begannen mit Startverzögerung und abgeschwächtem Harnstrahl; ein isolierter, plötzlich einschießender Harndrang ohne jede Entleerungsstörung besteht nicht (gegen eine isolierte überaktive Blase)',
           'keine Beinödeme, keine Belastungs- oder Ruhedyspnoe, kein nächtliches Aufsetzen wegen Luftnot, keine Einnahme einer Wassertablette, nachts nur kleine Portionen (gegen eine nächtliche Polyurie bei Herzinsuffizienz oder Diuretikatherapie)',
-          'keine Einnahme von Anticholinergika, Antidepressiva, Neuroleptika, abschwellenden Nasentropfen oder Erkältungsmitteln; keine neu angesetzte Medikation in den letzten zwölf Monaten (gegen eine medikamentös induzierte Blasenentleerungsstörung)',
+          'keine Einnahme von Anticholinergika, Antidepressiva, Neuroleptika, Schlaf- oder Beruhigungsmitteln, abschwellenden Nasentropfen oder Erkältungsmitteln; keine neu angesetzte Medikation in den letzten zwölf Monaten (gegen eine medikamentös induzierte Blasenentleerungsstörung)',
           'kein vermehrter Durst, keine großen Urinportionen, kein Gewichtsverlust; der Diabetes ist laut Hausarzt gut eingestellt (gegen eine osmotische Polyurie bei entgleistem Diabetes mellitus)',
           'keine Knochen- oder nächtlichen Rückenschmerzen, kein ungewollter Gewichtsverlust, kein Nachtschweiß, kein Leistungsknick, keine Blutbeimengung im Samenerguss (gegen ein fortgeschrittenes Prostatakarzinom — ein frühes Karzinom lässt sich anamnestisch jedoch NICHT ausschließen, hierfür sind digital-rektale Untersuchung, PSA und gegebenenfalls Biopsie erforderlich)',
           'es war nie ein vollständiges Unvermögen zu urinieren aufgetreten, keine Episode mit prall gefüllter, schmerzhafter Blase (gegen einen bereits abgelaufenen akuten Harnverhalt)',
@@ -20886,6 +20896,7 @@ export function seedCases(): Case[] {
           'keine Schwangerschaft, keine Stillzeit und keine milchige Sekretion aus beiden Brustwarzen (gegen Galaktozele und Galaktorrhoe)',
           'keine Schwellung, kein Spannungsgefühl und keine Bewegungseinschränkung des rechten Armes (noch kein Lymphödem)',
           'keine Bestrahlung des Brustkorbs in Kindheit oder Jugend, keine bekannte Brustkrebserkrankung bei der Patientin selbst',
+          'keine tastbaren Knoten am Schlüsselbein oder am Hals',
         ],
         vorerkrankungen: [
           'arterielle Hypertonie seit etwa sechs Jahren',
@@ -28404,6 +28415,7 @@ export function seedCases(): Case[] {
           'keine Blutungsneigung, kein Nasenbluten, keine Knochenschmerzen, keine Frakturen ohne adäquates Trauma angegeben',
           'kein Kribbeln und kein Taubheitsgefühl an Händen oder Füßen angegeben',
           'keine Dysurie, keine Pollakisurie, Wasserlassen unauffällig',
+          'keine bekannte Blutarmut und kein bekannter Eisenmangel, nie Eisentabletten eingenommen (gegen eine bereits bekannte Malabsorptionsfolge)',
         ],
         vorerkrankungen: [
           'Diabetes mellitus Typ 2, Erstdiagnose vor fünf Jahren, medikamentös mit Metformin behandelt',
@@ -31635,6 +31647,7 @@ export function seedCases(): Case[] {
           'kein Alkoholmissbrauch, keine bekannte Lebererkrankung, kein zunehmender Bauchumfang (gegen Hypersplenismus bei Leberzirrhose)',
           'keine Auslandsreise, kein Zeckenstich, kein Risikoverhalten für HIV oder Hepatitis',
           'keine vegetarische oder vegane Ernährung (gegen Vitamin-B12- oder Folsäuremangel)',
+          'keine Impfung in den letzten Wochen (gegen eine postvakzinale Thrombozytopenie)',
         ],
         vorerkrankungen: [
           'keine chronischen Vorerkrankungen bekannt',
@@ -40706,6 +40719,7 @@ export function seedCases(): Case[] {
           'keine Auslandsreise in den letzten zwölf Monaten, kein Kontakt zu Tieren außer der eigenen Katze',
           'keine früheren Gelenkbeschwerden, kein Gichtanfall, keine bekannte rheumatische Erkrankung',
           'keine bekannte Penicillinallergie — das Antibiotikum wurde vor drei Wochen gut vertragen',
+          'keine festen, schmerzlosen Knötchen unter der Haut an Ellenbogen, Knöcheln oder Hinterkopf (gegen subkutane Rheumaknötchen)',
         ],
         vorerkrankungen: [
           'keine chronischen Vorerkrankungen; insbesondere kein Bluthochdruck, kein Diabetes mellitus, keine Herz- oder Nierenerkrankung',

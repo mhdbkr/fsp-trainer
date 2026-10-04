@@ -26,7 +26,7 @@
 // ============================================================================
 
 export const MAX_DF = 0.2;
-const STOP = new Set('sie ihr ihre ihren ihrem ihrer ihnen wie was wann welche welcher welches welchen wer wo woher wohin warum wieso weshalb wieviel viele und oder der die das dem den des ein eine einen einem einer seit nein falls also aber dabei haben hatten hat hatte nehmen gibt sind waren müssen können tritt treten mal schon noch auch bitte gerade eher regelmäßig häufig manchmal jemals früher damals zuletzt aktuell derzeit momentan genau ungefähr wirklich irgendwie vielleicht dieser dieses diese diesen wenn dass ob bevor obwohl während sondern sogar besonders zeitweise mehr weniger sonst wieder ganz letzter letzten letzte zwischen sich selbst dazu davon darüber dafür dagegen kurz lange'.split(' '));
+const STOP = new Set('sie ihr ihre ihren ihrem ihrer ihnen wie was wann welche welcher welches welchen wer wo woher wohin warum wieso weshalb wieviel viele und oder der die das dem den des ein eine einen einem einer seit nein falls also aber dabei haben hatten hat hatte nehmen gibt sind waren müssen können tritt treten mal schon noch auch bitte gerade eher regelmäßig häufig manchmal jemals früher damals zuletzt aktuell derzeit momentan genau ungefähr wirklich irgendwie vielleicht dieser dieses diese diesen wenn dass ob bevor obwohl während sondern sogar besonders zeitweise mehr weniger sonst wieder ganz letzter letzten letzte zwischen sich selbst dazu davon darüber dafür dagegen kurz lange beispiel zeitraum hinweise rahmen dinge verhältnis umfeld angehörigen'.split(' '));
 
 export const stem = (w) => w.toLowerCase().slice(0, 5);
 /** Substantifs distinctifs candidats d'un texte (avant le filtre de fréquence). */
