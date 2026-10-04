@@ -181,6 +181,7 @@ cumul des Teile du jour) est **conservée** : elle porte la nouvelle surface.
 | 4 oct. 2026 | `main` | Décisions techniques I1 à I11 et mineurs m1 à m13 après la revue de cohérence (m9 résolu par (f)) |
 | 4 oct. 2026 | `main` | R1 sans plafond Assisté (contradiction 15) ; la séance IA externe coche la tâche de cas sans mesure (contradiction 17, réf. Q3/Q9 du 30 sept.) ; une seule tâche forcée en dernière ligne droite (18) ; annonce (f) locale, une fois par appareil |
 | 4 oct. 2026 | `main` | Réserves pédagogiques adoptées : R1, R2, T1, T2, P1, P2, C1, tolérance de 5 min pour INV-73 |
+| 4 oct. 2026 | `main` | Après la re-revue de `1656bfae` (I1–I11 résolus) : N1, N2, m-a à m-m (ci-dessous, « Re-revue ») |
 | 4 oct. 2026 | direction | (a) fenêtre « d'un trait » = 15 derniers jours ouvrés ; (b) `prêt` = Autonome, ordre A → D → F, grille saisie, une seule définition des conditions d'examen ; (c) la frise quitte le Programme et survit dans l'Historique sans projection ; (d) la couche se fond dans le niveau d'assistance ; (e) états recalculés, frise passée figée avec un repère, anciens runs non soudés ; (f) changements rétroactifs annoncés une fois |
 
 ## Propositions non tranchées
@@ -366,3 +367,26 @@ et 13 mineurs (m1–m13).
 | INV-73 | Une reprise de moins de 5 min ne casse pas l'enchaînement. | SR §3.1, INV-73 |
 
 *TJ = `training-journal.md`, SR = `simulation-run.md`.*
+
+### Re-revue de `1656bfae` (cohérence, Opus)
+
+Verdict : **I1 à I11 résolus**. S4-1 peut démarrer une fois m-e et m-f
+inscrits. Deux points nouveaux (N1, N2) étaient à trancher avant S4-2. Les
+décisions de `main` sont inscrites comme décidées.
+
+| Point | Décision | Où |
+|---|---|---|
+| N1 Tâches hors cas | Drill, Fachwissen et Aufklärung sont faits à la projection par un événement du **même genre**, du même cas s'il y en a un, du même jour (fuseau du plan) avec `at ≥ creeA`, ou par une coche manuelle. INV-51 couvre toutes les tâches. | TJ §12.3, INV-51 |
+| N2 Config | (a) `setIntensity`, `setModus` et `accepterRythme` émettent la config **complète** (`ecrireConfig`) ; (b) push initial unique avant toute projection distante (garde `CONFIG_POUSSEE_S4`) ; (c) bornes serveur jamais plus strictes que l'interface ; (d) un refus serveur n'efface jamais la config locale. `queue.ts:158-160` retire l'événement refusé, ce qui est dit. | TJ §12.10, INV-76 |
+| m-a | Le contenu publié est une entrée du plan : limite connue d'INV-55. | TJ §12.4, INV-55 |
+| m-b | INV-67 et l'estimation réduite à un Teil ne valent que pour les tâches `simulation`. `revision` et examen à blanc : Σ sur les trois Teile. | TJ §12.2, §13.4, INV-64, INV-67 |
+| m-c | La reprise remplace la première tâche de cas **ni faite ni entamée**. En mode `examen-blanc` explicite, l'examen à blanc est la tâche forcée. | TJ §12.4, §12.8, INV-58 |
+| m-d | S4-1 ajoute tous les nouveaux champs de `db/types.ts`. `lib/simulationSave.ts` appartient à S4-3. | TJ §12.12, SR §10 |
+| m-e | Une simulation est « série 4 » si et seulement si `reihenfolge` est présent ; sinon, règle série 3 pour le genre. | TJ §2.3 |
+| m-f | Trois prédicats nommés : `partieJouee` (complétion), `partieMesuree` (mesure), `partieAvecChecklist` (erreurs transversales). | TJ §12.3, §13.1, §13.3, §13.4 |
+| m-g | `dayKey(e.at)` est lu au fuseau `DayPlan.tz` (`jourDe`). | TJ §12.3 |
+| m-h | `feat/s3-c6b-jour` (`now()` de `lib/clock` dans `lib/lauf/*`) est un prérequis de S4-1. | TJ §12.12, SR §3.2 |
+| m-i, m-j, m-k | `TYPES` **et** `SCHEMAS` de `events/index.ts` ; `subject_id` de `program.configured` = `z.null()` ; regex de semaine ISO pour `rythme.refused` ; tests séparés contrainte SQL / fonction ; ordre migration → fonction → client. | TJ §12.10 |
+| m-l | Entre J-15 ouvrés et la dernière ligne droite, « d'un trait » est une **tâche de cas `dUnTrait`**. L'examen à blanc reste propre à la dernière ligne droite. | TJ §12.4, §13.1 |
+| m-m | `accepterRythme` écrit la config complète. | TJ §13.5 |
+
