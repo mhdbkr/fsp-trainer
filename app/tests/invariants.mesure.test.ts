@@ -25,7 +25,10 @@ vi.setConfig({ testTimeout: 30_000, hookTimeout: 30_000 });
 
 import { db } from '@/db/db';
 import { dayKey } from '@/lib/clock';
-import { applySimulationToJournal, computeCaseProgress, rebuildJournal, trainingEventFromSimulation } from '@/lib/journal';
+import { applySimulationToJournal, computeCaseProgress, detteTeil, rebuildJournal, trainingEventFromSimulation } from '@/lib/journal';
+import { raisonAConfirmer } from '@/lib/progression';
+import { ensureDayPlan } from '@/lib/program';
+import { saveSimulation } from '@/lib/simulationSave';
 import { conditionsExamen, conditionsManquantes } from '@/lib/examen';
 import { dialData } from '@/lib/dialData';
 import { couverturePonderee, phraseCouverture } from '@/lib/program/couverturePonderee';
@@ -35,7 +38,7 @@ import { emptyLanguageGrid } from '@/lib/scoring';
 import type { CaseProgress, Center, Simulation, SimTeil, TrainingEvent } from '@/db/types';
 import type { ProgressEvent } from '@/lib/sync/events';
 import { forAll, rng, type Rng } from './helpers/prop';
-import { CORPUS, TEILE, addDaysISO, morning, partResult, resetTime, resetWorld, simulationOf } from './helpers/world';
+import { CORPUS, TEILE, addDaysISO, morning, partResult, randomConfig, resetTime, resetWorld, simulationOf, startOn } from './helpers/world';
 
 beforeEach(() => resetWorld());
 afterEach(() => resetTime());
@@ -601,3 +604,48 @@ describe('INV-69 — la frise passée est figée', () => {
 });
 
 void rng;
+
+// ------------------------------------------------------------ revue P1
+
+describe('P1 — un Teil « à confirmer » ne pèse pas comme un Teil jamais travaillé', () => {
+  const AUJOURDHUI = '2026-10-05';
+
+  it('la dette : solide 0 ; acquis déjà réussi ≥ 80 dont solideDes est passé 1/3 ; tout autre Teil 1', () => {
+    const a = progressOf([mesure('c1', '2026-09-12', tous(85))]);                     // trois acquis, solideDes = 15 sept.
+    expect(detteTeil(a, AUJOURDHUI)).toBeCloseTo(1 / 3);
+    expect(detteTeil(a, '2026-09-14'), 'solideDes pas encore passé : rejouer ne peut pas confirmer').toBe(1);
+    expect(detteTeil(a, '2026-09-15')).toBeCloseTo(1 / 3);
+    const mixte = progressOf([mesure('c1', '2026-09-12', { anamnese: 85, dokumentation: 70 }), mesure('c1', '2026-09-13', { fallvorstellung: 40 })]);
+    expect(detteTeil(mixte, AUJOURDHUI), 'anamnese à confirmer (1/3), dokumentation acquis sans réussite ≥ 80 (1), fallvorstellung fragile (1)').toBeCloseTo((1 / 3 + 1 + 1) / 3);
+    expect(detteTeil(progressOf([...solidifie('c1', -20)]), AUJOURDHUI)).toBe(0);
+    expect(detteTeil(undefined, AUJOURDHUI)).toBe(1);
+  });
+
+  it('la raison, lisible, par une fonction pure', () => {
+    const a = progressOf([mesure('c1', '2026-09-12', tous(85))]);
+    expect(raisonAConfirmer(a, AUJOURDHUI)).toBe('Réussi à 85 le 12 sept. — une seconde partie à 80 ou plus le confirme.');
+    expect(raisonAConfirmer(a, '2026-09-14'), 'pas encore à confirmer').toBeNull();
+    expect(raisonAConfirmer(progressOf([mesure('c1', '2026-09-12', tous(50))]), AUJOURDHUI)).toBeNull();
+    expect(raisonAConfirmer(progressOf(solidifie('c1', -20)), AUJOURDHUI)).toBeNull();
+    const gele = structuredClone(a);
+    raisonAConfirmer(a, AUJOURDHUI);
+    expect(a).toEqual(gele);
+  });
+
+  it('dix cas fréquents redevenus « acquis » ne remplissent pas le plan du lendemain : un cas jamais joué reste sélectionné', async () => {
+    const frequents = [...CORPUS].sort((x, y) => y.frequency - x.frequency).slice(0, 10);
+    const tick = startOn('2026-09-12');
+    for (const c of frequents) {
+      tick(60_000);                                         // l'id d'une partie suit l'horloge : sans cela, l'idempotence (INV-22) ne garde que la première
+      await saveSimulation({ c, assistance: 'autonome', layer: 2, scope: 'full',
+        parts: { anamnese: partResult(90, { feeling: 90 }), dokumentation: partResult(90, { feeling: 90 }), fallvorstellung: partResult(90, { feeling: 90 }) } });
+    }
+    await db.meta.put({ key: 'program', value: randomConfig(rng(1), { startDate: '2026-09-01', examDate: '2026-12-18', modus: 'cas-complet', hoursPerSession: 3, offDays: [] }) } as never);
+    startOn(AUJOURDHUI);
+    const plan = (await ensureDayPlan(AUJOURDHUI))!;
+    const cas = plan.tasks.filter((t) => t.kind === 'simulation' && t.caseId).map((t) => t.caseId!);
+    expect(cas.length, 'le plan du lendemain porte des cas').toBeGreaterThan(1);
+    const joues = new Set(frequents.map((c) => c.id));
+    expect(cas.some((id) => !joues.has(id)), `le plan n'est fait que de cas redevenus acquis : ${cas.join(', ')}`).toBe(true);
+  }, 60_000);
+});

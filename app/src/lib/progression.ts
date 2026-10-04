@@ -11,7 +11,8 @@
 // (INV-11) : elles ne laissent que `nonMesureAt`.
 // ============================================================================
 
-import { addDays, differenceInCalendarDays } from 'date-fns';
+import { addDays, differenceInCalendarDays, format } from 'date-fns';
+import { fr } from 'date-fns/locale';
 import type { CaseEtat, CaseId, CaseProgress, ConditionExamen, SimTeil, TeilProgress, TeilStatus, TrainingEvent } from '@/db/types';
 import { dayKey } from '@/lib/clock';
 import { TEILE } from '@/lib/simScope';
@@ -59,13 +60,28 @@ export const blankProgress = (caseId: CaseId): CaseProgress => ({
 const overallOf = (etat: CaseEtat): CaseProgress['overall'] =>
   etat === 'vierge' ? 'vierge' : etat === 'solide' || etat === 'pret' ? 'solide' : 'entame';
 
+/**
+ * Un Teil « à confirmer » (revue P1) : acquis, déjà réussi à 80 ou plus, et le jour `jour` est
+ * celui où une seconde réussite le rendrait solide. Ce n'est pas un Teil jamais travaillé : il
+ * attend sa confirmation, et ne pèse que `POIDS_CONSOLIDATION` dans la dette.
+ */
+export const teilAConfirmer = (p: TeilProgress, jour: string): boolean =>
+  p.status === 'acquis' && p.solideDes != null && p.solideDes <= jour;
+
+/** La raison lisible d'un cas dont des Teile sont à confirmer, ou `null`. Pure ; S4-2 l'affiche dans le plan. */
+export function raisonAConfirmer(cp: CaseProgress, jour: string): string | null {
+  const t = TEIL_KEYS.find((k) => teilAConfirmer(cp.teile[k], jour) && cp.teile[k].premiereReussite);
+  const r = t && cp.teile[t].premiereReussite;
+  return r ? `Réussi à ${r.score} le ${format(new Date(r.at), 'd MMM', { locale: fr })} — une seconde partie à 80 ou plus le confirme.` : null;
+}
+
 /** Un run qualifiant (§12.6) : en conditions d'examen, et chaque Teil ≥ 80. */
 const qualifiant = (e: TrainingEvent): boolean =>
   e.examen === true && TEIL_KEYS.every((t) => e.teile.includes(t) && (e.scores?.[t] ?? -1) >= PART_SOLIDE);
 
 interface Acc {
   cp: CaseProgress;
-  premiere: Record<SimTeil, number | null>;   // première réussite ≥ 80 de chaque Teil
+  premiere: Record<SimTeil, { at: number; score: number } | null>;   // première réussite ≥ 80 de chaque Teil
   solideDepuis: number | null;
   /** Position, dans `mesures`, de l'événement qui a soudé les trois Teile. On compare des POSITIONS
    *  et non des instants : deux événements d'un même instant se départagent par l'id, et seul ce qui
@@ -102,8 +118,8 @@ export function computeCaseProgress(trainingEvents: TrainingEvent[], opts: { reg
       if (typeof s !== 'number' || !Number.isFinite(s)) { p.nonMesureAt = te.at; continue; }
       p.attempts += 1;
       p.lastScore = s; p.lastAt = te.at;
-      p.status = serie3 ? statusOf(s) : statusSuivant(p.status, s, te.at, acc.premiere[t]);
-      if (s >= PART_SOLIDE && acc.premiere[t] === null) acc.premiere[t] = te.at;
+      p.status = serie3 ? statusOf(s) : statusSuivant(p.status, s, te.at, acc.premiere[t]?.at ?? null);
+      if (s >= PART_SOLIDE && acc.premiere[t] === null) acc.premiere[t] = { at: te.at, score: s };
       mesure = true;
     }
     if (mesure) {
@@ -127,7 +143,9 @@ function finalise(acc: Acc): CaseProgress {
   cp.maitrise = joues.length ? Math.round(joues.reduce((s, t) => s + cp.teile[t].lastScore!, 0) / joues.length) : null;
   for (const t of TEIL_KEYS) {
     const p = cp.teile[t];
-    if (p.status !== 'solide' && acc.premiere[t] !== null) p.solideDes = dayKey(addDays(new Date(acc.premiere[t]!), SOLIDE_ECART_JOURS));
+    const premiere = acc.premiere[t];
+    if (premiere) p.premiereReussite = { ...premiere };
+    if (p.status !== 'solide' && premiere) p.solideDes = dayKey(addDays(new Date(premiere.at), SOLIDE_ECART_JOURS));
   }
   const toutSolide = joues.length === 3 && TEIL_KEYS.every((t) => cp.teile[t].status === 'solide');
   const qual = toutSolide ? depuisSoudure(acc).filter(qualifiant) : [];

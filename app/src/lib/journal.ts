@@ -21,7 +21,8 @@ import { TEILE } from '@/lib/simScope';
 import { now, dayKey } from '@/lib/clock';
 import { LEGACY_ID_PATTERN } from '@/lib/checklists.legacy';
 import { conditionsManquantes, estEnchaine, estSerie4, isExamenBlanc } from '@/lib/examen';
-import { computeCaseProgress } from '@/lib/progression';
+import { computeCaseProgress, teilAConfirmer } from '@/lib/progression';
+import { POIDS_CONSOLIDATION } from '@/lib/program/parametres';
 import type {
   CaseId, CaseProgress, ChecklistItemId, DayPlan, SimTeil, Simulation, TaskInstance, TaskKind,
   TrainingEvent, TrainingKind,
@@ -233,10 +234,12 @@ export const pointFaible = (cp: CaseProgress | undefined, teil: SimTeil): boolea
   cp?.teile[teil].status === 'fragile';
 
 /** La DETTE ordonne le travail à venir ; la FAIBLESSE nomme un défaut. Elles
- *  ne se confondent pas : la dette compte les Teile `vierge`, jamais la
- *  faiblesse. ∈ {0, 1/3, 2/3, 1}. */
-export const detteTeil = (cp: CaseProgress | undefined): number =>
-  !cp ? 1 : TEIL_KEYS.filter((t) => cp.teile[t].status !== 'solide').length / 3;
+ *  ne se confondent pas : la dette compte les Teile `vierge`, jamais la faiblesse.
+ *  Un Teil solide pèse 0 ; un Teil « à confirmer » (acquis, déjà réussi à 80 ou plus, écart de
+ *  3 jours passé — revue P1) pèse `POIDS_CONSOLIDATION` ; tout autre Teil pèse 1. ∈ [0, 1].
+ *  `jour` (yyyy-MM-dd) : le jour du plan. S4-2 le passera explicitement ; à défaut, le jour de l'horloge. */
+export const detteTeil = (cp: CaseProgress | undefined, jour: string = dayKey(now())): number =>
+  !cp ? 1 : TEIL_KEYS.reduce((s, t) => s + (cp.teile[t].status === 'solide' ? 0 : teilAConfirmer(cp.teile[t], jour) ? POIDS_CONSOLIDATION : 1), 0) / 3;
 
 // ---------------------------------------------------------------------------
 // 4. Agrégats de journal (historique, temps investi, assiduité)

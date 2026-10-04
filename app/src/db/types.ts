@@ -751,6 +751,9 @@ export interface TeilProgress {
   /** [S4] R1 : jour (yyyy-MM-dd) à partir duquel un ≥ 80 rendrait ce Teil solide ;
    *  `null` s'il l'est déjà ou si aucune réussite ≥ 80 n'a encore eu lieu. */
   solideDes?: string | null;
+  /** [S4] La PREMIÈRE réussite ≥ 80 (jamais remise à zéro) : le témoin de l'écart de 3 jours, et la
+   *  phrase « Réussi à 85 le 12 sept. ». Absent tant qu'aucune réussite ≥ 80 n'a eu lieu. */
+  premiereReussite?: { at: number; score: number };
 }
 
 /** Projection de `training_events`. Un cas n'a PLUS de pourcentage : il a un
