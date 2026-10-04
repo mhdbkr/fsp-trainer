@@ -170,7 +170,8 @@ rien de cette table.
 | C6 — candidat synthétique | `doctopus-s3-c6` · `feat/s3-c6-candidat` | `a92b4c2e4d2f21ebc` | **PR #65 mergée** (`4bf3473b`, 4 oct.) — premier run CI vert d'`invariants-c6` et `candidat-c6` | **oui** |
 | C6 — jugement UX | lecture seule | `a06644a85b277a992` | rendu → `c6-jugement-ux-2026-10-04.md` (7 ruptures) | **oui** |
 | Lot C6-A « chiffres honnêtes » | `doctopus-s3-c6a-chiffres` · `feat/s3-c6a-chiffres` | `a09833e671b2389b9` | **PR #66 mergée** (4 oct.) | **oui** |
-| Lot C6-B « le jour du candidat » | `doctopus-s3-c6b-jour` · `feat/s3-c6b-jour` | `ad84ab89cbdc39047` | C6-A mergé → re-merge + branchement `streakFromDays(…, offDays)` en cours → main rejoue `programmeInvariants.mjs` → PR (dernière de la série 3) | non |
+| Lot C6-B « le jour du candidat » | `doctopus-s3-c6b-jour` · `feat/s3-c6b-jour` | `ad84ab89cbdc39047` | prêt `8e44682f` (série du lundi branchée) ; **`programmeInvariants.mjs` 0/6 sur C6-B ET sur main** (plan à 0 tâche) → diagnostic en vol (`doctopus-baseline`) ; PR après 6/6 | non |
+| Diagnostic e2e programme | `doctopus-baseline` · `fix/e2e-programme` | diag-e2e-programme (Opus) | bisect `2604ff8c`(6/6) → `c4d7f9b0`(0/6) ; environnement / dérive du script / régression | non |
 | `main` après C6 | — | — | `test:c6` dans `package.json`, `tests` dans tsconfig ; test instable `ExternalAiSheet` corrigé (`48a36bd3`) | à faire au merge de C6 |
 | Lots L1 → L15 | — | — | §10, l'un après l'autre (mêmes fichiers) | à lancer |
 
