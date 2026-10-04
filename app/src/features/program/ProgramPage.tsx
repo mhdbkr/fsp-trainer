@@ -24,13 +24,11 @@ import { useCases, useProgramConfig } from '@/hooks/useData';
 import { useCaseProgress, useDayPlans, useModusRefuse, useProjectedDays, useTrainingEvents } from './useProgram';
 import { modusAProposer, modusOf, observeModus, planProgress, programEnd, replanifier, sessionDuJour, taperDays } from '@/lib/program';
 import { refuserModus, setIntensity, setModus } from '@/lib/programAdjust';
-import { accepterRattrapage, rattrapageAProposer, refuserRattrapage, RATTRAPAGE_REFUS_KEY } from '@/lib/program/rattrapage';
-import { useLiveQuery } from 'dexie-react-hooks';
-import { getMeta } from '@/db/db';
 import { useToday } from '@/lib/today';
 import { joursRestants } from '@/lib/program/trajectory';
 import type { DayPlan, Fortschrittsmodus, Intensity, TaskInstance, TaskKind } from '@/db/types';
 import { ProgramSetup } from './ProgramSetup';
+import { RattrapageLine } from './RattrapageLine';
 import { TaskLine, TASK_META } from './TaskLine';
 import { CoverageField } from './CoverageField';
 import { Icon } from '@/components/icons';
@@ -109,7 +107,7 @@ export function ProgramPage() {
         onRefuse={(m) => refuserModus(m)}
       />
 
-      <RattrapageProposal plans={plans} />
+      <RattrapageLine />
 
       <div ref={dayRef} className="scroll-mt-24">
         <DaySurface date={selected} plan={byDate.get(selected) ?? null} projection={projected.get(selected)} isTaper={taper.has(selected)} onPick={focusDay} />
@@ -121,27 +119,6 @@ export function ProgramPage() {
         byDate={byDate} projected={projected} selected={selected} taper={taper} examISO={format(end, 'yyyy-MM-dd')}
         onFocusDay={focusDay} onZoomToDay={(d) => { setView('semaine'); setAnchor(d); setSelected(d); }} />
     </div>
-  );
-}
-
-// --- Le rattrapage : proposé, jamais imposé (D-I7) -----------------------------
-
-function RattrapageProposal({ plans }: { plans: DayPlan[] }) {
-  const refused = useLiveQuery(() => getMeta<string[]>(RATTRAPAGE_REFUS_KEY, []), [], undefined);
-  const today = useToday((s) => s.day);                    // m-4 : le jour réactif, jamais l'horloge au rendu
-  const p = refused ? rattrapageAProposer(plans, today, refused) : null;
-  if (!p) return null;
-  const n = p.tasks.length;
-  return (
-    <section className="card flex flex-wrap items-center justify-between gap-3 border-slate-200 p-4 dark:border-slate-800">
-      <p className="text-sm text-slate-600 dark:text-slate-300">
-        Il reste {n} tâche{n > 1 ? 's' : ''} du {format(parseISO(p.from), 'EEEE d MMMM', { locale: fr })}. Les ajouter à aujourd'hui ?
-      </p>
-      <div className="flex gap-2">
-        <button type="button" onClick={() => refuserRattrapage(p.from)} className="btn-ghost text-xs">Non, laisser</button>
-        <button type="button" onClick={() => accepterRattrapage(today, p.from)} className="btn-outline text-xs">Les reprendre</button>
-      </div>
-    </section>
   );
 }
 

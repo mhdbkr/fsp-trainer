@@ -16,6 +16,7 @@ import { useCaseProgress, useDayPlan, useTrainingEvents } from '@/features/progr
 import { dueCount, streakFromDays, weakCases } from '@/lib/stats';
 import { workedDayKeys } from '@/lib/journal';
 import { planProgress, sessionDuJour } from '@/lib/program';
+import { RattrapageLine } from '@/features/program/RattrapageLine';
 import { TrajectoryStrip } from '@/features/program/TrajectoryStrip';
 import { TaskLine, taskCta, taskLink } from '@/features/program/TaskLine';
 import { nowDate } from '@/lib/clock';
@@ -114,6 +115,8 @@ export function HomePage() {
           </div>
         </Tilt>
       )}
+
+      <RattrapageLine />
 
       <div className="grid gap-6 lg:grid-cols-3">
         <div className="space-y-6 lg:col-span-2">

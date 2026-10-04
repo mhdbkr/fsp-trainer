@@ -44,13 +44,13 @@ describe('D-I7 — la proposition de rattrapage', () => {
   it('rien n\'est ajouté sans geste ; « Les reprendre » ajoute la tâche de la veille', async () => {
     expect((await db.day_plans.get('2026-10-02'))!.tasks).toHaveLength(1);
     await vi.waitFor(() => expect(container.textContent).toMatch(/reste 1 tâche/i), { timeout: 3000 });
-    await act(async () => { btn(/les reprendre/i)!.click(); });
+    await act(async () => { btn(/^rattraper$/i)!.click(); });
     await vi.waitFor(async () => expect((await db.day_plans.get('2026-10-02'))!.tasks.map((x) => x.caseId)).toEqual(['c9', 'c1']), { timeout: 3000 });
     await vi.waitFor(() => expect(container.textContent).not.toMatch(/reste 1 tâche/i), { timeout: 3000 });
   });
   it('« Non, laisser » retire la proposition sans rien ajouter', async () => {
-    await vi.waitFor(() => expect(btn(/non, laisser/i)).toBeDefined(), { timeout: 3000 });
-    await act(async () => { btn(/non, laisser/i)!.click(); });
+    await vi.waitFor(() => expect(btn(/^laisser$/i)).toBeDefined(), { timeout: 3000 });
+    await act(async () => { btn(/^laisser$/i)!.click(); });
     await vi.waitFor(() => expect(container.textContent).not.toMatch(/reste 1 tâche/i), { timeout: 3000 });
     expect((await db.day_plans.get('2026-10-02'))!.tasks).toHaveLength(1);
   });
