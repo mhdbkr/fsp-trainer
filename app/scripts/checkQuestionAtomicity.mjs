@@ -225,14 +225,21 @@ const countQ = (t, ober = false) => ((ober ? t.replace(QUOTED, '') : t).match(/[
 // L'interrogatif ouvre une proposition (début, virgule, tiret, deux-points,
 // parenthèse ou « und/oder ») : « so … wie » (comparatif) n'est pas visé.
 // Le second est introduit par « und » ou « oder », éventuellement précédé d'une
-// virgule : « Wann hat es begonnen, und wie lange dauert es? ». ponytail :
-// « seit wie vielen Jahren » (préposition avant l'interrogatif) n'est pas vu,
-// et « wann und wo » (deux adverbes nus) compte — deux questions quand même.
+// virgule : « Wann hat es begonnen, und wie lange dauert es? ». Le second peut,
+// lui aussi, suivre une préposition (« …, und seit wann ? », « …, und in welchem
+// Bein ? » — revue Q2, I-1).
+// ponytail : trous CONNUS, mesurés et laissés. (1) La juxtaposition sans « und »
+// (« Wie viele Kilo, in welchem Zeitraum ? », anamneseChapters.ts:178 :
+// deux questions, aucun « und ») n'est pas vue : sans coordination
+// on ne distingue plus l'énumération d'une même question. (2) Le « wie »
+// comparatif n'est écarté que s'il précède un substantif à majuscule (« oder wie
+// Kaffeesatz ») ; « oder wie üblich » compterait à tort — aucun cas au corpus.
+// (3) « wann und wo » (deux adverbes nus) compte : deux questions quand même.
 const WORD = '(?:wie|was|wann|wo|wer|wen|wem|wessen|welche[rsmn]?|warum|wieso|weshalb|wohin|woher|wofür|womit|wodurch|wogegen|worauf|woran|worin|wovon|wozu)';
 const PREP = '(?:(?:seit|bis|vor|nach|in|an|auf|mit|bei|für|von|zu|um|über|wegen|ab|aus|unter|gegen)\\s+)?';
 const RE_W1 = new RegExp(`(?:^|[,;:—–(]\\s*)${PREP}${WORD}\\b`, 'i');
 // « oder wie Kaffeesatz » : le « wie » comparatif est suivi d'un substantif (majuscule), l'interrogatif non.
-const RE_W2 = new RegExp(`(?:,\\s*)?\\b(?:und|oder)\\s+(?:wie\\b(?!\\s+[A-ZÄÖÜ])|${WORD.replace('wie|', '')}\\b)`);
+const RE_W2 = new RegExp(`(?:,\\s*)?\\b(?:und|oder)\\s+${PREP}(?:wie\\b(?!\\s+[A-ZÄÖÜ])|${WORD.replace('wie|', '')}\\b)`);
 function wCoord(text) {
   if (countQ(text) !== 1) return null;
   const body = m.splitDimension(text).body;

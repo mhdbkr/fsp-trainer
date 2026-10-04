@@ -13018,7 +13018,7 @@ export function seedCases(): Case[] {
       caseSpecificQuestions: [
         { frage: 'Hat sich Ihr Stuhlgang verändert — Häufigkeit, Konsistenz oder Form, zum Beispiel dünner als früher?', kapitel: 'aktuell', sucht: ['stuhl'] },
         { frage: 'Wann hatten Sie Ihre letzte Regelblutung, und hatten Sie seit den Wechseljahren jemals wieder eine Blutung?', kapitel: 'frauenanamnese', relu: true },
-        { frage: 'Nehmen Sie regelmäßig Schmerzmittel wie Ibuprofen, Diclofenac oder Aspirin ein — wie oft und seit wann?', kapitel: 'medikamente' },
+        { frage: 'Nehmen Sie regelmäßig Schmerzmittel wie Ibuprofen, Diclofenac oder Aspirin ein?', kapitel: 'medikamente', followUp: 'Falls ja: Wie oft nehmen Sie sie ein?' },
         { frage: 'Wurde bei Ihnen schon einmal eine Darmspiegelung zur Vorsorge durchgeführt?', kapitel: 'vorerkrankungen' },
         { frage: 'Gibt es in Ihrer Familie Darmkrebs oder Darmpolypen?', kapitel: 'familie-sozial' },
         { frage: 'Sind Ihnen eingerissene Mundwinkel, eine brennende Zunge, brüchige Nägel oder vermehrter Haarausfall aufgefallen?', kapitel: 'aktuell' },
@@ -54586,7 +54586,7 @@ export function seedCases(): Case[] {
       caseSpecificQuestions: [
         { frage: 'Ist Ihr Fieber Tag für Tag höher geworden, oder kam es plötzlich? Bleibt es jetzt konstant hoch?', kapitel: 'aktuell', relu: true },
         { frage: 'Haben Sie Ihren Puls beim Fieber gemessen? Ist Ihnen ein langsamer Puls aufgefallen?', kapitel: 'aktuell', relu: true },
-        { frage: 'Welche Malariaprophylaxe haben Sie genommen — welches Präparat, wie oft, ab wann und bis wann, ohne Auslassung?', kapitel: 'medikamente' },
+        { frage: 'Haben Sie eine Malariaprophylaxe genommen?', kapitel: 'medikamente', followUp: 'Falls ja: Welches Präparat haben Sie genommen?' },
         { frage: 'Sind Sie gegen Typhus geimpft, und wann war das?', kapitel: 'vorerkrankungen' },
         { frage: 'Wie haben Sie sich vor Ort verpflegt: Leitungswasser, Eiswürfel, Straßenstände, rohe Salate?', kapitel: 'aktuell' },
         { frage: 'Hatten Sie zuerst Verstopfung oder Durchfall?', kapitel: 'aktuell', sucht: ['stuhl'], followUp: 'Wie sieht der Stuhl aus — Blut, Schleim, erbsbreiartig?' },

@@ -224,7 +224,7 @@ test('Q0 — une relance de question du cas à deux « ? » est refusée (règle
 });
 
 test('Q0 — une relance propre (1 « ? », 2 items, un seul interrogatif) passe', T, () => {
-  assert.equal(withRelance('Falls ja: Seit wann hat sich das geändert, und seit wie vielen Tagen schon?').status, 0);
+  assert.equal(withRelance('Falls ja: Seit wann hat sich das geändert?').status, 0);
   assert.equal(withRelance('Falls ja: Seit wann?').status, 0);
 });
 
@@ -246,4 +246,13 @@ test('Q2 — A2 ne lit que les énoncés à UN « ? » (A les compte déjà) et 
   assert.doesNotMatch(two.stdout, /règle A2/);
   const cmp = sb.mutate(PROBES, "frage: 'Haben Sie einen Hausarzt?'", "frage: 'Ist der Stuhl hell oder wie Lehm?'", gate);
   assert.equal(cmp.status, 0, '« oder wie Lehm » n\'est pas un second interrogatif');
+});
+
+// Revue Q2 (I-1) : le SECOND interrogatif peut lui aussi être précédé d'une préposition.
+test('Q2 I-1 — « …, und seit wie vielen Tagen ? » / « …, und in welchem Bein ? » sont refusés (A2)', T, () => {
+  for (const fu of ['Falls ja: Wann war das, und seit wie vielen Tagen?', 'Falls ja: Seit wann, und in welchem Bein?']) {
+    const r = withRelance(fu);
+    assert.equal(r.status, 1, fu);
+    assert.match(r.stdout, /règle A2/, fu);
+  }
 });

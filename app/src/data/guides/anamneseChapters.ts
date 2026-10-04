@@ -605,7 +605,7 @@ export const ALLGEMEINE_ANAMNESE: AnamneseChapter[] = [
       {
         text: 'Haben Sie in letzter Zeit Gewichtsveränderungen bemerkt?',
         probe: 'veg-gewicht',
-        followUp: ['Falls ja: Wie viele Kilogramm, und in welchem Zeitraum?'],
+        followUp: ['Falls ja: Wie viel hat sich Ihr Gewicht verändert?', 'Falls ja: In welchem Zeitraum war das?'],
       },
       { text: 'Wie ist Ihr Appetit? Haben sich Ihre Essgewohnheiten kürzlich geändert?', probe: 'veg-appetit' },
       { text: 'Ist Ihr Schlaf erholsam? Haben Sie Probleme, ein- oder durchzuschlafen?', probe: 'veg-schlaf' },
@@ -700,7 +700,7 @@ export const ALLGEMEINE_ANAMNESE: AnamneseChapter[] = [
       {
         text: 'Haben Familienmitglieder — Großeltern, Eltern, Geschwister oder Kinder — chronische Erkrankungen?',
         probe: 'fam-familie',
-        followUp: ['Falls ja: Welche, und seit wann?'],
+        followUp: ['Falls ja: Welche Erkrankungen sind das?', 'Falls ja: Seit wann sind sie bekannt?'],
       },
       {
         text: 'Leben Ihre Eltern noch?',
@@ -1059,7 +1059,7 @@ export const FACHANAMNESEN: FachanamneseGuide[] = [
         text: 'Haben Sie Ausfluss bemerkt? Welche Farbe hat er, riecht er, und juckt oder brennt es dabei?',
         probe: 'fach-gyn-fluor',
         alts: ['Haben Sie einen Ausfluss aus der Scheide bemerkt?'],
-        followUp: ['Falls ja: Welche Konsistenz, und seit wann?'],
+        followUp: ['Falls ja: Welche Konsistenz hat der Ausfluss?', 'Falls ja: Seit wann haben Sie ihn?'],
       },
       {
         text: 'Haben Sie Schmerzen beim Geschlechtsverkehr oder beim Wasserlassen?',
@@ -1268,11 +1268,11 @@ export const FACHANAMNESEN: FachanamneseGuide[] = [
         probe: 'fach-haem-bsymptomatik',
         label: 'B-Symptomatik',
         alts: ['Haben Sie Fieber, Schüttelfrost oder Nachtschweiß bemerkt?'],
-        followUp: ['Falls Gewichtsverlust: Wie viele Kilo, und in welchem Zeitraum?'],
+        followUp: ['Falls Gewichtsverlust: Wie viele Kilo haben Sie abgenommen?', 'Falls Gewichtsverlust: In welchem Zeitraum?'],
         parts: [
           { sucht: ['fieber'], text: 'Haben Sie Fieber?' },
           { sucht: ['nachtschweiss'], text: 'Schwitzen Sie nachts so stark, dass Sie die Wäsche wechseln müssen?' },
-          { sucht: ['gewicht'], text: 'Haben Sie ungewollt Gewicht verloren?', followUp: ['Falls ja: Wie viele Kilo, und in welchem Zeitraum?'] },
+          { sucht: ['gewicht'], text: 'Haben Sie ungewollt Gewicht verloren?', followUp: ['Falls ja: Wie viele Kilo haben Sie abgenommen?', 'Falls ja: In welchem Zeitraum?'] },
         ],
       },
       {
@@ -1369,7 +1369,7 @@ export const FACHANAMNESEN: FachanamneseGuide[] = [
         text: 'Hat sich Ihr Gewicht verändert, ohne dass Sie etwas umgestellt haben? Und wie ist Ihr Appetit dabei?',
         probe: 'fach-endo-gewicht',
         alts: ['Haben Sie ohne Grund an Gewicht zu- oder abgenommen?'],
-        followUp: ['Falls ja: Wie viele Kilo, und in welchem Zeitraum?'],
+        followUp: ['Falls ja: Wie viel hat sich Ihr Gewicht verändert?', 'Falls ja: In welchem Zeitraum war das?'],
       },
       {
         text: 'Schwitzen Sie vermehrt oder frieren Sie leicht? Vertragen Sie Wärme oder Kälte schlechter als früher?',
