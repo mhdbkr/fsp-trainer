@@ -31,11 +31,15 @@ export function RattrapageLine() {
   if (!g) return null;
 
   const reprise = g.tasks.length > 0;
-  const liste = noms((reprise ? g.tasks : g.deja).map((t) => t.label));
   const n = g.tasks.length;
+  const jours = `${g.manques} jour${g.manques > 1 ? 's' : ''} manqué${g.manques > 1 ? 's' : ''}`;
+  // « (X déjà au plan) » : ce qui a glissé mais que le plan du jour a repris lui-même.
+  const dejaAuPlan = g.deja.length ? ` (${noms(g.deja.map((t) => t.label))} déjà au plan)` : '';
   const phrase = g.manques === 0
     ? `Il reste ${n} tâche${n > 1 ? 's' : ''} du ${format(parseISO(g.from), 'EEEE d MMMM', { locale: fr })}. Les ajouter à aujourd'hui ?`
-    : `${g.manques} jour${g.manques > 1 ? 's' : ''} manqué${g.manques > 1 ? 's' : ''} : ${liste}${reprise ? `${(reprise ? g.tasks : g.deja).length > 1 ? ' ont' : ' a'} glissé.` : ' — déjà au plan d\'aujourd\'hui.'}`;
+    : reprise
+      ? `${jours} : ${noms(g.tasks.map((t) => t.label))} ${n > 1 ? 'ont' : 'a'} glissé${dejaAuPlan}.`
+      : `${jours} : ${noms(g.deja.map((t) => t.label))} — déjà au plan d'aujourd'hui.`;
 
   return (
     <section aria-live="polite" className="flex flex-wrap items-center justify-between gap-x-4 gap-y-1 rounded-xl border border-slate-200 px-4 py-1.5 text-sm text-slate-600 dark:border-slate-800 dark:text-slate-300">

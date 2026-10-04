@@ -68,4 +68,9 @@ describe('RattrapageLine', () => {
     await poser(['a', 'b', 'c', 'd'].map((x, i) => t(`j${i}`, '2026-10-01', `c${i}`, `Cas ${x}`)), [t('l1', '2026-10-05', 'c9', 'Autre')]);
     await vi.waitFor(() => expect(txt()).toMatch(/Cas a, Cas b et 2 autres ont glissé/), { timeout: 10000 });
   });
+  it('cas mixte : ce qui glisse ET ce qui est déjà au plan, les deux dits', async () => {
+    await poser([t('j1', '2026-10-01', 'c1', 'Obere GI-Blutung'), t('j2', '2026-10-01', 'c2', 'Pneumonie')], [t('l1', '2026-10-05', 'c1', 'Obere GI-Blutung')]);
+    await vi.waitFor(() => expect(txt()).toMatch(/1 jour manqué : Pneumonie a glissé \(Obere GI-Blutung déjà au plan\)\./), { timeout: 10000 });
+    expect(btn(/^rattraper$/i)).toBeDefined();
+  });
 });
