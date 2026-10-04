@@ -4,6 +4,7 @@
 // capture quand il est KO. Écrit en français, lisible sans avoir lu le code.
 // ============================================================================
 import fs from 'node:fs';
+import path from 'node:path';
 
 export class Rapport {
   constructor(meta) {
@@ -56,10 +57,17 @@ export class Rapport {
       for (const id of [...new Set(connus.map((c) => c.id))]) {
         const xs = connus.filter((c) => c.id === id);
         L.push(`- **${id}** — **bug réel connu, non corrigé (hors périmètre du harnais)** : ${xs[0].connu}`);
-        L.push(`  - Preuve : ${xs.length} jour(s) KO sur ${all.filter((c) => c.id === id).length} ; premier constat ${xs[0].jour} — ${xs[0].detail}${xs[0].shot ? ` · capture \`${xs[0].shot}\`` : ''}`);
+        L.push(`  - Preuve : ${xs.length} jour(s) KO sur ${all.filter((c) => c.id === id).length} ; premier constat ${xs[0].jour} — ${xs[0].detail}${xs[0].shot ? ` · capture \`${path.basename(xs[0].shot)}\` (hors dépôt)` : ''}`);
       }
-      for (const c of ko) L.push(`- **${c.id}** — ${c.titre} (${c.jour}) : ${c.detail}${c.shot ? ` · capture : \`${c.shot}\`` : ''}`);
+      for (const c of ko) L.push(`- **${c.id}** — ${c.titre} (${c.jour}) : ${c.detail}${c.shot ? ` · capture : \`${path.basename(c.shot)}\` (hors dépôt)` : ''}`);
       L.push('');
+      if (connus.some((c) => c.id === 'D5s')) {
+        L.push('## Pour le lot C6-A', '');
+        L.push('Quand les simulations de démonstration cessent de compter dans les Stats, trois gardes doivent être mises à jour ENSEMBLE — sinon le bug corrigé n\'est plus gardé, ou la CI reste rouge :', '');
+        L.push('1. retirer `D5s` de `CONNUS` dans `app/scripts/parcours-candidat.mjs` (le parcours sort en 1 tant que `D5s` repasse au vert sans ce retrait) ;');
+        L.push('2. retirer le calcul de décompte des démos de `D5r` (même fichier) : sans démos en base, `D5r` et `D5s` disent la même chose ;');
+        L.push('3. passer `it.fails` en `it` dans `app/tests/invariants.journal.test.tsx` (« BUG-C6-1 »).', '');
+      }
     }
 
     L.push('## Invariants, vus depuis le DOM', '');
@@ -85,7 +93,7 @@ export class Rapport {
       if (j.vu.length) { L.push('**Ce que l\'app a montré**', ''); for (const v of j.vu) L.push(`- ${v}`); L.push(''); }
       if (j.checks.length) {
         L.push('**Invariants**', '');
-        for (const c of j.checks) L.push(`- ${c.ok ? 'OK' : c.connu ? '**KO (bug connu)**' : '**KO**'} · ${c.id} — ${c.titre}${c.detail ? ` : ${c.detail}` : ''}${c.shot ? ` · capture \`${c.shot}\`` : ''}`);
+        for (const c of j.checks) L.push(`- ${c.ok ? 'OK' : c.connu ? '**KO (bug connu)**' : '**KO**'} · ${c.id} — ${c.titre}${c.detail ? ` : ${c.detail}` : ''}${c.shot ? ` · capture \`${path.basename(c.shot)}\` (hors dépôt)` : ''}`);
         L.push('');
       }
     }
