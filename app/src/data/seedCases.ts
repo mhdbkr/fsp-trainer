@@ -8578,7 +8578,7 @@ export function seedCases(): Case[] {
         'auf-operation',
       ],
       caseSpecificQuestions: [
-        { frage: 'Haben Sie abgenommen, obwohl Sie normal oder sogar mehr essen? Wie viele Kilo in welchem Zeitraum?', kapitel: 'fach', sucht: ['gewicht', 'appetit'] },
+        { frage: 'Haben Sie abgenommen, obwohl Sie normal oder sogar mehr essen?', kapitel: 'fach', sucht: ['gewicht', 'appetit'], followUp: 'Falls ja: Wie viele Kilo in welchem Zeitraum?' },
         { frage: 'Kommen Sie noch gut die Treppe hoch, oder haben Sie es schwerer, aus der Hocke wieder hochzukommen?', kapitel: 'aktuell' },
         { frage: 'Ist Ihre Regelblutung schwächer oder unregelmäßiger geworden?', kapitel: 'frauenanamnese' },
         { frage: 'Haben Sie in den letzten Monaten eine Untersuchung mit Kontrastmittel gehabt oder jodhaltige Medikamente eingenommen?', kapitel: 'medikamente' },
@@ -11393,7 +11393,7 @@ export function seedCases(): Case[] {
       ],
       caseSpecificQuestions: [
         { frage: 'Mit wie vielen Kissen schlafen Sie, und wachen Sie nachts auf, weil Sie keine Luft bekommen?', kapitel: 'aktuell', sucht: ['orthopnoe'] },
-        { frage: 'Haben Sie sich gewogen? Wie viele Kilogramm haben Sie in welchem Zeitraum zugenommen?', kapitel: 'vegetativ', sucht: ['gewicht'] },
+        { frage: 'Haben Sie sich gewogen?', kapitel: 'vegetativ', sucht: ['gewicht'], followUp: 'Falls ja: Wie viel hat sich Ihr Gewicht in welchem Zeitraum verändert?' },
         { frage: 'Sind beide Beine gleich stark geschwollen? Bleibt eine Delle stehen, wenn Sie mit dem Finger daraufdrücken?', kapitel: 'aktuell' },
         { frage: 'Nehmen Sie alle Ihre Tabletten so ein, wie sie verschrieben wurden — haben Sie eine davon weggelassen, zum Beispiel die Entwässerungstablette?', kapitel: 'medikamente' },
         { frage: 'Haben Sie in den letzten Wochen Schmerzmittel wie Ibuprofen oder Diclofenac genommen — wie oft?', kapitel: 'medikamente' },
@@ -15160,7 +15160,7 @@ export function seedCases(): Case[] {
       ],
       caseSpecificQuestions: [
         { frage: 'Hatten Sie in den letzten Monaten eine Untersuchung mit Kontrastmittel, etwa eine Computertomographie oder eine Herzkatheteruntersuchung?', kapitel: 'vorerkrankungen' },
-        { frage: 'Wurden Ihnen schon einmal erhöhte Nierenwerte mitgeteilt? Wann war Ihre letzte Blutabnahme, und was hat Ihr Hausarzt dazu gesagt?', kapitel: 'vorerkrankungen' },
+        { frage: 'Wurden Ihnen schon einmal erhöhte Nierenwerte mitgeteilt?', kapitel: 'vorerkrankungen', followUp: 'Falls ja: Was hat Ihr Hausarzt bei der letzten Blutabnahme dazu gesagt?' },
         { frage: 'Seit wann besteht Ihr Diabetes, und waren Sie in augenärztlicher Kontrolle?', kapitel: 'vorerkrankungen' },
         { frage: 'Ist Ihr Harnstrahl abgeschwächt, tröpfelt es nach, oder haben Sie das Gefühl, die Blase nicht ganz zu entleeren?', kapitel: 'aktuell' },
         { frage: 'Bekommen Sie Luftnot beim Treppensteigen, und schlafen Sie flach oder mit mehreren Kissen?', kapitel: 'aktuell', sucht: ['orthopnoe'] },
@@ -17846,7 +17846,7 @@ export function seedCases(): Case[] {
         { frage: 'Seit wann sind Ihre Augen und Ihre Haut gelb, und hat jemand aus Ihrem Umfeld das zuerst bemerkt?', kapitel: 'aktuell' },
         { frage: 'Und wie sieht Ihr Stuhlgang aus? Ist er heller geworden, vielleicht fast weiß oder lehmfarben, und lässt er sich schlecht abspülen?', kapitel: 'aktuell', relu: true },
         { frage: 'Haben Sie Schmerzen im Oberbauch, die gürtelförmig in den Rücken ausstrahlen und sich bessern, wenn Sie sich nach vorne beugen?', kapitel: 'aktuell' },
-        { frage: 'Juckt Ihre Haut? Seit wann, wo genau, und hilft irgendetwas dagegen?', kapitel: 'aktuell' },
+        { frage: 'Juckt Ihre Haut?', kapitel: 'aktuell', followUp: 'Falls ja: Seit wann juckt es?' },
         { frage: 'Wurde bei Ihnen in der letzten Zeit ein Diabetes neu festgestellt, oder ist ein bestehender Zucker plötzlich schlechter geworden?', kapitel: 'vorerkrankungen' },
         { frage: 'Gibt es in Ihrer Familie Bauchspeicheldrüsen-, Darm-, Brust- oder Eierstockkrebs?', kapitel: 'familie-sozial' },
         { frage: 'Hatten Sie jemals eine Venenentzündung oder eine Thrombose, auch wandernd an Armen oder Beinen?', kapitel: 'vorerkrankungen' },
@@ -20594,9 +20594,9 @@ export function seedCases(): Case[] {
       ],
       caseSpecificQuestions: [
         { frage: 'Hat sich Ihr Husten verändert — klingt er anders als Ihr gewohnter Raucherhusten, und seit wann genau?', kapitel: 'aktuell' },
-        { frage: 'War Blut in Ihrem Auswurf? Wie oft, wie viel etwa, und war es hellrot oder dunkel?', kapitel: 'aktuell' },
+        { frage: 'War Blut in Ihrem Auswurf?', kapitel: 'aktuell', followUp: 'Falls ja: Wie sah das Blut aus — hellrot oder dunkel?' },
         { frage: 'Hatten Sie in den letzten Monaten eine Lungenentzündung? Wurde danach ein Kontrollröntgen gemacht, und war es wieder vollständig unauffällig?', kapitel: 'aktuell' },
-        { frage: 'Ist Ihre Stimme heiser geworden? Seit wann, und ging eine Erkältung voraus?', kapitel: 'aktuell' },
+        { frage: 'Ist Ihre Stimme heiser geworden?', kapitel: 'aktuell', followUp: 'Falls ja: Seit wann ist Ihre Stimme heiser?' },
         { frage: 'Ist Ihnen morgens ein geschwollenes Gesicht, ein Engegefühl am Hals oder eine Schwellung der Arme aufgefallen?', kapitel: 'aktuell' },
         { frage: 'Haben Sie beruflich mit Asbest, Eternitplatten, Quarzstaub, Chromaten oder Dieselabgasen zu tun gehabt — und wie lange?', kapitel: 'familie-sozial' },
         { frage: 'Gibt es in Ihrer Familie Krebserkrankungen, insbesondere Lungenkrebs?', kapitel: 'familie-sozial' },
@@ -21160,7 +21160,7 @@ export function seedCases(): Case[] {
         { frage: 'Sind Sie an der Brust gestürzt, gestoßen, operiert oder bestrahlt worden?', kapitel: 'vorerkrankungen' },
         { frage: 'Wann hatten Sie Ihre erste und Ihre letzte Regel, wie viele Kinder haben Sie geboren, in welchem Alter, und haben Sie gestillt?', kapitel: 'frauenanamnese' },
         { frage: 'Nehmen Sie Hormone — eine Hormonersatztherapie gegen Wechseljahresbeschwerden oder früher die Pille?', kapitel: 'medikamente' },
-        { frage: 'Gibt es in Ihrer Familie Brustkrebs oder Eierstockkrebs? In welchem Alter sind die Angehörigen erkrankt, und war jemand beidseits betroffen?', kapitel: 'familie-sozial' },
+        { frage: 'Gibt es in Ihrer Familie Brustkrebs oder Eierstockkrebs?', kapitel: 'familie-sozial', followUp: 'Falls ja: In welchem Alter sind die Angehörigen erkrankt?' },
         { frage: 'Haben Sie Knochenschmerzen oder Husten bemerkt, die neu aufgetreten sind?', kapitel: 'vegetativ' },
       ],
       examinerQuestions: [
@@ -22228,7 +22228,7 @@ export function seedCases(): Case[] {
         { frage: 'Haben Sie Blut IM Stuhl gesehen, oder nur AM Toilettenpapier beim Abputzen? Brennt es dabei?', kapitel: 'aktuell' },
         { frage: 'Müssen Sie auch nachts wegen des Durchfalls aufstehen?', kapitel: 'aktuell' },
         { frage: 'Ist Ihr Stuhl fettig-glänzend und schwer abzuspülen?', kapitel: 'aktuell' },
-        { frage: 'Waren Sie in den letzten Monaten im Ausland? Wo genau, wie lange, und hatten Sie dort Durchfall?', kapitel: 'vegetativ', sucht: ['reise'], relu: true },
+        { frage: 'Waren Sie in den letzten Monaten im Ausland?', kapitel: 'vegetativ', sucht: ['reise'], relu: true, followUp: 'Falls ja: Hatten Sie dort Durchfall?' },
         { frage: 'Haben Sie in den letzten Monaten Antibiotika eingenommen?', kapitel: 'medikamente' },
         { frage: 'Haben Sie schmerzhafte Stellen im Mund, Hautveränderungen an den Schienbeinen, gerötete oder schmerzende Augen?', kapitel: 'aktuell' },
         { frage: 'Haben Sie morgens Rückenschmerzen mit Steifigkeit, die sich durch Bewegung bessern?', kapitel: 'aktuell' },
@@ -22749,11 +22749,11 @@ export function seedCases(): Case[] {
       ],
       caseSpecificQuestions: [
         { frage: 'Welche Finger genau schlafen Ihnen ein — ist der kleine Finger auch betroffen, oder bleibt er frei?', kapitel: 'aktuell' },
-        { frage: 'Wachen Sie nachts von den Beschwerden auf? Wie oft in einer Nacht, und um welche Uhrzeit?', kapitel: 'aktuell' },
+        { frage: 'Wachen Sie nachts von den Beschwerden auf?', kapitel: 'aktuell', followUp: 'Falls ja: Wie oft in einer Nacht?' },
         { frage: 'Welche Hand ist stärker betroffen — rechts oder links? Und welche ist Ihre Schreibhand?', kapitel: 'aktuell' },
         { frage: 'Fällt Ihnen im Vergleich beider Hände auf, dass der Muskel am Daumenballen dünner geworden ist?', kapitel: 'aktuell' },
         { frage: 'Wie viele Stunden am Tag arbeiten Sie an der Drehscheibe und kneten Sie Ton? Hat sich die Belastung in den letzten Monaten verändert?', kapitel: 'familie-sozial' },
-        { frage: 'Ist bei Ihnen eine Schilddrüsenerkrankung oder eine Zuckerkrankheit bekannt? Was hat Ihr Hausarzt zuletzt zum Blutzucker gesagt?', kapitel: 'vorerkrankungen' },
+        { frage: 'Ist bei Ihnen eine Schilddrüsenerkrankung oder eine Zuckerkrankheit bekannt?', kapitel: 'vorerkrankungen', followUp: 'Falls ja: Was hat Ihr Hausarzt zuletzt zum Blutzucker gesagt?' },
         { frage: 'Sie hatten vor acht Jahren einen Bruch des rechten Handgelenks — wie war die Hand direkt nach dem Bruch?', kapitel: 'vorerkrankungen' },
       ],
       examinerQuestions: [
@@ -23321,7 +23321,7 @@ export function seedCases(): Case[] {
         { frage: 'Was machen Sie seitdem nicht mehr — fahren Sie noch Bus oder Straßenbahn, gehen Sie noch allein einkaufen, nehmen Sie den Aufzug?', kapitel: 'aktuell' },
         { frage: 'Wie viel Kaffee, schwarzen Tee, Cola oder Energydrinks trinken Sie am Tag?', kapitel: 'aktuell' },
         { frage: 'Wie sieht Ihr Alltag aus — wer betreut die Kinder, gibt es jemanden, den Sie pflegen, und wann hat die Belastung begonnen?', kapitel: 'familie-sozial' },
-        { frage: 'Waren Sie deswegen schon in der Notaufnahme oder beim Kardiologen? Was hat man dort gefunden, und was hat man Ihnen gesagt?', kapitel: 'aktuell' },
+        { frage: 'Waren Sie deswegen schon in der Notaufnahme oder beim Kardiologen?', kapitel: 'aktuell', followUp: 'Falls ja: Was hat man dort gefunden?' },
       ],
       examinerQuestions: [
         'Stellen Sie uns bitte die Patientin vor.',
