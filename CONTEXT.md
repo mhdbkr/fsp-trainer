@@ -170,15 +170,19 @@ d'explorer le code et emploient **ce** vocabulaire, pas ses synonymes.
   ses signes (`sucht`) (ADR-0023).
 - **Profil clinique** (`patientSheet.profil`) — ce que le cas rend pertinent
   (`tags`), ce qu'il impose de demander (`exige`) et ce qu'il exclut, avec sa
-  raison (`exclut`). Il est déclaré et relu ; seul le tag de la nature du motif
-  se dérive.
+  raison (`exclut`). Il est déclaré et relu ; seuls la nature du motif et
+  `hoden` se dérivent des données du cas.
 - **Cohérence (de la trame)** — la trame jouée ne demande chaque signe qu'une
   fois, rien hors profil, tout ce que le profil exige, et rien avant ce qu'elle
   présuppose. Le montage l'obtient par `cohere` (quatre règles pures), et la
   porte `checkCoherence` la vérifie.
-- **Journal de cohérence** — la liste, par cas, de ce que `cohere` a retiré,
-  réduit, ajouté, déplacé ou détaché, chaque ligne avec sa règle et sa raison.
-  Tout écart entre la trame brute et la trame jouée y a exactement une ligne.
+- **Écarts (de cohérence)** (`Ecart`, `ecarts`) — ce que `cohere` a retiré,
+  réduit, ajouté, déplacé ou détaché dans un cas, chaque écart avec sa règle et
+  sa raison. Il y a un écart par couple (question, action), et une relance suit
+  sa mère.
+- **Relance de précision** — une relance qui précise le signe de sa question
+  mère et en hérite. Une relance qui cherche un autre signe est une **unité** à
+  part (ADR-0023).
 - **Banque de sondes** — pour chaque signe exigible, une sonde canonique qui
   cherche ce signe seul (`SIGNE_DEF[s].bank`). C'est la seule source d'une
   question ajoutée par le montage : jamais de texte inventé.
@@ -228,5 +232,7 @@ d'explorer le code et emploient **ce** vocabulaire, pas ses synonymes.
 - « Symptôme » pour ce qu'une question cherche : c'est un **signe**
   (`Symptom` n'est plus qu'un alias). « Doublon » mesuré par les mots : un
   doublon est **un signe demandé deux fois**.
+- « Journal » pour les traces de `cohere` : ce sont des **écarts**. Le
+  journal est le journal d'entraînement (`TrainingEvent`).
 - « Suggestion du jour » pour la tâche du plan figé : c'est une **tâche**, pas
   une suggestion. Une suggestion se recalcule ; une tâche, non.
