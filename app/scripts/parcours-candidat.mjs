@@ -297,7 +297,7 @@ async function parcours({ browser, base, supabaseUrl }) {
 
   } catch (e) {                                              // le harnais lui-même est en défaut : on garde la preuve
     const f = await c.capture('HARNAIS-defaut');
-    e.message += `\n   page : ${page.url()} · capture : ${f}\n   texte : ${(await texte(page).catch(() => '')).replace(/\n+/g, ' | ').slice(0, 500)}`;
+    e.message += `\n   page : ${page.url()} · capture : ${f}\n   erreurs de page : ${[...erreurs, ...bruit].join(' · ') || 'aucune'}\n   texte : ${(await texte(page).catch(() => '')).replace(/\n+/g, ' | ').slice(0, 500)}`;
     throw e;
   }
   rapport.meta.dureeS = Math.round((Date.now() - T0) / 1000);

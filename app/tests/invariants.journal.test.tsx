@@ -5,7 +5,7 @@
 // INV-5 se prouve deux fois : sur les données que les écrans lisent, et sur
 // l'écran Historique RENDU (jsdom), pas sur une fonction qui n'en est que le reflet.
 import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest';
-import { render, screen, waitFor, cleanup } from '@testing-library/react';
+import { configure, render, screen, waitFor, cleanup } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
 
 vi.mock('@/lib/auth/session', async () => (await import('./helpers/mocks')).authMock());
@@ -13,6 +13,7 @@ vi.mock('@/lib/sync/queue', async () => (await import('./helpers/mocks')).queueM
 vi.mock('@/lib/supabase', async () => (await import('./helpers/mocks')).supabaseMock());
 
 // 30 s par défaut ; les tests de PROPRIÉTÉ (boucles de tirages) déclarent leur propre délai, plus long.
+configure({ asyncUtilTimeout: 10_000 });   // le défaut de 1 s de Testing Library déborde dès que la machine est chargée
 vi.setConfig({ testTimeout: 30_000, hookTimeout: 30_000 });
 
 import { db } from '@/db/db';

@@ -5,13 +5,14 @@
 // compris les actions interdites (elles doivent être refusées, pas ignorées
 // par hasard) ; l'écriture, sur la vraie chaîne hook → speichern → journal.
 import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest';
-import { act, renderHook, waitFor } from '@testing-library/react';
+import { configure, act, renderHook, waitFor } from '@testing-library/react';
 
 vi.mock('@/lib/auth/session', async () => (await import('./helpers/mocks')).authMock());
 vi.mock('@/lib/sync/queue', async () => (await import('./helpers/mocks')).queueMock());
 vi.mock('@/lib/supabase', async () => (await import('./helpers/mocks')).supabaseMock());
 
 // 30 s par défaut ; les tests de PROPRIÉTÉ (boucles de tirages) déclarent leur propre délai, plus long.
+configure({ asyncUtilTimeout: 10_000 });   // le défaut de 1 s de Testing Library déborde dès que la machine est chargée
 vi.setConfig({ testTimeout: 30_000, hookTimeout: 30_000 });
 
 import { db } from '@/db/db';
