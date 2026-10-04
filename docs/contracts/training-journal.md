@@ -411,6 +411,23 @@ detteTeil(caseId) = |{ t ∈ Teile : case_progress[caseId].teile[t].status !== '
 
 La dette inclut les Teile `'vierge'` (il reste du travail). La faiblesse jamais.
 
+*[S4-1]* **Amendé** (décision de `main`, 5 oct., P1 de la revue pédagogique de
+S4-1). Un Teil **« à confirmer »** (§13.2) ne pèse plus comme un Teil jamais
+travaillé :
+
+```
+detteTeil(cp, jour) = Σ_t poids(t, jour) / 3                      ∈ [0, 1]
+poids(t, jour)      = status === 'solide'          ? 0
+                    : aConfirmer(teile[t], jour)   ? POIDS_CONSOLIDATION
+                    : 1
+```
+
+`jour` (`yyyy-MM-dd`) est **le jour du plan**. Le défaut `dayKey(now())` ne
+sert qu'aux appelants de transition. **S4-2 le passe explicitement** : c'est
+le déterminisme I1, où le plan de D dépend de D et jamais de l'instant de
+matérialisation (INV-55). Code : `journal.ts` (`detteTeil`). S4-2 remplace
+cette forme par §12.2 (`restePlan`), avec le même poids.
+
 ---
 
 ## 5. La sélection — formule et contrainte
@@ -428,7 +445,7 @@ actuelle (`program.ts:71-78`).
 ```
 freq(c)      = c.frequency / FREQ_MAX            ∈ (0, 1]   FREQ_MAX = max du corpus (26)
 urgence(c)   = 1 + 2 × pressionExamen             ∈ [1, 3]  pressionExamen = clamp(1 − joursRestants/90, 0, 1)
-detteTeil(c) = §4.3                               ∈ {0, 1/3, 2/3, 1}
+detteTeil(c) = §4.3                               ∈ [0, 1]   ([S4-1] un Teil « à confirmer » pèse POIDS_CONSOLIDATION)
 fraicheur(c) = jamais joué ? 1
                : clamp(joursDepuisDernierJeu / 14, 0.2, 1)  ∈ [0.2, 1]
 ```
@@ -442,7 +459,7 @@ fraicheur(c) = jamais joué ? 1
   `debutJour(D)` : progression, mode, durées, erreurs, consolidation, état
   SRS et config. `now` dans `SelectContext` vaut `debutJour(D)`, jamais
   l'instant de matérialisation (§12.4, INV-55). `detteTeil` devient
-  `|restePlan| / 3` (§12.2, INV-67).
+  `Σ poids(t, D) / 3` sur `restePlan(c, D)` (§12.2, INV-67) ; elle reçoit D, jamais l'horloge.
 - **`disciplineBoost` est supprimé** (`program.ts:57-69,76`) : une boucle de
   rétroaction par spécialité rend le classement monochrome (13 cas de Gastro,
   les plus fréquents du corpus).
@@ -571,7 +588,7 @@ reste vert sous sa mutation ne garde rien.
 | **INV-53** | **La maîtrise ne baisse jamais par absence d'un Teil** : `maitrise === null` ⇔ `couverture === 0` ; sinon `min(lastScore joués) ≤ maitrise ≤ max(lastScore joués)`. | tout journal, un seul Teil joué à 90 compris | `maitrise = Σ lastScore / 3` |
 | **INV-54** | **Un ancien plan figé reste lisible** : pour un plan série 3 (tâches `teil` sans `teile`), la projection donne les mêmes `doneAt` que la règle série 3. `teileDeTache` vaut `[teil]`, ou les trois Teile pour un run complet sans `teil`. | fixture gelée : journal C6 série 3 et ses plans | `teileDeTache` ignore `teil` |
 | **INV-55** | **Le plan d'un jour ne dépend que de ce qui précède ce jour** : `buildTasks(D, J)` = `buildTasks(D, J ∪ E)` modulo `id`, pour tout ensemble `E` d'événements tels que `at ≥ debutJour(D)`. `E` couvre les parties, les coches, les `srs.reviewed` et les `program.configured` du jour D (sauf le premier, s'il est le seul). Le résultat ne dépend pas non plus de l'instant de matérialisation dans le jour. Deux appareils qui ont le même journal antérieur au jour D **et le même contenu publié** produisent donc le même plan (limite connue m-a : un contenu différent peut donner un plan différent, §12.4). | événements du jour D tirés au hasard, instants de matérialisation dans `[00:00, 23:59]` | `selectContext` lit `input.now` (`dayPlan.ts:230`) ; `progress` lu dans `db.case_progress`, qui contient le jour D ; `counts(begriffe, input.now)` (`dayPlan.ts:136`) — **rouge sur le code actuel** |
-| **INV-56** | **`prêt` exige un enchaînement réel et récent** : `etat === 'pret'` ⇔ trois Teile `solide` **et** il existe un événement avec `examen === true` (§2.3) dont chaque score est ≥ `PART_SOLIDE` et dont `at ≥ solideDepuis`. `pretAt` = `at` du plus récent de ces événements. Une retombée défait la soudure jusqu'au run qualifiant suivant. | runs enchaînés avant et après une retombée ; runs en Assisté ; ordre D → A → F ; grille non saisie ; trois Teile séparés le même jour | run antérieur à la dernière retombée accepté ; `enchaine` seul suffit (sans les conditions d'examen) ; `prêt` dérivé de « trois solides le même jour » |
+| **INV-56** | **`prêt` exige un enchaînement réel et récent** : `etat === 'pret'` ⇔ trois Teile `solide` **et** il existe un événement avec `examen === true` (§2.3) dont chaque score est ≥ `PART_SOLIDE` et qui suit la soudure dans l'ordre total `(at, id)`, celui qui soude compris (à instants égaux, la position fait foi : revue I2 de S4-1). `pretAt` = `at` du plus récent de ces événements. Une retombée défait la soudure jusqu'au run qualifiant suivant. | runs enchaînés avant et après une retombée ; runs en Assisté ; ordre D → A → F ; grille non saisie ; trois Teile séparés le même jour | run antérieur à la dernière retombée accepté ; `enchaine` seul suffit (sans les conditions d'examen) ; `prêt` dérivé de « trois solides le même jour » |
 | **INV-57** | **Le mode** : `DayPlan.mode` = `config.modus` s'il vaut `examen-blanc` ou `specialite` (choix explicite, respecté). Sinon, c'est `observeMode(J < debutJour(D))`, à valeur dans `{'cas-complet', 'teil-first'}`. L'observation ne rend jamais `examen-blanc` ni `specialite`, et un `teil-first` explicite devient `cas-complet`. Les événements du jour D ne changent pas le mode. | configs de toutes valeurs ; journaux dominés par des examens à blanc | `observeModus` brut (il rend `examen-blanc` après des examens à blanc planifiés : boucle) ; `teil-first` explicite respecté |
 | **INV-58** | **Budget** : au plus **une** tâche forcée par jour dépasse le budget : l'examen à blanc en dernière ligne droite ou en mode `examen-blanc` explicite, sinon la première tâche de cas. Toutes les autres respectent `used + estMin ≤ targetMin`. À la fin du remplissage, aucun candidat restant ne tient dans le budget restant. Une reprise acceptée hors budget **remplace** la première tâche de cas **ni faite ni entamée**, et s'ajoute s'il n'y en a pas. | budgets de 15 à 180 min, cas vierges (Σ ≈ 52 min), mode `examen-blanc` explicite, reprises sur des plans avec des tâches entamées | `break` au premier candidat qui ne tient pas ; `floor(room / unitMin)` ; reprise ajoutée au lieu de remplacer ; reprise qui remplace une tâche entamée ; tâche de cas forcée en plus de l'examen à blanc |
 | **INV-59** | **Le cadran lit, il ne calcule pas** : `dialData(cp, ctx)` est pure. On a `couverture = \|{t : attempts ≥ 1}\|`, `maitrise === cp.maitrise`, `soude ⇔ cp.etat === 'pret'` et `nonMesure ⇔ estNonMesure(cp.teile[t])`. Elle donne la même valeur sur une progression incrémentale et sur une progression reconstruite. | journaux aléatoires, avec et sans `rebuildJournal` | `CaseDial` lit `db.simulations` ou recalcule la maîtrise |
@@ -587,7 +604,7 @@ reste vert sous sa mutation ne garde rien.
 | **INV-64** | **Durées apprises** : `estMin` d'une tâche de cas = Σ `dureeTeil(t)` ; pour une tâche **`simulation`** en mode observé `teil-first`, c'est `dureeTeil` du Teil le plus probable seul. Une `revision` et un examen à blanc ont toujours Σ sur les trois Teile (§13.4, m-b). Avec moins de 3 mesures pour `t`, `dureeTeil(t) = TEIL_MIN[t]`. Toujours dans `[5, 45]`. Ni les séances `selbstbewertet` ni les durées nulles n'y entrent. | mesures aléatoires, dont une valeur aberrante de 300 min | moyenne au lieu de médiane ; repli absent ; Σ en mode `teil-first` sur une tâche `simulation` ; estimation réduite à un Teil sur une `revision` |
 | **INV-65** | **Aucun changement de budget sans geste** : `hoursPerSession` et `intensity` ne changent que par un `program.configured` né d'un geste (`ProgramSetup`, `accepterRythme`). Aucun `DayPlan` figé ne change à l'acceptation. Une proposition n'existe que si Σ `spentMin` < 0,6 × Σ `targetMin` sur ≥ 3 jours figés de la fenêtre. La valeur proposée est `< dayTargetMin` actuel et `≥ 20`. Deux `rythme.refused` consécutifs depuis le dernier `program.configured` ⇒ aucune proposition. | semaines de temps réel aléatoires ; refus sur deux appareils | budget appliqué sans geste ; proposition à la hausse ; refus non synchronisé (l'autre appareil repropose) |
 | **INV-66** | **Fréquences sourcées** : `couverturePonderee()` rend `{ pct, base, portee }` avec `0 ≤ pct ≤ 100` et `base > 0` dès que `pct` est défini. `portee = 'ville-ventilee'` ⇒ `base` = Σ des comptes ventilés de cette ville. Sinon, `portee = 'toutes-villes'` et `base` = Σ des totaux. Le texte rendu contient `base` et la portée, et passe la garde EXAM_CLAIM. | corpus avec et sans ventilation par ville, ville `Alle` | dénominateur = `centers[ville].n` (182 à Stuttgart) ; repli silencieux sans changer la phrase |
-| **INV-67** | **Une seule fonction « reste »** : `detteTeil(c, D) = \|restePlan(c, D)\| / 3`, et `teile` d'une tâche **`simulation`** = `restePlan(c, D)` (m-b ; une `revision` et un examen à blanc portent les trois Teile). Un Teil `acquis` (ou non solide) joué dans les `SOLIDE_ECART_JOURS` jours avant D n'est ni dans `teile` ni dans la dette. Dans la journée, `resteTache(T) = teileDeTache(T) \ teileJouesDepuis(T.creeA)`. | journaux avec des Teile acquis joués il y a 0, 1, 2, 3 et 4 jours | `detteTeil` garde `status ≠ solide` seul (`journal.ts:271-272`) ; deux définitions de « reste » |
+| **INV-67** | **Une seule fonction « reste »** : `detteTeil(c, D) = Σ poids(t, D) / 3` sur `restePlan(c, D)` (poids 1, ou `POIDS_CONSOLIDATION` pour un Teil « à confirmer » à D, §4.3 [S4-1]), et `teile` d'une tâche **`simulation`** = `restePlan(c, D)` (m-b ; une `revision` et un examen à blanc portent les trois Teile). Un Teil `acquis` (ou non solide) joué dans les `SOLIDE_ECART_JOURS` jours avant D n'est ni dans `teile` ni dans la dette. Dans la journée, `resteTache(T) = teileDeTache(T) \ teileJouesDepuis(T.creeA)`. | journaux avec des Teile acquis joués il y a 0, 1, 2, 3 et 4 jours | `detteTeil` garde `status ≠ solide` seul (`journal.ts:271-272`) ; deux définitions de « reste » |
 | **INV-68** | **Configuration synchronisée** : deux appareils qui ont reçu les mêmes `program.configured` ont le même `db.meta['program']`, à savoir le dernier payload **valide** par `occurred_at`. Un payload invalide est ignoré et ne remplace rien. `rattrapage.refused` et `rythme.refused` sont visibles sur les deux appareils. | configurations concurrentes, payload corrompu | aucune projection de `program.configured` au retour (état actuel : seul l'envoi existe, `ProgramSetup.tsx:59`) |
 | **INV-69** | **La frise passée est figée** : pour tout `at < DATE_NOUVELLE_REGLE`, `indiceAt(J, at)` applique la règle série 3 (`statusOf(lastScore)`), et le déploiement ne change aucun point passé. | journal antérieur et postérieur à la date | nouvelle règle appliquée rétroactivement à `indiceAt` |
 | **INV-76** | **La config locale n'est jamais perdue** : (a) toute écriture de `db.meta['program']` émet un `program.configured` portant la config **complète** (`ProgramSetup`, `setIntensity`, `setModus`, `accepterRythme`) ; (b) au premier démarrage S4-2, la config locale est poussée **une seule fois** (garde `CONFIG_POUSSEE_S4`), **avant** toute projection distante ; (c) toute config acceptée par l'interface ou produite par `accepterRythme` est acceptée par le schéma serveur ; (d) un `program.configured` refusé, et retiré de l'outbox (`queue.ts:158-160`), ne change pas `db.meta['program']`. Seul un événement valide **plus récent** le remplace. | configs aux bornes de l'interface ; `accepterRythme` à 20 min en intensité haute ; deux démarrages concurrents ; refus serveur simulé ; config distante plus ancienne que la locale | `setIntensity` sans événement (état actuel, `programAdjust.ts:39-41`) ; payload partiel `{ intensity }` ; projection distante avant le push initial (la config locale est écrasée) ; garde absente (double push) ; borne serveur `hoursPerSession ≥ 0,5` ; projection qui retombe sur une config plus ancienne après un refus |
@@ -731,7 +748,8 @@ resteTache(T) = T.dUnTrait && avancement(T) ⊇ TEILE
                   ? [...TEILE]                                   // « à rejouer d'un trait » (I5)
                   : teileDeTache(T) \ avancement(T)
 
-detteTeil(c, D) = |restePlan(cp, D)| / 3                         // remplace §4.3
+detteTeil(c, D) = Σ_{t ∈ restePlan(cp, D)} poids(t, D) / 3       // remplace §4.3 ; poids de §4.3 [S4-1]
+                                                                 // (1, ou POIDS_CONSOLIDATION si « à confirmer » à D)
 ```
 
 `restePlan` fixe les `teile` des seules tâches **`simulation`** (m-b). Une
@@ -743,6 +761,9 @@ Teile, quel que soit `restePlan`.
   solide (§13.2). Le cas revient donc quand ce Teil peut progresser.
 - `restePlan` vide ⇒ `detteTeil = 0`. Le cas sort du jour, sauf s'il est dû
   pour consolidation (§13.1).
+- *[S4-1]* Un Teil « à confirmer » à D (§13.2) reste dans `restePlan`, mais il
+  pèse `POIDS_CONSOLIDATION` au lieu de 1 (P1 de la revue pédagogique de S4-1).
+  Sans cela, les cas redevenus `acquis` par la décision (e) envahiraient le plan.
 - Les `TeilStatus` et `pointFaible` sont inchangés. La **dette** change ; la
   **faiblesse**, jamais.
 
@@ -913,6 +934,7 @@ export interface TeilProgress {
   attempts: number;
   nonMesureAt?: number;                // déjà dans le code (journal.ts:237) ; inscrit au contrat (m10)
   solideDes?: string | null;           // [S4-1] yyyy-MM-dd ; absent ou null ⇔ pas de date ; source de CaseDialData.teile[t].solideDes (§12.7)
+  premiereReussite?: { at: number; score: number }; // [S4-1] première réussite ≥ 80, jamais remise à zéro ; source de « à confirmer » (§13.2)
 }
 
 export type CaseEtat = 'vierge' | 'entame' | 'couvert' | 'solide' | 'pret';
@@ -937,15 +959,19 @@ maitrise   = couverture === 0 ? null : round(moyenne des lastScore pour attempts
 etat       = couverture === 0                         → 'vierge'
              couverture < 3                           → 'entame'
              ∃ t : status ≠ 'solide'                  → 'couvert'
-             ∃ e qualifiant, e.at ≥ solideDepuis      → 'pret'      (INV-56)
+             ∃ e qualifiant ∈ depuisSoudure           → 'pret'      (INV-56)
              sinon                                    → 'solide'
 qualifiant(e) = e.examen === true ∧ ∀ t : e.scores[t] ≥ PART_SOLIDE
+depuisSoudure = les partieMesuree du cas qui suivent, dans l'ordre total (at, id), celle qui a
+                soudé les trois Teile, CELLE-CI COMPRISE ; [] si non soudé
+                // [S4-1, revue I2] une POSITION, pas un instant : à `at` égaux, l'id départage
 
-premiere(t)  = at de la PREMIÈRE partieMesuree où scores[t] ≥ PART_SOLIDE (jamais remise à zéro)
-solideDes(t) = status ≠ 'solide' ∧ premiere(t) existe
-                 ? dayKey(premiere(t) + SOLIDE_ECART_JOURS jours) : absent
+premiereReussite(t) = { at, score } de la PREMIÈRE partieMesuree où scores[t] ≥ PART_SOLIDE
+                      (jamais remise à zéro) ; absent tant qu'il n'y en a pas
+solideDes(t) = status ≠ 'solide' ∧ premiereReussite(t) existe
+                 ? dayKey(premiereReussite(t).at + SOLIDE_ECART_JOURS jours) : absent
 pretManque   = etat === 'solide'
-                 ? (runs = partieMesuree e du cas avec e.examenManque présent ∧ e.at ≥ solideDepuis ;
+                 ? (runs = e ∈ depuisSoudure avec e.examenManque présent ET NON VIDE ;
                     runs vide ? ['enchaine','autonome','ordre','grille']
                               : e.examenManque du run qui en a le MOINS — à égalité, le plus récent)
                  : []
@@ -957,17 +983,25 @@ avaient pas en §12.6. Code : `lib/progression.ts` (`finalise`, `pretManque`).
 
 - `solideDes` découle de l'automate §13.2. Une réussite ≥ 80 rend le Teil
   solide si une réussite **antérieure** ≥ 80 a eu lieu au moins
-  `SOLIDE_ECART_JOURS` jours calendaires avant. La plus ancienne, `premiere(t)`,
-  donne donc la date la plus tôt. Une retombée (solide → acquis) ne l'efface
+  `SOLIDE_ECART_JOURS` jours calendaires avant. La plus ancienne,
+  `premiereReussite(t)`, donne donc la date la plus tôt. Une retombée (solide → acquis) ne l'efface
   pas. La date peut être passée : « un ≥ 80 dès aujourd'hui suffit ». Le
   champ est **absent** quand il vaudrait `null`. `dialData` normalise :
   `solideDes: status === 'solide' ? null : cp.solideDes ?? null`.
 - `pretManque` n'est non vide **que** pour `etat === 'solide'`. C'est la même
-  fonction que la soudure : un run postérieur à `solideDepuis` avec
+  fonction que la soudure : un run de `depuisSoudure` avec
   `examenManque = []` a ses trois scores mesurés. S'ils sont tous ≥ 80, il est
   qualifiant et l'état devient `pret`. Sinon, le Teil sous 80 retombe d'un cran
-  (INV-62), ce qui défait `solideDepuis`. D'où l'invariant
-  **`etat === 'solide' ⇔ pretManque.length > 0`**.
+  (INV-62), ce qui défait `solideDepuis`. Un tel run n'est donc jamais candidat
+  pour `pretManque`, puisqu'il « aurait soudé ». D'où l'invariant
+  **`etat === 'solide' ⇔ pretManque.length > 0`**, y compris à instants égaux
+  (revue I2).
+- *[S4-1]* **`premiereReussite`** (ajout S4-1, ratifié par `main` le 5 oct.) :
+  `{ at, score }` de la première réussite ≥ 80. Il est **absent** tant qu'il n'y
+  en a pas, et posé même quand le Teil est solide. C'est le témoin de l'écart
+  de §13.2 et la source de la phrase « à confirmer » (§13.2). Comme
+  `solideDes`, c'est un champ de projection locale, optionnel et non
+  synchronisé. Code : `lib/progression.ts` (`finalise`, `raisonAConfirmer`).
 - Lecture tolérante : les deux champs sont optionnels dans `db/types.ts`, pour
   qu'une ligne `case_progress` d'avant la série 4 reste lisible jusqu'à la
   reconstruction du démarrage (ADR-0021, m-d). `computeCaseProgress` et
@@ -1187,6 +1221,11 @@ S4-1 mesure ──▶ S4-4 primitive CaseDial ──▶ S4-3 partie ∥ S4-2 pla
   cadran a besoin. S4-2 garde `resteTache`, `statutTache`, `lireTache` et
   `restePlan`. Un changement de ces deux fonctions passe par une proposition de
   contrat.
+- *[S4-1, livré, 5 oct.]* S4-1 a aussi posé `teilAConfirmer` et
+  `raisonAConfirmer` (`lib/progression.ts`), ainsi que `detteTeil(cp, jour)`
+  (`journal.ts`, §4.3). **S4-2 passe le jour du plan explicitement** à
+  `detteTeil` et à `raisonAConfirmer`, jamais `now()` (I1, INV-55). En
+  écrivant `restePlan`, S4-2 garde le poids « à confirmer » (§12.2).
 - **S4-3 ∥ S4-2** : périmètres de fichiers disjoints (S4-3 :
   `lib/lauf`, `features/simulation`, **`lib/simulationSave.ts`** ; S4-2 :
   `lib/program`, `lib/journal.ts`, `lib/programAdjust.ts`,
@@ -1217,7 +1256,7 @@ S4-1 mesure ──▶ S4-4 primitive CaseDial ──▶ S4-3 partie ∥ S4-2 pla
 | Paramètre | Valeur | § |
 |---|---|---|
 | `CONSOLIDATION_JOURS` | `[7, 21, 45]` (plafond : le dernier) | 13.1 |
-| `POIDS_CONSOLIDATION` | `1/3` | 13.1 |
+| `POIDS_CONSOLIDATION` | `1/3` — aussi le poids d'un Teil « à confirmer » dans la dette | 13.1, 4.3, 12.2, 13.2 |
 | `SEUIL_FREQUENT` | `0.5` (de `freq`) | 13.1, 12.4 |
 | `FENETRE_D_UN_TRAIT_JOURS_OUVRES` | `15` — décision (a) de la direction | 13.1 |
 | `D_UN_TRAIT_ACTIF` | `false` jusqu'à S4-3 en production | 12.12 |
@@ -1277,6 +1316,24 @@ sinon : s < 60 → 'fragile' ; s < 80 → 'acquis'
   la branche (`2026-10-05`) n'est qu'une hypothèse de travail. Une date trop
   précoce réécrirait des points de frise déjà montrés (INV-69). Une date trop
   tardive figerait quelques jours de plus, ce qui est inoffensif.
+- *[S4-1, revue I1]* **La pente de la projection** se lit sur les
+  `slopeDays + 1` derniers jours, **recalculés avec la nouvelle règle**
+  (`indiceAt(…, 'serie4')`). Elle ne traverse donc pas la marche et ne disparaît
+  pas le jour de la bascule. Les points **affichés** restent figés (INV-69).
+- *[S4-1]* **État « à confirmer »** (décision de `main`, 5 oct., P1 de la revue
+  pédagogique de S4-1). C'est un état **dérivé**, pas un `TeilStatus` stocké :
+
+  ```
+  aConfirmer(p, jour) = p.status === 'acquis' ∧ p.solideDes != null ∧ p.solideDes ≤ jour
+  ```
+
+  Le Teil a déjà été réussi à 80 ou plus, et l'écart de `SOLIDE_ECART_JOURS`
+  est passé : une seconde réussite ≥ 80 le rend solide. Ce n'est pas un Teil
+  jamais travaillé. Dans la dette, il pèse `POIDS_CONSOLIDATION` (§4.3, §12.2),
+  et `jour` est le jour du plan. La raison affichée par S4-2 dans le plan est
+  `raisonAConfirmer(cp, jour)` (pure), qui lit `premiereReussite` :
+  « Réussi à 85 le 12 sept. — une seconde partie à 80 ou plus le confirme. »
+  Code : `lib/progression.ts` (`teilAConfirmer`, `raisonAConfirmer`).
 - Ces changements rétroactifs sont **annoncés une fois** dans l'app
   (décision (f), `simulation-run.md` §10.7) : Teile redevenus acquis,
   `teil-first` devenu cas complet, Muster de ville devenu libre.
