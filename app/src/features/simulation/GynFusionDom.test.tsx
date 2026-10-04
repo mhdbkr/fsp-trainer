@@ -39,7 +39,7 @@ describe('Guide d’une patiente qui joue la Fach gynéco (DOM)', () => {
     const ordre = ['Verläuft Ihre Monatsblutung regelmäßig?', 'derzeit schwanger sind', 'Verwenden Sie Verhütungsmethoden?',
       'Hat sich Ihre Blutung verändert', 'Haben Sie Unterbauchschmerzen?', 'Haben Sie Ausfluss bemerkt?',
       'Wie viele Schwangerschaften und Geburten', 'Besteht ein Kinderwunsch', 'Wann waren Sie zuletzt bei der Vorsorge',
-      'an der Gebärmutter oder den Eierstöcken operiert'];
+      'an den Eierstöcken operiert'];
     for (let i = 1; i < ordre.length; i++) expect(avant(container, ordre[i - 1], ordre[i]), `${ordre[i - 1]} avant ${ordre[i]}`).toBe(true);
   }, LONG);
 
