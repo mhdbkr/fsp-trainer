@@ -4,6 +4,9 @@
 > Source mesurée : `app/docs/reports/audit-questions-composees-serie3.md`
 > (13,0 Mo, 53 286 chaînes, 130 cas chargés via `loadCases.mjs`).
 > Consommé par : C4 (contenu — questions atomiques), C2 (guide d'anamnèse).
+> **Amendement K (4 oct. 2026, ADR-0023)** — moteur de cohérence : lexique de
+> signes, `sucht` obligatoire, profil clinique, `cohere`, porte `checkCoherence`
+> (§10) ; contradictions §11. Consommé par les lots K0–K5.
 
 ---
 
@@ -30,12 +33,12 @@ export interface Frage {
   id: FrageId;
   text: string;            // UNE question, UN seul « ? »
   kapitel: KapitelId;      // où elle vit dans la trame
-  braucht?: FrageId[];     // ce qui doit déjà avoir été demandé
+  braucht?: Signe[];       // signes déjà cherchés avant elle (amendé K, §10.2 — était FrageId[])
   nachfragen?: Frage[];    // relances conditionnelles — l'arbre rendu visible
   variante?: VariantKey;   // résolu par le cas : Hand | Fuß, Bein | Arm…
   deckt: ProbeId[];        // contrat existant préservé
-  sucht?: Symptom[];       // ce qu'elle CHERCHE (lexique §5)
-  relu?: true;             // relue : elle cite un concept sans le chercher
+  sucht: Signe[];          // ce qu'elle CHERCHE — OBLIGATOIRE, non vide (amendé K, §10.2)
+  relu?: true;             // le texte NOMME un signe hors `sucht` sans l'interroger (jamais une énumération, D1)
 }
 ```
 
@@ -213,6 +216,11 @@ Validateur : `checkVarianteAufgeloest.mjs`, sur les 130 cas chargés. Une `Frage
   les 8 sont corrigées : la preuve de détection vit sur les fixtures, et un test
   sur les données réelles garantit qu'elles ne reviennent pas ; 19 candidats
   restent (dont 2 faux positifs connus). Toujours informatif.
+- **Amendement K (4 oct. 2026)** : l'ordre **déclaré** (`braucht: Signe[]`)
+  devient bloquant après montage — `cohere` (r4) déplace la question, la porte
+  `checkCoherence` exige 0 violation (INV-85). Le **détecteur de texte**
+  (anaphores, présuppositions) reste informatif : INV-47 tient, il ne sert
+  qu'à proposer des `braucht` manquants.
 
 ---
 
@@ -254,6 +262,13 @@ l'audit) :
 ---
 
 ## 5. Le lexique `Symptom` et `PROBE_SUCHT`
+
+> **Amendement K (4 oct. 2026)** — `Symptom` devient `Signe` (§10.1). La règle
+> §5.4 (« couvrir tout concept ≥ 5 doublons échappés ») est **remplacée** par la
+> règle d'identité §10.1 et la couverture totale §10.2 ; la cible §5.5
+> (« toute sonde dont le texte déclenche un `TEXT_RE` ») est **remplacée** par
+> « toute question jouable » (INV-79). Le texte ci-dessous reste comme
+> historique de la mesure.
 
 ### 5.1 La cause mesurée
 
@@ -338,9 +353,10 @@ mesure**, pas par l'intuition :
 | **INV-43** | Les compteurs A, B, C ne remontent jamais au-dessus du plancher enregistré. |
 | **INV-44** | `⋃ deckt(questions issues d'un découpage) === deckt(question d'origine)` — aucune `ProbeId` perdue ni dupliquée. |
 | **INV-45** | Aucune `variante` non résolue n'atteint l'écran, sur les 130 cas. |
-| **INV-46** | Toute sonde dont le `frage` déclenche un `TEXT_RE` du lexique étendu déclare `sucht`. |
+| **INV-46** | Toute sonde dont le `frage` déclenche un `TEXT_RE` du lexique étendu déclare `sucht`. *Remplacé par INV-79 (amendement K).* |
 | **INV-47** | `checkFrageOrdnung.mjs` n'est **jamais** une porte bloquante : son job CI porte `|| true`. Test sur le workflow. |
 | **INV-48** | Profondeur de `nachfragen` ≤ 2. |
+| INV-77 → INV-90 | Moteur de cohérence — §10.9. (INV-49 est libre, mais INV-50 à INV-76 sont pris par d'autres contrats : la suite reprend à 77.) |
 
 ---
 
@@ -407,3 +423,446 @@ la qualité :
 4. **Le dossier d'analyse §1.3 saute le point 4** de sa propre énumération
    (1, 2, 3, 5). Aucun contenu manquant repéré ailleurs ; signalé pour que
    personne ne cherche une consigne absente.
+
+---
+
+## 10. Amendement K — le moteur de cohérence (4 oct. 2026)
+
+> ADR-0023 · spec `docs/superpowers/specs/2026-10-04-moteur-coherence-anamnese.md`
+> (mesure : 130 cas, 8 492 questions affichées). Écrit par `platform-architect`.
+> Aucun code n'est écrit ici : ce qui suit est opposable aux lots K0–K5.
+
+### 10.0 Décisions de la direction — DÉCIDÉES le 4 oct. 2026
+
+| # | Décision | Où elle s'applique |
+|---|---|---|
+| **D1** | Un signe cité dans une énumération compte comme demandé. | règle d'identité (c), §10.1 ; `relu` §10.2 |
+| **D2** | Une douleur dans le **premier** symptôme du motif ajoute Ort, Charakter, Intensität même si la nature du cas n'est pas « douleur » ; pas une douleur accessoire. | tag `schmerz` déclaré, §10.3 ; r3 |
+| **D3** | Une redite marquée `deepens` n'est plus tolérée : un signe, une question. | r2 ; `checkPlayedTrame` perd sa tolérance |
+| **D4** | Conservation : question du cas > Fachanamnese > Aktuelle Beschwerden > végétative. | rang de r2, §10.4 |
+| **D5** | Fach Infektiologie (gabarit borréliose) : le moteur la réduit d'abord, pas de scission. | r1 |
+| **D6** | Q3–Q5 et Q7 continuent en déclarant `sucht` sur ce qu'ils touchent ; Q6 et Q8 gelés jusqu'à K3. | §10.10 |
+| **D7** | Porte à 0 sur la trame jouée **après** montage dès K3 ; plancher (qui ne remonte jamais) sur le contenu brut jusqu'à K4. | §10.6 |
+
+### 10.1 Le lexique de signes
+
+`Signe` remplace `Symptom` dans `app/src/data/guides/symptoms.ts` (un seul
+lexique ; `type Symptom = Signe` reste comme alias déprécié jusqu'à K5).
+
+```ts
+export type Signe =
+  // les 11 dimensions de plainte, dans l'ordre de l'entretien
+  | 'ort' | 'beginn' | 'charakter' | 'intensitaet' | 'ausstrahlung' | 'verlauf'
+  | 'ausloeser' | 'einfluss' | 'frueher' | 'begleit' | 'gelenke'
+  // les 39 concepts actuels, affinés là où une réplique se dédouble
+  | 'stuhl' | 'stuhlfrequenz' | 'stuhlaussehen' | 'miktion' | 'polyurie' | …
+  // ajoutés par K0/K1 (liste fermée, chaque ajout commenté)
+  | 'steifigkeit' | 'gelenk_entzuendung' | 'meningismus' | 'fazialis' | 'zecke'
+  | 'erythem_ring' | 'essen_expo' | 'gicht' | 'nierensteine' | 'familie_rheuma' | …;
+
+export type ProfilTag = LeitsymptomKategorie          // les 10 natures sont des tags
+  | 'diarrhoe' | 'reise' | 'arthritis' | 'generalisiert' | 'dysphagie' | …; // liste fermée, commentée
+
+export interface SigneDef {
+  id: Signe;
+  kapitel: KapitelId;                         // chapitre où il se cherche (r3, r4)
+  pertinence: 'screening' | [ProfilTag, ...ProfilTag[]];
+  bank?: ProbeId;                             // sonde canonique (r3) — requise si le signe est exigible
+}
+export const SIGNE_DEF: Record<Signe, SigneDef>;
+export const SIGNES: readonly Signe[];        // ordre de déclaration = ordre de l'entretien
+export const PROFIL_EXIGE: Record<ProfilTag, Signe[]>;            // 'schmerz' → ort, charakter, intensitaet
+export const PROFIL_EXCLUT: Partial<Record<ProfilTag, Signe[]>>;  // 'generalisiert' → ausstrahlung
+```
+
+*Écart volontaire à la spec §3.1* : la spec écrit `screening?: true` et
+`braucht?: ProfilTag[]` (deux champs optionnels). Le contrat écrit **un** champ
+`pertinence`. Le compilateur garantit ainsi qu'un signe est l'un ou l'autre, et
+le mot `braucht` garde un seul sens, l'ordre (§10.2).
+
+**Règle d'identité (opposable).** *Deux questions cherchent le même signe si
+et seulement si la fiche y répondrait par la même réplique.* Corollaires :
+
+- (a) **granularité** : une question qui obtient une autre réplique cherche un
+  autre signe. « Was hat sich am Stuhl verändert » (`stuhl`) n'est pas
+  « Wie oft » (`stuhlfrequenz`) ;
+- (b) **même signe, autres mots** : « Wie lange sind Sie morgens steif » et
+  « Morgensteifigkeit ? » cherchent tous deux `steifigkeit` ;
+- (c) **D1** : une énumération cherche **chaque** signe qu'elle nomme.
+  « Haben Sie Fieber, Augenentzündungen… ? » cherche `fieber` ;
+- (d) une **dimension** dont l'objet est le motif cherche la dimension, pas le
+  symptôme. « Seit wann haben Sie Fieber? » cherche `beginn` ;
+- (e) un antécédent ou un fait familial est un autre signe que le symptôme
+  actuel (`familie_rheuma`, `gicht`) ;
+- (f) les exemples d'un Auslöser (« — ein Essen, eine Reise ») ne sont pas
+  demandés.
+
+**Cohérence statique du lexique** (INV-77) :
+- chaque signe a un `SIGNE_DEF` ;
+- un signe exigible (présent dans une valeur de `PROFIL_EXIGE`) a une `bank` ;
+  `PROBE_SUCHT[bank]` vaut **exactement** `[signe]`, et le `kapitel` de la
+  `bank` n'est ni `fach` ni `frauenanamnese` (son chapitre existe dans toute
+  trame) ;
+- `PROFIL_EXIGE[t]` ne contient que des signes pertinents pour `t` (screening,
+  ou `t ∈ pertinence`) et aucun signe de `PROFIL_EXCLUT[t]`.
+
+Ces trois conditions rendent `cohere` idempotente : ce que r3 ajoute, ni r1 ni
+r2 ne peut le retirer au passage suivant.
+
+### 10.2 `sucht` obligatoire — sonde, question du cas, relance
+
+| Porteur | Déclaration | Lieu | Échéance bloquante |
+|---|---|---|---|
+| Sonde | `PROBE_SUCHT: Record<ProbeId, [Signe, ...Signe[]]>` — **totale** (230/230 ; 82 aujourd'hui) | bundle | K1 |
+| Relance d'une sonde | `followUp?: Array<string \| { text: string; sucht: [Signe, ...Signe[]] }>` (aussi dans `parts[].followUp`) ; `string` = muette, comptée | bundle | K1 (sondes) |
+| Question du cas | `CaseQuestion.sucht: [Signe, ...Signe[]]` (36/865 aujourd'hui) | contenu | plancher jusqu'à K4, requis au type à K5 |
+| Relance d'une question du cas | `CaseQuestion.followUpSucht?: [Signe, ...Signe[]]` — **champ séparé**, `followUp` reste une `string` | contenu | idem |
+| Ordre | `CaseQuestion.braucht?: [Signe, ...Signe[]]` ; sur une sonde : `PROBE_BRAUCHT: Partial<Record<ProbeId, Signe[]>>` | les deux | K4 |
+
+- **Pourquoi `followUpSucht` à part** : les questions du cas voyagent dans le
+  contenu publié (`content_items.payload`). Un client ancien lit
+  `followUp.trim()` (`followUp.ts:30`). Un objet à la place de la chaîne le
+  ferait planter, alors qu'un champ de plus est ignoré. Les sondes vivent dans
+  le bundle et n'ont pas cette contrainte.
+- **`relu`** ne dispense plus de `sucht`. Il marque une **discordance
+  voulue** : le texte nomme un signe que `sucht` ne porte pas, parce qu'il le
+  mentionne sans l'interroger (« rheumatisches Fieber » en Vorerkrankung, le
+  motif rappelé). Une énumération n'est jamais `relu` (D1).
+- **Discordance = échec** : si un `TEXT_RE` du lexique trouve un signe absent
+  de `sucht` et que `relu` n'est pas posé, la porte échoue. C'est l'extension de
+  `checkTrameSymptoms` à tout signe qui a un motif de texte.
+- **Une relance précise sa mère** : `relance.sucht ⊆ mère.sucht`. Sinon r4.
+- **`braucht`** est en `Signe[]`, pas en `FrageId[]` comme l'écrivait le §1 :
+  une question nommée peut être retirée par r2 au profit d'une autre qui
+  cherche le même signe. La dépendance porte sur l'information, pas sur la
+  phrase.
+
+### 10.3 Le profil clinique du cas
+
+```ts
+export interface Profil {
+  tags: [ProfilTag, ...ProfilTag[]];        // non vide
+  exige?: Signe[];                          // en plus de PROFIL_EXIGE[tags]
+  exclut?: Partial<Record<Signe, string>>;  // signe → raison écrite (obligatoire, non vide)
+}
+// PatientSheet.profil?: Profil — optionnel AU TYPE (contenu ancien), exigé PAR LA PORTE dès K2.
+```
+
+**Profil effectif**, calculé au montage et jamais écrit :
+
+```
+tags_eff   = profil.tags ∪ { leitsymptomOf(c) }      // la nature est le seul tag dérivé
+exige_eff  = ⋃ PROFIL_EXIGE[t ∈ tags_eff] ∪ profil.exige
+exclut_eff = clés(profil.exclut) ∪ ⋃ PROFIL_EXCLUT[t ∈ tags_eff]
+valide     ⇔ exige_eff ∩ exclut_eff = ∅
+```
+
+| Élément | Origine |
+|---|---|
+| tag de la nature (`leitsymptomKategorie`, ou `schmerz` par défaut) | **dérivé** (`leitsymptomOf`, existant) |
+| tous les autres tags, dont `schmerz` d'un motif mixte (D2) | **déclaré à la main**, pré-rempli par `measureCoherence.mjs --propose` (motif, `begleitsymptome`, bloc `schmerz`, soupçon, DD, négations), relu par spécialité |
+| `exige`, `exclut` et leurs raisons | **déclarés à la main**, relus |
+| `aktuellSkip`, `fachSkip` | **gelés** : appliqués par r1 et journalisés (`cause: 'skip'`), sans nouvelle entrée (compteur au plancher). Un nouveau cas utilise `exclut`. La réponse d'une sonde `fachSkip` reste exigée (sémantique inchangée, `types.ts:94-99`). |
+
+D2 ne se dérive pas. `leitsymptome[0]` est souvent **une** phrase qui porte
+plusieurs symptômes. Celui de `case-influenza` contient « Kopf- und
+Gliederschmerzen », une douleur accessoire selon D2. Le tag `schmerz` d'un motif
+mixte est donc un jugement clinique **déclaré**, que la proposition mécanique
+suggère.
+
+### 10.4 `cohere` — les quatre règles
+
+```ts
+// app/src/data/guides/coherence.ts (nouveau) ; appelé par playedTrame à la place de dedupeBySymptom
+export function cohere(
+  trame: TrameChapter[],              // la trame brute, ordonnée (Fach insérée après 'aktuell')
+  profil: ProfilEffectif | undefined, // undefined = contenu sans profil (§10.8)
+  caseId: string,
+): { trame: TrameChapter[]; journal: JournalEntry[] };
+// playedTrame(c) gagne un champ additif : { chapters, fach?, journal }
+```
+
+**Vocabulaire.**
+- Une **unité** est une question mère et ses relances. Les signes d'une unité
+  sont le `sucht` de la mère.
+- Le **rang** de conservation suit D4 :
+  - 0 : question du cas, quel que soit son chapitre ;
+  - 1 : Fach ;
+  - 2 : `aktuell` ;
+  - 3 : `vegetativ` ;
+  - 4 : les autres chapitres. Ce rang est une extension du contrat, hors D4.
+- Une sonde `redundant: true` prend le rang de sa `deepens` + 0,5 : elle cède à
+  la version générale, qu'elle déclare plus riche (voir §11.6).
+- L'**identifiant** d'une question est :
+  - pour une sonde, son `probeId` ;
+  - pour une question du cas, `cas:<index dans caseSpecificQuestions>` ;
+  - pour une relance, `<id mère>#<rang>`.
+- La **règle d'insertion** sert à r3 et r4. Dans le chapitre cible, on insère
+  après la dernière question dont le premier signe précède le signe inséré
+  dans `SIGNES`. À défaut, on insère en tête du chapitre.
+
+**Ordre d'exécution, en une passe** : r1 → r4a → r2 → r3 → r4b. Les relances
+sont détachées avant r2, pour qu'elles concourent au rang de leur origine.
+
+| Règle | Décision déterministe | Journal |
+|---|---|---|
+| **r1 — hors profil** | Un signe `s` est hors profil si `s ∈ exclut_eff`, ou si `pertinence(s) ≠ 'screening'` et `pertinence(s) ∩ tags_eff = ∅`. Pour chaque question **et** chaque relance : si tous ses signes sont hors profil, elle est retirée ; si une partie l'est, elle est réduite aux `parts` dont le `sucht` n'est pas inclus dans les signes hors profil ; sans `parts`, elle est **gardée entière** (résidu). Une sonde de `aktuellSkip` / `fachSkip` est retirée. | `retire` / `reduit` / `non-reduit`, `cause: 'profil' \| 'exclut' \| 'skip'` |
+| **r4a — relances** | Une relance dont le `sucht` n'est pas inclus dans celui de sa mère : si elle est **inconditionnelle** (`parseFollowUp(...).kind === 'immer'`), elle est **détachée** et devient une question du chapitre `SIGNE_DEF[premier signe].kapitel`, placée par la règle d'insertion, au rang de son origine. Si elle est **conditionnelle** (`Falls …:`), elle reste en place et devient une **anomalie**, parce qu'on ne peut pas lever sa condition sans réécrire le texte. | `detache` (`de`, `vers`) / `anomalie` |
+| **r2 — un signe, une question (D3, D4)** | Pour chaque signe cherché par au moins deux unités, le **gagnant** est l'unité de rang minimal. À rang égal, c'est la première dans l'ordre de la trame. Les perdantes perdent ce signe : retrait, réduction par `parts`, ou `non-reduit` sans `parts`. Une question du cas gagnante prend la place de la première perdante du **même chapitre** placée au-dessus d'elle (comportement de `symptoms.ts:215-233` conservé). Une entrée de `COHERENCE_ALLOWED` (r2) garde le signe sur la question nommée. | `retire` / `reduit` / `non-reduit` (`cause` = id du gagnant) ; `deplace` pour la prise de place ; `garde-exception` |
+| **r3 — rien d'attendu absent** | Pour chaque `s ∈ exige_eff` qu'aucune unité ne cherche, la sonde `SIGNE_DEF[s].bank` est insérée dans `SIGNE_DEF[s].kapitel` par la règle d'insertion. Elle est ajoutée même si la fiche n'a pas de réponse (`antworten[bank]` absent) : l'entrée est alors marquée `sansReponse` (résidu). **Jamais de texte inventé** : seule une sonde de la banque entre. | `ajoute`, `cause` = tag ou `'exige'` |
+| **r4b — ordre sans présupposition** | Pour chaque question à `braucht`, dans l'ordre de la trame : si un signe de `braucht` n'est cherché que **plus bas**, la question est déplacée juste après la dernière des premières questions qui cherchent ces signes. Un signe de `braucht` cherché nulle part, ou un cycle, est une anomalie. On itère jusqu'au point fixe, en au plus *n* passes ; une question ne se déplace qu'une fois par passe. | `deplace` (`de`, `vers`, `cause` = signe) / `anomalie` |
+
+**Propriétés (opposables).**
+- **Pure** : aucune entrée mutée, ni `Date`, ni hasard, ni E/S. Seuls les
+  tables statiques du lexique et `COHERENCE_ALLOWED` sont lus.
+- **Déterministe** : la même entrée donne la même trame et le même journal,
+  ordre compris.
+- **Idempotente** : `cohere` appliquée à sa propre sortie rend une trame égale
+  et un journal sans aucune entrée `retire`, `reduit`, `ajoute`, `deplace` ou
+  `detache`.
+- **Sans texte inventé** : on retire, on réduit par `parts` rédigés à la main,
+  on ajoute une sonde de la banque.
+- **Ne touche jamais `antworten`** : le simulant peut toujours répondre à une
+  question retirée.
+
+### 10.5 Le journal de cohérence
+
+```ts
+export type JournalAction = 'retire' | 'reduit' | 'non-reduit' | 'ajoute' | 'deplace'
+  | 'detache' | 'garde-exception' | 'anomalie' | 'profil-absent';
+export interface JournalEntry {
+  regle: 0 | 1 | 2 | 3 | 4;        // 0 = profil absent
+  action: JournalAction;
+  question: string;                // identifiant §10.4
+  signes: Signe[];                 // signes concernés par l'action
+  cause?: string;                  // id gagnant (r2), tag / 'exige' (r3), signe (r4b), 'profil' / 'exclut' / 'skip' (r1)
+  de?: KapitelId; vers?: KapitelId;
+  sansReponse?: true;              // r3 : la fiche n'a pas la réponse
+  raison: string;                  // phrase française, gabarit fixe par (regle, action)
+}
+```
+
+- **Complet** (INV-87) : tout écart entre trame brute et trame jouée (question
+  absente, réduite, ajoutée, déplacée, détachée) a **exactement une** entrée.
+  Une entrée sans écart n'existe que pour `garde-exception`, `anomalie` et
+  `profil-absent`.
+- **Lisible** : `node scripts/checkCoherence.mjs --case <id>` affiche la trame
+  jouée suivie du journal. En dev, l'affichage sous le guide d'anamnèse est
+  **permis** ; le rendu est une décision du pôle Expérience.
+- Exemple (r1) : `RETIRÉ fach-infekt-neuro : meningismus, fazialis — hors profil (tags : schmerz, diarrhoe, reise)`.
+
+### 10.6 La porte `checkCoherence.mjs`
+
+Elle tourne dans le job `contrats`, **après** `checkTrameSymptoms`, sur le
+montage réel des 130 cas. Elle est **bloquante** : son job ne porte pas
+`|| true`, au contraire d'INV-47. Exit ≠ 0 ferme la porte.
+
+**Après montage (D7) — 0 dès K3 :**
+
+| Compteur | Définition |
+|---|---|
+| `doublons` | signes cherchés par ≥ 2 unités de la trame jouée, hors `garde-exception` et hors perdantes `non-reduit` (comptées en résidu) |
+| `horsProfil` | signes hors profil encore cherchés, hors `non-reduit` (résidu) et hors exceptions |
+| `exigeAbsent` | `s ∈ exige_eff` cherché par aucune unité |
+| `relancesOrphelines` | anomalies r4a : relance conditionnelle hors signe de sa mère |
+| `brauchtViole` | anomalies r4b, plus toute question placée avant un de ses `braucht` |
+
+**Structure** : lexique cohérent (INV-77, dès K0) ; `PROBE_SUCHT` total
+(INV-79, dès K1) ; profil présent et valide sur les 130 cas (INV-80, dès K2).
+
+**Avant montage — plancher** : `app/scripts/fixtures/coherence-budget.json`,
+enregistré dans `checkBudgetFloor.mjs`. Les valeurs initiales sont mesurées par
+K0. Aucun compteur ne remonte ; le correcteur met le fichier à jour dans le
+**même commit** que sa correction.
+
+```json
+{
+  "mesureLe": "<K0>", "cas": 130,
+  "brut":  { "doublons": 0, "horsProfil": 0, "exigeAbsent": 0, "relancesOrphelines": 0, "brauchtViole": 0 },
+  "residu": { "questionsMuettes": 0, "relancesMuettes": 0, "nonReduit": 0,
+              "ajouteSansReponse": 0, "skips": 0, "casRetiresParR1": 0 },
+  "allowed": []
+}
+```
+
+- `brut` est la dette de contenu : combien de corrections le moteur fait. Le
+  moteur corrige l'affichage ; ce compteur pousse à corriger la **source**.
+- `residu` doit atteindre **0 à la fin de K4**. À K5, il devient bloquant à 0
+  et `CaseQuestion.sucht` devient requis au type. `casRetiresParR1` compte une
+  question du cas retirée par r1 : c'est une erreur de source, puisqu'elle a été
+  écrite pour ce patient, donc le profil ou `sucht` est faux.
+- **Hausse de mesure** : quand une déclaration remplace la lecture du texte, un
+  doublon jusque-là invisible devient visible. La hausse est acceptée en revue,
+  avec sa raison écrite dans le fixture, comme pour l'atomicité (§3.4).
+
+**Exceptions** — `COHERENCE_ALLOWED`, dans `app/src/data/guides/coherence.ts`.
+Elles vivent dans `src` parce que `cohere` les lit à l'exécution : la red flag
+voulue doit rester affichée.
+
+```ts
+export const COHERENCE_ALLOWED: ReadonlyArray<{
+  caseId: string; question: string; signe: Signe; regle: 1 | 2;
+  raison: string; relecteur: string;   // non vides
+}>;
+```
+
+- Le script échoue :
+  - sur une entrée sans `raison` ou sans `relecteur` ;
+  - sur une entrée **périmée**, qui ne correspond à aucune action que `cohere`
+    ferait sans elle ;
+  - si la liste grossit sans entrée datée au fixture (`allowed` : id, date, raison), même règle
+    qu'`ALLOWED_COMPOSED`.
+- Ajout réservé à la direction (spec §3.6).
+- **Entrée initiale imposée** : l'exception « douleur testiculaire »
+  (`anamneseChapters.ts:1855-1858`, revue clinique C-1).
+  `fach-uro-flanke` ne dit pas où irradie une douleur du testicule, donc
+  `akt-ausstrahlung` reste. Elle migre du code vers la liste, une entrée par
+  cas concerné.
+
+`checkPlayedTrame` (lexical, tolérance `deepens` **retirée**, D3) reste en
+filet secondaire. `checkProbeOverlap` et `checkQuestionOrder` restent
+informatifs.
+
+### 10.7 Le pipeline de création d'un futur cas
+
+1. **Déclarer.** L'auteur écrit `profil` (tags, `exige`, `exclut` et ses
+   raisons) et, sur chaque question du cas, `sucht`, éventuellement
+   `followUpSucht` et `braucht`. `node scripts/measureCoherence.mjs --propose
+   --case <id>` pré-remplit, et l'auteur accepte ou corrige dans la source.
+2. **Lire le journal.**
+   `node scripts/checkCoherence.mjs --case <id>` affiche la trame jouée et
+   le journal. Ce que le journal révèle, l'auteur le corrige dans la source :
+   - une question du cas retirée ;
+   - une sonde ajoutée `sansReponse` : il faut écrire la réponse dans
+     `antworten` ;
+   - un `non-reduit` : il faut écrire des `parts` ;
+   - une anomalie.
+3. **Relire.** Le relecteur clinique lit le journal de tout nouveau cas, et
+   1 cas sur 5 d'un lot de reprise.
+4. **Porte.** Le cas n'entre que si `checkCoherence` passe (CI identique). Un
+   futur cas ne peut pas entrer avec une question muette, sans profil, avec une
+   sonde exigée sans réponse, ou avec une entrée `brut` qui fait remonter le
+   plancher.
+
+L'inscription de cette étape dans `app/scripts/PIPELINE.md` et dans l'agent
+`content-case-author` est **hors du périmètre de ce contrat**. C'est une
+proposition au coordinateur, à réaliser en K5.
+
+### 10.8 Compatibilité avec le client existant
+
+- **Aucun changement de schéma SQL ni de protocole de sync.** Les cas voyagent
+  en `content_items.payload` (`jsonb`). `profil`, `sucht`, `followUpSucht` et
+  `braucht` sont des champs **additifs**, qu'un client ancien ignore.
+- **Contenu ancien, client nouveau** (cache hors-ligne d'avant K2) : `profil`
+  absent ⇒ `cohere` n'applique **ni r1 ni r3**. Elle écrit une entrée
+  `profil-absent` et applique r2 et r4. Aucun retrait massif sur un appareil
+  qui n'a pas encore tiré le contenu. Une question du cas sans `sucht` est
+  invisible à r2, comme aujourd'hui.
+- `playedTrame` garde sa forme et gagne `journal`. Le guide et le focus ne
+  changent pas de point d'entrée.
+- Le Rollenskript et `antworten` ne sont pas touchés (§10.4).
+- *Non vérifié* : sur `main`, aucun module de `app/src` n'appelle
+  `content_since` (grep vide au 4 oct.). Les cas semblent servis par le bundle,
+  et la clause « contenu ancien » protège le futur tirage de contenu, pas le
+  présent.
+
+### 10.9 Invariants
+
+| Id | Propriété | Mutation qui doit la faire rougir |
+|---|---|---|
+| **INV-77** | Lexique cohérent (§10.1) : `SIGNE_DEF` total ; tout signe exigible a une `bank` mono-signe hors `fach` / `frauenanamnese` ; `PROFIL_EXIGE[t]` pertinent pour `t` et disjoint de `PROFIL_EXCLUT[t]`. | ajouter `'stuhl'` à `PROBE_SUCHT[bank de stuhlfrequenz]` ; mettre `ort` dans `PROFIL_EXIGE['generalisiert']` |
+| **INV-78** | Discrimination de la granularité : `akt-ausscheid-was` ≠ `akt-ausscheid-haeufigkeit` ; `polyurie` ≠ `miktion` ; `schwaeche` ≠ fatigue ; `taubheit` ≠ `fach-ortho-cauda` ; et `fach-rheuma-morgensteifigkeit` = CAS « morgens steif » (fibromyalgie). | fusionner `stuhlfrequenz` dans `stuhl` : `akt-ausscheid-haeufigkeit` disparaît de `case-gastroenteritis` |
+| **INV-79** | Toute question jouable déclare un `sucht` non vide : sondes 230/230 (dès K1), questions du cas et relances (plancher, puis K5). Texte ↔ déclaration discordant ⇒ `relu`. Remplace INV-46. | retirer une entrée de `PROBE_SUCHT` ; retirer `fieber` du `sucht` de `fach-rheuma-systemisch` |
+| **INV-80** | Tout cas a un `profil` valide : tags non vides et connus, `exige_eff ∩ exclut_eff = ∅`, toute raison d'`exclut` non vide. | supprimer `profil` de `case-gastroenteritis` ; `exclut: { ort: '' }` |
+| **INV-81** | **Pas deux questions du même signe** dans la trame jouée. Le gagnant est celui de D4, sauf exception ou résidu `non-reduit`. | désactiver r2 ; rétablir la tolérance `deepens` : `case-fibromyalgie` repose `verlauf` ×3 ; inverser les rangs Fach / `aktuell` : `akt-verlauf` gagne contre `fach-rheuma-verlauf` |
+| **INV-82** | **Aucune question hors profil** dans la trame jouée, sauf exception ou résidu. | désactiver r1 : `akt-ausscheid-schlucken` revient dans `case-gastroenteritis`, « Welche Gelenke » dans `case-fibromyalgie` |
+| **INV-83** | **Tout signe exigé par le profil est demandé.** | désactiver r3, ou retirer le tag `schmerz` (D2) : `case-gastroenteritis` perd Ort, Charakter, Intensität |
+| **INV-84** | **Toute relance conditionnelle porte sur le signe de sa mère** (`sucht ⊆ mère.sucht`). Une relance inconditionnelle hors signe est détachée. | remettre « Gibt es in Ihrer Familie Rheuma oder Gicht? » en relance `Falls ja:` de `fach-rheuma-vorgeschichte` |
+| **INV-85** | **Aucune question n'utilise un antécédent avant la question qui l'introduit** : aucune question n'est placée avant un de ses `braucht` (« dort », « damals », pronom). | déclarer `braucht: ['reise']` sur le CAS « dort gegessen » et désactiver r4b |
+| **INV-86** | **`cohere` est pure, déterministe et idempotente** : même entrée, même trame et même journal, en ordre et en valeur ; entrée gelée en profondeur et intacte ; `cohere(cohere(t))` sans action. | trancher les égalités par `Math.random` ou l'ordre d'un `Set` non trié ; muter `trame` en place ; ajouter par r3 une sonde de `bank` multi-signe |
+| **INV-87** | **Journal complet** : tout écart brut → joué a exactement une entrée avec `regle` et `raison` non vide. | retirer une question sans écrire au journal ; écrire deux entrées pour un même retrait |
+| **INV-88** | **Aucune réponse de fiche perdue** : `cohere` ne modifie jamais `antworten` ; tout signe qu'une question retirée par r2 cherchait reste porté par une question gardée ; toute sonde ajoutée par r3 a sa réponse (plancher `ajouteSansReponse`, bloquant à K5, `checkProbeCoverage`). | exécuter r2 avant r1, si bien que le gagnant est retiré et son signe orphelin ; filtrer `antworten` dans le montage |
+| **INV-89** | La porte est bloquante (pas de `\|\| true`), les 5 compteurs après montage valent 0 dès K3, le plancher `brut` / `residu` ne remonte jamais, et `COHERENCE_ALLOWED` n'a ni entrée sans raison ni entrée périmée. | ajouter `\|\| true` au job ; augmenter un compteur du fixture ; ajouter une exception sans `raison` |
+| **INV-90** | Contenu sans `profil` : r1 et r3 sont inactives, une entrée `profil-absent` est écrite, r2 et r4 s'appliquent. | supprimer `profil` d'une fixture de cas : aucune question retirée pour « hors profil » |
+
+### 10.10 Tests de contrat à écrire
+
+| Fichier | Lot | Prouve |
+|---|---|---|
+| `app/src/data/guides/symptoms.test.ts` (étendu) | K0–K1 | INV-77, INV-78, INV-79 (sondes) |
+| `app/scripts/measureCoherence.mjs` (pérennise `measure.mjs`) | K0 | reproduit les chiffres de la spec §2 ; `--propose` |
+| `app/src/data/guides/coherence.test.ts` | K3 | INV-81 à INV-88 et INV-90, sur fixtures **et** sur `case-gastroenteritis` / `case-fibromyalgie` réels (les deux trames de la spec §3.3 attendues ligne à ligne) ; idempotence et pureté (entrée `structuredClone` + `deepFreeze`) |
+| `app/src/data/guides/coherence.fachCovers.test.ts` | K3 | **non-régression `FACH_COVERS`** : pour chaque paire de la carte actuelle, la sonde de variante est retirée par r2 sur les cas qui jouent la Fach. Sinon l'écart est listé au rapport K3 avec sa raison. La carte est absorbée, pas perdue. |
+| `app/scripts/checkCoherence.mjs` | K0 (informatif) → K3 (bloquant après montage) → K5 (résidu bloquant) | INV-80, INV-89 ; `--case <id>` |
+| `app/scripts/checkBudgetFloor.mjs` | K0 | enregistre `coherence-budget.json` |
+| `.github/workflows/quality.yml` | K0 / K3 | ordre `checkTrameSymptoms` → `checkCoherence` ; pas de `\|\| true` à partir de K3 |
+
+**D6** : Q3–Q5 et Q7 continuent. Toute question qu'ils touchent porte `sucht`,
+ce que le compteur `questionsMuettes` vérifie : il ne remonte pas. Q6 et Q8 ne
+s'ouvrent pas avant le merge de K3.
+
+### 10.11 Ce que la porte ne voit pas
+
+- **La justesse d'une déclaration.** Un `sucht` faux ou un profil faux passe
+  la porte. Seule la relecture clinique les attrape (relecture du journal,
+  §10.7).
+- **L'anaphore non déclarée.** Une question qui dit « dort » sans `braucht`
+  n'est vue que par le détecteur de texte, qui reste informatif (INV-47,
+  précision ~55 %).
+- **La qualité d'une sonde de la banque** ajoutée dans un cas qu'elle ne
+  connaît pas. La règle 5 (variante résolue) s'applique toujours.
+
+---
+
+## 11. Contradictions relevées — amendement K
+
+1. **`symptoms.ts:16-19` contredit D1.** Le code écrit : « une question qui
+   ne fait que citer un symptôme parmi d'autres signes (« Fieber,
+   Augenentzündung, Geschwüre… » en rhumato) n'est pas une question sur ce
+   symptôme ». La direction a tranché l'inverse. **Tranché par D1** : le
+   commentaire et le choix tombent en K1, et `fach-rheuma-systemisch`,
+   `akt-infekt-herd` et `akt-begleit` reçoivent `sucht` et des `parts`.
+2. **`checkPlayedTrame.mjs:60-62` tolère `deepens`** (« Une Fach approfondit
+   une question générale par contrat : toléré »), comme le faisait
+   `AnamneseProbe.deepens` (« On ne supprime pas la question »,
+   `anamneseProbes.ts:26-32`). **Tranché par D3** : la tolérance est retirée.
+   Les badges « ↗ approfondit / ↻ déjà demandé » (`PhraseLine.tsx:81-84`)
+   n'ont plus d'objet ; c'est une proposition au pôle Expérience.
+3. **`FACH_COVERS` (`anamneseChapters.ts:419-456`) est absorbé par r2.** Son
+   commentaire (`:415-418`) laisse la fièvre à « Aktuelle Beschwerden » quand le
+   motif est la fièvre. Sous D4, `fach-infekt-fieber` (rang 1) l'emporte sur
+   `akt-infekt-fieber` (rang 2). **Changement de comportement assumé** : la
+   Fach suit immédiatement `aktuell`, et la version Fach est la plus riche
+   (hauteur, durée, schübe). L'exception testiculaire (`:1855-1858`) migre dans
+   `COHERENCE_ALLOWED` (§10.6).
+4. **Le §1 de ce contrat type `braucht?: FrageId[]`, la spec écrit `Signe[]`,
+   et le code n'a aucun `braucht`.** **Tranché ici** (§10.2) : `Signe[]`,
+   parce qu'une question nommée peut être retirée par r2.
+5. **La spec INV-C1 (« `sucht` **ou** `relu` ») contredit le mandat** de
+   rendre `sucht` obligatoire. **Tranché ici** : `sucht` toujours ; `relu`
+   n'est que la marque d'une discordance voulue (§10.2).
+6. **D4 contredit `redundant: true`.** Trois sondes en sont marquées :
+   `fach-chir-fieber`, `fach-chir-uebelkeit` et `fach-chir-blutverduenner`.
+   Elles se déclarent plus pauvres que leur version générale, et
+   `symptoms.ts:205-213` les fait céder. Le rang strict D4 (Fach > végétative)
+   les ferait gagner. **Tranché ici** : elles prennent le rang de leur
+   `deepens` + 0,5 et cèdent, ce qui est le comportement actuel. *Question à la
+   direction* : supprimer plutôt ces trois sondes en K1 ?
+7. **D2 dit « le premier symptôme du motif », mais ce n'est pas un champ.**
+   `leitsymptome[0]` de `case-influenza` porte la fièvre **et** « Kopf- und
+   Gliederschmerzen », la douleur accessoire que D2 exclut. **Tranché ici** : le
+   tag `schmerz` d'un motif mixte est déclaré à la main et relu (§10.3), pas
+   dérivé.
+8. **La spec emploie `braucht` dans deux sens.** `SigneDef.braucht` désigne la
+   pertinence par tag, et `CaseQuestion.braucht` l'ordre. **Tranché ici** : le
+   premier devient `pertinence`.
+9. **La spec rend INV-C7 bloquant** (« toute sonde ajoutée par r3 a sa
+   réponse »), **mais en même temps** elle tolère « sonde ajoutée sans réponse »
+   en résidu jusqu'à K4. **Tranché par D7** : résidu au plancher jusqu'à K4,
+   bloquant à K5 (INV-88).
+10. **Ce contrat a numéroté ses invariants 40–48 ; la suite naturelle INV-49
+    déborde** sur INV-50–76, pris ailleurs (`training-journal.md`,
+    `simulation-run.md`…). Le moteur prend **INV-77 à INV-90**.
+11. **Le décompte du lexique diffère.** La spec compte « les 38 `Symptom`
+    existants », alors que `symptoms.ts` en déclare **39** (16 + 21 + `schub`,
+    `waerme`). Le décompte est sans effet sur la conception ; K0 fera foi.
