@@ -31,20 +31,32 @@ export function axisScores(sims: Simulation[]): Record<Axis, number | null> {
   return out;
 }
 
-/** Ajoute les axes "data-driven" : Fachbegriffe (part maîtrisée) et Fachwissen
- *  (part de cas maîtrisés) pour compléter la heatmap. */
+/** Minimum de cartes déjà vues pour que l'axe Fachbegriffe se prononce. En
+ *  dessous, 4 cartes/jour sur 2 000 ne disent rien de fiable (et un axe sans
+ *  mesure n'est jamais un « point faible »). */
+export const FACHBEGRIFFE_MIN_VUES = 20;
+/** Idem pour l'axe Fachwissen : nombre minimum de cas déjà travaillés. */
+export const FACHWISSEN_MIN_TENTES = 5;
+
+/** Cartes déjà présentées (≠ Neu). `retenues` : la dernière révision a été
+ *  réussie — SM-2 remet `repetitions` à 0 sur une carte ratée. */
+export function fachbegriffeVus(begriffe: Fachbegriff[]): { vues: number; retenues: number } {
+  const vues = begriffe.filter((b) => !isNew(b.srs));
+  return { vues: vues.length, retenues: vues.filter((b) => b.srs.repetitions > 0).length };
+}
+
+/** Ajoute les axes "data-driven" pour compléter la heatmap. Ce sont des axes
+ *  de PERFORMANCE sur ce qui a été travaillé — jamais de couverture du corpus :
+ *  Fachbegriffe = rétention des cartes déjà vues ; Fachwissen = part de cas
+ *  solides parmi les cas déjà travaillés. Sous leur minimum : null. */
 export function axisScoresFull(sims: Simulation[], begriffe: Fachbegriff[], cases: Case[], progress: Map<string, CaseProgress>): Record<Axis, number | null> {
   const base = axisScores(sims);
-  if (begriffe.length) {
-    const learned = begriffe.filter((b) => b.srs.state === 'Gelernt').length;
-    base.Fachbegriffe = Math.round((learned / begriffe.length) * 100);
-  }
-  if (cases.length) {
-    // `Case.status` est déprécié (ADR-0017 §4.1) : la couverture se lit sur
-    // `case_progress`, la seule projection qui dise ce qui a été fait.
-    const solides = cases.filter((c) => (progress.get(c.id) ?? blankProgress(c.id)).overall === 'solide').length;
-    base.Fachwissen = Math.round((solides / cases.length) * 100);
-  }
+  const { vues, retenues } = fachbegriffeVus(begriffe);
+  if (vues >= FACHBEGRIFFE_MIN_VUES) base.Fachbegriffe = Math.round((retenues / vues) * 100);
+  // `Case.status` est déprécié (ADR-0017 §4.1) : la couverture se lit sur
+  // `case_progress`, la seule projection qui dise ce qui a été fait.
+  const travailles = cases.map((c) => (progress.get(c.id) ?? blankProgress(c.id)).overall).filter((o) => o !== 'vierge');
+  if (travailles.length >= FACHWISSEN_MIN_TENTES) base.Fachwissen = Math.round((travailles.filter((o) => o === 'solide').length / travailles.length) * 100);
   return base;
 }
 

@@ -12,7 +12,7 @@ import { useProgramConfig } from '@/hooks/useData';
 import { TEILE } from '@/lib/simScope';
 import { Icon } from '@/components/icons';
 import { AXES } from '@/db/types';
-import { axisScoresFull, specialtyScores, progressSeries, weakCases, weakestAxis } from '@/lib/stats';
+import { FACHBEGRIFFE_MIN_VUES, axisScoresFull, fachbegriffeVus, specialtyScores, progressSeries, weakCases, weakestAxis } from '@/lib/stats';
 import { ScoreBar, EmptyState } from '@/components/ui';
 
 export function StatsPage() {
@@ -104,7 +104,9 @@ export function StatsPage() {
           <h2 className="mb-3 font-semibold">Détail par axe</h2>
           <div className="space-y-3">
             {AXES.map((a) => (
-              <ScoreBar key={a} pct={scores[a] ?? 0} label={a} />
+              scores[a] === null
+                ? <ScoreBar key={a} pct={0} showValue={false} label={`${a} · ${a === 'Fachbegriffe' ? `${fachbegriffeVus(begriffe).vues}/${FACHBEGRIFFE_MIN_VUES} cartes vues` : 'pas encore mesuré'}`} />
+                : <ScoreBar key={a} pct={scores[a]!} label={a} />
             ))}
           </div>
         </section>

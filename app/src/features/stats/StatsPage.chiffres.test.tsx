@@ -56,3 +56,20 @@ describe('BUG-C6-1 — les démos ne sont pas les données du candidat', () => {
     expect(container.textContent).toMatch(/0 simulations complètes · 0 par partie/);
   });
 });
+
+describe('Fachbegriffe — jamais « point faible » par absence', () => {
+  const carte = (i: number, over: object): never => ({ id: `fb${i}`, term: `t${i}`, specialty: 'Kardiologie', pathologyTags: [], centers: [], linkedCaseIds: [], translationSimple: 'x', srs: { interval: 0, easeFactor: 2.5, dueDate: 0, repetitions: 0, lapses: 0, state: 'Neu', ...over } }) as never;
+
+  it('4 cartes vues sur 100 : aucune alerte, et la barre dit combien de cartes manquent', async () => {
+    await db.fachbegriffe.bulkPut(Array.from({ length: 100 }, (_, i) => carte(i, i < 4 ? { state: 'Zu wiederholen', repetitions: 0, lapses: 1 } : {})));
+    await monte();
+    expect(container.textContent).not.toMatch(/Point faible détecté/);
+    expect(container.textContent).toContain('Fachbegriffe · 4/20 cartes vues');
+  });
+
+  it('20 cartes vues, toutes ratées : le point faible est nommé, sur la performance', async () => {
+    await db.fachbegriffe.bulkPut(Array.from({ length: 100 }, (_, i) => carte(i, i < 20 ? { state: 'Zu wiederholen', repetitions: 0, lapses: 1 } : {})));
+    await monte();
+    expect(container.textContent).toMatch(/Point faible détecté : Fachbegriffe \(0%\)/);
+  });
+});
