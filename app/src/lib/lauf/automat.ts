@@ -1,7 +1,7 @@
 import type {
   AssistanceMode, ChecklistItem, Layer, MusterCity, PartResult, SimTeil, SimulationMode,
 } from '@/db/types';
-import { checklistPct, emptyLanguageGrid, languagePct } from '@/lib/scoring';
+import { NOT_ENTERED, checklistPct, emptyLanguageGrid, languagePct } from '@/lib/scoring';
 import { ZUSTAENDE, type Lauf, type LaufTeil, type LaufZustand, type TeilEntwurf } from './types';
 import { now } from '@/lib/clock';
 
@@ -142,7 +142,7 @@ export function setzeChecklistItem(lauf: Lauf, id: string, checked: boolean): La
 }
 
 export function setzeEntwurf(lauf: Lauf, teil: LaufTeil, patch: Partial<TeilEntwurf>): Lauf {
-  const vorher = lauf.entwurf[teil] ?? { grid: emptyLanguageGrid(), feeling: 50, hinweise: 0 };
+  const vorher = lauf.entwurf[teil] ?? { grid: emptyLanguageGrid(), feeling: NOT_ENTERED, hinweise: 0 };
   return { ...lauf, entwurf: { ...lauf.entwurf, [teil]: { ...vorher, ...patch } } };
 }
 
@@ -172,7 +172,7 @@ export function bewerte(lauf: Lauf, teil: LaufTeil): PartResult {
     durationSec: lauf.sekundenProTeil[teil] ?? 0,
     checklist,
     languageGrid: grid,
-    feeling: e?.feeling ?? 50,
+    feeling: e?.feeling ?? NOT_ENTERED,
     contentPct: checklistPct(checklist),
     officialPct: grid ? languagePct(grid) : 0,
     assistanceUsed: lauf.assistance,

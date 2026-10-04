@@ -11,7 +11,7 @@ import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const here = dirname(fileURLToPath(import.meta.url));
-const REL = ['app/scripts/fixtures/atomicity-budget.json', 'app/scripts/fixtures/trame-symptoms-baseline.json', 'app/scripts/fixtures/fach-nature-pairs.json'];
+const REL = ['app/scripts/fixtures/atomicity-budget.json', 'app/scripts/fixtures/trame-symptoms-baseline.json', 'app/scripts/fixtures/fach-nature-pairs.json', 'app/scripts/fixtures/case-question-answers.json'];
 const base = mkdtempSync(join(tmpdir(), 'fsp-floor-'));
 after(() => rmSync(base, { recursive: true, force: true }));
 const write = (edit = (_rel, j) => j) => {
@@ -30,6 +30,13 @@ test('un compteur plus haut que la base → rouge', () => {
   const r = floor();
   assert.equal(r.status, 1);
   assert.match(r.stdout, /A/);
+});
+
+test('Q2 — le plancher des questions du cas sans réponse ne remonte pas → rouge', () => {
+  write((rel, j) => (rel.includes('case-question-answers') ? { ...j, budget: { candidats: j.budget.candidats - 1 } } : j));
+  const r = floor();
+  assert.equal(r.status, 1);
+  assert.match(r.stdout, /candidats/);
 });
 
 test('une annotation relu de plus que la base → rouge', () => {

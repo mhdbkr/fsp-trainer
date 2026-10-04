@@ -99,9 +99,12 @@ export function buildRollenskript(sheet: PatientSheet, caseQuestions: CaseQuesti
     else byId.get(classifyLine(antwort))!.push({ antwort, ord: 999 }); // id inconnu : on n'écarte pas le contenu
   }
   // 2) Répliques ad-hoc éventuelles (hors checklist) — placées après les sondes.
+  const written = new Map<string, RoleLine & { ord: number }>();
   for (const qa of sheet.frageAntworten ?? []) {
     const k = qa.kapitel ?? classifyLine(qa.frage);
-    byId.get(k)!.push({ frage: qa.frage, antwort: qa.antwort, ord: 1000 });
+    const line = { frage: qa.frage, antwort: qa.antwort, ord: 1000 };
+    written.set(qa.frage, line);
+    byId.get(k)!.push(line);
   }
   // 3) Négatifs de dépistage restants (chips « ✗ »).
   for (const neg of sheet.negativeFindings ?? []) {
@@ -113,6 +116,10 @@ export function buildRollenskript(sheet: PatientSheet, caseQuestions: CaseQuesti
   //    simulant doit au moins les VOIR dans son chapitre. La réplique
   //    s'improvise depuis le « coup d'œil » juste au-dessus.
   for (const q of caseQuestions) {
+    // Q2 : une entrée `frageAntworten` au texte exact de la question en EST la réponse
+    // écrite (checkCaseQuestionAnswers) — une seule ligne, la relance la rejoint.
+    const answered = written.get(cqText(q));
+    if (answered) { if (cqFollowUp(q)) answered.nachfrage = cqFollowUp(q); continue; }
     const k = cqKapitel(q);
     byId.get(k === 'fach' ? 'fach' : (k as RolePlayKapitel))?.push({ frage: cqText(q), antwort: '', improvise: true, ...(cqFollowUp(q) ? { nachfrage: cqFollowUp(q) } : {}), ord: 1002 });
   }

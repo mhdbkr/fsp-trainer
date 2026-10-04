@@ -10,7 +10,6 @@ import '@fontsource/ibm-plex-mono/500.css';
 import '@fontsource/ibm-plex-mono/600.css';
 import './styles/index.css';
 import { Shell } from '@/components/Shell';
-import { ensureDemoData } from '@/data/seed';
 import { contentLoader, FirstLoadRequired } from '@/lib/content/loader';
 import { HomePage } from '@/features/home/HomePage';
 import { CasesPage } from '@/features/cases/CasesPage';
@@ -131,7 +130,6 @@ if (AUTH_MODE === 'founder' && !getActiveUserId()) {
     .then(() => loadEntitlements())
     .then(() => { watchEntitlements(); })
     .then(() => contentLoader.sync())
-    .then(() => ensureDemoData())
     // Le plan du jour est materialise ICI, une fois, au demarrage — JAMAIS par
     // un composant (contrat training-journal.md 3.2). AVANT : pull borne (D-I2)
     // et reconstruction du journal (B-C1). Un echec n'empeche pas l'app de

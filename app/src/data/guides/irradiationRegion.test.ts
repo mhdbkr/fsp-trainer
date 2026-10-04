@@ -47,7 +47,13 @@ describe('G1 — garde « territoire ⊂ région » (motiv.region)', () => {
   });
   it('13+ cas déclarent une région et jouent des irradiations (la garde n’est pas vide)', () => {
     expect(avecRegion.length).toBeGreaterThanOrEqual(13);
-    expect(avecRegion.flatMap(irradiations).length).toBeGreaterThanOrEqual(15);
+    expect(avecRegion.flatMap(irradiations).length).toBeGreaterThanOrEqual(14);
+  });
+  it('osteoporose (bws) : une seule question d\u2019irradiation jouée, ouverte', () => {
+    const c = cases.find((x) => x.id === 'case-osteoporose')!;
+    const qs = irradiations(c);
+    expect(qs.map(phraseText)).toEqual(['Strahlen die Schmerzen irgendwohin aus — und wenn ja, wohin?']);
+    expect(nommes(allTexts(qs[0]).join(' '))).toEqual([]);
   });
   it('tout territoire nommé appartient à la région du motif', () => {
     const faux = avecRegion.flatMap((c) => irradiations(c).flatMap((q) => {

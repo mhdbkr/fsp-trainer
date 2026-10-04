@@ -4,8 +4,9 @@ import { ZUSTAENDE, type Lauf, type LaufZustand } from './types';
 import {
   erstelleLauf, transition, istVollstaendig, naechsterTeil, zustandIndex,
   minutenProTeil, checklisteFuer, setzeChecklistItem, setzeEntwurf, tickChrono,
-  erlaubt, simulationBeendbar, type LaufAktion,
+  erlaubt, simulationBeendbar, bewerte, aktualisiereTeil, type LaufAktion,
 } from './automat';
+import { NOT_ENTERED, isEntered, partScore, scoreBasis } from '@/lib/scoring';
 
 // ============================================================================
 // Contrat : docs/contracts/simulation-run.md §2 et §7 (INV-20, 21, 25, 26, 28).
@@ -418,5 +419,24 @@ describe('§3.1 — le brouillon d’évaluation survit', () => {
     l = transition(l, { typ: 'terminerPartie', ergebnis: resultat() });
     expect(l.entwurf.anamnese?.feeling).toBe(72);
     expect(l.teile.anamnese?.hints).toBe(3);
+  });
+});
+
+describe('C6-A — un ressenti jamais touché n\'est pas saisi, quel que soit le chemin du brouillon', () => {
+  it('indice consulté pendant l\'Anamnese (brouillon créé par `hinweise`), bilan sans toucher au ressenti : contenu seul', () => {
+    let l = base({ geplanteTeile: ['anamnese'] });
+    l = setzeChecklistItem(l, 'anam-eroeffnung', true);
+    l = setzeEntwurf(l, 'anamnese', { hinweise: 1 });                 // le guide compte l'indice AVANT le bilan
+    expect(l.entwurf.anamnese!.feeling).toBe(NOT_ENTERED);
+    l = transition(l, { typ: 'terminerPartie', ergebnis: resultat() });
+    const r = bewerte(aktualisiereTeil(l, 'anamnese'), 'anamnese');
+    expect(isEntered(r.feeling)).toBe(false);
+    expect(scoreBasis(r)).toEqual(['contenu']);
+    expect(partScore(r)).toBe(r.contentPct);
+  });
+  it('aucun brouillon du tout : même résultat', () => {
+    const r = bewerte(base({ geplanteTeile: ['anamnese'] }), 'anamnese');
+    expect(r.feeling).toBe(NOT_ENTERED);
+    expect(r.languageGrid && Object.values(r.languageGrid).every((v) => v === NOT_ENTERED)).toBe(true);
   });
 });

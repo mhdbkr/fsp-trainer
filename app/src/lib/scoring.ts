@@ -1,11 +1,12 @@
 import type { Axis, LanguageGrid, PartResult, Simulation, ChecklistItem, AssistanceMode, Layer } from '@/db/types';
 
 // ============================================================================
-// Système d'évaluation hybride (cf. ANALYSE.md §6 + mémoire officielle).
+// Système d'évaluation hybride (cf. ANALYSE.md §6).
 //   1) Checklist de contenu  → contentPct = % de critères cochés
-//   2) Grille de langue "officielle" (5 axes, 0..5) → officialPct
+//   2) Grille de langue Doctopus (5 critères, 0..5) → officialPct (nom historique du champ)
 //   3) Curseur ressenti (feeling 0..100)
-// Verdict officiel: PASS si CHAQUE partie tentée atteint ≥ 60% (règle BW).
+// Verdict : PASS si CHAQUE partie tentée atteint ≥ 60 %. Ce seuil et cette grille
+// sont INTERNES à Doctopus — jamais « ce que le jury note » (garde EXAM_CLAIM).
 // ============================================================================
 
 export const PASS_THRESHOLD = 60;
@@ -18,9 +19,20 @@ export const LANGUAGE_CRITERIA: { key: keyof LanguageGrid; label: string; hint: 
   { key: 'kommunikation', label: 'Kommunikation / Register', hint: 'Patientengerecht, Hörverstehen, gestion du dialogue' },
 ];
 
+/** Valeur d'un curseur que le candidat n'a pas (encore) touché. Un score ne
+ *  contient que ce qui a été saisi : ni 3/5 de langue ni 50 de ressenti offerts.
+ *  `0` reste une note. Une partie enregistrée AVANT cette règle porte de vraies
+ *  valeurs (3, 50…) : elle est lue comme saisie, son score ne bouge pas. */
+export const NOT_ENTERED = -1;
+export const isEntered = (v: number | undefined | null): v is number => typeof v === 'number' && v >= 0;
+
+/** Grille vierge : cinq critères non notés. */
 export function emptyLanguageGrid(): LanguageGrid {
-  return { aussprache: 3, wortschatz: 3, grammatik: 3, redefluss: 3, kommunikation: 3 };
+  return { aussprache: NOT_ENTERED, wortschatz: NOT_ENTERED, grammatik: NOT_ENTERED, redefluss: NOT_ENTERED, kommunikation: NOT_ENTERED };
 }
+
+/** La langue ne compte qu'une fois les cinq critères notés. */
+export const languageGridEntered = (grid?: LanguageGrid): grid is LanguageGrid => !!grid && Object.values(grid).every(isEntered);
 
 export function checklistPct(items: ChecklistItem[]): number {
   if (!items.length) return 0;
@@ -30,22 +42,46 @@ export function checklistPct(items: ChecklistItem[]): number {
 }
 
 export function languagePct(grid?: LanguageGrid): number {
-  if (!grid) return 0;
+  if (!languageGridEntered(grid)) return 0;
   const vals = Object.values(grid);
   const sum = vals.reduce((s, v) => s + v, 0);
   return Math.round((sum / (vals.length * 5)) * 100);
 }
 
-/** Score global d'une partie: 55% contenu + 30% langue + 15% ressenti.
+export type ScoreBasis = 'contenu' | 'langue' | 'ressenti';
+
+/** Ce qui entre RÉELLEMENT dans le score d'une partie : le contenu toujours,
+ *  la langue si les 5 critères sont notés, le ressenti s'il est saisi. */
+export function scoreBasis(p: PartResult): ScoreBasis[] {
+  const out: ScoreBasis[] = ['contenu'];
+  if (languageGridEntered(p.languageGrid)) out.push('langue');
+  if (isEntered(p.feeling)) out.push('ressenti');
+  return out;
+}
+
+/** « contenu seul », « contenu et ressenti », « contenu, langue et ressenti »… */
+export function scoreBasisLabel(basis: ScoreBasis[]): string {
+  if (basis.length === 1) return 'contenu seul';
+  return `${basis.slice(0, -1).join(', ')} et ${basis[basis.length - 1]}`;
+}
+
+/** Score d'une partie : 55 % contenu + 30 % langue + 15 % ressenti, la
+ *  pondération ne s'appliquant qu'à ce qui est saisi (renormalisée). Sans grille
+ *  orale (Dokumentation) : 80 % contenu + 20 % ressenti. Tout saisi = la
+ *  formule historique, au point près.
  *  (La langue est le vrai objet de la FSP, mais le contenu structure la partie.) */
 export function partScore(p: PartResult): number {
-  const content = p.contentPct ?? checklistPct(p.checklist);
-  const lang = p.officialPct ?? languagePct(p.languageGrid);
-  const feel = p.feeling ?? 0;
-  const hasLang = !!p.languageGrid;
-  if (hasLang) return Math.round(content * 0.55 + lang * 0.30 + feel * 0.15);
-  // Dokumentation: pas de grille orale → 80% contenu + 20% ressenti.
-  return Math.round(content * 0.8 + feel * 0.2);
+  const oral = !!p.languageGrid;
+  const contenu = p.contentPct ?? checklistPct(p.checklist);
+  const langue = p.officialPct ?? languagePct(p.languageGrid);
+  const basis = scoreBasis(p);
+  // Tout saisi : la formule historique À L'IDENTIQUE (l'arrondi des cas limites
+  // ne bouge pas d'un point — les scores déjà enregistrés se relisent pareil).
+  if (basis.length === (oral ? 3 : 2)) return Math.round(oral ? contenu * 0.55 + langue * 0.30 + p.feeling * 0.15 : contenu * 0.8 + p.feeling * 0.2);
+  const poids = oral ? { contenu: 55, langue: 30, ressenti: 15 } : { contenu: 80, langue: 0, ressenti: 20 };
+  const valeur = { contenu, langue, ressenti: p.feeling };
+  const total = basis.reduce((s, k) => s + poids[k], 0);
+  return Math.round(basis.reduce((s, k) => s + poids[k] * valeur[k], 0) / total);
 }
 
 export function partPassed(p: PartResult): boolean {

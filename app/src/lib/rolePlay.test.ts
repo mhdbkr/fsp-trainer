@@ -28,6 +28,15 @@ describe('Rollenskript — questions du cas', () => {
     const lines = buildRollenskript(sheet, qs).flatMap((c) => c.lines);
     expect(lines.find((l) => l.frage === 'Haben Sie Fieber?')!.nachfrage).toBeUndefined();
   });
+  it('Q2 : une réponse écrite (frageAntworten au texte exact) remplace la ligne à improviser et garde la relance', () => {
+    const frage = 'Wissen Sie Ihre Blutgruppe?';
+    const withAnswer = { ...sheet, frageAntworten: [{ frage, antwort: 'Ja, A positiv.', kapitel: 'medikamente' }] } as unknown as PatientSheet;
+    const qs: CaseQuestion[] = [{ frage, kapitel: 'medikamente', followUp: 'Falls ja: Seit wann?' }];
+    const lines = buildRollenskript(withAnswer, qs).flatMap((c) => c.lines).filter((l) => l.frage === frage);
+    expect(lines).toHaveLength(1);
+    expect(lines[0]).toMatchObject({ antwort: 'Ja, A positiv.', nachfrage: 'Falls ja: Seit wann?' });
+    expect(lines[0].improvise).toBeUndefined();
+  });
   it('sans questions du cas, le script est inchangé', () => {
     expect(buildRollenskript(sheet).every((c) => c.lines.every((l) => !l.improvise))).toBe(true);
   });

@@ -31,21 +31,44 @@ export function axisScores(sims: Simulation[]): Record<Axis, number | null> {
   return out;
 }
 
-/** Ajoute les axes "data-driven" : Fachbegriffe (part maîtrisée) et Fachwissen
- *  (part de cas maîtrisés) pour compléter la heatmap. */
+/** Minimum de cartes déjà vues pour que l'axe Fachbegriffe se prononce. En
+ *  dessous, 4 cartes/jour sur 2 000 ne disent rien de fiable (et un axe sans
+ *  mesure n'est jamais un « point faible »). */
+export const FACHBEGRIFFE_MIN_VUES = 20;
+/** Idem pour l'axe Fachwissen : nombre minimum de Teile déjà joués (pas de cas :
+ *  un cas n'est « solide » qu'avec ses 3 Teile, jouer un seul Teil ne le sera jamais). */
+export const FACHWISSEN_MIN_TENTES = 5;
+
+/** Cartes déjà présentées (≠ Neu). `retenues` : la dernière révision a été
+ *  réussie — SM-2 remet `repetitions` à 0 sur une carte ratée. */
+export function fachbegriffeVus(begriffe: Fachbegriff[]): { vues: number; retenues: number } {
+  const vues = begriffe.filter((b) => !isNew(b.srs));
+  return { vues: vues.length, retenues: vues.filter((b) => b.srs.repetitions > 0).length };
+}
+
+/** Ajoute les axes "data-driven" pour compléter la heatmap. Ce sont des axes
+ *  de PERFORMANCE sur ce qui a été travaillé — jamais de couverture du corpus :
+ *  Fachbegriffe = rétention des cartes déjà vues ; Fachwissen = part des Teile
+ *  déjà joués qui sont acquis ou solides. Sous leur minimum : null. */
 export function axisScoresFull(sims: Simulation[], begriffe: Fachbegriff[], cases: Case[], progress: Map<string, CaseProgress>): Record<Axis, number | null> {
   const base = axisScores(sims);
-  if (begriffe.length) {
-    const learned = begriffe.filter((b) => b.srs.state === 'Gelernt').length;
-    base.Fachbegriffe = Math.round((learned / begriffe.length) * 100);
-  }
-  if (cases.length) {
-    // `Case.status` est déprécié (ADR-0017 §4.1) : la couverture se lit sur
-    // `case_progress`, la seule projection qui dise ce qui a été fait.
-    const solides = cases.filter((c) => (progress.get(c.id) ?? blankProgress(c.id)).overall === 'solide').length;
-    base.Fachwissen = Math.round((solides / cases.length) * 100);
-  }
+  const { vues, retenues } = fachbegriffeVus(begriffe);
+  if (vues >= FACHBEGRIFFE_MIN_VUES) base.Fachbegriffe = Math.round((retenues / vues) * 100);
+  // `Case.status` est déprécié (ADR-0017 §4.1) : la couverture se lit sur
+  // `case_progress`, la seule projection qui dise ce qui a été fait.
+  const teile = cases.flatMap((c) => TEILE.map((t) => (progress.get(c.id) ?? blankProgress(c.id)).teile[t.key].status)).filter((st) => st !== 'vierge');
+  if (teile.length >= FACHWISSEN_MIN_TENTES) base.Fachwissen = Math.round((teile.filter((st) => st === 'acquis' || st === 'solide').length / teile.length) * 100);
   return base;
+}
+
+/** Minimum d'axes mesurés pour que le radar ait une forme. */
+export const RADAR_MIN_AXES = 3;
+
+/** Points du radar : seulement les axes MESURÉS (un `null` n'est pas un creux à 0),
+ *  ou `null` s'il y en a trop peu pour dessiner un polygone. */
+export function radarData(scores: Record<Axis, number | null>): { axis: string; score: number }[] | null {
+  const pts = AXES.filter((a) => scores[a] !== null).map((a) => ({ axis: a.slice(0, 8), score: scores[a]! }));
+  return pts.length >= RADAR_MIN_AXES ? pts : null;
 }
 
 export function weakestAxis(scores: Record<Axis, number | null>): { axis: Axis; score: number } | null {
@@ -95,12 +118,28 @@ export const dueCount = (begriffe: Fachbegriff[], now = clockNow()): number => c
 
 /** Série de jours consécutifs TRAVAILLÉS, en partant d'aujourd'hui. Prend les
  *  clés de jour du journal (`workedDayKeys`) : une journée 100 % drill compte,
- *  une séance hors plan aussi. */
-export function streakFromDays(workedDays: Set<string>, now = nowDate()): number {
+ *  une séance hors plan aussi.
+ *
+ *  `offDays` (jours de repos du programme, 0=dim … 6=sam) : un jour off au repos
+ *  ne casse PAS la série et ne la gonfle pas ; travaillé, il compte. C'est le
+ *  programme du candidat qui met le week-end au repos : 5 jours ouvrés sur 5,
+ *  la série est intacte le lundi. Sans programme (`[]`) : comportement d'avant.
+ *
+ *  LIMITE ASSUMÉE : le passé est relu avec les jours off ACTUELS. Si le candidat
+ *  change son programme (week-end travaillé, jour off déplacé), la série se
+ *  recalcule rétroactivement — l'historique des configs n'est pas conservé. */
+export function streakFromDays(workedDays: Set<string>, now = nowDate(), offDays: number[] = []): number {
+  // ponytail : un programme sans aucun jour travaillé n'a pas de sens ; on l'ignore plutôt que de boucler.
+  const off = offDays.length >= 7 ? [] : offDays;
   let streak = 0;
   const cursor = new Date(now);
+  // Aujourd'hui, pas encore travaillé, n'a pas encore cassé la série.
   if (!workedDays.has(dayKey(cursor))) cursor.setDate(cursor.getDate() - 1);
-  while (workedDays.has(dayKey(cursor))) { streak++; cursor.setDate(cursor.getDate() - 1); }
+  for (;;) {
+    if (workedDays.has(dayKey(cursor))) streak++;
+    else if (!off.includes(cursor.getDay())) break;
+    cursor.setDate(cursor.getDate() - 1);
+  }
   return streak;
 }
 
