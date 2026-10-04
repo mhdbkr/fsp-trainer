@@ -42,7 +42,7 @@ describe('annoncesEnAttente', () => {
     expect(un.sujet).toBe('teile');
     const date = new Date(`${DATE_NOUVELLE_REGLE}T12:00:00`).toLocaleDateString('fr-FR', { day: 'numeric', month: 'long' });
     expect(un.titre).toBe('« Solide » se confirme maintenant en deux fois');
-    expect(un.texte).toBe(`Un Teil devient solide quand tu refais 80 ou plus au moins trois jours après une première réussite : la première peut tenir à un cas encore frais, la seconde montre qu'il tient. Un de tes Teile repasse donc à « acquis ». Pour lui, une nouvelle partie à 80 ou plus suffit. Ta frise garde son passé : la marche du ${date} vient de cette règle, pas d'un recul.`);
+    expect(un.texte).toBe(`Un Teil devient solide quand tu refais 80 ou plus au moins trois jours après une première réussite : la première peut tenir à un cas encore frais, la seconde montre qu'il tient. Un de tes Teile repasse donc à « acquis ». Une nouvelle partie à 80 ou plus le confirmera. Ta frise garde son passé : la marche du ${date} vient de cette règle, pas d'un recul.`);
     const [deux] = annoncesEnAttente({ events: [ev('c1', jour(-5), { anamnese: 90, dokumentation: 90 }), ev('c2', jour(-4), { fallvorstellung: 88 })], vues });
     expect(deux.texte).toContain('3 de tes Teile repassent donc à « acquis ». Pour la plupart, une nouvelle partie à 80 ou plus suffit.');
     for (const a of [un, deux]) expect(`${a.titre} ${a.texte}`).not.toMatch(/jury|officiel|règle FSP|Bestanden/i);

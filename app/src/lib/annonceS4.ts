@@ -73,7 +73,7 @@ export function annoncesEnAttente({ events, config, musterLocal, vues, actifs = 
       out.push({
         sujet: 'teile',
         titre: '« Solide » se confirme maintenant en deux fois',
-        texte: `Un Teil devient solide quand tu refais 80 ou plus au moins trois jours après une première réussite : la première peut tenir à un cas encore frais, la seconde montre qu'il tient. ${teile === 1 ? 'Un de tes Teile repasse donc à « acquis ». Pour lui' : `${teile} de tes Teile repassent donc à « acquis ». Pour la plupart`}, une nouvelle partie à 80 ou plus suffit. Ta frise garde son passé : la marche du ${date} vient de cette règle, pas d'un recul.`,
+        texte: `Un Teil devient solide quand tu refais 80 ou plus au moins trois jours après une première réussite : la première peut tenir à un cas encore frais, la seconde montre qu'il tient. ${teile === 1 ? 'Un de tes Teile repasse donc à « acquis ». Une nouvelle partie à 80 ou plus le confirmera.' : `${teile} de tes Teile repassent donc à « acquis ». Pour la plupart, une nouvelle partie à 80 ou plus suffit.`} Ta frise garde son passé : la marche du ${date} vient de cette règle, pas d'un recul.`,
       });
     }
   }
