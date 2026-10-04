@@ -17,6 +17,9 @@ import { newId } from '@/lib/sync/events';
 import { now } from '@/lib/clock';
 import { isWorkingDay } from './dayPlan';
 
+/** Une reprise reprise garde UNE raison : le préfixe « Reprise … — » d'hier s'efface. */
+const REPRISE_PREFIXE = /^Reprise (?:de la veille|du [^—]+) — /;
+
 export const RATTRAPAGE_REFUS_KEY = 'rattrapageRefuse';
 
 export function rattrapageAProposer(plans: DayPlan[], today: string, refused: string[]): { from: string; tasks: TaskInstance[] } | null {
@@ -46,7 +49,7 @@ export function glissement(plans: DayPlan[], today: string, config: Pick<Program
   const known = new Set(plans.map((p) => p.date));
   for (let d = addDays(parseISO(prev.date), 1), guard = 0; format(d, 'yyyy-MM-dd') < today && guard < 120; d = addDays(d, 1), guard++) {
     const k = format(d, 'yyyy-MM-dd');
-    if (isWorkingDay(d, config as ProgramConfig) && !known.has(k)) manques++;
+    if (isWorkingDay(d, config) && !known.has(k)) manques++;
   }
   const tasks = rattrapageAProposer(plans, today, refused)?.tasks ?? [];
   const planned = new Set(todayPlan.tasks.map((t) => t.caseId).filter(Boolean));
@@ -59,7 +62,7 @@ export async function accepterRattrapage(today: string, from: string): Promise<D
   const p = todayPlan && prev ? rattrapageAProposer([todayPlan, prev], today, []) : null;
   if (!todayPlan || !p) return null;
   const reprises: TaskInstance[] = p.tasks.map(({ doneAt: _d, spentMin: _s, eventId: _e, ...t }) => ({
-    ...t, id: newId(), date: today, reason: `Reprise ${differenceInCalendarDays(parseISO(today), parseISO(from)) === 1 ? 'de la veille' : `du ${format(parseISO(from), 'EEEE d MMMM', { locale: fr })}`} — ${t.reason}`,
+    ...t, id: newId(), date: today, reason: `Reprise ${differenceInCalendarDays(parseISO(today), parseISO(from)) === 1 ? 'de la veille' : `du ${format(parseISO(from), 'EEEE d MMMM', { locale: fr })}`} — ${t.reason.replace(REPRISE_PREFIXE, '')}`,
   }));
   const tasks = [...todayPlan.tasks, ...reprises];
   const next: DayPlan = { ...todayPlan, tasks, replannedAt: now() };

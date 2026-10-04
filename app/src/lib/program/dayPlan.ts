@@ -49,7 +49,7 @@ export function modusOf(config: ProgramConfig): Fortschrittsmodus {
   return config.strategy === 'full' ? 'cas-complet' : 'teil-first';
 }
 
-export const isWorkingDay = (d: Date, config: ProgramConfig): boolean => !config.offDays.includes(getDay(d));
+export const isWorkingDay = (d: Date, config: Pick<ProgramConfig, 'offDays'>): boolean => !config.offDays.includes(getDay(d));
 
 export function nextWorkingDay(d: Date, config: ProgramConfig): Date {
   let x = d;

@@ -104,4 +104,15 @@ describe('FB3-D10 — jours manqués : dire ce qui a glissé', () => {
     expect(next.tasks[1].reason).toMatch(/^Reprise du jeudi 1 octobre — /);
     expect(next.tasks[1].reason).not.toMatch(/veille/);
   });
+  it('une reprise reprise ne s\'empile pas : une seule raison « Reprise … — r »', async () => {
+    freezeAt(new Date(2026, 9, 5, 9, 0));
+    const veille = plan('2026-10-01', [task({ id: 'r1', date: '2026-10-01', caseId: 'c1', reason: 'Reprise de la veille — r' })]);
+    await db.progress_events.bulkPut([
+      { id: 'q1', user_id: 'u', type: 'plan.materialized', subject_id: '2026-10-01', payload: { tasks: veille.tasks, mode: 'teil-first', seed: 's', targetMin: 90 }, occurred_at: '2026-10-01T06:00:00Z' },
+      { id: 'q2', user_id: 'u', type: 'plan.materialized', subject_id: '2026-10-05', payload: { tasks: lundi.tasks, mode: 'teil-first', seed: 's', targetMin: 90 }, occurred_at: '2026-10-05T06:00:00Z' },
+    ]);
+    await rebuildJournal(await db.progress_events.toArray());
+    const next = (await accepterRattrapage('2026-10-05', '2026-10-01'))!;
+    expect(next.tasks[1].reason).toBe('Reprise du jeudi 1 octobre — r');
+  });
 });
