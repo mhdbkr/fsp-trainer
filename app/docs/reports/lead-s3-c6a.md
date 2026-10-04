@@ -52,3 +52,18 @@ Les outils Skill et ctx_* n'étaient pas disponibles dans cette session : `dept-
 - La prod n'a pas été interrogée (aucune démo dans `progress_events` vérifié seulement sur le Supabase local et par lecture du code de migration).
 - Mobile 375 px : le bilan et le nouveau composant `Curseur` n'ont été vus qu'à 1 280 px.
 - Les curseurs vides sont atténués (opacité) mais gardent une poignée au milieu : aucun avis du `direction-keeper` sur leur rendu (voir `bilan-contenu-seul.png`).
+
+## Passe fixeur (revue Opus + décisions de `main` et de la direction)
+Cette passe remplace les points suivants du rapport ci-dessus, devenus obsolètes : le contournement `sansBrouillon` (reste à faire n°2), la définition de Fachwissen et la question du verdict sans langue.
+
+| Item | Correction | Commit / preuve |
+|---|---|---|
+| I1 Fachwissen par absence | Part des Teile joués qui sont acquis ou solides ; `FACHWISSEN_MIN_TENTES = 5` Teile joués, sinon `null`. | Test « 5 cas, Anamnese seule à 90 % ⇒ pas un point faible » rouge sur l'ancienne mesure, vert ensuite (`stats.fachbegriffe.test.ts`). |
+| m2 radar | `radarData()` écarte les axes `null` ; sous 3 axes mesurés, une phrase remplace le polygone. | `stats.radar.test.ts` + test DOM `StatsPage.chiffres`. |
+| m4 | Balayage du contenu par pas de 5, délai explicite 20 s. | `scoring.saisi.test.ts` : 11 tests verts. |
+| m5 | `isDemoSimulation` dans `lib/demoSimulation.ts` (sans dépendance) ; `db.ts` et `readiness.ts` l'importent. | tsc 0. |
+| m7 | Commentaire + test : la série relit le passé avec les jours off actuels. | `stats.streak.test.ts`. |
+| Verdict (direction, 4 oct.) | Sans langue notée : « Réussi sur le contenu » (langue non notée). Langue notée : « Au-dessus du seuil Doctopus ». « Bestanden-Simulation ! » supprimé. | `ResultScreen.test.tsx` (3 tests, rouge puis vert). |
+| Brouillon à la racine | `automat.ts` : `NOT_ENTERED` dans `setzeEntwurf` et `bewerte` ; contournement de `SimulationRunner` supprimé. | `automat.test.ts` : scénario « indice consulté pendant l'Anamnese, ressenti non touché ⇒ contenu seul » rouge (50) puis vert. |
+
+Vérification de cette passe : `tsc -b --noEmit` 0 ; tests touchés verts, lancés seuls (charge machine 20 à 35 : la suite complète n'a pas été relancée, et sous charge des tests de `features/simulation` dépassent leur délai de 5 s, ils passent seuls avec un délai plus long).
