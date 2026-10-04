@@ -321,19 +321,20 @@ export async function accueil(c) {
   });
   // D3 : chaque « point faible » affiché a été MESURÉ sous le seuil — jamais un cas jamais joué.
   const faibles = await c.page.evaluate(() => [...(([...document.querySelectorAll('section')].find((x) => x.querySelector('h3')?.textContent.trim() === 'Points faibles')) ?? document.createElement('div')).querySelectorAll('a[href*="/pre?teil="]')].map((a) => ({
-    nom: a.querySelector('.truncate')?.textContent.trim(), teil: a.getAttribute('href').match(/teil=(\w+)/)?.[1],
+    // Identité par le lien (stable), jamais par une classe de style : C6-B a retiré `.truncate`.
+    id: a.getAttribute('href').match(/\/simulation\/([^/]+)\/pre/)?.[1], teil: a.getAttribute('href').match(/teil=(\w+)/)?.[1],
     score: Number((a.querySelector('.mono-tag')?.textContent ?? '').replace(/\D/g, '')),
   })));
   const [cases, cps] = [await idb(c.page, 'cases'), await idb(c.page, 'case_progress')];
   await c.verifie('D3', 'aucun cas n\'est affiché « point faible » sans avoir été tenté et raté', () => {
     const fautes = faibles.filter((f) => {
-      const cas = cases.find((x) => x.name === f.nom);
+      const cas = cases.find((x) => x.id === f.id);
       const t = cps.find((p) => p.caseId === cas?.id)?.teile?.[f.teil];
       return !t || t.attempts < 1 || t.status !== 'fragile' || t.lastScore !== f.score;
     });
-    return { ok: !fautes.length, detail: fautes.length ? `affichés sans essai mesuré : ${fautes.map((f) => `${f.nom}/${f.teil}`).join(', ')}` : `${faibles.length} point(s) faible(s) affiché(s), tous mesurés` };
+    return { ok: !fautes.length, detail: fautes.length ? `affichés sans essai mesuré : ${fautes.map((f) => `${f.id}/${f.teil}`).join(', ')}` : `${faibles.length} point(s) faible(s) affiché(s), tous mesurés` };
   });
-  if (faibles.length) c.rapport.vu(`Points faibles affichés : ${faibles.map((f) => `${f.nom} (${f.teil}, ${f.score} %)`).join(' ; ')}.`);
+  if (faibles.length) c.rapport.vu(`Points faibles affichés : ${faibles.map((f) => `${cases.find((x) => x.id === f.id)?.name ?? f.id} (${f.teil}, ${f.score} %)`).join(' ; ')}.`);
   return { h, rs, txt };
 }
 

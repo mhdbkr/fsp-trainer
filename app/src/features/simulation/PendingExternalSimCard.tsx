@@ -6,6 +6,7 @@ import { readPending, setPending, AI_TARGETS } from '@/lib/externalAi/targets';
 import { SelbstBewertung } from './PartEvaluation';
 import { saveSimulation } from '@/lib/simulationSave';
 import type { Case, PartResult, Simulation } from '@/db/types';
+import { now } from '@/lib/clock';
 
 const SNOOZE_MS = 3600_000; // 1 h — « Pas maintenant » persiste dans la trace (snoozedUntil), pas en sessionStorage
 // Les 3 durées proposées ; « 30 min+ » vaut 30 min comme les autres, le
@@ -38,10 +39,10 @@ export function PendingExternalSimCard({ onlyCaseId }: { onlyCaseId?: string } =
 
   const p = useLiveQuery(async () => {
     const x = await readPending();
-    if (!x || Date.now() - x.at > 12 * 3600_000 || (onlyCaseId && x.caseId !== onlyCaseId)) return null;
+    if (!x || now() - x.at > 12 * 3600_000 || (onlyCaseId && x.caseId !== onlyCaseId)) return null;
     // Snooze persistant (« Pas maintenant ») : la trace reste posée (elle
     // expire toujours à 12 h), mais la carte reste masquée jusqu'à snoozedUntil.
-    if (x.snoozedUntil && Date.now() < x.snoozedUntil) return null;
+    if (x.snoozedUntil && now() < x.snoozedUntil) return null;
     // Le cas a été joué et enregistré dans l'app après le lancement de l'IA
     // (lanceur ouvert pendant la partie, puis partie finie ici) : la trace est
     // caduque, ne pas redemander une évaluation déjà faite — seulement si cette
@@ -65,7 +66,7 @@ export function PendingExternalSimCard({ onlyCaseId }: { onlyCaseId?: string } =
 
   const target = AI_TARGETS.find((t) => t.id === p.targetId)?.label ?? p.targetId;
   const dismiss = async () => { await setPending(null); };
-  const snooze = async () => { await setPending({ ...p, snoozedUntil: Date.now() + SNOOZE_MS }); };
+  const snooze = async () => { await setPending({ ...p, snoozedUntil: now() + SNOOZE_MS }); };
   const finish = async (all: typeof parts) => {
     if (savingRef.current) return;
     savingRef.current = true;

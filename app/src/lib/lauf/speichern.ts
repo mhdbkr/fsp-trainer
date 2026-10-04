@@ -4,6 +4,7 @@ import { migriereChecklist } from '@/lib/checklists.legacy';
 import type { Case, ChecklistItem, PartResult, SimTeil, Simulation } from '@/db/types';
 import { checklisteFuer, istVollstaendig } from './automat';
 import { ZUSTAENDE, zuPartResult, type Lauf, type LaufTeil } from './types';
+import { now } from '@/lib/clock';
 
 // ============================================================================
 // Persistance du `Lauf`. Contrat §3.
@@ -100,7 +101,7 @@ export function verwerfeAktivenLauf(): Promise<void> {
 
 /** Un Lauf actif de plus de 24 h est abandonné : écrit tel quel s'il a au moins
  *  un Teil joué, supprimé sinon (§3.1). Rend le Lauf encore reprenable. */
-export async function bereinigeAltenLauf(jetzt = Date.now()): Promise<Lauf | null> {
+export async function bereinigeAltenLauf(jetzt = now()): Promise<Lauf | null> {
   const l = await ladeAktivenLauf();
   if (!l) return null;
   if (jetzt - l.startedAt < LAUF_MAX_ALTER_MS) return l;
@@ -185,7 +186,7 @@ export function restauriere(roh: Partial<Lauf> & { id: string; caseId: string })
   return {
     caseName: '', modus: 'komplett', geplanteTeile: [],
     zustand: 'vorbereitung', aktuellerTeil: null, teilVorAufklaerung: null,
-    startedAt: Date.now(), teile: {},
+    startedAt: now(), teile: {},
     sekundenProTeil: {}, entwurf: {}, notes: {}, bogen: {}, arztbriefText: '',
     assistance: 'assiste', layer: 1, mode: 'texte',
     // Un champ présent mais `undefined` ne doit pas écraser sa valeur neutre.

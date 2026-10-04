@@ -60,7 +60,7 @@ export function TaskAnatomy({ task }: { task: TaskInstance }) {
   ].filter(Boolean).join(' · ');
   return (
     <div className="flex min-w-0 flex-wrap items-center gap-x-3 gap-y-1.5">
-      <span className="min-w-0 flex-1 truncate font-medium text-slate-800 dark:text-slate-100">{task.label}</span>
+      <span className="min-w-0 flex-[1_1_100%] [overflow-wrap:anywhere] font-medium text-slate-800 dark:text-slate-100">{task.label}</span>
       {task.teil && <ScopeTag teil={task.teil} />}
       {state && <span className="label shrink-0">{state}</span>}
       <span className="mono-tag tnum shrink-0">{task.estMin} min</span>
@@ -76,26 +76,26 @@ export function TaskAnatomy({ task }: { task: TaskInstance }) {
  * Cocher écrit un événement dans le journal et pose `doneAt`. Rien d'autre ne
  * bouge : aucune tâche ne prend la place.
  */
-export function TaskLine({ task, readOnly = false }: { task: TaskInstance; readOnly?: boolean }) {
+export function TaskLine({ task, readOnly = false, showReason = true }: { task: TaskInstance; readOnly?: boolean; showReason?: boolean }) {
   const meta = TASK_META[task.kind];
   const done = task.doneAt !== undefined;
   return (
     <div className={`rounded-xl border transition-colors ${done ? 'border-emerald-200 bg-emerald-50/40 dark:border-emerald-900/40 dark:bg-emerald-900/10' : 'border-slate-200 dark:border-slate-800'}`}>
-      <div className="flex items-center gap-3 px-3 py-2.5">
+      <div className="flex flex-wrap items-center gap-3 px-3 py-2.5">
         <span className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-lg ${meta.badge}`} title={meta.label}>
           <Icon name={meta.icon} className="h-5 w-5" />
         </span>
-        <div className="min-w-0 flex-1">
+        <div className="min-w-[10rem] flex-1">
           <TaskAnatomy task={task} />
           {/* Le « pourquoi aujourd'hui », figé avec la tâche. */}
-          <div className="mt-0.5 truncate text-[11px] text-slate-400" title={task.reason}>{task.reason}</div>
+          {showReason && <div className="mt-0.5 text-[11px] text-slate-400">{task.reason}</div>}
         </div>
         {done ? (
-          <span className="flex shrink-0 items-center gap-1 text-[11px] font-medium text-emerald-600 dark:text-emerald-300">
+          <span className="ml-auto flex shrink-0 items-center gap-1 text-[11px] font-medium text-emerald-600 dark:text-emerald-300">
             <Icon name="check" className="h-3.5 w-3.5" />Fait
           </span>
         ) : readOnly ? null : (
-          <div className="flex shrink-0 items-center gap-1.5">
+          <div className="ml-auto flex shrink-0 items-center gap-1.5">
             <button
               type="button" onClick={() => markTaskDone(task)} title="Marquer faite"
               className="rounded-md px-2 py-1 text-[11px] font-medium text-emerald-700 transition-colors hover:bg-emerald-50 dark:text-emerald-300 dark:hover:bg-emerald-900/20"
@@ -106,6 +106,31 @@ export function TaskLine({ task, readOnly = false }: { task: TaskInstance; readO
           </div>
         )}
       </div>
+    </div>
+  );
+}
+
+/** Le « pourquoi » que PLUSIEURS tâches à faire partagent mot pour mot (≥ 3) :
+ *  il se dit une fois, au lieu d'être recopié sur chaque ligne. */
+export function raisonCommune(tasks: TaskInstance[]): { reason: string; n: number } | null {
+  const n = new Map<string, number>();
+  for (const t of tasks) if (t.doneAt === undefined) n.set(t.reason, (n.get(t.reason) ?? 0) + 1);
+  const [reason, count] = [...n.entries()].sort((a, b) => b[1] - a[1])[0] ?? [];
+  return reason !== undefined && count! >= 3 ? { reason, n: count! } : null;
+}
+
+/** Le plan du jour : le titre entier d'abord, le « pourquoi » ensuite — et une
+ *  raison commune dite une seule fois, au-dessus des lignes qui la partagent. */
+export function TaskList({ tasks }: { tasks: TaskInstance[] }) {
+  const commune = raisonCommune(tasks);
+  return (
+    <div className="space-y-2">
+      {commune && (
+        <p className="text-xs text-slate-500 dark:text-slate-400">
+          <span className="label">Même raison pour les {commune.n} cas</span> · {commune.reason}
+        </p>
+      )}
+      {tasks.map((t) => <TaskLine key={t.id} task={t} showReason={!commune || t.doneAt !== undefined || t.reason !== commune.reason} />)}
     </div>
   );
 }
