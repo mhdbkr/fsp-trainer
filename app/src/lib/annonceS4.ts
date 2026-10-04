@@ -69,7 +69,7 @@ export function annoncesEnAttente({ events, config, musterLocal, vues, actifs = 
       out.push({
         sujet: 'teile',
         titre: 'Solide demande maintenant deux réussites',
-        texte: `Un Teil est solide après deux réussites à 80 ou plus, à trois jours d'écart au moins. ${teile === 1 ? 'Un de tes Teile, solide sur une seule réussite, redevient acquis et revient' : `${teile} de tes Teile, solides sur une seule réussite, redeviennent acquis et reviennent`} dans ton plan. Ta courbe passée ne change pas ; un repère marque le changement.`,
+        texte: `Un Teil est solide après deux réussites à 80 ou plus, à trois jours d'écart au moins. ${teile === 1 ? 'Un de tes Teile, solide sur une seule réussite, redevient acquis et revient' : `${teile} de tes Teile, solides sur une seule réussite, redeviennent acquis et reviennent`} dans ton plan. Ta courbe passée ne change pas.`,
       });
     }
   }
