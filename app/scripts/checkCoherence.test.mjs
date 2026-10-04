@@ -109,14 +109,24 @@ test('la porte : lexique cohérent, aucun compteur au-dessus du plancher → exi
   assert.match(r.stdout, /non mesurable avant K3/, 'nonReduit et casRetiresParR1 ne sont pas inventés');
 });
 
-test('la mesure n\'est jamais au-dessus du plancher gravé (--json)', () => {
+// §10.6 : le fixture se met à jour dans le MÊME commit que le contenu. Une mesure plus BASSE que le
+// plancher n'est donc pas un « bon » résultat silencieux : c'est un fixture à regraver (`--bless`).
+const mesure = (o) => ({ ...o.brut, ...o.residu });
+const attendu = () => { const f = JSON.parse(restoreFloor); return { ...f.brut, ...f.residu }; };
+
+test('la mesure (--json, brut et residu) ÉGALE le plancher gravé', () => {
   const o = json(run('--json'));
-  const floor = JSON.parse(restoreFloor);
   assert.equal(o.cas, 130);
-  for (const [k, v] of Object.entries({ ...floor.brut, ...floor.residu })) if (Number.isInteger(v)) assert.ok({ ...o.brut, ...o.residu }[k] <= v, `${k} : mesure ${{ ...o.brut, ...o.residu }[k]} > plancher ${v}`);
+  assert.deepEqual(mesure(o), attendu());
   assert.deepEqual(Object.keys(o.brut), ['doublons', 'doublonsCas', 'horsProfil', 'exigeAbsent', 'relancesOrphelines', 'brauchtViole', 'ajouteSansReponse']);
   assert.equal(o.residu.nonReduit, null);
   assert.equal(o.residu.casRetiresParR1, null);
+});
+
+test('mutation : la lecture de « stuhl » désactivée fait baisser la mesure, et l\'égalité au plancher rougit', () => {
+  const m = sb.mutate('scripts/coherenceMesure.mjs', '  stuhl: /\\b(stuhlgang|durchfall|durchfälle|verstopfung)\\b/i,', '  stuhl: /(?!)/,', () => json(run('--json')));
+  assert.ok(m.brut.doublons < attendu().doublons, `${m.brut.doublons} < ${attendu().doublons}`);
+  assert.notDeepEqual(mesure(m), attendu());
 });
 
 test('mutation INV-77 : ausstrahlung exigé par « generalisiert » → exit 1, le lexique est dit incohérent', () => {
