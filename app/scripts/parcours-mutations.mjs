@@ -161,6 +161,115 @@ export const MUTATIONS = [
     to: '  return { ...restauriere(l), sekundenProTeil: {} };\n}',
     pourquoi: 'une partie interrompue reprend avec le chrono remis à zéro',
   },
+  // --- S4-1 : la mesure (training-journal.md §8.1, §8.2 ; décisions (b) et (e)) ---
+  {
+    id: "INV-53", tests: 'tests/invariants.mesure.test.ts', file: "src/lib/progression.ts",
+    from: "/ joues.length) : null;",
+    to: "/ 3) : null;",
+    pourquoi: "la maîtrise redevient Σ lastScore / 3 : un seul Teil joué à 90 affiche 30 (le défaut de simScope.ts:42)",
+  },
+  {
+    id: "INV-61a", tests: 'tests/invariants.mesure.test.ts', file: "src/lib/progression.ts",
+    from: "return premiereReussiteAt !== null && differenceInCalendarDays(at, premiereReussiteAt) >= SOLIDE_ECART_JOURS ? 'solide' : 'acquis';",
+    to: "return 'solide';",
+    pourquoi: "le statut redevient fonction du seul dernier score : une réussite chanceuse suffit (journal.ts:211 d’avant S4-1)",
+  },
+  {
+    id: "INV-61b", tests: 'tests/invariants.mesure.test.ts', file: "src/lib/progression.ts",
+    from: "differenceInCalendarDays(at, premiereReussiteAt) >= SOLIDE_ECART_JOURS",
+    to: "(at - premiereReussiteAt) >= SOLIDE_ECART_JOURS * 86_400_000",
+    pourquoi: "l’écart se mesure en 72 h au lieu de 3 jours calendaires",
+  },
+  {
+    id: "INV-62", tests: 'tests/invariants.mesure.test.ts', file: "src/lib/progression.ts",
+    from: "if (avant === 'solide') return score >= PART_SOLIDE ? 'solide' : 'acquis';",
+    to: "if (avant === 'solide' && score >= PART_SOLIDE) return 'solide';",
+    pourquoi: "une mauvaise partie fait tomber un Teil solide à fragile : la descente ne tient plus compte de l’état précédent",
+  },
+  {
+    id: "INV-56a", tests: 'tests/invariants.mesure.test.ts', file: "src/lib/progression.ts",
+    from: "qualifiant(e) && e.at >= depuis)",
+    to: "qualifiant(e))",
+    pourquoi: "un run en conditions d’examen ANTÉRIEUR à la soudure (ou à une retombée) soude l’anneau",
+  },
+  {
+    id: "INV-56b", tests: 'tests/invariants.mesure.test.ts', file: "src/lib/progression.ts",
+    from: "e.examen === true && TEIL_KEYS",
+    to: "(e.examen === true || e.enchaine === true) && TEIL_KEYS",
+    pourquoi: "`enchaine` seul suffit à souder : l’ordre, l’Autonome et la langue ne comptent plus",
+  },
+  {
+    id: "INV-56c", tests: 'tests/invariants.mesure.test.ts', file: "src/lib/progression.ts",
+    from: "? acc.solideDepuis ?? te.at : null;",
+    to: "? acc.solideDepuis ?? te.at : acc.solideDepuis;",
+    pourquoi: "une retombée ne défait pas la soudure : le vieux run redevient qualifiant à la re-solidification",
+  },
+  {
+    id: "INV-59a", tests: 'tests/invariants.mesure.test.ts', file: "src/lib/dialData.ts",
+    from: "maitrise: cp.maitrise ?? null,",
+    to: "maitrise: Math.round(TEILE.reduce((s, t) => s + (cp.teile[t].lastScore ?? 0), 0) / 3),",
+    pourquoi: "le cadran recalcule la maîtrise (et la baisse par absence d’un Teil) au lieu de la lire",
+  },
+  {
+    id: "INV-59b", tests: 'tests/invariants.mesure.test.ts', file: "src/lib/dialData.ts",
+    from: "soude: cp.etat === 'pret',",
+    to: "soude: cp.etat === 'solide' || cp.etat === 'pret',",
+    pourquoi: "le cadran soude l’anneau d’un cas seulement solide",
+  },
+  {
+    id: "INV-66a", tests: 'tests/invariants.mesure.test.ts', file: "src/lib/program/couverturePonderee.ts",
+    from: "base += poids;",
+    to: "base += f?.total ?? 0;",
+    pourquoi: "le dénominateur est le total de protocoles, pas la base ventilée de la ville",
+  },
+  {
+    id: "INV-66b", tests: 'tests/invariants.mesure.test.ts', file: "src/lib/program/couverturePonderee.ts",
+    from: "return r.portee === 'ville-ventilee' ? `${tete} ventilés de ${r.ville}` : `${tete}, toutes villes`;",
+    to: "return tete;",
+    pourquoi: "repli silencieux : la phrase ne dit plus ni la ville ni « toutes villes »",
+  },
+  {
+    id: "INV-69a", tests: 'tests/invariants.mesure.test.ts', file: "src/lib/program/trajectory.ts",
+    from: "{ regle: dayKey(at) < DATE_NOUVELLE_REGLE ? 'serie3' : undefined }",
+    to: "{}",
+    pourquoi: "la nouvelle règle est appliquée rétroactivement à la frise : tout le passé descend",
+  },
+  {
+    id: "INV-69b", tests: 'tests/invariants.mesure.test.ts', file: "src/lib/program/trajectory.ts",
+    from: "const memeRegle = points.filter((p) => ancienne(p) === ancienne(points[points.length - 1]));",
+    to: "const memeRegle = points;",
+    pourquoi: "la pente de la projection traverse la marche de la nouvelle règle",
+  },
+  {
+    id: "INV-75", tests: 'tests/invariants.mesure.test.ts', file: "src/lib/journal.ts",
+    from: "spentMin: Math.round(total / 60),",
+    to: "spentMin: Math.round(secs / 60),",
+    pourquoi: "le temps d’une partie ne compte que les Teile joués : le Teil abandonné disparaît (m6)",
+  },
+  {
+    id: "b-couche", tests: 'tests/invariants.mesure.test.ts', file: "src/lib/examen.ts",
+    from: "? conditionsExamen(sim)",
+    to: "? (conditionsExamen(sim) && sim.layer === 3)",
+    pourquoi: "la couche réentre dans les conditions d’examen (décision (d)) : deux définitions",
+  },
+  {
+    id: "b-ordre", tests: 'tests/invariants.mesure.test.ts', file: "src/lib/examen.ts",
+    from: "manque.push('ordre');",
+    to: "void 0;",
+    pourquoi: "l’ordre A → D → F n’est plus exigé pour être en conditions d’examen",
+  },
+  {
+    id: "b-grille", tests: 'tests/invariants.mesure.test.ts', file: "src/lib/examen.ts",
+    from: "manque.push('grille');",
+    to: "void 0;",
+    pourquoi: "une grille de langue non saisie (−1) suffit à être en conditions d’examen",
+  },
+  {
+    id: "e-anciens", tests: 'tests/invariants.mesure.test.ts', file: "src/lib/journal.ts",
+    from: "...(serie4 && manque.length === 0 ? { examen: true as const } : {}),",
+    to: "...(manque.length === 0 || isExamenBlanc(sim) ? { examen: true as const } : {}),",
+    pourquoi: "les anciens runs complets soudent l’anneau rétroactivement (décision (e), contradiction 12)",
+  },
 ];
 
 /** Mutations jouées par le candidat NAVIGATEUR : { id: invariant attendu KO, days: jours à jouer }. */

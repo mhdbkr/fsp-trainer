@@ -347,10 +347,10 @@ describe('INV-75 (dérivation) — le jour d’une partie est celui de son débu
 
 describe('INV-59 — le cadran lit, il ne calcule pas', () => {
   it('couverture, maîtrise, soudure et « non mesuré » sont ceux de la progression ; la fonction est pure', async () => {
-    let soudes = 0, nonMesures = 0;
+    let soudes = 0, solidesNonSoudes = 0, nonMesures = 0;
     await forAll(300, (r) => {
       const evs = randomJournal(r);
-      if (r.bool(0.5)) evs.push(...solidifie('c1', r.int(0, 3)), examen('c1', r.int(5, 9)));
+      if (r.bool(0.6)) { evs.push(...solidifie('c1', r.int(0, 3))); if (r.bool(0.5)) evs.push(examen('c1', r.int(5, 9))); }   // solide, soudé ou non
       if (r.bool(0.2)) evs.push(mesure('c2', jour(1), tous(70), { kind: 'simulation', scores: undefined, selbstbewertet: true }));
       for (const cp of computeCaseProgress(evs)) {
         const gele = structuredClone(cp);
@@ -371,9 +371,11 @@ describe('INV-59 — le cadran lit, il ne calcule pas', () => {
           if (d.teile[t].nonMesure) nonMesures++;
         }
         if (d.soude) soudes++;
+        else if (cp.etat === 'solide') solidesNonSoudes++;
       }
     });
-    expect(soudes).toBeGreaterThan(20);
+    expect(soudes).toBeGreaterThan(10);
+    expect(solidesNonSoudes).toBeGreaterThan(10);
     expect(nonMesures).toBeGreaterThan(5);
   });
 
