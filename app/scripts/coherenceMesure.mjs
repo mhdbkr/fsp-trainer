@@ -141,9 +141,16 @@ export function unitesDe(rows, lire = () => [], connu = () => true) {
   for (const r of rows) {
     if (ECARTE.has(r.ch)) continue;
     rank++;
-    const ms = signesDe(r.text, { mother: true, ch: r.ch }, lire);
+    // K1 : une phrase du GUIDE (une sonde) est DÉCLARÉE (`PROBE_SUCHT`, `followUpSucht`) — la déclaration remplace la
+    // lecture du texte, une relance sans déclaration hérite du signe de sa mère. Une question du CAS se lit encore
+    // (K4), complétée de son `sucht` s'il y en a un.
+    const decl = !!r.probes?.length && !r.cs;
+    const ms = decl ? new Set() : signesDe(r.text, { mother: true, ch: r.ch }, lire);
     for (const s of r.sucht ?? []) if (connu(s)) ms.add(s);
-    const fus = (r.fu ?? []).map((f) => ({ text: f, signs: signesDe(f.replace(/^Falls [^:]{2,40}:\s*/, ''), { mother: false, ch: r.ch }, lire), cond: /^Falls /.test(f) }));
+    const fus = (r.fu ?? []).map((f, i) => ({
+      text: f, cond: /^Falls /.test(f),
+      signs: decl ? new Set((r.fuSucht?.[i] ?? []).filter(connu)) : signesDe(f.replace(/^Falls [^:]{2,40}:\s*/, ''), { mother: false, ch: r.ch }, lire),
+    }));
     const all = new Set([...ms, ...fus.flatMap((f) => [...f.signs])]);
     units.push({ rank, ch: r.ch, cs: r.cs, probe: r.probes.join(',') || (r.cs ? 'CAS' : '-'), text: r.text, declared: !!r.sucht?.length, ms, fus, all });
   }

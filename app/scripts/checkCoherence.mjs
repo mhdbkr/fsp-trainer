@@ -42,9 +42,9 @@ const src = (f) => JSON.stringify(join(root, 'src', f));
 writeFileSync(entry, `
   export { seedCases } from ${src('data/seedCases.ts')};
   export { playedTrame, leitsymptomOf } from ${src('data/guides/anamneseChapters.ts')};
-  export { phraseText, phraseAlts, phraseFollowUp, phraseProbes, phraseIsCaseSpecific } from ${src('data/guides/phrases.ts')};
+  export { phraseText, phraseAlts, phraseFollowUp, phraseFollowUps, phraseProbes, phraseIsCaseSpecific } from ${src('data/guides/phrases.ts')};
   export { suchtIncoherences } from ${src('data/guides/suchtCheck.ts')};
-  export { phraseSymptoms, symptomsInText, PROBE_SUCHT, SIGNES, SIGNE_DEF, PROFIL_EXIGE, PROFIL_EXCLUT, lexiqueIncoherences } from ${src('data/guides/symptoms.ts')};
+  export { phraseSucht, symptomsInText, PROBE_SUCHT, SIGNES, SIGNE_DEF, PROFIL_EXIGE, PROFIL_EXCLUT, lexiqueIncoherences } from ${src('data/guides/symptoms.ts')};
   export { PROBE_BY_ID } from ${src('data/guides/anamneseProbes.ts')};
 `);
 const out = join(dir, 'bundle.mjs');
@@ -69,7 +69,7 @@ const rowsOf = (c) => {
   const rows = [];
   const push = (ch, p) => rows.push({
     ch, text: m.phraseText(p), probes: m.phraseProbes(p), cs: m.phraseIsCaseSpecific(p),
-    sucht: m.phraseSymptoms(p), fu: m.phraseFollowUp(p),
+    sucht: m.phraseSucht(p), fu: m.phraseFollowUp(p), fuSucht: m.phraseFollowUps(p).map((l) => l.sucht ?? []),
   });
   for (const ch of chapters) {
     for (const p of ch.questions) push(ch.id, p);
