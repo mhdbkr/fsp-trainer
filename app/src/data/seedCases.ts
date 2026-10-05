@@ -3593,6 +3593,7 @@ export function seedCases(): Case[] {
       frequency: 14,
       difficulty: 2,
       patientSheet: {
+        profil: { tags: ['schmerz', 'fieber', 'stein'] },
         personalia: {
           name: 'Lisa Häberle',
           age: 76,
@@ -3947,6 +3948,7 @@ export function seedCases(): Case[] {
       frequency: 20,
       difficulty: 2,
       patientSheet: {
+        profil: { tags: ['schmerz'] },
         personalia: {
           name: 'Walter Vogel',
           age: 60,
@@ -4275,6 +4277,7 @@ export function seedCases(): Case[] {
       frequency: 17,
       difficulty: 3,
       patientSheet: {
+        profil: { tags: ['infekt', 'lyme'] },
         leitsymptomKategorie: 'infekt',
         personalia: {
           name: 'Nadine Brückner',
@@ -4664,6 +4667,7 @@ export function seedCases(): Case[] {
       frequency: 12,
       difficulty: 2,
       patientSheet: {
+        profil: { tags: ['schmerz', 'gelenk'] },
         motiv: { trauma: true, region: 'untere' },
         personalia: {
           name: 'Tobias Reinhardt',
@@ -4996,6 +5000,7 @@ export function seedCases(): Case[] {
       frequency: 14,
       difficulty: 2,
       patientSheet: {
+        profil: { tags: ['schmerz'] },
         motiv: { trauma: false, region: 'lws' },
         fachSkip: ['fach-ortho-durchblutung'],
         personalia: {
@@ -5283,6 +5288,7 @@ export function seedCases(): Case[] {
       frequency: 22,
       difficulty: 2,
       patientSheet: {
+        profil: { tags: ['schmerz', 'gelenk', 'arthritis', 'gicht'] },
         personalia: {
           name: 'Hans Hedgke',
           age: 45,
@@ -5744,6 +5750,7 @@ export function seedCases(): Case[] {
       frequency: 9,
       difficulty: 3,
       patientSheet: {
+        profil: { tags: ['nerven', 'hals', 'lyme'] },
         fachSkip: ['fach-neuro-anfallzeichen'],
         leitsymptomKategorie: 'nerven',
         personalia: {
@@ -6193,6 +6200,7 @@ export function seedCases(): Case[] {
       frequency: 7,
       difficulty: 3,
       patientSheet: {
+        profil: { tags: ['schmerz'] },
         personalia: {
           name: 'Frida Zimmermann',
           age: 52,
@@ -6683,6 +6691,7 @@ export function seedCases(): Case[] {
       frequency: 8,
       difficulty: 3,
       patientSheet: {
+        profil: { tags: ['neurologisch', 'hals'] },
         leitsymptomKategorie: 'neurologisch',
         personalia: {
           name: 'Arnd Kartmann',
@@ -7025,6 +7034,7 @@ export function seedCases(): Case[] {
       frequency: 8,
       difficulty: 2,
       patientSheet: {
+        profil: { tags: ['schmerz', 'stein'] },
         personalia: {
           name: 'Heiner Hermann',
           age: 40,
@@ -7342,6 +7352,7 @@ export function seedCases(): Case[] {
       frequency: 25,
       difficulty: 2,
       patientSheet: {
+        profil: { tags: ['veraenderung', 'schmerz'] },
         leitsymptomKategorie: 'veraenderung',
         personalia: {
           name: 'Anna Müller',
@@ -7487,6 +7498,10 @@ export function seedCases(): Case[] {
           'fach-gefaess-thrombose': 'Selbst hatte ich noch nie eine Thrombose oder eine Lungenembolie. In der Familie... mein Vater hatte das, glaube ich, öfter, eine Gerinnungsstörung mit Thrombosen. Ich habe da nie genau nachgefragt.',
           'fach-gefaess-wunde': 'Nein, schlecht heilende Wunden habe ich nicht. Und kalt, blass oder bläulich ist der Fuß auch nicht, nur das Bein mit der Rötung, wie ich schon gesagt habe.',
           'fach-gefaess-vorgeschichte': 'Krampfadern habe ich am rechten Bein, schon länger. Untersucht oder operiert wurden meine Gefäße aber noch nie, kein Stent, kein Bypass.',
+          // K2 (ADR-0023) : réponses des sondes de banque que le profil exige (r3)
+          'akt-ort': 'In der rechten Wade, am ganzen Unterschenkel hinten. Manchmal zieht es bis in die Kniekehle hoch.',
+          'akt-charakter': 'Es zieht, und dazu spannt es, als wäre die Haut zu eng. Stechend oder brennend ist es nicht.',
+          'akt-intensitaet': 'Ungefähr sechs von zehn. Beim Gehen und Stehen eher mehr, wenn ich das Bein hochlege, etwas weniger.',
         },
         frageAntworten: [
           {
@@ -7703,6 +7718,7 @@ export function seedCases(): Case[] {
       frequency: 8,
       difficulty: 2,
       patientSheet: {
+        profil: { tags: ['allgemein', 'gewichtsverlust'] },
         leitsymptomKategorie: 'allgemein',
         personalia: {
           name: 'Thomas Rosnier',
@@ -8255,6 +8271,7 @@ export function seedCases(): Case[] {
       frequency: 6,
       difficulty: 2,
       patientSheet: {
+        profil: { tags: ['allgemein', 'hals', 'gewichtsverlust'] },
         leitsymptomKategorie: 'allgemein',
         personalia: {
           name: 'Jessica Suess',
@@ -8802,6 +8819,7 @@ export function seedCases(): Case[] {
       frequency: 6,
       difficulty: 3,
       patientSheet: {
+        profil: { tags: ['atemnot', 'dyspnoe', 'husten'] },
         leitsymptomKategorie: 'atemnot',
         personalia: {
           name: 'Michael Witzinger',
@@ -9360,6 +9378,7 @@ export function seedCases(): Case[] {
       frequency: 0,
       difficulty: 2,
       patientSheet: {
+        profil: { tags: ['ausscheidung', 'schmerz', 'stein'] },
         leitsymptomKategorie: 'ausscheidung',
         personalia: {
           name: 'Lena Hartmann',
@@ -9526,6 +9545,10 @@ export function seedCases(): Case[] {
           'frau-schwanger': 'Nein, ich glaube nicht — ich nehme ja die Pille und die Periode war vor zehn Tagen. Schwanger war ich noch nie.',
           'frau-verhuetung': 'Ich nehme die Pille, seit vier Jahren. Zäpfchen oder so eine Kappe benutze ich nicht.',
           'frau-wechseljahre': 'Nein, dafür bin ich mit 26 noch viel zu jung. Zur Vorsorge gehe ich einmal im Jahr zur Frauenärztin, zuletzt vor einem halben Jahr, alles war in Ordnung.',
+          // K2 (ADR-0023) : réponses des sondes de banque que le profil exige (r3)
+          'akt-ort': 'Es brennt vorne in der Harnröhre, wenn ich Wasser lasse. Und dazu drückt es dumpf im Unterbauch, gleich über dem Schambein.',
+          'akt-charakter': 'Beim Wasserlassen brennt und sticht es richtig. Danach bleibt so ein dumpfer, krampfartiger Druck unten im Bauch.',
+          'akt-intensitaet': 'Ungefähr fünf von zehn. Beim Wasserlassen selbst ist es am schlimmsten.',
         },
         schwierigeReaktionen: [
           '(bittend) „Muss ich denn wirklich ein Antibiotikum nehmen? Ich nehme das so ungern, das ruiniert doch die ganze Darmflora.“',
