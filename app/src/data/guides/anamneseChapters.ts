@@ -388,6 +388,11 @@ const AKTUELL_VARIANTS: Record<LeitsymptomKategorie, AktuellVariant> = {
         text: 'Wasserlassen — Wie oft müssen Sie am Tag Wasser lassen, und wie oft nachts?',
         probe: 'akt-ausscheid-harn-haeufigkeit',
         followUp: ['Mehr oder weniger als sonst?'],
+        // K3 (revue I2) : le jour et la nuit, découpés du texte — r2 ne garde que ce que personne d'autre ne demande.
+        parts: [
+          { sucht: ['miktion_frequenz'], text: 'Wie oft müssen Sie am Tag Wasser lassen?', followUp: ['Mehr oder weniger als sonst?'] },
+          { sucht: ['nykturie'], text: 'Wie oft müssen Sie nachts Wasser lassen?' },
+        ],
       },
       { text: 'Urin — Ist Ihnen Blut, Schaum oder eine ungewöhnliche Farbe im Urin aufgefallen?', probe: 'akt-ausscheid-harn-aussehen' },
       { text: 'Schlucken — Bleibt beim Schlucken nur Festes stecken, oder auch Flüssiges?', probe: 'akt-ausscheid-schlucken' },

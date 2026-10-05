@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { PROBE_BY_ID } from './anamneseProbes';
-import { PSY, cas, ch, prof, run, s, signesJoues, un, vue } from './coherenceFixtures';
+import { PSY, byId, cas, ch, coeur, prof, run, s, signesJoues, un, vue } from './coherenceFixtures';
 
 // K3 — corrections des revues Opus de `508639f6` (mécanique B1, I1, M1, M4 ; clinique P0–P2). Fixtures : sondes réelles.
 
@@ -39,5 +39,11 @@ describe('M4 — r3 sans phrase de banque échoue franchement (jamais un id affi
     try {
       expect(() => run([ch('aktuell', s('akt-motiv'))], prof('schmerz', ['schmerz']))).toThrow(/akt-ort/);
     } finally { PROBE_BY_ID['akt-ort'] = garde; }
+  });
+});
+
+describe('I2 — Wasserlassen jour / nuit : les `parts` découpées du texte existant', () => {
+  it('gastroenteritis : la question du cas pose la fréquence du jour ; la générale se réduit à la nuit, sans doublon', () => {
+    expect(coeur(byId('case-gastroenteritis')).aktuell).toContain('akt-ausscheid-harn-haeufigkeit~nykturie');
   });
 });
