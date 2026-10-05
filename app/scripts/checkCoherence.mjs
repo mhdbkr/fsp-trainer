@@ -10,7 +10,8 @@
 // profil se PROPOSE depuis la fiche. C'est une boussole (voir coherenceMesure.mjs).
 // Ce qui exige `cohere` (K3) est rapporté « non mesurable avant K3 », pas inventé.
 //
-// Structure (bloquante dès K0 : exit 1) : le lexique est cohérent (INV-77/78).
+// Structure (bloquante dès K0 : exit 1) : le lexique est cohérent (INV-77/78) ; dès K1, les sondes déclarent leur `sucht`
+// et le texte s'accorde à la déclaration (INV-79, INV-84 — `suchtCheck.ts`).
 // Plancher : app/scripts/fixtures/coherence-budget.json — jamais à la hausse
 // (`checkBudgetFloor.mjs` le compare à la base ; ici : mesure ≤ plancher).
 //
@@ -42,6 +43,7 @@ writeFileSync(entry, `
   export { seedCases } from ${src('data/seedCases.ts')};
   export { playedTrame, leitsymptomOf } from ${src('data/guides/anamneseChapters.ts')};
   export { phraseText, phraseAlts, phraseFollowUp, phraseProbes, phraseIsCaseSpecific } from ${src('data/guides/phrases.ts')};
+  export { suchtIncoherences } from ${src('data/guides/suchtCheck.ts')};
   export { phraseSymptoms, symptomsInText, PROBE_SUCHT, SIGNES, SIGNE_DEF, PROFIL_EXIGE, PROFIL_EXCLUT, lexiqueIncoherences } from ${src('data/guides/symptoms.ts')};
   export { PROBE_BY_ID } from ${src('data/guides/anamneseProbes.ts')};
 `);
@@ -56,7 +58,7 @@ const m = await import(pathToFileURL(out).href);
 rmSync(dir, { recursive: true, force: true });
 
 // ── Structure : le lexique tient-il ? (INV-77, INV-78) ───────────────────────
-const structure = m.lexiqueIncoherences();
+const structure = [...m.lexiqueIncoherences(), ...m.suchtIncoherences()];   // INV-77 / INV-78 (lexique) · INV-79 / INV-84 (déclaration des sondes, K1)
 // Les motifs de lecture ne parlent que de signes du lexique.
 for (const k of [...Object.keys(DIM), ...Object.keys(SIG)]) if (!m.SIGNES.includes(k)) structure.push(`coherenceMesure.mjs lit « ${k} », qui n'est pas un signe du lexique`);
 

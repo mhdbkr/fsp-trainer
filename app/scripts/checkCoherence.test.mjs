@@ -247,3 +247,15 @@ test('--propose : la proposition lit les questions du cas non déclarées, n\'é
   assert.ok(j.every((p) => Array.isArray(p.sucht) && Array.isArray(p.relances)));
 });
 
+
+test('INV-79 mutation : une sonde qui perd son entrée de PROBE_SUCHT → exit 1 (la porte lit la déclaration)', () => {
+  const r = sb.mutate('src/data/guides/probeSucht.ts', "'fach-rheuma-systemisch': ['fieber', 'augenentzuendung', 'ulzera', 'stuhl', 'ausschlag'],", '', () => run());
+  assert.equal(r.status, 1);
+  assert.match(r.stdout, /INV-79 : la sonde « fach-rheuma-systemisch » ne déclare aucun sucht/);
+});
+
+test('INV-84 mutation : une relance conditionnelle qui déclare un autre signe → exit 1', () => {
+  const r = sb.mutate('src/data/guides/anamneseChapters.ts', "'Hatten Sie schon einmal einen Gichtanfall oder Nierensteine?'", "'Falls ja: Hatten Sie schon einmal einen Gichtanfall oder Nierensteine?'", () => run());
+  assert.equal(r.status, 1);
+  assert.match(r.stdout, /INV-84.*fach-rheuma-vorgeschichte.*conditionnelle 0/);
+});
