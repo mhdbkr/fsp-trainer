@@ -443,6 +443,7 @@ la qualité :
 | **D2** | Une douleur dans le **premier** symptôme du motif ajoute Ort, Charakter, Intensität même si la nature du cas n'est pas « douleur » ; pas une douleur accessoire. | tag `schmerz` déclaré, §10.3 ; r3 |
 | **D3** | Une redite marquée `deepens` n'est plus tolérée : un signe, une question. | r2 ; `checkPlayedTrame` perd sa tolérance |
 | **D4** | Conservation : question du cas > Fachanamnese > Aktuelle Beschwerden > végétative. | rang de r2, §10.4 |
+| **D4-bis** | *(K3, décision de main, revue clinique P1-1)* Quand un signe **est** le motif du cas (`SIGNE_DU_MOTIF` : la fièvre d'un tableau `infekt`, la dyspnée d'un tableau `atemnot`), la question d'Aktuelle Beschwerden l'emporte sur la Fach, qui se réduit à ses autres `parts` (`fach-pneumo-fieber` → « Hatten Sie dabei Schüttelfrost? »). Aucune question « Fieber » n'est plus posée après trois questions qui la présupposent. Tests : malaria, pneumonie. | rang de r2, §10.4 |
 | **D5** | Fach Infektiologie (gabarit borréliose) : le moteur la réduit d'abord, pas de scission. | r1 |
 | **D6** | Q3–Q5 et Q7 continuent en déclarant `sucht` sur ce qu'ils touchent ; Q6 et Q8 gelés jusqu'à K3, puis absorbés. | ordre des lots, §10.10 |
 | **D7** | Porte à 0 sur la trame jouée **après** montage dès K3 ; plancher (qui ne remonte jamais) sur le contenu brut jusqu'à K4. | §10.6 |

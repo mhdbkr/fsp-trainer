@@ -36,6 +36,7 @@ export interface Ecart {
 /** Profil effectif (§10.3), calculé au montage : tags dérivés ∪ déclarés ; signe → ce qui l'exige / l'exclut. */
 export interface ProfilEffectif {
   declare: boolean;
+  nature?: ProfilTag;                       // la nature du motif (leitsymptomKategorie) : D4-bis
   tags: ProfilTag[];
   exige: Partial<Record<Signe, string>>;    // signe → tag qui l'exige, ou 'exige' (déclaré par le cas)
   exclut: Partial<Record<Signe, string>>;   // signe → tag qui l'exclut, ou la raison écrite au profil
@@ -50,7 +51,7 @@ export function profilEffectif(c: ProfilCas): ProfilEffectif {
   for (const s of p?.exige ?? []) exige[s] ??= 'exige';
   for (const t of tags) for (const s of PROFIL_EXCLUT[t] ?? []) exclut[s] ??= t;
   for (const [s, r] of Object.entries(p?.exclut ?? {})) exclut[s as Signe] ??= r ?? 'exclut';
-  return { declare: !!p, tags, exige, exclut };
+  return { declare: !!p, nature: c.kategorie, tags, exige, exclut };
 }
 
 /** Exceptions nominatives (§10.6) : ajout réservé à la direction. Vide au départ ; l'exception
@@ -72,6 +73,11 @@ export interface CohereCtx {
   allowed?: ReadonlyArray<CoherenceException>;            // défaut : COHERENCE_ALLOWED (paramètre pour les tests)
   casIndex?: (p: Phrase) => number | undefined;            // index d'une question du cas dans `caseSpecificQuestions` (id `cas:<index>`)
 }
+
+/** D4-bis (décision de main, revue clinique P1-1) : le signe qui EST le motif du cas (fièvre d'un tableau infectieux,
+ *  dyspnée d'un tableau dyspnéique) se pose dans Aktuelle Beschwerden, qui l'interroge en premier et en détail : là,
+ *  Aktuelle Beschwerden l'emporte sur la Fach, qui se réduit à ses autres `parts`. */
+export const SIGNE_DU_MOTIF: Partial<Record<ProfilTag, Signe>> = { infekt: 'fieber', atemnot: 'atemnot' };
 
 /** Rang de conservation (D4, §10.4) : question du cas 0 · Fach 1 · aktuell 2 · vegetativ 3 · autres 4. */
 export const rangDe = (ch: string, cas: boolean): number => (cas ? 0 : ch === 'fach' ? 1 : ch === 'aktuell' ? 2 : ch === 'vegetativ' ? 3 : 4);
@@ -218,7 +224,9 @@ export function cohere<T extends TrameChapter>(trame: readonly T[], profil: Prof
   for (const s of uniq(live.flatMap((u) => u.signes))) {
     const us = live.filter((u) => u.signes.includes(s));
     if (us.length < 2) continue;
-    const w = us.reduce((a, b) => (b.rang < a.rang ? b : a));
+    // D4-bis : pour le signe du motif, une question d'Aktuelle Beschwerden passe avant la Fach (rang 0,5).
+    const rang = (u: U) => (s === (profil.nature && SIGNE_DU_MOTIF[profil.nature]) && u.ch === 'aktuell' && !u.cas && !u.relance ? 0.5 : u.rang);
+    const w = us.reduce((a, b) => (rang(b) < rang(a) ? b : a));
     for (const u of us) {
       if (u === w) continue;
       if (permis(u, s, 2)) { ecart({ regle: 2, action: 'garde-exception', question: u.id, signes: [s], cause: w.id }); continue; }

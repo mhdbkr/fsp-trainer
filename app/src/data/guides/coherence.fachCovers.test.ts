@@ -5,6 +5,7 @@ import { seedCases } from '@/data/seedCases';
 import { playedTrame, trameBrute } from './anamneseChapters';
 import { phraseProbes } from './phrases';
 import { PROBE_SUCHT, SUCHT_AUSSER } from './symptoms';
+import { SIGNE_DU_MOTIF } from './coherence';
 
 // K3 (contrat frage-atomique §10.10, §11.4) — `FACH_COVERS` est absorbé par r2. Chaque paire de l'ancienne table
 // (« la sonde Fach F rend inutile la sonde de variante A », gelée par K0 dans `__snapshots__/fach-covers.txt`) est
@@ -12,7 +13,7 @@ import { PROBE_SUCHT, SUCHT_AUSSER } from './symptoms';
 const PAIRES = readFileSync(join(__dirname, '__snapshots__/fach-covers.txt'), 'utf8').trim().split('\n')
   .flatMap((l) => { const [f, as] = l.split(' -> '); return as.split(', ').map((a) => [f, a] as const); });
 
-type Raison = 'signe-distinct' | 'non-reduit' | 'reduit' | 'sucht-ausser';
+type Raison = 'signe-distinct' | 'non-reduit' | 'reduit' | 'sucht-ausser' | 'd4-bis';
 /** Les paires que r2 ne retire pas (sur au moins un cas), et pourquoi. */
 const GARDEES: Record<string, Raison> = {
   // Signe distinct : l'ancienne table couvrait une AUTRE information que la Fach ne demande pas (règle d'identité).
@@ -50,6 +51,10 @@ const GARDEES: Record<string, Raison> = {
   'fach-neuro-kraft -> akt-nerven-alltag': 'non-reduit',
   // Signe partagé, la perdante a des `parts` : réduite à ce que la Fach ne demande pas (Appetit, Durst).
   'fach-haem-bsymptomatik -> akt-allgemein-gewicht': 'reduit',
+  // D4-bis (décision de main, revue P1-1) : le signe du motif (la dyspnée d'un tableau dyspnéique) se pose dans Aktuelle
+  // Beschwerden ; c'est la Fach qui cède.
+  'fach-kardio-luft -> akt-atemnot-belastung': 'd4-bis',
+  'fach-pneumo-atemnot -> akt-atemnot-belastung': 'd4-bis',
   // L'exception testiculaire, devenue règle générique (SUCHT_AUSSER, tag dérivé `hoden`) : case-hodentorsion.
   'fach-uro-flanke -> akt-ausstrahlung': 'sucht-ausser',
 };
@@ -75,10 +80,10 @@ describe('FACH_COVERS absorbé par r2 — chaque paire retirée, ou gardée pour
     }
   }
 
-  it('la table gelée a 73 paires ; 71 s\'appliquent à au moins un cas ; 31 restent posées (raison listée)', () => {
+  it('la table gelée a 73 paires ; 71 s\'appliquent à au moins un cas ; 33 restent posées (raison listée)', () => {
     expect(PAIRES).toHaveLength(73);
     expect(etat.size).toBe(71);
-    expect(Object.keys(GARDEES)).toHaveLength(31);
+    expect(Object.keys(GARDEES)).toHaveLength(33);
   });
   it('les paires gardées sont exactement celles listées', () => {
     const gardees = [...etat].filter(([, s]) => s.retiree < s.n).map(([k]) => k).sort();
@@ -97,6 +102,7 @@ describe('FACH_COVERS absorbé par r2 — chaque paire retirée, ou gardée pour
       if (raison === 'signe-distinct') expect(commun, k).toEqual([]);
       if (raison === 'non-reduit') expect(ecarts, k).toContain('non-reduit');
       if (raison === 'reduit') expect(ecarts, k).toContain('reduit');
+      if (raison === 'd4-bis') expect(commun.some((x) => Object.values(SIGNE_DU_MOTIF).includes(x)), k).toBe(true);
       if (raison === 'sucht-ausser') expect(SUCHT_AUSSER[f]?.hoden ?? [], k).toEqual(commun);
     }
   });

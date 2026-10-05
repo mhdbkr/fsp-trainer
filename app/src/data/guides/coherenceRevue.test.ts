@@ -2,7 +2,7 @@ import { describe, expect, it } from 'vitest';
 import { compteursApresCas, playedTrame, profilDuCas } from './anamneseChapters';
 import { PROBE_BY_ID } from './anamneseProbes';
 import { phraseFollowUps, phraseProbes, phraseText } from './phrases';
-import { PROBE_SUCHT, PROFIL_EXIGE, SIGNE_DEF, lexiqueIncoherences } from './symptoms';
+import { PROBE_SUCHT, PROFIL_EXIGE, SIGNE_DEF, lexiqueIncoherences, phraseSucht } from './symptoms';
 import { PSY, byId, cas, cases, ch, coeur, prof, run, s, signesJoues, trameJouee, un, vue } from './coherenceFixtures';
 
 // K3 — corrections des revues Opus de `508639f6` (mécanique B1, I1, M1, M4 ; clinique P0–P2). Fixtures : sondes réelles.
@@ -101,5 +101,22 @@ describe('P0-2 — Zungenbiss et Einnässen : deux signes du malaise (syncope �
       expect(c.patientSheet.antworten?.['akt-anfall-bewusstsein'], c.id).toMatch(/Zunge/);
       expect(c.patientSheet.antworten?.['akt-anfall-bewusstsein'], c.id).toMatch(/[Ee]ingenässt|Urin|Hose/);
     }
+  });
+});
+
+describe('P1-1 — D4-bis : le symptôme directeur du motif se pose dans Aktuelle Beschwerden, la Fach se réduit', () => {
+  const fieber = (id: string) => trameJouee(byId(id)).flatMap((x) => x.questions.filter((p) => phraseSucht(p).includes('fieber')).map((p) => `${x.id}:${phraseProbes(p).join('+') || 'cas'}`));
+  it('malaria : la fièvre est posée une fois, dans Aktuelle Beschwerden (fach-infekt-fieber cède)', () => {
+    expect(fieber('case-malaria')).toEqual(['aktuell:akt-infekt-fieber']);
+    expect(un(playedTrame(byId('case-malaria')).ecarts, 'fach-infekt-fieber', 'retire')).toMatchObject({ cause: 'akt-infekt-fieber' });
+  });
+  it('pneumonie : la Fach pneumo garde « Hatten Sie dabei Schüttelfrost? » (texte existant), plus de « Haben Sie Fieber? »', () => {
+    expect(fieber('case-pneumonie')).toEqual(['aktuell:akt-infekt-fieber']);
+    const fach = playedTrame(byId('case-pneumonie')).fach!.chapter.questions.map(phraseText);
+    expect(fach).toContain('Hatten Sie dabei Schüttelfrost?');
+    expect(fach).not.toContain('Haben Sie Fieber oder Schüttelfrost?');
+  });
+  it('130 cas de nature infekt : aucune question de fièvre hors d\'Aktuelle Beschwerden (sauf une question du cas)', () => {
+    for (const c of cases.filter((x) => profilDuCas(x).nature === 'infekt')) for (const f of fieber(c.id)) expect(f.startsWith('aktuell:') || f.endsWith(':cas'), `${c.id} ${f}`).toBe(true);
   });
 });

@@ -27,12 +27,12 @@ const texts = (c: Case) => {
 const count = (c: Case, re: RegExp) => texts(c).filter(([, t]) => re.test(t));
 
 describe('Un symptôme, une question (FB2-J10)', () => {
-  // K3 : la fièvre est toujours cherchée UNE fois ; sous D4 la Fach l'emporte (contrat frage-atomique §11.4 : « fach-infekt-fieber
-  // l'emporte. Changement de comportement assumé »). Avant K3, FACH_COVERS la laissait à Aktuelle Beschwerden.
-  it('CAP : la fièvre est cherchée une seule fois — dans la Fach (D4, contrat §11.4)', () => {
+  // K3, D4-bis (décision de main, revue clinique P1-1) : quand la fièvre EST le motif (nature infekt), Aktuelle Beschwerden
+  // la pose et la Fach se réduit — le test CAP d'origine retrouve son attente.
+  it('CAP : la fièvre est cherchée une seule fois, dans « Aktuelle Beschwerden » (D4-bis)', () => {
     const hits = count(mk(), /gemessen|Fieber oder Schüttelfrost|Fieber festgestellt/);
     expect(hits).toHaveLength(1);
-    expect(hits[0][0]).toBe('fach-pneumo');
+    expect(hits[0][0]).toBe('aktuell');
   });
   it('CAP : le Schüttelfrost (déjà dans la question fièvre) ne revient pas en vegetativ — il reste le Nachtschweiß', () => {
     const veg = texts(mk()).filter(([ch]) => ch === 'vegetativ').map(([, t]) => t);
