@@ -27,6 +27,12 @@ function buildCasesByTerm(cases: RelevanceContext['cases']): Map<string, string[
   return m;
 }
 
+/** Favoris « de la séance » : posés il y a moins de 48 h (même fenêtre que le bonus ★).
+ *  Ils entrent TOUS au drill suivant (lot F, décision direction). */
+export function sessionFavoriteIds(ctx: Pick<RelevanceContext, 'now' | 'favorites'>): Set<string> {
+  return new Set(ctx.favorites.filter((f) => { const age = ctx.now - Date.parse(f.since); return age >= 0 && age < H48; }).map((f) => f.termId));
+}
+
 /** Points de pertinence d'un terme NEU (spec F2a 3.3). Les dus ne passent pas par ici.
  *  `casesByTerm` (terme → ids de cas) est optionnel : recalculé à la volée si absent,
  *  mais `sortByRelevance` le précalcule une fois pour rester en O(n). */
