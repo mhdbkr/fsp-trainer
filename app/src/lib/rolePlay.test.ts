@@ -41,3 +41,30 @@ describe('Rollenskript — questions du cas', () => {
     expect(buildRollenskript(sheet).every((c) => c.lines.every((l) => !l.improvise))).toBe(true);
   });
 });
+
+// Q-gyn (revue m1) : quand la Frauenanamnese est fondue dans la Fach gynéco, le
+// simulant retrouve SES répliques dans l'onglet « Fachanamnese », en tête, dans
+// l'ordre où le médecin les pose — pas dans un onglet Frauenanamnese à la fin.
+describe('Rollenskript — Frauenanamnese fondue dans la Fach', () => {
+  const gyn = {
+    ...sheet,
+    antworten: {
+      'akt-motiv': 'Ich habe Unterbauchschmerzen.',
+      'fach-gyn-blutung': 'Die Blutung ist stark.', 'fach-gyn-brust': 'Nichts an der Brust.',
+      'frau-periode': 'Alle 28 Tage.', 'frau-schwanger': 'Nein.', 'frau-verhuetung': 'Die Pille.',
+    },
+  } as unknown as PatientSheet;
+  const qs: CaseQuestion[] = [{ frage: 'Haben Sie bereits einen Schwangerschaftstest gemacht?', kapitel: 'frauenanamnese' }];
+
+  it('par défaut : un onglet Frauenanamnese à part (inchangé)', () => {
+    const ch = buildRollenskript(gyn, qs);
+    expect(ch.find((c) => c.id === 'frauenanamnese')!.lines.map((l) => l.probeId ?? 'cas')).toEqual(['frau-periode', 'frau-schwanger', 'frau-verhuetung', 'cas']);
+    expect(ch.find((c) => c.id === 'fach')!.lines.map((l) => l.probeId)).toEqual(['fach-gyn-blutung', 'fach-gyn-brust']);
+  });
+  it('frauInFach : plus d’onglet Frauenanamnese ; ses lignes ouvrent l’onglet Fach, dans l’ordre', () => {
+    const ch = buildRollenskript(gyn, qs, true);
+    expect(ch.some((c) => c.id === 'frauenanamnese')).toBe(false);
+    expect(ch.find((c) => c.id === 'fach')!.lines.map((l) => l.probeId ?? 'cas'))
+      .toEqual(['frau-periode', 'frau-schwanger', 'frau-verhuetung', 'cas', 'fach-gyn-blutung', 'fach-gyn-brust']);
+  });
+});

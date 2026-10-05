@@ -86,8 +86,9 @@ function glanceFor(id: RolePlayKapitel, s: PatientSheet): string[] {
  *  Source primaire = `antworten` (carte probeId → réplique) : chaque réponse est
  *  reliée à sa sonde canonique (question + chapitre + ordre d'entretien), donc
  *  la couverture suit le guide sans dérive. `frageAntworten` (ad-hoc) et
- *  `negativeFindings` sont ajoutés ensuite pour rétrocompatibilité. */
-export function buildRollenskript(sheet: PatientSheet, caseQuestions: CaseQuestion[] = []): RoleChapter[] {
+ *  `negativeFindings` sont ajoutés ensuite pour rétrocompatibilité.
+ *  `frauInFach` : la Frauenanamnese du médecin est fondue dans sa Fach gynéco. */
+export function buildRollenskript(sheet: PatientSheet, caseQuestions: CaseQuestion[] = [], frauInFach = false): RoleChapter[] {
   const byId = new Map<RolePlayKapitel, (RoleLine & { ord: number })[]>();
   for (const meta of CHAPTER_META) byId.set(meta.id, []);
 
@@ -122,6 +123,13 @@ export function buildRollenskript(sheet: PatientSheet, caseQuestions: CaseQuesti
     if (answered) { if (cqFollowUp(q)) answered.nachfrage = cqFollowUp(q); continue; }
     const k = cqKapitel(q);
     byId.get(k === 'fach' ? 'fach' : (k as RolePlayKapitel))?.push({ frage: cqText(q), antwort: '', improvise: true, ...(cqFollowUp(q) ? { nachfrage: cqFollowUp(q) } : {}), ord: 1002 });
+  }
+
+  // Q-gyn : la Frauenanamnese est fondue dans la Fach gynéco du médecin → ses
+  // répliques ouvrent l'onglet Fach, dans l'ordre où le médecin les pose.
+  if (frauInFach) {
+    byId.get('fach')!.push(...byId.get('frauenanamnese')!.map((l) => ({ ...l, ord: l.ord - 10000 })));
+    byId.set('frauenanamnese', []);
   }
 
   return CHAPTER_META
