@@ -229,3 +229,13 @@ describe('P2 — finitions', () => {
     for (const id of ['case-schlaganfall', 'case-tia']) expect(q(id, 'akt-neuro-lage'), id).toEqual([]);
   });
 });
+
+describe('R6 — r2 ne déplace une question du cas que si la perdante est RETIRÉE (§10.4)', () => {
+  it('perdante non réduite : la question du cas reste à sa place ; perdante retirée : elle prend sa place', () => {
+    const nonReduite = run([ch('aktuell', s('akt-allgemein-art'), s('akt-motiv'), cas(0, 'Sind Sie müde?', ['muedigkeit']))]);
+    expect(vue(nonReduite.trame).aktuell).toEqual(['akt-allgemein-art', 'akt-motiv', 'cas']);
+    expect(un(nonReduite.ecarts, 'cas:0', 'deplace')).toBeUndefined();
+    const retiree = run([ch('aktuell', s('akt-ausloeser'), s('akt-motiv'), cas(1, 'Auslöser?', ['ausloeser']))]);
+    expect(vue(retiree.trame).aktuell).toEqual(['cas', 'akt-motiv']);
+  });
+});

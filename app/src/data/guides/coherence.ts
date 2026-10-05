@@ -235,10 +235,11 @@ export function cohere<T extends TrameChapter>(trame: readonly T[], profil: Prof
     }
   }
   for (const [u, m] of pertes) perdre(u, [...m.keys()], 2, uniq([...m.values()].map((w) => w.id)).join(', '));
-  // Une question du cas gagnante prend la place de la première perdante du même chapitre placée au-dessus d'elle.
+  // Une question du cas gagnante prend la place de la première perdante RETIRÉE du même chapitre placée au-dessus d'elle.
+  // Une perdante réduite ou non réduite reste posée : la question du cas reste à sa place (revue clinique R6, décision de main).
   for (const c of chapters) for (const w of [...c.items].filter((u) => u.cas)) {
     const at = c.items.indexOf(w);
-    const k = c.items.findIndex((u, i) => i < at && [...(pertes.get(u)?.values() ?? [])].includes(w));
+    const k = c.items.findIndex((u, i) => i < at && u.etat === 'retire' && [...(pertes.get(u)?.values() ?? [])].includes(w));
     if (k < 0) continue;
     c.items.splice(at, 1); c.items.splice(k, 0, w);
     ecart({ regle: 2, action: 'deplace', question: w.id, signes: w.signes, cause: c.items[k + 1].id, de: c.id, vers: c.id });
