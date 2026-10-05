@@ -33,7 +33,12 @@ beforeEach(async () => {
 });
 afterEach(() => resetClock());
 
-const persiste = async () => waitFor(async () => expect((await db.meta.get(LAUF_AKTIV_KEY))?.value).toBeTruthy());
+/** Attend que le DERNIER état soit persisté (fixeur I2) : la première écriture ne suffit pas, celles de
+ *  `terminerPartie` / `partieSuivante` peuvent encore être dans la file. */
+const persiste = async (attendu: { teileGespielt: string[]; zustand: string }) => waitFor(async () => {
+  const v = (await db.meta.get(LAUF_AKTIV_KEY))?.value as { teileGespielt?: string[]; zustand?: string } | undefined;
+  expect({ teileGespielt: v?.teileGespielt, zustand: v?.zustand }).toEqual(attendu);
+});
 
 /** Joue l'Anamnese, quitte le runner, attend `pauseMs`, revient ; puis finit la partie et l'enregistre. */
 async function partieAvecPause(pauseMs: number) {
@@ -41,7 +46,7 @@ async function partieAvecPause(pauseMs: number) {
   await waitFor(() => expect(a.result.current.lauf?.zustand).toBe('laufend'));
   act(() => a.result.current.terminerPartie());
   act(() => a.result.current.dispatch({ typ: 'partieSuivante' }));
-  await persiste();
+  await persiste({ teileGespielt: ['anamnese'], zustand: 'laufend' });
   a.unmount();                                              // barre « Reprendre », rechargement ou départ du runner
   avance(pauseMs);
   const b = renderHook(() => useLauf(fall, null));

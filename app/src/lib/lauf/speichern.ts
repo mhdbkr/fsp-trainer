@@ -94,7 +94,10 @@ const enfile = <T>(op: () => Promise<T>): Promise<T> => {
 /** [S4] Chaque persistance date le Lauf (`zuletztAktiv`, §3.1) : c'est la
  *  mesure de la pause que `nimmWiederAuf` lira à la reprise (INV-73). */
 export function speichereAktivenLauf(lauf: Lauf): Promise<void> {
-  return enfile(() => setMeta(LAUF_AKTIV_KEY, { ...lauf, zuletztAktiv: now() }));
+  // Daté à l'APPEL, pas quand la file l'exécute (fixeur I2) : une écriture restée en attente pendant une
+  // pause la daterait de l'après-pause, et la pause mesurée vaudrait 0.
+  const stamp = now();
+  return enfile(() => setMeta(LAUF_AKTIV_KEY, { ...lauf, zuletztAktiv: stamp }));
 }
 
 export function verwerfeAktivenLauf(): Promise<void> {

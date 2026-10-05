@@ -21,7 +21,7 @@ vi.setConfig({ testTimeout: 30_000, hookTimeout: 30_000 });
 import { db } from '@/db/db';
 import { checklistFor } from '@/lib/checklists';
 import {
-  erstelleLauf, erlaubt, tickChrono, transition, zustandIndex, type LaufAktion,
+  erstelleLauf, erlaubt, tickChrono, transition, wegZu, zustandIndex, type LaufAktion,
 } from '@/lib/lauf/automat';
 import { speichern } from '@/lib/lauf/speichern';
 import type { Lauf } from '@/lib/lauf/types';
@@ -91,6 +91,8 @@ describe('INV-20 / INV-21 / INV-28 — l’automate du Lauf ne revient jamais en
             expect(avant.zustand, ctx).toBe('laufend');
             expect(avant.aktuellerTeil, `springeZu pendant une Aufklärung — ${ctx}`).not.toBe('aufklaerung');
             expect(avant.teileGespielt.filter((t) => t !== 'aufklaerung'), `springeZu après un Teil terminé — ${ctx}`).toEqual([]);
+            // Fixeur I11 (§10.2 amendé) : « commencer par » un autre Teil, c'est avant que le chrono du départ ne tourne.
+            expect(avant.sekundenProTeil[avant.aktuellerTeil!] ?? 0, `springeZu avec le chrono du départ lancé — ${ctx}`).toBe(0);
             expect(l.aktuellerTeil, ctx).not.toBe(avant.aktuellerTeil);
             expect(avant.geplanteTeile, ctx).toContain(l.aktuellerTeil);
           }
@@ -109,15 +111,19 @@ describe('INV-20 / INV-21 / INV-28 — l’automate du Lauf ne revient jamais en
         expect(l.teileGespielt.slice(0, avant.teileGespielt.length), `teileGespielt a reculé — ${ctx}`).toEqual(avant.teileGespielt);
         // INV-72 : un Teil n'est jamais joué deux fois dans un Lauf.
         expect(new Set(l.teileGespielt).size, `un Teil joué deux fois — ${ctx}`).toBe(l.teileGespielt.length);
-        // INV-71 : à chaque bilan, « Terminer ici » est permis — quel que soit le reste.
+        // INV-71 : à chaque bilan, « Terminer ici » est permis dès qu'un des trois Teile est joué — quel que soit le
+        // reste ; jamais sur la seule Aufklärung (fixeur I4 : elle n'est pas un Teil, règle 7, §3.1).
         if (l.zustand === 'bilanz') {
-          expect(erlaubt(l, { typ: 'versChecklist' }), `« Terminer ici » refusé au bilan — ${ctx}`).toBe(true);
+          const unTeil = l.teileGespielt.some((t) => t !== 'aufklaerung');
+          expect(erlaubt(l, { typ: 'versChecklist' }), `« Terminer ici » ${unTeil ? 'refusé' : 'permis sur la seule Aufklärung'} au bilan — ${ctx}`).toBe(unTeil);
           if (l.geplanteTeile.some((t) => !l.teileGespielt.includes(t))) vu.terminerIci++;
           // « Continuer » (sans choix) mène TOUJOURS au prochain Teil non joué — le Teil interrompu par
           // l'Aufklärung d'abord : jamais un refus muet qui laisserait le candidat bloqué au bilan.
           const reste = l.geplanteTeile.filter((t) => !l.teileGespielt.includes(t));
           const interrompu = l.teilVorAufklaerung && !l.teileGespielt.includes(l.teilVorAufklaerung) ? l.teilVorAufklaerung : null;
           if (reste.length) expect(transition(l, { typ: 'partieSuivante' }).aktuellerTeil, `« Continuer » ne mène pas au prochain Teil non joué — ${ctx}`).toBe(interrompu ?? reste[0]);
+          // Fixeur M6 : la pastille de ce Teil par défaut n'est pas un second « Continuer ».
+          if (reste.length) expect(wegZu(l, interrompu ?? reste[0]), `pastille en double de « Continuer — X » — ${ctx}`).toBeNull();
         }
         // INV-28 : aucun chrono ne décroît.
         for (const [t, s] of Object.entries(avant.sekundenProTeil)) {

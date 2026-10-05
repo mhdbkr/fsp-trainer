@@ -84,9 +84,12 @@ describe('INV-75 — le jour d’une partie est celui de son début', () => {
 });
 
 describe('INV-72 — le temps d’une partie garde le Teil abandonné et l’Aufklärung', () => {
-  it('Anamnese commencée (95 s) puis départ sur la Dokumentation (600 s), Aufklärung (240 s) : 935 s', async () => {
-    let l = tickChrono(neu(), 'anamnese', 95);
-    l = transition(l, { typ: 'springeZu', teil: 'dokumentation' });
+  // Depuis le fixeur I11, `springeZu` n'est permis que chrono de t0 à zéro : un Teil quitté n'a plus de temps à perdre
+  // par ce chemin. La règle de projection (m6 : TOUS les Teile commencés) reste, prouvée sur un Lauf où un Teil a du
+  // temps sans être joué (un `lauf.aktiv` d'avant la règle).
+  it('un Teil commencé non joué (95 s), Dokumentation (600 s), Aufklärung (240 s) : 935 s', async () => {
+    let l = transition(neu(), { typ: 'springeZu', teil: 'dokumentation' });
+    l = { ...l, sekundenProTeil: { ...l.sekundenProTeil, anamnese: 95 } };
     l = transition(l, { typ: 'aufklaerungOeffnen', checkliste: checklistFor('aufklaerung') });
     l = tickChrono(l, 'aufklaerung', 240);
     l = transition(l, { typ: 'terminerPartie', ergebnis: res(240) });

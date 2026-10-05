@@ -142,6 +142,9 @@ export const enchainiert = (lauf: Lauf): boolean =>
  *  repris est interrompu : on ne sait pas combien de temps il a dormi. */
 export function nimmWiederAuf(lauf: Lauf, jetzt: number): Lauf {
   if (lauf.unterbrochen) return lauf;
+  // [fixeur M3, amendement §3.1] Plus aucun Teil à jouer : les trois ont été joués d'affilée, une pause au
+  // bilan final ou à la checklist ne casse pas l'enchaînement.
+  if (!lauf.geplanteTeile.some((t) => !lauf.teileGespielt.includes(t))) return lauf;
   const pause = typeof lauf.zuletztAktiv === 'number' ? jetzt - lauf.zuletztAktiv : Infinity;
   return pause >= REPRISE_TOLERANZ_MIN * 60_000 ? { ...lauf, unterbrochen: true } : lauf;
 }
@@ -265,7 +268,10 @@ export function erlaubt(lauf: Lauf, aktion: LaufAktion): boolean {
  *  décide rien : une pastille est un bouton ssi cette action existe. */
 export function wegZu(lauf: Lauf, teil: SimTeil): LaufAktion | null {
   const a: LaufAktion = lauf.zustand === 'bilanz' ? { typ: 'partieSuivante', teil } : { typ: 'springeZu', teil };
-  return erlaubt(lauf, a) ? a : null;
+  if (!erlaubt(lauf, a)) return null;
+  // [fixeur M6] Au bilan, le Teil par défaut a déjà sa sortie, « Continuer — X » : sa pastille n'en est pas une seconde.
+  if (a.typ === 'partieSuivante' && transition(lauf, { typ: 'partieSuivante' }).aktuellerTeil === teil) return null;
+  return a;
 }
 
 /** Visibilité de « Terminer la simulation » dans l'en-tête (règle 8 amendée,
@@ -364,6 +370,9 @@ export function transition(lauf: Lauf, aktion: LaufAktion): Lauf {
       // ne compte pas comme joué, mais entre dans `dauerGesamtSec` (m6).
       if (lauf.zustand !== 'laufend' || !lauf.aktuellerTeil || lauf.aktuellerTeil === 'aufklaerung') return lauf;
       if (lauf.teileGespielt.some((t) => t !== 'aufklaerung')) return lauf;
+      // [fixeur I11, §10.2 amendé] « Commencer par » un autre Teil, c'est AVANT de commencer : une fois le chrono de
+      // t0 lancé, on ne quitte plus un Teil en cours d'un clic (esprit de la règle 8).
+      if ((lauf.sekundenProTeil[lauf.aktuellerTeil] ?? 0) > 0) return lauf;
       if (aktion.teil === lauf.aktuellerTeil || !lauf.geplanteTeile.includes(aktion.teil)) return lauf;
       return { ...lauf, aktuellerTeil: aktion.teil };
     }
@@ -378,6 +387,9 @@ export function transition(lauf: Lauf, aktion: LaufAktion): Lauf {
 
     case 'versChecklist': {
       if (lauf.zustand !== 'bilanz') return lauf;
+      // [fixeur I4] « Terminer ici » exige un des trois Teile joués : l'Aufklärung n'en est pas un (règle 7,
+      // §3.1, INV-71). « Continuer » ramène alors au Teil interrompu.
+      if (!lauf.teileGespielt.some((t) => t !== 'aufklaerung')) return lauf;
       return { ...lauf, zustand: 'checkliste', aktuellerTeil: null };
     }
 
