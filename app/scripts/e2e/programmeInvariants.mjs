@@ -368,16 +368,23 @@ const P3b = preuve('P3b', "une session réussie sur un seul Teil ne fait régres
     `le Teil travaillé est « ${cp.teile[tache.teil].status} » alors que la session a réussi`);
   exige(cp.overall === 'entame', `overall « ${cp.overall} » : vierge → entamé attendu, jamais une régression`);
 
-  // B-C5 : la page Cas lit case_progress — « Entamé », jamais l'ancien statut
-  // (« Maîtrisé » après un seul Teil, puis « En cours » au Teil suivant).
+  // B-C5 : la page Cas lit case_progress — jamais l'ancien statut (« Maîtrisé » après un seul Teil, puis « En cours »).
+  // Série 4 (S4-4, #73) : la carte porte le CADRAN ; son étiquette accessible dit chaque Teil — les Teile jamais
+  // joués y sont « pas encore travaillé » (CaseDialText.MOT_ETAT), le Teil joué porte son score.
   goto('/cas');
   const carte = await until(`
     const h = [...document.querySelectorAll('h3')].find((x) => x.textContent.trim() === ${JSON.stringify(tache.label)});
     const c = h && h.closest('.card');
-    return c ? c.innerText : null;
-  `, `carte du cas « ${tache.label} »`);
-  exige(/Entamé/.test(carte), `la carte du cas ne dit pas « Entamé » : ${carte.replace(/\n/g, ' ')}`);
-  exige(!/Maîtrisé|En cours|À faire/.test(carte), `la carte du cas affiche un statut déprécié : ${carte.replace(/\n/g, ' ')}`);
+    if (!c) return null;
+    const dial = [...c.querySelectorAll('[aria-label]')].map((x) => x.getAttribute('aria-label')).find((l) => / : /.test(l) && /Anamnese/.test(l));
+    return dial ? { texte: c.innerText, dial } : null;
+  `, `carte du cas « ${tache.label} » et son cadran`);
+  exige(!/Maîtrisé|En cours|À faire/.test(carte.texte), `la carte du cas affiche un statut déprécié : ${carte.texte.replace(/\n/g, ' ')}`);
+  const NOM = { anamnese: 'Anamnese', dokumentation: 'Dokumentation', fallvorstellung: 'Fallvorstellung' };
+  for (const t of ['anamnese', 'dokumentation', 'fallvorstellung'].filter((k) => k !== tache.teil)) {
+    exige(carte.dial.includes(`${NOM[t]} : pas encore travaillé`), `le cadran ne dit pas « ${NOM[t]} : pas encore travaillé » : ${carte.dial}`);
+  }
+  exige(!carte.dial.includes(`${NOM[tache.teil]} : pas encore travaillé`), `le cadran ignore le Teil joué : ${carte.dial}`);
 
   // Et le champ de couverture n'accuse pas les Teile jamais travaillés.
   goto('/programme');
@@ -389,7 +396,7 @@ const P3b = preuve('P3b', "une session réussie sur un seul Teil ne fait régres
   const cible = cellules.filter((t) => t.startsWith(`${tache.specialty} ×`));
   exige(cible.length >= autres.length,
     `champ de couverture : ${cible.length} cellule(s) « pas encore travaillé » pour ${tache.specialty}, ${autres.length} attendues`);
-  return `${tache.caseId} : ${tache.teil}=${cp.teile[tache.teil].status}, ${autres.map((t) => `${t}=${cp.teile[t].status}`).join(', ')} ; carte « Entamé » ; overall=${cp.overall}`;
+  return `${tache.caseId} : ${tache.teil}=${cp.teile[tache.teil].status}, ${autres.map((t) => `${t}=${cp.teile[t].status}`).join(', ')} ; cadran « ${carte.dial} » ; overall=${cp.overall}`;
 });
 
 // --- exécution --------------------------------------------------------------
