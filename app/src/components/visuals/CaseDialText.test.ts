@@ -5,7 +5,7 @@
 import { describe, it, expect, afterEach } from 'vitest';
 import { freezeAt, resetClock } from '@/lib/clock';
 import type { CaseDialData } from '@/lib/dialData';
-import { actionSuivante, etatTeil, etiquette, lignesDetail, phrasePret, phraseSolideDes, resume } from './CaseDialText';
+import { actionSuivante, etatTeil, etiquette, lienAction, lignesDetail, phrasePret, phraseSolideDes, resume } from './CaseDialText';
 
 afterEach(() => resetClock());
 const AUJOURDHUI = new Date(2026, 9, 5, 12).getTime();        // lundi 5 oct. 2026
@@ -59,7 +59,7 @@ describe('résumé — la maîtrise n\'est JAMAIS montrée sans la couverture', 
   });
   it('aucune maîtrise : aucun chiffre, jamais « 0 »', () => {
     expect(resume(dial())).toBe('Pas encore travaillé');
-    expect(resume(dial({ teile: { ...dial().teile, anamnese: { ...t('vierge'), nonMesure: true } } }))).toBe('Faite — non mesurée');
+    expect(resume(dial({ teile: { ...dial().teile, anamnese: { ...t('vierge'), nonMesure: true } } }))).toBe('Fait — non mesuré');
   });
 });
 
@@ -103,10 +103,14 @@ describe('R1 — solideDes, futur ou passé', () => {
 
 describe('R1 — pretManque, en mots du candidat', () => {
   it('dit ce qui manque, rien d\'autre', () => {
-    expect(phrasePret(dial({ pretManque: ['autonome'] }))).toBe('Pour souder l\'anneau : rejoue le cas en Autonome.');
-    expect(phrasePret(dial({ pretManque: ['enchaine', 'autonome'] }))).toBe('Pour souder l\'anneau : rejoue le cas d\'un trait et en Autonome.');
+    expect(phrasePret(dial({ pretManque: ['autonome'] }))).toBe('Pour être prêt : rejoue-le en Autonome.');
+    expect(phrasePret(dial({ pretManque: ['autonome', 'grille'] }))).toBe('Pour être prêt : rejoue-le en Autonome, grille de langue remplie.');
     expect(phrasePret(dial({ pretManque: ['enchaine', 'autonome', 'ordre', 'grille'] }))).toBe(
-      'Pour souder l\'anneau : rejoue le cas d\'un trait, en Autonome, dans l\'ordre Anamnese, Dokumentation, Fallvorstellung et avec la grille de langue remplie.');
+      'Pour être prêt : rejoue-le d\'un trait, en Autonome, dans l\'ordre Anamnese, Dokumentation, Fallvorstellung, grille de langue remplie.');
+  });
+  it('aucun mot de conception : « souder » n\'est jamais dit au candidat', () => {
+    for (const m of [['autonome'], ['enchaine', 'ordre']] as const) expect(phrasePret(dial({ pretManque: [...m] }))).not.toMatch(/soud/i);
+    expect(phrasePret(dial({ soude: true }))).not.toMatch(/soud/i);
   });
   it('soudé : le dit, sans affirmation sur l\'examen', () => {
     const p = phrasePret(dial({ soude: true }));
@@ -136,5 +140,12 @@ describe('action suivante', () => {
     const solide = dial({ teile: { anamnese: s, dokumentation: s, fallvorstellung: s }, couverture: 3, maitrise: 90, pretManque: ['autonome'] });
     expect(actionSuivante(solide)).toEqual({ label: 'Rejouer le cas d\'un trait', teil: null });
     expect(actionSuivante({ ...solide, pretManque: [], soude: true })).toEqual({ label: 'Rejouer le cas entier', teil: null });
+  });
+});
+
+describe('lienAction', () => {
+  it('mène au cas, sur le Teil proposé quand il y en a un', () => {
+    expect(lienAction(entame)).toBe('/simulation/c1/pre?teil=dokumentation');
+    expect(lienAction(dial())).toBe('/simulation/c1/pre');
   });
 });

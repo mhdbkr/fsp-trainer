@@ -42,9 +42,11 @@ describe('B-C5 — la page Cas lit case_progress', () => {
     const text = container.textContent ?? '';
     expect(text).not.toMatch(/Maîtrisé|En cours|À faire/);
     const card = [...container.querySelectorAll('h3')].find((h) => h.textContent === 'Cas c1')!.closest('.card')!;
-    expect(card.textContent).toMatch(/Entamé/);
+    // D2 : le cadran dit l'état ; plus de pastille « Entamé » qui le doublonne ou le contredit.
+    expect(card.textContent).not.toMatch(/Entamé|Solide|Pas encore travaillé/);
+    expect(card.querySelector('button.case-dial')?.getAttribute('aria-label')).toMatch(/Anamnese : solide, 90/);
     const blank = [...container.querySelectorAll('h3')].find((h) => h.textContent === 'Cas c2')!.closest('.card')!;
-    expect(blank.textContent).toMatch(/Pas encore travaillé/);
+    expect(blank.querySelector('button.case-dial')?.getAttribute('aria-label')).toMatch(/Pas encore travaillé/);
   });
 });
 
@@ -52,9 +54,10 @@ describe('I-4 — la page Cas dit « faite — non mesurée »', () => {
   it('un cas coché sans jeu n\'est ni « pas encore travaillé » ni « entamé »', async () => {
     await vi.waitFor(() => expect(container.textContent).toMatch(/Cas c3/), { timeout: 3000 });
     const card = [...container.querySelectorAll('h3')].find((h) => h.textContent === 'Cas c3')!.closest('.card')!;
-    expect(card.textContent).toMatch(/Faite — non mesurée/i);
-    expect(card.textContent).not.toMatch(/Pas encore travaillé|Entamé/);
-    expect(container.textContent).toMatch(/1\s*faite? — non mesurée?s?/i);
+    const label = card.querySelector('button.case-dial')?.getAttribute('aria-label') ?? '';
+    expect(label).toMatch(/^Cas c3 : Fait — non mesuré\./);          // « un cas » : masculin
+    expect(label).not.toMatch(/^Cas c3 : Pas encore travaillé/);
+    expect(container.textContent).toMatch(/1\s*fait — non mesuré/i);
   });
 });
 
@@ -82,5 +85,34 @@ describe('S4-4 — le cadran est le signe du cas sur la carte', () => {
 
   it('« faite — non mesurée » se lit sur le cadran', () => {
     expect(carte('Cas c3').querySelector('[data-arc="anamnese"]')?.getAttribute('data-etat')).toBe('non-mesure');
+  });
+});
+
+describe('S4-4 (revue direction) — un seul bouton principal, la suite que propose le cadran', () => {
+  const carte = (nom: string) => [...container.querySelectorAll('h3')].find((h) => h.textContent === nom)!.closest('.card')!;
+
+  it('D3 : « Simuler » devient la suite du cadran, avec son ?teil=', () => {
+    const c1 = carte('Cas c1');
+    const principal = c1.querySelector('a.btn-primary') as HTMLAnchorElement;
+    expect(principal.textContent).toBe('Reprendre par la Fallvorstellung');
+    expect(principal.getAttribute('href')).toBe('/simulation/c1/pre?teil=fallvorstellung');
+    expect(c1.querySelectorAll('.btn-primary')).toHaveLength(1);
+    expect(carte('Cas c2').querySelector('a.btn-primary')?.textContent).toBe('Commencer le cas');
+    expect(container.textContent).not.toMatch(/Simuler/);
+  });
+
+  it('D3 : le détail ouvert sur la carte n\'ajoute pas un second gros bouton', async () => {
+    const c1 = carte('Cas c1');
+    await act(async () => { (c1.querySelector('button.case-dial') as HTMLButtonElement).click(); });
+    // un clic synthétique a detail 0 : c\'est le chemin clavier / lecteur d\'écran
+    await vi.waitFor(() => expect(document.querySelector('[role="dialog"]')).not.toBeNull(), { timeout: 2000 });
+    expect(document.querySelector('[role="dialog"] a')).toBeNull();
+  });
+
+  it('polish : la difficulté est nommée et loin du cadran', () => {
+    const c1 = carte('Cas c1');
+    expect(c1.textContent).toMatch(/Difficulté/);
+    const dots = c1.querySelector('[title^="Difficulté"]')!;
+    expect(c1.querySelector('button.case-dial')!.parentElement!.contains(dots)).toBe(false);
   });
 });

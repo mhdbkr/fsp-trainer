@@ -21,7 +21,7 @@ const TEIL_WORD: Record<TeilStatus, string> = { vierge: 'pas encore travaillé',
 /** Un cas sans aucune mesure mais déclaré fait sur au moins un Teil (I-4). */
 export const nonMesureSeulement = (cp: CaseProgress): boolean =>
   cp.overall === 'vierge' && TEILE.some((t) => estNonMesure(cp.teile[t.key]));
-const NON_MESURE = { label: 'Faite — non mesurée', cls: 'border border-dashed border-slate-400 bg-transparent text-slate-500 dark:text-slate-400' };
+const NON_MESURE = { label: 'Fait — non mesuré', cls: 'border border-dashed border-slate-400 bg-transparent text-slate-500 dark:text-slate-400' };
 
 export const ProgressBadge = ({ cp }: { cp: CaseProgress }) => {
   const m = nonMesureSeulement(cp) ? NON_MESURE : OVERALL[cp.overall];

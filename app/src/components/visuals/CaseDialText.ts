@@ -61,7 +61,7 @@ export function phraseSolideDes(solideDes: string | null | undefined): string | 
 
 /** La maîtrise ne va jamais sans sa couverture. */
 export function resume(d: CaseDialData): string {
-  if (d.maitrise === null) return Object.values(d.teile).some((p) => p.nonMesure) ? 'Faite — non mesurée' : 'Pas encore travaillé';
+  if (d.maitrise === null) return Object.values(d.teile).some((p) => p.nonMesure) ? 'Fait — non mesuré' : 'Pas encore travaillé';   // « un cas » : masculin
   return d.couverture === 1 ? `${d.maitrise} sur 1 Teil` : `${d.maitrise} en moyenne sur ${d.couverture} Teile`;
 }
 
@@ -69,17 +69,15 @@ const MANQUE: Record<ConditionExamen, string> = {
   enchaine: 'd\'un trait',
   autonome: 'en Autonome',
   ordre: 'dans l\'ordre Anamnese, Dokumentation, Fallvorstellung',
-  grille: 'avec la grille de langue remplie',
+  grille: 'grille de langue remplie',
 };
 const ORDRE_MANQUE: ConditionExamen[] = ['enchaine', 'autonome', 'ordre', 'grille'];
 
-/** R1 : « prêt », ou ce qui manque pour souder l'anneau. `null` s'il n'y a rien à dire. */
+/** R1 : « prêt », ou ce qui manque pour l'être. `null` s'il n'y a rien à dire. */
 export function phrasePret(d: CaseDialData): string | null {
   if (d.soude) return 'Prêt : trois Teile solides, rejoués d\'un trait en Autonome.';
   const manque = ORDRE_MANQUE.filter((c) => d.pretManque.includes(c)).map((c) => MANQUE[c]);
-  if (manque.length === 0) return null;
-  const liste = manque.length === 1 ? manque[0] : `${manque.slice(0, -1).join(', ')} et ${manque[manque.length - 1]}`;
-  return `Pour souder l'anneau : rejoue le cas ${liste}.`;
+  return manque.length === 0 ? null : `Pour être prêt : rejoue-le ${manque.join(', ')}.`;
 }
 
 /** Le retour planifié du cas (§13.1) : une date, dite telle quelle. */
@@ -126,6 +124,12 @@ export function actionSuivante(d: CaseDialData): { label: string; teil: SimTeil 
   const acquis = etats.find((e) => e.etat === 'acquis');
   if (acquis) return { label: `Consolider ${ARTICLE[acquis.key]}`, teil: acquis.key };
   return d.pretManque.length > 0 ? { label: 'Rejouer le cas d\'un trait', teil: null } : { label: 'Rejouer le cas entier', teil: null };
+}
+
+/** Où mène l'action suivante : le cas, sur le Teil proposé (`?teil=` existe déjà côté pré-simulation). */
+export function lienAction(d: CaseDialData): string {
+  const { teil } = actionSuivante(d);
+  return `/simulation/${d.caseId}/pre${teil ? `?teil=${teil}` : ''}`;
 }
 
 /** L'étiquette complète pour les lecteurs d'écran : la couleur n'est jamais le seul signal. */
