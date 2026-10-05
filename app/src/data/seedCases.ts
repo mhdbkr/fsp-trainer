@@ -1497,7 +1497,7 @@ export function seedCases(): Case[] {
       caseSpecificQuestions: [
         { frage: 'Wann sind die Beschwerden am schlimmsten — nach dem Essen, im Liegen oder nachts?', kapitel: 'aktuell' },
         { frage: 'Haben Sie Schluckbeschwerden bemerkt, zum Beispiel dass Essen stecken bleibt?', kapitel: 'aktuell' },
-        { frage: 'Haben Sie nachts Husten oder eine heisere Stimme bemerkt?', kapitel: 'aktuell' },
+        { frage: 'Haben Sie nachts Husten oder eine heisere Stimme bemerkt?', kapitel: 'aktuell', sucht: ['husten', 'stimme'] },
         { frage: 'Verschlimmern sich die Beschwerden nach Kaffee, Alkohol oder fettigem Essen?', kapitel: 'aktuell' },
       ],
       examinerQuestions: ['Wann ÖGD indiziert?', 'Nennen Sie Alarmsymptome.'],
@@ -15216,7 +15216,7 @@ export function seedCases(): Case[] {
         { frage: 'Wurden Ihnen schon einmal erhöhte Nierenwerte mitgeteilt?', kapitel: 'vorerkrankungen', followUp: 'Falls ja: Wann war Ihre letzte Blutabnahme?' },
         { frage: 'Seit wann besteht Ihr Diabetes, und waren Sie in augenärztlicher Kontrolle?', kapitel: 'vorerkrankungen' },
         { frage: 'Ist Ihr Harnstrahl abgeschwächt, tröpfelt es nach, oder haben Sie das Gefühl, die Blase nicht ganz zu entleeren?', kapitel: 'aktuell' },
-        { frage: 'Bekommen Sie Luftnot beim Treppensteigen, und schlafen Sie flach oder mit mehreren Kissen?', kapitel: 'aktuell', sucht: ['orthopnoe'] },
+        { frage: 'Bekommen Sie Luftnot beim Treppensteigen, und schlafen Sie flach oder mit mehreren Kissen?', kapitel: 'aktuell', sucht: ['atemnot', 'orthopnoe'] },
         { frage: 'Hat sich Ihr Insulin- oder Tablettenbedarf für den Zucker in letzter Zeit verändert?', kapitel: 'medikamente' },
       ],
       examinerQuestions: [
@@ -33112,7 +33112,7 @@ export function seedCases(): Case[] {
       ],
       caseSpecificQuestions: [
         { frage: 'Wie viel Urin lassen Sie ungefähr an einem ganzen Tag — können Sie es mit einem Glas oder einer Flasche vergleichen? Und wie viel war es vorher?', kapitel: 'vegetativ' },
-        { frage: 'Wie viel haben Sie in den letzten Tagen wirklich getrunken, und wie oft mussten Sie erbrechen oder zur Toilette wegen des Durchfalls?', kapitel: 'vegetativ', relu: true },
+        { frage: 'Wie viel haben Sie in den letzten Tagen wirklich getrunken, und wie oft mussten Sie erbrechen oder zur Toilette wegen des Durchfalls?', kapitel: 'vegetativ', relu: true, sucht: ['uebelkeit', 'stuhlfrequenz'] },
         { frage: 'Haben Sie sich in den letzten Tagen gewogen?', kapitel: 'aktuell', sucht: ['gewicht'], followUp: 'Falls ja: Wie viel haben Sie abgenommen oder zugenommen?' },
         { frage: 'Nehmen Sie Schmerzmittel ein, die Sie ohne Rezept in der Apotheke bekommen — Ibuprofen, Diclofenac oder Voltaren?', kapitel: 'medikamente', followUp: 'Falls ja: Wie viele Tabletten nehmen Sie pro Tag?' },
         { frage: 'Können Sie mir Ihre Blutdrucktablette genau beschreiben oder die Packung zeigen? Ist eine Entwässerungstablette darin enthalten?', kapitel: 'medikamente' },
@@ -43506,10 +43506,10 @@ export function seedCases(): Case[] {
       caseSpecificQuestions: [
         { frage: 'Sie sagen, Ihr Gesicht werde plötzlich rot — wie lange dauert das, wo genau breitet es sich aus, und schwitzen Sie dabei?', kapitel: 'aktuell', relu: true },
         { frage: 'Gibt es etwas, das diese Rötung regelmäßig auslöst — Alkohol, scharfes Essen, Käse, Schokolade, Aufregung oder Anstrengung?', kapitel: 'aktuell' },
-        { frage: 'Müssen Sie auch nachts wegen Durchfall aufstehen, und wie oft haben Sie insgesamt Stuhlgang am Tag?', kapitel: 'aktuell', sucht: ['stuhl'] },
+        { frage: 'Müssen Sie auch nachts wegen Durchfall aufstehen, und wie oft haben Sie insgesamt Stuhlgang am Tag?', kapitel: 'aktuell', sucht: ['stuhlfrequenz'] },
         { frage: 'Und wie war es vor diesen sechs Wochen — hatten Sie schon früher Phasen mit Durchfall und Bauchschmerzen?', kapitel: 'aktuell', relu: true },
         { frage: 'Was hat Ihr Hausarzt damals untersucht, bevor er Ihnen gesagt hat, das sei ein Reizdarm? Wurde eine Darmspiegelung gemacht?', kapitel: 'vorerkrankungen' },
-        { frage: 'Bekommen Sie während dieser Rötungsanfälle Herzrasen oder Luftnot, und pfeift es dabei beim Atmen?', kapitel: 'aktuell' },
+        { frage: 'Bekommen Sie während dieser Rötungsanfälle Herzrasen oder Luftnot, und pfeift es dabei beim Atmen?', kapitel: 'aktuell', sucht: ['herzrasen', 'atemnot', 'giemen'] },
         { frage: 'Haben Sie noch Ihre Regelblutung? Sind diese Hitzeanfälle anders als Hitzewallungen in den Wechseljahren?', kapitel: 'frauenanamnese' },
         { frage: 'Gibt es in Ihrer Familie außer dem Darmkrebs Ihrer Schwester Drüsen- oder Hormonerkrankungen, Nierensteine, Nebenschilddrüsenoperationen oder Hirnanhangdrüsentumoren?', kapitel: 'familie-sozial', sucht: ['familie_endokrin', 'nierensteine'] },
       ],
@@ -48022,7 +48022,7 @@ export function seedCases(): Case[] {
         { frage: 'Haben Sie einen plötzlichen, sehr dringenden Stuhldrang und danach das Gefühl, nicht fertig zu sein?', kapitel: 'aktuell' },
         { frage: 'Haben Sie in letzter Zeit mit dem Rauchen aufgehört?', kapitel: 'noxen' },
         { frage: 'Haben Sie in den letzten Monaten Antibiotika, Schmerzmittel wie Ibuprofen oder Diclofenac oder Magenschutztabletten eingenommen?', kapitel: 'medikamente' },
-        { frage: 'Haben Sie Schmerzen oder Schwellungen an Gelenken, rote Knoten an den Schienbeinen, gerötete oder schmerzende Augen oder eine Gelbfärbung der Haut bemerkt?', kapitel: 'aktuell' },
+        { frage: 'Haben Sie Schmerzen oder Schwellungen an Gelenken, rote Knoten an den Schienbeinen, gerötete oder schmerzende Augen oder eine Gelbfärbung der Haut bemerkt?', kapitel: 'aktuell', sucht: ['arthralgie', 'gelenk_entzuendung', 'ausschlag', 'augenentzuendung', 'gelbfaerbung'] },
         { frage: 'Haben Sie Beschwerden am After — Knoten, Eiter, eine Fistel? Haben Sie wunde Stellen im Mund?', kapitel: 'aktuell' },
         { frage: 'Gibt es in Ihrer Familie Darmentzündungen oder Darmkrebs? Hatten Sie schon einmal eine Darmspiegelung?', kapitel: 'familie-sozial' },
       ],
@@ -52422,7 +52422,7 @@ export function seedCases(): Case[] {
       caseSpecificQuestions: [
         { frage: 'Hatten Sie in den letzten Wochen eine Mandelentzündung, Halsschmerzen oder eine Hautinfektion — wie viele Tage liegt das genau zurück?', kapitel: 'aktuell' },
         { frage: 'Wurde Ihnen ein Antibiotikum verschrieben, und haben Sie es bis zum Ende eingenommen?', kapitel: 'medikamente' },
-        { frage: 'Haben Sie Kopfschmerzen, Sehstörungen oder Luftnot bemerkt?', kapitel: 'aktuell' },
+        { frage: 'Haben Sie Kopfschmerzen, Sehstörungen oder Luftnot bemerkt?', kapitel: 'aktuell', sucht: ['kopfschmerz', 'sehstoerung', 'atemnot'] },
         { frage: 'Haben Sie Bluthusten oder rote Punkte an den Beinen bemerkt?', kapitel: 'aktuell' },
         { frage: 'Gibt es in Ihrer Familie Blut im Urin oder eine Schwerhörigkeit, die schon in jungen Jahren aufgetreten ist?', kapitel: 'familie-sozial' },
         { frage: 'Hatten Sie in den letzten Wochen Durchfall, waren Sie beim Zahnarzt, oder haben Sie Rote Bete gegessen?', kapitel: 'aktuell', relu: true },
@@ -62002,7 +62002,7 @@ export function seedCases(): Case[] {
       caseSpecificQuestions: [
         { frage: 'Wie hoch war der Blutdruck heute beim Betriebsarzt, und kennen Sie Ihre üblichen Werte?', kapitel: 'aktuell' },
         { frage: 'Wann haben Sie Ihre Blutdrucktablette zuletzt genommen, und wie oft vergessen Sie sie in einer normalen Woche?', kapitel: 'medikamente' },
-        { frage: 'Wo sitzt der Kopfschmerz?', kapitel: 'aktuell' },
+        { frage: 'Wo sitzt der Kopfschmerz?', kapitel: 'aktuell', sucht: ['ort'] },
         { frage: 'Haben Sie Sehstörungen, Flimmern vor den Augen, eine Lähmung, ein Taubheitsgefühl oder Schwierigkeiten beim Sprechen bemerkt?', kapitel: 'aktuell' },
         { frage: 'Nehmen Sie Schmerzmittel wie Ibuprofen oder Diclofenac, ein Nasenspray, Kortison oder essen Sie viel Lakritz?', kapitel: 'medikamente' },
         { frage: 'Haben Sie anfallsartige Schweißausbrüche mit Herzrasen und Blässe, oder vertragen Sie Wärme schlecht?', kapitel: 'vegetativ', relu: true },
