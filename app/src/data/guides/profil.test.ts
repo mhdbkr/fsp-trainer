@@ -46,6 +46,19 @@ describe('INV-80 — tout cas a un profil valide', () => {
     expect(rouge((s) => { (s.profil!.tags as string[]).push('gelenkig'); })).toMatch(/tag inconnu « gelenkig »/);
     expect(rouge((s) => { s.profil!.exige = ['schluck']; })).toMatch(/exige « schluck », pertinent seulement pour \[dysphagie, hals\]/);
   });
+
+  it('mutation (revue K2 m1) : exige un signe SANS banque → rouge, même pertinent pour le cas', () => {
+    // case-meningitis porte `meningitis` : la raideur de nuque lui est pertinente, mais elle n'a pas de sonde de banque.
+    const bad = profilIncoherences([mute('case-meningitis', (s) => { s.profil!.exige = ['meningismus']; })]).join('\n');
+    expect(bad).toMatch(/exige « meningismus », sans banque/);
+    expect(bad).not.toMatch(/pertinent seulement/);
+  });
+
+  it('mutation (revue K2 m1) : un signe inconnu dans exige ou dans exclut → rouge', () => {
+    const rouge = (edit: (s: Case['patientSheet']) => void) => profilIncoherences([mute('case-gastroenteritis', edit)]).join('\n');
+    expect(rouge((s) => { (s.profil!.exige as string[]) = ['nackenweh']; })).toMatch(/exige « nackenweh », qui n'est pas un signe/);
+    expect(rouge((s) => { (s.profil as { exclut?: Record<string, string> }).exclut = { nackenweh: 'x' }; })).toMatch(/exclut « nackenweh », qui n'est pas un signe/);
+  });
 });
 
 describe('Arbitrages relus (D2, revue de direction du 4 oct.)', () => {
