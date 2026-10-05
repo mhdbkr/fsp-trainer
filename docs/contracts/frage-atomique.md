@@ -634,7 +634,10 @@ absorbé, par r2.
 - La **règle d'insertion** sert à r3 et r4a.
   - Le **chapitre cible** est `SIGNE_DEF[s].kapitel`.
   - Dans ce chapitre, on insère après la dernière question dont le premier
-    signe précède `s` dans `SIGNES`, et à défaut en tête du chapitre.
+    signe précède `s` dans `SIGNES` **ou l'égale** (décision de main, K3 : une
+    relance détachée se pose après la question de son signe, pas devant), et à
+    défaut en tête du chapitre. Le motif (`motiv`) est le premier signe de
+    `SIGNES` : il ouvre toujours son chapitre (K3).
   - **Repli (I5)** : si la cible est la Frauenanamnese fondue dans la gynéco,
     on insère dans le bloc gynéco fondu. Si le chapitre cible n'existe pas
     dans la trame (pas de Fach jouée, Frauenanamnese chez un homme), on insère
@@ -642,9 +645,15 @@ absorbé, par r2.
 
 **Ordre d'exécution, en une passe** : r1 → r4a → r2 → r3 → r4b.
 
+**Sécurité (décision de main, K3).** Une question de risque suicidaire ou
+d'automutilation n'est **jamais** retirée ni réduite par r1 ou r2 :
+`RISIKO_SIGNES` = `suizid`, `selbstverletzung` (l'acte), `selbstverletzung_wunsch`
+(l'idéation d'automutilation, signe distinct). Ces signes ne sont jamais hors
+profil et ne se disputent pas en r2 ; deux questions de risque restent deux.
+
 | Règle | Décision déterministe | Écarts |
 |---|---|---|
-| **r1 — hors profil** *(inactive sans profil)* | Un signe `s` est hors profil si `s ∈ exclut_eff`, ou si `pertinence(s) ≠ 'screening'` et `pertinence(s) ∩ tags_eff = ∅`. Si tous les signes d'une unité sont hors profil, elle est retirée. Si une partie l'est, l'unité est réduite aux `parts` qui portent au moins un signe hors de l'ensemble hors profil. Sans `parts`, elle est **gardée entière** (résidu `nonReduit`). Une relance d'une autre unité suit sa propre décision. | `retire` / `reduit` / `non-reduit`, `cause: 'profil' \| 'exclut'` |
+| **r1 — hors profil** *(inactive sans profil)* | Un signe `s` est hors profil si `s ∈ exclut_eff`, ou si `pertinence(s) ≠ 'screening'` et `pertinence(s) ∩ tags_eff = ∅`. **r1 ne retire jamais une question du cas (rang 0)** (décision de main, K3) : une question du cas hors profil est gardée, avec un écart `anomalie` (erreur de source à corriger : profil ou `sucht`) ; `casRetiresParR1 = 0`. Si tous les signes d'une unité sont hors profil, elle est retirée. Si une partie l'est, l'unité est réduite aux `parts` qui portent au moins un signe hors de l'ensemble hors profil. Sans `parts`, elle est **gardée entière** (résidu `nonReduit`). Une relance d'une autre unité suit sa propre décision. | `retire` / `reduit` / `non-reduit`, `cause: 'profil' \| 'exclut'` |
 | **r4a — relances hors signe** | Une relance dont le `sucht` déclaré n'est pas inclus dans celui de sa mère est une unité à part (I1). Si elle est **inconditionnelle** (`parseFollowUp(...).kind === 'immer'`), elle est **détachée** et placée par la règle d'insertion dans le chapitre de son premier signe. Si elle est **conditionnelle**, c'est une **anomalie** : la porte la refuse. Le cas ne doit pas exister après K1 (DM2). | `detache` (`de`, `vers`) / `anomalie` |
 | **r2 — un signe, une question (D3, D4)** | Les gagnants sont calculés **en une fois** sur l'état d'après r4a. Pour chaque signe cherché par au moins deux unités, le **gagnant** est l'unité de rang minimal ; à rang égal, la première dans l'ordre de la trame. Deux **questions du cas** du même signe forment une **anomalie comptée** (`doublonsCas`) : la première gagne. Chaque perdante perd le signe : elle est retirée si elle n'en garde aucun ; sinon elle est réduite aux `parts` qui portent **au moins un** signe qu'elle garde ; sans `parts`, elle passe en `non-reduit`. Une question du cas gagnante prend la place de la première perdante du **même chapitre** placée au-dessus d'elle (`symptoms.ts:215-233`, conservé). Une entrée de `COHERENCE_ALLOWED` (r2) garde le signe sur la question nommée. | `retire` / `reduit` / `non-reduit` (`cause` = id du gagnant) ; `deplace` ; `garde-exception` ; `anomalie` |
 | **r3 — rien d'attendu absent** *(inactive sans profil)* | Pour chaque `s ∈ exige_eff` qu'aucune unité ne cherche, la sonde `SIGNE_DEF[s].bank` est insérée par la règle d'insertion. Si `antworten[bank]` manque, l'écart est marqué `sansReponse`, et ce marquage est **bloquant dès K3** (I6). **Jamais de texte inventé.** | `ajoute`, `cause` = tag ou `'exige'` |
@@ -704,7 +713,7 @@ montage réel des cas. Elle est **bloquante** : son job ne porte pas
 | Compteur | Définition |
 |---|---|
 | `doublons` | signes cherchés par ≥ 2 unités jouées, hors `garde-exception` et hors perdantes `non-reduit` |
-| `horsProfil` | signes hors profil encore cherchés, hors `non-reduit` et hors exceptions |
+| `horsProfil` | signes hors profil encore cherchés, hors `non-reduit`, hors exceptions et hors questions du cas gardées par r1 (écart `anomalie`, décision K3) |
 | `exigeAbsent` | `s ∈ exige_eff` cherché par aucune unité |
 | `relancesOrphelines` | anomalies r4a (relance conditionnelle hors signe) |
 | `brauchtViole` | anomalies r4b, plus toute question placée avant un de ses `braucht` |
@@ -736,8 +745,13 @@ K0. Aucun compteur ne remonte ; le correcteur met le fichier à jour dans le
 - `brut` est la dette de contenu : le moteur corrige l'affichage, ce compteur
   pousse à corriger la **source**.
 - `residu` doit atteindre **0 à la fin de K4** ; à K5, il devient bloquant à 0.
-  `casRetiresParR1` compte une question du cas retirée par r1 : c'est une
-  erreur de source (profil ou `sucht` faux).
+  `casRetiresParR1` compte une question du cas retirée par r1 : **il vaut 0 par
+  construction depuis K3** (r1 ne retire jamais une question du cas), et la
+  porte échoue s'il remonte.
+- **Où se mesure le plancher (décision de main, K3).** `brut` se mesure sur la
+  trame **jouée** (après `cohere`) : ce que l'utilisateur voit. Il baisse avec K3
+  et reste la dette de contenu que le moteur ne corrige pas (questions du cas
+  lues par leur texte, questions non réduites faute de `parts`).
 - **Hausse de mesure** : quand une déclaration remplace la lecture du texte, un
   doublon jusque-là invisible apparaît. La hausse est acceptée en revue, avec sa
   raison écrite au fixture (§3.4).

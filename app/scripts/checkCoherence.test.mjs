@@ -187,8 +187,8 @@ const restoreFloor = readFileSync(new URL('./fixtures/coherence-budget.json', im
 test('la porte : lexique cohérent, aucun compteur au-dessus du plancher → exit 0', () => {
   const r = run();
   assert.equal(r.status, 0, r.stdout + r.stderr);
-  assert.match(r.stdout, /COHÉRENCE \(mesure\)/);
-  assert.match(r.stdout, /non mesurable avant K3/, 'nonReduit et casRetiresParR1 ne sont pas inventés');
+  assert.match(r.stdout, /PORTE APRÈS MONTAGE \(bloquante, 0 attendu\) : doublons 0 · horsProfil 0 · exigeAbsent 0 · relancesOrphelines 0 · brauchtViole 0 · ajouteSansReponse 0 · casRetiresParR1 0/);
+  assert.match(r.stdout, /✅ COHÉRENCE — lexique cohérent, porte après montage à 0/);
 });
 
 // §10.6 : le fixture se met à jour dans le MÊME commit que le contenu. Une mesure plus BASSE que le
@@ -201,8 +201,11 @@ test('la mesure (--json, brut et residu) ÉGALE le plancher gravé', () => {
   assert.equal(o.cas, 130);
   assert.deepEqual(mesure(o), attendu());
   assert.deepEqual(Object.keys(o.brut), ['doublons', 'doublonsCas', 'horsProfil', 'exigeAbsent', 'relancesOrphelines', 'brauchtViole', 'ajouteSansReponse']);
-  assert.equal(o.residu.nonReduit, null);
-  assert.equal(o.residu.casRetiresParR1, null);
+  // K3 : le résidu du moteur est mesuré (plus `null`) ; la porte après montage est à 0.
+  assert.ok(Number.isInteger(o.residu.nonReduit));
+  assert.equal(o.residu.casRetiresParR1, 0);
+  assert.deepEqual(o.apres, { doublons: 0, horsProfil: 0, exigeAbsent: 0, relancesOrphelines: 0, brauchtViole: 0, ajouteSansReponse: 0 });
+  assert.deepEqual(o.porte, []);
 });
 
 test('m6 mutation : la lecture de « stuhl » (UNE seule, symptomsInText) désactivée fait baisser la mesure, et l\'égalité au plancher rougit', () => {
@@ -254,9 +257,12 @@ test('--case : la trame jouée, chaque constat et sa RAISON ; un cas inconnu →
   const r = run('--case', 'gastroenteritis');
   assert.equal(r.status, 0, r.stderr);
   assert.match(r.stdout, /case-gastroenteritis — nature « ausscheidung »/);
-  assert.match(r.stdout, /RAISON : le tag « diarrhoe » exige « stuhlfrequenz »/);
-  assert.match(r.stdout, /RAISON : « schluck » n'est pertinent que pour/);
   assert.match(r.stdout, /RAISON : « dort » avant toute question sur « reise »/);
+  // K3 : les écarts du moteur, chacun avec sa raison (§10.5)
+  assert.match(r.stdout, /── ÉCARTS du moteur \(cohere, K3\)/);
+  assert.match(r.stdout, /RETIRÉ akt-ausscheid-schlucken : schluck — hors profil \(profil\)/);
+  assert.match(r.stdout, /AJOUTÉ akt-ort : ort — exigé par « schmerz »/);
+  assert.match(r.stdout, /porte après montage : doublons 0 · horsProfil 0/);
   assert.equal(run('--case', 'case-qui-nexiste-pas').status, 2);
 });
 
@@ -311,9 +317,34 @@ test('INV-80 mutation : la banque de « ort » dans aktuellSkip d\'un cas tagué
   assert.match(r.stdout, /INV-80 : case-gastroenteritis — exige « ort », dont la banque « akt-ort » est skippée/);
 });
 
-test('I6 / INV-88 : ajouteSansReponse = 0 au plancher ; la réponse de la banque de stuhlfrequenz retirée de case-gastroenteritis → 1, exit 1', () => {
+test('I6 / INV-88 : ajouteSansReponse = 0 ; la réponse de la banque de stuhlfrequenz retirée de case-zoeliakie (r3 l\'ajoute) → porte rouge, exit 1', () => {
   assert.equal(JSON.parse(restoreFloor).brut.ajouteSansReponse, 0, 'K3 ne merge qu\'à 0 (I6)');
-  const r = sb.mutate('src/data/seedCases.ts', "          'akt-ausscheid-haeufigkeit': 'In der ersten Woche bis zu zehnmal am Tag", "          'akt-ausscheid-haeufigkeit-x': 'In der ersten Woche bis zu zehnmal am Tag", () => run());
+  const r = sb.mutate('src/data/seedCases.ts', "          'akt-ausscheid-haeufigkeit': 'Drei- bis viermal am Tag. Nachts muss ich deswegen nicht aufstehen.',", '', () => run());
   assert.equal(r.status, 1);
-  assert.match(r.stdout, /MESURE AU-DESSUS DU PLANCHER.*ajouteSansReponse 0 → 1/);
+  assert.match(r.stdout, /PORTE APRÈS MONTAGE[\s\S]*ajouteSansReponse = 1 après montage : case-zoeliakie/);
+});
+
+// ── K3 : la porte APRÈS montage est bloquante (INV-89) — chaque règle désactivée la fait rougir ─────────
+test('mutation r2 désactivée : des doublons restent après montage → exit 1', () => {
+  const r = sb.mutate('src/data/guides/coherence.ts', 'for (const [u, m] of pertes) perdre(', 'for (const [u, m] of new Map<U, Map<Signe, U>>()) perdre(', () => run());
+  assert.equal(r.status, 1);
+  assert.match(r.stdout, /doublons = \d+ après montage/);
+});
+test('mutation r1 désactivée : des questions hors profil restent → exit 1', () => {
+  const r = sb.mutate('src/data/guides/coherence.ts', '    perdre(u, H, 1, cause);', '    void H;', () => run());
+  assert.equal(r.status, 1);
+  assert.match(r.stdout, /horsProfil = \d+ après montage/);
+});
+test('mutation : r1 qui retire une question du cas → casRetiresParR1 > 0 → exit 1', () => {
+  const r = sb.mutate('src/data/guides/coherence.ts', "    if (u.cas) { ecart({ regle: 1, action: 'anomalie', question: u.id, signes: H, cause }); continue; }", '', () => run());
+  assert.equal(r.status, 1);
+  assert.match(r.stdout, /casRetiresParR1 = \d+ : r1 ne retire jamais une question du cas/);
+});
+test('COHERENCE_ALLOWED : une entrée sans raison, non datée au fixture et périmée → exit 1', () => {
+  const r = sb.mutate('src/data/guides/coherence.ts', 'export const COHERENCE_ALLOWED: ReadonlyArray<CoherenceException> = [];',
+    "export const COHERENCE_ALLOWED: ReadonlyArray<CoherenceException> = [{ caseId: 'case-gastroenteritis', question: 'akt-motiv', signe: 'motiv', regle: 2, raison: '', relecteur: 'x' }];", () => run());
+  assert.equal(r.status, 1);
+  assert.match(r.stdout, /COHERENCE_ALLOWED case-gastroenteritis\|akt-motiv\|motiv : raison et relecteur obligatoires/);
+  assert.match(r.stdout, /absente du fixture/);
+  assert.match(r.stdout, /périmée/);
 });
