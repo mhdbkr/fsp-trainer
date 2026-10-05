@@ -1,5 +1,5 @@
 import type {
-  AssistanceMode, BogenNotes, ChecklistItem, LanguageGrid, Layer, MusterCity,
+  AssistanceMode, BogenNotes, ChecklistItem, LanguageGrid, Layer, MusterArt, MusterCity,
   PartResult, SimTeil, SimulationMode, SketchNotes,
 } from '@/db/types';
 
@@ -71,10 +71,17 @@ export interface Lauf {
    *  profil par défaut (§6). */
   profileId?: string;
 
-  /** L'INTENTION déclarée. */
+  /** L'INTENTION déclarée. [S4] Toujours `komplett` pour un Lauf neuf (INV-70) ;
+   *  `teil` n'est plus que LU, sur un `lauf.aktiv` série 3 repris tel quel. */
   modus: LaufModus;
-  /** L'INTENTION : trois Teile, ou un seul. Jamais `'aufklaerung'`. */
+  /** L'INTENTION : [S4] toujours les trois Teile pour un Lauf neuf ; un seul sur
+   *  un Lauf série 3 repris. Jamais `'aufklaerung'`. */
   geplanteTeile: SimTeil[];
+  /** [S4] Posé par `nimmWiederAuf` après une pause ≥ `REPRISE_TOLERANZ_MIN`,
+   *  jamais retiré (§3.1). Casse l'enchaînement (INV-73). */
+  unterbrochen?: true;
+  /** [S4] Epoch ms de la dernière persistance de `lauf.aktiv` (§3.1). */
+  zuletztAktiv?: number;
 
   zustand: LaufZustand;
   /** `null` hors de `laufend` et de `bilanz`. */
@@ -106,7 +113,9 @@ export interface Lauf {
 
   assistance: AssistanceMode;
   layer: Layer;
-  muster?: MusterCity;
+  /** [S4] `guide` | `libre` ; un `lauf.aktiv` série 3 peut porter une ville,
+   *  lue par `musterArt()` (§10.6). */
+  muster?: MusterArt | MusterCity;
   mode: SimulationMode;
   /** TaskInstance du plan, si le Lauf a été lancé depuis le programme. */
   taskId?: string;

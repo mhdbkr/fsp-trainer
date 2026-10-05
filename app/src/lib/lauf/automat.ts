@@ -1,5 +1,5 @@
 import type {
-  AssistanceMode, ChecklistItem, Layer, MusterCity, PartResult, SimTeil, SimulationMode,
+  AssistanceMode, ChecklistItem, Layer, MusterArt, MusterCity, PartResult, SimTeil, SimulationMode,
 } from '@/db/types';
 import { NOT_ENTERED, checklistPct, emptyLanguageGrid, languagePct } from '@/lib/scoring';
 import { ZUSTAENDE, type Lauf, type LaufTeil, type LaufZustand, type TeilEntwurf } from './types';
@@ -8,9 +8,11 @@ import { now } from '@/lib/clock';
 // ============================================================================
 // L'automate d'une partie de simulation. Contrat §2, ADR-0018.
 //
-// Une seule fonction de transition, un ordre total sur les états, et TROIS
+// Une seule fonction de transition, un ordre total sur les états, et QUATRE
 // exceptions nommées (la troisième, `zurueckZumBilanz` — checkliste → bilanz —,
-// est une décision de `main` à la re-revue) :
+// est une décision de `main` à la re-revue ; la quatrième, `springeZu` —
+// laufend(t0) → laufend(t), « commencer par un autre Teil » —, vient de la
+// série 4, ADR-0021 déc. 2) :
 //   · `partieSuivante` — bilanz(t) → laufend(t+1) : une PROGRESSION dans le run,
 //     sans laquelle l'automate ne peut pas jouer trois Teile ;
 //   · `zurueckZurPartie` — bilanz(t) → laufend(t) : la SEULE régression, et elle
@@ -50,15 +52,25 @@ function uuid(): string {
   });
 }
 
+/** L'ordre d'examen : A → D → F. */
+export const DREI_TEILE: readonly SimTeil[] = ['anamnese', 'dokumentation', 'fallvorstellung'];
+
+/** Au-delà de cette pause, une reprise casse l'enchaînement (§3.1, réserve INV-73). */
+export const REPRISE_TOLERANZ_MIN = 5;
+
 export interface LaufEingabe {
   caseId: string;
   caseName?: string;
   profileId?: string;
-  geplanteTeile: SimTeil[];
+  /** [S4] ENTRÉE UNIQUE (INV-70) : un Lauf neuf porte toujours les trois Teile,
+   *  en `komplett`. Ces deux champs ne servent plus qu'au harnais, pour fabriquer
+   *  un Lauf série 3 à un Teil tel qu'il peut encore être repris. `useLauf` ne
+   *  les passe jamais ; le départ est le Teil de `demarrer`, jamais un périmètre. */
+  geplanteTeile?: SimTeil[];
   modus?: 'komplett' | 'teil';
   assistance: AssistanceMode;
   layer: Layer;
-  muster?: MusterCity;
+  muster?: MusterArt | MusterCity;
   mode?: SimulationMode;
   taskId?: string;
 }
@@ -70,14 +82,15 @@ export function erstelleLauf(i: LaufEingabe): Lauf {
   // INV-26). ABSENT est permis — pas de compte actif (décision `main`, M2) :
   // mieux vaut « non attribué » que « local », qui partirait au serveur.
   if (i.profileId === '') throw new Error('Lauf: profileId vide (contrat §6, INV-26)');
-  if (!i.geplanteTeile.length) throw new Error('Lauf: geplanteTeile ne peut pas être vide');
+  const geplanteTeile = i.geplanteTeile ?? [...DREI_TEILE];
+  if (!geplanteTeile.length) throw new Error('Lauf: geplanteTeile ne peut pas être vide');
   return {
     id: uuid(),
     caseId: i.caseId,
     caseName: i.caseName ?? '',
     profileId: i.profileId,
-    modus: i.modus ?? (i.geplanteTeile.length === 3 ? 'komplett' : 'teil'),
-    geplanteTeile: [...i.geplanteTeile],
+    modus: i.modus ?? (geplanteTeile.length === 3 ? 'komplett' : 'teil'),
+    geplanteTeile: [...geplanteTeile],
     zustand: 'vorbereitung',
     aktuellerTeil: null,
     teilVorAufklaerung: null,
@@ -112,6 +125,25 @@ export function naechsterTeil(lauf: Lauf): SimTeil | null {
 export function istVollstaendig(lauf: Lauf): boolean {
   return lauf.geplanteTeile.length === 3
     && lauf.geplanteTeile.every((t) => lauf.teileGespielt.includes(t));
+}
+
+/** [S4] « D'un trait » (§10.4, INV-73) : les trois Teile dans UNE même partie,
+ *  sans reprise de plus de `REPRISE_TOLERANZ_MIN`, hors IA externe. L'ordre n'y
+ *  compte pas (les conditions d'examen, elles, l'exigent : `lib/examen.ts`). */
+export const enchainiert = (lauf: Lauf): boolean =>
+  DREI_TEILE.every((t) => lauf.teileGespielt.includes(t))
+  && lauf.unterbrochen !== true
+  && lauf.mode !== 'external-ai';
+
+/** [S4] LE point d'entrée unique de l'interruption (§3.1, m7). Appelé par la
+ *  seule branche de reprise de `useLauf` — barre « Reprendre », rechargement,
+ *  retour sur le runner. Pose `unterbrochen` après une pause ≥ 5 min, ne fait
+ *  rien d'autre, et ne le retire jamais. Un Lauf sans `zuletztAktiv` (série 3)
+ *  repris est interrompu : on ne sait pas combien de temps il a dormi. */
+export function nimmWiederAuf(lauf: Lauf, jetzt: number): Lauf {
+  if (lauf.unterbrochen) return lauf;
+  const pause = typeof lauf.zuletztAktiv === 'number' ? jetzt - lauf.zuletztAktiv : Infinity;
+  return pause >= REPRISE_TOLERANZ_MIN * 60_000 ? { ...lauf, unterbrochen: true } : lauf;
 }
 
 export function checklisteFuer(lauf: Lauf, teil: LaufTeil): ChecklistItem[] {
@@ -207,7 +239,8 @@ export type LaufAktion =
   | { typ: 'demarrer'; teil?: LaufTeil; checkliste: ChecklistItem[] }
   | { typ: 'aufklaerungOeffnen'; checkliste: ChecklistItem[] }
   | { typ: 'terminerPartie'; ergebnis: PartResult }
-  | { typ: 'partieSuivante' }
+  | { typ: 'partieSuivante'; teil?: SimTeil }
+  | { typ: 'springeZu'; teil: SimTeil }
   | { typ: 'versChecklist' }
   | { typ: 'zurueckZurPartie' }
   | { typ: 'zurueckZumBilanz' }
@@ -296,16 +329,33 @@ export function transition(lauf: Lauf, aktion: LaufAktion): Lauf {
       if (lauf.zustand !== 'bilanz') return lauf;
       // Après une Aufklärung on revient au Teil d'où le jury a interrompu, et
       // à lui seul : c'est le `setActive('anamnese')` en dur qui disparaît.
-      const reprise = lauf.teilVorAufklaerung && !lauf.teileGespielt.includes(lauf.teilVorAufklaerung)
-        ? lauf.teilVorAufklaerung
-        : naechsterTeil(lauf);
+      const unterbrochenerTeil = lauf.teilVorAufklaerung && !lauf.teileGespielt.includes(lauf.teilVorAufklaerung)
+        ? lauf.teilVorAufklaerung : null;
+      // [S4] `t'` choisi par le fil d'étapes du bilan (§10.2.2, INV-72) : un Teil
+      // planifié NON joué — jamais un Teil joué deux fois —, et, après une
+      // Aufklärung, le Teil interrompu d'abord (m6).
+      const reprise = aktion.teil ?? unterbrochenerTeil ?? naechsterTeil(lauf);
       if (!reprise) return lauf;   // plus rien à jouer : seul `versChecklist` sort
+      if (unterbrochenerTeil && reprise !== unterbrochenerTeil) return lauf;
+      if (!lauf.geplanteTeile.includes(reprise) || lauf.teileGespielt.includes(reprise)) return lauf;
       return {
         ...lauf,
         zustand: 'laufend',
         aktuellerTeil: reprise,
         teilVorAufklaerung: reprise === lauf.teilVorAufklaerung ? null : lauf.teilVorAufklaerung,
       };
+    }
+
+    case 'springeZu': {
+      // [S4] Exception nommée nº 4 (§10.2.1, INV-72) — laufend(t0) → laufend(t) :
+      // « commencer par un autre Teil ». Seulement tant qu'AUCUN des trois Teile
+      // n'est joué (l'Aufklärung n'en est pas un), jamais pendant une Aufklärung,
+      // vers un Teil planifié autre que t0. Le chrono de t0 reste (INV-28) : il
+      // ne compte pas comme joué, mais entre dans `dauerGesamtSec` (m6).
+      if (lauf.zustand !== 'laufend' || !lauf.aktuellerTeil || lauf.aktuellerTeil === 'aufklaerung') return lauf;
+      if (lauf.teileGespielt.some((t) => t !== 'aufklaerung')) return lauf;
+      if (aktion.teil === lauf.aktuellerTeil || !lauf.geplanteTeile.includes(aktion.teil)) return lauf;
+      return { ...lauf, aktuellerTeil: aktion.teil };
     }
 
     case 'zurueckZurPartie': {
