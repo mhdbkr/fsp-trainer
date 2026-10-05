@@ -175,10 +175,11 @@ const SEMAINE_ISO = /^\d{4}-W(0[1-9]|[1-4]\d|5[0-3])$/;
  *  programme (réserve P2 : deux refus de suite suspendent les propositions jusqu'à la prochaine modification). */
 export function refusRythme(events: ProgressEvent[]): { semaines: Set<string>; depuisDerniereConfig: number } {
   const refus = events.filter((e) => e.type === 'rythme.refused' && typeof e.subject_id === 'string' && SEMAINE_ISO.test(e.subject_id));
-  const derniere = configEvents(events).filter((e) => lireConfig(e.payload)).pop()?.occurred_at ?? '';
+  // Revue m5 : Date.parse, jamais l'ordre des chaînes (le serveur peut renvoyer « 2026-10-12 08:00:01+00 »).
+  const derniere = Date.parse(configEvents(events).filter((e) => lireConfig(e.payload)).pop()?.occurred_at ?? '') || -Infinity;
   return {
     semaines: new Set(refus.map((e) => e.subject_id!)),
-    depuisDerniereConfig: new Set(refus.filter((e) => e.occurred_at > derniere).map((e) => e.subject_id!)).size,
+    depuisDerniereConfig: new Set(refus.filter((e) => Date.parse(e.occurred_at) > derniere).map((e) => e.subject_id!)).size,
   };
 }
 

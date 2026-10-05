@@ -63,18 +63,20 @@ export function configDuJour(events: readonly ProgressEvent[], debut: number, re
   return (avant ?? valides.find((x) => x.at >= debut))?.config ?? repli;
 }
 
-/** L'état SRS d'un terme AVANT l'instant `coupure`. Un terme dont les seules révisions datent d'après redevient neuf. */
-export function begriffeAvant(begriffe: readonly Fachbegriff[], events: readonly ProgressEvent[], coupure: number): Fachbegriff[] {
-  const avant = new Map<string, ProgressEvent>();
+/** L'état SRS d'un terme (Fachbegriff ou terme personnel) AVANT l'instant `coupure`. Un terme dont les seules révisions
+ *  datent d'après redevient neuf. Les instants se comparent par `Date.parse` (revue m5) : un `occurred_at` serveur en
+ *  `+00:00` ne se compare pas comme chaîne à un `…Z` local. */
+export function begriffeAvant<T extends { id: string; srs?: Srs }>(begriffe: readonly T[], events: readonly ProgressEvent[], coupure: number): T[] {
+  const avant = new Map<string, { t: number; e: ProgressEvent }>();
   const connus = new Set<string>();
-  const limite = Number.isFinite(coupure) ? new Date(coupure).toISOString() : '9999-12-31T00:00:00.000Z';
   for (const e of events) {
     if (e.type !== 'srs.reviewed' || !e.subject_id) continue;
     connus.add(e.subject_id);
-    if (e.occurred_at < limite) { const p = avant.get(e.subject_id); if (!p || e.occurred_at > p.occurred_at) avant.set(e.subject_id, e); }
+    const t = Date.parse(e.occurred_at);
+    if (t < coupure) { const p = avant.get(e.subject_id); if (!p || t > p.t) avant.set(e.subject_id, { t, e }); }
   }
   return begriffe.map((b) => {
-    const e = avant.get(b.id);
+    const e = avant.get(b.id)?.e;
     if (e) return { ...b, srs: e.payload as Srs };
     return connus.has(b.id) ? { ...b, srs: freshSrs(0) } : b;       // révisé seulement APRÈS : il était neuf ce jour-là
   });
