@@ -532,6 +532,107 @@ export const MUTATIONS = [
     to: "export const D_UN_TRAIT_ACTIF = true;",
     pourquoi: "`dUnTrait` émis avec la garde à `false` : une tâche qui exige un enchaînement que l'app ne sait pas encore jouer",
   },
+  // --- S4-2, ce que le programme apprend (§13.3 à §13.5) ---
+  {
+    id: "INV-63-fenetre", tests: 'tests/invariants.apprentissage.test.ts', file: "src/lib/program/erreurs.ts",
+    from: ".slice(-ERREUR_FENETRE);", to: ";",
+    pourquoi: "fenêtre ignorée : un item coché depuis des semaines reste signalé pour toujours",
+  },
+  {
+    id: "INV-63-deux-cas", tests: 'tests/invariants.apprentissage.test.ts', file: "src/lib/program/erreurs.ts",
+    from: "ou.length >= ERREUR_SEUIL && cas >= ERREUR_CAS_MIN", to: "ou.length >= ERREUR_SEUIL",
+    pourquoi: "seuil « 2 cas » ignoré : l'acharnement sur UN cas devient une erreur transversale",
+  },
+  {
+    id: "INV-63-mesuree", tests: 'tests/invariants.apprentissage.test.ts', file: "src/lib/program/erreurs.ts",
+    from: "events.filter((e) => partieAvecChecklist(e, teil))", to: "events.filter((e) => e.manques?.[teil] !== undefined)",
+    pourquoi: "une séance IA externe (auto-déclarée) entre dans la fenêtre des erreurs",
+  },
+  {
+    id: "INV-63-examen-blanc", tests: 'tests/invariants.apprentissage.test.ts', file: "src/lib/program/erreurs.ts",
+    from: "(t.kind === 'simulation' || t.kind === 'revision') && t.dUnTrait !== true", to: "t.dUnTrait !== true",
+    pourquoi: "rappel sur un examen à blanc (réserve T1)",
+  },
+  {
+    id: "INV-63-d-un-trait", tests: 'tests/invariants.apprentissage.test.ts', file: "src/lib/program/erreurs.ts",
+    from: "(t.kind === 'simulation' || t.kind === 'revision') && t.dUnTrait !== true", to: "(t.kind === 'simulation' || t.kind === 'revision')",
+    pourquoi: "rappel sur une tâche d'un trait (réserve T1)",
+  },
+  {
+    id: "INV-63-doublon", tests: 'tests/invariants.apprentissage.test.ts', file: "src/lib/program/erreurs.ts",
+    from: "!dits.has(x.item) && ", to: "",
+    pourquoi: "le même rappel répété sur chaque tâche du jour",
+  },
+  {
+    id: "INV-64-moyenne", tests: 'tests/invariants.apprentissage.test.ts', file: "src/lib/program/durees.ts",
+    from: "const mediane = n % 2 ? mesures[(n - 1) / 2] : (mesures[n / 2 - 1] + mesures[n / 2]) / 2;", to: "const mediane = mesures.reduce((s, x) => s + x, 0) / n;",
+    pourquoi: "moyenne au lieu de médiane : une partie oubliée ouverte la nuit fausse l'estimation",
+  },
+  {
+    id: "INV-64-repli", tests: 'tests/invariants.apprentissage.test.ts', file: "src/lib/program/durees.ts",
+    from: "if (mesures.length < DUREE_MIN_MESURES) return TEIL_MIN[t];", to: "if (mesures.length === 0) return TEIL_MIN[t];",
+    pourquoi: "repli absent : une seule mesure fait l'estimation",
+  },
+  {
+    id: "INV-64-ia-externe", tests: 'tests/invariants.apprentissage.test.ts', file: "src/lib/program/durees.ts",
+    from: ".filter((e) => partieMesuree(e) && (e.minutesParTeil?.[t] ?? 0) > 0)", to: ".filter((e) => (e.minutesParTeil?.[t] ?? 0) > 0)",
+    pourquoi: "les séances auto-déclarées entrent dans les durées",
+  },
+  {
+    id: "INV-64-teil-first", tests: 'tests/invariants.apprentissage.test.ts', file: "src/lib/program/dayPlan.ts",
+    from: "const estMin = teilHabituel ? duree(probable) : teile.reduce((sum, t) => sum + duree(t), 0);", to: "const estMin = teile.reduce((sum, t) => sum + duree(t), 0);",
+    pourquoi: "Σ des Teile en mode observé « par Teil » sur une tâche `simulation` (m13)",
+  },
+  {
+    id: "INV-64-un-teil", tests: 'tests/invariants.apprentissage.test.ts', file: "src/lib/program/dayPlan.ts",
+    from: "const sommeTrois = TEIL_KEYS.reduce((s, t) => s + duree(t), 0);", to: "const sommeTrois = teilHabituel ? duree(teilHabituel) : TEIL_KEYS.reduce((s, t) => s + duree(t), 0);",
+    pourquoi: "estimation réduite à un Teil sur une `revision` ou un examen à blanc (m-b)",
+  },
+  {
+    id: "INV-64-consolidation-teil-first", tests: 'tests/invariants.apprentissage.test.ts', file: "src/lib/program/dayPlan.ts",
+    from: "candidates.filter((s) => s.parts.du || restePlan(", to: "candidates.filter((s) => restePlan(",
+    pourquoi: "observé « par Teil » : la consolidation d'un cas solide dû disparaît",
+  },
+  {
+    id: "INV-64-reprise", tests: 'tests/invariants.apprentissage.test.ts', file: "src/lib/program/rattrapage.ts",
+    from: "estMin: e.reste.reduce((s, k) => s + duree[k], 0),", to: "estMin: Math.max(5, Math.round((t.estMin * e.reste.length) / 3)),",
+    pourquoi: "la reprise « finir hier » garde une part de l'ancienne estimation au lieu de Σ dureeTeil du reste",
+  },
+  {
+    id: "INV-65-hausse", tests: 'tests/invariants.apprentissage.test.ts', file: "src/lib/program/rythme.ts",
+    from: "return valeur < dayTargetMin(i.config) ? { valeur, semaine } : null;", to: "return { valeur, semaine };",
+    pourquoi: "proposition à la hausse (ou égale au budget)",
+  },
+  {
+    id: "INV-65-plancher", tests: 'tests/invariants.apprentissage.test.ts', file: "src/lib/program/rythme.ts",
+    from: "Math.max(BUDGET_PLANCHER_MIN, Math.round(", to: "Math.max(0, Math.round(",
+    pourquoi: "proposition sous le plancher de 20 min",
+  },
+  {
+    id: "INV-65-seuil", tests: 'tests/invariants.apprentissage.test.ts', file: "src/lib/program/rythme.ts",
+    from: "if (!(spent < RYTHME_SEUIL * cible)) return null;", to: "if (!(spent < cible)) return null;",
+    pourquoi: "seuil de 60 % ignoré : la moindre minute manquante déclenche la proposition",
+  },
+  {
+    id: "INV-65-jour-off", tests: 'tests/invariants.apprentissage.test.ts', file: "src/lib/program/rythme.ts",
+    from: "fenetre.has(p.date) && p.tasks.length > 0", to: "fenetre.has(p.date)",
+    pourquoi: "un jour off ouvert compte comme un budget non tenu",
+  },
+  {
+    id: "INV-65-deux-refus", tests: 'tests/invariants.apprentissage.test.ts', file: "src/lib/program/rythme.ts",
+    from: " || i.refus.depuisDerniereConfig >= RYTHME_REFUS_MAX", to: "",
+    pourquoi: "deux refus de suite n'arrêtent pas les propositions (réserve P2)",
+  },
+  {
+    id: "INV-65-refus-local", tests: 'tests/invariants.apprentissage.test.ts', file: "src/lib/program/rythme.ts",
+    from: "await syncQueue.push({ type: 'rythme.refused', subject_id: semaine, payload: {} });", to: "void syncQueue; await db.meta.put({ key: 'rythmeRefuse', value: semaine });",
+    pourquoi: "refus non synchronisé : l'autre appareil repropose",
+  },
+  {
+    id: "INV-65-partiel", tests: 'tests/invariants.apprentissage.test.ts', file: "src/lib/program/rythme.ts",
+    from: "return ecrireConfig({ ...config, hoursPerSession: h });", to: "return ecrireConfig({ hoursPerSession: h } as ProgramConfig);",
+    pourquoi: "accepter écrit un fragment de config (INV-76 a)",
+  },
 ];
 
 /** Mutations jouées par le candidat NAVIGATEUR : { id: invariant attendu KO, days: jours à jouer }. */

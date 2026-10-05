@@ -23,13 +23,12 @@
 import { db, getMeta } from '@/db/db';
 import { addDays, differenceInCalendarDays, format, parseISO } from 'date-fns';
 import { fr } from 'date-fns/locale';
-import type { DayPlan, ProgramConfig, TaskInstance, TrainingEvent } from '@/db/types';
+import type { DayPlan, ProgramConfig, SimTeil, TaskInstance, TrainingEvent } from '@/db/types';
 import { newId } from '@/lib/sync/events';
 import { now } from '@/lib/clock';
 import { refusRattrapage } from '@/lib/sync/configProjetee';
 import { estTacheDeCas, evaluerTache } from './completion';
-import { debutJour } from './fuseau';
-import { teileDeTache } from './tacheDeCas';
+import { dureesTeile } from './durees';
 import { isWorkingDay } from './calendrier';
 
 /** Une reprise reprise garde UNE raison : le préfixe « Reprise … — » d'hier s'efface. */
@@ -41,7 +40,7 @@ export const RATTRAPAGE_REFUS_KEY = 'rattrapageRefuse';
 const comme = (refused: ReadonlySet<string> | readonly string[]): ReadonlySet<string> => (refused instanceof Set ? refused : new Set(refused as readonly string[]));
 
 /** La reprise d'UNE tâche non faite, ou `null` (faite, drill, reste vide). */
-function reprise(t: TaskInstance, prev: DayPlan, today: string, events: readonly TrainingEvent[]): TaskInstance | null {
+function reprise(t: TaskInstance, prev: DayPlan, today: string, events: readonly TrainingEvent[], duree: Record<SimTeil, number>): TaskInstance | null {
   if (t.kind === 'drill' || t.doneAt !== undefined) return null;                // celui du jour le remplace ; une tâche faite ne se reprend pas
   const e = evaluerTache(t, events, prev.tz);
   if (e.statut === 'faite') return null;
@@ -51,10 +50,9 @@ function reprise(t: TaskInstance, prev: DayPlan, today: string, events: readonly
   if (e.reste.length === 0) return null;                                         // un reste vide n'est pas proposé
   // Une tâche d'un trait ou un examen à blanc ENTAMÉS ne se retrouvent pas tels quels : ce qui reste est un cas à finir.
   const kind = e.avancement.length > 0 && (t.kind === 'revision' || t.kind === 'examen-blanc') ? 'simulation' : t.kind;
-  const total = teileDeTache(t).length;
   return {
     ...rest, id: newId(), date: today, kind, teile: e.reste, creeA: now(),
-    estMin: Math.max(5, Math.round((t.estMin * e.reste.length) / Math.max(1, total))),
+    estMin: e.reste.reduce((s, k) => s + duree[k], 0),                         // INV-64 : Σ dureeTeil de ce qui RESTE
     reason: `Finir ${t.label}`,
   };
 }
@@ -66,9 +64,10 @@ export function rattrapageAProposer(
   const prev = plans.filter((p) => p.date < today).sort((a, b) => (a.date < b.date ? 1 : -1))[0];
   if (!todayPlan || !prev || comme(refused).has(prev.date)) return null;
   const planned = new Set(todayPlan.tasks.map((t) => t.caseId).filter(Boolean));
+  const duree = dureesTeile(events);
   const tasks = prev.tasks
     .filter((t) => !(t.caseId && planned.has(t.caseId)))
-    .map((t) => reprise(t, prev, today, events))
+    .map((t) => reprise(t, prev, today, events, duree))
     .filter((t): t is TaskInstance => t !== null);
   return tasks.length ? { from: prev.date, tasks } : null;
 }
@@ -108,7 +107,7 @@ const remplacable = (t: TaskInstance, events: readonly TrainingEvent[], tz?: str
 export async function accepterRattrapage(today: string, from: string): Promise<DayPlan | null> {
   const [todayPlan, prev] = await Promise.all([db.day_plans.get(today), db.day_plans.get(from)]);
   if (!todayPlan || !prev) return null;
-  const events = await db.training_events.where('at').aboveOrEqual(Math.min(debutJour(prev.date, prev.tz), debutJour(today, todayPlan.tz))).toArray();
+  const events = await db.training_events.toArray();                          // tout le journal : les durées apprises en ont besoin
   const p = rattrapageAProposer([todayPlan, prev], today, [], events);
   if (!p) return null;
 

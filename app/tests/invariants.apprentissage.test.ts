@@ -61,7 +61,7 @@ describe('INV-64 — les durées sont apprises : médiane des mesures, repli sou
   it('dureeTeil = l’oracle, sur des mesures aléatoires dont une valeur aberrante de 300 min, des séances IA externe et des durées nulles', async () => {
     const vus = { repli: 0, mediane: 0, bornes: 0, ignorees: 0 };
     await forAll(300, (r, seed) => {
-      const events: TrainingEvent[] = Array.from({ length: r.int(0, 16) }, (_, i) => {
+      const events: TrainingEvent[] = Array.from({ length: r.int(0, 16) }, () => {
         const teile = r.bool(0.5) ? TEILE : TEILE.filter(() => r.bool(0.5));
         const minutesParTeil = Object.fromEntries(teile.map((t) => [t, r.pick([0, 1, 3, 8, 12, 15, 18, 22, 30, 45, 60, 300])]));
         const selbst = r.bool(0.15);
@@ -117,6 +117,23 @@ describe('INV-64 — les durées sont apprises : médiane des mesures, repli sou
     for (const t of sims) { expect(t.teile, 'la tâche reste un cas entier').toEqual([A, D, F]); expect(t.estMin, 'estimation sur la Dokumentation seule').toBe(dureeOracle(D, parties)); }
   });
 
+  it('observé « par Teil » : un cas solide DÛ revient quand même, en `revision` des trois Teile à Σ dureeTeil ; l’examen à blanc aussi (m-b)', () => {
+    const parties = cases.slice(20, 26).map((c, i) => partie({ teile: [D], caseId: c.id, minutesParTeil: { dokumentation: 11 }, at: 1_790_000_000_000 + i * 86_400_000 }));
+    const trois = TEILE.reduce((s, t) => s + dureeOracle(t, parties), 0);
+    const solide = cases[0];
+    const progress = new Map<string, CaseProgress>([[solide.id, {
+      caseId: solide.id, teile: Object.fromEntries(TEILE.map((t) => [t, { status: 'solide', lastScore: 90, lastAt: morning('2026-09-20'), attempts: 2 }])),
+      overall: 'solide', couverture: 3, maitrise: 90, etat: 'solide', solideDepuis: morning('2026-09-20'), pretAt: null, prochaineConsolidation: '2026-10-01', pretManque: [],
+    } as unknown as CaseProgress]]);
+    const rev = buildTasks(base({ trainingEvents: parties, progress }), () => `i${Math.random()}`).find((t) => t.kind === 'revision');
+    expect(rev, 'la consolidation d’un cas solide dû disparaît chez un candidat qui joue par Teil').toBeDefined();
+    expect(rev!.teile).toEqual([A, D, F]);
+    expect(rev!.estMin).toBe(trois);
+    const veille = [...taperDays(cfg)][0];
+    const exam = buildTasks(base({ trainingEvents: parties, date: veille, now: morning(veille) }), () => `i${Math.random()}`).find((t) => t.kind === 'examen-blanc');
+    expect(exam!.estMin, 'un examen à blanc compte les trois Teile, même observé « par Teil »').toBe(trois);
+  });
+
   it('un examen à blanc compte toujours Σ dureeTeil sur les trois Teile (MOCK_MIN disparaît)', () => {
     const events = [0, 1, 2].map((i) => apprises(`x${i}`, i));
     const tasks = buildTasks(base({ trainingEvents: events, config: { ...cfg, modus: 'examen-blanc' } as ProgramConfig }), () => `i${Math.random()}`);
@@ -160,7 +177,7 @@ describe('INV-63 — erreurs transversales : le même item manqué dans ≥ 3 de
   it('erreursTransversales = l’oracle, sur des journaux de checklists aléatoires (un item manqué 3 fois sur le MÊME cas, parties d’avant le pont de checklist, séances IA)', async () => {
     const vus = { signaux: 0, sansChecklist: 0, ia: 0 };
     await forAll(300, (r, seed) => {
-      const events: TrainingEvent[] = Array.from({ length: r.int(0, 12) }, (_, i) => {
+      const events: TrainingEvent[] = Array.from({ length: r.int(0, 12) }, () => {
         const teile = r.bool(0.4) ? TEILE : [r.pick(TEILE)];
         const manques: Partial<Record<SimTeil, string[]>> = {};
         for (const t of teile) if (r.bool(0.85)) manques[t] = ITEMS[t].filter((_, k) => k < 3 && r.bool(0.7)).concat(r.bool(0.3) ? [ITEMS[t][3]] : []);

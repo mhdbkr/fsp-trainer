@@ -36,7 +36,8 @@ import { getSrsSettings } from '@/lib/srsSettings';
 import { estTacheDeCas, evaluerTache } from './completion';
 import { isWorkingDay, fenetreDUnTrait, nextWorkingDay, programEnd, taperDays } from './calendrier';
 export { isWorkingDay, nextWorkingDay, programEnd, taperDays };
-import { dureeTeil } from './durees';
+import { dureesTeile } from './durees';
+import { erreursTransversales, poserRappels } from './erreurs';
 import { entreeDuJour } from './entree';
 import { debutJour, finJour, fuseauLocal } from './fuseau';
 import { modeDuJour, observation } from './modus';
@@ -125,7 +126,8 @@ export function buildTasks(input: BuildInput, mkId: () => string = newId): TaskI
   const teilHabituel = modus === 'teil-first' ? observation(input.trainingEvents, cases).teilHabituel : undefined;
   const actif = input.dUnTraitActif ?? D_UN_TRAIT_ACTIF;
   const targetMin = input.budgetMin ?? dayTargetMin(config);
-  const duree = (t: SimTeil) => dureeTeil(t, input.trainingEvents);
+  const durees = dureesTeile(input.trainingEvents);             // apprises (§13.4), calculées une fois
+  const duree = (t: SimTeil) => durees[t];
   const sommeTrois = TEIL_KEYS.reduce((s, t) => s + duree(t), 0);
   const taper = taperDays(config);
   const isTaper = taper.has(date);
@@ -154,6 +156,8 @@ export function buildTasks(input: BuildInput, mkId: () => string = newId): TaskI
 
   // 2. L'examen à blanc occupe la dernière ligne droite, et le mode dédié. C'est la tâche FORCÉE du jour : il peut dépasser le
   //    budget (le seul à le pouvoir en dernière ligne droite) ; ce jour-là, les tâches de cas respectent le budget (m-c).
+  // La fin commune : les rappels d'erreurs transversales (§13.3, lus dans le journal d'AVANT le jour), puis le drill à sa place.
+  const finir = () => drillApresLaPremierePartie(poserRappels(tasks, erreursTransversales(input.trainingEvents)), terms.due);
   const ctx = selectContext(input, debut);
   const ranked = rankCandidates(cases, ctx);
   let examenForce = false;
@@ -167,7 +171,7 @@ export function buildTasks(input: BuildInput, mkId: () => string = newId): TaskI
         reason: isTaper ? `Répétition générale : conditions réelles, sans aide.` : pourquoiAujourdhui(best, ctx),
       });
     }
-    if (modus === 'examen-blanc') return drillApresLaPremierePartie(tasks, terms.due);
+    if (modus === 'examen-blanc') return finir();
   }
 
   // 3. Les tâches de cas. Un seul moteur de sélection dans le dépôt.
@@ -177,8 +181,9 @@ export function buildTasks(input: BuildInput, mkId: () => string = newId): TaskI
     const sp = specialiteLaPlusEnDette(progress, cases, date, tz);
     if (sp) candidates = candidates.filter((s) => s.c.specialty === sp);
   }
-  if (teilHabituel) {                                   // observé « par Teil » : les cas où ce Teil reste à faire, si l'on en a
-    const sous = candidates.filter((s) => restePlan(progress.get(s.c.id), date, tz).includes(teilHabituel));
+  if (teilHabituel) {                                   // observé « par Teil » : les cas où ce Teil reste à faire, si l'on en a —
+    // un cas solide DÛ reste candidat : sa consolidation (§13.1) ne dépend pas de la façon de jouer.
+    const sous = candidates.filter((s) => s.parts.du || restePlan(progress.get(s.c.id), date, tz).includes(teilHabituel));
     if (sous.length) candidates = sous;
   }
   // « D'un trait » (m-l) : entre J-15 ouvrés et la dernière ligne droite, un cas solide non prêt et fréquent passe en tête.
@@ -246,7 +251,7 @@ export function buildTasks(input: BuildInput, mkId: () => string = newId): TaskI
       reason: `La théorie du cas que tu découvres aujourd'hui.`,
     });
   }
-  return drillApresLaPremierePartie(tasks, terms.due);
+  return finir();
 }
 
 export const dayTargetMin = (config: ProgramConfig): number =>
