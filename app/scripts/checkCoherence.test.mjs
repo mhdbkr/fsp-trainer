@@ -13,7 +13,7 @@ import { fileURLToPath, pathToFileURL } from 'node:url';
 import assert from 'node:assert/strict';
 import { readFileSync, writeFileSync } from 'node:fs';
 import { sandbox } from './mutationSandbox.mjs';
-import { mesurerCas, profilPropose, signesDe } from './coherenceMesure.mjs';
+import { mesurerCas, profilPropose, proposer, signesDe } from './coherenceMesure.mjs';
 
 // ── La mesure : un lexique minimal, des trames de poche ──────────────────────
 // La lecture du texte est CELLE du lexique (`symptomsInText`, symptoms.ts) : on la charge pour de vrai.
@@ -96,6 +96,18 @@ test('relances : l\'antécédent nommé sous une question sans rapport est déta
   const cond = mesurerCas(cas([mere(['Falls ja: Hatten Sie schon einmal einen Gichtanfall?'])]), lex());
   assert.equal(cond.fu[0].cond, true);
   assert.equal(mesurerCas(cas([mere(['Seit wann?'])]), lex()).fu.length, 0, 'une précision n\'est pas une relance hors signe');
+});
+
+test('K1 --propose : les signes lus d\'une question du cas non déclarée ; une relance qui nomme un autre signe est signalée, conditionnelle = alerte DM2', () => {
+  const u = (r) => mesurerCas(cas([r]), lex()).units[0];
+  const p = proposer(u(row('aktuell', 'Haben Sie Fieber gemessen? Wie hoch?', { cs: true, fu: ['Falls ja: Wann ist das Fieber am höchsten?', 'Haben Sie Husten?'] })));
+  assert.deepEqual(p.sucht, ['fieber']);
+  assert.equal(p.relances[0].horsSigne, false, 'une précision hérite');
+  assert.deepEqual(p.relances[1].sucht, ['husten']);
+  assert.equal(p.relances[1].alerte, false, 'inconditionnelle : unité à part');
+  const cond = proposer(u(row('aktuell', 'Haben Sie Fieber gemessen?', { cs: true, fu: ['Falls ja: Haben Sie Husten?'] })));
+  assert.equal(cond.relances[0].alerte, true, 'conditionnelle hors signe : à corriger à la source');
+  assert.deepEqual(proposer(u(row('aktuell', 'Wie ist Ihre Gemütslage?', { cs: true }))).sucht, [], 'aucun signe lu : le relecteur déclare');
 });
 
 test('ordre : « dort » avant toute question de voyage ; le voyage posé avant → rien ; les constats Q0 sont repris', () => {
@@ -220,3 +232,18 @@ test('--case : la trame jouée, chaque constat et sa RAISON ; un cas inconnu →
   assert.match(r.stdout, /RAISON : « dort » avant toute question sur « reise »/);
   assert.equal(run('--case', 'case-qui-nexiste-pas').status, 2);
 });
+
+test('--propose : la proposition lit les questions du cas non déclarées, n\'écrit rien, un cas inconnu → exit 2', () => {
+  const avant = sb.read('src/data/seedCases.ts');
+  const r = run('--propose', '--case', 'gastroenteritis');
+  assert.equal(r.status, 0, r.stderr);
+  assert.match(r.stdout, /PROPOSITION de `sucht`/);
+  assert.match(r.stdout, /sucht proposé : essen_expo/);
+  assert.match(r.stdout, /rien n'est appliqué/);
+  assert.equal(sb.read('src/data/seedCases.ts'), avant, 'jamais appliqué automatiquement');
+  assert.equal(run('--propose', '--case', 'case-qui-nexiste-pas').status, 2);
+  const j = JSON.parse(run('--propose', '--json').stdout);
+  assert.equal(j.length, json(run('--json')).residu.questionsMuettes, 'une proposition par question du cas muette');
+  assert.ok(j.every((p) => Array.isArray(p.sucht) && Array.isArray(p.relances)));
+});
+

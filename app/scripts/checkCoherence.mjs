@@ -17,6 +17,7 @@
 // Usage : node scripts/checkCoherence.mjs                  synthèse + 15 pires cas
 //         node scripts/checkCoherence.mjs --case <id>      la trame jouée du cas, chaque constat et sa raison
 //         node scripts/checkCoherence.mjs --json           compteurs + constats par cas (tests, diff entre lots)
+//         node scripts/checkCoherence.mjs --propose [--case <id>] [--json]   les signes lus dans les questions du cas non déclarées (aide K2 / K4)
 //         node scripts/checkCoherence.mjs --bless          régénère le plancher (refusé si un compteur monte)
 // Codes : 0 ok · 1 lexique incohérent ou mesure au-dessus du plancher · 2 outil/usage.
 // ============================================================================
@@ -26,7 +27,7 @@ import { fileURLToPath, pathToFileURL } from 'node:url';
 import { dirname, join } from 'node:path';
 import { tmpdir } from 'node:os';
 import { detect, trameWords } from './questionOrderDetect.mjs';
-import { COMPTEURS, DIM, RESIDU, SIG, mesurerCas, totaux } from './coherenceMesure.mjs';
+import { COMPTEURS, DIM, RESIDU, SIG, mesurerCas, proposer, totaux } from './coherenceMesure.mjs';
 
 const root = join(dirname(fileURLToPath(import.meta.url)), '..');
 const arg = (k) => { const i = process.argv.indexOf(k); return i > 0 ? process.argv[i + 1] : undefined; };
@@ -105,10 +106,30 @@ const sondesMuettes = Object.keys(m.PROBE_BY_ID).filter((id) => !(id in m.PROBE_
 const T = totaux(results, { sondesMuettes });
 
 // ── Sorties ──────────────────────────────────────────────────────────────────
-if (flag('--json')) {
+if (flag('--json') && !flag('--propose')) {
   const slim = (r) => ({ id: r.id, kat: r.kat, tags: r.profil.tags, n: r.n, dup: r.dup, imp: r.imp, miss: r.miss, ajoutSansReponse: r.ajoutSansReponse, fu: r.fu, ord: r.ord, muettes: r.muettes });
   // écrire puis sortir à la fin du flush : `process.exit` coupe un pipe à 64 Ko
   process.stdout.write(JSON.stringify({ cas: results.length, structure, ...T, parCas: results.map(slim) }) + '\n', () => process.exit(structure.length ? 1 : 0));
+  await new Promise(() => {});
+}
+
+// ── --propose : les signes lus dans le texte des questions du cas NON déclarées (aide à K2 / K4, jamais appliquée) ──
+if (flag('--propose')) {
+  const only = arg('--case');
+  const pick = only ? results.filter((x) => x.id === only || x.id === `case-${only}`) : results;
+  if (only && !pick.length) { console.error(`❌ cas inconnu : ${only}`); process.exit(2); }
+  const props = pick.flatMap((r) => r.units.filter((u) => u.cs && !u.declared).map((u) => ({ cas: r.id, ch: u.ch, rang: u.rank, question: u.text, ...proposer(u) })));
+  if (flag('--json')) process.stdout.write(JSON.stringify(props) + '\n', () => process.exit(structure.length ? 1 : 0));
+  else {
+    console.log(`PROPOSITION de \`sucht\` — ${props.length} question(s) du cas sans déclaration, ${pick.length} cas. Lecture du texte : une AIDE (précision 50-74 %), rien n'est appliqué ; le relecteur déclare.\n`);
+    for (const p of props) {
+      console.log(`${p.cas} · ${p.ch} #${p.rang} « ${p.question.length > 110 ? p.question.slice(0, 107) + '…' : p.question} »`);
+      console.log(`    sucht proposé : ${p.sucht.length ? p.sucht.join(', ') : 'aucun signe lu — à déclarer à la main'}`);
+      for (const r of p.relances) if (r.horsSigne) console.log(`    relance ${r.i} « ${r.text.slice(0, 80)} » : cherche ${r.sucht.join(', ')}${r.alerte ? ' — CONDITIONNELLE hors signe (DM2 : corriger la source)' : ' — unité à part (followUpSucht)'}`);
+    }
+    console.log(`\n${props.filter((p) => p.sucht.length).length}/${props.length} questions avec au moins un signe lu.`);
+  }
+  if (!flag('--json')) process.exit(structure.length ? 1 : 0);
   await new Promise(() => {});
 }
 

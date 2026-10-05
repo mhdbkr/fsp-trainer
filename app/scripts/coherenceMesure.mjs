@@ -217,6 +217,19 @@ export function mesurerCas(c, lex, qo = []) {
   };
 }
 
+// ── 3 bis. PROPOSER la déclaration d'une question non déclarée (K1, `--propose`) ──
+/** Pour une unité du CAS sans `sucht` : les signes que son texte nomme et, par relance, ceux qu'elle nomme hors de sa mère
+ *  (une relance sans signe propre est une précision : elle hérite). Une AIDE à l'annotation (K2, K4) — précision relue de la
+ *  lecture : 50 à 74 % — qui n'écrit rien : la déclaration fait foi, un relecteur la pose. */
+export function proposer(unit) {
+  const sucht = [...unit.ms];
+  const relances = unit.fus.map((f, i) => {
+    const propres = [...f.signs].filter((s) => !unit.ms.has(s) && !DIM[s]);
+    return { i, text: f.text, cond: f.cond, sucht: propres, horsSigne: propres.length > 0, alerte: f.cond && propres.length > 0 };
+  });
+  return { sucht, relances };
+}
+
 // ── 4. Les compteurs du contrat (§10.6) ──────────────────────────────────────
 export const COMPTEURS = [
   // [clé, libellé, quel(le) mesure, exact dès]
