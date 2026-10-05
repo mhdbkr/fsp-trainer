@@ -73,6 +73,8 @@ export const PROBE_SUCHT: Record<string, Symptom[]> = {
   'akt-atemnot-husten': ['husten'],
   'akt-ausscheid-was': ['stuhl', 'miktion'],
   'akt-ausscheid-haeufigkeit': ['stuhl', 'miktion'],
+  // K1 : la moitié « urines » de la sonde commune coupée en deux garde la carte de l'ancienne (le montage ne change pas).
+  'akt-ausscheid-harn-haeufigkeit': ['stuhl', 'miktion'], 'akt-ausscheid-harn-aussehen': ['stuhl', 'miktion'],
   'akt-veraend-blutung': ['blutung'],
   'akt-neuro-lage': ['schwindel'],
   'akt-neuro-ausfall': ['schwaeche', 'taubheit'],

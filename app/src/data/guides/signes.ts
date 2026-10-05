@@ -44,6 +44,7 @@ export type Signe =
   | 'schub' | 'waerme'
   // --- ajoutés par K0 (liste fermée ; chaque ajout est commenté) ------------
   | 'stuhlfrequenz'        // « wie oft » — ≠ `stuhl` (ce qui a changé) : autre réplique de la fiche
+  | 'miktion_frequenz'     // combien de fois on urine le jour (K1 : « Häufigkeit » coupée en selles / urines)
   | 'stuhlaussehen'        // Farbe, Blut, Schleim, Konsistenz du selle
   | 'nykturie'             // Wasserlassen nachts
   | 'inkontinenz'          // Einnässen, Urinverlust
@@ -118,6 +119,7 @@ const DEFS: Record<Signe, Omit<SigneDef, 'id'>> = {
   oedeme: { kapitel: 'aktuell', pertinence: S },
   blutung: { kapitel: 'aktuell', pertinence: S },
   stuhlfrequenz: { kapitel: 'aktuell', pertinence: S, bank: 'akt-ausscheid-haeufigkeit' },
+  miktion_frequenz: { kapitel: 'aktuell', pertinence: S },
   stuhlaussehen: { kapitel: 'aktuell', pertinence: S, bank: 'akt-ausscheid-aussehen' },
   nykturie: { kapitel: 'aktuell', pertinence: S },
   schluck: { kapitel: 'aktuell', pertinence: ['dysphagie', 'hals'], bank: 'akt-ausscheid-schlucken' },
@@ -206,6 +208,8 @@ export const SUCHT_AFFINE: Record<ProbeId, Signe[]> = {
   'fach-rheuma-gelenke': ['gelenke'], 'fach-rheuma-morgensteifigkeit': ['steifigkeit'], 'fach-rheuma-entzuendung': ['gelenk_entzuendung'],
   'akt-infekt-fieber': ['fieber'], 'fach-infekt-reise': ['reise'], 'akt-atemnot-belastung': ['atemnot'], 'akt-atemnot-husten': ['husten'],
   'akt-ausscheid-haeufigkeit': ['stuhlfrequenz'], 'akt-ausscheid-aussehen': ['stuhlaussehen'], 'akt-ausscheid-schlucken': ['schluck'],
+  // K1 : la moitié « urines » de « Häufigkeit » / « Aussehen » (≠ selles : autre réplique de la fiche)
+  'akt-ausscheid-harn-haeufigkeit': ['miktion_frequenz', 'nykturie'], 'akt-ausscheid-harn-aussehen': ['urin_aspekt'],
   'veg-gewicht': ['gewicht'],
   // paires de granularité (INV-78) et cible de SUCHT_AUSSER
   // D1 : l'énumération « Wasserlassen, Stuhlgang, Farbe von Haut/Augen/Urin/Stuhl » cherche chaque signe nommé.
@@ -220,6 +224,8 @@ export const SUCHT_AFFINE: Record<ProbeId, Signe[]> = {
 /** Paires de discrimination (INV-78) : leurs `sucht` déclarés sont disjoints. Chaque lot qui touche le lexique en ajoute une. */
 export const GRANULARITE_PAIRES: ReadonlyArray<readonly [ProbeId, ProbeId]> = [
   ['akt-ausscheid-was', 'akt-ausscheid-haeufigkeit'],   // stuhl ≠ stuhlfrequenz
+  ['akt-ausscheid-haeufigkeit', 'akt-ausscheid-harn-haeufigkeit'],   // stuhlfrequenz ≠ miktion_frequenz (scission K1)
+  ['akt-ausscheid-aussehen', 'akt-ausscheid-harn-aussehen'],         // stuhlaussehen ≠ urin_aspekt (scission K1)
   ['fach-endo-durst', 'fach-uro-miktion'],              // polyurie ≠ miktion (décision D4, série 3)
   ['fach-neuro-kraft', 'fach-haem-leistung'],           // schwaeche ≠ muedigkeit
   ['fach-neuro-sensibilitaet', 'fach-ortho-cauda'],     // taubheit ≠ sattel

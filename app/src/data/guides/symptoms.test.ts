@@ -132,8 +132,8 @@ describe('Lexique de signes — INV-77 (cohérent) et INV-78 (granularité)', ()
   it('le lexique réel est cohérent', () => {
     expect(lexiqueIncoherences()).toEqual([]);
   });
-  it('porte 69 signes : 11 dimensions, 39 concepts d\u2019origine, 19 ajouts K0 ; un SIGNE_DEF chacun', () => {
-    expect(SIGNES).toHaveLength(69);
+  it('porte 70 signes : 11 dimensions, 39 concepts d\u2019origine, 20 ajouts (19 K0 + miktion_frequenz K1) ; un SIGNE_DEF chacun', () => {
+    expect(SIGNES).toHaveLength(70);
     expect(Object.keys(SIGNE_DEF)).toEqual([...SIGNES]);
     expect(SIGNES.slice(0, 11)).toEqual(['ort', 'beginn', 'charakter', 'intensitaet', 'ausstrahlung', 'verlauf', 'ausloeser', 'einfluss', 'frueher', 'begleit', 'gelenke']);
   });

@@ -375,8 +375,12 @@ export const AKTUELL_VARIANT_PROBES: Record<LeitsymptomKategorie, AnamneseProbe[
   ],
   ausscheidung: [
     { id: 'akt-ausscheid-was', kapitel: 'aktuell', frage: 'Was hat sich verändert: Wasserlassen, Stuhlgang, Farbe von Haut/Augen/Urin/Stuhl?' },
-    { id: 'akt-ausscheid-haeufigkeit', kapitel: 'aktuell', frage: 'Wie oft müssen Sie am Tag auf die Toilette, und wie oft nachts?' },
-    { id: 'akt-ausscheid-aussehen', kapitel: 'aktuell', frage: 'Ist Ihnen Blut, Schleim oder eine ungewöhnliche Farbe aufgefallen?' },
+    // K1 : « Häufigkeit » et « Aussehen » cherchaient chacune les selles ET les urines (deux répliques de fiche
+    // différentes). Chaque question se coupe en deux sondes mono-signe ; les ids historiques gardent les selles.
+    { id: 'akt-ausscheid-haeufigkeit', kapitel: 'aktuell', frage: 'Wie oft haben Sie am Tag Stuhlgang, und müssen Sie nachts zur Toilette?' },
+    { id: 'akt-ausscheid-harn-haeufigkeit', kapitel: 'aktuell', frage: 'Wie oft müssen Sie am Tag Wasser lassen, und wie oft nachts?' },
+    { id: 'akt-ausscheid-aussehen', kapitel: 'aktuell', frage: 'Ist Ihnen Blut, Schleim oder eine ungewöhnliche Farbe im Stuhl aufgefallen?' },
+    { id: 'akt-ausscheid-harn-aussehen', kapitel: 'aktuell', frage: 'Ist Ihnen Blut, Schaum oder eine ungewöhnliche Farbe im Urin aufgefallen?' },
     // L'aspect d'une excrétion et la déglutition ne partagent ni organe ni
     // diagnostic différentiel ; et « nur Festes, oder auch Flüssiges » est la
     // question qui tranche sténose mécanique ↔ trouble moteur. Aucune autre

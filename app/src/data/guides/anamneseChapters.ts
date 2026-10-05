@@ -363,11 +363,17 @@ const AKTUELL_VARIANTS: Record<LeitsymptomKategorie, AktuellVariant> = {
         probe: 'akt-ausscheid-was',
       },
       {
-        text: 'Häufigkeit — Wie oft müssen Sie am Tag auf die Toilette, und wie oft nachts?',
+        text: 'Häufigkeit — Wie oft haben Sie am Tag Stuhlgang, und müssen Sie nachts zur Toilette?',
         probe: 'akt-ausscheid-haeufigkeit',
         followUp: ['Mehr oder weniger als sonst?'],
       },
-      { text: 'Aussehen — Ist Ihnen Blut, Schleim oder eine ungewöhnliche Farbe aufgefallen?', probe: 'akt-ausscheid-aussehen' },
+      {
+        text: 'Wasserlassen — Wie oft müssen Sie am Tag Wasser lassen, und wie oft nachts?',
+        probe: 'akt-ausscheid-harn-haeufigkeit',
+        followUp: ['Mehr oder weniger als sonst?'],
+      },
+      { text: 'Aussehen — Ist Ihnen Blut, Schleim oder eine ungewöhnliche Farbe im Stuhl aufgefallen?', probe: 'akt-ausscheid-aussehen' },
+      { text: 'Urin — Ist Ihnen Blut, Schaum oder eine ungewöhnliche Farbe im Urin aufgefallen?', probe: 'akt-ausscheid-harn-aussehen' },
       { text: 'Schlucken — Bleibt beim Schlucken nur Festes stecken, oder auch Flüssiges?', probe: 'akt-ausscheid-schlucken' },
       { text: 'Verlauf — Ist es dauernd so, oder gibt es Tage, an denen es normal ist? Wird es schlimmer?', probe: 'akt-verlauf' },
       { text: 'Auslöser — Ist Ihnen ein Auslöser aufgefallen — ein bestimmtes Essen, eine Reise, ein neues Medikament, Stress?', probe: 'akt-ausloeser' },
@@ -436,10 +442,11 @@ export const FACH_COVERS: Record<string, string[]> = {
   'fach-haem-lymphknoten': ['akt-veraend-was'], 'fach-haem-bsymptomatik': ['akt-allgemein-gewicht'],
   'fach-onko-leistung': ['akt-allgemein-alltag'], 'fach-onko-bsymptomatik': ['akt-allgemein-gewicht'], 'fach-onko-knoten': ['akt-veraend-was'],
   'fach-onko-blutung': ['akt-veraend-blutung'], 'fach-onko-appetit': ['akt-ausscheid-was'],
-  'fach-nephro-menge': ['akt-ausscheid-haeufigkeit', 'akt-allgemein-schwellung'], 'fach-nephro-aussehen': ['akt-ausscheid-aussehen'], 'fach-nephro-oedeme': ['akt-allgemein-schwellung'],
-  // Urologie / Gastroenterologie (ausscheidung)
-  'fach-uro-frequenz': ['akt-ausscheid-haeufigkeit'], 'fach-uro-drang': ['akt-ausscheid-haeufigkeit'], 'fach-uro-strahl': ['akt-ausscheid-haeufigkeit'],
-  'fach-uro-farbe': ['akt-ausscheid-aussehen'],
+  'fach-nephro-menge': ['akt-ausscheid-haeufigkeit', 'akt-ausscheid-harn-haeufigkeit', 'akt-allgemein-schwellung'], 'fach-nephro-aussehen': ['akt-ausscheid-aussehen', 'akt-ausscheid-harn-aussehen'], 'fach-nephro-oedeme': ['akt-allgemein-schwellung'],
+  // Urologie / Gastroenterologie (ausscheidung). K1 : la sonde commune « selles ET urines » est coupée en deux ;
+  // la Fach urologique / néphrologique couvre aussi la version urinaire (celle des selles reste couverte, comme avant).
+  'fach-uro-frequenz': ['akt-ausscheid-haeufigkeit', 'akt-ausscheid-harn-haeufigkeit'], 'fach-uro-drang': ['akt-ausscheid-haeufigkeit', 'akt-ausscheid-harn-haeufigkeit'],
+  'fach-uro-strahl': ['akt-ausscheid-haeufigkeit', 'akt-ausscheid-harn-haeufigkeit'], 'fach-uro-farbe': ['akt-ausscheid-aussehen', 'akt-ausscheid-harn-aussehen'],
   'fach-gastro-stuhl': ['akt-ausscheid-aussehen', 'akt-ausscheid-haeufigkeit'], 'fach-gastro-speisen': ['akt-ausloeser'],
   // Infektiologie
   'fach-infekt-kontakt': ['akt-infekt-kontakt'], 'fach-infekt-reise': ['akt-infekt-kontakt'],
