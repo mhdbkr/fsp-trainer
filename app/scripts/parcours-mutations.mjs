@@ -758,6 +758,55 @@ export const MUTATIONS = [
     to: "    date: now(),",
     pourquoi: '`date = now()` à l’écriture : une partie commencée à 23 h 50 compte pour le lendemain',
   },
+  // --- S4-3 fixeur (revues méca + direction, décisions de main du 5 oct.) ---
+  {
+    id: 'fixeur-I4', tests: 'tests/invariants.lauf.test.tsx', file: 'src/lib/lauf/automat.ts',
+    from: "      if (!lauf.teileGespielt.some((t) => t !== 'aufklaerung')) return lauf;\n",
+    to: "",
+    pourquoi: '« Terminer ici » permis sur la seule Aufklärung : une Simulation sans aucun Teil (reihenfolge: []) entre au journal',
+  },
+  {
+    id: 'fixeur-M3', tests: 'tests/invariants.partie.test.tsx', file: 'src/lib/lauf/automat.ts',
+    from: "  if (!lauf.geplanteTeile.some((t) => !lauf.teileGespielt.includes(t))) return lauf;\n",
+    to: "",
+    pourquoi: 'une pause au bilan final (trois Teile joués d’affilée) casse l’enchaînement',
+  },
+  {
+    id: 'fixeur-I11', tests: 'tests/invariants.lauf.test.tsx', file: 'src/lib/lauf/automat.ts',
+    from: "      if ((lauf.sekundenProTeil[lauf.aktuellerTeil] ?? 0) > 0) return lauf;\n",
+    to: "",
+    pourquoi: '« Commencer par » un autre Teil quitte un Teil en cours, chrono lancé',
+  },
+  {
+    id: 'fixeur-M6', tests: 'tests/invariants.lauf.test.tsx', file: 'src/lib/lauf/automat.ts',
+    from: "  if (a.typ === 'partieSuivante' && transition(lauf, { typ: 'partieSuivante' }).aktuellerTeil === teil) return null;\n",
+    to: "",
+    pourquoi: 'au bilan, la pastille du Teil par défaut double « Continuer — X »',
+  },
+  {
+    id: 'fixeur-M5-completion', tests: 'tests/invariants.reprise-lendemain.test.ts', file: 'src/lib/program/completion.ts',
+    from: "    if (!partieJouee(e) || e.caseId !== T.caseId || !dansCas(e)) continue;",
+    to: "    if (!partieJouee(e) || e.caseId !== T.caseId || !dans(e)) continue;",
+    pourquoi: 'une partie commencée la veille et enregistrée ce matin ne fait pas « Finir X » (fenêtre sur le début)',
+  },
+  {
+    id: 'fixeur-M5-derive', tests: 'tests/invariants.reprise-lendemain.test.ts', file: 'src/lib/program/completion.ts',
+    from: "dansLeJour(e.at) || dansLeJour(e.enregistreA ?? e.at) ||",
+    to: "dansLeJour(e.at) ||",
+    pourquoi: 'le plan du jour ne voit pas la partie enregistrée ce jour-là, commencée la veille',
+  },
+  {
+    id: 'fixeur-M5-local', tests: 'tests/invariants.reprise-lendemain.test.ts', file: 'src/lib/journal.ts',
+    from: "db.training_events.where('at').aboveOrEqual(debutJour(plan.date, plan.tz) - DAY_MS).toArray();",
+    to: "db.training_events.where('at').aboveOrEqual(debutJour(plan.date, plan.tz)).toArray();",
+    pourquoi: 'la projection locale ne relit pas la partie commencée la veille : la tâche ne se coche qu’au prochain rebuild',
+  },
+  {
+    id: 'fixeur-M5-creeA', tests: 'tests/invariants.reprise-lendemain.test.ts', file: 'src/lib/program/completion.ts',
+    from: "const dansCas = (e: TrainingEvent) => enregistree(e) >= debut && ",
+    to: "const dansCas = (e: TrainingEvent) => ",
+    pourquoi: 'une partie enregistrée AVANT la création de la tâche la fait quand même',
+  },
   {
     id: 'INV-74', tests: 'tests/invariants.muster.test.tsx', file: 'src/components/BogenPreview.tsx',
     from: "const cles = [...bogenKeysOf(spec).filter((k) => !!bogen[k]?.trim()), ...autresNotes(bogen, spec)];",
