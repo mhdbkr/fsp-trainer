@@ -42,6 +42,12 @@ const drillReason = (due: number, fresh: number): string => [
   fresh > 0 ? `${fresh} nouveau${fresh > 1 ? 'x termes' : ' terme'}` : null,
 ].filter(Boolean).join(' · ');
 
+/** Complément de la tâche drill (lot F point 4) : « dont N favoris de ta séance ».
+ *  Calculé à l'AFFICHAGE depuis l'état courant (`queueCounts().favorites`), jamais
+ *  à la matérialisation : le plan figé (INV-55) ne dépend pas d'un favori du jour. */
+export const drillFavorisNote = (n: number): string | null =>
+  n > 0 ? `dont ${n} favori${n > 1 ? 's' : ''} de ta séance` : null;
+
 /** Le mode par défaut tant que le candidat n'a rien choisi. Lecture tolérante
  *  de l'ancien `strategy` (contrat §6 et §11.2) : aucune sémantique perdue. */
 export function modusOf(config: ProgramConfig): Fortschrittsmodus {
