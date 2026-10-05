@@ -146,7 +146,7 @@ const AKTUELL_VARIANTS: Record<LeitsymptomKategorie, AktuellVariant> = {
         // Revue K1 : « Husten Sie dabei etwas ab ? » cherche `auswurf` (unité à part, doublon vrai avec fach-pneumo-husten
         // traité par K3). Une relance conditionnelle ne déclare pas d'autre signe (INV-84) : elle perd « Falls ja: ».
         followUp: ['Husten Sie dabei etwas ab?', 'Falls Auswurf: Welche Farbe hat das?', 'Falls Auswurf: Ist Blut dabei?'],
-        followUpSucht: [['auswurf']],
+        // K3 : « Husten Sie dabei etwas ab? » précise la toux (relance gardée sous sa mère) — elle n'est plus une unité à part.
         relu: true,
       },
       { text: 'Geräusche — Hören Sie beim Atmen ein Pfeifen oder Brummen? Beim Ein- oder beim Ausatmen?', probe: 'akt-atemnot-geraeusch' },
@@ -193,7 +193,7 @@ const AKTUELL_VARIANTS: Record<LeitsymptomKategorie, AktuellVariant> = {
         text: 'Schwellungen — Sind Ihre Beine, das Gesicht oder der Bauch angeschwollen?',
         probe: 'akt-allgemein-schwellung',
         followUp: ['Hat sich die Urinmenge verändert?'],
-        followUpSucht: [['urinmenge']],
+        // K3 : précision de l'œdème (la cause rénale), relance gardée — elle suit sa mère (r2 : la Fach Kardio / Néphro l'emporte).
       },
       { text: 'Verlauf — Ist es gleichbleibend, wird es schlimmer, oder gibt es gute und schlechte Tage?', probe: 'akt-verlauf' },
       { text: 'Auslöser — Ist Ihnen ein Auslöser aufgefallen — eine Krankheit, eine Veränderung der Ernährung, Stress, ein neues Medikament?', probe: 'akt-ausloeser' },
@@ -292,7 +292,7 @@ const AKTUELL_VARIANTS: Record<LeitsymptomKategorie, AktuellVariant> = {
         text: 'Kontakt und Reise — Waren Sie in den letzten Wochen im Ausland?',
         probe: 'akt-infekt-kontakt',
         followUp: ['Hatten Sie Kontakt zu Kranken oder Tieren?', 'Haben Sie etwas Ungewöhnliches gegessen?'],
-        followUpSucht: [['kontakt'], ['essen_expo']],
+        // K3 : « Kontakt und Reise » est UNE unité d'exposition ; ses relances la précisent et la suivent (r2 : la Fach Infekt / Pneumo l'emporte).
       },
       {
         text: 'Herd — Haben Sie Husten, Halsschmerzen, Brennen beim Wasserlassen, Durchfall, einen Ausschlag oder eine Wunde bemerkt?',
@@ -416,7 +416,7 @@ const AKTUELL_VARIANTS: Record<LeitsymptomKategorie, AktuellVariant> = {
         text: 'Bewusstsein — Waren Sie dabei bewusstlos, oder ist Ihnen schwarz vor Augen geworden?',
         probe: 'akt-anfall-bewusstsein',
         followUp: ['Haben Sie sich dabei verletzt, etwa auf die Zunge gebissen?', 'Ist dabei Urin abgegangen?', 'Hat jemand gesehen, was passiert ist?'],
-        followUpSucht: [['anfallszeichen'], ['anfallszeichen'], ['fremdanamnese']],
+        // K3 : Zungenbiss, Urin, témoin précisent CET épisode (« dabei ») — relances gardées sous la question, qui suivent sa décision.
       },
       { text: 'Verlauf — Werden die Anfälle häufiger oder länger? Sind Sie zwischen den Anfällen völlig beschwerdefrei?', probe: 'akt-verlauf' },
       { text: 'Auslöser — Gibt es einen Auslöser — Anstrengung, Aufregung, Kaffee, Alkohol, Schlafmangel, schnelles Aufstehen?', probe: 'akt-ausloeser' },
@@ -712,7 +712,7 @@ export const ALLGEMEINE_ANAMNESE: AnamneseChapter[] = [
         text: 'Sind Sie in den Wechseljahren?',
         followUp: ['Falls ja: Haben Sie Beschwerden, etwa Hitzewallungen?', 'Gehen Sie regelmäßig zum Frauenarzt?'],
         probe: 'frau-wechseljahre',
-        followUpSucht: [[], ['vorsorge_gyn']],
+        // K3 (Q-gyn) : « Frauenarzt regelmäßig » reste la relance de la ménopause — une précision, pas une unité à détacher.
       },
     ],
     tip: 'Obligatoire chez toute patiente en âge de procréer : pense grossesse AVANT toute imagerie ou médicament potentiellement tératogène.',
@@ -1087,7 +1087,7 @@ export const FACHANAMNESEN: FachanamneseGuide[] = [
         text: GYN_VORSORGE_TEXT,
         probe: 'fach-gyn-vorsorge',
         followUp: [GYN_HPV],
-        followUpSucht: [['impfung']],
+        // K3 : le vaccin HPV précise la prévention gynécologique (relance gardée) ; le statut vaccinal général (`impfung`) est ailleurs.
       },
       {
         text: 'Wurden Sie schon an der Gebärmutter, an den Eileitern oder an den Eierstöcken operiert?',
@@ -1492,7 +1492,8 @@ export const FACHANAMNESEN: FachanamneseGuide[] = [
           'Haben Sie konkrete Pläne, sich das Leben zu nehmen?',
           'Falls konkrete Absicht oder Plan: NOTFALL — der Patient bleibt stationär. Rücksprache mit dem Oberarzt nach der Anamnese.',
         ],
-        followUpSucht: [['selbstverletzung'], ['selbstverletzung']],
+        // K3 SÉCURITÉ : l'acte et le désir d'automutilation sont DEUX signes ; la mère les déclare tous deux (RISIKO_SIGNES).
+        followUpSucht: [['selbstverletzung'], ['selbstverletzung_wunsch']],
       },
       {
         text: 'Gab es belastende Ereignisse — ein Verlust, eine Trennung, Stress bei der Arbeit?',
@@ -1696,14 +1697,14 @@ function frauenQuestionsForAge(questions: Phrase[], age: number, fused = false):
       if (probe === 'frau-periode') return [retext(q, 'Wann hatten Sie Ihre letzte Regelblutung?', ['Hatten Sie seitdem noch einmal eine Blutung?'])];
       if (probe === 'frau-schwanger' || probe === 'frau-verhuetung') return [];
       if (probe === 'frau-wechseljahre') {
-        return [retext(q, 'Wie haben Sie die Wechseljahre erlebt — hatten Sie Beschwerden?', [...(fused ? [] : [GYN_HORMONE]), ...arzt], [...(fused ? [] : [['hormone']]), ...arzt.map(() => ['vorsorge_gyn'])])];
+        return [retext(q, 'Wie haben Sie die Wechseljahre erlebt — hatten Sie Beschwerden?', [...(fused ? [] : [GYN_HORMONE]), ...arzt])];   // K3 : Hormone et Frauenarzt = précisions (pas de followUpSucht), elles restent ici
       }
       return [q];
     }
     if (probe === 'frau-wechseljahre') {
       if (age < MENOPAUSE_FROM) return [];
       // La dernière règle est déjà demandée par frau-periode : pas de redite.
-      return [retext(q, 'Haben die Wechseljahre bei Ihnen schon begonnen — Hitzewallungen, unregelmäßige Blutungen?', arzt, arzt.map(() => ['vorsorge_gyn']))];
+      return [retext(q, 'Haben die Wechseljahre bei Ihnen schon begonnen — Hitzewallungen, unregelmäßige Blutungen?', arzt)];
     }
     return [q];
   });
@@ -1800,7 +1801,7 @@ const FACH_RULES: Array<{ probe: string; applies?: (w: Who) => boolean; text?: (
     ? 'Darf ich Ihnen ein paar Fragen zu Ihrer Partnerschaft stellen — das gehört zur Untersuchung dazu? Wie schützen Sie sich vor Geschlechtskrankheiten?' : undefined) },
   { probe: 'fach-gyn-kinderwunsch', applies: (w) => w.age <= FERTILE_UNTIL },
   // Vorsorge selon l'âge : HPV jusqu'à 35 ans (vaccination de la génération), mammographie dès 50 ans (dépistage).
-  { probe: 'fach-gyn-vorsorge', text: (w) => (w.age <= 35 ? { text: GYN_VORSORGE_ABSTRICH, followUp: [GYN_HPV], followUpSucht: [['impfung']] }
+  { probe: 'fach-gyn-vorsorge', text: (w) => (w.age <= 35 ? { text: GYN_VORSORGE_ABSTRICH, followUp: [GYN_HPV] }
     : w.age < 50 ? { text: GYN_VORSORGE_ABSTRICH, followUp: undefined } : { text: GYN_VORSORGE_TEXT, followUp: undefined }) },
   // Après 55 ans, le saignement depuis la dernière règle est la relance de frau-periode (rang 1) : la Blutung ne le redit pas.
   { probe: 'fach-gyn-blutung', text: (w) => (w.age > FERTILE_UNTIL ? { text: GYN_BLUTUNG_TEXT, alts: GYN_BLUTUNG_ALTS, followUp: undefined } : undefined) },

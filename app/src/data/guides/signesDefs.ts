@@ -7,9 +7,13 @@ import type { SigneDefBody } from './signes';
 // ============================================================================
 const S = 'screening' as const;
 export const DEFS = {
+  // K3 (décision de main) : le motif ouvre l'entretien — la règle d'insertion (r3, r4a) place tout après lui.
+  motiv: { kapitel: 'aktuell', pertinence: S },
   // --- les dimensions : l'ordre de l'entretien --------------------------------
   ort: { kapitel: 'aktuell', pertinence: S, bank: 'akt-ort' },
   beginn: { kapitel: 'aktuell', pertinence: S, bank: 'akt-beginn' },
+  // K3 (décision de main) : le MODE de début (aigu, progressif) n'est pas la DATE (« Seit wann ») — deux répliques.
+  beginn_art: { kapitel: 'aktuell', pertinence: S },
   charakter: { kapitel: 'aktuell', pertinence: S, bank: 'akt-charakter' },
   intensitaet: { kapitel: 'aktuell', pertinence: S, bank: 'akt-intensitaet' },
   ausstrahlung: { kapitel: 'aktuell', pertinence: ['schmerz', 'anfall', 'neurologisch', 'nerven', 'stein', 'hoden'], bank: 'akt-ausstrahlung' },
@@ -97,7 +101,6 @@ export const DEFS = {
   koerpermasse: { kapitel: 'personalia', pertinence: S },   // taille et poids ACTUELS (≠ `gewicht`, un changement)
   hausarzt: { kapitel: 'personalia', pertinence: S },
   // --- Aktuelle Beschwerden : ce que les variantes par nature cherchent --------
-  motiv: { kapitel: 'aktuell', pertinence: S },
   giemen: { kapitel: 'aktuell', pertinence: S },            // Pfeifen, Brummen à la respiration
   leistung: { kapitel: 'aktuell', pertinence: S },          // ce que le patient ne fait plus au quotidien
   tageszeit: { kapitel: 'aktuell', pertinence: S },         // moment de la journée où c'est pire
@@ -137,10 +140,11 @@ export const DEFS = {
   lungennoxen: { kapitel: 'fach', pertinence: S },          // amiante, oiseaux, moisissures, farine
   asthma: { kapitel: 'fach', pertinence: S },
   arthralgie: { kapitel: 'fach', pertinence: ['lyme', 'arthritis', 'gelenk'] },   // douleurs articulaires ou musculaires migrantes (Fach Infekt)
-  impfung: { kapitel: 'fach', pertinence: S },
+  impfung: { kapitel: 'vegetativ', pertinence: S },   // K3 : le statut vaccinal se cherche dans la végétative (relance de veg-fieber, détachée par r4a), pas dans la Fach du cas
   verschlucken: { kapitel: 'fach', pertinence: S },
   panikattacke: { kapitel: 'fach', pertinence: S },
-  selbstverletzung: { kapitel: 'fach', pertinence: S },
+  selbstverletzung: { kapitel: 'fach', pertinence: S },          // l'ACTE (« Haben Sie sich selbst verletzt? »)
+  selbstverletzung_wunsch: { kapitel: 'fach', pertinence: S },   // K3, SÉCURITÉ : l'IDÉATION (« … den Wunsch, sich zu verletzen? ») — autre réplique, autre signe
   stimme: { kapitel: 'fach', pertinence: S },
   harnwegsinfekt: { kapitel: 'fach', pertinence: S },
   prostata: { kapitel: 'fach', pertinence: S },
