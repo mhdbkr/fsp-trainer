@@ -47,6 +47,8 @@ export type TrainingSource = 'plan' | 'libre';
 export interface TrainingEvent {
   id: string;                  // uuid v4 ; JAMAIS `${prefix}-${Date.now()}`
   at: number;                  // epoch ms, début de l'exercice
+  enregistreA?: number;        // [S4-3 fixeur M5] epoch ms de l'enregistrement : `occurred_at` de `simulation.completed`
+                               // (posé seulement s'il suit `at`) ; lu par la complétion (§12.3), jamais par la mesure
   kind: TrainingKind;
   caseId?: CaseId;             // absent pour un drill non lié à un cas
   teile: SimTeil[];            // ce qui a RÉELLEMENT été joué (fait, pas intention)
@@ -780,12 +782,18 @@ partieAvecChecklist(e,t)= partieMesuree(e) ∧ e.manques?.[t] défini ∧ ids d'
 
 jourDe(e, T)       = dayKey(e.at) au fuseau T.tz du plan (DayPlan.tz ; local s'il manque) (m-g)
 dansTache(e, T)    = jourDe(e, T) === T.date ∧ e.at ≥ T.creeA
-teileJouesDepuis(T) = ⋃ e.teile  pour partieJouee(e), e.caseId === T.caseId, dansTache(e, T)
+// [S4-3 fixeur M5, décision de main, 5 oct.] Une PARTIE compte par son ENREGISTREMENT aussi : commencée la veille,
+// reprise et enregistrée ce matin, elle fait « Finir X » posée ce matin. Même logique que la coupure m1 de S4-2
+// (l'instant d'`occurred_at`). Le JOUR de la partie reste celui de son début (m5, INV-75) pour l'historique et la mesure.
+enr(e)             = e.enregistreA ?? e.at
+partieDansTache(e, T) = enr(e) ≥ T.creeA ∧ (jourDe(e, T) === T.date ∨ dayKey(enr(e)) === T.date)
+                     // `doneAt` = e.at si e.at ≥ T.creeA, sinon enr(e)
+teileJouesDepuis(T) = ⋃ e.teile  pour partieJouee(e), e.caseId === T.caseId, partieDansTache(e, T)
 avancement(T)      = teileDeTache(T) ∩ teileJouesDepuis(T)
 cocheManuelle(T)   = ∃ e : isCocheNue(e) ∧ e.taskId === T.id    (ou équivalent D-I2, ci-dessous)
 faite(T)           = cocheManuelle(T)
                      ∨ (T.dUnTrait
-                          ? ∃ e : partieJouee(e) ∧ e.enchaine ∧ e.caseId === T.caseId ∧ dansTache(e, T)
+                          ? ∃ e : partieJouee(e) ∧ e.enchaine ∧ e.caseId === T.caseId ∧ partieDansTache(e, T)
                           : avancement(T) ⊇ teileDeTache(T))
 statutTache(T)     = faite ? 'faite' : avancement(T).length > 0 ? 'entamee' : 'a-faire'
 ```

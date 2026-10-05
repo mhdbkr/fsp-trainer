@@ -665,6 +665,9 @@ export type TrainingSource = 'plan' | 'libre';
 export interface TrainingEvent {
   id: string;                  // uuid v4 ; JAMAIS `${prefix}-${Date.now()}`
   at: number;                  // epoch ms, début de l'exercice
+  /** [S4-3 fixeur M5] epoch ms de l'ENREGISTREMENT (`occurred_at` de `simulation.completed`). Absent ⇒ `at`.
+   *  La complétion d'une tâche le lit : une partie commencée la veille et enregistrée ce matin fait la tâche du matin. */
+  enregistreA?: number;
   kind: TrainingKind;
   caseId?: CaseId;             // absent pour un drill non lié à un cas
   teile: SimTeil[];            // ce qui a RÉELLEMENT été joué (fait, pas intention)
