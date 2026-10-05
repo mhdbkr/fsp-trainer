@@ -6692,6 +6692,8 @@ export function seedCases(): Case[] {
       difficulty: 3,
       patientSheet: {
         profil: { tags: ['neurologisch', 'hals'] },
+        // K3 (revue clinique P2) : la rotation de la tête (vertige positionnel) n'est pas une question de l'AVC / AIT ici.
+        aktuellSkip: ['akt-neuro-lage'],
         leitsymptomKategorie: 'neurologisch',
         personalia: {
           name: 'Arnd Kartmann',
@@ -39234,6 +39236,8 @@ export function seedCases(): Case[] {
       difficulty: 2,
       patientSheet: {
         profil: { tags: ['neurologisch', 'hals'] },
+        // K3 (revue clinique P2) : la rotation de la tête (vertige positionnel) n'est pas une question de l'AVC / AIT ici.
+        aktuellSkip: ['akt-neuro-lage'],
         leitsymptomKategorie: 'neurologisch',
         personalia: {
           name: 'Arnd Kartmann',

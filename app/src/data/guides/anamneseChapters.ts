@@ -1274,7 +1274,8 @@ export const FACHANAMNESEN: FachanamneseGuide[] = [
       {
         text: 'Haben Sie Fieber, Augenentzündungen, Mund- oder Genitalgeschwüre, Durchfall oder eine Bindehautentzündung bemerkt?',
         probe: 'fach-rheuma-systemisch',
-        alts: ['Gibt es Begleitsymptome wie Hautausschlag, Augenentzündung oder Fieber?'],
+        // K3 (revue P2) : l'alternative « Hautausschlag, Augenentzündung oder Fieber » est retirée — la peau est la question
+        // de fach-rheuma-haut ; la garder obligeait la sonde à déclarer `ausschlag` (D1) et la laissait non réduite.
       },
       {
         text: 'Hatten Sie solche Gelenkbeschwerden schon einmal?',
@@ -1790,7 +1791,7 @@ function caseQuestionsByKapitel(c: Case): Record<string, PhraseVariant[]> {
 // (`applies`) ou la reformule (`text` : chaîne, ou relances/alternatives) ;
 // le résidu propre à un cas passe par `fachSkip`.
 type Who = { geschlecht?: 'm' | 'w'; age: number; kategorie: LeitsymptomKategorie; schmerzOrt?: string; motiv?: PatientSheet['motiv'] };
-type FachPatch = string | Pick<PhraseVariant, 'text' | 'alts' | 'followUp' | 'followUpSucht'>;
+type FachPatch = string | Pick<PhraseVariant, 'text' | 'alts' | 'followUp' | 'followUpSucht' | 'sucht'>;
 const ARM = new Set(['obere', 'hws']), RUMPF = new Set(['lws', 'bws']), RACHIS = new Set(['lws', 'bws', 'hws']);
 const region = (w: Who) => w.motiv?.region;
 // « Herz » en début de mot seulement : « Schmerz » contient « herz ».
@@ -1803,7 +1804,7 @@ const FACH_RULES: Array<{ probe: string; applies?: (w: Who) => boolean; text?: (
   // Ortho : sans traumatisme, on écarte l'accident — sans le récit de chute.
   // Le casque n'est d'aucun cas (football, chute du fauteuil) : il vit dans le conseil.
   { probe: 'fach-ortho-mechanismus', text: (w) => (w.motiv && !w.motiv.trauma
-    ? { text: 'Hatten Sie in letzter Zeit einen Unfall oder einen Sturz?', alts: undefined, followUp: undefined } : undefined) },
+    ? { text: 'Hatten Sie in letzter Zeit einen Unfall oder einen Sturz?', alts: undefined, followUp: undefined, sucht: ['unfallhergang', 'sturz'] } : undefined) },   // K3 (revue P2) : la variante déclare ce qu'elle demande
   // Rachis lombaire : la question reste ouverte — c'est la réponse (au-dessus
   // ou au-dessous du genou) qui départage, pas la question qui la suggère.
   // Rachis dorsal : ouverte aussi (une question « gürtelförmig » masquait Arm, Hals, Beine).

@@ -18,7 +18,7 @@ case-pavk fach-gefaess 7 bf0b3fc057ff6fe4
 case-lyme fach-infektio 8 48d35da7df6de36a
 case-osg-fraktur fach-ortho 8 66aba7a391aba55e
 case-bandscheibenvorfall fach-ortho 7 3e25a9dc21c77c7f
-case-gicht fach-rheuma 8 212edb8aad825df5
+case-gicht fach-rheuma 8 733a3888a31aeb61
 case-multiple-sklerose fach-neuro 10 121df88c924680f5
 case-reizdarm fach-gastro 7 7fe78017e4753232
 case-schlaganfall fach-neuro 11 372634ea56c9c6d3
@@ -49,7 +49,7 @@ case-bph fach-uro 10 4fa3b8728eeb96e3
 case-demenz fach-psy 10 72b6aec0cffddbda
 case-bronchialkarzinom fach-onko 9 3e306a207decb56d
 case-mammakarzinom fach-gyn 15 505ef1ba801fd92d
-case-rheumatoide-arthritis fach-rheuma 8 212edb8aad825df5
+case-rheumatoide-arthritis fach-rheuma 8 733a3888a31aeb61
 case-morbus-crohn fach-gastro 7 7fe78017e4753232
 case-karpaltunnel fach-ortho 7 a01307b11955f0d6
 case-panikstoerung fach-psy 10 72b6aec0cffddbda
@@ -71,14 +71,14 @@ case-commotio fach-neuro 10 19d42a4103dcad26
 case-itp fach-haemato 10 9b48f3488fc2ff26
 case-uterus-myomatosus fach-gyn 12 b01550bd7a430cde
 case-akutes-nierenversagen fach-nephro 8 82903f6758d55624
-case-fibromyalgie fach-rheuma 8 212edb8aad825df5
-case-polymyalgia fach-rheuma 8 212edb8aad825df5
+case-fibromyalgie fach-rheuma 8 733a3888a31aeb61
+case-polymyalgia fach-rheuma 8 733a3888a31aeb61
 case-pneumothorax fach-pneumo 10 72f730a9b871c33f
 case-schlafapnoe fach-pneumo 10 72f730a9b871c33f
 case-schizophrenie fach-psy 10 72b6aec0cffddbda
 case-delir fach-psy 10 72b6aec0cffddbda
 case-achalasie fach-gastro 7 7fe78017e4753232
-case-septische-arthritis fach-rheuma 8 212edb8aad825df5
+case-septische-arthritis fach-rheuma 8 733a3888a31aeb61
 case-spinalkanalstenose fach-ortho 8 de101f47506e5922
 case-hws-diskusprolaps fach-ortho 7 c24d63aacafd1582
 case-laktoseintoleranz fach-gastro 7 7fe78017e4753232
@@ -96,7 +96,7 @@ case-malaria fach-infektio 8 48d35da7df6de36a
 case-endokarditis fach-kardio 8 e8937844e5700b30
 case-covid19 fach-infektio 7 54d615ea0660775c
 case-anaphylaxie fach-derma 6 b9dec9fc50f54f75
-case-reaktive-arthritis fach-rheuma 8 212edb8aad825df5
+case-reaktive-arthritis fach-rheuma 8 733a3888a31aeb61
 case-pertussis fach-pneumo 10 72f730a9b871c33f
 case-colitis-ulcerosa fach-gastro 7 7fe78017e4753232
 case-chronische-pankreatitis fach-gastro 7 7fe78017e4753232

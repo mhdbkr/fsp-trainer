@@ -101,7 +101,7 @@ export const PROBE_SUCHT: Readonly<Record<string, Sucht>> = {
   // --- Fach Rheumatologie -------------------------------------------------------
   'fach-rheuma-gelenke': ['gelenke'], 'fach-rheuma-morgensteifigkeit': ['steifigkeit'], 'fach-rheuma-entzuendung': ['gelenk_entzuendung'],
   'fach-rheuma-verlauf': ['beginn_art'], 'fach-rheuma-ausloeser': ['ausloeser'], 'fach-rheuma-haut': ['ausschlag'],   // fach-rheuma-verlauf, « plötzlich und anfallsartig, oder langsam » : le MODE de début (K3), pas la date d'akt-beginn
-  'fach-rheuma-systemisch': ['fieber', 'augenentzuendung', 'ulzera', 'stuhl', 'ausschlag'], 'fach-rheuma-vorgeschichte': ['frueher'],
+  'fach-rheuma-systemisch': ['fieber', 'augenentzuendung', 'ulzera', 'stuhl'], 'fach-rheuma-vorgeschichte': ['frueher'],   // K3 (revue P2) : systemisch sans `ausschlag`, la peau est demandée par fach-rheuma-haut
   // --- Fach Neurologie ----------------------------------------------------------
   'fach-neuro-sehen': ['sehstoerung'], 'fach-neuro-sensibilitaet': ['taubheit'], 'fach-neuro-kraft': ['schwaeche'],
   'fach-neuro-koordination': ['schwindel', 'gang', 'sturz'], 'fach-neuro-sprache': ['sprache', 'schluck'],

@@ -91,13 +91,16 @@ describe('parts ↔ PROBE_SUCHT (I5)', () => {
     }
     expect(bad).toEqual([]);
   });
-  it('une réduction à plusieurs parties les pose une par une, jamais recollées', () => {
+  // K3 (revue clinique P2) : les parts gardées d'une même question se posent en UNE question, les suivantes en relances —
+  // jamais recollées dans une même ligne (revue série 3, I4 : deux « ? » dans une réplique).
+  it('une réduction à plusieurs parties : la première est la question, les suivantes ses relances, jamais recollées', () => {
     const out = dedupe([
       { id: 'fach', questions: [{ text: 'Schwitzen?', probe: 'fach-endo-temperatur' }] },
       { id: 'vegetativ', questions: [{ text: 'Schüttelfrost, Nachtschweiß, Schweißausbrüche?', probe: 'veg-schuettelfrost', parts: [
         { sucht: ['schuettelfrost'], text: 'Schüttelfrost?' }, { sucht: ['nachtschweiss'], text: 'Nachts?' }, { sucht: ['schwitzen'], text: 'Schweißausbrüche?' }] }] },
     ]);
-    expect(out[1].questions.map(phraseText)).toEqual(['Schüttelfrost?', 'Nachts?']);
+    expect(out[1].questions.map(phraseText)).toEqual(['Schüttelfrost?']);
+    expect(phraseFollowUp(out[1].questions[0])).toEqual(['Nachts?']);
   });
 });
 

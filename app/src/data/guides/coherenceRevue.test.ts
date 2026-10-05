@@ -208,3 +208,24 @@ describe('P1-11 — le voyage ne se demande que dans un contexte infectieux', ()
     expect(coeur(byId('case-gastroenteritis')).fach).toContain('fach-infekt-reise');
   });
 });
+
+describe('P2 — finitions', () => {
+  const q = (id: string, probe: string) => trameJouee(byId(id)).flatMap((x) => x.questions).filter((p) => phraseProbes(p).includes(probe));
+  it('la transpiration : les parts gardées d\'une même question se posent en UNE question et ses relances (nierenkolik)', () => {
+    const veg = q('case-nierenkolik', 'veg-schuettelfrost');
+    expect(veg).toHaveLength(1);
+    expect(phraseText(veg[0])).toBe('Schwitzen Sie nachts stark?');
+    expect(phraseFollowUps(veg[0]).map((f) => f.text)).toEqual(['Haben Sie starke Schweißausbrüche?']);
+  });
+  it('fach-rheuma-systemisch ne déclare plus ausschlag (la Fach le pose par fach-rheuma-haut) : plus de non-réduite', () => {
+    expect(PROBE_SUCHT['fach-rheuma-systemisch']).not.toContain('ausschlag');
+    for (const c of cases) expect(playedTrame(c).ecarts.filter((e) => e.question === 'fach-rheuma-systemisch' && e.action === 'non-reduit' && e.signes.includes('ausschlag')), c.id).toEqual([]);
+  });
+  it('fach-ortho-mechanismus déclare par variante : sans traumatisme, « Unfall oder Sturz » (pas la syncope, pas la blessure)', () => {
+    expect(phraseSucht(q('case-bandscheibenvorfall', 'fach-ortho-mechanismus')[0])).toEqual(['unfallhergang', 'sturz']);
+    expect(phraseSucht(q('case-osg-fraktur', 'fach-ortho-mechanismus')[0])).toEqual(['unfallhergang', 'bewusstlos', 'begleitverletzung']);
+  });
+  it('akt-neuro-lage (rotation de la tête) n\'est pas posée dans schlaganfall et tia', () => {
+    for (const id of ['case-schlaganfall', 'case-tia']) expect(q(id, 'akt-neuro-lage'), id).toEqual([]);
+  });
+});

@@ -306,11 +306,18 @@ export function cohere<T extends TrameChapter>(trame: readonly T[], profil: Prof
     if (u.etat === 'retire') return [];
     const v = variant(u.p);
     if (!v || u.relance) return [u.p];
-    if (u.parts) return u.parts.map((i) => {
-      const pt = v.parts![i];
-      return { ...v, text: pt.text, alts: undefined, followUp: pt.followUp?.length ? pt.followUp : undefined, parts: undefined, enumere: undefined,
-        followUpSucht: pt.followUpSucht?.length ? pt.followUpSucht : undefined, sucht: pt.sucht.filter((s) => u.signes.includes(s as Signe)) };
-    });
+    // Les parts gardées d'UNE question se posent en une question : la première, puis les suivantes en relances (revue P2 :
+    // deux questions de transpiration à la suite) — jamais recollées dans une même ligne (revue série 3, I4).
+    if (u.parts) {
+      const pts = u.parts.map((i) => v.parts![i]);
+      const fu: string[] = [], fs: string[][] = [];
+      pts.forEach((pt, k) => {
+        if (k > 0) { fu.push(pt.text); fs.push(pt.sucht.filter((s) => u.signes.includes(s as Signe))); }
+        (pt.followUp ?? []).forEach((f, j) => { fu.push(f); fs.push(pt.followUpSucht?.[j] ?? []); });
+      });
+      return [{ ...v, text: pts[0].text, alts: undefined, followUp: fu.length ? fu : undefined, parts: undefined, enumere: undefined,
+        followUpSucht: fs.some((x) => x.length) ? fs : undefined, sucht: pts.flatMap((pt) => pt.sucht).filter((s, k, a) => u.signes.includes(s as Signe) && a.indexOf(s) === k) }];
+    }
     // Les relances hors signe parties : détachées (r4a) ou retirées pour leur propre compte (r1, r2).
     const parties = u.enfants.filter((r) => !r.relance!.attachee || r.etat === 'retire').map((r) => r.relance!.i);
     if (!parties.length) return [u.p];
