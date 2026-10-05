@@ -65,11 +65,13 @@ describe('Arbitrages relus (D2, revue de direction du 4 oct.)', () => {
   const tags = (id: string) => tagsEffectifs(asProfilCas(byId(id)));
 
   it('D2 : une douleur en premier symptôme d\'un motif d\'une autre nature porte le tag schmerz', () => {
-    for (const id of ['case-gastroenteritis', 'case-commotio', 'case-arterielle-hypertonie', 'case-zystitis', 'case-tvt', 'case-erysipel']) expect(tags(id), id).toContain('schmerz');
+    for (const id of ['case-gastroenteritis', 'case-commotio', 'case-arterielle-hypertonie', 'case-zystitis', 'case-tvt', 'case-erysipel',
+      // revue clinique K2 (D2) : douleur co-dominante du motif
+      'case-colitis-ulcerosa', 'case-laktoseintoleranz', 'case-sinusitis', 'case-sturz-im-alter']) expect(tags(id), id).toContain('schmerz');
   });
 
   it('D2 : une douleur accessoire (syndrome fébrile, sevrage, symptôme second) ne le porte pas', () => {
-    for (const id of ['case-influenza', 'case-covid19', 'case-lyme', 'case-laktoseintoleranz', 'case-opioidabhaengigkeit', 'case-glomerulonephritis']) expect(tags(id), id).not.toContain('schmerz');
+    for (const id of ['case-influenza', 'case-covid19', 'case-lyme', 'case-opioidabhaengigkeit', 'case-glomerulonephritis']) expect(tags(id), id).not.toContain('schmerz');
   });
 
   it('case-fibromyalgie : douleur généralisée, « Welche Gelenke » exclu avec sa raison', () => {

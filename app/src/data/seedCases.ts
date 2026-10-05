@@ -38680,7 +38680,7 @@ export function seedCases(): Case[] {
       frequency: 8,
       difficulty: 2,
       patientSheet: {
-        profil: { tags: ['ausscheidung', 'diarrhoe'] },
+        profil: { tags: ['ausscheidung', 'schmerz', 'diarrhoe'] },
         leitsymptomKategorie: 'ausscheidung',
         personalia: {
           name: 'Peter Novak',
@@ -38830,6 +38830,10 @@ export function seedCases(): Case[] {
           'fach-gastro-stuhl': 'Durchfall, an schlechten Tagen bis zu viermal am Tag, breiig bis wässrig und hellbraun. Verstopfung habe ich nicht, auch keinen Wechsel. Blut oder Schleim ist nie dabei, teerschwarz war er nie, und er glänzt nicht und schwimmt nicht.',
           'fach-gastro-tenesmen': 'Nein, dieses Gefühl kenne ich nicht. Wenn ich muss, dann kommt auch etwas — manchmal allerdings ziemlich dringend.',
           'fach-gastro-spiegelung': 'Nein, eine Magen- oder Darmspiegelung hatte ich noch nie. Mein Hausarzt hat nur Blut abgenommen, den Bauch abgetastet und einmal einen Ultraschall gemacht — das sei alles in Ordnung gewesen.',
+          // K2 (ADR-0023) : réponses des sondes de banque que le profil exige (r3)
+          'akt-ort': 'Um den Nabel herum und im ganzen Unterbauch. Auf einen Punkt kann ich es nicht zeigen.',
+          'akt-charakter': 'Krampfartig, das kommt in Wellen und geht wieder. Brennen oder Stechen ist es nicht.',
+          'akt-intensitaet': 'Ungefähr fünf von zehn.',
         },
         schwierigeReaktionen: [
           '„Meine Frau sagt, ich bin allergisch gegen Milch. Ist das dasselbe?“',
@@ -47684,7 +47688,7 @@ export function seedCases(): Case[] {
       frequency: 2,
       difficulty: 2,
       patientSheet: {
-        profil: { tags: ['ausscheidung', 'diarrhoe', 'gelenk', 'arthritis', 'dyspnoe', 'gewichtsverlust'] },
+        profil: { tags: ['ausscheidung', 'schmerz', 'diarrhoe', 'gelenk', 'arthritis', 'dyspnoe', 'gewichtsverlust'] },
         leitsymptomKategorie: 'ausscheidung',
         personalia: {
           name: 'Tanya Krüger',
@@ -47844,6 +47848,10 @@ export function seedCases(): Case[] {
           // K2 (ADR-0023) : réponses des sondes de banque que le profil exige (r3)
           'akt-atemnot-belastung': 'Beim Treppensteigen bin ich schnell außer Atem, in Ruhe nicht.',
           'fach-rheuma-gelenke': 'Nur das rechte Knie und der linke Knöchel, seit ungefähr zwei Wochen. Gewandert ist das nicht.',
+          // K2 (ADR-0023) : réponses des sondes de banque que le profil exige (r3)
+          'akt-ort': 'Links unten im Bauch, manchmal zieht es bis zum Schambein.',
+          'akt-charakter': 'Krampfartig, in Wellen. Und beim Stuhldrang ein brennender Druck im Enddarm.',
+          'akt-intensitaet': 'So fünf von zehn.',
         },
         frageAntworten: [
           {
@@ -55443,7 +55451,7 @@ export function seedCases(): Case[] {
       frequency: 8,
       difficulty: 3,
       patientSheet: {
-        profil: { tags: ['anfall', 'gewichtsverlust'] },
+        profil: { tags: ['anfall', 'schmerz', 'gewichtsverlust'] },
         leitsymptomKategorie: 'anfall',
         personalia: {
           name: 'Michael Neumeister',
@@ -55604,6 +55612,10 @@ export function seedCases(): Case[] {
           'fach-neuro-aura': 'Vorboten wie Lichtblitze oder Zickzack hatte ich nicht. Nur eben dieses Schwarzwerden vor den Augen, sobald ich stehe. Kribbeln im Gesicht oder in den Händen — nein.',
           'fach-neuro-autonom': 'Tränende Augen oder eine verstopfte Nase, nein. Ein hängendes Lid ist mir auch nicht aufgefallen. Beim Aufstehen wird mir schwarz vor Augen und manchmal stolpert das Herz ein bisschen, das kenne ich vom Vorhofflimmern.',
           'fach-neuro-anfallzeichen': 'Ja, ich erinnere mich an alles — das Aufstehen, den Schwindel, das Wegrutschen, das Liegen. Die Zunge habe ich mir nicht gebissen, und in die Hose ist auch nichts gegangen. Nur die Schläfe habe ich mir angestoßen und die Hüfte geprellt.',
+          // K2 (ADR-0023) : réponses des sondes de banque que le profil exige (r3)
+          'akt-ort': 'Links an der Hüfte, außen, hier über dem Knochen.',
+          'akt-charakter': 'Im Liegen dumpf und drückend. Sobald ich mich bewege, sticht es.',
+          'akt-intensitaet': 'Wenn ich still liege, vier von zehn. Bei jeder Bewegung acht.',
         },
         schwierigeReaktionen: [
           '„Das war doch nur ein blöder Ausrutscher auf dem Badvorleger. Das kann jedem passieren, dafür muss man kein Aufhebens machen.“',
@@ -61206,7 +61218,7 @@ export function seedCases(): Case[] {
       frequency: 0,
       difficulty: 2,
       patientSheet: {
-        profil: { tags: ['infekt', 'fieber', 'meningitis'] },
+        profil: { tags: ['infekt', 'schmerz', 'fieber', 'meningitis'] },
         leitsymptomKategorie: 'infekt',
         personalia: {
           name: 'Hans Salzbrenner',
@@ -61355,6 +61367,10 @@ export function seedCases(): Case[] {
           'fach-pneumo-infekt': 'Ja, genau das ist es doch: Die Erkältung vor zwölf Tagen, vom Enkelkind. Erst wurde es besser, dann wieder schlimmer. Verreist war ich nicht.',
           'fach-pneumo-noxen': 'Beruflich habe ich viel mit Blumenerde, Staub und Pollen zu tun, im Gewächshaus ist es feucht und warm. Asbest oder Vögel — nein, damit habe ich nichts zu tun.',
           'fach-pneumo-allergie': 'Nur die Amoxicillin-Allergie mit dem Ausschlag. Heuschnupfen habe ich keinen, obwohl ich den ganzen Tag zwischen den Blumen stehe, und Asthma auch nicht.',
+          // K2 (ADR-0023) : réponses des sondes de banque que le profil exige (r3)
+          'akt-ort': 'Rechts, in der Wange unter dem Auge bis hoch zur Stirn. Und die oberen Backenzähne rechts tun auch weh.',
+          'akt-charakter': 'Dumpf und drückend, und es pocht, wie ein Druck von innen.',
+          'akt-intensitaet': 'So sechs von zehn. Wenn ich mich bücke, bis acht.',
         },
         schwierigeReaktionen: [
           '„Ich brauche jetzt einfach ein Antibiotikum, dann ist das in drei Tagen erledigt. Ich kann die Gärtnerei nicht wochenlang liegen lassen.“',
