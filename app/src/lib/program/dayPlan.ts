@@ -152,7 +152,9 @@ export function buildTasks(input: BuildInput, mkId: () => string = newId): TaskI
   // 1. Le drill. Son coût est FIGÉ avec le jour : faire ses cartes ne libère
   //    plus de minutes, donc n'attire plus de nouvelles simulations
   //    (audit §2.4 — l'effet existait sans rien cocher). Les termes DUS se comptent à la fin du jour (§12.4).
-  const terms = counts(begriffe, fin, input.favorites);
+  // Dus PENDANT D (§12.4) : sur [debut, fin), d'où `fin - 1`. Un favori appris posé le jour D est dû à minuit de D+1
+  // (= fin) : le drill ne le sert que demain, il ne compte donc jamais dans un plan (même replanifié) de D (revue delta I1).
+  const terms = counts(begriffe, fin - 1, input.favorites);
   const fresh = Math.min(terms.fresh, input.newPerDay ?? NEW_PER_DAY_DEFAULT);
   const drillTotal = terms.due + fresh;
   if (drillTotal > 0 && targetMin > 0) {   // ni dû ni nouveau : pas de tâche, donc jamais la session de tête (C6-B)

@@ -9,7 +9,7 @@ import { db } from '@/db/db';
 import type { Fachbegriff, ProgramConfig } from '@/db/types';
 import type { ProgressEvent } from '@/lib/sync/events';
 import { DAY_MS, freezeAt, resetClock } from '@/lib/clock';
-import { drillFavorisNote, ensureDayPlan } from './dayPlan';
+import { drillFavorisNote, ensureDayPlan, replanifier } from './dayPlan';
 import { entreeDuJour } from './entree';
 
 // Lot F point 4 : la tâche drill dit « dont N favoris de ta séance », N > 0 seulement.
@@ -53,5 +53,17 @@ describe('INV-55 — un favori posé le jour D ne change pas le plan de D, il co
     advance(DAY_MS - 2 * 3600_000);                                   // D+1, 08:00
     const d1 = await ensureDayPlan('2026-10-02');
     expect(d1!.tasks.find((t) => t.kind === 'drill')?.reason).toBe('1 terme dû');
+  });
+  it('revue delta I1 : favori posé à 09:30 puis « replanifier » le jour D → aucune tâche drill (le drill ne le sert que demain)', async () => {
+    const advance = freezeAt('2026-10-01T08:00:00');
+    const config: ProgramConfig = { startDate: '2026-09-01', examDate: '2026-12-01', intensity: 'mittel', hoursPerSession: 2, offDays: [0, 6], prioritySpecialties: [], selfLevel: {}, createdAt: 0 };
+    await db.meta.put({ key: 'program', value: config });
+    const now = Date.parse('2026-10-01T08:00:00');
+    await db.fachbegriffe.put({ id: 'L', term: 'L', translationSimple: '', specialty: 'Kardiologie', pathologyTags: [], centers: [], linkedCaseIds: [], srs: { interval: 20, easeFactor: 2.5, dueDate: now + 15 * DAY_MS, repetitions: 3, lapses: 0, state: 'Gelernt' } } as unknown as Fachbegriff);
+    await ensureDayPlan('2026-10-01');
+    advance(90 * 60_000);                                              // 09:30
+    await db.progress_events.put(fav('L', '2026-10-01T09:30:00'));
+    const r = await replanifier('2026-10-01');
+    expect(r!.tasks.some((t) => t.kind === 'drill')).toBe(false);
   });
 });
