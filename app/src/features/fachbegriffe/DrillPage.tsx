@@ -72,18 +72,20 @@ export function DrillPage() {
   );
   // Lot F point 3 : le drill qui suit un cas commence par les favoris posés pendant ce cas.
   const leadIds = useMemo(() => (caseId ? caseFavoriteIds(caseId, events ?? [], favorites ?? []) : undefined), [caseId, events, favorites]);
+  // m2 : UNE source de favoris, la liste vivante — jamais l'instantané chargé avec le contexte.
+  const relevanceOf = useCallback((c: DrillContext | null) => (c ? { ...c.relevance, favorites: favorites ?? [] } : undefined), [favorites]);
   const buildQueue = useCallback(
-    (c: DrillContext | null = ctx) => buildDrillQueue(pool, { prioritySpecialty, priorityPathology, newLimit: c?.remaining ?? 0, maxReviews: c?.reviewsRemaining, relevance: c?.relevance, leadIds }),
-    [pool, prioritySpecialty, priorityPathology, ctx, leadIds],
+    (c: DrillContext | null = ctx) => buildDrillQueue(pool, { prioritySpecialty, priorityPathology, newLimit: c?.remaining ?? 0, maxReviews: c?.reviewsRemaining, relevance: relevanceOf(c), leadIds }),
+    [pool, prioritySpecialty, priorityPathology, ctx, leadIds, relevanceOf],
   );
 
   useEffect(() => {
-    if (begriffe && ctx && !started) setQueue(buildQueue());
-  }, [begriffe, ctx, started, buildQueue]);
+    if (begriffe && ctx && favorites && !started) setQueue(buildQueue());
+  }, [begriffe, ctx, favorites, started, buildQueue]);
 
   const qc = useMemo(
-    () => queueCounts(pool, { prioritySpecialty, priorityPathology, newLimit: ctx?.remaining ?? 0, maxReviews: ctx?.reviewsRemaining, relevance: ctx?.relevance, leadIds }),
-    [pool, ctx, prioritySpecialty, priorityPathology, leadIds],
+    () => queueCounts(pool, { prioritySpecialty, priorityPathology, newLimit: ctx?.remaining ?? 0, maxReviews: ctx?.reviewsRemaining, relevance: relevanceOf(ctx), leadIds }),
+    [pool, ctx, prioritySpecialty, priorityPathology, leadIds, relevanceOf],
   );
 
   // R-C3 : la séance entre dans le journal — à la fin, ou au démontage si au
@@ -119,7 +121,7 @@ export function DrillPage() {
 
   if (!begriffe || !ctx) return <div className="text-slate-400">Chargement…</div>;
 
-  const next = nextDueAt(pool, Date.now(), ctx.relevance.favorites);
+  const next = nextDueAt(pool, Date.now(), favorites ?? []);
   const anchor = recentCaseAnchor(queue, ctx.relevance);
   const minutes = drillMinutes(qc.due + qc.fresh);
   // Recharge le contexte AVANT de rebâtir la file : « Nouvelle session » après une
