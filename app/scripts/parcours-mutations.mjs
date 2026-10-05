@@ -378,6 +378,12 @@ export const MUTATIONS = [
     pourquoi: "une tâche « d'un trait » est cochée par des Teile joués séparément",
   },
   {
+    id: "I5-libelle", tests: 'tests/invariants.d-un-trait.test.tsx', file: "src/features/program/TaskLine.tsx",
+    from: "{aRejouer && <span className=\"dim-tag shrink-0\">{A_REJOUER}</span>}",
+    to: "",
+    pourquoi: "une tâche « d'un trait » entamée à part ne dit plus qu'elle reprend depuis l'Anamnese",
+  },
+  {
     id: "INV-51-fuseau", tests: 'tests/invariants.completion.test.ts', file: "src/lib/program/completion.ts",
     from: "const jour = debutJour(T.date, tz);\n  return { debut: Math.max(jour, T.creeA ?? jour), fin: finJour(T.date, tz) };",
     to: "const jour = debutJour(T.date);\n  return { debut: Math.max(jour, T.creeA ?? jour), fin: finJour(T.date) };",
