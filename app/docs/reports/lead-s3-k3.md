@@ -1,8 +1,149 @@
 # Rapport lot K3 — le moteur de cohérence au montage
 
-> `sim-engine-engineer` · 5 oct. 2026 · branche `feat/s3-k3-cohere` (base `origin/main` @ `967d9d20` ; `origin/main` @ `142835d1`, avec S4-2 #76, fusionné en `0fbcf112`, sans conflit).
-> Statut : **DONE**. Les décisions de main sur le § 9 sont appliquées (§ 9 bis). Les points de relecture clinique restent ouverts pour la revue Opus.
-> Première passe : BLOQUÉE sur `ajouteSansReponse = 8` (§ 10). Elle a été reprise après les décisions de main (5 oct.).
+> `sim-engine-engineer` · 5 oct. 2026 · branche `feat/s3-k3-cohere`. `origin/main` (S4-2 #76, puis lot F #77) est fusionné, sans conflit ; `merge-tree` contre `origin/main` @ `b76d319e` : 0.
+> Statut : **DONE_WITH_CONCERNS**. Les revues Opus de `508639f6` (mécanique et clinique, toutes deux « Needs fixes ») sont traitées par le fixeur : § 0. Les concerns sont au § 0.6 : écarts à la lettre de trois décisions, une contradiction (P2 goutte), le résidu.
+> Les § 1 à § 10 donnent l'historique jusqu'à `508639f6` ; leurs chiffres sont ceux de ce commit.
+
+## 0. Fixeur des revues de `508639f6` (décisions de main)
+
+Règles tenues : test rouge d'abord ; mutation prouvée ; un commit par groupe ; chaque signe nouveau respecte INV-77 et INV-78. Après chaque groupe : `ajouteSansReponse = 0` et le plancher vérifiés.
+
+### 0.1 Mécanique
+
+| Item | Commit | Correction | Preuve |
+|---|---|---|---|
+| **B1** | `25f75332` | Une relance hors signe suit sa propre décision, même si sa mère est retirée par r1 : `vivants()` ne filtre plus sur l'état de la mère. | Fixture de la revue : `fach-infekt-gelenke` sous un profil psy, relance `selbstverletzung_wunsch` détachée, jamais perdue. Rouge avant |
+| **I1** | `25f75332` | Fixture « précède **ou égale** » : la relance détachée a le même premier signe qu'une question du chapitre cible et se pose après elle. | Mutation `<=` → `<` jouée : rouge |
+| **I2** | `a6a42558` | `checkPlayedTrame` : l'exemption « question non réduite », non documentée, est retirée. `akt-ausscheid-harn-haeufigkeit` reçoit ses `parts` jour / nuit, découpées de son texte. | gastroenteritis ne repose plus la fréquence du jour ; `checkPlayedTrame` 0 sans exemption. L'ancienne ligne du § 8 (« sans aucun constat nouveau ») cachait cette exemption : corrigé au § 8 |
+| **I3 / P2 psy** | `125b1f9f` | Le cadrage « Ich frage das jeden Patienten in Ihrer Situation » et le soutien « Gibt es jemanden, der Sie unterstützt? » passent sous `fach-psych-suizid` (texte déplacé). Ordre : idée → plans → intention (NOTFALL) → désir d'automutilation → acte → soutien. | Test sur les 10 cas psy ; gel I3 regravé pour ces 10 cas |
+| **M1** | `25f75332` | Fixture r3 → r4b : `braucht: ['ort']` dans un cas `schmerz` ; la question suit `akt-ort`, ajouté par r3. | Mutation « r4b ne déplace rien » jouée : rouge |
+| **M2** | `3542ab31` | Commentaires périmés : `signes.ts`, `probeSucht.ts`, `symptoms.ts`, libellé `adaptChapters.test.ts`. | — |
+| **M3** | — | Renvoyé à K4. | — |
+| **M4** | `25f75332` | r3 sans phrase de banque lève une erreur au lieu d'afficher l'id. | Rouge avant |
+
+Contrat §10.4 (`0009cc34`) : B1 ; une banque à `parts` n'ajoute que les parts qu'aucune unité ne pose ; les parts gardées d'une même question se posent en une question et ses relances ; banque introuvable = erreur.
+
+### 0.2 Clinique — P0
+
+**P0-1 (`12151dab`) — le sang dans les selles.**
+- Nouveau signe `stuhl_blut` (dépistage). Sa banque mono-signe est `akt-ausscheid-aussehen` (« Blut, Schleim oder eine ungewöhnliche Farbe im Stuhl »).
+- Il est déclaré aussi par `fach-gastro-stuhl`, sur sa relance « blutig, teerschwarz », que la mère déclare aussi : la relance reste sous elle. Et par `fach-haem-blutverlust` et `fach-onko-blutung`.
+- `PROFIL_EXIGE.diarrhoe = stuhlfrequenz, stuhl_blut`.
+- **Écart à la lettre** : `stuhlaussehen` sort de l'exigence. Sa banque est devenue `stuhl_blut`, et un signe exigé doit avoir une banque mono-signe (INV-77). L'aspect reste cherché par `akt-ausscheid-was`, `fach-gastro-stuhl` et la question du cas.
+- Garde-fou : « Wie sieht Ihr Stuhl aus » (gastroenteritis) déclare `stuhlaussehen` seul. « Blut, Schleim » revient dans gastroenteritis, avec sa réponse existante.
+
+**P0-2 (`cef31c89`) — Zungenbiss et Einnässen.**
+- Deux signes nouveaux, `zungenbiss` et `einnaessen`, au chapitre `aktuell`. Les relances de `akt-anfall-bewusstsein` les déclarent ; r4a les détache.
+- Elles restent posées quand la Fach Kardio prend la perte de connaissance : synkope, vorhofflimmern. En épilepsie, `fach-neuro-anfallzeichen` les déclare (D1) ; r2 les retire, elles ne sont posées qu'une fois.
+- **Écart à la lettre** : leur pertinence est `['anfall', 'neurologisch']`, pas `['anfall']` seul. La Fach neuro les pose en DD dans schlaganfall, tia et commotio ; sous `['anfall']`, r1 l'y laissait non réduite.
+
+**Réponses écrites**, à relire. Elles sont ajoutées à la fin de `antworten['akt-anfall-bewusstsein']`, d'après la fiche :
+
+| Cas | Ajouté | Source dans la fiche |
+|---|---|---|
+| synkope | « Auf die Zunge gebissen habe ich mich nicht, und eingenässt habe ich mich auch nicht. » | « kein lateraler Zungenbiss, kein Einnässen » |
+| vorhofflimmern | « …, auf die Zunge gebissen auch nicht, und Urin ist auch keiner abgegangen. » | « keine Synkope, kein Sturz, kein Krampfanfall » |
+| sturz-im-alter | « Die Zunge habe ich mir nicht gebissen, und in die Hose ist auch nichts gegangen. » | phrase déjà dans la fiche, autre clé |
+
+panikstoerung avait déjà la réponse. En épilepsie, c'est la Fach qui pose ces questions.
+
+### 0.3 Clinique — P1
+
+| Item | Commit | Décision appliquée |
+|---|---|---|
+| **P1-1** | `49770214` | **D4-bis** (contrat §10.0). Quand un signe est le motif du cas (`SIGNE_DU_MOTIF` : fièvre / `infekt`, dyspnée / `atemnot`), Aktuelle Beschwerden l'emporte (rang 0,5 en r2). La Fach se réduit : `fach-pneumo-fieber` devient « Hatten Sie dabei Schüttelfrost? » et `fach-infekt-fieber` cède. Tests malaria, pneumonie, 130 cas `infekt`. Le test CAP retrouve son attente d'origine. Effet de bord voulu : dans les 6 cas `atemnot` avec Fach pneumo ou kardio, « Belastung » d'Aktuelle Beschwerden passe avant la Fach |
+| **P1-2** | `3cd35142` | `fach-neuro-verlauf` déclare `schub, verlauf, waerme` (sa part « schubweise » porte le cours) : Aktuelle Beschwerden ne redemande plus le cours dans les 9 cas neuro |
+| **P1-3** | `3cd35142` | La variante psy de Verlauf déclare `verlauf, tageszeit`, avec deux parts découpées de son texte |
+| **P1-4** | `3cd35142` | La variante douleur d'`akt-beginn` déclare `beginn, beginn_art`, avec deux parts (« Seit wann haben Sie die Schmerzen? » / « Kamen sie plötzlich oder schleichend? »). La date reste ; le mode n'est posé qu'une fois (6 cas rhumato). La prémisse de la décision 3 est corrigée |
+| **P1-5** | `3cd35142` | Pertinence de `stuhlfrequenz` : `diarrhoe, transit`. Pertinence de `miktion_frequenz` : `harn, diarrhoe`. Tags nouveaux : `transit` (obstipation, kolorektales-ca, reizdarm) et `harn` (6 cas uro, 4 cas néphro). Voir les écarts au § 0.6 |
+| **P1-6** | `1bb8afc9` | (a) Les relances d'`akt-veraend-blutung` déclarent leur signe et restent sous leur mère, qui les déclare ; quatre parts découpées de son texte laissent r2 retirer ce que la Fach pose. Bronchialkarzinom n'a plus « Husten Sie Blut ab? » ; lymphom et itp n'ont plus « Blut im Stuhl ». (b) `knoten` est déclaré sur onko-knoten, haem-lymphknoten et gyn-brust ; `entwicklung` sur derma-muttermal et derma-beginn-ort. (c) Renvoyé à K4 |
+| **P1-7** | `1bb8afc9` | uterus-myomatosus : ni « Befund » ni « Schmerz und Blutung ». **Écart à la lettre**, voir § 0.6 |
+| **P1-8** | `d52ed90a` | herzinsuffizienz : « Mit wie vielen Kissen … wachen Sie nachts auf » déclare `orthopnoe, dpn` |
+| **P1-9** | `d52ed90a` | `atemnot.bank = fach-pneumo-atemnot`. Les **5** cas où r3 l'ajoute reçoivent sous cette clé la réplique écrite en K2 pour la question de la variante : même texte, recopié. Ce sont bronchialkarzinom, diabetes-typ1, metabolisches-syndrom, colitis-ulcerosa et nephrotisches-syndrom |
+| **P1-10** | `d52ed90a` | Signe `stuhl_nachts` ; parts jour / nuit d'`akt-ausscheid-haeufigkeit`. Crohn et zoeliakie déclarent `stuhl_nachts` ; karzinoid et colitis-ulcerosa déclarent `stuhlfrequenz, stuhl_nachts`. r3 n'ajoute que la part que personne ne pose |
+| **P1-11** | `e13751c6` | Pertinence de `reise` : `infekt, fieber, reise, diarrhoe, lyme, meningitis`. Fibromyalgie n'a plus de « Waren Sie kürzlich im Ausland? » isolé. Résidu au § 0.6 |
+| **P1-12** | `d52ed90a` | `impfung` est déclaré sur les questions du cas de pneumonie, copd, abszess, pertussis et hodentorsion ; itp déclare `vorinfekt, impfung`. La vaccination n'est plus posée deux fois |
+
+### 0.4 Clinique — P2 (`860e2f7c`)
+
+- **Transpiration** : les parts gardées d'une même question se posent en une question, puis ses relances. Nierenkolik : « Schwitzen Sie nachts stark? » ↳ « Haben Sie starke Schweißausbrüche? ».
+- **`fach-rheuma-systemisch`** ne déclare plus `ausschlag`. Son alternative « Hautausschlag, Augenentzündung oder Fieber » est retirée : D1 l'aurait obligée à déclarer `ausschlag`. Gel I3 regravé pour les 6 cas rhumato.
+- **`fach-ortho-mechanismus` déclare par variante** : sans traumatisme, « Unfall oder Sturz » déclare `unfallhergang, sturz`. Seule la déclaration du patch FACH_RULES change.
+- **`akt-neuro-lage`** est retirée de schlaganfall et tia par `aktuellSkip` : le profil ne peut pas exclure un signe de dépistage (INV-80).
+- **La vaccination** reste dans la végétative.
+- **Relances goutte : non fait, contradiction.** Ce sont les relances de `fach-rheuma-ausloeser` : « Falls ein üppiges Essen: … Bier? » et « Falls ein neues Medikament: … Wassertablette? ». Elles posent problème dans fibromyalgie et polymyalgia.
+  - Elles sont **conditionnelles**. La porte (INV-84, `suchtCheck`) refuse qu'une relance conditionnelle déclare un signe, même s'il est inclus dans celui de la mère.
+  - Si la mère déclarait `gicht`, r1 la laisserait non réduite (elle n'a pas de `parts`), sans retirer les deux relances.
+  - Enfin, l'identité (e) distingue l'antécédent de goutte (`fach-rheuma-vorgeschichte#1`) des facteurs déclenchants.
+  - **Proposition** : (a) un signe `gicht_ausloeser` (pertinence `gicht`), avec une règle r1 qui retire une relance de précision dont tous les signes déclarés sont hors profil (amendement de §10.4 et d'INV-84) ; ou (b) des parts pour `fach-rheuma-ausloeser`, écrites en K4.
+
+### 0.5 Mesure, plancher, gel
+
+| Porte après montage (130 cas) | Valeur |
+|---|---|
+| doublons, horsProfil, exigeAbsent, relancesOrphelines, brauchtViole, ajouteSansReponse | **0** |
+| casRetiresParR1 | **0** |
+
+| Plancher (`coherence-budget.json`) | `508639f6` | **Sommet** |
+|---|---:|---:|
+| doublons | 224 | **218** |
+| doublonsCas | 24 | 24 |
+| horsProfil | 38 | **46** (voir § 0.6) |
+| exigeAbsent | 0 | 0 |
+| brauchtViole | 20 | 20 |
+| ajouteSansReponse | 0 | 0 |
+| questionsMuettes | 812 | **803** |
+| nonReduit | 117 | **112** |
+
+`checkBudgetFloor.mjs origin/main` : 0, sous la base K2 (269 / 70 / 47 / 820).
+
+| Écarts (130 cas) | Nombre |
+|---|---:|
+| r2 retire | 379, + 313 relances |
+| r2 réduit | 117, + 119 relances |
+| r2 non-réduit | 72 |
+| r2 déplace | 25 |
+| r1 retire | 32, + 12 relances |
+| r1 réduit | 98, + 374 relances (surtout `veg-fieber` sans voyage, P1-11) |
+| r1 non-réduit | 40 |
+| r1 anomalie | 2 |
+| r3 ajoute | 45 |
+| r4a détache | 149 |
+
+Détachés : 5 relances distinctes (impfung → végétative ; Gicht / Nierensteine ; Familie Rheuma ; Zungenbiss et Einnässen → Aktuelle Beschwerden).
+
+**Gel `trame-actuelle.txt`** : 128 cas changent depuis `508639f6`. Lignes de chapitre modifiées :
+
+| Chapitre | Lignes | Chapitre | Lignes |
+|---|---:|---|---:|
+| aktuell | 108 | fach-psy | 10 |
+| vegetativ | 101 | fach-ortho | 8 |
+| fach-pneumo | 6 | fach-infektio | 5 |
+| fach-neuro | 1 | fach-kardio | 1 |
+
+Les catégories sont celles des tableaux ci-dessus : D4-bis, le voyage, les parts jour / nuit, le bloc de sécurité, les relances détachées. `fachCovers` : 26 paires restent posées, chacune avec sa raison vérifiée, dont la nouvelle `d4-bis`.
+
+### 0.6 Concerns — écarts à la lettre, résidu
+
+1. **P1-7.** Le profil `exclut` ne peut viser que des signes **non** de dépistage (INV-80 ; contrat §10.3). `knoten`, `ausschlag`, `lokalblutung`, `juckreiz` et `lokalschmerz` sont tous de dépistage. J'ai donc utilisé l'`aktuellSkip` du cas (`akt-veraend-was`, `akt-veraend-blutung`) : même effet, sans violer INV-80. Pour la lettre de la décision, il faudrait d'abord rendre ces cinq signes non de dépistage, ce qui touche tous les cas qui les posent.
+2. **P1-5.** `nykturie` reste de dépistage : la Fach Kardio (insuffisance cardiaque) et Endo (polyurie) la posent dans 15 cas ni urinaires ni rénaux. Conséquence : dans 6 cas digestifs, la partie « nachts Wasser lassen » reste posée. `miktion_frequenz` est pertinent aussi pour `diarrhoe` (la diurèse dit la déshydratation) : c'est un ajout à la décision.
+3. **P0-1 et P0-2** : écarts décrits au § 0.2.
+4. **Résidu de P1-11.** `fach-pneumo-infekt` (« Atemwegsinfekt, Kontakt zu Kranken oder eine Reise? ») n'a pas de `parts` : elle est non réduite dans 6 cas pneumo non infectieux. C'est la hausse de mesure `horsProfil` de 39 à 46 et `nonReduit` de 110 à 116, que les groupes suivants ont fait redescendre à 112. K4 écrit ses parts.
+5. **P1-6a** : dans les 4 cas derma, « Blut im Stuhl / Urin » et « Blut abhusten » restent posées comme parts (`stuhl_blut` et `haemoptyse` sont de dépistage). Leur pertinence dans une lésion cutanée est à trancher par la contre-revue clinique.
+6. **P2 goutte** : non fait (§ 0.4).
+
+### 0.7 Pour K4 (renvoyé, non fait)
+
+- Questions du cas sans `sucht` listées par la revue :
+  - gastroenteritis : « dort gegessen », Beruf, Krankenhaus ×2, Haut / Neuro de la Fach Infektio ;
+  - fibromyalgie, schenkelhalsfraktur, zystitis, rheumatoide-arthritis, pankreatitis, zoeliakie ;
+  - uterus-myomatosus #15.
+- Le seuil de Morgensteifigkeit de fibromyalgie.
+- M3.
+- Les `parts` d'`akt-veraend-was` (P1-6c), de `fach-pneumo-infekt`, de `fach-rheuma-ausloeser` (goutte), de `fach-infekt-haut` / `-neuro` et de `fach-ortho-schwellung` (karpaltunnel).
+- Les 12 constats de relecture de `checkTrameSymptoms`.
+
+**Pour le lot de contenu** : aucune question sur une **tentative de suicide antérieure** dans le bloc de sécurité psy. C'est un manque de contenu ; il n'est pas écrit ici, sur décision de main.
 
 ## 1. Livrables et commits
 
@@ -185,7 +326,7 @@ Ce qui reste dans `brut`, c'est la dette que le moteur ne corrige pas : les ques
 
 ## 8. Portes secondaires
 
-- **`checkPlayedTrame`** : la tolérance `deepens` est retirée (D3), sans aucun constat nouveau.
+- **`checkPlayedTrame`** : la tolérance `deepens` est retirée (D3). À `508639f6`, la porte exemptait aussi en silence les questions non réduites. La revue I2 l'a relevé ; l'exemption est retirée en `a6a42558`, et la porte passe à 0 sans elle.
 - **`checkTrameSymptoms`** :
   - il lit la déclaration ;
   - le résidu assumé du moteur n'y compte pas comme doublon : questions non réduites, nom et épellation, `SUCHT_AUSSER` ;
