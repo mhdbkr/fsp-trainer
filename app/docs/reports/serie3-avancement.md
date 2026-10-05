@@ -168,7 +168,7 @@ rien de cette table.
 | **Moteur de cohérence — contrat** | `doctopus-s3-coherence` · `feat/s3-coherence` | `aa3e71100abae223a` | **PR #69 mergée** (5 oct.) | **oui** |
 | Moteur de cohérence — K0 lexique + mesure | `doctopus-s3-k0` · `feat/s3-k0-lexique` | `a6c1d1e7b69d620b7` | **PR #72 mergée** (5 oct.) | **oui** |
 | Moteur de cohérence — K1 annotation | `doctopus-s3-k1` · `feat/s3-k1-annotation` | `ac46962a736716e72` | **PR #74 mergée** (`81914bc4`, 5 oct.) | **oui** |
-| Moteur de cohérence — K2 profils | `doctopus-s3-k2` · `feat/s3-k2-profils` | — | fixeur fait (`02919e81`, vitest 1 538 verts) → **PR #75**, attend « merge 75 » + CI | non |
+| Moteur de cohérence — K2 profils | — | — | **#75 MERGÉE** (5 oct., CI verte) | oui |
 | Lot F — favoris → drill | `doctopus-s3-f-favoris` · `feat/s3-f-favoris` | Opus | revue Opus : Needs fixes (I1 favoris évincent les dus, I2 échéance avancée ignorée par compteurs/plan, I3 « drill suivant » = depuis le dernier drill) → fixeur ; hyp. 4 validée ; libellé point 4 après S4-2 | non |
 | Lots Q3 → Q8, Lc1 → Lc3 | — | — | §10, l'un après l'autre après Q2 | à lancer |
 | Reports vers Q1/Q2 (revues Q0) | — | — | Q1 : rheumatoide-arthritis « Schuppenflechte », karpaltunnel « Bruch », malaria « Milz », hypothyreose « Entbindungen » ; 10 irradiations avec question de cas ; osteoporose bws. Q2 : relances à 2 questions (alcool, gastro, Kopfschmerz, onko, chir-op, Fieber, Kraft, suizid, `veg-fieber`) | tracé |
@@ -216,3 +216,5 @@ S4-1 peut démarrer pendant la voie B (fichiers `lib/journal`, `lib/stats` aprè
 
 **Restent à la direction** : Q-7 (test ChatGPT 5 min) ; Q-10 (secrets de la fonction `ai`, 503) ; PR #48, #49, #52 ; branches dormantes `feat/characters`, `feat/site-v2` ; ~~calendrier KP~~ (tranché : après A, B, C).
 **Suivis techniques** (absorbés quand le fichier est rouvert) : `StatusBadge` mort ; `CardFlip` dans le verre de `CardToast` ; `.input` flouté dans cartes floutées ; « tournures officielles » `SimulationSetup.tsx:119` (S4-3) ; `Hero.astro:21` (site) ; contrat `simulation-run.md` sentinelle `-1` (S4-0).
+
+> 5 oct. — direction : « merge 75, et enchaîne automatiquement jusqu'à la fin de toutes les phases ». Mode autonome : merge à CI verte, déploiement S4-2 selon la procédure §6 (migration psql → fonction → client), sans attendre de commande.
