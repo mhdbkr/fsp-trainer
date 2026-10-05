@@ -7,7 +7,7 @@ import { CenterBadge, FreqBadge, DifficultyDots, EmptyState } from '@/components
 import { useCaseProgress } from '@/features/program/useProgram';
 import { blankProgress } from '@/lib/journal';
 import { OVERALL, ProgressBadge, nonMesureSeulement, progressRank } from './CaseProgressView';
-import { CaseDial } from '@/components/CaseDial';
+import { CaseDial } from '@/components/visuals/CaseDial';
 import { dialDeCarte, useDerniereVisite, vientDeSouder } from './dialCarte';
 import { Icon, SpecialtyIcon } from '@/components/icons';
 import { CasePreviewPanel } from './CasePreviewPanel';

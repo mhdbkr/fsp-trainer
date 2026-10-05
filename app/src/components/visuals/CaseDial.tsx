@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import type { SimTeil } from '@/db/types';
 import type { CaseDialData } from '@/lib/dialData';
 import { AnimatePresence, appear, m } from '@/lib/motion';
-import { Portal } from './Portal';
+import { Portal } from '../Portal';
 import { actionSuivante, etatTeil, etiquette, lignesDetail, phrasePret, phraseReprise, resume, type EtatTeil } from './CaseDialText';
 import { TEILE } from '@/lib/simScope';
 

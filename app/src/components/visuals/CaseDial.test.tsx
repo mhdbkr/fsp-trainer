@@ -126,7 +126,7 @@ describe('rendu de chaque état, depuis CaseDialData', () => {
 
 describe('couleurs — des variables, pas du dur', () => {
   it('« acquis » en clair vaut #379e8f (3:1 sur le papier) ; le composant ne code aucune couleur', () => {
-    const css = readFileSync(join(__dirname, '..', 'styles', 'index.css'), 'utf-8');
+    const css = readFileSync(join(__dirname, '..', '..', 'styles', 'index.css'), 'utf-8');
     expect(css).toMatch(/:root \{[^}]*--cd-acquis: #379e8f/);
     expect(readFileSync(join(__dirname, 'CaseDial.tsx'), 'utf-8')).not.toMatch(/#[0-9a-fA-F]{6}\b/);
   });
@@ -323,7 +323,7 @@ describe('mouvement réduit', () => {
   });
 
   it('le CSS ne grandit ni n\'écarte les arcs hors de `prefers-reduced-motion: no-preference`', () => {
-    const css = readFileSync(join(__dirname, '..', 'styles', 'index.css'), 'utf-8');
+    const css = readFileSync(join(__dirname, '..', '..', 'styles', 'index.css'), 'utf-8');
     const hors = css.replace(/@media \(prefers-reduced-motion: no-preference\)\s*\{[\s\S]*?\n\}/g, '');
     expect(hors).not.toMatch(/\.case-dial\[data-ouvert[^{]*\{[^}]*(transform|translate|scale)/);
     expect(css).toMatch(/@media \(prefers-reduced-motion: no-preference\)\s*\{[\s\S]*?\.case-dial\[data-ouvert/);
