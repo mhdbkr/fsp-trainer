@@ -46,13 +46,14 @@ export const TASK_META: Record<TaskKind, { icon: string; badge: string; bar: str
 /** Où mène une tâche. Une seule table, partagée par toutes les vues. */
 export function taskLink(t: TaskInstance, reste?: readonly SimTeil[]): string {
   // R-C4 : la tâche voyage avec la partie (`task=`), la sauvegarde la coche si la partie la satisfait (I-A).
-  if ((t.kind === 'simulation' || t.kind === 'examen-blanc') && t.caseId) {
+  if ((t.kind === 'simulation' || t.kind === 'examen-blanc' || t.kind === 'revision') && t.caseId) {
     // S4-2 (revue I1) : la ligne dit « il te reste la Dokumentation » ⇒ on part de là. `reste` = ce qui reste DANS la
     // journée (tâche entamée), sinon ce que la tâche porte. Le cas entier part du début. La tâche reste « entamée » tant
-    // que tout le reste n'est pas joué (§12.3). TRANSITOIRE : S4-3 remplacera `teil` par `?depart=`.
+    // que tout le reste n'est pas joué (§12.3). [S4-3] `?depart=` : le Teil de DÉPART, jamais le périmètre — la partie
+    // porte les trois Teile (simulation-run.md §10.3) ; toute tâche de cas se lance ainsi, `revision` comprise (m8).
     const r = t.teil ? [t.teil] : reste ?? t.teile ?? [];
     const depart = r.length && (r[0] !== 'anamnese' || r.length === 1) ? r[0] : undefined;
-    return `/simulation/${t.caseId}/pre?${new URLSearchParams({ ...(depart ? { teil: depart } : {}), task: t.id })}`;
+    return `/simulation/${t.caseId}/pre?${new URLSearchParams({ ...(depart ? { depart } : {}), task: t.id })}`;
   }
   if (t.kind === 'drill') return `/fachbegriffe/drill${t.caseId ? `?case=${encodeURIComponent(t.caseId)}` : t.specialty ? `?specialty=${encodeURIComponent(t.specialty)}` : ''}`;
   if (t.kind === 'fachwissen') return t.caseId ? `/cas/${t.caseId}` : '/fachwissen';
