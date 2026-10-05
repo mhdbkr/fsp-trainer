@@ -184,6 +184,23 @@ Choix et points à relire :
 - **Soirée courte** : elle n'est jamais annoncée pour un examen à blanc ni pour une tâche d'un trait, qui se jouent d'un trait par définition, ni pour un seul Teil.
 - **Rappel hors Anamnese** : « pose la question » n'a de sens qu'en Anamnese. Ailleurs, le texte dit « Dans cette Dokumentation, pense à « … » : manquant n fois sur tes s dernières. »
 
+### Vérifications finales du fixeur (codes de sortie)
+
+Sur **`d9af3e9a`**, qui inclut la fusion de `origin/main` `967d9d20` (K2 #75 ; il n'ajoute que `Case.profil?` à `db/types.ts`). Chaque étape a tourné en séquence, avec un délai explicite :
+
+| Vérification | Résultat |
+|---|---|
+| `tsc -b --noEmit` | 0 |
+| `vitest run --dir src --maxWorkers=2` | 0, 1604 tests |
+| `npm run test:c6` (Supabase mocké) | 0, 124 tests |
+| `npm run build` | 0 |
+| les 19 validateurs bloquants (`checkBudgetFloor origin/main` et `check-parity` compris) | tous à 0 |
+| `parcours-mutations.mjs` complet | 0, baseline vert, **111/111 tuées** |
+| tests de la migration et de la fonction en local (`events` et `rls`) | 0, 35/35 |
+| `git merge-tree --write-tree origin/main HEAD` | 0 ; `main` n'a pas bougé depuis |
+
+Le candidat C6 (239/239) et `programmeInvariants.mjs` (6/6) ont tourné sur `fbb24118`, le dernier commit de code avant la fusion de K2. La fusion ne touche ni le plan ni les textes ; ils n'ont pas été rejoués, pour ne pas relancer de navigateur. Aucun serveur ni navigateur lancé ici ne tourne encore.
+
 ## Non vérifié
 - **Deux appareils réels** (deux contextes navigateur) pour le refus de rythme et la config. C'est prouvé en tests (même journal, aucun état local), pas en navigateur.
 - **La carte de rythme dans un navigateur** : elle est prouvée en test de composant (`RythmeCard.test.tsx`), pas capturée dans le build. Le candidat ne réunit pas 3 jours figés sous 60 % dans la même semaine ISO avant son refus éventuel.
