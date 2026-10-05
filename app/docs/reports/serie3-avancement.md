@@ -168,7 +168,7 @@ rien de cette table.
 | **Moteur de cohérence — contrat** | `doctopus-s3-coherence` · `feat/s3-coherence` | `aa3e71100abae223a` | **PR #69 mergée** (5 oct.) | **oui** |
 | Moteur de cohérence — K0 lexique + mesure | `doctopus-s3-k0` · `feat/s3-k0-lexique` | `a6c1d1e7b69d620b7` | **PR #72 mergée** (5 oct.) | **oui** |
 | Moteur de cohérence — K1 annotation | `doctopus-s3-k1` · `feat/s3-k1-annotation` | `ac46962a736716e72` | **PR #74 mergée** (`81914bc4`, 5 oct.) | **oui** |
-| Moteur de cohérence — K2 profils | `doctopus-s3-k2` · `feat/s3-k2-profils` | `abfe6ea9b0e1a4cc4` (Opus) | livré `3d3f484f` (130 profils, 35 réponses, `ajouteSansReponse` 66→0, INV-80) ; décisions main : 4 changements de lexique acceptés, `sucht` des 3 questions DD déclaré maintenant, `veg-ausscheidung` déclarée complètement → revues clinique + méca → PR | non |
+| Moteur de cohérence — K2 profils | `doctopus-s3-k2` · `feat/s3-k2-profils` | `abfe6ea9b0e1a4cc4` (Opus) | `ea7f760e` (compléments : `sucht` des 3 DD + tag `stein`, `veg-ausscheidung` complète ; doublons 282, horsProfil 75, ajouteSansReponse 0) ; revues clinique + méca Opus en vol → PR | non |
 | Lots Q3 → Q8, Lc1 → Lc3 | — | — | §10, l'un après l'autre après Q2 | à lancer |
 | Reports vers Q1/Q2 (revues Q0) | — | — | Q1 : rheumatoide-arthritis « Schuppenflechte », karpaltunnel « Bruch », malaria « Milz », hypothyreose « Entbindungen » ; 10 irradiations avec question de cas ; osteoporose bws. Q2 : relances à 2 questions (alcool, gastro, Kopfschmerz, onko, chir-op, Fieber, Kraft, suizid, `veg-fieber`) | tracé |
 | C6 — candidat synthétique | `doctopus-s3-c6` · `feat/s3-c6-candidat` | `a92b4c2e4d2f21ebc` | **PR #65 mergée** (`4bf3473b`, 4 oct.) — premier run CI vert d'`invariants-c6` et `candidat-c6` | **oui** |
