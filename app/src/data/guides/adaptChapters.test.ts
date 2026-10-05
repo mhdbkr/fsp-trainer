@@ -99,7 +99,7 @@ describe('Aktuelle Beschwerden par nature du motif (FB2-J1)', () => {
   });
 });
 
-describe('Un seul endroit par trame (FACH_COVERS, aktuellSkip, règles de Fach)', () => {
+describe('Un seul endroit par trame (r2 de cohere — ex-FACH_COVERS —, aktuellSkip, règles de Fach)', () => {
   const mk = (over: Record<string, unknown>) => ({ caseSpecificQuestions: [], ...over } as unknown as Case);
   it('la variante psychisch ne repose pas ce que la Fach Psychiatrie demande (Stimmung, sécurité)', () => {
     const c = mk({ specialty: 'Psychiatrie', patientSheet: { personalia: { name: 'X', age: 40, geschlecht: 'm' }, leitsymptomKategorie: 'psychisch' } });

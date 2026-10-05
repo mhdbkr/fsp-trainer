@@ -1,6 +1,8 @@
 // ============================================================================
-// LA PORTE DE COHÉRENCE — lot K0 : MODE MESURE (ADR-0023, contrat
-// `frage-atomique.md` §10.6). INFORMATIF : `|| true` en CI jusqu'à K3.
+// LA PORTE DE COHÉRENCE (ADR-0023, contrat `frage-atomique.md` §10.6).
+// K3 : BLOQUANTE après montage — les 6 compteurs de la trame JOUÉE (après `cohere`) valent 0,
+// `casRetiresParR1` vaut 0, `COHERENCE_ALLOWED` n'a ni entrée sans raison, ni entrée périmée, ni
+// entrée non datée au fixture. La MESURE (lecture + déclarations, sur la trame jouée) reste le plancher.
 // ----------------------------------------------------------------------------
 // Mesure, sur le montage RÉEL (esbuild, pas la source) des 130 cas, ce que le
 // moteur de cohérence corrigera : signes cherchés plusieurs fois, questions
@@ -41,7 +43,8 @@ const entry = join(dir, 'entry.ts');
 const src = (f) => JSON.stringify(join(root, 'src', f));
 writeFileSync(entry, `
   export { seedCases } from ${src('data/seedCases.ts')};
-  export { playedTrame, leitsymptomOf } from ${src('data/guides/anamneseChapters.ts')};
+  export { playedTrame, leitsymptomOf, compteursApresCas, trameBrute, profilDuCas, ctxDuCas } from ${src('data/guides/anamneseChapters.ts')};
+  export { cohere, COHERENCE_ALLOWED } from ${src('data/guides/coherence.ts')};
   export { phraseText, phraseAlts, phraseFollowUp, phraseFollowUps, phraseProbes, phraseIsCaseSpecific } from ${src('data/guides/phrases.ts')};
   export { suchtIncoherences } from ${src('data/guides/suchtCheck.ts')};
   export { phraseSucht, symptomsInText, PROBE_SUCHT, SIGNES, SIGNE_DEF, PROFIL_EXIGE, PROFIL_EXCLUT, lexiqueIncoherences, profilIncoherences } from ${src('data/guides/symptoms.ts')};
@@ -109,11 +112,34 @@ const results = cases.map((c) => {
 const sondesMuettes = Object.keys(m.PROBE_BY_ID).filter((id) => !(id in m.PROBE_SUCHT)).length;
 const T = totaux(results, { sondesMuettes });
 
+// ── La porte APRÈS montage (K3, §10.6) : relue sur la trame jouée de chaque cas ──
+const APRES = ['doublons', 'horsProfil', 'exigeAbsent', 'relancesOrphelines', 'brauchtViole', 'ajouteSansReponse'];
+const apres = cases.map((c) => ({ id: c.id, ...m.compteursApresCas(c), ecarts: m.playedTrame(c).ecarts }));
+const TA = Object.fromEntries(APRES.map((k) => [k, apres.reduce((a, r) => a + r[k], 0)]));
+T.residu.nonReduit = apres.reduce((a, r) => a + r.nonReduit, 0);
+T.residu.casRetiresParR1 = apres.reduce((a, r) => a + r.casRetiresParR1, 0);
+const porte = [];
+for (const k of APRES) if (TA[k]) porte.push(`${k} = ${TA[k]} après montage : ${apres.filter((r) => r[k]).map((r) => `${r.id} (${r.detail.filter((d) => d.startsWith(k === 'doublons' ? 'doublon' : k === 'horsProfil' ? 'hors profil' : k === 'exigeAbsent' ? 'exigé' : '')).slice(0, 3).join(' ; ') || r[k]})`).slice(0, 5).join(' · ')}`);
+if (T.residu.casRetiresParR1) porte.push(`casRetiresParR1 = ${T.residu.casRetiresParR1} : r1 ne retire jamais une question du cas (§10.4)`);
+// COHERENCE_ALLOWED : raison et relecteur non vides ; pas d'entrée périmée ; chaque entrée datée au fixture.
+let fixtureAllowed = [];
+try { fixtureAllowed = JSON.parse(readFileSync(FIXTURE, 'utf8')).allowed ?? []; } catch { /* le plancher absent est traité plus bas */ }
+for (const a of m.COHERENCE_ALLOWED) {
+  const id = `${a.caseId}|${a.question}|${a.signe}`;
+  if (!a.raison?.trim() || !a.relecteur?.trim()) porte.push(`COHERENCE_ALLOWED ${id} : raison et relecteur obligatoires`);
+  if (!fixtureAllowed.some((f) => f.id === id && f.date && f.raison)) porte.push(`COHERENCE_ALLOWED ${id} : absente du fixture (allowed : id, date, raison)`);
+  const c = cases.find((x) => x.id === a.caseId);
+  const sans = c && m.cohere(m.trameBrute(c), m.profilDuCas(c), c.id, { ...m.ctxDuCas(c), allowed: m.COHERENCE_ALLOWED.filter((x) => x !== a) });
+  if (!sans?.ecarts.some((e) => e.question === a.question && e.regle === a.regle && e.signes.includes(a.signe) && ['retire', 'reduit', 'non-reduit'].includes(e.action))) porte.push(`COHERENCE_ALLOWED ${id} : périmée (cohere ne ferait rien sans elle)`);
+}
+const echec = structure.length + porte.length;
+
 // ── Sorties ──────────────────────────────────────────────────────────────────
 if (flag('--json') && !flag('--propose')) {
-  const slim = (r) => ({ id: r.id, kat: r.kat, tags: r.profil.tags, n: r.n, dup: r.dup, imp: r.imp, miss: r.miss, ajoutSansReponse: r.ajoutSansReponse, fu: r.fu, ord: r.ord, muettes: r.muettes });
+  const slim = (r) => ({ id: r.id, kat: r.kat, tags: r.profil.tags, n: r.n, dup: r.dup, imp: r.imp, miss: r.miss, ajoutSansReponse: r.ajoutSansReponse, fu: r.fu, ord: r.ord, muettes: r.muettes,
+    ecarts: apres.find((a) => a.id === r.id).ecarts.map((e) => e.raison) });
   // écrire puis sortir à la fin du flush : `process.exit` coupe un pipe à 64 Ko
-  process.stdout.write(JSON.stringify({ cas: results.length, structure, ...T, parCas: results.map(slim) }) + '\n', () => process.exit(structure.length ? 1 : 0));
+  process.stdout.write(JSON.stringify({ cas: results.length, structure, porte, apres: TA, ...T, parCas: results.map(slim) }) + '\n', () => process.exit(echec ? 1 : 0));
   await new Promise(() => {});
 }
 
@@ -123,7 +149,7 @@ if (flag('--propose')) {
   const pick = only ? results.filter((x) => x.id === only || x.id === `case-${only}`) : results;
   if (only && !pick.length) { console.error(`❌ cas inconnu : ${only}`); process.exit(2); }
   const props = pick.flatMap((r) => r.units.filter((u) => u.cs && !u.declared).map((u) => ({ cas: r.id, ch: u.ch, rang: u.rank, question: u.text, ...proposer(u) })));
-  if (flag('--json')) process.stdout.write(JSON.stringify(props) + '\n', () => process.exit(structure.length ? 1 : 0));
+  if (flag('--json')) process.stdout.write(JSON.stringify(props) + '\n', () => process.exit(echec ? 1 : 0));
   else {
     console.log(`PROPOSITION de \`sucht\` — ${props.length} question(s) du cas sans déclaration, ${pick.length} cas. Lecture du texte : une AIDE (précision 50-74 %), rien n'est appliqué ; le relecteur déclare.\n`);
     for (const p of props) {
@@ -133,7 +159,7 @@ if (flag('--propose')) {
     }
     console.log(`\n${props.filter((p) => p.sucht.length).length}/${props.length} questions avec au moins un signe lu.`);
   }
-  if (!flag('--json')) process.exit(structure.length ? 1 : 0);
+  if (!flag('--json')) process.exit(echec ? 1 : 0);
   await new Promise(() => {});
 }
 
@@ -158,18 +184,24 @@ if (one) {
   if (r.fuCond.length) bloc('relances conditionnelles lisant un autre signe — lecture large, NON comptée', r.fuCond, (x) => `${x.at}  « ${x.mother} »\n      relance : ${x.fu}\n      RAISON : ${x.why}`);
   bloc('ordre / présupposition', r.ord, (x) => `${x.at}\n      RAISON : ${x.why}`);
   console.log(`\nquestions du cas muettes (sans \`sucht\`) : ${r.muettes}/${r.casTotal}`);
-  process.exit(structure.length ? 1 : 0);
+  const a = apres.find((x) => x.id === r.id);
+  console.log(`\n── ÉCARTS du moteur (cohere, K3) — ${a.ecarts.length}`);
+  for (const e of a.ecarts) console.log(`   ${e.raison}`);
+  console.log(`\nporte après montage : ${APRES.map((k) => `${k} ${a[k]}`).join(' · ')} · résidu nonReduit ${a.nonReduit}`);
+  process.exit(echec ? 1 : 0);
 }
 
 // ── Synthèse + plancher ──────────────────────────────────────────────────────
 let floor;
 try { floor = JSON.parse(readFileSync(FIXTURE, 'utf8')); } catch { floor = undefined; }
 const num = (v) => (v === null || v === undefined ? '  —' : String(v).padStart(4));
-console.log(`COHÉRENCE DE L'ANAMNÈSE — mode MESURE (informatif) — ${results.length} cas, ${results.reduce((a, r) => a + r.n, 0)} unités jouées\n`);
+console.log(`COHÉRENCE DE L'ANAMNÈSE — ${results.length} cas, ${results.reduce((a, r) => a + r.n, 0)} unités jouées\n`);
+console.log(`PORTE APRÈS MONTAGE (bloquante, 0 attendu) : ${APRES.map((k) => `${k} ${TA[k]}`).join(' · ')} · casRetiresParR1 ${T.residu.casRetiresParR1}\n`);
+console.log('MESURE de la trame jouée (plancher, ne remonte jamais)');
 console.log('compteur'.padEnd(20), 'mesure', 'plancher', ' signification');
 for (const [k, label, source, exact] of COMPTEURS) console.log(k.padEnd(20), num(T.brut[k]).padStart(6), num(floor?.brut?.[k]).padStart(8), ` ${label}\n${' '.repeat(36)}mesure : ${source} — exacte dès ${exact}`);
 console.log('\nrésidu de contenu');
-for (const [k, label, exact] of RESIDU) console.log(k.padEnd(20), (T.residu[k] === null ? 'K3' : num(T.residu[k])).padStart(6), num(floor?.residu?.[k]).padStart(8), ` ${label}${T.residu[k] === null ? ' — non mesurable avant K3' : ` — à 0 dès ${exact}`}`);
+for (const [k, label, exact] of RESIDU) console.log(k.padEnd(20), num(T.residu[k]).padStart(6), num(floor?.residu?.[k]).padStart(8), ` ${label} — à 0 dès ${exact}`);
 console.log(`\nrepères de la spec §2 : (a) ${T.spec.a} · (b) ${T.spec.b} · (c) ${T.spec.c} · (d) ${T.spec.d} dont ${T.spec.dDetachables} détachables sans condition · (d large, sans condition) ${T.spec.dLarge} · relances conditionnelles lues large, non comptées ${T.spec.dCondLarge} · (e) ${T.spec.e}`);
 const hist = {};
 for (const r of results) { const b = r.score === 0 ? '0' : r.score <= 3 ? '1-3' : r.score <= 6 ? '4-6' : r.score <= 10 ? '7-10' : '>10'; hist[b] = (hist[b] ?? 0) + 1; }
@@ -180,6 +212,7 @@ for (const r of [...results].sort((a, b) => b.score - a.score || a.id.localeComp
 }
 
 if (structure.length) { console.log(`\n❌ LEXIQUE INCOHÉRENT (${structure.length}) :`); for (const s of structure) console.log(`  ✗ ${s}`); }
+if (porte.length) { console.log(`\n❌ PORTE APRÈS MONTAGE (${porte.length}) :`); for (const s of porte) console.log(`  ✗ ${s}`); }
 
 const mesure = { ...T.brut, ...Object.fromEntries(Object.entries(T.residu).filter(([, v]) => v !== null)) };
 const flatFloor = floor ? { ...floor.brut, ...floor.residu } : undefined;
@@ -194,7 +227,7 @@ if (flag('--bless')) {
   };
   writeFileSync(FIXTURE, JSON.stringify(next, null, 2) + '\n');
   console.log(`\nplancher regravé : ${FIXTURE.replace(root + '/', '')}`);
-  process.exit(structure.length ? 1 : 0);
+  process.exit(echec ? 1 : 0);
 }
 if (!floor) { console.log(`\n❌ plancher absent ou illisible (${FIXTURE}) — \`--bless\` l'initialise.`); process.exit(2); }
 if (hausse.length) {
@@ -204,5 +237,5 @@ if (hausse.length) {
 }
 const mieux = Object.entries(mesure).filter(([k, v]) => Number.isInteger(flatFloor[k]) && v < flatFloor[k]);
 if (mieux.length) console.log(`\n   Plancher entamé (${mieux.map(([k, v]) => `${k} ${flatFloor[k]} → ${v}`).join(', ')}) — \`--bless\` pour le graver.`);
-console.log(structure.length ? '' : `\n✅ COHÉRENCE (mesure) — lexique cohérent, aucun compteur au-dessus du plancher. Informatif jusqu'à K3 : la porte bloquante exige 0 après montage.`);
-process.exit(structure.length ? 1 : 0);
+console.log(echec ? '' : `\n✅ COHÉRENCE — lexique cohérent, porte après montage à 0, aucun compteur de mesure au-dessus du plancher.`);
+process.exit(echec ? 1 : 0);

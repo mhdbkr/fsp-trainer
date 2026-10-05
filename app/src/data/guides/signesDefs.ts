@@ -7,9 +7,13 @@ import type { SigneDefBody } from './signes';
 // ============================================================================
 const S = 'screening' as const;
 export const DEFS = {
+  // K3 (décision de main) : le motif ouvre l'entretien — la règle d'insertion (r3, r4a) place tout après lui.
+  motiv: { kapitel: 'aktuell', pertinence: S },
   // --- les dimensions : l'ordre de l'entretien --------------------------------
   ort: { kapitel: 'aktuell', pertinence: S, bank: 'akt-ort' },
   beginn: { kapitel: 'aktuell', pertinence: S, bank: 'akt-beginn' },
+  // K3 (décision de main) : le MODE de début (aigu, progressif) n'est pas la DATE (« Seit wann ») — deux répliques.
+  beginn_art: { kapitel: 'aktuell', pertinence: S },
   charakter: { kapitel: 'aktuell', pertinence: S, bank: 'akt-charakter' },
   intensitaet: { kapitel: 'aktuell', pertinence: S, bank: 'akt-intensitaet' },
   ausstrahlung: { kapitel: 'aktuell', pertinence: ['schmerz', 'anfall', 'neurologisch', 'nerven', 'stein', 'hoden'], bank: 'akt-ausstrahlung' },
@@ -22,7 +26,8 @@ export const DEFS = {
   gelenke: { kapitel: 'fach', pertinence: ['gelenk', 'arthritis', 'lyme'], bank: 'fach-rheuma-gelenke' },
   // --- Aktuelle Beschwerden ---------------------------------------------------
   fieber: { kapitel: 'aktuell', pertinence: S, bank: 'akt-infekt-fieber' },
-  atemnot: { kapitel: 'aktuell', pertinence: S, bank: 'akt-atemnot-belastung' },
+  // K3 (revue P1-9) : la banque est la question neutre « Bekommen Sie schwer Luft? » — celle de la variante présuppose la dyspnée.
+  atemnot: { kapitel: 'aktuell', pertinence: S, bank: 'fach-pneumo-atemnot' },
   husten: { kapitel: 'aktuell', pertinence: S, bank: 'akt-atemnot-husten' },
   orthopnoe: { kapitel: 'aktuell', pertinence: S },
   kopfschmerz: { kapitel: 'aktuell', pertinence: S },
@@ -34,15 +39,23 @@ export const DEFS = {
   muedigkeit: { kapitel: 'aktuell', pertinence: S },
   oedeme: { kapitel: 'aktuell', pertinence: S },
   blutung: { kapitel: 'aktuell', pertinence: S },          // signe GROSSIER : ce que la lecture du texte trouve ; les sondes déclarent l'un des signes fins (revue K1 C5)
-  stuhlfrequenz: { kapitel: 'aktuell', pertinence: S, bank: 'akt-ausscheid-haeufigkeit' },
-  stuhlaussehen: { kapitel: 'aktuell', pertinence: S, bank: 'akt-ausscheid-aussehen' },
-  nykturie: { kapitel: 'aktuell', pertinence: S },
+  // K3 (revue P1-5) : la fréquence des selles se cherche dans une diarrhée ou un trouble du transit — pas dans une plainte urinaire.
+  stuhlfrequenz: { kapitel: 'aktuell', pertinence: ['diarrhoe', 'transit'], bank: 'akt-ausscheid-haeufigkeit' },
+  stuhl_nachts: { kapitel: 'aktuell', pertinence: ['diarrhoe', 'transit'] },   // K3 (revue P1-10) : se lever la nuit pour aller à selle (signe d'organicité)
+  stuhlaussehen: { kapitel: 'aktuell', pertinence: S },   // l'aspect : consistance, couleur (« wässrig oder breiig »)
+  // K3 (revue clinique P0-1) : le SANG dans les selles (rouge, noir, mucus sanglant) — signe d'alarme, autre réplique que l'aspect.
+  // Banque : « Ist Ihnen Blut, Schleim oder eine ungewöhnliche Farbe im Stuhl aufgefallen? » (sa réplique est l'alarme).
+  // K3 (revue R1) : se cherche dans une diarrhée, un trouble du transit, un terrain gastro / hémato / onco — pas une plainte urinaire.
+  stuhl_blut: { kapitel: 'aktuell', pertinence: ['diarrhoe', 'transit', 'gastro', 'haem', 'onko'], bank: 'akt-ausscheid-aussehen' },
+  // K3 (revue R2, décision de main) : plainte urinaire / rénale, insuffisance cardiaque (Fach Kardio), polyurie (Fach Endo).
+  nykturie: { kapitel: 'aktuell', pertinence: ['harn', 'kardio', 'endo'] },
   schluck: { kapitel: 'aktuell', pertinence: ['dysphagie', 'hals'], bank: 'akt-ausscheid-schlucken' },
   gelbfaerbung: { kapitel: 'aktuell', pertinence: S },
   stimmung: { kapitel: 'aktuell', pertinence: S },
   suizid: { kapitel: 'aktuell', pertinence: S },
   // --- Fachanamnese -----------------------------------------------------------
-  reise: { kapitel: 'fach', pertinence: S, bank: 'fach-infekt-reise' },
+  // K3 (revue P1-11) : le voyage se demande dans un contexte infectieux (fièvre, diarrhée, borréliose, méningite), pas ailleurs.
+  reise: { kapitel: 'fach', pertinence: ['infekt', 'fieber', 'reise', 'diarrhoe', 'lyme', 'meningitis'], bank: 'fach-infekt-reise' },
   kontakt: { kapitel: 'fach', pertinence: S },
   zecke: { kapitel: 'fach', pertinence: ['lyme'] },
   insektenstich: { kapitel: 'fach', pertinence: S },   // K2 (revue clinique C3) : « oder einen Insektenstich » — les piqûres de moustique du paludisme, hors du gabarit borréliose
@@ -82,8 +95,6 @@ export const DEFS = {
   gewicht: { kapitel: 'vegetativ', pertinence: S, bank: 'veg-gewicht' },
   appetit: { kapitel: 'vegetativ', pertinence: S },
   schlaf: { kapitel: 'vegetativ', pertinence: S },
-  // --- Familie ----------------------------------------------------------------
-  familie_rheuma: { kapitel: 'familie-sozial', pertinence: ['gelenk', 'arthritis'] },
 
   // ==========================================================================
   // K1 (ADR-0023) : le lexique s'étend aux 229 sondes. Liste fermée ; chaque signe
@@ -97,7 +108,6 @@ export const DEFS = {
   koerpermasse: { kapitel: 'personalia', pertinence: S },   // taille et poids ACTUELS (≠ `gewicht`, un changement)
   hausarzt: { kapitel: 'personalia', pertinence: S },
   // --- Aktuelle Beschwerden : ce que les variantes par nature cherchent --------
-  motiv: { kapitel: 'aktuell', pertinence: S },
   giemen: { kapitel: 'aktuell', pertinence: S },            // Pfeifen, Brummen à la respiration
   leistung: { kapitel: 'aktuell', pertinence: S },          // ce que le patient ne fait plus au quotidien
   tageszeit: { kapitel: 'aktuell', pertinence: S },         // moment de la journée où c'est pire
@@ -109,13 +119,21 @@ export const DEFS = {
   haematome: { kapitel: 'aktuell', pertinence: S },         // blaue Flecken, Einblutungen
   entwicklung: { kapitel: 'aktuell', pertinence: S },       // plus grand, plus fréquent, plus mauvais
   urinmenge: { kapitel: 'aktuell', pertinence: S },
-  miktion_frequenz: { kapitel: 'aktuell', pertinence: S },  // combien de fois on urine dans la journée (scission K1 de « Häufigkeit »)
+  // combien de fois on urine dans la journée (scission K1 de « Häufigkeit »). K3 (revue P1-5) : plainte urinaire ou rénale (`harn`),
+  // ou diarrhée (la diurèse dit la déshydratation). `nykturie` reste de dépistage : la Fach Kardio (insuffisance cardiaque) et Endo
+  // (polyurie) la posent dans 15 cas qui ne sont ni urinaires ni rénaux.
+  miktion_frequenz: { kapitel: 'aktuell', pertinence: ['harn', 'diarrhoe'] },
   sprache: { kapitel: 'aktuell', pertinence: S },
   gang: { kapitel: 'aktuell', pertinence: S },
   feinmotorik: { kapitel: 'aktuell', pertinence: S },       // boutons, écriture, tenir une tasse
   anfallsablauf: { kapitel: 'aktuell', pertinence: S },
-  anfallszeichen: { kapitel: 'aktuell', pertinence: S },    // Zungenbiss, perte d'urine, amnésie de la crise
+  anfallszeichen: { kapitel: 'aktuell', pertinence: S },    // l'amnésie, ce dont on se souvient avant / après la crise
   fremdanamnese: { kapitel: 'aktuell', pertinence: S },     // quelqu'un a-t-il vu ce qui s'est passé
+  // K3 (revue clinique P0-2) : la morsure de langue et l'énurésie séparent la syncope de la crise comitiale — deux signes.
+  // Pertinence : un malaise (anfall) ; aussi `neurologisch`, où la Fach neuro les pose en DD (schlaganfall, tia, commotio).
+  // Déclarés APRÈS le témoin (ordre de l'entretien, règle d'insertion) : on les pose après « qui a vu, combien de temps ».
+  zungenbiss: { kapitel: 'aktuell', pertinence: ['anfall', 'neurologisch'] },
+  einnaessen: { kapitel: 'aktuell', pertinence: ['anfall', 'neurologisch'] },
   lokalschmerz: { kapitel: 'aktuell', pertinence: S },      // « tut es weh », sur une lésion
   // --- Fachanamnese ----------------------------------------------------------
   sodbrennen: { kapitel: 'fach', pertinence: S },
@@ -137,10 +155,11 @@ export const DEFS = {
   lungennoxen: { kapitel: 'fach', pertinence: S },          // amiante, oiseaux, moisissures, farine
   asthma: { kapitel: 'fach', pertinence: S },
   arthralgie: { kapitel: 'fach', pertinence: ['lyme', 'arthritis', 'gelenk'] },   // douleurs articulaires ou musculaires migrantes (Fach Infekt)
-  impfung: { kapitel: 'fach', pertinence: S },
+  impfung: { kapitel: 'vegetativ', pertinence: S },   // K3 : le statut vaccinal se cherche dans la végétative (relance de veg-fieber, détachée par r4a), pas dans la Fach du cas
   verschlucken: { kapitel: 'fach', pertinence: S },
   panikattacke: { kapitel: 'fach', pertinence: S },
-  selbstverletzung: { kapitel: 'fach', pertinence: S },
+  selbstverletzung: { kapitel: 'fach', pertinence: S },          // l'ACTE (« Haben Sie sich selbst verletzt? »)
+  selbstverletzung_wunsch: { kapitel: 'fach', pertinence: S },   // K3, SÉCURITÉ : l'IDÉATION (« … den Wunsch, sich zu verletzen? ») — autre réplique, autre signe
   stimme: { kapitel: 'fach', pertinence: S },
   harnwegsinfekt: { kapitel: 'fach', pertinence: S },
   prostata: { kapitel: 'fach', pertinence: S },
@@ -235,6 +254,8 @@ export const DEFS = {
   alkohol: { kapitel: 'noxen', pertinence: S },
   drogen: { kapitel: 'noxen', pertinence: S },
   familie_krank: { kapitel: 'familie-sozial', pertinence: S },
+  // K3 : déplacé ici (ordre de l'entretien) — la question rhumato de la famille suit la question générale (règle d'insertion, r4a).
+  familie_rheuma: { kapitel: 'familie-sozial', pertinence: ['gelenk', 'arthritis'] },
   eltern: { kapitel: 'familie-sozial', pertinence: S },
   familienstand: { kapitel: 'familie-sozial', pertinence: S },
   kinder: { kapitel: 'familie-sozial', pertinence: S },

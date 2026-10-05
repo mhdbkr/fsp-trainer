@@ -11,8 +11,8 @@ export type { Signe };
 // `docs/contracts/frage-atomique.md` §10.1). Réexporté par `symptoms.ts` :
 // il n'y a qu'un lexique, ce fichier n'en est que la moitié déclarative.
 //
-// Rien ici ne branche le montage : `dedupeBySymptom` lit `SUCHT_MONTAGE` (symptoms.ts) jusqu'à K3. Ces tables sont
-// mesurées (`scripts/checkCoherence.mjs`) et vérifiées (`lexiqueIncoherences`, INV-77 / INV-78). Les définitions
+// Depuis K3, le montage (`cohere`, coherence.ts) lit ces tables : r1 (pertinence, exclusions), r3 (banques), règle
+// d'insertion (ordre de `SIGNES`, chapitre de chaque signe). Elles sont aussi mesurées (`scripts/checkCoherence.mjs`) et vérifiées (`lexiqueIncoherences`, INV-77 / INV-78). Les définitions
 // vivent dans `signesDefs.ts` (`Signe` en est dérivé), la déclaration des sondes dans `probeSucht.ts` (K1).
 //
 // RÈGLE D'IDENTITÉ (opposable). Deux unités cherchent le même signe si et
@@ -43,12 +43,17 @@ export type ProfilTag = LeitsymptomKategorie
   | 'gelenk' | 'arthritis' | 'steifigkeit'   // atteinte articulaire ; arthrite ; raideur
   | 'generalisiert'                          // douleur diffuse, non localisable
   | 'lyme' | 'meningitis'                    // soupçon borréliose / méningite
-  | 'gicht' | 'stein';                       // goutte / lithiase
+  | 'gicht' | 'stein'                        // goutte / lithiase
+  | 'transit' | 'harn'                       // K3 (P1-5) : trouble du transit (obstipation) ; plainte urinaire ou rénale
+  // K3 (revue clinique R1 / R2) : terrain d'une Fachanamnese qui pose le sang dans les selles (gastro, hémato, onco)
+  // ou la nycturie (kardio : insuffisance cardiaque ; endo : polyurie) — déclarés sur les cas qui la jouent.
+  | 'gastro' | 'haem' | 'onko' | 'kardio' | 'endo';
 
 export const PROFIL_TAGS: readonly ProfilTag[] = [
   'schmerz', 'atemnot', 'allgemein', 'psychisch', 'neurologisch', 'nerven', 'infekt', 'veraenderung', 'ausscheidung', 'anfall',
   'hoden', 'diarrhoe', 'reise', 'fieber', 'dyspnoe', 'husten', 'gewichtsverlust', 'dysphagie', 'hals',
-  'gelenk', 'arthritis', 'steifigkeit', 'generalisiert', 'lyme', 'meningitis', 'gicht', 'stein',
+  'gelenk', 'arthritis', 'steifigkeit', 'generalisiert', 'lyme', 'meningitis', 'gicht', 'stein', 'transit', 'harn',
+  'gastro', 'haem', 'onko', 'kardio', 'endo',
 ];
 
 export interface SigneDefBody {
@@ -68,11 +73,12 @@ export const SIGNE_DEF = Object.fromEntries(SIGNES.map((id) => [id, { id, ...(DE
 /** Signes exigés par un tag (r3 les ajoute depuis la banque si aucune unité ne les cherche). */
 export const PROFIL_EXIGE: Record<ProfilTag, Signe[]> = {
   schmerz: ['ort', 'charakter', 'intensitaet'],          // D2 : aussi pour une douleur du premier symptôme d'un motif mixte
-  diarrhoe: ['stuhlfrequenz', 'stuhlaussehen'],
+  diarrhoe: ['stuhlfrequenz', 'stuhl_blut'],   // K3 (P0-1) : le sang dans les selles ; l'aspect (stuhlaussehen) n'a plus de banque mono-signe (INV-77)
   reise: ['reise'], fieber: ['fieber'], dyspnoe: ['atemnot'], husten: ['husten'], gewichtsverlust: ['gewicht'],
   dysphagie: ['schluck'], arthritis: ['gelenke', 'gelenk_entzuendung'],
   atemnot: [], allgemein: [], psychisch: [], neurologisch: [], nerven: [], infekt: [], veraenderung: [], ausscheidung: [], anfall: [],
-  hoden: [], hals: [], gelenk: [], steifigkeit: [], generalisiert: [], lyme: [], meningitis: [], gicht: [], stein: [],
+  hoden: [], hals: [], gelenk: [], steifigkeit: [], generalisiert: [], lyme: [], meningitis: [], gicht: [], stein: [], transit: [], harn: [],
+  gastro: [], haem: [], onko: [], kardio: [], endo: [],
 };
 
 /** Signes qu'un tag exclut (jamais un signe de dépistage). */
@@ -90,7 +96,7 @@ export const SUCHT_AUSSER: Partial<Record<ProbeId, Partial<Record<ProfilTag, Sig
 /** Granularité : un signe AFFINÉ couvre le signe plus grossier que le texte lit (« Stuhlgang » dans « Wie oft haben Sie Stuhlgang ? »
  *  est `stuhlfrequenz`, pas `stuhl`). Sert la porte (INV-79, discordance) ; l'identité reste celle de la fiche. */
 export const SIGNE_AFFINE: Partial<Record<Signe, readonly Signe[]>> = {
-  stuhlfrequenz: ['stuhl'], stuhlaussehen: ['stuhl'], miktion_frequenz: ['miktion'], nykturie: ['miktion'], urin_aspekt: ['miktion'],
+  stuhlfrequenz: ['stuhl'], stuhlaussehen: ['stuhl'], stuhl_blut: ['stuhl', 'blutung', 'stuhlaussehen'], miktion_frequenz: ['miktion'], nykturie: ['miktion'], urin_aspekt: ['miktion'],
   // Revue K1 C5 : `blutung` est le signe que la LECTURE trouve ; chaque sonde déclare le saignement qu'elle cherche.
   blutungsneigung: ['blutung'], blutverlust: ['blutung'], vaginalblutung: ['blutung'], lokalblutung: ['blutung'],
   haemoptyse: ['blutung', 'husten'],   // « Blut beim Husten », « Husten Sie Blut ab ? »

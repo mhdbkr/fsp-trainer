@@ -1,12 +1,20 @@
 {
   "note": "Socle dégressif — constats connus de checkTrameSymptoms. Il ne remonte jamais.",
   "generated": "2026-10-05",
-  "count": 2,
+  "count": 10,
   "relu": 118,
   "relu_note": "M4 (revue serie 3) : nombre d'annotations relu: true dans seedCases.ts. Chacune eteint la porte pour sa question ; le compteur ne remonte jamais (--bless refuse une hausse).",
   "findings": [
     "R|case-anorexia-nervosa [aktuell] « Ich frage das ganz ohne Vorwurf: Kommt es vor, dass Sie sich nach dem Essen übergeben? » cite « uebelkeit », cherché PLUS BAS : [vegetativ] « Ist Ihnen übel? Mussten Sie sich übergeben? »",
-    "R|case-myokardinfarkt [aktuell] « Waren Sie dabei kaltschweißig, und war Ihnen übel? » cite « uebelkeit », cherché PLUS BAS : [vegetativ] « Ist Ihnen übel? Mussten Sie sich übergeben? »"
+    "R|case-cml [aktuell] « Haben Sie Sehstörungen, Kopfschmerzen, Luftnot oder ungewöhnliche Dauererektionen bemerkt? » cite « atemnot », cherché PLUS BAS : [fach-haemato] « Bekommen Sie bei Anstrengung schneller Luftnot, Herzklo »",
+    "R|case-diabetes [aktuell] « Haben Sie Kribbeln, Brennen oder ein Taubheitsgefühl an den Füßen bemerkt, besonders nachts? » cite « taubheit », cherché PLUS BAS : [fach-endo] « Haben Sie Kribbeln oder Taubheit in den Füßen, eine Seh »",
+    "R|case-myokardinfarkt [aktuell] « Waren Sie dabei kaltschweißig, und war Ihnen übel? » cite « uebelkeit », cherché PLUS BAS : [vegetativ] « Ist Ihnen übel? Mussten Sie sich übergeben? »",
+    "R|case-nhl [aktuell] « Haben Sie Husten, Luftnot, Schluckbeschwerden oder Herzrasen bemerkt? » cite « atemnot », cherché PLUS BAS : [fach-haemato] « Bekommen Sie bei Anstrengung schneller Luftnot, Herzklo »",
+    "R|case-nhl [aktuell] « Haben Sie Husten, Luftnot, Schluckbeschwerden oder Herzrasen bemerkt? » cite « herzrasen », cherché PLUS BAS : [fach-haemato] « Bekommen Sie bei Anstrengung schneller Luftnot, Herzklo »",
+    "R|case-nhl [vegetativ] « Haben Sie Juckreiz am ganzen Körper bemerkt? » cite « juckreiz », cherché plus haut : [aktuell] « Schmerz und Blutung — Tut es weh, juckt es? »",
+    "R|case-prostatakarzinom [vorerkrankungen] « Haben Sie jemals Blut im Urin oder im Samenerguss bemerkt? » cite « blutung », cherché plus haut : [fach-uro] « Haben Sie Schmerzen oder Blutungen beim oder nach dem G »",
+    "R|case-schenkelhalsfraktur [aktuell] « Waren Sie kurz bewusstlos? Haben Sie sich auf die Zunge gebissen oder Urin verloren? Erinnern Sie sich an alles? » cite « bewusstlos », cherché PLUS BAS : [fach-ortho] « Wie ist es passiert? »",
+    "R|case-zystitis [aktuell] « Wie sieht Ihr Urin aus — trüb, ungewöhnlicher Geruch? Falls Blut dabei war: am Anfang, während oder am Ende des Wasserlassens? » cite « blutung », cherché PLUS BAS : [fach-uro] « Haben Sie Schmerzen oder Blutungen beim oder nach dem G »"
   ],
   "relu_revue_finale": "Hausse de MESURE ecrite a la main (revue finale I-7) : relu 115 -> 118. sucht ne fait plus taire que les symptomes qu'il declare ; 4 constats masques reapparaissent. 3 sont des approfondissements annotes relu : case-diabetes-typ1 (nycturie vs veg-ausscheidung, consequence de D4), case-morbus-crohn (diarrhee A L'ETRANGER = DD infectieuse, approfondit le voyage), case-sturz-im-alter (« Sturz » nomme l'evenement, ne depiste pas les chutes). Le 4e (case-vorhofflimmern) etait un vrai doublon : sucht complete avec schwitzen.",
   "hausses": [
@@ -17,7 +25,15 @@
       "de": 0,
       "a": 2,
       "raison": "Mesure, pas contenu : la lecture du lexique ne voyait pas « übel » (\\b devant une voyelle accentuée). Corrigée, elle révèle deux vrais doublons de veg-uebelkeit, case-myokardinfarkt et case-anorexia-nervosa. La revue K1 refuse de les éteindre par relu (relu reste à 118) : ils sont inscrits constats ouverts, échéance K4 (voir findings_note)."
+    },
+    {
+      "date": "2026-10-05",
+      "lot": "K3",
+      "compteur": "constats",
+      "de": 2,
+      "a": 10,
+      "raison": "Mesure, pas contenu dégradé : K3 supprime la carte gelée SUCHT_MONTAGE ; checkTrameSymptoms lit désormais la DÉCLARATION (PROBE_SUCHT, plus fine et totale) et la trame de cohere (FACH_COVERS absorbé : une question de variante qui ne partage pas le signe de la Fach reste posée). 10 questions du cas MUETTES citent un signe qu'une autre question déclare : cml, diabetes, lymphom ×2, nhl ×3, prostatakarzinom, schenkelhalsfraktur, zystitis. Aucune erreur (doublon déclaré) : la porte de cohérence après montage est à 0. Constats ouverts, échéance K4 (sucht des questions du cas). Revue clinique R3 (K3) : les deux constats de case-lymphom sont résolus (le bloc Veränderung y est retiré) : 12 → 10."
     }
   ],
-  "findings_note": "Constats OUVERTS (revue K1 I-2, décision de main), échéance K4 — le montage ne bouge pas en K1. (a) case-myokardinfarkt « war Ihnen übel ? » redemande la nausée de veg-uebelkeit : vrai doublon, K4 déclare sucht ou retire la mention. (b) case-anorexia-nervosa « Kommt es vor, dass Sie sich nach dem Essen übergeben ? » : vrai doublon de veg-uebelkeit tel qu’écrit ; K4 reformule « Führen Sie das Erbrechen manchmal selbst herbei? » avec un signe propre `purging` (le vomissement provoqué, autre chose que la nausée)."
+  "findings_note": "Constats OUVERTS (revue K1 I-2, décision de main), échéance K4 — le montage ne bouge pas en K1. (a) case-myokardinfarkt « war Ihnen übel ? » redemande la nausée de veg-uebelkeit : vrai doublon, K4 déclare sucht ou retire la mention. (b) case-anorexia-nervosa « Kommt es vor, dass Sie sich nach dem Essen übergeben ? » : vrai doublon de veg-uebelkeit tel qu’écrit ; K4 reformule « Führen Sie das Erbrechen manchmal selbst herbei? » avec un signe propre `purging` (le vomissement provoqué, autre chose que la nausée). K3 : 10 constats ouverts de plus (voir hausses, lot K3), échéance K4 — chaque question du cas déclare `sucht` (et la question générale cède, r2) ou précise ce qu'elle demande (ex. lymphom / nhl : prurit GÉNÉRALISÉ, signe B, ≠ « juckt es » d'une lésion)."
 }

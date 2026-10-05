@@ -321,7 +321,9 @@ export type CaseQuestionKapitel =
 // inconnu n'existe pas (revue finale I-7) — tsc le refuse.
 // `followUp` (Q0) : la relance de la question, avec sa condition dans le texte
 // (« Falls ja: … ») — même règle que les relances des questions générales.
-export type CaseQuestion = string | { frage: string; kapitel: CaseQuestionKapitel; sucht?: [Symptom, ...Symptom[]]; relu?: true; followUp?: string };
+export type CaseQuestion = string | { frage: string; kapitel: CaseQuestionKapitel; sucht?: [Symptom, ...Symptom[]]; relu?: true; followUp?: string;
+  /** Signes que la question présuppose (contrat frage-atomique §10.2, r4b) : jamais posée avant la question qui les cherche. Additif. */
+  braucht?: [Symptom, ...Symptom[]] };
 
 export interface Fachbegriff {
   id: string;

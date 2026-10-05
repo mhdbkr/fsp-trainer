@@ -1,13 +1,18 @@
 import { describe, expect, it } from 'vitest';
 import { ALLGEMEINE_ANAMNESE, FACHANAMNESEN, LEITSYMPTOM_KATEGORIEN, adaptChaptersForCase, aktuellChapterFor, fachChapterForCase } from './anamneseChapters';
-import { GRANULARITE_PAIRES, LEXIQUE, PROBE_SUCHT, PROFIL_EXIGE, SIGNES, SIGNE_DEF, SUCHT_MONTAGE, TEXT_RE, dedupeBySymptom, lexiqueIncoherences, symptomsInText, type LexiqueTables } from './symptoms';
+import { GRANULARITE_PAIRES, LEXIQUE, PROBE_SUCHT, PROFIL_EXIGE, SIGNES, SIGNE_DEF, TEXT_RE, lexiqueIncoherences, symptomsInText, type LexiqueTables } from './symptoms';
 import { phraseFollowUp, phraseProbes, phraseText, splitDimension } from './phrases';
 import type { Case } from '@/db/types';
+import { cohere, type ProfilEffectif } from './coherence';
 
-const mk = (over: Partial<Case> & { kategorie?: Case['patientSheet']['leitsymptomKategorie'] } = {}): Case =>
+// K3 : `dedupeBySymptom` est remplacé par `cohere` ; ses deux tests de réduction par `parts` le rejouent (même attente).
+const sansProfil: ProfilEffectif = { declare: false, tags: ['infekt'], exige: {}, exclut: {} };
+const dedupe = (chapters: Array<{ id: string; questions: import('./phrases').Phrase[] }>) => cohere(chapters, sansProfil, 'fixture').trame;
+
+const mk = (over: Partial<Case> & { kategorie?: Case['patientSheet']['leitsymptomKategorie']; tags?: string[] } = {}): Case =>
   ({
     specialty: over.specialty ?? 'Pneumologie',
-    patientSheet: { personalia: { name: 'X', age: 60, geschlecht: 'm' }, schmerz: {}, leitsymptomKategorie: over.kategorie ?? 'infekt' },
+    patientSheet: { personalia: { name: 'X', age: 60, geschlecht: 'm' }, schmerz: {}, leitsymptomKategorie: over.kategorie ?? 'infekt', ...(over.tags ? { profil: { tags: over.tags } } : {}) },
     caseSpecificQuestions: over.caseSpecificQuestions ?? [],
   } as unknown as Case);
 const texts = (c: Case) => {
@@ -22,8 +27,10 @@ const texts = (c: Case) => {
 const count = (c: Case, re: RegExp) => texts(c).filter(([, t]) => re.test(t));
 
 describe('Un symptôme, une question (FB2-J10)', () => {
-  it('CAP : la fièvre est cherchée une seule fois, dans « Aktuelle Beschwerden »', () => {
-    const hits = count(mk(), /gemessen|Fieber oder Schüttelfrost|Fieber festgestellt/);
+  // K3, D4-bis (décision de main, revues P1-1 et R5) : quand la fièvre EST le motif DÉCLARÉ (profil infekt + fieber), Aktuelle
+  // Beschwerden la pose et la Fach se réduit — le test CAP d'origine retrouve son attente.
+  it('CAP : la fièvre est cherchée une seule fois, dans « Aktuelle Beschwerden » (D4-bis)', () => {
+    const hits = count(mk({ tags: ['infekt', 'fieber'] }), /gemessen|Fieber oder Schüttelfrost|Fieber festgestellt/);
     expect(hits).toHaveLength(1);
     expect(hits[0][0]).toBe('aktuell');
   });
@@ -53,10 +60,10 @@ describe('Un symptôme, une question (FB2-J10)', () => {
     const c = mk({ caseSpecificQuestions: [{ frage: 'Wie viele Kilo?', kapitel: 'vegetativ', relu: true }] });
     expect(texts(c).filter(([, t]) => /Gewichtsveränderungen/.test(t))).toHaveLength(1);
   });
-  it('dedupeBySymptom : une question réduite garde les relances de la partie restante', () => {
-    const out = dedupeBySymptom([
-      { id: 'a', questions: [{ text: 'Fieber?', probe: 'akt-infekt-fieber' }] },
-      { id: 'b', questions: [{ text: 'Fieber? Ausland?', probe: 'veg-fieber', followUp: ['x', 'y'], parts: [
+  it('r2 (ex-dedupeBySymptom) : une question réduite garde les relances de la partie restante', () => {
+    const out = dedupe([
+      { id: 'aktuell', questions: [{ text: 'Fieber?', probe: 'akt-infekt-fieber' }] },
+      { id: 'vegetativ', questions: [{ text: 'Fieber? Ausland?', probe: 'veg-fieber', followUp: ['x', 'y'], parts: [
         { sucht: ['fieber'], text: 'Fieber?', followUp: ['x'] }, { sucht: ['reise'], text: 'Ausland?', followUp: ['y'] }] }] },
     ]);
     expect(out[1].questions.map(phraseText)).toEqual(['Ausland?']);
@@ -78,19 +85,22 @@ describe('parts ↔ PROBE_SUCHT (I5)', () => {
       if (typeof q === 'string' || !q.parts) continue;
       const probe = phraseProbes(q)[0];
       const union = [...new Set(q.parts.flatMap((pt) => pt.sucht))].sort();
-      const carte: readonly string[] = PROBE_SUCHT[probe] ?? [];
+      const carte: readonly string[] = q.sucht ?? PROBE_SUCHT[probe] ?? [];   // K3 : une variante peut déclarer son propre `sucht` (P1-3, P1-4)
       const permis = new Set([...carte, ...(q.followUpSucht ?? []).flat()]);
       if (carte.some((x) => !union.includes(x)) || union.some((x) => !permis.has(x))) bad.push(`${probe}: parts [${union}] ≠ carte [${[...carte].sort()}] (+ relances [${[...permis].filter((x) => !carte.includes(x))}])`);
     }
     expect(bad).toEqual([]);
   });
-  it('une réduction à plusieurs parties les pose une par une, jamais recollées', () => {
-    const out = dedupeBySymptom([
-      { id: 'a', questions: [{ text: 'Schwitzen?', probe: 'fach-endo-temperatur' }] },
-      { id: 'b', questions: [{ text: 'Schüttelfrost, Nachtschweiß, Schweißausbrüche?', probe: 'veg-schuettelfrost', parts: [
+  // K3 (revue clinique P2) : les parts gardées d'une même question se posent en UNE question, les suivantes en relances —
+  // jamais recollées dans une même ligne (revue série 3, I4 : deux « ? » dans une réplique).
+  it('une réduction à plusieurs parties : la première est la question, les suivantes ses relances, jamais recollées', () => {
+    const out = dedupe([
+      { id: 'fach', questions: [{ text: 'Schwitzen?', probe: 'fach-endo-temperatur' }] },
+      { id: 'vegetativ', questions: [{ text: 'Schüttelfrost, Nachtschweiß, Schweißausbrüche?', probe: 'veg-schuettelfrost', parts: [
         { sucht: ['schuettelfrost'], text: 'Schüttelfrost?' }, { sucht: ['nachtschweiss'], text: 'Nachts?' }, { sucht: ['schwitzen'], text: 'Schweißausbrüche?' }] }] },
     ]);
-    expect(out[1].questions.map(phraseText)).toEqual(['Schüttelfrost?', 'Nachts?']);
+    expect(out[1].questions.map(phraseText)).toEqual(['Schüttelfrost?']);
+    expect(phraseFollowUp(out[1].questions[0])).toEqual(['Nachts?']);
   });
 });
 
@@ -133,14 +143,15 @@ describe('Lexique de signes — INV-77 (cohérent) et INV-78 (granularité)', ()
   it('le lexique réel est cohérent', () => {
     expect(lexiqueIncoherences()).toEqual([]);
   });
-  it('porte 216 signes : 69 de K0 (11 dimensions, 39 concepts d\u2019origine, 19 ajouts), puis ceux de K1 (137 + 9 de sa revue), puis `insektenstich` (revue K2 C3) ; un SIGNE_DEF chacun', () => {
-    expect(SIGNES).toHaveLength(216);
+  it('porte 222 signes : 69 de K0 (11 dimensions, 39 concepts d\u2019origine, 19 ajouts), puis ceux de K1 (137 + 9 de sa revue), `insektenstich` (revue K2 C3), `beginn_art`, `selbstverletzung_wunsch`, `stuhl_blut`, `zungenbiss`, `einnaessen`, `stuhl_nachts` (K3) ; le motif en tête (K3, règle d\u2019insertion) ; un SIGNE_DEF chacun', () => {
+    expect(SIGNES).toHaveLength(222);
     expect(Object.keys(SIGNE_DEF)).toEqual([...SIGNES]);
-    expect(SIGNES.slice(0, 11)).toEqual(['ort', 'beginn', 'charakter', 'intensitaet', 'ausstrahlung', 'verlauf', 'ausloeser', 'einfluss', 'frueher', 'begleit', 'gelenke']);
+    expect(SIGNES[0]).toBe('motiv');
+    expect(SIGNES.slice(1, 13)).toEqual(['ort', 'beginn', 'beginn_art', 'charakter', 'intensitaet', 'ausstrahlung', 'verlauf', 'ausloeser', 'einfluss', 'frueher', 'begleit', 'gelenke']);
     expect(new Set(SIGNES).size).toBe(SIGNES.length);
   });
-  it('tout signe de PROBE_SUCHT (déclaration) et de SUCHT_MONTAGE (montage jusqu\u2019à K3) est un signe du lexique', () => {
-    const inconnus = [...Object.values(PROBE_SUCHT), ...Object.values(SUCHT_MONTAGE)].flat().filter((s) => !SIGNES.includes(s as never));
+  it('tout signe de PROBE_SUCHT (déclaration, lue par le montage depuis K3) est un signe du lexique', () => {
+    const inconnus = Object.values(PROBE_SUCHT).flat().filter((s) => !SIGNES.includes(s as never));
     expect(inconnus).toEqual([]);
   });
 
