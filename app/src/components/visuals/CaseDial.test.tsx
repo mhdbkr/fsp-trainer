@@ -41,12 +41,13 @@ const pointer = (el: Element, type: string, pointerType: 'mouse' | 'touch') => {
   Object.defineProperty(e, 'pointerType', { value: pointerType });
   act(() => { el.dispatchEvent(e); });
 };
-const reduit = (v: boolean) => vi.stubGlobal('matchMedia', (q: string) => ({
-  matches: v && q.includes('reduce'), media: q, addEventListener() {}, removeEventListener() {}, addListener() {}, removeListener() {},
-}));
+// Le cadran lit le réglage par `useReducedMotion` de lib/motion (motion ne l'écoute qu'une fois par module : on le pilote ici).
+const mouvement = vi.hoisted(() => ({ reduit: false }));
+vi.mock('@/lib/motion', async (orig) => ({ ...(await orig<typeof import('@/lib/motion')>()), useReducedMotion: () => mouvement.reduit }));
+const reduit = (v: boolean) => { mouvement.reduit = v; };
 
 beforeEach(() => { freezeAt(AUJOURDHUI); reduit(false); oublieLesTraces(); });
-afterEach(() => { cleanup(); resetClock(); vi.useRealTimers(); vi.unstubAllGlobals(); });
+afterEach(() => { cleanup(); resetClock(); vi.useRealTimers(); vi.unstubAllGlobals(); reduit(false); });
 
 describe('rendu de chaque état, depuis CaseDialData', () => {
   it('vierge : trois arcs NEUTRES (jamais un défaut), aucun chiffre', () => {
@@ -143,11 +144,11 @@ describe('étiquette accessible', () => {
 });
 
 describe('ouverture', () => {
-  it('clavier : Entrée ouvre, Échap ferme et rend le focus au cadran', () => {
+  it('clavier : le clic (Entrée, Espace, lecteur d’écran → detail 0) ouvre, Échap ferme et rend le focus au cadran', () => {
     monte(ENTAME);
     const b = screen.getByRole('button');
     b.focus();
-    fireEvent.keyDown(b, { key: 'Enter' });
+    fireEvent.click(b);
     expect(b.getAttribute('aria-expanded')).toBe('true');
     expect(screen.getByRole('dialog')).toBeTruthy();
     fireEvent.keyDown(document.activeElement ?? b, { key: 'Escape' });
@@ -156,10 +157,38 @@ describe('ouverture', () => {
     expect(document.activeElement).toBe(b);
   });
 
-  it('clavier : Espace ouvre aussi', () => {
+  it('I2 — un clic de SOURIS ou de doigt (detail 1) n\'ouvre rien : seul le clic clavier / lecteur d\'écran (detail 0)', () => {
+    monte(ENTAME);
+    fireEvent.click(screen.getByRole('button'), { detail: 1 });
+    expect(screen.queryByRole('dialog')).toBeNull();
+    fireEvent.click(screen.getByRole('button'), { detail: 0 });
+    expect(screen.getByRole('dialog')).toBeTruthy();
+    fireEvent.click(screen.getByRole('button'), { detail: 0 });          // bascule : referme
+    expect(screen.getByRole('button').getAttribute('aria-expanded')).toBe('false');
+  });
+
+  it('I2 — Entrée/Espace ne passent plus par keydown (sinon Espace ouvrirait puis refermerait au keyup)', () => {
+    monte(ENTAME);
+    fireEvent.keyDown(screen.getByRole('button'), { key: 'Enter' });
+    fireEvent.keyDown(screen.getByRole('button'), { key: ' ' });
+    expect(screen.queryByRole('dialog')).toBeNull();
+  });
+
+  it('m5 — Tab depuis le détail referme et rend le focus au cadran', () => {
     monte(ENTAME);
     const b = screen.getByRole('button');
-    fireEvent.keyDown(b, { key: ' ' });
+    fireEvent.click(b);
+    const detail = screen.getByRole('dialog');
+    (detail.querySelector('a') as HTMLElement).focus();
+    fireEvent.keyDown(detail.querySelector('a') as HTMLElement, { key: 'Tab' });
+    expect(screen.queryByRole('dialog')).toBeNull();
+    expect(document.activeElement).toBe(b);
+  });
+
+  it('clavier : Espace ouvre aussi (même chemin : un clic synthétique)', () => {
+    monte(ENTAME);
+    const b = screen.getByRole('button');
+    fireEvent.click(b);
     expect(screen.getByRole('dialog')).toBeTruthy();
   });
 
@@ -209,7 +238,7 @@ describe('ouverture', () => {
 
   it('un appui ailleurs referme le détail (tactile : pas de survol pour le fermer)', () => {
     monte(ENTAME);
-    fireEvent.keyDown(screen.getByRole('button'), { key: 'Enter' });
+    fireEvent.click(screen.getByRole('button'));
     expect(screen.getByRole('dialog')).toBeTruthy();
     pointer(document.body, 'pointerdown', 'touch');
     expect(screen.queryByRole('dialog')).toBeNull();
@@ -227,7 +256,7 @@ describe('ouverture', () => {
 describe('le détail', () => {
   const ouvre = (d: CaseDialData, props: Partial<React.ComponentProps<typeof CaseDial>> = {}) => {
     monte(d, props);
-    fireEvent.keyDown(screen.getByRole('button'), { key: 'Enter' });
+    fireEvent.click(screen.getByRole('button'));
     return screen.getByRole('dialog');
   };
 
@@ -289,7 +318,7 @@ describe('animations — une fois, sans confettis', () => {
 
   it('la classe tient pendant toute la vie du cadran (ouvrir ne coupe pas le tracé)', () => {
     const { container } = monte(ENTAME, { data: { ...ENTAME, vientDEtreJoue: ['fallvorstellung'] } });
-    fireEvent.keyDown(screen.getByRole('button'), { key: 'Enter' });
+    fireEvent.click(screen.getByRole('button'));
     expect(arc(container, 'fallvorstellung').classList.contains('cd-trace')).toBe(true);
   });
 
@@ -313,7 +342,7 @@ describe('mouvement réduit', () => {
     const { container } = monte(ENTAME, { data: { ...ENTAME, vientDEtreJoue: ['fallvorstellung'] } });
     expect(container.querySelector('.case-dial')?.getAttribute('data-mouvement')).toBe('reduit');
     expect(container.querySelector('.cd-trace')).toBeNull();
-    fireEvent.keyDown(screen.getByRole('button'), { key: 'Enter' });
+    fireEvent.click(screen.getByRole('button'));
     expect(screen.getByRole('dialog').getAttribute('data-panneau')).toBe('true');
   });
 

@@ -2,10 +2,11 @@
 // carte n'ajoute que « joué depuis la dernière visite » (une comparaison de
 // dates, pas une mesure) pour que l'arc se dessine une fois au retour.
 import { describe, it, expect, afterEach, beforeEach } from 'vitest';
+import { renderHook } from '@testing-library/react';
 import { freezeAt, resetClock } from '@/lib/clock';
 import { blankProgress } from '@/lib/journal';
 import type { CaseProgress } from '@/db/types';
-import { dialDeCarte, derniereVisite, noteVisite, vientDeSouder } from './dialCarte';
+import { dialDeCarte, derniereVisite, noteVisite, useDerniereVisite, vientDeSouder } from './dialCarte';
 
 const T0 = new Date(2026, 9, 5, 12).getTime();
 const cp = (over: Partial<CaseProgress> = {}): CaseProgress => {
@@ -53,5 +54,42 @@ describe('dernière visite', () => {
   it('une valeur illisible vaut « jamais venu »', () => {
     localStorage.setItem('doctopus-cas-visite', 'oups');
     expect(derniereVisite()).toBeNull();
+  });
+});
+
+describe('m1 — les bornes : « depuis » est strict', () => {
+  it('un Teil joué à l\'instant même de la visite n\'est pas « nouveau »', () => {
+    const base = blankProgress('c1').teile;
+    const c = cp({ teile: { ...base, anamnese: joue(T0 - 1000) } });
+    expect(dialDeCarte(c, T0 - 1000).vientDEtreJoue).toBeUndefined();
+    expect(dialDeCarte(c, T0 - 1001).vientDEtreJoue).toEqual(['anamnese']);
+  });
+  it('une soudure à l\'instant de la visite n\'est pas « nouvelle »', () => {
+    const pret = dialDeCarte(cp({ etat: 'pret', pretAt: T0 - 1000 }), null);
+    expect(vientDeSouder(pret, T0 - 1000)).toBe(false);
+    expect(vientDeSouder(pret, T0 - 1001)).toBe(true);
+  });
+});
+
+describe('I3 — useDerniereVisite', () => {
+  it('rend la visite d\'AVANT, et note celle-ci en quittant la liste', () => {
+    localStorage.setItem('doctopus-cas-visite', String(T0 - 5000));
+    const { result, unmount } = renderHook(() => useDerniereVisite());
+    expect(result.current).toBe(T0 - 5000);
+    expect(derniereVisite()).toBe(T0 - 5000);          // pas encore notée : on est dans la liste
+    unmount();
+    expect(derniereVisite()).toBe(T0);
+  });
+  it('au premier passage : null, puis la visite est notée', () => {
+    const { result, unmount } = renderHook(() => useDerniereVisite());
+    expect(result.current).toBeNull();
+    unmount();
+    expect(derniereVisite()).toBe(T0);
+  });
+  it('quitter la page (pagehide) note aussi la visite', () => {
+    const { unmount } = renderHook(() => useDerniereVisite());
+    window.dispatchEvent(new Event('pagehide'));
+    expect(derniereVisite()).toBe(T0);
+    unmount();
   });
 });

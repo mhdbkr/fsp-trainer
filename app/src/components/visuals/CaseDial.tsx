@@ -1,8 +1,8 @@
-import { useCallback, useEffect, useLayoutEffect, useRef, useState, useSyncExternalStore } from 'react';
+import { useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import type { SimTeil } from '@/db/types';
 import type { CaseDialData } from '@/lib/dialData';
-import { AnimatePresence, appear, m } from '@/lib/motion';
+import { AnimatePresence, appear, m, useReducedMotion } from '@/lib/motion';
 import { Portal } from '../Portal';
 import { actionSuivante, etatTeil, etiquette, lignesDetail, phrasePret, phraseReprise, resume, type EtatTeil } from './CaseDialText';
 import { TEILE } from '@/lib/simScope';
@@ -48,16 +48,6 @@ const COULEUR: Record<EtatTeil, string> = {
 };
 const EPAISSEUR: Record<EtatTeil, number> = { vierge: 3, 'non-mesure': 4, fragile: 7, acquis: 7, 'a-confirmer': 7, solide: 7 };
 
-const REDUIT = '(prefers-reduced-motion: reduce)';
-const lisReduit = () => typeof window !== 'undefined' && !!window.matchMedia && window.matchMedia(REDUIT).matches;
-const abonneReduit = (rappel: () => void) => {
-  const mq = typeof window !== 'undefined' ? window.matchMedia?.(REDUIT) : undefined;
-  mq?.addEventListener?.('change', rappel);
-  return () => mq?.removeEventListener?.('change', rappel);
-};
-/** Le mouvement est-il réduit ? Relu au changement de réglage système. */
-const useMouvementReduit = (): boolean => useSyncExternalStore(abonneReduit, lisReduit, () => false);
-
 // « Une fois » : ce qui s'est dessiné reste dessiné tant que l'onglet vit. Sans cela, filtrer la liste
 // (les cartes se remontent) redessinerait chaque arc. La clé suit l'instant du dernier jeu : une
 // nouvelle partie dessine à nouveau.
@@ -79,7 +69,7 @@ export function CaseDial({ data, size = 64, nom, vientDeSouder = false, action =
   /** Montrer l'action suivante dans le détail (inutile là où l'on est déjà dans le cas). */
   action?: boolean;
 }) {
-  const reduit = useMouvementReduit();
+  const reduit = useReducedMotion() ?? false;   // motion l'écoute une fois, dans un seul MediaQueryList (comme MotionRoot)
   const [ouvert, setOuvert] = useState(false);
   const [ancre, setAncre] = useState<DOMRect | null>(null);
   const bouton = useRef<HTMLButtonElement>(null);
@@ -161,9 +151,10 @@ export function CaseDial({ data, size = 64, nom, vientDeSouder = false, action =
         onPointerUp={(e) => { if (e.pointerType !== 'mouse') efface(); }}
         onPointerCancel={efface}
         onContextMenu={(e) => e.preventDefault()}
-        onKeyDown={(e) => {
-          if (e.key !== 'Enter' && e.key !== ' ') return;
-          e.preventDefault();
+        // Clavier et lecteur d'écran activent un bouton par un CLIC dont `detail` vaut 0 (Entrée, Espace, double-tap
+        // VoiceOver/TalkBack). Un tap de souris ou de doigt (detail ≥ 1) n'ouvre rien : le geste est le survol ou l'appui long.
+        onClick={(e) => {
+          if (e.detail !== 0) return;
           if (ouvert) ferme(); else { parClavier.current = true; ouvre(); }
         }}
       >
@@ -223,6 +214,7 @@ export function CaseDial({ data, size = 64, nom, vientDeSouder = false, action =
         ouvert={ouvert} data={data} nom={nom} action={action} ancre={ancre} refDetail={detail} reduit={reduit}
         onEntree={efface} onSortie={() => planifie(ferme, GRACE_MS)}
         onPerdFocus={(vers) => { if (!detail.current?.contains(vers) && vers !== bouton.current) ferme(); }}
+        onTab={() => { ferme(); bouton.current?.focus(); }}      // le détail n'a qu'une cible : Tab (ou Maj+Tab) rend le focus au cadran
       />
     </>
   );
@@ -231,9 +223,9 @@ export function CaseDial({ data, size = 64, nom, vientDeSouder = false, action =
 const L = 288;
 
 /** Le détail, ancré sous le cadran. Verre plein (matériau flottant), jamais d'ombre portée. */
-function DetailFlottant({ ouvert, data, nom, action, ancre, refDetail, reduit, onEntree, onSortie, onPerdFocus }: {
+function DetailFlottant({ ouvert, data, nom, action, ancre, refDetail, reduit, onEntree, onSortie, onPerdFocus, onTab }: {
   ouvert: boolean; data: CaseDialData; nom?: string; action: boolean; ancre: DOMRect | null; refDetail: React.RefObject<HTMLDivElement>; reduit: boolean;
-  onEntree: () => void; onSortie: () => void; onPerdFocus: (vers: Node | null) => void;
+  onEntree: () => void; onSortie: () => void; onPerdFocus: (vers: Node | null) => void; onTab: () => void;
 }) {
   const [hauteur, setHauteur] = useState(220);
   useLayoutEffect(() => {
@@ -264,6 +256,7 @@ function DetailFlottant({ ouvert, data, nom, action, ancre, refDetail, reduit, o
       onPointerEnter={onEntree}
       onPointerLeave={(e) => { if (e.pointerType === 'mouse') onSortie(); }}
       onBlur={(e) => onPerdFocus(e.relatedTarget as Node | null)}
+      onKeyDown={(e) => { if (e.key === 'Tab') { e.preventDefault(); onTab(); } }}
       className="glass-full case-dial-detail rounded-xl p-3 text-sm"
     >
       <CaseDialDetail data={data} action={action} />
