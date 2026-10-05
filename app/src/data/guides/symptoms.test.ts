@@ -9,10 +9,10 @@ import { cohere, type ProfilEffectif } from './coherence';
 const sansProfil: ProfilEffectif = { declare: false, tags: ['infekt'], exige: {}, exclut: {} };
 const dedupe = (chapters: Array<{ id: string; questions: import('./phrases').Phrase[] }>) => cohere(chapters, sansProfil, 'fixture').trame;
 
-const mk = (over: Partial<Case> & { kategorie?: Case['patientSheet']['leitsymptomKategorie'] } = {}): Case =>
+const mk = (over: Partial<Case> & { kategorie?: Case['patientSheet']['leitsymptomKategorie']; tags?: string[] } = {}): Case =>
   ({
     specialty: over.specialty ?? 'Pneumologie',
-    patientSheet: { personalia: { name: 'X', age: 60, geschlecht: 'm' }, schmerz: {}, leitsymptomKategorie: over.kategorie ?? 'infekt' },
+    patientSheet: { personalia: { name: 'X', age: 60, geschlecht: 'm' }, schmerz: {}, leitsymptomKategorie: over.kategorie ?? 'infekt', ...(over.tags ? { profil: { tags: over.tags } } : {}) },
     caseSpecificQuestions: over.caseSpecificQuestions ?? [],
   } as unknown as Case);
 const texts = (c: Case) => {
@@ -27,10 +27,10 @@ const texts = (c: Case) => {
 const count = (c: Case, re: RegExp) => texts(c).filter(([, t]) => re.test(t));
 
 describe('Un symptôme, une question (FB2-J10)', () => {
-  // K3, D4-bis (décision de main, revue clinique P1-1) : quand la fièvre EST le motif (nature infekt), Aktuelle Beschwerden
-  // la pose et la Fach se réduit — le test CAP d'origine retrouve son attente.
+  // K3, D4-bis (décision de main, revues P1-1 et R5) : quand la fièvre EST le motif DÉCLARÉ (profil infekt + fieber), Aktuelle
+  // Beschwerden la pose et la Fach se réduit — le test CAP d'origine retrouve son attente.
   it('CAP : la fièvre est cherchée une seule fois, dans « Aktuelle Beschwerden » (D4-bis)', () => {
-    const hits = count(mk(), /gemessen|Fieber oder Schüttelfrost|Fieber festgestellt/);
+    const hits = count(mk({ tags: ['infekt', 'fieber'] }), /gemessen|Fieber oder Schüttelfrost|Fieber festgestellt/);
     expect(hits).toHaveLength(1);
     expect(hits[0][0]).toBe('aktuell');
   });

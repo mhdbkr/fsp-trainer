@@ -77,7 +77,9 @@ export interface CohereCtx {
 /** D4-bis (décision de main, revue clinique P1-1) : le signe qui EST le motif du cas (fièvre d'un tableau infectieux,
  *  dyspnée d'un tableau dyspnéique) se pose dans Aktuelle Beschwerden, qui l'interroge en premier et en détail : là,
  *  Aktuelle Beschwerden l'emporte sur la Fach, qui se réduit à ses autres `parts`. */
+// R5 (revue clinique, décision de main) : le signe n'est le motif que si le profil DÉCLARE la plainte (tag), pas sur la seule nature.
 export const SIGNE_DU_MOTIF: Partial<Record<ProfilTag, Signe>> = { infekt: 'fieber', atemnot: 'atemnot' };
+export const TAG_DU_MOTIF: Partial<Record<ProfilTag, ProfilTag>> = { infekt: 'fieber', atemnot: 'dyspnoe' };
 
 /** Rang de conservation (D4, §10.4) : question du cas 0 · Fach 1 · aktuell 2 · vegetativ 3 · autres 4. */
 export const rangDe = (ch: string, cas: boolean): number => (cas ? 0 : ch === 'fach' ? 1 : ch === 'aktuell' ? 2 : ch === 'vegetativ' ? 3 : 4);
@@ -225,7 +227,8 @@ export function cohere<T extends TrameChapter>(trame: readonly T[], profil: Prof
     const us = live.filter((u) => u.signes.includes(s));
     if (us.length < 2) continue;
     // D4-bis : pour le signe du motif, une question d'Aktuelle Beschwerden passe avant la Fach (rang 0,5).
-    const rang = (u: U) => (s === (profil.nature && SIGNE_DU_MOTIF[profil.nature]) && u.ch === 'aktuell' && !u.cas && !u.relance ? 0.5 : u.rang);
+    const motif = profil.nature && profil.tags.includes(TAG_DU_MOTIF[profil.nature]!) ? SIGNE_DU_MOTIF[profil.nature] : undefined;
+    const rang = (u: U) => (s === motif && u.ch === 'aktuell' && !u.cas && !u.relance ? 0.5 : u.rang);
     const w = us.reduce((a, b) => (rang(b) < rang(a) ? b : a));
     for (const u of us) {
       if (u === w) continue;

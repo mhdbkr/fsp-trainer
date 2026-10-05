@@ -117,7 +117,7 @@ describe('P1-1 — D4-bis : le symptôme directeur du motif se pose dans Aktuell
     expect(fach).not.toContain('Haben Sie Fieber oder Schüttelfrost?');
   });
   it('130 cas de nature infekt : aucune question de fièvre hors d\'Aktuelle Beschwerden (sauf une question du cas)', () => {
-    for (const c of cases.filter((x) => profilDuCas(x).nature === 'infekt')) for (const f of fieber(c.id)) expect(f.startsWith('aktuell:') || f.endsWith(':cas'), `${c.id} ${f}`).toBe(true);
+    for (const c of cases.filter((x) => profilDuCas(x).nature === 'infekt' && profilDuCas(x).tags.includes('fieber'))) for (const f of fieber(c.id)) expect(f.startsWith('aktuell:') || f.endsWith(':cas'), `${c.id} ${f}`).toBe(true);
   });
 });
 
@@ -237,5 +237,12 @@ describe('R6 — r2 ne déplace une question du cas que si la perdante est RETIR
     expect(un(nonReduite.ecarts, 'cas:0', 'deplace')).toBeUndefined();
     const retiree = run([ch('aktuell', s('akt-ausloeser'), s('akt-motiv'), cas(1, 'Auslöser?', ['ausloeser']))]);
     expect(vue(retiree.trame).aktuell).toEqual(['cas', 'akt-motiv']);
+  });
+});
+
+describe('R5 — D4-bis se fonde sur le motif DÉCLARÉ (tag du profil), pas sur la seule nature', () => {
+  it('allergische-rhinitis (nature atemnot, sans tag dyspnoe) : la question neutre de la Fach pneumo revient', () => {
+    expect(coeur(byId('case-allergische-rhinitis')).fach).toContain('fach-pneumo-atemnot');
+    expect(coeur(byId('case-copd')).fach).not.toContain('fach-pneumo-atemnot');   // copd déclare dyspnoe : Aktuelle Beschwerden la pose
   });
 });

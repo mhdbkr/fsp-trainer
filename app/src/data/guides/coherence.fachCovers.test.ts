@@ -84,7 +84,7 @@ describe('FACH_COVERS absorbé par r2 — chaque paire retirée, ou gardée pour
   });
   it('quand r2 la retire, la question de variante disparaît sur TOUS les cas qui jouent la Fach', () => {
     // Une paire « signe distinct » peut être retirée sur un cas par une AUTRE question (ex. une question du cas) : pas par la Fach.
-    const partielles = [...etat].filter(([k, s]) => s.retiree > 0 && s.retiree < s.n && !['sucht-ausser', 'signe-distinct'].includes(GARDEES[k])).map(([k]) => k);
+    const partielles = [...etat].filter(([k, s]) => s.retiree > 0 && s.retiree < s.n && !['sucht-ausser', 'signe-distinct', 'd4-bis'].includes(GARDEES[k])).map(([k]) => k);
     expect(partielles).toEqual([]);
   });
   it('chaque raison se vérifie dans les données', () => {
