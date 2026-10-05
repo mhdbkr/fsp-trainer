@@ -1,8 +1,250 @@
 # Rapport lot K3 — le moteur de cohérence au montage
 
 > `sim-engine-engineer` · 5 oct. 2026 · branche `feat/s3-k3-cohere`. `origin/main` (S4-2 #76, puis lot F #77) est fusionné, sans conflit ; `merge-tree` contre `origin/main` @ `0e846533` : 0.
-> Statut : **DONE_WITH_CONCERNS**. La contre-revue de `56452456` est traitée : § 0 bis (R1 à R6, gib / itp / lymphom, P2, gastroenteritis et fibromyalgie ligne à ligne). Les concerns sont au § 0bis.4 (quatre résidus des deux cas) et au § 0bis.6 (écarts à la lettre, réponse « trop longue » non faite car hors périmètre, goutte en K4).
+> Statut : **DONE_WITH_CONCERNS**. La 3e revue clinique de `1fe73eb6` est traitée : § 0 ter (B1 lyme, B2 gib, P2 tvt). **B2 s'écarte de la lettre** de la décision, parce que la fiche de gib porte une douleur épigastrique : la réponse est à relire au § 0 ter. La contre-revue de `56452456` est au § 0 bis, et ses concerns aux § 0bis.4 et § 0bis.6.
 > Le § 0 décrit le fixeur des revues de `508639f6`. Les § 1 à § 10 donnent l'historique jusqu'à `508639f6` ; leurs chiffres sont ceux de ces commits.
+
+## 0 ter. Troisième revue clinique de `1fe73eb6` (décisions de main)
+
+| Item | Commit | Correction | Preuve |
+|---|---|---|---|
+| **B1 lyme** | `0e56a583` | Le profil de lyme déclare `fieber` : son motif dit « leicht erhöhte Temperatur ». D4-bis joue : « Fieber — Haben Sie Fieber gemessen? » est posée dans Aktuelle Beschwerden, et `fach-infekt-fieber` (« seit wann … in Schüben ») est retirée par r2. INV-77 est tenu : la banque `akt-infekt-fieber` a sa réponse dans la fiche. | Deux tests rouges avant : le signe `fieber` n'a qu'une unité, `akt-infekt-fieber` ; « Schüben » n'apparaît qu'une fois. Garde sur les 130 cas : tout motif fébrile (réponse à `akt-motiv` : Fieber / Temperatur / Schüttelfrost) déclare `fieber`. **lyme était le seul.** |
+| **B2 gib** | `f7d5fede` | Le profil de gib exige `charakter`. Signe et banque existent déjà (`akt-charakter`, « Charakter — Wie fühlt sich der Schmerz an: … brennend … ? »). r3 la pose juste **après Beginn**, où le patient vient de dire « das Brennen im Bauch … seit Wochen » : aucune présupposition. | Test rouge avant. `checkCoherence --case case-gib` : porte à 0, `ajouteSansReponse` 0, ordre et présupposition 0 |
+| **P2 tvt** | — | Acté : l'hémoptysie retirée de tvt est notée dans « Pour K4 » ci-dessous. | — |
+
+**B2 : écart à la lettre de la décision, à relire.**
+- La décision disait : « la fiche dit qu'il n'y a pas de douleur », donc il fallait une réponse négative. **La fiche dit le contraire** :
+  - `schmerz: { ort: 'Oberbauch', charakter: 'brennend', intensitaet: 4, beginn: 'seit Wochen', verstaerker: 'kurz nach dem Essen' }` ;
+  - `begleitsymptome` : « Oberbauchschmerzen seit Wochen » ;
+  - la réponse à `akt-beginn` : « das Brennen im Bauch habe ich aber schon seit Wochen ».
+- « Wehtun oder jucken tut da nichts » (réponse à `akt-veraend-blutung`) parle de la **lésion** de ce gabarit, les selles noires. Elle ne dit pas que le ventre ne fait pas mal.
+- La décision demandait aussi une réponse « cohérente avec la fiche ». Une réponse négative aurait contredit la fiche, sur le signe même qui distingue l'ulcère sous AINS. J'ai donc écrit la réponse positive, tirée des champs de la fiche.
+- Aucun signe `bauchschmerz` n'existe dans le lexique, et aucune banque gastro ou akt ne demande une douleur abdominale. L'équivalent existant est `charakter`, avec sa banque `akt-charakter`. Je l'ai pris par `exige` sur le cas, plutôt que par le tag `schmerz` : ce tag aurait aussi posé Ort et Intensität, et Ort serait venu avant Beginn, donc avant que le patient ait parlé du « Brennen ».
+
+Réponse écrite (clé `akt-charakter` de case-gib), pour relecture :
+
+> « Es brennt, oben im Bauch, in der Magengrube — vor allem kurz nach dem Essen. »
+
+Elle reprend trois champs de la fiche : `ort` (Oberbauch), `charakter` (brennend) et `verstaerker` (kurz nach dem Essen). Elle ne dit rien de « jucken ».
+
+**Si main préfère la lettre de la décision** (réponse négative), il suffit de remplacer cette réplique. Mais `schmerz`, `begleitsymptome` et `akt-beginn` de la fiche devront alors changer avec elle, sinon la fiche se contredit.
+
+Trames jouées complètes après correction (ouverture et clôture exclues) :
+
+**case-lyme**
+
+```text
+*Persönliche Daten*
+1. Wie heißen Sie mit vollständigem Namen?
+2. Könnten Sie Ihren Vor- und Nachnamen bitte langsam buchstabieren?
+3. Wie alt sind Sie? Wann sind Sie geboren?
+4. Wie groß sind Sie und wie viel wiegen Sie derzeit?
+5. Haben Sie einen Hausarzt? Wie heißt er / sie?
+6. Nur zur Sicherheit wiederhole ich kurz Ihre Daten: Sie heißen … , sind … Jahre alt, am … geboren, … groß und wiegen … kg. Ist das korrekt notiert?
+
+*Aktuelle Beschwerden*
+7. Was führt Sie heute zu uns?
+8. Beginn — Seit wann haben Sie Fieber oder fühlen sich krank? Kam es schlagartig oder langsam?
+9. Fieber — Haben Sie Fieber gemessen?
+   ↳ Falls ja: Wie hoch war es?
+   ↳ Falls ja: Wann ist das Fieber am höchsten?
+10. Verlauf — Ist das Fieber dauerhaft, kommt es in Schüben, oder war es zwischendurch weg?
+11. Herd — Haben Sie Husten, Halsschmerzen, Brennen beim Wasserlassen, Durchfall, einen Ausschlag oder eine Wunde bemerkt?
+12. Auslöser — Gab es davor eine Erkältung, einen Eingriff, einen Zahnarztbesuch oder eine neue Verletzung?
+13. Einflussfaktoren — Haben Sie schon etwas dagegen genommen — Paracetamol, Ibuprofen? Hat es geholfen?
+14. Frühere Episoden — Hatten Sie so ein Fieber schon einmal?
+   ↳ Falls ja: Waren Sie deswegen schon bei einem Arzt? Welche Diagnose wurde damals gestellt?
+15. Begleitbeschwerden — Haben Sie außerdem noch andere Beschwerden bemerkt?
+16. Hat die Rötung in der Mitte eine hellere Stelle, sodass sie wie eine Zielscheibe aussieht?
+17. Seit wann haben Sie diese Rötung bemerkt, und wird sie größer?
+18. Haben Sie Herzstolpern, Herzrasen oder Schwindel bemerkt, oder waren Sie schon einmal ohnmächtig?
+19. Haben Sie ähnliche Rötungen auch an anderen Stellen des Körpers bemerkt?
+
+*Fachanamnese Infectiologie*
+20. Hatten Sie einen Zeckenstich oder einen Insektenstich bemerkt? Waren Sie im Wald, im hohen Gras oder im Garten?
+21. Haben Sie eine Hautveränderung oder Rötung bemerkt? Hat sie sich ausgebreitet, zum Beispiel ringförmig?
+22. Haben Sie Gelenk- oder Muskelschmerzen? Wandern sie von Gelenk zu Gelenk?
+23. Haben Sie Kopfschmerzen, Nackensteifigkeit, Missempfindungen oder eine Gesichtslähmung bemerkt?
+24. Waren Sie kürzlich im Ausland? Wo, wie lange, und hatten Sie dort Beschwerden?
+25. Hatten Sie Kontakt zu kranken Personen oder zu Tieren?
+   ↳ Arbeiten Sie mit vielen Menschen? Haben Sie ungewöhnliche Lebensmittel gegessen — rohe Milch, rohes Fleisch?
+26. Sind Ihre Impfungen auf dem neuesten Stand?
+
+*Vegetative Anamnese*
+27. Treten bei Ihnen Schüttelfrost, Nachtschweiß oder starke Schweißausbrüche auf?
+28. Ist Ihnen übel? Mussten Sie sich übergeben?
+   ↳ Falls ja: Können Sie das Erbrochene beschreiben? Seit wann, und wie häufig?
+29. Haben Sie in letzter Zeit Gewichtsveränderungen bemerkt?
+   ↳ Falls ja: Wie viel hat sich Ihr Gewicht verändert?
+   ↳ Falls ja: In welchem Zeitraum war das?
+30. Wie ist Ihr Appetit? Haben sich Ihre Essgewohnheiten kürzlich geändert?
+31. Ist Ihr Schlaf erholsam? Haben Sie Probleme, ein- oder durchzuschlafen?
+
+*Vorerkrankungen & Voroperationen*
+32. Wie Sie vielleicht wissen, spielen sowohl erbliche als auch erworbene Krankheiten eine wichtige Rolle. Daher würde ich Ihnen gern einige Fragen zu Ihrer Vorgeschichte stellen — sind Sie einverstanden?
+33. Gibt es bei Ihnen vorbestehende Erkrankungen, zum Beispiel Bluthochdruck, Zuckerkrankheit oder erhöhte Blutfettwerte?
+   ↳ Falls ja: Welche, und seit wann sind sie bekannt? Werden sie behandelt?
+34. Wurden Sie schon einmal operiert?
+   ↳ Falls ja: Welche Eingriffe wurden durchgeführt, und wann? Traten dabei Komplikationen auf?
+35. Waren Sie in letzter Zeit im Krankenhaus?
+
+*Medikamente*
+36. Nehmen Sie regelmäßig oder gelegentlich Medikamente ein?
+   ↳ Falls ja: Welche Medikamente sind das?
+   ↳ Falls ja: Seit wann nehmen Sie sie?
+   ↳ Falls ja: In welcher Dosierung?
+   ↳ Falls ja: Wie oft am Tag?
+37. Nehmen Sie Blutverdünner oder Kortison?
+38. Nehmen Sie frei verkäufliche Schmerzmittel, pflanzliche Mittel oder Nahrungsergänzung?
+
+*Allergien & Unverträglichkeiten*
+39. Sind Sie allergisch gegen bestimmte Medikamente oder Nahrungsmittel?
+   ↳ Falls ja: Beschreiben Sie bitte, wie Sie genau reagieren — an der Haut, an der Atmung, am Kreislauf?
+40. Vertragen Sie bestimmte Speisen nicht (Laktose, Gluten)?
+
+*Noxen / Genussmittel*
+41. Rauchen Sie?
+   ↳ Falls ja: Seit wann rauchen Sie?
+   ↳ Falls ja: Wie viele Zigaretten ungefähr pro Tag?
+   ↳ Falls aufgehört: Wann haben Sie aufgehört?
+   ↳ Falls aufgehört: Wie viele Jahre haben Sie geraucht?
+   ↳ Falls aufgehört: Wie viel haben Sie davor pro Tag geraucht?
+42. Trinken Sie Alkohol?
+   ↳ Falls ja: Welche Getränke bevorzugen Sie — Bier, Wein, Schnaps?
+   ↳ Falls ja: Trinken Sie täglich oder nur zu besonderen Anlässen?
+   ↳ Falls ja: Wie viel trinken Sie ungefähr pro Woche?
+43. Wie Sie wissen, ist Cannabis inzwischen legalisiert. Daher muss ich Sie aus medizinischen Gründen routinemäßig fragen: Konsumieren Sie Drogen?
+
+*Familien- & Sozialanamnese*
+44. Haben Familienmitglieder — Großeltern, Eltern, Geschwister oder Kinder — chronische Erkrankungen?
+   ↳ Falls ja: Welche Erkrankungen sind das?
+   ↳ Falls ja: Seit wann sind sie bekannt?
+45. Leben Ihre Eltern noch?
+   ↳ Falls verstorben: Woran ist Ihre Mutter / Ihr Vater gestorben? (Avec empathie : „Mein herzliches Beileid.“)
+   ↳ Falls verstorben: Wann war das?
+46. Wie ist Ihr Familienstand? Haben Sie Kinder?
+   ↳ Falls ja: Wie viele, und sind sie gesund?
+47. Was sind Sie von Beruf? Empfinden Sie Stress durch Ihre Arbeitssituation?
+   ↳ Falls in Rente: Was haben Sie früher beruflich gemacht?
+48. Arbeiten Sie dabei mit besonderen Stoffen — Staub, Chemikalien, Dämpfen?
+49. Wohnen Sie allein oder mit jemandem? In einer Wohnung oder einem Haus, in welchem Stockwerk, mit Aufzug?
+50. Haben Sie Haustiere, um die sich jemand kümmern muss?
+
+*Frauenanamnese*
+51. Verläuft Ihre Monatsblutung regelmäßig?
+   ↳ Wann war Ihre letzte Regelblutung?
+   ↳ Wie viele Tage liegen zwischen dem Beginn einer Blutung und dem Beginn der nächsten?
+52. Besteht die Möglichkeit, dass Sie derzeit schwanger sind?
+53. Verwenden Sie Verhütungsmethoden?
+   ↳ Falls ja: Welche Methode verwenden Sie?
+```
+
+**case-gib**
+
+```text
+*Persönliche Daten*
+1. Wie heißen Sie mit vollständigem Namen?
+2. Könnten Sie Ihren Vor- und Nachnamen bitte langsam buchstabieren?
+3. Wie alt sind Sie? Wann sind Sie geboren?
+4. Wie groß sind Sie und wie viel wiegen Sie derzeit?
+5. Haben Sie einen Hausarzt? Wie heißt er / sie?
+6. Nur zur Sicherheit wiederhole ich kurz Ihre Daten: Sie heißen … , sind … Jahre alt, am … geboren, … groß und wiegen … kg. Ist das korrekt notiert?
+
+*Aktuelle Beschwerden*
+7. Was führt Sie heute zu uns?
+8. Beginn — Seit wann haben Sie das bemerkt? Wie ist es Ihnen aufgefallen — zufällig, beim Duschen, durch jemand anderen?
+9. Charakter — Wie fühlt sich der Schmerz an: dumpf, stechend, brennend, drückend, krampfartig, pochend?
+10. Verlauf — Ist es dauernd da, oder kommt und geht es?
+11. Auslöser — Ist Ihnen ein Auslöser aufgefallen — eine Verletzung, Sonne, ein neues Medikament, eine Ernährungsumstellung?
+12. Einflussfaktoren — Gibt es etwas, das es bessert oder verschlimmert?
+13. Frühere Episoden — Hatten Sie so eine Veränderung schon einmal?
+   ↳ Falls ja: Waren Sie deswegen schon bei einem Arzt? Welche Diagnose wurde damals gestellt?
+14. Begleitbeschwerden — Haben Sie außerdem noch andere Beschwerden bemerkt?
+15. Welche Farbe hatte das Blut, das Sie erbrochen haben — eher hellrot, dunkelrot oder wie Kaffeesatz?
+16. Wird Ihnen schwindelig, vor allem wenn Sie aufstehen?
+
+*Fachanamnese Gastroenterologie*
+17. Haben Sie Sodbrennen? Müssen Sie aufstoßen?
+18. Haben Sie ein Völlegefühl? Werden Sie viel schneller satt als früher? Fühlen Sie sich aufgebläht?
+19. Treten die Beschwerden nach bestimmten Speisen auf? Was haben Sie in den letzten Stunden gegessen?
+20. Haben Sie Durchfall oder Verstopfung? Wechseln sich beide ab?
+   ↳ Welche Farbe hat der Stuhl — blutig, teerschwarz, sehr hell, gelblich?
+   ↳ Welche Konsistenz — hart, fest, weich, schleimig, wässerig?
+21. Haben Sie manchmal das Gefühl, zur Toilette zu müssen, aber es kommt eigentlich nichts?
+22. Wann hatten Sie die letzte Magen- oder Darmspiegelung, und was war das Ergebnis?
+
+*Vegetative Anamnese*
+23. Haben Sie Ihre Körpertemperatur in letzter Zeit gemessen? Haben Sie Fieber festgestellt?
+   ↳ Falls Fieber: Seit wann haben Sie Fieber?
+   ↳ Falls ja: Wie hoch war die Temperatur?
+   ↳ Falls ja: Wo haben Sie gemessen (z. B. im Mund)?
+24. Treten bei Ihnen Schüttelfrost, Nachtschweiß oder starke Schweißausbrüche auf?
+25. Haben Sie Schwierigkeiten beim Wasserlassen?
+   ↳ Falls ja: Seit wann, und wie oft täglich? Können Sie das Aussehen des Urins näher beschreiben?
+26. Haben Sie in letzter Zeit Gewichtsveränderungen bemerkt?
+   ↳ Falls ja: Wie viel hat sich Ihr Gewicht verändert?
+   ↳ Falls ja: In welchem Zeitraum war das?
+27. Wie ist Ihr Appetit? Haben sich Ihre Essgewohnheiten kürzlich geändert?
+28. Ist Ihr Schlaf erholsam? Haben Sie Probleme, ein- oder durchzuschlafen?
+29. Sind Ihre Impfungen auf dem neuesten Stand?
+
+*Vorerkrankungen & Voroperationen*
+30. Wie Sie vielleicht wissen, spielen sowohl erbliche als auch erworbene Krankheiten eine wichtige Rolle. Daher würde ich Ihnen gern einige Fragen zu Ihrer Vorgeschichte stellen — sind Sie einverstanden?
+31. Gibt es bei Ihnen vorbestehende Erkrankungen, zum Beispiel Bluthochdruck, Zuckerkrankheit oder erhöhte Blutfettwerte?
+   ↳ Falls ja: Welche, und seit wann sind sie bekannt? Werden sie behandelt?
+32. Wurden Sie schon einmal operiert?
+   ↳ Falls ja: Welche Eingriffe wurden durchgeführt, und wann? Traten dabei Komplikationen auf?
+33. Waren Sie in letzter Zeit im Krankenhaus?
+
+*Medikamente*
+34. Nehmen Sie regelmäßig oder gelegentlich Medikamente ein?
+   ↳ Falls ja: Welche Medikamente sind das?
+   ↳ Falls ja: Seit wann nehmen Sie sie?
+   ↳ Falls ja: In welcher Dosierung?
+   ↳ Falls ja: Wie oft am Tag?
+35. Nehmen Sie Blutverdünner oder Kortison?
+36. Nehmen Sie frei verkäufliche Schmerzmittel, pflanzliche Mittel oder Nahrungsergänzung?
+37. Nehmen Sie regelmäßig Schmerzmittel wie Ibuprofen oder Diclofenac ein, und wie oft?
+
+*Allergien & Unverträglichkeiten*
+38. Sind Sie allergisch gegen bestimmte Medikamente oder Nahrungsmittel?
+   ↳ Falls ja: Beschreiben Sie bitte, wie Sie genau reagieren — an der Haut, an der Atmung, am Kreislauf?
+39. Vertragen Sie bestimmte Speisen nicht (Laktose, Gluten)?
+
+*Noxen / Genussmittel*
+40. Rauchen Sie?
+   ↳ Falls ja: Seit wann rauchen Sie?
+   ↳ Falls ja: Wie viele Zigaretten ungefähr pro Tag?
+   ↳ Falls aufgehört: Wann haben Sie aufgehört?
+   ↳ Falls aufgehört: Wie viele Jahre haben Sie geraucht?
+   ↳ Falls aufgehört: Wie viel haben Sie davor pro Tag geraucht?
+41. Trinken Sie Alkohol?
+   ↳ Falls ja: Welche Getränke bevorzugen Sie — Bier, Wein, Schnaps?
+   ↳ Falls ja: Trinken Sie täglich oder nur zu besonderen Anlässen?
+   ↳ Falls ja: Wie viel trinken Sie ungefähr pro Woche?
+42. Wie Sie wissen, ist Cannabis inzwischen legalisiert. Daher muss ich Sie aus medizinischen Gründen routinemäßig fragen: Konsumieren Sie Drogen?
+
+*Familien- & Sozialanamnese*
+43. Haben Familienmitglieder — Großeltern, Eltern, Geschwister oder Kinder — chronische Erkrankungen?
+   ↳ Falls ja: Welche Erkrankungen sind das?
+   ↳ Falls ja: Seit wann sind sie bekannt?
+44. Leben Ihre Eltern noch?
+   ↳ Falls verstorben: Woran ist Ihre Mutter / Ihr Vater gestorben? (Avec empathie : „Mein herzliches Beileid.“)
+   ↳ Falls verstorben: Wann war das?
+45. Wie ist Ihr Familienstand? Haben Sie Kinder?
+   ↳ Falls ja: Wie viele, und sind sie gesund?
+46. Was sind Sie von Beruf? Empfinden Sie Stress durch Ihre Arbeitssituation?
+   ↳ Falls in Rente: Was haben Sie früher beruflich gemacht?
+47. Arbeiten Sie dabei mit besonderen Stoffen — Staub, Chemikalien, Dämpfen?
+48. Wohnen Sie allein oder mit jemandem? In einer Wohnung oder einem Haus, in welchem Stockwerk, mit Aufzug?
+49. Haben Sie Haustiere, um die sich jemand kümmern muss?
+```
+
+Résidus vus dans ces deux trames, pour K4 ou le lot de contenu :
+- **lyme**, questions du cas n° 16, 17 et 19 contre `fach-infekt-haut` (n° 21) : la rougeur est demandée par la question du cas puis par la Fach. `fach-infekt-haut` n'a pas de `parts` : elle n'est pas réduite (résidu `nonReduit`). Deux des questions du cas sont muettes (K4).
+- **gib**, n° 8 et n° 11 : le gabarit « Veränderung » (lésion cutanée) parle à un saignement digestif de « beim Duschen » et de « Sonne ». C'est un gabarit de nature, à revoir au lot de contenu ou dans les natures (K4).
+
+**Pour K4 (ajout de la 3e revue)** : l'hémoptysie de tvt, retirée par R3 avec les relances de saignement systémique, est actée. Si la direction la veut dans l'embolie (tvt), il faut la poser par une question du cas ou par la Fach pneumo, pas par le bloc « Veränderung ».
 
 ## 0 bis. Contre-revue de `56452456` (décisions de main)
 
@@ -720,16 +962,17 @@ Elle s'est arrêtée sur `ajouteSansReponse = 8` : 8 questions du cas posaient l
 
 ## Vérifications (codes de sortie, sommet de branche)
 
-- `npx tsc -b --noEmit` : **0**. `npx vitest run --dir src --maxWorkers=2` : **0** (170 fichiers, 1 728 tests).
+- `npx tsc -b --noEmit` : **0**.
+- `npx vitest run --dir src --maxWorkers=2` : **0** (170 fichiers, 1 731 tests).
+  - Une première passe a eu un échec isolé : `features/simulation/horloge.test.tsx`, un test d'horloge à 1 160 ms. La branche ne touche pas `src/features`. Le test passe seul trois fois sur trois, et la passe complète relancée sort à 0.
 - `node scripts/check*.mjs` : **tous 0**, sauf `checkProbeOverlap` (1, informatif, `|| true` en CI). Parmi eux :
-  - `checkCoherence` 0, `checkPlayedTrame` 0, `checkTrameSymptoms` 0, `checkQuestionAtomicity` 0 ;
+  - `checkCoherence` 0, `checkPlayedTrame` 0, `checkTrameSymptoms` 0, `checkQuestionAtomicity` 0, `checkCaseCoherence` 0 ;
   - `checkGuideCoverage` 0 : c'est le contrat guide ↔ fiche ;
   - `checkTermRegister --require-all` 0.
 - `checkBudgetFloor.mjs origin/main` : **0**.
-- `node --test scripts/*.test.mjs` (12 fichiers, 178 tests) : **0**.
-  - Quatre ancres périmées depuis `3f464400` et `e3165f19` ont été corrigées en `3e919504`. Elles visaient gastroenteritis (maintenant déclaré) et les deux constats lymphom (résolus).
-  - Ma boucle de vérification précédente affichait le code de sortie de `basename`, pas celui du test : corrigé, chaque code de sortie est maintenant relu.
-- `git merge-tree --write-tree origin/main HEAD` (`origin/main` @ `0e846533`) : **0**. `evalDoctopus --dry` : **0**.
+- `node --test scripts/*.test.mjs` (12 fichiers) : **0**.
+- `git merge-tree --write-tree origin/main HEAD` (`origin/main` @ `9422c98a`) : **0**. `evalDoctopus --dry` : **0**.
+- Chaque code de sortie est relu par `rc=$?`, jamais à travers un pipe ni une substitution.
 
 ## Non vérifié
 
