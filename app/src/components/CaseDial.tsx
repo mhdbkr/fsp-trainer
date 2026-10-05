@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useLayoutEffect, useRef, useState, useSyncExternalStore } from 'react';
 import { Link } from 'react-router-dom';
 import type { SimTeil } from '@/db/types';
 import type { CaseDialData } from '@/lib/dialData';
@@ -48,19 +48,15 @@ const COULEUR: Record<EtatTeil, string> = {
 };
 const EPAISSEUR: Record<EtatTeil, number> = { vierge: 3, 'non-mesure': 4, fragile: 7, acquis: 7, 'a-confirmer': 7, solide: 7 };
 
+const REDUIT = '(prefers-reduced-motion: reduce)';
+const lisReduit = () => typeof window !== 'undefined' && !!window.matchMedia && window.matchMedia(REDUIT).matches;
+const abonneReduit = (rappel: () => void) => {
+  const mq = typeof window !== 'undefined' ? window.matchMedia?.(REDUIT) : undefined;
+  mq?.addEventListener?.('change', rappel);
+  return () => mq?.removeEventListener?.('change', rappel);
+};
 /** Le mouvement est-il réduit ? Relu au changement de réglage système. */
-function useMouvementReduit(): boolean {
-  const lit = () => typeof window !== 'undefined' && !!window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const [reduit, setReduit] = useState(lit);
-  useEffect(() => {
-    const mq = typeof window !== 'undefined' ? window.matchMedia?.('(prefers-reduced-motion: reduce)') : undefined;
-    if (!mq?.addEventListener) return;
-    const on = () => setReduit(mq.matches);
-    mq.addEventListener('change', on);
-    return () => mq.removeEventListener('change', on);
-  }, []);
-  return reduit;
-}
+const useMouvementReduit = (): boolean => useSyncExternalStore(abonneReduit, lisReduit, () => false);
 
 const SURVOL_MS = 300;
 const APPUI_LONG_MS = 450;
