@@ -7,6 +7,7 @@ import { db } from '@/db/db';
 import { seedCases } from '@/data/seedCases';
 import { seedAufklaerungen } from '@/data/seedAufklaerungen';
 import { SimulationRunner } from './SimulationRunner';
+import { LAUF_AKTIV_KEY, verwerfeAktivenLauf } from '@/lib/lauf/speichern';
 
 // ============================================================================
 // Le runner série 4, PAR LE DOM (simulation-run.md §10.1–10.3, ADR-0021 déc. 2).
@@ -27,10 +28,17 @@ beforeAll(() => {
   Element.prototype.animate ??= (() => ({ cancel() {}, finished: Promise.resolve() })) as never;
 });
 beforeEach(async () => {
+  // Isolation EXPLICITE : le runner du test précédent persiste `lauf.aktiv` par la file d'écriture de `speichern.ts`
+  // (`enfile`). Un `db.meta.clear()` lancé à côté de cette file peut passer AVANT une écriture encore en attente : le
+  // Lauf du test précédent (resté en checkliste) renaît, et ce runner le REPREND (même cas) au lieu d'en créer un —
+  // c'était l'échec « pret() expire » vu en passant `D_UN_TRAIT_ACTIF` à true (simple décalage de timing ; reproduit
+  // avec la garde à false et 300 ms d'attente). On vide d'abord la file, puis on efface.
+  await verwerfeAktivenLauf();
   localStorage.clear();
   await Promise.all([db.meta.clear(), db.simulations.clear(), db.cases.clear(), db.training_events.clear(), db.aufklaerungen.clear()]);
   await db.cases.put(fall);
   await db.aufklaerungen.bulkPut(seedAufklaerungen());
+  expect(await db.meta.get(LAUF_AKTIV_KEY), 'un Lauf du test précédent a survécu au nettoyage').toBeUndefined();
 });
 afterEach(() => cleanup());
 
