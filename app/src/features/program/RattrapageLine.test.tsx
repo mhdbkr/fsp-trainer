@@ -74,3 +74,24 @@ describe('RattrapageLine', () => {
     expect(btn(/^rattraper$/i)).toBeDefined();
   });
 });
+
+describe('Revue pédagogique — « Finir hier » dit qui, quoi, combien, et propose ce soir', () => {
+  const entame = (date: string): TaskInstance => ({ id: `t-${date}`, date, kind: 'simulation', caseId: 'c7', label: 'Pneumonie', teile: ['dokumentation', 'fallvorstellung'], estMin: 32, source: 'plan', reason: 'r' });
+  const deux = async (veille: string, jour: string) => {
+    await db.progress_events.bulkPut([
+      { id: 'q1', user_id: 'u', type: 'plan.materialized', subject_id: veille, payload: { tasks: [entame(veille)], mode: 'cas-complet', seed: 's', targetMin: 90 }, occurred_at: `${veille}T06:00:00Z` },
+      { id: 'q2', user_id: 'u', type: 'plan.materialized', subject_id: jour, payload: { tasks: [t(`a-${jour}`, jour, 'c9', 'Autre')], mode: 'cas-complet', seed: 's', targetMin: 240 }, occurred_at: `${jour}T06:00:00Z` },
+    ]);
+    await rebuildJournal(await db.progress_events.toArray());
+    await act(async () => { root.render(<RattrapageLine />); });
+  };
+  it('la veille : « Hier, tu as commencé Pneumonie : il te reste la Dokumentation et la Fallvorstellung (32 min). La finir ce soir ? »', async () => {
+    freezeAt(new Date(2026, 9, 6, 8, 0)); refreshToday();
+    await deux('2026-10-05', '2026-10-06');
+    await vi.waitFor(() => expect(txt()).toMatch(/^Hier, tu as commencé Pneumonie : il te reste la Dokumentation et la Fallvorstellung \(32 min\)\. La finir ce soir \?/), { timeout: 10000 });
+  });
+  it('après un week-end off : la date, pas « hier »', async () => {
+    await deux('2026-10-02', '2026-10-05');                          // vendredi → lundi, samedi et dimanche off
+    await vi.waitFor(() => expect(txt()).toMatch(/^Vendredi 2 octobre, tu as commencé Pneumonie : il te reste la Dokumentation et la Fallvorstellung \(32 min\)\. La finir ce soir \?/), { timeout: 10000 });
+  });
+});

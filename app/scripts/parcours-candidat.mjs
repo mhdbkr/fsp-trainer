@@ -247,7 +247,7 @@ async function parcours({ browser, base, supabaseUrl }) {
       await c.aller('/programme');
       await sleep(600);
       const propose = await page.getByRole('button', { name: /^Rattraper$/ }).count() > 0;
-      const phrase = (await texte(page)).split('\n').find((l) => /Finir aujourd'hui|Il reste \d+ tâche|glissé/.test(l)) ?? '';
+      const phrase = (await texte(page)).split('\n').find((l) => /La finir ce soir|Il reste \d+ tâche|glissé/.test(l)) ?? '';
       rapport.vu(propose ? `Programme — « ${phrase} »` : 'Programme — rien d\'hier à reprendre (le cas entamé est déjà au plan du jour, ou rien n\'est resté).');
       const avant = (await idb(page, 'day_plans')).find((p) => p.date === c.jourIso);
       if (propose) {

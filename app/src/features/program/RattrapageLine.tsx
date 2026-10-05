@@ -7,7 +7,7 @@
 // (là où l'on revient) et sur le Programme (là où l'on agit) : même mécanisme,
 // `lib/program/rattrapage.ts`.
 // ============================================================================
-import { format, parseISO } from 'date-fns';
+import { differenceInCalendarDays, format, parseISO } from 'date-fns';
 import { fr } from 'date-fns/locale';
 import { useLiveQuery } from 'dexie-react-hooks';
 import { useProgramConfig } from '@/hooks/useData';
@@ -38,11 +38,13 @@ export function RattrapageLine() {
   // « (X déjà au plan) » : ce qui a glissé mais que le plan du jour a repris lui-même.
   const dejaAuPlan = g.deja.length ? ` (${noms(g.deja.map((t) => t.label))} déjà au plan)` : '';
   const jour = format(parseISO(g.from), 'EEEE d MMMM', { locale: fr });
+  // « hier » pour la veille, la date sinon (texte de la direction).
+  const quand = differenceInCalendarDays(parseISO(today), parseISO(g.from)) === 1 ? 'Hier' : jour.charAt(0).toUpperCase() + jour.slice(1);
   // « Finir hier » (§12.8) : un seul cas entamé se dit par ce qui lui reste — « il te reste la Dokumentation ».
   const seule = n === 1 && g.tasks[0].teile && g.tasks[0].teile.length < 3 ? g.tasks[0] : null;
   const phrase = g.manques === 0
     ? seule
-      ? `${seule.label} (${jour}) : il te reste ${resteTexte(seule.teile!)}. Finir aujourd'hui ?`
+      ? `${quand}, tu as commencé ${seule.label} : il te reste ${resteTexte(seule.teile!)} (${seule.estMin} min). La finir ce soir ?`
       : `Il reste ${n} tâche${n > 1 ? 's' : ''} du ${jour}. ${n > 1 ? 'Les ajouter' : "L'ajouter"} à aujourd'hui ?`
     : reprise
       ? `${jours} : ${noms(g.tasks.map((t) => t.label))} ${n > 1 ? 'ont' : 'a'} glissé${dejaAuPlan}.`
