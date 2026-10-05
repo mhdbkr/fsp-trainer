@@ -55443,6 +55443,7 @@ export function seedCases(): Case[] {
       frequency: 8,
       difficulty: 3,
       patientSheet: {
+        profil: { tags: ['anfall', 'gewichtsverlust'] },
         leitsymptomKategorie: 'anfall',
         personalia: {
           name: 'Michael Neumeister',
@@ -55936,6 +55937,7 @@ export function seedCases(): Case[] {
       frequency: 3,
       difficulty: 2,
       patientSheet: {
+        profil: { tags: ['schmerz', 'steifigkeit'] },
         motiv: { trauma: false, region: 'lws' },
         fachSkip: ['fach-ortho-durchblutung'],
         personalia: {
@@ -56427,6 +56429,7 @@ export function seedCases(): Case[] {
       frequency: 0,
       difficulty: 3,
       patientSheet: {
+        profil: { tags: ['schmerz', 'stein'] },
         motiv: { trauma: false, region: 'abdomen' },
         personalia: {
           name: 'Herbert Maurer',
@@ -56916,6 +56919,7 @@ export function seedCases(): Case[] {
       frequency: 2,
       difficulty: 3,
       patientSheet: {
+        profil: { tags: ['schmerz'] },
         motiv: { trauma: false, region: 'thorax' },
         personalia: {
           name: 'Manfred Kessler',
@@ -57389,6 +57393,7 @@ export function seedCases(): Case[] {
       frequency: 3,
       difficulty: 2,
       patientSheet: {
+        profil: { tags: ['schmerz', 'fieber'] },
         personalia: {
           name: 'Jonas Hartmann',
           age: 34,
@@ -57866,6 +57871,7 @@ export function seedCases(): Case[] {
       frequency: 0,
       difficulty: 3,
       patientSheet: {
+        profil: { tags: ['anfall'] },
         leitsymptomKategorie: 'anfall',
         personalia: {
           name: 'Lukas Brenner',
@@ -58356,6 +58362,7 @@ export function seedCases(): Case[] {
       frequency: 3,
       difficulty: 2,
       patientSheet: {
+        profil: { tags: ['schmerz', 'stein'] },
         personalia: {
           name: 'Leon Bachmann',
           age: 19,
@@ -58790,6 +58797,7 @@ export function seedCases(): Case[] {
       frequency: 0,
       difficulty: 2,
       patientSheet: {
+        profil: { tags: ['veraenderung'] },
         leitsymptomKategorie: 'veraenderung',
         personalia: {
           name: 'Gerhard Sonntag',
@@ -59249,6 +59257,7 @@ export function seedCases(): Case[] {
       frequency: 1,
       difficulty: 2,
       patientSheet: {
+        profil: { tags: ['veraenderung', 'gelenk', 'arthritis', 'steifigkeit'] },
         fachSkip: ['fach-derma-muttermal'],
         leitsymptomKategorie: 'veraenderung',
         personalia: {
@@ -59392,6 +59401,9 @@ export function seedCases(): Case[] {
           'fach-derma-vorgeschichte': 'Die Schuppenflechte habe ich selbst seit 17 Jahren. Neurodermitis hatte ich nie, auch kein Heuschnupfen oder Asthma. Mein Vater hat auch Schuppenflechte.',
           'fach-derma-muttermal': 'Nein, ein Muttermal hat sich nicht verändert. Darauf achte ich, mein Hautarzt schaut die immer an.',
           'fach-derma-vorbehandlung': 'Kortisonsalben, immer wieder — die helfen, aber dann kommt es zurück. Vor zehn Jahren eine Lichttherapie beim Hautarzt, danach fast ein Jahr Ruhe. Tabletten oder Spritzen hatte ich nie.',
+          // K2 (ADR-0023) : réponses des sondes de banque que le profil exige (r3)
+          'fach-rheuma-gelenke': 'Mehrere: der linke Mittelfinger — der ist dick wie eine Wurst —, die zweite und dritte Zehe rechts und das rechte Knie, dazu die rechte Ferse. Gewandert ist das nicht, es ist nach und nach dazugekommen und geblieben.',
+          'fach-rheuma-entzuendung': 'Geschwollen ja, der ganze Mittelfinger und das rechte Knie. Ob sie rot oder warm sind, ist mir nicht aufgefallen. Anfassen kann ich sie schon.',
         },
         schwierigeReaktionen: [
           '„Ist das ansteckend? Meine Partnerin traut sich kaum noch, mich anzufassen.“',
@@ -59713,6 +59725,7 @@ export function seedCases(): Case[] {
       frequency: 3,
       difficulty: 2,
       patientSheet: {
+        profil: { tags: ['veraenderung', 'hals'] },
         fachSkip: ['fach-derma-muttermal'],
         leitsymptomKategorie: 'veraenderung',
         personalia: {
@@ -60162,6 +60175,7 @@ export function seedCases(): Case[] {
       frequency: 0,
       difficulty: 2,
       patientSheet: {
+        profil: { tags: ['allgemein', 'dyspnoe', 'gewichtsverlust'] },
         leitsymptomKategorie: 'allgemein',
         personalia: {
           name: 'Renate Hoffmeister',
@@ -60676,6 +60690,7 @@ export function seedCases(): Case[] {
       frequency: 0,
       difficulty: 3,
       patientSheet: {
+        profil: { tags: ['psychisch', 'gewichtsverlust'] },
         leitsymptomKategorie: 'psychisch',
         personalia: {
           name: 'Markus Lindner',
@@ -61191,6 +61206,7 @@ export function seedCases(): Case[] {
       frequency: 0,
       difficulty: 2,
       patientSheet: {
+        profil: { tags: ['infekt', 'fieber', 'meningitis'] },
         leitsymptomKategorie: 'infekt',
         personalia: {
           name: 'Hans Salzbrenner',
@@ -61631,6 +61647,7 @@ export function seedCases(): Case[] {
       frequency: 1,
       difficulty: 2,
       patientSheet: {
+        profil: { tags: ['allgemein', 'schmerz'] },
         leitsymptomKategorie: 'allgemein',
         personalia: {
           name: 'Markus Lindner',
@@ -61775,6 +61792,9 @@ export function seedCases(): Case[] {
           'fach-kardio-oedeme': 'Nein, die Beine sind nicht geschwollen, die Socken hinterlassen keine Abdrücke. Ich schlafe mit einem Kissen, flach, wie immer.',
           'fach-kardio-nykturie': 'Einmal pro Nacht muss ich raus, seit ein paar Monaten. Früher habe ich durchgeschlafen.',
           'fach-kardio-synkope': 'Nein, ohnmächtig war ich noch nie. Schwarz vor Augen wird es mir auch nicht, nur dieser leichte Schwindel morgens beim Aufstehen.',
+          // K2 (ADR-0023) : réponses des sondes de banque que le profil exige (r3)
+          'akt-charakter': 'Drückend und dumpf, als hätte ich einen zu engen Helm auf.',
+          'akt-intensitaet': 'Morgens beim Aufwachen ungefähr sechs von zehn. Nachmittags ist fast nichts mehr da.',
         },
         schwierigeReaktionen: [
           '„Zweihundert — ist das jetzt gefährlich? Bekomme ich einen Schlaganfall wie mein Vater?“',
