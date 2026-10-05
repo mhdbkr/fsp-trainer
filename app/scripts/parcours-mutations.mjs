@@ -599,6 +599,11 @@ export const MUTATIONS = [
     pourquoi: "la reprise « finir hier » garde une part de l'ancienne estimation au lieu de Σ dureeTeil du reste",
   },
   {
+    id: "INV-58-reprise-sur-reprise", tests: 'tests/invariants.completion.test.ts', file: "src/lib/program/rattrapage.ts",
+    from: "!p.tasks.includes(t) && remplacable(", to: "remplacable(",
+    pourquoi: "hors budget, une reprise écrase la reprise qu'on vient d'insérer au lieu d'une tâche du jour",
+  },
+  {
     id: "INV-65-hausse", tests: 'tests/invariants.apprentissage.test.ts', file: "src/lib/program/rythme.ts",
     from: "return valeur < dayTargetMin(i.config) ? { valeur, semaine } : null;", to: "return { valeur, semaine };",
     pourquoi: "proposition à la hausse (ou égale au budget)",

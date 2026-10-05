@@ -66,6 +66,17 @@ describe('D-I7 — proposer, jamais imposer', () => {
     expect([...await joursRefuses()], 'traité : plus reproposé, et l’événement est synchronisé').toEqual(['2026-10-01']);
     expect(await db.progress_events.where('type').equals('rattrapage.refused').count()).toBe(1);
   });
+  it('hors budget, une reprise remplace une tâche du JOUR ni faite ni entamée — jamais une autre reprise (m-c)', async () => {
+    freezeAt(new Date(2026, 9, 2, 9, 0));
+    // Deux cas entiers d'hier (Σ TEIL_MIN = 52 min chacun) ; aujourd'hui 90 min dont 20 prévues : la 1re tient, pas la 2de.
+    await db.progress_events.bulkPut([
+      { id: 'p1', user_id: 'u', type: 'plan.materialized', subject_id: '2026-10-01', payload: { tasks: [task({ id: 'h1', date: '2026-10-01', caseId: 'c1', label: 'Un' }), task({ id: 'h3', date: '2026-10-01', caseId: 'c3', label: 'Trois' })], mode: 'cas-complet', seed: 's', targetMin: 90 }, occurred_at: '2026-10-01T06:00:00Z' },
+      { id: 'p2', user_id: 'u', type: 'plan.materialized', subject_id: '2026-10-02', payload: { tasks: auj.tasks, mode: 'cas-complet', seed: 's', targetMin: 90 }, occurred_at: '2026-10-02T06:00:00Z' },
+    ]);
+    await rebuildJournal(await db.progress_events.toArray());
+    const next = (await accepterRattrapage('2026-10-02', '2026-10-01'))!;
+    expect(next.tasks.map((t) => t.caseId), 'la 2de reprise remplace la tâche du jour (c9), pas la 1re reprise').toEqual(['c1', 'c3']);
+  });
   it('refuser : un événement SYNCHRONISÉ, retenu pour ce jour-là, une seule fois', async () => {
     await refuserRattrapage('2026-10-01');
     await refuserRattrapage('2026-10-01');

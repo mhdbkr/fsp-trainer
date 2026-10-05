@@ -396,6 +396,13 @@ describe('INV-52 — jamais « manquée » : faite, entamée ou à faire', () =>
     startOn(AUJOURDHUI);
     const ajoute = (await accepterRattrapage(AUJOURDHUI, HIER))!;
     expect(ajoute.tasks.map((t) => t.label), 'elle s’ajoute, au même endroit : avant la première tâche non faite').toEqual(['Cas a', 'Cas 1', 'Cas b']);
+
+    // Deux reprises hors budget : la seconde remplace une tâche DU JOUR, jamais la reprise qu'on vient d'insérer (S4-2).
+    const deux = [T('1', 'simulation', { caseId: 'c1', teile: [A, D, F], estMin: 52 }), T('2', 'simulation', { caseId: 'c2', teile: [A, D, F], estMin: 52, specialty: 'Pneumologie' })];
+    await monde(deux, [T('z', 'simulation', { caseId: 'c9', teile: [A, D, F], estMin: 20, specialty: 'Nephrologie' })], [], 90);
+    startOn(AUJOURDHUI);
+    const deuxApres = (await accepterRattrapage(AUJOURDHUI, HIER))!;
+    expect(deuxApres.tasks.map((t) => t.label), 'la 1re reprise tient, la 2de remplace Cas z').toEqual(['Cas 1', 'Cas 2']);
   });
 });
 

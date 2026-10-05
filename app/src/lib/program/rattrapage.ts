@@ -117,7 +117,7 @@ export async function accepterRattrapage(today: string, from: string): Promise<D
   if (curseur < 0) curseur = tasks.length;
   for (const r of p.tasks) {
     if (used + r.estMin > todayPlan.targetMin) {                              // hors budget : elle remplace, elle n'ajoute pas
-      const i = tasks.findIndex((t) => remplacable(t, events, todayPlan.tz));
+      const i = tasks.findIndex((t) => !p.tasks.includes(t) && remplacable(t, events, todayPlan.tz));   // une tâche DU JOUR, jamais une reprise
       if (i >= 0) { used += r.estMin - tasks[i].estMin; tasks[i] = r; continue; }
     }
     tasks.splice(curseur++, 0, r);
