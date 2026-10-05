@@ -1,19 +1,23 @@
 {
   "note": "Socle dégressif — constats connus de checkTrameSymptoms. Il ne remonte jamais.",
   "generated": "2026-10-05",
-  "count": 0,
-  "relu": 120,
+  "count": 2,
+  "relu": 118,
   "relu_note": "M4 (revue serie 3) : nombre d'annotations relu: true dans seedCases.ts. Chacune eteint la porte pour sa question ; le compteur ne remonte jamais (--bless refuse une hausse).",
-  "findings": [],
+  "findings": [
+    "R|case-anorexia-nervosa [aktuell] « Ich frage das ganz ohne Vorwurf: Kommt es vor, dass Sie sich nach dem Essen übergeben? » cite « uebelkeit », cherché PLUS BAS : [vegetativ] « Ist Ihnen übel? Mussten Sie sich übergeben? »",
+    "R|case-myokardinfarkt [aktuell] « Waren Sie dabei kaltschweißig, und war Ihnen übel? » cite « uebelkeit », cherché PLUS BAS : [vegetativ] « Ist Ihnen übel? Mussten Sie sich übergeben? »"
+  ],
   "relu_revue_finale": "Hausse de MESURE ecrite a la main (revue finale I-7) : relu 115 -> 118. sucht ne fait plus taire que les symptomes qu'il declare ; 4 constats masques reapparaissent. 3 sont des approfondissements annotes relu : case-diabetes-typ1 (nycturie vs veg-ausscheidung, consequence de D4), case-morbus-crohn (diarrhee A L'ETRANGER = DD infectieuse, approfondit le voyage), case-sturz-im-alter (« Sturz » nomme l'evenement, ne depiste pas les chutes). Le 4e (case-vorhofflimmern) etait un vrai doublon : sucht complete avec schwitzen.",
   "hausses": [
     {
       "date": "2026-10-05",
-      "lot": "K1 lecture accents",
-      "compteur": "relu",
-      "de": 118,
-      "a": 120,
-      "raison": "Mesure, pas contenu : la lecture du lexique ne voyait ni « übel » ni « Ängste » (\\b devant une voyelle accentuée). Corrigée, elle lit « war Ihnen übel ? » (case-myokardinfarkt, qui approfondit veg-uebelkeit) et « Kommt es vor, dass Sie sich nach dem Essen übergeben ? » (case-anorexia-nervosa, le vomissement provoqué, autre chose que la nausée) : deux questions du cas marquées relu: true, aucune ne devient un doublon."
+      "lot": "K1 fixeur (revue I-2)",
+      "compteur": "constats",
+      "de": 0,
+      "a": 2,
+      "raison": "Mesure, pas contenu : la lecture du lexique ne voyait pas « übel » (\\b devant une voyelle accentuée). Corrigée, elle révèle deux vrais doublons de veg-uebelkeit, case-myokardinfarkt et case-anorexia-nervosa. La revue K1 refuse de les éteindre par relu (relu reste à 118) : ils sont inscrits constats ouverts, échéance K4 (voir findings_note)."
     }
-  ]
+  ],
+  "findings_note": "Constats OUVERTS (revue K1 I-2, décision de main), échéance K4 — le montage ne bouge pas en K1. (a) case-myokardinfarkt « war Ihnen übel ? » redemande la nausée de veg-uebelkeit : vrai doublon, K4 déclare sucht ou retire la mention. (b) case-anorexia-nervosa « Kommt es vor, dass Sie sich nach dem Essen übergeben ? » : vrai doublon de veg-uebelkeit tel qu’écrit ; K4 reformule « Führen Sie das Erbrechen manchmal selbst herbei? » avec un signe propre `purging` (le vomissement provoqué, autre chose que la nausée)."
 }

@@ -1664,7 +1664,7 @@ export function seedCases(): Case[] {
       linkedFachwissenId: 'fw-myokardinfarkt', linkedFachbegriffeIds: [], probableAufklaerungIds: ['auf-koronarangiographie'],
       caseSpecificQuestions: [
         { frage: 'Um wie viel Uhr genau haben die Schmerzen begonnen?', kapitel: 'aktuell' },
-        { frage: 'Waren Sie dabei kaltschweißig, und war Ihnen übel?', kapitel: 'aktuell', relu: true },
+        { frage: 'Waren Sie dabei kaltschweißig, und war Ihnen übel?', kapitel: 'aktuell' },
         { frage: 'Hatten Sie dabei ein Gefühl von Angst oder sogar Todesangst?', kapitel: 'aktuell' },
         { frage: 'Wurde bei Ihnen schon einmal ein Herzkatheter durchgeführt oder ein Stent gesetzt?', kapitel: 'vorerkrankungen' },
         { frage: 'Gab es in Ihrer Familie einen Herzinfarkt vor dem 60. Lebensjahr?', kapitel: 'familie-sozial' },
@@ -44461,7 +44461,7 @@ export function seedCases(): Case[] {
       caseSpecificQuestions: [
         { frage: 'Wie sieht ein ganz normaler Tag bei Ihnen aus, auch was das Essen angeht?', kapitel: 'aktuell' },
         { frage: 'Gibt es Lebensmittel, die Sie bewusst weglassen?', kapitel: 'aktuell', followUp: 'Falls ja: Was fällt Ihnen besonders schwer zu essen?' },
-        { frage: 'Ich frage das ganz ohne Vorwurf: Kommt es vor, dass Sie sich nach dem Essen übergeben?', kapitel: 'aktuell', relu: true },
+        { frage: 'Ich frage das ganz ohne Vorwurf: Kommt es vor, dass Sie sich nach dem Essen übergeben?', kapitel: 'aktuell' },
         { frage: 'Nehmen Sie Abführmittel, Entwässerungstabletten, Appetitzügler oder Diätmittel ein — auch pflanzliche Mittel oder etwas aus dem Internet?', kapitel: 'medikamente' },
         { frage: 'Wie viel bewegen Sie sich am Tag? Wie geht es Ihnen an einem Tag, an dem Sie nicht laufen können?', kapitel: 'aktuell' },
         { frage: 'Haben Sie Angst davor, zuzunehmen?', kapitel: 'aktuell', relu: true, followUp: 'Was würde passieren, wenn die Waage zwei Kilo mehr anzeigen würde?' },

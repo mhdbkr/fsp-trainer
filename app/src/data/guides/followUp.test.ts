@@ -46,7 +46,6 @@ describe('G4 — relances conditionnelles préfixées', () => {
     ['fach-neuro-kopfschmerz', 'Ist Ihnen während der Schmerzen übel', 'ja'],
     ['fach-neuro-kraft', 'Lassen Sie Dinge fallen', 'ja'],
     ['fach-chir-op', 'Wann war das', 'ja'],
-    ['fach-infekt-fieber', 'Haben Sie Schüttelfrost', 'ja'],
     ['fach-kardio-brust', 'Können Sie mit einem Finger', 'ja'],
     ['akt-infekt-fieber', 'Wie hoch war es', 'ja'],
     ['akt-infekt-fieber', 'Wann ist das Fieber am höchsten', 'ja'],
@@ -59,6 +58,9 @@ describe('G4 — relances conditionnelles préfixées', () => {
       for (const r of rs) expect(parseFollowUp(r).kind).toBe(kind);
     });
   }
+  it('fach-infekt-fieber n\'a plus de relance : Schüttelfrost / Nachtschweiß sont à veg-schuettelfrost (revue K1 I-2 c)', () => {
+    expect(relancesOf('fach-infekt-fieber', '')).toEqual([]);
+  });
   it('« Falls Auswurf » : un interrupteur « Auswurf », pas « Sie etwas abhusten »', () => {
     const r = allQuestions().filter((q) => phraseProbes(q).includes('akt-atemnot-husten')).flatMap(phraseFollowUp).find((x) => /Welche Farbe/.test(x))!;
     expect(parseFollowUp(r)).toMatchObject({ kind: 'ja', label: 'Auswurf' });

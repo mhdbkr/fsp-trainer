@@ -1565,8 +1565,8 @@ export const FACHANAMNESEN: FachanamneseGuide[] = [
         text: 'Haben Sie Fieber gemessen? Wie hoch, seit wann, und verläuft es in Schüben?',
         probe: 'fach-infekt-fieber',
         alts: ['Hatten Sie Fieber — haben Sie es gemessen, wie hoch?'],
-        followUp: ['Falls ja: Haben Sie Schüttelfrost dabei?', 'Falls ja: Haben Sie Nachtschweiß?'],
-        relu: true,
+        // Revue K1 I-2 (c) : les relances Schüttelfrost / Nachtschweiß sont parties — `veg-schuettelfrost`
+        // les pose dans les 5 cas de ce Fach ; les garder, c'était un vrai doublon éteint par `relu`.
       },
       {
         text: 'Hatten Sie einen Zeckenstich oder einen Insektenstich bemerkt? Waren Sie im Wald, im hohen Gras oder im Garten?',
