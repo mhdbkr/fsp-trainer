@@ -2,7 +2,7 @@ import { describe, expect, it } from 'vitest';
 import { seedCases } from '@/data/seedCases';
 import { ALLGEMEINE_ANAMNESE, FACHANAMNESEN, LEITSYMPTOM_KATEGORIEN, aktuellChapterFor } from './anamneseChapters';
 import { PROBE_BY_ID } from './anamneseProbes';
-import { SUCHT_AFFINE } from './signes';
+import { PROBE_SUCHT } from './symptoms';
 import { phraseText } from './phrases';
 import { playedTrame } from './anamneseChapters';
 import { phraseFollowUp, phraseProbes, type Phrase } from './phrases';
@@ -67,10 +67,10 @@ describe('Scission selles / urines — « Häufigkeit » et « Aussehen »', () 
   const ausscheidung = () => seedCases().filter((c) => c.patientSheet.antworten?.['akt-ausscheid-was'] !== undefined);
 
   it('chaque question se coupe en deux sondes mono-signe ; les ids historiques gardent les selles', () => {
-    expect(SUCHT_AFFINE['akt-ausscheid-haeufigkeit']).toEqual(['stuhlfrequenz']);
-    expect(SUCHT_AFFINE['akt-ausscheid-harn-haeufigkeit']).toEqual(['miktion_frequenz', 'nykturie']);
-    expect(SUCHT_AFFINE['akt-ausscheid-aussehen']).toEqual(['stuhlaussehen']);
-    expect(SUCHT_AFFINE['akt-ausscheid-harn-aussehen']).toEqual(['urin_aspekt']);
+    expect(PROBE_SUCHT['akt-ausscheid-haeufigkeit']).toEqual(['stuhlfrequenz']);
+    expect(PROBE_SUCHT['akt-ausscheid-harn-haeufigkeit']).toEqual(['miktion_frequenz', 'nykturie']);
+    expect(PROBE_SUCHT['akt-ausscheid-aussehen']).toEqual(['stuhlaussehen']);
+    expect(PROBE_SUCHT['akt-ausscheid-harn-aussehen']).toEqual(['urin_aspekt']);
     expect(PROBE_BY_ID['akt-ausscheid-haeufigkeit'].frage).toMatch(/Stuhlgang/);
     expect(PROBE_BY_ID['akt-ausscheid-haeufigkeit'].frage).not.toMatch(/Wasser/);
     expect(PROBE_BY_ID['akt-ausscheid-aussehen'].frage).toMatch(/im Stuhl/);

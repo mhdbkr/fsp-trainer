@@ -165,6 +165,7 @@ if (flag('--bless')) {
     mesureLe: process.env.COHERENCE_DATE ?? new Date().toISOString().slice(0, 10), cas: results.length,
     source: floor?.source ?? 'K0 — lecture du texte et profil PROPOSÉ ; exacts quand les déclarations remplacent la lecture (K1 sondes, K2 profils, K4 questions du cas).',
     brut: T.brut, residu: T.residu, allowed: floor?.allowed ?? [],
+    ...(floor?.hausses ? { hausses: floor.hausses } : {}),   // K1 : le regravage garde les hausses de mesure et leur raison
   };
   writeFileSync(FIXTURE, JSON.stringify(next, null, 2) + '\n');
   console.log(`\nplancher regravé : ${FIXTURE.replace(root + '/', '')}`);

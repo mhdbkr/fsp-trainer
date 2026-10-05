@@ -180,7 +180,7 @@ test('mutation INV-77 : ausstrahlung exigé par « generalisiert » → exit 1, 
 });
 
 test('mutation INV-78 : stuhlfrequenz fusionné dans stuhl → exit 1', () => {
-  const r = sb.mutate('src/data/guides/signes.ts', "'akt-ausscheid-haeufigkeit': ['stuhlfrequenz'],", "'akt-ausscheid-haeufigkeit': ['stuhl'],", () => run());
+  const r = sb.mutate('src/data/guides/probeSucht.ts', "'akt-ausscheid-haeufigkeit': ['stuhlfrequenz'],", "'akt-ausscheid-haeufigkeit': ['stuhl'],", () => run());
   assert.equal(r.status, 1);
   assert.match(r.stdout, /INV-78.*akt-ausscheid-was.*akt-ausscheid-haeufigkeit/);
 });
@@ -193,7 +193,7 @@ test('mutation de motif : un motif de lecture qui nomme un signe hors lexique �
 
 test('la mesure LIT le lexique : « Schlucken » devenu signe de dépistage → moins de questions hors profil', () => {
   const base = json(run('--json')).brut.horsProfil;
-  const mut = sb.mutate('src/data/guides/signes.ts', "pertinence: ['dysphagie', 'hals'], bank: 'akt-ausscheid-schlucken'", "pertinence: S, bank: 'akt-ausscheid-schlucken'", () => json(run('--json')).brut.horsProfil);
+  const mut = sb.mutate('src/data/guides/signesDefs.ts', "pertinence: ['dysphagie', 'hals'], bank: 'akt-ausscheid-schlucken'", "pertinence: S, bank: 'akt-ausscheid-schlucken'", () => json(run('--json')).brut.horsProfil);
   assert.ok(mut < base, `${mut} < ${base}`);
 });
 

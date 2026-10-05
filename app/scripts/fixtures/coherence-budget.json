@@ -3,7 +3,7 @@
   "cas": 130,
   "source": "K0 — lecture du texte et profil PROPOSÉ ; exacts quand les déclarations remplacent la lecture (K1 sondes, K2 profils, K4 questions du cas).",
   "brut": {
-    "doublons": 279,
+    "doublons": 278,
     "doublonsCas": 24,
     "horsProfil": 56,
     "exigeAbsent": 58,
@@ -13,7 +13,7 @@
   },
   "residu": {
     "questionsMuettes": 825,
-    "sondesMuettes": 148,
+    "sondesMuettes": 0,
     "nonReduit": null,
     "casRetiresParR1": null
   },

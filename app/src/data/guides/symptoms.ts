@@ -1,6 +1,7 @@
 import type { Phrase, PhraseVariant } from './phrases';
 import type { Signe } from './signes';
 import { phraseIsCaseSpecific, phraseProbes } from './phrases';
+import { PROBE_SUCHT } from './probeSucht';
 
 // ============================================================================
 // UN SYMPTÔME, UNE QUESTION — par trame jouée (FB2-J10).
@@ -46,7 +47,13 @@ import { phraseIsCaseSpecific, phraseProbes } from './phrases';
 export * from './signes';
 export type Symptom = Signe;
 
-export const PROBE_SUCHT: Record<string, Symptom[]> = {
+// ----------------------------------------------------------------------------
+// K1 : `PROBE_SUCHT` (probeSucht.ts) est LA table de déclaration — totale, au grain du lexique.
+// Le montage, lui, lit encore cette carte d'avant K1, gelée : `dedupeBySymptom` (et `parts`)
+// ne changent pas avant K3, où `cohere` lira la table de déclaration et emportera celle-ci.
+// ----------------------------------------------------------------------------
+export * from './probeSucht';
+export const SUCHT_MONTAGE: Record<string, Symptom[]> = {
   // Vegetative Anamnese — les questions générales, celles qui « répètent ».
   'veg-fieber': ['fieber', 'reise'],
   'veg-schuettelfrost': ['schuettelfrost', 'nachtschweiss', 'schwitzen'],
@@ -155,7 +162,7 @@ const TEXT_RE: Array<[Symptom, RegExp]> = [
   ['sehstoerung', /\b(sehstörung\w*|doppelbild\w*)\b|verschwommen|sehverschlechterung|schlechter seh/i],
   ['krampf', /\bkrampfanf\w*|\bzuck(en|ungen)\b|\bepilep\w*/i],
   ['taubheit', /\btaubheit\w*|\bkribbeln\b|\bpelzig\w*/i],
-  ['schwaeche', /\bkraftverlust\b|\bkraftlos\w*|schwächer geworden|\blähmung\b|\bgelähmt\b/i],
+  ['schwaeche', /\bkraftverlust\b|schwächer geworden|\blähmung\b|\bgelähmt\b/i],   // K1 : « Kraftlosigkeit » (allgemein-art) est la fatigue, pas le déficit moteur focal
   ['herzrasen', /\bherz(rasen|klopfen|stolpern)\b/i],
   // « Nachtschweiß » a son propre concept — le motif ne doit pas l'attraper.
   ['schwitzen', /\bschwitz\w*|\bschweißausbr\w*/i],
@@ -179,7 +186,14 @@ export function symptomsInText(t: string): Symptom[] {
 export function phraseSymptoms(p: Phrase): Symptom[] {
   if (typeof p !== 'string' && p.sucht) return p.sucht as Symptom[];
   const probes = phraseProbes(p);
-  return [...new Set(probes.flatMap((id) => PROBE_SUCHT[id] ?? []))];
+  return [...new Set(probes.flatMap((id) => SUCHT_MONTAGE[id] ?? []))];
+}
+
+/** Les signes que la phrase DÉCLARE chercher (K1, ce que lit la porte) : son `sucht`, sinon les signes qu'elle
+ *  énumère (`enumere`), sinon ceux de ses sondes. Pas ses relances (`phraseFollowUps`). */
+export function phraseSucht(p: Phrase): Signe[] {
+  if (typeof p !== 'string' && (p.sucht || p.enumere)) return (p.sucht ?? p.enumere) as Signe[];
+  return [...new Set(phraseProbes(p).flatMap((id) => PROBE_SUCHT[id] ?? []))];
 }
 
 export interface TrameChapter { id: string; questions: Phrase[] }
@@ -228,7 +242,7 @@ export function dedupeBySymptom<T extends TrameChapter>(chapters: T[]): T[] {
       // réplique (revue série 3, I4 — 6 cas endocriniens).
       const v = q as PhraseVariant;
       keep.forEach((pt, k) => rows.push({
-        q: { ...v, text: pt.text, alts: undefined, followUp: pt.followUp?.length ? pt.followUp : undefined, parts: undefined, sucht: pt.sucht.filter((s) => left.includes(s as Symptom)) },
+        q: { ...v, text: pt.text, alts: undefined, followUp: pt.followUp?.length ? pt.followUp : undefined, parts: undefined, followUpSucht: pt.followUpSucht?.length ? pt.followUpSucht : undefined, enumere: undefined, sucht: pt.sucht.filter((s) => left.includes(s as Symptom)) },
         at: i + k / 100,
       }));
     });

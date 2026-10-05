@@ -1,0 +1,139 @@
+import type { Signe } from './signesDefs';
+
+// ============================================================================
+// `PROBE_SUCHT` — ce que CHAQUE sonde cherche. K1 (ADR-0023, contrat
+// `frage-atomique.md` §10.2, INV-79). Une seule table, TOTALE : toute sonde de
+// `PROBE_BY_ID` y figure avec au moins un signe (la porte `checkCoherence` le vérifie).
+//
+// • Elle absorbe `SUCHT_AFFINE` (K0) : les banques sont mono-signe (INV-77) et les
+//   paires de granularité disjointes (INV-78).
+// • Règle d'identité : deux unités cherchent le même signe ssi la fiche y répondrait
+//   par la même réplique. D1 : une énumération cherche CHAQUE signe qu'elle nomme.
+// • Une relance de PRÉCISION (quand, combien, où, quelle couleur…) hérite du signe de sa
+//   mère ; une relance qui cherche un autre signe le déclare dans `followUpSucht` de la
+//   phrase (anamneseChapters.ts) et devient une unité à part.
+// • Une phrase qui énumère autre chose que sa sonde (les variantes d'`akt-begleit`)
+//   porte son propre `sucht` ; ici, la sonde dit ce qu'elle est.
+// • Le montage ne la lit PAS encore : `dedupeBySymptom` lit `SUCHT_MONTAGE`
+//   (symptoms.ts) jusqu'à K3, qui remplace l'un et l'autre par `cohere`.
+// ============================================================================
+export type Sucht = readonly [Signe, ...Signe[]];
+
+export const PROBE_SUCHT: Readonly<Record<string, Sucht>> = {
+  // --- Persönliche Daten, Motif -----------------------------------------------
+  'pers-name': ['name'], 'pers-alter': ['alter'], 'pers-groesse': ['koerpermasse'], 'pers-hausarzt': ['hausarzt'],
+  'akt-motiv': ['motiv'],
+  // --- Aktuelle Beschwerden : les dimensions (banques) -------------------------
+  'akt-ort': ['ort'], 'akt-beginn': ['beginn'], 'akt-charakter': ['charakter'], 'akt-intensitaet': ['intensitaet'],
+  'akt-ausstrahlung': ['ausstrahlung'], 'akt-verlauf': ['verlauf'], 'akt-ausloeser': ['ausloeser'],
+  'akt-einfluss': ['einfluss'], 'akt-frueher': ['frueher'], 'akt-begleit': ['begleit'],
+  // --- Aktuelle Beschwerden : les variantes par nature --------------------------
+  'akt-atemnot-belastung': ['atemnot'], 'akt-atemnot-nachts': ['orthopnoe'], 'akt-atemnot-husten': ['husten'],
+  'akt-atemnot-geraeusch': ['giemen'],
+  'akt-allgemein-art': ['muedigkeit', 'schwindel'],   // « Müdigkeit, Kraftlosigkeit, Schwindel » (D1)
+  'akt-allgemein-alltag': ['leistung'], 'akt-allgemein-tageszeit': ['tageszeit'],
+  'akt-allgemein-gewicht': ['gewicht', 'appetit', 'durst'],   // parts : gewicht / appetit + durst
+  'akt-allgemein-schwellung': ['oedeme'],
+  'akt-psych-stimmung': ['stimmung'], 'akt-psych-antrieb': ['antrieb'], 'akt-psych-schlaf': ['schlaf'], 'akt-psych-sicherheit': ['suizid'],
+  'akt-neuro-ausfall': ['schwaeche', 'taubheit'], 'akt-neuro-dauer': ['dauer'], 'akt-neuro-lage': ['schwindel'],
+  'akt-nerven-art': ['taubheit', 'schwaeche'], 'akt-nerven-alltag': ['feinmotorik'], 'akt-nerven-tageszeit': ['tageszeit'],
+  'akt-infekt-fieber': ['fieber'], 'akt-infekt-kontakt': ['reise'],   // « Kontakt » et « Essen » sont des relances (followUpSucht)
+  'akt-infekt-herd': ['husten', 'halsschmerzen', 'miktion', 'stuhl', 'ausschlag', 'wunde'],   // énumération (D1)
+  'akt-veraend-was': ['knoten', 'ausschlag', 'blutung', 'haematome'],
+  'akt-veraend-entwicklung': ['entwicklung'], 'akt-veraend-blutung': ['lokalschmerz', 'juckreiz', 'blutung'],
+  'akt-ausscheid-was': ['stuhl', 'miktion', 'gelbfaerbung', 'urin_aspekt', 'stuhlaussehen'],   // D1
+  'akt-ausscheid-haeufigkeit': ['stuhlfrequenz'], 'akt-ausscheid-harn-haeufigkeit': ['miktion_frequenz', 'nykturie'],
+  'akt-ausscheid-aussehen': ['stuhlaussehen'], 'akt-ausscheid-harn-aussehen': ['urin_aspekt'],
+  'akt-ausscheid-schlucken': ['schluck'],
+  'akt-anfall-ablauf': ['anfallsablauf'], 'akt-anfall-dauer': ['dauer'], 'akt-anfall-bewusstsein': ['bewusstlos'],
+  // --- Vegetative Anamnese ------------------------------------------------------
+  'veg-fieber': ['fieber', 'reise'],   // parts : fieber / reise
+  'veg-schuettelfrost': ['schuettelfrost', 'nachtschweiss', 'schwitzen'], 'veg-uebelkeit': ['uebelkeit'],
+  'veg-ausscheidung': ['stuhl', 'miktion'], 'veg-gewicht': ['gewicht'], 'veg-appetit': ['appetit'], 'veg-schlaf': ['schlaf'],
+  // --- Vorerkrankungen, Medikamente, Allergien, Noxen, Familie & Sozial ---------
+  'vor-erkrank': ['vorerkrankung'], 'vor-op': ['operation'], 'vor-krankenhaus': ['krankenhaus'],
+  'med-regelmaessig': ['medikation'], 'med-blutverduenner': ['antikoagulation', 'kortison'], 'med-otc': ['selbstmedikation'],
+  'all-allergie': ['allergie'], 'all-unvertraeglich': ['unvertraeglichkeit'],
+  'nox-rauchen': ['rauchen'], 'nox-alkohol': ['alkohol'], 'nox-drogen': ['drogen'],
+  'fam-familie': ['familie_krank'], 'fam-eltern': ['eltern'], 'fam-stand': ['familienstand', 'kinder'],
+  'fam-beruf': ['beruf', 'stress'], 'pers-beruf': ['berufsstoffe'], 'fam-wohnen': ['wohnsituation'], 'fam-haustiere': ['haustiere'],
+  // --- Frauenanamnese -----------------------------------------------------------
+  'frau-periode': ['zyklus'], 'frau-schwanger': ['schwangerschaft'], 'frau-verhuetung': ['verhuetung'], 'frau-wechseljahre': ['wechseljahre'],
+  // --- Fach Gastroenterologie ---------------------------------------------------
+  'fach-gastro-uebelkeit': ['uebelkeit'], 'fach-gastro-sodbrennen': ['sodbrennen'], 'fach-gastro-voelle': ['voellegefuehl'],
+  'fach-gastro-speisen': ['speisen', 'essen_expo'], 'fach-gastro-stuhl': ['stuhl'], 'fach-gastro-tenesmen': ['tenesmen'],
+  'fach-gastro-spiegelung': ['spiegelung'],
+  // --- Fach Kardiologie ---------------------------------------------------------
+  'fach-kardio-brust': ['brustschmerz'], 'fach-kardio-belastung': ['belastung', 'dauer'], 'fach-kardio-ausstrahlung': ['ausstrahlung'],
+  'fach-kardio-atem': ['lageabhaengig'], 'fach-kardio-nitro': ['nitro'], 'fach-kardio-herzrasen': ['herzrasen'],
+  'fach-kardio-luft': ['atemnot'], 'fach-kardio-oedeme': ['oedeme', 'orthopnoe'], 'fach-kardio-nykturie': ['nykturie'],
+  'fach-kardio-synkope': ['bewusstlos'],
+  // --- Fach Chirurgie -----------------------------------------------------------
+  'fach-chir-essen': ['nuechternheit'], 'fach-chir-ileus': ['stuhl', 'windabgang'], 'fach-chir-op': ['bauch_op'],
+  'fach-chir-gallensteine': ['gallensteine'],
+  // --- Fach Psychiatrie ---------------------------------------------------------
+  'fach-psych-stimmung': ['stimmung'], 'fach-psych-interesse': ['interesse'], 'fach-psych-antrieb': ['antrieb'],
+  'fach-psych-schlaf': ['schlaf'], 'fach-psych-tagesverlauf': ['tageszeit'], 'fach-psych-konzentration': ['konzentration'],
+  'fach-psych-angst': ['angst'], 'fach-psych-suizid': ['suizid'], 'fach-psych-ausloeser': ['ausloeser'], 'fach-psych-frueher': ['frueher'],
+  // --- Fach Pneumologie ---------------------------------------------------------
+  'fach-pneumo-husten': ['husten', 'auswurf'], 'fach-pneumo-auswurf': ['auswurf'], 'fach-pneumo-atemnot': ['atemnot'],
+  'fach-pneumo-orthopnoe': ['orthopnoe', 'schlafapnoe'], 'fach-pneumo-schmerz': ['brustschmerz', 'atemabhaengig'],
+  'fach-pneumo-fieber': ['fieber', 'schuettelfrost'], 'fach-pneumo-giemen': ['giemen'],
+  'fach-pneumo-infekt': ['atemwegsinfekt', 'kontakt', 'reise'], 'fach-pneumo-noxen': ['lungennoxen'], 'fach-pneumo-allergie': ['allergie', 'asthma'],
+  // --- Fach Infektiologie -------------------------------------------------------
+  'fach-infekt-fieber': ['fieber'], 'fach-infekt-zecke': ['zecke'], 'fach-infekt-haut': ['ausschlag', 'erythem_ring'],
+  'fach-infekt-gelenke': ['arthralgie'], 'fach-infekt-neuro': ['kopfschmerz', 'meningismus', 'taubheit', 'fazialis'],
+  'fach-infekt-reise': ['reise'], 'fach-infekt-kontakt': ['kontakt'], 'fach-infekt-impfung': ['impfung'],
+  // --- Fach Urologie ------------------------------------------------------------
+  'fach-uro-miktion': ['miktion'], 'fach-uro-frequenz': ['miktion_frequenz', 'nykturie'], 'fach-uro-drang': ['drang', 'inkontinenz'],
+  'fach-uro-farbe': ['urin_aspekt'], 'fach-uro-flanke': ['ort', 'ausstrahlung'], 'fach-uro-fieber': ['fieber', 'schuettelfrost'],
+  'fach-uro-strahl': ['harnstrahl'], 'fach-uro-sexualanamnese': ['sexualanamnese'], 'fach-uro-funktion': ['sexualfunktion', 'blutung'],
+  'fach-uro-vorgeschichte': ['harnwegsinfekt', 'nierensteine', 'prostata'],
+  // --- Fach Orthopädie ----------------------------------------------------------
+  'fach-ortho-mechanismus': ['unfallhergang'], 'fach-ortho-bewegung': ['bewegungsschmerz', 'ruheschmerz'], 'fach-ortho-ausstrahlung': ['ausstrahlung'],
+  'fach-ortho-sensomotorik': ['taubheit', 'schwaeche'], 'fach-ortho-durchblutung': ['durchblutung'], 'fach-ortho-cauda': ['sattel', 'miktion', 'stuhl'],
+  'fach-ortho-schwellung': ['gelenk_entzuendung', 'haematome'], 'fach-ortho-belastung': ['belastbarkeit'], 'fach-ortho-vorgeschichte': ['ortho_vorgeschichte'],
+  // --- Fach Rheumatologie -------------------------------------------------------
+  'fach-rheuma-gelenke': ['gelenke'], 'fach-rheuma-morgensteifigkeit': ['steifigkeit'], 'fach-rheuma-entzuendung': ['gelenk_entzuendung'],
+  'fach-rheuma-verlauf': ['verlauf'], 'fach-rheuma-ausloeser': ['ausloeser'], 'fach-rheuma-haut': ['ausschlag'],
+  'fach-rheuma-systemisch': ['fieber', 'augenentzuendung', 'ulzera', 'stuhl', 'ausschlag'], 'fach-rheuma-vorgeschichte': ['frueher'],
+  // --- Fach Neurologie ----------------------------------------------------------
+  'fach-neuro-sehen': ['sehstoerung'], 'fach-neuro-sensibilitaet': ['taubheit'], 'fach-neuro-kraft': ['schwaeche'],
+  'fach-neuro-koordination': ['schwindel', 'gang', 'sturz'], 'fach-neuro-sprache': ['sprache', 'schluck'],
+  'fach-neuro-blase': ['miktion', 'stuhl', 'drang', 'inkontinenz'], 'fach-neuro-anfall': ['krampf', 'bewusstlos'],
+  'fach-neuro-verlauf': ['schub', 'waerme'], 'fach-neuro-kopfschmerz': ['kopfschmerz'], 'fach-neuro-aura': ['aura'],
+  'fach-neuro-autonom': ['autonome_zeichen'], 'fach-neuro-anfallzeichen': ['anfallszeichen'],
+  // --- Fach Endokrinologie ------------------------------------------------------
+  'fach-endo-durst': ['durst', 'polyurie', 'nykturie'], 'fach-endo-gewicht': ['gewicht', 'appetit'],
+  'fach-endo-temperatur': ['schwitzen', 'temperaturtoleranz'], 'fach-endo-herz-nerven': ['herzrasen', 'tremor', 'unruhe', 'antrieb', 'muedigkeit'],
+  'fach-endo-hals': ['halsschwellung', 'schluck', 'stimme'], 'fach-endo-augen': ['augenveraenderung', 'sehstoerung'],
+  'fach-endo-haut-haare': ['haut_haare'], 'fach-endo-unterzucker': ['hypoglykaemie'],
+  'fach-endo-folgeschaeden': ['taubheit', 'sehstoerung', 'nierenprobleme'], 'fach-endo-familie-therapie': ['familie_endokrin', 'endokrine_therapie'],
+  // --- Fach Hämatologie ---------------------------------------------------------
+  'fach-haem-leistung': ['muedigkeit', 'leistung', 'blaesse'], 'fach-haem-belastung': ['atemnot', 'herzrasen', 'schwindel'],
+  'fach-haem-blutung': ['blutung', 'haematome'], 'fach-haem-blutverlust': ['blutung', 'stuhlaussehen'],
+  'fach-haem-ernaehrung': ['ernaehrung'], 'fach-haem-bsymptomatik': ['fieber', 'nachtschweiss', 'gewicht'],
+  'fach-haem-lymphknoten': ['lymphknoten'], 'fach-haem-infekte': ['infektneigung', 'fieber', 'wundheilung'],
+  'fach-haem-knochen': ['knochenschmerz'], 'fach-haem-thrombose': ['thrombose_vorgeschichte', 'familie_thrombose'],
+  // --- Fach Dermatologie --------------------------------------------------------
+  'fach-derma-beginn-ort': ['ort', 'ausbreitung'], 'fach-derma-empfinden': ['juckreiz', 'lokalschmerz'], 'fach-derma-aussehen': ['hautbefund'],
+  'fach-derma-ausloeser': ['ausloeser'], 'fach-derma-verlauf': ['verlauf'], 'fach-derma-systemisch': ['fieber', 'arthralgie', 'ulzera', 'augenentzuendung'],
+  'fach-derma-vorgeschichte': ['hautvorgeschichte', 'familie_haut'], 'fach-derma-muttermal': ['muttermal', 'juckreiz', 'blutung'], 'fach-derma-vorbehandlung': ['vorbehandlung'],
+  // --- Fach Gynäkologie ---------------------------------------------------------
+  'fach-gyn-blutung': ['blutung'], 'fach-gyn-unterbauch': ['unterbauchschmerz'], 'fach-gyn-fluor': ['fluor'], 'fach-gyn-dyspareunie': ['dyspareunie'],
+  'fach-gyn-schwangerschaften': ['geburten'], 'fach-gyn-kinderwunsch': ['kinderwunsch'], 'fach-gyn-brust': ['brust'],
+  'fach-gyn-vorsorge': ['vorsorge_gyn'], 'fach-gyn-eingriffe': ['gyn_op'],
+  // --- Fach Angiologie ----------------------------------------------------------
+  'fach-gefaess-gehstrecke': ['gehstrecke'], 'fach-gefaess-ruheschmerz': ['ruheschmerz'], 'fach-gefaess-schwellung': ['beinschwellung'],
+  'fach-gefaess-immobilisation': ['immobilisation'], 'fach-gefaess-hormone': ['hormone', 'schwangerschaft'],
+  'fach-gefaess-thrombose': ['thrombose_vorgeschichte', 'familie_thrombose'], 'fach-gefaess-wunde': ['wundheilung', 'durchblutung'],
+  'fach-gefaess-vorgeschichte': ['gefaess_vorgeschichte'],
+  // --- Fach Nephrologie ---------------------------------------------------------
+  'fach-nephro-menge': ['miktion_frequenz', 'urinmenge', 'nykturie'], 'fach-nephro-aussehen': ['urin_aspekt'], 'fach-nephro-oedeme': ['oedeme', 'gewicht'],
+  'fach-nephro-blutdruck': ['blutdruck'], 'fach-nephro-nephrotoxisch': ['nephrotoxika'], 'fach-nephro-uraemie': ['juckreiz', 'uebelkeit', 'appetit', 'geschmack'],
+  'fach-nephro-infekt': ['vorinfekt'], 'fach-nephro-vorgeschichte': ['nierenvorgeschichte', 'familie_niere'],
+  // --- Fach Onkologie -----------------------------------------------------------
+  'fach-onko-bsymptomatik': ['fieber', 'nachtschweiss', 'gewicht'], 'fach-onko-leistung': ['leistung'], 'fach-onko-schmerz': ['ruheschmerz'],
+  'fach-onko-knoten': ['knoten'], 'fach-onko-blutung': ['blutung'], 'fach-onko-appetit': ['schluck', 'voellegefuehl', 'appetit'],
+  'fach-onko-vorbehandlung': ['tumor_vorgeschichte'], 'fach-onko-familie': ['familie_krebs'], 'fach-onko-vorsorge': ['vorsorge_krebs'],
+};
