@@ -24,7 +24,7 @@ let container: HTMLDivElement; let root: Root;
 const poser = async (jeudi: TaskInstance[], lundi: TaskInstance[]) => {
   await db.progress_events.bulkPut([
     { id: 'p1', user_id: 'u', type: 'plan.materialized', subject_id: '2026-10-01', payload: { tasks: jeudi, mode: 'teil-first', seed: 's', targetMin: 90 }, occurred_at: '2026-10-01T06:00:00Z' },
-    { id: 'p2', user_id: 'u', type: 'plan.materialized', subject_id: '2026-10-05', payload: { tasks: lundi, mode: 'teil-first', seed: 's', targetMin: 90 }, occurred_at: '2026-10-05T06:00:00Z' },
+    { id: 'p2', user_id: 'u', type: 'plan.materialized', subject_id: '2026-10-05', payload: { tasks: lundi, mode: 'teil-first', seed: 's', targetMin: 240 }, occurred_at: '2026-10-05T06:00:00Z' },
   ]);
   await rebuildJournal(await db.progress_events.toArray());
   await act(async () => { root.render(<RattrapageLine />); });

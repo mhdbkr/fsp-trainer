@@ -13,6 +13,7 @@ import { useLiveQuery } from 'dexie-react-hooks';
 import { useProgramConfig } from '@/hooks/useData';
 import { useToday } from '@/lib/today';
 import { accepterRattrapage, glissement, joursRefuses, refuserRattrapage } from '@/lib/program/rattrapage';
+import { resteTexte } from './TaskLine';
 import { useDayPlans, useTrainingEvents } from './useProgram';
 
 /** « A et B », « A, B et 2 autres » — deux noms au plus : la ligne reste une ligne. */
@@ -36,8 +37,13 @@ export function RattrapageLine() {
   const jours = `${g.manques} jour${g.manques > 1 ? 's' : ''} manqué${g.manques > 1 ? 's' : ''}`;
   // « (X déjà au plan) » : ce qui a glissé mais que le plan du jour a repris lui-même.
   const dejaAuPlan = g.deja.length ? ` (${noms(g.deja.map((t) => t.label))} déjà au plan)` : '';
+  const jour = format(parseISO(g.from), 'EEEE d MMMM', { locale: fr });
+  // « Finir hier » (§12.8) : un seul cas entamé se dit par ce qui lui reste — « il te reste la Dokumentation ».
+  const seule = n === 1 && g.tasks[0].teile && g.tasks[0].teile.length < 3 ? g.tasks[0] : null;
   const phrase = g.manques === 0
-    ? `Il reste ${n} tâche${n > 1 ? 's' : ''} du ${format(parseISO(g.from), 'EEEE d MMMM', { locale: fr })}. Les ajouter à aujourd'hui ?`
+    ? seule
+      ? `${seule.label} (${jour}) : il te reste ${resteTexte(seule.teile!)}. Finir aujourd'hui ?`
+      : `Il reste ${n} tâche${n > 1 ? 's' : ''} du ${jour}. ${n > 1 ? 'Les ajouter' : "L'ajouter"} à aujourd'hui ?`
     : reprise
       ? `${jours} : ${noms(g.tasks.map((t) => t.label))} ${n > 1 ? 'ont' : 'a'} glissé${dejaAuPlan}.`
       : `${jours} : ${noms(g.deja.map((t) => t.label))} — déjà au plan d'aujourd'hui.`;

@@ -17,10 +17,14 @@
 //      le seul nom du sujet. La cale de transition peut disparaître.
 // ============================================================================
 import { Link } from 'react-router-dom';
-import type { TaskInstance, TaskKind } from '@/db/types';
+import type { DayPlan, SimTeil, TaskInstance, TaskKind, TrainingEvent } from '@/db/types';
 import { TEILE } from '@/lib/simScope';
 import { Icon } from '@/components/icons';
 import { markTaskDone } from '@/lib/journal';
+import { estTacheDeCas, evaluerTache } from '@/lib/program/completion';
+import { dureesTeile } from '@/lib/program/durees';
+import { erreursTransversales, libelleItem, texteRappel } from '@/lib/program/erreurs';
+import { debutJour } from '@/lib/program/fuseau';
 
 export const TASK_META: Record<TaskKind, { icon: string; badge: string; bar: string; label: string }> = {
   simulation: { icon: 'stethoscope', badge: 'bg-brand-100 text-brand-600 dark:bg-brand-900/30 dark:text-brand-300', bar: 'bg-brand-500', label: 'Simulation' },
@@ -50,10 +54,44 @@ function ScopeTag({ teil }: { teil: NonNullable<TaskInstance['teil']> }) {
   return t ? <span className="dim-tag gap-1.5"><Icon name={t.icon} className="h-3.5 w-3.5 shrink-0" aria-hidden />{t.label}</span> : null;
 }
 
+const ARTICLE: Record<SimTeil, string> = { anamnese: "l'Anamnese", dokumentation: 'la Dokumentation', fallvorstellung: 'la Fallvorstellung' };
+
+/** « la Dokumentation et la Fallvorstellung » — ce qui reste d'un cas, dans l'ordre d'examen. */
+export const resteTexte = (teile: readonly SimTeil[]): string => {
+  const mots = teile.map((t) => ARTICLE[t]);
+  return mots.length > 1 ? `${mots.slice(0, -1).join(', ')} et ${mots[mots.length - 1]}` : mots[0] ?? '';
+};
+
+/** Ce que la ligne d'une tâche dit EN PLUS de la tâche figée : ce qui reste du cas (« il te reste la Dokumentation · 10 min »)
+ *  et le rappel d'une erreur transversale (§13.3), dit avec ses chiffres. Lu dans le journal, jamais stocké. */
+export interface LectureTache { reste?: { teile: SimTeil[]; min: number }; rappel?: string }
+
+export function lectureDuPlan(plan: DayPlan, events: readonly TrainingEvent[]): Map<string, LectureTache> {
+  const out = new Map<string, LectureTache>();
+  const durees = dureesTeile(events);
+  // Le rappel a été posé sur le journal d'AVANT le jour (INV-55) : ses chiffres se relisent sur le même.
+  const signaux = plan.tasks.some((t) => t.rappel) ? erreursTransversales(events.filter((e) => e.at < debutJour(plan.date, plan.tz))) : [];
+  for (const t of plan.tasks) {
+    if (t.doneAt !== undefined) continue;
+    const l: LectureTache = {};
+    if (estTacheDeCas(t.kind) && t.teile) {                                     // un plan série 3 dit son Teil par sa pastille
+      const e = evaluerTache(t, events, plan.tz);
+      // Entamée : les minutes de ce qui reste ; sinon l'estimation figée avec la tâche.
+      if (e.reste.length > 0 && e.reste.length < 3) l.reste = { teile: e.reste, min: e.avancement.length ? e.reste.reduce((s, k) => s + durees[k], 0) : t.estMin };
+    }
+    if (t.rappel) {
+      const s = signaux.find((x) => x.item === t.rappel);
+      l.rappel = s ? texteRappel(s) : `Rappel : « ${libelleItem(t.rappel) ?? t.rappel} ».`;
+    }
+    if (l.reste || l.rappel) out.set(t.id, l);
+  }
+  return out;
+}
+
 /** L'anatomie — sujet, portée, état, coût. Le type, la couche, l'assistance et
  *  la durée se lisent DANS LES CHAMPS : plus aucune concaténation, et la vue ne
  *  les ré-affiche pas à côté. */
-export function TaskAnatomy({ task }: { task: TaskInstance }) {
+export function TaskAnatomy({ task, reste }: { task: TaskInstance; reste?: LectureTache['reste'] }) {
   const state = [
     task.layer !== undefined ? `Couche ${task.layer}` : null,
     task.assistance === 'assiste' ? 'assisté' : task.assistance === 'autonome' ? 'autonome' : null,
@@ -62,8 +100,9 @@ export function TaskAnatomy({ task }: { task: TaskInstance }) {
     <div className="flex min-w-0 flex-wrap items-center gap-x-3 gap-y-1.5">
       <span className="min-w-0 flex-[1_1_100%] [overflow-wrap:anywhere] font-medium text-slate-800 dark:text-slate-100">{task.label}</span>
       {task.teil && <ScopeTag teil={task.teil} />}
+      {reste && <span className="dim-tag shrink-0">Il te reste {resteTexte(reste.teile)}</span>}
       {state && <span className="label shrink-0">{state}</span>}
-      <span className="mono-tag tnum shrink-0">{task.estMin} min</span>
+      <span className="mono-tag tnum shrink-0">{reste?.min ?? task.estMin} min</span>
     </div>
   );
 }
@@ -76,7 +115,7 @@ export function TaskAnatomy({ task }: { task: TaskInstance }) {
  * Cocher écrit un événement dans le journal et pose `doneAt`. Rien d'autre ne
  * bouge : aucune tâche ne prend la place.
  */
-export function TaskLine({ task, readOnly = false, showReason = true }: { task: TaskInstance; readOnly?: boolean; showReason?: boolean }) {
+export function TaskLine({ task, readOnly = false, showReason = true, lecture }: { task: TaskInstance; readOnly?: boolean; showReason?: boolean; lecture?: LectureTache }) {
   const meta = TASK_META[task.kind];
   const done = task.doneAt !== undefined;
   return (
@@ -86,9 +125,11 @@ export function TaskLine({ task, readOnly = false, showReason = true }: { task: 
           <Icon name={meta.icon} className="h-5 w-5" />
         </span>
         <div className="min-w-[10rem] flex-1">
-          <TaskAnatomy task={task} />
+          <TaskAnatomy task={task} reste={done ? undefined : lecture?.reste} />
           {/* Le « pourquoi aujourd'hui », figé avec la tâche. */}
           {showReason && <div className="mt-0.5 text-[11px] text-slate-400">{task.reason}</div>}
+          {/* Le rappel d'une erreur transversale : un fait, sans jugement (T2). */}
+          {!done && lecture?.rappel && <div className="mt-0.5 text-[11px] text-slate-500 dark:text-slate-400">{lecture.rappel}</div>}
         </div>
         {done ? (
           <span className="ml-auto flex shrink-0 items-center gap-1 text-[11px] font-medium text-emerald-600 dark:text-emerald-300">

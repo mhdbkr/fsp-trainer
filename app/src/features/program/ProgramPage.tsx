@@ -26,10 +26,11 @@ import { planProgress, programEnd, replanifier, sessionDuJour, taperDays } from 
 import { setIntensity, setModus } from '@/lib/programAdjust';
 import { useToday } from '@/lib/today';
 import { joursRestants } from '@/lib/program/trajectory';
-import type { DayPlan, Intensity, TaskInstance, TaskKind } from '@/db/types';
+import type { DayPlan, Intensity, TaskInstance, TaskKind, TrainingEvent } from '@/db/types';
 import { ProgramSetup } from './ProgramSetup';
 import { RattrapageLine } from './RattrapageLine';
-import { TaskLine, TASK_META } from './TaskLine';
+import { RythmeCard } from './RythmeCard';
+import { lectureDuPlan, TaskLine, TASK_META } from './TaskLine';
 import { CoverageField } from './CoverageField';
 import { Icon } from '@/components/icons';
 import { EmptyState } from '@/components/ui';
@@ -101,9 +102,10 @@ export function ProgramPage() {
       </header>
 
       <RattrapageLine />
+      <RythmeCard />
 
       <div ref={dayRef} className="scroll-mt-24">
-        <DaySurface date={selected} plan={byDate.get(selected) ?? null} projection={projected.get(selected)} isTaper={taper.has(selected)} onPick={focusDay} />
+        <DaySurface date={selected} plan={byDate.get(selected) ?? null} projection={projected.get(selected)} isTaper={taper.has(selected)} onPick={focusDay} events={events} />
       </div>
 
       <CoverageField cases={cases} progress={progress} />
@@ -128,8 +130,8 @@ function visibleDates(view: View, anchor: string): string[] {
   return days.map((d) => format(d, 'yyyy-MM-dd'));
 }
 
-function DaySurface({ date, plan, projection, isTaper, onPick }: {
-  date: string; plan: DayPlan | null; projection?: TaskInstance[]; isTaper: boolean; onPick: (d: string) => void;
+function DaySurface({ date, plan, projection, isTaper, onPick, events }: {
+  date: string; plan: DayPlan | null; projection?: TaskInstance[]; isTaper: boolean; onPick: (d: string) => void; events: TrainingEvent[];
 }) {
   const d = parseISO(date);
   const today = useToday((s) => s.day);                    // m-4
@@ -138,6 +140,8 @@ function DaySurface({ date, plan, projection, isTaper, onPick }: {
   const { faites: done, total } = planProgress(plan);
   const session = sessionDuJour(plan);
   const [busy, setBusy] = useState(false);
+  // Ce qui reste de chaque cas et les rappels : lus dans le journal, pour le jour courant seulement (un jour passé est figé).
+  const lecture = useMemo(() => (plan && isToday ? lectureDuPlan(plan, events) : new Map()), [plan, isToday, events]);
 
   return (
     <section className="card overflow-hidden border-brand-200 dark:border-brand-900/40">
@@ -182,7 +186,7 @@ function DaySurface({ date, plan, projection, isTaper, onPick }: {
         ) : (
           <>
             <div className="space-y-2">
-              {plan.tasks.map((t) => <TaskLine key={t.id} task={t} readOnly={isPast} />)}
+              {plan.tasks.map((t) => <TaskLine key={t.id} task={t} readOnly={isPast} lecture={lecture.get(t.id)} />)}
             </div>
             {session === null && (
               <p className="mt-3 text-center text-[13px] text-emerald-600 dark:text-emerald-300">
