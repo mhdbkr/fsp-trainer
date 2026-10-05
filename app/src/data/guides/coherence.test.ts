@@ -1,52 +1,13 @@
 import { describe, expect, it } from 'vitest';
-import { seedCases } from '@/data/seedCases';
 import type { Case } from '@/db/types';
 import { compteursApresCas, ctxDuCas, playedTrame, profilDuCas, trameBrute } from './anamneseChapters';
-import { RISIKO_SIGNES, cohere, compteursApres, profilEffectif, type CohereCtx, type Ecart, type ProfilEffectif, type TrameChapter } from './coherence';
-import { phraseFollowUps, phraseIsCaseSpecific, phraseProbes, phraseText, type Phrase, type PhraseVariant } from './phrases';
-import { SIGNE_DEF, phraseSucht, type ProfilTag, type Signe } from './symptoms';
+import { PSY, byId, cas, cases, ch, coeur, ctx, prof, run, s, signesJoues, trameJouee, un, vue } from './coherenceFixtures';
+import { RISIKO_SIGNES, cohere, compteursApres, type CohereCtx, type Ecart, type ProfilEffectif, type TrameChapter } from './coherence';
+import { phraseFollowUps, phraseIsCaseSpecific, phraseProbes, phraseText, type Phrase } from './phrases';
+import { SIGNE_DEF, phraseSucht, type Signe } from './symptoms';
 
 // K3 — le moteur de cohérence (ADR-0023, contrat frage-atomique §10.4–§10.9). INV-81 à 88, 90, 91 sur fixtures
 // (sondes réelles, textes de fixture) et sur les 130 cas ; les deux cas de la direction ligne à ligne (spec §3.3).
-const cases = seedCases();
-const byId = (id: string) => cases.find((c) => c.id === id)!;
-
-// ── fixtures ─────────────────────────────────────────────────────────────────
-const CAS = new WeakMap<object, number>();
-const ctx: CohereCtx = { casIndex: (p) => (typeof p === 'string' ? undefined : CAS.get(p)) };
-const s = (probe: string, more: Partial<PhraseVariant> = {}): PhraseVariant => ({ text: probe, probe, ...more });
-const cas = (i: number, text: string, sucht?: string[], more: Partial<PhraseVariant> = {}): PhraseVariant => {
-  const p: PhraseVariant = { text, caseSpecific: true, ...(sucht ? { sucht } : {}), ...more };
-  CAS.set(p, i);
-  return p;
-};
-const ch = (id: string, ...questions: Phrase[]): TrameChapter => ({ id, questions });
-const prof = (kategorie: ProfilTag & string, tags: ProfilTag[], extra: { exige?: Signe[]; exclut?: Partial<Record<Signe, string>> } = {}): ProfilEffectif =>
-  profilEffectif({ id: 'fx', kategorie: kategorie as never, sheet: { profil: { tags: tags as [ProfilTag, ...ProfilTag[]], ...extra } } });
-const PSY = prof('psychisch', ['psychisch']);   // aucun signe exigé : r3 se tait
-const cle = (p: Phrase): string => {
-  if (typeof p !== 'string' && p.detacheDe) return `^${p.detacheDe}`;
-  if (phraseIsCaseSpecific(p)) return 'cas';
-  return (phraseProbes(p).join('+') || '·') + (typeof p !== 'string' && p.sucht ? `~${p.sucht.join(',')}` : '');   // ~ = réduite par `parts`
-};
-const vue = (t: TrameChapter[]) => Object.fromEntries(t.map((c) => [c.id, c.questions.map(cle)]));
-const run = (t: TrameChapter[], p: ProfilEffectif = PSY, more: CohereCtx = {}) => cohere(t, p, 'fx', { ...ctx, ...more });
-const un = (e: Ecart[], q: string, action: string) => e.find((x) => x.question === q && x.action === action);
-const coeur = (c: Case) => {
-  const t = playedTrame(c);
-  const out: Record<string, string[]> = {};
-  for (const x of t.chapters) {
-    if (x.id === 'aktuell' || x.id === 'vegetativ') out[x.id] = x.questions.map(cle);
-    if (x.id === 'aktuell' && t.fach) out.fach = t.fach.chapter.questions.map(cle);
-  }
-  return out;
-};
-const trameJouee = (c: Case): TrameChapter[] => {
-  const t = playedTrame(c);
-  return t.chapters.flatMap((x) => (x.id === 'aktuell' && t.fach ? [x, { ...t.fach.chapter, id: 'fach' }] : [x]));
-};
-const signesJoues = (t: TrameChapter[]) => new Set(t.flatMap((x) => x.questions.flatMap((p) => [...phraseSucht(p), ...phraseFollowUps(p).flatMap((f) => f.sucht ?? [])])));
-
 describe('INV-81 — un signe, une question (r2)', () => {
   it('la Fach l\'emporte sur Aktuelle Beschwerden (D4) ; l\'écart nomme le gagnant', () => {
     const r = run([ch('aktuell', s('akt-motiv'), s('akt-ausloeser')), ch('fach', s('fach-rheuma-ausloeser'))]);

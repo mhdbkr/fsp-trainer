@@ -145,8 +145,8 @@ export function cohere<T extends TrameChapter>(trame: readonly T[], profil: Prof
     dup.signes = uniq([...dup.signes, ...e.signes]);
     dup.raison += ` ; ${full.raison}`;
   };
-  // Une relance hors signe encore attachée vit avec sa mère : si la mère est retirée, elle n'est plus posée.
-  const vivants = () => chapters.flatMap((c) => c.items.flatMap((u) => [u, ...u.enfants.filter((r) => r.relance!.attachee && u.etat !== 'retire')]))
+  // Une relance hors signe est une unité à part : elle suit SA décision, même si sa mère est retirée (§10.4, revue B1).
+  const vivants = () => chapters.flatMap((c) => c.items.flatMap((u) => [u, ...u.enfants.filter((r) => r.relance!.attachee)]))
     .filter((u) => u.etat !== 'retire');
   const suivent = (u: U, base: Omit<Ecart, 'raison' | 'question' | 'mere'>) => { for (const i of u.rels) ecart({ ...base, question: `${u.id}#${i + 1}`, mere: u.id }); u.rels = []; };
 
@@ -240,7 +240,9 @@ export function cohere<T extends TrameChapter>(trame: readonly T[], profil: Prof
   if (profil.declare) for (const s of SIGNES) {
     if (!(s in profil.exige) || s in profil.exclut || vivants().some((u) => u.signes.includes(s))) continue;
     const bank = SIGNE_DEF[s].bank!;   // INV-77 : un signe exigible a une banque
-    const guide = ctx.banque?.(bank) ?? { text: PROBE_BY_ID[bank]?.frage ?? bank, probe: bank };
+    const frage = PROBE_BY_ID[bank]?.frage;
+    if (!ctx.banque?.(bank) && !frage) throw new Error(`cohere (r3) : la sonde de banque « ${bank} » de « ${s} » n'a ni phrase de guide ni question — jamais un id affiché comme question`);
+    const guide = ctx.banque?.(bank) ?? { text: frage!, probe: bank };
     // La banque est l'unité du signe : sa question et ses relances de PRÉCISION. Une relance qui cherche un autre
     // signe est une autre unité, que rien n'exige : elle n'est pas ajoutée (sinon la passe suivante la détacherait).
     const u = unite(guide, SIGNE_DEF[s].kapitel, 0, profil.tags);
