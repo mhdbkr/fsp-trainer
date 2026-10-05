@@ -107,6 +107,18 @@ describe('La ligne d’une tâche de cas — ce qui reste, le rappel', () => {
     await vi.waitFor(() => expect(txt()).toMatch(/Il te reste la Dokumentation/), { timeout: 10000 });
   });
 
+  it('soirée courte : la tâche forcée dépasse le budget ⇒ « Ce soir l’Anamnese (20 min) · demain la suite. »', async () => {
+    const cas = (id: string, over: Partial<TaskInstance> = {}): TaskInstance => ({ id, date: '2026-10-12', kind: 'simulation', caseId: id, label: `Cas ${id}`, teile: ['anamnese', 'dokumentation', 'fallvorstellung'], estMin: 52, source: 'plan', reason: 'r', creeA: new Date(2026, 9, 12, 7).getTime(), ...over });
+    const court = { ...plan([cas('a')]), targetMin: 30 };
+    expect(lectureDuPlan(court, []).get('a')!.soiree).toBe("Ce soir l'Anamnese (20 min) · demain la suite.");
+    expect(lectureDuPlan({ ...plan([cas('a')]), targetMin: 120 }, []).get('a')?.soiree, 'dans le budget : rien').toBeUndefined();
+    expect(lectureDuPlan({ ...plan([cas('a', { kind: 'examen-blanc' })]), targetMin: 30 }, []).get('a')?.soiree, 'un examen à blanc se joue d’un trait').toBeUndefined();
+    expect(lectureDuPlan({ ...plan([cas('a', { dUnTrait: true })]), targetMin: 30 }, []).get('a')?.soiree, 'une tâche d’un trait aussi').toBeUndefined();
+    expect(lectureDuPlan({ ...plan([cas('a', { teile: ['fallvorstellung'], estMin: 40 })]), targetMin: 30 }, []).get('a')?.soiree, 'un seul Teil : rien à couper').toBeUndefined();
+    await act(async () => { root.render(<MemoryRouter><TaskLine task={cas('a')} lecture={lectureDuPlan(court, []).get('a')} /></MemoryRouter>); });
+    expect(txt()).toMatch(/Ce soir l'Anamnese \(20 min\) · demain la suite\./);
+  });
+
   it('entamée dans la journée : le reste suit le journal, avec les minutes de ce qui reste', () => {
     const tache: TaskInstance = { id: 't1', date: '2026-10-12', kind: 'simulation', caseId: 'c1', label: 'Pneumonie', teile: ['anamnese', 'dokumentation', 'fallvorstellung'], estMin: 52, source: 'plan', reason: 'r', creeA: new Date(2026, 9, 12, 7).getTime() };
     const jouee = partie(9, 'c1', new Date(2026, 9, 12, 9).getTime(), { manques: undefined });

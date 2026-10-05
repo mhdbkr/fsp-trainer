@@ -25,6 +25,7 @@ import { markTaskDone } from '@/lib/journal';
 import { estTacheDeCas, evaluerTache } from '@/lib/program/completion';
 import { dureesTeile } from '@/lib/program/durees';
 import { erreursTransversales, libelleItem, texteRappel } from '@/lib/program/erreurs';
+import { teileDeTache } from '@/lib/program/tacheDeCas';
 import { debutJour } from '@/lib/program/fuseau';
 import { useToday } from '@/lib/today';
 import { useDayPlan, useTrainingEvents } from './useProgram';
@@ -74,14 +75,20 @@ export const resteTexte = (teile: readonly SimTeil[]): string => {
 
 /** Ce que la ligne d'une tâche dit EN PLUS de la tâche figée : ce qui reste du cas (« il te reste la Dokumentation · 10 min »)
  *  et le rappel d'une erreur transversale (§13.3), dit avec ses chiffres. Lu dans le journal, jamais stocké. */
-export interface LectureTache { reste?: { teile: SimTeil[]; min: number }; rappel?: string }
+export interface LectureTache { reste?: { teile: SimTeil[]; min: number }; rappel?: string; soiree?: string }
 
 export function lectureDuPlan(plan: DayPlan, events: readonly TrainingEvent[]): Map<string, LectureTache> {
   const out = new Map<string, LectureTache>();
   const durees = dureesTeile(events);
   // Le rappel a été posé sur le journal d'AVANT le jour (INV-55) : ses chiffres se relisent sur le même.
   const signaux = plan.tasks.some((t) => t.rappel) ? erreursTransversales(events.filter((e) => e.at < debutJour(plan.date, plan.tz))) : [];
+  // Soirée courte (revue pédagogique) : la tâche FORCÉE — la première tâche de cas — fait dépasser le budget du jour ;
+  // on l'annonce en deux soirées. Jamais pour un examen à blanc ni une tâche d'un trait : ils se jouent d'un trait.
+  let cumul = 0, forcee = false;
   for (const t of plan.tasks) {
+    cumul += t.estMin;
+    const premiereDeCas = !forcee && (t.kind === 'simulation' || t.kind === 'revision' || t.kind === 'examen-blanc');
+    if (premiereDeCas) forcee = true;
     if (t.doneAt !== undefined) continue;
     const l: LectureTache = {};
     if (estTacheDeCas(t.kind) && t.teile) {                                     // un plan série 3 dit son Teil par sa pastille
@@ -89,11 +96,15 @@ export function lectureDuPlan(plan: DayPlan, events: readonly TrainingEvent[]): 
       // Entamée : les minutes de ce qui reste ; sinon l'estimation figée avec la tâche.
       if (e.reste.length > 0 && e.reste.length < 3) l.reste = { teile: e.reste, min: e.avancement.length ? e.reste.reduce((s, k) => s + durees[k], 0) : t.estMin };
     }
+    if (premiereDeCas && t.kind !== 'examen-blanc' && t.dUnTrait !== true && cumul > plan.targetMin) {
+      const teile = l.reste?.teile ?? teileDeTache(t);
+      if (teile.length > 1) l.soiree = `Ce soir ${ARTICLE[teile[0]]} (${durees[teile[0]]} min) · demain la suite.`;
+    }
     if (t.rappel) {
       const s = signaux.find((x) => x.item === t.rappel);
       l.rappel = s ? texteRappel(s) : `Rappel : « ${libelleItem(t.rappel) ?? t.rappel} ».`;
     }
-    if (l.reste || l.rappel) out.set(t.id, l);
+    if (l.reste || l.rappel || l.soiree) out.set(t.id, l);
   }
   return out;
 }
@@ -140,6 +151,7 @@ export function TaskLine({ task, readOnly = false, showReason = true, lecture }:
           {showReason && <div className="mt-0.5 text-[11px] text-slate-400">{task.reason}</div>}
           {/* Le rappel d'une erreur transversale : un fait, sans jugement (T2). */}
           {!done && lecture?.rappel && <div className="mt-0.5 text-[11px] text-slate-500 dark:text-slate-400">{lecture.rappel}</div>}
+          {!done && lecture?.soiree && <div className="mt-0.5 text-[11px] text-slate-500 dark:text-slate-400">{lecture.soiree}</div>}
         </div>
         {done ? (
           <span className="ml-auto flex shrink-0 items-center gap-1 text-[11px] font-medium text-emerald-600 dark:text-emerald-300">
