@@ -1,9 +1,8 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import type { Layer, SimTeil } from '@/db/types';
+import type { MusterArt, SimTeil } from '@/db/types';
 import { useUi } from '@/store/ui';
 import { Icon } from '@/components/icons';
-import { MusterModelPicker } from '@/components/MusterModelPicker';
 import { useCase, useSimulations } from '@/hooks/useData';
 import { computeLayerAdvice } from '@/lib/layerAdvice';
 import { QrCode } from '@/components/QrCode';
@@ -13,49 +12,38 @@ import { switchAccount, AUTH_MODE } from '@/lib/auth/session';
 import { restartApp } from '@/lib/auth/restart';
 
 // ============================================================================
-// Le réglage de la simulation : niveau d'assistance · couche · Muster-Bogen.
+// Le réglage de la simulation : niveau d'assistance · Muster-Bogen.
 //
-// Il est rendu QUEL QUE SOIT le Teil. Avant, `PreSimulationPage.tsx:52` le
-// masquait entièrement en Anamnese seule et en Fallvorstellung seule — alors
-// que le runner lit toujours `assistance` et `layer`, et que la sauvegarde les
-// enregistre et pondère la confiance avec. On jouait donc avec des réglages
-// hérités, invisibles et non modifiables. Le Teil change le CONTENU des blocs,
-// jamais leur présence ni leur ordre.
+// [S4] (simulation-run.md §10.1, ADR-0021 déc. 8 et 9, décision (d) de la
+// direction) — la COUCHE se fond dans le niveau d'assistance : plus de bloc ni de
+// mot « Couche » à l'écran. Le niveau est présélectionné par `layerAdvice` ;
+// `Lauf.layer` reste écrit (la couche conseillée), pour l'historique et le
+// scoring. Le Muster offre deux choix, guidé ou libre.
+// Les textes d'aide lisent le Teil de DÉPART (ou l'Anamnese) : la partie porte
+// toujours les trois Teile, le départ dit seulement par où elle commence.
 // ============================================================================
 
-export function SimulationSetup({ caseId, teil }: { caseId: string; teil: SimTeil | null }) {
-  const { assistance, setAssistance, layer, setLayer, muster, setMuster } = useUi();
-  // Couche RECOMMANDÉE, calculée depuis l'historique de ce cas — l'utilisateur
-  // n'a aucune raison de savoir tout seul s'il est prêt à monter.
+export function SimulationSetup({ caseId, depart }: { caseId: string; depart: SimTeil }) {
+  const { assistance, setAssistance, setLayer, muster, setMuster } = useUi();
   const c = useCase(caseId);
   const sims = useSimulations();
   const advice = computeLayerAdvice(c, sims);
+  const conseil = advice.suggestAutonome ? 'autonome' : 'assiste';
+  // Présélection par le conseil, une fois par cas, dès que l'historique est lu. Le
+  // candidat peut ensuite changer de niveau ; la couche, elle, suit le conseil.
+  const lu = !!c && sims !== undefined;
+  useEffect(() => {
+    if (!lu) return;
+    setLayer(advice.layer);
+    setAssistance(conseil);
+  }, [lu, caseId]); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <div className="space-y-4">
-      {/* Mode d'assistance — 2 grandes cartes illustrées */}
+      {/* (3) Niveau d'assistance — deux grandes cartes, le conseil présélectionné */}
       <div>
-        <div className="label mb-2">Niveau d'assistance</div>
-        <div className="grid gap-3 sm:grid-cols-2">
-          <ModeCard
-            active={assistance === 'assiste'} onClick={() => setAssistance('assiste')}
-            icon="handshake" title="Assisté" tag="Débutant"
-            desc={ASSISTE_DESC[teil ?? 'komplett']}
-            tone="brand"
-          />
-          <ModeCard
-            active={assistance === 'autonome'} onClick={() => setAssistance('autonome')}
-            icon="stethoscope" title="Autonome" tag="Avancé · score ↑"
-            desc={AUTONOME_DESC[teil ?? 'komplett']}
-            tone="violet"
-          />
-        </div>
-      </div>
-
-      {/* Couche de révision — recommandée automatiquement, surchargeable */}
-      <div className="card p-4">
         <div className="mb-2 flex items-baseline justify-between gap-2">
-          <div className="label">Couche de révision</div>
+          <div className="label">Niveau d’assistance</div>
           {advice.attempts > 0 && (
             <span className="text-[11px] text-slate-400">
               {advice.attempts} passage{advice.attempts > 1 ? 's' : ''}
@@ -63,46 +51,32 @@ export function SimulationSetup({ caseId, teil }: { caseId: string; teil: SimTei
             </span>
           )}
         </div>
-        <div className="flex gap-2">
-          {([1, 2, 3] as Layer[]).map((l) => {
-            const recommended = l === advice.layer;
-            return (
-              <button key={l} onClick={() => setLayer(l)}
-                className={`relative min-h-11 flex-1 rounded-lg border py-2 text-sm font-semibold motion-safe:transition-colors ${layer === l ? 'border-brand-500 bg-brand-50 text-brand-700 dark:bg-brand-900/30 dark:text-brand-200' : 'border-slate-200 text-slate-500 hover:border-brand-300 dark:border-slate-700'}`}>
-                Couche {l}
-                {recommended && (
-                  <span className="absolute -top-2 left-1/2 -translate-x-1/2 rounded-full bg-brand-600 px-1.5 py-px text-[10px] font-bold text-white">Conseillée</span>
-                )}
-              </button>
-            );
-          })}
+        <div className="grid gap-3 sm:grid-cols-2">
+          <ModeCard
+            active={assistance === 'assiste'} onClick={() => setAssistance('assiste')}
+            icon="handshake" title="Assisté" tag={conseil === 'assiste' ? 'Conseillé' : 'Débutant'}
+            desc={ASSISTE_DESC[depart]}
+            tone="brand"
+          />
+          <ModeCard
+            active={assistance === 'autonome'} onClick={() => setAssistance('autonome')}
+            icon="stethoscope" title="Autonome" tag={conseil === 'autonome' ? 'Conseillé' : 'Avancé · score ↑'}
+            desc={AUTONOME_DESC[depart]}
+            tone="violet"
+          />
         </div>
-        {/* « Pourquoi cette couche » : un conseil qu'on ne comprend pas ne se
-            suit pas. Le bouton n'apparaît que si l'utilisateur s'en écarte. */}
-        <p className="mt-2.5 flex items-start gap-1.5 text-[11.5px] leading-relaxed text-slate-500 dark:text-slate-400">
-          <Icon name="bulb" className="mt-0.5 h-3.5 w-3.5 shrink-0 text-brand-500" />
-          <span>
-            {advice.reason}
-            {advice.suggestAutonome && assistance === 'assiste' && ' Le mode Autonome est conseillé à ce stade.'}
-          </span>
-        </p>
-        {layer !== advice.layer && (
-          <button onClick={() => setLayer(advice.layer)} className="btn-outline mt-2 w-full justify-center text-xs">
-            <Icon name="refresh" className="mr-1 inline-block h-3.5 w-3.5 align-[-2px]" />Revenir à la couche conseillée ({advice.layer})
-          </button>
-        )}
       </div>
 
-      {/* Muster-Bogen par MODÈLE (forme), les villes en second plan.
-          Présent en Anamnese aussi : le Bogen est le panneau latéral de la
-          partie (`SimulationRunner` → `AnamneseBogen`), pas une pièce de la
-          seule Dokumentation. */}
+      {/* (4) Muster-Bogen : guidé ou libre. Présent dès l'Anamnese : le Bogen est le
+          panneau latéral de la partie (`SimulationRunner` → `AnamneseBogen`). */}
       <div className="card p-4">
-        <div className="mb-2 flex items-baseline justify-between gap-2">
-          <div className="label">Muster-Bogen (feuille de notes)</div>
-          <span className="text-[11px] text-slate-400">Choisis la forme — les villes qui l'utilisent sont indiquées</span>
+        <div className="label mb-2">Muster-Bogen (feuille de notes)</div>
+        <div className="grid gap-3 sm:grid-cols-2">
+          {MUSTER_CHOIX.map((m) => (
+            <PartnerChoice key={m.art} icon={m.icon} title={m.titre} desc={m.desc}
+              active={muster === m.art} onClick={() => setMuster(m.art)} />
+          ))}
         </div>
-        <MusterModelPicker value={muster} onChange={setMuster} />
       </div>
 
       {/* Le médecin crédité — qui s'entraîne. C'est lui qui portera la
@@ -112,15 +86,18 @@ export function SimulationSetup({ caseId, teil }: { caseId: string; teil: SimTei
   );
 }
 
-// Le Teil change le CONTENU, pas la présence du bloc.
-const ASSISTE_DESC: Record<SimTeil | 'komplett', string> = {
-  komplett: 'Guides déroulés, questions & Redewendungen visibles, chapitres cochables.',
+const MUSTER_CHOIX: { art: MusterArt; titre: string; icon: string; desc: string }[] = [
+  { art: 'guide', titre: 'Guidé', icon: 'id', desc: 'Une rubrique par chapitre de l’anamnèse : rien ne s’oublie.' },
+  { art: 'libre', titre: 'Libre', icon: 'pen', desc: 'L’identité, puis une page libre, dans l’ordre où tu prends tes notes.' },
+];
+
+// Le Teil de départ change le CONTENU, pas la présence du bloc.
+const ASSISTE_DESC: Record<SimTeil, string> = {
   anamnese: 'Les chapitres sont déroulés, chaque question est écrite, les mots-clés sont visibles.',
-  dokumentation: 'La trame de l\'Arztbrief est dépliée, les tournures officielles sont proposées.',
+  dokumentation: 'La trame de l\'Arztbrief est dépliée, les formulations types sont proposées.',
   fallvorstellung: 'Le plan de présentation est déroulé, avec les phrases de liaison.',
 };
-const AUTONOME_DESC: Record<SimTeil | 'komplett', string> = {
-  komplett: 'Conditions réelles : chapitres « en tête », seulement des raccourcis flash.',
+const AUTONOME_DESC: Record<SimTeil, string> = {
   anamnese: 'Conditions réelles : tu mènes l\'entretien de mémoire, l\'aide se révèle question par question.',
   dokumentation: 'Conditions réelles : page blanche, la trame ne se révèle que si tu la demandes.',
   fallvorstellung: 'Conditions réelles : tu présentes de mémoire, le plan reste replié.',
@@ -130,27 +107,29 @@ const AUTONOME_DESC: Record<SimTeil | 'komplett', string> = {
 /** Le départ — en haut de la pré-simulation, sous le nom du cas (retours de
  *  la direction, 3 oct. : le bouton avait disparu, puis il était « enfoui au
  *  milieu de la page »). Un seul bouton de départ sur la page. */
-export function StartButton({ caseId, teil, taskId }: { caseId: string; teil: SimTeil | null; taskId?: string }) {
+export function StartButton({ caseId, depart, taskId }: { caseId: string; depart: SimTeil | null; taskId?: string }) {
   const navigate = useNavigate();
-  const q = new URLSearchParams({ ...(teil ? { teil } : {}), ...(taskId ? { task: taskId } : {}) }).toString();   // R-C4
+  // [S4] `?depart=` (§10.3) : le Teil par lequel la partie COMMENCE, jamais son périmètre (INV-70).
+  const q = new URLSearchParams({ ...(depart ? { depart } : {}), ...(taskId ? { task: taskId } : {}) }).toString();   // R-C4
   return (
     // `viewTransition` : le passage pré-écran → runner est une navigation de page ;
     // sans lui, plus rien n'animait ce seuil depuis le retrait de `key={pathname}`.
     <button onClick={() => navigate(`/simulation/${caseId}/run${q ? `?${q}` : ''}`, { viewTransition: true })}
       className="btn-primary gap-2 px-6 py-2.5">
-      <Icon name="play" className="h-4 w-4" />Démarrer la simulation
+      <Icon name="play" className="h-4 w-4" />Démarrer
     </button>
   );
 }
 
-/** « Avec qui tu joues » — UN seul cadre, conscient du Teil. Choisir un
- *  partenaire SÉLECTIONNE, il ne lance rien : le départ est le `StartButton`
- *  de l'en-tête. L'IA externe ne s'ouvre pas ici : elle se lance DEPUIS la
- *  partie jouée, au Teil concerné (contrat `ai-bridge.md` §3.1). */
-export function PartnerCard({ caseId, teil }: { caseId: string; teil: SimTeil | null }) {
+/** « Avec qui tu joues » — UN seul cadre. Choisir un partenaire SÉLECTIONNE,
+ *  il ne lance rien : le départ est le `StartButton` de l'en-tête. L'IA externe
+ *  ne s'ouvre pas ici : elle se lance DEPUIS la partie jouée, au Teil concerné
+ *  (contrat `ai-bridge.md` §3.1). [S4] Il lit le Teil de DÉPART (§10.1). */
+export function PartnerCard({ caseId, depart }: { caseId: string; depart: SimTeil }) {
+  const teil = depart;
   const [partenaire, setPartenaire] = useState<'seul' | 'simulant' | 'ia'>('seul');
   const [copied, setCopied] = useState(false);
-  const url = patientUrl(caseId, teil ?? undefined);
+  const url = patientUrl(caseId, teil);
   const copyUrl = () => { navigator.clipboard?.writeText(url); setCopied(true); setTimeout(() => setCopied(false), 1600); };
 
   // L'IA ne peut jouer que les deux parties dialoguées. En Dokumentation, la
@@ -192,16 +171,13 @@ export function PartnerCard({ caseId, teil }: { caseId: string; teil: SimTeil | 
         <div className="panel mt-3 flex flex-col items-center gap-3 p-4 sm:flex-row">
           <QrCode value={url} size={130} />
           <div className="min-w-0 flex-1 text-center sm:text-left">
-            <div className="text-sm font-semibold">
-              Fiche du simulant{teil ? ` — ${TEIL_LABEL[teil]}` : ''}
-            </div>
+            <div className="text-sm font-semibold">Fiche du simulant</div>
+            {/* La partie porte les trois Teile : le simulant joue tous ses rôles. */}
             <p className="mt-1 text-xs text-slate-500 dark:text-slate-400">
-              {teil
-                ? `Il ouvre directement le rôle dont tu as besoin pour cette partie.`
-                : `Il joue le patient (anamnèse) puis le médecin examinateur (présentation).`}
+              Il joue le patient (anamnèse) puis le médecin examinateur (présentation).
             </p>
             <div className="mt-2 flex flex-wrap items-center justify-center gap-2 sm:justify-start">
-              <a href={localPatientUrl(caseId, teil ?? undefined)} target="_blank" rel="noreferrer" className="btn-outline gap-1.5 text-xs">Ouvrir en 2ᵉ fenêtre<Icon name="external" className="h-3.5 w-3.5" /></a>
+              <a href={localPatientUrl(caseId, teil)} target="_blank" rel="noreferrer" className="btn-outline gap-1.5 text-xs">Ouvrir en 2ᵉ fenêtre<Icon name="external" className="h-3.5 w-3.5" /></a>
               <button onClick={copyUrl} title="Copier le lien (téléphone)" aria-label="Copier le lien pour téléphone"
                 className={`btn-outline px-2.5 text-xs ${copied ? 'border-emerald-300 text-emerald-600 dark:text-emerald-400' : ''}`}>
                 <Icon name={copied ? 'check' : 'copy'} className="h-3.5 w-3.5" />
@@ -213,10 +189,6 @@ export function PartnerCard({ caseId, teil }: { caseId: string; teil: SimTeil | 
     </section>
   );
 }
-
-const TEIL_LABEL: Record<SimTeil, string> = {
-  anamnese: 'Anamnese', dokumentation: 'Dokumentation', fallvorstellung: 'Fallvorstellung',
-};
 
 function PartnerChoice({ icon, title, desc, onClick, active = false }: {
   icon: string; title: string; desc: string; onClick: () => void; active?: boolean;

@@ -1,7 +1,5 @@
 import { TEILE, isFullSimulation, scopeLabel } from '@/lib/simScope';
-import { ModeChooser } from '@/components/ModeChooser';
 import type { Case, Simulation } from '@/db/types';
-import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useCases, useSimulations } from '@/hooks/useData';
 import { FreqBadge, CenterBadge, EmptyState } from '@/components/ui';
@@ -41,7 +39,7 @@ export function SimulationHub() {
         <h2 className="mb-3 font-semibold">Cas à simuler</h2>
         <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
           {cases.map((c) => (
-            <FlipCaseCard key={c.id} c={c} />
+            <CaseCard key={c.id} c={c} />
           ))}
         </div>
       </section>
@@ -84,48 +82,20 @@ export function SimulationHub() {
 }
 
 
-// Carte de cas RETOURNABLE (FB2-P, retour direction) : « Commencer » retourne
-// la carte entière ; le verso, en verre, propose la complète au-dessus et les
-// trois Teile en dessous, nés d'une division. Retour par ↩ ou Échap.
-function FlipCaseCard({ c }: { c: Case }) {
-  const [flipped, setFlipped] = useState(false);
-  useEffect(() => {
-    if (!flipped) return;
-    const onKey = (e: KeyboardEvent) => { if (e.key === 'Escape') setFlipped(false); };
-    window.addEventListener('keydown', onKey);
-    return () => window.removeEventListener('keydown', onKey);
-  }, [flipped]);
+// Carte de cas. [S4] La carte RETOURNABLE (FB2-P) n'avait qu'une raison d'être, le
+// choix d'un Teil : elle disparaît avec lui (ADR-0021 déc. 1). « Commencer » mène à la
+// pré-simulation, qui porte le cas entier.
+function CaseCard({ c }: { c: Case }) {
   return (
-    <div className="[perspective:1200px]">
-      <div className={`grid transition-transform duration-500 ease-fluid [transform-style:preserve-3d] motion-reduce:transition-none ${flipped ? '[transform:rotateY(180deg)]' : ''}`}>
-        {/* Recto */}
-        <div className="card p-4 [grid-area:1/1] [backface-visibility:hidden]" aria-hidden={flipped}>
-          <h3 className="font-medium">{c.name}</h3>
-          <p className="text-xs text-slate-400">{c.specialty}</p>
-          <div className="mt-2 flex flex-wrap items-center gap-1.5">
-            <FreqBadge n={c.frequency} />
-            {c.centers.slice(0, 2).map((ct) => <CenterBadge key={ct} center={ct} />)}
-          </div>
-          <button type="button" onClick={() => setFlipped(true)} tabIndex={flipped ? -1 : 0}
-            className="btn-primary mt-3 w-full justify-center gap-1.5 text-xs"><Icon name="play" className="h-3.5 w-3.5" />Commencer</button>
-        </div>
-        {/* Verso — même matière que le recto (`.card`) : plus d'empilement `.card` + `.glass` */}
-        <div className="card flex flex-col p-3 [grid-area:1/1] [backface-visibility:hidden] [transform:rotateY(180deg)]" aria-hidden={!flipped}>
-          <div className="mb-1.5 flex items-center justify-between gap-2">
-            <div className="min-w-0">
-              <div className="truncate text-sm font-semibold">{c.name}</div>
-              <div className="text-[11px] text-slate-500 dark:text-slate-400">Comment veux-tu t'entraîner ?</div>
-            </div>
-            <button type="button" onClick={() => setFlipped(false)} title="Retourner la carte" aria-label="Retourner la carte" tabIndex={flipped ? 0 : -1}
-              className="grid h-7 w-7 shrink-0 place-items-center rounded-lg text-slate-500 transition-colors hover:bg-white/60 hover:text-slate-800 dark:hover:bg-white/10 dark:hover:text-white">
-              <Icon name="refresh" className="h-3.5 w-3.5" />
-            </button>
-          </div>
-          <div className="mt-auto">
-            {flipped && <ModeChooser tone="glass" compact hrefFor={(t) => `/simulation/${c.id}/pre${t ? `?teil=${t}` : ''}`} />}
-          </div>
-        </div>
+    <div className="card p-4">
+      <h3 className="font-medium">{c.name}</h3>
+      <p className="text-xs text-slate-400">{c.specialty}</p>
+      <div className="mt-2 flex flex-wrap items-center gap-1.5">
+        <FreqBadge n={c.frequency} />
+        {c.centers.slice(0, 2).map((ct) => <CenterBadge key={ct} center={ct} />)}
       </div>
+      <Link viewTransition to={`/simulation/${c.id}/pre`}
+        className="btn-primary mt-3 w-full justify-center gap-1.5 text-xs"><Icon name="play" className="h-3.5 w-3.5" />Commencer</Link>
     </div>
   );
 }

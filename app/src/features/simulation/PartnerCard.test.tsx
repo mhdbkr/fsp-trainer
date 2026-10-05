@@ -24,21 +24,23 @@ describe('StartButton — le départ, en haut de la pré-simulation', () => {
   // Retours de la direction (3 oct.) : le bouton de départ avait disparu, puis
   // il était « enfoui au milieu de la page ». Il vit désormais dans l'en-tête,
   // sous le nom du cas — hors du cadre « Avec qui tu joues ».
-  it('entre dans la partie, au Teil demandé', () => {
-    render(<MemoryRouter><StartButton caseId="c1" teil="fallvorstellung" /></MemoryRouter>);
-    fireEvent.click(screen.getByRole('button', { name: /démarrer la simulation/i }));
-    expect(nav.navigate).toHaveBeenCalledWith('/simulation/c1/run?teil=fallvorstellung', { viewTransition: true });
+  // [S4] simulation-run.md §10.1, §10.3 : un seul bouton, « Démarrer » ; l'entrée porte le DÉPART
+  // (`?depart=`), jamais un périmètre — la partie a toujours les trois Teile (INV-70).
+  it('entre dans la partie, par le Teil de départ demandé', () => {
+    render(<MemoryRouter><StartButton caseId="c1" depart="fallvorstellung" /></MemoryRouter>);
+    fireEvent.click(screen.getByRole('button', { name: /démarrer/i }));
+    expect(nav.navigate).toHaveBeenCalledWith('/simulation/c1/run?depart=fallvorstellung', { viewTransition: true });
   });
 
   it('R-C4 : lancée depuis une tâche du plan, l’entrée porte la tâche', () => {
-    render(<MemoryRouter><StartButton caseId="c1" teil="anamnese" taskId="tA" /></MemoryRouter>);
-    fireEvent.click(screen.getByRole('button', { name: /démarrer la simulation/i }));
-    expect(nav.navigate).toHaveBeenCalledWith('/simulation/c1/run?teil=anamnese&task=tA', { viewTransition: true });
+    render(<MemoryRouter><StartButton caseId="c1" depart="anamnese" taskId="tA" /></MemoryRouter>);
+    fireEvent.click(screen.getByRole('button', { name: /démarrer/i }));
+    expect(nav.navigate).toHaveBeenCalledWith('/simulation/c1/run?depart=anamnese&task=tA', { viewTransition: true });
   });
 
-  it('en simulation complète, l’entrée ne porte aucun Teil', () => {
-    render(<MemoryRouter><StartButton caseId="c1" teil={null} /></MemoryRouter>);
-    fireEvent.click(screen.getByRole('button', { name: /démarrer la simulation/i }));
+  it('sans départ, l’entrée ne porte aucun Teil (la partie commence par l’Anamnese)', () => {
+    render(<MemoryRouter><StartButton caseId="c1" depart={null} /></MemoryRouter>);
+    fireEvent.click(screen.getByRole('button', { name: /démarrer/i }));
     expect(nav.navigate).toHaveBeenCalledWith('/simulation/c1/run', { viewTransition: true });
   });
 });
@@ -47,36 +49,38 @@ describe('PartnerCard — choisir avec qui jouer (sans lancer)', () => {
   beforeEach(() => { vi.clearAllMocks(); localStorage.clear(); });
 
   it('choisir « Seul » ne lance rien ; « Seul » est choisi par défaut', () => {
-    render(<MemoryRouter><PartnerCard caseId="c1" teil="fallvorstellung" /></MemoryRouter>);
+    render(<MemoryRouter><PartnerCard caseId="c1" depart="fallvorstellung" /></MemoryRouter>);
     expect(screen.getByRole('button', { name: /seul/i }).getAttribute('aria-pressed')).toBe('true');
     fireEvent.click(screen.getByRole('button', { name: /seul/i }));
     expect(nav.navigate).not.toHaveBeenCalled();
   });
 
   it('le cadre ne contient AUCUN bouton de départ (il est en haut de page)', () => {
-    render(<MemoryRouter><PartnerCard caseId="c1" teil="anamnese" /></MemoryRouter>);
+    render(<MemoryRouter><PartnerCard caseId="c1" depart="anamnese" /></MemoryRouter>);
     fireEvent.click(screen.getByRole('button', { name: /simulant/i }));
     expect(screen.queryByRole('button', { name: /démarrer|entrer/i })).toBeNull();
   });
 
-  it('« Avec un simulant » montre une fiche qui porte le Teil, sans lancer', () => {
-    render(<MemoryRouter><PartnerCard caseId="c1" teil="anamnese" /></MemoryRouter>);
+  it('« Avec un simulant » montre une fiche qui porte le Teil de départ, sans lancer', () => {
+    render(<MemoryRouter><PartnerCard caseId="c1" depart="anamnese" /></MemoryRouter>);
     fireEvent.click(screen.getByRole('button', { name: /simulant/i }));
     expect(nav.navigate).not.toHaveBeenCalled();
     const lien = screen.getByRole('link', { name: /2ᵉ fenêtre/i }) as HTMLAnchorElement;
     expect(lien.href).toContain('teil=anamnese');
+    // [S4] la partie porte les trois Teile : le simulant joue tous ses rôles.
+    expect(screen.getByText(/le patient \(anamnèse\) puis le médecin examinateur/)).toBeTruthy();
   });
 
   it('« Avec ton IA » sélectionne sans rien ouvrir : l’IA se lance DEPUIS la partie', () => {
-    render(<MemoryRouter><PartnerCard caseId="c1" teil="anamnese" /></MemoryRouter>);
+    render(<MemoryRouter><PartnerCard caseId="c1" depart="anamnese" /></MemoryRouter>);
     fireEvent.click(screen.getByRole('button', { name: /ton ia/i }));
     expect(nav.navigate).not.toHaveBeenCalled();
     expect(useUi.getState().externalAiCaseId).toBeFalsy();
     expect(screen.getByRole('button', { name: /ton ia/i }).getAttribute('aria-pressed')).toBe('true');
   });
 
-  it('en Dokumentation, l’IA n’est pas proposée — ce serait un choix qui n’en est pas un', () => {
-    render(<MemoryRouter><PartnerCard caseId="c1" teil="dokumentation" /></MemoryRouter>);
+  it('départ en Dokumentation, l’IA n’est pas proposée — ce serait un choix qui n’en est pas un', () => {
+    render(<MemoryRouter><PartnerCard caseId="c1" depart="dokumentation" /></MemoryRouter>);
     expect(screen.queryByRole('button', { name: /ton ia/i })).toBeNull();
     expect(screen.getByRole('button', { name: /seul/i })).toBeTruthy();
   });

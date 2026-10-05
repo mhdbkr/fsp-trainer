@@ -1,17 +1,16 @@
 import { useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
 import { Link, useNavigate, useParams, useSearchParams } from 'react-router-dom';
 import { useLiveQuery } from 'dexie-react-hooks';
-import { isTeil } from '@/lib/simScope';
 import { db } from '@/db/db';
-import type { AssistanceMode, BogenNotes, Case, MusterCity, PartResult, SimTeil, Simulation } from '@/db/types';
+import type { AssistanceMode, BogenNotes, Case, MusterArt, MusterCity, PartResult, SimTeil, Simulation } from '@/db/types';
 import { useCase, useAufklaerungen, useFachbegriffe } from '@/hooks/useData';
 import { useUi } from '@/store/ui';
 import { CaseTermsPanel } from '@/features/fachbegriffe/CaseTermsPanel';
 import { CaseContext } from '@/features/fachbegriffe/CaseContext';
 import { termsOfCase } from '@/lib/collections/caseTerms';
 import { useTimer } from './useTimer';
-import { useLauf } from './useLauf';
-import { checklisteFuer, hatSprachgitter, naechsterTeil } from '@/lib/lauf/automat';
+import { departDe, useLauf } from './useLauf';
+import { checklisteFuer, hatSprachgitter, naechsterTeil, wegZu } from '@/lib/lauf/automat';
 import type { Lauf, LaufTeil } from '@/lib/lauf/types';
 import { NOT_ENTERED, emptyLanguageGrid, languageGridEntered } from '@/lib/scoring';
 import { computeAmbiance } from './timeAmbiance';
@@ -32,6 +31,11 @@ import { TeilAiLauncher } from './ai/TeilAiLauncher';
 import { SidePanel } from '@/components/SidePanel';
 import { ImmersiveMode } from './ImmersiveMode';
 import { CAT_META } from '@/features/aufklaerung/AufklaerungPage';
+import { CaseDial } from '@/components/visuals/CaseDial';
+import { dialData } from '@/lib/dialData';
+import { blankProgress } from '@/lib/journal';
+import { useCaseProgress, useTrainingEvents } from '@/features/program/useProgram';
+import { bilanErreurs } from './bilanErreurs';
 
 type Part = LaufTeil;
 const FLOW: { key: SimTeil; label: string; target: number; icon: string }[] = [
@@ -48,9 +52,9 @@ export function SimulationRunner() {
   const { caseId } = useParams();
   const navigate = useNavigate();
   const [params, setParams] = useSearchParams();
-  // Mode (FB2-P) : ?teil=anamnese|dokumentation|fallvorstellung → un seul Teil ;
-  // sinon la simulation complète. Le fil des parties se restreint au mode.
-  const teil = isTeil(params.get('teil')) ? (params.get('teil') as SimTeil) : null;
+  // [S4] `?depart=` (l'ancien `?teil=` est lu de même) : le Teil par lequel une
+  // partie NEUVE commence — jamais son périmètre (INV-70, §10.3).
+  const depart = departDe(params);
   // `?sim=<id>` — l'écran de résultat est RECHARGEABLE : il relit la partie
   // enregistrée au lieu de réafficher un runner vierge (audit §1.3).
   const simId = params.get('sim');
@@ -59,7 +63,7 @@ export function SimulationRunner() {
   // Un seul état : le `Lauf`. Il porte la checklist, les Teile couverts, le
   // minutage, le score et le brouillon d'évaluation — aucun `useState` ne les
   // reconstruit (contrat §1).
-  const steuerung = useLauf(simId ? undefined : c, teil, params.get('task') ?? undefined);   // R-C4
+  const steuerung = useLauf(simId ? undefined : c, depart, params.get('task') ?? undefined);   // R-C4
   const { lauf, laedt } = steuerung;
   const enTete = !laedt && !!lauf;   // l'en-tête (et `headerRef`) est monté
 
@@ -254,7 +258,8 @@ export function SimulationRunner() {
                   {/* Ligne mode / couche */}
                   <div className={`pointer-events-none absolute left-4 top-[30px] flex items-center gap-1.5 text-[11px] text-slate-400 transition-opacity duration-300 ${merged ? 'opacity-0' : 'opacity-100'}`}>
                     <span className={`chip whitespace-nowrap py-0 text-[10px] ${lauf.assistance === 'autonome' ? 'bg-violet-100 text-violet-700 dark:bg-violet-900/40 dark:text-violet-300' : 'bg-brand-100 text-brand-700 dark:bg-brand-900/40 dark:text-brand-300'}`}>
-                      {lauf.assistance === 'autonome' ? 'Autonome' : 'Assisté'} · Couche {lauf.layer}{lauf.modus === 'teil' ? ` · ${LABEL[lauf.geplanteTeile[0]]} seule` : ''}
+                      {/* [S4] plus de « Couche » à l'écran (décision (d)) ; « … seule » ne vit plus que sur un Lauf série 3 repris. */}
+                      {lauf.assistance === 'autonome' ? 'Autonome' : 'Assisté'}{lauf.modus === 'teil' ? ` · ${LABEL[lauf.geplanteTeile[0]]} seule` : ''}
                     </span>
                   </div>
 
@@ -281,11 +286,13 @@ export function SimulationRunner() {
                   </div>
 
                   {/* Parcours — en bas au repos ; parfaitement centré (des deux
-                      axes) une fois fusionné. C'est un REPÈRE, pas une
-                      navigation : ces pastilles étaient cliquables et
-                      permettaient de revenir sur une partie terminée par un
-                      simple clic — une régression d'état déguisée en bouton.
-                      « Revenir » est une action nommée du bilan, et elle seule. */}
+                      axes) une fois fusionné. Ce n'est jamais un retour : une
+                      partie terminée ne se rouvre pas d'un clic (« Revenir » est
+                      une action nommée du bilan, et elle seule). [S4] Une
+                      pastille devient un BOUTON ssi l'automate a une transition
+                      vers ce Teil (`wegZu`) : « commencer par » un autre Teil
+                      tant qu'aucun n'est joué (`springeZu`), « continuer par »
+                      un Teil non joué au bilan (`partieSuivante(t')`). */}
                   <div className={`absolute inset-x-4 overflow-hidden transition-[top,height] duration-[440ms] ease-fluid ${merged ? 'top-[22px] h-[62px]' : 'top-[58px] h-[62px]'}`}>
                     <div className="grid h-full transition-transform duration-[440ms] ease-fluid"
                       style={{ gridTemplateColumns: `repeat(${flow.length}, minmax(0, 1fr))`,
@@ -293,6 +300,7 @@ export function SimulationRunner() {
                       {flow.map((f, i) => {
                         const isActive = lauf.aktuellerTeil === f.key;
                         const isDone = !!lauf.teile[f.key]?.done;
+                        const weg = wegZu(lauf, f.key);
                         return (
                           <div key={f.key} className={`relative flex min-w-0 flex-col items-center justify-center transition-opacity duration-300 ${merged && !isActive ? 'opacity-0' : 'opacity-100'}`}>
                             {i < flow.length - 1 && (
@@ -300,16 +308,17 @@ export function SimulationRunner() {
                                 className={`absolute top-[19px] h-0.5 -translate-y-1/2 rounded transition-opacity duration-300 ${merged ? 'opacity-0' : 'opacity-100'} ${isDone ? 'bg-emerald-400' : 'bg-slate-200 dark:bg-slate-700'}`}
                                 style={{ left: 'calc(50% + 34px)', width: 'calc(100% - 68px)' }} />
                             )}
-                            <div aria-current={isActive ? 'step' : undefined}
-                              className="relative z-10 flex flex-col items-center gap-1">
+                            <Etape weg={weg} label={`${lauf.zustand === 'bilanz' ? 'Continuer' : 'Commencer'} par la ${f.label}`}
+                              onWeg={() => weg && steuerung.dispatch(weg)} aktiv={isActive}>
                               <span className={`flex h-10 w-10 items-center justify-center rounded-full border-2 ${
                                 isDone ? 'border-emerald-500 bg-emerald-500 text-white'
                                 : isActive ? 'border-brand-600 bg-brand-600 text-white'
+                                : weg ? 'border-brand-300 bg-white/70 text-brand-600 hover:border-brand-500 dark:border-brand-700 dark:bg-slate-900/70 dark:text-brand-300'
                                 : 'border-slate-300 bg-white/70 text-slate-400 dark:border-slate-700 dark:bg-slate-900/70'}`}>
                                 {isDone ? '✓' : <Icon name={f.icon} className="h-5 w-5" />}
                               </span>
-                              <span className={`whitespace-nowrap text-[11px] font-medium ${isActive ? 'text-brand-700 dark:text-brand-300' : 'text-slate-400'}`}>{f.label}</span>
-                            </div>
+                              <span className={`whitespace-nowrap text-[11px] font-medium ${isActive ? 'text-brand-700 dark:text-brand-300' : weg ? 'text-brand-600 dark:text-brand-300' : 'text-slate-400'}`}>{f.label}</span>
+                            </Etape>
                           </div>
                         );
                       })}
@@ -362,7 +371,7 @@ export function SimulationRunner() {
                 {istEnde(lauf) ? (
                   <Ende lauf={lauf} fehler={steuerung.fehler}
                     brief={<ArztbriefGuide c={c} assistance={lauf.assistance} text={lauf.arztbriefText}
-                      onText={(t) => steuerung.setzeFeld({ arztbriefText: t })} bogen={lauf.bogen} muster={lauf.muster ?? 'Standard'} />}
+                      onText={(t) => steuerung.setzeFeld({ arztbriefText: t })} bogen={lauf.bogen} muster={lauf.muster} />}
                     onZurueck={steuerung.zurueckZumBilanz} onArztbrief={steuerung.arztbriefSchreiben} onSpeichern={enregistrer} />
                 ) : lauf.zustand === 'bilanz' && lauf.aktuellerTeil ? (
                   <PartEvaluation
@@ -375,6 +384,7 @@ export function SimulationRunner() {
                     onGrid={(g) => steuerung.setzeEntwurfFeld(lauf.aktuellerTeil!, { grid: g })}
                     onFeeling={(v) => steuerung.setzeEntwurfFeld(lauf.aktuellerTeil!, { feeling: v })}
                     suivant={suivantTeil ? LABEL[suivantTeil] : null}
+                    suivantLabel={(s) => `Continuer — ${s} →`}
                     onSuivant={() => steuerung.dispatch({ typ: 'partieSuivante' })}
                     onRetour={() => steuerung.dispatch({ typ: 'zurueckZurPartie' })}
                   />
@@ -383,7 +393,7 @@ export function SimulationRunner() {
                     part={partKey}
                     c={c}
                     assistance={lauf.assistance}
-                    muster={lauf.muster ?? 'Standard'}
+                    muster={lauf.muster}
                     bogen={lauf.bogen}
                     setBogen={(b) => steuerung.setzeFeld({ bogen: b })}
                     arztbriefText={lauf.arztbriefText}
@@ -438,6 +448,16 @@ export function SimulationRunner() {
 
 const teilOderNull = (p: Part): SimTeil | undefined => (p === 'aufklaerung' ? undefined : p);
 
+/** Une étape du fil : un bouton quand l'automate y mène (`wegZu`), un repère sinon. */
+function Etape({ weg, label, onWeg, aktiv, children }: {
+  weg: unknown; label: string; onWeg: () => void; aktiv: boolean; children: React.ReactNode;
+}) {
+  const cls = 'relative z-10 flex flex-col items-center gap-1';
+  return weg
+    ? <button type="button" onClick={onWeg} aria-label={label} title={label} className={`${cls} min-h-11 rounded-xl`}>{children}</button>
+    : <div aria-current={aktiv ? 'step' : undefined} className={cls}>{children}</div>;
+}
+
 /** L'écran de résultat, relu depuis la base. `/run?sim=<id>` est rechargeable :
  *  un reload n'y réaffiche plus un runner vierge sur le même cas. */
 function GespeicherterLauf({ simId }: { simId: string }) {
@@ -469,7 +489,7 @@ function SimTimer({ target, initialElapsed, running, onElapsed, children }: {
 }
 
 interface PlayAreaProps {
-  part: Part; c: Case; assistance: AssistanceMode; muster: MusterCity;
+  part: Part; c: Case; assistance: AssistanceMode; muster?: MusterArt | MusterCity;
   bogen: BogenNotes; setBogen: (b: BogenNotes) => void;
   arztbriefText: string; setArztbriefText: (t: string) => void;
   onItem: (id: string, checked: boolean) => void;
@@ -491,7 +511,7 @@ function PlayArea({ part, c, assistance, muster, bogen, setBogen, arztbriefText,
 }
 
 function AnamneseArea({ c, assistance, muster, bogen, setBogen, lauf, onItem, onHinweis }: {
-  c: Case; assistance: AssistanceMode; muster: MusterCity; bogen: BogenNotes;
+  c: Case; assistance: AssistanceMode; muster?: MusterArt | MusterCity; bogen: BogenNotes;
   setBogen: (b: BogenNotes) => void; lauf: Lauf;
   onItem: (id: string, checked: boolean) => void; onHinweis: () => void;
 }) {
@@ -596,6 +616,15 @@ function AufklaerungArea({ c }: { c: Case }) {
 export function ResultScreen({ sim, c }: { sim: Simulation; c: Case }) {
   const openExternalAi = useUi((s) => s.openExternalAi);
   const parts = Object.entries(sim.parts).filter(([, p]) => p?.done) as [Part, PartResult][];
+  // [S4] §10.5 : le CAS, pas un Teil isolé — son cadran, avec l'arc des Teile joués dans cette partie
+  // (`vientDEtreJoue` = teileGespielt ∩ SimTeil). Le cadran LIT `case_progress` (INV-59).
+  const progress = useCaseProgress();
+  const cp = progress?.get(c.id) ?? blankProgress(c.id);
+  const dial = dialData(cp, { lauf: { teileGespielt: parts.map(([k]) => k) } });
+  const vientDeSouder = cp.etat === 'pret' && typeof cp.pretAt === 'number' && cp.pretAt >= sim.date;
+  // §13.3, sortie « bilan » : ce que cette partie a fait des items manqués d'habitude. Rien n'est stocké.
+  const events = useTrainingEvents();
+  const erreurs = events ? bilanErreurs(events, sim.id) : [];
   const avg = parts.length ? Math.round(parts.reduce((s, [, p]) => s + partScore(p), 0) / parts.length) : 0;
   const passed = sim.passed;
   // Décision direction (4 oct.) : sans langue notée, la réussite ne porte que sur le
@@ -609,7 +638,10 @@ export function ResultScreen({ sim, c }: { sim: Simulation; c: Case }) {
         <h1 className="mt-2 text-2xl font-bold">{!passed ? 'Encore un effort' : langueNonNotee ? 'Réussi sur le contenu' : 'Au-dessus du seuil Doctopus'}</h1>
         <p className="text-slate-500 dark:text-slate-400">{c.name} · score moyen {avg}%</p>
         {passed && langueNonNotee && <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">Ta langue n'est pas notée (langue non notée) : le verdict complet viendra une fois la grille de langue renseignée.</p>}
-        <p className="mt-1 text-sm">{sim.teil ? (passed ? 'Cette partie ≥ 60 % (seuil Doctopus). Elle compte pour un tiers de la maîtrise du cas et remet ton programme à jour.' : 'Cette partie est sous les 60 % — retravaille-la.') : passed ? 'Toutes les parties tentées ≥ 60% (seuil Doctopus).' : 'Au moins une partie sous les 60% — retravaille-la.'}</p>
+        <p className="mt-1 text-sm">{passed ? 'Toutes les parties tentées ≥ 60% (seuil Doctopus).' : 'Au moins une partie sous les 60% — retravaille-la.'}</p>
+        <div className="mt-4 flex justify-center">
+          <CaseDial data={dial} size={160} nom={c.name} vientDeSouder={vientDeSouder} />
+        </div>
       </div>
 
       <div className="grid gap-3 sm:grid-cols-3">
@@ -624,6 +656,22 @@ export function ResultScreen({ sim, c }: { sim: Simulation; c: Case }) {
           );
         })}
       </div>
+
+      {erreurs.length > 0 && (
+        <div className="card p-5">
+          <div className="label mb-2 flex items-center gap-1.5"><Icon name="history" className="h-3.5 w-3.5" />Ce que tu oublies souvent</div>
+          <ul className="space-y-1.5 text-sm">
+            {erreurs.map((e) => (
+              <li key={`${e.teil}:${e.item}`} className="flex flex-wrap items-baseline justify-between gap-x-3">
+                <span>{LABEL[e.teil]} — « {e.libelle} »</span>
+                <span className={`text-xs ${e.cochee ? 'text-emerald-600 dark:text-emerald-400' : 'text-slate-500 dark:text-slate-400'}`}>
+                  {e.cochee ? 'cochée cette fois' : `encore manquée (${e.manques}/${e.sur})`}
+                </span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
 
       {sim.prioritizedCorrections.length > 0 && (
         <div className="card p-5">
