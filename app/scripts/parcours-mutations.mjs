@@ -458,8 +458,8 @@ export const MUTATIONS = [
   },
   {
     id: "INV-55-drill", tests: 'tests/invariants.plan.test.ts', file: "src/lib/program/dayPlan.ts",
-    from: "const terms = counts(begriffe, fin);",
-    to: "const terms = counts(begriffe, input.now);",
+    from: "const terms = counts(begriffe, fin - 1, input.favorites);",
+    to: "const terms = counts(begriffe, input.now, input.favorites);",
     pourquoi: "`counts(begriffe, input.now)` : les termes dus se comptent à l'instant de matérialisation",
   },
   {
