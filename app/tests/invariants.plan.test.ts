@@ -436,7 +436,7 @@ describe('INV-60 — la consolidation espacée : un cas solide revient à son é
       expect(tasks.filter((t) => t.kind === 'revision' && t.caseId === un.id), `${due} : la tâche est une révision`).toHaveLength(1);
       expect(planDe(evs, veille).filter((t) => t.caseId === un.id), `${veille} : le cas n'est pas au plan`).toEqual([]);
       const rev = tasks.find((t) => t.kind === 'revision')!;
-      expect(rev.teile).toEqual([A, D, F]); expect(rev.reason).toMatch(/^Consolidation : vu il y a \d+ jours?$/);
+      expect(rev.teile).toEqual([A, D, F]); expect(rev.reason).toMatch(/^Solide il y a \d+ jours? : on vérifie qu'il tient\.$/);
       precedent = due;
       evs = [...evs, mesure(`r${echeance}`, due)];                 // rejoué À l'échéance, les trois Teile ≥ 80
     }

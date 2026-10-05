@@ -169,6 +169,17 @@ describe('le « pourquoi aujourd’hui » — une ligne, lisible, jamais accusat
     expect(pourquoiAujourdhui(scoreCase(a, c), c)).toContain('48 %');
   });
 
+  it('revue S4-2 — consolidation : « Solide il y a n jours : on vérifie qu’il tient. », jamais « 0 jour »', () => {
+    const scored = (n?: number) => {
+      const c = ctx([a], { lastPlayedAt: new Map(n === undefined ? [] : [['a', NOW - n * DAY_MS]]) });
+      return pourquoiAujourdhui({ c: a, score: 1, parts: { freq: 1, urgence: 1, dette: 1 / 3, fraicheur: 1, du: true } }, c);
+    };
+    expect(scored(21)).toBe("Solide il y a 21 jours : on vérifie qu'il tient.");
+    expect(scored(1)).toBe("Solide il y a 1 jour : on vérifie qu'il tient.");
+    expect(scored(undefined), 'dernier jeu inconnu').toBe("Solide : on vérifie qu'il tient.");
+    expect(scored(0)).toBe("Solide : on vérifie qu'il tient.");
+  });
+
   it('un cas jamais travaillé n’est jamais présenté comme un défaut', () => {
     const c = ctx([a], { progress: new Map([['a', blankProgress('a')]]) });
     const why = pourquoiAujourdhui(scoreCase(a, c), c);

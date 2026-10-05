@@ -195,7 +195,8 @@ export function pourquoiAujourdhui(s: Scored, ctx: SelectContext): string {
   if (s.parts.du) {
     const dernier = ctx.lastPlayedAt.get(s.c.id);
     const n = dernier === undefined ? 0 : differenceInCalendarDays(parseISO(jour), parseISO(dayKey(dernier)));
-    return `Consolidation : vu il y a ${n} jour${n > 1 ? 's' : ''}`;
+    // Texte de la direction (revue S4-2) ; jamais « 0 jour » — sans dernier jeu connu, on ne date pas.
+    return n >= 1 ? `Solide il y a ${n} jour${n > 1 ? 's' : ''} : on vérifie qu'il tient.` : `Solide : on vérifie qu'il tient.`;
   }
   const fragile = cp && Object.entries(cp.teile).find(([, p]) => p.status === 'fragile');
   if (fragile) {
