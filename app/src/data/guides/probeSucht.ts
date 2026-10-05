@@ -40,7 +40,7 @@ export const PROBE_SUCHT: Readonly<Record<string, Sucht>> = {
   'akt-infekt-fieber': ['fieber'], 'akt-infekt-kontakt': ['reise'],   // K3 : « Kontakt » et « Essen » sont des relances de PRÉCISION (elles suivent la question, sans signe propre)
   'akt-infekt-herd': ['husten', 'halsschmerzen', 'miktion', 'stuhl', 'ausschlag', 'wunde'],   // énumération (D1)
   'akt-veraend-was': ['knoten', 'ausschlag', 'lokalblutung', 'haematome'],
-  'akt-veraend-entwicklung': ['entwicklung'], 'akt-veraend-blutung': ['lokalschmerz', 'juckreiz', 'lokalblutung', 'stuhlaussehen', 'urin_aspekt', 'haemoptyse'],   // K3 : ses relances (Blut im Stuhl / Urin, Blut abhusten) précisent « blutet es »
+  'akt-veraend-entwicklung': ['entwicklung'], 'akt-veraend-blutung': ['lokalschmerz', 'juckreiz', 'lokalblutung'],   // K3 : ses relances (Blut im Stuhl / Urin, Blut abhusten) sont des précisions
   'akt-ausscheid-was': ['stuhl', 'miktion', 'gelbfaerbung', 'urin_aspekt', 'stuhlaussehen'],   // D1
   'akt-ausscheid-haeufigkeit': ['stuhlfrequenz'], 'akt-ausscheid-harn-haeufigkeit': ['miktion_frequenz', 'nykturie'],
   'akt-ausscheid-aussehen': ['stuhlaussehen'], 'akt-ausscheid-harn-aussehen': ['urin_aspekt'],

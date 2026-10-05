@@ -19,8 +19,10 @@ const entry = join(dir, 'entry.ts');
 writeFileSync(entry, `
   export { seedCases } from ${JSON.stringify(join(root, 'src/data/seedCases.ts'))};
   export { playedTrame } from ${JSON.stringify(join(root, 'src/data/guides/anamneseChapters.ts'))};
-  export { phraseText, phraseFollowUp, phraseIsCaseSpecific } from ${JSON.stringify(join(root, 'src/data/guides/phrases.ts'))};
-  export { phraseSymptoms, symptomsInText } from ${JSON.stringify(join(root, 'src/data/guides/symptoms.ts'))};
+  export { profilDuCas } from ${JSON.stringify(join(root, 'src/data/guides/anamneseChapters.ts'))};
+  export { RISIKO_SIGNES, R2_EXEMPTES } from ${JSON.stringify(join(root, 'src/data/guides/coherence.ts'))};
+  export { phraseText, phraseFollowUp, phraseIsCaseSpecific, phraseProbes } from ${JSON.stringify(join(root, 'src/data/guides/phrases.ts'))};
+  export { phraseSymptoms, symptomsInText, SIGNE_AFFINE, SUCHT_AUSSER } from ${JSON.stringify(join(root, 'src/data/guides/symptoms.ts'))};
   export { cqText, cqKapitel } from ${JSON.stringify(join(root, 'src/lib/caseQuestions.ts'))};
 `);
 const out = join(dir, 'bundle.mjs');
@@ -62,14 +64,23 @@ if (showIdx > 0) {
 //    elle : elle le remplace ? l'approfondit ? le répète ? La relecture
 //    tranche en l'annotant ou en la reformulant.
 const errors = []; const review = []; let n = 0;
+// K3 : le montage est `cohere`. Une question que le moteur a laissée NON RÉDUITE (pas de `parts`), une exception
+// COHERENCE_ALLOWED, la question du nom et son épellation (même sonde) et les signes de risque (jamais retirés) sont
+// le résidu ASSUMÉ du moteur — compté par checkCoherence (nonReduit), pas une erreur ici.
+const sondeOuCas = (p) => (m.phraseIsCaseSpecific(p) ? null : m.phraseProbes(p).join('+'));
 for (const c of cases) {
   n++;
   const seen = new Map(); // symptôme → première question
   const raw = new Map((c.caseSpecificQuestions ?? []).map((q) => [m.cqText(q), q]));
   const rows = trame(c);
+  const { ecarts } = m.playedTrame(c);
+  const tags = m.profilDuCas(c).tags;   // SUCHT_AUSSER : une sonde ne cherche pas ce signe sous ce tag (règle testiculaire)
+  const assume = (p, s) => m.phraseProbes(p).some((x) => m.R2_EXEMPTES.has(x) || tags.some((t) => m.SUCHT_AUSSER[x]?.[t]?.includes(s))) || m.RISIKO_SIGNES.has(s)
+    || ecarts.some((e) => (e.action === 'non-reduit' || e.action === 'garde-exception') && e.question === sondeOuCas(p));
   rows.forEach(({ ch, p }) => {
     const t = m.phraseText(p);
     for (const s of m.phraseSymptoms(p)) {
+      if (assume(p, s)) continue;
       const first = seen.get(s);
       if (first) errors.push(`${c.id} — « ${s} » deux fois : [${first.ch}] « ${first.t.slice(0, 50)} » puis [${ch}] « ${t.slice(0, 50)} »`);
       else seen.set(s, { ch, t });
@@ -84,7 +95,8 @@ for (const c of cases) {
     // cité ne fait plus taire la relecture du reste (revue finale I-7 ;
     // re-revue I-3 pour `sucht: []`).
     if (q && typeof q !== 'string' && q.relu) return;
-    const declared = q && typeof q !== 'string' ? q.sucht ?? [] : [];
+    // K3 : un signe déclaré couvre aussi le signe plus grossier qu'il affine (stuhlfrequenz → stuhl, SIGNE_AFFINE).
+    const declared = (q && typeof q !== 'string' ? q.sucht ?? [] : []).flatMap((x) => [x, ...(m.SIGNE_AFFINE[x] ?? [])]);
     // Q0 : la relance de la question se scanne comme la question.
     for (const s of m.symptomsInText([t, ...m.phraseFollowUp(p)].join(' '))) {
       if (declared.includes(s)) continue;

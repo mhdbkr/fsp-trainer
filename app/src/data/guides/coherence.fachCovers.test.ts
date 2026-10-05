@@ -21,7 +21,7 @@ const GARDEES: Record<string, Raison> = {
   'fach-derma-beginn-ort -> akt-veraend-entwicklung': 'signe-distinct',
   'fach-derma-muttermal -> akt-veraend-entwicklung': 'signe-distinct',
   'fach-gastro-speisen -> akt-ausloeser': 'signe-distinct',
-  'fach-gastro-stuhl -> akt-ausscheid-haeufigkeit': 'signe-distinct',          // la fréquence des selles revient (décision 4)
+  'fach-gastro-stuhl -> akt-ausscheid-haeufigkeit': 'signe-distinct',          // la fréquence des selles revient (décision 4) ; colitis : la question du cas la pose
   'fach-gefaess-schwellung -> akt-veraend-entwicklung': 'signe-distinct',
   'fach-gefaess-schwellung -> akt-veraend-was': 'signe-distinct',
   'fach-gyn-blutung -> akt-veraend-was': 'signe-distinct',
@@ -39,7 +39,6 @@ const GARDEES: Record<string, Raison> = {
   'fach-uro-frequenz -> akt-ausscheid-haeufigkeit': 'signe-distinct',
   'fach-uro-strahl -> akt-ausscheid-haeufigkeit': 'signe-distinct',
   // Signe partagé, mais la question perdante n'a pas de `parts` : non réduite (résidu, K4 écrit les parts).
-  'fach-derma-empfinden -> akt-veraend-blutung': 'non-reduit',
   'fach-gyn-blutung -> akt-veraend-blutung': 'non-reduit',
   'fach-haem-blutung -> akt-veraend-blutung': 'non-reduit',
   'fach-haem-blutverlust -> akt-veraend-blutung': 'non-reduit',
@@ -75,16 +74,18 @@ describe('FACH_COVERS absorbé par r2 — chaque paire retirée, ou gardée pour
     }
   }
 
-  it('la table gelée a 73 paires ; 71 s\'appliquent à au moins un cas', () => {
+  it('la table gelée a 73 paires ; 71 s\'appliquent à au moins un cas ; 30 restent posées (raison listée)', () => {
     expect(PAIRES).toHaveLength(73);
     expect(etat.size).toBe(71);
+    expect(Object.keys(GARDEES)).toHaveLength(30);
   });
   it('les paires gardées sont exactement celles listées', () => {
     const gardees = [...etat].filter(([, s]) => s.retiree < s.n).map(([k]) => k).sort();
     expect(gardees).toEqual(Object.keys(GARDEES).sort());
   });
   it('quand r2 la retire, la question de variante disparaît sur TOUS les cas qui jouent la Fach', () => {
-    const partielles = [...etat].filter(([k, s]) => s.retiree > 0 && s.retiree < s.n && GARDEES[k] !== 'sucht-ausser').map(([k]) => k);
+    // Une paire « signe distinct » peut être retirée sur un cas par une AUTRE question (ex. une question du cas) : pas par la Fach.
+    const partielles = [...etat].filter(([k, s]) => s.retiree > 0 && s.retiree < s.n && !['sucht-ausser', 'signe-distinct'].includes(GARDEES[k])).map(([k]) => k);
     expect(partielles).toEqual([]);
   });
   it('chaque raison se vérifie dans les données', () => {

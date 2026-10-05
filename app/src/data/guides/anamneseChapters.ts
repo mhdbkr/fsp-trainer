@@ -324,7 +324,10 @@ const AKTUELL_VARIANTS: Record<LeitsymptomKategorie, AktuellVariant> = {
         text: 'Schmerz und Blutung — Tut es weh, juckt es, oder blutet es?',
         probe: 'akt-veraend-blutung',
         followUp: ['Haben Sie Blut im Stuhl oder im Urin bemerkt?', 'Husten Sie Blut ab?'],
-        followUpSucht: [['stuhlaussehen', 'urin_aspekt'], ['haemoptyse']],   // revue K1 C6
+        // K3 (décision de main : une relance reste sous sa mère) : Blut im Stuhl / Urin, Blut abhusten précisent « blutet es ? »
+        // et la suivent ; la Fach (onko, haem, gastro) les pose avec leur signe propre (revue K1 C6 : stuhlaussehen,
+        // urin_aspekt, haemoptyse). `relu` : « Husten Sie Blut ab? » nomme la toux sans l'interroger (mention unique).
+        relu: true,
       },
       { text: 'Verlauf — Ist es dauernd da, oder kommt und geht es?', probe: 'akt-verlauf' },
       { text: 'Auslöser — Ist Ihnen ein Auslöser aufgefallen — eine Verletzung, Sonne, ein neues Medikament, eine Ernährungsumstellung?', probe: 'akt-ausloeser' },

@@ -459,7 +459,7 @@ case-vorhofflimmern
 case-erysipel
   eroeffnung[· · · ·]
   personalia[pers-name pers-name pers-alter pers-groesse pers-hausarzt ·]
-  aktuell[akt-motiv akt-veraend-was akt-beginn akt-charakter akt-intensitaet↳1 akt-veraend-entwicklung↳1 akt-veraend-blutung↳2 akt-verlauf akt-einfluss akt-frueher↳1 akt-begleit cas cas cas cas cas]
+  aktuell[akt-motiv akt-veraend-was akt-beginn akt-charakter akt-intensitaet↳1 akt-veraend-entwicklung↳1 akt-verlauf akt-einfluss akt-frueher↳1 akt-begleit cas cas cas cas cas]
   fach-derma[fach-derma-beginn-ort↳1 fach-derma-empfinden↳1 fach-derma-aussehen↳1 fach-derma-ausloeser fach-derma-systemisch fach-derma-vorgeschichte fach-derma-vorbehandlung]
   vegetativ[veg-fieber~reise veg-schuettelfrost veg-uebelkeit↳1 veg-ausscheidung↳1 veg-gewicht↳2 veg-appetit veg-schlaf ^veg-fieber#5~impfung]
   vorerkrankungen[· vor-erkrank↳1 vor-op↳1 vor-krankenhaus cas cas cas]
@@ -1239,7 +1239,7 @@ case-pertussis
 case-colitis-ulcerosa
   eroeffnung[· · · ·]
   personalia[pers-name pers-name pers-alter pers-groesse pers-hausarzt ·]
-  aktuell[akt-motiv akt-ort↳1 akt-beginn akt-charakter akt-intensitaet↳1 cas akt-ausscheid-was akt-ausscheid-haeufigkeit↳1 akt-ausscheid-harn-haeufigkeit↳1 akt-verlauf akt-ausloeser akt-einfluss akt-frueher↳1 akt-begleit akt-atemnot-belastung↳1 cas cas↳1 cas cas]
+  aktuell[akt-motiv akt-ort↳1 akt-beginn akt-charakter akt-intensitaet↳1 cas akt-ausscheid-was cas akt-ausscheid-harn-haeufigkeit↳1 akt-verlauf akt-ausloeser akt-einfluss akt-frueher↳1 akt-begleit akt-atemnot-belastung↳1 cas↳1 cas cas]
   fach-gastro[fach-rheuma-gelenke↳1 fach-gastro-uebelkeit↳5 fach-gastro-sodbrennen fach-gastro-voelle fach-gastro-speisen fach-gastro-stuhl↳2 fach-gastro-tenesmen fach-gastro-spiegelung]
   vegetativ[veg-fieber↳4 veg-schuettelfrost veg-gewicht↳2 veg-appetit veg-schlaf ^veg-fieber#5~impfung]
   vorerkrankungen[· vor-erkrank↳1 vor-op↳1 vor-krankenhaus]
@@ -1520,7 +1520,7 @@ case-hodentorsion
 case-basaliom
   eroeffnung[· · · ·]
   personalia[pers-name pers-name pers-alter pers-groesse pers-hausarzt ·]
-  aktuell[akt-motiv akt-veraend-was akt-beginn akt-veraend-entwicklung↳1 akt-veraend-blutung↳2 akt-einfluss akt-frueher↳1 akt-begleit cas cas]
+  aktuell[akt-motiv akt-veraend-was akt-beginn akt-veraend-entwicklung↳1 akt-einfluss akt-frueher↳1 akt-begleit cas cas]
   fach-derma[fach-derma-beginn-ort↳1 fach-derma-empfinden↳1 fach-derma-aussehen↳1 fach-derma-ausloeser fach-derma-verlauf fach-derma-systemisch fach-derma-vorgeschichte fach-derma-muttermal↳1 fach-derma-vorbehandlung]
   vegetativ[veg-fieber~reise veg-schuettelfrost veg-uebelkeit↳1 veg-ausscheidung↳1 veg-gewicht↳2 veg-appetit veg-schlaf ^veg-fieber#5~impfung cas]
   vorerkrankungen[· vor-erkrank↳1 vor-op↳1 vor-krankenhaus cas cas]
@@ -1532,7 +1532,7 @@ case-basaliom
 case-psoriasis
   eroeffnung[· · · ·]
   personalia[pers-name pers-name pers-alter pers-groesse pers-hausarzt ·]
-  aktuell[akt-motiv akt-veraend-was akt-beginn akt-veraend-entwicklung↳1 akt-veraend-blutung↳2 akt-einfluss akt-frueher↳1 akt-begleit cas cas cas cas cas]
+  aktuell[akt-motiv akt-veraend-was akt-beginn akt-veraend-entwicklung↳1 akt-einfluss akt-frueher↳1 akt-begleit cas cas cas cas cas]
   fach-derma[fach-derma-beginn-ort↳1 fach-derma-empfinden↳1 fach-derma-aussehen↳1 fach-derma-ausloeser fach-derma-verlauf fach-rheuma-gelenke↳1 fach-derma-systemisch fach-rheuma-entzuendung fach-derma-vorgeschichte fach-derma-vorbehandlung]
   vegetativ[veg-fieber~reise veg-schuettelfrost veg-uebelkeit↳1 veg-ausscheidung↳1 veg-gewicht↳2 veg-appetit veg-schlaf ^veg-fieber#5~impfung]
   vorerkrankungen[· vor-erkrank↳1 vor-op↳1 vor-krankenhaus]
@@ -1544,7 +1544,7 @@ case-psoriasis
 case-urtikaria
   eroeffnung[· · · ·]
   personalia[pers-name pers-name pers-alter pers-groesse pers-hausarzt ·]
-  aktuell[akt-motiv akt-veraend-was akt-beginn akt-veraend-entwicklung↳1 akt-veraend-blutung↳2 akt-einfluss akt-frueher↳1 akt-begleit cas cas cas cas]
+  aktuell[akt-motiv akt-veraend-was akt-beginn akt-veraend-entwicklung↳1 akt-einfluss akt-frueher↳1 akt-begleit cas cas cas cas]
   fach-derma[fach-derma-beginn-ort↳1 fach-derma-empfinden↳1 fach-derma-aussehen↳1 fach-derma-ausloeser fach-derma-verlauf fach-derma-systemisch fach-derma-vorgeschichte fach-derma-vorbehandlung]
   vegetativ[veg-fieber~reise veg-schuettelfrost veg-uebelkeit↳1 veg-ausscheidung↳1 veg-gewicht↳2 veg-appetit veg-schlaf ^veg-fieber#5~impfung]
   vorerkrankungen[· vor-erkrank↳1 vor-op↳1 vor-krankenhaus]
