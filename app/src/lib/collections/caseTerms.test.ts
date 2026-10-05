@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { termsOfCase, termsInOrder } from './caseTerms';
+import { termsOfCase, termsInOrder, caseFavoriteIds } from './caseTerms';
 import type { Fachbegriff } from '@/db/types';
 import type { ProgressEvent } from '@/lib/sync/events';
 import { freshSrs } from '@/lib/srs';
@@ -24,5 +24,13 @@ describe('termsInOrder (m1)', () => {
   it('garde l\'ordre des ids, ignore les ids inconnus', () => {
     const all = [t('a'), t('b'), t('c')];
     expect(termsInOrder(['c', 'zzz', 'a'], all).map((t) => t.id)).toEqual(['c', 'a']);
+  });
+});
+
+describe('caseFavoriteIds (lot F point 3)', () => {
+  it('favoris posés pendant CE cas, encore favoris, en ordre d\'événement, sans doublon', () => {
+    const events = [ev('term.favorited', 'b', { caseId: 'c1' }), ev('term.favorited', 'x', { caseId: 'c9' }), ev('term.favorited', 'a', { caseId: 'c1' }), ev('term.favorited', 'gone', { caseId: 'c1' }), ev('term.favorited', 'b', { caseId: 'c1' }), ev('deck.term_added', 'd1', { termId: 'c', caseId: 'c1' })];
+    const favorites = ['a', 'b', 'x'].map((termId) => ({ termId, since: '2026-09-17T10:00:00Z' }));
+    expect(caseFavoriteIds('c1', events, favorites)).toEqual(['b', 'a']);
   });
 });

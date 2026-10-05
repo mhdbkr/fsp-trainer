@@ -12,7 +12,7 @@ import { FAVORITES_DECK_ID } from '@/db/types';
 import { reviewSrs, type Grade } from '@/lib/srs';
 import { markIntroduced, markReviewed } from '@/lib/srsBudget';
 import { termsOfDeck } from '@/lib/collections/query';
-import { termsOfCase } from '@/lib/collections/caseTerms';
+import { caseFavoriteIds, termsOfCase } from '@/lib/collections/caseTerms';
 import { buildDrillQueue, nextDueAt, queueCounts } from '@/lib/collections/drillQueue';
 import { loadDrillContext, type DrillContext } from '@/lib/collections/drillContext';
 import { drillMinutes, recentCaseAnchor } from '@/lib/collections/relevance';
@@ -70,9 +70,11 @@ export function DrillPage() {
     () => (!begriffe ? [] : caseId && theCase ? termsOfCase(caseId, begriffe, theCase, events ?? []) : deck ? termsOfDeck(deck, begriffe, deckTerms ?? [], favorites ?? []) : begriffe),
     [begriffe, caseId, theCase, events, deck, deckTerms, favorites],
   );
+  // Lot F point 3 : le drill qui suit un cas commence par les favoris posés pendant ce cas.
+  const leadIds = useMemo(() => (caseId ? caseFavoriteIds(caseId, events ?? [], favorites ?? []) : undefined), [caseId, events, favorites]);
   const buildQueue = useCallback(
-    (c: DrillContext | null = ctx) => buildDrillQueue(pool, { prioritySpecialty, priorityPathology, newLimit: c?.remaining ?? 0, maxReviews: c?.reviewsRemaining, relevance: c?.relevance }),
-    [pool, prioritySpecialty, priorityPathology, ctx],
+    (c: DrillContext | null = ctx) => buildDrillQueue(pool, { prioritySpecialty, priorityPathology, newLimit: c?.remaining ?? 0, maxReviews: c?.reviewsRemaining, relevance: c?.relevance, leadIds }),
+    [pool, prioritySpecialty, priorityPathology, ctx, leadIds],
   );
 
   useEffect(() => {
@@ -80,8 +82,8 @@ export function DrillPage() {
   }, [begriffe, ctx, started, buildQueue]);
 
   const qc = useMemo(
-    () => queueCounts(pool, { prioritySpecialty, priorityPathology, newLimit: ctx?.remaining ?? 0, maxReviews: ctx?.reviewsRemaining, relevance: ctx?.relevance }),
-    [pool, ctx, prioritySpecialty, priorityPathology],
+    () => queueCounts(pool, { prioritySpecialty, priorityPathology, newLimit: ctx?.remaining ?? 0, maxReviews: ctx?.reviewsRemaining, relevance: ctx?.relevance, leadIds }),
+    [pool, ctx, prioritySpecialty, priorityPathology, leadIds],
   );
 
   // R-C3 : la séance entre dans le journal — à la fin, ou au démontage si au
@@ -117,7 +119,7 @@ export function DrillPage() {
 
   if (!begriffe || !ctx) return <div className="text-slate-400">Chargement…</div>;
 
-  const next = nextDueAt(pool);
+  const next = nextDueAt(pool, Date.now(), ctx.relevance.favorites);
   const anchor = recentCaseAnchor(queue, ctx.relevance);
   const minutes = drillMinutes(qc.due + qc.fresh);
   // Recharge le contexte AVANT de rebâtir la file : « Nouvelle session » après une
