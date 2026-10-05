@@ -1,6 +1,8 @@
 # Rapport lot K4 — les questions du cas déclarent ce qu'elles posent ; les sondes reçoivent leurs `parts`
 
 > `content-case-author` (lot K4) · 5 oct. 2026 · branche `feat/s3-k4-cas`, sommet `cf6dbe67` (contenu) puis le commit de ce rapport. Base : `feat/s3-k3-cohere` @ `29c805b0`. K3 (PR #78) n'est pas encore dans `origin/main` : `origin/main` n'est donc pas fusionné ; `merge-tree` est propre contre `origin/main` (`1443bb2c`) et contre `origin/feat/s3-k3-cohere` (`fa0be537`).
+> **Dernier tour (6 oct.)** : relecture de langue des parts, garde-fou d'ouverture, contre-revue P2 — § G, en tête ; il prime sur F et sur la suite.
+>
 > **Fixeur (6 oct.)** : les revues Opus de `7e40d224` sont traitées — § F (en tête du rapport, il prime sur les sections qui suivent quand elles divergent). Sommet après fixeur : voir § F.4. `origin/main` (K3 #78, #80) est fusionné.
 >
 > Statut K4 initial : **DONE_WITH_CONCERNS**. Porte après montage à 0 ; `questionsMuettes` 794 → **1** (résidu justifié, sécurité) ; `nonReduit` 103 → **0**. Deux points sont arrêtés et soumis à main (§ 5) : la question de sécurité d'anorexia-nervosa, et gastroenteritis n° 27 / n° 31 (l'option (b) ne s'applique pas sans règle nouvelle). Une hausse de mesure est documentée au plancher : `brauchtViole` 19 → 22 (détecteur Q0, § 6).
@@ -14,7 +16,7 @@
 | horsProfil | 44 | **2** | 2 |
 | exigeAbsent | 0 | 0 | 0 |
 | relancesOrphelines | 0 | 0 | 0 |
-| brauchtViole | 19 | **22** (hausse de mesure documentée, § 6) | **21** |
+| brauchtViole | 19 | **22** (hausse de mesure documentée, § 6) | **21** ; **22** après le § G (faux positif Q0, § G.4) |
 | ajouteSansReponse | 0 | 0 | 0 |
 | questionsMuettes | 794 | **1** | **0** |
 | nonReduit | 103 | **0** | 0 |
@@ -25,6 +27,196 @@
 - Restes de `brut` : `doublons` 1 = hodentorsion, `akt-ausstrahlung` et `fach-uro-flanke` (la mesure n'applique pas `SUCHT_AUSSER` ; le moteur, si — antérieur à K4) ; `horsProfil` 2 = les deux questions du cas gardées par décision K2 m3 (pankreaskarzinom, cml : `ausstrahlung`).
 - `checkTrameSymptoms` : socle 10 → **1** constat (anorexia-nervosa n° 2, § 5), `relu` 118 → **86**. `checkQuestionAtomicity` : A 424 → **423**.
 - **Mesure, ce qui revient à quoi.** La mesure lit désormais la déclaration d'une question du cas déclarée (§ 1.4). Rejouée sur le contenu de K3, cette seule règle donne doublons 196, doublonsCas 21, horsProfil 42 (au lieu de 203 / 24 / 44) : le reste de la baisse vient du contenu (déclarations, parts).
+
+## G. Dernier tour du fixeur — relecture de langue des parts, garde-fou d'ouverture, contre-revue P2
+
+> Contre-revue clinique de `6a373ccc` : mergeable. Relecture de langue : pas prête (4 bloquants, 16 importants). Ce tour applique ses remplacements, ajoute le garde-fou demandé par main et traite les P2 de la contre-revue. Commit au § G.6.
+
+### G.1 Langue — les remplacements de la relecture, à l'identique
+
+Les **61** remplacements de la relecture (B1–B4, I1–I15, tous les mineurs) sont appliqués mot pour mot dans `anamneseChapters.ts`. Chaque part est repérée par son texte actuel, et le script vérifie l'ancien texte ligne par ligne avant de remplacer. I14 change aussi le texte de la mère `fach-infekt-zecke` (« Haben Sie einen Zeckenstich oder einen Insektenstich bemerkt? … »), que la relecture désignait (l. 1893). Les textes des mères (« …Kamen sie plötzlich oder schleichend? », « Strahlen sie in die Leiste aus? »…) ne changent pas : la relecture ne les visait pas, et elles ne sont posées qu'entières.
+
+**Arrêt, puis décision prise (à valider) : deux remplacements créent un texte identique dans deux chapitres.** « Hatten Sie Schüttelfrost? » (`fach-pneumo-fieber`, mineur l. 980) est aussi la part de `veg-schuettelfrost`. « Haben Sie Probleme mit dem Stuhlgang? » (`akt-begleit`, variante nerven, I1 l. 431) est aussi la part de `fach-neuro-blase`. `checkGuideDuplicates` (règle 2) refusait ces deux textes. Dans les deux paires, les deux parts déclarent **le même signe** (`schuettelfrost`, `stuhl`), donc r2 n'en pose qu'une par trame. Je l'ai vérifié sur les 130 trames jouées : aucune ne répète ces deux textes. La règle 2 tolère désormais **une part répétée qui déclare partout le même signe** : c'est la seule exception, et un signe différent la refait échouer. Test de mutation : `scripts/checkGuideDuplicates.test.mjs` (2 tests, la porte rougit si l'une des deux parts change de signe). **Proposition** : ajouter ce fichier à la liste `node --test` de `.github/workflows/quality.yml`. Je ne l'ai pas modifié : il est hors de mon périmètre. Si main préfère des textes distincts, ce sont ces deux textes-là qui changeraient.
+
+Ancres de tests suivies (texte seul, aucune attente affaiblie) : `coherenceRevue.test.ts` (« Hatten Sie Schüttelfrost? », « Tut es weh oder juckt es? »).
+
+### G.2 Garde-fou : une part qui peut ouvrir une question se dit seule
+
+- **Heuristique** (`partNonAutonome`, `src/data/guides/phrases.ts`). Le libellé de dimension (« Herd — ») est retiré avant la lecture. Une part est autonome si les trois conditions tiennent :
+  1. elle s'ouvre sur un interrogatif (« Wie… », « Seit wann… ») ou sur un verbe conjugué d'une **liste fermée** (`PART_VERBES`). Une part qui s'ouvre sur un verbe nouveau échoue, et l'auteur ajoute le verbe à la liste, sous revue ;
+  2. elle ne commence pas par « und / oder / dabei / dazu / auch / sonst » ;
+  3. elle n'a pas d'anaphore en tête : ni « es » ou « sie » en premier mot, ni « sie » minuscule en 2e ou 3e position.
+- **Limite connue** : le « es » impersonnel après le verbe (« Brennt es… », « Tut es weh… ») n'est pas distingué d'un « es » anaphorique ; il est accepté.
+- **Liste blanche explicite** `PART_RELANCE_SEULE` (2 parts) : « Und beim Gehen — sind Sie schon gestürzt? » (`akt-nerven-alltag`) et « Falls ein üppiges Essen: Gab es viel Fleisch oder Alkohol, besonders Bier? » (part goutte de `fach-rheuma-ausloeser`). Elles ne sont pas autonomes, et elles **n'ouvrent aucune question de la trame jouée** : c'est vérifié sur les 130 cas.
+- **Où** :
+  - `partsOuvertureFautes(cases)` (`anamneseChapters.ts`) contrôle toutes les parts des 130 trames brutes, FACH_RULES comprises (201 textes distincts), puis les 130 trames jouées pour la liste blanche ;
+  - test `coherenceK4.test.ts`, bloc « garde-fou de langue » : 0 faute, les ellipses de la relecture refusées et leurs remplacements acceptés, aucune entrée morte dans la liste blanche ;
+  - ligne **bloquante** de `checkCoherence` : « parts en ouverture (bloquant, 0 attendu) : 0 ».
+
+| Mutation | `coherenceK4.test.ts` | `checkCoherence` |
+|---|---|---|
+| G1 « Übelkeit? » remise à la place de « War Ihnen dabei übel? » | rouge (1) | rouge (1) : « ✗ part non autonome (… « Übelkeit ») : « Übelkeit? » » |
+| G2 « Und beim Gehen » retirée de la liste blanche | rouge (1) | rouge (1) : « commence par « Und » sans référent » |
+| G3 une part qui ouvre (B1, « Hat sich beim Stuhlgang etwas verändert? ») déclarée « relance seulement » | — | rouge (1) : « case-bph : la part « relance seulement » … ouvre une question » |
+
+### G.3 Contre-revue clinique, P2
+
+| Point | Fait | Preuve (trame jouée) |
+|---|---|---|
+| adnexitis n° 3 (Oberbauch, Schulter) | `sucht: ['schulterschmerz']` (signe nouveau, `signesDefsCas.ts`) | `REVIENT` : `akt-ausstrahlung` « Strahlen die Schmerzen irgendwohin aus? » posée ; mutation (retour à `ausstrahlung`) rouge |
+| metabolisches-syndrom : la cicatrisation | `fach-endo-haut-haare` reçoit ses parts `[haut_haare]` « Haben sich Haut, Haare oder Nägel verändert? » \| `[wundheilung]` « Heilen kleine Wunden schlechter als früher? » (découpe ; « Und » tombe) ; `PROBE_SUCHT` + `wundheilung` | `REVIENT` : « Heilen kleine Wunden schlechter als früher? » posée ; mutation (sans la part) rouge |
+| sturz-im-alter n° 4 | `sucht: ['sturz', 'sturz_vorgeschichte']` | `PERDANTES` : la relance « Sind Sie schon gestürzt? » de `fach-neuro-koordination` ne revient plus ; mutation rouge |
+| arterielle-hypertonie n° 5 | **laissée en l'état** (décision de main) | — |
+| l. 423, « oder Schmerzen » sans part (`akt-begleit`, variante nerven) | **noté, non rattaché.** Aucune part n'a un texte où le rattacher proprement : il faudrait une part `schmerz` nouvelle (déclaration nouvelle) ou retoucher la question ouverte « Haben Sie außerdem noch andere Beschwerden bemerkt? ». Entière, la question pose toujours « oder Schmerzen » ; réduite, elle le perd. Renvoyé au lot de contenu. | — |
+
+### G.4 Mesure
+
+`brauchtViole` 21 → **22** : « den Achselhöhlen » (metabolisches-syndrom) revient. Depuis les parts de `fach-endo-haut-haare`, la réponse de la sonde ne précède plus la question du cas. C'est un faux positif du détecteur Q0 (l'article défini d'une partie du corps), et il était déjà au K4 initial. L'entrée `hausses` passe à 19 → 22 (19 = la valeur de main) et donne cette raison. Les autres compteurs ne changent pas : doublons 1, horsProfil 2, `questionsMuettes` 0, `nonReduit` 0, `doublonsMasques` 52 (informatif). Signes : 491 → **492** (`schulterschmerz`). Gels `fach-raw.txt` et `trame-actuelle.txt` régénérés (textes de part).
+
+### G.5 Les questions posées après correction — les 14 cas de la relecture
+
+Pour chaque sonde **réduite** (posée par ses parts), la question telle qu'elle est posée. « part suivante » : la première part est retirée, la question s'ouvre sur une part suivante (le cas visé par le garde-fou). Les sondes posées entières ne figurent pas.
+
+**case-bph**
+
+| Chapitre | Sonde | Question posée (↳ relances) | Ouvre sur |
+|---|---|---|---|
+| Aktuelle Beschwerden | `akt-ausscheid-was` | Veränderung — Hat sich beim Stuhlgang etwas verändert? ↳ Hat sich die Farbe Ihrer Haut oder Ihrer Augen verändert? ↳ Hat sich die Farbe Ihres Stuhls verändert? | **part suivante** |
+| Vegetative Anamnese | `veg-schuettelfrost` | Schwitzen Sie nachts stark? ↳ Haben Sie starke Schweißausbrüche? | **part suivante** |
+
+**case-prostatakarzinom**
+
+| Chapitre | Sonde | Question posée (↳ relances) | Ouvre sur |
+|---|---|---|---|
+| Aktuelle Beschwerden | `akt-ausscheid-was` | Veränderung — Hat sich beim Stuhlgang etwas verändert? ↳ Hat sich die Farbe Ihrer Haut oder Ihrer Augen verändert? ↳ Hat sich die Farbe Ihres Stuhls verändert? | **part suivante** |
+| Vegetative Anamnese | `veg-schuettelfrost` | Schwitzen Sie nachts stark? ↳ Haben Sie starke Schweißausbrüche? | **part suivante** |
+| Fach | `fach-uro-drang` | Haben Sie plötzlichen, starken Harndrang? | 1re part |
+
+**case-schlaganfall**
+
+| Chapitre | Sonde | Question posée (↳ relances) | Ouvre sur |
+|---|---|---|---|
+| Aktuelle Beschwerden | `akt-begleit` | Begleitbeschwerden — War Ihnen dabei übel? ↳ Haben Sie außerdem noch andere Beschwerden bemerkt? | **part suivante** |
+| Vegetative Anamnese | `veg-uebelkeit` | Mussten Sie sich übergeben? ↳ Falls ja: Wie sah das Erbrochene aus? ↳ Falls ja: Seit wann müssen Sie sich übergeben? ↳ Falls ja: Wie oft haben Sie sich übergeben? | **part suivante** |
+
+**case-lagerungsschwindel**
+
+| Chapitre | Sonde | Question posée (↳ relances) | Ouvre sur |
+|---|---|---|---|
+| Aktuelle Beschwerden | `akt-begleit` | Begleitbeschwerden — War Ihnen dabei übel? ↳ Haben Sie außerdem noch andere Beschwerden bemerkt? | **part suivante** |
+| Vegetative Anamnese | `veg-uebelkeit` | Mussten Sie sich übergeben? ↳ Falls ja: Wie sah das Erbrochene aus? ↳ Falls ja: Seit wann müssen Sie sich übergeben? ↳ Falls ja: Wie oft haben Sie sich übergeben? | **part suivante** |
+
+**case-vorhofflimmern**
+
+| Chapitre | Sonde | Question posée (↳ relances) | Ouvre sur |
+|---|---|---|---|
+| Aktuelle Beschwerden | `akt-begleit` | Begleitbeschwerden — War Ihnen dabei schwindelig? ↳ War Ihnen dabei übel? ↳ Haben Sie außerdem noch andere Beschwerden bemerkt? | **part suivante** |
+| Vegetative Anamnese | `veg-schuettelfrost` | Hatten Sie Schüttelfrost? ↳ Schwitzen Sie nachts stark? | 1re part |
+| Vegetative Anamnese | `veg-uebelkeit` | Mussten Sie sich übergeben? ↳ Falls ja: Wie sah das Erbrochene aus? ↳ Falls ja: Seit wann müssen Sie sich übergeben? ↳ Falls ja: Wie oft haben Sie sich übergeben? | **part suivante** |
+| Medikamente | `med-blutverduenner` | Nehmen Sie Kortison? | **part suivante** |
+
+**case-synkope**
+
+| Chapitre | Sonde | Question posée (↳ relances) | Ouvre sur |
+|---|---|---|---|
+| Aktuelle Beschwerden | `akt-begleit` | Begleitbeschwerden — War Ihnen dabei schwindelig? ↳ Haben Sie dabei geschwitzt? ↳ War Ihnen dabei übel? ↳ Haben Sie außerdem noch andere Beschwerden bemerkt? | **part suivante** |
+| Vegetative Anamnese | `veg-schuettelfrost` | Hatten Sie Schüttelfrost? ↳ Schwitzen Sie nachts stark? | 1re part |
+| Vegetative Anamnese | `veg-uebelkeit` | Mussten Sie sich übergeben? ↳ Falls ja: Wie sah das Erbrochene aus? ↳ Falls ja: Seit wann müssen Sie sich übergeben? ↳ Falls ja: Wie oft haben Sie sich übergeben? | **part suivante** |
+
+**case-pneumonie**
+
+| Chapitre | Sonde | Question posée (↳ relances) | Ouvre sur |
+|---|---|---|---|
+| Aktuelle Beschwerden | `akt-infekt-herd` | Herd — Haben Sie Halsschmerzen? ↳ Brennt es beim Wasserlassen? ↳ Haben Sie Durchfall? ↳ Ist Ihnen ein Ausschlag aufgefallen? ↳ Haben Sie irgendwo eine Wunde? | **part suivante** |
+| Vegetative Anamnese | `veg-schuettelfrost` | Schwitzen Sie nachts stark? ↳ Haben Sie starke Schweißausbrüche? | **part suivante** |
+| Fach | `fach-pneumo-fieber` | Hatten Sie Schüttelfrost? | **part suivante** |
+
+**case-sinusitis**
+
+| Chapitre | Sonde | Question posée (↳ relances) | Ouvre sur |
+|---|---|---|---|
+| Aktuelle Beschwerden | `akt-infekt-herd` | Herd — Haben Sie Halsschmerzen? ↳ Brennt es beim Wasserlassen? ↳ Haben Sie Durchfall? ↳ Ist Ihnen ein Ausschlag aufgefallen? ↳ Haben Sie irgendwo eine Wunde? | **part suivante** |
+| Vegetative Anamnese | `veg-schuettelfrost` | Schwitzen Sie nachts stark? ↳ Haben Sie starke Schweißausbrüche? | **part suivante** |
+| Fach | `fach-pneumo-fieber` | Hatten Sie Schüttelfrost? | **part suivante** |
+
+**case-bronchialkarzinom**
+
+| Chapitre | Sonde | Question posée (↳ relances) | Ouvre sur |
+|---|---|---|---|
+| Aktuelle Beschwerden | `akt-veraend-was` | Befund — Ist Ihnen eine Hautveränderung aufgefallen? ↳ Sind Ihnen blaue Flecken aufgefallen? ↳ Ist Ihnen eine Blutung aufgefallen? | **part suivante** |
+| Aktuelle Beschwerden | `akt-veraend-blutung` | Schmerz und Blutung — Tut es weh oder juckt es? | 1re part |
+| Vegetative Anamnese | `veg-schuettelfrost` | Hatten Sie Schüttelfrost? ↳ Haben Sie starke Schweißausbrüche? | 1re part |
+| Fach | `fach-onko-blutung` | Haben Sie Blut im Stuhl bemerkt? ↳ Haben Sie Blut im Urin bemerkt? ↳ Haben Sie Blutungen aus der Scheide bemerkt? | 1re part |
+
+**case-mammakarzinom**
+
+| Chapitre | Sonde | Question posée (↳ relances) | Ouvre sur |
+|---|---|---|---|
+| Aktuelle Beschwerden | `akt-veraend-was` | Befund — Ist Ihnen eine Hautveränderung aufgefallen? ↳ Sind Ihnen blaue Flecken aufgefallen? ↳ Ist Ihnen eine Blutung aufgefallen? | **part suivante** |
+| Aktuelle Beschwerden | `akt-veraend-blutung` | Schmerz und Blutung — Tut es weh oder juckt es? | 1re part |
+| Vegetative Anamnese | `veg-ausscheidung` | Haben Sie Schwierigkeiten mit dem Stuhlgang? ↳ Falls ja: Seit wann, und wie oft täglich? Können Sie das Aussehen des Stuhls näher beschreiben? | 1re part |
+
+**case-myokardinfarkt**
+
+| Chapitre | Sonde | Question posée (↳ relances) | Ouvre sur |
+|---|---|---|---|
+| Aktuelle Beschwerden | `akt-beginn` | Beginn — Kamen die Schmerzen plötzlich oder schleichend? | **part suivante** |
+| Vegetative Anamnese | `veg-schuettelfrost` | Hatten Sie Schüttelfrost? ↳ Schwitzen Sie nachts stark? | 1re part |
+| Vegetative Anamnese | `veg-uebelkeit` | Mussten Sie sich übergeben? ↳ Falls ja: Wie sah das Erbrochene aus? ↳ Falls ja: Seit wann müssen Sie sich übergeben? ↳ Falls ja: Wie oft haben Sie sich übergeben? | **part suivante** |
+
+**case-zoster**
+
+| Chapitre | Sonde | Question posée (↳ relances) | Ouvre sur |
+|---|---|---|---|
+| Aktuelle Beschwerden | `akt-beginn` | Beginn — Kamen die Schmerzen plötzlich oder schleichend? | **part suivante** |
+| Medikamente | `med-blutverduenner` | Nehmen Sie Blutverdünner? | 1re part |
+| Fach | `fach-derma-beginn-ort` | Wo hat die Hautveränderung angefangen? ↳ Ist die Stelle größer geworden? | 1re part |
+| Fach | `fach-derma-systemisch` | Haben Sie dazu Fieber? ↳ Haben Sie dazu Veränderungen im Mund oder im Genitalbereich bemerkt? | 1re part |
+
+**case-diabetes**
+
+| Chapitre | Sonde | Question posée (↳ relances) | Ouvre sur |
+|---|---|---|---|
+| Aktuelle Beschwerden | `akt-allgemein-art` | Art — Ist Ihnen schwindelig, oder spüren Sie etwas anderes? ↳ Können Sie es beschreiben? | **part suivante** |
+| Vegetative Anamnese | `veg-schuettelfrost` | Hatten Sie Schüttelfrost? ↳ Schwitzen Sie nachts stark? | 1re part |
+| Fach | `fach-endo-hals` | Haben Sie eine Schwellung am Hals oder ein Engegefühl bemerkt? ↳ Haben Sie eine Veränderung der Stimme bemerkt? | 1re part |
+| Fach | `fach-endo-augen` | Haben sich Ihre Augen verändert — hervortretende Augen, Druckgefühl? | 1re part |
+| Fach | `fach-endo-folgeschaeden` | Haben Sie Probleme mit den Nieren? | **part suivante** |
+| Fach | `fach-endo-familie-therapie` | Werden Sie selbst schon wegen einer Zucker- oder Schilddrüsenerkrankung behandelt oder kontrolliert? | **part suivante** |
+
+**case-hypothyreose**
+
+| Chapitre | Sonde | Question posée (↳ relances) | Ouvre sur |
+|---|---|---|---|
+| Aktuelle Beschwerden | `akt-allgemein-art` | Art — Ist Ihnen schwindelig, oder spüren Sie etwas anderes? ↳ Können Sie es beschreiben? | **part suivante** |
+| Vegetative Anamnese | `veg-schuettelfrost` | Hatten Sie Schüttelfrost? ↳ Schwitzen Sie nachts stark? | 1re part |
+| Fach | `fach-endo-folgeschaeden` | Haben Sie Kribbeln oder Taubheit in den Füßen? ↳ Haben Sie Probleme mit den Nieren? | 1re part |
+| Fach | `fach-endo-familie-therapie` | Werden Sie selbst schon wegen einer Zucker- oder Schilddrüsenerkrankung behandelt oder kontrolliert? | **part suivante** |
+
+### G.6 Vérifications — codes de sortie
+
+Sommet vérifié : `549c2c23` (code). Base : `origin/main` fusionnée à `3c4ce5fa`. Depuis, main n'a reçu que deux commits de registre (`app/docs/reports/serie3-avancement.md`) ; `merge-tree` contre `acc4d6dd` est propre, donc je n'ai pas refusionné.
+
+| Commande | Code |
+|---|---:|
+| `checkCoherence.mjs` (mesure = plancher ; porte après montage et parts en ouverture à 0) | **0** |
+| `checkBudgetFloor.mjs origin/main` (`brauchtViole` 19 → 22, hausse documentée) | **0** |
+| `checkTrameSymptoms`, `checkQuestionAtomicity` (A 423, A2 48), `checkGuideDuplicates` | **0** |
+| gels `fachRaw` / `trameActuelle` (dans vitest) | **0** |
+| `npx tsc -b --noEmit` | **0** |
+| `npx vitest run --dir src --maxWorkers=2` (179 fichiers, 1 872 tests) | **0** |
+| `node scripts/check*.mjs` (23) | **0**, sauf `checkProbeOverlap` **1** (informatif, `\|\| true` en CI) |
+| `node --test scripts/*.test.mjs` (183 tests, dont les 2 de `checkGuideDuplicates.test.mjs`) | **0** |
+| `git merge-tree --write-tree origin/main HEAD` (`acc4d6dd`) | **0** |
+
+Le premier vitest complet de ce tour sortait à 1 : 4 ancres de texte (« Hatten Sie dabei Schüttelfrost? », « Tut es weh, juckt es? » ×2) et le nombre de signes. Je les ai mises à jour, puis j'ai relancé vitest en entier : 0.
+
+### G.7 Non vérifié
+
+- **La langue des remplacements** : appliqués tels quels, sans relecture de ma part. Annexe F mise à jour : 110 parts qui ne sont pas des sous-chaînes de leur variante, au lieu de 83, puisque les compléments du cadre verbal en ajoutent.
+- **L'heuristique du garde-fou** : elle est prouvée sur les 201 parts actuelles et sur les ellipses de la relecture, pas au-delà. Le « es » impersonnel n'est pas distingué.
+- **CI** : `checkGuideDuplicates.test.mjs` n'est pas dans la liste `node --test` de `quality.yml` (proposition, § G.1).
+- Navigateur, contenu publié : non faits.
 
 ## F. Fixeur — les revues Opus de `7e40d224` (décisions de main)
 
@@ -375,7 +567,7 @@ Catégories : une question du cas prend la place d'une sonde (aktuell : Beginn, 
 - **Contenu publié** : `publishContent.mjs` non rejoué.
 - **`graphify update app/src`** : pas de graphe dans ce worktree.
 
-## 10. Trames jouées complètes — les cinq cas témoins (régénérées après le fixeur)
+## 10. Trames jouées complètes — les cinq cas témoins (régénérées après le dernier tour, § G)
 
 Ouverture et clôture exclues ; « ↳ » = relance.
 
@@ -608,10 +800,10 @@ Ouverture et clôture exclues ; « ↳ » = relance.
    ↳ Falls ja: Wann ist das Fieber am höchsten?
 10. Verlauf — Ist das Fieber dauerhaft, kommt es in Schüben, oder war es zwischendurch weg?
 11. Herd — Haben Sie Husten bemerkt?
-   ↳ Halsschmerzen?
-   ↳ Brennen beim Wasserlassen?
-   ↳ Durchfall?
-   ↳ Eine Wunde?
+   ↳ Haben Sie Halsschmerzen?
+   ↳ Brennt es beim Wasserlassen?
+   ↳ Haben Sie Durchfall?
+   ↳ Haben Sie irgendwo eine Wunde?
 12. Auslöser — Gab es davor eine Erkältung, einen Eingriff, einen Zahnarztbesuch oder eine neue Verletzung?
 13. Einflussfaktoren — Haben Sie schon etwas dagegen genommen — Paracetamol, Ibuprofen? Hat es geholfen?
 14. Frühere Episoden — Hatten Sie so ein Fieber schon einmal?
@@ -623,7 +815,7 @@ Ouverture et clôture exclues ; « ↳ » = relance.
 19. Haben Sie ähnliche Rötungen auch an anderen Stellen des Körpers bemerkt?
 
 *Fachanamnese Infectiologie*
-20. Hatten Sie einen Zeckenstich oder einen Insektenstich bemerkt? Waren Sie im Wald, im hohen Gras oder im Garten?
+20. Haben Sie einen Zeckenstich oder einen Insektenstich bemerkt? Waren Sie im Wald, im hohen Gras oder im Garten?
 21. Haben Sie Gelenk- oder Muskelschmerzen? Wandern sie von Gelenk zu Gelenk?
 22. Haben Sie Kopfschmerzen, Nackensteifigkeit, Missempfindungen oder eine Gesichtslähmung bemerkt?
 23. Waren Sie kürzlich im Ausland? Wo, wie lange, und hatten Sie dort Beschwerden?
@@ -1053,11 +1245,11 @@ Ouverture et clôture exclues ; « ↳ » = relance.
 | glomerulonephritis | #0 vorinfekt, latenz · #1 antibiotika · #2 kopfschmerz, sehstoerung, atemnot · #3 haemoptyse, petechien · #4 familie_niere · #5 ausloeser |
 | nhl | #0 beginn, entwicklung · #1 lokalschmerz, verschieblichkeit · #2 alkoholschmerz · #3 nachtschweiss · #4 pruritus · #5 husten, atemnot, schluck, herzrasen · #6 beinschwellung |
 | cml | #0 vorbefunde · #1 milz_druck, voellegefuehl · #2 ausstrahlung · #3 sehstoerung, kopfschmerz, atemnot, priapismus · #4 gicht, nierensteine · #5 blutbild_frueher · #6 berufsstoffe, strahlenexposition |
-| adnexitis | #0 sexualanamnese · #1 std_vorgeschichte · #2 schmerzwanderung · #3 ausstrahlung |
+| adnexitis | #0 sexualanamnese · #1 std_vorgeschichte · #2 schmerzwanderung · #3 schulterschmerz |
 | allergische-rhinitis | #0 allergen_ausloeser · #1 nasensekret · #2 augenentzuendung, juckreiz · #3 husten · #4 nahrungsmittelallergie · #5 nasenspray · #6 atopie, familie_atopie · #7 haustiere, beruf, wohnumfeld_allergene |
 | typhus | #0 verlauf, beginn_art · #1 puls · #2 malariaprophylaxe · #3 impfung · #4 essen_expo (braucht reise) · #5 stuhl · #6 verwirrtheit · #7 ausschlag |
 | obstipation | #0 stuhlfrequenz, stuhlaussehen · #1 blutungsquelle (braucht stuhl_blut) · #2 stuhlkaliber · #3 nachtschmerz · #4 medikament_neu · #5 abfuehrmittel · #6 familie_krebs · #7 stimmung, hilfe_zuhause |
-| sturz-im-alter | #0 unfallhergang, schwindel · #1 bewusstlos · #2 liegezeit · #3 kopfanprall · #4 sturz_vorgeschichte · #5 orthostase · #6 sedativa, diuretika, medikament_neu · #7 wohnsituation, wohnung_sturzrisiko, hilfe_zuhause, haustiere |
+| sturz-im-alter | #0 unfallhergang, schwindel · #1 bewusstlos · #2 liegezeit · #3 kopfanprall · #4 sturz, sturz_vorgeschichte · #5 orthostase · #6 sedativa, diuretika, medikament_neu · #7 wohnsituation, wohnung_sturzrisiko, hilfe_zuhause, haustiere |
 | lumboischialgie | #0 ausloeser · #1 pressschmerz · #2 ruheschmerz · #3 entzuendlicher_rueckenschmerz · #4 vorinfekt, tumor_vorgeschichte · #5 nsar, magenschutz · #6 berufliche_belastung, stress · #7 krankheitskonzept |
 | bauchaortenaneurysma | #0 miktion · #1 bewusstlos, schwitzen · #2 pulsation · #3 gefaess_vorgeschichte · #4 familie_gefaess · #5 brustschmerz, atemnot · #6 taubheit, schwaeche, stuhl · #7 hernie, haematome |
 | aortendissektion | #0 beginn_art · #1 charakter · #2 schmerzwanderung · #3 ausloeser · #4 schwaeche, sprache, sehstoerung, taubheit, durchblutung · #5 blutdruck, adhaerenz · #6 gefaess_vorgeschichte, familie_gefaess · #7 drogen |
@@ -1072,87 +1264,114 @@ Ouverture et clôture exclues ; « ↳ » = relance.
 | sinusitis | #0 beginn, verlauf · #1 lageabhaengig · #2 nasensekret · #3 zahn · #4 riechen, geschmack · #5 nasenspray · #6 augenentzuendung, sehstoerung · #7 meningismus, photophobie, kopfschmerz, schwindel, verwirrtheit |
 | arterielle-hypertonie | #0 blutdruck · #1 adhaerenz · #2 ort · #3 sehstoerung, schwaeche, taubheit, sprache · #4 nsar, nasenspray, kortison, lakritz · #5 schwitzen, herzrasen, blaesse, temperaturtoleranz · #6 schnarchen, schlafapnoe, tagesschlaefrigkeit |
 
-## Annexe F — les 83 parts qui ne sont pas des sous-chaînes de leur variante (revue I-1)
+## Annexe F — les 110 parts qui ne sont pas des sous-chaînes de leur variante (revue I-1, état après la relecture de langue)
 
-À la relecture de langue. Liste K4 (K3 en avait 24, non reprises). Ordre du fichier `anamneseChapters.ts`.
+À la relecture de langue. Ce sont les parts absentes de la liste K3 (24) ; 83 au fixeur, 110 après les compléments du cadre verbal de la relecture (§ G.1). Ordre du fichier `anamneseChapters.ts`.
 
 | Sonde | Champ | Texte |
 |---|---|---|
+| `akt-beginn` | text | Kamen die Schmerzen plötzlich oder schleichend? |
 | `akt-allgemein-art` | text | Was genau spüren Sie: eher Müdigkeit oder Kraftlosigkeit? |
-| `akt-allgemein-art` | text | Spüren Sie Schwindel, oder etwas anderes? |
-| `akt-begleit` | text | Eine Bewusstlosigkeit? |
+| `akt-allgemein-art` | text | Ist Ihnen schwindelig, oder spüren Sie etwas anderes? |
+| `akt-begleit` | text | War Ihnen dabei übel? |
+| `akt-begleit` | text | Haben Sie dabei doppelt gesehen? |
+| `akt-begleit` | text | Sind Sie dabei bewusstlos geworden? |
+| `akt-begleit` | text | Hat es dabei irgendwo gezuckt? |
 | `akt-begleit` | text | Haben Sie außerdem noch andere Beschwerden bemerkt? |
 | `akt-infekt-herd` | text | Haben Sie Husten bemerkt? |
+| `akt-infekt-herd` | text | Haben Sie Halsschmerzen? |
+| `akt-infekt-herd` | text | Brennt es beim Wasserlassen? |
+| `akt-infekt-herd` | text | Haben Sie Durchfall? |
+| `akt-infekt-herd` | text | Ist Ihnen ein Ausschlag aufgefallen? |
+| `akt-infekt-herd` | text | Haben Sie irgendwo eine Wunde? |
 | `akt-veraend-was` | text | Ist Ihnen ein Knoten oder eine Schwellung aufgefallen? |
-| `akt-begleit` | text | Probleme mit der Blase? |
-| `akt-begleit` | text | Probleme mit dem Stuhlgang? |
+| `akt-veraend-was` | text | Ist Ihnen eine Hautveränderung aufgefallen? |
+| `akt-veraend-was` | text | Sind Ihnen blaue Flecken aufgefallen? |
+| `akt-veraend-was` | text | Ist Ihnen eine Blutung aufgefallen? |
+| `akt-veraend-blutung` | text | Tut es weh oder juckt es? |
+| `akt-begleit` | text | Ist Ihnen dazu schwindelig? |
+| `akt-begleit` | text | Haben Sie Probleme mit der Blase? |
+| `akt-begleit` | text | Haben Sie Probleme mit dem Stuhlgang? |
 | `akt-begleit` | text | Haben Sie außerdem noch andere Beschwerden bemerkt? |
 | `akt-ausscheid-was` | text | Hat sich beim Wasserlassen etwas verändert? |
-| `akt-ausscheid-was` | text | An der Farbe von Haut oder Augen? |
-| `akt-ausscheid-was` | text | An der Farbe des Urins? |
-| `akt-ausscheid-was` | text | An der Farbe des Stuhls? |
+| `akt-ausscheid-was` | text | Hat sich beim Stuhlgang etwas verändert? |
+| `akt-ausscheid-was` | text | Hat sich die Farbe Ihrer Haut oder Ihrer Augen verändert? |
+| `akt-ausscheid-was` | text | Hat sich die Farbe Ihres Urins verändert? |
+| `akt-ausscheid-was` | text | Hat sich die Farbe Ihres Stuhls verändert? |
+| `akt-begleit` | text | Hatten Sie dabei Brustschmerzen? |
+| `akt-begleit` | text | War Ihnen dabei schwindelig? |
+| `akt-begleit` | text | Haben Sie dabei geschwitzt? |
+| `akt-begleit` | text | War Ihnen dabei übel? |
 | `akt-begleit` | text | Haben Sie außerdem noch andere Beschwerden bemerkt? |
+| `veg-uebelkeit` | followUp | Falls ja: Wie sah das Erbrochene aus? |
+| `veg-uebelkeit` | followUp | Falls ja: Seit wann müssen Sie sich übergeben? |
+| `veg-uebelkeit` | followUp | Falls ja: Wie oft haben Sie sich übergeben? |
 | `med-blutverduenner` | text | Nehmen Sie Kortison? |
 | `fach-pneumo-husten` | text | Ist der Husten trocken oder mit Auswurf? |
-| `fach-pneumo-infekt` | text | Hatten Sie kürzlich Kontakt zu Kranken? |
-| `fach-pneumo-infekt` | text | Hatten Sie kürzlich eine Reise? |
-| `fach-pneumo-allergie` | text | Haben Sie ein bekanntes Asthma? |
-| `fach-gastro-uebelkeit` | text | Leiden Sie an Erbrechen? |
+| `fach-pneumo-husten` | text | Haben Sie sich in letzter Zeit öfter verschluckt? |
+| `fach-pneumo-fieber` | text | Hatten Sie Schüttelfrost? |
+| `fach-pneumo-infekt` | text | Hatten Sie kürzlich Kontakt zu kranken Menschen? |
+| `fach-pneumo-infekt` | text | Sind Sie kürzlich verreist? |
+| `fach-pneumo-allergie` | text | Wurde bei Ihnen schon einmal Asthma festgestellt? |
 | `fach-gastro-stuhl` | text | Ist der Stuhl blutig oder teerschwarz? |
 | `fach-gastro-stuhl` | text | Welche Farbe hat der Stuhl — sehr hell, gelblich? |
 | `fach-gefaess-thrombose` | text | Gibt es Thrombosen oder Lungenembolien in Ihrer Familie? |
+| `fach-nephro-menge` | text | Müssen Sie nachts zum Wasserlassen aufstehen? |
 | `fach-nephro-uraemie` | text | Haben Sie Übelkeit? |
-| `fach-nephro-uraemie` | text | Haben Sie Appetitverlust? |
+| `fach-nephro-uraemie` | text | Haben Sie weniger Appetit als sonst? |
 | `fach-nephro-uraemie` | text | Haben Sie einen metallischen Geschmack im Mund? |
 | `fach-nephro-vorgeschichte` | text | Ist bei Ihnen eine Nierenerkrankung bekannt? |
 | `fach-nephro-vorgeschichte` | text | Ist in Ihrer Familie eine Nierenerkrankung bekannt — etwa Zystennieren oder eine Dialyse? |
+| `fach-uro-flanke` | text | Strahlen die Schmerzen in die Leiste aus? |
 | `fach-uro-vorgeschichte` | text | Hatten Sie schon einmal Nierensteine? |
 | `fach-uro-vorgeschichte` | text | Hatten Sie schon einmal Probleme mit der Prostata? |
 | `fach-gyn-brust` | text | Haben Sie in der Brust einen Knoten bemerkt? |
-| `fach-gyn-brust` | text | Haben Sie in der Brust Schmerzen, Absonderungen aus der Brustwarze oder Hautveränderungen bemerkt? |
+| `fach-gyn-brust` | text | Haben Sie Schmerzen in der Brust, Absonderungen aus der Brustwarze oder Hautveränderungen an der Brust bemerkt? |
 | `fach-neuro-koordination` | text | Haben Sie Schwindel oder das Gefühl zu schwanken? |
-| `fach-neuro-koordination` | text | Haben Sie eine Gangunsicherheit? |
+| `fach-neuro-koordination` | text | Fühlen Sie sich beim Gehen unsicher? |
 | `fach-neuro-sprache` | text | Haben Sie Schwierigkeiten beim Sprechen oder beim Finden von Wörtern? |
 | `fach-neuro-sprache` | text | Haben Sie Schwierigkeiten beim Schlucken? |
-| `fach-neuro-blase` | text | Haben Sie Probleme mit der Blase — Entleerungsstörungen? |
+| `fach-neuro-blase` | text | Haben Sie Probleme mit der Blase — können Sie sie zum Beispiel nicht richtig entleeren? |
 | `fach-neuro-blase` | text | Haben Sie Probleme mit dem Stuhlgang? |
-| `fach-neuro-blase` | text | Haben Sie plötzlichen Drang? |
-| `fach-neuro-blase` | text | Kommt es zum Einnässen? |
+| `fach-neuro-blase` | text | Haben Sie manchmal plötzlich einen starken Drang, auf die Toilette zu müssen? |
+| `fach-neuro-blase` | text | Kommt es vor, dass Sie ungewollt Urin verlieren? |
+| `fach-ortho-bewegung` | text | Treten die Schmerzen auch in Ruhe und nachts auf? |
 | `fach-ortho-sensomotorik` | text | Haben Sie Kribbeln oder ein Taubheitsgefühl bemerkt? |
 | `fach-ortho-sensomotorik` | text | Haben Sie weniger Kraft bemerkt? |
-| `fach-ortho-schwellung` | text | Ist das Gelenk geschwollen, gerötet oder überwärmt? |
+| `fach-ortho-schwellung` | text | Ist das Gelenk geschwollen, gerötet oder wärmer als sonst? |
 | `fach-rheuma-systemisch` | text | Haben Sie Fieber bemerkt? |
 | `fach-rheuma-systemisch` | text | Haben Sie Augenentzündungen oder eine Bindehautentzündung bemerkt? |
 | `fach-rheuma-systemisch` | text | Haben Sie Mund- oder Genitalgeschwüre bemerkt? |
-| `fach-rheuma-systemisch` | text | Haben Sie Durchfall bemerkt? |
+| `fach-rheuma-systemisch` | text | Hatten Sie Durchfall? |
 | `fach-haem-belastung` | text | Bekommen Sie bei Anstrengung schneller Luftnot als früher? |
 | `fach-haem-belastung` | text | Bekommen Sie bei Anstrengung schneller Herzklopfen als früher? |
-| `fach-haem-belastung` | text | Bekommen Sie bei Anstrengung schneller Schwindel als früher? |
-| `fach-haem-infekte` | text | Haben Sie in letzter Zeit häufiger Infekte bemerkt? |
+| `fach-haem-belastung` | text | Wird Ihnen bei Anstrengung schneller schwindelig als früher? |
+| `fach-haem-infekte` | text | Hatten Sie in letzter Zeit häufiger Infekte? |
 | `fach-haem-infekte` | text | Haben Sie in letzter Zeit Fieber bemerkt? |
-| `fach-haem-infekte` | text | Haben Sie in letzter Zeit eine schlechte Wundheilung bemerkt? |
-| `fach-onko-blutung` | text | Haben Sie Blutungen im Stuhl bemerkt? |
+| `fach-haem-infekte` | text | Heilen Wunden bei Ihnen in letzter Zeit schlechter? |
+| `fach-onko-blutung` | text | Haben Sie Blut im Stuhl bemerkt? |
 | `fach-onko-blutung` | text | Haben Sie Blut im Urin bemerkt? |
-| `fach-onko-blutung` | text | Haben Sie Blutungen beim Husten bemerkt? |
+| `fach-onko-blutung` | text | Haben Sie beim Husten Blut bemerkt? |
 | `fach-onko-blutung` | text | Haben Sie Blutungen aus der Scheide bemerkt? |
 | `fach-onko-appetit` | text | Haben Sie ein Völlegefühl? |
-| `fach-onko-appetit` | text | Haben Sie keinen Appetit mehr? |
+| `fach-onko-appetit` | text | Hat Ihr Appetit nachgelassen? |
 | `fach-endo-hals` | text | Haben Sie eine Schwellung am Hals oder ein Engegefühl bemerkt? |
 | `fach-endo-hals` | text | Haben Sie Schluckbeschwerden bemerkt? |
 | `fach-endo-hals` | text | Haben Sie eine Veränderung der Stimme bemerkt? |
 | `fach-endo-augen` | text | Haben Sie Doppelbilder oder Sehstörungen? |
-| `fach-endo-folgeschaeden` | text | Haben Sie eine Sehverschlechterung? |
+| `fach-endo-folgeschaeden` | text | Sehen Sie schlechter als früher? |
 | `fach-endo-folgeschaeden` | text | Haben Sie Probleme mit den Nieren? |
-| `fach-endo-familie-therapie` | text | Werden Sie wegen Zucker- oder Schilddrüsenerkrankungen schon behandelt oder kontrolliert? |
-| `fach-infekt-zecke` | text | Hatten Sie einen Zeckenstich bemerkt? |
-| `fach-infekt-zecke` | text | Hatten Sie einen Insektenstich bemerkt? |
+| `fach-endo-familie-therapie` | text | Werden Sie selbst schon wegen einer Zucker- oder Schilddrüsenerkrankung behandelt oder kontrolliert? |
+| `fach-infekt-zecke` | text | Haben Sie einen Zeckenstich bemerkt? |
+| `fach-infekt-zecke` | text | Haben Sie einen Insektenstich bemerkt? |
 | `fach-infekt-haut` | text | Hat sich die Rötung ausgebreitet, zum Beispiel ringförmig? |
-| `fach-infekt-neuro` | text | Haben Sie Kopfschmerzen bemerkt? |
-| `fach-infekt-neuro` | text | Haben Sie Nackensteifigkeit bemerkt? |
-| `fach-infekt-neuro` | text | Haben Sie Missempfindungen bemerkt? |
+| `fach-infekt-gelenke` | text | Wandern die Schmerzen von Gelenk zu Gelenk? |
+| `fach-infekt-neuro` | text | Ist Ihr Nacken steif? |
+| `fach-infekt-neuro` | text | Haben Sie Missempfindungen wie Kribbeln oder Taubheit bemerkt? |
 | `fach-infekt-neuro` | text | Haben Sie eine Gesichtslähmung bemerkt? |
+| `fach-derma-beginn-ort` | text | Wie hat sich die Hautveränderung seitdem ausgebreitet? |
 | `fach-derma-systemisch` | text | Haben Sie dazu Gelenkschmerzen? |
-| `fach-derma-systemisch` | text | Haben Sie dazu Veränderungen an Mund oder im Genitalbereich? |
+| `fach-derma-systemisch` | text | Haben Sie dazu Veränderungen im Mund oder im Genitalbereich bemerkt? |
 | `fach-derma-systemisch` | text | Haben Sie dazu Veränderungen an den Augen? |
 | `fach-derma-muttermal` | text | Juckt das Muttermal? |
 | `fach-derma-muttermal` | text | Blutet das Muttermal? |
