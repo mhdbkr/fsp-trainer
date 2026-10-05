@@ -701,8 +701,8 @@ html:active-view-transition .vt-page { view-transition-name: page; }
 /* ── Le cadran d'un cas (`CaseDial`, S4-4) ─────────────────────────────────
    Position = Teil, couleur = état, centre = maîtrise. Les couleurs sont des
    variables de :root / .dark (et non de `.case-dial`) parce que le détail est
-   téléporté dans <body> : ses pastilles lisent les mêmes. Pétrole clair pour
-   « acquis », pétrole pour « solide » ; en sombre, solide est le plus lumineux.
+   téléporté dans <body> : ses pastilles lisent les mêmes. Pétrole moyen
+   pour « acquis » (3:1 sur le papier), pétrole profond pour « solide » ; en sombre, solide est le plus lumineux.
    Le grossissement et l'écart des arcs n'existent QUE sous
    `prefers-reduced-motion: no-preference` : en mouvement réduit, rien ne bouge
    et le détail s'ouvre en panneau (règle A de motionSafe.test.ts, complétée
@@ -710,7 +710,7 @@ html:active-view-transition .vt-page { view-transition-name: page; }
 :root {
   --cd-vierge: rgb(12 26 23 / 0.16);
   --cd-fragile: #e8613c;
-  --cd-acquis: #6bbdb0;
+  --cd-acquis: #379e8f;   /* 2,98:1 sur le papier, 3,26:1 sur blanc (décision de main, 5 oct.) */
   --cd-solide: #0c6157;
   --cd-maitrise: #158375;
   --cd-piste: rgb(12 26 23 / 0.08);
