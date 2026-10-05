@@ -240,7 +240,7 @@ Elle s'est arrêtée sur `ajouteSansReponse = 8` : 8 questions du cas posaient l
 - `npx tsc -b --noEmit` : **0**. `npx vitest run --dir src --maxWorkers=2` : **0** (166 fichiers, 1 646 tests).
 - `node scripts/check*.mjs` : **tous 0**, sauf `checkProbeOverlap` (1, informatif, `|| true`). Dont `checkCoherence` 0, `checkPlayedTrame` 0, `checkTrameSymptoms` 0, `checkGuideCoverage` 0 (contrat guide ↔ fiche), `checkTermRegister --require-all` 0. `checkBudgetFloor.mjs origin/main` : **0**, avec une hausse documentée : constats de trame-symptoms, 2 → 12.
 - `node --test scripts/*.test.mjs` (12 fichiers) : **tous 0**.
-- `git merge-tree --write-tree origin/main HEAD` : voir le message de handoff.
+- `git merge-tree --write-tree origin/main HEAD` (`origin/main` @ `db306481`) : **0**. `evalDoctopus --dry` : **0**.
 
 ## Non vérifié
 
