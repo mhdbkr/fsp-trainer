@@ -43,7 +43,7 @@ export const PROBE_SUCHT: Readonly<Record<string, Sucht>> = {
   'akt-veraend-entwicklung': ['entwicklung'], 'akt-veraend-blutung': ['lokalschmerz', 'juckreiz', 'lokalblutung'],   // K3 : ses relances (Blut im Stuhl / Urin, Blut abhusten) sont des précisions
   'akt-ausscheid-was': ['stuhl', 'miktion', 'gelbfaerbung', 'urin_aspekt', 'stuhlaussehen'],   // D1
   'akt-ausscheid-haeufigkeit': ['stuhlfrequenz'], 'akt-ausscheid-harn-haeufigkeit': ['miktion_frequenz', 'nykturie'],
-  'akt-ausscheid-aussehen': ['stuhlaussehen'], 'akt-ausscheid-harn-aussehen': ['urin_aspekt'],
+  'akt-ausscheid-aussehen': ['stuhl_blut'], 'akt-ausscheid-harn-aussehen': ['urin_aspekt'],   // K3 (P0-1) : « Blut, Schleim oder eine ungewöhnliche Farbe » = l'alarme
   'akt-ausscheid-schlucken': ['schluck'],
   'akt-anfall-ablauf': ['anfallsablauf'], 'akt-anfall-dauer': ['dauer'], 'akt-anfall-bewusstsein': ['bewusstlos'],
   // --- Vegetative Anamnese ------------------------------------------------------
@@ -62,7 +62,7 @@ export const PROBE_SUCHT: Readonly<Record<string, Sucht>> = {
   'frau-periode': ['zyklus'], 'frau-schwanger': ['schwangerschaft'], 'frau-verhuetung': ['verhuetung'], 'frau-wechseljahre': ['wechseljahre'],
   // --- Fach Gastroenterologie ---------------------------------------------------
   'fach-gastro-uebelkeit': ['uebelkeit'], 'fach-gastro-sodbrennen': ['sodbrennen'], 'fach-gastro-voelle': ['voellegefuehl'],
-  'fach-gastro-speisen': ['speisen', 'essen_expo'], 'fach-gastro-stuhl': ['stuhl', 'stuhlaussehen'],   // K2 : « Welche Farbe (blutig, teerschwarz, hell) » = l'aspect des selles (D1)
+  'fach-gastro-speisen': ['speisen', 'essen_expo'], 'fach-gastro-stuhl': ['stuhl', 'stuhlaussehen', 'stuhl_blut'],   // K2 : « Welche Farbe (blutig, teerschwarz, hell) » = l'aspect des selles (D1)
   'fach-gastro-tenesmen': ['tenesmen'],
   'fach-gastro-spiegelung': ['spiegelung'],
   // --- Fach Kardiologie ---------------------------------------------------------
@@ -116,7 +116,7 @@ export const PROBE_SUCHT: Readonly<Record<string, Sucht>> = {
   'fach-endo-folgeschaeden': ['taubheit', 'sehstoerung', 'nierenprobleme'], 'fach-endo-familie-therapie': ['familie_endokrin', 'endokrine_therapie'],
   // --- Fach Hämatologie ---------------------------------------------------------
   'fach-haem-leistung': ['muedigkeit', 'leistung', 'blaesse'], 'fach-haem-belastung': ['atemnot', 'herzrasen', 'schwindel'],
-  'fach-haem-blutung': ['blutungsneigung', 'haematome'], 'fach-haem-blutverlust': ['blutverlust', 'stuhlaussehen'],
+  'fach-haem-blutung': ['blutungsneigung', 'haematome'], 'fach-haem-blutverlust': ['blutverlust', 'stuhl_blut'],
   'fach-haem-ernaehrung': ['ernaehrung'], 'fach-haem-bsymptomatik': ['fieber', 'nachtschweiss', 'gewicht'],
   'fach-haem-lymphknoten': ['lymphknoten'], 'fach-haem-infekte': ['infektneigung', 'fieber', 'wundheilung'],
   'fach-haem-knochen': ['knochenschmerz'], 'fach-haem-thrombose': ['thrombose_vorgeschichte', 'familie_thrombose'],
@@ -139,6 +139,6 @@ export const PROBE_SUCHT: Readonly<Record<string, Sucht>> = {
   'fach-nephro-infekt': ['vorinfekt'], 'fach-nephro-vorgeschichte': ['nierenvorgeschichte', 'familie_niere'],
   // --- Fach Onkologie -----------------------------------------------------------
   'fach-onko-bsymptomatik': ['fieber', 'nachtschweiss', 'gewicht'], 'fach-onko-leistung': ['leistung'], 'fach-onko-schmerz': ['ruheschmerz'],
-  'fach-onko-knoten': ['knoten'], 'fach-onko-blutung': ['stuhlaussehen', 'urin_aspekt', 'haemoptyse', 'vaginalblutung'], 'fach-onko-appetit': ['schluck', 'voellegefuehl', 'appetit'],   // fach-onko-blutung, D1 : « im Stuhl, im Urin, beim Husten, aus der Scheide »
+  'fach-onko-knoten': ['knoten'], 'fach-onko-blutung': ['stuhl_blut', 'urin_aspekt', 'haemoptyse', 'vaginalblutung'], 'fach-onko-appetit': ['schluck', 'voellegefuehl', 'appetit'],   // fach-onko-blutung, D1 : « im Stuhl, im Urin, beim Husten, aus der Scheide »
   'fach-onko-vorbehandlung': ['tumor_vorgeschichte'], 'fach-onko-familie': ['familie_krebs'], 'fach-onko-vorsorge': ['vorsorge_krebs'],
 };

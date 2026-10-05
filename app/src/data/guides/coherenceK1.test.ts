@@ -69,7 +69,7 @@ describe('Scission selles / urines — « Häufigkeit » et « Aussehen »', () 
   it('chaque question se coupe en deux sondes mono-signe ; les ids historiques gardent les selles', () => {
     expect(PROBE_SUCHT['akt-ausscheid-haeufigkeit']).toEqual(['stuhlfrequenz']);
     expect(PROBE_SUCHT['akt-ausscheid-harn-haeufigkeit']).toEqual(['miktion_frequenz', 'nykturie']);
-    expect(PROBE_SUCHT['akt-ausscheid-aussehen']).toEqual(['stuhlaussehen']);
+    expect(PROBE_SUCHT['akt-ausscheid-aussehen']).toEqual(['stuhl_blut']);   // K3 (revue P0-1, décision de main) : le sang, signe d'alarme
     expect(PROBE_SUCHT['akt-ausscheid-harn-aussehen']).toEqual(['urin_aspekt']);
     expect(PROBE_BY_ID['akt-ausscheid-haeufigkeit'].frage).toMatch(/Stuhlgang/);
     expect(PROBE_BY_ID['akt-ausscheid-haeufigkeit'].frage).not.toMatch(/Wasser/);

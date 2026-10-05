@@ -1,8 +1,9 @@
 import { describe, expect, it } from 'vitest';
-import { playedTrame } from './anamneseChapters';
+import { compteursApresCas, playedTrame, profilDuCas } from './anamneseChapters';
 import { PROBE_BY_ID } from './anamneseProbes';
 import { phraseFollowUps, phraseProbes, phraseText } from './phrases';
-import { PSY, byId, cas, cases, ch, coeur, prof, run, s, signesJoues, un, vue } from './coherenceFixtures';
+import { PROBE_SUCHT, PROFIL_EXIGE, SIGNE_DEF, lexiqueIncoherences } from './symptoms';
+import { PSY, byId, cas, cases, ch, coeur, prof, run, s, signesJoues, trameJouee, un, vue } from './coherenceFixtures';
 
 // K3 — corrections des revues Opus de `508639f6` (mécanique B1, I1, M1, M4 ; clinique P0–P2). Fixtures : sondes réelles.
 
@@ -61,5 +62,26 @@ describe('I3 / P2 psy — l\'ordre de sécurité sous fach-psych-suizid (10 cas 
         'Haben Sie konkrete Pläne, sich d', 'Falls konkrete Absicht oder Plan', 'Haben Sie den Wunsch, sich zu ve', 'Haben Sie sich selbst verletzt?', 'Gibt es jemanden, der Sie unters']);
       expect(phraseFollowUps(q).map((f) => f.sucht ?? []), c.id).toEqual([[], [], ['selbstverletzung_wunsch'], ['selbstverletzung'], []]);
     }
+  });
+});
+
+describe('P0-1 — le sang dans les selles (`stuhl_blut`) est un signe, exigé par la diarrhée', () => {
+  it('lexique : banque mono-signe akt-ausscheid-aussehen ; diarrhoe l\'exige ; les sondes qui demandent le sang le déclarent', () => {
+    expect(SIGNE_DEF.stuhl_blut.bank).toBe('akt-ausscheid-aussehen');
+    expect(PROBE_SUCHT['akt-ausscheid-aussehen']).toEqual(['stuhl_blut']);
+    expect(PROFIL_EXIGE.diarrhoe).toContain('stuhl_blut');
+    for (const p of ['fach-gastro-stuhl', 'fach-haem-blutverlust', 'fach-onko-blutung']) expect(PROBE_SUCHT[p], p).toContain('stuhl_blut');
+    expect(lexiqueIncoherences()).toEqual([]);
+  });
+  it('gastroenteritis : « Blut, Schleim » revient, avec sa réponse ; « Wie sieht Ihr Stuhl aus » ne déclare que l\'aspect', () => {
+    const g = byId('case-gastroenteritis');
+    expect(coeur(g).aktuell).toContain('akt-ausscheid-aussehen');
+    expect(g.patientSheet.antworten?.['akt-ausscheid-aussehen']).toBeTruthy();
+    const q = g.caseSpecificQuestions.find((x) => typeof x !== 'string' && /Wie sieht Ihr Stuhl aus/.test(x.frage));
+    expect(typeof q !== 'string' && q?.sucht).toEqual(['stuhlaussehen']);
+  });
+  it('130 cas : un cas de diarrhée pose toujours le sang dans les selles, avec une réponse', () => {
+    for (const c of cases.filter((x) => profilDuCas(x).tags.includes('diarrhoe'))) expect(signesJoues(trameJouee(c)).has('stuhl_blut'), c.id).toBe(true);
+    for (const c of cases) expect(compteursApresCas(c).ajouteSansReponse, c.id).toBe(0);
   });
 });

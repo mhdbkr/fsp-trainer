@@ -32,6 +32,9 @@ const GARDEES: Record<string, Raison> = {
   'fach-neuro-verlauf -> akt-verlauf': 'signe-distinct',
   'fach-psych-tagesverlauf -> akt-verlauf': 'signe-distinct',
   'fach-onko-appetit -> akt-ausscheid-was': 'signe-distinct',
+  // Revue P0-1 : « Blut, Schleim im Stuhl » cherche le sang dans les selles (stuhl_blut), pas l'aspect du urine.
+  'fach-nephro-aussehen -> akt-ausscheid-aussehen': 'signe-distinct',
+  'fach-uro-farbe -> akt-ausscheid-aussehen': 'signe-distinct',
   // Le pont urinaire → selles (K1) : retiré, décision 3 de main — une Fach urologique ne pose pas la fréquence des selles.
   'fach-nephro-menge -> akt-ausscheid-haeufigkeit': 'signe-distinct',
   'fach-uro-drang -> akt-ausscheid-haeufigkeit': 'signe-distinct',
@@ -71,10 +74,10 @@ describe('FACH_COVERS absorbé par r2 — chaque paire retirée, ou gardée pour
     }
   }
 
-  it('la table gelée a 73 paires ; 71 s\'appliquent à au moins un cas ; 29 restent posées (raison listée)', () => {
+  it('la table gelée a 73 paires ; 71 s\'appliquent à au moins un cas ; 31 restent posées (raison listée)', () => {
     expect(PAIRES).toHaveLength(73);
     expect(etat.size).toBe(71);
-    expect(Object.keys(GARDEES)).toHaveLength(29);
+    expect(Object.keys(GARDEES)).toHaveLength(31);
   });
   it('les paires gardées sont exactement celles listées', () => {
     const gardees = [...etat].filter(([, s]) => s.retiree < s.n).map(([k]) => k).sort();

@@ -39,7 +39,10 @@ export const DEFS = {
   oedeme: { kapitel: 'aktuell', pertinence: S },
   blutung: { kapitel: 'aktuell', pertinence: S },          // signe GROSSIER : ce que la lecture du texte trouve ; les sondes déclarent l'un des signes fins (revue K1 C5)
   stuhlfrequenz: { kapitel: 'aktuell', pertinence: S, bank: 'akt-ausscheid-haeufigkeit' },
-  stuhlaussehen: { kapitel: 'aktuell', pertinence: S, bank: 'akt-ausscheid-aussehen' },
+  stuhlaussehen: { kapitel: 'aktuell', pertinence: S },   // l'aspect : consistance, couleur (« wässrig oder breiig »)
+  // K3 (revue clinique P0-1) : le SANG dans les selles (rouge, noir, mucus sanglant) — signe d'alarme, autre réplique que l'aspect.
+  // Banque : « Ist Ihnen Blut, Schleim oder eine ungewöhnliche Farbe im Stuhl aufgefallen? » (sa réplique est l'alarme).
+  stuhl_blut: { kapitel: 'aktuell', pertinence: S, bank: 'akt-ausscheid-aussehen' },
   nykturie: { kapitel: 'aktuell', pertinence: S },
   schluck: { kapitel: 'aktuell', pertinence: ['dysphagie', 'hals'], bank: 'akt-ausscheid-schlucken' },
   gelbfaerbung: { kapitel: 'aktuell', pertinence: S },

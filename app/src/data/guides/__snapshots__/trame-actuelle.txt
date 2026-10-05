@@ -360,7 +360,7 @@ case-copd
 case-zystitis
   eroeffnung[· · · ·]
   personalia[pers-name pers-name pers-alter pers-groesse pers-hausarzt ·]
-  aktuell[akt-motiv akt-ort↳1 akt-beginn akt-charakter akt-intensitaet↳1 akt-ausscheid-was akt-ausscheid-haeufigkeit↳1 akt-verlauf akt-ausloeser akt-einfluss akt-frueher↳1 akt-begleit cas]
+  aktuell[akt-motiv akt-ort↳1 akt-beginn akt-charakter akt-intensitaet↳1 akt-ausscheid-was akt-ausscheid-haeufigkeit↳1 akt-ausscheid-aussehen akt-verlauf akt-ausloeser akt-einfluss akt-frueher↳1 akt-begleit cas]
   fach-uro[fach-uro-miktion↳1 fach-uro-frequenz↳1 fach-uro-drang fach-uro-farbe fach-uro-flanke fach-uro-fieber fach-uro-sexualanamnese↳1 fach-uro-funktion fach-uro-vorgeschichte]
   vegetativ[veg-fieber~reise veg-schuettelfrost~nachtschweiss veg-schuettelfrost~schwitzen veg-uebelkeit↳1 veg-gewicht↳2 veg-appetit veg-schlaf ^veg-fieber#5~impfung]
   vorerkrankungen[· vor-erkrank↳1 vor-op↳1 vor-krankenhaus cas cas]
@@ -583,7 +583,7 @@ case-osteoporose
 case-bph
   eroeffnung[· · · ·]
   personalia[pers-name pers-name pers-alter pers-groesse pers-hausarzt ·]
-  aktuell[akt-motiv akt-beginn akt-ausscheid-was akt-ausscheid-haeufigkeit↳1 akt-verlauf akt-ausloeser akt-einfluss akt-frueher↳1 akt-begleit cas cas cas]
+  aktuell[akt-motiv akt-beginn akt-ausscheid-was akt-ausscheid-haeufigkeit↳1 akt-ausscheid-aussehen akt-verlauf akt-ausloeser akt-einfluss akt-frueher↳1 akt-begleit cas cas cas]
   fach-uro[fach-uro-miktion↳1 fach-uro-frequenz↳1 fach-uro-drang fach-uro-farbe fach-uro-strahl fach-uro-flanke fach-uro-fieber fach-uro-sexualanamnese↳1 fach-uro-funktion fach-uro-vorgeschichte]
   vegetativ[veg-fieber~reise veg-schuettelfrost~nachtschweiss veg-schuettelfrost~schwitzen veg-uebelkeit↳1 veg-gewicht↳2 veg-appetit veg-schlaf ^veg-fieber#5~impfung]
   vorerkrankungen[· vor-erkrank↳1 vor-op↳1 vor-krankenhaus cas]
@@ -681,7 +681,7 @@ case-panikstoerung
 case-prostatakarzinom
   eroeffnung[· · · ·]
   personalia[pers-name pers-name pers-alter pers-groesse pers-hausarzt ·]
-  aktuell[akt-motiv akt-beginn akt-ausscheid-was akt-ausscheid-haeufigkeit↳1 akt-verlauf akt-ausloeser akt-einfluss akt-frueher↳1 akt-begleit cas↳1 cas cas]
+  aktuell[akt-motiv akt-beginn akt-ausscheid-was akt-ausscheid-haeufigkeit↳1 akt-ausscheid-aussehen akt-verlauf akt-ausloeser akt-einfluss akt-frueher↳1 akt-begleit cas↳1 cas cas]
   fach-uro[fach-uro-miktion↳1 fach-uro-frequenz↳1 fach-uro-drang fach-uro-farbe fach-uro-strahl fach-uro-flanke fach-uro-fieber fach-uro-sexualanamnese↳1 fach-uro-funktion fach-uro-vorgeschichte]
   vegetativ[veg-fieber~reise veg-schuettelfrost~nachtschweiss veg-schuettelfrost~schwitzen veg-uebelkeit↳1 veg-gewicht↳2 veg-appetit veg-schlaf ^veg-fieber#5~impfung]
   vorerkrankungen[· vor-erkrank↳1 vor-op↳1 vor-krankenhaus cas cas cas]
@@ -693,7 +693,7 @@ case-prostatakarzinom
 case-hepatitis-b
   eroeffnung[· · · ·]
   personalia[pers-name pers-name pers-alter pers-groesse pers-hausarzt ·]
-  aktuell[akt-motiv akt-beginn akt-ausscheid-was akt-ausscheid-haeufigkeit↳1 akt-ausscheid-harn-haeufigkeit↳1 akt-verlauf akt-ausloeser akt-einfluss akt-frueher↳1 akt-begleit cas cas]
+  aktuell[akt-motiv akt-beginn akt-ausscheid-was akt-ausscheid-haeufigkeit↳1 akt-ausscheid-aussehen akt-ausscheid-harn-haeufigkeit↳1 akt-verlauf akt-ausloeser akt-einfluss akt-frueher↳1 akt-begleit cas cas]
   fach-infektio[fach-infekt-fieber fach-infekt-haut fach-infekt-gelenke fach-infekt-neuro fach-infekt-reise fach-infekt-kontakt↳1 fach-infekt-impfung]
   vegetativ[veg-schuettelfrost veg-uebelkeit↳1 veg-gewicht↳2 veg-appetit veg-schlaf]
   vorerkrankungen[· vor-erkrank↳1 vor-op↳1 vor-krankenhaus cas]
@@ -1064,7 +1064,7 @@ case-diabetes-typ1
 case-gastroenteritis
   eroeffnung[· · · ·]
   personalia[pers-name pers-name pers-alter pers-groesse pers-hausarzt ·]
-  aktuell[akt-motiv akt-ort↳1 akt-beginn akt-charakter akt-intensitaet↳1 akt-ausscheid-was akt-ausscheid-haeufigkeit↳1 akt-ausscheid-harn-haeufigkeit~nykturie akt-verlauf akt-ausloeser akt-einfluss akt-frueher↳1 akt-begleit cas cas cas]
+  aktuell[akt-motiv akt-ort↳1 akt-beginn akt-charakter akt-intensitaet↳1 cas akt-ausscheid-was akt-ausscheid-haeufigkeit↳1 akt-ausscheid-aussehen akt-ausscheid-harn-haeufigkeit~nykturie akt-verlauf akt-ausloeser akt-einfluss akt-frueher↳1 akt-begleit cas cas]
   fach-infektio[fach-infekt-haut fach-infekt-neuro fach-infekt-reise fach-infekt-kontakt↳1 fach-infekt-impfung]
   vegetativ[veg-schuettelfrost~schwitzen veg-uebelkeit↳1 veg-gewicht↳2 veg-appetit veg-schlaf cas]
   vorerkrankungen[· vor-erkrank↳1 vor-op↳1 vor-krankenhaus]
@@ -1351,7 +1351,7 @@ case-hueftkopfnekrose
 case-glomerulonephritis
   eroeffnung[· · · ·]
   personalia[pers-name pers-name pers-alter pers-groesse pers-hausarzt ·]
-  aktuell[akt-motiv akt-beginn akt-ausscheid-was akt-ausscheid-haeufigkeit↳1 akt-verlauf akt-ausloeser akt-einfluss akt-frueher↳1 akt-begleit cas cas cas cas]
+  aktuell[akt-motiv akt-beginn akt-ausscheid-was akt-ausscheid-haeufigkeit↳1 akt-ausscheid-aussehen akt-verlauf akt-ausloeser akt-einfluss akt-frueher↳1 akt-begleit cas cas cas cas]
   fach-nephro[fach-nephro-menge↳1 fach-nephro-aussehen fach-nephro-oedeme fach-nephro-blutdruck fach-nephro-nephrotoxisch fach-nephro-uraemie fach-nephro-infekt fach-nephro-vorgeschichte]
   vegetativ[veg-fieber↳4 veg-schuettelfrost veg-schlaf ^veg-fieber#5~impfung]
   vorerkrankungen[· vor-erkrank↳1 vor-op↳1 vor-krankenhaus]

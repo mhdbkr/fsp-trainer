@@ -886,6 +886,7 @@ export const FACHANAMNESEN: FachanamneseGuide[] = [
           'Welche Farbe hat der Stuhl — blutig, teerschwarz, sehr hell, gelblich?',
           'Welche Konsistenz — hart, fest, weich, schleimig, wässerig?',
         ],
+        followUpSucht: [['stuhlaussehen', 'stuhl_blut'], []],   // K3 (P0-1) : la couleur dit le sang ; la mère les déclare
       },
       {
         text: 'Haben Sie manchmal das Gefühl, zur Toilette zu müssen, aber es kommt eigentlich nichts?',

@@ -40611,7 +40611,7 @@ export function seedCases(): Case[] {
       caseSpecificQuestions: [
         { frage: 'Was haben Sie dort gegessen und getrunken? Hatten Sie Eiswürfel in den Getränken, rohen Salat, ungeschältes Obst oder Leitungswasser?', kapitel: 'aktuell' },
         { frage: 'Was arbeiten Sie beruflich, und arbeitet jemand in Ihrem Haushalt in einer Küche, in der Gastronomie oder in einem Kindergarten?', kapitel: 'familie-sozial' },
-        { frage: 'Wie sieht Ihr Stuhl aus — wässrig oder breiig, welche Farbe, riecht er auffällig, schwimmt er oben?', kapitel: 'aktuell', relu: true },
+        { frage: 'Wie sieht Ihr Stuhl aus — wässrig oder breiig, welche Farbe, riecht er auffällig, schwimmt er oben?', sucht: ['stuhlaussehen'], kapitel: 'aktuell', relu: true },
         { frage: 'Trinken Sie genug? Wie oft müssen Sie Wasser lassen, und welche Farbe hat der Urin? Wird Ihnen beim Aufstehen schwindelig?', kapitel: 'vegetativ', sucht: ['miktion_frequenz', 'urin_aspekt', 'schwindel'] },
         { frage: 'Haben Sie in den letzten Wochen oder Monaten Antibiotika eingenommen oder waren Sie im Krankenhaus?', kapitel: 'medikamente' },
         { frage: 'Haben Sie Fieber gemessen? Hatten Sie Schüttelfrost oder Nachtschweiß?', kapitel: 'aktuell', sucht: ['fieber', 'schuettelfrost', 'nachtschweiss'] },
