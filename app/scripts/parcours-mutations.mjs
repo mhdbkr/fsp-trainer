@@ -700,8 +700,8 @@ export const MUTATIONS = [
   },
   {
     id: 'INV-72a', tests: 'tests/invariants.lauf.test.tsx', file: 'src/lib/lauf/automat.ts',
-    from: "if (!lauf.geplanteTeile.includes(reprise) || lauf.teileGespielt.includes(reprise)) return lauf;",
-    to: "if (!lauf.geplanteTeile.includes(reprise)) return lauf;",
+    from: "if (reprise !== unterbrochenerTeil && (!lauf.geplanteTeile.includes(reprise) || lauf.teileGespielt.includes(reprise))) return lauf;",
+    to: "if (reprise !== unterbrochenerTeil && !lauf.geplanteTeile.includes(reprise)) return lauf;",
     pourquoi: 'partieSuivante(t\') accepte un Teil déjà joué : un Teil joué deux fois dans la même partie',
   },
   {

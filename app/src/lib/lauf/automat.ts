@@ -346,7 +346,8 @@ export function transition(lauf: Lauf, aktion: LaufAktion): Lauf {
       const reprise = aktion.teil ?? unterbrochenerTeil ?? naechsterTeil(lauf);
       if (!reprise) return lauf;   // plus rien à jouer : seul `versChecklist` sort
       if (unterbrochenerTeil && reprise !== unterbrochenerTeil) return lauf;
-      if (!lauf.geplanteTeile.includes(reprise) || lauf.teileGespielt.includes(reprise)) return lauf;
+      // Le Teil interrompu est toujours repris (règle 7 inchangée) ; tout autre doit être planifié et non joué.
+      if (reprise !== unterbrochenerTeil && (!lauf.geplanteTeile.includes(reprise) || lauf.teileGespielt.includes(reprise))) return lauf;
       return {
         ...lauf,
         zustand: 'laufend',

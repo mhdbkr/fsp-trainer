@@ -113,6 +113,11 @@ describe('INV-20 / INV-21 / INV-28 — l’automate du Lauf ne revient jamais en
         if (l.zustand === 'bilanz') {
           expect(erlaubt(l, { typ: 'versChecklist' }), `« Terminer ici » refusé au bilan — ${ctx}`).toBe(true);
           if (l.geplanteTeile.some((t) => !l.teileGespielt.includes(t))) vu.terminerIci++;
+          // « Continuer » (sans choix) mène TOUJOURS au prochain Teil non joué — le Teil interrompu par
+          // l'Aufklärung d'abord : jamais un refus muet qui laisserait le candidat bloqué au bilan.
+          const reste = l.geplanteTeile.filter((t) => !l.teileGespielt.includes(t));
+          const interrompu = l.teilVorAufklaerung && !l.teileGespielt.includes(l.teilVorAufklaerung) ? l.teilVorAufklaerung : null;
+          if (reste.length) expect(transition(l, { typ: 'partieSuivante' }).aktuellerTeil, `« Continuer » ne mène pas au prochain Teil non joué — ${ctx}`).toBe(interrompu ?? reste[0]);
         }
         // INV-28 : aucun chrono ne décroît.
         for (const [t, s] of Object.entries(avant.sekundenProTeil)) {
