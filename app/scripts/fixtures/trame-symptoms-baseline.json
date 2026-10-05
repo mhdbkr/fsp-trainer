@@ -11,7 +11,7 @@
     "R|case-myokardinfarkt [aktuell] « Waren Sie dabei kaltschweißig, und war Ihnen übel? » cite « uebelkeit », cherché PLUS BAS : [vegetativ] « Ist Ihnen übel? Mussten Sie sich übergeben? »",
     "R|case-nhl [aktuell] « Haben Sie Husten, Luftnot, Schluckbeschwerden oder Herzrasen bemerkt? » cite « atemnot », cherché PLUS BAS : [fach-haemato] « Bekommen Sie bei Anstrengung schneller Luftnot, Herzklo »",
     "R|case-nhl [aktuell] « Haben Sie Husten, Luftnot, Schluckbeschwerden oder Herzrasen bemerkt? » cite « herzrasen », cherché PLUS BAS : [fach-haemato] « Bekommen Sie bei Anstrengung schneller Luftnot, Herzklo »",
-    "R|case-nhl [vegetativ] « Haben Sie Juckreiz am ganzen Körper bemerkt? » cite « juckreiz », cherché plus haut : [aktuell] « Tut es weh, juckt es? »",
+    "R|case-nhl [vegetativ] « Haben Sie Juckreiz am ganzen Körper bemerkt? » cite « juckreiz », cherché plus haut : [aktuell] « Schmerz und Blutung — Tut es weh, juckt es? »",
     "R|case-prostatakarzinom [vorerkrankungen] « Haben Sie jemals Blut im Urin oder im Samenerguss bemerkt? » cite « blutung », cherché plus haut : [fach-uro] « Haben Sie Schmerzen oder Blutungen beim oder nach dem G »",
     "R|case-schenkelhalsfraktur [aktuell] « Waren Sie kurz bewusstlos? Haben Sie sich auf die Zunge gebissen oder Urin verloren? Erinnern Sie sich an alles? » cite « bewusstlos », cherché PLUS BAS : [fach-ortho] « Wie ist es passiert? »",
     "R|case-zystitis [aktuell] « Wie sieht Ihr Urin aus — trüb, ungewöhnlicher Geruch? Falls Blut dabei war: am Anfang, während oder am Ende des Wasserlassens? » cite « blutung », cherché PLUS BAS : [fach-uro] « Haben Sie Schmerzen oder Blutungen beim oder nach dem G »"

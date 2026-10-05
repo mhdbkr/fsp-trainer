@@ -130,12 +130,12 @@ describe('P1-2 à P1-5 — dimensions et pertinence', () => {
     expect(akt('case-multiple-sklerose')).not.toContain('akt-verlauf');
   });
   it('P1-3 : la variante psy de Verlauf se réduit au cours quand la Fach psy pose le moment de la journée (depression)', () => {
-    expect(textesAkt('case-depression')).toContain('Ist es jeden Tag gleich, oder gibt es bessere und schlechtere Tage?');
+    expect(textesAkt('case-depression')).toContain('Verlauf — Ist es jeden Tag gleich, oder gibt es bessere und schlechtere Tage?');
     expect(textesAkt('case-depression').join(' ')).not.toMatch(/morgens anders als abends/);
   });
   it('P1-4 : « Seit wann » reste, le mode de début n\'est posé qu\'une fois (6 cas rhumato)', () => {
     for (const id of ['case-fibromyalgie', 'case-gicht', 'case-rheumatoide-arthritis', 'case-polymyalgia', 'case-septische-arthritis', 'case-reaktive-arthritis']) {
-      expect(textesAkt(id), id).toContain('Seit wann haben Sie die Schmerzen?');
+      expect(textesAkt(id), id).toContain('Beginn — Seit wann haben Sie die Schmerzen?');
       const t = trameJouee(byId(id)).flatMap((x) => x.questions).filter((p) => phraseSucht(p).includes('beginn_art'));
       expect(t.length, id).toBe(1);
     }
@@ -271,7 +271,7 @@ describe('R3 / P2 / gib — le bloc « Veränderung » d\'une lésion cutanée r
       expect(textes(id).filter((t) => /Blut im Stuhl|Blut im Urin|Husten Sie Blut ab/.test(t)), id).toEqual([]);
   });
   it('P2 : « blutet es? » est une part propre — quand le saignement est déjà demandé, il reste « Tut es weh, juckt es? »', () => {
-    expect(textes('case-mammakarzinom')).toContain('Tut es weh, juckt es?');
+    expect(textes('case-mammakarzinom')).toContain('Schmerz und Blutung — Tut es weh, juckt es?');
     expect(textes('case-mammakarzinom')).not.toContain('Tut es weh, juckt es, oder blutet es?');
   });
   it('gib, itp, lymphom : décisions cas par cas (rapport § 0bis)', () => {
@@ -317,5 +317,14 @@ describe('Les deux cas de la direction, présentables dès K3 — zéro doublon,
     expect(o.filter((l) => /steif/i.test(l))).toHaveLength(1);
     expect(o.findIndex((l) => /Zeichnung/.test(l))).toBe(o.findIndex((l) => /akt-motiv/.test(l)) + 1);   // la question du cas prend la place d'akt-ort
     expect(compteursApresCas(byId('case-fibromyalgie'))).toMatchObject({ doublons: 0, horsProfil: 0, brauchtViole: 0 });
+  });
+});
+
+describe('P2 — une part réduite porte le libellé de dimension de sa mère', () => {
+  it('« Beginn — Seit wann haben Sie die Schmerzen? » (fibromyalgie) ; « Schmerz und Blutung — Tut es weh, juckt es? » (mammakarzinom)', () => {
+    const akt = (id: string) => playedTrame(byId(id)).chapters.find((x) => x.id === 'aktuell')!.questions.map(phraseText);
+    expect(akt('case-fibromyalgie')).toContain('Beginn — Seit wann haben Sie die Schmerzen?');
+    expect(akt('case-mammakarzinom')).toContain('Schmerz und Blutung — Tut es weh, juckt es?');
+    expect(akt('case-depression')).toContain('Verlauf — Ist es jeden Tag gleich, oder gibt es bessere und schlechtere Tage?');
   });
 });

@@ -1,6 +1,6 @@
 import { PROBE_BY_ID } from './anamneseProbes';
 import { parseFollowUp } from './followUp';
-import { phraseFollowUps, phraseIsCaseSpecific, phraseProbes, type Phrase, type PhraseVariant } from './phrases';
+import { phraseFollowUps, phraseIsCaseSpecific, phraseProbes, splitDimension, type Phrase, type PhraseVariant } from './phrases';
 import { PROFIL_EXCLUT, PROFIL_EXIGE, SIGNES, SIGNE_DEF, SUCHT_AUSSER, tagsEffectifs, type ProfilCas, type ProfilTag, type Signe } from './signes';
 import { phraseSucht } from './symptoms';
 
@@ -321,7 +321,9 @@ export function cohere<T extends TrameChapter>(trame: readonly T[], profil: Prof
         (pt.followUp ?? []).forEach((f, j) => { fu.push(f); fs.push(pt.followUpSucht?.[j] ?? []); });
       });
       const br = [...(v.braucht ?? []), ...pts.flatMap((pt) => pt.braucht ?? [])];
-      return [{ ...v, text: pts[0].text, alts: undefined, followUp: fu.length ? fu : undefined, parts: undefined, enumere: undefined,
+      // La question posée garde le libellé de dimension de sa mère (« Beginn — … ») — revue clinique P2.
+      const dim = splitDimension(v.text).dim;
+      return [{ ...v, text: dim && !splitDimension(pts[0].text).dim ? `${dim} — ${pts[0].text}` : pts[0].text, alts: undefined, followUp: fu.length ? fu : undefined, parts: undefined, enumere: undefined,
         followUpSucht: fs.some((x) => x.length) ? fs : undefined, sucht: pts.flatMap((pt) => pt.sucht).filter((s, k, a) => u.signes.includes(s as Signe) && a.indexOf(s) === k),
         ...(br.length ? { braucht: [...new Set(br)] } : {}) }];
     }
