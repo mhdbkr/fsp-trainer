@@ -33,7 +33,7 @@ case-pankreatitis
   allergien[all-allergie↳1 all-unvertraeglich]
   noxen[nox-rauchen↳5 nox-alkohol↳3 nox-drogen]
   familie-sozial[fam-familie↳2 fam-eltern↳2 fam-stand↳1 fam-beruf↳1 pers-beruf fam-wohnen fam-haustiere]
-  frauenanamnese[frau-periode frau-schwanger frau-verhuetung frau-wechseljahre]
+  frauenanamnese[frau-periode↳2 frau-schwanger frau-verhuetung↳1 frau-wechseljahre↳1]
   abschluss[· · · · ·]
 case-gib
   eroeffnung[· · · ·]
@@ -58,7 +58,7 @@ case-divertikulitis
   allergien[all-allergie↳1 all-unvertraeglich]
   noxen[nox-rauchen↳5 nox-alkohol↳3 nox-drogen]
   familie-sozial[fam-familie↳2 fam-eltern↳2 fam-stand↳1 fam-beruf↳1 pers-beruf fam-wohnen fam-haustiere]
-  frauenanamnese[frau-periode frau-wechseljahre]
+  frauenanamnese[frau-periode↳1 frau-wechseljahre↳2]
   abschluss[· · · · ·]
 case-cholezystitis
   eroeffnung[· · · ·]
@@ -71,7 +71,7 @@ case-cholezystitis
   allergien[all-allergie↳1 all-unvertraeglich]
   noxen[nox-rauchen↳5 nox-alkohol↳3 nox-drogen]
   familie-sozial[fam-familie↳2 fam-eltern↳2 fam-stand↳1 fam-beruf↳1 pers-beruf fam-wohnen fam-haustiere]
-  frauenanamnese[frau-periode frau-schwanger frau-verhuetung frau-wechseljahre]
+  frauenanamnese[frau-periode↳2 frau-schwanger frau-verhuetung↳1 frau-wechseljahre↳1]
   abschluss[· · · · ·]
 case-kolorektales-ca
   eroeffnung[· · · ·]
@@ -96,7 +96,7 @@ case-gerd
   allergien[all-allergie↳1 all-unvertraeglich]
   noxen[nox-rauchen↳5 nox-alkohol↳3 nox-drogen]
   familie-sozial[fam-familie↳2 fam-eltern↳2 fam-stand↳1 fam-beruf↳1 pers-beruf fam-wohnen fam-haustiere]
-  frauenanamnese[frau-periode frau-schwanger frau-verhuetung]
+  frauenanamnese[frau-periode↳2 frau-schwanger frau-verhuetung↳1]
   abschluss[· · · · ·]
 case-myokardinfarkt
   eroeffnung[· · · ·]
@@ -121,7 +121,7 @@ case-oesophaguskarzinom
   allergien[all-allergie↳1 all-unvertraeglich]
   noxen[nox-rauchen↳5 nox-alkohol↳3 nox-drogen]
   familie-sozial[fam-familie↳2 fam-eltern↳2 fam-stand↳1 fam-beruf↳1 pers-beruf fam-wohnen fam-haustiere]
-  frauenanamnese[frau-periode frau-schwanger frau-verhuetung frau-wechseljahre]
+  frauenanamnese[frau-periode↳2 frau-schwanger frau-verhuetung↳1 frau-wechseljahre↳1]
   abschluss[· · · · ·]
 case-ulcus
   eroeffnung[· · · ·]
@@ -194,7 +194,7 @@ case-pyelonephritis
   allergien[all-allergie↳1 all-unvertraeglich]
   noxen[nox-rauchen↳5 nox-alkohol↳3 nox-drogen]
   familie-sozial[fam-familie↳2 fam-eltern↳2 fam-stand↳1 fam-beruf↳1 pers-beruf fam-wohnen fam-haustiere]
-  frauenanamnese[frau-periode frau-wechseljahre]
+  frauenanamnese[frau-periode↳1 frau-wechseljahre↳2]
   abschluss[· · · · ·]
 case-pavk
   eroeffnung[· · · ·]
@@ -219,7 +219,7 @@ case-lyme
   allergien[all-allergie↳1 all-unvertraeglich]
   noxen[nox-rauchen↳5 nox-alkohol↳3 nox-drogen]
   familie-sozial[fam-familie↳2 fam-eltern↳2 fam-stand↳1 fam-beruf↳1 pers-beruf fam-wohnen fam-haustiere]
-  frauenanamnese[frau-periode frau-schwanger frau-verhuetung]
+  frauenanamnese[frau-periode↳2 frau-schwanger frau-verhuetung↳1]
   abschluss[· · · · ·]
 case-osg-fraktur
   eroeffnung[· · · ·]
@@ -268,7 +268,7 @@ case-multiple-sklerose
   allergien[all-allergie↳1 all-unvertraeglich]
   noxen[nox-rauchen↳5 nox-alkohol↳3 nox-drogen]
   familie-sozial[fam-familie↳2 fam-eltern↳2 fam-stand↳1 fam-beruf↳1 pers-beruf fam-wohnen fam-haustiere]
-  frauenanamnese[frau-periode frau-schwanger frau-verhuetung]
+  frauenanamnese[frau-periode↳2 frau-schwanger frau-verhuetung↳1]
   abschluss[· · · · ·]
 case-reizdarm
   eroeffnung[· · · ·]
@@ -281,7 +281,7 @@ case-reizdarm
   allergien[all-allergie↳1 all-unvertraeglich]
   noxen[nox-rauchen↳5 nox-alkohol↳3 nox-drogen]
   familie-sozial[fam-familie↳2 fam-eltern↳2 fam-stand↳1 fam-beruf↳1 pers-beruf fam-wohnen fam-haustiere cas cas]
-  frauenanamnese[frau-periode frau-schwanger frau-verhuetung frau-wechseljahre]
+  frauenanamnese[frau-periode↳2 frau-schwanger frau-verhuetung↳1 frau-wechseljahre↳1]
   abschluss[· · · · ·]
 case-schlaganfall
   eroeffnung[· · · ·]
@@ -318,7 +318,7 @@ case-tvt
   allergien[all-allergie↳1 all-unvertraeglich]
   noxen[nox-rauchen↳5 nox-alkohol↳3 nox-drogen]
   familie-sozial[fam-familie↳2 fam-eltern↳2 fam-stand↳1 fam-beruf↳1 pers-beruf fam-wohnen fam-haustiere cas]
-  frauenanamnese[frau-periode frau-schwanger frau-verhuetung frau-wechseljahre]
+  frauenanamnese[frau-periode↳2 frau-schwanger frau-verhuetung↳1 frau-wechseljahre↳1]
   abschluss[· · · · ·]
 case-diabetes
   eroeffnung[· · · ·]
@@ -343,7 +343,7 @@ case-hyperthyreose
   allergien[all-allergie↳1 all-unvertraeglich]
   noxen[nox-rauchen↳5 nox-alkohol↳3 nox-drogen]
   familie-sozial[fam-familie↳2 fam-eltern↳2 fam-stand↳1 fam-beruf↳1 pers-beruf fam-wohnen fam-haustiere]
-  frauenanamnese[frau-periode frau-schwanger frau-verhuetung frau-wechseljahre cas]
+  frauenanamnese[frau-periode↳2 frau-schwanger frau-verhuetung↳1 frau-wechseljahre↳1 cas]
   abschluss[· · · · ·]
 case-copd
   eroeffnung[· · · ·]
@@ -368,7 +368,7 @@ case-zystitis
   allergien[all-allergie↳1 all-unvertraeglich]
   noxen[nox-rauchen↳5 nox-alkohol↳3 nox-drogen]
   familie-sozial[fam-familie↳2 fam-eltern↳2 fam-stand↳1 fam-beruf↳1 pers-beruf fam-wohnen fam-haustiere cas cas]
-  frauenanamnese[frau-periode frau-schwanger frau-verhuetung cas]
+  frauenanamnese[frau-periode↳2 frau-schwanger frau-verhuetung↳1 cas]
   abschluss[· · · · ·]
 case-migraene
   eroeffnung[· · · ·]
@@ -381,7 +381,7 @@ case-migraene
   allergien[all-allergie↳1 all-unvertraeglich]
   noxen[nox-rauchen↳5 nox-alkohol↳3 nox-drogen]
   familie-sozial[fam-familie↳2 fam-eltern↳2 fam-stand↳1 fam-beruf↳1 pers-beruf fam-wohnen fam-haustiere cas]
-  frauenanamnese[frau-periode frau-schwanger frau-verhuetung]
+  frauenanamnese[frau-periode↳2 frau-schwanger frau-verhuetung↳1]
   abschluss[· · · · ·]
 case-asthma
   eroeffnung[· · · ·]
@@ -442,7 +442,7 @@ case-anaemie
   allergien[all-allergie↳1 all-unvertraeglich]
   noxen[nox-rauchen↳5 nox-alkohol↳3 nox-drogen]
   familie-sozial[fam-familie↳2 fam-eltern↳2 fam-stand↳1 fam-beruf↳1 pers-beruf fam-wohnen fam-haustiere cas]
-  frauenanamnese[frau-periode frau-wechseljahre cas]
+  frauenanamnese[frau-periode↳1 frau-wechseljahre↳2 cas]
   abschluss[· · · · ·]
 case-vorhofflimmern
   eroeffnung[· · · ·]
@@ -479,7 +479,7 @@ case-hypothyreose
   allergien[all-allergie↳1 all-unvertraeglich]
   noxen[nox-rauchen↳5 nox-alkohol↳3 nox-drogen]
   familie-sozial[fam-familie↳2 fam-eltern↳2 fam-stand↳1 fam-beruf↳1 pers-beruf fam-wohnen fam-haustiere cas]
-  frauenanamnese[frau-periode frau-schwanger frau-verhuetung frau-wechseljahre cas]
+  frauenanamnese[frau-periode↳2 frau-schwanger frau-verhuetung↳1 frau-wechseljahre↳1 cas]
   abschluss[· · · · ·]
 case-niereninsuffizienz
   eroeffnung[· · · ·]
@@ -504,7 +504,7 @@ case-lymphom
   allergien[all-allergie↳1 all-unvertraeglich]
   noxen[nox-rauchen↳5 nox-alkohol↳3 nox-drogen]
   familie-sozial[fam-familie↳2 fam-eltern↳2 fam-stand↳1 fam-beruf↳1 pers-beruf fam-wohnen fam-haustiere cas]
-  frauenanamnese[frau-periode frau-schwanger frau-verhuetung frau-wechseljahre]
+  frauenanamnese[frau-periode↳2 frau-schwanger frau-verhuetung↳1 frau-wechseljahre↳1]
   abschluss[· · · · ·]
 case-lungenembolie
   eroeffnung[· · · ·]
@@ -522,14 +522,13 @@ case-eug
   eroeffnung[· · · ·]
   personalia[pers-name pers-name pers-alter pers-groesse pers-hausarzt ·]
   aktuell[akt-motiv akt-ort↳1 akt-beginn akt-charakter akt-intensitaet↳2 akt-ausstrahlung↳1 akt-verlauf↳1 akt-ausloeser akt-einfluss akt-frueher↳1 akt-begleit cas cas cas cas cas]
-  fach-gyn[fach-gyn-blutung↳1 fach-gyn-unterbauch fach-gyn-fluor↳2 fach-gyn-dyspareunie fach-gyn-schwangerschaften↳1 fach-gyn-kinderwunsch fach-gyn-brust fach-gyn-vorsorge fach-gyn-eingriffe]
+  fach-gyn[frau-periode↳2 frau-schwanger cas frau-verhuetung↳1 fach-gyn-blutung↳1 fach-gyn-unterbauch↳2 fach-gyn-fluor↳5 fach-gyn-dyspareunie↳2 fach-gyn-schwangerschaften↳3 fach-gyn-kinderwunsch fach-gyn-brust fach-gyn-vorsorge↳1 fach-gyn-eingriffe↳1]
   vegetativ[veg-fieber↳5 veg-schuettelfrost veg-uebelkeit↳1 veg-ausscheidung↳1 veg-gewicht↳2 veg-appetit veg-schlaf]
   vorerkrankungen[· vor-erkrank↳1 vor-op↳1 vor-krankenhaus cas cas]
   medikamente[med-regelmaessig↳4 med-blutverduenner med-otc]
   allergien[all-allergie↳1 all-unvertraeglich]
   noxen[nox-rauchen↳5 nox-alkohol↳3 nox-drogen]
   familie-sozial[fam-familie↳2 fam-eltern↳2 fam-stand↳1 fam-beruf↳1 pers-beruf fam-wohnen fam-haustiere]
-  frauenanamnese[frau-periode frau-schwanger frau-verhuetung cas]
   abschluss[· · · · ·]
 case-meningitis
   eroeffnung[· · · ·]
@@ -554,7 +553,7 @@ case-pankreaskarzinom
   allergien[all-allergie↳1 all-unvertraeglich]
   noxen[nox-rauchen↳5 nox-alkohol↳3 nox-drogen]
   familie-sozial[fam-familie↳2 fam-eltern↳2 fam-stand↳1 fam-beruf↳1 pers-beruf fam-wohnen fam-haustiere cas]
-  frauenanamnese[frau-periode frau-wechseljahre]
+  frauenanamnese[frau-periode↳1 frau-wechseljahre↳2]
   abschluss[· · · · ·]
 case-zoster
   eroeffnung[· · · ·]
@@ -567,7 +566,7 @@ case-zoster
   allergien[all-allergie↳1 all-unvertraeglich]
   noxen[nox-rauchen↳5 nox-alkohol↳3 nox-drogen]
   familie-sozial[fam-familie↳2 fam-eltern↳2 fam-stand↳1 fam-beruf↳1 pers-beruf fam-wohnen fam-haustiere]
-  frauenanamnese[frau-periode frau-wechseljahre]
+  frauenanamnese[frau-periode↳1 frau-wechseljahre↳2]
   abschluss[· · · · ·]
 case-osteoporose
   eroeffnung[· · · ·]
@@ -621,14 +620,13 @@ case-mammakarzinom
   eroeffnung[· · · ·]
   personalia[pers-name pers-name pers-alter pers-groesse pers-hausarzt ·]
   aktuell[akt-motiv akt-beginn akt-veraend-entwicklung↳1 akt-verlauf akt-ausloeser akt-einfluss akt-frueher↳1 akt-begleit cas cas cas]
-  fach-gyn[fach-gyn-blutung↳1 fach-gyn-unterbauch fach-gyn-fluor↳2 fach-gyn-dyspareunie fach-gyn-schwangerschaften↳1 fach-gyn-kinderwunsch fach-gyn-brust fach-gyn-vorsorge fach-gyn-eingriffe]
+  fach-gyn[frau-periode↳2 cas frau-schwanger frau-verhuetung↳1 frau-wechseljahre fach-gyn-blutung↳1 fach-gyn-unterbauch↳2 fach-gyn-fluor↳5 fach-gyn-dyspareunie↳2 fach-gyn-schwangerschaften↳3 cas fach-gyn-kinderwunsch fach-gyn-brust fach-gyn-vorsorge fach-gyn-eingriffe↳1]
   vegetativ[veg-fieber↳5 veg-schuettelfrost veg-uebelkeit↳1 veg-ausscheidung↳1 veg-gewicht↳2 veg-appetit veg-schlaf cas]
   vorerkrankungen[· vor-erkrank↳1 vor-op↳1 vor-krankenhaus cas]
-  medikamente[med-regelmaessig↳4 med-blutverduenner med-otc cas]
+  medikamente[med-regelmaessig↳4 med-blutverduenner med-otc]
   allergien[all-allergie↳1 all-unvertraeglich]
   noxen[nox-rauchen↳5 nox-alkohol↳3 nox-drogen]
   familie-sozial[fam-familie↳2 fam-eltern↳2 fam-stand↳1 fam-beruf↳1 pers-beruf fam-wohnen fam-haustiere cas↳1]
-  frauenanamnese[frau-periode frau-schwanger frau-verhuetung frau-wechseljahre cas]
   abschluss[· · · · ·]
 case-rheumatoide-arthritis
   eroeffnung[· · · ·]
@@ -665,7 +663,7 @@ case-karpaltunnel
   allergien[all-allergie↳1 all-unvertraeglich]
   noxen[nox-rauchen↳5 nox-alkohol↳3 nox-drogen]
   familie-sozial[fam-familie↳2 fam-eltern↳2 fam-stand↳1 fam-beruf↳1 pers-beruf fam-wohnen fam-haustiere cas]
-  frauenanamnese[frau-periode frau-schwanger frau-verhuetung frau-wechseljahre]
+  frauenanamnese[frau-periode↳2 frau-schwanger frau-verhuetung↳1 frau-wechseljahre↳1]
   abschluss[· · · · ·]
 case-panikstoerung
   eroeffnung[· · · ·]
@@ -678,7 +676,7 @@ case-panikstoerung
   allergien[all-allergie↳1 all-unvertraeglich]
   noxen[nox-rauchen↳5 nox-alkohol↳3 nox-drogen]
   familie-sozial[fam-familie↳2 fam-eltern↳2 fam-stand↳1 fam-beruf↳1 pers-beruf fam-wohnen fam-haustiere cas]
-  frauenanamnese[frau-periode frau-schwanger frau-verhuetung]
+  frauenanamnese[frau-periode↳2 frau-schwanger frau-verhuetung↳1]
   abschluss[· · · · ·]
 case-prostatakarzinom
   eroeffnung[· · · ·]
@@ -739,7 +737,7 @@ case-struma
   allergien[all-allergie↳1 all-unvertraeglich]
   noxen[nox-rauchen↳5 nox-alkohol↳3 nox-drogen]
   familie-sozial[fam-familie↳2 fam-eltern↳2 fam-stand↳1 fam-beruf↳1 pers-beruf fam-wohnen fam-haustiere cas]
-  frauenanamnese[frau-periode frau-schwanger frau-verhuetung frau-wechseljahre]
+  frauenanamnese[frau-periode↳2 frau-schwanger frau-verhuetung↳1 frau-wechseljahre↳1]
   abschluss[· · · · ·]
 case-otitis-media
   eroeffnung[· · · ·]
@@ -752,7 +750,7 @@ case-otitis-media
   allergien[all-allergie↳1 all-unvertraeglich]
   noxen[nox-rauchen↳5 nox-alkohol↳3 nox-drogen]
   familie-sozial[fam-familie↳2 fam-eltern↳2 fam-stand↳1 fam-beruf↳1 pers-beruf fam-wohnen fam-haustiere]
-  frauenanamnese[frau-periode frau-schwanger frau-verhuetung]
+  frauenanamnese[frau-periode↳2 frau-schwanger frau-verhuetung↳1]
   abschluss[· · · · ·]
 case-ileus
   eroeffnung[· · · ·]
@@ -765,7 +763,7 @@ case-ileus
   allergien[all-allergie↳1 all-unvertraeglich]
   noxen[nox-rauchen↳5 nox-alkohol↳3 nox-drogen]
   familie-sozial[fam-familie↳2 fam-eltern↳2 fam-stand↳1 fam-beruf↳1 pers-beruf fam-wohnen fam-haustiere cas]
-  frauenanamnese[frau-periode frau-wechseljahre]
+  frauenanamnese[frau-periode↳1 frau-wechseljahre↳2]
   abschluss[· · · · ·]
 case-lagerungsschwindel
   eroeffnung[· · · ·]
@@ -778,7 +776,7 @@ case-lagerungsschwindel
   allergien[all-allergie↳1 all-unvertraeglich]
   noxen[nox-rauchen↳5 nox-alkohol↳3 nox-drogen]
   familie-sozial[fam-familie↳2 fam-eltern↳2 fam-stand↳1 fam-beruf↳1 pers-beruf fam-wohnen fam-haustiere cas cas]
-  frauenanamnese[frau-periode frau-wechseljahre]
+  frauenanamnese[frau-periode↳1 frau-wechseljahre↳2]
   abschluss[· · · · ·]
 case-synkope
   eroeffnung[· · · ·]
@@ -815,7 +813,7 @@ case-schenkelhalsfraktur
   allergien[all-allergie↳1 all-unvertraeglich]
   noxen[nox-rauchen↳5 nox-alkohol↳3 nox-drogen]
   familie-sozial[fam-familie↳2 fam-eltern↳2 fam-stand↳1 fam-beruf↳1 pers-beruf fam-wohnen fam-haustiere cas]
-  frauenanamnese[frau-periode frau-wechseljahre]
+  frauenanamnese[frau-periode↳1 frau-wechseljahre↳2]
   abschluss[· · · · ·]
 case-ulcus-cruris
   eroeffnung[· · · ·]
@@ -828,7 +826,7 @@ case-ulcus-cruris
   allergien[all-allergie↳1 all-unvertraeglich]
   noxen[nox-rauchen↳5 nox-alkohol↳3 nox-drogen]
   familie-sozial[fam-familie↳2 fam-eltern↳2 fam-stand↳1 fam-beruf↳1 pers-beruf fam-wohnen fam-haustiere]
-  frauenanamnese[frau-periode frau-wechseljahre]
+  frauenanamnese[frau-periode↳1 frau-wechseljahre↳2]
   abschluss[· · · · ·]
 case-leistenhernie
   eroeffnung[· · · ·]
@@ -865,7 +863,7 @@ case-commotio
   allergien[all-allergie↳1 all-unvertraeglich]
   noxen[nox-rauchen↳5 nox-alkohol↳3 nox-drogen]
   familie-sozial[fam-familie↳2 fam-eltern↳2 fam-stand↳1 fam-beruf↳1 pers-beruf fam-wohnen fam-haustiere cas]
-  frauenanamnese[frau-periode frau-schwanger frau-verhuetung frau-wechseljahre]
+  frauenanamnese[frau-periode↳2 frau-schwanger frau-verhuetung↳1 frau-wechseljahre↳1]
   abschluss[· · · · ·]
 case-itp
   eroeffnung[· · · ·]
@@ -878,20 +876,19 @@ case-itp
   allergien[all-allergie↳1 all-unvertraeglich]
   noxen[nox-rauchen↳5 nox-alkohol↳3 nox-drogen]
   familie-sozial[fam-familie↳2 fam-eltern↳2 fam-stand↳1 fam-beruf↳1 pers-beruf fam-wohnen fam-haustiere]
-  frauenanamnese[frau-periode frau-schwanger frau-verhuetung cas↳1]
+  frauenanamnese[frau-periode↳2 frau-schwanger frau-verhuetung↳1 cas↳1]
   abschluss[· · · · ·]
 case-uterus-myomatosus
   eroeffnung[· · · ·]
   personalia[pers-name pers-name pers-alter pers-groesse pers-hausarzt ·]
   aktuell[akt-motiv akt-beginn akt-veraend-entwicklung↳1 akt-verlauf akt-ausloeser akt-einfluss akt-frueher↳1 akt-begleit cas cas cas cas cas]
-  fach-gyn[fach-gyn-blutung↳1 fach-gyn-unterbauch fach-gyn-fluor↳2 fach-gyn-dyspareunie fach-gyn-schwangerschaften↳1 fach-gyn-kinderwunsch fach-gyn-brust fach-gyn-vorsorge fach-gyn-eingriffe]
+  fach-gyn[frau-periode↳2 frau-schwanger frau-verhuetung↳1 fach-gyn-blutung↳1 fach-gyn-unterbauch↳2 fach-gyn-fluor↳5 fach-gyn-dyspareunie↳2 fach-gyn-schwangerschaften↳3 fach-gyn-kinderwunsch fach-gyn-brust fach-gyn-vorsorge fach-gyn-eingriffe↳1]
   vegetativ[veg-fieber↳5 veg-schuettelfrost veg-uebelkeit↳1 veg-ausscheidung↳1 veg-gewicht↳2 veg-appetit veg-schlaf]
   vorerkrankungen[· vor-erkrank↳1 vor-op↳1 vor-krankenhaus]
   medikamente[med-regelmaessig↳4 med-blutverduenner med-otc]
   allergien[all-allergie↳1 all-unvertraeglich]
   noxen[nox-rauchen↳5 nox-alkohol↳3 nox-drogen]
-  familie-sozial[fam-familie↳2 fam-eltern↳2 fam-stand↳1 fam-beruf↳1 pers-beruf fam-wohnen fam-haustiere cas↳1]
-  frauenanamnese[frau-periode frau-schwanger frau-verhuetung cas]
+  familie-sozial[fam-familie↳2 fam-eltern↳2 fam-stand↳1 fam-beruf↳1 pers-beruf fam-wohnen fam-haustiere]
   abschluss[· · · · ·]
 case-akutes-nierenversagen
   eroeffnung[· · · ·]
@@ -916,7 +913,7 @@ case-fibromyalgie
   allergien[all-allergie↳1 all-unvertraeglich]
   noxen[nox-rauchen↳5 nox-alkohol↳3 nox-drogen]
   familie-sozial[fam-familie↳2 fam-eltern↳2 fam-stand↳1 fam-beruf↳1 pers-beruf fam-wohnen fam-haustiere]
-  frauenanamnese[frau-periode frau-schwanger frau-verhuetung frau-wechseljahre]
+  frauenanamnese[frau-periode↳2 frau-schwanger frau-verhuetung↳1 frau-wechseljahre↳1]
   abschluss[· · · · ·]
 case-polymyalgia
   eroeffnung[· · · ·]
@@ -929,7 +926,7 @@ case-polymyalgia
   allergien[all-allergie↳1 all-unvertraeglich]
   noxen[nox-rauchen↳5 nox-alkohol↳3 nox-drogen]
   familie-sozial[fam-familie↳2 fam-eltern↳2 fam-stand↳1 fam-beruf↳1 pers-beruf fam-wohnen fam-haustiere]
-  frauenanamnese[frau-periode frau-wechseljahre]
+  frauenanamnese[frau-periode↳1 frau-wechseljahre↳2]
   abschluss[· · · · ·]
 case-pneumothorax
   eroeffnung[· · · ·]
@@ -990,7 +987,7 @@ case-achalasie
   allergien[all-allergie↳1 all-unvertraeglich]
   noxen[nox-rauchen↳5 nox-alkohol↳3 nox-drogen]
   familie-sozial[fam-familie↳2 fam-eltern↳2 fam-stand↳1 fam-beruf↳1 pers-beruf fam-wohnen fam-haustiere cas]
-  frauenanamnese[frau-periode frau-schwanger frau-verhuetung]
+  frauenanamnese[frau-periode↳2 frau-schwanger frau-verhuetung↳1]
   abschluss[· · · · ·]
 case-septische-arthritis
   eroeffnung[· · · ·]
@@ -1099,7 +1096,7 @@ case-influenza
   allergien[all-allergie↳1 all-unvertraeglich]
   noxen[nox-rauchen↳5 nox-alkohol↳3 nox-drogen]
   familie-sozial[fam-familie↳2 fam-eltern↳2 fam-stand↳1 fam-beruf↳1 pers-beruf fam-wohnen fam-haustiere cas]
-  frauenanamnese[frau-periode frau-schwanger frau-verhuetung frau-wechseljahre]
+  frauenanamnese[frau-periode↳2 frau-schwanger frau-verhuetung↳1 frau-wechseljahre↳1]
   abschluss[· · · · ·]
 case-coxarthrose
   eroeffnung[· · · ·]
@@ -1136,7 +1133,7 @@ case-karzinoid
   allergien[all-allergie↳1 all-unvertraeglich]
   noxen[nox-rauchen↳5 nox-alkohol↳3 nox-drogen]
   familie-sozial[fam-familie↳2 fam-eltern↳2 fam-stand↳1 fam-beruf↳1 pers-beruf fam-wohnen fam-haustiere cas]
-  frauenanamnese[frau-periode frau-schwanger frau-verhuetung frau-wechseljahre cas]
+  frauenanamnese[frau-periode↳2 frau-schwanger frau-verhuetung↳1 frau-wechseljahre↳1 cas]
   abschluss[· · · · ·]
 case-abszess
   eroeffnung[· · · ·]
@@ -1161,7 +1158,7 @@ case-anorexia-nervosa
   allergien[all-allergie↳1 all-unvertraeglich]
   noxen[nox-rauchen↳5 nox-alkohol↳3 nox-drogen]
   familie-sozial[fam-familie↳2 fam-eltern↳2 fam-stand↳1 fam-beruf↳1 pers-beruf fam-wohnen fam-haustiere]
-  frauenanamnese[frau-periode frau-schwanger frau-verhuetung]
+  frauenanamnese[frau-periode↳2 frau-schwanger frau-verhuetung↳1]
   abschluss[· · · · ·]
 case-malaria
   eroeffnung[· · · ·]
@@ -1174,7 +1171,7 @@ case-malaria
   allergien[all-allergie↳1 all-unvertraeglich]
   noxen[nox-rauchen↳5 nox-alkohol↳3 nox-drogen]
   familie-sozial[fam-familie↳2 fam-eltern↳2 fam-stand↳1 fam-beruf↳1 pers-beruf fam-wohnen fam-haustiere cas cas]
-  frauenanamnese[frau-periode frau-schwanger frau-verhuetung]
+  frauenanamnese[frau-periode↳2 frau-schwanger frau-verhuetung↳1]
   abschluss[· · · · ·]
 case-endokarditis
   eroeffnung[· · · ·]
@@ -1199,7 +1196,7 @@ case-covid19
   allergien[all-allergie↳1 all-unvertraeglich]
   noxen[nox-rauchen↳5 nox-alkohol↳3 nox-drogen]
   familie-sozial[fam-familie↳2 fam-eltern↳2 fam-stand↳1 fam-beruf↳1 pers-beruf fam-wohnen fam-haustiere cas]
-  frauenanamnese[frau-periode frau-wechseljahre]
+  frauenanamnese[frau-periode↳1 frau-wechseljahre↳2]
   abschluss[· · · · ·]
 case-anaphylaxie
   eroeffnung[· · · ·]
@@ -1212,7 +1209,7 @@ case-anaphylaxie
   allergien[all-allergie↳1 all-unvertraeglich cas]
   noxen[nox-rauchen↳5 nox-alkohol↳3 nox-drogen]
   familie-sozial[fam-familie↳2 fam-eltern↳2 fam-stand↳1 fam-beruf↳1 pers-beruf fam-wohnen fam-haustiere cas]
-  frauenanamnese[frau-periode frau-schwanger frau-verhuetung frau-wechseljahre]
+  frauenanamnese[frau-periode↳2 frau-schwanger frau-verhuetung↳1 frau-wechseljahre↳1]
   abschluss[· · · · ·]
 case-reaktive-arthritis
   eroeffnung[· · · ·]
@@ -1225,7 +1222,7 @@ case-reaktive-arthritis
   allergien[all-allergie↳1 all-unvertraeglich]
   noxen[nox-rauchen↳5 nox-alkohol↳3 nox-drogen]
   familie-sozial[fam-familie↳2 fam-eltern↳2 fam-stand↳1 fam-beruf↳1 pers-beruf fam-wohnen fam-haustiere cas]
-  frauenanamnese[frau-periode frau-schwanger frau-verhuetung frau-wechseljahre]
+  frauenanamnese[frau-periode↳2 frau-schwanger frau-verhuetung↳1 frau-wechseljahre↳1]
   abschluss[· · · · ·]
 case-pertussis
   eroeffnung[· · · ·]
@@ -1250,7 +1247,7 @@ case-colitis-ulcerosa
   allergien[all-allergie↳1 all-unvertraeglich]
   noxen[nox-rauchen↳5 nox-alkohol↳3 nox-drogen cas]
   familie-sozial[fam-familie↳2 fam-eltern↳2 fam-stand↳1 fam-beruf↳1 pers-beruf fam-wohnen fam-haustiere cas]
-  frauenanamnese[frau-periode frau-schwanger frau-verhuetung frau-wechseljahre]
+  frauenanamnese[frau-periode↳2 frau-schwanger frau-verhuetung↳1 frau-wechseljahre↳1]
   abschluss[· · · · ·]
 case-chronische-pankreatitis
   eroeffnung[· · · ·]
@@ -1263,7 +1260,7 @@ case-chronische-pankreatitis
   allergien[all-allergie↳1 all-unvertraeglich]
   noxen[nox-rauchen↳5 nox-alkohol↳3 nox-drogen cas↳1 cas]
   familie-sozial[fam-familie↳2 fam-eltern↳2 fam-stand↳1 fam-beruf↳1 pers-beruf fam-wohnen fam-haustiere cas]
-  frauenanamnese[frau-periode frau-schwanger frau-verhuetung]
+  frauenanamnese[frau-periode↳2 frau-schwanger frau-verhuetung↳1]
   abschluss[· · · · ·]
 case-myokarditis
   eroeffnung[· · · ·]
@@ -1300,20 +1297,19 @@ case-akute-leukaemie
   allergien[all-allergie↳1 all-unvertraeglich]
   noxen[nox-rauchen↳5 nox-alkohol↳3 nox-drogen]
   familie-sozial[fam-familie↳2 fam-eltern↳2 fam-stand↳1 fam-beruf↳1 pers-beruf fam-wohnen fam-haustiere cas]
-  frauenanamnese[frau-periode frau-schwanger frau-verhuetung frau-wechseljahre]
+  frauenanamnese[frau-periode↳2 frau-schwanger frau-verhuetung↳1 frau-wechseljahre↳1]
   abschluss[· · · · ·]
 case-endometriose
   eroeffnung[· · · ·]
   personalia[pers-name pers-name pers-alter pers-groesse pers-hausarzt ·]
   aktuell[akt-motiv akt-ort↳1 akt-beginn akt-charakter akt-intensitaet↳2 akt-ausstrahlung↳1 akt-verlauf↳1 akt-ausloeser akt-einfluss akt-frueher↳1 akt-begleit cas cas cas cas cas]
-  fach-gyn[fach-gyn-blutung↳1 fach-gyn-unterbauch fach-gyn-fluor↳2 fach-gyn-dyspareunie fach-gyn-schwangerschaften↳1 fach-gyn-kinderwunsch fach-gyn-brust fach-gyn-vorsorge fach-gyn-eingriffe]
+  fach-gyn[frau-periode↳2 frau-schwanger frau-verhuetung↳1 fach-gyn-blutung↳1 fach-gyn-unterbauch↳2 fach-gyn-fluor↳5 fach-gyn-schwangerschaften↳3 fach-gyn-kinderwunsch fach-gyn-brust fach-gyn-vorsorge↳1 fach-gyn-eingriffe↳1]
   vegetativ[veg-fieber↳5 veg-schuettelfrost veg-uebelkeit↳1 veg-ausscheidung↳1 veg-gewicht↳2 veg-appetit veg-schlaf]
   vorerkrankungen[· vor-erkrank↳1 vor-op↳1 vor-krankenhaus]
   medikamente[med-regelmaessig↳4 med-blutverduenner med-otc cas]
   allergien[all-allergie↳1 all-unvertraeglich]
   noxen[nox-rauchen↳5 nox-alkohol↳3 nox-drogen]
   familie-sozial[fam-familie↳2 fam-eltern↳2 fam-stand↳1 fam-beruf↳1 pers-beruf fam-wohnen fam-haustiere cas]
-  frauenanamnese[frau-periode frau-schwanger frau-verhuetung]
   abschluss[· · · · ·]
 case-ptbs
   eroeffnung[· · · ·]
@@ -1326,7 +1322,7 @@ case-ptbs
   allergien[all-allergie↳1 all-unvertraeglich]
   noxen[nox-rauchen↳5 nox-alkohol↳3 nox-drogen cas]
   familie-sozial[fam-familie↳2 fam-eltern↳2 fam-stand↳1 fam-beruf↳1 pers-beruf fam-wohnen fam-haustiere]
-  frauenanamnese[frau-periode frau-schwanger frau-verhuetung]
+  frauenanamnese[frau-periode↳2 frau-schwanger frau-verhuetung↳1]
   abschluss[· · · · ·]
 case-somatoforme-schmerzstoerung
   eroeffnung[· · · ·]
@@ -1375,7 +1371,7 @@ case-nhl
   allergien[all-allergie↳1 all-unvertraeglich]
   noxen[nox-rauchen↳5 nox-alkohol↳3 nox-drogen]
   familie-sozial[fam-familie↳2 fam-eltern↳2 fam-stand↳1 fam-beruf↳1 pers-beruf fam-wohnen fam-haustiere]
-  frauenanamnese[frau-periode frau-schwanger frau-verhuetung frau-wechseljahre]
+  frauenanamnese[frau-periode↳2 frau-schwanger frau-verhuetung↳1 frau-wechseljahre↳1]
   abschluss[· · · · ·]
 case-cml
   eroeffnung[· · · ·]
@@ -1393,14 +1389,13 @@ case-adnexitis
   eroeffnung[· · · ·]
   personalia[pers-name pers-name pers-alter pers-groesse pers-hausarzt ·]
   aktuell[akt-motiv akt-ort↳1 akt-beginn akt-charakter akt-intensitaet↳2 akt-ausstrahlung↳1 akt-verlauf↳1 akt-ausloeser akt-einfluss akt-frueher↳1 akt-begleit cas cas]
-  fach-gyn[fach-gyn-blutung↳1 fach-gyn-unterbauch fach-gyn-fluor↳2 fach-gyn-dyspareunie fach-gyn-schwangerschaften↳1 fach-gyn-kinderwunsch fach-gyn-brust fach-gyn-vorsorge fach-gyn-eingriffe]
+  fach-gyn[frau-periode↳2 frau-schwanger frau-verhuetung↳1 fach-gyn-blutung↳1 fach-gyn-unterbauch↳2 fach-gyn-fluor↳5 fach-gyn-dyspareunie↳2 fach-gyn-schwangerschaften↳3 fach-gyn-kinderwunsch fach-gyn-brust fach-gyn-vorsorge↳1 fach-gyn-eingriffe↳1]
   vegetativ[veg-fieber↳5 veg-schuettelfrost veg-uebelkeit↳1 veg-ausscheidung↳1 veg-gewicht↳2 veg-appetit veg-schlaf]
   vorerkrankungen[· vor-erkrank↳1 vor-op↳1 vor-krankenhaus cas]
   medikamente[med-regelmaessig↳4 med-blutverduenner med-otc]
   allergien[all-allergie↳1 all-unvertraeglich]
   noxen[nox-rauchen↳5 nox-alkohol↳3 nox-drogen]
   familie-sozial[fam-familie↳2 fam-eltern↳2 fam-stand↳1 fam-beruf↳1 pers-beruf fam-wohnen fam-haustiere cas]
-  frauenanamnese[frau-periode frau-schwanger frau-verhuetung cas cas]
   abschluss[· · · · ·]
 case-allergische-rhinitis
   eroeffnung[· · · ·]
@@ -1557,7 +1552,7 @@ case-urtikaria
   allergien[all-allergie↳1 all-unvertraeglich]
   noxen[nox-rauchen↳5 nox-alkohol↳3 nox-drogen]
   familie-sozial[fam-familie↳2 fam-eltern↳2 fam-stand↳1 fam-beruf↳1 pers-beruf fam-wohnen fam-haustiere cas]
-  frauenanamnese[frau-periode frau-schwanger frau-verhuetung frau-wechseljahre]
+  frauenanamnese[frau-periode↳2 frau-schwanger frau-verhuetung↳1 frau-wechseljahre↳1]
   abschluss[· · · · ·]
 case-perniziose-anaemie
   eroeffnung[· · · ·]
@@ -1570,7 +1565,7 @@ case-perniziose-anaemie
   allergien[all-allergie↳1 all-unvertraeglich]
   noxen[nox-rauchen↳5 nox-alkohol↳3 nox-drogen]
   familie-sozial[fam-familie↳2 fam-eltern↳2 fam-stand↳1 fam-beruf↳1 pers-beruf fam-wohnen fam-haustiere cas]
-  frauenanamnese[frau-periode frau-wechseljahre]
+  frauenanamnese[frau-periode↳1 frau-wechseljahre↳2]
   abschluss[· · · · ·]
 case-opioidabhaengigkeit
   eroeffnung[· · · ·]
