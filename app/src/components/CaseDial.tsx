@@ -219,17 +219,11 @@ export function CaseDial({ data, size = 64, nom, vientDeSouder = false, action =
         </svg>
       </button>
 
-      <AnimatePresence>
-        {ouvert && (
-          <Portal>
-            <DetailFlottant
-              key="detail" data={data} nom={nom} action={action} ancre={ancre} refDetail={detail} reduit={reduit}
-              onEntree={efface} onSortie={() => planifie(ferme, GRACE_MS)}
-              onPerdFocus={(vers) => { if (!detail.current?.contains(vers) && vers !== bouton.current) ferme(); }}
-            />
-          </Portal>
-        )}
-      </AnimatePresence>
+      <DetailFlottant
+        ouvert={ouvert} data={data} nom={nom} action={action} ancre={ancre} refDetail={detail} reduit={reduit}
+        onEntree={efface} onSortie={() => planifie(ferme, GRACE_MS)}
+        onPerdFocus={(vers) => { if (!detail.current?.contains(vers) && vers !== bouton.current) ferme(); }}
+      />
     </>
   );
 }
@@ -237,15 +231,15 @@ export function CaseDial({ data, size = 64, nom, vientDeSouder = false, action =
 const L = 288;
 
 /** Le détail, ancré sous le cadran. Verre plein (matériau flottant), jamais d'ombre portée. */
-function DetailFlottant({ data, nom, action, ancre, refDetail, reduit, onEntree, onSortie, onPerdFocus }: {
-  data: CaseDialData; nom?: string; action: boolean; ancre: DOMRect | null; refDetail: React.RefObject<HTMLDivElement>; reduit: boolean;
+function DetailFlottant({ ouvert, data, nom, action, ancre, refDetail, reduit, onEntree, onSortie, onPerdFocus }: {
+  ouvert: boolean; data: CaseDialData; nom?: string; action: boolean; ancre: DOMRect | null; refDetail: React.RefObject<HTMLDivElement>; reduit: boolean;
   onEntree: () => void; onSortie: () => void; onPerdFocus: (vers: Node | null) => void;
 }) {
   const [hauteur, setHauteur] = useState(220);
   useLayoutEffect(() => {
     const h = refDetail.current?.getBoundingClientRect().height;
     if (h) setHauteur(h);
-  }, [refDetail]);
+  }, [refDetail, ouvert]);
   const vw = typeof window !== 'undefined' ? window.innerWidth : 1024;
   const vh = typeof window !== 'undefined' ? window.innerHeight : 768;
   const largeur = Math.min(L, vw - 16);
@@ -254,7 +248,11 @@ function DetailFlottant({ data, nom, action, ancre, refDetail, reduit, onEntree,
   const dessous = a.bottom + 12;
   const top = Math.max(8, dessous + hauteur + 8 <= vh ? dessous : a.top - 12 - hauteur);
 
+  // `fixed` dans un <Portal> (checkFixedOverlays) : un ancêtre en verre ou en transform en ferait un fixed de page.
   return (
+    <Portal>
+    <AnimatePresence>
+    {ouvert && (
     <m.div
       {...(reduit ? {} : appear)}
       ref={refDetail}
@@ -270,6 +268,9 @@ function DetailFlottant({ data, nom, action, ancre, refDetail, reduit, onEntree,
     >
       <CaseDialDetail data={data} action={action} />
     </m.div>
+    )}
+    </AnimatePresence>
+    </Portal>
   );
 }
 
