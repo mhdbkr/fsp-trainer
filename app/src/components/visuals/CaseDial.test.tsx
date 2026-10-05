@@ -184,6 +184,15 @@ describe('ouverture', () => {
     expect(screen.queryByRole('dialog')).toBeNull();
   });
 
+  it('Tab depuis le cadran vers un autre élément referme le détail (il ne reste pas flottant)', () => {
+    monte(ENTAME);
+    const b = screen.getByRole('button');
+    fireEvent.click(b);
+    expect(screen.getByRole('dialog')).toBeTruthy();
+    fireEvent.blur(b, { relatedTarget: document.body });
+    expect(screen.queryByRole('dialog')).toBeNull();
+  });
+
   it('m5 — Tab depuis le détail referme et rend le focus au cadran', () => {
     monte(ENTAME);
     const b = screen.getByRole('button');

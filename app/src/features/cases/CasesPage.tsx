@@ -1,4 +1,4 @@
-import { useMemo, useState, useEffect } from 'react';
+import { memo, useCallback, useMemo, useState, useEffect } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
 import { useCases } from '@/hooks/useData';
 import { useUi } from '@/store/ui';
@@ -23,7 +23,8 @@ export function CasesPage() {
   const cpOf = (c: Case) => progress?.get(c.id) ?? blankProgress(c.id);
   const { openCasePreview, previewCaseId } = useUi();
   const [params, setParams] = useSearchParams();
-  const visite = useDerniereVisite();       // S4-4 : l'arc d'un Teil joué depuis se dessine une fois
+  const visite = useDerniereVisite();
+  const apercu = useCallback((id: string) => openCasePreview(id), [openCasePreview]);     // stable : la carte mémoïsée ne se rerend pas à chaque frappe       // S4-4 : l'arc d'un Teil joué depuis se dessine une fois
 
   const [q, setQ] = useState('');
   const [center, setCenter] = useState<Center | ''>('');
@@ -135,7 +136,7 @@ export function CasesPage() {
       ) : (
         <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-3">
           {filtered.map((c) => (
-            <CaseCard key={c.id} c={c} cp={cpOf(c)} visite={visite} onPreview={() => openCasePreview(c.id)} active={previewCaseId === c.id} />
+            <CaseCard key={c.id} c={c} cp={cpOf(c)} visite={visite} onPreview={apercu} active={previewCaseId === c.id} />
           ))}
         </div>
       )}
@@ -146,13 +147,15 @@ export function CasesPage() {
   );
 }
 
-function CaseCard({ c, cp, visite, onPreview, active }: { c: Case; cp: CaseProgress; visite: number | null; onPreview: () => void; active: boolean }) {
+// m4 : 130 cartes et une frappe dans le filtre — la carte ne se rerend que si SA donnée change.
+const CaseCard = memo(function CaseCard({ c, cp, visite, onPreview, active }: { c: Case; cp: CaseProgress; visite: number | null; onPreview: (id: string) => void; active: boolean }) {
+  const ouvrir = () => onPreview(c.id);
   const dial = dialDeCarte(cp, visite);
   const suite = actionSuivante(dial);        // UN bouton principal : la suite que le cadran propose
   return (
     <div className={`card flex flex-col p-4 transition-all hover:shadow-md ${active ? 'ring-2 ring-brand-400' : ''}`}>
       <div className="flex items-start justify-between gap-2">
-        <button onClick={onPreview} className="flex items-start gap-2.5 text-left">
+        <button onClick={ouvrir} className="flex items-start gap-2.5 text-left">
           <span className="mt-0.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-brand-50 text-brand-600 dark:bg-brand-900/30 dark:text-brand-300">
             <SpecialtyIcon specialty={c.specialty} className="h-5 w-5" />
           </span>
@@ -173,9 +176,9 @@ function CaseCard({ c, cp, visite, onPreview, active }: { c: Case; cp: CaseProgr
       </div>
       <div className="mt-4 flex gap-2 border-t border-slate-100 pt-3 dark:border-slate-800">
         <Link to={lienAction(dial)} className="btn-primary flex-1 justify-center gap-1 text-center text-xs leading-tight"><Icon name="play" className="h-3 w-3 shrink-0" />{suite.label}</Link>
-        <button onClick={onPreview} className="btn-outline text-xs">Aperçu</button>
+        <button onClick={ouvrir} className="btn-outline text-xs">Aperçu</button>
         <Link to={`/cas/${c.id}`} className="btn-ghost text-xs">Fiche</Link>
       </div>
     </div>
   );
-}
+});

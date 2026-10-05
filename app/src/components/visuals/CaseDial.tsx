@@ -168,6 +168,8 @@ export function CaseDial({ data, size = 64, nom, vientDeSouder = false, action =
         }}
         onPointerUp={(e) => { if (e.pointerType !== 'mouse') efface(); }}
         onPointerCancel={efface}
+        // Le focus quitte le cadran (Tab vers la carte, clic ailleurs) sans entrer dans le détail : le détail se referme.
+        onBlur={(e) => { if (!detail.current?.contains(e.relatedTarget as Node | null)) ferme(); }}
         onContextMenu={(e) => e.preventDefault()}
         // Clavier et lecteur d'écran activent un bouton par un CLIC dont `detail` vaut 0 (Entrée, Espace, double-tap
         // VoiceOver/TalkBack). Un tap de souris ou de doigt (detail ≥ 1) n'ouvre rien : le geste est le survol ou l'appui long.
@@ -265,7 +267,7 @@ function DetailFlottant({ ouvert, data, nom, action, ancre, size, echelle, refDe
   const a = ancre ?? new DOMRect(8, 8, 0, 0);
   const cx = a.left + a.width / 2;
   const cy = a.top + a.height / 2;
-  const rayon = ((size * echelle) / 120) * 82;               // le cadran ouvert, repères compris
+  const rayon = ((size * echelle) / 120) * 90;               // le cadran ouvert, repères compris
   const left = Math.max(8, Math.min(cx + 56 - largeur, vw - largeur - 8));
   const dessous = cy + rayon + 4;
   const top = Math.max(8, dessous + hauteur + 8 <= vh ? dessous : cy - rayon - 4 - hauteur);
