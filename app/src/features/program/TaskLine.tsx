@@ -139,7 +139,7 @@ function DrillFavoris() {
   const terms = useAllTerms();
   const favorites = useFavorites();
   const [ctx, setCtx] = useState<DrillContext | null>(null);
-  useEffect(() => { let vivant = true; loadDrillContext().then((c) => { if (vivant) setCtx(c); }).catch(() => {}); return () => { vivant = false; }; }, []);
+  useEffect(() => { let vivant = true; loadDrillContext().then((c) => { if (vivant) setCtx(c); }).catch((e) => console.warn('[drill-favoris]', e)); return () => { vivant = false; }; }, []);
   const n = useMemo(() => (ctx && terms && favorites
     ? queueCounts(terms, { newLimit: ctx.remaining, maxReviews: ctx.reviewsRemaining, relevance: { ...ctx.relevance, favorites } }).favorites
     : 0), [ctx, terms, favorites]);
