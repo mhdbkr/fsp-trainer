@@ -536,10 +536,10 @@ export const MUTATIONS = [
     pourquoi: "intervalle constant : le cas revient toutes les semaines au lieu de 7, 21, puis 45 jours",
   },
   {
-    id: "INV-60-d-un-trait", tests: 'tests/invariants.plan.test.ts', file: "src/lib/program/parametres.ts",
-    from: "export const D_UN_TRAIT_ACTIF = false;",
-    to: "export const D_UN_TRAIT_ACTIF = true;",
-    pourquoi: "`dUnTrait` émis avec la garde à `false` : une tâche qui exige un enchaînement que l'app ne sait pas encore jouer",
+    id: "INV-60-d-un-trait", tests: ['tests/invariants.plan.test.ts', 'tests/invariants.d-un-trait.test.tsx'], file: "src/lib/program/parametres.ts",
+    from: "export const D_UN_TRAIT_ACTIF = true;",
+    to: "export const D_UN_TRAIT_ACTIF = false;",
+    pourquoi: "garde recoupée après S4-3 : plus aucune tâche « d'un trait » alors que la partie sait enchaîner",
   },
   // --- S4-2, ce que le programme apprend (§13.3 à §13.5) ---
   {

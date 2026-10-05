@@ -452,8 +452,8 @@ describe('INV-60 — la consolidation espacée : un cas solide revient à son é
     expect(s.parts.dette).toBeCloseTo(POIDS_CONSOLIDATION, 6);
   });
 
-  it('« d’un trait » : une tâche dUnTrait seulement si D_UN_TRAIT_ACTIF — la garde livrée est fausse', () => {
-    expect(D_UN_TRAIT_ACTIF, 'la garde ne passe à true que dans le commit qui déploie S4-3').toBe(false);
+  it('« d’un trait » : une tâche dUnTrait seulement si D_UN_TRAIT_ACTIF — la garde est vraie depuis S4-3', () => {
+    expect(D_UN_TRAIT_ACTIF, 'S4-3 est en production : la garde est vraie').toBe(true);
     const frequents = (CORPUS as Case[]).filter((c) => c.frequency >= 26 * SEUIL_FREQUENT).slice(0, 4);
     // des cas solides non prêts, dont l'échéance est passée, à 8 jours ouvrés de l'examen
     const examen = '2026-10-30';
@@ -464,9 +464,10 @@ describe('INV-60 — la consolidation espacée : un cas solide revient à son é
     const progress = new Map(computeCaseProgress(evs).map((p) => [p.caseId, p]));
     const jour = '2026-10-21';
     const base: BuildInput = { config: cfg, date: jour, cases: frequents, progress, trainingEvents: evs, begriffe: [], now: morning(jour) };
-    const defaut = buildTasks(base, () => `i${Math.random()}`);
+    const defaut = buildTasks({ ...base, dUnTraitActif: false }, () => `i${Math.random()}`);
     expect(defaut.some((t) => t.kind === 'revision'), 'la fenêtre contient des révisions dues').toBe(true);
     expect(defaut.some((t) => t.dUnTrait), 'dUnTrait émis avec la garde à false').toBe(false);
+    expect(buildTasks(base, () => `i${Math.random()}`).some((t) => t.dUnTrait), 'garde par défaut (vraie) : dUnTrait émis dans la fenêtre').toBe(true);
     const actif = buildTasks({ ...base, dUnTraitActif: true }, () => `i${Math.random()}`);
     const revs = actif.filter((t) => t.kind === 'revision');
     expect(revs.length).toBeGreaterThan(0);
