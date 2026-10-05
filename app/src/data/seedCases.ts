@@ -41389,6 +41389,7 @@ export function seedCases(): Case[] {
       frequency: 6,
       difficulty: 2,
       patientSheet: {
+        profil: { tags: ['infekt', 'fieber', 'husten'] },
         fachSkip: ['fach-infekt-zecke'],
         leitsymptomKategorie: 'infekt',
         personalia: {
@@ -41963,6 +41964,7 @@ export function seedCases(): Case[] {
       frequency: 12,
       difficulty: 2,
       patientSheet: {
+        profil: { tags: ['schmerz', 'gelenk', 'steifigkeit'] },
         motiv: { trauma: false, region: 'untere' },
         personalia: {
           name: 'Heiner King',
@@ -42527,6 +42529,7 @@ export function seedCases(): Case[] {
       frequency: 7,
       difficulty: 3,
       patientSheet: {
+        profil: { tags: ['allgemein', 'dyspnoe'] },
         leitsymptomKategorie: 'allgemein',
         personalia: {
           name: 'Anton Kaiser',
@@ -42671,6 +42674,8 @@ export function seedCases(): Case[] {
           'fach-endo-unterzucker': 'Zittern und Schwitzen mit Heißhunger — das kenne ich schon, aber eher abends. Ob es nach dem Essen besser wird, kann ich nicht sagen; ich esse dann einfach. Verwirrt war ich nie, und umgekippt bin ich auch nie.',
           'fach-endo-folgeschaeden': 'Ja: In beiden Füßen kribbelt es seit einigen Monaten, wie Ameisenlaufen, vor allem nachts, und manchmal fühlen sie sich taub an. Schlechter sehen tue ich auch, das sagte ich ja. Mit den Nieren war nie etwas — untersucht wurde das allerdings auch nie.',
           'fach-endo-familie-therapie': 'Mein Vater hatte Zucker, er hat Tabletten genommen. Von der Schilddrüse ist in der Familie nichts bekannt. Ich selbst werde deswegen nicht behandelt — bis gestern hat mir nie jemand gesagt, dass ich Zucker habe. Nur den Blutdruck lasse ich beim Hausarzt kontrollieren.',
+          // K2 (ADR-0023) : réponses des sondes de banque que le profil exige (r3)
+          'akt-atemnot-belastung': 'Nur bei Anstrengung. Die Treppe in den dritten Stock, da muss ich zweimal stehen bleiben. In Ruhe oder im Liegen habe ich keine Luftnot.',
         },
         frageAntworten: [
           {
@@ -43123,6 +43128,7 @@ export function seedCases(): Case[] {
       frequency: 5,
       difficulty: 3,
       patientSheet: {
+        profil: { tags: ['schmerz', 'diarrhoe', 'dyspnoe', 'gewichtsverlust'] },
         personalia: {
           name: 'Gabi Hubertus',
           age: 48,
@@ -43680,6 +43686,7 @@ export function seedCases(): Case[] {
       frequency: 5,
       difficulty: 2,
       patientSheet: {
+        profil: { tags: ['schmerz', 'fieber'] },
         fachSkip: ['fach-derma-muttermal', 'fach-derma-verlauf'],
         personalia: {
           name: 'Bernhard Lauber',
@@ -44202,6 +44209,7 @@ export function seedCases(): Case[] {
       frequency: 7,
       difficulty: 3,
       patientSheet: {
+        profil: { tags: ['psychisch', 'gewichtsverlust'] },
         leitsymptomKategorie: 'psychisch',
         personalia: {
           name: 'Julia Springer',
@@ -44795,6 +44803,7 @@ export function seedCases(): Case[] {
       frequency: 6,
       difficulty: 2,
       patientSheet: {
+        profil: { tags: ['infekt', 'reise', 'fieber', 'gelenk'] },
         leitsymptomKategorie: 'infekt',
         personalia: {
           name: 'Hanna Hüber',
@@ -45274,6 +45283,7 @@ export function seedCases(): Case[] {
       frequency: 5,
       difficulty: 3,
       patientSheet: {
+        profil: { tags: ['infekt', 'fieber', 'dyspnoe', 'gewichtsverlust'] },
         leitsymptomKategorie: 'infekt',
         personalia: {
           name: 'Gerhard Steinbach',
@@ -45745,6 +45755,7 @@ export function seedCases(): Case[] {
       frequency: 5,
       difficulty: 2,
       patientSheet: {
+        profil: { tags: ['infekt', 'fieber', 'husten', 'dyspnoe'] },
         fachSkip: ['fach-infekt-zecke'],
         leitsymptomKategorie: 'infekt',
         personalia: {
@@ -45885,6 +45896,8 @@ export function seedCases(): Case[] {
           'frau-schwanger': 'Nein, das ist ausgeschlossen, ich bin seit fünf Jahren in den Wechseljahren.',
           'frau-verhuetung': 'Nicht mehr nötig. Früher die Pille, aber das ist über zwanzig Jahre her.',
           'frau-wechseljahre': 'Ja, seit fünf Jahren, das war unproblematisch, ich habe keine Hormone genommen. Zum Frauenarzt gehe ich jedes Jahr zur Kontrolle, zuletzt im Frühjahr, alles in Ordnung.',
+          // K2 (ADR-0023) : réponses des sondes de banque que le profil exige (r3)
+          'akt-atemnot-belastung': 'Seit gestern bei jeder Anstrengung, schon auf der Treppe ins Schlafzimmer — dann rast das Herz, und die Brust wird eng. Im Sitzen bekomme ich Luft.',
         },
         schwierigeReaktionen: [
           '"Ist das jetzt Corona? Aber mein Test war doch negativ."',
@@ -46244,6 +46257,7 @@ export function seedCases(): Case[] {
       frequency: 4,
       difficulty: 3,
       patientSheet: {
+        profil: { tags: ['atemnot', 'dyspnoe', 'hals'] },
         fachSkip: ['fach-derma-muttermal', 'fach-derma-verlauf', 'fach-derma-vorbehandlung'],
         leitsymptomKategorie: 'atemnot',
         aktuellSkip: ['akt-atemnot-nachts'],
@@ -46684,6 +46698,7 @@ export function seedCases(): Case[] {
       frequency: 3,
       difficulty: 2,
       patientSheet: {
+        profil: { tags: ['schmerz', 'gelenk', 'arthritis', 'steifigkeit', 'fieber', 'gicht'] },
         personalia: {
           name: 'Sonja Stehemann',
           age: 48,
@@ -47195,6 +47210,7 @@ export function seedCases(): Case[] {
       frequency: 4,
       difficulty: 2,
       patientSheet: {
+        profil: { tags: ['atemnot', 'husten'] },
         leitsymptomKategorie: 'atemnot',
         personalia: {
           name: 'Markus Lindner',
@@ -47668,6 +47684,7 @@ export function seedCases(): Case[] {
       frequency: 2,
       difficulty: 2,
       patientSheet: {
+        profil: { tags: ['ausscheidung', 'diarrhoe', 'gelenk', 'arthritis', 'dyspnoe', 'gewichtsverlust'] },
         leitsymptomKategorie: 'ausscheidung',
         personalia: {
           name: 'Tanya Krüger',
@@ -47824,6 +47841,9 @@ export function seedCases(): Case[] {
           'frau-schwanger': 'Ich war zweimal schwanger und habe zwei Söhne, beide normal geboren. Schwanger sein kann ich jetzt nicht mehr.',
           'frau-verhuetung': 'Ich verhüte nicht mehr, das ist seit den Wechseljahren nicht mehr nötig. Die Pille habe ich früher genommen, mit Anfang dreißig abgesetzt.',
           'frau-wechseljahre': 'Seit ich 51 bin, seit drei Jahren. Anfangs hatte ich Hitzewallungen, das ist besser geworden. Hormone nehme ich keine.',
+          // K2 (ADR-0023) : réponses des sondes de banque que le profil exige (r3)
+          'akt-atemnot-belastung': 'Nur bei Anstrengung. Auf der Treppe bin ich schnell außer Atem. In Ruhe nicht.',
+          'fach-rheuma-gelenke': 'Das rechte Knie und der linke Knöchel, seit ungefähr zwei Wochen. Sonst keine. Gewandert ist das nicht, die beiden tun seitdem weh.',
         },
         frageAntworten: [
           {
@@ -48206,6 +48226,7 @@ export function seedCases(): Case[] {
       frequency: 2,
       difficulty: 2,
       patientSheet: {
+        profil: { tags: ['schmerz', 'diarrhoe', 'gewichtsverlust'] },
         personalia: {
           name: 'Miriam Freudenberg',
           age: 43,
@@ -48354,6 +48375,8 @@ export function seedCases(): Case[] {
           'frau-schwanger': 'Nein, schwanger bin ich nicht, das ist ausgeschlossen. Ich habe zwei Kinder, beide normal geboren, keine Fehlgeburten.',
           'frau-verhuetung': 'Ich habe eine Kupferspirale, seit etwa vier Jahren. Die Pille nehme ich nicht.',
           'frau-wechseljahre': 'Nein, Hitzewallungen oder Ähnliches habe ich nicht. Mit 43 hoffe ich, dass das noch etwas dauert.',
+          // K2 (ADR-0023) : réponses des sondes de banque que le profil exige (r3)
+          'akt-ausscheid-haeufigkeit': 'Vier- bis sechsmal am Tag, seit ungefähr drei Monaten. Nachts muss ich deswegen nicht raus, nachts gehe ich nur zum Wasserlassen.',
         },
         schwierigeReaktionen: [
           '„Ist das jetzt Krebs? Mein Vater ist mit 55 gestorben, und ich bin 43.“',
