@@ -48710,6 +48710,7 @@ export function seedCases(): Case[] {
       frequency: 5,
       difficulty: 3,
       patientSheet: {
+        profil: { tags: ['schmerz', 'dyspnoe'] },
         personalia: {
           name: 'Jonas Feldmann',
           age: 28,
@@ -49187,6 +49188,7 @@ export function seedCases(): Case[] {
       frequency: 0,
       difficulty: 2,
       patientSheet: {
+        profil: { tags: ['allgemein', 'dyspnoe'] },
         leitsymptomKategorie: 'allgemein',
         personalia: {
           name: 'Dietmar Rösch',
@@ -49324,6 +49326,8 @@ export function seedCases(): Case[] {
           'fach-nephro-uraemie': 'Juckreiz habe ich nicht. Übel ist mir nicht wirklich, aber der Appetit ist weg. Einen metallischen Geschmack habe ich nicht bemerkt. Nur diese Müdigkeit, die ist schon seit zwei, drei Wochen ziemlich schlimm.',
           'fach-nephro-infekt': 'Nein, keine Halsentzündung, keine Erkältung, keine Hautinfektion — in den letzten Wochen war ich nicht krank. Kein Magen-Darm-Infekt, kein Zeckenstich.',
           'fach-nephro-vorgeschichte': 'Nein, mit den Nieren hatte ich nie etwas. Keine Steine, keine Blasenentzündung, und der Urin war beim Check-up vor zwei Jahren in Ordnung. In der Familie gibt es auch keine Nierenkrankheit — keine Zystennieren, keine Dialyse.',
+          // K2 (ADR-0023) : réponses des sondes de banque que le profil exige (r3)
+          'akt-atemnot-belastung': 'Nur bei Anstrengung, schon beim ersten Stock komme ich außer Atem. In Ruhe nicht, und flach liegen kann ich auch.',
         },
         schwierigeReaktionen: [
           '"Das ist doch nur Wasser in den Beinen — kann man mir nicht einfach eine Wassertablette geben und ich gehe wieder?"',
@@ -49654,6 +49658,7 @@ export function seedCases(): Case[] {
       frequency: 1,
       difficulty: 3,
       patientSheet: {
+        profil: { tags: ['allgemein', 'fieber', 'dyspnoe', 'gewichtsverlust'] },
         leitsymptomKategorie: 'allgemein',
         personalia: {
           name: 'Birgit Steinmann',
@@ -50159,6 +50164,7 @@ export function seedCases(): Case[] {
       frequency: 0,
       difficulty: 2,
       patientSheet: {
+        profil: { tags: ['schmerz'] },
         // La question du cas en « Aktuelle Beschwerden » (Anfang oder tief ?) cherche déjà les douleurs au rapport.
         fachSkip: ['fach-gyn-dyspareunie'],
         personalia: {
@@ -50640,6 +50646,7 @@ export function seedCases(): Case[] {
       frequency: 4,
       difficulty: 3,
       patientSheet: {
+        profil: { tags: ['schmerz'] },
         personalia: {
           name: 'Lisa Häberle',
           age: 35,
@@ -51127,6 +51134,7 @@ export function seedCases(): Case[] {
       frequency: 3,
       difficulty: 3,
       patientSheet: {
+        profil: { tags: ['schmerz', 'gelenk', 'steifigkeit'] },
         personalia: {
           name: 'Gotthielf Weidel',
           age: 32,
@@ -51596,6 +51604,7 @@ export function seedCases(): Case[] {
       frequency: 1,
       difficulty: 3,
       patientSheet: {
+        profil: { tags: ['schmerz', 'gelenk'] },
         motiv: { trauma: false, region: 'untere' },
         personalia: {
           name: 'Markus Lindner',
@@ -52092,6 +52101,7 @@ export function seedCases(): Case[] {
       frequency: 0,
       difficulty: 2,
       patientSheet: {
+        profil: { tags: ['ausscheidung', 'dyspnoe'] },
         leitsymptomKategorie: 'ausscheidung',
         personalia: {
           name: 'Jonas Reinhardt',
@@ -52583,6 +52593,7 @@ export function seedCases(): Case[] {
       frequency: 3,
       difficulty: 2,
       patientSheet: {
+        profil: { tags: ['veraenderung', 'fieber', 'hals', 'gewichtsverlust'] },
         leitsymptomKategorie: 'veraenderung',
         personalia: {
           name: 'Elisabeth Länge',
@@ -53078,6 +53089,7 @@ export function seedCases(): Case[] {
       frequency: 0,
       difficulty: 2,
       patientSheet: {
+        profil: { tags: ['allgemein', 'gicht', 'gewichtsverlust'] },
         leitsymptomKategorie: 'allgemein',
         personalia: {
           name: 'Bernd Ostermann',
@@ -53531,6 +53543,7 @@ export function seedCases(): Case[] {
       frequency: 3,
       difficulty: 3,
       patientSheet: {
+        profil: { tags: ['schmerz', 'fieber'] },
         personalia: {
           name: 'Lena Hartmann',
           age: 23,
@@ -54007,6 +54020,7 @@ export function seedCases(): Case[] {
       frequency: 25,
       difficulty: 2,
       patientSheet: {
+        profil: { tags: ['atemnot', 'husten'] },
         leitsymptomKategorie: 'atemnot',
         aktuellSkip: ['akt-atemnot-nachts'],
         personalia: {
@@ -54444,6 +54458,7 @@ export function seedCases(): Case[] {
       frequency: 2,
       difficulty: 3,
       patientSheet: {
+        profil: { tags: ['infekt', 'reise', 'fieber'] },
         leitsymptomKategorie: 'infekt',
         personalia: {
           name: 'Heinz Peter Kleinweber',
@@ -54930,6 +54945,7 @@ export function seedCases(): Case[] {
       frequency: 1,
       difficulty: 2,
       patientSheet: {
+        profil: { tags: ['ausscheidung'] },
         leitsymptomKategorie: 'ausscheidung',
         personalia: {
           name: 'Walter Schwarz',
