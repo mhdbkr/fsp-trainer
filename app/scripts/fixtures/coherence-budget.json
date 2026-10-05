@@ -3,18 +3,18 @@
   "cas": 130,
   "source": "K3 — mesurée sur la trame JOUÉE (après cohere : ce que l'utilisateur voit, décision de main). Sondes et profils déclarés ; les questions du cas se lisent encore (K4). La porte après montage (6 compteurs à 0, casRetiresParR1 = 0) est dans checkCoherence.mjs ; nonReduit est le résidu du moteur (questions sans parts), à 0 en K4.",
   "brut": {
-    "doublons": 210,
+    "doublons": 203,
     "doublonsCas": 24,
-    "horsProfil": 47,
+    "horsProfil": 44,
     "exigeAbsent": 0,
     "relancesOrphelines": 0,
-    "brauchtViole": 20,
+    "brauchtViole": 19,
     "ajouteSansReponse": 0
   },
   "residu": {
-    "questionsMuettes": 801,
+    "questionsMuettes": 794,
     "sondesMuettes": 0,
-    "nonReduit": 106,
+    "nonReduit": 103,
     "casRetiresParR1": 0
   },
   "allowed": [],

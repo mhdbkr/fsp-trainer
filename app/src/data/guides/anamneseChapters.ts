@@ -722,8 +722,14 @@ export const ALLGEMEINE_ANAMNESE: AnamneseChapter[] = [
         text: 'Was sind Sie von Beruf? Empfinden Sie Stress durch Ihre Arbeitssituation?',
         probe: 'fam-beruf',
         followUp: ['Falls in Rente: Was haben Sie früher beruflich gemacht?'],
+        // K3 (revue clinique, gastroenteritis) : le métier et le stress — deux répliques ; le stress présuppose le métier.
+        parts: [
+          { sucht: ['beruf'], text: 'Was sind Sie von Beruf?', followUp: ['Falls in Rente: Was haben Sie früher beruflich gemacht?'] },
+          { sucht: ['stress'], text: 'Empfinden Sie Stress durch Ihre Arbeitssituation?', braucht: ['beruf'] },
+        ],
       },
-      { text: 'Arbeiten Sie dabei mit besonderen Stoffen — Staub, Chemikalien, Dämpfen?', probe: 'pers-beruf' },
+      // « dabei » : au travail — la question présuppose le métier (r4b).
+      { text: 'Arbeiten Sie dabei mit besonderen Stoffen — Staub, Chemikalien, Dämpfen?', probe: 'pers-beruf', braucht: ['beruf'] },
       { text: 'Wohnen Sie allein oder mit jemandem? In einer Wohnung oder einem Haus, in welchem Stockwerk, mit Aufzug?', probe: 'fam-wohnen' },
       { text: 'Haben Sie Haustiere, um die sich jemand kümmern muss?', probe: 'fam-haustiere' },
     ],
@@ -1587,6 +1593,11 @@ export const FACHANAMNESEN: FachanamneseGuide[] = [
         alts: ['Hat jemand in Ihrer Familie oder Ihrem Umfeld ähnliche Beschwerden gehabt?'],
         followUp: ['Arbeiten Sie mit vielen Menschen? Haben Sie ungewöhnliche Lebensmittel gegessen — rohe Milch, rohes Fleisch?'],
         followUpSucht: [['kontakt', 'essen_expo']],
+        // K3 (revue clinique, gastroenteritis) : le contact et l'alimentation — deux répliques, découpées du texte.
+        parts: [
+          { sucht: ['kontakt'], text: 'Hatten Sie Kontakt zu kranken Personen oder zu Tieren?', followUp: ['Arbeiten Sie mit vielen Menschen?'] },
+          { sucht: ['essen_expo'], text: 'Haben Sie ungewöhnliche Lebensmittel gegessen — rohe Milch, rohes Fleisch?' },
+        ],
       },
       {
         text: 'Sind Ihre Impfungen auf dem neuesten Stand?',

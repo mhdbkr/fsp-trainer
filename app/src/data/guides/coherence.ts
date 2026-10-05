@@ -277,7 +277,8 @@ export function cohere<T extends TrameChapter>(trame: readonly T[], profil: Prof
   }
 
   // ── r4b — rien avant son antécédent (`braucht`), jusqu'au point fixe ────────
-  const braucht = (u: U) => (variant(u.p)?.braucht ?? []) as Signe[];
+  // Une question réduite à ses parts présuppose ce que présupposent les parts gardées (revue clinique, gastroenteritis).
+  const braucht = (u: U) => [...(variant(u.p)?.braucht ?? []), ...(u.parts ?? []).flatMap((i) => variant(u.p)!.parts![i].braucht ?? [])] as Signe[];
   const avecBraucht = () => chapters.flatMap((c) => c.items).filter((u) => u.etat !== 'retire' && braucht(u).length);
   const flat = () => chapters.flatMap((c) => c.items).filter((u) => u.etat !== 'retire');
   const viole = (u: U) => {
@@ -319,8 +320,10 @@ export function cohere<T extends TrameChapter>(trame: readonly T[], profil: Prof
         if (k > 0) { fu.push(pt.text); fs.push(pt.sucht.filter((s) => u.signes.includes(s as Signe))); }
         (pt.followUp ?? []).forEach((f, j) => { fu.push(f); fs.push(pt.followUpSucht?.[j] ?? []); });
       });
+      const br = [...(v.braucht ?? []), ...pts.flatMap((pt) => pt.braucht ?? [])];
       return [{ ...v, text: pts[0].text, alts: undefined, followUp: fu.length ? fu : undefined, parts: undefined, enumere: undefined,
-        followUpSucht: fs.some((x) => x.length) ? fs : undefined, sucht: pts.flatMap((pt) => pt.sucht).filter((s, k, a) => u.signes.includes(s as Signe) && a.indexOf(s) === k) }];
+        followUpSucht: fs.some((x) => x.length) ? fs : undefined, sucht: pts.flatMap((pt) => pt.sucht).filter((s, k, a) => u.signes.includes(s as Signe) && a.indexOf(s) === k),
+        ...(br.length ? { braucht: [...new Set(br)] } : {}) }];
     }
     // Les relances hors signe parties : détachées (r4a) ou retirées pour leur propre compte (r1, r2).
     const parties = u.enfants.filter((r) => !r.relance!.attachee || r.etat === 'retire').map((r) => r.relance!.i);

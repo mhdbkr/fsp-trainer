@@ -33333,6 +33333,9 @@ export function seedCases(): Case[] {
       frequency: 8,
       difficulty: 3,
       patientSheet: {
+        // K3 (revue clinique) : la Fach rhumato pose l'Auslöser avec les relances de la goutte (Bier, Wassertablette), hors sujet ici ;
+        // celui d'Aktuelle Beschwerden reste.
+        fachSkip: ['fach-rheuma-ausloeser'],
         profil: {
           tags: ['schmerz', 'generalisiert', 'steifigkeit'],
           exclut: {
@@ -33679,12 +33682,12 @@ export function seedCases(): Case[] {
         'auf-sonographie',
       ],
       caseSpecificQuestions: [
-        { frage: 'Können Sie mir bitte auf dieser Zeichnung einzeichnen, wo überall es wehtut? Ist es links und rechts gleich?', kapitel: 'aktuell' },
-        { frage: 'Haben Sie diese Schmerzen ununterbrochen seit mehr als drei Monaten, oder gibt es bei Ihnen beschwerdefreie Phasen?', kapitel: 'aktuell' },
+        { frage: 'Können Sie mir bitte auf dieser Zeichnung einzeichnen, wo überall es wehtut? Ist es links und rechts gleich?', kapitel: 'aktuell', sucht: ['ort'] },
+        { frage: 'Haben Sie diese Schmerzen ununterbrochen seit mehr als drei Monaten, oder gibt es bei Ihnen beschwerdefreie Phasen?', kapitel: 'aktuell', sucht: ['verlauf'] },
         { frage: 'Wie ist Ihr Schlaf? Fühlen Sie sich morgens erholt, wenn Sie aufgewacht sind?', kapitel: 'vegetativ', sucht: ['schlaf'] },
         { frage: 'Haben Sie Schwierigkeiten, sich zu konzentrieren oder auf Wörter zu kommen? Passiert Ihnen das auch im Unterricht?', kapitel: 'aktuell' },
-        { frage: 'Wie lange sind Sie morgens steif — Minuten oder länger als eine Stunde? Bessert sich das durch Bewegung?', kapitel: 'aktuell' },
-        { frage: 'Sind Ihre Gelenke jemals sichtbar geschwollen, gerötet oder überwärmt gewesen — oder fühlen sie sich nur dick an?', kapitel: 'aktuell' },
+        { frage: 'Wie lange sind Sie morgens steif — Minuten oder länger als eine Stunde? Bessert sich das durch Bewegung?', kapitel: 'aktuell', sucht: ['steifigkeit'] },
+        { frage: 'Sind Ihre Gelenke jemals sichtbar geschwollen, gerötet oder überwärmt gewesen — oder fühlen sie sich nur dick an?', kapitel: 'aktuell', sucht: ['gelenk_entzuendung'] },
         { frage: 'Nehmen Sie ein Medikament gegen erhöhte Cholesterinwerte oder haben Sie in letzter Zeit ein neues Medikament begonnen?', kapitel: 'medikamente' },
         { frage: 'Wie geht es Ihnen seelisch? Fühlen Sie sich in den letzten Wochen häufig niedergeschlagen oder freudlos?', kapitel: 'aktuell' },
       ],
@@ -40269,7 +40272,10 @@ export function seedCases(): Case[] {
       difficulty: 2,
       patientSheet: {
         profil: { tags: ['ausscheidung', 'schmerz', 'diarrhoe', 'reise', 'gewichtsverlust'] },
-        fachSkip: ['fach-infekt-zecke'],
+        // K3 (revue clinique, décision de main) : la peau et le neuro de la Fach Infektio sont le gabarit borréliose, hors sujet ici.
+        fachSkip: ['fach-infekt-zecke', 'fach-infekt-haut', 'fach-infekt-neuro'],
+        // K3 : « Was hat sich verändert » redemande l'aspect des selles et des urines que les questions du cas posent.
+        aktuellSkip: ['akt-ausscheid-was'],
         leitsymptomKategorie: 'ausscheidung',
         personalia: {
           name: 'Michael Müller',
@@ -40626,11 +40632,11 @@ export function seedCases(): Case[] {
         'auf-sonographie',
       ],
       caseSpecificQuestions: [
-        { frage: 'Was haben Sie dort gegessen und getrunken? Hatten Sie Eiswürfel in den Getränken, rohen Salat, ungeschältes Obst oder Leitungswasser?', kapitel: 'aktuell' },
-        { frage: 'Was arbeiten Sie beruflich, und arbeitet jemand in Ihrem Haushalt in einer Küche, in der Gastronomie oder in einem Kindergarten?', kapitel: 'familie-sozial' },
-        { frage: 'Wie sieht Ihr Stuhl aus — wässrig oder breiig, welche Farbe, riecht er auffällig, schwimmt er oben?', sucht: ['stuhlaussehen'], kapitel: 'aktuell', relu: true },
+        { frage: 'Was haben Sie dort gegessen und getrunken? Hatten Sie Eiswürfel in den Getränken, rohen Salat, ungeschältes Obst oder Leitungswasser?', kapitel: 'aktuell', sucht: ['essen_expo'], braucht: ['reise'] },
+        { frage: 'Was arbeiten Sie beruflich, und arbeitet jemand in Ihrem Haushalt in einer Küche, in der Gastronomie oder in einem Kindergarten?', kapitel: 'familie-sozial', sucht: ['beruf'] },
+        { frage: 'Wie sieht Ihr Stuhl aus — wässrig oder breiig, welche Farbe, riecht er auffällig, schwimmt er oben?', sucht: ['stuhl', 'stuhlaussehen'], kapitel: 'aktuell', relu: true },
         { frage: 'Trinken Sie genug? Wie oft müssen Sie Wasser lassen, und welche Farbe hat der Urin? Wird Ihnen beim Aufstehen schwindelig?', kapitel: 'vegetativ', sucht: ['miktion_frequenz', 'urin_aspekt', 'schwindel'] },
-        { frage: 'Haben Sie in den letzten Wochen oder Monaten Antibiotika eingenommen oder waren Sie im Krankenhaus?', kapitel: 'medikamente' },
+        { frage: 'Haben Sie in den letzten Wochen oder Monaten Antibiotika eingenommen oder waren Sie im Krankenhaus?', kapitel: 'medikamente', sucht: ['krankenhaus'] },
         { frage: 'Haben Sie Fieber gemessen? Hatten Sie Schüttelfrost oder Nachtschweiß?', kapitel: 'aktuell', sucht: ['fieber', 'schuettelfrost', 'nachtschweiss'] },
       ],
       examinerQuestions: [

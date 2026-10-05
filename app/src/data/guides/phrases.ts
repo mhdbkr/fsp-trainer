@@ -24,7 +24,7 @@ export interface PhraseVariant {
   /** Décomposition par symptôme cherché (FB2-J10) : quand une partie de la
    *  question a déjà été posée plus haut dans la trame du cas, seules les
    *  parties restantes sont affichées — texte rédigé à la main pour chacune. */
-  parts?: Array<{ sucht: string[]; text: string; followUp?: string[]; followUpSucht?: string[][] }>;
+  parts?: Array<{ sucht: string[]; text: string; followUp?: string[]; followUpSucht?: string[][]; braucht?: string[] }>;   // K3 : une part peut présupposer un signe (r4b)
   /** Symptômes que cette phrase cherche, quand la carte des sondes ne suffit
    *  pas : posé par la modulation (ce qui reste d'une question réduite) ou
    *  explicitement sur une question du cas. */

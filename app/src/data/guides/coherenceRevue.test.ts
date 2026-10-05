@@ -79,7 +79,7 @@ describe('P0-1 — le sang dans les selles (`stuhl_blut`) est un signe, exigé p
     expect(coeur(g).aktuell).toContain('akt-ausscheid-aussehen');
     expect(g.patientSheet.antworten?.['akt-ausscheid-aussehen']).toBeTruthy();
     const q = g.caseSpecificQuestions.find((x) => typeof x !== 'string' && /Wie sieht Ihr Stuhl aus/.test(x.frage));
-    expect(typeof q !== 'string' && q?.sucht).toEqual(['stuhlaussehen']);
+    expect(typeof q !== 'string' && q?.sucht).toEqual(['stuhl', 'stuhlaussehen']);   // jamais stuhl_blut (garde-fou) ; `stuhl` : la question du cas pose le changement des selles
   });
   it('130 cas : un cas de diarrhée pose toujours le sang dans les selles, avec une réponse', () => {
     for (const c of cases.filter((x) => profilDuCas(x).tags.includes('diarrhoe'))) expect(signesJoues(trameJouee(c)).has('stuhl_blut'), c.id).toBe(true);
@@ -153,7 +153,6 @@ describe('P1-2 à P1-5 — dimensions et pertinence', () => {
 });
 
 describe('P1-6 / P1-7 — le changement remarqué (veraenderung) ne repose pas ce que la Fach demande', () => {
-  const textes = (id: string) => trameJouee(byId(id)).flatMap((x) => x.questions.flatMap((p) => [phraseText(p), ...phraseFollowUps(p).map((f) => f.text)]));
   // P1-6a, remplacé par R3 (décision de main) : la variante n'a plus de relances de saignement systémique ; la Fach les pose.
   it('P1-6a / R3 : la variante ne pose plus le saignement systémique (bronchialkarzinom, lymphom, itp)', () => {
     const variante = (id: string) => trameJouee(byId(id)).flatMap((x) => x.questions).filter((p) => phraseProbes(p).includes('akt-veraend-blutung'))
@@ -296,5 +295,27 @@ describe('R4 / P2 syncope — Zungenbiss et Einnässen : là où il faut, après
   });
   it('les réponses ajoutées que plus aucune question n\'interroge sont retirées (vorhofflimmern, sturz-im-alter)', () => {
     for (const id of ['case-vorhofflimmern', 'case-sturz-im-alter']) expect(byId(id).patientSheet.antworten?.['akt-anfall-bewusstsein'], id).not.toMatch(/Zunge/);
+  });
+});
+
+describe('Les deux cas de la direction, présentables dès K3 — zéro doublon, zéro présupposition, zéro hors sujet', () => {
+  const ordre = (id: string) => trameJouee(byId(id)).flatMap((x) => x.questions.map((p) => `${x.id}:${phraseProbes(p).join('+') || (typeof p !== 'string' && p.caseSpecific ? 'cas' : '·')}|${phraseText(p)}`));
+  it('gastroenteritis : « dort gegessen » suit le voyage ; Krankenhaus et Beruf une fois ; ni Lyme (peau, neuro) ni « Was hat sich verändert »', () => {
+    const o = ordre('case-gastroenteritis');
+    const i = (re: RegExp) => o.findIndex((l) => re.test(l));
+    expect(i(/dort gegessen/)).toBe(i(/fach-infekt-reise/) + 1);
+    expect(o.filter((l) => /Krankenhaus/.test(l))).toHaveLength(1);
+    expect(o.filter((l) => /beruflich|von Beruf/.test(l))).toHaveLength(1);
+    expect(i(/dabei mit besonderen Stoffen/)).toBeGreaterThan(i(/Was arbeiten Sie beruflich/));
+    expect(i(/Stress durch Ihre Arbeitssituation/)).toBeGreaterThan(i(/Was arbeiten Sie beruflich/));
+    for (const re of [/fach-infekt-haut/, /fach-infekt-neuro/, /akt-ausscheid-was/, /ungewöhnliche Lebensmittel/]) expect(i(re), String(re)).toBe(-1);
+    expect(compteursApresCas(byId('case-gastroenteritis'))).toMatchObject({ doublons: 0, horsProfil: 0, brauchtViole: 0, nonReduit: 0 });
+  });
+  it('fibromyalgie : Ort, Verlauf, Steifigkeit, Entzündung posés une fois, par la question du cas ; une seule raideur matinale ; pas de goutte', () => {
+    const o = ordre('case-fibromyalgie');
+    for (const re of [/akt-ort\|/, /akt-verlauf\|/, /fach-rheuma-morgensteifigkeit/, /fach-rheuma-entzuendung/, /Bier\?|Wassertablette/]) expect(o.filter((l) => re.test(l)), String(re)).toEqual([]);
+    expect(o.filter((l) => /steif/i.test(l))).toHaveLength(1);
+    expect(o.findIndex((l) => /Zeichnung/.test(l))).toBe(o.findIndex((l) => /akt-motiv/.test(l)) + 1);   // la question du cas prend la place d'akt-ort
+    expect(compteursApresCas(byId('case-fibromyalgie'))).toMatchObject({ doublons: 0, horsProfil: 0, brauchtViole: 0 });
   });
 });

@@ -315,17 +315,17 @@ describe('SÉCURITÉ — aucun signe de risque n\'est perdu (r1 ne le retire jam
 describe('case-gastroenteritis et case-fibromyalgie — la trame jouée (cœur : Aktuelle Beschwerden, Fach, végétative)', () => {
   it('gastroenteritis : Schlucken et Gelenke retirés (r1), Ort / Charakter / Intensität ajoutés après le motif (r3, D2), fréquence des selles posée', () => {
     expect(coeur(byId('case-gastroenteritis'))).toEqual({
-      aktuell: ['akt-motiv', 'akt-ort', 'akt-beginn', 'akt-charakter', 'akt-intensitaet', 'akt-ausscheid-was', 'akt-ausscheid-haeufigkeit~stuhlfrequenz,stuhl_nachts', 'akt-ausscheid-aussehen',
-        'akt-verlauf', 'akt-ausloeser', 'akt-einfluss', 'akt-frueher', 'akt-begleit', 'cas', 'cas', 'cas'],   // R6 : la question du cas reste à sa place
-      fach: ['fach-infekt-haut', 'fach-infekt-neuro', 'fach-infekt-reise', 'fach-infekt-kontakt', 'fach-infekt-impfung'],
-      vegetativ: ['veg-schuettelfrost~schwitzen', 'veg-uebelkeit', 'veg-gewicht', 'veg-appetit', 'veg-schlaf', 'cas'],
+      aktuell: ['akt-motiv', 'akt-ort', 'akt-beginn', 'akt-charakter', 'akt-intensitaet', 'akt-ausscheid-haeufigkeit~stuhlfrequenz,stuhl_nachts', 'akt-ausscheid-aussehen',
+        'akt-verlauf', 'akt-ausloeser', 'akt-einfluss', 'akt-frueher', 'akt-begleit', 'cas', 'cas'],   // revue clinique : aktuellSkip « Was hat sich verändert »
+      fach: ['fach-infekt-reise', 'cas', 'fach-infekt-kontakt~kontakt', 'fach-infekt-impfung'],   // « dort gegessen » suit le voyage (r4b) ; Lyme hors sujet (fachSkip)
+      vegetativ: ['veg-schuettelfrost~schwitzen', 'veg-uebelkeit', 'veg-ausscheidung~miktion', 'veg-gewicht', 'veg-appetit', 'veg-schlaf', 'cas'],
     });
   });
   it('fibromyalgie : Ausstrahlung, Welche Gelenke, Gicht retirés (r1) ; Auslöser, Früher, Fieber une fois ; « Seit wann » gardé ; Impfungen en végétative', () => {
     const k = coeur(byId('case-fibromyalgie'));
     expect(k).toEqual({
-      aktuell: ['akt-motiv', 'akt-ort', 'akt-beginn~beginn', 'akt-charakter', 'akt-intensitaet', 'akt-verlauf', 'akt-einfluss', 'akt-begleit', 'cas', 'cas', 'cas', 'cas', 'cas', 'cas'],
-      fach: ['fach-rheuma-morgensteifigkeit', 'fach-rheuma-entzuendung', 'fach-rheuma-verlauf', 'fach-rheuma-ausloeser', 'fach-rheuma-haut', 'fach-rheuma-systemisch', 'fach-rheuma-vorgeschichte'],
+      aktuell: ['akt-motiv', 'cas', 'akt-beginn~beginn', 'akt-charakter', 'akt-intensitaet', 'cas', 'akt-ausloeser', 'akt-einfluss', 'akt-begleit', 'cas', 'cas', 'cas', 'cas'],
+      fach: ['fach-rheuma-verlauf', 'fach-rheuma-haut', 'fach-rheuma-systemisch', 'fach-rheuma-vorgeschichte'],
       vegetativ: ['veg-schuettelfrost', 'veg-uebelkeit', 'veg-ausscheidung~miktion', 'veg-gewicht', 'veg-appetit', 'cas', '^veg-fieber#5'],
     });
   });
@@ -344,6 +344,6 @@ describe('case-gastroenteritis et case-fibromyalgie — la trame jouée (cœur :
     expect(fibro.fach).not.toContain('fach-rheuma-morgensteifigkeit');
     expect(fibro.fach).not.toContain('fach-rheuma-entzuendung');
     const gastro = coeur(annote('case-gastroenteritis', [[/dort gegessen/, { sucht: ['essen_expo'], braucht: ['reise'] }]]));
-    expect(gastro.fach.slice(2, 4)).toEqual(['fach-infekt-reise', 'cas']);
+    expect(gastro.fach.slice(0, 2)).toEqual(['fach-infekt-reise', 'cas']);
   });
 });
