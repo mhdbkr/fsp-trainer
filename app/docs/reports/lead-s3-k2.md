@@ -1,7 +1,7 @@
 # Rapport lot K2 — le profil clinique des 130 cas et les réponses des sondes exigées
 
 > `sim-engine-engineer` · 5 oct. 2026 · branche `feat/s3-k2-profils`, base `origin/main` @ `81914bc4` (contrat #69, K0 #72, K1 #74) ; `origin/main` a avancé à `5fd18f32` (docs seulement), `git merge-tree --write-tree origin/main HEAD` : 0.
-> Statut : **DONE_WITH_CONCERNS** — concerns = quatre retouches du lexique et des déclarations hors du strict périmètre « profil » (§ 2.3), à acter par main ; et la liste de relecture clinique (§ 7), non relue.
+> Statut : **DONE_WITH_CONCERNS** — concerns = la liste de relecture clinique (§ 7), non relue.
 > Le montage ne change pas : le gel `trame-actuelle.txt` est intact, et la trame jouée des 130 cas est identique avec ou sans profil (INV-90, § 6 bis).
 
 ## 1. Livrables et commits
@@ -25,8 +25,8 @@ Chaque lot de `seedCases.ts` porte les profils et les réponses de ses cas ; le 
    - `gelenke` pertinent aussi pour `lyme` (la Lyme-Arthritis se cherche par le schéma articulaire).
    - `gelenk_entzuendung` pertinent aussi pour `generalisiert` : devant une douleur diffuse, « ein Gelenk jemals geschwollen? » écarte l'arthrite (DD de la fibromyalgie, question du cas comprise) ; « Welche Gelenke » reste exclu.
 4. **Règle de déclaration d'un tag qui exige.** Un tag n'est déclaré que si la question de banque qu'il ferait ajouter a un sens dans le cas. Quand le signe **est** le motif, la banque est absurde (« Haben Sie Husten? » à un patient venu pour une toux) : `case-bronchialkarzinom` ne porte pas `husten`, ses dimensions sont celles de la nature `veraenderung`. De même `diarrhoe` n'est pas posé sur le sevrage opioïde.
-5. **Questions du cas encore muettes, lues hors profil** (3) : `case-pankreaskarzinom` (« … gürtelförmig in den Rücken ausstrahlen ») et `case-cml` (« … in die linke Schulter ausstrahlen ») lisent `ausstrahlung` ; `case-karzinoid` (famille : « … Nierensteine ») lit `nierensteine`. Ce sont des questions de DD légitimes : leur `sucht` se déclare en K4, pas en déformant le profil. Si K3 merge avant K4, r1 les retirera (`casRetiresParR1` = 3, erreur de source assumée et datée).
-6. **`veg-ausscheidung` reste grossière** (`stuhl`, `miktion`) alors que son texte demande « Aussehen, wie oft? ». Choix de K1, non touché : la déclarer en entier changerait les 130 trames. Conséquence : dans `case-morbus-crohn`, `case-zoeliakie` et `case-chronische-pankreatitis`, r3 ajoutera la fréquence des selles alors que la question végétative la frôle. **Proposition pour K3** : décider si `veg-ausscheidung` déclare `stuhlfrequenz` (r2 la réduirait alors partout où l'Aktuell pose la fréquence).
+5. **(Résolu, § 9.)** Questions du cas encore muettes, lues hors profil (3) : `case-pankreaskarzinom` (« … gürtelförmig in den Rücken ausstrahlen ») et `case-cml` (« … in die linke Schulter ausstrahlen ») lisent `ausstrahlung` ; `case-karzinoid` (famille : « … Nierensteine ») lit `nierensteine`. Ce sont des questions de DD légitimes : leur `sucht` se déclare en K4, pas en déformant le profil. Si K3 merge avant K4, r1 les retirera (`casRetiresParR1` = 3, erreur de source assumée et datée).
+6. **(Résolu, § 9.)** `veg-ausscheidung` restait grossière (`stuhl`, `miktion`) alors que son texte demande « Aussehen, wie oft? ». Choix de K1, non touché : la déclarer en entier changerait les 130 trames. Conséquence : dans `case-morbus-crohn`, `case-zoeliakie` et `case-chronische-pankreatitis`, r3 ajoutera la fréquence des selles alors que la question végétative la frôle. **Proposition pour K3** : décider si `veg-ausscheidung` déclare `stuhlfrequenz` (r2 la réduirait alors partout où l'Aktuell pose la fréquence).
 
 ## 3. Arbitrages des natures de motif (D2, ancien Q8)
 
@@ -238,14 +238,14 @@ Toutes dans `antworten`, sous le commentaire « K2 (ADR-0023) : réponses des so
 
 | Compteur | K1 (`origin/main`) | **K2** | Lecture |
 |---|---:|---:|---|
-| `doublons` | 266 | **269** | +3, hausse documentée : `fach-gastro-stuhl` déclare `stuhlaussehen` ; 3 doublons vrais visibles (gib, morbus-crohn, chronische-pankreatitis), retirés par r2 en K3 |
+| `doublons` | 266 | **282** | +16, hausse documentée : `fach-gastro-stuhl` (+3) puis `veg-ausscheidung` (+13) déclarent l'aspect et la fréquence (§ 9) ; doublons vrais, retirés par r2 en K3 |
 | `doublonsCas` | 24 | 24 | K4 |
-| `horsProfil` | 58 | **78** | +20, hausse documentée : le profil déclaré remplace la proposition (hals 57 → 19, stein 45 → 9, meningitis 27 → 3, steifigkeit 32 → 10) ; 26 nouveaux, 6 levés par un tag motivé ; détail au fixture |
+| `horsProfil` | 58 | **75** | +17, hausse documentée (78 avant les compléments du § 9) : le profil déclaré remplace la proposition (hals 57 → 19, stein 45 → 9, meningitis 27 → 3, steifigkeit 32 → 10) ; 26 nouveaux, 6 levés par un tag motivé ; détail au fixture |
 | `exigeAbsent` | 68 | **37** | exact : ce que r3 ajoutera en K3 (tableau § 4) |
 | `relancesOrphelines` | 0 | 0 | |
 | `brauchtViole` | 20 | 20 | K4 |
 | **`ajouteSansReponse`** | 66 | **0** | **I6 tenu** : K3 peut merger |
-| `questionsMuettes` / `sondesMuettes` | 825 / 0 | 825 / 0 | |
+| `questionsMuettes` / `sondesMuettes` | 825 / 0 | 822 / 0 | 3 questions du cas déclarées (§ 9) |
 
 `checkBudgetFloor.mjs origin/main` : 0, deux hausses signalées « à relire en revue », chacune écrite au fixture avec `de` / `a` exacts et sa raison. `--bless` refusant toute hausse, le plancher est regravé à la main.
 
@@ -277,6 +277,17 @@ Toutes dans `antworten`, sous le commentaire « K2 (ADR-0023) : réponses des so
 - `node scripts/check*.mjs` du job `contrats` : **tous 0** — `checkAllergyConflicts`, `checkBedeutung`, `checkCaseCoherence`, `checkCaseCohesion`, `checkCaseQuestionAnswers`, `checkCaseQuestionChapters`, `checkCaseTermLinks` (après exclusion du profil : `caseTermLinks.json` inchangé), `checkFachwissenVisuals`, `checkGuideCoverage`, `checkGuideDuplicates`, `checkMusterCoverage`, `checkPatientWorte`, `checkPlayedTrame`, `checkProbeCoverage`, `checkQuestionAtomicity`, `checkQuestionOrder`, `checkTermRegister --require-all`, `checkTherapieLabels`, `checkTrameSymptoms`, `checkUiTells`, `checkCoherence`, `evalDoctopus --dry`, `checkBudgetFloor.mjs origin/main`. **Exception** : `checkProbeOverlap` 1 (informatif, `|| true`), 8 répétitions comme à K1, inchangé.
 - `node --test` : `checkCoherence` (33), `checkBudgetFloor`, `linkCaseTerms`, `checkCaseTermLinks`, `checkProbeCoverage`, `checkCaseQuestionAnswers`, `checkTrameSymptoms`, `checkQuestionOrder`, `checkQuestionAtomicity` : **tous 0**.
 - `npx tsc -b --noEmit` : **0**. `npx vitest run --dir src/data --maxWorkers=2` : **0** (16 fichiers, 337 tests, gel compris). `git merge-tree --write-tree origin/main HEAD` : **0**.
+
+## 9. Compléments après les décisions de main (5 oct.)
+
+Main a **accepté** les quatre retouches du § 2.3 et demandé deux compléments, un commit chacun :
+
+| Commit | Complément | Effet mesuré |
+|---|---|---|
+| `8cee3903` | Les 3 questions du cas de DD déclarent leur `sucht` : pankreaskarzinom et cml `['ausstrahlung']`, karzinoid `['familie_endokrin', 'nierensteine']` (énumération familiale, D1 et (e)). **Déclarer ne suffisait pas** : `ausstrahlung` et `nierensteine` ne sont pertinents que sous `stein` (ou `schmerz`…) ; r1 les aurait retirées quand même. Tag `stein` motivé : pankreaskarzinom (ictère obstructif, DD lithiase du cholédoque), cml (lithiase urique ; la question voisine nomme les Nierenkoliken), karzinoid (lithiase d'une NEM 1). **À relire.** | horsProfil 78 → 75 ; questionsMuettes 825 → 822 |
+| `5804647e` | `veg-ausscheidung` → `stuhl, miktion, stuhlfrequenz, stuhlaussehen, miktion_frequenz, urin_aspekt` ; ses deux `parts` suivent (test I5). La relance « Falls ja: wie oft täglich? … Aussehen » reste une précision. | doublons 269 → 282 (+13 vrais : avec les relances de saignement de la variante `veraenderung`) |
+
+**Le montage gelé ne voit pas encore l'effet du second** : `dedupeBySymptom` filtre les `parts` sur `SUCHT_MONTAGE` ; dans morbus-crohn, zoeliakie et chronische-pankreatitis, la végétative reste réduite à l'urine et `exigeAbsent` reste 37. En K3, sans `dedupeBySymptom`, sa partie selles portera `stuhlfrequenz` et r3 n'ajoutera pas la banque. Les réponses `akt-ausscheid-haeufigkeit` (3 cas) et `akt-ausscheid-aussehen` (akutes-nierenversagen) écrites au § 5 restent : inoffensives, et nécessaires tant que le montage est gelé. Hausses du fixture mises à jour, exactes : doublons 266 → 282, horsProfil 58 → 75. Sommet : `checkCoherence` 0, `checkBudgetFloor.mjs origin/main` 0, tous les `check*.mjs` 0 (sauf `checkProbeOverlap`, 8, informatif, inchangé), `checkCoherence.test.mjs` 0, `tsc` 0, `vitest --dir src/data` 337/337, gel intact.
 
 ## Non vérifié
 
