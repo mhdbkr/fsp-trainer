@@ -18117,6 +18117,7 @@ export function seedCases(): Case[] {
       frequency: 0,
       difficulty: 2,
       patientSheet: {
+        profil: { tags: ['schmerz'] },
         fachSkip: ['fach-derma-muttermal', 'fach-derma-verlauf'],
         personalia: {
           name: 'Brigitte Ostermann',
@@ -18615,6 +18616,7 @@ export function seedCases(): Case[] {
       frequency: 9,
       difficulty: 2,
       patientSheet: {
+        profil: { tags: ['schmerz'] },
         motiv: { trauma: false, region: 'bws' },
         fachSkip: ['fach-ortho-mechanismus'],
         personalia: {
@@ -19154,6 +19156,7 @@ export function seedCases(): Case[] {
       frequency: 6,
       difficulty: 2,
       patientSheet: {
+        profil: { tags: ['ausscheidung', 'stein'] },
         leitsymptomKategorie: 'ausscheidung',
         personalia: {
           name: 'Oliver Müller',
@@ -19712,6 +19715,7 @@ export function seedCases(): Case[] {
       frequency: 2,
       difficulty: 3,
       patientSheet: {
+        profil: { tags: ['psychisch', 'gewichtsverlust'] },
         leitsymptomKategorie: 'psychisch',
         personalia: {
           name: 'Klaus Benzler',
@@ -20309,6 +20313,7 @@ export function seedCases(): Case[] {
       frequency: 6,
       difficulty: 3,
       patientSheet: {
+        profil: { tags: ['veraenderung', 'dyspnoe', 'hals', 'gewichtsverlust'] },
         leitsymptomKategorie: 'veraenderung',
         personalia: {
           name: 'Michael Witzinger',
@@ -20462,6 +20467,8 @@ export function seedCases(): Case[] {
           'fach-onko-vorbehandlung': 'Nein, ich hatte noch nie Krebs, ich bin nie bestrahlt worden und hatte nie eine Chemotherapie. Nur die Antibiotika vor drei Monaten wegen der Lungenentzündung, sonst nichts.',
           'fach-onko-familie': 'Mein Vater ist an Lungenkrebs gestorben, mit 72. Sonst gibt es in der Familie keinen Krebs, von dem ich wüsste — keinen Darmkrebs, keinen Brustkrebs, nichts.',
           'fach-onko-vorsorge': 'Darmspiegelung mit 60, alles in Ordnung. Zum Urologen gehe ich jedes Jahr, der Wert war immer normal. Und die Lunge wurde vor drei Monaten geröntgt, wegen der Lungenentzündung.',
+          // K2 (ADR-0023) : réponses des sondes de banque que le profil exige (r3)
+          'akt-atemnot-belastung': 'Nur bei Anstrengung. Nach etwa hundert Metern in der Ebene oder nach einer Treppe muss ich stehen bleiben — vor einem halben Jahr bin ich noch den Hang zum Garten hoch. Im Sitzen habe ich keine Luftnot.',
         },
         schwierigeReaktionen: [
           '"Habe ich Krebs? Sagen Sie es mir bitte ehrlich. Mein Vater ist daran gestorben."',
@@ -20913,6 +20920,7 @@ export function seedCases(): Case[] {
       frequency: 0,
       difficulty: 3,
       patientSheet: {
+        profil: { tags: ['veraenderung'] },
         leitsymptomKategorie: 'veraenderung',
         personalia: {
           name: 'Birgit Kellermann',
@@ -21439,6 +21447,7 @@ export function seedCases(): Case[] {
       frequency: 8,
       difficulty: 2,
       patientSheet: {
+        profil: { tags: ['schmerz', 'gelenk', 'arthritis', 'steifigkeit', 'lyme'] },
         personalia: {
           name: 'Clemens Wurster',
           age: 41,
@@ -21950,6 +21959,7 @@ export function seedCases(): Case[] {
       frequency: 3,
       difficulty: 2,
       patientSheet: {
+        profil: { tags: ['schmerz', 'diarrhoe', 'steifigkeit', 'gewichtsverlust'] },
         personalia: {
           name: 'Jonas Reinhardt',
           age: 26,
@@ -22112,6 +22122,8 @@ export function seedCases(): Case[] {
           'fach-gastro-stuhl': 'Durchfall, keine Verstopfung. Vier- bis sechsmal am Tag, breiig bis wässrig, normal braun, nicht schwarz, nicht fettig. Blut nur hellrot am Papier, und es brennt hinten.',
           'fach-gastro-tenesmen': 'Ja, das kenne ich. Manchmal muss ich ganz dringend, renne zur Toilette, und dann kommt fast nichts. Ständig ist es aber nicht so.',
           'fach-gastro-spiegelung': 'Nein, eine Magen- oder Darmspiegelung hatte ich noch nie. Ehrlich gesagt macht mir das auch Angst.',
+          // K2 (ADR-0023) : réponses des sondes de banque que le profil exige (r3)
+          'akt-ausscheid-haeufigkeit': 'Vier- bis sechsmal am Tag, und nachts muss ich auch zwei-, dreimal raus. Das geht jetzt seit ungefähr fünf Monaten so.',
         },
         schwierigeReaktionen: [
           '„Habe ich Würmer? Meine Freundin hat das vermutet, weil ich so abgenommen habe.“',
@@ -22474,6 +22486,7 @@ export function seedCases(): Case[] {
       frequency: 8,
       difficulty: 2,
       patientSheet: {
+        profil: { tags: ['nerven'] },
         motiv: { trauma: false, region: 'obere' },
         fachSkip: ['fach-ortho-durchblutung'],
         leitsymptomKategorie: 'nerven',
@@ -23031,6 +23044,7 @@ export function seedCases(): Case[] {
       frequency: 5,
       difficulty: 2,
       patientSheet: {
+        profil: { tags: ['anfall', 'dyspnoe'] },
         leitsymptomKategorie: 'anfall',
         personalia: {
           name: 'Karin Hartmann',
@@ -23582,6 +23596,7 @@ export function seedCases(): Case[] {
       frequency: 7,
       difficulty: 3,
       patientSheet: {
+        profil: { tags: ['ausscheidung', 'stein', 'gewichtsverlust'] },
         leitsymptomKategorie: 'ausscheidung',
         personalia: {
           name: 'Hermann Kastner',
@@ -24135,6 +24150,7 @@ export function seedCases(): Case[] {
       frequency: 0,
       difficulty: 2,
       patientSheet: {
+        profil: { tags: ['ausscheidung', 'reise', 'gelenk', 'gewichtsverlust'] },
         fachSkip: ['fach-infekt-zecke'],
         leitsymptomKategorie: 'ausscheidung',
         personalia: {
@@ -24646,6 +24662,7 @@ export function seedCases(): Case[] {
       frequency: 0,
       difficulty: 2,
       patientSheet: {
+        profil: { tags: ['nerven', 'hals'] },
         fachSkip: ['fach-neuro-anfallzeichen', 'fach-neuro-aura'],
         leitsymptomKategorie: 'nerven',
         personalia: {
@@ -25206,6 +25223,7 @@ export function seedCases(): Case[] {
       frequency: 5,
       difficulty: 2,
       patientSheet: {
+        profil: { tags: ['schmerz', 'gelenk', 'steifigkeit'] },
         motiv: { trauma: false, region: 'untere' },
         personalia: {
           name: 'Burkhard Schwulinski',
@@ -25770,6 +25788,7 @@ export function seedCases(): Case[] {
       frequency: 2,
       difficulty: 2,
       patientSheet: {
+        profil: { tags: ['veraenderung', 'dysphagie', 'hals'] },
         leitsymptomKategorie: 'veraenderung',
         personalia: {
           name: 'Renate Brunner',
