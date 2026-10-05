@@ -673,6 +673,12 @@ export const ALLGEMEINE_ANAMNESE: AnamneseChapter[] = [
         text: 'Ist Ihnen übel? Mussten Sie sich übergeben?',
         probe: 'veg-uebelkeit',
         followUp: ['Falls ja: Können Sie das Erbrochene beschreiben? Seit wann, und wie häufig?'],
+        // K4 fixeur (revue clinique P2) : la nausée et le vomissement, deux répliques — découpés du texte.
+        parts: [
+          { sucht: ['uebelkeit'], text: 'Ist Ihnen übel?' },
+          // la relance de la sonde, découpée (règles A et A2 : une réplique, une question)
+          { sucht: ['erbrechen'], text: 'Mussten Sie sich übergeben?', followUp: ['Falls ja: Können Sie das Erbrochene beschreiben?', 'Seit wann?', 'Wie häufig?'] },
+        ],
       },
       {
         text: 'Haben Sie Schwierigkeiten mit dem Stuhlgang oder beim Wasserlassen?',
@@ -1016,6 +1022,11 @@ export const FACHANAMNESEN: FachanamneseGuide[] = [
           'Falls Sie sich übergeben haben: Wie sah das Erbrochene aus — wie Kaffeesatz, mit Blut?',
           'Falls ja: Wie lange nach dem Essen ist Ihnen übel?',
           'Falls ja: Geht es Ihnen besser, nachdem Sie sich erbrochen haben?',
+        ],
+        // K4 fixeur : la nausée et le vomissement, deux répliques ; chaque part garde ses relances.
+        parts: [
+          { sucht: ['uebelkeit'], text: 'Leiden Sie an Übelkeit?', followUp: ['Falls ja: Wie lange nach dem Essen ist Ihnen übel?'] },
+          { sucht: ['erbrechen'], text: 'Leiden Sie an Erbrechen?', followUp: ['Falls Sie sich übergeben haben: Wie oft müssen Sie sich übergeben?', 'Falls Sie sich übergeben haben: Wie viel erbrechen Sie dann jeweils?', 'Falls Sie sich übergeben haben: Wie sah das Erbrochene aus — wie Kaffeesatz, mit Blut?', 'Falls ja: Geht es Ihnen besser, nachdem Sie sich erbrochen haben?'] },
         ],
       },
       { text: 'Haben Sie Sodbrennen? Müssen Sie aufstoßen?', probe: 'fach-gastro-sodbrennen' },
@@ -1660,7 +1671,7 @@ export const FACHANAMNESEN: FachanamneseGuide[] = [
         // K4 : parts découpées du texte — r1 / r2 ne retirent que ce qu'une autre question pose déjà.
         parts: [
           { sucht: ['stuhl_blut'], text: 'Haben Sie Blutungen im Stuhl bemerkt?' },
-          { sucht: ['urin_aspekt'], text: 'Haben Sie Blutungen im Urin bemerkt?' },
+          { sucht: ['urin_aspekt'], text: 'Haben Sie Blut im Urin bemerkt?' },
           { sucht: ['haemoptyse'], text: 'Haben Sie Blutungen beim Husten bemerkt?' },
           { sucht: ['vaginalblutung'], text: 'Haben Sie Blutungen aus der Scheide bemerkt?' },
         ],
@@ -1954,6 +1965,7 @@ export const FACHANAMNESEN: FachanamneseGuide[] = [
         parts: [
           { sucht: ['ort'], text: 'Wo hat die Hautveränderung angefangen?' },
           { sucht: ['ausbreitung'], text: 'Wie hat sie sich seitdem ausgebreitet?', followUp: ['Haben Sie so eine Veränderung auch irgendwo anders am Körper?'] },
+          // K4 fixeur (revue I-1) : rattachée à un texte existant — c'est la seconde phrase de l'alternative de cette variante (`alts`).
           { sucht: ['entwicklung'], text: 'Ist die Stelle größer geworden?' },
         ],
         alts: ['Wo genau haben Sie den Hautausschlag? Ist die Stelle größer geworden?'],

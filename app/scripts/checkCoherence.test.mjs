@@ -13,7 +13,7 @@ import { fileURLToPath, pathToFileURL } from 'node:url';
 import assert from 'node:assert/strict';
 import { readFileSync, writeFileSync } from 'node:fs';
 import { sandbox } from './mutationSandbox.mjs';
-import { DIM, SIG, mesurerCas, profilPropose, proposer, signesDe } from './coherenceMesure.mjs';
+import { DIM, SIG, mesurerCas, profilPropose, proposer, signesDe, totaux } from './coherenceMesure.mjs';
 
 // ── La mesure : un lexique minimal, des trames de poche ──────────────────────
 // La lecture du texte est CELLE du lexique (`symptomsInText`, symptoms.ts) : on la charge pour de vrai.
@@ -107,6 +107,19 @@ test('K1 : pour une sonde, la déclaration REMPLACE la lecture du texte ; une qu
   // la même question, posée par le CAS sans déclaration, se lit : `fieber` y est cherché → doublon avec la sonde
   const cas1 = mesurerCas(cas([row('aktuell', 'Haben Sie Fieber?', { cs: true }), row('vegetativ', 'Hatten Sie Fieber?', { probes: ['veg-fieber'], sucht: ['fieber'] })]), lex1);
   assert.equal(cas1.dup.length, 1);
+});
+
+test('K4 fixeur (I-2) : doublon masqué — une question du cas déclarée dont le texte nomme un signe qu\'une SONDE jouée cherche', () => {
+  const lex1 = lex();
+  const veg = row('vegetativ', 'Hatten Sie Fieber?', { probes: ['veg-fieber'], sucht: ['fieber'] });
+  const masque = mesurerCas(cas([row('aktuell', 'Tut das Schlucken beim Fieber weh?', { cs: true, sucht: ['schluck'] }), veg]), lex1);
+  assert.equal(masque.masques.length, 1);
+  assert.match(`${masque.masques[0].s} ${masque.masques[0].autre}`, /fieber .*veg-fieber/);
+  assert.equal(totaux([masque], { sondesMuettes: 0 }).info.doublonsMasques, 1);
+  const declare = mesurerCas(cas([row('aktuell', 'Tut das Schlucken beim Fieber weh?', { cs: true, sucht: ['schluck', 'fieber'] }), veg]), lex1);
+  assert.equal(declare.masques.length, 0, 'déclaré : plus masqué (r2 tranchera)');
+  const sansSonde = mesurerCas(cas([row('aktuell', 'Tut das Schlucken beim Fieber weh?', { cs: true, sucht: ['schluck'] })]), lex1);
+  assert.equal(sansSonde.masques.length, 0, 'aucune sonde jouée ne cherche la fièvre');
 });
 
 test('K4 : une question du cas DÉCLARÉE se mesure par sa déclaration, comme une sonde ; muette, elle se lit encore', () => {

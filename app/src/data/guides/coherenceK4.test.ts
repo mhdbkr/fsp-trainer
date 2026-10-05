@@ -4,6 +4,9 @@ import { fachChapterRaw, playedTrame } from './anamneseChapters';
 import { phraseFollowUp, phraseFollowUps, phraseProbes, phraseText, type Phrase } from './phrases';
 import { phraseSucht, SIGNE_DEF } from './symptoms';
 import { DEFS_CAS } from './signesDefsCas';
+import { DEFS_BASE } from './signesDefs';
+import { RISIKO_SIGNES } from './coherence';
+import { trameBrute } from './anamneseChapters';
 
 // K4 (ADR-0023, contrat frage-atomique §10.10) — les questions du cas déclarent ce qu'elles posent ; les sondes à
 // énumération reçoivent leurs `parts`. Ces tests gardent les règles nouvelles du lot ; chacun a sa mutation au rapport K4.
@@ -21,9 +24,12 @@ const cherchent = (id: string, s: string) => joue(id).filter(([, p]) => phraseSu
   || phraseFollowUps(p).some((f) => (f.sucht ?? []).includes(s)));
 
 describe('K4 — les questions du cas déclarent ce qu’elles posent', () => {
-  it('une seule question du cas reste muette, et c’est le résidu justifié (anorexia-nervosa n° 7, sécurité)', () => {
+  it('aucune question du cas n’est muette (K4 fixeur : anorexia-nervosa n° 7 déclare `todeswunsch`, D-1)', () => {
     const muettes = cases.flatMap((c) => (c.caseSpecificQuestions ?? []).flatMap((q, i) => (typeof q === 'string' || !q.sucht?.length ? [`${c.id}#${i}`] : [])));
-    expect(muettes).toEqual(['case-anorexia-nervosa#7']);
+    expect(muettes).toEqual([]);
+  });
+  it('m-1 : les signes des questions du cas ne reprennent aucun signe des sondes (sinon le spread de DEFS l’écraserait)', () => {
+    expect(Object.keys(DEFS_CAS).filter((s) => s in DEFS_BASE)).toEqual([]);
   });
   it('chaque signe propre aux questions du cas (signesDefsCas) est déclaré par une question du cas, de dépistage, sans banque', () => {
     const declares = new Set<string>(cases.flatMap((c) => (c.caseSpecificQuestions ?? []).flatMap((q) => (typeof q === 'string' ? [] : [...(q.sucht ?? []), ...(q.braucht ?? [])]))));
@@ -53,6 +59,79 @@ describe('K4 — les questions du cas déclarent ce qu’elles posent', () => {
     // La vaccination : une fois dans chaque cas.
     for (const c of cases) { const n = cherchent(c.id, 'impfung').length; if (n !== 1) fautes.push(`${c.id} : « impfung » demandé ${n} fois`); }
     expect(fautes).toEqual([]);
+  });
+});
+
+/** La sonde est-elle encore posée avec ce signe (question ou part gardée) ? */
+const pose = (id: string, probe: string, signe?: string) => joue(id).some(([, p]) => phraseProbes(p).includes(probe)
+  && (!signe || phraseSucht(p).includes(signe as never) || phraseFollowUps(p).some((f) => (f.sucht ?? []).includes(signe))));
+const texte = (id: string, probe: string) => joue(id).filter(([, p]) => phraseProbes(p).includes(probe)).map(([, p]) => [phraseText(p), ...phraseFollowUp(p)].join(' ')).join(' | ');
+
+describe('K4 fixeur (revue I-3) — les doublons renvoyés : la sonde perdante est ABSENTE de la trame jouée', () => {
+  // [cas, sonde perdante, signe qu'elle perd] : la question du cas le pose, la sonde (ou sa part) n'est plus posée.
+  const PERDANTES: Array<[string, string, string]> = [
+    ['case-zystitis', 'akt-ausscheid-harn-aussehen', 'urin_aspekt'], ['case-zystitis', 'fach-uro-farbe', 'urin_aspekt'],
+    ['case-zystitis', 'fach-uro-vorgeschichte', 'harnwegsinfekt'], ['case-zystitis', 'akt-frueher', 'frueher'],
+    ['case-lyme', 'fach-infekt-haut', 'ausschlag'], ['case-lyme', 'fach-infekt-haut', 'erythem_ring'],
+    ['case-rheumatoide-arthritis', 'akt-einfluss', 'einfluss'],
+    ['case-uterus-myomatosus', 'fach-haem-blutung', 'haematome'], ['case-uterus-myomatosus', 'fach-haem-blutung', 'blutungsneigung'],
+    ['case-schenkelhalsfraktur', 'fach-ortho-mechanismus', 'unfallhergang'], ['case-schenkelhalsfraktur', 'fach-ortho-mechanismus', 'bewusstlos'],
+    ['case-schenkelhalsfraktur', 'med-blutverduenner', 'antikoagulation'],
+    ['case-itp', 'fach-haem-blutung', 'blutungsneigung'], ['case-zoeliakie', 'fach-gastro-stuhl', 'stuhlaussehen'],
+    ['case-perikarditis', 'akt-einfluss', 'einfluss'], ['case-myokarditis', 'akt-einfluss', 'einfluss'],
+    ['case-somatoforme-schmerzstoerung', 'akt-einfluss', 'einfluss'],
+  ];
+  it.each(PERDANTES)('%s : %s ne pose plus « %s »', (id, probe, signe) => {
+    expect(pose(id, probe, signe)).toBe(false);
+    expect(cherchent(id, signe)).toHaveLength(1);
+  });
+  it('zystitis : ni ictère ni couleur des selles (aktuellSkip de la Veränderung) ; les selles restent demandées en végétatif', () => {
+    expect(pose('case-zystitis', 'akt-ausscheid-was')).toBe(false);
+    expect(pose('case-zystitis', 'akt-ausscheid-aussehen')).toBe(false);
+    expect(texte('case-zystitis', 'veg-ausscheidung')).toMatch(/Stuhlgang/);
+  });
+});
+
+describe('K4 fixeur — la revue clinique : la question perdue revient dans la trame jouée', () => {
+  const REVIENT: Array<[string, string, RegExp]> = [
+    ['case-nephrotisches-syndrom', 'fach-nephro-aussehen', /schaumig/],            // P0
+    ['case-nierenkolik', 'fach-uro-flanke', /Leiste/],                            // P1 : l'irradiation vers l'aine
+    ['case-asthma', 'akt-verlauf', /anfallsartig/], ['case-pertussis', 'akt-verlauf', /anfallsartig/],
+    ['case-tvt', 'fach-gefaess-immobilisation', /unbeweglich/],
+    ['case-mammakarzinom', 'fach-gyn-brust', /Absonderungen/],
+    ['case-uterus-myomatosus', 'fach-gyn-blutung', /Zwischenblutungen/],
+    ['case-malaria', 'fach-infekt-impfung', /Impfungen/], ['case-malaria', 'fach-infekt-zecke', /Insektenstich/],
+    ['case-lagerungsschwindel', 'akt-neuro-lage', /Kopf drehen/],
+    ['case-myokardinfarkt', 'veg-uebelkeit', /übergeben/],                        // P2 : übel | erbrochen
+    ['case-commotio', 'fach-neuro-koordination', /Schwindel/], ['case-commotio', 'veg-schuettelfrost', /Schweiß/],
+    ['case-ileus', 'fach-chir-ileus', /heute Stuhlgang/],
+    ['case-perikarditis', 'fach-kardio-atem', /Atmen/], ['case-myokarditis', 'fach-kardio-atem', /Atmen/],
+  ];
+  it.each(REVIENT)('%s : %s est posée', (id, probe, re) => {
+    expect(texte(id, probe)).toMatch(re);
+  });
+  it('ordre (`braucht`) : chaque question du cas suit ce qu’elle présuppose', () => {
+    const avant = (id: string, i: number, signe: string) => {
+      const t = joue(id);
+      const k = t.findIndex(([, p]) => typeof p !== 'string' && (p as { caseSpecific?: boolean }).caseSpecific && phraseText(p) === (byId(id).caseSpecificQuestions[i] as { frage: string }).frage);
+      const j = t.findIndex(([, p]) => phraseSucht(p).includes(signe as never) || phraseFollowUps(p).some((f) => (f.sucht ?? []).includes(signe)));
+      return j >= 0 && k > j;
+    };
+    expect(avant('case-tvt', 0, 'beginn')).toBe(true);
+    expect(avant('case-lagerungsschwindel', 1, 'lageabhaengig')).toBe(true);
+    expect(avant('case-hypothyreose', 7, 'kinder')).toBe(true);
+    expect(avant('case-akutes-nierenversagen', 1, 'erbrechen')).toBe(true);
+  });
+  it('D-1 anorexia-nervosa : interrogatoire gradué — le désir de mort (Aktuelle Beschwerden), puis idées, plan, NOTFALL (Fach psy)', () => {
+    expect(RISIKO_SIGNES.has('todeswunsch')).toBe(true);
+    expect(cherchent('case-anorexia-nervosa', 'todeswunsch').map(([ch]) => ch)).toEqual(['aktuell']);
+    const psy = texte('case-anorexia-nervosa', 'fach-psych-suizid');
+    expect(psy).toMatch(/konkrete Pläne/);
+    expect(psy).toMatch(/NOTFALL/);
+    // Garantie de risque : tout signe de risque cherché par la trame brute l'est encore par la trame jouée.
+    const brute = new Set(trameBrute(byId('case-anorexia-nervosa')).flatMap((ch) => ch.questions)
+      .flatMap((p) => [...phraseSucht(p), ...phraseFollowUps(p).flatMap((f) => f.sucht ?? [])]));
+    for (const s of RISIKO_SIGNES) if (brute.has(s)) expect(cherchent('case-anorexia-nervosa', s).length, s).toBeGreaterThan(0);
   });
 });
 

@@ -108,3 +108,13 @@ test('Q0 — une relance de question du cas qui cite un symptôme déjà cherch�
   assert.equal(r.status, 1, 'la relance cite « fieber », cherché par la vegetative');
   assert.match(r.stdout, /case-oesophaguskarzinom/);
 });
+
+// K4 fixeur : `braucht` n'exempte que la présupposition qu'il déclare. ANV n° 1 cite « erbrechen » (lu `uebelkeit`), présupposé
+// par `braucht: ['erbrechen']` et cherché plus haut par la Fach néphro : sans le `braucht`, la porte rougit.
+test('K4 — un signe de `braucht` cité par la question n\'est pas un doublon ; sans lui, la porte rougit', { timeout: 300_000 }, () => {
+  const anv = "sucht: ['trinkmenge', 'stuhlfrequenz'], braucht: ['erbrechen'] },";
+  assert.equal(gate().status, 0);
+  const r = sb.mutate(cases, anv, "sucht: ['trinkmenge', 'stuhlfrequenz'] },", gate);
+  assert.equal(r.status, 1, 'la question cite « erbrechen », cherché par fach-nephro');
+  assert.match(r.stdout, /case-akutes-nierenversagen/);
+});

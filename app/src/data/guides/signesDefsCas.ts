@@ -146,16 +146,20 @@ export const DEFS_CAS = {
   augenkontrolle: { kapitel: 'aktuell', pertinence: S },            // suivi ophtalmologique et ses conclusions
   blutgruppe: { kapitel: 'aktuell', pertinence: S },                // groupe sanguin, rhésus
   untersuchung_einverstaendnis: { kapitel: 'aktuell', pertinence: S },   // accord pour un examen (toucher rectal)
-  vorereignis: { kapitel: 'aktuell', pertinence: S },               // événement des semaines précédentes (chute sur la tête, manipulation, alitement) ≠ le déclencheur du motif
-  schulterschmerz: { kapitel: 'aktuell', pertinence: S },           // douleur de l'épaule, sous les côtes (irritation phrénique) ≠ l'irradiation ouverte
-  vorbeugezeichen: { kapitel: 'aktuell', pertinence: S },           // pire couché, mieux assis penché en avant ≠ « lié à la respiration, au repas, à la position »
-  paroxysmen: { kapitel: 'aktuell', pertinence: S },                // accès de sueurs, palpitations, pâleur (≠ `herzrasen`, `schwitzen` isolés)
-  naechtliche_anfaelle: { kapitel: 'aktuell', pertinence: S },      // réveils avec langue mordue, lit mouillé : crises nocturnes passées (≠ la crise actuelle)
+  naechtliche_anfaelle: { kapitel: 'aktuell', pertinence: S },      // crises qui surviennent la nuit, réveillent (épilepsie, panique) — passées, ≠ la crise actuelle
   anfallsformen: { kapitel: 'aktuell', pertinence: S },             // myoclonies matinales, absences (≠ `krampf`, la crise actuelle)
-  acanthosis: { kapitel: 'aktuell', pertinence: S },                // peau foncée, veloutée de la nuque, des aisselles (≠ `haut_haare`)
   aufenthalt: { kapitel: 'aktuell', pertinence: S },                // où et comment il a vécu sur place (ville, campagne, logement) — après le voyage
   blutungsquelle: { kapitel: 'aktuell', pertinence: S },            // le sang : rouge vif sur le papier ou mêlé aux selles (le sang déjà dit)
   herzrasen_frueher: { kapitel: 'aktuell', pertinence: S },         // ces palpitations, les connaît-il d'avant
+  // --- K4 fixeur (revue clinique, décisions de main) -------------------------------
+  todeswunsch: { kapitel: 'aktuell', pertinence: S },               // désir de mort passif (« lieber nicht mehr da sein ») — RISIKO_SIGNES, premier degré avant idées, plan, intention
+  haematurie: { kapitel: 'aktuell', pertinence: S },                // sang dans les urines (≠ l'aspect des urines : mousse, trouble, couleur)
+  beschwerdefreies_intervall: { kapitel: 'aktuell', pertinence: S },   // entre les crises, sans aucune gêne (≠ le cours : fréquence, aggravation)
+  flug: { kapitel: 'aktuell', pertinence: S },                      // le vol : quand par rapport aux troubles, combien de temps (≠ l'immobilisation en général)
+  peau_orange: { kapitel: 'aktuell', pertinence: S },               // sein rouge, chaud, en peau d'orange (≠ douleur, écoulement du mamelon)
+  blutungsstaerke: { kapitel: 'aktuell', pertinence: S },           // abondance et durée des règles (≠ le changement : intermenstruel, post-coïtal)
+  seite_lagerung: { kapitel: 'aktuell', pertinence: S },            // le côté qui déclenche (en se tournant au lit) — après la question de position
+  stuhlgewohnheit: { kapitel: 'aktuell', pertinence: S },           // les selles ont-elles changé ces derniers mois (≠ « Stuhlgang heute? »)
   // --- Vegetative Anamnese -----------------------------------------------------
   schnarchen: { kapitel: 'vegetativ', pertinence: S },              // ronfle-t-il, régulièrement ou non (≠ `schlafapnoe`, les pauses)
   tagesschlaefrigkeit: { kapitel: 'vegetativ', pertinence: S },     // s'endort malgré lui le jour (≠ `muedigkeit`)
@@ -200,6 +204,7 @@ export const DEFS_CAS = {
   rheuma_vorgeschichte: { kapitel: 'vorerkrankungen', pertinence: S },        // maladie rhumatismale connue
   dermato_eingriff: { kapitel: 'vorerkrankungen', pertinence: S },            // lésion cutanée déjà enlevée, cryothérapie
   splenektomie: { kapitel: 'vorerkrankungen', pertinence: S },                // rate enlevée
+  asplenie_impfung: { kapitel: 'vorerkrankungen', pertinence: S },            // sans rate : pneumocoque, méningocoque, carte d'asplénie (≠ le statut vaccinal général)
   vitiligo: { kapitel: 'vorerkrankungen', pertinence: S },                    // taches blanches
   abnehmversuche: { kapitel: 'vorerkrankungen', pertinence: S },              // tentatives de perdre du poids
   kompression: { kapitel: 'vorerkrankungen', pertinence: S },                 // bas de contention prescrits, portés
@@ -274,6 +279,7 @@ export const DEFS_CAS = {
   gefaehrdung: { kapitel: 'familie-sozial', pertinence: S },        // conduite, échelle, machines : danger pour lui et les autres
   risikopersonen: { kapitel: 'familie-sozial', pertinence: S },     // nourrisson, femme enceinte, fragile dans son entourage
   passivrauchen: { kapitel: 'familie-sozial', pertinence: S },      // fume-t-on chez lui
+  mueckenschutz: { kapitel: 'familie-sozial', pertinence: S },      // moustiquaire, répulsif, dehors le soir (≠ la piqûre elle-même)
   uv_exposition: { kapitel: 'familie-sozial', pertinence: S },      // années au soleil, protection, coups de soleil
   strahlenexposition: { kapitel: 'familie-sozial', pertinence: S }, // radiothérapie, exposition professionnelle aux radiations
   taetowierung: { kapitel: 'familie-sozial', pertinence: S },       // tatouage, piercing

@@ -294,7 +294,9 @@ describe('SÉCURITÉ — aucun signe de risque n\'est perdu (r1 ne le retire jam
       const textes = t.flatMap((x) => x.questions.flatMap((p) => [phraseText(p), ...phraseFollowUps(p).map((f) => f.text)]));
       expect(textes, c.id).toContain('Haben Sie sich selbst verletzt?');
       expect(textes, c.id).toContain('Haben Sie den Wunsch, sich zu verletzen?');
-      expect(risques(t), c.id).toEqual(['selbstverletzung', 'selbstverletzung_wunsch', 'suizid']);
+      // K4 fixeur (D-1) : anorexia-nervosa porte en plus le désir de mort, posé par sa question du cas
+      const attendus = ['selbstverletzung', 'selbstverletzung_wunsch', 'suizid', ...(c.id === 'case-anorexia-nervosa' ? ['todeswunsch'] : [])];
+      expect(risques(t), c.id).toEqual(attendus);
       expect(t.flatMap((x) => x.questions).filter((p) => phraseSucht(p).includes('suizid')).flatMap(phraseProbes), c.id).toEqual(['fach-psych-suizid']);
       const sicherheit = playedTrame(c).ecarts.find((e) => e.question === 'akt-psych-sicherheit');
       if (sicherheit) expect(sicherheit, c.id).toMatchObject({ regle: 2, action: 'retire', cause: 'fach-psych-suizid' });

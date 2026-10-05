@@ -7,7 +7,8 @@ import { DEFS_CAS } from './signesDefsCas';
 // refuse un signe sans définition ou un id inconnu ; `SIGNES` suit l'ordre de déclaration.
 // ============================================================================
 const S = 'screening' as const;
-export const DEFS = {
+/** Le lexique des sondes (K0–K3, et `gicht_ausloeser`, `erbrechen` de K4). */
+export const DEFS_BASE = {
   // K3 (décision de main) : le motif ouvre l'entretien — la règle d'insertion (r3, r4a) place tout après lui.
   motiv: { kapitel: 'aktuell', pertinence: S },
   // --- les dimensions : l'ordre de l'entretien --------------------------------
@@ -95,6 +96,9 @@ export const DEFS = {
   nachtschweiss: { kapitel: 'vegetativ', pertinence: S },
   schwitzen: { kapitel: 'vegetativ', pertinence: S },
   uebelkeit: { kapitel: 'vegetativ', pertinence: S },
+  // K4 (revue clinique, P2 myokardinfarkt) : vomir n'est pas avoir la nausée — « kaltschweißig, und war Ihnen übel? » ne doit
+  // pas retirer « Mussten Sie sich übergeben? ». veg-uebelkeit et fach-gastro-uebelkeit portent les deux, en parts.
+  erbrechen: { kapitel: 'vegetativ', pertinence: S },
   stuhl: { kapitel: 'vegetativ', pertinence: S },
   miktion: { kapitel: 'vegetativ', pertinence: S },
   gewicht: { kapitel: 'vegetativ', pertinence: S, bank: 'veg-gewicht' },
@@ -269,8 +273,10 @@ export const DEFS = {
   berufsstoffe: { kapitel: 'familie-sozial', pertinence: S },
   wohnsituation: { kapitel: 'familie-sozial', pertinence: S },
   haustiere: { kapitel: 'familie-sozial', pertinence: S },
-  // K4 : les signes propres aux questions du cas (une réplique que nulle sonde ne pose) — `signesDefsCas.ts`.
-  ...DEFS_CAS,
 } satisfies Record<string, SigneDefBody>;
+
+// K4 : les signes propres aux questions du cas (une réplique que nulle sonde ne pose) — `signesDefsCas.ts`. Les deux tables
+// sont disjointes (test m-1 : un id de signesDefsCas qui reprendrait un signe des sondes l'écraserait en silence).
+export const DEFS = { ...DEFS_BASE, ...DEFS_CAS } satisfies Record<string, SigneDefBody>;
 
 export type Signe = keyof typeof DEFS;

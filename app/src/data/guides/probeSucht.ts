@@ -48,7 +48,7 @@ export const PROBE_SUCHT: Readonly<Record<string, Sucht>> = {
   'akt-anfall-ablauf': ['anfallsablauf'], 'akt-anfall-dauer': ['dauer'], 'akt-anfall-bewusstsein': ['bewusstlos'],
   // --- Vegetative Anamnese ------------------------------------------------------
   'veg-fieber': ['fieber', 'reise'],   // parts : fieber / reise
-  'veg-schuettelfrost': ['schuettelfrost', 'nachtschweiss', 'schwitzen'], 'veg-uebelkeit': ['uebelkeit'],
+  'veg-schuettelfrost': ['schuettelfrost', 'nachtschweiss', 'schwitzen'], 'veg-uebelkeit': ['uebelkeit', 'erbrechen'],
   'veg-ausscheidung': ['stuhl', 'miktion'],   // la mère seule : fréquence et aspect ne sont demandés que par la relance « Falls ja » (revue K2 m2, esprit d'INV-84)
   'veg-gewicht': ['gewicht'], 'veg-appetit': ['appetit'], 'veg-schlaf': ['schlaf'],
   // --- Vorerkrankungen, Medikamente, Allergien, Noxen, Familie & Sozial ---------
@@ -61,7 +61,7 @@ export const PROBE_SUCHT: Readonly<Record<string, Sucht>> = {
   // --- Frauenanamnese -----------------------------------------------------------
   'frau-periode': ['zyklus'], 'frau-schwanger': ['schwangerschaft'], 'frau-verhuetung': ['verhuetung'], 'frau-wechseljahre': ['wechseljahre'],
   // --- Fach Gastroenterologie ---------------------------------------------------
-  'fach-gastro-uebelkeit': ['uebelkeit'], 'fach-gastro-sodbrennen': ['sodbrennen'], 'fach-gastro-voelle': ['voellegefuehl'],
+  'fach-gastro-uebelkeit': ['uebelkeit', 'erbrechen'], 'fach-gastro-sodbrennen': ['sodbrennen'], 'fach-gastro-voelle': ['voellegefuehl'],
   'fach-gastro-speisen': ['speisen', 'essen_expo'], 'fach-gastro-stuhl': ['stuhl', 'stuhlaussehen', 'stuhl_blut'],   // K2 : « Welche Farbe (blutig, teerschwarz, hell) » = l'aspect des selles (D1)
   'fach-gastro-tenesmen': ['tenesmen'],
   'fach-gastro-spiegelung': ['spiegelung'],

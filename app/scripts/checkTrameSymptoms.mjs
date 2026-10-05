@@ -96,7 +96,8 @@ for (const c of cases) {
     // re-revue I-3 pour `sucht: []`).
     if (q && typeof q !== 'string' && q.relu) return;
     // K3 : un signe déclaré couvre aussi le signe plus grossier qu'il affine (stuhlfrequenz → stuhl, SIGNE_AFFINE).
-    const declared = (q && typeof q !== 'string' ? q.sucht ?? [] : []).flatMap((x) => [x, ...(m.SIGNE_AFFINE[x] ?? [])]);
+    // K4 fixeur : un signe de `braucht` est une présupposition (« déjà cherché avant elle », contrat §1) — le citer n'est pas le redemander.
+    const declared = (q && typeof q !== 'string' ? [...(q.sucht ?? []), ...(q.braucht ?? [])] : []).flatMap((x) => [x, ...(m.SIGNE_AFFINE[x] ?? [])]);
     // Q0 : la relance de la question se scanne comme la question.
     for (const s of m.symptomsInText([t, ...m.phraseFollowUp(p)].join(' '))) {
       if (declared.includes(s)) continue;

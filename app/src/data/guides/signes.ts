@@ -107,6 +107,9 @@ export const SIGNE_AFFINE: Partial<Record<Signe, readonly Signe[]>> = {
   // La crise de panique se décrit par ses signes (« mit Luftnot, Herzrasen ») : ils la définissent, ils ne sont pas
   // demandés comme plaintes (revue K1 C4). Porte seulement : la mesure ne les compte pas comme cherchés.
   panikattacke: ['angst', 'atemnot', 'herzrasen'],
+  // K4 fixeur : vomir affine la lecture « übergeben / erbrechen » (lue `uebelkeit`) ; le désir de mort passif affine la lecture du
+  // risque suicidaire ; les crises nocturnes nomment le sommeil ; l'hématurie est un aspect des urines.
+  erbrechen: ['uebelkeit'], todeswunsch: ['suizid'], naechtliche_anfaelle: ['schlaf'], haematurie: ['urin_aspekt', 'blutung'],
 };
 
 /** Paires de discrimination (INV-78) : leurs `sucht` déclarés sont disjoints. Chaque lot qui touche le lexique en ajoute une. */

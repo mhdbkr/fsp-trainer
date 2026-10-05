@@ -49,6 +49,7 @@ writeFileSync(entry, `
   export { suchtIncoherences } from ${src('data/guides/suchtCheck.ts')};
   export { phraseSucht, symptomsInText, PROBE_SUCHT, SIGNES, SIGNE_DEF, PROFIL_EXIGE, PROFIL_EXCLUT, lexiqueIncoherences, profilIncoherences } from ${src('data/guides/symptoms.ts')};
   export { PROBE_BY_ID } from ${src('data/guides/anamneseProbes.ts')};
+  export { SIGNE_AFFINE } from ${src('data/guides/signes.ts')};
 `);
 const out = join(dir, 'bundle.mjs');
 try {
@@ -99,7 +100,7 @@ const factsOf = (s = {}) => JSON.stringify([s.sozialanamnese, s.vorerkrankungen,
 const walks = new Map(cases.map((c) => [c.id, walk(c)]));
 const trame = trameWords([...walks.values()].flatMap((ts) => ts.filter((t) => !t.own).flatMap((t) => t.all)));
 
-const lex = { PROFIL_EXIGE: m.PROFIL_EXIGE, PROFIL_EXCLUT: m.PROFIL_EXCLUT, SIGNE_DEF: m.SIGNE_DEF, symptomsInText: m.symptomsInText };
+const lex = { PROFIL_EXIGE: m.PROFIL_EXIGE, PROFIL_EXCLUT: m.PROFIL_EXCLUT, SIGNE_DEF: m.SIGNE_DEF, symptomsInText: m.symptomsInText, SIGNE_AFFINE: m.SIGNE_AFFINE };
 const results = cases.map((c) => {
   const s = c.patientSheet;
   const qo = detect({ id: c.id, facts: factsOf(s), turns: walks.get(c.id) }, trame).map((h) => `${h.rule} « ${h.hit.trim()} » [${h.ch}]`);
@@ -136,7 +137,7 @@ const echec = structure.length + porte.length;
 
 // ── Sorties ──────────────────────────────────────────────────────────────────
 if (flag('--json') && !flag('--propose')) {
-  const slim = (r) => ({ id: r.id, kat: r.kat, tags: r.profil.tags, n: r.n, dup: r.dup, imp: r.imp, miss: r.miss, ajoutSansReponse: r.ajoutSansReponse, fu: r.fu, ord: r.ord, muettes: r.muettes,
+  const slim = (r) => ({ id: r.id, kat: r.kat, tags: r.profil.tags, n: r.n, dup: r.dup, imp: r.imp, miss: r.miss, ajoutSansReponse: r.ajoutSansReponse, fu: r.fu, ord: r.ord, muettes: r.muettes, masques: r.masques,
     ecarts: apres.find((a) => a.id === r.id).ecarts.map((e) => e.raison) });
   // écrire puis sortir à la fin du flush : `process.exit` coupe un pipe à 64 Ko
   process.stdout.write(JSON.stringify({ cas: results.length, structure, porte, apres: TA, ...T, parCas: results.map(slim) }) + '\n', () => process.exit(echec ? 1 : 0));
@@ -183,6 +184,7 @@ if (one) {
   bloc('relances hors signe', r.fu, (x) => `${x.at}  « ${x.mother} »\n      relance : ${x.fu}\n      RAISON : ${x.why}`);
   if (r.fuCond.length) bloc('relances conditionnelles lisant un autre signe — lecture large, NON comptée', r.fuCond, (x) => `${x.at}  « ${x.mother} »\n      relance : ${x.fu}\n      RAISON : ${x.why}`);
   bloc('ordre / présupposition', r.ord, (x) => `${x.at}\n      RAISON : ${x.why}`);
+  bloc('doublons masqués (informatif, K4 fixeur) — une question du cas nomme un signe qu\'une sonde jouée cherche', r.masques, (x) => `${x.at} « ${x.s} » ↔ ${x.autre}\n      RAISON : ${x.why}`);
   console.log(`\nquestions du cas muettes (sans \`sucht\`) : ${r.muettes}/${r.casTotal}`);
   const a = apres.find((x) => x.id === r.id);
   console.log(`\n── ÉCARTS du moteur (cohere, K3) — ${a.ecarts.length}`);
@@ -202,6 +204,7 @@ console.log('compteur'.padEnd(20), 'mesure', 'plancher', ' signification');
 for (const [k, label, source, exact] of COMPTEURS) console.log(k.padEnd(20), num(T.brut[k]).padStart(6), num(floor?.brut?.[k]).padStart(8), ` ${label}\n${' '.repeat(36)}mesure : ${source} — exacte dès ${exact}`);
 console.log('\nrésidu de contenu');
 for (const [k, label, exact] of RESIDU) console.log(k.padEnd(20), num(T.residu[k]).padStart(6), num(floor?.residu?.[k]).padStart(8), ` ${label} — à 0 dès ${exact}`);
+console.log(`\ninformatif (hors plancher, K5) : doublonsMasques ${T.info.doublonsMasques} — une question du cas déclarée dont le texte nomme un signe qu'une sonde jouée cherche (node scripts/checkCoherence.mjs --case <id>)`);
 console.log(`\nrepères de la spec §2 : (a) ${T.spec.a} · (b) ${T.spec.b} · (c) ${T.spec.c} · (d) ${T.spec.d} dont ${T.spec.dDetachables} détachables sans condition · (d large, sans condition) ${T.spec.dLarge} · relances conditionnelles lues large, non comptées ${T.spec.dCondLarge} · (e) ${T.spec.e}`);
 const hist = {};
 for (const r of results) { const b = r.score === 0 ? '0' : r.score <= 3 ? '1-3' : r.score <= 6 ? '4-6' : r.score <= 10 ? '7-10' : '>10'; hist[b] = (hist[b] ?? 0) + 1; }
