@@ -257,7 +257,7 @@ test('--case : la trame jouée, chaque constat et sa RAISON ; un cas inconnu →
   const r = run('--case', 'gastroenteritis');
   assert.equal(r.status, 0, r.stderr);
   assert.match(r.stdout, /case-gastroenteritis — nature « ausscheidung »/);
-  assert.match(r.stdout, /RAISON : « dort » avant toute question sur « reise »/);
+  assert.match(r.stdout, /DÉPLACÉ cas:0 : après la question qui cherche « reise » \(braucht\)/);   // K3 : « dort » déclare braucht reise, r4b le place
   // K3 : les écarts du moteur, chacun avec sa raison (§10.5)
   assert.match(r.stdout, /── ÉCARTS du moteur \(cohere, K3\)/);
   assert.match(r.stdout, /RETIRÉ akt-ausscheid-schlucken : schluck — hors profil \(profil\)/);
@@ -268,10 +268,10 @@ test('--case : la trame jouée, chaque constat et sa RAISON ; un cas inconnu →
 
 test('--propose : la proposition lit les questions du cas non déclarées, n\'écrit rien, un cas inconnu → exit 2', () => {
   const avant = sb.read('src/data/seedCases.ts');
-  const r = run('--propose', '--case', 'gastroenteritis');
+  const r = run('--propose', '--case', 'schenkelhalsfraktur');   // K3 : gastroenteritis est entièrement déclaré
   assert.equal(r.status, 0, r.stderr);
   assert.match(r.stdout, /PROPOSITION de `sucht`/);
-  assert.match(r.stdout, /sucht proposé : essen_expo/);
+  assert.match(r.stdout, /sucht proposé : schwindel, bewusstlos, sturz/);
   assert.match(r.stdout, /rien n'est appliqué/);
   assert.equal(sb.read('src/data/seedCases.ts'), avant, 'jamais appliqué automatiquement');
   assert.equal(run('--propose', '--case', 'case-qui-nexiste-pas').status, 2);
@@ -311,8 +311,7 @@ test('INV-80 mutation : profil supprimé de case-gastroenteritis → exit 1, la 
 });
 
 test('INV-80 mutation : la banque de « ort » dans aktuellSkip d\'un cas tagué schmerz → exit 1', () => {
-  const r = sb.mutate('src/data/seedCases.ts', "        profil: { tags: ['ausscheidung', 'schmerz', 'diarrhoe', 'reise', 'gewichtsverlust'] },\n",
-    "        profil: { tags: ['ausscheidung', 'schmerz', 'diarrhoe', 'reise', 'gewichtsverlust'] },\n        aktuellSkip: ['akt-ort'],\n", () => run());
+  const r = sb.mutate('src/data/seedCases.ts', "        aktuellSkip: ['akt-ausscheid-was'],", "        aktuellSkip: ['akt-ausscheid-was', 'akt-ort'],", () => run());   // K3 : gastroenteritis a son aktuellSkip
   assert.equal(r.status, 1);
   assert.match(r.stdout, /INV-80 : case-gastroenteritis — exige « ort », dont la banque « akt-ort » est skippée/);
 });

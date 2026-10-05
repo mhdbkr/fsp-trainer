@@ -42,7 +42,7 @@ test('socle connu → une annotation `relu` annulée rouvre la porte', { timeout
   const b = JSON.parse(sb.read(baseline));
   // Vide après la série 3 ; la revue K1 (I-2) y inscrit deux vrais doublons de la nausée, K3 dix questions du cas muettes
   // (hausse documentée au fixture), échéance K4.
-  assert.deepEqual(b.findings.map((f) => f.split(' ')[0]), ['R|case-anorexia-nervosa', 'R|case-cml', 'R|case-diabetes', 'R|case-lymphom', 'R|case-lymphom',
+  assert.deepEqual(b.findings.map((f) => f.split(' ')[0]), ['R|case-anorexia-nervosa', 'R|case-cml', 'R|case-diabetes',
     'R|case-myokardinfarkt', 'R|case-nhl', 'R|case-nhl', 'R|case-nhl', 'R|case-prostatakarzinom', 'R|case-schenkelhalsfraktur', 'R|case-zystitis']);
   const r = sb.mutate(cases,
     "{ frage: 'Hat die Rötung in der Mitte eine hellere Stelle, sodass sie wie eine Zielscheibe aussieht?', kapitel: 'aktuell', relu: true },",
