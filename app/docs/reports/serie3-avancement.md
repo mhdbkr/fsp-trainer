@@ -163,17 +163,17 @@ rien de cette table.
 | Suivi contenu (S4-2) | — | — | table de fréquences par cas × ville dans l'app depuis `apps/site/src/data/frequencies.json` (20/81 pathologies ventilées) | à planifier avec S4-2 |
 | Lot C6-A — revue | lecture seule | `af6bb30623f1df590` | rendue : Needs fixes (I1 Fachwissen point faible par absence ; I2 contrat → S4-0 ; I3 bascule `it.fails` après C6) | **oui** |
 | Lot Q2 — implémenteur | `doctopus-s3-q2` · `feat/s3-q2-relances` | `a49100e50b7d8eee7` | **PR #67 mergée** (`395aadf0`, 4 oct.) | **oui** |
-| Lot Q-gyn | `doctopus-s3-qgyn` · `feat/s3-qgyn` | `a901861e0ac10b346` | **PR #70** ouverte (`0a33e536`) → CI → **merge sur accord** → déclenche I3 de K0 | non |
+| Lot Q-gyn | `doctopus-s3-qgyn` · `feat/s3-qgyn` | `a901861e0ac10b346` | **PR #70 mergée** (5 oct.) | **oui** |
 | Reliquat sans lot (Q2) | — | — | 24 relances de guide à deux « ? » ; 22 énoncés de `guide-anamnese-v4` ; sondes en A2 ; `CaseQuestion.followUp` en `string | string[]` (contrat §3.2) pour récupérer ~15 sous-questions abandonnées | à placer dans Q3 |
 | **Moteur de cohérence — contrat** | `doctopus-s3-coherence` · `feat/s3-coherence` | `aa3e71100abae223a` | **PR #69 mergée** (5 oct.) | **oui** |
-| Moteur de cohérence — K0 lexique + mesure | `doctopus-s3-k0` · `feat/s3-k0-lexique` | `a6c1d1e7b69d620b7` | livré (69 signes, mesure 266/56/58/12/20 + 56 ajouts sans réponse projetés) ; écarts acceptés ; `--propose` et scission de `akt-ausscheid-haeufigkeit` → K1 ; revue Opus en vol → PR après #69 | non |
+| Moteur de cohérence — K0 lexique + mesure | `doctopus-s3-k0` · `feat/s3-k0-lexique` | `a6c1d1e7b69d620b7` | **PR #72** ouverte (`26d0aa29`, rebasée sur Q-gyn, doublons 279) → CI → **merge sur accord** → K1 | non |
 | Lots Q3 → Q8, Lc1 → Lc3 | — | — | §10, l'un après l'autre après Q2 | à lancer |
 | Reports vers Q1/Q2 (revues Q0) | — | — | Q1 : rheumatoide-arthritis « Schuppenflechte », karpaltunnel « Bruch », malaria « Milz », hypothyreose « Entbindungen » ; 10 irradiations avec question de cas ; osteoporose bws. Q2 : relances à 2 questions (alcool, gastro, Kopfschmerz, onko, chir-op, Fieber, Kraft, suizid, `veg-fieber`) | tracé |
 | C6 — candidat synthétique | `doctopus-s3-c6` · `feat/s3-c6-candidat` | `a92b4c2e4d2f21ebc` | **PR #65 mergée** (`4bf3473b`, 4 oct.) — premier run CI vert d'`invariants-c6` et `candidat-c6` | **oui** |
 | C6 — jugement UX | lecture seule | `a06644a85b277a992` | rendu → `c6-jugement-ux-2026-10-04.md` (7 ruptures) | **oui** |
 | Lot C6-A « chiffres honnêtes » | `doctopus-s3-c6a-chiffres` · `feat/s3-c6a-chiffres` | `a09833e671b2389b9` | **PR #66 mergée** (4 oct.) | **oui** |
 | Lot C6-B « le jour du candidat » | `doctopus-s3-c6b-jour` · `feat/s3-c6b-jour` | `ad84ab89cbdc39047` | **PR #68 mergée** (`bc5382ed`, 4 oct.) — **voie B close : série 3 fiabilité terminée** | **oui** |
-| **S4-1 — la mesure** | `doctopus-s4-1` · `feat/s4-1-mesure` | `aba008b91b1b3b76a` | **PR #71** ouverte (`07bc26b1`) → CI → **merge sur accord** ; au merge : main pose `DATE_NOUVELLE_REGLE` = lendemain → déclenche S4-4 (primitive du cadran) | non |
+| **S4-1 — la mesure** | `doctopus-s4-1` · `feat/s4-1-mesure` | `aba008b91b1b3b76a` | **PR #71** — merge accordé ; `DATE_NOUVELLE_REGLE = 2026-10-06` posée (`0f092bf8`), re-fusionnée avec #70 → merge dès CI verte → S4-4 | non |
 | Critères pour S4-4 (cadran) | — | — | `solideDes` futur : « Solide si tu refais 80 ou plus à partir du … » ; passé : « Solide à ta prochaine partie à 80 ou plus » ; jamais « ≥ » ni « % » ; maîtrise jamais sans couverture : « 74 en moyenne sur 2 Teile » | à transmettre à S4-4 |
 | Diagnostic e2e programme | `doctopus-baseline` | `aaa8ca7770f3949ab` | cause : dimanche = jour off par défaut → plan vide (pas de régression) ; script corrigé, intégré à #68 ; suivi : `aria-pressed` sur les boutons de jours off (S4-5) | **oui** |
 | `main` après C6 | — | — | `test:c6` dans `package.json`, `tests` dans tsconfig ; test instable `ExternalAiSheet` corrigé (`48a36bd3`) | à faire au merge de C6 |
