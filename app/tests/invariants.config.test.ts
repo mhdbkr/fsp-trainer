@@ -187,16 +187,57 @@ describe('INV-76 (c) — tout ce que l’interface produit est lisible par `lire
 describe('INV-76 (b) — au premier démarrage, la config locale est poussée UNE fois, AVANT toute projection distante', () => {
   const locale = () => configOf(rngFixe(3), { hoursPerSession: 2, intensity: 'mittel' });
 
-  it('une config locale plus récente que la distante n’est pas écrasée par la projection', async () => {
-    startOn('2026-10-05');                                          // T0 = 08:00 locale
-    const L = locale(), R = configOf(rngFixe(9), { hoursPerSession: 5, intensity: 'intensiv' });
-    await setMeta('program', L);                                     // une install d'avant S4-2 : meta seule, aucun événement
-    await db.progress_events.put(evConfig(Date.parse('2026-10-03T12:00:00Z'), R));   // une config distante plus ancienne (autre appareil)
+  // Revue S4-2 I4 (décision de main, amendement N2b) : avant S4, `ProgramSetup` émettait déjà la config complète ; seuls
+  // `intensity` et `modus` (setIntensity, setModus) restaient LOCAUX. Si le journal local porte une config valide, le push
+  // initial repart d'elle et n'y reporte que ces deux champs ; sinon il pousse la config locale complète.
+  it('le journal porte une config : le push initial la reprend et n’y reporte que intensity et modus locaux', async () => {
+    startOn('2026-10-05');
+    const L = { ...locale(), intensity: 'leicht' as Intensity, modus: 'specialite' as Fortschrittsmodus };
+    const R = configOf(rngFixe(9), { hoursPerSession: 5, intensity: 'intensiv', startDate: '2026-09-14', examDate: '2026-12-04' });
+    await setMeta('program', L);                                     // une install d'avant S4-2 : meta seule
+    await db.progress_events.put(evConfig(Date.parse('2026-10-03T12:00:00Z'), R));   // la dernière config émise (autre appareil)
     await projeterConfig();
-    expect(await metaConfig(), 'la config locale a été écrasée par la distante').toEqual(L);
+    const { modus: _m, ...sansModus } = R;
+    const attendue = { ...sansModus, intensity: 'leicht', modus: 'specialite' };
+    expect(await metaConfig()).toEqual(attendue);
     const evs = await configEvents();
-    expect(evs.filter((e) => JSON.stringify(e.payload) === JSON.stringify(L)), 'la config locale n’a pas été poussée').toHaveLength(1);
+    expect(evs.filter((e) => JSON.stringify(e.payload) === JSON.stringify(attendue)), 'un seul push, la config fusionnée').toHaveLength(1);
     expect(await getMeta(CONFIG_POUSSEE_S4, false)).toBeTruthy();
+  });
+
+  it('deux appareils : B démarre après A — la startDate, l’examDate et le budget de A survivent sur les deux', async () => {
+    // A et B ont vu la même config émise (T1). B avait seulement changé l'intensité en local, sans événement (avant S4).
+    const T1 = Date.parse('2026-09-01T08:00:00Z');
+    const A = configOf(rngFixe(4), { startDate: '2026-09-01', examDate: '2026-12-01', hoursPerSession: 3, intensity: 'mittel' });
+    const emise = evConfig(T1, A);
+    const B = { ...A, startDate: '2026-08-01', examDate: '2026-11-15', hoursPerSession: 1, intensity: 'intensiv' as Intensity };   // locale de B, périmée
+    // A démarre (T2) : son journal porte sa propre config émise ; il pousse.
+    startOn('2026-10-05');
+    await db.progress_events.put(emise);
+    await setMeta('program', A);
+    await pousserConfigInitiale();
+    const pushA = (await configEvents()).filter((e) => e.id !== emise.id);
+    // B démarre plus tard (T3), sans avoir reçu le push de A.
+    await resetWorld(); startOn('2026-10-06');
+    await db.progress_events.put(emise);
+    await setMeta('program', B);
+    await pousserConfigInitiale();
+    const pushB = (await configEvents()).filter((e) => e.id !== emise.id);
+    // Synchro : les deux appareils ont tout le journal.
+    const journal = [emise, ...pushA, ...pushB];
+    const c = configProjetee(journal)!.config;
+    expect({ startDate: c.startDate, examDate: c.examDate, hoursPerSession: c.hoursPerSession }, 'la config périmée de B a écrasé celle de A')
+      .toEqual({ startDate: '2026-09-01', examDate: '2026-12-01', hoursPerSession: 3 });
+    expect(c.intensity, 'le seul changement local de B (jamais émis) est gardé').toBe('intensiv');
+  });
+
+  it('sans config dans le journal : la config locale complète est poussée', async () => {
+    startOn('2026-10-05');
+    const L = locale();
+    await setMeta('program', L);
+    await projeterConfig();
+    expect(await metaConfig()).toEqual(L);
+    expect((await configEvents()).map((e) => e.payload)).toEqual([L]);
   });
 
   it('la garde : un second démarrage ne pousse pas une seconde fois', async () => {

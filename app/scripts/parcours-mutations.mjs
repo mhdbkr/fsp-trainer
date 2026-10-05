@@ -606,6 +606,16 @@ export const MUTATIONS = [
     pourquoi: "hors budget, une reprise écrase la reprise qu'on vient d'insérer au lieu d'une tâche du jour",
   },
   {
+    id: "INV-76b-fusion", tests: 'tests/invariants.config.test.ts', file: "src/lib/sync/configProjetee.ts",
+    from: "const pousse: ProgramConfig = emise ? (() => {", to: "const pousse: ProgramConfig = false ? (() => {",
+    pourquoi: "revue I4 : le push initial d'un second appareil pousse sa config locale périmée et écrase les dates et le budget du premier",
+  },
+  {
+    id: "INV-76b-garde-ecriture", tests: 'tests/invariants.config.test.ts', file: "src/lib/sync/configProjetee.ts",
+    from: "(il fusionnerait avec une config plus ancienne).\n    await db.meta.put({ key: CONFIG_POUSSEE_S4, value: true });", to: "(il fusionnerait avec une config plus ancienne).",
+    pourquoi: "une config écrite en S4 puis refusée : le push initial la remplace par une config plus ancienne du journal",
+  },
+  {
     id: "INV-65-hausse", tests: 'tests/invariants.apprentissage.test.ts', file: "src/lib/program/rythme.ts",
     from: "return valeur < dayTargetMin(i.config) ? { valeur, semaine } : null;", to: "return { valeur, semaine };",
     pourquoi: "proposition à la hausse (ou égale au budget)",

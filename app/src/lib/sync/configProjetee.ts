@@ -115,6 +115,8 @@ export async function ecrireConfig(config: ProgramConfig): Promise<void> {
   await db.transaction('rw', db.meta, async () => {
     await db.meta.put({ key: CONFIG_KEY, value: config });
     await db.meta.put({ key: CONFIG_AT_KEY, value: Date.parse(ev.occurred_at) });
+    // Une écriture S4 a émis la config complète : le push initial n'a plus d'objet (il fusionnerait avec une config plus ancienne).
+    await db.meta.put({ key: CONFIG_POUSSEE_S4, value: true });
   });
 }
 
@@ -128,12 +130,21 @@ export function pousserConfigInitiale(): Promise<boolean> {
   return db.transaction('rw', [db.meta, db.progress_events, db.outbox], async () => {
     if (await db.meta.get(CONFIG_POUSSEE_S4)) return false;
     await db.meta.put({ key: CONFIG_POUSSEE_S4, value: true });
-    const locale = (await db.meta.get(CONFIG_KEY))?.value;
+    const locale = (await db.meta.get(CONFIG_KEY))?.value as ProgramConfig | undefined;
     if (!locale) return false;                                 // rien à pousser : le premier démarrage est passé
+    // Revue S4-2 I4 : avant S4, ProgramSetup émettait déjà la config complète ; seuls `intensity` et `modus`
+    // (setIntensity, setModus) restaient LOCAUX. Si le journal porte une config valide, on repart d'elle et on n'y reporte
+    // que ces deux champs — une config locale périmée d'un second appareil n'écrase pas les dates ni le budget du premier.
+    const emise = configProjetee(await db.progress_events.where('type').equals('program.configured').toArray());
+    const pousse: ProgramConfig = emise ? (() => {
+      const { modus: _m, ...base } = emise.config;
+      return { ...base, intensity: locale.intensity, ...(locale.modus !== undefined ? { modus: locale.modus } : {}) };
+    })() : locale;
     const at = now();
-    const ev: ProgressEvent = { id: newId(), user_id: uid(), type: 'program.configured', subject_id: null, payload: locale, occurred_at: new Date(at).toISOString() };
+    const ev: ProgressEvent = { id: newId(), user_id: uid(), type: 'program.configured', subject_id: null, payload: pousse, occurred_at: new Date(at).toISOString() };
     await db.progress_events.put(ev);
     await db.outbox.put({ id: ev.id, attempts: 0 });
+    await db.meta.put({ key: CONFIG_KEY, value: pousse });
     await db.meta.put({ key: CONFIG_AT_KEY, value: at });
     return true;
   });
