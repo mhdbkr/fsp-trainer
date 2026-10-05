@@ -3,6 +3,7 @@ import { seedCases } from '@/data/seedCases';
 import { ALLGEMEINE_ANAMNESE, FACHANAMNESEN, LEITSYMPTOM_KATEGORIEN, aktuellChapterFor } from './anamneseChapters';
 import { PROBE_BY_ID } from './anamneseProbes';
 import { phraseFollowUp, phraseProbes, type Phrase } from './phrases';
+import { parseFollowUp } from './followUp';
 
 // K1 (ADR-0023, contrat `frage-atomique.md` §10.10) : DM1, DM2, la scission selles / miction,
 // puis INV-79 / INV-84 / INV-91 sur les sondes. Ce fichier ne grossit qu'avec K1.
@@ -39,5 +40,22 @@ describe('DM1 — les trois sondes redondantes de la Chirurgie', () => {
   });
   it('la relance « dernière dose » de la sonde supprimée n\'a jamais été jouée : elle part avec elle (aucun cas n\'en gagne)', () => {
     expect(byProbe('med-blutverduenner').flatMap(phraseFollowUp)).toEqual([]);
+  });
+});
+
+describe('DM2 — une relance conditionnelle ne cherche pas un autre signe que sa mère', () => {
+  it('akt-intensitaet : la relance « Allergien » n\'est plus une question ; la consigne suit la relance du Schmerzmittel', () => {
+    for (const q of byProbe('akt-intensitaet')) expect(phraseFollowUp(q)).toHaveLength(1);
+    const rs = byProbe('akt-intensitaet').flatMap(phraseFollowUp);
+    expect(parseFollowUp(rs[0]).kind).toBe('skala');
+    expect(rs[0]).toMatch(/ein Schmerzmittel geben\?“ \(Vor jedem Schmerzmittel zuerst nach Allergien/);
+    expect(allQuestions().flatMap(phraseFollowUp).filter((r) => /Gibt es Allergien oder Unverträglichkeiten gegenüber Medikamenten\?/.test(r))).toEqual([]);
+  });
+  it('fach-infekt-zecke : plus de relance FSME ; la fiche répond FSME à fach-infekt-impfung (aucune information perdue)', () => {
+    expect(byProbe('fach-infekt-zecke').flatMap(phraseFollowUp)).toEqual([]);
+    expect(allQuestions().flatMap(phraseFollowUp).filter((r) => /FSME/.test(r))).toEqual([]);
+    for (const id of ['case-lyme', 'case-meningitis']) {
+      expect(seedCases().find((c) => c.id === id)!.patientSheet.antworten!['fach-infekt-impfung'], id).toMatch(/FSME/);
+    }
   });
 });

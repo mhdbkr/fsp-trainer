@@ -86,9 +86,11 @@ const AKTUELL_VARIANTS: Record<LeitsymptomKategorie, AktuellVariant> = {
       {
         text: 'Intensität — Auf einer Skala von 1 bis 10, wobei 1 leichte und 10 unerträgliche Schmerzen bedeutet: Wie stark sind Ihre Schmerzen?',
         probe: 'akt-intensitaet',
+        // DM2 : la relance « Gibt es Allergien… ? » cherchait un autre signe (l'allergie, que `all-allergie` demande
+        // dans son chapitre) sous une relance conditionnelle sur l'intensité. Elle devient la consigne de la relance
+        // qui propose le Schmerzmittel, sans question de plus.
         followUp: [
-          'Falls sehr stark: „Können Sie die Schmerzen bis zum Ende unseres Gesprächs (ca. 15 Minuten) ertragen, oder soll ich Ihnen ein Schmerzmittel geben?“',
-          'Falls sehr stark: Vor jedem Schmerzmittel zuerst fragen: „Gibt es Allergien oder Unverträglichkeiten gegenüber Medikamenten?“',
+          'Falls sehr stark: „Können Sie die Schmerzen bis zum Ende unseres Gesprächs (ca. 15 Minuten) ertragen, oder soll ich Ihnen ein Schmerzmittel geben?“ (Vor jedem Schmerzmittel zuerst nach Allergien und Unverträglichkeiten gegenüber Medikamenten fragen.)',
         ],
       },
       {
@@ -1526,9 +1528,9 @@ export const FACHANAMNESEN: FachanamneseGuide[] = [
         text: 'Hatten Sie einen Zeckenstich oder einen Insektenstich bemerkt? Waren Sie im Wald, im hohen Gras oder im Garten?',
         probe: 'fach-infekt-zecke',
         label: 'Exposition',
-        // Critère de la méningite en zone à risque ; ne vit que là où la tique
-        // est posée (fachSkip la retire aux autres trames).
-        followUp: ['Falls ja: Sind Sie gegen FSME geimpft?'],
+        // DM2 : la relance « Sind Sie gegen FSME geimpft ? » cherchait un autre signe (la vaccination) sous une relance
+        // conditionnelle sur la tique. Elle est retirée : `fach-infekt-impfung`, dans la même Fachanamnese, le demande,
+        // et la fiche y répond FSME (lyme, meningitis). Décision de main antérieure (relance de la tique) levée par DM2.
       },
       {
         text: 'Haben Sie eine Hautveränderung oder Rötung bemerkt? Hat sie sich ausgebreitet, zum Beispiel ringförmig?',

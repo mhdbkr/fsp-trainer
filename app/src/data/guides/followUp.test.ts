@@ -50,7 +50,7 @@ describe('G4 — relances conditionnelles préfixées', () => {
     ['fach-kardio-brust', 'Können Sie mit einem Finger', 'ja'],
     ['akt-infekt-fieber', 'Wie hoch war es', 'ja'],
     ['akt-infekt-fieber', 'Wann ist das Fieber am höchsten', 'ja'],
-    ['akt-intensitaet', 'Vor jedem Schmerzmittel', 'skala'],
+    ['akt-intensitaet', '„Können Sie die Schmerzen bis zum Ende', 'skala'],
   ];
   for (const [probe, start, kind] of CASES) {
     it(`${probe} · « ${start}… » n'est plus inconditionnelle`, () => {
@@ -63,12 +63,12 @@ describe('G4 — relances conditionnelles préfixées', () => {
     const r = allQuestions().filter((q) => phraseProbes(q).includes('akt-atemnot-husten')).flatMap(phraseFollowUp).find((x) => /Welche Farbe/.test(x))!;
     expect(parseFollowUp(r)).toMatchObject({ kind: 'ja', label: 'Auswurf' });
   });
-  it('« Vor jedem Schmerzmittel » rejoint la branche « sehr stark » (un seul contrôle)', () => {
+  it('la relance du Schmerzmittel est la seule branche « sehr stark » (DM2 : la question « Allergien » est devenue sa consigne)', () => {
     const q = allQuestions().find((x) => phraseProbes(x).includes('akt-intensitaet'))!;
     const g = groupFollowUps(phraseFollowUp(q));
     expect(g).toHaveLength(1);
     expect(g[0].control).toMatchObject({ kind: 'skala', threshold: 7 });
-    expect(g[0].questions).toHaveLength(2);
+    expect(g[0].questions).toHaveLength(1);
   });
   it('laissées inconditionnelles à dessein : voyage/vaccins (parts du veg-fieber) et psy automutilation (à trancher)', () => {
     expect(relancesOf('veg-fieber', 'Waren Sie kürzlich im Ausland').map((r) => parseFollowUp(r).kind)).toEqual(['immer']);
