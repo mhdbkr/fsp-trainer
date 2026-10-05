@@ -64,6 +64,8 @@ for (const k of [...Object.keys(DIM), ...Object.keys(SIG)]) if (!m.SIGNES.includ
 
 // ── La trame jouée de chaque cas ─────────────────────────────────────────────
 const cases = m.seedCases();
+// INV-80 (dès K2) : tout cas déclare un profil valide (signes exigés atteignables par leur banque, exclusions motivées).
+structure.push(...m.profilIncoherences(cases.map((c) => ({ id: c.id, kategorie: m.leitsymptomOf(c), sheet: c.patientSheet }))));
 const rowsOf = (c) => {
   const { chapters, fach } = m.playedTrame(c);
   const rows = [];

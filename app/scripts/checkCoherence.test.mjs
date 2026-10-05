@@ -285,3 +285,35 @@ test('INV-84 mutation : une relance conditionnelle qui déclare un autre signe �
   assert.equal(r.status, 1);
   assert.match(r.stdout, /INV-84.*fach-rheuma-vorgeschichte.*conditionnelle 0/);
 });
+
+// ── K2 : le profil DÉCLARÉ (INV-80, INV-88 / I6, INV-90) ─────────────────────
+test('INV-90 (mesure) : un profil déclaré remplace la proposition ; sans profil, la mesure reste celle de K0/K1 (proposition)', () => {
+  const rows = [row('aktuell', 'Bleibt beim Schlucken nur Festes stecken?', { probes: ['akt-ausscheid-schlucken'], sucht: ['schluck'] })];
+  const motif = { leit: ['Schluckbeschwerden'] };   // la proposition lirait « dysphagie »
+  assert.equal(mesurerCas(cas(rows, motif), lex()).imp.length, 0, 'sans profil : proposition, inchangée');
+  const decl = mesurerCas(cas(rows, { ...motif, profil: { tags: ['infekt'] } }), lex());
+  assert.equal(decl.imp.length, 1, 'profil déclaré sans dysphagie : la proposition ne joue plus');
+  assert.match(decl.imp[0].why, /profil déclaré/);
+  const exclu = mesurerCas(cas([row('fach', 'Welche Gelenke?', { probes: ['fach-rheuma-gelenke'], sucht: ['gelenke'] })], { profil: { tags: ['gelenk'], exclut: { gelenke: 'raison' } } }), lex());
+  assert.match(exclu.imp[0].why, /exclu par le profil du cas/);
+});
+
+test('INV-80 mutation : profil supprimé de case-gastroenteritis → exit 1, la porte le nomme', () => {
+  const r = sb.mutate('src/data/seedCases.ts', "        profil: { tags: ['ausscheidung', 'schmerz', 'diarrhoe', 'reise', 'gewichtsverlust'] },\n", '', () => run());
+  assert.equal(r.status, 1);
+  assert.match(r.stdout, /INV-80 : case-gastroenteritis n'a pas de profil/);
+});
+
+test('INV-80 mutation : la banque de « ort » dans aktuellSkip d\'un cas tagué schmerz → exit 1', () => {
+  const r = sb.mutate('src/data/seedCases.ts', "        profil: { tags: ['ausscheidung', 'schmerz', 'diarrhoe', 'reise', 'gewichtsverlust'] },\n",
+    "        profil: { tags: ['ausscheidung', 'schmerz', 'diarrhoe', 'reise', 'gewichtsverlust'] },\n        aktuellSkip: ['akt-ort'],\n", () => run());
+  assert.equal(r.status, 1);
+  assert.match(r.stdout, /INV-80 : case-gastroenteritis — exige « ort », dont la banque « akt-ort » est skippée/);
+});
+
+test('I6 / INV-88 : ajouteSansReponse = 0 au plancher ; la réponse de la banque de stuhlfrequenz retirée de case-gastroenteritis → 1, exit 1', () => {
+  assert.equal(JSON.parse(restoreFloor).brut.ajouteSansReponse, 0, 'K3 ne merge qu\'à 0 (I6)');
+  const r = sb.mutate('src/data/seedCases.ts', "          'akt-ausscheid-haeufigkeit': 'In der ersten Woche bis zu zehnmal am Tag", "          'akt-ausscheid-haeufigkeit-x': 'In der ersten Woche bis zu zehnmal am Tag", () => run());
+  assert.equal(r.status, 1);
+  assert.match(r.stdout, /MESURE AU-DESSUS DU PLANCHER.*ajouteSansReponse 0 → 1/);
+});
