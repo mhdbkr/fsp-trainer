@@ -1,7 +1,7 @@
 # Rapport lot K2 — le profil clinique des 130 cas et les réponses des sondes exigées
 
 > `sim-engine-engineer` · 5 oct. 2026 · branche `feat/s3-k2-profils`, base `origin/main` @ `81914bc4` (contrat #69, K0 #72, K1 #74) ; `origin/main` a avancé à `5fd18f32` (docs seulement), `git merge-tree --write-tree origin/main HEAD` : 0.
-> Statut : **DONE_WITH_CONCERNS** — concerns = la liste de relecture clinique (§ 7), non relue.
+> Statut : **DONE** après les revues Opus de `ea7f760e` (mécanique : *Needs fixes* ; clinique : mergeable après corrections, aucun P0) et le fixeur (§ 10).
 > Le montage ne change pas : le gel `trame-actuelle.txt` est intact, et la trame jouée des 130 cas est identique avec ou sans profil (INV-90, § 6 bis).
 
 ## 1. Livrables et commits
@@ -44,10 +44,10 @@ Chaque lot de `seedCases.ts` porte les profils et les réponses de ses cas ; le 
 | leistenhernie | veraenderung | **oui** | la douleur est un leitsymptom à part entière (le second, quantifié 3–6/10), et la question du cas sur l'irradiation au scrotum la présuppose |
 | lyme | infekt | non | « grippeähnliche Beschwerden mit Kopf-, Gliederschmerzen » : douleurs du syndrome grippal ; le signe-guide est l'érythème |
 | influenza, covid19 | infekt | non | douleur accessoire d'un syndrome fébrile (le contrat §10.3 cite influenza) |
-| laktoseintoleranz | ausscheidung | non — **à relire** | premier symptôme : les ballonnements ; les crampes (5/10) suivent dans la même phrase. Le DD tient au rythme laitier, pas à la Schmerzanalyse |
-| sinusitis | infekt | non — **à relire** | premier symptôme : le rhume ; la douleur faciale (6/10) est le 4e élément. Argument contraire : c'est un critère de la sinusite bactérienne |
-| sturz-im-alter | anfall | non — **à relire** | premier symptôme : le malaise orthostatique ; la douleur de hanche est sa conséquence. Argument contraire : l'exclusion d'une fracture du col |
-| colitis-ulcerosa | ausscheidung | non | les crampes sont le 3e leitsymptom |
+| laktoseintoleranz | ausscheidung | **oui** (revue clinique) | premier symptôme : les ballonnements, mais les crampes (5/10) sont co-dominantes de la triade |
+| sinusitis | infekt | **oui** (revue clinique) | la douleur faciale (6/10, 8/10 penché) est un critère de la sinusite bactérienne |
+| sturz-im-alter | anfall | **oui** (revue clinique) | la douleur de hanche (4/10, 8/10 en mouvement) oriente l'exclusion d'une fracture du col |
+| colitis-ulcerosa | ausscheidung | **oui** (revue clinique) | crampes et ténesme co-dominants de la RCH (3e leitsymptom, 5/10) |
 | glomerulonephritis | ausscheidung | non | céphalée = 3e élément, signe de l'HTA |
 | opioidabhaengigkeit | psychisch | non | douleurs musculaires du sevrage ; ni `diarrhoe` (signe du sevrage déjà quantifié à l'ouverture) |
 | fibromyalgie | schmerz | (nature) | `generalisiert` (exclut l'irradiation), `steifigkeit` ; **exclut `gelenke`** avec sa raison : « Welche Gelenke » n'a pas d'objet. La tuméfaction articulaire reste pertinente (DD de l'arthrite, question du cas) |
@@ -56,7 +56,7 @@ Chaque lot de `seedCases.ts` porte les profils et les réponses de ses cas ; le 
 
 ## 4. Les profils des 130 cas
 
-« Tags déclarés en plus » = ce que le profil ajoute à la nature dérivée (`hoden` se dérive pour hodentorsion). Aucun cas n'a besoin d'`exige` propre. « r3 ajoutera » = les signes exigés qu'aucune unité ne cherche (37), avec leur banque : leur réponse est désormais dans la fiche.
+« Tags déclarés en plus » = ce que le profil ajoute à la nature dérivée (`hoden` se dérive pour hodentorsion). Aucun cas n'a besoin d'`exige` propre. « r3 ajoutera » = les signes exigés qu'aucune unité ne cherche (47), avec leur banque : leur réponse est désormais dans la fiche.
 
 | # | Cas | Nature (dérivée) | Tags déclarés en plus | exige | exclut | r3 ajoutera (K3) |
 |---|---|---|---|---|---|---|
@@ -111,7 +111,7 @@ Chaque lot de `seedCases.ts` porte les profils et les réponses de ses cas ; le 
 | 49 | demenz | psychisch | gewichtsverlust | — | — | — |
 | 50 | bronchialkarzinom | veraenderung | dyspnoe, hals, gewichtsverlust | — | — | atemnot→akt-atemnot-belastung |
 | 51 | mammakarzinom | veraenderung | — | — | — | — |
-| 52 | rheumatoide-arthritis | schmerz | gelenk, arthritis, steifigkeit, lyme | — | — | — |
+| 52 | rheumatoide-arthritis | schmerz | gelenk, arthritis, steifigkeit, gicht, lyme | — | — | — |
 | 53 | morbus-crohn | schmerz | diarrhoe, steifigkeit, gewichtsverlust | — | — | stuhlfrequenz→akt-ausscheid-haeufigkeit |
 | 54 | karpaltunnel | nerven | — | — | — | — |
 | 55 | panikstoerung | anfall | dyspnoe | — | — | — |
@@ -131,7 +131,7 @@ Chaque lot de `seedCases.ts` porte les profils et les réponses de ses cas ; le 
 | 69 | alkoholentzug | psychisch | — | — | — | — |
 | 70 | commotio | neurologisch | schmerz | — | — | ort→akt-ort, charakter→akt-charakter, intensitaet→akt-intensitaet |
 | 71 | itp | veraenderung | — | — | — | — |
-| 72 | uterus-myomatosus | veraenderung | dyspnoe | — | — | atemnot→akt-atemnot-belastung |
+| 72 | uterus-myomatosus | veraenderung | dyspnoe | — | — | — |
 | 73 | akutes-nierenversagen | allgemein | diarrhoe | — | — | stuhlaussehen→akt-ausscheid-aussehen |
 | 74 | fibromyalgie | schmerz | generalisiert, steifigkeit | — | gelenke | — |
 | 75 | polymyalgia | schmerz | gelenk, steifigkeit, gewichtsverlust | — | — | — |
@@ -143,7 +143,7 @@ Chaque lot de `seedCases.ts` porte les profils et les réponses de ses cas ; le 
 | 81 | septische-arthritis | schmerz | gelenk, arthritis, fieber, gicht | — | — | — |
 | 82 | spinalkanalstenose | schmerz | — | — | — | — |
 | 83 | hws-diskusprolaps | schmerz | — | — | — | — |
-| 84 | laktoseintoleranz | ausscheidung | diarrhoe | — | — | stuhlfrequenz→akt-ausscheid-haeufigkeit |
+| 84 | laktoseintoleranz | ausscheidung | schmerz, diarrhoe | — | — | ort→akt-ort, charakter→akt-charakter, intensitaet→akt-intensitaet, stuhlfrequenz→akt-ausscheid-haeufigkeit |
 | 85 | tia | neurologisch | hals | — | — | — |
 | 86 | diabetes-typ1 | allgemein | dyspnoe, gewichtsverlust | — | — | atemnot→akt-atemnot-belastung |
 | 87 | gastroenteritis | ausscheidung | schmerz, diarrhoe, reise, gewichtsverlust | — | — | ort→akt-ort, charakter→akt-charakter, intensitaet→akt-intensitaet, stuhlfrequenz→akt-ausscheid-haeufigkeit |
@@ -151,16 +151,16 @@ Chaque lot de `seedCases.ts` porte les profils et les réponses de ses cas ; le 
 | 89 | influenza | infekt | fieber, husten | — | — | — |
 | 90 | coxarthrose | schmerz | gelenk, steifigkeit | — | — | — |
 | 91 | metabolisches-syndrom | allgemein | dyspnoe | — | — | atemnot→akt-atemnot-belastung |
-| 92 | karzinoid | schmerz | diarrhoe, dyspnoe, gewichtsverlust | — | — | — |
+| 92 | karzinoid | schmerz | diarrhoe, dyspnoe, stein, gewichtsverlust | — | — | — |
 | 93 | abszess | schmerz | fieber | — | — | — |
 | 94 | anorexia-nervosa | psychisch | gewichtsverlust | — | — | — |
 | 95 | malaria | infekt | reise, fieber, gelenk | — | — | — |
 | 96 | endokarditis | infekt | fieber, dyspnoe, gewichtsverlust | — | — | — |
-| 97 | covid19 | infekt | fieber, husten, dyspnoe | — | — | atemnot→akt-atemnot-belastung |
+| 97 | covid19 | infekt | fieber, husten, dyspnoe | — | — | — |
 | 98 | anaphylaxie | atemnot | dyspnoe, hals | — | — | — |
 | 99 | reaktive-arthritis | schmerz | gelenk, arthritis, steifigkeit, fieber, gicht | — | — | — |
 | 100 | pertussis | atemnot | husten | — | — | — |
-| 101 | colitis-ulcerosa | ausscheidung | diarrhoe, gelenk, arthritis, dyspnoe, gewichtsverlust | — | — | gelenke→fach-rheuma-gelenke, atemnot→akt-atemnot-belastung |
+| 101 | colitis-ulcerosa | ausscheidung | schmerz, diarrhoe, gelenk, arthritis, dyspnoe, gewichtsverlust | — | — | ort→akt-ort, charakter→akt-charakter, intensitaet→akt-intensitaet, gelenke→fach-rheuma-gelenke, atemnot→akt-atemnot-belastung |
 | 102 | chronische-pankreatitis | schmerz | diarrhoe, gewichtsverlust | — | — | stuhlfrequenz→akt-ausscheid-haeufigkeit |
 | 103 | myokarditis | schmerz | dyspnoe | — | — | — |
 | 104 | nephrotisches-syndrom | allgemein | dyspnoe | — | — | atemnot→akt-atemnot-belastung |
@@ -176,7 +176,7 @@ Chaque lot de `seedCases.ts` porte les profils et les réponses de ses cas ; le 
 | 114 | allergische-rhinitis | atemnot | husten | — | — | — |
 | 115 | typhus | infekt | reise, fieber | — | — | — |
 | 116 | obstipation | ausscheidung | — | — | — | — |
-| 117 | sturz-im-alter | anfall | gewichtsverlust | — | — | — |
+| 117 | sturz-im-alter | anfall | schmerz, gewichtsverlust | — | — | ort→akt-ort, charakter→akt-charakter, intensitaet→akt-intensitaet |
 | 118 | lumboischialgie | schmerz | steifigkeit | — | — | — |
 | 119 | bauchaortenaneurysma | schmerz | stein | — | — | — |
 | 120 | aortendissektion | schmerz | — | — | — | — |
@@ -188,11 +188,10 @@ Chaque lot de `seedCases.ts` porte les profils et les réponses de ses cas ; le 
 | 126 | urtikaria | veraenderung | hals | — | — | — |
 | 127 | perniziose-anaemie | allgemein | dyspnoe, gewichtsverlust | — | — | — |
 | 128 | opioidabhaengigkeit | psychisch | gewichtsverlust | — | — | — |
-| 129 | sinusitis | infekt | fieber, meningitis | — | — | — |
+| 129 | sinusitis | infekt | schmerz, fieber, meningitis | — | — | ort→akt-ort, charakter→akt-charakter, intensitaet→akt-intensitaet |
 | 130 | arterielle-hypertonie | allgemein | schmerz | — | — | charakter→akt-charakter, intensitaet→akt-intensitaet |
 
-
-## 5. Réponses ajoutées (35)
+## 5. Réponses ajoutées (47 : 35 de K2, 12 de la revue clinique, D2)
 
 Toutes dans `antworten`, sous le commentaire « K2 (ADR-0023) : réponses des sondes de banque que le profil exige (r3) ».
 
@@ -206,7 +205,7 @@ Toutes dans `antworten`, sous le commentaire « K2 (ADR-0023) : réponses des so
 | zystitis | `akt-intensitaet` | Ungefähr fünf von zehn. Beim Wasserlassen selbst ist es am schlimmsten. |
 | leistenhernie | `akt-ort` | Hier in der rechten Leiste, direkt über der Beule. Manchmal zieht es bis in den rechten Hoden hinunter. |
 | leistenhernie | `akt-charakter` | Es zieht und drückt, als ob da ein Fremdkörper drin wäre. Stechend oder krampfartig ist es nicht. |
-| leistenhernie | `akt-intensitaet` | In Ruhe so drei bis vier von zehn, beim schweren Heben bis sechs. Vor drei Tagen, als die Beule nicht mehr zurückging, war es kurz eine Acht. |
+| leistenhernie | `akt-intensitaet` | In Ruhe so drei bis vier von zehn, beim schweren Heben bis sechs. Vor drei Tagen war es einmal kurz eine Acht. |
 | commotio | `akt-ort` | Eigentlich im ganzen Kopf, am meisten links oben, da, wo die Beule ist. Ein bisschen zieht es auch in den Nacken. |
 | commotio | `akt-charakter` | Dumpf und drückend, wie ein Reifen um den Kopf. Direkt an der Beule sticht es, wenn ich sie berühre. |
 | commotio | `akt-intensitaet` | Ungefähr fünf von zehn. Seit dem Sturz gleich stark, mehr geworden ist es nicht. |
@@ -218,14 +217,17 @@ Toutes dans `antworten`, sous le commentaire « K2 (ADR-0023) : réponses des so
 | arterielle-hypertonie | `akt-charakter` | Drückend und dumpf, als hätte ich einen zu engen Helm auf. |
 | arterielle-hypertonie | `akt-intensitaet` | Morgens beim Aufwachen ungefähr sechs von zehn. Nachmittags ist fast nichts mehr da. |
 | tonsillitis | `akt-ausscheid-schlucken` | Stecken bleibt nichts, es tut nur furchtbar weh. Festes Essen kriege ich kaum runter, Trinken geht in kleinen Schlucken, kalt am besten. Meinen Speichel kann ich schlucken. |
-| bronchialkarzinom | `akt-atemnot-belastung` | Nur bei Anstrengung. Nach etwa hundert Metern in der Ebene oder nach einer Treppe muss ich stehen bleiben — vor einem halben Jahr bin ich noch den Hang zum Garten hoch. Im Sitzen habe ich keine Luftnot. |
-| uterus-myomatosus | `akt-atemnot-belastung` | Nur bei Anstrengung. Wenn ich die Treppe in den dritten Stock hochgehe, muss ich zwischendurch stehen bleiben. In Ruhe habe ich keine Luftnot. |
-| diabetes-typ1 | `akt-atemnot-belastung` | Nur bei Anstrengung. Beim Treppensteigen in den dritten Stock bin ich oben aus der Puste, das kannte ich früher nicht. In Ruhe ist alles gut. |
-| metabolisches-syndrom | `akt-atemnot-belastung` | Nur bei Anstrengung. Die Treppe in den dritten Stock, da muss ich zweimal stehen bleiben. In Ruhe oder im Liegen habe ich keine Luftnot. |
+| bronchialkarzinom | `akt-atemnot-belastung` | Bei Belastung. Nach etwa hundert Metern in der Ebene oder nach einer Treppe muss ich stehen bleiben — vor einem halben Jahr bin ich noch den Hang zum Garten hoch. Im Sitzen habe ich keine Luftnot. |
+| uterus-myomatosus | `akt-atemnot-belastung` | Wenn ich die Treppe in den dritten Stock hochgehe, muss ich zwischendurch stehen bleiben. In Ruhe habe ich keine Luftnot. |
+| diabetes-typ1 | `akt-atemnot-belastung` | Beim Treppensteigen in den dritten Stock bin ich oben aus der Puste, das kannte ich früher nicht. Im Sitzen ist alles gut. |
+| metabolisches-syndrom | `akt-atemnot-belastung` | Auf der Treppe in den dritten Stock muss ich zweimal stehen bleiben. In Ruhe oder im Liegen habe ich keine Luftnot. |
 | covid19 | `akt-atemnot-belastung` | Seit gestern bei jeder Anstrengung, schon auf der Treppe ins Schlafzimmer — dann rast das Herz, und die Brust wird eng. Im Sitzen bekomme ich Luft. |
-| colitis-ulcerosa | `akt-atemnot-belastung` | Nur bei Anstrengung. Auf der Treppe bin ich schnell außer Atem. In Ruhe nicht. |
-| colitis-ulcerosa | `fach-rheuma-gelenke` | Das rechte Knie und der linke Knöchel, seit ungefähr zwei Wochen. Sonst keine. Gewandert ist das nicht, die beiden tun seitdem weh. |
-| nephrotisches-syndrom | `akt-atemnot-belastung` | Nur bei Anstrengung, schon beim ersten Stock komme ich außer Atem. In Ruhe nicht, und flach liegen kann ich auch. |
+| colitis-ulcerosa | `akt-atemnot-belastung` | Beim Treppensteigen bin ich schnell außer Atem, in Ruhe nicht. |
+| colitis-ulcerosa | `fach-rheuma-gelenke` | Nur das rechte Knie und der linke Knöchel, seit ungefähr zwei Wochen. Gewandert ist das nicht. |
+| colitis-ulcerosa | `akt-ort` | Links unten im Bauch, manchmal zieht es bis zum Schambein. |
+| colitis-ulcerosa | `akt-charakter` | Krampfartig, in Wellen. Und beim Stuhldrang ein brennender Druck im Enddarm. |
+| colitis-ulcerosa | `akt-intensitaet` | So fünf von zehn. |
+| nephrotisches-syndrom | `akt-atemnot-belastung` | Schon beim ersten Stock komme ich außer Atem. In Ruhe nicht, und flach liegen kann ich auch. |
 | morbus-crohn | `akt-ausscheid-haeufigkeit` | Vier- bis sechsmal am Tag, und nachts muss ich auch zwei-, dreimal raus. Das geht jetzt seit ungefähr fünf Monaten so. |
 | zoeliakie | `akt-ausscheid-haeufigkeit` | Drei- bis viermal am Tag. Nachts muss ich deswegen nicht aufstehen. |
 | chronische-pankreatitis | `akt-ausscheid-haeufigkeit` | Vier- bis sechsmal am Tag, seit ungefähr drei Monaten. Nachts muss ich deswegen nicht raus, nachts gehe ich nur zum Wasserlassen. |
@@ -233,19 +235,28 @@ Toutes dans `antworten`, sous le commentaire « K2 (ADR-0023) : réponses des so
 | rheumatisches-fieber | `fach-rheuma-entzuendung` | Ja, das rechte Knie und das rechte Sprunggelenk sind dick geschwollen, richtig rot und heiß. Anfassen kann ich sie kaum, schon die Bettdecke tut weh. |
 | psoriasis | `fach-rheuma-gelenke` | Mehrere: der linke Mittelfinger — der ist dick wie eine Wurst —, die zweite und dritte Zehe rechts und das rechte Knie, dazu die rechte Ferse. Gewandert ist das nicht, es ist nach und nach dazugekommen und geblieben. |
 | psoriasis | `fach-rheuma-entzuendung` | Geschwollen ja, der ganze Mittelfinger und das rechte Knie. Ob sie rot oder warm sind, ist mir nicht aufgefallen. Anfassen kann ich sie schon. |
+| laktoseintoleranz | `akt-ort` | Um den Nabel herum und im ganzen Unterbauch. Auf einen Punkt kann ich es nicht zeigen. |
+| laktoseintoleranz | `akt-charakter` | Krampfartig, das kommt in Wellen und geht wieder. Brennen oder Stechen ist es nicht. |
+| laktoseintoleranz | `akt-intensitaet` | Ungefähr fünf von zehn. |
+| sinusitis | `akt-ort` | Rechts, in der Wange unter dem Auge bis hoch zur Stirn. Und die oberen Backenzähne rechts tun auch weh. |
+| sinusitis | `akt-charakter` | Dumpf und drückend, und es pocht, wie ein Druck von innen. |
+| sinusitis | `akt-intensitaet` | So sechs von zehn. Wenn ich mich bücke, bis acht. |
+| sturz-im-alter | `akt-ort` | Links an der Hüfte, außen, hier über dem Knochen. |
+| sturz-im-alter | `akt-charakter` | Im Liegen dumpf und drückend. Sobald ich mich bewege, sticht es. |
+| sturz-im-alter | `akt-intensitaet` | Wenn ich still liege, vier von zehn. Bei jeder Bewegung acht. |
 
 ## 6. Mesure avant / après (`checkCoherence.mjs --json`, 130 cas)
 
 | Compteur | K1 (`origin/main`) | **K2** | Lecture |
 |---|---:|---:|---|
-| `doublons` | 266 | **282** | +16, hausse documentée : `fach-gastro-stuhl` (+3) puis `veg-ausscheidung` (+13) déclarent l'aspect et la fréquence (§ 9) ; doublons vrais, retirés par r2 en K3 |
+| `doublons` | 266 | **269** | +3, hausse documentée : `fach-gastro-stuhl` déclare `stuhlaussehen` (gib, morbus-crohn, chronische-pankreatitis) ; doublons vrais, retirés par r2 en K3. `veg-ausscheidung` ne déclare que sa question mère (§ 10, m2) |
 | `doublonsCas` | 24 | 24 | K4 |
-| `horsProfil` | 58 | **75** | +17, hausse documentée (78 avant les compléments du § 9) : le profil déclaré remplace la proposition (hals 57 → 19, stein 45 → 9, meningitis 27 → 3, steifigkeit 32 → 10) ; 26 nouveaux, 6 levés par un tag motivé ; détail au fixture |
-| `exigeAbsent` | 68 | **37** | exact : ce que r3 ajoutera en K3 (tableau § 4) |
+| `horsProfil` | 58 | **70** | +12, hausse documentée : le profil déclaré remplace la proposition (hals 57 → 19, stein 45 → 10, meningitis 27 → 3, steifigkeit 32 → 10), puis la revue clinique (raideur de nuque des fièvres, goutte de la PR) ; pankreaskarzinom et cml gardent leur question du cas hors profil (§ 10, m3) ; détail au fixture |
+| `exigeAbsent` | 68 | **47** | exact : ce que r3 ajoutera en K3 (tableau § 4) |
 | `relancesOrphelines` | 0 | 0 | |
 | `brauchtViole` | 20 | 20 | K4 |
 | **`ajouteSansReponse`** | 66 | **0** | **I6 tenu** : K3 peut merger |
-| `questionsMuettes` / `sondesMuettes` | 825 / 0 | 822 / 0 | 3 questions du cas déclarées (§ 9) |
+| `questionsMuettes` / `sondesMuettes` | 825 / 0 | 820 / 0 | 5 questions du cas déclarées (§ 9, § 10) |
 
 `checkBudgetFloor.mjs origin/main` : 0, deux hausses signalées « à relire en revue », chacune écrite au fixture avec `de` / `a` exacts et sa raison. `--bless` refusant toute hausse, le plancher est regravé à la main.
 
@@ -259,7 +270,7 @@ Toutes dans `antworten`, sous le commentaire « K2 (ADR-0023) : réponses des so
 ## 7. Liste de relecture clinique
 
 **Profils non évidents** (à trancher par le relecteur clinique, par spécialité) :
-1. Les trois `schmerz` refusés « à relire » : laktoseintoleranz, sinusitis, sturz-im-alter (§ 3). Les déclarer ajoute 3 réponses (`akt-ort`, `-charakter`, `-intensitaet`) ; les fiches ont un bloc `schmerz` complet.
+1. ~~Les trois `schmerz` refusés « à relire »~~ : tranché par la revue clinique (D2), avec colitis-ulcerosa — § 10.
 2. Les trois `schmerz` par douleur constitutive ou seconde : tvt, erysipel, leistenhernie.
 3. `steifigkeit` retiré de gicht et septische-arthritis : r1 y retirera « Sind die Gelenke morgens steif? ».
 4. `gicht` / `nierensteine` hors profil dans rheumatoide-arthritis et polymyalgia : r1 réduira les relances de `fach-rheuma-vorgeschichte`.
@@ -280,6 +291,8 @@ Toutes dans `antworten`, sous le commentaire « K2 (ADR-0023) : réponses des so
 
 ## 9. Compléments après les décisions de main (5 oct.)
 
+> **Dépassé en partie par le § 10** : `veg-ausscheidung` est revenue à sa question mère (m2) et le tag `stein` n'est gardé que pour karzinoid (m3). Les chiffres de ce paragraphe sont ceux de `ea7f760e`.
+
 Main a **accepté** les quatre retouches du § 2.3 et demandé deux compléments, un commit chacun :
 
 | Commit | Complément | Effet mesuré |
@@ -289,10 +302,35 @@ Main a **accepté** les quatre retouches du § 2.3 et demandé deux compléments
 
 **Le montage gelé ne voit pas encore l'effet du second** : `dedupeBySymptom` filtre les `parts` sur `SUCHT_MONTAGE` ; dans morbus-crohn, zoeliakie et chronische-pankreatitis, la végétative reste réduite à l'urine et `exigeAbsent` reste 37. En K3, sans `dedupeBySymptom`, sa partie selles portera `stuhlfrequenz` et r3 n'ajoutera pas la banque. Les réponses `akt-ausscheid-haeufigkeit` (3 cas) et `akt-ausscheid-aussehen` (akutes-nierenversagen) écrites au § 5 restent : inoffensives, et nécessaires tant que le montage est gelé. Hausses du fixture mises à jour, exactes : doublons 266 → 282, horsProfil 58 → 75. Sommet : `checkCoherence` 0, `checkBudgetFloor.mjs origin/main` 0, tous les `check*.mjs` 0 (sauf `checkProbeOverlap`, 8, informatif, inchangé), `checkCoherence.test.mjs` 0, `tsc` 0, `vitest --dir src/data` 337/337, gel intact.
 
+## 10. Revues Opus de `ea7f760e` et fixeur
+
+| Revue | Verdict |
+|---|---|
+| Mécanique | **Needs fixes** — I1 bloquant (CI rouge), m1 à m3 |
+| Clinique | **Mergeable après corrections**, aucun P0 — C1 à C4, D2, mineurs |
+
+| Constat | Décision | Commit | Correction |
+|---|---|---|---|
+| **I1** `prompt.corpus.test.ts` rouge : colitis-ulcerosa 10 130 > PASTE_MAX | ne PAS l'ajouter à `OVER_PASTE_MAX` | `7c9b7496` | test rouge d'abord ; d'autres répliques de la fiche resserrées sans perte clinique (redites de la fréquence nocturne, formules d'appel) : 9 705, puis 9 865 avec les réponses D2. Cas enrichis vérifiés : sturz 9 244, sinusitis 8 983, laktose 8 923, covid19 9 286, uterus-myomatosus 8 758 |
+| **m1** INV-80 sans banque / signe inconnu ; mutation A d'INV-90 | — | `8f4c7cc3` | `exige: ['meningismus']` sur case-meningitis (pertinent, sans banque) → « sans banque » ; `nackenweh` dans exige et dans exclut → « n'est pas un signe ». Mutation A jouée à la main puis restaurée : `playedTrame` qui retire la dernière question de la végétative quand le profil est absent → le test INV-90 rougit (1 / 11) |
+| **m2** `veg-ausscheidung` | ne déclare que sa question MÈRE (esprit d'INV-84) | `7e08528e` | PROBE_SUCHT et `parts` reviennent à `stuhl` / `miktion` ; doublons 282 → 269. En K3, r3 ajoutera la fréquence des selles dans morbus-crohn, zoeliakie, chronische-pankreatitis (réponses déjà écrites) |
+| **m3 + Q3** tag `stein` | r1 ne retire jamais une question PROPRE AU CAS (contrat en K3, `casRetiresParR1 = 0`) | `4d39fa07` | `stein` retiré de pankreaskarzinom et cml, gardé pour karzinoid (NEM 1) ; leurs `sucht` restent ; horsProfil 75 → 77 |
+| **C1** raideur de nuque | `meningismus` + `fieber` | `38671d2b` | tonsillitis, influenza, malaria, covid19, typhus la gardent (−5) |
+| **C2** leistenhernie | réponse | `38671d2b` | `akt-intensitaet` ne raconte plus l'incarcération |
+| **C3** piqûre d'insecte | signe de dépistage `insektenstich` | `38671d2b` | `fach-infekt-zecke` → `['zecke', 'insektenstich']` ; 216 signes (`symptoms.test.ts`) |
+| **C4** goutte de la PR | tag `gicht` | `38671d2b` | rheumatoide-arthritis (−2) |
+| **D2** | `schmerz` pour colitis-ulcerosa, laktoseintoleranz, sinusitis, sturz-im-alter | `c62f6552` | 12 réponses depuis le bloc `schmerz` de chaque fiche ; exigeAbsent 35 → 47 |
+| Mineurs | `sucht` des questions du cas covid19 (`['atemnot']`) et uterus-myomatosus (`['muedigkeit', 'atemnot', 'schwindel']`, énumération, D1) ; ouvertures « Nur bei Anstrengung. » variées | `38671d2b` (colitis : `7c9b7496`) | r3 n'ajoute plus de doublon `atemnot` |
+| Mineur karpaltunnel | ne pas scinder `fach-ortho-schwellung` | — | rien à faire en K2 : la question reste entière (sa réponse porte l'atrophie thénar) ; à respecter en K3 / K4 (`non-reduit` assumé) |
+
+**Mesure finale** (`checkCoherence --json`) : doublons 269, doublonsCas 24, horsProfil 70, exigeAbsent 47, relancesOrphelines 0, brauchtViole 20, **ajouteSansReponse 0** ; questionsMuettes 820. Hausses au fixture, exactes : doublons 266 → 269, horsProfil 58 → 70.
+
+**Vérifications au sommet** (par code de sortie) : tous les `check*.mjs` du job `contrats` 0 (sauf `checkProbeOverlap`, 8 répétitions, informatif, inchangé) ; `checkBudgetFloor.mjs origin/main` 0 ; `node --test` (checkCoherence, checkBudgetFloor, linkCaseTerms, checkCaseTermLinks, checkProbeCoverage, checkCaseQuestionAnswers, checkTrameSymptoms, checkQuestionOrder, checkQuestionAtomicity) 0 ; `tsc -b --noEmit` 0 ; **`vitest run --dir src --maxWorkers=2` complet : 158 fichiers, 1 538 tests, 0** ; gel `trame-actuelle.txt` intact ; `merge-tree` 0.
+
 ## Non vérifié
 
 - **La justesse clinique** des 130 profils et des 35 réponses : mon jugement, non relu (§ 7).
 - **Aucune vérification à deux onglets** : le montage ne change pas (gel et INV-90) ; le simulant gagne 35 répliques que le Rollenskript lit dans `antworten`, non rejouées dans un navigateur.
-- **`npx vitest run --dir src`** complet (job `build`) non lancé, seulement `src/data`. La CI réelle n'a pas tourné.
+- La CI réelle n'a pas tourné (le vitest complet `--dir src`, lui, passe en local, § 10).
 - **Le contenu publié** : `publishContent.mjs` republiera les 130 fiches (`profil` additif) au merge ; non rejoué.
 - **`graphify update app/src`** : pas de graphe dans ce worktree.
