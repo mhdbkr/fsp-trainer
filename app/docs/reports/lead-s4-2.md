@@ -61,7 +61,7 @@ Oracles écrits à part, à la lettre du contrat : `app/tests/invariants.apprent
 3. **Médiane arrondie** à la minute entière (le contrat écrit `clamp(médiane)`).
 4. **« Les N cas les plus fréquents »** = les cas avec `freq ≥ SEUIL_FREQUENT` (paramètre nommé existant), pas un 40 en dur.
 5. **Modèle de la conséquence** : le travail compte chaque Teil non solide des cas fréquents, à sa durée apprise. Il est réparti sur les jours ouvrés à partir de demain, au budget proposé puis au budget actuel. C'est une projection comparative, pas une promesse. Rien à projeter : pas de phrase.
-6. **Texte de la carte** : « Ton temps des derniers jours tient dans un budget de N min par jour. » Formule choisie pour rester vraie au plancher : à 5 min réelles, la valeur proposée vaut 20 min.
+6. **Texte de la carte** : remplacé par le texte de la direction après revue (§8) : « Ces 7 derniers jours, tu as travaillé environ N min par soir. … ». N est le temps **réel** arrondi à 5 min, et non la valeur proposée ; sous 5 min, la carte dit « moins de 5 min ».
 7. **Le rappel est figé, ses chiffres ne le sont pas** : la tâche ne porte que l'id de l'item (`TaskInstance.rappel`). « 3 de tes 5 » se relit sur le journal d'avant le jour. Une synchro tardive d'un événement plus ancien peut changer les chiffres affichés, jamais le rappel.
 8. **Accueil** : `TaskList` (dans `features/program`) lit elle-même le plan figé et le journal. L'accueil dit donc « Il te reste… » sans aucun changement de `features/home`.
 
@@ -102,54 +102,87 @@ Le reste :
 
 En début de session, la charge (39 à 67) a fait échouer des tests par délai : délais de 5 s, workers non démarrés, perf à 53 s pour 15 s. Rejoués fichier par fichier, ils passent tous. Aucun n'était une assertion de logique.
 
-## 6. Procédure de déploiement production (projet EU `hwpwoblpygvxwbztconc`) — NON exécutée
+## 6. Procédure de déploiement production (projet EU `hwpwoblpygvxwbztconc`) — NON exécutée · corrigée après la revue sécurité
 
-Ordre impératif : **migration → fonction → client**. Le CI ne déploie que le client (Pages, au push sur `main`). La migration et la fonction se font donc **avant** la fusion de la PR. Accord de la direction requis (ADR-0015). Jamais `db reset`.
+Ordre impératif : **migration → fonction → client**. Le CI ne déploie que le client (Pages, au push sur `main`), donc la migration et la fonction passent **avant** la fusion de la PR. Accord de la direction requis (ADR-0015). Jamais `db reset`, jamais `db push` hors `--dry-run`.
 
-1. **Avant (lecture seule)** :
-   - `select pg_get_constraintdef(oid) from pg_constraint where conname = 'progress_events_type_check';` : liste de `…17` attendue, sans les deux nouveaux types.
-   - `select type, count(*) from public.progress_events group by type order by 1;` : chaque type figure dans la liste de `…18` (l'`ADD CONSTRAINT` relit la table sous un verrou exclusif bref ; elle est petite).
-2. **Migration** : depuis `app/` lié au projet EU, `npx supabase db push`, qui n'applique que `20261004000018_s4_preference_events.sql` et l'enregistre dans l'historique. Si l'on passe par `psql -v ON_ERROR_STOP=1 -f …`, enregistrer aussi la version, sinon un `db push` ultérieur la rejouerait. Puis vérifier que la contrainte contient `rythme.refused` et `rattrapage.refused`.
-3. **Fonction** : `npx supabase functions deploy events --project-ref hwpwoblpygvxwbztconc`, sans `--no-verify-jwt` (la config fait foi).
-4. **Fumée**, avec un compte de test, **jamais** Mehdi ni Lydia. Les mêmes cas sont prouvés en local par `supabase/tests/events.test.ts`.
-   - POST `rythme.refused` (sujet `2026-W42`, payload `{}`) → `acked` ;
-   - `rythme.refused` avec la semaine `2026-W54` → `rejected` ;
-   - `program.configured` avec `subject_id` non nul → `rejected` ;
-   - `plan.materialized` avec `tz: 'Europe/Berlin'` → `acked` ;
-   - `program.configured` à `hoursPerSession: 0.26` (ce qu'`accepterRythme` peut produire) → `acked`.
-5. **Client** : seulement ensuite, fusion de la PR, puis Pages.
-6. **Après, sur l'appareil de Mehdi puis de Lydia** :
-   - au premier démarrage, la config locale part **une** fois (`program.configured`, garde `CONFIG_POUSSEE_S4` dans `meta`). En base : exactement un `program.configured` de plus par utilisateur ;
-   - le plan du lendemain est fait de cas entiers et n'a plus de proposition de mode ;
-   - l'annonce unique des changements rétroactifs apparaît (`ANNONCE_MODE_ACTIVE = true`) ;
-   - aucune carte de rythme ne s'affiche avant 3 jours figés avec tâches.
+1. **Avant, en lecture seule** :
+   - `npx supabase migration list --linked`. Attendu : `20260930000017` présent côté distant, `20261004000018` **seul** manquant. Toute autre différence : **STOP**.
+   - `npx supabase db push --dry-run` est permis, à condition qu'il n'annonce que ce seul fichier.
+2. **Migration** :
+   - `psql "$EU_DB_URL" -v ON_ERROR_STOP=1 -1 -f app/supabase/migrations/20261004000018_s4_preference_events.sql` (une transaction, arrêt à la première erreur) ;
+   - puis `insert into supabase_migrations.schema_migrations(version, name) values ('20261004000018', 's4_preference_events') on conflict do nothing;` ;
+   - puis vérifier : `select pg_get_constraintdef(oid) from pg_constraint where conname = 'progress_events_type_check';` contient `rythme.refused` et `rattrapage.refused`.
+3. **Fonction** : depuis un worktree **propre** au commit exact qui part (`git status` vide, `git rev-parse HEAD` = le sommet de la PR), `npx supabase functions deploy events --project-ref hwpwoblpygvxwbztconc`, sans `--no-verify-jwt`.
+4. **Fumée**, avec deux comptes de test A et B, **jamais** Mehdi ni Lydia (les mêmes cas sont prouvés en local par `supabase/tests/events.test.ts` et `rls.test.ts`) :
+   - `rythme.refused` (sujet `2026-W42`, payload `{}`) → `acked` ; la semaine `2026-W54` → `rejected` ;
+   - `program.configured` avec `subject_id` non nul → `rejected` ; `plan.materialized` avec `tz` → `acked` ;
+   - `program.configured` à `hoursPerSession: 25/60` (un point du curseur) → `acked` ;
+   - **B poste un événement avec `user_id` = A → la ligne est enregistrée au nom de B** (le trigger pose `user_id`) ;
+   - **sans jeton → 401**.
+5. **Client** : fusion de la PR, **après** la migration et la fonction. Pages publie.
+6. **Après, sur les appareils de Mehdi puis de Lydia** :
+   - au premier démarrage, un seul `program.configured` de plus par utilisateur (garde `CONFIG_POUSSEE_S4`), et ses dates sont celles du journal (I4) ;
+   - le plan du lendemain est fait de cas entiers ;
+   - un rattrapage refusé avant n'est pas reproposé (I3) ;
+   - l'annonce unique des changements rétroactifs apparaît.
+7. **Retour arrière** :
+   - **client** : revert du commit de fusion ⇒ Pages republie l'ancien client. Il ignore les nouveaux types (§12.10) et lit les plans série 4 sans cocher à tort (§12.11) ;
+   - **fonction** : redéployer la version de `main` d'avant la fusion ;
+   - **migration** : **non revenue**. La contrainte élargie est un sur-ensemble, et des lignes des nouveaux types peuvent déjà exister.
 
 **Si l'ordre n'est pas tenu** :
-- *Client avant fonction* : `plan.materialized` porte `tz`, que l'ancienne fonction refuse (schéma `.strict()`, sans `retry`). L'événement sort alors de l'outbox et le plan ne gagne pas l'autre appareil. `rythme.refused` et `rattrapage.refused` sont gardés (`unknown_type` ⇒ `retry`).
-- *Fonction avant migration* : les nouveaux types passent Zod, mais la contrainte les refuse ⇒ `retry`. Ils sont rejoués après la migration.
-
-**Retour arrière** :
-- *Client* : revert du commit de fusion sur `main` ⇒ Pages republie l'ancien client. Il ignore les deux nouveaux types (§12.10) et lit les plans série 4 sans cocher à tort (§12.11).
-- *Fonction* : redéployer la version précédente de `events`. La nouvelle est un sur-ensemble et peut rester.
-- *Migration* : la contrainte élargie est un sur-ensemble inoffensif. **Ne pas** la resserrer tant que des lignes des nouveaux types existent.
-- *Données* : les événements sont additifs ; aucune donnée n'est réécrite.
+- *Client avant fonction* : `plan.materialized` porte `tz`, que l'ancienne fonction refuse (schéma `.strict()`, sans `retry`). Le plan ne gagne pas l'autre appareil. Les nouveaux types sont gardés (`unknown_type` ⇒ `retry`).
+- *Fonction avant migration* : la contrainte refuse les nouveaux types ⇒ `retry`. Ils sont rejoués après la migration.
 
 ## 7. Constats hors périmètre (propositions, rien modifié)
 
-### [MINEUR] Le héros de l'accueil affiche l'estimation figée d'un cas entamé
-- **Où** : `features/home/HomePage.tsx`, carte « Session du jour »
-- **Constat** : le héros affiche l'estimation figée du cas, la ligne du plan les minutes de ce qui reste.
-- **Preuve** : capture du build servi : héros « … · 52 min », ligne « Il te reste la Dokumentation et la Fallvorstellung · 32 min ».
-- **Correctif** : le héros lit `lectureDuPlan` (exportée par `features/program/TaskLine.tsx`). Revient au propriétaire de l'accueil (S4-5).
+### ~~[MINEUR] Le héros de l'accueil affiche l'estimation figée d'un cas entamé~~ — corrigé par la revue I2 (`10771dc7`, décision de `main`)
 
 ### [MINEUR] La raison figée « jamais travaillé » reste affichée après une première partie
 - **Où** : la raison figée de la tâche (`pourquoiAujourdhui`)
 - **Constat** : la raison est figée par contrat (§3). Elle n'est donc pas un défaut de S4-2, mais elle se lit fausse une fois le cas entamé.
 - **Preuve** : « Parmi les cas les plus vus à l'examen, et jamais travaillé. » affiché sous « Il te reste la Dokumentation et la Fallvorstellung ».
-- **Correctif** : à arbitrer par la direction ou S4-5 (masquer la raison d'une tâche entamée ?).
+- **Correctif** : renvoyé à S4-5 par `main` (revue m6). Rien n'a été fait ici.
 
 ### Observation sur le candidat synthétique
 Il joue 1 à 4 min par Teil. Ses durées apprises tombent au plancher de 5 min, d'où une journée de 14 tâches en `teil-first` (« 0/14 faits · 81 min prévues »). Le budget est juste, c'est l'artefact d'un candidat irréaliste.
+
+## 8. Revues de `70cbdeca` et corrections du fixeur
+
+Trois revues Opus de `70cbdeca` :
+- **Mécanique : Needs fixes.** Rien de faux dans le plan, la complétion, la migration ni le budget. Quatre importants (I1 à I4) et six mineurs (m1 à m6).
+- **Pédagogie : VETO** sur un cas de la carte de rythme (une date projetée après l'examen, non dite), plus des réserves sur les textes.
+- **Sécurité : GO**, sous réserve de la procédure de déploiement corrigée (§6, réécrite).
+
+Corrections, une par commit, test rouge d'abord. `origin/main` a d'abord été fusionné (`9d5cbaed`).
+
+| Item | Commit | Test rouge, puis mutation |
+|---|---|---|
+| **I1** « Lancer » part du premier Teil de ce qui reste (`teil`, transitoire : S4-3 le remplacera par `?depart=`) | `0246abe7` | `TaskLink.test.ts` |
+| **I2** héros de l'accueil : minutes de ce qui reste (52 → 32), lien depuis le reste | `10771dc7` | `HomePage.test.tsx` |
+| **I3** `migrerRefusRattrapage` appelée par `bootJournal` | `e4a3f7bc` | `boot.test.ts` (un refus d'avant S4 n'est pas reproposé) |
+| **I4** push initial : la dernière config du journal, plus les seuls `intensity` et `modus` locaux | `c41f465b` | test à deux appareils ; `INV-76b-fusion`, `INV-76b-garde-ecriture` |
+| **m1** coupure sur l'`occurred_at` source (§12.4) | `73cd5533` | INV-55 (partie de 23 h 50 enregistrée après minuit) ; `INV-55-coupure-at` |
+| **m2** termes personnels reconstruits d'avant le jour | `979412c8` | INV-55 (400 termes personnels révisés le jour D) ; `INV-55-perso-live` |
+| **m3** arrondi au multiple de 5 supérieur | `85edcbc3` | oracle INV-65 ; `INV-65-arrondi-bas` |
+| **m4** la valeur acceptée est un point du curseur | `85edcbc3` | `RythmeCard.test.tsx`, oracle ; `INV-65-hors-curseur` |
+| **m5** `Date.parse`, jamais l'ordre des chaînes | `33d2773d` | `entree.test.ts` (format Postgres `2026-10-12 08:00:01+00`) |
+| m6 raison figée « jamais travaillé » | — | renvoyé à S4-5, rien fait |
+| **VETO** date après l'examen dite ; « Garder » en premier | `e240242b` | `RythmeCard.test.tsx`, conséquence ; `INV-65-apres-examen` |
+| Texte du rythme | `e240242b` | idem |
+| Texte du rappel (consigne d'abord) | `6ca856b5` | `invariants.apprentissage` |
+| Texte de la consolidation (jamais « 0 jour ») | `3e61541d` | `select.test.ts`, INV-60 |
+| Texte de « finir hier » (« hier » ou la date) | `8a735885` | `RattrapageLine.test.tsx` |
+| Soirée courte | `fbb24118` | `RythmeCard.test.tsx` |
+
+Choix et points à relire :
+- **m4, le choix fait** : le curseur « Volume par session » de `ProgramSetup` passe **en minutes, de 15 min à 6 h, par pas de 5** (`SESSION_*_MIN`, `parametres.ts`). L'ancien était en heures, de 0,5 à 6 h par pas de 0,5. Un pas de 0,25 h aurait fait passer le plancher de 20 min à 30 min en intensité moyenne. La proposition est posée sur cette grille, vers le haut. La valeur annoncée est le budget du jour de cette session, si bien qu'accepter rend **exactement** la valeur proposée. **Écart au §13.5** : en intensité légère ou haute, cette valeur n'est pas toujours un multiple de 5 (35 min de session donnent 46 min en intensité haute). Le §13.5 doit le dire.
+- **I4, amendement proposé du contrat N2b (§12.10)** : « Au premier démarrage, si le journal local porte une config valide, le push initial est cette config, à laquelle on reporte seulement `intensity` et `modus` locaux (les seuls champs jamais émis avant S4) ; sinon la config locale complète. La config locale prend la valeur poussée. Toute écriture par `ecrireConfig` pose aussi la garde `CONFIG_POUSSEE_S4`. »
+- **I4, test réécrit** : le test INV-76 (b) « config locale plus récente que la distante, non écrasée » contredisait la décision. Il est réécrit à la nouvelle règle, pas contourné.
+- **m1, artefact du harnais** : le faux `syncQueue` des tests gardait un horodatage croissant d'un monde à l'autre. La coupure sur `occurred_at` l'a révélé. Il repart désormais quand l'horloge injectée recule.
+- **Soirée courte** : elle n'est jamais annoncée pour un examen à blanc ni pour une tâche d'un trait, qui se jouent d'un trait par définition, ni pour un seul Teil.
+- **Rappel hors Anamnese** : « pose la question » n'a de sens qu'en Anamnese. Ailleurs, le texte dit « Dans cette Dokumentation, pense à « … » : manquant n fois sur tes s dernières. »
 
 ## Non vérifié
 - **Deux appareils réels** (deux contextes navigateur) pour le refus de rythme et la config. C'est prouvé en tests (même journal, aucun état local), pas en navigateur.
