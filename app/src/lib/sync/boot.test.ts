@@ -111,7 +111,9 @@ describe('INV-76 (b) — le premier démarrage S4-2 ne laisse pas une config dis
     await db.meta.put({ key: 'program', value: locale });                  // une install d'avant S4-2 : meta seule
     session.token = 'tok';
     const distante = ev('program.configured', null, { ...config, hoursPerSession: 1 }, '2026-09-15T08:00:00Z', { received_at: '2026-09-15T08:00:01Z' });
-    fetchMock.mockImplementation(async (url: string) => ({ ok: true, status: 200, json: async () => ({ events: String(url).includes('since=') ? [distante] : [] }) }));
+    // GET (pull) : la config distante ; POST (flush du plan matérialisé) : un acquittement vide, jamais un 400.
+    fetchMock.mockImplementation(async (url: string, init?: { method?: string }) => ({ ok: true, status: 200, json: async () =>
+      (init?.method === 'POST' ? { acked: [], rejected: [] } : { events: String(url).includes('since=') ? [distante] : [] }) }));
     await bootJournal();
     expect((await db.meta.get('program'))!.value).toEqual(locale);
     expect(await db.progress_events.where('type').equals('program.configured').count()).toBe(2);   // la distante + la locale poussée

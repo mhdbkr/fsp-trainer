@@ -223,7 +223,7 @@ describe('INV-1 — cocher marque faite, rien ne prend la place', () => {
     }
     const fini = (await db.day_plans.get('2026-10-01'))!;
     expect(sessionDuJour(fini)).toBeNull();
-    expect(planProgress(fini)).toEqual({ done: ordre.length, total: ordre.length });
+    expect(planProgress(fini)).toEqual({ faites: ordre.length, entamees: 0, total: ordre.length });
   }, 20_000);
 });
 

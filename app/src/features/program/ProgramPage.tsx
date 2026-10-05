@@ -142,7 +142,7 @@ function DaySurface({ date, plan, projection, isTaper, onPick }: {
   const today = useToday((s) => s.day);                    // m-4
   const isToday = date === today;
   const isPast = date < today;
-  const { done, total } = planProgress(plan);
+  const { faites: done, total } = planProgress(plan);
   const session = sessionDuJour(plan);
   const [busy, setBusy] = useState(false);
 
@@ -349,7 +349,7 @@ function DayCell({ plan, kinds, projection }: { plan?: DayPlan; kinds: TaskKind[
     );
   }
   if (!plan || plan.tasks.length === 0) return null;
-  const { done, total } = planProgress(plan);
+  const { faites: done, total } = planProgress(plan);
   return (
     <>
       <div className="h-1.5 w-full overflow-hidden rounded-full bg-slate-100 dark:bg-slate-800">
@@ -409,7 +409,7 @@ function MonthView({ anchor, byDate, projected, selected, taper, examISO, onZoom
         {days.map((date) => {
           const k = format(date, 'yyyy-MM-dd');
           const plan = byDate.get(k);
-          const { done, total } = planProgress(plan);
+          const { faites: done, total } = planProgress(plan);
           return (
             <button key={k} type="button" onClick={() => onZoomToDay(k)}
               className={`flex min-h-[58px] flex-col rounded-lg border p-1.5 text-left transition-all hover:-translate-y-0.5 hover:border-brand-400

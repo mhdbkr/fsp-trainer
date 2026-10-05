@@ -47,7 +47,7 @@ describe('RattrapageLine', () => {
     await vi.waitFor(() => expect(txt()).toMatch(/1 jour manqué : Obere GI-Blutung et Pneumonie ont glissé/), { timeout: 10000 });
     expect((await db.day_plans.get('2026-10-05'))!.tasks).toHaveLength(1);
     await act(async () => { btn(/^rattraper$/i)!.click(); });
-    await vi.waitFor(async () => expect((await db.day_plans.get('2026-10-05'))!.tasks.map((x) => x.caseId)).toEqual(['c9', 'c1', 'c2']), { timeout: 10000 });
+    await vi.waitFor(async () => expect((await db.day_plans.get('2026-10-05'))!.tasks.map((x) => x.caseId)).toEqual(['c1', 'c2', 'c9']), { timeout: 10000 });   // §12.8 : le reste revient EN TÊTE, avant la première tâche non faite
     await vi.waitFor(() => expect(txt()).toBe(''), { timeout: 10000 });
   });
   it('« Laisser » retire la ligne sans rien ajouter', async () => {

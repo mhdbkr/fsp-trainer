@@ -350,6 +350,79 @@ export const MUTATIONS = [
     to: ".filter(() => true)",
     pourquoi: "les refus de rythme ne repartent pas de zéro à la modification du programme (réserve P2)",
   },
+  // --- S4-2 : la complétion dérivée et le rattrapage (training-journal.md §12.3, §12.8 ; INV-51, INV-52, INV-54, INV-58) ---
+  {
+    id: "INV-51-fige", tests: 'tests/invariants.completion.test.ts', file: "src/lib/program/completion.ts",
+    from: "const premiere = completion ?? coches[0];\n  const statut",
+    to: "const premiere = completion ?? coches[0] ?? tri.find((e) => e.taskId === T.id);\n  const statut",
+    pourquoi: "`doneAt` redevient posé par le `taskId` écrit à l'écriture : une partie qui prétend satisfaire la tâche la coche",
+  },
+  {
+    id: "INV-51-some", tests: 'tests/invariants.completion.test.ts', file: "src/lib/program/completion.ts",
+    from: "voulus.every((t) => joues.has(t)))) completion = e;",
+    to: "voulus.some((t) => joues.has(t)))) completion = e;",
+    pourquoi: "`completeAssez` en `some` (journal.ts:347 d'avant S4-2) : une partie d'un Teil sur trois coche la tâche de cas entier",
+  },
+  {
+    id: "INV-51-d-un-trait", tests: 'tests/invariants.completion.test.ts', file: "src/lib/program/completion.ts",
+    from: "(T.dUnTrait ? e.enchaine === true : voulus.every",
+    to: "(T.dUnTrait ? voulus.every((t) => joues.has(t)) : voulus.every",
+    pourquoi: "une tâche « d'un trait » est cochée par des Teile joués séparément",
+  },
+  {
+    id: "INV-51-fuseau", tests: 'tests/invariants.completion.test.ts', file: "src/lib/program/completion.ts",
+    from: "const jour = debutJour(T.date, tz);\n  return { debut: Math.max(jour, T.creeA ?? jour), fin: finJour(T.date, tz) };",
+    to: "const jour = debutJour(T.date);\n  return { debut: Math.max(jour, T.creeA ?? jour), fin: finJour(T.date) };",
+    pourquoi: "le jour d'un événement se lit au fuseau de l'APPAREIL, plus à celui du plan : deux appareils ne s'accordent plus",
+  },
+  {
+    id: "INV-51-fiche-autre-cas", tests: 'tests/invariants.completion.test.ts', file: "src/lib/program/completion.ts",
+    from: "(T.caseId === undefined || e.caseId === T.caseId) && dans(e));",
+    to: "dans(e));",
+    pourquoi: "la fiche lue d'un AUTRE cas coche la tâche Fachwissen",
+  },
+  {
+    id: "INV-51-coche-gagne", tests: 'tests/invariants.completion.test.ts', file: "src/lib/program/completion.ts",
+    from: "const premiere = completion ?? coches[0];\n  const statut",
+    to: "const premiere = coches[0] ?? completion;\n  const statut",
+    pourquoi: "la coche nue absorbée reste l'événement qui fait foi : `doneAt` pointe un événement retiré de l'historique",
+  },
+  {
+    id: "INV-52-entamee", tests: 'tests/invariants.completion.test.ts', file: "src/lib/program/completion.ts",
+    from: "avancement.length > 0 ? 'entamee' : 'a-faire'",
+    to: "'a-faire'",
+    pourquoi: "une tâche entamée est rendue « à faire » : l'avancement du candidat disparaît du plan",
+  },
+  {
+    id: "INV-52-reprise-entiere", tests: 'tests/invariants.completion.test.ts', file: "src/lib/program/rattrapage.ts",
+    from: "kind, teile: e.reste, creeA: now(),",
+    to: "kind, teile: teileDeTache(t), creeA: now(),",
+    pourquoi: "la reprise d'une tâche entamée redemande le cas ENTIER au lieu de ce qui reste",
+  },
+  {
+    id: "INV-52-reprise-d-un-trait", tests: 'tests/invariants.completion.test.ts', file: "src/lib/program/rattrapage.ts",
+    from: "teil: _t, dUnTrait: _u, rappel: _r,",
+    to: "teil: _t, rappel: _r,",
+    pourquoi: "la reprise garde `dUnTrait` : un cas dont on a joué un Teil devra être rejoué d'un trait",
+  },
+  {
+    id: "INV-54-teil", tests: 'tests/invariants.completion.test.ts', file: "src/lib/program/tacheDeCas.ts",
+    from: "  if (t.teil) return [t.teil];\n",
+    to: "",
+    pourquoi: "`teileDeTache` ignore `teil` : un plan série 3 déjà figé demande tout à coup les trois Teile",
+  },
+  {
+    id: "INV-58-ajoute", tests: 'tests/invariants.completion.test.ts', file: "src/lib/program/rattrapage.ts",
+    from: "if (used + r.estMin > todayPlan.targetMin) {",
+    to: "if (false as boolean) {",
+    pourquoi: "une reprise hors budget s'ajoute au lieu de remplacer la première tâche de cas ni faite ni entamée",
+  },
+  {
+    id: "INV-58-remplace-entamee", tests: 'tests/invariants.completion.test.ts', file: "src/lib/program/rattrapage.ts",
+    from: "evaluerTache(t, events, tz).statut === 'a-faire';",
+    to: "evaluerTache(t, events, tz).statut !== 'faite';",
+    pourquoi: "la reprise remplace une tâche ENTAMÉE : le travail commencé du candidat disparaît",
+  },
 ];
 
 /** Mutations jouées par le candidat NAVIGATEUR : { id: invariant attendu KO, days: jours à jouer }. */

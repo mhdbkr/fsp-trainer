@@ -23,6 +23,9 @@ import { LEGACY_ID_PATTERN } from '@/lib/checklists.legacy';
 import { conditionsManquantes, estEnchaine, estSerie4, isExamenBlanc } from '@/lib/examen';
 import { computeCaseProgress, teilAConfirmer } from '@/lib/progression';
 import { POIDS_CONSOLIDATION } from '@/lib/program/parametres';
+import { deriverPlan, estTacheDeCas, evaluerTache, isCocheNue } from '@/lib/program/completion';
+import { debutJour, finJour, fuseauValide } from '@/lib/program/fuseau';
+import { lireTache, teileDeTache } from '@/lib/program/tacheDeCas';
 import type {
   CaseId, CaseProgress, ChecklistItemId, DayPlan, SimTeil, Simulation, TaskInstance, TaskKind,
   TrainingEvent, TrainingKind,
@@ -31,6 +34,7 @@ import type {
 // La mesure vit dans `progression.ts` (pure) ; ce module la ré-exporte pour ses appelants historiques.
 export { PART_OK, PART_SOLIDE, blankProgress, computeCaseProgress, estNonMesure, statusOf } from '@/lib/progression';
 export { isExamenBlanc } from '@/lib/examen';
+export { isCocheNue };
 
 const TEIL_KEYS: SimTeil[] = TEILE.map((t) => t.key);
 
@@ -111,10 +115,8 @@ export function projectTrainingEvents(events: ProgressEvent[]): TrainingEvent[] 
       if (te) byId.set(te.id, te);
     }
   }
-  // D-C4 — un exercice, un événement : une coche nue est ABSORBÉE par
-  // l'exercice réel qui satisfait la même tâche (la source reste intacte).
-  const real = new Set([...byId.values()].filter((te) => te.taskId && !isCocheNue(te)).map((te) => te.taskId));
-  for (const [id, te] of byId) if (isCocheNue(te) && real.has(te.taskId)) byId.delete(id);
+  // D-C4 (absorption d'une coche nue par les parties qui font la même tâche) : voir `projeterJournal` — elle suppose
+  // les plans, donc ne peut pas se faire ici.
   return [...byId.values()].sort((a, b) => a.at - b.at || (a.id < b.id ? -1 : 1));
 }
 
@@ -144,21 +146,22 @@ function sanitizeLogged(id: string, raw: unknown): TrainingEvent | null {
   };
 }
 
-/** Une coche manuelle sans exercice mesuré derrière : tâche visée, 0 minute,
- *  ni score ni run. C'est une déclaration, pas un exercice. */
-export const isCocheNue = (te: TrainingEvent): boolean =>
-  !!te.taskId && !te.laufId && !te.scores && te.spentMin === 0;
-
 /**
  * Les plans figés. **Seule exception au dernier-gagne du `sync-protocol.md`** :
  * sur `plan.materialized`, le PLUS ANCIEN `occurred_at` gagne (INV-7) — « figé »
  * veut dire que le premier appareil qui ouvre la journée la fige. `plan.replanned`
  * reste au dernier-gagne et bat toujours une matérialisation.
  *
- * L'état « faite » n'est jamais stocké dans la charge utile : il se dérive des
- * `TrainingEvent` porteurs d'un `taskId`. Un seul chemin vers `doneAt`.
+ * *[S4]* L'état « faite » n'est JAMAIS lu dans la charge utile : il se DÉRIVE du journal
+ * (`deriverPlan`, §12.3), au fuseau du plan (`DayPlan.tz`), pour toutes les tâches. Deux appareils
+ * qui ont le même journal projettent les mêmes `doneAt`, dans n'importe quel ordre d'arrivée
+ * et n'importe quel fuseau (INV-51). Toute tâche venue de la synchro passe par `lireTache` (m4).
  */
 export function projectDayPlans(events: ProgressEvent[], trainingEvents: TrainingEvent[]): DayPlan[] {
+  return projeterPlans(events, trainingEvents).plans;
+}
+
+function projeterPlans(events: ProgressEvent[], trainingEvents: TrainingEvent[]): { plans: DayPlan[]; absorbes: string[] } {
   const materialized = new Map<string, ProgressEvent>();
   const replanned = new Map<string, ProgressEvent>();
   for (const e of sortEvents(events)) {
@@ -170,57 +173,90 @@ export function projectDayPlans(events: ProgressEvent[], trainingEvents: Trainin
       replanned.set(e.subject_id, e);                       // dernier-gagne
     }
   }
-  const doneByTask = new Map<string, TrainingEvent>();
-  for (const te of trainingEvents) if (te.taskId) doneByTask.set(te.taskId, te);
-  // Toutes les tâches jamais figées pour un jour, tous appareils confondus.
+  // Toutes les tâches jamais figées pour un jour, tous appareils confondus (celles d'un plan qui a perdu comprises).
   const everTask = new Map<string, TaskInstance>();
   for (const e of events) {
     if ((e.type === 'plan.materialized' || e.type === 'plan.replanned') && e.subject_id) {
-      for (const t of taskList(e.payload)) everTask.set(t.id, t);
+      const tz = leTz(e.payload);
+      for (const t of taskList(e.payload, { date: e.subject_id, tz })) everTask.set(t.id, t);
     }
   }
 
-  const out: DayPlan[] = [];
+  const plans: DayPlan[] = [];
+  const absorbes = new Set<string>();
   for (const [date, base] of materialized) {
     const bp = base.payload as Omit<DayPlan, 'date' | 'materializedAt'>;
+    const tz = leTz(bp);
     const rep = replanned.get(date);
-    const tasks = taskList(rep ? rep.payload : bp).map((t) => {
-      const te = doneByTask.get(t.id);
-      return te ? { ...t, doneAt: te.at, spentMin: te.spentMin, eventId: te.id } : { ...t, doneAt: undefined, spentMin: undefined, eventId: undefined };
-    });
-    // D-I2 : une tâche faite dans le plan d'un AUTRE appareil (qui a perdu)
-    // coche la tâche équivalente du plan gagnant — même (kind, caseId, teil).
-    // I-3 (décision de main) : sans équivalent, la tâche FAITE est AJOUTÉE au
-    // plan gagnant, comme `replanifier` conserve les faites — jamais perdue.
-    const ids = new Set(tasks.map((t) => t.id));
-    const carried = new Map<string, number>();                 // taskId perdant → index dans le plan gagnant
-    for (const te of trainingEvents) {
-      const orig = te.taskId && !ids.has(te.taskId) ? everTask.get(te.taskId) : undefined;
-      if (!orig || orig.date !== date) continue;
-      const done = { doneAt: te.at, spentMin: te.spentMin, eventId: te.id };
-      const prev = carried.get(orig.id);
-      if (prev !== undefined) { tasks[prev] = { ...tasks[prev], ...done }; continue; }
-      const i = tasks.findIndex((t) => t.doneAt === undefined && t.kind === orig.kind && t.caseId === orig.caseId && t.teil === orig.teil);
-      if (i >= 0) { tasks[i] = { ...tasks[i], ...done }; carried.set(orig.id, i); continue; }
-      carried.set(orig.id, tasks.push({ ...orig, ...done }) - 1);
-    }
-    out.push({
+    const tasks = taskList(rep ? rep.payload : bp, { date, tz });
+    const journal = reporterLesCochesDesPlansPerdants(tasks, date, tz, trainingEvents, everTask);
+    const derive = deriverPlan({ date, tz, tasks }, journal);
+    derive.absorbes.forEach((id) => absorbes.add(id));
+    plans.push({
       date,
       materializedAt: new Date(base.occurred_at).getTime(),
       mode: bp.mode,
       seed: bp.seed,
       targetMin: bp.targetMin ?? 0,
-      tasks,
+      tasks: derive.tasks,
       ...(rep ? { replannedAt: new Date(rep.occurred_at).getTime() } : {}),
+      ...(tz ? { tz } : {}),
     });
   }
-  return out.sort((a, b) => (a.date < b.date ? -1 : 1));
+  return { plans: plans.sort((a, b) => (a.date < b.date ? -1 : 1)), absorbes: [...absorbes] };
 }
 
-const taskList = (payload: unknown): TaskInstance[] => {
-  const tasks = (payload as { tasks?: unknown })?.tasks;
-  return Array.isArray(tasks) ? tasks.filter((t): t is TaskInstance => !!t && typeof (t as TaskInstance).id === 'string') : [];
+/** Le fuseau d'un plan venu de la synchro — jamais cru sur parole. */
+const leTz = (payload: unknown): string | undefined => {
+  const tz = (payload as { tz?: unknown } | null)?.tz;
+  return fuseauValide(tz) ? tz : undefined;
 };
+
+const cleDeTache = (t: TaskInstance) => `${t.kind}|${t.caseId ?? ''}|${teileDeTache(t).join(',')}`;
+
+/**
+ * D-I2 : une coche manuelle faite dans le plan d'un AUTRE appareil (qui a perdu) vaut pour la tâche équivalente du plan
+ * gagnant — même (kind, caseId, teileDeTache). I-3 (décision de main) : sans équivalent, la tâche FAITE est AJOUTÉE au plan
+ * gagnant, comme `replanifier` conserve les faites — jamais perdue. Seules les coches voyagent par taskId : les parties
+ * se retrouvent par leur contenu (§12.3).
+ */
+function reporterLesCochesDesPlansPerdants(
+  tasks: TaskInstance[], date: string, tz: string | undefined, trainingEvents: TrainingEvent[], everTask: Map<string, TaskInstance>,
+): TrainingEvent[] {
+  const ids = new Set(tasks.map((t) => t.id));
+  const orphelines = trainingEvents.filter((te) => isCocheNue(te) && !ids.has(te.taskId!) && everTask.get(te.taskId!)?.date === date);
+  if (!orphelines.length) return trainingEvents;
+  const reprises = new Map<string, string>();                    // taskId perdant → taskId du plan gagnant
+  const reperees = new Set<string>();
+  for (const te of orphelines) {
+    const orig = everTask.get(te.taskId!)!;
+    if (reprises.has(orig.id)) continue;
+    const eq = tasks.find((t) => !reperees.has(t.id) && cleDeTache(t) === cleDeTache(orig) && evaluerTache(t, trainingEvents, tz).statut !== 'faite');
+    if (eq) { reprises.set(orig.id, eq.id); reperees.add(eq.id); continue; }
+    tasks.push({ ...orig });
+    reprises.set(orig.id, orig.id);
+  }
+  return trainingEvents.map((te) => (isCocheNue(te) && reprises.has(te.taskId!) ? { ...te, taskId: reprises.get(te.taskId!)! } : te));
+}
+
+/** Les tâches d'un payload de plan, filtrées (m4) : un champ invalide est retiré, la tâche jamais. */
+const taskList = (payload: unknown, plan: { date: string; tz?: string }): TaskInstance[] => {
+  const tasks = (payload as { tasks?: unknown })?.tasks;
+  return Array.isArray(tasks) ? tasks.map((t) => lireTache(t, plan)).filter((t): t is TaskInstance => t !== null) : [];
+};
+
+/**
+ * La projection COMPLÈTE du journal : événements, plans (« faite » dérivée), progression par Teil. Un seul chemin pour la
+ * reconstruction et pour les tests. Les coches nues redevenues redondantes (la tâche est aussi faite par des parties) sont
+ * ABSORBÉES dans l'historique (D-C4) : un exercice, un événement.
+ */
+export function projeterJournal(events: ProgressEvent[]): { te: TrainingEvent[]; plans: DayPlan[]; progress: CaseProgress[] } {
+  const brut = projectTrainingEvents(events);
+  const { plans, absorbes } = projeterPlans(events, brut);
+  const retires = new Set(absorbes);
+  const te = retires.size ? brut.filter((e) => !retires.has(e.id)) : brut;
+  return { te, plans, progress: computeCaseProgress(te) };
+}
 
 // ---------------------------------------------------------------------------
 // 3. La progression par Teil (contrat §4) — le calcul est dans `progression.ts`
@@ -273,7 +309,7 @@ export interface LogInput {
   profileId?: string;
   laufId?: string;
   /** Tâche explicitement visée (l'utilisateur a coché CETTE tâche). Absent :
-   *  la satisfaction est cherchée par le contenu (§3.4). */
+   *  la tâche que l'exercice fait avancer est cherchée par le contenu (§12.3). */
   taskId?: string;
   at?: number;
 }
@@ -287,51 +323,49 @@ const TASK_TO_TRAINING: Record<TaskKind, TrainingKind> = {
   'examen-blanc': 'examen-blanc',
 };
 
+/** Le plan qui porte l'instant `at` : celui dont le jour, AU FUSEAU DU PLAN, le contient. */
+async function planDe(at: number): Promise<DayPlan | undefined> {
+  const d = new Date(at);
+  const voisins = [-1, 0, 1].map((n) => { const x = new Date(d); x.setDate(x.getDate() + n); return dayKey(x); });
+  const plans = (await db.day_plans.bulkGet(voisins)).filter((p): p is DayPlan => !!p);
+  return plans.find((p) => at >= debutJour(p.date, p.tz) && at < finJour(p.date, p.tz));
+}
+
+/** Les événements du journal qui comptent pour les tâches d'un plan : ceux de son jour — et les coches qui les visent,
+ *  qui sont forcément postérieures au début de ce jour (une tâche n'existe pas avant son plan). */
+const evenementsDuPlan = (plan: DayPlan): Promise<TrainingEvent[]> =>
+  db.training_events.where('at').aboveOrEqual(debutJour(plan.date, plan.tz)).toArray();
+
+type Exercice = Pick<TrainingEvent, 'kind' | 'caseId' | 'teile' | 'at'> & { enchaine?: true };
+
+/** Cet exercice fait-il AVANCER cette tâche (non faite par des parties) ? Le genre ne compte pas pour un cas (I3) ;
+ *  il compte hors cas (N1). Une coche nue ne compte pas : une tâche seulement cochée à la main est encore « ouverte »
+ *  pour l'exercice qui la fait pour de bon — c'est lui qui porte le `taskId` (l'historique dit « dans le plan »), et la
+ *  coche est absorbée (D-C4). */
+function fait_avancer(t: TaskInstance, e: Exercice, evenements: readonly TrainingEvent[], tz?: string): boolean {
+  const reels = evenements.filter((x) => !isCocheNue(x));
+  const etat = evaluerTache(t, reels, tz);
+  if (etat.statut === 'faite') return false;
+  if (t.creeA !== undefined && e.at < t.creeA) return false;
+  if (!estTacheDeCas(t.kind)) return TASK_TO_TRAINING[t.kind] === e.kind && (t.caseId === undefined || t.caseId === e.caseId);
+  if (!(e.kind === 'simulation' || e.kind === 'examen-blanc') || e.caseId !== t.caseId) return false;
+  if (t.dUnTrait) return e.enchaine === true;
+  return etat.reste.some((k) => e.teile.includes(k));
+}
+
 /**
- * La tâche du jour que cet exercice satisfait, ou `undefined` (contrat §3.4,
- * étendu par D-C4 à tous les genres). La machine s'adapte à l'humain : un
- * exercice libre qui fait ce qui était prévu coche la tâche tout seul — une
- * fiche lue coche la tâche Fachwissen du même cas, une séance de drill la tâche
- * drill. Aucune tâche n'est CRÉÉE pour absorber un exercice libre.
- * `absorbable` : événements « coche nue » qu'un exercice réel peut remplacer.
+ * La tâche du plan que cet exercice FAIT AVANCER, ou `undefined` — informatif : `source` et `taskId` disent « dans le
+ * plan / libre » dans l'historique, ils ne décident plus de `doneAt` (§12.3, I4). Aucune tâche n'est CRÉÉE pour absorber
+ * un exercice libre : la machine s'adapte à l'humain.
  */
-export function satisfiedTask(
-  plan: DayPlan | undefined,
-  e: Pick<TrainingEvent, 'kind' | 'caseId' | 'teile'>,
-  absorbable: ReadonlySet<string> = new Set(),
-  teileDuJour: readonly SimTeil[] = e.teile,
-): TaskInstance | undefined {
-  if (!plan) return undefined;
-  const open = (t: TaskInstance) => t.doneAt === undefined || (!!t.eventId && absorbable.has(t.eventId));
-  return plan.tasks.find((t) => open(t)
-    && (TASK_TO_TRAINING[t.kind] === e.kind || (t.kind === 'simulation' && e.kind === 'examen-blanc'))
-    && (t.caseId === undefined ? t.kind === 'drill' : t.caseId === e.caseId)
-    && (t.teil === undefined ? completeAssez(t, teileDuJour) : e.teile.includes(t.teil)));
+export function tacheQueFaitAvancer(plan: DayPlan | undefined, e: Exercice, evenements: readonly TrainingEvent[]): TaskInstance | undefined {
+  return plan?.tasks.find((t) => fait_avancer(t, e, evenements, plan.tz));
 }
 
-const FULL_RUN_KINDS = new Set<TaskKind>(['simulation', 'revision', 'examen-blanc']);
-
-/** D-C4 révisé — le mode prime : une tâche « cas complet » (sans `teil`) ne se
- *  coche que si les TROIS Teile ont été joués, dans la partie ou le même jour. */
-const completeAssez = (t: TaskInstance, teileDuJour: readonly SimTeil[]): boolean =>
-  !FULL_RUN_KINDS.has(t.kind) || TEIL_KEYS.every((k) => teileDuJour.includes(k));
-
-/** Teile joués ce jour-là sur ce cas, cet exercice compris (coches exclues). */
-async function teileJouesLeJour(at: number, caseId: CaseId | undefined, teile: readonly SimTeil[]): Promise<SimTeil[]> {
-  if (!caseId) return [...teile];
-  const day = dayKey(at);
-  const prior = (await db.training_events.where('caseId').equals(caseId).toArray())
-    .filter((te) => dayKey(te.at) === day && !isCocheNue(te));
-  return TEIL_KEYS.filter((k) => teile.includes(k) || prior.some((te) => te.teile.includes(k)));
-}
-
-/** Résolution à l'écriture (D-C4) : la tâche du plan du jour de `at`. */
-async function resolveTask(at: number, e: Pick<TrainingEvent, 'kind' | 'caseId' | 'teile'>): Promise<string | undefined> {
-  const plan = await db.day_plans.get(dayKey(at));
-  if (!plan) return undefined;
-  const ids = plan.tasks.map((t) => t.eventId).filter((x): x is string => !!x);
-  const bare = new Set((await db.training_events.bulkGet(ids)).filter((te): te is TrainingEvent => !!te && isCocheNue(te)).map((te) => te.id));
-  return satisfiedTask(plan, e, bare, await teileJouesLeJour(at, e.caseId, e.teile))?.id;
+/** Résolution à l'écriture, INFORMATIVE : la tâche du plan du jour de `at`. */
+async function resolveTask(e: Pick<TrainingEvent, 'kind' | 'caseId' | 'teile' | 'at'> & { enchaine?: true }): Promise<string | undefined> {
+  const plan = await planDe(e.at);
+  return plan ? tacheQueFaitAvancer(plan, e, await evenementsDuPlan(plan))?.id : undefined;
 }
 
 /**
@@ -343,7 +377,7 @@ async function resolveTask(at: number, e: Pick<TrainingEvent, 'kind' | 'caseId' 
 export async function logTraining(input: LogInput): Promise<TrainingEvent> {
   const at = input.at ?? now();
   const teile = input.teile ?? [];
-  const taskId = input.taskId ?? await resolveTask(at, { kind: input.kind, caseId: input.caseId, teile });
+  const taskId = input.taskId ?? await resolveTask({ at, kind: input.kind, caseId: input.caseId, teile });
   const event: TrainingEvent = {
     id: newId(),
     at,
@@ -380,19 +414,21 @@ const marking = new Map<string, Promise<TrainingEvent>>();
  * Cocher écrit un événement ; **rien d'autre ne bouge** (INV-1).
  * IDEMPOTENT (I12) : une tâche déjà faite, ou en train d'être cochée (double
  * clic), rend l'événement existant au lieu d'en écrire un second.
+ *
+ * *[S4]* La coche est une DÉCLARATION (coche nue, 0 minute par défaut, aucun score) : elle déclare ce que la tâche
+ * demandait (`teileDeTache`, non mesuré) et porte le `taskId` — c'est elle que `cocheManuelle` retrouve (§12.3).
  */
 export function markTaskDone(task: TaskInstance, spentMin = 0): Promise<TrainingEvent> {
   const pending = marking.get(task.id);
   if (pending) return pending;
   const run = (async () => {
     const cur = (await db.day_plans.get(task.date))?.tasks.find((t) => t.id === task.id);
-    const prior = cur?.eventId ? await db.training_events.get(cur.eventId) : undefined;
+    const prior = cur?.doneAt !== undefined && cur.eventId ? await db.training_events.get(cur.eventId) : undefined;
     if (prior) return prior;
     return logTraining({
       kind: TASK_TO_TRAINING[task.kind],
       caseId: task.caseId,
-      // I-4 : une tâche « cas complet » (sans teil) déclare les trois Teile.
-      teile: task.teil ? [task.teil] : FULL_RUN_KINDS.has(task.kind) ? [...TEIL_KEYS] : [],
+      teile: estTacheDeCas(task.kind) ? teileDeTache(task) : [],
       spentMin,
       taskId: task.id,
     });
@@ -402,27 +438,23 @@ export function markTaskDone(task: TaskInstance, spentMin = 0): Promise<Training
 }
 
 /**
- * D-C4 — la simulation qu'on s'apprête à enregistrer, avec la tâche qu'elle
- * satisfait. À appeler AVANT d'écrire `simulation.completed` : le `taskId` est
- * PERSISTÉ dans la charge utile, donc rejoué à l'identique au rebuild. Un
- * `taskId` explicite (lancé depuis le plan, R-C4) n'est jamais remplacé.
+ * La simulation qu'on s'apprête à enregistrer, avec la tâche qu'elle fait avancer. À appeler AVANT d'écrire
+ * `simulation.completed` : le `taskId` est PERSISTÉ dans la charge utile, donc rejoué à l'identique au rebuild.
+ * Un `taskId` explicite (partie lancée depuis une tâche du plan, R-C4) n'est gardé que si CETTE partie fait avancer CETTE
+ * tâche (I-A : une Dokumentation lancée depuis une tâche Anamnese ne s'y rattache pas) ; sinon il tombe et la résolution par
+ * le contenu prend le relais. Informatif : il ne décide plus de `doneAt`.
  */
 export async function resolveSimulationTask(input: Simulation): Promise<Simulation> {
   let sim = input;
   const te = trainingEventFromSimulation(sim);
   if (sim.taskId) {
-    // Explicite (R-C4) : gardé SEULEMENT si cette partie satisfait la tâche —
-    // même cas, Teil compatible, et le mode prime (D-C4). Sinon il tombe et la
-    // résolution par le contenu prend le relais (I-A : une Dokumentation lancée
-    // depuis une tâche Anamnese ne la coche pas).
     const plan = await db.day_plans.filter((p) => p.tasks.some((t) => t.id === sim.taskId)).first();
     const task = plan?.tasks.find((t) => t.id === sim.taskId);
-    if (plan && task && satisfiedTask({ ...plan, tasks: [{ ...task, doneAt: undefined }] }, te, new Set(),
-      await teileJouesLeJour(te.at, te.caseId, te.teile))) return sim;
+    if (plan && task && fait_avancer(task, te, await evenementsDuPlan(plan), plan.tz)) return sim;
     const { taskId: _drop, ...rest } = sim;
     sim = rest;
   }
-  const taskId = await resolveTask(te.at, te);
+  const taskId = await resolveTask(te);
   return taskId ? { ...sim, taskId } : sim;
 }
 
@@ -443,29 +475,35 @@ export async function applySimulationToJournal(sim: Simulation): Promise<Trainin
   return te;
 }
 
-/** Met à jour les projections locales touchées par UN événement — sans relire
- *  tout le journal. La reconstruction complète reste `rebuildJournal()`. La coche
- *  va au plan qui PORTE la tâche, pas au jour de `event.at` (I12 : cocher après
- *  minuit une tâche de la veille). */
+/**
+ * Met à jour les projections locales touchées par UN événement — sans relire tout le journal. Le même chemin que la
+ * reconstruction : on RE-DÉRIVE les plans concernés (`deriverPlan`) au lieu de poser `doneAt` à la main (§12.3, INV-10).
+ * Les plans concernés : ceux dont le jour contient l'événement (au fuseau de chaque plan), et celui qui porte la tâche
+ * qu'il vise (cocher après minuit une tâche de la veille, I12). La reconstruction complète reste `rebuildJournal()`.
+ */
 async function applyEventToLocalState(event: TrainingEvent): Promise<void> {
-  if (event.taskId) {
-    const id = event.taskId;
-    const sameDay = await db.day_plans.get(dayKey(event.at));
-    const plan = sameDay?.tasks.some((t) => t.id === id) ? sameDay : await db.day_plans.filter((p) => p.tasks.some((t) => t.id === id)).first();
-    if (plan) {
-      const prev = plan.tasks.find((t) => t.id === id)?.eventId;
-      if (prev && prev !== event.id && !isCocheNue(event)) {
-        const old = await db.training_events.get(prev);
-        if (old && isCocheNue(old)) await db.training_events.delete(prev);   // absorbée (D-C4), comme au rebuild
-      }
-      const tasks = plan.tasks.map((t) => (t.id === id ? { ...t, doneAt: event.at, spentMin: event.spentMin, eventId: event.id } : t));
-      await db.day_plans.put({ ...plan, tasks });
-    }
+  const d = new Date(event.at);
+  const dates = new Set([-1, 0, 1].map((n) => { const x = new Date(d); x.setDate(x.getDate() + n); return dayKey(x); }));
+  const concernes = (await db.day_plans.bulkGet([...dates])).filter((p): p is DayPlan => !!p
+    && (event.at >= debutJour(p.date, p.tz) && event.at < finJour(p.date, p.tz) || (!!event.taskId && p.tasks.some((t) => t.id === event.taskId))));
+  if (event.taskId && !concernes.some((p) => p.tasks.some((t) => t.id === event.taskId))) {
+    const porteur = await db.day_plans.filter((p) => p.tasks.some((t) => t.id === event.taskId)).first();
+    if (porteur) concernes.push(porteur);
   }
-  if (!event.caseId) return;
-  const all = await db.training_events.where('caseId').equals(event.caseId).toArray();
-  const [cp] = computeCaseProgress(all);
-  if (cp) await db.case_progress.put(cp);
+  const cases = new Set<CaseId>(event.caseId ? [event.caseId] : []);
+  for (const plan of concernes) {
+    const { tasks, absorbes } = deriverPlan(plan, await evenementsDuPlan(plan));
+    if (absorbes.length) {
+      for (const id of absorbes) { const old = await db.training_events.get(id); if (old?.caseId) cases.add(old.caseId); }
+      await db.training_events.bulkDelete(absorbes);                          // absorbée (D-C4), comme au rebuild
+    }
+    await db.day_plans.put({ ...plan, tasks });
+  }
+  for (const caseId of cases) {
+    const all = await db.training_events.where('caseId').equals(caseId).toArray();
+    const [cp] = computeCaseProgress(all);
+    if (cp) await db.case_progress.put(cp); else await db.case_progress.delete(caseId);
+  }
 }
 
 /** Reconstruit `training_events` + `case_progress` + `day_plans` depuis le
@@ -477,9 +515,7 @@ export async function rebuildJournal(events?: ProgressEvent[]): Promise<void> {
   // `clear`. `events` n'est passé que par les tests (journal synthétique).
   await db.transaction('rw', [db.progress_events, db.training_events, db.day_plans, db.case_progress], async () => {
     const source = events ?? await db.progress_events.toArray();
-    const te = projectTrainingEvents(source);
-    const plans = projectDayPlans(source, te);
-    const progress = computeCaseProgress(te);
+    const { te, plans, progress } = projeterJournal(source);
     await db.training_events.clear();
     await db.training_events.bulkPut(te);
     await db.day_plans.clear();

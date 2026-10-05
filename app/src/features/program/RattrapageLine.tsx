@@ -10,11 +10,10 @@
 import { format, parseISO } from 'date-fns';
 import { fr } from 'date-fns/locale';
 import { useLiveQuery } from 'dexie-react-hooks';
-import { getMeta } from '@/db/db';
 import { useProgramConfig } from '@/hooks/useData';
 import { useToday } from '@/lib/today';
-import { accepterRattrapage, glissement, refuserRattrapage, RATTRAPAGE_REFUS_KEY } from '@/lib/program/rattrapage';
-import { useDayPlans } from './useProgram';
+import { accepterRattrapage, glissement, joursRefuses, refuserRattrapage } from '@/lib/program/rattrapage';
+import { useDayPlans, useTrainingEvents } from './useProgram';
 
 /** « A et B », « A, B et 2 autres » — deux noms au plus : la ligne reste une ligne. */
 const noms = (labels: string[]): string => {
@@ -25,9 +24,11 @@ const noms = (labels: string[]): string => {
 export function RattrapageLine() {
   const plans = useDayPlans();
   const config = useProgramConfig();
-  const refused = useLiveQuery(() => getMeta<string[]>(RATTRAPAGE_REFUS_KEY, []), [], undefined);
+  const events = useTrainingEvents();
+  // Le refus est un événement SYNCHRONISÉ : refusé sur un appareil, il vaut sur l'autre.
+  const refused = useLiveQuery(() => joursRefuses(), [], undefined);
   const today = useToday((s) => s.day);                    // m-4 : le jour réactif, jamais l'horloge au rendu
-  const g = plans && config && refused ? glissement(plans, today, config, refused) : null;
+  const g = plans && config && refused && events ? glissement(plans, today, config, refused, events) : null;
   if (!g) return null;
 
   const reprise = g.tasks.length > 0;

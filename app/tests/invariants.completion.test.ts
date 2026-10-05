@@ -60,27 +60,30 @@ const GENRE_ATTENDU: Partial<Record<TaskKind, Genre>> = { drill: 'drill', fachwi
 const EST_CAS = (k: TaskKind) => k === 'simulation' || k === 'revision' || k === 'examen-blanc';
 
 interface Verdict { faite: boolean; doneAt?: number }
+/** doneAt = l'instant de l'exercice qui rend la tâche faite ; une coche nue redondante (la tâche est aussi faite par des
+ *  parties) est absorbée dans l'historique (D-C4) : c'est alors la partie qui fait foi. */
 function oracle(T: TaskInstance, exs: Ex[], tz: string): Verdict {
   const dansTache = (e: Ex) => jourEn(e.at, tz) === T.date && e.at >= (T.creeA ?? minuit(T.date, tz));
   const tri = [...exs].sort((a, b) => a.at - b.at || (a.id < b.id ? -1 : 1));
   const coche = tri.find((e) => e.genre === 'coche' && e.tache?.id === T.id);
-  const candidats: number[] = coche ? [coche.at] : [];
+  let fait: number | undefined;
   if (EST_CAS(T.kind)) {
     const parties = tri.filter((e) => e.genre === 'partie' && e.caseId === T.caseId && dansTache(e));
     const voulus = T.teile!;
     if (T.dUnTrait) {
       const premiere = parties.find((e) => e.enchaine === true && !e.selbst && e.teile.length === 3);
-      if (premiere) candidats.push(premiere.at);
+      if (premiere) fait = premiere.at;
     } else {
       const vus = new Set<SimTeil>();
-      for (const e of parties) { e.teile.forEach((t) => vus.add(t)); if (voulus.every((t) => vus.has(t))) { candidats.push(e.at); break; } }
+      for (const e of parties) { e.teile.forEach((t) => vus.add(t)); if (voulus.every((t) => vus.has(t))) { fait = e.at; break; } }
     }
   } else {
     const genre = GENRE_ATTENDU[T.kind]!;
     const e = tri.find((x) => x.genre === genre && (T.caseId === undefined || x.caseId === T.caseId) && dansTache(x));
-    if (e) candidats.push(e.at);
+    if (e) fait = e.at;
   }
-  return candidats.length ? { faite: true, doneAt: Math.min(...candidats) } : { faite: false };
+  const doneAt = fait ?? coche?.at;
+  return doneAt === undefined ? { faite: false } : { faite: true, doneAt };
 }
 
 // ------------------------------------------------------------ le générateur

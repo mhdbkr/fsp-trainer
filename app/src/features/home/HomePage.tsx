@@ -45,7 +45,7 @@ export function HomePage() {
   const streak = streakFromDays(workedDayKeys(events), nowDate(), config?.offDays ?? []);
   const due = dueCount(begriffe);
   const session = sessionDuJour(plan);
-  const { done, total } = planProgress(plan);
+  const { faites: done, total } = planProgress(plan);
   const weak = weakCases(progress, cases, 3);
 
   const greeting = (() => {
