@@ -40,7 +40,7 @@ export const PROBE_SUCHT: Readonly<Record<string, Sucht>> = {
   'akt-infekt-fieber': ['fieber'], 'akt-infekt-kontakt': ['reise'],   // K3 : « Kontakt » et « Essen » sont des relances de PRÉCISION (elles suivent la question, sans signe propre)
   'akt-infekt-herd': ['husten', 'halsschmerzen', 'miktion', 'stuhl', 'ausschlag', 'wunde'],   // énumération (D1)
   'akt-veraend-was': ['knoten', 'ausschlag', 'lokalblutung', 'haematome'],
-  'akt-veraend-entwicklung': ['entwicklung'], 'akt-veraend-blutung': ['lokalschmerz', 'juckreiz', 'lokalblutung', 'stuhl_blut', 'urin_aspekt', 'haemoptyse'],   // K3 (P1-6a) : la mère et ses relances, en parts
+  'akt-veraend-entwicklung': ['entwicklung'], 'akt-veraend-blutung': ['lokalschmerz', 'juckreiz', 'lokalblutung'],   // K3 (revue R3) : sans relances de saignement systémique
   'akt-ausscheid-was': ['stuhl', 'miktion', 'gelbfaerbung', 'urin_aspekt', 'stuhlaussehen'],   // D1
   'akt-ausscheid-haeufigkeit': ['stuhlfrequenz'], 'akt-ausscheid-harn-haeufigkeit': ['miktion_frequenz', 'nykturie'],
   'akt-ausscheid-aussehen': ['stuhl_blut'], 'akt-ausscheid-harn-aussehen': ['urin_aspekt'],   // K3 (P0-1) : « Blut, Schleim oder eine ungewöhnliche Farbe » = l'alarme

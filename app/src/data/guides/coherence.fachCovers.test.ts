@@ -32,7 +32,7 @@ const GARDEES: Record<string, Raison> = {
   'fach-onko-appetit -> akt-ausscheid-was': 'signe-distinct',
   // Le pont urinaire → selles (K1) : retiré (décision 3) ; depuis la revue P1-5, r1 retire la fréquence des selles hors diarrhée / transit.
   // Signe partagé, mais la question perdante n'a pas de `parts` : non réduite (résidu, K4 écrit les parts).
-  'fach-gyn-blutung -> akt-veraend-blutung': 'non-reduit',
+  'fach-gyn-blutung -> akt-veraend-blutung': 'reduit',
   'fach-haem-blutung -> akt-veraend-blutung': 'reduit',
   'fach-haem-blutverlust -> akt-veraend-blutung': 'reduit',
   'fach-onko-blutung -> akt-veraend-blutung': 'reduit',
@@ -40,7 +40,6 @@ const GARDEES: Record<string, Raison> = {
   'fach-neuro-kraft -> akt-nerven-alltag': 'non-reduit',
   // Signe partagé, la perdante a des `parts` : réduite à ce que la Fach ne demande pas (Appetit, Durst).
   'fach-haem-bsymptomatik -> akt-allgemein-gewicht': 'reduit',
-  'fach-derma-empfinden -> akt-veraend-blutung': 'reduit',   // revue P1-6a : réduite à ses parts de saignement
   // D4-bis (décision de main, revue P1-1) : le signe du motif (la dyspnée d'un tableau dyspnéique) se pose dans Aktuelle
   // Beschwerden ; c'est la Fach qui cède.
   'fach-kardio-luft -> akt-atemnot-belastung': 'd4-bis',
@@ -70,10 +69,10 @@ describe('FACH_COVERS absorbé par r2 — chaque paire retirée, ou gardée pour
     }
   }
 
-  it('la table gelée a 73 paires ; 71 s\'appliquent à au moins un cas ; 24 restent posées (raison listée)', () => {
+  it('la table gelée a 73 paires ; 71 s\'appliquent à au moins un cas ; 23 restent posées (raison listée)', () => {
     expect(PAIRES).toHaveLength(73);
     expect(etat.size).toBe(71);
-    expect(Object.keys(GARDEES)).toHaveLength(24);
+    expect(Object.keys(GARDEES)).toHaveLength(23);
   });
   it('les paires gardées sont exactement celles listées', () => {
     const gardees = [...etat].filter(([, s]) => s.retiree < s.n).map(([k]) => k).sort();

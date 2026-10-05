@@ -338,15 +338,12 @@ const AKTUELL_VARIANTS: Record<LeitsymptomKategorie, AktuellVariant> = {
       {
         text: 'Schmerz und Blutung — Tut es weh, juckt es, oder blutet es?',
         probe: 'akt-veraend-blutung',
-        followUp: ['Haben Sie Blut im Stuhl oder im Urin bemerkt?', 'Husten Sie Blut ab?'],
-        // K3 (revue clinique P1-6a, décision de main) : les relances déclarent leur signe (revue K1 C6) et restent sous leur
-        // mère, qui les déclare ; les parts, découpées du texte, laissent r2 retirer ce que la Fach (onko, haem, gastro) pose.
-        followUpSucht: [['stuhl_blut', 'urin_aspekt'], ['haemoptyse']],
+        // K3 (revue clinique R3, décision de main) : les relances « Blut im Stuhl / Urin » et « Blut abhusten » sont retirées —
+        // le saignement d'une lésion n'est pas un saignement systémique ; là où elles servent, la Fach les pose. Le texte est
+        // découpé en deux parts (revue P2) : quand le saignement est déjà demandé, il reste « Tut es weh, juckt es? ».
         parts: [
-          { sucht: ['lokalschmerz', 'juckreiz', 'lokalblutung'], text: 'Tut es weh, juckt es, oder blutet es?' },
-          { sucht: ['stuhl_blut'], text: 'Haben Sie Blut im Stuhl bemerkt?' },
-          { sucht: ['urin_aspekt'], text: 'Haben Sie Blut im Urin bemerkt?' },
-          { sucht: ['haemoptyse'], text: 'Husten Sie Blut ab?' },
+          { sucht: ['lokalschmerz', 'juckreiz'], text: 'Tut es weh, juckt es?' },
+          { sucht: ['lokalblutung'], text: 'Blutet es?' },
         ],
       },
       { text: 'Verlauf — Ist es dauernd da, oder kommt und geht es?', probe: 'akt-verlauf' },

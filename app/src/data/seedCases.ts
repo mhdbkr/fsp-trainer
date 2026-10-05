@@ -656,6 +656,8 @@ export function seedCases(): Case[] {
       difficulty: 3,
       patientSheet: {
         profil: { tags: ['veraenderung', 'gastro'] },
+        // K3 : hématémèse : pas de lésion à décrire — ni « Befund », ni « Tut es weh, juckt es? », ni « größer geworden » (revue clinique, décision de main).
+        aktuellSkip: ['akt-veraend-was', 'akt-veraend-blutung', 'akt-veraend-entwicklung'],
         leitsymptomKategorie: 'veraenderung',
         personalia: { name: 'Werner Klein', age: 71, geschlecht: 'm', groesseCm: 172, gewichtKg: 70, beruf: 'Rentner', familienstand: 'verwitwet' },
         leitsymptome: ['Seit heute Morgen schwarzer, klebriger Stuhl und einmal kaffeesatzartiges Erbrechen'],
@@ -15414,6 +15416,8 @@ export function seedCases(): Case[] {
       difficulty: 3,
       patientSheet: {
         profil: { tags: ['veraenderung', 'fieber', 'hals', 'lyme', 'gewichtsverlust', 'onko'] },
+        // K3 : l'adénopathie est demandée par la Fach onko et la question du cas (trois fois sinon) ; douleur à l'alcool et prurit par les questions du cas (revue clinique).
+        aktuellSkip: ['akt-veraend-was', 'akt-veraend-blutung'],
         leitsymptomKategorie: 'veraenderung',
         personalia: {
           name: 'Elisabeth Länge',
@@ -31703,6 +31707,8 @@ export function seedCases(): Case[] {
       difficulty: 3,
       patientSheet: {
         profil: { tags: ['veraenderung', 'haem'] },
+        // K3 : les pétéchies sont la « Veränderung » (Befund gardé) ; douleur / prurit hors sujet, la Fach hémato pose les saignements (revue clinique).
+        aktuellSkip: ['akt-veraend-blutung'],
         leitsymptomKategorie: 'veraenderung',
         personalia: {
           name: 'Katrin Vollmer',

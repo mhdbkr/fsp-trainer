@@ -38,7 +38,7 @@ case-pankreatitis
 case-gib
   eroeffnung[· · · ·]
   personalia[pers-name pers-name pers-alter pers-groesse pers-hausarzt ·]
-  aktuell[akt-motiv akt-veraend-was akt-beginn akt-veraend-entwicklung↳1 akt-veraend-blutung~lokalschmerz,juckreiz,urin_aspekt,haemoptyse↳2 akt-verlauf akt-ausloeser akt-einfluss akt-frueher↳1 akt-begleit cas cas]
+  aktuell[akt-motiv akt-beginn akt-verlauf akt-ausloeser akt-einfluss akt-frueher↳1 akt-begleit cas cas]
   fach-gastro[fach-gastro-sodbrennen fach-gastro-voelle fach-gastro-speisen fach-gastro-stuhl↳2 fach-gastro-tenesmen fach-gastro-spiegelung]
   vegetativ[veg-fieber~fieber↳3 veg-schuettelfrost veg-ausscheidung~miktion↳1 veg-gewicht↳2 veg-appetit veg-schlaf ^veg-fieber#5~impfung]
   vorerkrankungen[· vor-erkrank↳1 vor-op↳1 vor-krankenhaus]
@@ -310,7 +310,7 @@ case-gallenkolik
 case-tvt
   eroeffnung[· · · ·]
   personalia[pers-name pers-name pers-alter pers-groesse pers-hausarzt ·]
-  aktuell[akt-motiv akt-ort↳1 akt-veraend-was akt-beginn akt-charakter akt-intensitaet↳1 akt-veraend-entwicklung↳1 akt-veraend-blutung~lokalschmerz,juckreiz,lokalblutung,urin_aspekt,haemoptyse↳2 akt-verlauf akt-ausloeser akt-einfluss akt-frueher↳1 akt-begleit cas cas]
+  aktuell[akt-motiv akt-ort↳1 akt-veraend-was akt-beginn akt-charakter akt-intensitaet↳1 akt-veraend-entwicklung↳1 akt-veraend-blutung~lokalschmerz,juckreiz akt-verlauf akt-ausloeser akt-einfluss akt-frueher↳1 akt-begleit cas cas]
   fach-gefaess[fach-gefaess-gehstrecke fach-gefaess-ruheschmerz fach-gefaess-schwellung↳1 fach-gefaess-immobilisation fach-gefaess-hormone fach-gefaess-thrombose fach-gefaess-wunde fach-gefaess-vorgeschichte]
   vegetativ[veg-fieber~fieber↳3 veg-schuettelfrost veg-uebelkeit↳1 veg-ausscheidung↳1 veg-gewicht↳2 veg-appetit veg-schlaf ^veg-fieber#5~impfung]
   vorerkrankungen[· vor-erkrank↳1 vor-op↳1 vor-krankenhaus cas cas]
@@ -459,7 +459,7 @@ case-vorhofflimmern
 case-erysipel
   eroeffnung[· · · ·]
   personalia[pers-name pers-name pers-alter pers-groesse pers-hausarzt ·]
-  aktuell[akt-motiv akt-veraend-was akt-beginn akt-charakter akt-intensitaet↳1 akt-veraend-blutung~urin_aspekt,haemoptyse↳1 akt-verlauf akt-einfluss akt-frueher↳1 akt-begleit cas cas cas cas cas]
+  aktuell[akt-motiv akt-veraend-was akt-beginn akt-charakter akt-intensitaet↳1 akt-verlauf akt-einfluss akt-frueher↳1 akt-begleit cas cas cas cas cas]
   fach-derma[fach-derma-beginn-ort↳1 fach-derma-empfinden↳1 fach-derma-aussehen↳1 fach-derma-ausloeser fach-derma-systemisch fach-derma-vorgeschichte fach-derma-vorbehandlung]
   vegetativ[veg-fieber~reise veg-schuettelfrost veg-uebelkeit↳1 veg-ausscheidung↳1 veg-gewicht↳2 veg-appetit veg-schlaf ^veg-fieber#5~impfung]
   vorerkrankungen[· vor-erkrank↳1 vor-op↳1 vor-krankenhaus cas cas cas]
@@ -496,7 +496,7 @@ case-niereninsuffizienz
 case-lymphom
   eroeffnung[· · · ·]
   personalia[pers-name pers-name pers-alter pers-groesse pers-hausarzt ·]
-  aktuell[akt-motiv akt-veraend-was akt-beginn akt-veraend-entwicklung↳1 akt-veraend-blutung~lokalschmerz,juckreiz akt-verlauf akt-ausloeser akt-einfluss akt-frueher↳1 akt-begleit cas cas cas cas cas]
+  aktuell[akt-motiv akt-beginn akt-veraend-entwicklung↳1 akt-verlauf akt-ausloeser akt-einfluss akt-frueher↳1 akt-begleit cas cas cas cas cas]
   fach-onko[fach-onko-knoten↳4 fach-onko-bsymptomatik fach-onko-leistung fach-onko-schmerz fach-onko-blutung fach-onko-appetit fach-onko-vorbehandlung fach-onko-familie fach-onko-vorsorge]
   vegetativ[veg-fieber~reise veg-schuettelfrost~schuettelfrost,schwitzen↳1 veg-uebelkeit↳1 veg-ausscheidung↳1 veg-schlaf ^veg-fieber#5~impfung cas]
   vorerkrankungen[· vor-erkrank↳1 vor-op↳1 vor-krankenhaus]
@@ -619,7 +619,7 @@ case-bronchialkarzinom
 case-mammakarzinom
   eroeffnung[· · · ·]
   personalia[pers-name pers-name pers-alter pers-groesse pers-hausarzt ·]
-  aktuell[akt-motiv akt-veraend-was akt-beginn akt-veraend-entwicklung↳1 akt-veraend-blutung~lokalschmerz,juckreiz,lokalblutung,urin_aspekt,haemoptyse↳2 akt-verlauf akt-ausloeser akt-einfluss akt-frueher↳1 akt-begleit cas cas cas]
+  aktuell[akt-motiv akt-veraend-was akt-beginn akt-veraend-entwicklung↳1 akt-veraend-blutung~lokalschmerz,juckreiz akt-verlauf akt-ausloeser akt-einfluss akt-frueher↳1 akt-begleit cas cas cas]
   fach-gyn[frau-periode↳2 cas frau-schwanger frau-verhuetung↳1 frau-wechseljahre fach-gyn-blutung↳1 fach-gyn-unterbauch↳2 fach-gyn-fluor↳5 fach-gyn-dyspareunie↳2 fach-gyn-schwangerschaften↳3 cas fach-gyn-kinderwunsch fach-gyn-brust fach-gyn-vorsorge fach-gyn-eingriffe↳1]
   vegetativ[veg-fieber~fieber↳3 veg-schuettelfrost veg-uebelkeit↳1 veg-ausscheidung~stuhl↳1 veg-gewicht↳2 veg-appetit veg-schlaf ^veg-fieber#5~impfung cas]
   vorerkrankungen[· vor-erkrank↳1 vor-op↳1 vor-krankenhaus cas]
@@ -729,7 +729,7 @@ case-gonarthrose
 case-struma
   eroeffnung[· · · ·]
   personalia[pers-name pers-name pers-alter pers-groesse pers-hausarzt ·]
-  aktuell[akt-motiv akt-veraend-was akt-beginn akt-veraend-entwicklung↳1 akt-veraend-blutung~lokalschmerz,juckreiz,lokalblutung,urin_aspekt,haemoptyse↳2 akt-verlauf akt-ausloeser akt-einfluss akt-frueher↳1 akt-begleit cas cas cas cas]
+  aktuell[akt-motiv akt-veraend-was akt-beginn akt-veraend-entwicklung↳1 akt-veraend-blutung~lokalschmerz,juckreiz akt-verlauf akt-ausloeser akt-einfluss akt-frueher↳1 akt-begleit cas cas cas cas]
   fach-endo[fach-endo-durst fach-endo-gewicht↳2 fach-endo-temperatur fach-endo-herz-nerven fach-endo-hals fach-endo-augen fach-endo-haut-haare fach-endo-unterzucker fach-endo-folgeschaeden fach-endo-familie-therapie]
   vegetativ[veg-fieber~fieber↳3 veg-schuettelfrost~schuettelfrost,nachtschweiss↳1 veg-uebelkeit↳1 veg-ausscheidung↳1 veg-schlaf ^veg-fieber#5~impfung cas]
   vorerkrankungen[· vor-erkrank↳1 vor-op↳1 vor-krankenhaus cas]
@@ -818,7 +818,7 @@ case-schenkelhalsfraktur
 case-ulcus-cruris
   eroeffnung[· · · ·]
   personalia[pers-name pers-name pers-alter pers-groesse pers-hausarzt ·]
-  aktuell[akt-motiv akt-veraend-was akt-beginn akt-veraend-entwicklung↳1 akt-veraend-blutung~lokalschmerz,juckreiz,lokalblutung,urin_aspekt,haemoptyse↳2 akt-verlauf akt-ausloeser akt-einfluss akt-frueher↳1 akt-begleit cas cas↳1 cas cas cas cas]
+  aktuell[akt-motiv akt-veraend-was akt-beginn akt-veraend-entwicklung↳1 akt-veraend-blutung~lokalschmerz,juckreiz akt-verlauf akt-ausloeser akt-einfluss akt-frueher↳1 akt-begleit cas cas↳1 cas cas cas cas]
   fach-gefaess[fach-gefaess-gehstrecke fach-gefaess-ruheschmerz fach-gefaess-schwellung↳1 fach-gefaess-immobilisation fach-gefaess-thrombose fach-gefaess-wunde fach-gefaess-vorgeschichte]
   vegetativ[veg-fieber~fieber↳3 veg-schuettelfrost veg-uebelkeit↳1 veg-ausscheidung↳1 veg-gewicht↳2 veg-appetit veg-schlaf ^veg-fieber#5~impfung]
   vorerkrankungen[· vor-erkrank↳1 vor-op↳1 vor-krankenhaus cas↳1 cas]
@@ -831,7 +831,7 @@ case-ulcus-cruris
 case-leistenhernie
   eroeffnung[· · · ·]
   personalia[pers-name pers-name pers-alter pers-groesse pers-hausarzt ·]
-  aktuell[akt-motiv akt-ort↳1 akt-veraend-was akt-beginn akt-charakter akt-intensitaet↳1 akt-veraend-entwicklung↳1 akt-veraend-blutung~lokalschmerz,juckreiz,lokalblutung,urin_aspekt,haemoptyse↳2 akt-verlauf akt-ausloeser akt-einfluss akt-frueher↳1 akt-begleit cas cas cas↳1 cas]
+  aktuell[akt-motiv akt-ort↳1 akt-veraend-was akt-beginn akt-charakter akt-intensitaet↳1 akt-veraend-entwicklung↳1 akt-veraend-blutung~lokalschmerz,juckreiz akt-verlauf akt-ausloeser akt-einfluss akt-frueher↳1 akt-begleit cas cas cas↳1 cas]
   fach-chirurgie[fach-chir-essen fach-chir-ileus fach-chir-op↳3 fach-chir-gallensteine]
   vegetativ[veg-fieber~fieber↳3 veg-schuettelfrost veg-uebelkeit↳1 cas↳1 veg-gewicht↳2 veg-appetit veg-schlaf cas ^veg-fieber#5~impfung]
   vorerkrankungen[· vor-erkrank↳1 vor-op↳1 vor-krankenhaus]
@@ -868,7 +868,7 @@ case-commotio
 case-itp
   eroeffnung[· · · ·]
   personalia[pers-name pers-name pers-alter pers-groesse pers-hausarzt ·]
-  aktuell[akt-motiv akt-veraend-was akt-beginn akt-veraend-entwicklung↳1 akt-veraend-blutung~lokalschmerz,juckreiz,urin_aspekt,haemoptyse↳2 akt-verlauf akt-ausloeser akt-einfluss akt-frueher↳1 akt-begleit cas cas cas]
+  aktuell[akt-motiv akt-veraend-was akt-beginn akt-veraend-entwicklung↳1 akt-verlauf akt-ausloeser akt-einfluss akt-frueher↳1 akt-begleit cas cas cas]
   fach-haemato[fach-haem-leistung fach-haem-belastung↳1 fach-haem-blutung↳1 fach-haem-blutverlust↳1 fach-haem-ernaehrung fach-haem-bsymptomatik↳2 fach-haem-lymphknoten fach-haem-infekte fach-haem-knochen fach-haem-thrombose]
   vegetativ[veg-schuettelfrost~schuettelfrost,schwitzen↳1 veg-uebelkeit↳1 veg-ausscheidung↳1 veg-appetit veg-schlaf]
   vorerkrankungen[· vor-erkrank↳1 vor-op↳1 vor-krankenhaus cas]
@@ -1363,7 +1363,7 @@ case-glomerulonephritis
 case-nhl
   eroeffnung[· · · ·]
   personalia[pers-name pers-name pers-alter pers-groesse pers-hausarzt ·]
-  aktuell[akt-motiv akt-veraend-was akt-beginn akt-veraend-entwicklung↳1 akt-veraend-blutung~lokalschmerz,juckreiz,urin_aspekt,haemoptyse↳2 akt-verlauf akt-ausloeser akt-einfluss akt-frueher↳1 akt-begleit cas cas cas cas cas]
+  aktuell[akt-motiv akt-veraend-was akt-beginn akt-veraend-entwicklung↳1 akt-veraend-blutung~lokalschmerz,juckreiz akt-verlauf akt-ausloeser akt-einfluss akt-frueher↳1 akt-begleit cas cas cas cas cas]
   fach-haemato[fach-haem-leistung fach-haem-belastung↳1 fach-haem-blutung↳1 fach-haem-blutverlust↳1 fach-haem-ernaehrung fach-haem-bsymptomatik↳2 fach-haem-lymphknoten fach-haem-infekte fach-haem-knochen fach-haem-thrombose]
   vegetativ[veg-fieber~reise veg-schuettelfrost~schuettelfrost,schwitzen↳1 veg-uebelkeit↳1 veg-ausscheidung↳1 veg-appetit veg-schlaf ^veg-fieber#5~impfung cas cas]
   vorerkrankungen[· vor-erkrank↳1 vor-op↳1 vor-krankenhaus]
@@ -1520,7 +1520,7 @@ case-hodentorsion
 case-basaliom
   eroeffnung[· · · ·]
   personalia[pers-name pers-name pers-alter pers-groesse pers-hausarzt ·]
-  aktuell[akt-motiv akt-veraend-was akt-beginn akt-veraend-blutung~urin_aspekt,haemoptyse↳1 akt-einfluss akt-frueher↳1 akt-begleit cas cas]
+  aktuell[akt-motiv akt-veraend-was akt-beginn akt-einfluss akt-frueher↳1 akt-begleit cas cas]
   fach-derma[fach-derma-beginn-ort↳1 fach-derma-empfinden↳1 fach-derma-aussehen↳1 fach-derma-ausloeser fach-derma-verlauf fach-derma-systemisch fach-derma-vorgeschichte fach-derma-muttermal↳1 fach-derma-vorbehandlung]
   vegetativ[veg-schuettelfrost veg-uebelkeit↳1 veg-ausscheidung↳1 veg-gewicht↳2 veg-appetit veg-schlaf ^veg-fieber#5~impfung cas]
   vorerkrankungen[· vor-erkrank↳1 vor-op↳1 vor-krankenhaus cas cas]
@@ -1532,7 +1532,7 @@ case-basaliom
 case-psoriasis
   eroeffnung[· · · ·]
   personalia[pers-name pers-name pers-alter pers-groesse pers-hausarzt ·]
-  aktuell[akt-motiv akt-veraend-was akt-beginn akt-veraend-blutung~urin_aspekt,haemoptyse↳1 akt-einfluss akt-frueher↳1 akt-begleit cas cas cas cas cas]
+  aktuell[akt-motiv akt-veraend-was akt-beginn akt-einfluss akt-frueher↳1 akt-begleit cas cas cas cas cas]
   fach-derma[fach-derma-beginn-ort↳1 fach-derma-empfinden↳1 fach-derma-aussehen↳1 fach-derma-ausloeser fach-derma-verlauf fach-rheuma-gelenke↳1 fach-derma-systemisch fach-rheuma-entzuendung fach-derma-vorgeschichte fach-derma-vorbehandlung]
   vegetativ[veg-schuettelfrost veg-uebelkeit↳1 veg-ausscheidung↳1 veg-gewicht↳2 veg-appetit veg-schlaf ^veg-fieber#5~impfung]
   vorerkrankungen[· vor-erkrank↳1 vor-op↳1 vor-krankenhaus]
@@ -1544,7 +1544,7 @@ case-psoriasis
 case-urtikaria
   eroeffnung[· · · ·]
   personalia[pers-name pers-name pers-alter pers-groesse pers-hausarzt ·]
-  aktuell[akt-motiv akt-veraend-was akt-beginn akt-veraend-blutung~urin_aspekt,haemoptyse↳1 akt-einfluss akt-frueher↳1 akt-begleit cas cas cas cas]
+  aktuell[akt-motiv akt-veraend-was akt-beginn akt-einfluss akt-frueher↳1 akt-begleit cas cas cas cas]
   fach-derma[fach-derma-beginn-ort↳1 fach-derma-empfinden↳1 fach-derma-aussehen↳1 fach-derma-ausloeser fach-derma-verlauf fach-derma-systemisch fach-derma-vorgeschichte fach-derma-vorbehandlung]
   vegetativ[veg-schuettelfrost veg-uebelkeit↳1 veg-ausscheidung↳1 veg-gewicht↳2 veg-appetit veg-schlaf ^veg-fieber#5~impfung]
   vorerkrankungen[· vor-erkrank↳1 vor-op↳1 vor-krankenhaus]

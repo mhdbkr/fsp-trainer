@@ -154,10 +154,11 @@ describe('P1-2 à P1-5 — dimensions et pertinence', () => {
 
 describe('P1-6 / P1-7 — le changement remarqué (veraenderung) ne repose pas ce que la Fach demande', () => {
   const textes = (id: string) => trameJouee(byId(id)).flatMap((x) => x.questions.flatMap((p) => [phraseText(p), ...phraseFollowUps(p).map((f) => f.text)]));
-  it('P1-6a : les relances de saignement déclarent leur signe ; r2 les retire là où la Fach les pose (bronchialkarzinom, lymphom, itp)', () => {
-    expect(textes('case-bronchialkarzinom')).not.toContain('Husten Sie Blut ab?');
-    for (const id of ['case-lymphom', 'case-itp']) expect(textes(id), id).not.toContain('Haben Sie Blut im Stuhl bemerkt?');
-    expect(textes('case-itp')).toContain('Haben Sie Blut im Urin bemerkt?');   // la Fach haem ne pose pas l'hématurie : la part reste
+  // P1-6a, remplacé par R3 (décision de main) : la variante n'a plus de relances de saignement systémique ; la Fach les pose.
+  it('P1-6a / R3 : la variante ne pose plus le saignement systémique (bronchialkarzinom, lymphom, itp)', () => {
+    const variante = (id: string) => trameJouee(byId(id)).flatMap((x) => x.questions).filter((p) => phraseProbes(p).includes('akt-veraend-blutung'))
+      .flatMap((p) => [phraseText(p), ...phraseFollowUps(p).map((f) => f.text)]);
+    for (const id of ['case-bronchialkarzinom', 'case-lymphom', 'case-itp']) expect(variante(id).filter((t) => /Blut ab|Blut im/.test(t)), id).toEqual([]);
   });
   it('P1-6b : nodule et évolution — la Fach (onko, haem, gyn, derma) pose ce que la variante demande', () => {
     for (const p of ['fach-onko-knoten', 'fach-haem-lymphknoten', 'fach-gyn-brust']) expect(PROBE_SUCHT[p], p).toContain('knoten');
@@ -261,5 +262,22 @@ describe('R1 / R2 — le sang dans les selles et la nycturie ne se demandent que
     expect(cases.filter((x) => ['kardio', 'endo'].some((t) => profilDuCas(x).tags.includes(t as never)))).toHaveLength(15);
     for (const id of ['case-kolorektales-ca', 'case-oesophaguskarzinom', 'case-pankreaskarzinom', 'case-hepatitis-b', 'case-achalasie', 'case-obstipation', 'case-gastroenteritis'])
       expect(cherche(id, 'nykturie'), id).toBe(false);
+  });
+});
+
+describe('R3 / P2 / gib — le bloc « Veränderung » d\'une lésion cutanée reste à sa place', () => {
+  const textes = (id: string) => trameJouee(byId(id)).flatMap((x) => x.questions.flatMap((p) => [phraseText(p), ...phraseFollowUps(p).map((f) => f.text)]));
+  it('R3 : plus de « Blut im Stuhl / Urin » ni « Husten Sie Blut ab? » dans la variante (mammakarzinom, tvt, derma)', () => {
+    for (const id of ['case-mammakarzinom', 'case-tvt', 'case-erysipel', 'case-basaliom', 'case-psoriasis', 'case-urtikaria'])
+      expect(textes(id).filter((t) => /Blut im Stuhl|Blut im Urin|Husten Sie Blut ab/.test(t)), id).toEqual([]);
+  });
+  it('P2 : « blutet es? » est une part propre — quand le saignement est déjà demandé, il reste « Tut es weh, juckt es? »', () => {
+    expect(textes('case-mammakarzinom')).toContain('Tut es weh, juckt es?');
+    expect(textes('case-mammakarzinom')).not.toContain('Tut es weh, juckt es, oder blutet es?');
+  });
+  it('gib, itp, lymphom : décisions cas par cas (rapport § 0bis)', () => {
+    for (const id of ['case-gib', 'case-lymphom']) expect(coeur(byId(id)).aktuell.some((k) => /^akt-veraend-(was|blutung)/.test(k)), id).toBe(false);
+    expect(coeur(byId('case-itp')).aktuell.some((k) => k.startsWith('akt-veraend-blutung'))).toBe(false);
+    expect(coeur(byId('case-itp')).aktuell.some((k) => k.startsWith('akt-veraend-was'))).toBe(true);   // les pétéchies sont la « Veränderung »
   });
 });
