@@ -697,3 +697,85 @@ html:active-view-transition .vt-page { view-transition-name: page; }
    Les pages ne bougent que par translation (ressort de lib/motion) ; la
    couche GPU n'est promue que pendant l'interaction, pas au repos. */
 .deck-book:hover .deck-page, .deck-book:focus-within .deck-page { will-change: transform; }
+
+/* ── Le cadran d'un cas (`CaseDial`, S4-4) ─────────────────────────────────
+   Position = Teil, couleur = état, centre = maîtrise. Toutes les couleurs LISENT
+   la palette de tailwind.config (theme('colors.…')) : aucun hex copié. Elles sont
+   des variables de :root / .dark (et non de `.case-dial`) parce que le détail est
+   téléporté dans <body> : ses pastilles et ses textes lisent les mêmes, un seul
+   gris (`--cd-discret`). En sombre, « solide » est le plus lumineux.
+   Le grossissement, l'écart et l'épaississement des arcs n'existent QUE sous
+   `prefers-reduced-motion: no-preference` : en mouvement réduit, rien ne bouge et
+   le détail s'ouvre en panneau immobile. Aucune ombre portée. */
+:root {
+  --cd-vierge: color-mix(in srgb, theme('colors.ink.DEFAULT') 16%, transparent);
+  --cd-fragile: theme('colors.signal.400');
+  --cd-acquis: theme('colors.brand.400');      /* 2,98:1 sur le papier, 3,26:1 sur blanc (décision de main, 5 oct.) */
+  --cd-solide: theme('colors.brand.600');
+  --cd-maitrise: theme('colors.brand.500');
+  --cd-piste: color-mix(in srgb, theme('colors.ink.DEFAULT') 8%, transparent);
+  --cd-encre: theme('colors.ink.DEFAULT');
+  --cd-discret: theme('colors.slate.500');
+  --cd-halo: color-mix(in srgb, white 88%, transparent);
+}
+.dark {
+  --cd-vierge: color-mix(in srgb, theme('colors.slate.100') 18%, transparent);
+  --cd-fragile: theme('colors.signal.300');
+  --cd-acquis: theme('colors.brand.400');
+  --cd-solide: theme('colors.brand.200');
+  --cd-maitrise: theme('colors.brand.300');
+  --cd-piste: color-mix(in srgb, theme('colors.slate.100') 8%, transparent);
+  --cd-encre: theme('colors.slate.100');
+  --cd-discret: theme('colors.slate.400');
+  --cd-halo: color-mix(in srgb, theme('colors.ink.800') 88%, transparent);
+}
+.case-dial {
+  position: relative; display: inline-grid; place-items: center; flex-shrink: 0; border-radius: 9999px; cursor: pointer;
+  -webkit-tap-highlight-color: transparent; user-select: none; -webkit-user-select: none; -webkit-touch-callout: none;
+  touch-action: manipulation;
+}
+.case-dial svg { display: block; overflow: visible; }
+.case-dial[data-ouvert] { z-index: 30; }
+/* La carte qui porte un cadran ouvert passe au-dessus de ses voisines : le cadran déborde de la carte. */
+.card:has(.case-dial[data-ouvert]) { z-index: 30; }
+.cd-num { font-family: theme('fontFamily.mono'); font-weight: 500; fill: var(--cd-discret); font-variant-numeric: tabular-nums; }
+.cd-num[data-complet] { fill: var(--cd-encre); }
+.cd-sub { font-family: theme('fontFamily.sans'); fill: var(--cd-discret); }
+/* Repères Teil + score : police SANS (le mono est réservé aux données du centre), halo pour rester lisibles sur le texte de la carte. */
+.cd-label {
+  font-family: theme('fontFamily.sans'); font-weight: 600; fill: var(--cd-encre); opacity: 0;
+  paint-order: stroke; stroke: var(--cd-halo); stroke-width: 3px; stroke-linejoin: round;
+}
+.case-dial[data-ouvert] .cd-label { opacity: 1; }
+.cd-fond { fill: var(--cd-halo); opacity: 0; }
+
+.cd-t1 { color: var(--cd-encre); }
+.cd-t2 { color: var(--cd-discret); }
+.cd-pastille { display: block; width: 10px; height: 10px; border-radius: 3px; background: var(--cd-vierge); }
+.cd-pastille[data-etat="fragile"] { background: var(--cd-fragile); }
+.cd-pastille[data-etat="acquis"] { background: var(--cd-acquis); }
+.cd-pastille[data-etat="a-confirmer"] { background: var(--cd-acquis); border: 1.5px solid var(--cd-solide); }   /* le liseré de l'arc */
+.cd-pastille[data-etat="solide"] { background: var(--cd-solide); }
+.cd-pastille[data-etat="non-mesure"] { background: transparent; border: 1.5px dashed var(--cd-discret); }
+
+@keyframes cd-trace { from { stroke-dashoffset: 1; } to { stroke-dashoffset: 0; } }
+@keyframes cd-souder { from { stroke-dashoffset: 1; } to { stroke-dashoffset: 0; } }
+@keyframes cd-pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.045); } }
+@media (prefers-reduced-motion: no-preference) {
+  .case-dial svg { transition: transform 460ms var(--ease-out); }
+  .cd-groupe { transition: transform 460ms var(--ease-out); }
+  .cd-arc { transition: stroke-width 460ms var(--ease-out); }
+  .cd-fond { transition: opacity 300ms var(--ease-out); }
+  .cd-label { transition: opacity 300ms var(--ease-out) 140ms; }
+  .case-dial[data-ouvert] svg { transform: translateX(var(--cd-ox, 0px)) scale(var(--cd-echelle, 1.14)); }
+  .case-dial[data-ouvert] .cd-fond { opacity: 1; }
+  .case-dial[data-ouvert] .cd-groupe { transform: translate(var(--dx), var(--dy)); }
+  .case-dial[data-ouvert] .cd-arc:not([data-etat="vierge"]):not([data-etat="non-mesure"]) { stroke-width: 9; }
+  .cd-trace { stroke-dasharray: 1; animation: cd-trace 900ms var(--ease-out) both; }
+  .cd-soude-trace {
+    stroke-dasharray: 1; transform-box: fill-box; transform-origin: center;
+    animation: cd-souder 800ms var(--ease-out) both, cd-pulse 520ms 800ms var(--ease-out) both;
+  }
+  /* Les lignes du détail arrivent l'une après l'autre, après la naissance du panneau. */
+  .case-dial-detail .cd-ligne { animation: reveal-up 300ms var(--ease-out) backwards; animation-delay: calc(140ms + var(--i, 0) * 55ms); }
+}
