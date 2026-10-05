@@ -80,7 +80,8 @@ describe('favoris Neu de la séance (point 1)', () => {
     const pool = [...Array.from({ length: 25 }, (_, i) => mk(`d${i}`, 'Gelernt', -1 - i)), ...Array.from({ length: 6 }, (_, i) => mk(`f${i}`, 'Neu', 0)), mk('n', 'Neu', 0)];
     const ctx = ctxWith(Array.from({ length: 6 }, (_, i) => ({ termId: `f${i}`, since: iso(now - 3600_000) })));
     const q = buildDrillQueue(pool, { now, newLimit: 0, relevance: ctx });
-    expect(q).toHaveLength(20);
+    expect(q).toHaveLength(23);                                   // I1 : 17 dus gardés + 6 favoris en plus
+    expect(q.filter((b) => b.id.startsWith('d'))).toHaveLength(17);
     expect(q.filter((b) => b.id.startsWith('f'))).toHaveLength(6);
     expect(q.some((b) => b.id === 'n')).toBe(false);
   });
@@ -137,5 +138,37 @@ describe('queueCounts.favorites (point 4)', () => {
   it('compte les favoris de la séance présents dans la file', () => {
     const pool = [mk('f1', 'Neu', 0), mk('n1', 'Neu', 0), mk('due', 'Gelernt', -1)];
     expect(queueCounts(pool, { now, newLimit: 1, relevance: ctxWith([{ termId: 'f1', since: iso(now) }]) })).toEqual({ due: 1, fresh: 1, favorites: 1 });
+  });
+});
+
+// ── Revue Opus 336adf0a : I1 (les favoris n'évincent plus les dus) et m1 ─────
+describe('I1 — un afflux de favoris n\'évince pas les dus', () => {
+  const dues = Array.from({ length: 30 }, (_, i) => mk(`d${i}`, 'Gelernt', -1 - i));
+  const favs = Array.from({ length: 40 }, (_, i) => mk(`f${i}`, 'Neu', 0));
+  const ctx = ctxWith(favs.map((f) => ({ termId: f.id, since: iso(now - 3600_000) })));
+  it('30 dus + 40 favoris (limit 100) → les 30 dus ET les 40 favoris', () => {
+    const q = buildDrillQueue([...dues, ...favs], { now, newLimit: 10, limit: 100, relevance: ctx });
+    expect(q.filter((b) => b.id.startsWith('d'))).toHaveLength(30);
+    expect(q.filter((b) => b.id.startsWith('f'))).toHaveLength(40);
+  });
+  it('limit 20 : les dus gardent leurs places (20 − 3 réservées), les favoris s\'ajoutent', () => {
+    const q = buildDrillQueue([...dues, ...favs], { now, newLimit: 10, relevance: ctx });
+    expect(q.filter((b) => b.id.startsWith('d'))).toHaveLength(17);
+    expect(q.filter((b) => b.id.startsWith('f'))).toHaveLength(40);
+  });
+  it('queueCounts = la file réelle, exactement (en-tête et durée annoncée)', () => {
+    const pool = [...dues, ...favs, mk('n', 'Neu', 0)];
+    for (const opts of [{ now, newLimit: 10, relevance: ctx }, { now, newLimit: 10 }, { now, newLimit: 0, limit: 5 }]) {
+      const q = buildDrillQueue(pool, opts);
+      expect(queueCounts(pool, opts)).toMatchObject({ due: q.filter((b) => b.srs.state !== 'Neu').length, fresh: q.filter((b) => b.srs.state === 'Neu').length });
+    }
+  });
+});
+
+describe('m1 — les favoris forcés ne sont jamais coupés par limit', () => {
+  it('25 favoris forcés, limit 20 → 25 cartes', () => {
+    const favs = Array.from({ length: 25 }, (_, i) => mk(`f${i}`, 'Neu', 0));
+    const q = buildDrillQueue(favs, { now, newLimit: 0, limit: 20, relevance: ctxWith(favs.map((f) => ({ termId: f.id, since: iso(now) }))) });
+    expect(q).toHaveLength(25);
   });
 });
