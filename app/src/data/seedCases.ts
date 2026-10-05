@@ -19,6 +19,7 @@ export function seedCases(): Case[] {
       frequency: 26,
       difficulty: 2,
       patientSheet: {
+        profil: { tags: ['schmerz'] },
         leitsymptomKategorie: 'schmerz',
         motiv: { trauma: false, region: 'abdomen' },
         // « in den letzten Stunden gegessen » ne convient pas à une évolution sur 3 mois ; la réponse reste dans la fiche.
@@ -277,6 +278,7 @@ export function seedCases(): Case[] {
       frequency: 11,
       difficulty: 2,
       patientSheet: {
+        profil: { tags: ['schmerz', 'dyspnoe'] },
         personalia: {
           name: 'Manfred Bauer', age: 64, geschlecht: 'm', groesseCm: 175, gewichtKg: 92,
           beruf: 'Rentner (früher Busfahrer)', hausarzt: 'Dr. Weber',
@@ -469,6 +471,7 @@ export function seedCases(): Case[] {
       frequency: 14,
       difficulty: 2,
       patientSheet: {
+        profil: { tags: ['schmerz'] },
         personalia: { name: 'Gisela Hoffmann', age: 55, geschlecht: 'w', groesseCm: 165, gewichtKg: 88, beruf: 'Verkäuferin', familienstand: 'verheiratet' },
         leitsymptome: ['Seit gestern Abend heftige Oberbauchschmerzen, gürtelförmig in den Rücken ausstrahlend'],
         begleitsymptome: ['Übelkeit, mehrfaches Erbrechen', 'aufgeblähter Bauch'],
@@ -652,6 +655,7 @@ export function seedCases(): Case[] {
       frequency: 19,
       difficulty: 3,
       patientSheet: {
+        profil: { tags: ['veraenderung'] },
         leitsymptomKategorie: 'veraenderung',
         personalia: { name: 'Werner Klein', age: 71, geschlecht: 'm', groesseCm: 172, gewichtKg: 70, beruf: 'Rentner', familienstand: 'verwitwet' },
         leitsymptome: ['Seit heute Morgen schwarzer, klebriger Stuhl und einmal kaffeesatzartiges Erbrechen'],
@@ -818,6 +822,7 @@ export function seedCases(): Case[] {
       name: 'Akute Divertikulitis', pathology: 'Divertikulitis', specialty: 'Gastroenterologie',
       centers: ['Freiburg', 'Karlsruhe', 'Stuttgart'], frequency: 11, difficulty: 1,
       patientSheet: {
+        profil: { tags: ['schmerz', 'fieber'] },
         personalia: { name: 'Ursula Maier', age: 67, geschlecht: 'w', groesseCm: 168, gewichtKg: 72, beruf: 'Rentnerin', familienstand: 'verheiratet' },
         leitsymptome: ['Seit 3 Tagen Schmerzen im linken Unterbauch'],
         begleitsymptome: ['Fieber', 'Stuhlunregelmäßigkeiten (Verstopfung)'],
@@ -993,6 +998,7 @@ export function seedCases(): Case[] {
       name: 'Akute Cholezystitis', pathology: 'Akute Cholezystitis', specialty: 'Chirurgie',
       centers: ['Reutlingen', 'Stuttgart'], frequency: 4, difficulty: 1,
       patientSheet: {
+        profil: { tags: ['schmerz', 'fieber', 'stein'] },
         personalia: { name: 'Rosa Schneider', age: 49, geschlecht: 'w', groesseCm: 166, gewichtKg: 95, beruf: 'Köchin', familienstand: 'verheiratet' },
         leitsymptome: ['Seit gestern starke Schmerzen im rechten Oberbauch nach fettigem Essen'],
         begleitsymptome: ['Übelkeit', 'Fieber', 'Ausstrahlung in die rechte Schulter'],
@@ -1164,6 +1170,7 @@ export function seedCases(): Case[] {
       name: 'Kolorektales Karzinom', pathology: 'Kolorektales Karzinom', specialty: 'Gastroenterologie',
       centers: ['Karlsruhe', 'Stuttgart', 'Freiburg'], frequency: 15, difficulty: 2,
       patientSheet: {
+        profil: { tags: ['ausscheidung', 'gewichtsverlust'] },
         leitsymptomKategorie: 'ausscheidung',
         personalia: { name: 'Heinrich Vogt', age: 68, geschlecht: 'm', beruf: 'Rentner', familienstand: 'verheiratet' },
         leitsymptome: ['Seit Wochen wechselnder Stuhlgang und Blut im Stuhl'],
@@ -1335,6 +1342,7 @@ export function seedCases(): Case[] {
       name: 'Gastroösophageale Refluxkrankheit', pathology: 'GERD (Refluxkrankheit)', specialty: 'Gastroenterologie',
       centers: ['Freiburg', 'Karlsruhe', 'Stuttgart'], frequency: 7, difficulty: 1,
       patientSheet: {
+        profil: { tags: ['schmerz', 'hals', 'husten'] },
         personalia: { name: 'Sabine Wolf', age: 42, geschlecht: 'w', groesseCm: 170, gewichtKg: 84, beruf: 'Bürokauffrau', familienstand: 'ledig' },
         leitsymptome: ['Seit Monaten Sodbrennen, besonders nach dem Essen und im Liegen'],
         begleitsymptome: ['saures Aufstoßen', 'gelegentlich Reizhusten nachts'],
@@ -1510,6 +1518,7 @@ export function seedCases(): Case[] {
       name: 'Akuter Myokardinfarkt (STEMI)', pathology: 'Myokardinfarkt', specialty: 'Kardiologie',
       centers: ['Freiburg', 'Karlsruhe', 'Reutlingen'], frequency: 7, difficulty: 3,
       patientSheet: {
+        profil: { tags: ['schmerz'] },
         personalia: { name: 'Dieter Fischer', age: 59, geschlecht: 'm', beruf: 'Bauleiter', familienstand: 'verheiratet' },
         leitsymptome: ['Seit 45 Minuten stärkste Schmerzen hinter dem Brustbein, auch in Ruhe'],
         begleitsymptome: ['Kaltschweißigkeit', 'Übelkeit', 'Todesangst', 'Ausstrahlung linker Arm/Kiefer'],
@@ -1689,6 +1698,7 @@ export function seedCases(): Case[] {
       name: 'Ösophaguskarzinom', pathology: 'Ösophaguskarzinom', specialty: 'Gastroenterologie',
       centers: ['Stuttgart', 'Karlsruhe'], frequency: 22, difficulty: 2,
       patientSheet: {
+        profil: { tags: ['ausscheidung', 'dysphagie', 'hals', 'gewichtsverlust'] },
         leitsymptomKategorie: 'ausscheidung',
         personalia: { name: 'Anna Sichel', age: 53, geschlecht: 'w', groesseCm: 168, gewichtKg: 58, beruf: 'Schneiderin', familienstand: 'verheiratet' },
         leitsymptome: ['Seit 4 Wochen zunehmende Schluckbeschwerden, erst bei fester, jetzt bei weicher Kost'],
@@ -1888,6 +1898,7 @@ export function seedCases(): Case[] {
       frequency: 6,
       difficulty: 2,
       patientSheet: {
+        profil: { tags: ['schmerz', 'hals'] },
         personalia: {
           name: 'Jobst Donalies',
           age: 38,
@@ -2213,6 +2224,7 @@ export function seedCases(): Case[] {
       frequency: 15,
       difficulty: 3,
       patientSheet: {
+        profil: { tags: ['allgemein', 'hals', 'gewichtsverlust'] },
         leitsymptomKategorie: 'allgemein',
         personalia: {
           name: 'Julian Brückner',
@@ -2544,6 +2556,7 @@ export function seedCases(): Case[] {
       frequency: 14,
       difficulty: 2,
       patientSheet: {
+        profil: { tags: ['schmerz', 'fieber'] },
         personalia: {
           name: 'Hans Müller',
           age: 41,
@@ -2881,6 +2894,7 @@ export function seedCases(): Case[] {
       frequency: 15,
       difficulty: 3,
       patientSheet: {
+        profil: { tags: ['psychisch'] },
         leitsymptomKategorie: 'psychisch',
         personalia: {
           name: 'Thomas Heidenreich',
@@ -3228,6 +3242,7 @@ export function seedCases(): Case[] {
       frequency: 17,
       difficulty: 2,
       patientSheet: {
+        profil: { tags: ['infekt', 'fieber', 'dyspnoe', 'husten'] },
         leitsymptomKategorie: 'infekt',
         personalia: {
           name: 'Bernd Mais',
@@ -3578,6 +3593,7 @@ export function seedCases(): Case[] {
       frequency: 14,
       difficulty: 2,
       patientSheet: {
+        profil: { tags: ['schmerz', 'fieber', 'stein'] },
         personalia: {
           name: 'Lisa Häberle',
           age: 76,
@@ -3932,6 +3948,7 @@ export function seedCases(): Case[] {
       frequency: 20,
       difficulty: 2,
       patientSheet: {
+        profil: { tags: ['schmerz'] },
         personalia: {
           name: 'Walter Vogel',
           age: 60,
@@ -4260,6 +4277,7 @@ export function seedCases(): Case[] {
       frequency: 17,
       difficulty: 3,
       patientSheet: {
+        profil: { tags: ['infekt', 'lyme'] },
         leitsymptomKategorie: 'infekt',
         personalia: {
           name: 'Nadine Brückner',
@@ -4649,6 +4667,7 @@ export function seedCases(): Case[] {
       frequency: 12,
       difficulty: 2,
       patientSheet: {
+        profil: { tags: ['schmerz', 'gelenk'] },
         motiv: { trauma: true, region: 'untere' },
         personalia: {
           name: 'Tobias Reinhardt',
@@ -4981,6 +5000,7 @@ export function seedCases(): Case[] {
       frequency: 14,
       difficulty: 2,
       patientSheet: {
+        profil: { tags: ['schmerz'] },
         motiv: { trauma: false, region: 'lws' },
         fachSkip: ['fach-ortho-durchblutung'],
         personalia: {
@@ -5268,6 +5288,7 @@ export function seedCases(): Case[] {
       frequency: 22,
       difficulty: 2,
       patientSheet: {
+        profil: { tags: ['schmerz', 'gelenk', 'arthritis', 'gicht'] },
         personalia: {
           name: 'Hans Hedgke',
           age: 45,
@@ -5729,6 +5750,7 @@ export function seedCases(): Case[] {
       frequency: 9,
       difficulty: 3,
       patientSheet: {
+        profil: { tags: ['nerven', 'hals', 'lyme'] },
         fachSkip: ['fach-neuro-anfallzeichen'],
         leitsymptomKategorie: 'nerven',
         personalia: {
@@ -6178,6 +6200,7 @@ export function seedCases(): Case[] {
       frequency: 7,
       difficulty: 3,
       patientSheet: {
+        profil: { tags: ['schmerz'] },
         personalia: {
           name: 'Frida Zimmermann',
           age: 52,
@@ -6668,6 +6691,7 @@ export function seedCases(): Case[] {
       frequency: 8,
       difficulty: 3,
       patientSheet: {
+        profil: { tags: ['neurologisch', 'hals'] },
         leitsymptomKategorie: 'neurologisch',
         personalia: {
           name: 'Arnd Kartmann',
@@ -7010,6 +7034,7 @@ export function seedCases(): Case[] {
       frequency: 8,
       difficulty: 2,
       patientSheet: {
+        profil: { tags: ['schmerz', 'stein'] },
         personalia: {
           name: 'Heiner Hermann',
           age: 40,
@@ -7327,6 +7352,7 @@ export function seedCases(): Case[] {
       frequency: 25,
       difficulty: 2,
       patientSheet: {
+        profil: { tags: ['veraenderung', 'schmerz'] },
         leitsymptomKategorie: 'veraenderung',
         personalia: {
           name: 'Anna Müller',
@@ -7472,6 +7498,10 @@ export function seedCases(): Case[] {
           'fach-gefaess-thrombose': 'Selbst hatte ich noch nie eine Thrombose oder eine Lungenembolie. In der Familie... mein Vater hatte das, glaube ich, öfter, eine Gerinnungsstörung mit Thrombosen. Ich habe da nie genau nachgefragt.',
           'fach-gefaess-wunde': 'Nein, schlecht heilende Wunden habe ich nicht. Und kalt, blass oder bläulich ist der Fuß auch nicht, nur das Bein mit der Rötung, wie ich schon gesagt habe.',
           'fach-gefaess-vorgeschichte': 'Krampfadern habe ich am rechten Bein, schon länger. Untersucht oder operiert wurden meine Gefäße aber noch nie, kein Stent, kein Bypass.',
+          // K2 (ADR-0023) : réponses des sondes de banque que le profil exige (r3)
+          'akt-ort': 'In der rechten Wade, am ganzen Unterschenkel hinten. Manchmal zieht es bis in die Kniekehle hoch.',
+          'akt-charakter': 'Es zieht, und dazu spannt es, als wäre die Haut zu eng. Stechend oder brennend ist es nicht.',
+          'akt-intensitaet': 'Ungefähr sechs von zehn. Beim Gehen und Stehen eher mehr, wenn ich das Bein hochlege, etwas weniger.',
         },
         frageAntworten: [
           {
@@ -7688,6 +7718,7 @@ export function seedCases(): Case[] {
       frequency: 8,
       difficulty: 2,
       patientSheet: {
+        profil: { tags: ['allgemein', 'gewichtsverlust'] },
         leitsymptomKategorie: 'allgemein',
         personalia: {
           name: 'Thomas Rosnier',
@@ -8240,6 +8271,7 @@ export function seedCases(): Case[] {
       frequency: 6,
       difficulty: 2,
       patientSheet: {
+        profil: { tags: ['allgemein', 'hals', 'gewichtsverlust'] },
         leitsymptomKategorie: 'allgemein',
         personalia: {
           name: 'Jessica Suess',
@@ -8787,6 +8819,7 @@ export function seedCases(): Case[] {
       frequency: 6,
       difficulty: 3,
       patientSheet: {
+        profil: { tags: ['atemnot', 'dyspnoe', 'husten'] },
         leitsymptomKategorie: 'atemnot',
         personalia: {
           name: 'Michael Witzinger',
@@ -9345,6 +9378,7 @@ export function seedCases(): Case[] {
       frequency: 0,
       difficulty: 2,
       patientSheet: {
+        profil: { tags: ['ausscheidung', 'schmerz', 'stein'] },
         leitsymptomKategorie: 'ausscheidung',
         personalia: {
           name: 'Lena Hartmann',
@@ -9511,6 +9545,10 @@ export function seedCases(): Case[] {
           'frau-schwanger': 'Nein, ich glaube nicht — ich nehme ja die Pille und die Periode war vor zehn Tagen. Schwanger war ich noch nie.',
           'frau-verhuetung': 'Ich nehme die Pille, seit vier Jahren. Zäpfchen oder so eine Kappe benutze ich nicht.',
           'frau-wechseljahre': 'Nein, dafür bin ich mit 26 noch viel zu jung. Zur Vorsorge gehe ich einmal im Jahr zur Frauenärztin, zuletzt vor einem halben Jahr, alles war in Ordnung.',
+          // K2 (ADR-0023) : réponses des sondes de banque que le profil exige (r3)
+          'akt-ort': 'Es brennt vorne in der Harnröhre, wenn ich Wasser lasse. Und dazu drückt es dumpf im Unterbauch, gleich über dem Schambein.',
+          'akt-charakter': 'Beim Wasserlassen brennt und sticht es richtig. Danach bleibt so ein dumpfer, krampfartiger Druck unten im Bauch.',
+          'akt-intensitaet': 'Ungefähr fünf von zehn. Beim Wasserlassen selbst ist es am schlimmsten.',
         },
         schwierigeReaktionen: [
           '(bittend) „Muss ich denn wirklich ein Antibiotikum nehmen? Ich nehme das so ungern, das ruiniert doch die ganze Darmflora.“',
@@ -9865,6 +9903,7 @@ export function seedCases(): Case[] {
       frequency: 7,
       difficulty: 2,
       patientSheet: {
+        profil: { tags: ['schmerz'] },
         fachSkip: ['fach-neuro-anfallzeichen'],
         personalia: {
           name: 'Elke Kovermann',
@@ -10427,6 +10466,7 @@ export function seedCases(): Case[] {
       frequency: 3,
       difficulty: 2,
       patientSheet: {
+        profil: { tags: ['atemnot', 'dyspnoe', 'husten'] },
         leitsymptomKategorie: 'atemnot',
         personalia: {
           name: 'Maximilian Volk',
@@ -11030,6 +11070,7 @@ export function seedCases(): Case[] {
       frequency: 3,
       difficulty: 3,
       patientSheet: {
+        profil: { tags: ['atemnot', 'dyspnoe', 'husten'] },
         fachSkip: ['fach-kardio-ausstrahlung'],
         leitsymptomKategorie: 'atemnot',
         personalia: {
@@ -11595,6 +11636,7 @@ export function seedCases(): Case[] {
       frequency: 13,
       difficulty: 3,
       patientSheet: {
+        profil: { tags: ['schmerz', 'fieber', 'stein'] },
         personalia: {
           name: 'Jörg Müller',
           age: 79,
@@ -12153,6 +12195,7 @@ export function seedCases(): Case[] {
       frequency: 3,
       difficulty: 2,
       patientSheet: {
+        profil: { tags: ['schmerz', 'fieber', 'dysphagie', 'hals'] },
         fachSkip: ['fach-infekt-zecke'],
         personalia: {
           name: 'Norbert Mayer',
@@ -12305,6 +12348,8 @@ export function seedCases(): Case[] {
           'fach-infekt-reise': 'Nein, ich war nirgends. Keine Reise, schon gar nicht ins Ausland — ich komme kaum aus dem Laden raus.',
           'fach-infekt-kontakt': 'Nein, bei uns zu Hause ist niemand krank, und ich weiß auch von niemandem im Bekanntenkreis. Im Laden habe ich natürlich den ganzen Tag Kundenkontakt, da kann alles Mögliche dabei sein. Ich habe zu Hause einen Corona-Schnelltest gemacht, der war negativ. Rohmilch trinke ich nicht.',
           'fach-infekt-impfung': 'Tetanus wurde vor fünf Jahren aufgefrischt, nach der Sache mit der Hand. Gegen Corona bin ich dreimal geimpft. Gegen Grippe lasse ich mich nicht impfen. Ob da bei der Tetanusspritze auch Diphtherie dabei war, weiß ich ehrlich gesagt nicht — im Impfpass müsste es stehen.',
+          // K2 (ADR-0023) : réponses des sondes de banque que le profil exige (r3)
+          'akt-ausscheid-schlucken': 'Stecken bleibt nichts, es tut nur furchtbar weh. Festes Essen kriege ich kaum runter, Trinken geht in kleinen Schlucken, kalt am besten. Meinen Speichel kann ich schlucken.',
         },
         schwierigeReaktionen: [
           '„Herr Doktor, ich brauche einfach ein Antibiotikum. Fünf Tage Fieber, da hilft doch nichts anderes.“',
@@ -12669,6 +12714,7 @@ export function seedCases(): Case[] {
       frequency: 0,
       difficulty: 2,
       patientSheet: {
+        profil: { tags: ['allgemein', 'dyspnoe', 'gewichtsverlust'] },
         leitsymptomKategorie: 'allgemein',
         personalia: {
           name: 'Renate Bergmann',
@@ -13195,6 +13241,7 @@ export function seedCases(): Case[] {
       frequency: 8,
       difficulty: 3,
       patientSheet: {
+        profil: { tags: ['anfall', 'dyspnoe'] },
         leitsymptomKategorie: 'anfall',
         personalia: {
           name: 'Reinhard Kessler',
@@ -13719,6 +13766,7 @@ export function seedCases(): Case[] {
       frequency: 0,
       difficulty: 2,
       patientSheet: {
+        profil: { tags: ['veraenderung', 'schmerz', 'fieber'] },
         fachSkip: ['fach-derma-muttermal', 'fach-derma-verlauf'],
         leitsymptomKategorie: 'veraenderung',
         personalia: {
@@ -13879,6 +13927,9 @@ export function seedCases(): Case[] {
           'fach-derma-vorgeschichte': 'Neurodermitis oder Schuppenflechte hatte ich nie, und in der Familie gibt es das auch nicht. Nur eben die Wundrose vor zwei Jahren. Die Krampfadern habe ich wohl von meinem Vater geerbt.',
           'fach-derma-muttermal': 'Nein, an meinen Muttermalen hat sich nichts verändert, keines blutet oder juckt. Beim Hautarzt war ich allerdings noch nie.',
           'fach-derma-vorbehandlung': 'Ich habe eine alte Zinksalbe aus dem Schrank draufgeschmiert und gekühlt und Ibuprofen 400 genommen. Geholfen hat das nicht, die Rötung ist trotzdem größer geworden. Gegen den Fußpilz hatte ich vor Monaten mal eine Creme, die habe ich aber nur ein paar Tage benutzt, weil das Jucken weg war.',
+          // K2 (ADR-0023) : réponses des sondes de banque que le profil exige (r3)
+          'akt-charakter': 'Es brennt und spannt, als wäre die Haut zu eng. Wenn man draufdrückt, sticht es.',
+          'akt-intensitaet': 'Im Liegen ungefähr sechs von zehn, im Stehen bis acht.',
         },
         schwierigeReaktionen: [
           '"Muss ich denn wirklich ins Krankenhaus? Ich habe morgen Frühschicht, wir sind sowieso zu wenige Fahrer."',
@@ -14253,6 +14304,7 @@ export function seedCases(): Case[] {
       frequency: 0,
       difficulty: 2,
       patientSheet: {
+        profil: { tags: ['allgemein', 'hals'] },
         leitsymptomKategorie: 'allgemein',
         personalia: {
           name: 'Beate Lindner',
@@ -14805,6 +14857,7 @@ export function seedCases(): Case[] {
       frequency: 0,
       difficulty: 3,
       patientSheet: {
+        profil: { tags: ['allgemein', 'dyspnoe', 'gewichtsverlust'] },
         leitsymptomKategorie: 'allgemein',
         personalia: {
           name: 'Werner Kolbe',
@@ -15358,6 +15411,7 @@ export function seedCases(): Case[] {
       frequency: 4,
       difficulty: 3,
       patientSheet: {
+        profil: { tags: ['veraenderung', 'fieber', 'hals', 'lyme', 'gewichtsverlust'] },
         leitsymptomKategorie: 'veraenderung',
         personalia: {
           name: 'Elisabeth Länge',
@@ -15915,6 +15969,7 @@ export function seedCases(): Case[] {
       frequency: 14,
       difficulty: 3,
       patientSheet: {
+        profil: { tags: ['atemnot', 'dyspnoe', 'husten'] },
         leitsymptomKategorie: 'atemnot',
         personalia: {
           name: 'Manfred Thaler',
@@ -16465,6 +16520,7 @@ export function seedCases(): Case[] {
       frequency: 9,
       difficulty: 3,
       patientSheet: {
+        profil: { tags: ['schmerz'] },
         personalia: {
           name: 'Maria Schiltknecht',
           age: 35,
@@ -16995,6 +17051,7 @@ export function seedCases(): Case[] {
       frequency: 0,
       difficulty: 3,
       patientSheet: {
+        profil: { tags: ['schmerz', 'fieber', 'meningitis', 'lyme'] },
         personalia: {
           name: 'Tobias Wendland',
           age: 34,
@@ -17511,6 +17568,7 @@ export function seedCases(): Case[] {
       frequency: 3,
       difficulty: 3,
       patientSheet: {
+        profil: { tags: ['ausscheidung', 'gewichtsverlust'] },
         leitsymptomKategorie: 'ausscheidung',
         personalia: {
           name: 'Ilsi Bachmann',
@@ -17854,7 +17912,7 @@ export function seedCases(): Case[] {
       caseSpecificQuestions: [
         { frage: 'Seit wann sind Ihre Augen und Ihre Haut gelb, und hat jemand aus Ihrem Umfeld das zuerst bemerkt?', kapitel: 'aktuell' },
         { frage: 'Und wie sieht Ihr Stuhlgang aus? Ist er heller geworden, vielleicht fast weiß oder lehmfarben, und lässt er sich schlecht abspülen?', kapitel: 'aktuell', relu: true },
-        { frage: 'Haben Sie Schmerzen im Oberbauch, die gürtelförmig in den Rücken ausstrahlen und sich bessern, wenn Sie sich nach vorne beugen?', kapitel: 'aktuell' },
+        { frage: 'Haben Sie Schmerzen im Oberbauch, die gürtelförmig in den Rücken ausstrahlen und sich bessern, wenn Sie sich nach vorne beugen?', kapitel: 'aktuell', sucht: ['ausstrahlung'] },
         { frage: 'Juckt Ihre Haut?', kapitel: 'aktuell', followUp: 'Falls ja: Seit wann juckt es?' },
         { frage: 'Wurde bei Ihnen in der letzten Zeit ein Diabetes neu festgestellt, oder ist ein bestehender Zucker plötzlich schlechter geworden?', kapitel: 'vorerkrankungen' },
         { frage: 'Gibt es in Ihrer Familie Bauchspeicheldrüsen-, Darm-, Brust- oder Eierstockkrebs?', kapitel: 'familie-sozial' },
@@ -18059,6 +18117,7 @@ export function seedCases(): Case[] {
       frequency: 0,
       difficulty: 2,
       patientSheet: {
+        profil: { tags: ['schmerz'] },
         fachSkip: ['fach-derma-muttermal', 'fach-derma-verlauf'],
         personalia: {
           name: 'Brigitte Ostermann',
@@ -18557,6 +18616,7 @@ export function seedCases(): Case[] {
       frequency: 9,
       difficulty: 2,
       patientSheet: {
+        profil: { tags: ['schmerz'] },
         motiv: { trauma: false, region: 'bws' },
         fachSkip: ['fach-ortho-mechanismus'],
         personalia: {
@@ -19096,6 +19156,7 @@ export function seedCases(): Case[] {
       frequency: 6,
       difficulty: 2,
       patientSheet: {
+        profil: { tags: ['ausscheidung', 'stein'] },
         leitsymptomKategorie: 'ausscheidung',
         personalia: {
           name: 'Oliver Müller',
@@ -19654,6 +19715,7 @@ export function seedCases(): Case[] {
       frequency: 2,
       difficulty: 3,
       patientSheet: {
+        profil: { tags: ['psychisch', 'gewichtsverlust'] },
         leitsymptomKategorie: 'psychisch',
         personalia: {
           name: 'Klaus Benzler',
@@ -20251,6 +20313,7 @@ export function seedCases(): Case[] {
       frequency: 6,
       difficulty: 3,
       patientSheet: {
+        profil: { tags: ['veraenderung', 'dyspnoe', 'hals', 'gewichtsverlust'] },
         leitsymptomKategorie: 'veraenderung',
         personalia: {
           name: 'Michael Witzinger',
@@ -20404,6 +20467,8 @@ export function seedCases(): Case[] {
           'fach-onko-vorbehandlung': 'Nein, ich hatte noch nie Krebs, ich bin nie bestrahlt worden und hatte nie eine Chemotherapie. Nur die Antibiotika vor drei Monaten wegen der Lungenentzündung, sonst nichts.',
           'fach-onko-familie': 'Mein Vater ist an Lungenkrebs gestorben, mit 72. Sonst gibt es in der Familie keinen Krebs, von dem ich wüsste — keinen Darmkrebs, keinen Brustkrebs, nichts.',
           'fach-onko-vorsorge': 'Darmspiegelung mit 60, alles in Ordnung. Zum Urologen gehe ich jedes Jahr, der Wert war immer normal. Und die Lunge wurde vor drei Monaten geröntgt, wegen der Lungenentzündung.',
+          // K2 (ADR-0023) : réponses des sondes de banque que le profil exige (r3)
+          'akt-atemnot-belastung': 'Bei Belastung. Nach etwa hundert Metern in der Ebene oder nach einer Treppe muss ich stehen bleiben — vor einem halben Jahr bin ich noch den Hang zum Garten hoch. Im Sitzen habe ich keine Luftnot.',
         },
         schwierigeReaktionen: [
           '"Habe ich Krebs? Sagen Sie es mir bitte ehrlich. Mein Vater ist daran gestorben."',
@@ -20855,6 +20920,7 @@ export function seedCases(): Case[] {
       frequency: 0,
       difficulty: 3,
       patientSheet: {
+        profil: { tags: ['veraenderung'] },
         leitsymptomKategorie: 'veraenderung',
         personalia: {
           name: 'Birgit Kellermann',
@@ -21381,6 +21447,7 @@ export function seedCases(): Case[] {
       frequency: 8,
       difficulty: 2,
       patientSheet: {
+        profil: { tags: ['schmerz', 'gelenk', 'arthritis', 'steifigkeit', 'gicht', 'lyme'] },
         personalia: {
           name: 'Clemens Wurster',
           age: 41,
@@ -21892,6 +21959,7 @@ export function seedCases(): Case[] {
       frequency: 3,
       difficulty: 2,
       patientSheet: {
+        profil: { tags: ['schmerz', 'diarrhoe', 'steifigkeit', 'gewichtsverlust'] },
         personalia: {
           name: 'Jonas Reinhardt',
           age: 26,
@@ -22054,6 +22122,8 @@ export function seedCases(): Case[] {
           'fach-gastro-stuhl': 'Durchfall, keine Verstopfung. Vier- bis sechsmal am Tag, breiig bis wässrig, normal braun, nicht schwarz, nicht fettig. Blut nur hellrot am Papier, und es brennt hinten.',
           'fach-gastro-tenesmen': 'Ja, das kenne ich. Manchmal muss ich ganz dringend, renne zur Toilette, und dann kommt fast nichts. Ständig ist es aber nicht so.',
           'fach-gastro-spiegelung': 'Nein, eine Magen- oder Darmspiegelung hatte ich noch nie. Ehrlich gesagt macht mir das auch Angst.',
+          // K2 (ADR-0023) : réponses des sondes de banque que le profil exige (r3)
+          'akt-ausscheid-haeufigkeit': 'Vier- bis sechsmal am Tag, und nachts muss ich auch zwei-, dreimal raus. Das geht jetzt seit ungefähr fünf Monaten so.',
         },
         schwierigeReaktionen: [
           '„Habe ich Würmer? Meine Freundin hat das vermutet, weil ich so abgenommen habe.“',
@@ -22416,6 +22486,7 @@ export function seedCases(): Case[] {
       frequency: 8,
       difficulty: 2,
       patientSheet: {
+        profil: { tags: ['nerven'] },
         motiv: { trauma: false, region: 'obere' },
         fachSkip: ['fach-ortho-durchblutung'],
         leitsymptomKategorie: 'nerven',
@@ -22973,6 +23044,7 @@ export function seedCases(): Case[] {
       frequency: 5,
       difficulty: 2,
       patientSheet: {
+        profil: { tags: ['anfall', 'dyspnoe'] },
         leitsymptomKategorie: 'anfall',
         personalia: {
           name: 'Karin Hartmann',
@@ -23524,6 +23596,7 @@ export function seedCases(): Case[] {
       frequency: 7,
       difficulty: 3,
       patientSheet: {
+        profil: { tags: ['ausscheidung', 'stein', 'gewichtsverlust'] },
         leitsymptomKategorie: 'ausscheidung',
         personalia: {
           name: 'Hermann Kastner',
@@ -24077,6 +24150,7 @@ export function seedCases(): Case[] {
       frequency: 0,
       difficulty: 2,
       patientSheet: {
+        profil: { tags: ['ausscheidung', 'reise', 'gelenk', 'gewichtsverlust'] },
         fachSkip: ['fach-infekt-zecke'],
         leitsymptomKategorie: 'ausscheidung',
         personalia: {
@@ -24588,6 +24662,7 @@ export function seedCases(): Case[] {
       frequency: 0,
       difficulty: 2,
       patientSheet: {
+        profil: { tags: ['nerven', 'hals'] },
         fachSkip: ['fach-neuro-anfallzeichen', 'fach-neuro-aura'],
         leitsymptomKategorie: 'nerven',
         personalia: {
@@ -25148,6 +25223,7 @@ export function seedCases(): Case[] {
       frequency: 5,
       difficulty: 2,
       patientSheet: {
+        profil: { tags: ['schmerz', 'gelenk', 'steifigkeit'] },
         motiv: { trauma: false, region: 'untere' },
         personalia: {
           name: 'Burkhard Schwulinski',
@@ -25712,6 +25788,7 @@ export function seedCases(): Case[] {
       frequency: 2,
       difficulty: 2,
       patientSheet: {
+        profil: { tags: ['veraenderung', 'dysphagie', 'hals'] },
         leitsymptomKategorie: 'veraenderung',
         personalia: {
           name: 'Renate Brunner',
@@ -26232,6 +26309,7 @@ export function seedCases(): Case[] {
       frequency: 0,
       difficulty: 2,
       patientSheet: {
+        profil: { tags: ['schmerz', 'fieber', 'meningitis'] },
         fachSkip: ['fach-infekt-zecke'],
         personalia: {
           name: 'Katrin Vollmer',
@@ -26755,6 +26833,7 @@ export function seedCases(): Case[] {
       frequency: 0,
       difficulty: 3,
       patientSheet: {
+        profil: { tags: ['schmerz'] },
         personalia: {
           name: 'Renate Vollmer',
           age: 64,
@@ -27336,6 +27415,7 @@ export function seedCases(): Case[] {
       frequency: 0,
       difficulty: 2,
       patientSheet: {
+        profil: { tags: ['neurologisch', 'hals'] },
         fachSkip: ['fach-neuro-anfallzeichen'],
         leitsymptomKategorie: 'neurologisch',
         personalia: {
@@ -27827,6 +27907,7 @@ export function seedCases(): Case[] {
       frequency: 1,
       difficulty: 3,
       patientSheet: {
+        profil: { tags: ['anfall', 'dyspnoe'] },
         leitsymptomKategorie: 'anfall',
         personalia: {
           name: 'Ottmar Reichenbach',
@@ -28359,6 +28440,7 @@ export function seedCases(): Case[] {
       frequency: 6,
       difficulty: 2,
       patientSheet: {
+        profil: { tags: ['schmerz', 'diarrhoe', 'gewichtsverlust'] },
         personalia: {
           name: 'Gustav Hirschmann',
           age: 46,
@@ -28507,6 +28589,8 @@ export function seedCases(): Case[] {
           'fach-gastro-stuhl': 'Drei- bis viermal am Tag, breiig bis wässrig, sehr voluminös, grau und fettig-glänzend. Er schwimmt oben und klebt in der Schüssel, ich bekomme ihn kaum weggespült. Der Geruch ist wirklich übel. Blut ist nicht dabei, schwarz ist er nicht, Schleim auch nicht. Und nachts muss ich nicht raus.',
           'fach-gastro-tenesmen': 'Nein, Schmerzen beim Stuhlgang habe ich nicht. Und dieses ständige Drücken, dass ich müsste und es kommt nichts — das kenne ich nicht.',
           'fach-gastro-spiegelung': 'Nein, gespiegelt wurde bei mir noch nie, weder oben noch unten. Bei der Gallenblasen-Operation haben sie mit der Kamera durch den Bauch geschaut, aber das ist ja etwas anderes.',
+          // K2 (ADR-0023) : réponses des sondes de banque que le profil exige (r3)
+          'akt-ausscheid-haeufigkeit': 'Drei- bis viermal am Tag. Nachts muss ich deswegen nicht aufstehen.',
         },
         schwierigeReaktionen: [
           '„Muss ich denn hier bleiben? Ich habe einen Hof, die Kühe müssen gemolken werden.“',
@@ -28939,6 +29023,7 @@ export function seedCases(): Case[] {
       frequency: 6,
       difficulty: 2,
       patientSheet: {
+        profil: { tags: ['schmerz', 'gelenk'] },
         motiv: { trauma: true, region: 'untere' },
         personalia: {
           name: 'Lisele Müller',
@@ -29508,6 +29593,7 @@ export function seedCases(): Case[] {
       frequency: 0,
       difficulty: 2,
       patientSheet: {
+        profil: { tags: ['veraenderung'] },
         leitsymptomKategorie: 'veraenderung',
         personalia: {
           name: 'Renate Bergmann',
@@ -30056,6 +30142,7 @@ export function seedCases(): Case[] {
       frequency: 0,
       difficulty: 2,
       patientSheet: {
+        profil: { tags: ['veraenderung', 'schmerz'] },
         leitsymptomKategorie: 'veraenderung',
         personalia: {
           name: 'Gerhard Wenzel',
@@ -30198,6 +30285,10 @@ export function seedCases(): Case[] {
           'fach-chir-ileus': 'Stuhlgang hatte ich gestern Abend, heute noch nicht — das ist bei mir aber normal, ich habe ja nur alle zwei bis drei Tage. Winde gehen ganz normal ab, und der Bauch ist nicht aufgebläht.',
           'fach-chir-op': 'Ja, am Bauch bin ich einmal operiert worden: der Blinddarm, mit 19, offen aufgeschnitten. Die Narbe sieht man rechts unten am Bauch. Sonst habe ich keine Narben.',
           'fach-chir-gallensteine': 'Gallensteine wurden bei mir nie festgestellt. Aber ein Leistenbruch — ja, genau deswegen bin ich hier, das ist ja diese Beule rechts. Bei meinem Vater war es dasselbe.',
+          // K2 (ADR-0023) : réponses des sondes de banque que le profil exige (r3)
+          'akt-ort': 'Hier in der rechten Leiste, direkt über der Beule. Manchmal zieht es bis in den rechten Hoden hinunter.',
+          'akt-charakter': 'Es zieht und drückt, als ob da ein Fremdkörper drin wäre. Stechend oder krampfartig ist es nicht.',
+          'akt-intensitaet': 'In Ruhe so drei bis vier von zehn, beim schweren Heben bis sechs. Vor drei Tagen war es einmal kurz eine Acht.',
         },
         schwierigeReaktionen: [
           '„Muss das wirklich operiert werden? Kann man das nicht mit so einem Bruchband richten? Mein Großvater hatte auch so eins.“',
@@ -30532,6 +30623,7 @@ export function seedCases(): Case[] {
       frequency: 6,
       difficulty: 3,
       patientSheet: {
+        profil: { tags: ['psychisch'] },
         leitsymptomKategorie: 'psychisch',
         personalia: {
           name: 'Max Freudenberg',
@@ -31083,6 +31175,7 @@ export function seedCases(): Case[] {
       frequency: 16,
       difficulty: 2,
       patientSheet: {
+        profil: { tags: ['neurologisch', 'schmerz'] },
         fachSkip: ['fach-neuro-aura'],
         leitsymptomKategorie: 'neurologisch',
         personalia: {
@@ -31239,6 +31332,10 @@ export function seedCases(): Case[] {
           'frau-schwanger': 'Ich glaube nicht — aber ganz sicher ausschließen kann ich es ehrlich gesagt nicht, meine Regel ist ja unregelmäßig und die letzte ist sieben Wochen her.',
           'frau-verhuetung': 'Nein, wir verhüten nicht mehr regelmäßig, die Familienplanung ist abgeschlossen. Die Pille habe ich seit Jahren nicht mehr genommen.',
           'frau-wechseljahre': 'Ich denke, ich bin gerade mittendrin — seit etwa einem Jahr habe ich Hitzewallungen und schlafe schlechter. Hormone nehme ich keine. Zur Frauenärztin gehe ich einmal im Jahr zur Vorsorge.',
+          // K2 (ADR-0023) : réponses des sondes de banque que le profil exige (r3)
+          'akt-ort': 'Eigentlich im ganzen Kopf, am meisten links oben, da, wo die Beule ist. Ein bisschen zieht es auch in den Nacken.',
+          'akt-charakter': 'Dumpf und drückend, wie ein Reifen um den Kopf. Direkt an der Beule sticht es, wenn ich sie berühre.',
+          'akt-intensitaet': 'Ungefähr fünf von zehn. Seit dem Sturz gleich stark, mehr geworden ist es nicht.',
         },
         schwierigeReaktionen: [
           '"Kann ich nicht einfach nach Hause? Ich habe morgen früh Unterricht, die Klasse kann ich nicht hängen lassen."',
@@ -31601,6 +31698,7 @@ export function seedCases(): Case[] {
       frequency: 0,
       difficulty: 3,
       patientSheet: {
+        profil: { tags: ['veraenderung'] },
         leitsymptomKategorie: 'veraenderung',
         personalia: {
           name: 'Katrin Vollmer',
@@ -32159,6 +32257,7 @@ export function seedCases(): Case[] {
       frequency: 1,
       difficulty: 2,
       patientSheet: {
+        profil: { tags: ['veraenderung', 'dyspnoe'] },
         leitsymptomKategorie: 'veraenderung',
         personalia: {
           name: 'Nadine Brückner',
@@ -32308,6 +32407,8 @@ export function seedCases(): Case[] {
           'frau-schwanger': 'Nein, schwanger bin ich sicher nicht. Die letzte Blutung war vor zehn Tagen und wir verhüten.',
           'frau-verhuetung': 'Wir verhüten mit Kondomen. Die Pille habe ich vor Jahren abgesetzt, weil ich rauche — meine Frauenärztin hat mir davon abgeraten. Eine Spirale hatte ich noch nie.',
           'frau-wechseljahre': 'Nein, in den Wechseljahren bin ich noch nicht: keine Hitzewallungen, und die Blutung kommt regelmäßig. Zur Frauenärztin gehe ich einmal im Jahr.',
+          // K2 (ADR-0023) : réponses des sondes de banque que le profil exige (r3)
+          'akt-atemnot-belastung': 'Wenn ich die Treppe in den dritten Stock hochgehe, muss ich zwischendurch stehen bleiben. In Ruhe habe ich keine Luftnot.',
         },
         schwierigeReaktionen: [
           '"Muss mir jetzt die Gebärmutter herausgenommen werden? Meine Mutter hat das damals nie verkraftet."',
@@ -32500,7 +32601,7 @@ export function seedCases(): Case[] {
         { frage: 'Wie lange dauert Ihre Blutung, und wie viele Binden oder Tampons brauchen Sie an den starken Tagen? Müssen Sie auch nachts wechseln?', kapitel: 'aktuell', relu: true },
         { frage: 'Gehen bei Ihnen dabei Blutklumpen ab — wie groß sind die etwa?', kapitel: 'aktuell' },
         { frage: 'Müssen Sie häufiger Wasser lassen als früher, auch nachts? Haben Sie das Gefühl, die Blase nicht ganz zu entleeren?', kapitel: 'aktuell' },
-        { frage: 'Sind Sie schneller müde als früher, kommen Sie beim Treppensteigen außer Atem, ist Ihnen schwindelig?', kapitel: 'aktuell' },
+        { frage: 'Sind Sie schneller müde als früher, kommen Sie beim Treppensteigen außer Atem, ist Ihnen schwindelig?', kapitel: 'aktuell', sucht: ['muedigkeit', 'atemnot', 'schwindel'] },
         { frage: 'Hatten Sie schon als junges Mädchen sehr starke Blutungen? Bluten Sie leicht aus der Nase oder am Zahnfleisch, bekommen Sie schnell blaue Flecken?', kapitel: 'aktuell', relu: true },
       ],
       examinerQuestions: [
@@ -32673,6 +32774,7 @@ export function seedCases(): Case[] {
       frequency: 1,
       difficulty: 3,
       patientSheet: {
+        profil: { tags: ['allgemein', 'diarrhoe'] },
         leitsymptomKategorie: 'allgemein',
         personalia: {
           name: 'Werner Hoffmann',
@@ -32813,6 +32915,8 @@ export function seedCases(): Case[] {
           'fach-nephro-uraemie': 'Ja, tatsächlich: Seit gestern juckt mich die Haut am ganzen Körper, ohne dass ich etwas sehe. Übel ist mir dauernd, Appetit habe ich gar keinen, und ich habe diesen pelzigen, metallischen Geschmack im Mund. Meine Tochter sagt, ich sei manchmal etwas verwirrt und nicke ständig ein.',
           'fach-nephro-infekt': 'Nein, eine Halsentzündung hatte ich nicht, und eine offene oder entzündete Stelle an der Haut auch nicht. Nur den Brechdurchfall seit fünf Tagen nach dem Gasthausbesuch.',
           'fach-nephro-vorgeschichte': 'In der Familie ist keine Nierenkrankheit bekannt, keine Zystennieren, niemand an der Dialyse. Bei mir hat der Hausarzt vor einem Jahr gesagt, die Nierenwerte seien wegen dem Zucker grenzwertig — ein Wert von 1,3, glaube ich. Nierensteine hatte ich nie.',
+          // K2 (ADR-0023) : réponses des sondes de banque que le profil exige (r3)
+          'akt-ausscheid-aussehen': 'Nein. Der Durchfall war wässrig, aber Blut oder Schleim war nicht dabei, und schwarz war er auch nicht.',
         },
         schwierigeReaktionen: [
           '„Herr Doktor, hört das wieder auf? Muss ich jetzt an die Dialyse?“',
@@ -33216,6 +33320,12 @@ export function seedCases(): Case[] {
       frequency: 8,
       difficulty: 3,
       patientSheet: {
+        profil: {
+          tags: ['schmerz', 'generalisiert', 'steifigkeit'],
+          exclut: {
+            gelenke: 'Douleur généralisée des parties molles, sans atteinte articulaire : « Welche Gelenke » n\'a pas d\'objet (contrat §10.3, revue de direction du 4 oct.).',
+          },
+        },
         personalia: {
           name: 'Ina Scheubele',
           age: 53,
@@ -33798,6 +33908,7 @@ export function seedCases(): Case[] {
       frequency: 2,
       difficulty: 3,
       patientSheet: {
+        profil: { tags: ['schmerz', 'gelenk', 'steifigkeit', 'gewichtsverlust'] },
         personalia: {
           name: 'Waltraud Kienzle',
           age: 72,
@@ -34335,6 +34446,7 @@ export function seedCases(): Case[] {
       frequency: 0,
       difficulty: 2,
       patientSheet: {
+        profil: { tags: ['schmerz', 'dyspnoe', 'husten'] },
         personalia: {
           name: 'Tobias Krämer',
           age: 23,
@@ -34855,6 +34967,7 @@ export function seedCases(): Case[] {
       frequency: 1,
       difficulty: 2,
       patientSheet: {
+        profil: { tags: ['allgemein'] },
         leitsymptomKategorie: 'allgemein',
         personalia: {
           name: 'Hans Müller',
@@ -35349,6 +35462,7 @@ export function seedCases(): Case[] {
       frequency: 0,
       difficulty: 3,
       patientSheet: {
+        profil: { tags: ['psychisch'] },
         leitsymptomKategorie: 'psychisch',
         personalia: {
           name: 'Jonas Wielandt',
@@ -35874,6 +35988,7 @@ export function seedCases(): Case[] {
       frequency: 4,
       difficulty: 3,
       patientSheet: {
+        profil: { tags: ['neurologisch', 'fieber', 'gewichtsverlust'] },
         leitsymptomKategorie: 'neurologisch',
         personalia: {
           name: 'Alfred Wirtz',
@@ -36438,6 +36553,7 @@ export function seedCases(): Case[] {
       frequency: 6,
       difficulty: 3,
       patientSheet: {
+        profil: { tags: ['ausscheidung', 'dysphagie', 'hals', 'gewichtsverlust'] },
         leitsymptomKategorie: 'ausscheidung',
         personalia: {
           name: 'Katharina Vogel',
@@ -36922,6 +37038,7 @@ export function seedCases(): Case[] {
       frequency: 5,
       difficulty: 3,
       patientSheet: {
+        profil: { tags: ['schmerz', 'gelenk', 'arthritis', 'fieber', 'gicht'] },
         personalia: {
           name: 'Werner Kaltenbach',
           age: 68,
@@ -37486,6 +37603,7 @@ export function seedCases(): Case[] {
       frequency: 4,
       difficulty: 2,
       patientSheet: {
+        profil: { tags: ['schmerz'] },
         motiv: { trauma: false, region: 'lws' },
         personalia: {
           name: 'Gerhard Lindner',
@@ -38025,6 +38143,7 @@ export function seedCases(): Case[] {
       frequency: 14,
       difficulty: 2,
       patientSheet: {
+        profil: { tags: ['schmerz'] },
         motiv: { trauma: false, region: 'hws' },
         personalia: {
           name: 'Konrad Preiss',
@@ -38561,6 +38680,7 @@ export function seedCases(): Case[] {
       frequency: 8,
       difficulty: 2,
       patientSheet: {
+        profil: { tags: ['ausscheidung', 'schmerz', 'diarrhoe'] },
         leitsymptomKategorie: 'ausscheidung',
         personalia: {
           name: 'Peter Novak',
@@ -38710,6 +38830,10 @@ export function seedCases(): Case[] {
           'fach-gastro-stuhl': 'Durchfall, an schlechten Tagen bis zu viermal am Tag, breiig bis wässrig und hellbraun. Verstopfung habe ich nicht, auch keinen Wechsel. Blut oder Schleim ist nie dabei, teerschwarz war er nie, und er glänzt nicht und schwimmt nicht.',
           'fach-gastro-tenesmen': 'Nein, dieses Gefühl kenne ich nicht. Wenn ich muss, dann kommt auch etwas — manchmal allerdings ziemlich dringend.',
           'fach-gastro-spiegelung': 'Nein, eine Magen- oder Darmspiegelung hatte ich noch nie. Mein Hausarzt hat nur Blut abgenommen, den Bauch abgetastet und einmal einen Ultraschall gemacht — das sei alles in Ordnung gewesen.',
+          // K2 (ADR-0023) : réponses des sondes de banque que le profil exige (r3)
+          'akt-ort': 'Um den Nabel herum und im ganzen Unterbauch. Auf einen Punkt kann ich es nicht zeigen.',
+          'akt-charakter': 'Krampfartig, das kommt in Wellen und geht wieder. Brennen oder Stechen ist es nicht.',
+          'akt-intensitaet': 'Ungefähr fünf von zehn.',
         },
         schwierigeReaktionen: [
           '„Meine Frau sagt, ich bin allergisch gegen Milch. Ist das dasselbe?“',
@@ -39104,6 +39228,7 @@ export function seedCases(): Case[] {
       frequency: 6,
       difficulty: 2,
       patientSheet: {
+        profil: { tags: ['neurologisch', 'hals'] },
         leitsymptomKategorie: 'neurologisch',
         personalia: {
           name: 'Arnd Kartmann',
@@ -39587,6 +39712,7 @@ export function seedCases(): Case[] {
       frequency: 14,
       difficulty: 2,
       patientSheet: {
+        profil: { tags: ['allgemein', 'dyspnoe', 'gewichtsverlust'] },
         leitsymptomKategorie: 'allgemein',
         personalia: {
           name: 'Franz Maier',
@@ -39725,6 +39851,8 @@ export function seedCases(): Case[] {
           'fach-endo-unterzucker': 'Nein, so etwas kenne ich nicht. Zittern, Schwitzen, Heißhunger oder Verwirrtheit, die nach dem Essen weggehen — nein, das hatte ich nie.',
           'fach-endo-folgeschaeden': 'Kribbeln oder taube Füße habe ich nicht. Mit den Nieren war nie etwas. Nur dieses zeitweise verschwommene Sehen, das ich vorhin erwähnt habe.',
           'fach-endo-familie-therapie': 'Meine Mutter hat Zucker, Typ 2, und nimmt Tabletten; meine Schwester hat eine Schilddrüsenunterfunktion und nimmt Hormone. Ich selbst bin deswegen nie behandelt oder kontrolliert worden — mein Blutzucker ist meines Wissens noch nie gemessen worden.',
+          // K2 (ADR-0023) : réponses des sondes de banque que le profil exige (r3)
+          'akt-atemnot-belastung': 'Beim Treppensteigen in den dritten Stock bin ich oben aus der Puste, das kannte ich früher nicht. Im Sitzen ist alles gut.',
         },
         schwierigeReaktionen: [
           '"Was habe ich denn, Frau Doktor? Sagen Sie es mir bitte ehrlich."',
@@ -40123,6 +40251,7 @@ export function seedCases(): Case[] {
       frequency: 6,
       difficulty: 2,
       patientSheet: {
+        profil: { tags: ['ausscheidung', 'schmerz', 'diarrhoe', 'reise', 'gewichtsverlust'] },
         fachSkip: ['fach-infekt-zecke'],
         leitsymptomKategorie: 'ausscheidung',
         personalia: {
@@ -40275,6 +40404,10 @@ export function seedCases(): Case[] {
           'fach-infekt-reise': 'Ja, drei Wochen Indonesien, Bali und Java, seit drei Wochen zurück. Viel an Straßenständen gegessen, Salat, Obst, Eiswürfel. Keine Malariatabletten.',
           'fach-infekt-kontakt': 'Ja, jetzt, wo Sie fragen: Meine Frau und mein Sohn hatten in der ersten Woche nach der Rückkehr auch Durchfall, aber nur zwei Tage, dann war es vorbei. Bei mir hört es einfach nicht auf. Meine Frau arbeitet übrigens in der Küche eines Kindergartens — muss sie deswegen etwas beachten?',
           'fach-infekt-impfung': 'Ich habe einen Impfpass, die normalen Impfungen sind drin, Tetanus vor sechs Jahren. Gegen Hepatitis oder Typhus bin ich nicht geimpft, das habe ich vor der Reise leider versäumt.',
+          // K2 (ADR-0023) : réponses des sondes de banque que le profil exige (r3)
+          'akt-ort': 'Im mittleren Bauch und unten im Unterbauch, so verteilt. Einen einzelnen Punkt kann ich nicht zeigen.',
+          'akt-charakter': 'Krampfartig. Das zieht sich in Wellen zusammen und lässt dann wieder nach.',
+          'akt-intensitaet': 'So sechs von zehn, wenn die Krämpfe kommen.',
         },
         schwierigeReaktionen: [
           '„Herr Doktor, sagen Sie mir bitte ehrlich: Ist das Krebs? Meine Mutter hatte genau das Gleiche und ist mit sechzig gestorben.“',
@@ -40665,6 +40798,7 @@ export function seedCases(): Case[] {
       frequency: 9,
       difficulty: 2,
       patientSheet: {
+        profil: { tags: ['schmerz', 'gelenk', 'arthritis', 'fieber', 'lyme'] },
         personalia: {
           name: 'Olaf Starkmann',
           age: 48,
@@ -40815,6 +40949,8 @@ export function seedCases(): Case[] {
           'fach-infekt-reise': 'Nein, im Ausland war ich schon über ein Jahr nicht mehr. Der letzte Urlaub war an der Nordsee.',
           'fach-infekt-kontakt': 'Vor vier Wochen hatte meine Tochter eine Halsentzündung, kurz danach ich auch. Der Hausarzt hat Penicillin für zehn Tage aufgeschrieben, ich habe es aber nur drei Tage genommen.',
           'fach-infekt-impfung': 'Mein Impfausweis ist vollständig, das hat der Hausarzt letztes Jahr kontrolliert. Tetanus wurde vor vier Jahren aufgefrischt. Gegen FSME bin ich nicht geimpft, aber ich bin ja auch nicht im Wald unterwegs.',
+          // K2 (ADR-0023) : réponses des sondes de banque que le profil exige (r3)
+          'fach-rheuma-entzuendung': 'Ja, das rechte Knie und das rechte Sprunggelenk sind dick geschwollen, richtig rot und heiß. Anfassen kann ich sie kaum, schon die Bettdecke tut weh.',
         },
         schwierigeReaktionen: [
           '"Was habe ich denn nun, Herr Doktor? Sagen Sie es mir bitte gerade heraus — ich halte das schon aus."',
@@ -41257,6 +41393,7 @@ export function seedCases(): Case[] {
       frequency: 6,
       difficulty: 2,
       patientSheet: {
+        profil: { tags: ['infekt', 'fieber', 'husten'] },
         fachSkip: ['fach-infekt-zecke'],
         leitsymptomKategorie: 'infekt',
         personalia: {
@@ -41831,6 +41968,7 @@ export function seedCases(): Case[] {
       frequency: 12,
       difficulty: 2,
       patientSheet: {
+        profil: { tags: ['schmerz', 'gelenk', 'steifigkeit'] },
         motiv: { trauma: false, region: 'untere' },
         personalia: {
           name: 'Heiner King',
@@ -42395,6 +42533,7 @@ export function seedCases(): Case[] {
       frequency: 7,
       difficulty: 3,
       patientSheet: {
+        profil: { tags: ['allgemein', 'dyspnoe'] },
         leitsymptomKategorie: 'allgemein',
         personalia: {
           name: 'Anton Kaiser',
@@ -42539,6 +42678,8 @@ export function seedCases(): Case[] {
           'fach-endo-unterzucker': 'Zittern und Schwitzen mit Heißhunger — das kenne ich schon, aber eher abends. Ob es nach dem Essen besser wird, kann ich nicht sagen; ich esse dann einfach. Verwirrt war ich nie, und umgekippt bin ich auch nie.',
           'fach-endo-folgeschaeden': 'Ja: In beiden Füßen kribbelt es seit einigen Monaten, wie Ameisenlaufen, vor allem nachts, und manchmal fühlen sie sich taub an. Schlechter sehen tue ich auch, das sagte ich ja. Mit den Nieren war nie etwas — untersucht wurde das allerdings auch nie.',
           'fach-endo-familie-therapie': 'Mein Vater hatte Zucker, er hat Tabletten genommen. Von der Schilddrüse ist in der Familie nichts bekannt. Ich selbst werde deswegen nicht behandelt — bis gestern hat mir nie jemand gesagt, dass ich Zucker habe. Nur den Blutdruck lasse ich beim Hausarzt kontrollieren.',
+          // K2 (ADR-0023) : réponses des sondes de banque que le profil exige (r3)
+          'akt-atemnot-belastung': 'Auf der Treppe in den dritten Stock muss ich zweimal stehen bleiben. In Ruhe oder im Liegen habe ich keine Luftnot.',
         },
         frageAntworten: [
           {
@@ -42991,6 +43132,7 @@ export function seedCases(): Case[] {
       frequency: 5,
       difficulty: 3,
       patientSheet: {
+        profil: { tags: ['schmerz', 'diarrhoe', 'dyspnoe', 'stein', 'gewichtsverlust'] },
         personalia: {
           name: 'Gabi Hubertus',
           age: 48,
@@ -43369,7 +43511,7 @@ export function seedCases(): Case[] {
         { frage: 'Was hat Ihr Hausarzt damals untersucht, bevor er Ihnen gesagt hat, das sei ein Reizdarm? Wurde eine Darmspiegelung gemacht?', kapitel: 'vorerkrankungen' },
         { frage: 'Bekommen Sie während dieser Rötungsanfälle Herzrasen oder Luftnot, und pfeift es dabei beim Atmen?', kapitel: 'aktuell' },
         { frage: 'Haben Sie noch Ihre Regelblutung? Sind diese Hitzeanfälle anders als Hitzewallungen in den Wechseljahren?', kapitel: 'frauenanamnese' },
-        { frage: 'Gibt es in Ihrer Familie außer dem Darmkrebs Ihrer Schwester Drüsen- oder Hormonerkrankungen, Nierensteine, Nebenschilddrüsenoperationen oder Hirnanhangdrüsentumoren?', kapitel: 'familie-sozial' },
+        { frage: 'Gibt es in Ihrer Familie außer dem Darmkrebs Ihrer Schwester Drüsen- oder Hormonerkrankungen, Nierensteine, Nebenschilddrüsenoperationen oder Hirnanhangdrüsentumoren?', kapitel: 'familie-sozial', sucht: ['familie_endokrin', 'nierensteine'] },
       ],
       examinerQuestions: [
         'Herr Kollege, stellen Sie uns bitte die Patientin vor. Wie lautet Ihre Verdachtsdiagnose?',
@@ -43548,6 +43690,7 @@ export function seedCases(): Case[] {
       frequency: 5,
       difficulty: 2,
       patientSheet: {
+        profil: { tags: ['schmerz', 'fieber'] },
         fachSkip: ['fach-derma-muttermal', 'fach-derma-verlauf'],
         personalia: {
           name: 'Bernhard Lauber',
@@ -44070,6 +44213,7 @@ export function seedCases(): Case[] {
       frequency: 7,
       difficulty: 3,
       patientSheet: {
+        profil: { tags: ['psychisch', 'gewichtsverlust'] },
         leitsymptomKategorie: 'psychisch',
         personalia: {
           name: 'Julia Springer',
@@ -44663,6 +44807,7 @@ export function seedCases(): Case[] {
       frequency: 6,
       difficulty: 2,
       patientSheet: {
+        profil: { tags: ['infekt', 'reise', 'fieber', 'gelenk'] },
         leitsymptomKategorie: 'infekt',
         personalia: {
           name: 'Hanna Hüber',
@@ -45142,6 +45287,7 @@ export function seedCases(): Case[] {
       frequency: 5,
       difficulty: 3,
       patientSheet: {
+        profil: { tags: ['infekt', 'fieber', 'dyspnoe', 'gewichtsverlust'] },
         leitsymptomKategorie: 'infekt',
         personalia: {
           name: 'Gerhard Steinbach',
@@ -45613,6 +45759,7 @@ export function seedCases(): Case[] {
       frequency: 5,
       difficulty: 2,
       patientSheet: {
+        profil: { tags: ['infekt', 'fieber', 'husten', 'dyspnoe'] },
         fachSkip: ['fach-infekt-zecke'],
         leitsymptomKategorie: 'infekt',
         personalia: {
@@ -45753,6 +45900,8 @@ export function seedCases(): Case[] {
           'frau-schwanger': 'Nein, das ist ausgeschlossen, ich bin seit fünf Jahren in den Wechseljahren.',
           'frau-verhuetung': 'Nicht mehr nötig. Früher die Pille, aber das ist über zwanzig Jahre her.',
           'frau-wechseljahre': 'Ja, seit fünf Jahren, das war unproblematisch, ich habe keine Hormone genommen. Zum Frauenarzt gehe ich jedes Jahr zur Kontrolle, zuletzt im Frühjahr, alles in Ordnung.',
+          // K2 (ADR-0023) : réponses des sondes de banque que le profil exige (r3)
+          'akt-atemnot-belastung': 'Seit gestern bei jeder Anstrengung, schon auf der Treppe ins Schlafzimmer — dann rast das Herz, und die Brust wird eng. Im Sitzen bekomme ich Luft.',
         },
         schwierigeReaktionen: [
           '"Ist das jetzt Corona? Aber mein Test war doch negativ."',
@@ -45916,7 +46065,7 @@ export function seedCases(): Case[] {
         { frage: 'Ging es Ihnen zwischendurch schon einmal besser, bevor es wieder schlimmer wurde — an welchem Krankheitstag war das?', kapitel: 'aktuell', relu: true },
         { frage: 'Riechen und schmecken Sie normal, obwohl die Nase frei ist?', kapitel: 'aktuell' },
         { frage: 'Wie sind Sie gegen Corona geimpft: wie viele Impfungen, wann die letzte, und hatten Sie schon einmal Corona?', kapitel: 'vorerkrankungen' },
-        { frage: 'Bekommen Sie beim Treppensteigen oder beim Sprechen schlechter Luft als sonst?', kapitel: 'aktuell' },
+        { frage: 'Bekommen Sie beim Treppensteigen oder beim Sprechen schlechter Luft als sonst?', kapitel: 'aktuell', sucht: ['atemnot'] },
         { frage: 'Haben Sie Schmerzen in der Brust beim Atmen oder ein geschwollenes, schmerzendes Bein?', kapitel: 'aktuell' },
         { frage: 'Nehmen Sie Medikamente, die das Immunsystem unterdrücken, Kortison oder Blutverdünner? Gibt es eine Zuckerkrankheit, ein Herz- oder Lungenleiden?', kapitel: 'vorerkrankungen' },
         { frage: 'Gibt es zu Hause Personen, für die eine Ansteckung besonders gefährlich wäre?', kapitel: 'familie-sozial' },
@@ -46112,6 +46261,7 @@ export function seedCases(): Case[] {
       frequency: 4,
       difficulty: 3,
       patientSheet: {
+        profil: { tags: ['atemnot', 'dyspnoe', 'hals'] },
         fachSkip: ['fach-derma-muttermal', 'fach-derma-verlauf', 'fach-derma-vorbehandlung'],
         leitsymptomKategorie: 'atemnot',
         aktuellSkip: ['akt-atemnot-nachts'],
@@ -46552,6 +46702,7 @@ export function seedCases(): Case[] {
       frequency: 3,
       difficulty: 2,
       patientSheet: {
+        profil: { tags: ['schmerz', 'gelenk', 'arthritis', 'steifigkeit', 'fieber', 'gicht'] },
         personalia: {
           name: 'Sonja Stehemann',
           age: 48,
@@ -47063,6 +47214,7 @@ export function seedCases(): Case[] {
       frequency: 4,
       difficulty: 2,
       patientSheet: {
+        profil: { tags: ['atemnot', 'husten'] },
         leitsymptomKategorie: 'atemnot',
         personalia: {
           name: 'Markus Lindner',
@@ -47536,6 +47688,7 @@ export function seedCases(): Case[] {
       frequency: 2,
       difficulty: 2,
       patientSheet: {
+        profil: { tags: ['ausscheidung', 'schmerz', 'diarrhoe', 'gelenk', 'arthritis', 'dyspnoe', 'gewichtsverlust'] },
         leitsymptomKategorie: 'ausscheidung',
         personalia: {
           name: 'Tanya Krüger',
@@ -47644,23 +47797,23 @@ export function seedCases(): Case[] {
           'akt-motiv': 'Frau Doktor, ich habe seit Monaten Durchfall, es wird immer schlimmer, und seit ein paar Wochen ist auch Blut dabei. Und diese Krämpfe im Bauch — ich halte das nicht mehr aus.',
           'akt-beginn': 'Angefangen hat es vor ungefähr vier Monaten, ganz schleichend, erst nur weicher Stuhl und ein bisschen Grummeln. Seit etwa zweieinhalb Wochen ist es richtig schlimm geworden.',
           'akt-ausscheid-was': 'Verändert hat sich der Stuhlgang, das hatte ich ja erzählt — Durchfall mit Blut und Schleim. Mit dem Wasserlassen ist nichts.',
-          'akt-ausscheid-haeufigkeit': 'Acht- bis zehnmal am Tag, und nachts muss ich auch noch ein- bis zweimal raus. Das ist auf jeden Fall mehr geworden, von früher einmal am Tag zu jetzt eben so oft, und der Drang kommt plötzlich, ich schaffe es kaum noch rechtzeitig.',
+          'akt-ausscheid-haeufigkeit': 'Acht- bis zehnmal am Tag, und nachts muss ich auch noch ein- bis zweimal raus. Früher war es einmal am Tag. Der Drang kommt plötzlich, ich schaffe es kaum noch rechtzeitig.',
           'akt-ausscheid-harn-haeufigkeit': 'Mit dem Wasserlassen ist nichts, da hat sich nichts verändert.',
           'akt-ausscheid-aussehen': 'Es ist hellrotes Blut mit im Stuhl, mit Schleim vermischt, das hatte ich ja gesagt, nicht nur am Papier. Schaumig ist es nicht, aber eher flüssig bis breiig.',
           'akt-ausscheid-harn-aussehen': 'Mit dem Wasserlassen ist nichts, am Urin ist mir nichts aufgefallen.',
           'akt-ausscheid-schlucken': 'Nein, damit habe ich nichts. Essen und Trinken gehen normal — mein Problem fängt erst weiter unten an.',
           'akt-veraend-was': 'Aufgefallen ist mir vor allem der Stuhlgang – (zögert) er ist... na ja, am Toilettenpapier ist manchmal etwas Blut, ich dachte, das sind Hämorrhoiden. Einen Knoten oder blaue Flecken habe ich keine, und gelb bin ich auch nicht geworden.',
           'akt-veraend-entwicklung': 'Häufiger und schlimmer geworden, ja, eindeutig. Am Anfang war es nur weicherer Stuhl, jetzt sind es acht-, zehnmal am Tag, und wie gesagt, seit ein paar Wochen kommt noch mehr dazu.',
-          'akt-veraend-blutung': '(zögert) Ja... es ist nicht nur am Papier. Es ist richtig mit im Stuhl drin, mit Schleim vermischt, hellrot. Und ich muss auch nachts raus, ein-, zweimal. Weh tut vor allem dieser Drang, dieses Brennen, wenn ich muss. Im Urin oder beim Husten oder aus der Nase habe ich kein Blut.',
+          'akt-veraend-blutung': '(zögert) Ja... es ist nicht nur am Papier. Es ist richtig mit im Stuhl drin, mit Schleim vermischt, hellrot. Weh tut vor allem dieser Drang, dieses Brennen, wenn ich muss. Im Urin oder beim Husten oder aus der Nase habe ich kein Blut.',
           'akt-verlauf': 'Es kommt in Wellen, mehrmals am Tag, jedes Mal ein paar Minuten, und immer kurz bevor ich auf die Toilette muss. Insgesamt wird es von Woche zu Woche schlimmer, nicht besser.',
-          'akt-ausloeser': 'Einen Auslöser habe ich nicht — Frau Doktor, deswegen bin ich ja hier. Ich war nicht verreist, ich habe nichts Komisches gegessen, keiner in der Familie ist krank. Das Einzige, was sich geändert hat: Ich habe vor einem halben Jahr mit dem Rauchen aufgehört.',
+          'akt-ausloeser': 'Einen Auslöser kenne ich nicht. Ich war nicht verreist, ich habe nichts Komisches gegessen, keiner in der Familie ist krank. Das Einzige, was sich geändert hat: Ich habe vor einem halben Jahr mit dem Rauchen aufgehört.',
           'akt-einfluss': 'Schlimmer wird es nach dem Essen, so zwanzig Minuten danach, und wenn ich mich aufrege. Besser wird es nach dem Stuhlgang, wenn ich mich zusammenkrümme oder eine Wärmflasche nehme. Das Buscopan hilft ein bisschen, das Imodium hat fast nichts gebracht.',
           'akt-frueher': 'Nein, so etwas hatte ich noch nie. Ich hatte immer einen ganz normalen Stuhlgang, einmal am Tag. Eine Darmspiegelung hatte ich auch noch nie.',
-          'akt-begleit': 'Ich bin völlig erschöpft, ich habe abgenommen, abends habe ich manchmal leicht erhöhte Temperatur. Und seit zwei Wochen tun mir das rechte Knie und der linke Knöchel weh, die sind auch etwas geschwollen — das habe ich mir gar nicht erklären können.',
+          'akt-begleit': 'Ich bin völlig erschöpft, ich habe abgenommen, und abends habe ich manchmal leicht erhöhte Temperatur. Seit zwei Wochen tun mir das rechte Knie und der linke Knöchel weh, beide etwas geschwollen.',
           'veg-fieber': 'Richtig Fieber nicht. Abends habe ich ein paarmal gemessen, da war es 37,8. Höher war es nie. Im Ausland war ich seit zwei Jahren nicht.',
           'veg-schuettelfrost': 'Nein, Schüttelfrost hatte ich nicht. Nachtschweiß auch nicht — nachts wache ich nur auf, weil ich auf die Toilette muss.',
           'veg-uebelkeit': 'Ein bisschen übel ist mir manchmal, vor allem wenn die Krämpfe kommen. Erbrochen habe ich aber nicht.',
-          'veg-ausscheidung': 'Der Stuhlgang ist ja das Problem — acht-, neun-, zehnmal am Tag, und ein- bis zweimal nachts. Immer nur kleine Mengen, schleimig, und Blut ist dabei. Wasserlassen ist normal, nicht mehr als sonst, kein Brennen.',
+          'veg-ausscheidung': 'Der Stuhlgang ist ja das Problem — acht- bis zehnmal am Tag, ein- bis zweimal nachts, kleine Mengen, schleimig, mit Blut. Wasserlassen ist normal, kein Brennen.',
           'veg-gewicht': 'Ja, ich habe abgenommen, ohne es zu wollen: etwa vier Kilo in vier Monaten, von 91 auf 87.',
           'veg-appetit': 'Der Appetit ist schlecht. Ich traue mich fast nicht mehr zu essen, weil ich danach gleich wieder Krämpfe bekomme.',
           'veg-schlaf': 'Schlecht. Ich wache ein- bis zweimal in der Nacht auf und muss sofort los. Danach liege ich wach und grüble.',
@@ -47675,7 +47828,7 @@ export function seedCases(): Case[] {
           'nox-rauchen': 'Ich habe geraucht, etwa eine Schachtel am Tag, zwanzig Jahre lang. Vor einem halben Jahr habe ich komplett aufgehört — und seitdem geht es mit dem Bauch bergab, komisch, oder?',
           'nox-alkohol': 'Am Wochenende trinke ich mit meinem Mann eine Flasche Rotwein, verteilt auf Freitag und Samstag. Unter der Woche gar nichts.',
           'nox-drogen': 'Nein, Drogen habe ich nie genommen.',
-          'fam-familie': 'Meine Mutter hatte vor sechs Jahren einen Darmverschluss, sie musste notoperiert werden — Verwachsungen, hieß es. (ängstlich) Frau Doktor, habe ich vielleicht auch einen Darmverschluss wie meine Mutter? Darmkrebs oder eine Darmentzündung hat sonst niemand in der Familie.',
+          'fam-familie': 'Meine Mutter hatte vor sechs Jahren einen Darmverschluss, sie musste notoperiert werden — Verwachsungen, hieß es. (ängstlich) Habe ich das vielleicht auch? Darmkrebs oder eine Darmentzündung hat sonst niemand in der Familie.',
           'fam-eltern': 'Meine Mutter lebt noch, sie ist 78 und hat hohen Blutdruck, und eben der Darmverschluss damals. Mein Vater ist mit 68 an einem Herzinfarkt gestorben. Ich habe noch einen älteren Bruder, der ist gesund.',
           'fam-stand': 'Ich bin verheiratet und habe zwei Söhne. Der ältere ist 24 und wohnt in Stuttgart. Der jüngere ist 19 und hat das Down-Syndrom, er lebt bei uns und ich kümmere mich um ihn — deshalb macht mir das alles solche Angst.',
           'fam-beruf': 'Bürokauffrau in einer Steuerberatung, halbtags. Das ist eine Sitzarbeit, körperlich nicht anstrengend, aber ich kann im Moment nicht hin — ich müsste alle halbe Stunde zur Toilette.',
@@ -47684,14 +47837,21 @@ export function seedCases(): Case[] {
           'fach-gastro-uebelkeit': 'Übelkeit ja, manchmal, wenn die Krämpfe kommen — aber ich habe nicht erbrochen. Bluterbrechen schon gar nicht.',
           'fach-gastro-sodbrennen': 'Nein, Sodbrennen habe ich nicht, und saures Aufstoßen auch nicht. Der Magen macht keine Probleme, es ist alles weiter unten.',
           'fach-gastro-voelle': 'Ein Völlegefühl habe ich eigentlich nicht, eher Blähungen und dieses Grummeln. Der Bauch ist aber nicht dick oder aufgebläht, und Winde gehen ganz normal ab.',
-          'fach-gastro-speisen': 'Nach jedem Essen wird es schlimmer, egal was ich esse — nicht nur bei Milch oder Brot. Ich habe es schon mit Zwieback und Tee probiert, das hilft ein bisschen. Fettiges und Scharfes vertrage ich am schlechtesten.',
+          'fach-gastro-speisen': 'Nach jedem Essen wird es schlimmer, egal was — nicht nur bei Milch oder Brot. Zwieback und Tee helfen ein bisschen; Fettiges und Scharfes vertrage ich am schlechtesten.',
           'fach-gastro-stuhl': '(zuerst ausweichend) Erst nur Blut am Papier, ich dachte Hämorrhoiden. (auf Nachfrage) Inzwischen ist es hellrot im Stuhl, mit Schleim. Dünn bis wässrig, acht- bis zehnmal am Tag, auch nachts. Schwarz war er nie.',
-          'fach-gastro-tenesmen': 'Ja, genau das ist es! Ich muss ganz plötzlich und ganz dringend, ich schaffe es kaum bis zur Toilette. Und danach habe ich das Gefühl, es ist noch nicht alles raus, es brennt und drückt im Enddarm — aber es kommt nichts mehr.',
+          'fach-gastro-tenesmen': 'Ja, genau das ist es! Ich muss plötzlich und dringend, ich schaffe es kaum bis zur Toilette. Danach brennt und drückt es im Enddarm, als wäre noch nicht alles raus — aber es kommt nichts mehr.',
           'fach-gastro-spiegelung': 'Nein, eine Darmspiegelung hatte ich noch nie, auch keine Magenspiegelung. Die Vorsorge mit fünfzig habe ich verschoben — wegen Corona. Muss das jetzt sein? Wird das gemacht, während ich schlafe?',
           'frau-periode': 'Meine Regel habe ich seit drei Jahren nicht mehr, ich bin in den Wechseljahren. Davor war sie immer regelmäßig.',
           'frau-schwanger': 'Ich war zweimal schwanger und habe zwei Söhne, beide normal geboren. Schwanger sein kann ich jetzt nicht mehr.',
           'frau-verhuetung': 'Ich verhüte nicht mehr, das ist seit den Wechseljahren nicht mehr nötig. Die Pille habe ich früher genommen, mit Anfang dreißig abgesetzt.',
           'frau-wechseljahre': 'Seit ich 51 bin, seit drei Jahren. Anfangs hatte ich Hitzewallungen, das ist besser geworden. Hormone nehme ich keine.',
+          // K2 (ADR-0023) : réponses des sondes de banque que le profil exige (r3)
+          'akt-atemnot-belastung': 'Beim Treppensteigen bin ich schnell außer Atem, in Ruhe nicht.',
+          'fach-rheuma-gelenke': 'Nur das rechte Knie und der linke Knöchel, seit ungefähr zwei Wochen. Gewandert ist das nicht.',
+          // K2 (ADR-0023) : réponses des sondes de banque que le profil exige (r3)
+          'akt-ort': 'Links unten im Bauch, manchmal zieht es bis zum Schambein.',
+          'akt-charakter': 'Krampfartig, in Wellen. Und beim Stuhldrang ein brennender Druck im Enddarm.',
+          'akt-intensitaet': 'So fünf von zehn.',
         },
         frageAntworten: [
           {
@@ -48074,6 +48234,7 @@ export function seedCases(): Case[] {
       frequency: 2,
       difficulty: 2,
       patientSheet: {
+        profil: { tags: ['schmerz', 'diarrhoe', 'gewichtsverlust'] },
         personalia: {
           name: 'Miriam Freudenberg',
           age: 43,
@@ -48222,6 +48383,8 @@ export function seedCases(): Case[] {
           'frau-schwanger': 'Nein, schwanger bin ich nicht, das ist ausgeschlossen. Ich habe zwei Kinder, beide normal geboren, keine Fehlgeburten.',
           'frau-verhuetung': 'Ich habe eine Kupferspirale, seit etwa vier Jahren. Die Pille nehme ich nicht.',
           'frau-wechseljahre': 'Nein, Hitzewallungen oder Ähnliches habe ich nicht. Mit 43 hoffe ich, dass das noch etwas dauert.',
+          // K2 (ADR-0023) : réponses des sondes de banque que le profil exige (r3)
+          'akt-ausscheid-haeufigkeit': 'Vier- bis sechsmal am Tag, seit ungefähr drei Monaten. Nachts muss ich deswegen nicht raus, nachts gehe ich nur zum Wasserlassen.',
         },
         schwierigeReaktionen: [
           '„Ist das jetzt Krebs? Mein Vater ist mit 55 gestorben, und ich bin 43.“',
@@ -48555,6 +48718,7 @@ export function seedCases(): Case[] {
       frequency: 5,
       difficulty: 3,
       patientSheet: {
+        profil: { tags: ['schmerz', 'dyspnoe'] },
         personalia: {
           name: 'Jonas Feldmann',
           age: 28,
@@ -49032,6 +49196,7 @@ export function seedCases(): Case[] {
       frequency: 0,
       difficulty: 2,
       patientSheet: {
+        profil: { tags: ['allgemein', 'dyspnoe'] },
         leitsymptomKategorie: 'allgemein',
         personalia: {
           name: 'Dietmar Rösch',
@@ -49169,6 +49334,8 @@ export function seedCases(): Case[] {
           'fach-nephro-uraemie': 'Juckreiz habe ich nicht. Übel ist mir nicht wirklich, aber der Appetit ist weg. Einen metallischen Geschmack habe ich nicht bemerkt. Nur diese Müdigkeit, die ist schon seit zwei, drei Wochen ziemlich schlimm.',
           'fach-nephro-infekt': 'Nein, keine Halsentzündung, keine Erkältung, keine Hautinfektion — in den letzten Wochen war ich nicht krank. Kein Magen-Darm-Infekt, kein Zeckenstich.',
           'fach-nephro-vorgeschichte': 'Nein, mit den Nieren hatte ich nie etwas. Keine Steine, keine Blasenentzündung, und der Urin war beim Check-up vor zwei Jahren in Ordnung. In der Familie gibt es auch keine Nierenkrankheit — keine Zystennieren, keine Dialyse.',
+          // K2 (ADR-0023) : réponses des sondes de banque que le profil exige (r3)
+          'akt-atemnot-belastung': 'Schon beim ersten Stock komme ich außer Atem. In Ruhe nicht, und flach liegen kann ich auch.',
         },
         schwierigeReaktionen: [
           '"Das ist doch nur Wasser in den Beinen — kann man mir nicht einfach eine Wassertablette geben und ich gehe wieder?"',
@@ -49499,6 +49666,7 @@ export function seedCases(): Case[] {
       frequency: 1,
       difficulty: 3,
       patientSheet: {
+        profil: { tags: ['allgemein', 'fieber', 'dyspnoe', 'gewichtsverlust'] },
         leitsymptomKategorie: 'allgemein',
         personalia: {
           name: 'Birgit Steinmann',
@@ -50004,6 +50172,7 @@ export function seedCases(): Case[] {
       frequency: 0,
       difficulty: 2,
       patientSheet: {
+        profil: { tags: ['schmerz'] },
         // La question du cas en « Aktuelle Beschwerden » (Anfang oder tief ?) cherche déjà les douleurs au rapport.
         fachSkip: ['fach-gyn-dyspareunie'],
         personalia: {
@@ -50485,6 +50654,7 @@ export function seedCases(): Case[] {
       frequency: 4,
       difficulty: 3,
       patientSheet: {
+        profil: { tags: ['schmerz'] },
         personalia: {
           name: 'Lisa Häberle',
           age: 35,
@@ -50972,6 +51142,7 @@ export function seedCases(): Case[] {
       frequency: 3,
       difficulty: 3,
       patientSheet: {
+        profil: { tags: ['schmerz', 'gelenk', 'steifigkeit'] },
         personalia: {
           name: 'Gotthielf Weidel',
           age: 32,
@@ -51441,6 +51612,7 @@ export function seedCases(): Case[] {
       frequency: 1,
       difficulty: 3,
       patientSheet: {
+        profil: { tags: ['schmerz', 'gelenk'] },
         motiv: { trauma: false, region: 'untere' },
         personalia: {
           name: 'Markus Lindner',
@@ -51937,6 +52109,7 @@ export function seedCases(): Case[] {
       frequency: 0,
       difficulty: 2,
       patientSheet: {
+        profil: { tags: ['ausscheidung', 'dyspnoe'] },
         leitsymptomKategorie: 'ausscheidung',
         personalia: {
           name: 'Jonas Reinhardt',
@@ -52428,6 +52601,7 @@ export function seedCases(): Case[] {
       frequency: 3,
       difficulty: 2,
       patientSheet: {
+        profil: { tags: ['veraenderung', 'fieber', 'hals', 'gewichtsverlust'] },
         leitsymptomKategorie: 'veraenderung',
         personalia: {
           name: 'Elisabeth Länge',
@@ -52923,6 +53097,7 @@ export function seedCases(): Case[] {
       frequency: 0,
       difficulty: 2,
       patientSheet: {
+        profil: { tags: ['allgemein', 'gicht', 'gewichtsverlust'] },
         leitsymptomKategorie: 'allgemein',
         personalia: {
           name: 'Bernd Ostermann',
@@ -53208,7 +53383,7 @@ export function seedCases(): Case[] {
       caseSpecificQuestions: [
         { frage: 'Warum hat Ihr Hausarzt Blut abgenommen — hatten Sie Beschwerden, oder war es eine Routineuntersuchung?', kapitel: 'aktuell' },
         { frage: 'Haben Sie ein Druck- oder Völlegefühl unter dem linken Rippenbogen, und werden Sie beim Essen schneller satt als früher?', kapitel: 'aktuell' },
-        { frage: 'Hatten Sie plötzlich sehr starke Schmerzen im linken Oberbauch, die in die linke Schulter ausstrahlen?', kapitel: 'aktuell' },
+        { frage: 'Hatten Sie plötzlich sehr starke Schmerzen im linken Oberbauch, die in die linke Schulter ausstrahlen?', kapitel: 'aktuell', sucht: ['ausstrahlung'] },
         { frage: 'Haben Sie Sehstörungen, Kopfschmerzen, Luftnot oder ungewöhnliche Dauererektionen bemerkt?', kapitel: 'aktuell' },
         { frage: 'Hatten Sie in letzter Zeit einen Gichtanfall oder Nierenkoliken?', kapitel: 'aktuell' },
         { frage: 'Wurden Sie früher schon einmal auf ein erhöhtes Blutbild hingewiesen?', kapitel: 'vorerkrankungen' },
@@ -53376,6 +53551,7 @@ export function seedCases(): Case[] {
       frequency: 3,
       difficulty: 3,
       patientSheet: {
+        profil: { tags: ['schmerz', 'fieber'] },
         personalia: {
           name: 'Lena Hartmann',
           age: 23,
@@ -53852,6 +54028,7 @@ export function seedCases(): Case[] {
       frequency: 25,
       difficulty: 2,
       patientSheet: {
+        profil: { tags: ['atemnot', 'husten'] },
         leitsymptomKategorie: 'atemnot',
         aktuellSkip: ['akt-atemnot-nachts'],
         personalia: {
@@ -54289,6 +54466,7 @@ export function seedCases(): Case[] {
       frequency: 2,
       difficulty: 3,
       patientSheet: {
+        profil: { tags: ['infekt', 'reise', 'fieber'] },
         leitsymptomKategorie: 'infekt',
         personalia: {
           name: 'Heinz Peter Kleinweber',
@@ -54775,6 +54953,7 @@ export function seedCases(): Case[] {
       frequency: 1,
       difficulty: 2,
       patientSheet: {
+        profil: { tags: ['ausscheidung'] },
         leitsymptomKategorie: 'ausscheidung',
         personalia: {
           name: 'Walter Schwarz',
@@ -55272,6 +55451,7 @@ export function seedCases(): Case[] {
       frequency: 8,
       difficulty: 3,
       patientSheet: {
+        profil: { tags: ['anfall', 'schmerz', 'gewichtsverlust'] },
         leitsymptomKategorie: 'anfall',
         personalia: {
           name: 'Michael Neumeister',
@@ -55432,6 +55612,10 @@ export function seedCases(): Case[] {
           'fach-neuro-aura': 'Vorboten wie Lichtblitze oder Zickzack hatte ich nicht. Nur eben dieses Schwarzwerden vor den Augen, sobald ich stehe. Kribbeln im Gesicht oder in den Händen — nein.',
           'fach-neuro-autonom': 'Tränende Augen oder eine verstopfte Nase, nein. Ein hängendes Lid ist mir auch nicht aufgefallen. Beim Aufstehen wird mir schwarz vor Augen und manchmal stolpert das Herz ein bisschen, das kenne ich vom Vorhofflimmern.',
           'fach-neuro-anfallzeichen': 'Ja, ich erinnere mich an alles — das Aufstehen, den Schwindel, das Wegrutschen, das Liegen. Die Zunge habe ich mir nicht gebissen, und in die Hose ist auch nichts gegangen. Nur die Schläfe habe ich mir angestoßen und die Hüfte geprellt.',
+          // K2 (ADR-0023) : réponses des sondes de banque que le profil exige (r3)
+          'akt-ort': 'Links an der Hüfte, außen, hier über dem Knochen.',
+          'akt-charakter': 'Im Liegen dumpf und drückend. Sobald ich mich bewege, sticht es.',
+          'akt-intensitaet': 'Wenn ich still liege, vier von zehn. Bei jeder Bewegung acht.',
         },
         schwierigeReaktionen: [
           '„Das war doch nur ein blöder Ausrutscher auf dem Badvorleger. Das kann jedem passieren, dafür muss man kein Aufhebens machen.“',
@@ -55765,6 +55949,7 @@ export function seedCases(): Case[] {
       frequency: 3,
       difficulty: 2,
       patientSheet: {
+        profil: { tags: ['schmerz', 'steifigkeit'] },
         motiv: { trauma: false, region: 'lws' },
         fachSkip: ['fach-ortho-durchblutung'],
         personalia: {
@@ -56256,6 +56441,7 @@ export function seedCases(): Case[] {
       frequency: 0,
       difficulty: 3,
       patientSheet: {
+        profil: { tags: ['schmerz', 'stein'] },
         motiv: { trauma: false, region: 'abdomen' },
         personalia: {
           name: 'Herbert Maurer',
@@ -56745,6 +56931,7 @@ export function seedCases(): Case[] {
       frequency: 2,
       difficulty: 3,
       patientSheet: {
+        profil: { tags: ['schmerz'] },
         motiv: { trauma: false, region: 'thorax' },
         personalia: {
           name: 'Manfred Kessler',
@@ -57218,6 +57405,7 @@ export function seedCases(): Case[] {
       frequency: 3,
       difficulty: 2,
       patientSheet: {
+        profil: { tags: ['schmerz', 'fieber'] },
         personalia: {
           name: 'Jonas Hartmann',
           age: 34,
@@ -57695,6 +57883,7 @@ export function seedCases(): Case[] {
       frequency: 0,
       difficulty: 3,
       patientSheet: {
+        profil: { tags: ['anfall'] },
         leitsymptomKategorie: 'anfall',
         personalia: {
           name: 'Lukas Brenner',
@@ -58185,6 +58374,7 @@ export function seedCases(): Case[] {
       frequency: 3,
       difficulty: 2,
       patientSheet: {
+        profil: { tags: ['schmerz', 'stein'] },
         personalia: {
           name: 'Leon Bachmann',
           age: 19,
@@ -58619,6 +58809,7 @@ export function seedCases(): Case[] {
       frequency: 0,
       difficulty: 2,
       patientSheet: {
+        profil: { tags: ['veraenderung'] },
         leitsymptomKategorie: 'veraenderung',
         personalia: {
           name: 'Gerhard Sonntag',
@@ -59078,6 +59269,7 @@ export function seedCases(): Case[] {
       frequency: 1,
       difficulty: 2,
       patientSheet: {
+        profil: { tags: ['veraenderung', 'gelenk', 'arthritis', 'steifigkeit'] },
         fachSkip: ['fach-derma-muttermal'],
         leitsymptomKategorie: 'veraenderung',
         personalia: {
@@ -59221,6 +59413,9 @@ export function seedCases(): Case[] {
           'fach-derma-vorgeschichte': 'Die Schuppenflechte habe ich selbst seit 17 Jahren. Neurodermitis hatte ich nie, auch kein Heuschnupfen oder Asthma. Mein Vater hat auch Schuppenflechte.',
           'fach-derma-muttermal': 'Nein, ein Muttermal hat sich nicht verändert. Darauf achte ich, mein Hautarzt schaut die immer an.',
           'fach-derma-vorbehandlung': 'Kortisonsalben, immer wieder — die helfen, aber dann kommt es zurück. Vor zehn Jahren eine Lichttherapie beim Hautarzt, danach fast ein Jahr Ruhe. Tabletten oder Spritzen hatte ich nie.',
+          // K2 (ADR-0023) : réponses des sondes de banque que le profil exige (r3)
+          'fach-rheuma-gelenke': 'Mehrere: der linke Mittelfinger — der ist dick wie eine Wurst —, die zweite und dritte Zehe rechts und das rechte Knie, dazu die rechte Ferse. Gewandert ist das nicht, es ist nach und nach dazugekommen und geblieben.',
+          'fach-rheuma-entzuendung': 'Geschwollen ja, der ganze Mittelfinger und das rechte Knie. Ob sie rot oder warm sind, ist mir nicht aufgefallen. Anfassen kann ich sie schon.',
         },
         schwierigeReaktionen: [
           '„Ist das ansteckend? Meine Partnerin traut sich kaum noch, mich anzufassen.“',
@@ -59542,6 +59737,7 @@ export function seedCases(): Case[] {
       frequency: 3,
       difficulty: 2,
       patientSheet: {
+        profil: { tags: ['veraenderung', 'hals'] },
         fachSkip: ['fach-derma-muttermal'],
         leitsymptomKategorie: 'veraenderung',
         personalia: {
@@ -59991,6 +60187,7 @@ export function seedCases(): Case[] {
       frequency: 0,
       difficulty: 2,
       patientSheet: {
+        profil: { tags: ['allgemein', 'dyspnoe', 'gewichtsverlust'] },
         leitsymptomKategorie: 'allgemein',
         personalia: {
           name: 'Renate Hoffmeister',
@@ -60505,6 +60702,7 @@ export function seedCases(): Case[] {
       frequency: 0,
       difficulty: 3,
       patientSheet: {
+        profil: { tags: ['psychisch', 'gewichtsverlust'] },
         leitsymptomKategorie: 'psychisch',
         personalia: {
           name: 'Markus Lindner',
@@ -61020,6 +61218,7 @@ export function seedCases(): Case[] {
       frequency: 0,
       difficulty: 2,
       patientSheet: {
+        profil: { tags: ['infekt', 'schmerz', 'fieber', 'meningitis'] },
         leitsymptomKategorie: 'infekt',
         personalia: {
           name: 'Hans Salzbrenner',
@@ -61168,6 +61367,10 @@ export function seedCases(): Case[] {
           'fach-pneumo-infekt': 'Ja, genau das ist es doch: Die Erkältung vor zwölf Tagen, vom Enkelkind. Erst wurde es besser, dann wieder schlimmer. Verreist war ich nicht.',
           'fach-pneumo-noxen': 'Beruflich habe ich viel mit Blumenerde, Staub und Pollen zu tun, im Gewächshaus ist es feucht und warm. Asbest oder Vögel — nein, damit habe ich nichts zu tun.',
           'fach-pneumo-allergie': 'Nur die Amoxicillin-Allergie mit dem Ausschlag. Heuschnupfen habe ich keinen, obwohl ich den ganzen Tag zwischen den Blumen stehe, und Asthma auch nicht.',
+          // K2 (ADR-0023) : réponses des sondes de banque que le profil exige (r3)
+          'akt-ort': 'Rechts, in der Wange unter dem Auge bis hoch zur Stirn. Und die oberen Backenzähne rechts tun auch weh.',
+          'akt-charakter': 'Dumpf und drückend, und es pocht, wie ein Druck von innen.',
+          'akt-intensitaet': 'So sechs von zehn. Wenn ich mich bücke, bis acht.',
         },
         schwierigeReaktionen: [
           '„Ich brauche jetzt einfach ein Antibiotikum, dann ist das in drei Tagen erledigt. Ich kann die Gärtnerei nicht wochenlang liegen lassen.“',
@@ -61460,6 +61663,7 @@ export function seedCases(): Case[] {
       frequency: 1,
       difficulty: 2,
       patientSheet: {
+        profil: { tags: ['allgemein', 'schmerz'] },
         leitsymptomKategorie: 'allgemein',
         personalia: {
           name: 'Markus Lindner',
@@ -61604,6 +61808,9 @@ export function seedCases(): Case[] {
           'fach-kardio-oedeme': 'Nein, die Beine sind nicht geschwollen, die Socken hinterlassen keine Abdrücke. Ich schlafe mit einem Kissen, flach, wie immer.',
           'fach-kardio-nykturie': 'Einmal pro Nacht muss ich raus, seit ein paar Monaten. Früher habe ich durchgeschlafen.',
           'fach-kardio-synkope': 'Nein, ohnmächtig war ich noch nie. Schwarz vor Augen wird es mir auch nicht, nur dieser leichte Schwindel morgens beim Aufstehen.',
+          // K2 (ADR-0023) : réponses des sondes de banque que le profil exige (r3)
+          'akt-charakter': 'Drückend und dumpf, als hätte ich einen zu engen Helm auf.',
+          'akt-intensitaet': 'Morgens beim Aufwachen ungefähr sechs von zehn. Nachmittags ist fast nichts mehr da.',
         },
         schwierigeReaktionen: [
           '„Zweihundert — ist das jetzt gefährlich? Bekomme ich einen Schlaganfall wie mein Vater?“',

@@ -1,4 +1,4 @@
-import type { Symptom } from '../data/guides/symptoms';
+import type { Symptom, Profil } from '../data/guides/symptoms';
 // ============================================================================
 // FSP-Cockpit — Modèle de données
 // Toutes les entités sont reliées bidirectionnellement pour permettre
@@ -92,6 +92,12 @@ export interface PatientSheet {
    *  « Aktuelle Beschwerden » (FB2-J1). Absent = `schmerz` si un bloc
    *  `schmerz` existe ; sinon la porte CI refuse le cas. */
   leitsymptomKategorie?: LeitsymptomKategorie;
+  /** Profil clinique du cas (ADR-0023, contrat frage-atomique §10.3, lot K2) :
+   *  tags déclarés (la nature et `hoden` se dérivent), signes exigés en plus,
+   *  signes exclus avec leur raison. Optionnel au type (contenu ancien),
+   *  exigé par la porte (`checkCoherence`, INV-80). Le montage ne le lit pas
+   *  avant K3. */
+  profil?: Profil;
   /** Dimensions de la variante qui n'ont PAS de sens pour CE cas (ex.
    *  l'orthopnée pour un rhume des foins) : sondes retirées du guide, réponse
    *  non exigée. Explicite et relu, plutôt qu'un gabarit subi. */
