@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import type { AssistanceMode, BogenNotes, Case, MusterCity } from '@/db/types';
+import type { AssistanceMode, BogenNotes, Case, MusterArt, MusterCity } from '@/db/types';
 import { VORSTELLUNG_CHAPTERS } from '@/data/guides/vorstellungChapters';
 import { Icon } from '@/components/icons';
 import { PhraseLine } from '@/components/PhraseLine';
@@ -18,7 +18,7 @@ import { useSimSession } from '@/store/simSession';
 // ============================================================================
 
 export function VorstellungGuide({ c, assistance, bogen, muster }: {
-  c: Case; assistance: AssistanceMode; bogen: BogenNotes; muster: MusterCity;
+  c: Case; assistance: AssistanceMode; bogen: BogenNotes; muster?: MusterArt | MusterCity;
 }) {
   const chapters = VORSTELLUNG_CHAPTERS;
   const isAssiste = assistance === 'assiste';

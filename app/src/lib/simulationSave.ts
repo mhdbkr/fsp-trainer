@@ -6,7 +6,7 @@ import { now } from '@/lib/clock';
 import { applySimulationToJournal, resolveSimulationTask } from '@/lib/journal';
 import { isEntered, simulationPassed } from '@/lib/scoring';
 import { getActiveUserId } from '@/lib/auth/accounts';
-import type { AssistanceMode, BogenNotes, Case, Layer, MusterCity, PartResult, SimTeil, SketchNotes, Simulation, SimulationMode } from '@/db/types';
+import type { AssistanceMode, BogenNotes, Case, Layer, MusterArt, MusterCity, PartResult, SimTeil, SketchNotes, Simulation, SimulationMode } from '@/db/types';
 
 type Part = 'anamnese' | 'dokumentation' | 'fallvorstellung' | 'aufklaerung';
 
@@ -28,13 +28,19 @@ export interface SaveInput {
   arztbriefText?: string;
   assistance: AssistanceMode;
   layer: Layer;
-  muster?: MusterCity;
+  muster?: MusterArt | MusterCity;
   scope?: 'teil' | 'full';
   teil?: SimTeil;
   mode?: SimulationMode;
   externalTarget?: Simulation['externalTarget'];
   /** Tâche du plan lancée (R-C4). Gardée seulement si CETTE partie la satisfait. */
   taskId?: string;
+  // --- [S4] la partie entière (simulation-run.md §3.2, §10.4) — posés par `projektion` ---
+  /** Début de la partie (m5) ; absent ⇒ l'instant de l'écriture (séance IA externe). */
+  date?: number;
+  enchaine?: true;
+  reihenfolge?: SimTeil[];
+  dauerGesamtSec?: number;
 }
 
 // Corrections prioritaires : dérivées des critères non cochés + langue faible.
@@ -58,7 +64,7 @@ export async function saveSimulation(i: SaveInput): Promise<Simulation> {
   const draft: Simulation = {
     id,
     caseId: i.c.id,
-    date: now(),                                            // horloge de l'app (I10)
+    date: i.date ?? now(),                                  // [S4] début de la partie (m5) ; sinon l'horloge de l'app (I10)
     profileId: i.profileId ?? getActiveUserId() ?? undefined,
     parts,
     notes: i.notes ?? {},
@@ -74,6 +80,9 @@ export async function saveSimulation(i: SaveInput): Promise<Simulation> {
     ...(i.mode ? { mode: i.mode } : {}),
     ...(i.externalTarget ? { externalTarget: i.externalTarget } : {}),
     ...(i.taskId ? { taskId: i.taskId } : {}),
+    ...(i.enchaine ? { enchaine: true as const } : {}),
+    ...(i.reihenfolge ? { reihenfolge: [...i.reihenfolge] } : {}),
+    ...(typeof i.dauerGesamtSec === 'number' ? { dauerGesamtSec: i.dauerGesamtSec } : {}),
   };
   draft.passed = simulationPassed(draft);
   // D-C4 / R-C4 : la tâche est résolue AVANT l'écriture — persistée dans la

@@ -53,4 +53,4 @@ export const SESSION_MAX_MIN = 360;
 // `muster` avec S4-3 — dans le commit qui les déploie, comme `D_UN_TRAIT_ACTIF`.
 export const ANNONCE_TEILE_ACTIVE = true;
 export const ANNONCE_MODE_ACTIVE = true;           // S4-2 : un `teil-first` explicite devient `cas-complet` (§12.5) — livré avec ce commit
-export const ANNONCE_MUSTER_ACTIVE = false;
+export const ANNONCE_MUSTER_ACTIVE = true;         // S4-3 : le Muster de ville devient « libre » (§10.6) — livré avec la branche (merger = déployer)

@@ -507,3 +507,23 @@ describe('D5 — pas de couleur « finie » avec moins de trois Teile joués', (
     expect(container.querySelector('[data-maitrise]')?.getAttribute('stroke')).toBe('var(--cd-maitrise)');
   });
 });
+
+// S4-3 fixeur I1 (exception de périmètre accordée par main) : en pré-simulation, le détail est déjà ouvert
+// À CÔTÉ du cadran ; le cadran ne s'ouvre pas une seconde fois au survol.
+describe('ouvrable={false} — un cadran qui ne s’ouvre pas', () => {
+  afterEach(() => { vi.useRealTimers(); cleanup(); });
+  it('ni survol, ni appui long, ni clavier : aucun détail flottant ; l’étiquette reste lue', () => {
+    vi.useFakeTimers();
+    const { container } = monte(ENTAME, { ouvrable: false });
+    const el = container.querySelector('.case-dial')!;
+    expect(el.getAttribute('aria-label')).toBe(etiquette(ENTAME, 'Leberzirrhose'));
+    expect(el.tagName).not.toBe('BUTTON');
+    pointer(el, 'pointerenter', 'mouse');
+    act(() => { vi.advanceTimersByTime(1000); });
+    pointer(el, 'pointerdown', 'touch');
+    act(() => { vi.advanceTimersByTime(1000); });
+    fireEvent.click(el, { detail: 0 });
+    expect(screen.queryByRole('dialog')).toBeNull();
+    expect(document.querySelectorAll('.case-dial-detail')).toHaveLength(0);
+  });
+});

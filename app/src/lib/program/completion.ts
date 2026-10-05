@@ -80,6 +80,11 @@ function fenetre(T: TaskInstance, tz?: string): { debut: number; fin: number } {
 export function evaluerTache(T: TaskInstance, events: readonly TrainingEvent[], tz?: string): EtatTache {
   const { debut, fin } = fenetre(T, tz);
   const dans = (e: TrainingEvent) => e.at >= debut && e.at < fin;
+  // [S4-3 fixeur M5] Une PARTIE compte aussi si elle a été ENREGISTRÉE dans la tâche (jour, après `creeA`) : commencée la
+  // veille, reprise et enregistrée ce matin, elle fait « Finir X ». Jamais si elle a été enregistrée avant la tâche.
+  const jour = debutJour(T.date, tz);
+  const enregistree = (e: TrainingEvent) => e.enregistreA ?? e.at;
+  const dansCas = (e: TrainingEvent) => enregistree(e) >= debut && (dans(e) || (enregistree(e) >= jour && enregistree(e) < fin));
   const tri = [...events].sort(ordre);
   const coches = tri.filter((e) => isCocheNue(e) && e.taskId === T.id);
 
@@ -100,7 +105,7 @@ export function evaluerTache(T: TaskInstance, events: readonly TrainingEvent[], 
   let completion: TrainingEvent | undefined;
   let minutes = 0;
   for (const e of tri) {
-    if (!partieJouee(e) || e.caseId !== T.caseId || !dans(e)) continue;
+    if (!partieJouee(e) || e.caseId !== T.caseId || !dansCas(e)) continue;
     if (!completion && e.teile.some((t) => voulus.includes(t))) minutes += e.spentMin;     // les parties qui ont contribué à l'avancement
     e.teile.forEach((t) => joues.add(t));
     if (!completion && (T.dUnTrait ? e.enchaine === true : voulus.every((t) => joues.has(t)))) completion = e;
@@ -113,7 +118,8 @@ export function evaluerTache(T: TaskInstance, events: readonly TrainingEvent[], 
   const statut: StatutTache = premiere ? 'faite' : avancement.length > 0 ? 'entamee' : 'a-faire';
   return {
     statut, avancement, reste, aRejouerDUnTrait,
-    ...(premiere ? { doneAt: premiere.at, eventId: premiere.id, spentMin: completion ? minutes : premiere.spentMin } : {}),
+    // M5 : une partie commencée avant la tâche et enregistrée dedans la fait à l'instant de son enregistrement.
+    ...(premiere ? { doneAt: premiere.at >= debut ? premiere.at : enregistree(premiere), eventId: premiere.id, spentMin: completion ? minutes : premiere.spentMin } : {}),
     absorbes: completion ? coches.map((c) => c.id) : [],
   };
 }
@@ -133,7 +139,9 @@ export function deriverPlan(plan: { date: string; tz?: string; tasks: TaskInstan
   const ids = new Set(plan.tasks.map((t) => t.id));
   const jour = debutJour(plan.date, plan.tz), suivant = finJour(plan.date, plan.tz);
   // Seuls comptent : les événements du jour du plan, et les coches qui visent une de ses tâches (cochée après minuit).
-  const utiles = events.filter((e) => (e.at >= jour && e.at < suivant) || (isCocheNue(e) && ids.has(e.taskId!)));
+  // M5 : et les parties ENREGISTRÉES ce jour-là, commencées la veille.
+  const dansLeJour = (x: number) => x >= jour && x < suivant;
+  const utiles = events.filter((e) => dansLeJour(e.at) || dansLeJour(e.enregistreA ?? e.at) || (isCocheNue(e) && ids.has(e.taskId!)));
   const absorbes: string[] = [];
   const tasks = plan.tasks.map((t) => {
     const { doneAt: _d, spentMin: _s, eventId: _e, ...base } = t;

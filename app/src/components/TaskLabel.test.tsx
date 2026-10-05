@@ -67,10 +67,12 @@ describe('TaskLabel — anatomie (audit §4.2)', () => {
     expect(cost!.classList.contains('tnum')).toBe(true);
   });
 
-  it('zone 4 : couche et assistance en .label, jamais en mono capitales', () => {
+  // Fixeur S4-3 I8 (décision (d) de la direction) : la couche ne s'affiche plus nulle part — l'assistance reste.
+  it('zone 4 : l’assistance en .label, jamais en mono capitales ; plus de « Couche »', () => {
     const { container } = render(<TaskLabel block={block({ layer: 2, assistance: 'assiste' })} />);
     const state = container.querySelector('.label');
-    expect(state?.textContent).toBe('Couche 2 · assisté');
+    expect(state?.textContent).toBe('assisté');
+    expect(container.textContent).not.toMatch(/couche/i);
     expect(state?.className).not.toMatch(/font-mono|uppercase/);
   });
 

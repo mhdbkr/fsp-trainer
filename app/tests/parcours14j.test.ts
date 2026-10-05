@@ -63,12 +63,14 @@ async function jouer(r: Rng, t: TaskInstance, tick: (ms: number) => void): Promi
   if (t.kind === 'simulation' && t.caseId && r.bool(0.8)) {
     const c = CORPUS.find((x) => x.id === t.caseId)! as Case;
     const teile = teileDeTache(t);
-    let l = erstelleLauf({ caseId: c.id, caseName: c.name, geplanteTeile: teile, assistance: t.assistance ?? 'autonome', layer: t.layer ?? 2, mode: 'texte', taskId: t.id });
-    l = transition(l, { typ: 'demarrer', checkliste: MODELLE() });
+    // [S4] Comme le client : la partie porte les trois Teile (INV-70), elle PART du premier Teil qui reste
+    // (`?depart=`, §10.3), enchaîne ce qui reste par `partieSuivante(t')`, puis « Terminer ici » (INV-71).
+    let l = erstelleLauf({ caseId: c.id, caseName: c.name, assistance: t.assistance ?? 'autonome', layer: t.layer ?? 2, mode: 'texte', taskId: t.id });
+    l = transition(l, { typ: 'demarrer', teil: teile[0], checkliste: MODELLE() });
     for (let i = 0; i < teile.length; i++) {
       tick(r.int(60_000, 600_000));
+      if (i > 0) l = transition(l, { typ: 'partieSuivante', teil: teile[i] });
       l = transition(l, { typ: 'terminerPartie', ergebnis: partResult(r.int(25, 98), { durationSec: r.int(300, 900) }) });
-      if (i < teile.length - 1) l = transition(l, { typ: 'partieSuivante' });
     }
     l = transition(transition(l, { typ: 'versChecklist' }), { typ: 'speichern' });
     await speichern(l, c);
@@ -134,12 +136,14 @@ describe('Candidate synthétique — 14 jours ouvrés, 2 jours manqués, un dril
         if (jour === 3) {
           const sim = plan.tasks.find((t) => t.kind === 'simulation' && t.caseId);
           if (sim) {
-            let l = erstelleLauf({ caseId: sim.caseId!, geplanteTeile: teileDeTache(sim), assistance: 'autonome', layer: 2, taskId: sim.id });
-            l = transition(l, { typ: 'demarrer', checkliste: MODELLE() });
+            let l = erstelleLauf({ caseId: sim.caseId!, assistance: 'autonome', layer: 2, taskId: sim.id });
+            l = transition(l, { typ: 'demarrer', teil: teileDeTache(sim)[0], checkliste: MODELLE() });
             l = transition(l, { typ: 'terminerPartie', ergebnis: partResult(70, { durationSec: 600 }) });
             await speichereAktivenLauf(l);
             const repris = await ladeAktivenLauf();
-            expect(repris, ctx('INV-23 : le Lauf interrompu ne se reprend pas à l’identique')).toEqual(l);
+            // [S4] INV-23 modulo les deux marques de la reprise (simulation-run.md §7, « Modifiés ») : la persistance
+            // date le Lauf (`zuletztAktiv`, §3.1) ; la LECTURE ne pose pas `unterbrochen` — seule la reprise le fait.
+            expect(repris, ctx('INV-23 : le Lauf interrompu ne se reprend pas à l’identique')).toEqual({ ...l, zuletztAktiv: expect.any(Number) });
             bilan.interruptions++;
             await db.meta.delete('lauf.aktiv');
           }

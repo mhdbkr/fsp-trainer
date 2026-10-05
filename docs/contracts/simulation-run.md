@@ -236,8 +236,11 @@ Chaque état a une URL distincte :
   sur le runner. Il pose `unterbrochen: true` si
   `jetzt − zuletztAktiv ≥ REPRISE_TOLERANZ_MIN` (5 min), et ne fait rien
   d'autre. Une reprise plus courte (incident technique) ne casse pas
-  l'enchaînement (réserve INV-73). `speichereAktivenLauf` met à jour
-  `zuletztAktiv` à chaque persistance. Un `Lauf` sans `zuletztAktiv` (série 3)
+  l'enchaînement (réserve INV-73). *[S4-3 fixeur M3]* Il ne marque rien
+  quand il ne reste plus aucun `SimTeil` à jouer : les trois ont été joués
+  d'affilée, une pause au bilan final ou à la checklist ne casse rien.
+  `speichereAktivenLauf` met à jour `zuletztAktiv` à chaque persistance,
+  daté à l'APPEL et non quand la file d'écriture l'exécute (fixeur I2). Un `Lauf` sans `zuletztAktiv` (série 3)
   repris est `unterbrochen`. La marque n'est jamais retirée.
 - La reprise exige le même cas. Un `Lauf` neuf est toujours `komplett`, et
   un `lauf.aktiv` série 3 en `teil` se reprend tel quel jusqu'à son écriture.
@@ -421,7 +424,9 @@ export function istVollstaendig(lauf: Lauf): boolean {
 **Modifiés *[S4]*.**
 - **INV-21** : « Teil seul » désigne désormais un `Lauf` à trois Teile planifiés
   dont **un seul** est joué. `terminerPartie()` mène toujours à `bilanz(t)`.
-- **INV-23** : l'égalité structurelle se lit **modulo `unterbrochen`**.
+- **INV-23** : l'égalité structurelle se lit **modulo `unterbrochen` et
+  `zuletztAktiv`** *(S4-3)* : la persistance date le Lauf (§3.1), la lecture
+  ne pose jamais `unterbrochen`.
   `serialize ∘ deserialize` est l'identité stricte, et seule la *reprise* pose
   la marque (§3.1). Le test C6 (`parcours14j.test.ts:144`, `toEqual(l)`) est
   réécrit en conséquence.
@@ -434,8 +439,8 @@ export function istVollstaendig(lauf: Lauf): boolean {
 | Id | Propriété | Mutation qui doit rougir |
 |---|---|---|
 | **INV-70** | **Entrée unique** : tout `Lauf` créé par un client série 4 a `geplanteTeile` = les trois, dans l'ordre d'examen, et `modus = 'komplett'`. `?depart=t` (ou l'ancien `?teil=t`) ne change que le Teil de `demarrer`, jamais `geplanteTeile`. | `useLauf` relit `?teil=` comme périmètre (`useLauf.ts:100`) |
-| **INV-71** | **« Terminer ici »** : depuis `bilanz(t)`, `versChecklist` est permis dès qu'un `SimTeil` est joué. La `Simulation` écrite a `parts` = `teileGespielt`, jamais `geplanteTeile`. | `versChecklist` refusé tant que `naechsterTeil(lauf) !== null` |
-| **INV-72** | **Départ ailleurs** : `springeZu(t)` n'est permis que depuis `laufend(t0)`, avec `t0 ≠ 'aufklaerung'`, quand aucun `SimTeil` n'est encore joué, `t ≠ t0` et `t` non joué. `partieSuivante(t')` n'accepte que `t' ∈ geplanteTeile \ teileGespielt` ; en `bilanz('aufklaerung')` avec un `teilVorAufklaerung` non joué, il n'accepte que celui-ci. Un Teil n'est jamais joué deux fois dans un `Lauf`. Le chrono de `t0` est conservé (INV-28) et compté dans `dauerGesamtSec`. | `partieSuivante(t')` accepte un Teil déjà joué, ou saute le Teil interrompu par l'Aufklärung ; `springeZu` permis après un Teil terminé ou pendant une Aufklärung ; `dauerGesamtSec` = Σ des seuls Teile joués |
+| **INV-71** | **« Terminer ici »** : depuis `bilanz(t)`, `versChecklist` est permis dès qu'un `SimTeil` est joué, *[S4-3]* et seulement alors (jamais sur la seule Aufklärung). La `Simulation` écrite a `parts` = `teileGespielt`, jamais `geplanteTeile`. | `versChecklist` refusé tant que `naechsterTeil(lauf) !== null` ; ou permis sur la seule Aufklärung |
+| **INV-72** | **Départ ailleurs** : `springeZu(t)` n'est permis que depuis `laufend(t0)`, avec `t0 ≠ 'aufklaerung'`, quand aucun `SimTeil` n'est encore joué, *[S4-3]* le chrono de `t0` pas lancé, `t ≠ t0` et `t` non joué. `partieSuivante(t')` n'accepte que `t' ∈ geplanteTeile \ teileGespielt` ; en `bilanz('aufklaerung')` avec un `teilVorAufklaerung` non joué, il n'accepte que celui-ci. Un Teil n'est jamais joué deux fois dans un `Lauf`. Le chrono de `t0` est conservé (INV-28) et compté dans `dauerGesamtSec`. | `partieSuivante(t')` accepte un Teil déjà joué, ou saute le Teil interrompu par l'Aufklärung ; `springeZu` permis après un Teil terminé ou pendant une Aufklärung ; `dauerGesamtSec` = Σ des seuls Teile joués |
 | **INV-73** | **Enchaînement réel** : `Simulation.enchaine === true` ⇔ les trois `SimTeil` ∈ `teileGespielt` ∧ `unterbrochen !== true` ∧ `mode !== 'external-ai'`. Seul `nimmWiederAuf` pose `unterbrochen`, et seulement si la pause mesure ≥ 5 min : une reprise de moins de 5 min ne casse pas l'enchaînement. | `enchaine = istVollstaendig(lauf)` seul ; `unterbrochen` posé à toute reprise (même de 30 s) ou remis à `undefined` ; un second chemin qui pose `unterbrochen` |
 | **INV-74** | **Muster sans perte de notes** : pour tout `bogen` enregistré et tout `muster` (série 3 ou série 4), l'ensemble des valeurs non vides rendues par l'aperçu (`BogenPreview`) est **égal** à l'ensemble des valeurs non vides stockées. `musterArt(m)` est total sur `MusterCity ∪ MusterArt ∪ {undefined}`. | l'aperçu n'itère que `spec.fields` du nouveau Muster (`BogenPreview.tsx:33`) : une note `allergien` d'une simulation « Stuttgart » lue en « libre » disparaît |
 | **INV-75** | **Le jour d'une partie est celui de son début** : `Simulation.date === lauf.startedAt`, donc `TrainingEvent.at` aussi, pour tout `Lauf` série 4, y compris à cheval sur minuit ou repris le lendemain. `TrainingEvent.spentMin = round(dauerGesamtSec / 60)`. | `date = now()` à l'écriture (`simulationSave.ts:57`) ; `spentMin` sur les seuls Teile joués |
@@ -524,23 +529,39 @@ export function istVollstaendig(lauf: Lauf): boolean {
   `Lauf.layer` reste écrit, déduit de ce choix, pour l'historique et le
   scoring.
 - `PartnerCard` et les textes d'aide dépendaient de `teil` (`SimulationSetup.tsx:150-204`) ;
-  ils lisent désormais le Teil de **départ** (`?depart=`), ou l'Anamnese par
-  défaut. Le pont IA reste restreint à `anamnese | fallvorstellung`
-  (`ai-bridge.md`).
+  ils lisent désormais le Teil de **départ** (`?depart=`), *[S4-3 fixeur I3]* ou
+  la **partie entière** sans départ. *[I9, M1]* L'IA est toujours proposée au
+  choix du partenaire : la partie contient l'Anamnese et la Fallvorstellung.
+  Le pont IA reste restreint à `anamnese | fallvorstellung` au lancement,
+  depuis le runner (`ai-bridge.md`).
+- *[S4-3 fixeur I2, décision de main]* **Le niveau** : une tâche du plan qui
+  prescrit un niveau (examen à blanc → Autonome) l'emporte, et sa raison est
+  dite sous le choix ; sinon, dès un passage sur le cas, le conseil de
+  `layerAdvice` est présélectionné avec une ligne de raison, sans le mot
+  « couche » ; sinon, le dernier choix du candidat, sans badge. *[M7]*
+  `Lauf.layer` se **déduit du niveau choisi** : couche de la tâche si elle en
+  prescrit une ; Assisté ⇒ 1 ; Autonome ⇒ max(2, couche conseillée).
+- *[S4-3 fixeur I1]* Le `CaseDial` de l'en-tête ne s'ouvre pas
+  (`ouvrable={false}`) : son détail est déjà ouvert à côté.
 
 ### 10.2 Transitions ajoutées ou étendues
 
 1. **`springeZu(t)`**, exception nommée nº 4 à la règle 1 (§2.1), de
    `laufend` vers `laufend`. Elle est permise depuis `laufend(t0)` si et
    seulement si aucun `SimTeil` n'est encore dans `teileGespielt`,
-   `t ∈ geplanteTeile` et `t ≠ t0`. C'est le fil d'étapes : « commencer par
-   un autre Teil ». Le chrono de `t0` est conservé : il ne compte pas comme
+   `t ∈ geplanteTeile` et `t ≠ t0`, *[S4-3 fixeur I11, décision de main]* et
+   tant que le chrono de `t0` n'a pas démarré (`sekundenProTeil[t0] = 0`).
+   C'est le fil d'étapes : « commencer par un autre Teil » — avant de
+   commencer. Le chrono du Teil de départ attend « Lancer le chrono » ; les
+   Teile suivants démarrent seuls. Le chrono de `t0` est conservé : il ne compte pas comme
    joué, mais il entre dans `dauerGesamtSec` (m6). Elle est refusée pendant
    une Aufklärung (`aktuellerTeil === 'aufklaerung'`).
 2. **`partieSuivante(t'?)`** : `t'` est facultatif, et vaut par défaut
    `naechsterTeil(lauf)` (règle 7 inchangée après une Aufklärung). Il doit
    appartenir à `geplanteTeile \ teileGespielt`. Le fil d'étapes du bilan
-   l'emploie pour choisir le Teil suivant. Après une Aufklärung
+   l'emploie pour choisir un AUTRE Teil restant : *[S4-3 fixeur M6]* la
+   pastille du Teil par défaut n'est pas cliquable, « Continuer — X » le fait
+   déjà. Après une Aufklärung
    (`bilanz('aufklaerung')`), si `teilVorAufklaerung` n'est pas joué, tout
    `t' ≠ teilVorAufklaerung` est **refusé** : on revient d'abord au Teil
    interrompu (règle 7, m6).
@@ -549,7 +570,10 @@ export function istVollstaendig(lauf: Lauf): boolean {
    vigueur. La sortie est rendue une seule fois à l'écran, et son libellé
    devient « Terminer ici ». S'il ne reste aucun Teil, seule « Terminer ici »
    existe : elle est la seule transition permise, et la vue demande à
-   `erlaubt`.
+   `erlaubt`. *[S4-3 fixeur I4]* « Terminer ici » exige un des trois Teile
+   joué : sur la seule Aufklärung, `versChecklist` est refusé (règle 7, §3.1),
+   et « Continuer » ramène au Teil interrompu. *[I7]* Tant qu'il reste un
+   Teil, « Terminer ici » est un bouton secondaire.
 
 ### 10.3 Routes et lancement depuis une tâche
 
@@ -587,7 +611,9 @@ export const enchainiert = (lauf: Lauf): boolean =>
   (`conditionsExamen`, `training-journal.md` §2.3). Elle fonde `prêt` et le
   classement `examen-blanc`. Une tâche `dUnTrait` n'exige qu'`enchaine`. Une
   Aufklärung intercalée ne l'interrompt pas : le jury peut l'appeler à tout
-  moment. `zurueckZurPartie` et `zurueckZumBilanz` ne l'interrompent pas non
+  moment. *[S4-3 fixeur, méca I1]* Sa fiche s'ouvre donc SANS démonter le
+  runner (nouvel onglet), sinon la pause mesurée la ferait passer pour une
+  interruption. `zurueckZurPartie` et `zurueckZumBilanz` ne l'interrompent pas non
   plus : ce sont des gestes dans la partie.
 - **Interruption** = une reprise depuis la persistance après une pause
   ≥ `REPRISE_TOLERANZ_MIN` (§3.1, `nimmWiederAuf`).

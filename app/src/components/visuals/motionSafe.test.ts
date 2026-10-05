@@ -14,7 +14,7 @@ import { fileURLToPath } from 'node:url';
 // l'app : un composant n'a pas à se garder lui-même, et `!important` en
 // feuille d'auteur l'emporte même sur un `style=""` inline.
 //   Trou mesuré et bouché : la garde ne remettait que les durées. Un
-//   `animation-delay` de 120–200 ms survivait (ModeChooser.tsx:47,50), donc
+//   `animation-delay` de 120–200 ms survivait (l’ex-ModeChooser, retiré en S4-3), donc
 //   sous mouvement réduit l'élément restait invisible ce délai (`fill: both`)
 //   puis surgissait d'un coup — un clignotement, exactement ce que
 //   l'utilisateur avait demandé d'éviter.

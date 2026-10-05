@@ -1,13 +1,15 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import type { Case, SimTeil } from '@/db/types';
 import { checklistFor } from '@/lib/checklists';
+import { isTeil } from '@/lib/simScope';
 import { getActiveUserId } from '@/lib/auth/accounts';
 import { useUi } from '@/store/ui';
 import { snapshotAusLauf, useSimSession } from '@/store/simSession';
 import {
-  aktualisiereTeil, bewerte, erstelleLauf, setzeChecklistItem, setzeEntwurf,
+  DREI_TEILE, aktualisiereTeil, bewerte, erstelleLauf, nimmWiederAuf, setzeChecklistItem, setzeEntwurf,
   tickChrono, transition, type LaufAktion,
 } from '@/lib/lauf/automat';
+import { now } from '@/lib/clock';
 import {
   bereinigeAltenLauf, gibAuf, retteAktivenLauf, speichereAktivenLauf, speichern,
 } from '@/lib/lauf/speichern';
@@ -55,7 +57,15 @@ export interface LaufSteuerung {
   beenden: () => Promise<string | null>;
 }
 
-export function useLauf(c: Case | undefined, teil: SimTeil | null, taskId?: string): LaufSteuerung {
+/** [S4] Le départ lu dans l'URL : `?depart=`, ou l'ancien `?teil=` lu de même (§10.3). Jamais un périmètre. */
+export const departDe = (p: URLSearchParams): SimTeil | null => {
+  const t = p.get('depart') ?? p.get('teil');
+  return isTeil(t) ? (t as SimTeil) : null;
+};
+
+/** `depart` (`?depart=`, ou l'ancien `?teil=`) : le Teil par lequel une partie NEUVE commence.
+ *  Jamais un périmètre (INV-70) : toute partie neuve planifie les trois Teile. */
+export function useLauf(c: Case | undefined, depart: SimTeil | null, taskId?: string): LaufSteuerung {
   const [lauf, setLauf] = useState<Lauf | null>(null);
   const [laedt, setLaedt] = useState(true);
   const [fehler, setFehler] = useState<string | null>(null);
@@ -67,6 +77,10 @@ export function useLauf(c: Case | undefined, teil: SimTeil | null, taskId?: stri
   // réécrirait le Lauf en cours.
   const reglage = useRef({ assistance, layer, muster });
   reglage.current = { assistance, layer, muster };
+  // Le départ est lu UNE fois, à la création, et n'entre pas dans les dépendances
+  // de l'effet (§10.3) : un changement de `?depart=` ne recrée ni ne reprend le Lauf.
+  const departRef = useRef(depart);
+  departRef.current = depart;
 
   // ---- Reprise ou création ------------------------------------------------
   useEffect(() => {
@@ -84,38 +98,38 @@ export function useLauf(c: Case | undefined, teil: SimTeil | null, taskId?: stri
         await retteAktivenLauf();
       }
       if (annule) return;
-      // Reprise à l'identique, `zustand` compris — seulement si le cas ET le
-      // mode correspondent EXACTEMENT. Avant, `!teil` acceptait n'importe quel
-      // Lauf du cas : ouvrir la simulation complète reprenait un Teil seul.
-      if (alt && alt.caseId === c.id && (teil
-        ? alt.modus === 'teil' && alt.geplanteTeile[0] === teil
-        : alt.modus === 'komplett')) {
-        setLauf(alt);
+      // Reprise à l'identique, `zustand` compris — dès que le CAS correspond.
+      // [S4] Il n'y a plus qu'une entrée : le « mode » (complète / un Teil) ne
+      // départage plus rien, et un `lauf.aktiv` série 3 en `teil` se reprend tel
+      // quel jusqu'à son écriture (§3.1). C'est la SEULE branche de reprise —
+      // barre « Reprendre », rechargement, retour sur le runner — donc le seul
+      // appel de `nimmWiederAuf` (m7, INV-73).
+      if (alt && alt.caseId === c.id) {
+        setLauf(nimmWiederAuf(alt, now()));
         setLaedt(false);
         return;
       }
       // Une autre partie traînait : elle est ÉCRITE si une partie y a été
       // jouée, jamais jetée (§3.1) — c'était un `verwerfeAktivenLauf()` muet.
       if (alt) await gibAuf(alt);
-      const geplant: SimTeil[] = teil ? [teil] : ['anamnese', 'dokumentation', 'fallvorstellung'];
+      // [S4] ENTRÉE UNIQUE (INV-70) : `erstelleLauf` planifie les trois Teile, en
+      // `komplett`. Le départ ne choisit que le Teil de `demarrer`.
       const frisch = erstelleLauf({
         caseId: c.id, caseName: c.name,
         // Le compte actif, ou RIEN (M2) : « local » partait au serveur. Le
         // seul repli vit dans `saveSimulation`.
         profileId: getActiveUserId() ?? undefined,
-        geplanteTeile: geplant,
-        modus: teil ? 'teil' : 'komplett',
         ...(taskId ? { taskId } : {}),                         // R-C4
         assistance: reglage.current.assistance,
         layer: reglage.current.layer,
         muster: reglage.current.muster,
       });
       if (annule) return;
-      setLauf(transition(frisch, { typ: 'demarrer', checkliste: geplant.flatMap(MODELL) }));
+      setLauf(transition(frisch, { typ: 'demarrer', teil: departRef.current ?? undefined, checkliste: DREI_TEILE.flatMap(MODELL) }));
       setLaedt(false);
     })();
     return () => { annule = true; };
-  }, [c?.id, teil]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [c?.id]); // eslint-disable-line react-hooks/exhaustive-deps
 
   // ---- Pause / reprise de la barre « Reprendre » ----------------------------
   // Quitter le runner met la partie EN PAUSE : la barre la propose ailleurs dans
