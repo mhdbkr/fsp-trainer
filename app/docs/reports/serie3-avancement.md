@@ -169,7 +169,7 @@ rien de cette table.
 | Moteur de cohérence — K0 lexique + mesure | `doctopus-s3-k0` · `feat/s3-k0-lexique` | `a6c1d1e7b69d620b7` | **PR #72 mergée** (5 oct.) | **oui** |
 | Moteur de cohérence — K1 annotation | `doctopus-s3-k1` · `feat/s3-k1-annotation` | `ac46962a736716e72` | **PR #74 mergée** (`81914bc4`, 5 oct.) | **oui** |
 | Moteur de cohérence — K2 profils | `doctopus-s3-k2` · `feat/s3-k2-profils` | — | fixeur fait (`02919e81`, vitest 1 538 verts) → **PR #75**, attend « merge 75 » + CI | non |
-| Lot F — favoris → drill | `doctopus-s3-f-favoris` · `feat/s3-f-favoris` | Opus | livré `336adf0a` (points 1–3 branchés ; point 4 = fonction pure, affichage TaskLine/HomePage reporté après merge S4-2 pour éviter le conflit) → revue mécanique+pédagogique Opus | non |
+| Lot F — favoris → drill | `doctopus-s3-f-favoris` · `feat/s3-f-favoris` | Opus | revue Opus : Needs fixes (I1 favoris évincent les dus, I2 échéance avancée ignorée par compteurs/plan, I3 « drill suivant » = depuis le dernier drill) → fixeur ; hyp. 4 validée ; libellé point 4 après S4-2 | non |
 | Lots Q3 → Q8, Lc1 → Lc3 | — | — | §10, l'un après l'autre après Q2 | à lancer |
 | Reports vers Q1/Q2 (revues Q0) | — | — | Q1 : rheumatoide-arthritis « Schuppenflechte », karpaltunnel « Bruch », malaria « Milz », hypothyreose « Entbindungen » ; 10 irradiations avec question de cas ; osteoporose bws. Q2 : relances à 2 questions (alcool, gastro, Kopfschmerz, onko, chir-op, Fieber, Kraft, suizid, `veg-fieber`) | tracé |
 | C6 — candidat synthétique | `doctopus-s3-c6` · `feat/s3-c6-candidat` | `a92b4c2e4d2f21ebc` | **PR #65 mergée** (`4bf3473b`, 4 oct.) — premier run CI vert d'`invariants-c6` et `candidat-c6` | **oui** |
