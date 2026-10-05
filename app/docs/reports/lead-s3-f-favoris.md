@@ -118,7 +118,7 @@ Le conflit portait sur `lib/program/dayPlan.ts` ; `HomePage.tsx` a fusionné aut
 - Avec S4-2, les dus se comptent à `finJour(D) = debutJour(D+1)`. L'échéance avancée d'un favori posé le jour D (`debutJour(D+1)` en fuseau local) tombe pile sur cette borne. La coupure n'est donc plus redondante (constat du §Fixeur sur I2-e) : **sans elle, un favori posé le jour D compterait dans le plan de D**. Le mutant MG-a (favoris pris dans tout le journal) est maintenant tué par le test d'intégration `ensureDayPlan`.
 - Test unitaire réécrit sur `entreeDuJour(...).favorites` : le favori du jour D n'entre pas, celui de la veille entre, et un retrait d'avant minuit compte.
 - Mutants MG-a (favoris non coupés), MG-b (`buildTasks` sans favoris), MG-c (`loadBuildInput` ne les passe pas) : tous tués.
-- *Limite héritée de S4-2* : « replanifier » lit tout le journal (`coupure: Infinity`, choix de S4-2). Un favori posé aujourd'hui sur un terme appris compte donc dans le plan **replanifié** du jour, puisque son échéance avancée = `finJour(D)` et que les dus se comptent `≤ finJour(D)`. Le plan figé de D, lui, n'est pas touché. Je n'ai rien changé : replanifier est une action explicite qui prend « tout ce qu'on sait ».
+- ~~*Limite héritée de S4-2*~~ **Erreur de ma part, corrigée par la revue delta I1 (`c8580c9a`).** Ce n'était pas une limite de S4-2 : c'était une **régression introduite par ma fusion**. Avant, `favoritesBefore(date)` excluait les favoris du jour. Après la fusion, « replanifier » (`coupure: Infinity`) les voit, et l'échéance avancée vaut minuit de D+1 = `finJour(D)`, comptée avec `<=`. Résultat : un favori posé à 09:30, puis « replanifier », donnait une tâche drill « 1 terme dû » impossible à faire (sonde du relecteur, puis mon test RED). Correction : les dus se comptent sur `[debut, fin)`, d'où `counts(begriffe, fin - 1, favorites)` (contrat §12.4 : les dus « pendant D »).
 
 ### Point 4 — `b0cd0612`
 - **Où.** `TaskLine.tsx` monte le sous-composant `DrillFavoris` (défini hors du composant parent), seulement sur la tâche drill **à faire, du jour, pas en lecture seule**. `TaskLine` sert à l'accueil (via `TaskList`, `HomePage.tsx:133`) et au programme (`ProgramPage.tsx:189`) : le libellé apparaît dans les deux sans être dupliqué. La projection et les jours passés sont en `readOnly`, donc exclus. Le bandeau de l'accueil (`session.reason`) n'est pas touché.
@@ -134,3 +134,21 @@ Le conflit portait sur `lib/program/dayPlan.ts` ; `HomePage.tsx` a fusionné aut
 - `check*.mjs` (le code de sortie est relevé juste après chaque `node`) : 22 scripts → 0. `checkProbeOverlap.mjs` → 1 : il est informatif et toléré par la CI (`|| true`), sans lien avec ce lot.
 - `checkBudgetFloor.mjs origin/main` → **0** (sur la branche fusionnée, plus d'écart de base) ; `node --test scripts/check*.test.mjs` → 0.
 - `git merge-tree --write-tree origin/main HEAD` → 0 (main n'a avancé que de deux commits de registre, `app/docs/reports/serie3-avancement.md`).
+
+---
+
+## Revue delta de `90c64196` (« Needs fixes », sans bloquant)
+
+| Point | Commit | Preuve |
+|---|---|---|
+| I1 | `c8580c9a` | RED : favori posé à 09:30 sur un terme appris, puis `replanifier('2026-10-01')` → une tâche drill présente. GREEN : `counts(begriffe, fin - 1, favorites)`. Mutant dI1 (retour à `fin`) tué ; MG-a (favoris non coupés) reste tué. |
+| I2 | `df66385f` | Le code était déjà juste ; le RED, c'est le mutant **P4-g** (N = tous les favoris vivants), qui survivait. Test 1 : `a` neuf favori maintenant, `b` appris favori maintenant (échéance dans 15 j, dû demain seulement), `c` neuf favori il y a 72 h et avant le dernier drill → « dont 1 favori de ta séance ». Ce test seul laissait survivre P4-h (`lastDrillAt` ignoré, puisque le repli de 48 h exclut aussi `c`), d'où le test 2, le week-end off : favori neuf vieux de 60 h, posé après le dernier drill (70 h) → « dont 1 favori ». P4-g, P4-h et P4-i (échéance avancée prise pour aujourd'hui) tués. |
+| m1 | `905e4643` | `.catch((e) => console.warn('[drill-favoris]', e))`. Journalisation seule, pas de test. |
+
+**m3 — limite de fuseau (consignée, pas de code).** Le « lendemain » d'un favori (`effectiveDue`, `lib/srs.ts`) se calcule au minuit **du fuseau de l'appareil** (`setHours(24,0,0,0)`). Les bornes du plan, elles, se calculent dans **le fuseau du plan** (`debutJour/finJour(date, plan.tz)`, S4-2). Quand les deux diffèrent (voyage, plan figé dans un autre fuseau), l'échéance avancée peut tomber à quelques heures de la frontière du jour du plan. Un favori pourrait alors compter un jour plus tôt ou plus tard dans le plan que dans le drill, qui reste toujours en fuseau local. Le cas courant, plan et appareil dans le même fuseau, est exact. Pour corriger, il faudrait passer le fuseau du plan à `effectiveDue` ; je ne l'ai pas fait.
+
+### Gates (code de sortie)
+- `tsc -b --noEmit` → 0
+- `vitest run --dir src --maxWorkers=2` → 0 (166 fichiers, 1 638 tests)
+- `test:c6` (`--dir tests`, Supabase mocké) → 0 (124 tests) : lancé parce que `fin - 1` touche le plan
+- `git merge-tree --write-tree origin/main HEAD` → 0 (main : 2 commits de registre d'avance)
