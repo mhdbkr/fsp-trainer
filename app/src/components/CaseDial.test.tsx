@@ -107,7 +107,10 @@ describe('rendu de chaque état, depuis CaseDialData', () => {
   it('faite — non mesurée : un trait en pointillé, ni vierge ni acquis', () => {
     const { container } = monte(NON_MESURE);
     expect(arc(container, 'anamnese').getAttribute('data-etat')).toBe('non-mesure');
-    expect(arc(container, 'anamnese').getAttribute('stroke-dasharray')).toBeTruthy();
+    // pathLength = 1 : un tiret doit mesurer une fraction du tracé, sinon le trait reste plein.
+    const tiret = Number((arc(container, 'anamnese').getAttribute('stroke-dasharray') ?? '').split(' ')[0]);
+    expect(tiret).toBeGreaterThan(0);
+    expect(tiret).toBeLessThan(0.2);
   });
 
   it('quatre tailles, une primitive ; le chiffre central disparaît quand il ne se lirait plus', () => {

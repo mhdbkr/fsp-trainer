@@ -178,7 +178,7 @@ export function CaseDial({ data, size = 64, nom, vientDeSouder = false, action =
                 <g key={key} className="cd-groupe" style={{ '--dx': `${dx.toFixed(2)}px`, '--dy': `${dy.toFixed(2)}px` } as React.CSSProperties}>
                   <path
                     data-arc={key} data-etat={etat} d={d} fill="none" stroke={COULEUR[etat]} strokeWidth={EPAISSEUR[etat]}
-                    strokeLinecap="round" pathLength={1} strokeDasharray={etat === 'non-mesure' ? '3 4' : undefined}
+                    strokeLinecap="round" pathLength={1} strokeDasharray={etat === 'non-mesure' ? '0.07 0.05' : undefined}   /* pathLength = 1 : des tirets de 0,07 du tracé */
                     className={`cd-arc${joue.has(key) && etat !== 'vierge' && etat !== 'non-mesure' && !reduit ? ' cd-trace' : ''}`}
                   />
                   {etat === 'a-confirmer' && (
