@@ -13,7 +13,7 @@ export const SOLIDE_ECART_JOURS = 3;
  * tardive, elle fige quelques jours de frise de plus (inoffensif) ; trop
  * précoce, elle réécrirait des points déjà montrés (INV-69).
  */
-export const DATE_NOUVELLE_REGLE = '2026-10-05';
+export const DATE_NOUVELLE_REGLE = '2026-10-06';
 
 // --- §13.1 Consolidation espacée (S4-2) -----------------------------------
 export const CONSOLIDATION_JOURS = [7, 21, 45] as const;   // plafond : le dernier
