@@ -40,7 +40,7 @@ export const PROBE_SUCHT: Readonly<Record<string, Sucht>> = {
   'akt-infekt-fieber': ['fieber'], 'akt-infekt-kontakt': ['reise'],   // K3 : « Kontakt » et « Essen » sont des relances de PRÉCISION (elles suivent la question, sans signe propre)
   'akt-infekt-herd': ['husten', 'halsschmerzen', 'miktion', 'stuhl', 'ausschlag', 'wunde'],   // énumération (D1)
   'akt-veraend-was': ['knoten', 'ausschlag', 'lokalblutung', 'haematome'],
-  'akt-veraend-entwicklung': ['entwicklung'], 'akt-veraend-blutung': ['lokalschmerz', 'juckreiz', 'lokalblutung'],   // K3 : ses relances (Blut im Stuhl / Urin, Blut abhusten) sont des précisions
+  'akt-veraend-entwicklung': ['entwicklung'], 'akt-veraend-blutung': ['lokalschmerz', 'juckreiz', 'lokalblutung', 'stuhl_blut', 'urin_aspekt', 'haemoptyse'],   // K3 (P1-6a) : la mère et ses relances, en parts
   'akt-ausscheid-was': ['stuhl', 'miktion', 'gelbfaerbung', 'urin_aspekt', 'stuhlaussehen'],   // D1
   'akt-ausscheid-haeufigkeit': ['stuhlfrequenz'], 'akt-ausscheid-harn-haeufigkeit': ['miktion_frequenz', 'nykturie'],
   'akt-ausscheid-aussehen': ['stuhl_blut'], 'akt-ausscheid-harn-aussehen': ['urin_aspekt'],   // K3 (P0-1) : « Blut, Schleim oder eine ungewöhnliche Farbe » = l'alarme
@@ -118,15 +118,15 @@ export const PROBE_SUCHT: Readonly<Record<string, Sucht>> = {
   'fach-haem-leistung': ['muedigkeit', 'leistung', 'blaesse'], 'fach-haem-belastung': ['atemnot', 'herzrasen', 'schwindel'],
   'fach-haem-blutung': ['blutungsneigung', 'haematome'], 'fach-haem-blutverlust': ['blutverlust', 'stuhl_blut'],
   'fach-haem-ernaehrung': ['ernaehrung'], 'fach-haem-bsymptomatik': ['fieber', 'nachtschweiss', 'gewicht'],
-  'fach-haem-lymphknoten': ['lymphknoten'], 'fach-haem-infekte': ['infektneigung', 'fieber', 'wundheilung'],
+  'fach-haem-lymphknoten': ['lymphknoten', 'knoten'], 'fach-haem-infekte': ['infektneigung', 'fieber', 'wundheilung'],   // K3 (P1-6b) : + knoten
   'fach-haem-knochen': ['knochenschmerz'], 'fach-haem-thrombose': ['thrombose_vorgeschichte', 'familie_thrombose'],
   // --- Fach Dermatologie --------------------------------------------------------
-  'fach-derma-beginn-ort': ['ort', 'ausbreitung'], 'fach-derma-empfinden': ['juckreiz', 'lokalschmerz'], 'fach-derma-aussehen': ['hautbefund'],
+  'fach-derma-beginn-ort': ['ort', 'ausbreitung', 'entwicklung'], 'fach-derma-empfinden': ['juckreiz', 'lokalschmerz'], 'fach-derma-aussehen': ['hautbefund'],
   'fach-derma-ausloeser': ['ausloeser'], 'fach-derma-verlauf': ['verlauf'], 'fach-derma-systemisch': ['fieber', 'arthralgie', 'ulzera', 'augenentzuendung'],
-  'fach-derma-vorgeschichte': ['hautvorgeschichte', 'familie_haut'], 'fach-derma-muttermal': ['muttermal', 'juckreiz', 'lokalblutung', 'vorsorge_krebs'], 'fach-derma-vorbehandlung': ['vorbehandlung'],
+  'fach-derma-vorgeschichte': ['hautvorgeschichte', 'familie_haut'], 'fach-derma-muttermal': ['muttermal', 'juckreiz', 'lokalblutung', 'vorsorge_krebs', 'entwicklung'], 'fach-derma-vorbehandlung': ['vorbehandlung'],
   // --- Fach Gynäkologie ---------------------------------------------------------
   'fach-gyn-blutung': ['vaginalblutung'], 'fach-gyn-unterbauch': ['unterbauchschmerz'], 'fach-gyn-fluor': ['fluor'], 'fach-gyn-dyspareunie': ['dyspareunie', 'miktion'],
-  'fach-gyn-schwangerschaften': ['geburten'], 'fach-gyn-kinderwunsch': ['kinderwunsch'], 'fach-gyn-brust': ['brust'],
+  'fach-gyn-schwangerschaften': ['geburten'], 'fach-gyn-kinderwunsch': ['kinderwunsch'], 'fach-gyn-brust': ['brust', 'knoten'],
   'fach-gyn-vorsorge': ['vorsorge_gyn'], 'fach-gyn-eingriffe': ['gyn_op', 'hormone'],
   // --- Fach Angiologie ----------------------------------------------------------
   'fach-gefaess-gehstrecke': ['gehstrecke'], 'fach-gefaess-ruheschmerz': ['ruheschmerz'], 'fach-gefaess-schwellung': ['beinschwellung'],

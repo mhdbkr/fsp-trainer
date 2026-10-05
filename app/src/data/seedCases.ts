@@ -32258,6 +32258,9 @@ export function seedCases(): Case[] {
       difficulty: 2,
       patientSheet: {
         profil: { tags: ['veraenderung', 'dyspnoe'] },
+        // K3 (revue clinique P1-7, décision de main) : trouble hémorragique, pas de constat cutané — ni « Befund — Knoten, Ausschlag »,
+        // ni « Tut es weh, juckt es, oder blutet es? ». Le profil `exclut` ne peut viser des signes de dépistage (INV-80) : aktuellSkip.
+        aktuellSkip: ['akt-veraend-was', 'akt-veraend-blutung'],
         leitsymptomKategorie: 'veraenderung',
         personalia: {
           name: 'Nadine Brückner',

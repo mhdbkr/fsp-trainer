@@ -150,3 +150,21 @@ describe('P1-2 à P1-5 — dimensions et pertinence', () => {
     for (const c of cases) expect(compteursApresCas(c), c.id).toMatchObject({ horsProfil: 0, exigeAbsent: 0, ajouteSansReponse: 0 });
   });
 });
+
+describe('P1-6 / P1-7 — le changement remarqué (veraenderung) ne repose pas ce que la Fach demande', () => {
+  const textes = (id: string) => trameJouee(byId(id)).flatMap((x) => x.questions.flatMap((p) => [phraseText(p), ...phraseFollowUps(p).map((f) => f.text)]));
+  it('P1-6a : les relances de saignement déclarent leur signe ; r2 les retire là où la Fach les pose (bronchialkarzinom, lymphom, itp)', () => {
+    expect(textes('case-bronchialkarzinom')).not.toContain('Husten Sie Blut ab?');
+    for (const id of ['case-lymphom', 'case-itp']) expect(textes(id), id).not.toContain('Haben Sie Blut im Stuhl bemerkt?');
+    expect(textes('case-itp')).toContain('Haben Sie Blut im Urin bemerkt?');   // la Fach haem ne pose pas l'hématurie : la part reste
+  });
+  it('P1-6b : nodule et évolution — la Fach (onko, haem, gyn, derma) pose ce que la variante demande', () => {
+    for (const p of ['fach-onko-knoten', 'fach-haem-lymphknoten', 'fach-gyn-brust']) expect(PROBE_SUCHT[p], p).toContain('knoten');
+    for (const p of ['fach-derma-muttermal', 'fach-derma-beginn-ort']) expect(PROBE_SUCHT[p], p).toContain('entwicklung');
+    expect(coeur(byId('case-basaliom')).aktuell).not.toContain('akt-veraend-entwicklung');
+  });
+  it('P1-7 : uterus-myomatosus — trouble hémorragique, pas de constat cutané : ni « Befund », ni « Schmerz und Blutung »', () => {
+    expect(coeur(byId('case-uterus-myomatosus')).aktuell).not.toContain('akt-veraend-was');
+    expect(coeur(byId('case-uterus-myomatosus')).aktuell.some((k) => k.startsWith('akt-veraend-blutung'))).toBe(false);
+  });
+});
