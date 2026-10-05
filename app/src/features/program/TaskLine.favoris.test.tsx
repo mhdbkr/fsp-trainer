@@ -5,7 +5,7 @@ import { render, screen, cleanup } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
 import { db } from '@/db/db';
 import type { TaskInstance } from '@/db/types';
-import { freshSrs } from '@/lib/srs';
+import { DAY_MS, freshSrs } from '@/lib/srs';
 import { useToday } from '@/lib/today';
 import { loadDrillContext } from '@/lib/collections/drillContext';
 import { TaskLine } from './TaskLine';
@@ -35,6 +35,27 @@ describe('TaskLine — « dont N favoris de ta séance » (lot F point 4)', () =
     await db.favorites.bulkPut([{ termId: 'a', since: new Date().toISOString() }, { termId: 'b', since: new Date().toISOString() }]);
     dans(<TaskLine task={drill()} />);
     expect(await screen.findByText('dont 2 favoris de ta séance')).toBeTruthy();
+  });
+  it('revue delta I2 : N = favoris de la séance DANS la file, pas tous les favoris vivants', async () => {
+    const now = Date.now();
+    // b : appris, revu il y a 5 j, échéance dans 15 j — mis en favori maintenant, dû seulement demain.
+    await db.fachbegriffe.put({ ...term('b'), srs: { interval: 20, easeFactor: 2.5, dueDate: now + 15 * DAY_MS, repetitions: 3, lapses: 0, state: 'Gelernt' } } as never);
+    await db.favorites.bulkPut([
+      { termId: 'a', since: new Date(now).toISOString() },                 // neuf, de la séance → compte
+      { termId: 'b', since: new Date(now).toISOString() },                 // appris, pas dû aujourd'hui → ne compte pas
+      { termId: 'c', since: new Date(now - 72 * 3600_000).toISOString() }, // neuf, > 48 h et AVANT le dernier drill → ne compte pas
+    ]);
+    vi.mocked(loadDrillContext).mockResolvedValue({ ...ctx, relevance: { ...ctx.relevance, lastDrillAt: now - 3600_000 } } as never);
+    dans(<TaskLine task={drill()} />);
+    expect(await screen.findByText('dont 1 favori de ta séance')).toBeTruthy();
+  });
+  it('week-end off : favori neuf > 48 h mais APRÈS le dernier drill → compte (contexte vivant lu, pas la fenêtre seule)', async () => {
+    const now = Date.now();
+    await db.favorites.put({ termId: 'd', since: new Date(now - 60 * 3600_000).toISOString() });
+    await db.fachbegriffe.put(term('d') as never);
+    vi.mocked(loadDrillContext).mockResolvedValue({ ...ctx, relevance: { ...ctx.relevance, lastDrillAt: now - 70 * 3600_000 } } as never);
+    dans(<TaskLine task={drill()} />);
+    expect(await screen.findByText('dont 1 favori de ta séance')).toBeTruthy();
   });
   it('N = 0 : rien', async () => {
     dans(<TaskLine task={drill()} />);
