@@ -281,7 +281,7 @@ test('--propose : la proposition lit les questions du cas non déclarées, n\'é
 });
 
 test('INV-79 mutation : une sonde qui perd son entrée de PROBE_SUCHT → exit 1 (la porte lit la déclaration)', () => {
-  const r = sb.mutate('src/data/guides/probeSucht.ts', "'fach-rheuma-systemisch': ['fieber', 'augenentzuendung', 'ulzera', 'stuhl', 'ausschlag'],", '', () => run());
+  const r = sb.mutate('src/data/guides/probeSucht.ts', "'fach-rheuma-systemisch': ['fieber', 'augenentzuendung', 'ulzera', 'stuhl'],", '', () => run());   // K3 (revue P2) : sans ausschlag
   assert.equal(r.status, 1);
   assert.match(r.stdout, /INV-79 : la sonde « fach-rheuma-systemisch » ne déclare aucun sucht/);
 });
