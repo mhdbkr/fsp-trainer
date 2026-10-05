@@ -38,7 +38,8 @@ export const DEFS = {
   muedigkeit: { kapitel: 'aktuell', pertinence: S },
   oedeme: { kapitel: 'aktuell', pertinence: S },
   blutung: { kapitel: 'aktuell', pertinence: S },          // signe GROSSIER : ce que la lecture du texte trouve ; les sondes déclarent l'un des signes fins (revue K1 C5)
-  stuhlfrequenz: { kapitel: 'aktuell', pertinence: S, bank: 'akt-ausscheid-haeufigkeit' },
+  // K3 (revue P1-5) : la fréquence des selles se cherche dans une diarrhée ou un trouble du transit — pas dans une plainte urinaire.
+  stuhlfrequenz: { kapitel: 'aktuell', pertinence: ['diarrhoe', 'transit'], bank: 'akt-ausscheid-haeufigkeit' },
   stuhlaussehen: { kapitel: 'aktuell', pertinence: S },   // l'aspect : consistance, couleur (« wässrig oder breiig »)
   // K3 (revue clinique P0-1) : le SANG dans les selles (rouge, noir, mucus sanglant) — signe d'alarme, autre réplique que l'aspect.
   // Banque : « Ist Ihnen Blut, Schleim oder eine ungewöhnliche Farbe im Stuhl aufgefallen? » (sa réplique est l'alarme).
@@ -113,7 +114,10 @@ export const DEFS = {
   haematome: { kapitel: 'aktuell', pertinence: S },         // blaue Flecken, Einblutungen
   entwicklung: { kapitel: 'aktuell', pertinence: S },       // plus grand, plus fréquent, plus mauvais
   urinmenge: { kapitel: 'aktuell', pertinence: S },
-  miktion_frequenz: { kapitel: 'aktuell', pertinence: S },  // combien de fois on urine dans la journée (scission K1 de « Häufigkeit »)
+  // combien de fois on urine dans la journée (scission K1 de « Häufigkeit »). K3 (revue P1-5) : plainte urinaire ou rénale (`harn`),
+  // ou diarrhée (la diurèse dit la déshydratation). `nykturie` reste de dépistage : la Fach Kardio (insuffisance cardiaque) et Endo
+  // (polyurie) la posent dans 15 cas qui ne sont ni urinaires ni rénaux.
+  miktion_frequenz: { kapitel: 'aktuell', pertinence: ['harn', 'diarrhoe'] },
   sprache: { kapitel: 'aktuell', pertinence: S },
   gang: { kapitel: 'aktuell', pertinence: S },
   feinmotorik: { kapitel: 'aktuell', pertinence: S },       // boutons, écriture, tenir une tasse

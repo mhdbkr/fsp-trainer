@@ -106,7 +106,7 @@ export const PROBE_SUCHT: Readonly<Record<string, Sucht>> = {
   'fach-neuro-sehen': ['sehstoerung'], 'fach-neuro-sensibilitaet': ['taubheit'], 'fach-neuro-kraft': ['schwaeche'],
   'fach-neuro-koordination': ['schwindel', 'gang', 'sturz'], 'fach-neuro-sprache': ['sprache', 'schluck'],
   'fach-neuro-blase': ['miktion', 'stuhl', 'drang', 'inkontinenz'], 'fach-neuro-anfall': ['krampf', 'bewusstlos'],
-  'fach-neuro-verlauf': ['schub', 'waerme'], 'fach-neuro-kopfschmerz': ['kopfschmerz'], 'fach-neuro-aura': ['aura'],
+  'fach-neuro-verlauf': ['schub', 'verlauf', 'waerme'], 'fach-neuro-kopfschmerz': ['kopfschmerz'], 'fach-neuro-aura': ['aura'],
   'fach-neuro-autonom': ['autonome_zeichen'], 'fach-neuro-anfallzeichen': ['anfallszeichen', 'zungenbiss', 'einnaessen'],   // « Erinnern Sie sich… ? Zungenbiss? Urin ab? » (D1, P0-2)
   // --- Fach Endokrinologie ------------------------------------------------------
   'fach-endo-durst': ['durst', 'polyurie', 'nykturie'], 'fach-endo-gewicht': ['gewicht', 'appetit'],

@@ -120,3 +120,33 @@ describe('P1-1 — D4-bis : le symptôme directeur du motif se pose dans Aktuell
     for (const c of cases.filter((x) => profilDuCas(x).nature === 'infekt')) for (const f of fieber(c.id)) expect(f.startsWith('aktuell:') || f.endsWith(':cas'), `${c.id} ${f}`).toBe(true);
   });
 });
+
+describe('P1-2 à P1-5 — dimensions et pertinence', () => {
+  const akt = (id: string) => coeur(byId(id)).aktuell;
+  const textesAkt = (id: string) => playedTrame(byId(id)).chapters.find((x) => x.id === 'aktuell')!.questions.map(phraseText);
+  it('P1-2 : la Fach neuro pose le cours (schub, verlauf) — Aktuelle Beschwerden ne le redemande pas (multiple-sklerose)', () => {
+    expect(PROBE_SUCHT['fach-neuro-verlauf']).toEqual(['schub', 'verlauf', 'waerme']);
+    expect(akt('case-multiple-sklerose')).not.toContain('akt-verlauf');
+  });
+  it('P1-3 : la variante psy de Verlauf se réduit au cours quand la Fach psy pose le moment de la journée (depression)', () => {
+    expect(textesAkt('case-depression')).toContain('Ist es jeden Tag gleich, oder gibt es bessere und schlechtere Tage?');
+    expect(textesAkt('case-depression').join(' ')).not.toMatch(/morgens anders als abends/);
+  });
+  it('P1-4 : « Seit wann » reste, le mode de début n\'est posé qu\'une fois (6 cas rhumato)', () => {
+    for (const id of ['case-fibromyalgie', 'case-gicht', 'case-rheumatoide-arthritis', 'case-polymyalgia', 'case-septische-arthritis', 'case-reaktive-arthritis']) {
+      expect(textesAkt(id), id).toContain('Seit wann haben Sie die Schmerzen?');
+      const t = trameJouee(byId(id)).flatMap((x) => x.questions).filter((p) => phraseSucht(p).includes('beginn_art'));
+      expect(t.length, id).toBe(1);
+    }
+  });
+  it('P1-5 : la fréquence des selles ne se pose que dans une diarrhée ou un trouble du transit ; celle des urines, dans un tableau urinaire, rénal ou une diarrhée', () => {
+    expect(SIGNE_DEF.stuhlfrequenz.pertinence).toEqual(['diarrhoe', 'transit']);
+    expect(SIGNE_DEF.miktion_frequenz.pertinence).toEqual(['harn', 'diarrhoe']);
+    for (const id of ['case-zystitis', 'case-bph', 'case-oesophaguskarzinom', 'case-hepatitis-b']) expect(akt(id), id).not.toContain('akt-ausscheid-haeufigkeit');
+    for (const id of ['case-obstipation', 'case-kolorektales-ca', 'case-gastroenteritis']) expect(akt(id), id).toContain('akt-ausscheid-haeufigkeit');
+    expect(akt('case-kolorektales-ca')).toContain('akt-ausscheid-harn-haeufigkeit~nykturie');
+    // nykturie reste de dépistage : la Fach Kardio (insuffisance cardiaque) et Endo (polyurie) en ont besoin
+    expect(coeur(byId('case-herzinsuffizienz')).fach).toContain('fach-kardio-nykturie');
+    for (const c of cases) expect(compteursApresCas(c), c.id).toMatchObject({ horsProfil: 0, exigeAbsent: 0, ajouteSansReponse: 0 });
+  });
+});

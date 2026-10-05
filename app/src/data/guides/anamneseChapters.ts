@@ -76,6 +76,12 @@ const AKTUELL_VARIANTS: Record<LeitsymptomKategorie, AktuellVariant> = {
       {
         text: 'Beginn — Seit wann haben Sie die Schmerzen? Kamen sie plötzlich oder schleichend?',
         probe: 'akt-beginn',
+        // K3 (revue P1-4) : la DATE et le MODE de début — deux répliques ; la Fach rhumato pose le mode.
+        sucht: ['beginn', 'beginn_art'],
+        parts: [
+          { sucht: ['beginn'], text: 'Seit wann haben Sie die Schmerzen?' },
+          { sucht: ['beginn_art'], text: 'Kamen sie plötzlich oder schleichend?' },
+        ],
         alts: ['Wann haben die Schmerzen begonnen?', 'Haben sich die Schmerzen langsam entwickelt oder kamen sie plötzlich?'],
       },
       {
@@ -231,7 +237,16 @@ const AKTUELL_VARIANTS: Record<LeitsymptomKategorie, AktuellVariant> = {
         label: 'Avec tact',
         followUp: ['Falls ja: Haben Sie konkrete Pläne? Gibt es jemanden, der Sie unterstützt?'],
       },
-      { text: 'Verlauf — Ist es jeden Tag gleich, oder gibt es bessere und schlechtere Tage? Ist es morgens anders als abends?', probe: 'akt-verlauf' },
+      {
+        text: 'Verlauf — Ist es jeden Tag gleich, oder gibt es bessere und schlechtere Tage? Ist es morgens anders als abends?',
+        probe: 'akt-verlauf',
+        // K3 (revue P1-3) : le cours ET le moment de la journée — deux répliques ; la Fach psy pose la seconde.
+        sucht: ['verlauf', 'tageszeit'],
+        parts: [
+          { sucht: ['verlauf'], text: 'Ist es jeden Tag gleich, oder gibt es bessere und schlechtere Tage?' },
+          { sucht: ['tageszeit'], text: 'Ist es morgens anders als abends?' },
+        ],
+      },
       { text: 'Einflussfaktoren — Gibt es etwas, das es erträglicher macht — Gesellschaft, Bewegung, Ruhe? Und was macht es schlimmer?', probe: 'akt-einfluss' },
       FRUEHER('eine solche Phase'),
       BEGLEIT,
@@ -1155,7 +1170,7 @@ export const FACHANAMNESEN: FachanamneseGuide[] = [
         // Quand le cas a déjà demandé la chaleur (Uhthoff, case-multiple-sklerose),
         // il reste l'évolution par poussées.
         parts: [
-          { sucht: ['schub'], text: 'Kamen die Beschwerden schubweise und bildeten sich zwischendurch zurück?' },
+          { sucht: ['schub', 'verlauf'], text: 'Kamen die Beschwerden schubweise und bildeten sich zwischendurch zurück?' },   // K3 (P1-2) : le cours
           { sucht: ['waerme'], text: 'Werden die Beschwerden bei Wärme oder Anstrengung schlimmer?' },
         ],
       },

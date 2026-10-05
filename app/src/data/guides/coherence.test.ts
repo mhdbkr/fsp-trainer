@@ -324,7 +324,7 @@ describe('case-gastroenteritis et case-fibromyalgie — la trame jouée (cœur :
   it('fibromyalgie : Ausstrahlung, Welche Gelenke, Gicht retirés (r1) ; Auslöser, Früher, Fieber une fois ; « Seit wann » gardé ; Impfungen en végétative', () => {
     const k = coeur(byId('case-fibromyalgie'));
     expect(k).toEqual({
-      aktuell: ['akt-motiv', 'akt-ort', 'akt-beginn', 'akt-charakter', 'akt-intensitaet', 'akt-verlauf', 'akt-einfluss', 'akt-begleit', 'cas', 'cas', 'cas', 'cas', 'cas', 'cas'],
+      aktuell: ['akt-motiv', 'akt-ort', 'akt-beginn~beginn', 'akt-charakter', 'akt-intensitaet', 'akt-verlauf', 'akt-einfluss', 'akt-begleit', 'cas', 'cas', 'cas', 'cas', 'cas', 'cas'],
       fach: ['fach-rheuma-morgensteifigkeit', 'fach-rheuma-entzuendung', 'fach-rheuma-verlauf', 'fach-rheuma-ausloeser', 'fach-rheuma-haut', 'fach-rheuma-systemisch', 'fach-rheuma-vorgeschichte'],
       vegetativ: ['veg-fieber~reise', 'veg-schuettelfrost', 'veg-uebelkeit', 'veg-ausscheidung~miktion', 'veg-gewicht', 'veg-appetit', 'cas', '^veg-fieber#5'],
     });

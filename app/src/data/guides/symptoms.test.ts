@@ -85,7 +85,7 @@ describe('parts ↔ PROBE_SUCHT (I5)', () => {
       if (typeof q === 'string' || !q.parts) continue;
       const probe = phraseProbes(q)[0];
       const union = [...new Set(q.parts.flatMap((pt) => pt.sucht))].sort();
-      const carte: readonly string[] = PROBE_SUCHT[probe] ?? [];
+      const carte: readonly string[] = q.sucht ?? PROBE_SUCHT[probe] ?? [];   // K3 : une variante peut déclarer son propre `sucht` (P1-3, P1-4)
       const permis = new Set([...carte, ...(q.followUpSucht ?? []).flat()]);
       if (carte.some((x) => !union.includes(x)) || union.some((x) => !permis.has(x))) bad.push(`${probe}: parts [${union}] ≠ carte [${[...carte].sort()}] (+ relances [${[...permis].filter((x) => !carte.includes(x))}])`);
     }

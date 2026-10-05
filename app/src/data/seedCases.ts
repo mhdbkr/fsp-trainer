@@ -1170,7 +1170,7 @@ export function seedCases(): Case[] {
       name: 'Kolorektales Karzinom', pathology: 'Kolorektales Karzinom', specialty: 'Gastroenterologie',
       centers: ['Karlsruhe', 'Stuttgart', 'Freiburg'], frequency: 15, difficulty: 2,
       patientSheet: {
-        profil: { tags: ['ausscheidung', 'gewichtsverlust'] },
+        profil: { tags: ['ausscheidung', 'gewichtsverlust', 'transit'] },
         leitsymptomKategorie: 'ausscheidung',
         personalia: { name: 'Heinrich Vogt', age: 68, geschlecht: 'm', beruf: 'Rentner', familienstand: 'verheiratet' },
         leitsymptome: ['Seit Wochen wechselnder Stuhlgang und Blut im Stuhl'],
@@ -3593,7 +3593,7 @@ export function seedCases(): Case[] {
       frequency: 14,
       difficulty: 2,
       patientSheet: {
-        profil: { tags: ['schmerz', 'fieber', 'stein'] },
+        profil: { tags: ['schmerz', 'fieber', 'stein', 'harn'] },
         personalia: {
           name: 'Lisa Häberle',
           age: 76,
@@ -6200,7 +6200,7 @@ export function seedCases(): Case[] {
       frequency: 7,
       difficulty: 3,
       patientSheet: {
-        profil: { tags: ['schmerz'] },
+        profil: { tags: ['schmerz', 'transit'] },
         personalia: {
           name: 'Frida Zimmermann',
           age: 52,
@@ -9378,7 +9378,7 @@ export function seedCases(): Case[] {
       frequency: 0,
       difficulty: 2,
       patientSheet: {
-        profil: { tags: ['ausscheidung', 'schmerz', 'stein'] },
+        profil: { tags: ['ausscheidung', 'schmerz', 'stein', 'harn'] },
         leitsymptomKategorie: 'ausscheidung',
         personalia: {
           name: 'Lena Hartmann',
@@ -11636,7 +11636,7 @@ export function seedCases(): Case[] {
       frequency: 13,
       difficulty: 3,
       patientSheet: {
-        profil: { tags: ['schmerz', 'fieber', 'stein'] },
+        profil: { tags: ['schmerz', 'fieber', 'stein', 'harn'] },
         personalia: {
           name: 'Jörg Müller',
           age: 79,
@@ -14857,7 +14857,7 @@ export function seedCases(): Case[] {
       frequency: 0,
       difficulty: 3,
       patientSheet: {
-        profil: { tags: ['allgemein', 'dyspnoe', 'gewichtsverlust'] },
+        profil: { tags: ['allgemein', 'dyspnoe', 'gewichtsverlust', 'harn'] },
         leitsymptomKategorie: 'allgemein',
         personalia: {
           name: 'Werner Kolbe',
@@ -19156,7 +19156,7 @@ export function seedCases(): Case[] {
       frequency: 6,
       difficulty: 2,
       patientSheet: {
-        profil: { tags: ['ausscheidung', 'stein'] },
+        profil: { tags: ['ausscheidung', 'stein', 'harn'] },
         leitsymptomKategorie: 'ausscheidung',
         personalia: {
           name: 'Oliver Müller',
@@ -23596,7 +23596,7 @@ export function seedCases(): Case[] {
       frequency: 7,
       difficulty: 3,
       patientSheet: {
-        profil: { tags: ['ausscheidung', 'stein', 'gewichtsverlust'] },
+        profil: { tags: ['ausscheidung', 'stein', 'gewichtsverlust', 'harn'] },
         leitsymptomKategorie: 'ausscheidung',
         personalia: {
           name: 'Hermann Kastner',
@@ -32774,7 +32774,7 @@ export function seedCases(): Case[] {
       frequency: 1,
       difficulty: 3,
       patientSheet: {
-        profil: { tags: ['allgemein', 'diarrhoe'] },
+        profil: { tags: ['allgemein', 'diarrhoe', 'harn'] },
         leitsymptomKategorie: 'allgemein',
         personalia: {
           name: 'Werner Hoffmann',
@@ -49196,7 +49196,7 @@ export function seedCases(): Case[] {
       frequency: 0,
       difficulty: 2,
       patientSheet: {
-        profil: { tags: ['allgemein', 'dyspnoe'] },
+        profil: { tags: ['allgemein', 'dyspnoe', 'harn'] },
         leitsymptomKategorie: 'allgemein',
         personalia: {
           name: 'Dietmar Rösch',
@@ -52109,7 +52109,7 @@ export function seedCases(): Case[] {
       frequency: 0,
       difficulty: 2,
       patientSheet: {
-        profil: { tags: ['ausscheidung', 'dyspnoe'] },
+        profil: { tags: ['ausscheidung', 'dyspnoe', 'harn'] },
         leitsymptomKategorie: 'ausscheidung',
         personalia: {
           name: 'Jonas Reinhardt',
@@ -54953,7 +54953,7 @@ export function seedCases(): Case[] {
       frequency: 1,
       difficulty: 2,
       patientSheet: {
-        profil: { tags: ['ausscheidung'] },
+        profil: { tags: ['ausscheidung', 'transit'] },
         leitsymptomKategorie: 'ausscheidung',
         personalia: {
           name: 'Walter Schwarz',
@@ -58374,7 +58374,7 @@ export function seedCases(): Case[] {
       frequency: 3,
       difficulty: 2,
       patientSheet: {
-        profil: { tags: ['schmerz', 'stein'] },
+        profil: { tags: ['schmerz', 'stein', 'harn'] },
         personalia: {
           name: 'Leon Bachmann',
           age: 19,

@@ -127,7 +127,8 @@ describe('Scission selles / urines — « Häufigkeit » et « Aussehen »', () 
       const skip = new Set(c.patientSheet.aktuellSkip ?? []);
       for (const id of ['akt-ausscheid-haeufigkeit', 'akt-ausscheid-aussehen', 'akt-ausscheid-harn-haeufigkeit', 'akt-ausscheid-harn-aussehen']) {
         if (skip.has(id) || probes.includes(id)) continue;
-        expect(t.ecarts.some((e) => e.question === id && e.action === 'retire' && e.regle === 2 && !!e.cause), `${c.id} ${id}`).toBe(true);
+        // r2 (son gagnant) ou r1 (hors profil : la fréquence des selles hors diarrhée / transit, revue P1-5)
+        expect(t.ecarts.some((e) => e.question === id && e.action === 'retire' && (e.regle === 2 || e.regle === 1) && !!e.cause), `${c.id} ${id}`).toBe(true);
       }
     }
   });

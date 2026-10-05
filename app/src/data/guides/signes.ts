@@ -43,12 +43,13 @@ export type ProfilTag = LeitsymptomKategorie
   | 'gelenk' | 'arthritis' | 'steifigkeit'   // atteinte articulaire ; arthrite ; raideur
   | 'generalisiert'                          // douleur diffuse, non localisable
   | 'lyme' | 'meningitis'                    // soupçon borréliose / méningite
-  | 'gicht' | 'stein';                       // goutte / lithiase
+  | 'gicht' | 'stein'                        // goutte / lithiase
+  | 'transit' | 'harn';                      // K3 (P1-5) : trouble du transit (obstipation) ; plainte urinaire ou rénale
 
 export const PROFIL_TAGS: readonly ProfilTag[] = [
   'schmerz', 'atemnot', 'allgemein', 'psychisch', 'neurologisch', 'nerven', 'infekt', 'veraenderung', 'ausscheidung', 'anfall',
   'hoden', 'diarrhoe', 'reise', 'fieber', 'dyspnoe', 'husten', 'gewichtsverlust', 'dysphagie', 'hals',
-  'gelenk', 'arthritis', 'steifigkeit', 'generalisiert', 'lyme', 'meningitis', 'gicht', 'stein',
+  'gelenk', 'arthritis', 'steifigkeit', 'generalisiert', 'lyme', 'meningitis', 'gicht', 'stein', 'transit', 'harn',
 ];
 
 export interface SigneDefBody {
@@ -72,7 +73,7 @@ export const PROFIL_EXIGE: Record<ProfilTag, Signe[]> = {
   reise: ['reise'], fieber: ['fieber'], dyspnoe: ['atemnot'], husten: ['husten'], gewichtsverlust: ['gewicht'],
   dysphagie: ['schluck'], arthritis: ['gelenke', 'gelenk_entzuendung'],
   atemnot: [], allgemein: [], psychisch: [], neurologisch: [], nerven: [], infekt: [], veraenderung: [], ausscheidung: [], anfall: [],
-  hoden: [], hals: [], gelenk: [], steifigkeit: [], generalisiert: [], lyme: [], meningitis: [], gicht: [], stein: [],
+  hoden: [], hals: [], gelenk: [], steifigkeit: [], generalisiert: [], lyme: [], meningitis: [], gicht: [], stein: [], transit: [], harn: [],
 };
 
 /** Signes qu'un tag exclut (jamais un signe de dépistage). */
