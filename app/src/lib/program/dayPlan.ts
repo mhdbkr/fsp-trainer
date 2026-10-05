@@ -42,7 +42,7 @@ import { entreeDuJour } from './entree';
 import { debutJour, finJour, fuseauLocal } from './fuseau';
 import { modeDuJour, observation } from './modus';
 import { D_UN_TRAIT_ACTIF, SEUIL_FREQUENT } from './parametres';
-import { pickWithDiversity, pourquoiAujourdhui, rankCandidates, violatesDiversity, type Scored, type SelectContext } from './select';
+import { pickWithDiversity, pourquoiAujourdhui, raisonDUnTrait, rankCandidates, violatesDiversity, type Scored, type SelectContext } from './select';
 import { restePlan } from './tacheDeCas';
 
 const NEW_PER_DAY_DEFAULT = 10;
@@ -179,7 +179,9 @@ export function buildTasks(input: BuildInput, mkId: () => string = newId): TaskI
       push({
         kind: 'examen-blanc', label: best.c.name, estMin: sommeTrois, caseId: best.c.id, teile: [...TEIL_KEYS], creeA,
         specialty: best.c.specialty, layer: 3, assistance: 'autonome', ...(dansFenetre ? { dUnTrait: true as const } : {}),
-        reason: isTaper ? `Répétition générale : conditions réelles, sans aide.` : pourquoiAujourdhui(best, ctx),
+        // Une tâche d'un trait dit ce qu'elle exige (§12.3, I5).
+        reason: isTaper ? (dansFenetre ? `Répétition générale : d'un trait et sans aide.` : `Répétition générale : conditions réelles, sans aide.`)
+          : dansFenetre ? raisonDUnTrait(best, ctx) : pourquoiAujourdhui(best, ctx),
       });
     }
     if (modus === 'examen-blanc') return finir();
@@ -206,13 +208,14 @@ export function buildTasks(input: BuildInput, mkId: () => string = newId): TaskI
     if (choisi && choisi.frequency / Math.max(1, ctx.freqMax) >= SEUIL_FREQUENT) {
       unTrait.add(choisi.id);
       const deja = candidates.find((s) => s.c.id === choisi.id);
-      candidates = [deja ?? { c: choisi, score: Infinity, parts: { freq: choisi.frequency / Math.max(1, ctx.freqMax), urgence: 1, dette: 0, fraicheur: 1, du: true } }, ...candidates.filter((s) => s.c.id !== choisi.id)];
+      // Hors échéance (`du: false`) : sa raison est la fin de la préparation ; `decrire` en fait quand même une révision entière.
+      candidates = [deja ?? { c: choisi, score: Infinity, parts: { freq: choisi.frequency / Math.max(1, ctx.freqMax), urgence: 1, dette: 0, fraicheur: 1, du: false } }, ...candidates.filter((s) => s.c.id !== choisi.id)];
     }
   }
 
   /** Ce que la tâche de ce candidat demande : un cas solide dû revient en entier (`revision`) ; sinon ce qui reste (`simulation`). */
   const decrire = (s: Scored) => {
-    if (s.parts.du) {
+    if (s.parts.du || unTrait.has(s.c.id)) {
       const dUnTrait = actif && dansFenetre && s.parts.freq >= SEUIL_FREQUENT;
       return { kind: 'revision' as const, teile: [...TEIL_KEYS], estMin: sommeTrois, dUnTrait };
     }
@@ -236,12 +239,13 @@ export function buildTasks(input: BuildInput, mkId: () => string = newId): TaskI
     const cp = progress.get(pick.scored.c.id);
     const d = decrire(pick.scored);
     const layer = layerFor(cp);
+    const dUnTrait = d.dUnTrait || unTrait.has(pick.scored.c.id);
     push({
       kind: d.kind, label: pick.scored.c.name, estMin: d.estMin, caseId: pick.scored.c.id, teile: d.teile, creeA,
       specialty: pick.scored.c.specialty, layer, assistance: layer === 1 ? 'assiste' : 'autonome',
-      ...(d.dUnTrait || unTrait.has(pick.scored.c.id) ? { dUnTrait: true as const } : {}),
+      ...(dUnTrait ? { dUnTrait: true as const } : {}),
       ...(pick.diversityRelaxed ? { diversityRelaxed: true } : {}),
-      reason: unTrait.has(pick.scored.c.id) && actif ? `Pour la fin de la préparation : ce cas, d'un trait, comme à l'examen.` : pourquoiAujourdhui(pick.scored, ctx),
+      reason: dUnTrait ? raisonDUnTrait(pick.scored, ctx) : pourquoiAujourdhui(pick.scored, ctx),       // elle dit ce qu'elle exige (I5)
     });
     specialties.push(pick.scored.c.specialty);
     premiere = false;

@@ -7,7 +7,7 @@ import type { Case, CaseProgress, Specialty } from '@/db/types';
 import { blankProgress, computeCaseProgress } from '@/lib/journal';
 import { DAY_MS, freezeAt, resetClock } from '@/lib/clock';
 import {
-  fraicheur, freq, pickWithDiversity, pourquoiAujourdhui, pressionExamen,
+  fraicheur, freq, pickWithDiversity, pourquoiAujourdhui, pressionExamen, raisonDUnTrait,
   rankCandidates, scoreCase, urgence, type SelectContext,
 } from './select';
 
@@ -178,6 +178,17 @@ describe('le « pourquoi aujourd’hui » — une ligne, lisible, jamais accusat
     expect(scored(1)).toBe("Solide il y a 1 jour : on vérifie qu'il tient.");
     expect(scored(undefined), 'dernier jeu inconnu').toBe("Solide : on vérifie qu'il tient.");
     expect(scored(0)).toBe("Solide : on vérifie qu'il tient.");
+  });
+
+  it('S4 d’un trait — la raison dit ce que la tâche exige ; une consolidation garde sa date, en une phrase', () => {
+    const raison = (du: boolean, n?: number) => {
+      const c = ctx([a], { lastPlayedAt: new Map(n === undefined ? [] : [['a', NOW - n * DAY_MS]]) });
+      return raisonDUnTrait({ c: a, score: 1, parts: { freq: 1, urgence: 1, dette: 1 / 3, fraicheur: 1, du } }, c);
+    };
+    expect(raison(true, 47)).toBe("Solide il y a 47 jours : rejoue-le d'un trait, comme à l'examen.");
+    expect(raison(true, 1)).toBe("Solide il y a 1 jour : rejoue-le d'un trait, comme à l'examen.");
+    expect(raison(true), 'dernier jeu inconnu').toBe("Solide : rejoue-le d'un trait, comme à l'examen.");
+    expect(raison(false, 3), 'hors échéance').toBe("Pour la fin de la préparation : ce cas, d'un trait, comme à l'examen.");
   });
 
   it('un cas jamais travaillé n’est jamais présenté comme un défaut', () => {

@@ -192,12 +192,7 @@ const pct = (n: number) => `${Math.round(n)} %`;
 export function pourquoiAujourdhui(s: Scored, ctx: SelectContext): string {
   const jour = ctx.jour ?? dayKey(ctx.now);
   const cp = ctx.progress.get(s.c.id);
-  if (s.parts.du) {
-    const dernier = ctx.lastPlayedAt.get(s.c.id);
-    const n = dernier === undefined ? 0 : differenceInCalendarDays(parseISO(jour), parseISO(dayKey(dernier)));
-    // Texte de la direction (revue S4-2) ; jamais « 0 jour » — sans dernier jeu connu, on ne date pas.
-    return n >= 1 ? `Solide il y a ${n} jour${n > 1 ? 's' : ''} : on vérifie qu'il tient.` : `Solide : on vérifie qu'il tient.`;
-  }
+  if (s.parts.du) return `${solideDepuis(s, ctx)} : on vérifie qu'il tient.`;     // texte de la direction (revue S4-2)
   const fragile = cp && Object.entries(cp.teile).find(([, p]) => p.status === 'fragile');
   if (fragile) {
     const [teil, p] = fragile;
@@ -219,6 +214,20 @@ export function pourquoiAujourdhui(s: Scored, ctx: SelectContext): string {
     return `Vu il y a ${days} jour${days > 1 ? 's' : ''} — le rappel espacé tombe aujourd'hui.`;
   }
   return `Jamais rencontré, et il reste du temps pour le découvrir posément.`;
+}
+
+/** « Solide il y a 47 jours » ; jamais « 0 jour » — sans dernier jeu connu, on ne date pas. */
+function solideDepuis(s: Scored, ctx: SelectContext): string {
+  const dernier = ctx.lastPlayedAt.get(s.c.id);
+  const n = dernier === undefined ? 0 : differenceInCalendarDays(parseISO(ctx.jour ?? dayKey(ctx.now)), parseISO(dayKey(dernier)));
+  return n >= 1 ? `Solide il y a ${n} jour${n > 1 ? 's' : ''}` : 'Solide';
+}
+
+/** La raison d'une tâche « d'un trait » (§12.3, I5) : elle dit ce qu'elle exige. Une consolidation garde sa date, en une phrase. */
+export function raisonDUnTrait(s: Scored, ctx: SelectContext): string {
+  return s.parts.du
+    ? `${solideDepuis(s, ctx)} : rejoue-le d'un trait, comme à l'examen.`
+    : `Pour la fin de la préparation : ce cas, d'un trait, comme à l'examen.`;
 }
 
 const TEIL_LABELS: Record<string, string> = {
