@@ -1159,6 +1159,7 @@ export const FACHANAMNESEN: FachanamneseGuide[] = [
         probe: 'fach-neuro-kopfschmerz',
         alts: ['Haben Sie Kopfschmerzen? Wie fühlen sie sich an — pochend, drückend oder stechend?'],
         followUp: ['Falls ja: Ist Ihnen während der Schmerzen übel?', 'Falls ja: Sind Sie licht- oder lärmempfindlich?'],
+        relu: true,
       },
       {
         text: 'Kamen die Beschwerden plötzlich wie ein Schlag, oder gab es Vorboten — Lichtblitze, Zickzacklinien, Kribbeln in den Fingern oder im Gesicht?',

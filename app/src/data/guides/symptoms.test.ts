@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { ALLGEMEINE_ANAMNESE, FACHANAMNESEN, LEITSYMPTOM_KATEGORIEN, adaptChaptersForCase, aktuellChapterFor, fachChapterForCase } from './anamneseChapters';
-import { GRANULARITE_PAIRES, LEXIQUE, PROBE_SUCHT, PROFIL_EXIGE, SIGNES, SIGNE_DEF, SUCHT_MONTAGE, dedupeBySymptom, lexiqueIncoherences, type LexiqueTables } from './symptoms';
+import { GRANULARITE_PAIRES, LEXIQUE, PROBE_SUCHT, PROFIL_EXIGE, SIGNES, SIGNE_DEF, SUCHT_MONTAGE, TEXT_RE, dedupeBySymptom, lexiqueIncoherences, symptomsInText, type LexiqueTables } from './symptoms';
 import { phraseFollowUp, phraseProbes, phraseText, splitDimension } from './phrases';
 import type { Case } from '@/db/types';
 
@@ -188,5 +188,31 @@ describe('Lexique de signes — INV-77 (cohérent) et INV-78 (granularité)', ()
   it('INV-78 mutation : polyurie fusionnée dans miktion rougit', () => {
     const bad = lexiqueIncoherences(mutated({ sucht: { ...PROBE_SUCHT, 'fach-endo-durst': ['durst', 'miktion'] } }));
     expect(bad.some((m) => /INV-78.*fach-endo-durst.*fach-uro-miktion/.test(m))).toBe(true);
+  });
+});
+
+// K1 — `\b` n'existe pas devant une voyelle accentuée en JS (ä ö ü ne sont pas \w) : « Ist Ihnen übel ? » et
+// « Haben Sie Ängste ? » n'étaient jamais lus par la lecture partagée. Le motif doit ancrer autrement.
+describe('lecture du texte — les voyelles accentuées (défaut de K0)', () => {
+  const signes = (t: string) => symptomsInText(t);
+  it('« Ist Ihnen übel ? », « Übelkeit », « übergeben » sont lus comme `uebelkeit`', () => {
+    for (const t of ['Ist Ihnen übel?', 'Haben Sie Übelkeit?', 'Mussten Sie sich übergeben?', 'Ist Ihnen während der Schmerzen übel?']) expect(signes(t), t).toContain('uebelkeit');
+  });
+  it('« Ängste » est lu comme `angst`', () => {
+    expect(signes('Haben Sie Ängste, oder machen Sie sich viele Sorgen?')).toContain('angst');
+  });
+  it('pas de faux positif : « übelriechend », « Überweisung » ne sont pas de la nausée', () => {
+    expect(signes('Riecht der Stuhl übelriechend?')).not.toContain('uebelkeit');
+    expect(signes('Haben Sie eine Überweisung?')).not.toContain('uebelkeit');
+  });
+  it('garde : aucun motif du lexique ne place `\\b` contre une lettre accentuée', () => {
+    const bad = TEXT_RE.flatMap(([s, re]) => (/\\b\(?(?:[^|)]*\|)*[äöüÄÖÜß]|[äöüÄÖÜß]\\b/.test(re.source) ? [`${s} : ${re.source}`] : []));
+    expect(bad).toEqual([]);
+  });
+  it('mutation : l’ancien motif ne lit ni « übel » ni « Ängste » (ce que la garde attrape)', () => {
+    const ancien = /\b(übel|übergeben|erbrochen|erbrechen)\b/i;
+    expect(ancien.test('Ist Ihnen übel?')).toBe(false);
+    expect(/\bangst\b|\bängste\b/i.test('Haben Sie Ängste?')).toBe(false);
+    expect(/\\b\(?(?:[^|)]*\|)*[äöüÄÖÜß]|[äöüÄÖÜß]\\b/.test(ancien.source)).toBe(true);
   });
 });

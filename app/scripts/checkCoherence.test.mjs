@@ -13,7 +13,7 @@ import { fileURLToPath, pathToFileURL } from 'node:url';
 import assert from 'node:assert/strict';
 import { readFileSync, writeFileSync } from 'node:fs';
 import { sandbox } from './mutationSandbox.mjs';
-import { mesurerCas, profilPropose, proposer, signesDe } from './coherenceMesure.mjs';
+import { DIM, SIG, mesurerCas, profilPropose, proposer, signesDe } from './coherenceMesure.mjs';
 
 // ── La mesure : un lexique minimal, des trames de poche ──────────────────────
 // La lecture du texte est CELLE du lexique (`symptomsInText`, symptoms.ts) : on la charge pour de vrai.
@@ -127,6 +127,14 @@ test('K1 --propose : les signes lus d\'une question du cas non déclarée ; une 
   const cond = proposer(u(row('aktuell', 'Haben Sie Fieber gemessen?', { cs: true, fu: ['Falls ja: Haben Sie Husten?'] })));
   assert.equal(cond.relances[0].alerte, true, 'conditionnelle hors signe : à corriger à la source');
   assert.deepEqual(proposer(u(row('aktuell', 'Wie ist Ihre Gemütslage?', { cs: true }))).sucht, [], 'aucun signe lu : le relecteur déclare');
+});
+
+test('K1 : aucun motif de la mesure ne place `\\b` contre une lettre accentuée (« übel », « Ängste » n\'étaient jamais lus)', () => {
+  const garde = /\\b\(?(?:[^|)]*\|)*[äöüÄÖÜß]|[äöüÄÖÜß]\\b/;
+  assert.deepEqual(Object.entries({ ...DIM, ...SIG }).filter(([, re]) => garde.test(re.source)).map(([k]) => k), []);
+  assert.ok(garde.test(/\b(übel|übergeben)\b/.source), 'la garde rougit sur l\'ancien motif');
+  assert.ok(lis('Ist Ihnen während der Schmerzen übel?', { mother: false, ch: 'fach' }).has('uebelkeit'));
+  assert.ok(lis('Haben Sie Ängste?', { mother: true, ch: 'fach' }).has('angst'));
 });
 
 test('ordre : « dort » avant toute question de voyage ; le voyage posé avant → rien ; les constats Q0 sont repris', () => {

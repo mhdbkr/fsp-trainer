@@ -140,9 +140,10 @@ export const SUCHT_MONTAGE: Record<string, Symptom[]> = {
 // qui exige une relecture de toute question du cas citant un symptôme que
 // la trame cherche aussi, AVANT ou APRÈS elle : `sucht` (elle le remplace) ou
 // `relu` (elle l'approfondit, ou ne le cherche pas vraiment). Motifs étroits.
-const TEXT_RE: Array<[Symptom, RegExp]> = [
+export const TEXT_RE: Array<[Symptom, RegExp]> = [
   ['fieber', /\bfieber\b/i], ['schuettelfrost', /schüttelfrost/i], ['nachtschweiss', /nachtschwei/i],
-  ['reise', /\b(ausland|verreist|reise)\b/i], ['uebelkeit', /\b(übel|übergeben|erbrochen|erbrechen)\b/i],
+  ['reise', /\b(ausland|verreist|reise)\b/i], // `\b` n'existe pas devant ä ö ü (pas \w) : l'ancre est un lookbehind, sinon « übel » et « Ängste » ne sont jamais lus.
+  ['uebelkeit', /(?<![a-zäöüß])(übel(keit)?|übergeben)\b|\b(erbrochen|erbrechen)\b/i],
   ['stuhl', /\b(stuhlgang|durchfall|verstopfung)\b/i], ['miktion', /\bwasserlassen\b/i],
   ['gewicht', /\b(gewicht\w*|kilo\w*|zugenommen)\b|(?<!blut )\babgenommen\b/i], ['appetit', /\bappetit\b/i],
   // « Schlaf » le nom (pas « Schlaf- oder Beruhigungsmittel », pas « mit wie
@@ -173,7 +174,7 @@ const TEXT_RE: Array<[Symptom, RegExp]> = [
   ['gelbfaerbung', /\bgelbfärbung\w*|\bgelbsucht\b|\bikterus\b/i],
   ['sturz', /\bsturz\b|\bstürz\w*|\bgestürzt\b/i],
   ['stimmung', /\bstimmung\b|\bniedergeschlagen\b|\btraurig\b|innerlich leer/i],
-  ['angst', /\bangst\b|\bängste\b|\bpanikattack\w*/i],
+  ['angst', /\bangst\b|(?<![a-zäöüß])ängste\b|\bpanikattack\w*/i],
   ['suizid', /\blebenswert\b|etwas anzutun|\bsuizid\w*|selbst(mord|tötung)/i],
   ['gedaechtnis', /\bvergesslich\w*|\bgedächtnis\w*|erinnerungslück\w*/i],
 ];
