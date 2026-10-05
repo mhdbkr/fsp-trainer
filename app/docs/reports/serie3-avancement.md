@@ -183,7 +183,7 @@ rien de cette table.
 | `main` après C6 | — | — | `test:c6` dans `package.json`, `tests` dans tsconfig ; test instable `ExternalAiSheet` corrigé (`48a36bd3`) | à faire au merge de C6 |
 | Lots L1 → L15 | — | — | §10, l'un après l'autre (mêmes fichiers) | à lancer |
 
-**Modèle des agents (direction, 5 oct.)** : tous les sous-agents en Opus, implémenteurs compris.
+**Modèle des agents (direction, 5 oct.)** : selon la complexité, Opus en cas de doute ; Sonnet seulement pour des tâches claires et cadrées.
 
 ## 12. Plan d'ensemble (4 oct. 2026) — trois voies, fichiers disjoints
 
