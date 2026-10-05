@@ -21,7 +21,19 @@ const write = (edit = (_rel, j) => j) => {
     writeFileSync(join(base, rel), JSON.stringify(edit(rel, j)));
   }
 };
-const floor = () => spawnSync(process.execPath, [join(here, 'checkBudgetFloor.mjs'), '--base-dir', base], { encoding: 'utf8' });
+const floor = (...extra) => spawnSync(process.execPath, [join(here, 'checkBudgetFloor.mjs'), '--base-dir', base, ...extra], { encoding: 'utf8' });
+// Une TÊTE de branche écrite à la main : `--head-dir` remplace le dépôt, pour mutiler les `hausses`.
+const head = mkdtempSync(join(tmpdir(), 'fsp-floor-head-'));
+after(() => rmSync(head, { recursive: true, force: true }));
+const writeHead = (edit) => {
+  for (const rel of REL) {
+    const j = JSON.parse(readFileSync(join(here, '..', '..', rel), 'utf8'));
+    mkdirSync(dirname(join(head, rel)), { recursive: true });
+    writeFileSync(join(head, rel), JSON.stringify(edit(rel, j)));
+  }
+};
+const COH = 'app/scripts/fixtures/coherence-budget.json';
+const coh = (fn) => (rel, j) => (rel === COH ? fn(j) : j);
 
 test('fixtures identiques à la base → vert', () => { write(); assert.equal(floor().status, 0); });
 
@@ -104,3 +116,52 @@ test('ref git non résolue → exit 2, jamais vert', () => {
   const r = spawnSync(process.execPath, [join(here, 'checkBudgetFloor.mjs'), 'no-such-ref-s3'], { encoding: 'utf8' });
   assert.equal(r.status, 2);
 });
+
+// ── Les hausses de MESURE : permises seulement si le fixture les documente, exactement ──
+// La base est abaissée de 2 sur horsProfil : la tête (la valeur réelle du fixture) « remonte » de H−2 à H.
+const H = JSON.parse(readFileSync(join(here, '..', '..', COH), 'utf8')).brut.horsProfil;
+const D = H - 2;
+const baseHorsProfil = () => write(coh((j) => ({ ...j, brut: { ...j.brut, horsProfil: D } })));
+
+test('hausses — une hausse non documentée → rouge, et le message dit l\'entrée attendue', () => {
+  baseHorsProfil();
+  writeHead(coh((j) => ({ ...j, hausses: [] })));
+  const r = floor('--head-dir', head);
+  assert.equal(r.status, 1);
+  assert.match(r.stdout, new RegExp(`horsProfil remonte, ${D} → ${H}, sans entrée \\{ compteur: "horsProfil", de: ${D}, a: ${H}, raison \\}`));
+});
+
+test('hausses — documentée mais le chiffre diffère (de ou a) → rouge', () => {
+  baseHorsProfil();
+  const entree = { compteur: 'horsProfil', de: D, a: H, raison: 'x' };
+  for (const faux of [{ de: D - 1 }, { a: H - 1 }, { a: H + 1 }, { compteur: 'exigeAbsent' }]) {
+    writeHead(coh((j) => ({ ...j, hausses: [{ ...entree, ...faux }] })));
+    assert.equal(floor('--head-dir', head).status, 1, JSON.stringify(faux));
+  }
+});
+
+test('hausses — documentée avec une raison vide → rouge', () => {
+  baseHorsProfil();
+  for (const raison of ['', '   ', undefined, 3]) {
+    writeHead(coh((j) => ({ ...j, hausses: [{ compteur: 'horsProfil', de: D, a: H, raison }] })));
+    assert.equal(floor('--head-dir', head).status, 1, String(raison));
+  }
+});
+
+test('hausses — documentée, chiffres exacts, raison non vide → vert (et signalée à la revue)', () => {
+  baseHorsProfil();
+  writeHead(coh((j) => ({ ...j, hausses: [{ compteur: 'horsProfil', de: D, a: H, raison: 'mesure plus fine' }] })));
+  const r = floor('--head-dir', head);
+  assert.equal(r.status, 0, r.stdout);
+  assert.match(r.stdout, /hausse documentée/);
+});
+
+test('hausses — une hausse documentée n\'excuse pas une AUTRE hausse', () => {
+  write(coh((j) => ({ ...j, brut: { ...j.brut, horsProfil: D, doublons: j.brut.doublons - 1 } })));
+  writeHead(coh((j) => ({ ...j, hausses: [{ compteur: 'horsProfil', de: D, a: H, raison: 'mesure plus fine' }] })));
+  const r = floor('--head-dir', head);
+  assert.equal(r.status, 1);
+  assert.match(r.stdout, /doublons remonte/);
+});
+
+test('hausses — le fixture réel face à lui-même reste vert', () => { write(); assert.equal(floor().status, 0); });

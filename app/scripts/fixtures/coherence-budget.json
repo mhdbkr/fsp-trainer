@@ -22,47 +22,50 @@
     {
       "date": "2026-10-05",
       "lot": "K0 m6",
-      "compteurs": {
-        "doublons": [
-          265,
-          276
-        ],
-        "doublonsCas": [
-          20,
-          24
-        ]
-      },
+      "compteur": "doublons",
+      "de": 265,
+      "a": 276,
+      "raison": "HAUSSE DE MESURE, pas de contenu : la lecture du texte est désormais UNE seule (symptomsInText, TEXT_RE du lexique) au lieu d'une table parallèle plus fine. Elle lit des signes que la table ne lisait pas (krampf : « ein Zucken » ×5, Sehverschlechterung ×4, Rötung / Hautveränderung ×3, blutung, schwindel, miktion ×1) et ne lit plus « Urlaub » comme un voyage (reise −4) ni konzentration dans « Gedächtnis » (−1). Le lexique et la mesure disent la même chose ; 15 doublons nouveaux, 5 faux disparus."
+    },
+    {
+      "date": "2026-10-05",
+      "lot": "K0 m6",
+      "compteur": "doublonsCas",
+      "de": 20,
+      "a": 24,
       "raison": "HAUSSE DE MESURE, pas de contenu : la lecture du texte est désormais UNE seule (symptomsInText, TEXT_RE du lexique) au lieu d'une table parallèle plus fine. Elle lit des signes que la table ne lisait pas (krampf : « ein Zucken » ×5, Sehverschlechterung ×4, Rötung / Hautveränderung ×3, blutung, schwindel, miktion ×1) et ne lit plus « Urlaub » comme un voyage (reise −4) ni konzentration dans « Gedächtnis » (−1). Le lexique et la mesure disent la même chose ; 15 doublons nouveaux, 5 faux disparus."
     },
     {
       "date": "2026-10-05",
       "lot": "K0 I3 (rebase sur main après Q-gyn #70)",
-      "compteurs": {
-        "doublons": [
-          276,
-          279
-        ]
-      },
+      "compteur": "doublons",
+      "de": 276,
+      "a": 279,
       "raison": "Fusion Q-gyn ; retirés par la règle 2 en K3. La fusion Frauenanamnese → Gynäkologie fait jouer `frau-periode` (Blutung) avec `fach-gyn-blutung` dans case-eug, case-mammakarzinom et case-adnexitis : 3 doublons `blutung` nouveaux. Aucune autre variation de la mesure ; questionsMuettes 829 → 825 (4 questions du cas de case-uterus-myomatosus et case-adnexitis déclarent désormais `sucht`), ce qui est une baisse."
     },
     {
       "date": "2026-10-05",
       "lot": "K1",
-      "compteurs": {
-        "horsProfil": [
-          56,
-          58
-        ],
-        "exigeAbsent": [
-          58,
-          67
-        ],
-        "ajouteSansReponse": [
-          56,
-          65
-        ]
-      },
-      "raison": "HAUSSES DE MESURE, pas de contenu : la déclaration des sondes REMPLACE la lecture du texte, qui prenait une mention pour une question. (1) exigeAbsent +9 = « atemnot » absent dans 8 cas tagués dyspnoe (bronchialkarzinom, uterus-myomatosus, diabetes-typ1, metabolisches-syndrom, covid19, colitis-ulcerosa, nephrotisches-syndrom, aortendissektion) — la lecture la trouvait dans la relance « Hautausschlag, Atemnot, Kreislaufprobleme » de all-allergie, qui n'interroge pas la dyspnée —, « husten » absent dans bronchialkarzinom (lu dans « Blut beim Husten » de fach-onko-blutung), « gelenke » absent dans rheumatisches-fieber et malaria (lu dans fach-infekt-gelenke, qui cherche `arthralgie`, pas les Gelenke de fach-rheuma-gelenke) ; moins « ort » dans zystitis et erysipel (désormais cherché par fach-uro-flanke et fach-derma-beginn-ort). (2) ajouteSansReponse +9 : la projection de (1), une banque sans réponse par signe nouvellement absent : c'est le travail d'écriture de K2. (3) horsProfil +2 : fach-infekt-gelenke, déclarée `arthralgie` (pertinente pour lyme, arthritis, gelenk), est hors profil dans zoster, abszess, anaphylaxie et basaliom (la lecture K0 ne la voyait pas) et n'est plus hors profil dans lyme et meningitis. Les trois sont de vrais manques, auparavant masqués. À l'inverse doublons 279 → 273 : la déclaration remplace des signes lus à tort."
+      "compteur": "horsProfil",
+      "de": 56,
+      "a": 58,
+      "raison": "fach-infekt-gelenke, déclarée `arthralgie` (pertinente pour lyme, arthritis, gelenk), est hors profil dans zoster, abszess, anaphylaxie et basaliom (la lecture K0 ne la voyait pas) et n'est plus hors profil dans lyme et meningitis : +4 −2."
+    },
+    {
+      "date": "2026-10-05",
+      "lot": "K1",
+      "compteur": "exigeAbsent",
+      "de": 58,
+      "a": 67,
+      "raison": "Mesure, pas contenu : la déclaration des sondes remplace la lecture du texte, qui prenait une mention pour une question. « atemnot » absent dans 8 cas tagués dyspnoe (lu dans la relance allergique « Hautausschlag, Atemnot, Kreislaufprobleme » de all-allergie), « husten » dans bronchialkarzinom (lu dans « Blut beim Husten » de fach-onko-blutung), « gelenke » dans rheumatisches-fieber et malaria (lu dans fach-infekt-gelenke, qui cherche `arthralgie`) ; moins « ort » dans zystitis et erysipel (désormais cherché par fach-uro-flanke et fach-derma-beginn-ort). 58 → 67 = +9 manques réels auparavant masqués."
+    },
+    {
+      "date": "2026-10-05",
+      "lot": "K1",
+      "compteur": "ajouteSansReponse",
+      "de": 56,
+      "a": 65,
+      "raison": "La projection de exigeAbsent : une banque sans réponse par signe nouvellement absent (akt-atemnot-belastung ×8, akt-atemnot-husten ×5, fach-rheuma-gelenke ×5…, moins akt-ort ×2). 56 → 65 : le travail d'écriture de K2, auparavant masqué par la même lecture."
     }
   ]
 }

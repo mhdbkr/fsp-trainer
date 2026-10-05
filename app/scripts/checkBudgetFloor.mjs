@@ -4,11 +4,13 @@
 // `--bless` refuse déjà toute hausse en local ; mais un fixture se modifie
 // aussi à la main. Ce script compare les compteurs de la branche à ceux de
 // la base (`git show <ref>:…`) : aucun ne remonte, aucune clé ne disparaît.
-// Une hausse de MESURE (validateur élargi) reste possible — elle échoue ici,
-// et c'est la revue de la PR qui l'accepte ou non, raison écrite au fixture.
+// Une hausse de MESURE (validateur élargi) n'est permise que si le fixture la
+// DOCUMENTE dans `hausses` : { compteur, de, a, raison } avec `compteur` = la clé,
+// `de` = la valeur de la base et `a` = celle de la branche EXACTES, `raison` non
+// vide. Toute autre hausse échoue ; la revue de la PR relit chaque entrée.
 //
 // Usage : node scripts/checkBudgetFloor.mjs [<ref>=origin/main]   (sur push : github.event.before)
-//         node scripts/checkBudgetFloor.mjs --base-dir <dir>   (tests)
+//         node scripts/checkBudgetFloor.mjs --base-dir <dir> [--head-dir <dir>]   (tests)
 // ============================================================================
 import { readFileSync } from 'node:fs';
 import { execFileSync } from 'node:child_process';
@@ -19,7 +21,9 @@ const repo = join(dirname(fileURLToPath(import.meta.url)), '..', '..');
 const args = process.argv.slice(2);
 const dirIdx = args.indexOf('--base-dir');
 const baseDir = dirIdx >= 0 ? args[dirIdx + 1] : undefined;
-const ref = baseDir ? undefined : args.find((a) => !a.startsWith('--')) ?? 'origin/main';
+const headIdx = args.indexOf('--head-dir');
+const headDir = headIdx >= 0 ? args[headIdx + 1] : repo;
+const ref = baseDir ? undefined : args.find((a, i) => !a.startsWith('--') && (headIdx < 0 || i !== headIdx + 1)) ?? 'origin/main';
 
 // Fixture → ses compteurs dégressifs.
 const FIXTURES = {
@@ -60,16 +64,21 @@ for (const [rel, counters] of Object.entries(FIXTURES)) {
   const b = readBase(rel);
   if (!b) { console.log(`   ${rel} : absent de ${ref ?? baseDir} — introduit par cette branche, rien à comparer.`); continue; }
   const base = counters(b);
-  const head = counters(JSON.parse(readFileSync(join(repo, rel), 'utf8')));
+  const headJson = JSON.parse(readFileSync(join(headDir, rel), 'utf8'));
+  const head = counters(headJson);
+  const documentee = (k, v, h) => (headJson.hausses ?? []).some((e) => e.compteur === k && e.de === v && e.a === h && typeof e.raison === 'string' && e.raison.trim() !== '');
   for (const [k, v] of Object.entries(base)) {
     if (!Number.isInteger(v)) continue;
     const h = head[k];
     if (!Number.isInteger(h)) { failed = true; console.log(`❌ ${rel} : clé ${k} présente dans la base (${v}), absente ici.`); }
-    else if (h > v) { failed = true; console.log(`❌ ${rel} : ${k} remonte, ${v} → ${h}.`); }
+    else if (h > v) {
+      if (documentee(k, v, h)) console.log(`⚠️  ${rel} : ${k} remonte, ${v} → ${h} — hausse documentée (hausses), à relire en revue.`);
+      else { failed = true; console.log(`❌ ${rel} : ${k} remonte, ${v} → ${h}, sans entrée { compteur: "${k}", de: ${v}, a: ${h}, raison } dans \`hausses\`.`); }
+    }
   }
 }
 if (failed) {
-  console.log('   Un fixture dégressif ne remonte jamais face à la base. Hausse de mesure : raison écrite au fixture, acceptée en revue.');
+  console.log('   Un fixture dégressif ne remonte jamais face à la base. Une hausse de MESURE se documente dans `hausses` (compteur, de, a exacts + raison non vide), puis la revue l\'accepte.');
   process.exit(1);
 }
-console.log(`✅ PLANCHERS — aucun compteur ne remonte face à ${ref ?? baseDir}.`);
+console.log(`✅ PLANCHERS — aucun compteur ne remonte face à ${ref ?? baseDir}, hors hausses documentées.`);
