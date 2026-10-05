@@ -348,7 +348,7 @@ export const MUTATIONS = [
   },
   {
     id: "INV-68-refus-cumul", tests: 'tests/invariants.config.test.ts', file: "src/lib/sync/configProjetee.ts",
-    from: ".filter((e) => e.occurred_at > derniere)",
+    from: ".filter((e) => Date.parse(e.occurred_at) > derniere)",
     to: ".filter(() => true)",
     pourquoi: "les refus de rythme ne repartent pas de zéro à la modification du programme (réserve P2)",
   },
@@ -470,8 +470,9 @@ export const MUTATIONS = [
   },
   {
     id: "INV-55-coupure", tests: 'tests/invariants.plan.test.ts', file: "src/lib/program/entree.ts",
-    from: ".filter((e) => e.at < coupure);",
-    to: ";",
+    // Revue m1 : la coupure porte sur le journal SOURCE (occurred_at).
+    from: "const avant = p.events.filter((e) => Date.parse(e.occurred_at) < coupure);",
+    to: "const avant = p.events;",
     pourquoi: "l'entrée n'est plus coupée à `debutJour(D)` : les événements du jour D fuient dans le plan de D",
   },
   {
