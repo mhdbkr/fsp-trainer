@@ -2,9 +2,9 @@ import { useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react
 import { Link } from 'react-router-dom';
 import type { SimTeil } from '@/db/types';
 import type { CaseDialData } from '@/lib/dialData';
-import { AnimatePresence, appear, m, useReducedMotion } from '@/lib/motion';
+import { AnimatePresence, m, spring, useReducedMotion } from '@/lib/motion';
 import { Portal } from '../Portal';
-import { actionSuivante, etatTeil, etiquette, lignesDetail, phrasePret, phraseReprise, resume, type EtatTeil } from './CaseDialText';
+import { etatTeil, etiquette, lienAction, actionSuivante, lignesDetail, phrasePret, phraseReprise, resume, type EtatTeil } from './CaseDialText';
 import { TEILE } from '@/lib/simScope';
 
 // ============================================================================
@@ -17,7 +17,16 @@ import { TEILE } from '@/lib/simScope';
 //   · CENTRE = maîtrise ; anneau intérieur = maîtrise, anneau extérieur = trois
 //     arcs (la couverture). Cas `prêt` : les arcs se SOUDENT en anneau continu.
 //   · La couleur n'est jamais seule : étiquette accessible complète, détail en
-//     texte, « à confirmer » porte un fil pétrole sur l'arc.
+//     texte, « à confirmer » porte un liseré pétrole sur le bord de l'arc ;
+//   · tant que les trois Teile ne sont pas joués, le chiffre et l'anneau intérieur
+//     sont en ton discret : « 100 sur 1 Teil » ne se lit pas « fini ».
+//
+// OUVERTURE (le cœur de la demande : « élargit les cercles et dévoile des détails »).
+// Le cadran GRANDIT jusqu'à ~96 px au-dessus de la carte (z-index, la grille ne bouge
+// pas), les arcs s'écartent de 9 unités et s'épaississent, les repères Teil + score
+// apparaissent, et le panneau de détail NAÎT du cadran (même origine de transformation)
+// avec ses lignes qui arrivent l'une après l'autre. Tout est interruptible : CSS
+// transition pour le cadran, ressort de lib/motion pour le panneau.
 //
 // INV-59 : le cadran LIT une `CaseDialData` (training-journal.md §12.7), il ne
 // calcule rien — pas d'accès à la base, pas de lecture du journal.
@@ -31,15 +40,21 @@ export type CaseDialSize = 36 | 64 | 96 | 160;
 const R_IN = 33;
 const R_OUT = 48;
 const GAP = 7;                                   // degrés laissés entre deux arcs
+const ECART = 9;                                 // l'écart des arcs à l'ouverture, en unités
+const R_REPERE = 63;                             // rayon des repères Teil + score
+const TAILLE_OUVERTE = 96;                       // un cadran plus petit grandit jusqu'ici (px)
+const POLICE_MIN = 11;                           // px de rendu : rien de plus petit (lisibilité)
+/** Le facteur de grossissement à l'ouverture. */
+const echelleOuverte = (size: number): number => (size < TAILLE_OUVERTE ? TAILLE_OUVERTE / size : 1.1);
 const ANGLES: Record<SimTeil, [number, number]> = { anamnese: [-90, 30], dokumentation: [30, 150], fallvorstellung: [150, 270] };
 const INITIALE: Record<SimTeil, string> = { anamnese: 'A', dokumentation: 'D', fallvorstellung: 'F' };
 
 const vec = (r: number, deg: number): [number, number] => [r * Math.cos((deg * Math.PI) / 180), r * Math.sin((deg * Math.PI) / 180)];
 const polar = (r: number, deg: number): [number, number] => { const [x, y] = vec(r, deg); return [60 + x, 60 + y]; };
-const arcPath = (a0: number, a1: number): string => {
-  const [x0, y0] = polar(R_OUT, a0);
-  const [x1, y1] = polar(R_OUT, a1);
-  return `M${x0.toFixed(2)} ${y0.toFixed(2)} A${R_OUT} ${R_OUT} 0 ${a1 - a0 > 180 ? 1 : 0} 1 ${x1.toFixed(2)} ${y1.toFixed(2)}`;
+const arcPath = (a0: number, a1: number, r = R_OUT): string => {
+  const [x0, y0] = polar(r, a0);
+  const [x1, y1] = polar(r, a1);
+  return `M${x0.toFixed(2)} ${y0.toFixed(2)} A${r} ${r} 0 ${a1 - a0 > 180 ? 1 : 0} 1 ${x1.toFixed(2)} ${y1.toFixed(2)}`;
 };
 
 const COULEUR: Record<EtatTeil, string> = {
@@ -123,7 +138,10 @@ export function CaseDial({ data, size = 64, nom, vientDeSouder = false, action =
   const maitrise = data.maitrise;
   const etats = Object.fromEntries(TEILE.map(({ key }) => [key, etatTeil(data.teile[key])])) as Record<SimTeil, EtatTeil>;
   const avecCentre = size >= 64;
-  const avecLegende = size >= 96;
+  const echelle = reduit ? 1 : echelleOuverte(size);       // sous mouvement réduit, rien ne grandit
+  const avecRepere = size * echelle >= TAILLE_OUVERTE;      // un repère de moins de 11 px ne se lirait pas
+  const taillePolice = (POLICE_MIN * 120) / (size * echelle);   // unités du viewBox → POLICE_MIN px de rendu à l'ouverture
+  const complet = data.couverture === 3;                    // couleur pleine seulement avec les trois Teile
 
   return (
     <>
@@ -135,7 +153,7 @@ export function CaseDial({ data, size = 64, nom, vientDeSouder = false, action =
         data-ouvert={ouvert || undefined}
         data-pret={soude}
         data-mouvement={reduit ? 'reduit' : undefined}
-        style={{ width: Math.max(size, 44), height: Math.max(size, 44) }}
+        style={{ width: Math.max(size, 44), height: Math.max(size, 44), '--cd-echelle': echelle } as React.CSSProperties}
         aria-label={etiquette(data, nom)}
         aria-haspopup="dialog"
         aria-expanded={ouvert}
@@ -159,10 +177,12 @@ export function CaseDial({ data, size = 64, nom, vientDeSouder = false, action =
         }}
       >
         <svg viewBox="0 0 120 120" width={size} height={size} aria-hidden="true" focusable="false">
+          <circle className="cd-fond" cx="60" cy="60" r="70" />
           <circle cx="60" cy="60" r={R_IN} fill="none" stroke="var(--cd-piste)" strokeWidth="7" />
           {maitrise !== null && (
             <circle
-              data-maitrise="" data-valeur={maitrise} cx="60" cy="60" r={R_IN} fill="none" stroke="var(--cd-maitrise)" strokeWidth="7"
+              data-maitrise="" data-valeur={maitrise} data-complet={complet || undefined} cx="60" cy="60" r={R_IN} fill="none"
+              stroke={complet ? 'var(--cd-maitrise)' : 'var(--cd-discret)'} strokeWidth="7"
               strokeLinecap="round" pathLength={100} strokeDasharray={`${Math.max(2, maitrise)} 100`} transform="rotate(-90 60 60)"
             />
           )}
@@ -176,10 +196,12 @@ export function CaseDial({ data, size = 64, nom, vientDeSouder = false, action =
           ) : (
             TEILE.map(({ key }) => {
               const [de, a] = ANGLES[key];
+              const milieu = (de + a) / 2;
               const d = arcPath(de + GAP / 2, a - GAP / 2);
-              const [dx, dy] = vec(5, (de + a) / 2);           // l'écart d'ouverture : 5 unités vers l'extérieur
+              const [dx, dy] = vec(ECART, milieu);
               const etat = etats[key];
-              const [lx, ly] = polar(64, (de + a) / 2);
+              const [lx, ly] = polar(R_REPERE, milieu);
+              const score = data.teile[key].lastScore;
               return (
                 <g key={key} className="cd-groupe" style={{ '--dx': `${dx.toFixed(2)}px`, '--dy': `${dy.toFixed(2)}px` } as React.CSSProperties}>
                   <path
@@ -188,11 +210,15 @@ export function CaseDial({ data, size = 64, nom, vientDeSouder = false, action =
                     className={`cd-arc${trace(key) && etat !== 'vierge' && etat !== 'non-mesure' ? ' cd-trace' : ''}`}
                   />
                   {etat === 'a-confirmer' && (
-                    <path data-fil={key} d={d} fill="none" stroke="var(--cd-solide)" strokeWidth="2" strokeLinecap="round" />
+                    // Liseré : le bord extérieur de l'arc est dessiné en pétrole profond, « sur le chemin du solide ».
+                    <path data-liseret={key} d={arcPath(de + GAP / 2, a - GAP / 2, R_OUT + 5.25)} fill="none" stroke="var(--cd-solide)" strokeWidth="1.5" strokeLinecap="round" />
                   )}
-                  {avecLegende && (
-                    <text className="cd-label" x={lx.toFixed(1)} y={(ly + 3).toFixed(1)} fontSize="8" textAnchor={lx < 56 ? 'end' : lx > 64 ? 'start' : 'middle'}>
-                      {INITIALE[key]}{data.teile[key].lastScore !== null ? ` ${data.teile[key].lastScore}` : ''}
+                  {avecRepere && (
+                    <text
+                      className="cd-label" data-repere={key} x={lx.toFixed(1)} y={(ly + taillePolice * 0.35).toFixed(1)} fontSize={taillePolice.toFixed(2)}
+                      textAnchor={lx < 56 ? 'end' : lx > 64 ? 'start' : 'middle'}
+                    >
+                      {INITIALE[key]}{score !== null ? ` ${score}` : ''}
                     </text>
                   )}
                 </g>
@@ -201,17 +227,17 @@ export function CaseDial({ data, size = 64, nom, vientDeSouder = false, action =
           )}
           {avecCentre && (
             <>
-              <text data-centre="" className="cd-num" x="60" y={avecLegende ? 60 : 68} textAnchor="middle" fontSize={avecLegende ? 22 : 28}>
+              <text data-centre="" data-complet={complet || undefined} className="cd-num" x="60" y={size >= 160 ? 60 : 68} textAnchor="middle" fontSize={size >= 96 ? 22 : 28}>
                 {maitrise === null ? '—' : maitrise}
               </text>
-              {avecLegende && <text className="cd-sub" x="60" y="76" textAnchor="middle" fontSize="7.5">maîtrise</text>}
+              {size >= 160 && <text className="cd-sub" x="60" y="76" textAnchor="middle" fontSize="8.25">maîtrise</text>}
             </>
           )}
         </svg>
       </button>
 
       <DetailFlottant
-        ouvert={ouvert} data={data} nom={nom} action={action} ancre={ancre} refDetail={detail} reduit={reduit}
+        ouvert={ouvert} data={data} nom={nom} action={action} ancre={ancre} size={size} echelle={echelle} refDetail={detail} reduit={reduit}
         onEntree={efface} onSortie={() => planifie(ferme, GRACE_MS)}
         onPerdFocus={(vers) => { if (!detail.current?.contains(vers) && vers !== bouton.current) ferme(); }}
         onTab={() => { ferme(); bouton.current?.focus(); }}      // le détail n'a qu'une cible : Tab (ou Maj+Tab) rend le focus au cadran
@@ -222,12 +248,13 @@ export function CaseDial({ data, size = 64, nom, vientDeSouder = false, action =
 
 const L = 288;
 
-/** Le détail, ancré sous le cadran. Verre plein (matériau flottant), jamais d'ombre portée. */
-function DetailFlottant({ ouvert, data, nom, action, ancre, refDetail, reduit, onEntree, onSortie, onPerdFocus, onTab }: {
-  ouvert: boolean; data: CaseDialData; nom?: string; action: boolean; ancre: DOMRect | null; refDetail: React.RefObject<HTMLDivElement>; reduit: boolean;
+/** Le détail naît du cadran : même origine de transformation, il grandit depuis lui. Verre plein, jamais d'ombre portée. */
+function DetailFlottant({ ouvert, data, nom, action, ancre, size, echelle, refDetail, reduit, onEntree, onSortie, onPerdFocus, onTab }: {
+  ouvert: boolean; data: CaseDialData; nom?: string; action: boolean; ancre: DOMRect | null; size: number; echelle: number;
+  refDetail: React.RefObject<HTMLDivElement>; reduit: boolean;
   onEntree: () => void; onSortie: () => void; onPerdFocus: (vers: Node | null) => void; onTab: () => void;
 }) {
-  const [hauteur, setHauteur] = useState(220);
+  const [hauteur, setHauteur] = useState(240);
   useLayoutEffect(() => {
     const h = refDetail.current?.getBoundingClientRect().height;
     if (h) setHauteur(h);
@@ -236,9 +263,15 @@ function DetailFlottant({ ouvert, data, nom, action, ancre, refDetail, reduit, o
   const vh = typeof window !== 'undefined' ? window.innerHeight : 768;
   const largeur = Math.min(L, vw - 16);
   const a = ancre ?? new DOMRect(8, 8, 0, 0);
-  const left = Math.max(8, Math.min(a.right - largeur, vw - largeur - 8));
-  const dessous = a.bottom + 12;
-  const top = Math.max(8, dessous + hauteur + 8 <= vh ? dessous : a.top - 12 - hauteur);
+  const cx = a.left + a.width / 2;
+  const cy = a.top + a.height / 2;
+  const rayon = ((size * echelle) / 120) * 82;               // le cadran ouvert, repères compris
+  const left = Math.max(8, Math.min(cx + 56 - largeur, vw - largeur - 8));
+  const dessous = cy + rayon + 4;
+  const top = Math.max(8, dessous + hauteur + 8 <= vh ? dessous : cy - rayon - 4 - hauteur);
+  const mouvement = reduit ? {} : {
+    initial: { opacity: 0, scale: 0.55 }, animate: { opacity: 1, scale: 1 }, exit: { opacity: 0, scale: 0.55 }, transition: spring,
+  };
 
   // `fixed` dans un <Portal> (checkFixedOverlays) : un ancêtre en verre ou en transform en ferait un fixed de page.
   return (
@@ -246,18 +279,18 @@ function DetailFlottant({ ouvert, data, nom, action, ancre, refDetail, reduit, o
     <AnimatePresence>
     {ouvert && (
     <m.div
-      {...(reduit ? {} : appear)}
+      {...mouvement}
       ref={refDetail}
       role="dialog"
       aria-label={nom ? `Détail de ${nom}` : 'Détail du cas'}
       data-panneau={reduit || undefined}
       tabIndex={-1}
-      style={{ position: 'fixed', left, top, width: largeur, zIndex: 60 }}
+      style={{ position: 'fixed', left, top, width: largeur, zIndex: 60, transformOrigin: `${cx - left}px ${cy - top}px` }}
       onPointerEnter={onEntree}
       onPointerLeave={(e) => { if (e.pointerType === 'mouse') onSortie(); }}
       onBlur={(e) => onPerdFocus(e.relatedTarget as Node | null)}
       onKeyDown={(e) => { if (e.key === 'Tab') { e.preventDefault(); onTab(); } }}
-      className="glass-full case-dial-detail rounded-xl p-3 text-sm"
+      className="glass-full case-dial-detail rounded-card p-3 text-sm"
     >
       <CaseDialDetail data={data} action={action} />
     </m.div>
@@ -273,27 +306,28 @@ export function CaseDialDetail({ data, action = true }: { data: CaseDialData; ac
   const pret = phrasePret(data);
   const reprise = phraseReprise(data);
   const suite = actionSuivante(data);
-  const lien = `/simulation/${data.caseId}/pre${suite.teil ? `?teil=${suite.teil}` : ''}`;
+  // `--i` : l'ordre d'arrivée des lignes (CSS `.case-dial-detail .cd-ligne`, sous no-preference seulement).
+  const ligne = (i: number) => ({ '--i': i }) as React.CSSProperties;
   return (
     <div>
-      <p className="font-semibold text-slate-800 dark:text-slate-100">{resume(data)}</p>
+      <p className="cd-ligne cd-t1 font-semibold" style={ligne(0)}>{resume(data)}</p>
       <ul className="mt-2.5 space-y-2.5">
-        {lignesDetail(data).map((l) => (
-          <li key={l.teil} className="grid grid-cols-[10px_minmax(0,1fr)_auto] items-start gap-x-2.5">
+        {lignesDetail(data).map((l, i) => (
+          <li key={l.teil} className="cd-ligne grid grid-cols-[10px_minmax(0,1fr)_auto] items-start gap-x-2.5" style={ligne(i + 1)}>
             <i aria-hidden="true" className="cd-pastille mt-1.5" data-etat={l.etat} />
             <span>
-              <span className="block font-medium text-slate-800 dark:text-slate-100">{l.nom}</span>
-              <span className="block text-xs text-slate-500 dark:text-slate-400">{l.mot}{l.quand ? ` · ${l.quand}` : ''}</span>
-              {l.phrase && <span className="mt-0.5 block text-xs text-slate-600 dark:text-slate-300">{l.phrase}</span>}
+              <span className="cd-t1 block font-medium">{l.nom}</span>
+              <span className="cd-t2 block text-xs">{l.mot}{l.quand ? ` · ${l.quand}` : ''}</span>
+              {l.phrase && <span className="cd-t1 mt-0.5 block text-xs">{l.phrase}</span>}
             </span>
-            <span className="font-mono text-sm tabular-nums text-slate-700 dark:text-slate-200">{l.score ?? ''}</span>
+            <span className="cd-t1 font-mono text-sm tabular-nums">{l.score ?? ''}</span>
           </li>
         ))}
       </ul>
-      {pret && <p className="mt-2.5 text-xs text-slate-600 dark:text-slate-300">{pret}</p>}
-      {reprise && <p className="mt-1.5 text-xs text-slate-500 dark:text-slate-400">{reprise}</p>}
+      {pret && <p className="cd-ligne cd-t1 mt-2.5 text-xs" style={ligne(4)}>{pret}</p>}
+      {reprise && <p className="cd-ligne cd-t2 mt-1.5 text-xs" style={ligne(5)}>{reprise}</p>}
       {action && (
-        <Link to={lien} className="btn-primary mt-3 min-h-11 w-full justify-center text-xs">{suite.label}</Link>
+        <Link to={lienAction(data)} className="cd-ligne btn-primary mt-3 min-h-11 w-full justify-center text-xs" style={ligne(6)}>{suite.label}</Link>
       )}
     </div>
   );

@@ -95,14 +95,14 @@ describe('rendu de chaque état, depuis CaseDialData', () => {
     expect(container.querySelector('.case-dial')?.getAttribute('data-pret')).toBe('true');
   });
 
-  it('« à confirmer » se distingue d\'un simple acquis (un fil pétrole), sans changer de couleur', () => {
+  it('« à confirmer » se distingue d\'un simple acquis (un liseré pétrole sur le bord), sans changer de couleur', () => {
     const { container } = monte(A_CONFIRMER);
     expect(arc(container, 'anamnese').getAttribute('data-etat')).toBe('a-confirmer');
-    expect(container.querySelector('[data-fil="anamnese"]')).not.toBeNull();
+    expect(container.querySelector('[data-liseret="anamnese"]')).not.toBeNull();
     cleanup();
     const simple = monte(dial({ ...A_CONFIRMER, teile: { ...A_CONFIRMER.teile, anamnese: t('acquis', 85, { solideDes: '2026-10-08' }) } })).container;
     expect(arc(simple, 'anamnese').getAttribute('data-etat')).toBe('acquis');
-    expect(simple.querySelector('[data-fil]')).toBeNull();
+    expect(simple.querySelector('[data-liseret]')).toBeNull();
   });
 
   it('faite — non mesurée : un trait en pointillé, ni vierge ni acquis', () => {
@@ -126,10 +126,20 @@ describe('rendu de chaque état, depuis CaseDialData', () => {
 });
 
 describe('couleurs — des variables, pas du dur', () => {
-  it('« acquis » en clair vaut #379e8f (3:1 sur le papier) ; le composant ne code aucune couleur', () => {
+  it('C1 : la palette est LUE dans tailwind.config (theme()), aucun hex copié ; le composant ne code aucune couleur', () => {
     const css = readFileSync(join(__dirname, '..', '..', 'styles', 'index.css'), 'utf-8');
-    expect(css).toMatch(/:root \{[^}]*--cd-acquis: #379e8f/);
+    const bloc = css.slice(css.indexOf('Le cadran d\'un cas'));
+    expect(bloc).toMatch(/--cd-acquis: theme\('colors\.brand\.400'\)/);      // brand-400 = #379e8f : 2,98:1 sur le papier (décision de main)
+    expect(bloc).toMatch(/--cd-discret: theme\('colors\.slate\.500'\)/);
+    expect(bloc).toMatch(/--cd-encre: theme\('colors\.ink\.DEFAULT'\)/);
+    expect(bloc).not.toMatch(/#[0-9a-fA-F]{3,8}\b/);
     expect(readFileSync(join(__dirname, 'CaseDial.tsx'), 'utf-8')).not.toMatch(/#[0-9a-fA-F]{6}\b/);
+  });
+  it('C1 : pas de gris propre au détail — un seul gris, --cd-discret', () => {
+    const src = readFileSync(join(__dirname, 'CaseDial.tsx'), 'utf-8');
+    expect(src).not.toMatch(/text-slate-|dark:text-/);
+    expect(src).toMatch(/rounded-card/);
+    expect(src).not.toMatch(/rounded-xl/);
   });
 });
 
@@ -271,11 +281,11 @@ describe('le détail', () => {
     expect(detail.textContent).not.toMatch(/≥|%/);
   });
 
-  it('R1 : la date de solidité, et ce qui manque pour souder', () => {
+  it('R1 : la date de solidité, et ce qui manque pour être prêt', () => {
     const d = dial({ ...SOLIDE, teile: { ...SOLIDE.teile, anamnese: t('acquis', 85, { solideDes: '2026-10-08' }) }, pretManque: ['autonome'] });
     const detail = ouvre(d);
     expect(detail.textContent).toMatch(/Solide si tu refais 80 ou plus à partir du jeudi 8 oct\./);
-    expect(detail.textContent).toMatch(/Pour souder l'anneau : rejoue le cas en Autonome\./);
+    expect(detail.textContent).toMatch(/Pour être prêt : rejoue-le en Autonome\./);
   });
 
   it('l\'action suivante est un lien vers le cas, sur le bon Teil', () => {
@@ -372,5 +382,102 @@ describe('INV-59 — le cadran lit, il ne calcule pas', () => {
     const a = monte(ENTAME).container.innerHTML;
     cleanup();
     expect(monte(ENTAME).container.innerHTML).toBe(a);
+  });
+});
+
+
+describe('D1 — l\'ouverture est visible : le cadran grandit, les arcs s\'écartent, le panneau naît du cadran', () => {
+  const ouvert = (d: CaseDialData, size: CaseDialSize = 64) => {
+    const r = monte(d, { size });
+    fireEvent.click(screen.getByRole('button'));
+    return r;
+  };
+  const px = (e: Element | null) => Number((e?.getAttribute('font-size') ?? '0'));
+
+  it('la carte (64) grandit jusqu\'à ~96 px : le facteur est publié pour le CSS', () => {
+    const { container } = monte(ENTAME, { size: 64 });
+    const echelle = Number((container.querySelector('.case-dial') as HTMLElement).style.getPropertyValue('--cd-echelle'));
+    expect(64 * echelle).toBeCloseTo(96, 5);
+    cleanup();
+    const ligne = Number((monte(ENTAME, { size: 36 }).container.querySelector('.case-dial') as HTMLElement).style.getPropertyValue('--cd-echelle'));
+    expect(36 * ligne).toBeCloseTo(96, 5);
+  });
+
+  it('les arcs s\'écartent d\'environ 9 unités, vers l\'extérieur', () => {
+    const { container } = monte(ENTAME);
+    for (const g of container.querySelectorAll('.cd-groupe')) {
+      const dx = parseFloat((g as SVGElement).style.getPropertyValue('--dx'));
+      const dy = parseFloat((g as SVGElement).style.getPropertyValue('--dy'));
+      expect(Math.hypot(dx, dy)).toBeCloseTo(9, 1);
+    }
+  });
+
+  it('les repères Teil + score existent sur la carte, en police rendue ≥ 11 px une fois ouvert (C2)', () => {
+    const { container } = monte(ENTAME, { size: 64 });
+    const reperes = [...container.querySelectorAll('[data-repere]')];
+    expect(reperes.map((r) => r.textContent)).toEqual(['A 78', 'D', 'F 54']);
+    const echelle = Number((container.querySelector('.case-dial') as HTMLElement).style.getPropertyValue('--cd-echelle'));
+    for (const r of reperes) expect(px(r) * (64 * echelle) / 120).toBeGreaterThanOrEqual(10.99);
+    cleanup();
+    const grand = monte(ENTAME, { size: 160 }).container;       // 160 : grossit à peine, la police suit
+    const e160 = Number((grand.querySelector('.case-dial') as HTMLElement).style.getPropertyValue('--cd-echelle'));
+    for (const r of grand.querySelectorAll('[data-repere]')) expect(px(r) * (160 * e160) / 120).toBeGreaterThanOrEqual(10.99);
+  });
+
+  it('C2 : le texte du centre se lit (≥ 11 px rendus) à chaque taille où il existe', () => {
+    for (const s of [64, 96, 160] as CaseDialSize[]) {
+      const { container } = monte(ENTAME, { size: s });
+      expect(px(container.querySelector('[data-centre]')) * s / 120).toBeGreaterThanOrEqual(11);
+      const sub = container.querySelector('.cd-sub');
+      if (sub) expect(px(sub) * s / 120).toBeGreaterThanOrEqual(11);
+      cleanup();
+    }
+  });
+
+  it('le panneau NAÎT du cadran : même origine de transformation, centre du cadran', () => {
+    ouvert(ENTAME);
+    const d = screen.getByRole('dialog') as HTMLElement;
+    expect(d.style.transformOrigin).toMatch(/^-?[\d.]+px -?[\d.]+px$/);
+  });
+
+  it('les lignes du détail arrivent l\'une après l\'autre (--i croissant)', () => {
+    ouvert(ENTAME);
+    const idx = [...screen.getByRole('dialog').querySelectorAll('.cd-ligne')].map((e) => Number((e as HTMLElement).style.getPropertyValue('--i')));
+    expect(idx.length).toBeGreaterThanOrEqual(5);
+    expect([...idx].sort((a, b) => a - b)).toEqual(idx);
+    expect(new Set(idx).size).toBe(idx.length);
+  });
+
+  it('sous mouvement réduit : rien ne grandit (échelle 1), pas de repères sur la carte, panneau immobile', () => {
+    reduit(true);
+    const { container } = monte(ENTAME, { size: 64 });
+    expect((container.querySelector('.case-dial') as HTMLElement).style.getPropertyValue('--cd-echelle')).toBe('1');
+    expect(container.querySelector('[data-repere]')).toBeNull();
+    fireEvent.click(screen.getByRole('button'));
+    expect(screen.getByRole('dialog').getAttribute('data-panneau')).toBe('true');
+  });
+
+  it('CSS : grossir, écarter, épaissir, repères = sous no-preference ; le panneau et ses lignes aussi', () => {
+    const css = readFileSync(join(__dirname, '..', '..', 'styles', 'index.css'), 'utf-8');
+    const m = css.match(/@media \(prefers-reduced-motion: no-preference\)\s*\{([\s\S]*?)\n\}/g)!.find((b) => b.includes('.case-dial[data-ouvert] svg'))!;
+    expect(m).toMatch(/scale\(var\(--cd-echelle/);
+    expect(m).toMatch(/translate\(var\(--dx\), var\(--dy\)\)/);
+    expect(m).toMatch(/stroke-width: 9/);
+    expect(m).toMatch(/\.case-dial-detail \.cd-ligne \{[^}]*animation-delay: calc\([^}]*var\(--i/);
+    expect(m).toMatch(/\.cd-label \{ transition: opacity[^;]*var\(--ease-out\)/);
+  });
+});
+
+describe('D5 — pas de couleur « finie » avec moins de trois Teile joués', () => {
+  it('« 100 sur 1 Teil » : chiffre et anneau intérieur en ton discret', () => {
+    const un = dial({ teile: { anamnese: t('solide', 100), dokumentation: t('vierge'), fallvorstellung: t('vierge') }, couverture: 1, maitrise: 100 });
+    const { container } = monte(un);
+    expect(container.querySelector('[data-centre]')?.getAttribute('data-complet')).toBeNull();
+    expect(container.querySelector('[data-maitrise]')?.getAttribute('stroke')).toBe('var(--cd-discret)');
+  });
+  it('trois Teile joués : couleur pleine', () => {
+    const { container } = monte(COUVERT);
+    expect(container.querySelector('[data-centre]')?.getAttribute('data-complet')).toBe('true');
+    expect(container.querySelector('[data-maitrise]')?.getAttribute('stroke')).toBe('var(--cd-maitrise)');
   });
 });
