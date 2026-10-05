@@ -17568,7 +17568,7 @@ export function seedCases(): Case[] {
       frequency: 3,
       difficulty: 3,
       patientSheet: {
-        profil: { tags: ['ausscheidung', 'stein', 'gewichtsverlust'] },
+        profil: { tags: ['ausscheidung', 'gewichtsverlust'] },
         leitsymptomKategorie: 'ausscheidung',
         personalia: {
           name: 'Ilsi Bachmann',
@@ -53089,7 +53089,7 @@ export function seedCases(): Case[] {
       frequency: 0,
       difficulty: 2,
       patientSheet: {
-        profil: { tags: ['allgemein', 'gicht', 'stein', 'gewichtsverlust'] },
+        profil: { tags: ['allgemein', 'gicht', 'gewichtsverlust'] },
         leitsymptomKategorie: 'allgemein',
         personalia: {
           name: 'Bernd Ostermann',

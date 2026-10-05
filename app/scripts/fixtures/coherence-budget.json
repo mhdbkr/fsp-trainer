@@ -5,7 +5,7 @@
   "brut": {
     "doublons": 269,
     "doublonsCas": 24,
-    "horsProfil": 75,
+    "horsProfil": 77,
     "exigeAbsent": 37,
     "relancesOrphelines": 0,
     "brauchtViole": 20,
@@ -80,8 +80,8 @@
       "lot": "K2",
       "compteur": "horsProfil",
       "de": 58,
-      "a": 75,
-      "raison": "Le profil DÉCLARÉ remplace le profil proposé par la lecture de la fiche, dont les tags hals (57 cas), stein, meningitis, steifigkeit et gelenk sortaient trop larges (rapport K0 § 5) : +26 signes hors profil, que r1 retirera en K3 — schluck +8 (akt-ausscheid-schlucken dans bph, glomerulonephritis, obstipation ; fach-neuro-sprache dans migraene, commotio, sturz-im-alter, epilepsie ; fach-onko-appetit dans karzinoid), gelenke +6 (fach-infekt-gelenke déclare aussi le schéma articulaire : tonsillitis, otitis-media, gastroenteritis, influenza, covid19, typhus), meningismus +2 (influenza, malaria), arthralgie +2 (fach-derma-systemisch dans erysipel, urtikaria), steifigkeit +2 (fach-rheuma-morgensteifigkeit dans gicht et septische-arthritis), gicht et nierensteine +3 (fach-rheuma-vorgeschichte dans rheumatoide-arthritis ; CAS de karzinoid), ausstrahlung +2 et gelenk_entzuendung +1 (CAS de pankreaskarzinom et cml, fach-ortho-schwellung dans karpaltunnel) ; −6 levés par un tag motivé (lyme pour lymphom, hals pour bronchialkarzinom et nhl, schmerz pour leistenhernie, generalisiert pour la tuméfaction articulaire de fibromyalgie, CAS et Fach). Puis (décision de main) les 3 questions du cas de DD déclarent leur `sucht` et les cas reçoivent le tag `stein` qui les rend pertinentes (pankreaskarzinom : DD lithiase du cholédoque ; cml : lithiase urique, la question nomme les Nierenkoliken ; karzinoid : lithiase d’une NEM 1) : −3. 58 → 75."
+      "a": 77,
+      "raison": "Le profil DÉCLARÉ remplace le profil proposé par la lecture de la fiche, dont les tags hals (57 cas), stein, meningitis, steifigkeit et gelenk sortaient trop larges (rapport K0 § 5) : +26 signes hors profil, que r1 retirera en K3 — schluck +8 (akt-ausscheid-schlucken dans bph, glomerulonephritis, obstipation ; fach-neuro-sprache dans migraene, commotio, sturz-im-alter, epilepsie ; fach-onko-appetit dans karzinoid), gelenke +6 (fach-infekt-gelenke déclare aussi le schéma articulaire : tonsillitis, otitis-media, gastroenteritis, influenza, covid19, typhus), meningismus +2 (influenza, malaria), arthralgie +2 (fach-derma-systemisch dans erysipel, urtikaria), steifigkeit +2 (fach-rheuma-morgensteifigkeit dans gicht et septische-arthritis), gicht et nierensteine +3 (fach-rheuma-vorgeschichte dans rheumatoide-arthritis ; CAS de karzinoid), ausstrahlung +2 et gelenk_entzuendung +1 (CAS de pankreaskarzinom et cml, fach-ortho-schwellung dans karpaltunnel) ; −6 levés par un tag motivé (lyme pour lymphom, hals pour bronchialkarzinom et nhl, schmerz pour leistenhernie, generalisiert pour la tuméfaction articulaire de fibromyalgie, CAS et Fach). Puis les 3 questions du cas de DD déclarent leur `sucht` ; seul case-karzinoid reçoit le tag `stein` (lithiase d’une NEM 1) : −1. Pankreaskarzinom et cml gardent leur question hors profil : décision de main (revue K2 m3), r1 ne retire jamais une question propre au cas (contrat en K3, casRetiresParR1 = 0). 58 → 77."
     }
   ]
 }
