@@ -64,18 +64,25 @@ interface Verdict { faite: boolean; doneAt?: number }
  *  parties) est absorbée dans l'historique (D-C4) : c'est alors la partie qui fait foi. */
 function oracle(T: TaskInstance, exs: Ex[], tz: string): Verdict {
   const dansTache = (e: Ex) => jourEn(e.at, tz) === T.date && e.at >= (T.creeA ?? minuit(T.date, tz));
+  // [S4-3 fixeur M5, décision de main, training-journal.md §12.3 amendé] Une PARTIE compte aussi si elle a été
+  // ENREGISTRÉE dans la tâche (son jour, après `creeA`) — `occurred_at` de `simulation.completed`, ici `at + k + 2` —, et
+  // jamais si elle a été enregistrée avant la tâche. Elle la fait alors à l'instant de son enregistrement.
+  const debutTache = T.creeA ?? minuit(T.date, tz);
+  const enr = (e: Ex) => e.at + exs.indexOf(e) + 2;
+  const partieDansTache = (e: Ex) => enr(e) >= debutTache && (dansTache(e) || jourEn(enr(e), tz) === T.date);
+  const quand = (e: Ex) => (e.at >= debutTache ? e.at : enr(e));
   const tri = [...exs].sort((a, b) => a.at - b.at || (a.id < b.id ? -1 : 1));
   const coche = tri.find((e) => e.genre === 'coche' && e.tache?.id === T.id);
   let fait: number | undefined;
   if (EST_CAS(T.kind)) {
-    const parties = tri.filter((e) => e.genre === 'partie' && e.caseId === T.caseId && dansTache(e));
+    const parties = tri.filter((e) => e.genre === 'partie' && e.caseId === T.caseId && partieDansTache(e));
     const voulus = T.teile!;
     if (T.dUnTrait) {
       const premiere = parties.find((e) => e.enchaine === true && !e.selbst && e.teile.length === 3);
-      if (premiere) fait = premiere.at;
+      if (premiere) fait = quand(premiere);
     } else {
       const vus = new Set<SimTeil>();
-      for (const e of parties) { e.teile.forEach((t) => vus.add(t)); if (voulus.every((t) => vus.has(t))) { fait = e.at; break; } }
+      for (const e of parties) { e.teile.forEach((t) => vus.add(t)); if (voulus.every((t) => vus.has(t))) { fait = quand(e); break; } }
     }
   } else {
     const genre = GENRE_ATTENDU[T.kind]!;

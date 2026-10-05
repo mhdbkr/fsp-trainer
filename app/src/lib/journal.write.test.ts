@@ -22,6 +22,8 @@ const plan = (o: Partial<DayPlan> & { date: string; tasks: TaskInstance[] }): Da
   materializedAt: 0, mode: 'teil-first', seed: 's', targetMin: 90, ...o,
 });
 let seq = 0;
+// `subject_id` d'un `simulation.completed` = l'id de la partie (simulation-run.md §3.2) : `applySimulationToJournal` y lit
+// l'instant d'enregistrement (fixeur S4-3, M5).
 const ev = (type: ProgressEvent['type'], subject_id: string | null, payload: unknown, occurred_at: string): ProgressEvent =>
   ({ id: `e${seq++}`, user_id: 'u1', type, subject_id, payload, occurred_at });
 
@@ -111,7 +113,7 @@ describe('D-C4 — résolution à l\'écriture, un seul événement par exercice
     const sim = { id: 'sim-9', caseId: 'c1', date: new Date(2026, 9, 1, 10, 0).getTime(), parts: { anamnese: part(85) }, notes: {}, prioritizedCorrections: [], scope: 'teil', teil: 'anamnese' } as unknown as Simulation;
     const resolved = await resolveSimulationTask(sim);
     expect(resolved.taskId).toBe('t1');
-    await db.progress_events.put(ev('simulation.completed', 'c1', resolved, '2026-10-01T10:00:00Z'));
+    await db.progress_events.put(ev('simulation.completed', resolved.id, resolved, '2026-10-01T10:00:00Z'));
     await applySimulationToJournal(resolved);
     expect((await db.day_plans.get('2026-10-01'))!.tasks[0].eventId).toBe('te-sim-9');
     await expectLocalEqualsRebuild();
@@ -127,7 +129,7 @@ describe('D-C4 — résolution à l\'écriture, un seul événement par exercice
     await markTaskDone(t);
     const sim = await resolveSimulationTask({ id: 'sim-7', caseId: 'c1', date: new Date(2026, 9, 1, 10, 5).getTime(), parts: { anamnese: part(70) }, notes: {}, prioritizedCorrections: [], scope: 'teil', teil: 'anamnese' } as unknown as Simulation);
     expect(sim.taskId).toBe('t1');                                   // la coche nue est absorbée par le jeu
-    await db.progress_events.put(ev('simulation.completed', 'c1', sim, '2026-10-01T10:05:00Z'));
+    await db.progress_events.put(ev('simulation.completed', sim.id, sim, '2026-10-01T10:05:00Z'));
     await applySimulationToJournal(sim);
     expect((await db.training_events.toArray()).map((x) => x.id)).toEqual(['te-sim-7']);
     expect((await db.day_plans.get('2026-10-01'))!.tasks[0].eventId).toBe('te-sim-7');
@@ -223,7 +225,7 @@ describe('D-C4 révisé — le mode prime : une tâche « cas complet » demande
   } as unknown as Simulation);
   const jouer = async (s: Simulation) => {
     const r = await resolveSimulationTask(s);
-    await db.progress_events.put(ev('simulation.completed', 'c1', r, new Date(r.date).toISOString()));
+    await db.progress_events.put(ev('simulation.completed', r.id, r, new Date(r.date).toISOString()));
     await applySimulationToJournal(r);
     return r;
   };
@@ -299,7 +301,7 @@ describe('m-2 — une coche n\'est pas un Teil JOUÉ le jour même', () => {
     expect(coche.teile).toHaveLength(3);
     expect((await db.day_plans.get('2026-10-01'))!.tasks[0].doneAt, 'la coche fait la tâche').toBe(coche.at);
     const s = await resolveSimulationTask({ id: 's-ana', caseId: 'c1', date: new Date(2026, 9, 1, 9, 0).getTime(), notes: {}, prioritizedCorrections: [], parts: { anamnese: part(85) } } as unknown as Simulation);
-    await db.progress_events.put(ev('simulation.completed', 'c1', s, new Date(s.date).toISOString()));
+    await db.progress_events.put(ev('simulation.completed', s.id, s, new Date(s.date).toISOString()));
     await applySimulationToJournal(s);
     // Les Teile déclarés par la coche ne sont pas des Teile JOUÉS : la partie seule ne complète pas la tâche, donc la coche
     // n'est pas absorbée — elle reste ce qui fait la tâche (D-C4).

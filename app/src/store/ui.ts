@@ -1,5 +1,6 @@
 import { create } from 'zustand';
-import type { Fachbegriff, Center, AssistanceMode, MusterCity, Layer, SimTeil } from '@/db/types';
+import type { Fachbegriff, Center, AssistanceMode, MusterArt, Layer, SimTeil } from '@/db/types';
+import { musterArt } from '@/data/guides/musterBogen';
 
 // ============================================================================
 // État global léger (Zustand). UI-only : le contenu vit dans IndexedDB.
@@ -52,8 +53,9 @@ interface UiState {
   // Réglages de simulation (Itération 2).
   assistance: AssistanceMode;
   setAssistance: (a: AssistanceMode) => void;
-  muster: MusterCity;
-  setMuster: (m: MusterCity) => void;
+  /** [S4] `guide` | `libre` (simulation-run.md §10.6). */
+  muster: MusterArt;
+  setMuster: (m: MusterArt) => void;
   layer: Layer;
   setLayer: (l: Layer) => void;
 
@@ -121,7 +123,9 @@ export const useUi = create<UiState>((set, get) => ({
 
   assistance: (localStorage.getItem('fsp-assistance') as AssistanceMode) || 'assiste',
   setAssistance: (a) => { localStorage.setItem('fsp-assistance', a); set({ assistance: a }); },
-  muster: (localStorage.getItem('fsp-muster') as MusterCity) || 'Standard',
+  // [S4] Une ville mémorisée (série 3) se LIT par `musterArt()` ; elle n'est réécrite qu'au premier
+  // `setMuster` — l'annonce unique (`annonceS4.ts`) lit encore la valeur brute (§10.6, §10.7).
+  muster: musterArt(localStorage.getItem('fsp-muster')),
   setMuster: (m) => { localStorage.setItem('fsp-muster', m); set({ muster: m }); },
   layer: (Number(localStorage.getItem('fsp-layer')) as Layer) || 1,
   setLayer: (l) => { localStorage.setItem('fsp-layer', String(l)); set({ layer: l }); },

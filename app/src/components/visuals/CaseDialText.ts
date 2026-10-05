@@ -32,7 +32,8 @@ export const MOT_ETAT: Record<EtatTeil, string> = {
   'non-mesure': 'faite — non mesurée',
 };
 
-const ARTICLE: Record<SimTeil, string> = { anamnese: 'l\'Anamnese', dokumentation: 'la Dokumentation', fallvorstellung: 'la Fallvorstellung' };
+/** « l'Anamnese », « la Dokumentation »… — UNE table pour toute l'app (fixeur S4-3, I5 : `TaskLine`, le runner, le bilan). */
+export const ARTICLE: Record<SimTeil | 'aufklaerung', string> = { anamnese: 'l\'Anamnese', dokumentation: 'la Dokumentation', fallvorstellung: 'la Fallvorstellung', aufklaerung: 'l\'Aufklärung' };
 const NOM: Record<SimTeil, string> = { anamnese: 'Anamnese', dokumentation: 'Dokumentation', fallvorstellung: 'Fallvorstellung' };
 
 /** « À confirmer » (§13.2) : acquis, déjà réussi à 80 ou plus, et l'écart est passé. Dérivé, pas stocké. */

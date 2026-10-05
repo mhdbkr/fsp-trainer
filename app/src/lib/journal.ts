@@ -18,7 +18,7 @@ import { newId, type ProgressEvent } from '@/lib/sync/events';
 import { sortEvents } from '@/lib/collections/project';
 import { partScore } from '@/lib/scoring';
 import { TEILE } from '@/lib/simScope';
-import { now, dayKey } from '@/lib/clock';
+import { now, dayKey, DAY_MS } from '@/lib/clock';
 import { LEGACY_ID_PATTERN } from '@/lib/checklists.legacy';
 import { conditionsManquantes, estEnchaine, estSerie4, isExamenBlanc } from '@/lib/examen';
 import { computeCaseProgress, teilAConfirmer } from '@/lib/progression';
@@ -47,7 +47,7 @@ const TEIL_KEYS: SimTeil[] = TEILE.map((t) => t.key);
  * un événement. Le `TrainingEvent` s'en dérive avec un id déterministe, donc
  * la dérivation est idempotente quel que soit le nombre de reconstructions.
  */
-export function trainingEventFromSimulation(sim: Simulation): TrainingEvent {
+export function trainingEventFromSimulation(sim: Simulation, enregistreA?: number): TrainingEvent {
   const parts = sim.parts ?? {};
   const teile = TEIL_KEYS.filter((t) => parts[t]?.done === true);
   const scores: Partial<Record<SimTeil, number>> = {};
@@ -71,6 +71,8 @@ export function trainingEventFromSimulation(sim: Simulation): TrainingEvent {
   return {
     id: `te-${sim.id}`,
     at: sim.date,
+    // M5 : l'instant d'enregistrement (`occurred_at`), seulement s'il suit le début — sinon il ne dit rien de plus.
+    ...(typeof enregistreA === 'number' && Number.isFinite(enregistreA) && enregistreA > sim.date ? { enregistreA } : {}),
     kind: isExamenBlanc(sim) ? 'examen-blanc' : 'simulation',
     caseId: sim.caseId,
     teile,
@@ -108,7 +110,7 @@ export function projectTrainingEvents(events: ProgressEvent[]): TrainingEvent[] 
     if (e.type === 'simulation.completed') {
       const sim = e.payload as Simulation;
       if (!sim?.id) continue;
-      const te = trainingEventFromSimulation(sim);
+      const te = trainingEventFromSimulation(sim, Date.parse(e.occurred_at));
       byId.set(te.id, te);
     } else if (e.type === 'training.logged' && e.subject_id) {
       const te = sanitizeLogged(e.subject_id, e.payload);
@@ -338,9 +340,10 @@ async function planDe(at: number): Promise<DayPlan | undefined> {
 /** Les événements du journal qui comptent pour les tâches d'un plan : ceux de son jour — et les coches qui les visent,
  *  qui sont forcément postérieures au début de ce jour (une tâche n'existe pas avant son plan). */
 const evenementsDuPlan = (plan: DayPlan): Promise<TrainingEvent[]> =>
-  db.training_events.where('at').aboveOrEqual(debutJour(plan.date, plan.tz)).toArray();
+  // M5 : une partie commencée la veille (24 h au plus : `LAUF_MAX_ALTER_MS`) peut être enregistrée dans ce jour.
+  db.training_events.where('at').aboveOrEqual(debutJour(plan.date, plan.tz) - DAY_MS).toArray();
 
-type Exercice = Pick<TrainingEvent, 'kind' | 'caseId' | 'teile' | 'at'> & { enchaine?: true };
+type Exercice = Pick<TrainingEvent, 'kind' | 'caseId' | 'teile' | 'at' | 'enregistreA'> & { enchaine?: true };
 
 /** Cet exercice fait-il AVANCER cette tâche (non faite par des parties) ? Le genre ne compte pas pour un cas (I3) ;
  *  il compte hors cas (N1). Une coche nue ne compte pas : une tâche seulement cochée à la main est encore « ouverte »
@@ -350,7 +353,7 @@ function fait_avancer(t: TaskInstance, e: Exercice, evenements: readonly Trainin
   const reels = evenements.filter((x) => !isCocheNue(x));
   const etat = evaluerTache(t, reels, tz);
   if (etat.statut === 'faite') return false;
-  if (t.creeA !== undefined && e.at < t.creeA) return false;
+  if (t.creeA !== undefined && (e.enregistreA ?? e.at) < t.creeA) return false;   // M5 : enregistrée après la tâche
   if (!estTacheDeCas(t.kind)) return TASK_TO_TRAINING[t.kind] === e.kind && (t.caseId === undefined || t.caseId === e.caseId);
   if (!(e.kind === 'simulation' || e.kind === 'examen-blanc') || e.caseId !== t.caseId) return false;
   if (t.dUnTrait) return e.enchaine === true;
@@ -473,7 +476,10 @@ export async function resolveSimulationTask(input: Simulation): Promise<Simulati
  * exactement le même état (INV-10).
  */
 export async function applySimulationToJournal(sim: Simulation): Promise<TrainingEvent> {
-  const te = trainingEventFromSimulation(sim);
+  // M5 : l'instant d'enregistrement est l'`occurred_at` de SON événement `simulation.completed` — celui même que relira
+  // la reconstruction (INV-10). Pas d'événement local (envoi échoué) : pas d'instant, la reconstruction non plus.
+  const ev = (await db.progress_events.where('subject_id').equals(sim.id).toArray()).find((e) => e.type === 'simulation.completed');
+  const te = trainingEventFromSimulation(sim, ev ? Date.parse(ev.occurred_at) : undefined);
   await db.training_events.put(te);
   await applyEventToLocalState(te);
   return te;
@@ -488,8 +494,10 @@ export async function applySimulationToJournal(sim: Simulation): Promise<Trainin
 async function applyEventToLocalState(event: TrainingEvent): Promise<void> {
   const d = new Date(event.at);
   const dates = new Set([-1, 0, 1].map((n) => { const x = new Date(d); x.setDate(x.getDate() + n); return dayKey(x); }));
+  const enr = event.enregistreA ?? event.at;                      // M5 : le jour de l'enregistrement est concerné aussi
+  const dans = (x: number, p: DayPlan) => x >= debutJour(p.date, p.tz) && x < finJour(p.date, p.tz);
   const concernes = (await db.day_plans.bulkGet([...dates])).filter((p): p is DayPlan => !!p
-    && (event.at >= debutJour(p.date, p.tz) && event.at < finJour(p.date, p.tz) || (!!event.taskId && p.tasks.some((t) => t.id === event.taskId))));
+    && (dans(event.at, p) || dans(enr, p) || (!!event.taskId && p.tasks.some((t) => t.id === event.taskId))));
   if (event.taskId && !concernes.some((p) => p.tasks.some((t) => t.id === event.taskId))) {
     const porteur = await db.day_plans.filter((p) => p.tasks.some((t) => t.id === event.taskId)).first();
     if (porteur) concernes.push(porteur);

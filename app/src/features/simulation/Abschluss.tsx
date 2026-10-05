@@ -19,12 +19,15 @@ const LABEL: Record<LaufTeil, string> = {
 // ============================================================================
 
 /** La sortie de fin dans l'en-tête collant (règle 8 amendée) : rendue ssi
- *  l'automate accepte `versChecklist` — au bilan seulement. */
+ *  l'automate accepte `versChecklist` — au bilan seulement. [S4] Son libellé
+ *  devient « Terminer ici » (§10.2.3, INV-71) : on s'arrête dès qu'un Teil est
+ *  joué, quel que soit le reste ; « Continuer » est l'autre sortie du bilan. */
 export function SimulationBeendenKnopf({ lauf, onClick }: { lauf: Lauf; onClick: () => void }) {
   if (!simulationBeendbar(lauf)) return null;
   return (
-    <button onClick={onClick} className="btn-primary text-xs" title="Vers la checklist de fin">
-      Terminer la simulation →
+    // Fixeur I7 : un seul bouton principal au bilan — tant qu'il reste un Teil, « Continuer — X » l'est, et ceci est secondaire.
+    <button onClick={onClick} className={`${erlaubt(lauf, { typ: 'partieSuivante' }) ? 'btn-outline' : 'btn-primary'} text-xs`} title="Vers la checklist de fin">
+      Terminer ici →
     </button>
   );
 }

@@ -1,10 +1,13 @@
-import type { AssistanceMode, BogenNotes, MusterCity } from '@/db/types';
-import { MUSTER_BOGEN, type BogenField } from '@/data/guides/musterBogen';
+import type { AssistanceMode, BogenNotes, Case, MusterArt, MusterCity } from '@/db/types';
+import { HAUPTBESCHWERDE_REPLI, MUSTER_BOGEN, autresNotes, bogenRubrik, musterArt, type BogenField, type MusterBogenSpec } from '@/data/guides/musterBogen';
+import { aktuellChapterFor, leitsymptomOf } from '@/data/guides/anamneseChapters';
 import { Icon } from '@/components/icons';
 
 // ============================================================================
-// Anamnese-Bogen — le Muster de la ville choisie (header + boxes + split), au
-// lieu d'un champ texte plat. Assisté : les questions-guides apparaissent en
+// Anamnese-Bogen — le Muster choisi, guidé ou libre (header + boxes + split), au
+// lieu d'un champ texte plat. [S4] Une note déjà prise sous une clé que ce Muster
+// n'a pas (Lauf repris d'une feuille de ville) reste éditable dans « Autres notes »
+// (simulation-run.md §10.6, INV-74). Assisté : les questions-guides apparaissent en
 // placeholder ; Autonome : épuré (« en tête »).
 //
 // C'est la surface la plus longuement regardée de l'app — une vingtaine de
@@ -19,10 +22,26 @@ import { Icon } from '@/components/icons';
 // teinte. Rien de neuf n'est créé — la charte dit de réutiliser avant d'ajouter.
 // ============================================================================
 
-export function AnamneseBogen({ muster, notes, onChange, assistance }: {
-  muster: MusterCity; notes: BogenNotes; onChange: (n: BogenNotes) => void; assistance: AssistanceMode;
+/** Le Muster RAISONNÉ SUR LE CAS (fixeur S4-3, B1) : pas de Frauenanamnese pour un patient — sauf si une note y est
+ *  déjà, rien ne se perd (INV-74) ; l'aide de Hauptbeschwerde suit la nature du motif (`aktuell` du cas : pas
+ *  d'« Ausstrahlung » pour une dyspnée, FB2-J1). Sans cas, le Muster tel quel. */
+export function specFuerFall(spec: MusterBogenSpec, c: Case | undefined, notes: BogenNotes): MusterBogenSpec {
+  if (!c) return spec;
+  const patientin = c.patientSheet?.personalia?.geschlecht === 'w';
+  const motif = aktuellChapterFor(leitsymptomOf(c)).keywords.join(' · ') || HAUPTBESCHWERDE_REPLI;
+  return {
+    ...spec,
+    fields: spec.fields
+      .filter((f) => f.key !== 'frauen' || patientin || !!notes.frauen?.trim())
+      .map((f) => (f.key === 'hauptbeschwerde' ? { ...f, hint: motif } : f)),
+  };
+}
+
+export function AnamneseBogen({ c, muster, notes, onChange, assistance }: {
+  c?: Case; muster?: MusterArt | MusterCity; notes: BogenNotes; onChange: (n: BogenNotes) => void; assistance: AssistanceMode;
 }) {
-  const spec = MUSTER_BOGEN[muster];
+  const spec = specFuerFall(MUSTER_BOGEN[musterArt(muster)], c, notes);
+  const autres = autresNotes(notes, spec);
   const set = (key: string, val: string) => onChange({ ...notes, [key]: val });
   const showHints = assistance === 'assiste';
 
@@ -35,9 +54,12 @@ export function AnamneseBogen({ muster, notes, onChange, assistance }: {
           <div className="text-sm font-bold">{spec.title}</div>
           <div className="text-[11px] text-slate-400">{spec.instruction}</div>
         </div>
-        <span className={`chip ${spec.style === 'ganze-saetze' ? 'bg-amber-100 text-amber-700 dark:bg-amber-900/40 dark:text-amber-300' : 'bg-slate-100 text-slate-500 dark:bg-slate-800'}`}>
-          {spec.style === 'ganze-saetze' ? 'ganze Sätze' : spec.style === 'frei' ? 'frei' : 'Stichpunkte'}
-        </span>
+        {/* Pas de pastille « frei » à côté de « Muster libre » : elle redirait le titre. */}
+        {spec.style !== 'frei' && (
+          <span className={`chip ${spec.style === 'ganze-saetze' ? 'bg-amber-100 text-amber-700 dark:bg-amber-900/40 dark:text-amber-300' : 'bg-slate-100 text-slate-500 dark:bg-slate-800'}`}>
+            {spec.style === 'ganze-saetze' ? 'ganze Sätze' : 'Stichpunkte'}
+          </span>
+        )}
       </div>
 
       <div className="space-y-3">
@@ -45,6 +67,16 @@ export function AnamneseBogen({ muster, notes, onChange, assistance }: {
           <BogenFieldView key={f.key} field={f} notes={notes} set={set} showHints={showHints} />
         ))}
       </div>
+
+      {autres.length > 0 && (
+        <div className="mt-3 space-y-3 border-t border-slate-200/70 pt-3 dark:border-ink-600/70">
+          <div className="text-xs font-bold text-slate-600 dark:text-slate-300">Autres notes</div>
+          {autres.map((k) => {
+            const r = bogenRubrik(k, spec);
+            return <BogenFieldView key={k} field={{ key: k, label: r.label, icon: r.icon, kind: 'box' }} notes={notes} set={set} showHints={false} />;
+          })}
+        </div>
+      )}
 
       {/* Zone Bericht (rédigée à la partie Doku) — rappel visuel */}
       <div className="mt-3 rounded-lg border border-dashed border-slate-300 bg-paper/50 px-3 py-2 text-[11px] text-slate-400 dark:border-slate-700 dark:bg-ink-700/40">
@@ -91,7 +123,7 @@ function BogenFieldView({ field, notes, set, showHints }: {
     <div>
       <FieldLabel field={field} />
       <textarea value={notes[field.key] ?? ''} onChange={(e) => set(field.key, e.target.value)}
-        placeholder={showHints ? field.hint : ''} rows={2}
+        placeholder={showHints ? field.hint : ''} rows={field.rows ?? 2}
         className="input mt-1 resize-y px-2 py-1.5 text-[13px]" />
     </div>
   );

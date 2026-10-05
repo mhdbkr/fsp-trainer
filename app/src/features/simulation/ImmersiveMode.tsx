@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from 'react';
-import type { BogenNotes, Case, MusterCity } from '@/db/types';
+import type { BogenNotes, Case, MusterArt, MusterCity } from '@/db/types';
 import { adaptChaptersForCase, fachChapterForCase } from '@/data/guides/anamneseChapters';
 import { VORSTELLUNG_CHAPTERS } from '@/data/guides/vorstellungChapters';
 import { phraseAlts, phraseFollowUp, phraseIsCaseSpecific, phraseLabel, phraseProbes, phraseText, splitDimension, type Phrase } from '@/data/guides/phrases';
@@ -9,7 +9,8 @@ import { DoctopusMascot } from '@/components/DoctopusMascot';
 import { useUi } from '@/store/ui';
 import { useSimSession } from '@/store/simSession';
 import { useTimeAmbiance, FocusTimeAura } from './TimeCapsule';
-import { MUSTER_BOGEN } from '@/data/guides/musterBogen';
+import { MUSTER_BOGEN, musterArt, type BogenField } from '@/data/guides/musterBogen';
+import { specFuerFall } from './AnamneseBogen';
 import { FollowUpControls, ProgressiveSteps, VariantPicker } from '@/components/PhraseControls';
 import { getPreferredVariant, setPreferredVariant } from '@/lib/variantPrefs';
 import { bogenKeysFor } from './bogenKeys';
@@ -27,7 +28,7 @@ export function ImmersiveMode({ part, c, onClose, initialChapterId, muster, boge
   part: 'anamnese' | 'fallvorstellung'; c: Case; onClose: () => void; initialChapterId?: string;
   /** Prise de notes en focus : on écrit dans le MÊME Bogen que la vue normale
    *  (aucune saisie en double), dans la rubrique du chapitre en cours. */
-  muster?: MusterCity; bogen?: BogenNotes; setBogen?: (b: BogenNotes) => void;
+  muster?: MusterArt | MusterCity; bogen?: BogenNotes; setBogen?: (b: BogenNotes) => void;
 }) {
   const openDoctopus = useUi((s) => s.openDoctopus);
   // Conseils ouverts d'emblée en mode assisté (épargne un clic à chaque
@@ -97,12 +98,13 @@ export function ImmersiveMode({ part, c, onClose, initialChapterId, muster, boge
   // chapitre courant — noter en jouant remplit la vraie feuille.
   const [notesOpen, setNotesOpen] = useState(false);
   const canNote = !!setBogen && !!bogen && part === 'anamnese';
-  const spec = muster ? MUSTER_BOGEN[muster] : undefined;
+  // [S4] Muster guidé ou libre (§10.6) : la rubrique du chapitre si le Muster l'a ; sinon le repli —
+  // `hauptbeschwerde` en guidé, `freitext` en libre. Une ville série 3 se lit par `musterArt()`.
+  const spec = specFuerFall(MUSTER_BOGEN[musterArt(muster)], c, bogen ?? {});   // le même Bogen que la vue normale (B1)
   const noteKey = useMemo(() => {
-    if (!spec) return null;
     const has = (k: string) => spec.fields.some((f) => f.key === k);
     const wanted = bogenKeysFor(chapters[ci]?.id, chapters[ci]?.items ?? [], ii);
-    return wanted.find(has) ?? (has('hauptbeschwerde') ? 'hauptbeschwerde' : spec.fields.find((f) => f.kind === 'box')?.key ?? null);
+    return wanted.find(has) ?? (has('hauptbeschwerde') ? 'hauptbeschwerde' : has('freitext') ? 'freitext' : null);
   }, [spec, chapters, ci, ii]);
   const noteField = spec?.fields.find((f) => f.key === noteKey);
 
@@ -255,17 +257,8 @@ export function ImmersiveMode({ part, c, onClose, initialChapterId, muster, boge
               </span>
               <button onClick={() => setNotesOpen(false)} className="rounded-md px-2 py-0.5 text-[11px] text-slate-400 hover:bg-slate-800 hover:text-white">Fermer (N)</button>
             </div>
-            <textarea
-              value={bogen?.[noteKey] ?? ''}
-              onChange={(e) => setBogen?.({ ...bogen, [noteKey]: e.target.value })}
-              // Échap doit fermer le focus, pas rester piégé dans le champ ;
-              // les flèches ne doivent pas naviguer entre les questions pendant
-              // qu'on écrit — d'où l'arrêt de propagation ici.
-              onKeyDown={(e) => { if (e.key === 'Escape') { e.currentTarget.blur(); setNotesOpen(false); } e.stopPropagation(); }}
-              placeholder={noteField?.hint ?? 'Notes…'}
-              rows={3}
-              className="w-full resize-none rounded-xl border border-white/10 bg-slate-950/60 px-3 py-2 text-[15px] leading-relaxed text-slate-100 outline-none placeholder:text-slate-600 focus:border-brand-500/60"
-            />
+            <NotizFeld field={noteField ?? { key: noteKey, label: 'Notes', icon: 'pen', kind: 'box' }} bogen={bogen ?? {}}
+              setBogen={(b) => setBogen?.(b)} onEscape={() => setNotesOpen(false)} />
           </div>
         </div>
       )}
@@ -287,5 +280,30 @@ export function ImmersiveMode({ part, c, onClose, initialChapterId, muster, boge
       </div>
     </div>
     </Portal>
+  );
+}
+
+/** Le champ de notes du mode focus. Un champ à sous-cases (`split`, Noxen) écrit dans SES sous-clés
+ *  (`noxen.alkohol`) : écrire la clé nue créait une seconde rubrique « Noxen » dans le Bogen (fixeur S4-3, I6). */
+export function NotizFeld({ field, bogen, setBogen, onEscape }: {
+  field: BogenField; bogen: BogenNotes; setBogen: (b: BogenNotes) => void; onEscape: () => void;
+}) {
+  // Échap doit fermer le focus, pas rester piégé dans le champ ; les flèches ne doivent pas naviguer entre les
+  // questions pendant qu'on écrit — d'où l'arrêt de propagation ici.
+  const touche = (e: React.KeyboardEvent<HTMLTextAreaElement>) => { if (e.key === 'Escape') { e.currentTarget.blur(); onEscape(); } e.stopPropagation(); };
+  const cls = 'w-full resize-none rounded-xl border border-white/10 bg-slate-950/60 px-3 py-2 text-[15px] leading-relaxed text-slate-100 outline-none placeholder:text-slate-600 focus:border-brand-500/60';
+  const cases = field.kind === 'split' && field.subFields
+    ? field.subFields.map((sf) => ({ key: `${field.key}.${sf.key}`, label: sf.label }))
+    : [{ key: field.key, label: '' }];
+  return (
+    <div className={cases.length > 1 ? 'grid gap-2 sm:grid-cols-3' : ''}>
+      {cases.map(({ key, label }) => (
+        <label key={key} className="block">
+          {label && <span className="mb-1 block text-[11px] text-slate-400">{label}</span>}
+          <textarea aria-label={label || field.label} value={bogen[key] ?? ''} onChange={(e) => setBogen({ ...bogen, [key]: e.target.value })}
+            onKeyDown={touche} placeholder={label ? '' : field.hint ?? 'Notes…'} rows={3} className={cls} />
+        </label>
+      ))}
+    </div>
   );
 }

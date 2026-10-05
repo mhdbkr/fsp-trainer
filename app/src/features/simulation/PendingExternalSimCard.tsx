@@ -50,7 +50,12 @@ export function PendingExternalSimCard({ onlyCaseId }: { onlyCaseId?: string } =
     const couvre = (s: Simulation) => x.teil
       ? !!s.parts?.[x.teil]?.done
       : !!(s.parts?.anamnese?.done && s.parts?.fallvorstellung?.done);
-    if (await db.simulations.where('caseId').equals(x.caseId).filter((s) => s.date >= x.at && couvre(s)).count()) return null;
+    // [S4] `Simulation.date` est désormais le DÉBUT de la partie (m5, INV-75) : une partie commencée avant
+    // le lancement et ENREGISTRÉE après ne se reconnaît plus à sa date. L'instant de l'enregistrement est
+    // celui de son événement `simulation.completed`.
+    const ecrites = new Set((await db.progress_events.where('type').equals('simulation.completed')
+      .filter((e) => Date.parse(e.occurred_at) >= x.at).toArray()).map((e) => e.subject_id));
+    if (await db.simulations.where('caseId').equals(x.caseId).filter((s) => (s.date >= x.at || ecrites.has(s.id)) && couvre(s)).count()) return null;
     return x;
   }, [onlyCaseId], null);
   const caseId = p?.caseId;

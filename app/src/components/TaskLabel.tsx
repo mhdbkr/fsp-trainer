@@ -98,7 +98,6 @@ export function TaskLabel({ block, due, fresh, className = '' }: {
 }) {
   const glyph = TASK_GLYPH[block.kind];
   const state = [
-    block.layer !== undefined ? `Couche ${block.layer}` : null,
     block.assistance === 'assiste' ? 'assisté' : block.assistance === 'autonome' ? 'autonome' : null,
   ].filter(Boolean).join(' · ');
 
