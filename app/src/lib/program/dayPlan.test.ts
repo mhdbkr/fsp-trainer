@@ -13,9 +13,10 @@ import { db } from '@/db/db';
 import type { Case, ProgramConfig, Specialty, TrainingEvent } from '@/db/types';
 import { computeCaseProgress, markTaskDone } from '@/lib/journal';
 import { DAY_MS, freezeAt, resetClock } from '@/lib/clock';
+import { modeDuJour } from './modus';
 import {
-  buildTasks, ensureDayPlan, modusOf, planProgress, replanifier, sessionDuJour,
-  taperDays, teilLePlusEnDette, type BuildInput,
+  buildTasks, ensureDayPlan, planProgress, replanifier, sessionDuJour,
+  taperDays, type BuildInput,
 } from './dayPlan';
 
 const SPECS: Specialty[] = ['Kardiologie', 'Gastroenterologie', 'Pneumologie', 'Neurologie', 'Nephrologie', 'Endokrinologie'];
@@ -51,7 +52,9 @@ describe('buildTasks — fonction PURE, et tout ce qu’elle produit est cochabl
   it('ne lit ni la base ni l’horloge : `now` est passé, jamais pris', () => {
     const a = buildTasks({ ...input(), now: Date.parse('2026-10-01T08:00:00Z') }, ids());
     const b = buildTasks({ ...input(), now: Date.parse('2026-10-01T23:59:00Z') }, ids());
-    expect(b).toEqual(a);                              // l'heure DANS la journée ne change rien
+    const sansCreeA = (ts: typeof a) => ts.map(({ creeA: _c, ...t }) => t);
+    expect(sansCreeA(b)).toEqual(sansCreeA(a));        // l'heure DANS la journée ne change rien… sauf `creeA`, par définition (INV-55)
+    expect(a.filter((t) => t.kind === 'simulation').every((t) => t.creeA === Date.parse('2026-10-01T08:00:00Z'))).toBe(true);
   });
 
   it('chaque tâche porte son « pourquoi aujourd’hui », figé avec elle', () => {
@@ -78,9 +81,11 @@ describe('buildTasks — fonction PURE, et tout ce qu’elle produit est cochabl
     expect(tasks.filter((t) => t.kind !== 'examen-blanc').reduce((s, t) => s + t.estMin, 0)).toBeLessThanOrEqual(target);
   });
 
-  it('mode `cas-complet` : pas de Teil, la tâche est un run complet', () => {
+  it('mode `cas-complet` : la tâche est un cas ENTIER — `teile` posé, `teil` jamais écrit (INV-50)', () => {
     const tasks = buildTasks(input({ config: config({ modus: 'cas-complet' }) }), ids());
-    expect(tasks.filter((t) => t.kind === 'simulation').every((t) => t.teil === undefined)).toBe(true);
+    const sims = tasks.filter((t) => t.kind === 'simulation');
+    expect(sims.length).toBeGreaterThan(0);
+    expect(sims.every((t) => t.teil === undefined && t.teile?.length === 3)).toBe(true);
   });
 
   it('mode `specialite` : toutes les simulations du jour dans la même spécialité', () => {
@@ -97,10 +102,10 @@ describe('buildTasks — fonction PURE, et tout ce qu’elle produit est cochabl
     expect(task.assistance).toBe('autonome');
   });
 
-  it('lecture tolérante de l’ancien `strategy`', () => {
-    expect(modusOf(config({ strategy: 'full' }))).toBe('cas-complet');
-    expect(modusOf(config({ strategy: 'teil-first' }))).toBe('teil-first');
-    expect(modusOf(config({ strategy: 'full', modus: 'specialite' }))).toBe('specialite');
+  it('lecture tolérante de l’ancien `strategy` : plus de « par Teil » imposé (§12.5)', () => {
+    expect(modeDuJour(config({ strategy: 'full' }), [], corpus())).toBe('cas-complet');
+    expect(modeDuJour(config({ strategy: 'teil-first' }), [], corpus())).toBe('cas-complet');
+    expect(modeDuJour(config({ strategy: 'full', modus: 'specialite' }), [], corpus())).toBe('specialite');
   });
 
   it('le drill a sa propre tâche : faire ses cartes n’attire plus de simulations', () => {
@@ -112,8 +117,8 @@ describe('buildTasks — fonction PURE, et tout ce qu’elle produit est cochabl
     expect(drill.reason).toMatch(/nouveaux|dû/);
   });
 
-  it('un Teil FRAGILE passe devant le Teil du jour', () => {
-    const cases = corpus(6);
+  it('un cas dont un Teil est FRAGILE revient en entier, et la raison le dit', () => {
+    const cases = corpus(2);
     const events: TrainingEvent[] = [{
       id: 'e1', at: Date.parse('2026-09-20T10:00:00Z'), kind: 'simulation', caseId: 'c0',
       teile: ['fallvorstellung'], source: 'libre', spentMin: 12, scores: { fallvorstellung: 35 },
@@ -121,12 +126,8 @@ describe('buildTasks — fonction PURE, et tout ce qu’elle produit est cochabl
     const progress = new Map(computeCaseProgress(events).map((p) => [p.caseId, p]));
     const tasks = buildTasks(input({ cases, progress, trainingEvents: events }), ids());
     const t = tasks.find((x) => x.caseId === 'c0');
-    expect(t?.teil).toBe('fallvorstellung');
+    expect(t?.teile).toEqual(['anamnese', 'dokumentation', 'fallvorstellung']);
     expect(t?.reason).toContain('35 %');
-  });
-
-  it('`teilLePlusEnDette` sur un corpus vierge : le premier Teil de l’examen', () => {
-    expect(teilLePlusEnDette(new Map(), corpus(6))).toBe('anamnese');
   });
 });
 

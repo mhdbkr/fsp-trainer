@@ -423,6 +423,115 @@ export const MUTATIONS = [
     to: "evaluerTache(t, events, tz).statut !== 'faite';",
     pourquoi: "la reprise remplace une tâche ENTAMÉE : le travail commencé du candidat disparaît",
   },
+  // --- S4-2 : la construction du plan (training-journal.md §12.2, §12.4, §12.5, §13.1 ; INV-4, 50, 55, 57, 58, 60, 67) ---
+  {
+    id: "INV-50-teil", tests: 'tests/invariants.plan.test.ts', file: "src/lib/program/dayPlan.ts",
+    from: "teile: d.teile, creeA,\n",
+    to: "teile: d.teile, teil: d.teile[0], creeA,\n",
+    pourquoi: "`buildTasks` repose `teil` : la tâche redevient « Anamnese de Leberzirrhose »",
+  },
+  {
+    id: "INV-50-un-teil", tests: 'tests/invariants.plan.test.ts', file: "src/lib/program/dayPlan.ts",
+    from: "const teile = restePlan(progress.get(s.c.id), date, tz);\n    const probable",
+    to: "const teile = restePlan(progress.get(s.c.id), date, tz).slice(0, 1);\n    const probable",
+    pourquoi: "`teile` ne porte qu'un Teil (le premier qui reste) au lieu de `restePlan`",
+  },
+  {
+    id: "INV-67-deux-definitions", tests: 'tests/invariants.plan.test.ts', file: "src/lib/program/dayPlan.ts",
+    from: "const teile = restePlan(progress.get(s.c.id), date, tz);\n    const probable",
+    to: "const teile = TEIL_KEYS.filter((t) => (progress.get(s.c.id)?.teile[t].status ?? 'vierge') !== 'solide');\n    const probable",
+    pourquoi: "deux définitions de « reste » : la tâche garde `status ≠ solide` seul, sans l'écart de trois jours (R2)",
+  },
+  {
+    id: "INV-67-dette", tests: 'tests/invariants.plan.test.ts', file: "src/lib/journal.ts",
+    from: "restePlan(cp, jour, tz).reduce((s, t) =>",
+    to: "TEIL_KEYS.filter((t) => cp.teile[t].status !== 'solide').reduce((s, t) =>",
+    pourquoi: "`detteTeil` garde `status ≠ solide` seul (journal.ts:271-272 d'avant S4-2) : un Teil joué hier pèse encore",
+  },
+  {
+    id: "INV-55-now", tests: 'tests/invariants.plan.test.ts', file: "src/lib/program/dayPlan.ts",
+    from: "    now: debut,\n    lastPlayedAt,",
+    to: "    now: input.now,\n    lastPlayedAt,",
+    pourquoi: "`selectContext` lit l'instant de matérialisation (`input.now`) : à 8 h et à 14 h, la fraîcheur — donc le plan — diffère",
+  },
+  {
+    id: "INV-55-drill", tests: 'tests/invariants.plan.test.ts', file: "src/lib/program/dayPlan.ts",
+    from: "const terms = counts(begriffe, fin);",
+    to: "const terms = counts(begriffe, input.now);",
+    pourquoi: "`counts(begriffe, input.now)` : les termes dus se comptent à l'instant de matérialisation",
+  },
+  {
+    id: "INV-55-case-progress", tests: 'tests/invariants.plan.test.ts', file: "src/lib/program/dayPlan.ts",
+    from: "progress: e.progress, now: at,",
+    to: "progress: new Map((await db.case_progress.toArray()).map((p) => [p.caseId, p])), now: at,",
+    pourquoi: "la progression est lue dans `db.case_progress`, qui contient les parties du jour D",
+  },
+  {
+    id: "INV-55-coupure", tests: 'tests/invariants.plan.test.ts', file: "src/lib/program/entree.ts",
+    from: ".filter((e) => e.at < coupure);",
+    to: ";",
+    pourquoi: "l'entrée n'est plus coupée à `debutJour(D)` : les événements du jour D fuient dans le plan de D",
+  },
+  {
+    id: "INV-55-srs", tests: 'tests/invariants.plan.test.ts', file: "src/lib/program/entree.ts",
+    from: "const begriffe = begriffeAvant(p.begriffe, p.events, coupure);",
+    to: "const begriffe = [...p.begriffe];",
+    pourquoi: "l'état SRS vient de `db.fachbegriffe` (live, révisions du jour D comprises) au lieu d'être reconstruit",
+  },
+  {
+    id: "INV-55-config", tests: 'tests/invariants.plan.test.ts', file: "src/lib/program/entree.ts",
+    from: "const avant = valides.filter((x) => x.at < debut).pop();",
+    to: "const avant = valides.pop();",
+    pourquoi: "la config du jour est la dernière du journal, y compris celle modifiée AU COURS du jour D",
+  },
+  {
+    id: "INV-57-boucle", tests: 'tests/invariants.plan.test.ts', file: "src/lib/program/modus.ts",
+    from: "observeModus(events, cases) === 'teil-first' ? 'teil-first' : 'cas-complet';",
+    to: "(observeModus(events, cases) ?? 'cas-complet') as 'cas-complet';",
+    pourquoi: "`observeModus` brut pilote le mode : des examens à blanc planifiés font observer « examen-blanc », qui en planifie davantage (la boucle)",
+  },
+  {
+    id: "INV-57-teil-first-explicite", tests: 'tests/invariants.plan.test.ts', file: "src/lib/program/modus.ts",
+    from: "return config.modus === 'examen-blanc' || config.modus === 'specialite' ? config.modus : observeMode(events, cases);",
+    to: "return config.modus ?? observeMode(events, cases);",
+    pourquoi: "un `teil-first` explicite est respecté : le mode « par Teil » reste imposé en surface",
+  },
+  {
+    id: "INV-58-break", tests: 'tests/invariants.plan.test.ts', file: "src/lib/program/dayPlan.ts",
+    from: "const pool = premiere ? candidates : candidates.filter((s) => decrire(s).estMin <= room);",
+    to: "const pool = premiere ? candidates : candidates.slice(0, 1).filter((s) => decrire(s).estMin <= room);",
+    pourquoi: "`break` au premier candidat qui ne tient pas : un cas plus court derrière lui est oublié",
+  },
+  {
+    id: "INV-58-unite", tests: 'tests/invariants.plan.test.ts', file: "src/lib/program/dayPlan.ts",
+    from: "const pool = premiere ? candidates : candidates.filter((s) => decrire(s).estMin <= room);",
+    to: "const pool = premiere ? candidates : candidates.filter(() => sommeTrois <= room);",
+    pourquoi: "`floor(room / unitMin)` : tout cas coûte un cas entier, les restes d'un Teil ne remplissent plus le budget",
+  },
+  {
+    id: "INV-58-deux-forcees", tests: 'tests/invariants.plan.test.ts', file: "src/lib/program/dayPlan.ts",
+    from: "let premiere = !examenForce && input.forcerLaPremiere !== false;",
+    to: "let premiere = input.forcerLaPremiere !== false;",
+    pourquoi: "une tâche de cas forcée EN PLUS de l'examen à blanc : deux tâches dépassent le budget le même jour",
+  },
+  {
+    id: "INV-60-sortie", tests: 'tests/invariants.plan.test.ts', file: "src/lib/program/select.ts",
+    from: "const du = dette === 0 && estDu(cp, jour);",
+    to: "const du = false;",
+    pourquoi: "retour à `detteTeil = 0 ⇒ score 0` (select.ts:79 d'avant S4-2) : un cas solide sort pour toujours",
+  },
+  {
+    id: "INV-60-intervalle", tests: 'tests/invariants.plan.test.ts', file: "src/lib/progression.ts",
+    from: "CONSOLIDATION_JOURS[Math.min(k, CONSOLIDATION_JOURS.length - 1)]",
+    to: "CONSOLIDATION_JOURS[0]",
+    pourquoi: "intervalle constant : le cas revient toutes les semaines au lieu de 7, 21, puis 45 jours",
+  },
+  {
+    id: "INV-60-d-un-trait", tests: 'tests/invariants.plan.test.ts', file: "src/lib/program/parametres.ts",
+    from: "export const D_UN_TRAIT_ACTIF = false;",
+    to: "export const D_UN_TRAIT_ACTIF = true;",
+    pourquoi: "`dUnTrait` émis avec la garde à `false` : une tâche qui exige un enchaînement que l'app ne sait pas encore jouer",
+  },
 ];
 
 /** Mutations jouées par le candidat NAVIGATEUR : { id: invariant attendu KO, days: jours à jouer }. */

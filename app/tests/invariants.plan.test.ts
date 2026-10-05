@@ -255,7 +255,7 @@ describe('INV-57 — le mode : explicite pour deux, observé en silence pour le 
       const events: TrainingEvent[] = Array.from({ length: r.int(0, 14) }, (_, i) =>
         ev(String(i).padStart(3, '0'), 1_790_000_000_000 + i * 3_600_000, r.bool(0.45) ? [r.pick(TEILE)] : TEILE.filter(() => r.bool(0.6)).concat([A]).slice(0, 3),
           { ...(r.bool(0.4) ? { kind: 'examen-blanc' as const, caseId: `c${i}` } : {}), caseId: cases[r.int(0, 5)].id }));
-      const cfg = { ...cfgDe(r), ...(modus ? { modus } : {}) } as ProgramConfig;
+      const cfg = { ...cfgDe(r), modus } as ProgramConfig;           // `modus` absent ⇒ mode observé
       const mode = modeDuJour(cfg, events, cases);
       if (modus === 'examen-blanc' || modus === 'specialite') { expect(mode).toBe(modus); modus === 'specialite' ? vus.spec++ : vus.exam++; return; }
       expect(['cas-complet', 'teil-first'], `l'observation ne rend jamais ${mode}`).toContain(mode);
@@ -402,7 +402,7 @@ describe('INV-60 — la consolidation espacée : un cas solide revient à son é
   };
   const planDe = (events: TrainingEvent[], jour: string, over: Partial<BuildInput> = {}) => {
     const { progress } = ctxDe(events, jour);
-    return buildTasks({ config: cfgDe(rngDe(1), { modus: 'cas-complet', hoursPerSession: 3 }), date: jour, cases: [un], progress, trainingEvents: events.filter((e) => e.at < debutJour(jour)), begriffe: [], now: morning(jour), ...over }, () => `i${Math.random()}`);
+    return buildTasks({ config: cfgDe(rngDe(1), { modus: 'cas-complet', hoursPerSession: 3, examDate: '2027-06-30', offDays: [] }), date: jour, cases: [un], progress, trainingEvents: events.filter((e) => e.at < debutJour(jour)), begriffe: [], now: morning(jour), ...over }, () => `i${Math.random()}`);
   };
 
   it('score > 0 à toute date ≥ prochaineConsolidation, 0 avant ; échéances successives à 7, 21, 45, 45 jours', () => {

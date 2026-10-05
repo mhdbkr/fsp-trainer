@@ -52,7 +52,7 @@ describe('annoncesEnAttente', () => {
   });
   it('`mode` et `muster` ne parlent d’un changement qu’une fois livré (gardes) — et que s’il s’applique', () => {
     const entree = { events: [], vues, config: { modus: 'teil-first' as const }, musterLocal: 'Stuttgart' };
-    expect(annoncesEnAttente(entree)).toEqual([]);                                         // gardes par défaut : S4-2 et S4-3 pas livrés
+    expect(annoncesEnAttente(entree).map((a) => a.sujet)).toEqual(['mode']);               // gardes par défaut : S4-2 livré (mode), S4-3 pas encore (muster)
     expect(annoncesEnAttente({ ...entree, actifs: tous }).map((a) => a.sujet)).toEqual(['mode', 'muster']);
     expect(annoncesEnAttente({ ...entree, config: { modus: 'cas-complet' }, musterLocal: 'Standard', actifs: tous })).toEqual([]);
     expect(annoncesEnAttente({ ...entree, config: { strategy: 'teil-first' }, musterLocal: null, actifs: tous }).map((a) => a.sujet)).toEqual(['mode']);   // lecture tolérante de l'ancien réglage

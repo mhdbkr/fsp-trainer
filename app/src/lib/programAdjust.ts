@@ -1,4 +1,3 @@
-import { setMeta } from '@/db/db';
 import type { Fortschrittsmodus, ProgramConfig } from '@/db/types';
 import { ecrireConfig } from '@/lib/sync/configProjetee';
 
@@ -16,21 +15,19 @@ import { ecrireConfig } from '@/lib/sync/configProjetee';
 //    terminer (audit §6).
 //  • `skipDrillDates` — un jour non matérialisé n'a pas de drill.
 //
-// Ce qui reste : le mode d'avancement et l'intensité, deux choix de l'utilisateur.
+// Ce qui reste : le mode d'avancement explicite et l'intensité, deux choix de l'utilisateur — chacun écrit la config
+// COMPLÈTE par `ecrireConfig`, donc synchronisée (INV-76). La proposition de mode (`modusAProposer`) et son refus
+// ont disparu : le mode est observé en silence (ADR-0021 décision 1).
 // ============================================================================
 
-/** Clé du mode explicitement REFUSÉ par le candidat, pour ne pas le reproposer. */
-export const MODUS_REFUSE_KEY = 'modusRefuse';
-
 /**
- * Le mode d'avancement. Il n'est plus DEMANDÉ à l'inscription (décision de
- * direction du 30 sept. 2026) : l'app l'observe et le propose. Ce réglage reste
- * la commande explicite — confirmer une proposition passe par ici. Changer de
- * mode ne réécrit AUCUN jour déjà figé : `DayPlan.mode` est figé à la
- * matérialisation.
+ * Le mode d'avancement EXPLICITE. Depuis la série 4 il n'a que deux valeurs à choisir : `specialite` et `examen-blanc`.
+ * Tout le reste est OBSERVÉ en silence (`modeDuJour`) : `null` rend la main à l'observation et retire le choix. Changer de
+ * mode ne réécrit AUCUN jour déjà figé : `DayPlan.mode` est figé à la matérialisation.
  */
-export function setModus(config: ProgramConfig, modus: Fortschrittsmodus) {
-  return ecrireConfig({ ...config, modus });          // la config COMPLÈTE, jamais un fragment (INV-76 a)
+export function setModus(config: ProgramConfig, modus: Fortschrittsmodus | null) {
+  const { modus: _ancien, ...sans } = config;
+  return ecrireConfig(modus ? { ...sans, modus } : sans);          // la config COMPLÈTE, jamais un fragment (INV-76 a)
 }
 
 /** Change l'intensité : le budget du jour suivant en tient compte. Les jours
@@ -38,8 +35,3 @@ export function setModus(config: ProgramConfig, modus: Fortschrittsmodus) {
 export function setIntensity(config: ProgramConfig, intensity: ProgramConfig['intensity']) {
   return ecrireConfig({ ...config, intensity });      // idem : avant S4-2, rien n'était émis (INV-76 a)
 }
-
-/** « Non, laisse » — le refus se retient, sinon la proposition harcèle. Il ne
- *  vaut que pour CE mode : si l'usage change et en désigne un autre, la
- *  question redevient légitime (`modusAProposer`). */
-export const refuserModus = (modus: Fortschrittsmodus) => setMeta(MODUS_REFUSE_KEY, modus);

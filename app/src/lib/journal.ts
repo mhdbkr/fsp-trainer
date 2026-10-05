@@ -25,7 +25,7 @@ import { computeCaseProgress, teilAConfirmer } from '@/lib/progression';
 import { POIDS_CONSOLIDATION } from '@/lib/program/parametres';
 import { deriverPlan, estTacheDeCas, evaluerTache, isCocheNue } from '@/lib/program/completion';
 import { debutJour, finJour, fuseauValide } from '@/lib/program/fuseau';
-import { lireTache, teileDeTache } from '@/lib/program/tacheDeCas';
+import { lireTache, restePlan, teileDeTache } from '@/lib/program/tacheDeCas';
 import type {
   CaseId, CaseProgress, ChecklistItemId, DayPlan, SimTeil, Simulation, TaskInstance, TaskKind,
   TrainingEvent, TrainingKind,
@@ -199,8 +199,8 @@ function projeterPlans(events: ProgressEvent[], trainingEvents: TrainingEvent[])
       seed: bp.seed,
       targetMin: bp.targetMin ?? 0,
       tasks: derive.tasks,
+      ...(tz ? { tz } : {}),                                // même ordre de clés que l'écriture locale : état bit-identique (INV-9, INV-10)
       ...(rep ? { replannedAt: new Date(rep.occurred_at).getTime() } : {}),
-      ...(tz ? { tz } : {}),
     });
   }
   return { plans: plans.sort((a, b) => (a.date < b.date ? -1 : 1)), absorbes: [...absorbes] };
@@ -269,13 +269,17 @@ export function projeterJournal(events: ProgressEvent[]): { te: TrainingEvent[];
 export const pointFaible = (cp: CaseProgress | undefined, teil: SimTeil): boolean =>
   cp?.teile[teil].status === 'fragile';
 
-/** La DETTE ordonne le travail à venir ; la FAIBLESSE nomme un défaut. Elles
- *  ne se confondent pas : la dette compte les Teile `vierge`, jamais la faiblesse.
- *  Un Teil solide pèse 0 ; un Teil « à confirmer » (acquis, déjà réussi à 80 ou plus, écart de
- *  3 jours passé — revue P1) pèse `POIDS_CONSOLIDATION` ; tout autre Teil pèse 1. ∈ [0, 1].
- *  `jour` (yyyy-MM-dd) : le jour du plan. S4-2 le passera explicitement ; à défaut, le jour de l'horloge. */
-export const detteTeil = (cp: CaseProgress | undefined, jour: string = dayKey(now())): number =>
-  !cp ? 1 : TEIL_KEYS.reduce((s, t) => s + (cp.teile[t].status === 'solide' ? 0 : teilAConfirmer(cp.teile[t], jour) ? POIDS_CONSOLIDATION : 1), 0) / 3;
+/** La DETTE ordonne le travail à venir ; la FAIBLESSE nomme un défaut. Elles ne se confondent pas : la dette compte les
+ *  Teile `vierge`, la faiblesse jamais.
+ *
+ *  *[S4-2]* `detteTeil(c, D) = Σ poids(t, D) / 3` sur `restePlan(c, D)` (§12.2, INV-67) — la MÊME fonction « reste » que les
+ *  `teile` d'une tâche. Un Teil solide n'y est pas ; un Teil non solide joué il y a moins de `SOLIDE_ECART_JOURS` jours
+ *  non plus (réserve R2 : le rejouer ne le rendrait pas solide) ; un Teil « à confirmer » à D (acquis, déjà réussi à 80 ou
+ *  plus, écart passé — revue P1) pèse `POIDS_CONSOLIDATION` ; tout autre Teil pèse 1. ∈ [0, 1].
+ *  `jour` (yyyy-MM-dd) : le JOUR DU PLAN, passé explicitement par le plan (I1, INV-55) ; l'horloge ne sert qu'aux
+ *  appelants de transition. `tz` : le fuseau du plan. */
+export const detteTeil = (cp: CaseProgress | undefined, jour: string = dayKey(now()), tz?: string): number =>
+  !cp ? 1 : restePlan(cp, jour, tz).reduce((s, t) => s + (teilAConfirmer(cp.teile[t], jour) ? POIDS_CONSOLIDATION : 1), 0) / 3;
 
 // ---------------------------------------------------------------------------
 // 4. Agrégats de journal (historique, temps investi, assiduité)

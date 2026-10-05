@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest';
 import type { Case, SimTeil, TrainingEvent, TrainingKind } from '@/db/types';
-import { observeModus, modusAProposer, MIN_SEANCES } from './modus';
+import { observeMode, observeModus, observation, modeDuJour, MIN_SEANCES } from './modus';
 
 let seq = 0;
 // Une séance JOUÉE : un score par Teil joué, comme la dérivation §2.3 (M4 : sans
@@ -87,17 +87,28 @@ describe('observeModus — le mode se déduit du journal, il ne se demande pas',
   });
 });
 
-describe('modusAProposer — trois raisons de se taire', () => {
-  it('rien d’observé ⇒ rien à proposer', () => {
-    expect(modusAProposer(null, 'teil-first', null)).toBeNull();
+describe('observation — le Teil habituel (§13.4, m13) et le mode observé (§12.5)', () => {
+  it('« par partie » rend aussi le Teil que le candidat joue seul d’habitude', () => {
+    const j = ['c1', 'c2', 'c3', 'c4'].map((caseId) => ev({ caseId, teile: ['dokumentation'] }));
+    expect(observation(j, CASES)).toEqual({ modus: 'teil-first', teilHabituel: 'dokumentation' });
   });
-  it('le mode observé est DÉJÀ celui du programme ⇒ pas de question', () => {
-    expect(modusAProposer('teil-first', 'teil-first', null)).toBeNull();
+  it('sans habitude nette : pas de teilHabituel', () => {
+    expect(observation([ev(), ev()], CASES)).toEqual({ modus: null });
+    const complets = ['c1', 'c2', 'c3'].map((caseId) => ev({ caseId, teile: ['anamnese', 'dokumentation', 'fallvorstellung'] }));
+    expect(observation(complets, CASES)).toEqual({ modus: 'cas-complet' });
   });
-  it('le candidat a déjà refusé CE mode ⇒ on ne le repropose pas', () => {
-    expect(modusAProposer('cas-complet', 'teil-first', 'cas-complet')).toBeNull();
+  it('observeMode : deux valeurs seulement — jamais examen-blanc ni specialite', () => {
+    const exams = ['c1', 'c2', 'c3'].map((caseId) => ev({ caseId, kind: 'examen-blanc', teile: ['anamnese', 'dokumentation', 'fallvorstellung'] }));
+    expect(observeModus(exams, CASES)).toBe('examen-blanc');
+    expect(observeMode(exams, CASES)).toBe('cas-complet');
+    const spec = [ev({ caseId: 'c1', teile: ['anamnese'] }), ev({ caseId: 'c2', teile: ['dokumentation'] }), ev({ caseId: 'c3', teile: ['fallvorstellung'] }), ev({ caseId: 'c1', teile: ['dokumentation'] })];
+    expect(observeModus(spec, CASES)).toBe('specialite');
+    expect(observeMode(spec, CASES)).toBe('cas-complet');
   });
-  it('un refus ne vaut que pour le mode refusé : un autre mode redevient légitime', () => {
-    expect(modusAProposer('specialite', 'teil-first', 'cas-complet')).toBe('specialite');
+  it('modeDuJour : explicite pour deux modes, observé pour le reste', () => {
+    expect(modeDuJour({ modus: 'examen-blanc' }, [], CASES)).toBe('examen-blanc');
+    expect(modeDuJour({ modus: 'specialite' }, [], CASES)).toBe('specialite');
+    expect(modeDuJour({ modus: 'teil-first' }, [], CASES)).toBe('cas-complet');       // un teil-first explicite devient cas-complet
+    expect(modeDuJour({}, [], CASES)).toBe('cas-complet');
   });
 });

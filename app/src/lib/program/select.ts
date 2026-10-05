@@ -17,9 +17,13 @@
 // C'est une contrainte que le choix glouton refuse de violer.
 // ============================================================================
 
+import { differenceInCalendarDays, parseISO } from 'date-fns';
 import type { Case, CaseProgress, Specialty } from '@/db/types';
 import { detteTeil } from '@/lib/journal';
-import { DAY_MS } from '@/lib/clock';
+import { DAY_MS, dayKey } from '@/lib/clock';
+import { emptyTeil, raisonAConfirmer } from '@/lib/progression';
+import { POIDS_CONSOLIDATION } from './parametres';
+import { restePlan } from './tacheDeCas';
 
 /** Horizon au-delà duquel l'examen ne met plus aucune pression. */
 const PRESSURE_HORIZON_DAYS = 90;
@@ -38,6 +42,10 @@ export interface SelectContext {
   /** Dernier passage par cas, epoch ms. Absent = jamais joué. */
   lastPlayedAt: Map<string, number>;
   progress: Map<string, CaseProgress>;
+  /** Le JOUR DU PLAN (`yyyy-MM-dd`), passé explicitement (I1, INV-55). Défaut : le jour de `now` (appelants de transition). */
+  jour?: string;
+  /** Le fuseau du plan : deux appareils lisent les mêmes jours. */
+  tz?: string;
 }
 
 /** ∈ (0, 1] — l'épidémiologie, à pleine échelle et jamais plafonnée. */
@@ -61,22 +69,36 @@ export function fraicheur(lastAt: number | undefined, now: number): number {
 export interface Scored {
   c: Case;
   score: number;
-  /** Les quatre facteurs, gardés pour écrire le « pourquoi aujourd'hui ». */
-  parts: { freq: number; urgence: number; dette: number; fraicheur: number };
+  /** Les quatre facteurs, gardés pour écrire le « pourquoi aujourd'hui ». `dette` vaut `POIDS_CONSOLIDATION` pour un cas DÛ. */
+  parts: { freq: number; urgence: number; dette: number; fraicheur: number; du: boolean };
 }
 
+/** Un cas solide (ses trois Teile) dont l'échéance de consolidation est arrivée (§13.1). */
+export const estDu = (cp: CaseProgress | undefined, jour: string): boolean =>
+  (cp?.etat === 'solide' || cp?.etat === 'pret') && !!cp.prochaineConsolidation && jour >= cp.prochaineConsolidation;
+
+/**
+ * `score(c) = freq × urgence × dette × fraicheur`. *[S4-2, §13.1]* Un cas solide SORT jusqu'à sa prochaine consolidation
+ * (`dette = 0`) ; à l'échéance son score vaut `freq × urgence × POIDS_CONSOLIDATION × fraicheur` — un plancher de dette
+ * le ramènerait chaque jour, sans espacement (ADR-0022, alternative (1) écartée).
+ */
 export function scoreCase(c: Case, ctx: SelectContext): Scored {
+  const jour = ctx.jour ?? dayKey(ctx.now);
+  const cp = ctx.progress.get(c.id);
+  const dette = detteTeil(cp, jour, ctx.tz);
+  const du = dette === 0 && estDu(cp, jour);
   const parts = {
     freq: freq(c, ctx.freqMax),
     urgence: urgence(ctx.daysUntilExam),
-    dette: detteTeil(ctx.progress.get(c.id)),
+    dette: du ? POIDS_CONSOLIDATION : dette,
     fraicheur: fraicheur(ctx.lastPlayedAt.get(c.id), ctx.now),
+    du,
   };
   return { c, score: parts.freq * parts.urgence * parts.dette * parts.fraicheur, parts };
 }
 
 /**
- * Le classement des candidats. `dette === 0` ⇒ `score === 0` ⇒ le cas SORT :
+ * Le classement des candidats. `dette === 0` ⇒ `score === 0` ⇒ le cas SORT — sauf à l'échéance de sa consolidation :
  * c'est la seule exclusion du moteur. Il n'y a pas de liste d'exclus, pas de
  * `status === 'Maîtrisé'` (`pickSession.ts:32`), pas de `statusBoost`.
  *
@@ -168,12 +190,22 @@ const pct = (n: number) => `${Math.round(n)} %`;
  * celui qui a réellement porté ce cas en tête, et rien d'autre.
  */
 export function pourquoiAujourdhui(s: Scored, ctx: SelectContext): string {
+  const jour = ctx.jour ?? dayKey(ctx.now);
   const cp = ctx.progress.get(s.c.id);
+  if (s.parts.du) {
+    const dernier = ctx.lastPlayedAt.get(s.c.id);
+    const n = dernier === undefined ? 0 : differenceInCalendarDays(parseISO(jour), parseISO(dayKey(dernier)));
+    return `Consolidation : vu il y a ${n} jour${n > 1 ? 's' : ''}`;
+  }
   const fragile = cp && Object.entries(cp.teile).find(([, p]) => p.status === 'fragile');
   if (fragile) {
     const [teil, p] = fragile;
     return `Ta dernière ${teilLabel(teil)} sur ce cas est restée à ${pct(p.lastScore ?? 0)} — on la reprend.`;
   }
+  // Un Teil déjà réussi à 80 ou plus attend sa confirmation (revue P1) : ce n'est pas un Teil jamais travaillé, on le dit.
+  const attendus = cp ? restePlan(cp, jour, ctx.tz) : [];
+  const confirmer = cp && raisonAConfirmer({ ...cp, teile: Object.fromEntries(Object.entries(cp.teile).map(([k, p]) => [k, attendus.includes(k as never) ? p : emptyTeil()])) as CaseProgress['teile'] }, jour);
+  if (confirmer) return confirmer;
   if (s.parts.dette === 1 && s.parts.freq >= 0.6 && !ctx.lastPlayedAt.has(s.c.id)) {
     return `Parmi les cas les plus vus à l'examen, et jamais travaillé.`;
   }

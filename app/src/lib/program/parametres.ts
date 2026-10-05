@@ -29,6 +29,8 @@ export const ERREUR_SEUIL = 3;
 export const ERREUR_CAS_MIN = 2;
 
 // --- §13.4 Durées apprises (S4-2) ------------------------------------------
+/** Le REPLI tant qu'il y a moins de `DUREE_MIN_MESURES` mesures (20/20/12 min) — ni `SIM_MIN` ni `MOCK_MIN` ne survivent. */
+export const TEIL_MIN: Record<'anamnese' | 'dokumentation' | 'fallvorstellung', number> = { anamnese: 20, dokumentation: 20, fallvorstellung: 12 };
 export const DUREE_FENETRE = 10;
 export const DUREE_MIN_MESURES = 3;
 export const DUREE_BORNES = [5, 45] as const;               // minutes par Teil
@@ -45,5 +47,5 @@ export const RYTHME_REFUS_MAX = 2;
 // `teile` est livré par S4-1. `mode` passe à `true` avec S4-2 en production,
 // `muster` avec S4-3 — dans le commit qui les déploie, comme `D_UN_TRAIT_ACTIF`.
 export const ANNONCE_TEILE_ACTIVE = true;
-export const ANNONCE_MODE_ACTIVE = false;
+export const ANNONCE_MODE_ACTIVE = true;           // S4-2 : un `teil-first` explicite devient `cas-complet` (§12.5) — livré avec ce commit
 export const ANNONCE_MUSTER_ACTIVE = false;
