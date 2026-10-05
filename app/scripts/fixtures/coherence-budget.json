@@ -3,7 +3,7 @@
   "cas": 130,
   "source": "K2 — les 229 sondes sont DÉCLARÉES (PROBE_SUCHT, followUpSucht) et les 130 cas déclarent leur PROFIL (patientSheet.profil, INV-80) : doublons des sondes, horsProfil, exigeAbsent et ajouteSansReponse sont exacts. Les questions du cas se lisent encore (K4).",
   "brut": {
-    "doublons": 269,
+    "doublons": 282,
     "doublonsCas": 24,
     "horsProfil": 75,
     "exigeAbsent": 37,
@@ -72,8 +72,8 @@
       "lot": "K2",
       "compteur": "doublons",
       "de": 266,
-      "a": 269,
-      "raison": "Déclaration, pas contenu : fach-gastro-stuhl (« Welche Farbe (blutig, teerschwarz, hell) und Konsistenz ») déclare désormais `stuhlaussehen` à côté de `stuhl` (D1). Trois doublons vrais deviennent visibles avec akt-ausscheid-aussehen ou une question qui cherche l’aspect des selles : case-gib, case-morbus-crohn, case-chronische-pankreatitis (stuhlaussehen). r2 les retire en K3 ; sans cette déclaration, r3 aurait ajouté à case-zoeliakie une question d’aspect déjà posée par la Fach."
+      "a": 282,
+      "raison": "Déclaration, pas contenu : fach-gastro-stuhl (« Welche Farbe (blutig, teerschwarz, hell) und Konsistenz ») déclare désormais `stuhlaussehen` à côté de `stuhl` (D1). Trois doublons vrais deviennent visibles avec akt-ausscheid-aussehen ou une question qui cherche l’aspect des selles : case-gib, case-morbus-crohn, case-chronische-pankreatitis (stuhlaussehen). r2 les retire en K3 ; sans cette déclaration, r3 aurait ajouté à case-zoeliakie une question d’aspect déjà posée par la Fach. Puis (décision de main) veg-ausscheidung déclare ce que son texte demande (« Aussehen, wie oft? », selles et urines : stuhlfrequenz, stuhlaussehen, miktion_frequenz, urin_aspekt), ses deux parts aussi : +13 doublons vrais visibles (stuhlaussehen ×7, urin_aspekt ×6) avec les relances de saignement d’akt-veraend-blutung et akt-veraend-was — tvt, lymphom, bronchialkarzinom, struma, ulcus-cruris (×2 chacun), alkoholentzug, endometriose, hueftkopfnekrose. r2 les tranche en K3 (D4 : la végétative perd). 266 → 282."
     },
     {
       "date": "2026-10-05",
