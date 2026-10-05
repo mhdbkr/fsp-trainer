@@ -16,7 +16,7 @@ const props = {
 describe('PartEvaluation — rien de saisi, rien de compté', () => {
   it('30 % de critères cochés donnent 30 %, et le libellé dit sur quoi', () => {
     render(<PartEvaluation {...props} />);
-    expect(screen.getByText('Score de la partie').parentElement!.textContent).toContain('30%');
+    expect(screen.getByText("Score de l'Anamnese").parentElement!.textContent).toContain('30%');
     expect(screen.getByText(/Calculé sur : contenu seul/)).toBeTruthy();
   });
   it('aucun curseur n\'affiche de valeur : « — » pour les 5 critères et pour le ressenti', () => {
@@ -40,6 +40,6 @@ describe('PartEvaluation — rien de saisi, rien de compté', () => {
     const grid = { aussprache: 5, wortschatz: 5, grammatik: 5, redefluss: 5, kommunikation: 5 };
     render(<PartEvaluation {...props} grid={grid} feeling={100} />);
     expect(screen.getByText(/Calculé sur : contenu, langue et ressenti/)).toBeTruthy();
-    expect(screen.getByText('Score de la partie').parentElement!.textContent).toContain('62%');   // 30·.55 + 100·.30 + 100·.15
+    expect(screen.getByText("Score de l'Anamnese").parentElement!.textContent).toContain('62%');   // 30·.55 + 100·.30 + 100·.15
   });
 });

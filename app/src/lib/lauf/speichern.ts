@@ -2,7 +2,7 @@ import { db, getMeta, setMeta } from '@/db/db';
 import { saveSimulation, type SaveInput } from '@/lib/simulationSave';
 import { migriereChecklist } from '@/lib/checklists.legacy';
 import type { Case, ChecklistItem, PartResult, SimTeil, Simulation } from '@/db/types';
-import { checklisteFuer, istVollstaendig } from './automat';
+import { checklisteFuer, enchainiert, istVollstaendig } from './automat';
 import { ZUSTAENDE, zuPartResult, type Lauf, type LaufTeil } from './types';
 import { now } from '@/lib/clock';
 
@@ -91,8 +91,13 @@ const enfile = <T>(op: () => Promise<T>): Promise<T> => {
   return next;
 };
 
+/** [S4] Chaque persistance date le Lauf (`zuletztAktiv`, §3.1) : c'est la
+ *  mesure de la pause que `nimmWiederAuf` lira à la reprise (INV-73). */
 export function speichereAktivenLauf(lauf: Lauf): Promise<void> {
-  return enfile(() => setMeta(LAUF_AKTIV_KEY, lauf));
+  // Daté à l'APPEL, pas quand la file l'exécute (fixeur I2) : une écriture restée en attente pendant une
+  // pause la daterait de l'après-pause, et la pause mesurée vaudrait 0.
+  const stamp = now();
+  return enfile(() => setMeta(LAUF_AKTIV_KEY, { ...lauf, zuletztAktiv: stamp }));
 }
 
 export function verwerfeAktivenLauf(): Promise<void> {
@@ -164,6 +169,16 @@ export function projektion(lauf: Lauf, c: Case): SaveInput {
     teil: gespielteTeile.length === 1 ? gespielteTeile[0] : undefined,
     mode: lauf.mode,
     ...(lauf.taskId ? { taskId: lauf.taskId } : {}),          // R-C4 : resolveSimulationTask le garde ou le retire (I-A)
+    // [S4] §3.2 — quatre points de projection :
+    //  · le jour d'une partie est celui de son DÉBUT (m5, INV-75), minuit ou reprise du lendemain compris ;
+    //  · `reihenfolge` = les SimTeil joués, dans l'ordre joué — sa présence fait de la partie une « série 4 » (m-e) ;
+    //  · `dauerGesamtSec` = tous les Teile COMMENCÉS : le Teil quitté par `springeZu` ou « Terminer ici », et
+    //    l'Aufklärung (m6, INV-72) ;
+    //  · `enchaine` présent seulement s'il est vrai (INV-73) ; `examen` s'en dérive au journal (`lib/examen.ts`).
+    date: lauf.startedAt,
+    reihenfolge: gespielteTeile,
+    dauerGesamtSec: Object.values(lauf.sekundenProTeil).reduce<number>((s, v) => s + (typeof v === 'number' ? v : 0), 0),
+    ...(enchainiert(lauf) ? { enchaine: true as const } : {}),
   };
 }
 

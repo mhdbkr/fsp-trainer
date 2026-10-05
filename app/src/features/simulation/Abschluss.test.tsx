@@ -24,15 +24,16 @@ function lauf(teile: SimTeil[], gespielt: number, bis: 'laufend' | 'bilanz' | 'c
 
 const cb = () => ({ onZurueck: vi.fn(), onArztbrief: vi.fn(), onSpeichern: vi.fn() });
 
-describe('en-tête — « Terminer la simulation → »', () => {
+// [S4] simulation-run.md §10.2.3 : la sortie de fin du bilan s'appelle « Terminer ici » (INV-71).
+describe('en-tête — « Terminer ici → »', () => {
   it('absent pendant une partie en cours, même avec une partie jouée', () => {
     render(<SimulationBeendenKnopf lauf={lauf(['anamnese', 'dokumentation', 'fallvorstellung'], 1, 'laufend')} onClick={vi.fn()} />);
-    expect(screen.queryByRole('button', { name: /Terminer la simulation/ })).toBeNull();
+    expect(screen.queryByRole('button', { name: /Terminer ici/ })).toBeNull();
   });
   it('présent au bilan, et branché', () => {
     const onClick = vi.fn();
     render(<SimulationBeendenKnopf lauf={lauf(['anamnese'], 1, 'bilanz')} onClick={onClick} />);
-    fireEvent.click(screen.getByRole('button', { name: /Terminer la simulation/ }));
+    fireEvent.click(screen.getByRole('button', { name: /Terminer ici/ }));
     expect(onClick).toHaveBeenCalledOnce();
   });
 });

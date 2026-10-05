@@ -188,7 +188,9 @@ describe('INV-23 — un Lauf sérialisé puis restauré est structurellement ég
 
     await speichereAktivenLauf(l);
     const wieder = await ladeAktivenLauf();
-    expect(wieder).toEqual(l);
+    // [S4] §3.1 : chaque persistance pose `zuletztAktiv` (la mesure de la pause, INV-73).
+    // L'égalité reste STRICTE pour tout le reste — `unterbrochen` compris : la lecture ne le pose pas.
+    expect(wieder).toEqual({ ...l, zuletztAktiv: expect.any(Number) });
     expect(wieder!.zustand).toBe('bilanz');
     expect(wieder!.sekundenProTeil.anamnese).toBe(931);
     expect(wieder!.entwurf.anamnese?.feeling).toBe(66);

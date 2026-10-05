@@ -74,7 +74,7 @@ const SURVOL_MS = 300;
 const APPUI_LONG_MS = 450;
 const GRACE_MS = 250;                            // le temps de passer du cadran au détail
 
-export function CaseDial({ data, size = 64, nom, vientDeSouder = false, action = true }: {
+export function CaseDial({ data, size = 64, nom, vientDeSouder = false, action = true, ouvrable = true }: {
   data: CaseDialData;
   size?: CaseDialSize;
   /** Le nom du cas, dit en tête de l'étiquette accessible. */
@@ -83,6 +83,9 @@ export function CaseDial({ data, size = 64, nom, vientDeSouder = false, action =
   vientDeSouder?: boolean;
   /** Montrer l'action suivante dans le détail (inutile là où l'on est déjà dans le cas). */
   action?: boolean;
+  /** `false` : le cadran ne s'ouvre pas (ni survol, ni appui long, ni clavier) — l'écran montre déjà son détail à
+   *  côté (`CaseDialDetail`, pré-simulation S4-3). Le signe reste lu par son étiquette (`role="img"`). */
+  ouvrable?: boolean;
 }) {
   const reduit = useReducedMotion() ?? false;   // motion l'écoute une fois, dans un seul MediaQueryList (comme MotionRoot)
   const [ouvert, setOuvert] = useState(false);
@@ -156,41 +159,15 @@ export function CaseDial({ data, size = 64, nom, vientDeSouder = false, action =
   const taillePolice = (POLICE_MIN * 120) / (size * echelle);   // unités du viewBox → POLICE_MIN px de rendu à l'ouverture
   const complet = data.couverture === 3;                    // couleur pleine seulement avec les trois Teile
 
-  return (
-    <>
-      <button
-        ref={bouton}
-        type="button"
-        className="case-dial"
-        data-size={size}
-        data-ouvert={ouvert || undefined}
-        data-pret={soude}
-        data-mouvement={reduit ? 'reduit' : undefined}
-        style={{ width: Math.max(size, 44), height: Math.max(size, 44), '--cd-echelle': echelle, '--cd-ox': `${decal}px` } as React.CSSProperties}
-        aria-label={etiquette(data, nom)}
-        aria-haspopup="dialog"
-        aria-expanded={ouvert}
-        onPointerEnter={(e) => { if (e.pointerType === 'mouse') planifie(ouvre, SURVOL_MS); }}
-        onPointerLeave={(e) => { if (e.pointerType === 'mouse') planifie(ferme, GRACE_MS); else efface(); }}
-        onPointerDown={(e) => {
-          if (e.pointerType === 'mouse') return;
-          planifie(() => {
-            if (ouvert) ferme(); else ouvre();
-            try { navigator.vibrate?.(12); } catch { /* pas de vibration sur cet appareil */ }
-          }, APPUI_LONG_MS);
-        }}
-        onPointerUp={(e) => { if (e.pointerType !== 'mouse') efface(); }}
-        onPointerCancel={efface}
-        // Le focus quitte le cadran (Tab vers la carte, clic ailleurs) sans entrer dans le détail : le détail se referme.
-        onBlur={(e) => { if (!detail.current?.contains(e.relatedTarget as Node | null)) ferme(); }}
-        onContextMenu={(e) => e.preventDefault()}
-        // Clavier et lecteur d'écran activent un bouton par un CLIC dont `detail` vaut 0 (Entrée, Espace, double-tap
-        // VoiceOver/TalkBack). Un tap de souris ou de doigt (detail ≥ 1) n'ouvre rien : le geste est le survol ou l'appui long.
-        onClick={(e) => {
-          if (e.detail !== 0) return;
-          if (ouvert) ferme(); else { parClavier.current = true; ouvre(); }
-        }}
-      >
+  const commun = {
+    className: 'case-dial',
+    'data-size': size,
+    'data-pret': soude,
+    'data-mouvement': reduit ? 'reduit' : undefined,
+    style: { width: Math.max(size, 44), height: Math.max(size, 44), '--cd-echelle': echelle, '--cd-ox': `${decal}px` } as React.CSSProperties,
+    'aria-label': etiquette(data, nom),
+  };
+  const svg = (
         <svg viewBox="0 0 120 120" width={size} height={size} aria-hidden="true" focusable="false">
           <circle className="cd-fond" cx="60" cy="60" r="70" />
           <circle cx="60" cy="60" r={R_IN} fill="none" stroke="var(--cd-piste)" strokeWidth="7" />
@@ -249,6 +226,42 @@ export function CaseDial({ data, size = 64, nom, vientDeSouder = false, action =
             </>
           )}
         </svg>
+  );
+
+  // Non ouvrable : un signe, pas une commande — ni handlers, ni détail flottant (fixeur S4-3, I1).
+  if (!ouvrable) return <div role="img" {...commun}>{svg}</div>;
+
+  return (
+    <>
+      <button
+        ref={bouton}
+        type="button"
+        {...commun}
+        data-ouvert={ouvert || undefined}
+        aria-haspopup="dialog"
+        aria-expanded={ouvert}
+        onPointerEnter={(e) => { if (e.pointerType === 'mouse') planifie(ouvre, SURVOL_MS); }}
+        onPointerLeave={(e) => { if (e.pointerType === 'mouse') planifie(ferme, GRACE_MS); else efface(); }}
+        onPointerDown={(e) => {
+          if (e.pointerType === 'mouse') return;
+          planifie(() => {
+            if (ouvert) ferme(); else ouvre();
+            try { navigator.vibrate?.(12); } catch { /* pas de vibration sur cet appareil */ }
+          }, APPUI_LONG_MS);
+        }}
+        onPointerUp={(e) => { if (e.pointerType !== 'mouse') efface(); }}
+        onPointerCancel={efface}
+        // Le focus quitte le cadran (Tab vers la carte, clic ailleurs) sans entrer dans le détail : le détail se referme.
+        onBlur={(e) => { if (!detail.current?.contains(e.relatedTarget as Node | null)) ferme(); }}
+        onContextMenu={(e) => e.preventDefault()}
+        // Clavier et lecteur d'écran activent un bouton par un CLIC dont `detail` vaut 0 (Entrée, Espace, double-tap
+        // VoiceOver/TalkBack). Un tap de souris ou de doigt (detail ≥ 1) n'ouvre rien : le geste est le survol ou l'appui long.
+        onClick={(e) => {
+          if (e.detail !== 0) return;
+          if (ouvert) ferme(); else { parClavier.current = true; ouvre(); }
+        }}
+      >
+        {svg}
       </button>
 
       <DetailFlottant

@@ -41,6 +41,6 @@ describe('S4-2 I2 — le héros de l’accueil', () => {
     const heros = [...container.querySelectorAll('h2')].find((h) => h.textContent === 'Pneumonie')!.closest('div.relative')!;
     expect(heros.textContent).toMatch(/32 min/);
     expect(heros.textContent).not.toMatch(/52 min/);
-    expect(heros.querySelector('a')!.getAttribute('href')).toContain('teil=dokumentation');
+    expect(heros.querySelector('a')!.getAttribute('href')).toContain('depart=dokumentation');   // [S4-3] §10.3 : `?depart=`
   });
 });

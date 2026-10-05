@@ -74,7 +74,11 @@ describe('la garde « trace ↔ simulation » : même horloge des deux côtés',
     freezeAt(PASSE);
     render(<TeilAiLauncher caseId="c1" teil="anamnese" />);
     fireEvent.click(screen.getByRole('button', { name: /avec ton ia/i }));
-    fireEvent.click(await screen.findByRole('button', { name: /^copier$/i }));
+    const copier = await screen.findByRole('button', { name: /^copier$/i });
+    // Flake (revue méca S4-3) : « Copier » est rendu DÉSACTIVÉ tant que le cas n'est pas lu ; cliqué trop tôt, il ne
+    // posait rien. On attend qu'il soit actif, comme `invariants.ia-externe`.
+    await waitFor(() => expect((copier as HTMLButtonElement).disabled).toBe(false));
+    fireEvent.click(copier);
     await waitFor(async () => expect((await readPending())?.at).toBe(now()));
   });
 

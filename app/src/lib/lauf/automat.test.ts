@@ -45,6 +45,7 @@ const TOUTES_ACTIONS: LaufAktion[] = [
   { typ: 'aufklaerungOeffnen', checkliste: AUFK },
   { typ: 'terminerPartie', ergebnis: resultat() },
   { typ: 'partieSuivante' },
+  { typ: 'springeZu', teil: 'dokumentation' },   // [S4] exception nommée nº 4 (§10.2.1)
   { typ: 'versChecklist' },
   { typ: 'zurueckZurPartie' },
   { typ: 'zurueckZumBilanz' },
@@ -118,32 +119,32 @@ describe('INV-20 — aucune transition vers un état antérieur', () => {
   const ATTENDU: Record<LaufZustand, Record<LaufAktion['typ'], LaufZustand>> = {
     vorbereitung: {
       demarrer: 'laufend', aufklaerungOeffnen: 'vorbereitung', terminerPartie: 'vorbereitung',
-      partieSuivante: 'vorbereitung', versChecklist: 'vorbereitung', zurueckZumBilanz: 'vorbereitung', zurueckZurPartie: 'vorbereitung',
+      partieSuivante: 'vorbereitung', springeZu: 'vorbereitung', versChecklist: 'vorbereitung', zurueckZumBilanz: 'vorbereitung', zurueckZurPartie: 'vorbereitung',
       arztbriefSchreiben: 'vorbereitung', speichern: 'vorbereitung',
     },
     laufend: {
       demarrer: 'laufend', aufklaerungOeffnen: 'laufend', terminerPartie: 'bilanz',
-      partieSuivante: 'laufend', versChecklist: 'laufend', zurueckZumBilanz: 'laufend', zurueckZurPartie: 'laufend',
+      partieSuivante: 'laufend', springeZu: 'laufend', versChecklist: 'laufend', zurueckZumBilanz: 'laufend', zurueckZurPartie: 'laufend',
       arztbriefSchreiben: 'laufend', speichern: 'laufend',
     },
     bilanz: {
       demarrer: 'bilanz', aufklaerungOeffnen: 'bilanz', terminerPartie: 'bilanz',
-      partieSuivante: 'laufend', versChecklist: 'checkliste', zurueckZumBilanz: 'bilanz', zurueckZurPartie: 'laufend',
+      partieSuivante: 'laufend', springeZu: 'bilanz', versChecklist: 'checkliste', zurueckZumBilanz: 'bilanz', zurueckZurPartie: 'laufend',
       arztbriefSchreiben: 'bilanz', speichern: 'bilanz',
     },
     checkliste: {
       demarrer: 'checkliste', aufklaerungOeffnen: 'checkliste', terminerPartie: 'checkliste',
-      partieSuivante: 'checkliste', versChecklist: 'checkliste', zurueckZumBilanz: 'bilanz', zurueckZurPartie: 'checkliste',
+      partieSuivante: 'checkliste', springeZu: 'checkliste', versChecklist: 'checkliste', zurueckZumBilanz: 'bilanz', zurueckZurPartie: 'checkliste',
       arztbriefSchreiben: 'arztbrief', speichern: 'gespeichert',
     },
     arztbrief: {
       demarrer: 'arztbrief', aufklaerungOeffnen: 'arztbrief', terminerPartie: 'arztbrief',
-      partieSuivante: 'arztbrief', versChecklist: 'arztbrief', zurueckZumBilanz: 'arztbrief', zurueckZurPartie: 'arztbrief',
+      partieSuivante: 'arztbrief', springeZu: 'arztbrief', versChecklist: 'arztbrief', zurueckZumBilanz: 'arztbrief', zurueckZurPartie: 'arztbrief',
       arztbriefSchreiben: 'arztbrief', speichern: 'gespeichert',
     },
     gespeichert: {
       demarrer: 'gespeichert', aufklaerungOeffnen: 'gespeichert', terminerPartie: 'gespeichert',
-      partieSuivante: 'gespeichert', versChecklist: 'gespeichert', zurueckZumBilanz: 'gespeichert', zurueckZurPartie: 'gespeichert',
+      partieSuivante: 'gespeichert', springeZu: 'gespeichert', versChecklist: 'gespeichert', zurueckZumBilanz: 'gespeichert', zurueckZurPartie: 'gespeichert',
       arztbriefSchreiben: 'gespeichert', speichern: 'gespeichert',
     },
   };
@@ -156,7 +157,7 @@ describe('INV-20 — aucune transition vers un état antérieur', () => {
         const apres = transition(avant, aktion);
         expect(apres.zustand).toBe(ATTENDU[z][aktion.typ]);
         // Refusée ⇒ objet inchangé, à la référence près.
-        if (ATTENDU[z][aktion.typ] === z && !(z === 'laufend' && aktion.typ === 'aufklaerungOeffnen')
+        if (ATTENDU[z][aktion.typ] === z && !(z === 'laufend' && (aktion.typ === 'aufklaerungOeffnen' || aktion.typ === 'springeZu'))
             && !(z === 'bilanz' && aktion.typ === 'partieSuivante')) {
           if (apres !== avant) expect(apres).toEqual(avant);
         }

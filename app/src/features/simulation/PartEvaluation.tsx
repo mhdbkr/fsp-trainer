@@ -4,6 +4,7 @@ import { Icon } from '@/components/icons';
 import { checklistFor } from '@/lib/checklists';
 import { LANGUAGE_CRITERIA, NOT_ENTERED, checklistPct, emptyLanguageGrid, isEntered, languageGridEntered, languagePct, partScore, scoreBasis, scoreBasisLabel, PASS_THRESHOLD } from '@/lib/scoring';
 import { ScoreBar } from '@/components/ui';
+import { ARTICLE } from '@/components/visuals/CaseDialText';
 
 type Part = 'anamnese' | 'dokumentation' | 'fallvorstellung' | 'aufklaerung';
 
@@ -148,7 +149,7 @@ export function PartEvaluation({
       <div className={`card p-5 ${passed ? 'border-emerald-300 dark:border-emerald-800' : 'border-rose-300 dark:border-rose-800'}`}>
         <div className="flex items-center justify-between">
           <div>
-            <div className="label">Score de la partie</div>
+            <div className="label">Score de {ARTICLE[part]}</div>
             <div className={`text-3xl font-bold ${passed ? 'text-emerald-600 dark:text-emerald-400' : 'text-rose-600 dark:text-rose-400'}`}>{total}%</div>
             <div className="flex items-center gap-1.5 text-sm">{passed ? <><Icon name="check" className="h-4 w-4 text-emerald-500" />Au-dessus du seuil (≥60%)</> : <><Icon name="alert" className="h-4 w-4 text-rose-500" />Sous le seuil des 60%</>}</div>
           </div>
