@@ -1870,8 +1870,9 @@ function adaptFach(questions: Phrase[], who: Who): Phrase[] {
 }
 
 /** La Fachanamnese du cas AVANT modulation par symptôme (sexe, âge, nature du
- *  motif, `fachSkip`, questions « fach » du cas). */
-function fachChapterRaw(c: Case): FachanamneseGuide | undefined {
+ *  motif, `fachSkip`, questions « fach » du cas). Exportée pour le gel I3 (`fachRaw.test.ts`) :
+ *  FACH_RULES est la couche d'adaptation, `cohere` (K3) ne la change pas. */
+export function fachChapterRaw(c: Case): FachanamneseGuide | undefined {
   const f = fachChapterForSimulation(c.fachanamnese ?? c.specialty);
   if (!f) return undefined;
   const s = c.patientSheet;
