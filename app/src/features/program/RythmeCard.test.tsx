@@ -97,7 +97,7 @@ describe('La ligne d’une tâche de cas — ce qui reste, le rappel', () => {
     await act(async () => { root.render(<MemoryRouter><TaskLine task={tache} lecture={lecture.get('t1')} /></MemoryRouter>); });
     expect(txt()).toMatch(/Il te reste la Dokumentation et la Fallvorstellung/);
     expect(txt()).toMatch(/32 min/);
-    expect(txt()).toMatch(/« Allergien inkl\. Medikamentenallergien » manque dans 3 de tes 3 dernières Anamnesen\./);
+    expect(txt()).toMatch(/Dans cette Anamnese, pose la question « Allergien inkl\. Medikamentenallergien » : oubliée 3 fois sur tes 3 dernières\./);
   });
 
   it('la liste de l’accueil (TaskList) lit elle-même le plan figé du jour : « Il te reste … »', async () => {

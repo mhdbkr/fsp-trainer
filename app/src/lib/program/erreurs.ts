@@ -61,7 +61,12 @@ export function poserRappels(tasks: TaskInstance[], signaux: readonly ErreurTran
   });
 }
 
-const PLURIEL: Record<SimTeil, string> = { anamnese: 'Anamnesen', dokumentation: 'Dokumentationen', fallvorstellung: 'Fallvorstellungen' };
+/** La consigne suit le Teil : on POSE une question en Anamnese ; ailleurs, on pense à un point (texte de la direction). */
+const CONSIGNE: Record<SimTeil, { teil: string; verbe: string; manque: string }> = {
+  anamnese: { teil: 'Anamnese', verbe: 'pose la question', manque: 'oubliée' },
+  dokumentation: { teil: 'Dokumentation', verbe: 'pense à', manque: 'manquant' },
+  fallvorstellung: { teil: 'Fallvorstellung', verbe: 'pense à', manque: 'manquant' },
+};
 
 /** L'intitulé de l'item, tel que la checklist le montre. */
 export const libelleItem = (item: ChecklistItemId, teil?: SimTeil): string | null => {
@@ -72,6 +77,9 @@ export const libelleItem = (item: ChecklistItemId, teil?: SimTeil): string | nul
   return null;
 };
 
-/** Le texte NEUTRE (T2) : le fait, sans jugement. « « Allergien … » manque dans 3 de tes 5 dernières Anamnesen. » */
-export const texteRappel = (s: ErreurTransversale): string =>
-  `« ${libelleItem(s.item, s.teil) ?? s.item} » manque dans ${s.manques} de tes ${s.sur} dernières ${PLURIEL[s.teil]}.`;
+/** La consigne d'abord, puis le fait, sans jugement (T2) : « Dans cette Anamnese, pose la question « Allergien … » :
+ *  oubliée 3 fois sur tes 5 dernières. » */
+export const texteRappel = (s: ErreurTransversale): string => {
+  const c = CONSIGNE[s.teil];
+  return `Dans cette ${c.teil}, ${c.verbe} « ${libelleItem(s.item, s.teil) ?? s.item} » : ${c.manque} ${s.manques} fois sur tes ${s.sur} dernières.`;
+};

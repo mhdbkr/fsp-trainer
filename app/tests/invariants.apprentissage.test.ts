@@ -217,12 +217,14 @@ describe('INV-63 — erreurs transversales : le même item manqué dans ≥ 3 de
     expect(erreursTransversales([...avant, coche('c3', 5)]), 'la fenêtre glisse : 2 manques sur 5').toEqual([]);
   });
 
-  it('le texte est NEUTRE (T2) : il dit le fait, jamais le jugement', () => {
+  it('le texte : la CONSIGNE d’abord, puis le fait, sans jugement (T2, texte de la direction)', () => {
     const s = erreursTransversales([0, 1, 2, 3, 4].map((i) => partie({ teile: [A], caseId: `c${i % 2}`, at: 1_790_000_000_000 + i, manques: { anamnese: i < 3 ? ['anam-allergien'] : [] } })))[0];
-    const t = texteRappel(s);
-    expect(t).toMatch(/3 de tes 5 dernières Anamnesen/);
-    expect(t).toMatch(/Allergien/);
-    expect(t).not.toMatch(/échec|faute|erreur|toujours|encore|%|retard|faible|mauvais|oubli/i);
+    expect(texteRappel(s)).toBe('Dans cette Anamnese, pose la question « Allergien inkl. Medikamentenallergien » : oubliée 3 fois sur tes 5 dernières.');
+    // Hors Anamnese, on ne « pose » pas de question : la consigne suit le Teil.
+    const d = ITEMS.dokumentation[0];
+    const sd = erreursTransversales([0, 1, 2].map((i) => partie({ teile: [D], caseId: `c${i}`, at: 1_790_000_000_000 + i, manques: { dokumentation: [d] } })))[0];
+    expect(texteRappel(sd)).toMatch(/^Dans cette Dokumentation, pense à « .+ » : manquant 3 fois sur tes 3 dernières\.$/);
+    for (const t of [texteRappel(s), texteRappel(sd)]) expect(t).not.toMatch(/échec|faute|erreur|toujours|encore|%|retard|faible|mauvais/i);
   });
 
   // --- ce que le PLAN en fait : au plus un rappel par tâche, figé avec elle ---
