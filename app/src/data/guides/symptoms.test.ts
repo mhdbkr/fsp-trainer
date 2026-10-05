@@ -85,7 +85,8 @@ describe('parts ↔ PROBE_SUCHT (I5)', () => {
       if (typeof q === 'string' || !q.parts) continue;
       const probe = phraseProbes(q)[0];
       const union = [...new Set(q.parts.flatMap((pt) => pt.sucht))].sort();
-      const carte: readonly string[] = q.sucht ?? PROBE_SUCHT[probe] ?? [];   // K3 : une variante peut déclarer son propre `sucht` (P1-3, P1-4)
+      // K3 : une variante peut déclarer son propre `sucht` (P1-3, P1-4) ; K4 : une variante qui énumère (D1) déclare son énumération.
+      const carte: readonly string[] = q.sucht ?? q.enumere ?? PROBE_SUCHT[probe] ?? [];
       const permis = new Set([...carte, ...(q.followUpSucht ?? []).flat()]);
       if (carte.some((x) => !union.includes(x)) || union.some((x) => !permis.has(x))) bad.push(`${probe}: parts [${union}] ≠ carte [${[...carte].sort()}] (+ relances [${[...permis].filter((x) => !carte.includes(x))}])`);
     }
@@ -143,8 +144,8 @@ describe('Lexique de signes — INV-77 (cohérent) et INV-78 (granularité)', ()
   it('le lexique réel est cohérent', () => {
     expect(lexiqueIncoherences()).toEqual([]);
   });
-  it('porte 222 signes : 69 de K0 (11 dimensions, 39 concepts d\u2019origine, 19 ajouts), puis ceux de K1 (137 + 9 de sa revue), `insektenstich` (revue K2 C3), `beginn_art`, `selbstverletzung_wunsch`, `stuhl_blut`, `zungenbiss`, `einnaessen`, `stuhl_nachts` (K3) ; le motif en tête (K3, règle d\u2019insertion) ; un SIGNE_DEF chacun', () => {
-    expect(SIGNES).toHaveLength(222);
+  it('porte 485 signes : 69 de K0 (11 dimensions, 39 concepts d\u2019origine, 19 ajouts), puis ceux de K1 (137 + 9 de sa revue), `insektenstich` (revue K2 C3), `beginn_art`, `selbstverletzung_wunsch`, `stuhl_blut`, `zungenbiss`, `einnaessen`, `stuhl_nachts` (K3), `gicht_ausloeser` et les 262 signes des questions du cas (K4, signesDefsCas.ts) ; le motif en tête (K3, règle d\u2019insertion) ; un SIGNE_DEF chacun', () => {
+    expect(SIGNES).toHaveLength(485);
     expect(Object.keys(SIGNE_DEF)).toEqual([...SIGNES]);
     expect(SIGNES[0]).toBe('motiv');
     expect(SIGNES.slice(1, 13)).toEqual(['ort', 'beginn', 'beginn_art', 'charakter', 'intensitaet', 'ausstrahlung', 'verlauf', 'ausloeser', 'einfluss', 'frueher', 'begleit', 'gelenke']);

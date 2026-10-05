@@ -147,9 +147,9 @@ export function unitesDe(rows, lire = () => [], connu = () => true) {
     if (ECARTE.has(r.ch)) continue;
     rank++;
     // K1 : une phrase du GUIDE (une sonde) est DÉCLARÉE (`PROBE_SUCHT`, `followUpSucht`) — la déclaration remplace la
-    // lecture du texte, une relance sans déclaration hérite du signe de sa mère. Une question du CAS se lit encore
-    // (K4), complétée de son `sucht` s'il y en a un.
-    const decl = !!r.probes?.length && !r.cs;
+    // lecture du texte, une relance sans déclaration hérite du signe de sa mère. K4 : une question du CAS déclarée se
+    // mesure de même par sa déclaration ; muette (sans `sucht`), elle se lit encore.
+    const decl = r.cs ? !!r.sucht?.length : !!r.probes?.length;
     const ms = decl ? new Set() : signesDe(r.text, { mother: true, ch: r.ch }, lire);
     for (const s of r.sucht ?? []) if (connu(s)) ms.add(s);
     const fus = (r.fu ?? []).map((f, i) => ({

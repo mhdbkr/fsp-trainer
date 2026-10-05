@@ -109,6 +109,17 @@ test('K1 : pour une sonde, la déclaration REMPLACE la lecture du texte ; une qu
   assert.equal(cas1.dup.length, 1);
 });
 
+test('K4 : une question du cas DÉCLARÉE se mesure par sa déclaration, comme une sonde ; muette, elle se lit encore', () => {
+  const lex1 = lex();
+  const veg = row('vegetativ', 'Hatten Sie Fieber?', { probes: ['veg-fieber'], sucht: ['fieber'] });
+  // « beim Fieber » nomme la fièvre sans la demander : la question du cas déclare ce qu'elle cherche (ici `schluck`)
+  const decl = mesurerCas(cas([row('aktuell', 'Tut das Schlucken beim Fieber weh?', { cs: true, sucht: ['schluck'] }), veg]), lex1);
+  assert.equal(decl.dup.length, 0, 'la mention n\'est pas une recherche : pas de faux doublon');
+  assert.deepEqual([...decl.units[0].all], ['schluck']);
+  const muette = mesurerCas(cas([row('aktuell', 'Tut das Schlucken beim Fieber weh?', { cs: true }), veg]), lex1);
+  assert.equal(muette.dup.length, 1, 'muette : le texte est lu');
+});
+
 test('K1 : une relance sans `followUpSucht` hérite de sa mère ; avec, elle devient une unité à part (son signe compte)', () => {
   const mere = (fu, fuSucht) => row('fach', 'Hatten Sie solche Gelenkbeschwerden schon einmal?', { probes: ['fach-rheuma-vorgeschichte'], sucht: ['gelenke'], fu, fuSucht });
   const herite = mesurerCas(cas([mere(['Hatten Sie schon einmal einen Gichtanfall oder Nierensteine?'], [])]), lex());
@@ -209,9 +220,14 @@ test('la mesure (--json, brut et residu) ÉGALE le plancher gravé', () => {
 });
 
 test('m6 mutation : la lecture de « stuhl » (UNE seule, symptomsInText) désactivée fait baisser la mesure, et l\'égalité au plancher rougit', () => {
-  const m = sb.mutate('src/data/guides/symptoms.ts', "['stuhl', /\\b(stuhlgang|durchfall|verstopfung)\\b/i]", "['stuhl', /(?!)/]", () => json(run('--json')));
-  assert.ok(m.brut.doublons < attendu().doublons, `${m.brut.doublons} < ${attendu().doublons}`);
-  assert.notDeepEqual(mesure(m), attendu());
+  // K4 : une question du cas DÉCLARÉE se mesure par sa déclaration ; seule une question muette se lit. La mutation rend donc
+  // d'abord muette la question « Stuhlgang » de parkinson (n° 6), puis désactive la lecture de « stuhl ».
+  const PARK = "{ frage: 'Haben Sie regelmäßig Stuhlgang, und seit wann besteht die Verstopfung?', kapitel: 'vegetativ', sucht: ['stuhl'] },";
+  const muette = PARK.replace(", sucht: ['stuhl']", '');
+  const lu = sb.mutate('src/data/seedCases.ts', PARK, muette, () => json(run('--json')));
+  const m = sb.mutate('src/data/seedCases.ts', PARK, muette, () => sb.mutate('src/data/guides/symptoms.ts', "['stuhl', /\\b(stuhlgang|durchfall|verstopfung)\\b/i]", "['stuhl', /(?!)/]", () => json(run('--json'))));
+  assert.ok(m.brut.doublons < lu.brut.doublons, `${m.brut.doublons} < ${lu.brut.doublons}`);
+  assert.notDeepEqual(mesure(lu), attendu());
 });
 
 test('mutation INV-77 : ausstrahlung exigé par « generalisiert » → exit 1, le lexique est dit incohérent', () => {
@@ -233,17 +249,18 @@ test('mutation de motif : un motif de lecture qui nomme un signe hors lexique �
   assert.match(r.stdout, /« zecke_inconnue », qui n'est pas un signe du lexique/);
 });
 
-test('la mesure LIT le lexique : « Schlucken » devenu signe de dépistage → moins de questions hors profil', () => {
+test('la mesure LIT le lexique : « Ausstrahlung » devenu signe de dépistage → moins de questions hors profil', () => {
   const base = json(run('--json')).brut.horsProfil;
-  const mut = sb.mutate('src/data/guides/signesDefs.ts', "pertinence: ['dysphagie', 'hals'], bank: 'akt-ausscheid-schlucken'", "pertinence: S, bank: 'akt-ausscheid-schlucken'", () => json(run('--json')).brut.horsProfil);
+  // K4 : r1 a retiré les sondes hors profil ; restent les deux questions du cas gardées (ausstrahlung : pankreaskarzinom, cml).
+  const mut = sb.mutate('src/data/guides/signesDefs.ts', "ausstrahlung: { kapitel: 'aktuell', pertinence: ['schmerz', 'anfall', 'neurologisch', 'nerven', 'stein', 'hoden'], bank: 'akt-ausstrahlung' }", "ausstrahlung: { kapitel: 'aktuell', pertinence: S, bank: 'akt-ausstrahlung' }", () => json(run('--json')).brut.horsProfil);
   assert.ok(mut < base, `${mut} < ${base}`);
 });
 
 test('plancher dépassé → exit 1 et le dit ; --bless refuse la hausse et laisse le fixture intact', () => {
-  setFloor((f) => { f.brut.doublons = 1; });
+  setFloor((f) => { f.brut.doublons = 0; });   // K4 : la mesure vaut 1
   const r = run();
   assert.equal(r.status, 1);
-  assert.match(r.stdout, /MESURE AU-DESSUS DU PLANCHER.*doublons 1 →/);
+  assert.match(r.stdout, /MESURE AU-DESSUS DU PLANCHER.*doublons 0 →/);
   const avant = sb.read(FIXTURE);
   const b = run('--bless');
   assert.equal(b.status, 1);
@@ -268,7 +285,9 @@ test('--case : la trame jouée, chaque constat et sa RAISON ; un cas inconnu →
 
 test('--propose : la proposition lit les questions du cas non déclarées, n\'écrit rien, un cas inconnu → exit 2', () => {
   const avant = sb.read('src/data/seedCases.ts');
-  const r = run('--propose', '--case', 'schenkelhalsfraktur');   // K3 : gastroenteritis est entièrement déclaré
+  // K4 : tout est déclaré sauf le résidu justifié ; la question n° 0 de schenkelhalsfraktur est rendue muette pour la proposition.
+  const SHF = "kapitel: 'aktuell', sucht: ['unfallhergang', 'schwindel'], relu: true },";
+  const r = sb.mutate('src/data/seedCases.ts', SHF, "kapitel: 'aktuell' },", () => run('--propose', '--case', 'schenkelhalsfraktur'));
   assert.equal(r.status, 0, r.stderr);
   assert.match(r.stdout, /PROPOSITION de `sucht`/);
   assert.match(r.stdout, /sucht proposé : schwindel, bewusstlos, sturz/);
@@ -287,7 +306,8 @@ test('INV-79 mutation : une sonde qui perd son entrée de PROBE_SUCHT → exit 1
 });
 
 test('INV-84 mutation : une relance conditionnelle qui déclare un autre signe → exit 1', () => {
-  const r = sb.mutate('src/data/guides/anamneseChapters.ts', "'Hatten Sie schon einmal einen Gichtanfall oder Nierensteine?'", "'Falls ja: Hatten Sie schon einmal einen Gichtanfall oder Nierensteine?'", () => run());
+  // K4 : la relance « Gichtanfall oder Nierensteine » est découpée en deux ; la première porte `gicht`.
+  const r = sb.mutate('src/data/guides/anamneseChapters.ts', "'Hatten Sie schon einmal einen Gichtanfall?'", "'Falls ja: Hatten Sie schon einmal einen Gichtanfall?'", () => run());
   assert.equal(r.status, 1);
   assert.match(r.stdout, /INV-84.*fach-rheuma-vorgeschichte.*conditionnelle 0/);
 });

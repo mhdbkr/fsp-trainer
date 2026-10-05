@@ -205,7 +205,8 @@ test('7c — le « ？ » pleine chasse compte comme un « ? »', T, () => {
 // --- Q0 (revue I-1) : la relance d'une question du cas est lue --------------
 // `CaseQuestion.followUp` est de l'oral posé par le candidat : même plafond
 // que les relances des questions générales (2 items, un seul « ? »).
-const SCHLUCKEN = "{ frage: 'Haben Sie Schmerzen beim Schlucken?', kapitel: 'aktuell', relu: true }";
+// K4 : la question du cas déclare désormais `sucht` — l'ancre suit la ligne de seedCases.ts.
+const SCHLUCKEN = "{ frage: 'Haben Sie Schmerzen beim Schlucken?', kapitel: 'aktuell', sucht: ['odynophagie'], relu: true }";
 const withRelance = (followUp) => sb.mutate(CASES, SCHLUCKEN, SCHLUCKEN.replace(' }', `, followUp: '${followUp}' }`), gate);
 
 test('Q0 — une relance de question du cas à six items est refusée (règle B, plafond 2)', T, () => {

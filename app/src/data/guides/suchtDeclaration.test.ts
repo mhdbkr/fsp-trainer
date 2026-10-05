@@ -103,12 +103,12 @@ describe('INV-79 / INV-84 / INV-91 — les relances', () => {
   });
   it('une relance qui cherche un autre signe le déclare (unité à part) : famille et antécédent sous fach-rheuma-vorgeschichte', () => {
     const rs = relances('fach-rheuma-vorgeschichte');
-    expect(rs.map((r) => r.sucht)).toEqual([['gicht', 'nierensteine'], ['familie_rheuma']]);
+    expect(rs.map((r) => r.sucht)).toEqual([['gicht'], ['nierensteine'], ['familie_rheuma']]);   // K4 : goutte et calculs, deux relances
     expect(rs.every((r) => !/^Falls /.test(r.text))).toBe(true);
   });
   it('INV-84 mutation : « Falls ja: Gibt es in Ihrer Familie Rheuma oder Gicht? » remise sous fach-rheuma-vorgeschichte rougit', () => {
-    const t = swap('fach-rheuma-vorgeschichte', { followUp: ['Hatten Sie schon einmal einen Gichtanfall oder Nierensteine?', 'Falls ja: Gibt es in Ihrer Familie Rheuma oder Gicht?'] });
-    expect(suchtIncoherences(t).some((m) => /INV-84.*fach-rheuma-vorgeschichte.*conditionnelle 1.*familie_rheuma/.test(m))).toBe(true);
+    const t = swap('fach-rheuma-vorgeschichte', { followUp: ['Hatten Sie schon einmal einen Gichtanfall?', 'Hatten Sie schon einmal Nierensteine?', 'Falls ja: Gibt es in Ihrer Familie Rheuma oder Gicht?'] });
+    expect(suchtIncoherences(t).some((m) => /INV-84.*fach-rheuma-vorgeschichte.*conditionnelle 2.*familie_rheuma/.test(m))).toBe(true);
   });
   it('INV-91 mutation : la précision de la raideur matinale traitée comme une unité conditionnelle rougit (INV-84)', () => {
     const t = swap('fach-rheuma-morgensteifigkeit', { followUpSucht: [['steifigkeit']] });
