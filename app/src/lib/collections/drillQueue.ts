@@ -35,7 +35,7 @@ export function buildDrillQueue(pool: Fachbegriff[], opts: DrillOpts = {}): Fach
   // Lot F point 1 : TOUS les favoris Neu de la séance (et ceux du cas) entrent. Ils
   // consomment le budget du jour mais ne sont jamais coupés par lui.
   const lead = opts.leadIds ?? [];
-  const forcedIds = new Set([...lead, ...(opts.relevance ? sessionFavoriteIds({ now, favorites }) : [])]);
+  const forcedIds = new Set([...lead, ...(opts.relevance ? sessionFavoriteIds({ now, favorites, lastDrillAt: opts.relevance.lastDrillAt }) : [])]);
   const forced = news.filter((b) => forcedIds.has(b.id));
   let rest = news.filter((b) => !forcedIds.has(b.id));
   if (opts.newLimit !== undefined) rest = rest.slice(0, Math.max(0, opts.newLimit - forced.length));
@@ -56,7 +56,7 @@ export function buildDrillQueue(pool: Fachbegriff[], opts: DrillOpts = {}): Fach
  *  servie avec les mêmes options (revue I1 : l'en-tête et la durée ne promettent rien de plus). */
 export function queueCounts(pool: Fachbegriff[], opts: DrillOpts = {}): { due: number; fresh: number; favorites: number } {
   const q = buildDrillQueue(pool, opts);
-  const fav = opts.relevance ? sessionFavoriteIds({ now: opts.now ?? Date.now(), favorites: opts.relevance.favorites }) : new Set<string>();
+  const fav = opts.relevance ? sessionFavoriteIds({ ...opts.relevance, now: opts.now ?? Date.now() }) : new Set<string>();
   return { due: q.filter((b) => b.srs.state !== 'Neu').length, fresh: q.filter((b) => b.srs.state === 'Neu').length, favorites: q.filter((b) => fav.has(b.id)).length };
 }
 

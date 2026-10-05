@@ -172,3 +172,23 @@ describe('m1 — les favoris forcés ne sont jamais coupés par limit', () => {
     expect(q).toHaveLength(25);
   });
 });
+
+// ── Revue I3 : « entre au drill suivant » = posé APRÈS la dernière séance de drill ──
+describe('I3 — favori forcé s\'il est posé après la dernière séance de drill', () => {
+  const fri = new Date(2026, 9, 2, 18).getTime();          // vendredi 18 h
+  const thu = new Date(2026, 9, 1, 20).getTime();          // dernier drill : jeudi 20 h
+  const mon = new Date(2026, 9, 5, 9).getTime();           // drill suivant : lundi 9 h (> 48 h)
+  const ctxDrill = (since: number, lastDrillAt: number | undefined, at: number): RelevanceContext =>
+    ({ now: at, favorites: [{ termId: 'f', since: iso(since) }], deckTerms: [], recentSimulations: [], todayCaseIds: [], cases: [], lastDrillAt });
+  it('week-end off : favori vendredi, drill lundi → forcé', () => {
+    expect(buildDrillQueue([mk('f', 'Neu', 0)], { now: mon, newLimit: 0, relevance: ctxDrill(fri, thu, mon) }).map((b) => b.id)).toEqual(['f']);
+  });
+  it('favori posé AVANT la dernière séance (même < 48 h) → plus forcé', () => {
+    const drillSat = new Date(2026, 9, 3, 10).getTime();
+    expect(buildDrillQueue([mk('f', 'Neu', 0)], { now: drillSat + 3600_000, newLimit: 0, relevance: ctxDrill(fri, drillSat, drillSat + 3600_000) })).toEqual([]);
+  });
+  it('aucun drill antérieur → repli sur la fenêtre de 48 h', () => {
+    expect(buildDrillQueue([mk('f', 'Neu', 0)], { now: mon, newLimit: 0, relevance: ctxDrill(fri, undefined, mon) })).toEqual([]);
+    expect(buildDrillQueue([mk('f', 'Neu', 0)], { now: fri + 3600_000, newLimit: 0, relevance: ctxDrill(fri, undefined, fri + 3600_000) }).map((b) => b.id)).toEqual(['f']);
+  });
+});
