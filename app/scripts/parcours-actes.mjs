@@ -129,13 +129,25 @@ const echantillon = async (c) => {
  *   ia : 'pendant' (lanceur ouvert, partie finie dans l'app) | 'abandon' (lanceur ouvert, partie quittée)
  *   doubleSave : double clic sur « Enregistrer » (INV-22)
  *   retourBilan : « ← Revenir au bilan » une fois (régression NOMMÉE de l'automate)
+ *   unTeil : s'arrête après la PREMIÈRE partie (« un Teil ici ») — S4-2 : la tâche de cas ne se coche pas, la ligne dit le reste
+ *   libre : joue un cas HORS du plan, par son lien direct (« librement ») ; `i` est alors ignoré
  */
 export async function jouerPartie(c, i, o = {}) {
   await c.aller('/programme');
   await until(c.page, () => /min prévues/.test(document.body.innerText), 'plan');
   const av = { b: await barre(c.page), rs: await rows(c.page), sims: (await idb(c.page, 'simulations')).length };
-  const ligne = av.rs[i];
-  await c.page.locator(ROW).nth(i).locator('a.btn-primary').click();
+  const planAvant = (await idb(c.page, 'day_plans')).find((p) => p.date === c.jourIso);
+  let ligne = av.rs[i], tache = o.libre ? null : planAvant?.tasks.filter((t) => t.doneAt === undefined)[0] ?? null;
+  if (o.libre) {
+    const auPlan = new Set((planAvant?.tasks ?? []).map((t) => t.caseId));
+    const cas = (await idb(c.page, 'cases')).filter((x) => !auPlan.has(x.id)).sort((a, b) => (a.id < b.id ? -1 : 1))[c.grand.exercices % 5];
+    if (!cas) { c.rapport.fait('Aucun cas hors du plan à jouer librement.'); return null; }
+    ligne = { label: cas.name, cta: 'libre' };
+    await c.aller(`/simulation/${cas.id}/pre`);
+  } else {
+    tache = planAvant?.tasks.find((t) => t.label === ligne.label && t.doneAt === undefined) ?? null;
+    await c.page.locator(ROW).nth(i).locator('a.btn-primary').click();
+  }
   await until(c.page, () => /Démarrer la simulation/.test(document.body.innerText), 'pré-simulation');
   await btn(c.page, /Démarrer la simulation/).click();
   await until(c.page, () => /Terminer la partie/.test(document.body.innerText), 'runner');
@@ -196,7 +208,7 @@ export async function jouerPartie(c, i, o = {}) {
       }));
       await noter();
     }
-    if (await present(c.page, /Partie suivante/)) { await btn(c.page, /Partie suivante/).click(); await sleep(500); await noter(); await until(c.page, () => /Terminer la partie/.test(document.body.innerText), 'partie suivante'); continue; }
+    if (!o.unTeil && await present(c.page, /Partie suivante/)) { await btn(c.page, /Partie suivante/).click(); await sleep(500); await noter(); await until(c.page, () => /Terminer la partie/.test(document.body.innerText), 'partie suivante'); continue; }
     break;
   }
 
@@ -222,7 +234,7 @@ export async function jouerPartie(c, i, o = {}) {
   const sims = await idb(c.page, 'simulations'), tes = await idb(c.page, 'training_events'), evApres = await evCompleted();
   const resultat = (await texte(c.page)).match(/score moyen (\d+)\s*%/)?.[1];
   c.grand.exercices++; c.grand.joursTravailles.add(c.jourIso); c.grand[nParties >= 3 ? 'completes' : 'parties']++;
-  c.rapport.fait(`Joue « ${ligne.label} » (${ligne.cta || 'Lancer'}), ${nParties} partie(s), ${k_(o)} ; ${clics} « Enregistrer la simulation ». Score moyen affiché : ${resultat ?? '?'} %.`);
+  c.rapport.fait(`Joue ${o.libre ? 'LIBREMENT (hors du plan) ' : ''}« ${ligne.label} » (${ligne.cta || 'Lancer'}), ${nParties} partie(s)${o.unTeil ? ' — un seul Teil, puis s\'arrête' : ''}, ${k_(o)} ; ${clics} « Enregistrer la simulation ». Score moyen affiché : ${resultat ?? '?'} %.`);
 
   // INV-22 : une partie validée (même deux fois) = UN enregistrement.
   await c.verifie('D8', 'une partie validée deux fois produit un seul enregistrement', () => ({
@@ -254,6 +266,21 @@ export async function jouerPartie(c, i, o = {}) {
     ok: ap.b.total === av.b.total && ap.b.min === av.b.min && ap.b.done >= av.b.done,
     detail: `${av.b.done}/${av.b.total} · ${av.b.min} min → ${ap.b.done}/${ap.b.total} · ${ap.b.min} min`,
   }));
+  // S4-2 (INV-51) : une tâche de cas est faite quand TOUT ce qu'elle porte a été joué — jamais par une partie d'un seul Teil,
+  // et la ligne dit alors ce qui reste. Lu dans le DOM (la ligne) et dans les plans que l'app a écrits.
+  if (tache && (tache.kind === 'simulation' || tache.kind === 'revision')) {
+    const teile = tache.teile ?? (tache.teil ? [tache.teil] : ['anamnese', 'dokumentation', 'fallvorstellung']);
+    // Ce qui a été joué de ce cas depuis la création de la tâche, toutes parties confondues (le journal que l'app a écrit).
+    const depuis = tache.creeA ?? new Date(`${c.jourIso}T00:00:00`).getTime();
+    const joues = new Set(tes.filter((e) => e.caseId === tache.caseId && e.at >= depuis && e.scores).flatMap((e) => e.teile));
+    const toutJoue = teile.every((t) => joues.has(t));
+    const r = ap.rs.find((x) => x.label === tache.label);
+    const texteLigne = await c.page.locator(ROW).filter({ hasText: tache.label }).first().innerText().catch(() => '');
+    await c.verifie('D15', 'une tâche de cas se coche quand tout ce qu\'elle porte est joué — une partie d\'un seul Teil ne la coche pas, la ligne dit le reste', () => ({
+      ok: !!r && r.fait === toutJoue && (toutJoue || !tache.teile || /Il te reste/.test(texteLigne)),
+      detail: `tâche « ${tache.label} » (${teile.join(', ')}) ; joué : ${[...joues].join(', ') || 'rien'} ; ligne ${r?.fait ? 'faite' : 'non faite'}${!toutJoue ? ` : « ${texteLigne.split('\n').find((l) => /Il te reste/.test(l)) ?? 'aucun reste affiché'} »` : ''}`,
+    }));
+  }
 
   if (o.ia === 'pendant') {
     await c.aller('/');

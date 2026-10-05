@@ -16,11 +16,19 @@
 //   3. `taskSubject()` devient l'IDENTITÉ : `TaskInstance.label` est désormais
 //      le seul nom du sujet. La cale de transition peut disparaître.
 // ============================================================================
+import { useMemo } from 'react';
 import { Link } from 'react-router-dom';
-import type { TaskInstance, TaskKind } from '@/db/types';
+import type { DayPlan, SimTeil, TaskInstance, TaskKind, TrainingEvent } from '@/db/types';
 import { TEILE } from '@/lib/simScope';
 import { Icon } from '@/components/icons';
 import { markTaskDone } from '@/lib/journal';
+import { estTacheDeCas, evaluerTache } from '@/lib/program/completion';
+import { dureesTeile } from '@/lib/program/durees';
+import { erreursTransversales, libelleItem, texteRappel } from '@/lib/program/erreurs';
+import { teileDeTache } from '@/lib/program/tacheDeCas';
+import { debutJour } from '@/lib/program/fuseau';
+import { useToday } from '@/lib/today';
+import { useDayPlan, useTrainingEvents } from './useProgram';
 
 export const TASK_META: Record<TaskKind, { icon: string; badge: string; bar: string; label: string }> = {
   simulation: { icon: 'stethoscope', badge: 'bg-brand-100 text-brand-600 dark:bg-brand-900/30 dark:text-brand-300', bar: 'bg-brand-500', label: 'Simulation' },
@@ -32,9 +40,16 @@ export const TASK_META: Record<TaskKind, { icon: string; badge: string; bar: str
 };
 
 /** Où mène une tâche. Une seule table, partagée par toutes les vues. */
-export function taskLink(t: TaskInstance): string {
+export function taskLink(t: TaskInstance, reste?: readonly SimTeil[]): string {
   // R-C4 : la tâche voyage avec la partie (`task=`), la sauvegarde la coche si la partie la satisfait (I-A).
-  if ((t.kind === 'simulation' || t.kind === 'examen-blanc') && t.caseId) return `/simulation/${t.caseId}/pre?${new URLSearchParams({ ...(t.teil ? { teil: t.teil } : {}), task: t.id })}`;
+  if ((t.kind === 'simulation' || t.kind === 'examen-blanc') && t.caseId) {
+    // S4-2 (revue I1) : la ligne dit « il te reste la Dokumentation » ⇒ on part de là. `reste` = ce qui reste DANS la
+    // journée (tâche entamée), sinon ce que la tâche porte. Le cas entier part du début. La tâche reste « entamée » tant
+    // que tout le reste n'est pas joué (§12.3). TRANSITOIRE : S4-3 remplacera `teil` par `?depart=`.
+    const r = t.teil ? [t.teil] : reste ?? t.teile ?? [];
+    const depart = r.length && (r[0] !== 'anamnese' || r.length === 1) ? r[0] : undefined;
+    return `/simulation/${t.caseId}/pre?${new URLSearchParams({ ...(depart ? { teil: depart } : {}), task: t.id })}`;
+  }
   if (t.kind === 'drill') return `/fachbegriffe/drill${t.caseId ? `?case=${encodeURIComponent(t.caseId)}` : t.specialty ? `?specialty=${encodeURIComponent(t.specialty)}` : ''}`;
   if (t.kind === 'fachwissen') return t.caseId ? `/cas/${t.caseId}` : '/fachwissen';
   return t.caseId ? `/cas/${t.caseId}` : '/simulation';
@@ -50,10 +65,54 @@ function ScopeTag({ teil }: { teil: NonNullable<TaskInstance['teil']> }) {
   return t ? <span className="dim-tag gap-1.5"><Icon name={t.icon} className="h-3.5 w-3.5 shrink-0" aria-hidden />{t.label}</span> : null;
 }
 
+const ARTICLE: Record<SimTeil, string> = { anamnese: "l'Anamnese", dokumentation: 'la Dokumentation', fallvorstellung: 'la Fallvorstellung' };
+
+/** « la Dokumentation et la Fallvorstellung » — ce qui reste d'un cas, dans l'ordre d'examen. */
+export const resteTexte = (teile: readonly SimTeil[]): string => {
+  const mots = teile.map((t) => ARTICLE[t]);
+  return mots.length > 1 ? `${mots.slice(0, -1).join(', ')} et ${mots[mots.length - 1]}` : mots[0] ?? '';
+};
+
+/** Ce que la ligne d'une tâche dit EN PLUS de la tâche figée : ce qui reste du cas (« il te reste la Dokumentation · 10 min »)
+ *  et le rappel d'une erreur transversale (§13.3), dit avec ses chiffres. Lu dans le journal, jamais stocké. */
+export interface LectureTache { reste?: { teile: SimTeil[]; min: number }; rappel?: string; soiree?: string }
+
+export function lectureDuPlan(plan: DayPlan, events: readonly TrainingEvent[]): Map<string, LectureTache> {
+  const out = new Map<string, LectureTache>();
+  const durees = dureesTeile(events);
+  // Le rappel a été posé sur le journal d'AVANT le jour (INV-55) : ses chiffres se relisent sur le même.
+  const signaux = plan.tasks.some((t) => t.rappel) ? erreursTransversales(events.filter((e) => e.at < debutJour(plan.date, plan.tz))) : [];
+  // Soirée courte (revue pédagogique) : la tâche FORCÉE — la première tâche de cas — fait dépasser le budget du jour ;
+  // on l'annonce en deux soirées. Jamais pour un examen à blanc ni une tâche d'un trait : ils se jouent d'un trait.
+  let cumul = 0, forcee = false;
+  for (const t of plan.tasks) {
+    cumul += t.estMin;
+    const premiereDeCas = !forcee && (t.kind === 'simulation' || t.kind === 'revision' || t.kind === 'examen-blanc');
+    if (premiereDeCas) forcee = true;
+    if (t.doneAt !== undefined) continue;
+    const l: LectureTache = {};
+    if (estTacheDeCas(t.kind) && t.teile) {                                     // un plan série 3 dit son Teil par sa pastille
+      const e = evaluerTache(t, events, plan.tz);
+      // Entamée : les minutes de ce qui reste ; sinon l'estimation figée avec la tâche.
+      if (e.reste.length > 0 && e.reste.length < 3) l.reste = { teile: e.reste, min: e.avancement.length ? e.reste.reduce((s, k) => s + durees[k], 0) : t.estMin };
+    }
+    if (premiereDeCas && t.kind !== 'examen-blanc' && t.dUnTrait !== true && cumul > plan.targetMin) {
+      const teile = l.reste?.teile ?? teileDeTache(t);
+      if (teile.length > 1) l.soiree = `Ce soir ${ARTICLE[teile[0]]} (${durees[teile[0]]} min) · demain la suite.`;
+    }
+    if (t.rappel) {
+      const s = signaux.find((x) => x.item === t.rappel);
+      l.rappel = s ? texteRappel(s) : `Rappel : « ${libelleItem(t.rappel) ?? t.rappel} ».`;
+    }
+    if (l.reste || l.rappel || l.soiree) out.set(t.id, l);
+  }
+  return out;
+}
+
 /** L'anatomie — sujet, portée, état, coût. Le type, la couche, l'assistance et
  *  la durée se lisent DANS LES CHAMPS : plus aucune concaténation, et la vue ne
  *  les ré-affiche pas à côté. */
-export function TaskAnatomy({ task }: { task: TaskInstance }) {
+export function TaskAnatomy({ task, reste }: { task: TaskInstance; reste?: LectureTache['reste'] }) {
   const state = [
     task.layer !== undefined ? `Couche ${task.layer}` : null,
     task.assistance === 'assiste' ? 'assisté' : task.assistance === 'autonome' ? 'autonome' : null,
@@ -62,8 +121,9 @@ export function TaskAnatomy({ task }: { task: TaskInstance }) {
     <div className="flex min-w-0 flex-wrap items-center gap-x-3 gap-y-1.5">
       <span className="min-w-0 flex-[1_1_100%] [overflow-wrap:anywhere] font-medium text-slate-800 dark:text-slate-100">{task.label}</span>
       {task.teil && <ScopeTag teil={task.teil} />}
+      {reste && <span className="dim-tag shrink-0">Il te reste {resteTexte(reste.teile)}</span>}
       {state && <span className="label shrink-0">{state}</span>}
-      <span className="mono-tag tnum shrink-0">{task.estMin} min</span>
+      <span className="mono-tag tnum shrink-0">{reste?.min ?? task.estMin} min</span>
     </div>
   );
 }
@@ -76,7 +136,7 @@ export function TaskAnatomy({ task }: { task: TaskInstance }) {
  * Cocher écrit un événement dans le journal et pose `doneAt`. Rien d'autre ne
  * bouge : aucune tâche ne prend la place.
  */
-export function TaskLine({ task, readOnly = false, showReason = true }: { task: TaskInstance; readOnly?: boolean; showReason?: boolean }) {
+export function TaskLine({ task, readOnly = false, showReason = true, lecture }: { task: TaskInstance; readOnly?: boolean; showReason?: boolean; lecture?: LectureTache }) {
   const meta = TASK_META[task.kind];
   const done = task.doneAt !== undefined;
   return (
@@ -86,9 +146,12 @@ export function TaskLine({ task, readOnly = false, showReason = true }: { task: 
           <Icon name={meta.icon} className="h-5 w-5" />
         </span>
         <div className="min-w-[10rem] flex-1">
-          <TaskAnatomy task={task} />
+          <TaskAnatomy task={task} reste={done ? undefined : lecture?.reste} />
           {/* Le « pourquoi aujourd'hui », figé avec la tâche. */}
           {showReason && <div className="mt-0.5 text-[11px] text-slate-400">{task.reason}</div>}
+          {/* Le rappel d'une erreur transversale : un fait, sans jugement (T2). */}
+          {!done && lecture?.rappel && <div className="mt-0.5 text-[11px] text-slate-500 dark:text-slate-400">{lecture.rappel}</div>}
+          {!done && lecture?.soiree && <div className="mt-0.5 text-[11px] text-slate-500 dark:text-slate-400">{lecture.soiree}</div>}
         </div>
         {done ? (
           <span className="ml-auto flex shrink-0 items-center gap-1 text-[11px] font-medium text-emerald-600 dark:text-emerald-300">
@@ -100,7 +163,7 @@ export function TaskLine({ task, readOnly = false, showReason = true }: { task: 
               type="button" onClick={() => markTaskDone(task)} title="Marquer faite"
               className="rounded-md px-2 py-1 text-[11px] font-medium text-emerald-700 transition-colors hover:bg-emerald-50 dark:text-emerald-300 dark:hover:bg-emerald-900/20"
             >✓ Fait</button>
-            <Link to={taskLink(task)} className="btn-primary gap-1 px-3 py-1.5 text-xs">
+            <Link to={taskLink(task, lecture?.reste?.teile)} className="btn-primary gap-1 px-3 py-1.5 text-xs">
               <Icon name="play" className="h-3 w-3" />{taskCta(task)}
             </Link>
           </div>
@@ -123,6 +186,12 @@ export function raisonCommune(tasks: TaskInstance[]): { reason: string; n: numbe
  *  raison commune dite une seule fois, au-dessus des lignes qui la partagent. */
 export function TaskList({ tasks }: { tasks: TaskInstance[] }) {
   const commune = raisonCommune(tasks);
+  // Ce qui reste et les rappels (l'accueil monte cette liste) : lus sur le plan FIGÉ du jour (son fuseau) et le journal.
+  const date = tasks[0]?.date;
+  const today = useToday((s) => s.day);
+  const plan = useDayPlan(date);
+  const events = useTrainingEvents();
+  const lecture = useMemo(() => (plan && events && date === today ? lectureDuPlan(plan, events) : new Map<string, LectureTache>()), [plan, events, date, today]);
   return (
     <div className="space-y-2">
       {commune && (
@@ -130,7 +199,7 @@ export function TaskList({ tasks }: { tasks: TaskInstance[] }) {
           <span className="label">Même raison pour les {commune.n} cas</span> · {commune.reason}
         </p>
       )}
-      {tasks.map((t) => <TaskLine key={t.id} task={t} showReason={!commune || t.doneAt !== undefined || t.reason !== commune.reason} />)}
+      {tasks.map((t) => <TaskLine key={t.id} task={t} lecture={lecture.get(t.id)} showReason={!commune || t.doneAt !== undefined || t.reason !== commune.reason} />)}
     </div>
   );
 }

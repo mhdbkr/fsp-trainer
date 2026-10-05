@@ -7,14 +7,14 @@
 // (là où l'on revient) et sur le Programme (là où l'on agit) : même mécanisme,
 // `lib/program/rattrapage.ts`.
 // ============================================================================
-import { format, parseISO } from 'date-fns';
+import { differenceInCalendarDays, format, parseISO } from 'date-fns';
 import { fr } from 'date-fns/locale';
 import { useLiveQuery } from 'dexie-react-hooks';
-import { getMeta } from '@/db/db';
 import { useProgramConfig } from '@/hooks/useData';
 import { useToday } from '@/lib/today';
-import { accepterRattrapage, glissement, refuserRattrapage, RATTRAPAGE_REFUS_KEY } from '@/lib/program/rattrapage';
-import { useDayPlans } from './useProgram';
+import { accepterRattrapage, glissement, joursRefuses, refuserRattrapage } from '@/lib/program/rattrapage';
+import { resteTexte } from './TaskLine';
+import { useDayPlans, useTrainingEvents } from './useProgram';
 
 /** « A et B », « A, B et 2 autres » — deux noms au plus : la ligne reste une ligne. */
 const noms = (labels: string[]): string => {
@@ -25,9 +25,11 @@ const noms = (labels: string[]): string => {
 export function RattrapageLine() {
   const plans = useDayPlans();
   const config = useProgramConfig();
-  const refused = useLiveQuery(() => getMeta<string[]>(RATTRAPAGE_REFUS_KEY, []), [], undefined);
+  const events = useTrainingEvents();
+  // Le refus est un événement SYNCHRONISÉ : refusé sur un appareil, il vaut sur l'autre.
+  const refused = useLiveQuery(() => joursRefuses(), [], undefined);
   const today = useToday((s) => s.day);                    // m-4 : le jour réactif, jamais l'horloge au rendu
-  const g = plans && config && refused ? glissement(plans, today, config, refused) : null;
+  const g = plans && config && refused && events ? glissement(plans, today, config, refused, events) : null;
   if (!g) return null;
 
   const reprise = g.tasks.length > 0;
@@ -35,8 +37,15 @@ export function RattrapageLine() {
   const jours = `${g.manques} jour${g.manques > 1 ? 's' : ''} manqué${g.manques > 1 ? 's' : ''}`;
   // « (X déjà au plan) » : ce qui a glissé mais que le plan du jour a repris lui-même.
   const dejaAuPlan = g.deja.length ? ` (${noms(g.deja.map((t) => t.label))} déjà au plan)` : '';
+  const jour = format(parseISO(g.from), 'EEEE d MMMM', { locale: fr });
+  // « hier » pour la veille, la date sinon (texte de la direction).
+  const quand = differenceInCalendarDays(parseISO(today), parseISO(g.from)) === 1 ? 'Hier' : jour.charAt(0).toUpperCase() + jour.slice(1);
+  // « Finir hier » (§12.8) : un seul cas entamé se dit par ce qui lui reste — « il te reste la Dokumentation ».
+  const seule = n === 1 && g.tasks[0].teile && g.tasks[0].teile.length < 3 ? g.tasks[0] : null;
   const phrase = g.manques === 0
-    ? `Il reste ${n} tâche${n > 1 ? 's' : ''} du ${format(parseISO(g.from), 'EEEE d MMMM', { locale: fr })}. Les ajouter à aujourd'hui ?`
+    ? seule
+      ? `${quand}, tu as commencé ${seule.label} : il te reste ${resteTexte(seule.teile!)} (${seule.estMin} min). La finir ce soir ?`
+      : `Il reste ${n} tâche${n > 1 ? 's' : ''} du ${jour}. ${n > 1 ? 'Les ajouter' : "L'ajouter"} à aujourd'hui ?`
     : reprise
       ? `${jours} : ${noms(g.tasks.map((t) => t.label))} ${n > 1 ? 'ont' : 'a'} glissé${dejaAuPlan}.`
       : `${jours} : ${noms(g.deja.map((t) => t.label))} — déjà au plan d'aujourd'hui.`;

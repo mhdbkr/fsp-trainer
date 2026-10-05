@@ -1,0 +1,1837 @@
+{
+ "_meta": {
+  "origine": "code série 3 de f99364e1 (origin/main, S4-1 mergé), TZ du poste de capture Europe/Paris, horloge gelée 08:00 locale",
+  "profil": [
+   "2026-10-05 mode=teil-first tâches=simulation:case-leberzirrhose:anamnese,drill:-:run,simulation:case-allergische-rhinitis:anamnese,simulation:case-tvt:anamnese,simulation:case-gicht:anamnese,simulation:case-oesophaguskarzinom:anamnese,simulation:case-pavk:anamnese,simulation:case-gib:anamnese,simulation:case-lyme:anamnese,fachwissen:case-leberzirrhose:run",
+   "2026-10-06 mode=teil-first tâches=simulation:case-tvt:anamnese,drill:-:run,simulation:case-gicht:anamnese,simulation:case-oesophaguskarzinom:anamnese,simulation:case-pavk:anamnese,simulation:case-gib:anamnese,simulation:case-lyme:anamnese,simulation:case-pneumonie:anamnese,simulation:case-commotio:anamnese,fachwissen:case-tvt:run",
+   "2026-10-07 mode=teil-first tâches=simulation:case-gicht:anamnese,drill:-:run,simulation:case-oesophaguskarzinom:anamnese,simulation:case-pavk:anamnese,simulation:case-gib:anamnese,simulation:case-lyme:anamnese,simulation:case-pneumonie:anamnese,simulation:case-commotio:anamnese,simulation:case-depression:anamnese,fachwissen:case-gicht:run",
+   "2026-10-08 mode=cas-complet tâches=simulation:case-pavk:run,drill:-:run,simulation:case-gib:run,simulation:case-lyme:run,simulation:case-pneumonie:run,fachwissen:case-pavk:run",
+   "2026-10-09 mode=cas-complet tâches=simulation:case-lyme:run,drill:-:run,simulation:case-pneumonie:run,simulation:case-commotio:run,simulation:case-depression:run,fachwissen:case-lyme:run",
+   "2026-10-12 mode=cas-complet tâches=simulation:case-pneumonie:run,drill:-:run,simulation:case-commotio:run,simulation:case-depression:run,simulation:case-kolorektales-ca:run,fachwissen:case-pneumonie:run"
+  ]
+ },
+ "config": {
+  "startDate": "2026-10-05",
+  "examDate": "2026-12-18",
+  "intensity": "mittel",
+  "hoursPerSession": 3,
+  "offDays": [
+   0,
+   6
+  ],
+  "prioritySpecialties": [],
+  "selfLevel": {},
+  "createdAt": 0,
+  "modus": "teil-first"
+ },
+ "events": [
+  {
+   "id": "4db1a642-4f39-41c7-b79d-b0c5a7474091",
+   "user_id": "u",
+   "occurred_at": "2026-10-05T06:00:00.000Z",
+   "type": "plan.materialized",
+   "subject_id": "2026-10-05",
+   "payload": {
+    "tasks": [
+     {
+      "kind": "simulation",
+      "label": "Leberzirrhose bei Alkoholabhängigkeit",
+      "estMin": 20,
+      "caseId": "case-leberzirrhose",
+      "specialty": "Gastroenterologie",
+      "layer": 1,
+      "assistance": "assiste",
+      "teil": "anamnese",
+      "reason": "Parmi les cas les plus vus à l'examen, et jamais travaillé.",
+      "id": "t-dec995e1-1",
+      "date": "2026-10-05",
+      "source": "plan"
+     },
+     {
+      "kind": "drill",
+      "label": "Fachbegriffe",
+      "estMin": 2,
+      "reason": "5 nouveaux termes",
+      "id": "t-dec995e1-0",
+      "date": "2026-10-05",
+      "source": "plan"
+     },
+     {
+      "kind": "simulation",
+      "label": "Niesanfälle und juckende Augen",
+      "estMin": 20,
+      "caseId": "case-allergische-rhinitis",
+      "specialty": "Pneumologie",
+      "layer": 1,
+      "assistance": "assiste",
+      "teil": "anamnese",
+      "reason": "Parmi les cas les plus vus à l'examen, et jamais travaillé.",
+      "id": "t-dec995e1-2",
+      "date": "2026-10-05",
+      "source": "plan"
+     },
+     {
+      "kind": "simulation",
+      "label": "Einseitig geschwollenes Bein",
+      "estMin": 20,
+      "caseId": "case-tvt",
+      "specialty": "Kardiologie",
+      "layer": 1,
+      "assistance": "assiste",
+      "teil": "anamnese",
+      "reason": "Parmi les cas les plus vus à l'examen, et jamais travaillé.",
+      "id": "t-dec995e1-3",
+      "date": "2026-10-05",
+      "source": "plan"
+     },
+     {
+      "kind": "simulation",
+      "label": "Akuter Gichtanfall",
+      "estMin": 20,
+      "caseId": "case-gicht",
+      "specialty": "Rheumatologie",
+      "layer": 1,
+      "assistance": "assiste",
+      "teil": "anamnese",
+      "reason": "Parmi les cas les plus vus à l'examen, et jamais travaillé.",
+      "id": "t-dec995e1-4",
+      "date": "2026-10-05",
+      "source": "plan"
+     },
+     {
+      "kind": "simulation",
+      "label": "Ösophaguskarzinom",
+      "estMin": 20,
+      "caseId": "case-oesophaguskarzinom",
+      "specialty": "Gastroenterologie",
+      "layer": 1,
+      "assistance": "assiste",
+      "teil": "anamnese",
+      "reason": "Parmi les cas les plus vus à l'examen, et jamais travaillé.",
+      "id": "t-dec995e1-5",
+      "date": "2026-10-05",
+      "source": "plan"
+     },
+     {
+      "kind": "simulation",
+      "label": "pAVK — Claudicatio intermittens",
+      "estMin": 20,
+      "caseId": "case-pavk",
+      "specialty": "Kardiologie",
+      "layer": 1,
+      "assistance": "assiste",
+      "teil": "anamnese",
+      "reason": "Parmi les cas les plus vus à l'examen, et jamais travaillé.",
+      "id": "t-dec995e1-6",
+      "date": "2026-10-05",
+      "source": "plan"
+     },
+     {
+      "kind": "simulation",
+      "label": "Obere GI-Blutung bei Ulcus ventriculi",
+      "estMin": 20,
+      "caseId": "case-gib",
+      "specialty": "Gastroenterologie",
+      "layer": 1,
+      "assistance": "assiste",
+      "teil": "anamnese",
+      "reason": "Parmi les cas les plus vus à l'examen, et jamais travaillé.",
+      "id": "t-dec995e1-7",
+      "date": "2026-10-05",
+      "source": "plan"
+     },
+     {
+      "kind": "simulation",
+      "label": "Lyme-Borreliose",
+      "estMin": 20,
+      "caseId": "case-lyme",
+      "specialty": "Infektiologie",
+      "layer": 1,
+      "assistance": "assiste",
+      "teil": "anamnese",
+      "reason": "Parmi les cas les plus vus à l'examen, et jamais travaillé.",
+      "id": "t-dec995e1-8",
+      "date": "2026-10-05",
+      "source": "plan"
+     },
+     {
+      "kind": "fachwissen",
+      "label": "Leberzirrhose",
+      "estMin": 15,
+      "caseId": "case-leberzirrhose",
+      "specialty": "Gastroenterologie",
+      "diversityRelaxed": true,
+      "reason": "La théorie du cas que tu découvres aujourd'hui.",
+      "id": "t-dec995e1-9",
+      "date": "2026-10-05",
+      "source": "plan"
+     }
+    ],
+    "mode": "teil-first",
+    "seed": "2026-10-05:teil-first:0:1791180000000",
+    "targetMin": 180
+   }
+  },
+  {
+   "id": "7cbc6162-47ca-4c93-ab3a-18a54deeafb3",
+   "user_id": "u",
+   "occurred_at": "2026-10-05T06:10:00.000Z",
+   "type": "simulation.completed",
+   "subject_id": "sim-1791180600000",
+   "payload": {
+    "id": "sim-1791180600000",
+    "caseId": "case-leberzirrhose",
+    "date": 1791180600000,
+    "parts": {
+     "anamnese": {
+      "done": true,
+      "durationSec": 600,
+      "checklist": [],
+      "feeling": 70,
+      "contentPct": 75,
+      "officialPct": 75
+     }
+    },
+    "notes": {},
+    "prioritizedCorrections": [],
+    "passed": true,
+    "assistance": "autonome",
+    "layer": 2,
+    "scope": "teil",
+    "teil": "anamnese",
+    "taskId": "t-dec995e1-1",
+    "selfDeclared": false
+   }
+  },
+  {
+   "id": "3f395302-0a36-4581-9fad-b94e96aad676",
+   "user_id": "u",
+   "occurred_at": "2026-10-05T06:10:00.001Z",
+   "type": "case.layer_reached",
+   "subject_id": "case-leberzirrhose",
+   "payload": {
+    "layer": 2
+   }
+  },
+  {
+   "id": "19f19038-c85d-4bbf-b8ef-145c385dd61f",
+   "user_id": "u",
+   "occurred_at": "2026-10-05T06:11:00.000Z",
+   "type": "training.logged",
+   "subject_id": "20c3426c-7a9e-43b0-9072-034bb6168f61",
+   "payload": {
+    "at": 1791180660000,
+    "kind": "simulation",
+    "caseId": "case-allergische-rhinitis",
+    "teile": [
+     "anamnese"
+    ],
+    "source": "plan",
+    "taskId": "t-dec995e1-2",
+    "spentMin": 4
+   }
+  },
+  {
+   "id": "7ae4ae77-8d9c-4ef5-932a-39833441a861",
+   "user_id": "u",
+   "occurred_at": "2026-10-06T06:00:00.000Z",
+   "type": "plan.materialized",
+   "subject_id": "2026-10-06",
+   "payload": {
+    "tasks": [
+     {
+      "kind": "simulation",
+      "label": "Einseitig geschwollenes Bein",
+      "estMin": 20,
+      "caseId": "case-tvt",
+      "specialty": "Kardiologie",
+      "layer": 1,
+      "assistance": "assiste",
+      "teil": "anamnese",
+      "reason": "Parmi les cas les plus vus à l'examen, et jamais travaillé.",
+      "id": "t-cd6ab725-1",
+      "date": "2026-10-06",
+      "source": "plan"
+     },
+     {
+      "kind": "drill",
+      "label": "Fachbegriffe",
+      "estMin": 2,
+      "reason": "5 nouveaux termes",
+      "id": "t-cd6ab725-0",
+      "date": "2026-10-06",
+      "source": "plan"
+     },
+     {
+      "kind": "simulation",
+      "label": "Akuter Gichtanfall",
+      "estMin": 20,
+      "caseId": "case-gicht",
+      "specialty": "Rheumatologie",
+      "layer": 1,
+      "assistance": "assiste",
+      "teil": "anamnese",
+      "reason": "Parmi les cas les plus vus à l'examen, et jamais travaillé.",
+      "id": "t-cd6ab725-2",
+      "date": "2026-10-06",
+      "source": "plan"
+     },
+     {
+      "kind": "simulation",
+      "label": "Ösophaguskarzinom",
+      "estMin": 20,
+      "caseId": "case-oesophaguskarzinom",
+      "specialty": "Gastroenterologie",
+      "layer": 1,
+      "assistance": "assiste",
+      "teil": "anamnese",
+      "reason": "Parmi les cas les plus vus à l'examen, et jamais travaillé.",
+      "id": "t-cd6ab725-3",
+      "date": "2026-10-06",
+      "source": "plan"
+     },
+     {
+      "kind": "simulation",
+      "label": "pAVK — Claudicatio intermittens",
+      "estMin": 20,
+      "caseId": "case-pavk",
+      "specialty": "Kardiologie",
+      "layer": 1,
+      "assistance": "assiste",
+      "teil": "anamnese",
+      "reason": "Parmi les cas les plus vus à l'examen, et jamais travaillé.",
+      "id": "t-cd6ab725-4",
+      "date": "2026-10-06",
+      "source": "plan"
+     },
+     {
+      "kind": "simulation",
+      "label": "Obere GI-Blutung bei Ulcus ventriculi",
+      "estMin": 20,
+      "caseId": "case-gib",
+      "specialty": "Gastroenterologie",
+      "layer": 1,
+      "assistance": "assiste",
+      "teil": "anamnese",
+      "reason": "Parmi les cas les plus vus à l'examen, et jamais travaillé.",
+      "id": "t-cd6ab725-5",
+      "date": "2026-10-06",
+      "source": "plan"
+     },
+     {
+      "kind": "simulation",
+      "label": "Lyme-Borreliose",
+      "estMin": 20,
+      "caseId": "case-lyme",
+      "specialty": "Infektiologie",
+      "layer": 1,
+      "assistance": "assiste",
+      "teil": "anamnese",
+      "reason": "Parmi les cas les plus vus à l'examen, et jamais travaillé.",
+      "id": "t-cd6ab725-6",
+      "date": "2026-10-06",
+      "source": "plan"
+     },
+     {
+      "kind": "simulation",
+      "label": "Ambulant erworbene Pneumonie (CAP)",
+      "estMin": 20,
+      "caseId": "case-pneumonie",
+      "specialty": "Pneumologie",
+      "layer": 1,
+      "assistance": "assiste",
+      "teil": "anamnese",
+      "reason": "Parmi les cas les plus vus à l'examen, et jamais travaillé.",
+      "id": "t-cd6ab725-7",
+      "date": "2026-10-06",
+      "source": "plan"
+     },
+     {
+      "kind": "simulation",
+      "label": "Kopfschmerzen nach Fahrradsturz",
+      "estMin": 20,
+      "caseId": "case-commotio",
+      "specialty": "Neurologie",
+      "layer": 1,
+      "assistance": "assiste",
+      "teil": "anamnese",
+      "reason": "Parmi les cas les plus vus à l'examen, et jamais travaillé.",
+      "id": "t-cd6ab725-8",
+      "date": "2026-10-06",
+      "source": "plan"
+     },
+     {
+      "kind": "fachwissen",
+      "label": "Tiefe Beinvenenthrombose (TVT)",
+      "estMin": 15,
+      "caseId": "case-tvt",
+      "specialty": "Kardiologie",
+      "reason": "La théorie du cas que tu découvres aujourd'hui.",
+      "id": "t-cd6ab725-9",
+      "date": "2026-10-06",
+      "source": "plan"
+     }
+    ],
+    "mode": "teil-first",
+    "seed": "2026-10-06:teil-first:2:1791266400000",
+    "targetMin": 180
+   }
+  },
+  {
+   "id": "3d7f6dfd-7814-4ff7-b2a6-3f9c263a873b",
+   "user_id": "u",
+   "occurred_at": "2026-10-06T06:10:00.000Z",
+   "type": "simulation.completed",
+   "subject_id": "sim-1791267000000",
+   "payload": {
+    "id": "sim-1791267000000",
+    "caseId": "case-tvt",
+    "date": 1791267000000,
+    "parts": {
+     "dokumentation": {
+      "done": true,
+      "durationSec": 600,
+      "checklist": [],
+      "feeling": 70,
+      "contentPct": 75,
+      "officialPct": 75
+     }
+    },
+    "notes": {},
+    "prioritizedCorrections": [],
+    "passed": true,
+    "assistance": "autonome",
+    "layer": 2,
+    "scope": "teil",
+    "teil": "dokumentation",
+    "selfDeclared": false
+   }
+  },
+  {
+   "id": "de5eadfe-2a44-439e-a25c-12c96aa3f59b",
+   "user_id": "u",
+   "occurred_at": "2026-10-06T06:10:00.001Z",
+   "type": "case.layer_reached",
+   "subject_id": "case-tvt",
+   "payload": {
+    "layer": 2
+   }
+  },
+  {
+   "id": "81b8faeb-b25e-4f94-98aa-a30fa7834a99",
+   "user_id": "u",
+   "occurred_at": "2026-10-06T06:20:00.000Z",
+   "type": "simulation.completed",
+   "subject_id": "sim-1791267600000",
+   "payload": {
+    "id": "sim-1791267600000",
+    "caseId": "case-tvt",
+    "date": 1791267600000,
+    "parts": {
+     "anamnese": {
+      "done": true,
+      "durationSec": 600,
+      "checklist": [],
+      "feeling": 70,
+      "contentPct": 75,
+      "officialPct": 75
+     }
+    },
+    "notes": {},
+    "prioritizedCorrections": [],
+    "passed": true,
+    "assistance": "autonome",
+    "layer": 2,
+    "scope": "teil",
+    "teil": "anamnese",
+    "taskId": "t-cd6ab725-1",
+    "selfDeclared": false
+   }
+  },
+  {
+   "id": "8a340370-ce7c-47fd-9614-8f5616944552",
+   "user_id": "u",
+   "occurred_at": "2026-10-06T06:20:00.001Z",
+   "type": "case.layer_reached",
+   "subject_id": "case-tvt",
+   "payload": {
+    "layer": 2
+   }
+  },
+  {
+   "id": "8171e95f-71d4-4925-ab23-58418025d8b8",
+   "user_id": "u",
+   "occurred_at": "2026-10-06T06:25:00.000Z",
+   "type": "training.logged",
+   "subject_id": "44d72955-e7cf-480f-95b6-1268c714b2a9",
+   "payload": {
+    "at": 1791267900000,
+    "kind": "drill",
+    "teile": [],
+    "source": "plan",
+    "taskId": "t-cd6ab725-0",
+    "spentMin": 12
+   }
+  },
+  {
+   "id": "20e090d2-bc5e-41a7-bcd7-d852d15c604d",
+   "user_id": "u",
+   "occurred_at": "2026-10-07T06:00:00.000Z",
+   "type": "plan.materialized",
+   "subject_id": "2026-10-07",
+   "payload": {
+    "tasks": [
+     {
+      "kind": "simulation",
+      "label": "Akuter Gichtanfall",
+      "estMin": 20,
+      "caseId": "case-gicht",
+      "specialty": "Rheumatologie",
+      "layer": 1,
+      "assistance": "assiste",
+      "teil": "anamnese",
+      "reason": "Parmi les cas les plus vus à l'examen, et jamais travaillé.",
+      "id": "t-24f30d45-1",
+      "date": "2026-10-07",
+      "source": "plan"
+     },
+     {
+      "kind": "drill",
+      "label": "Fachbegriffe",
+      "estMin": 2,
+      "reason": "5 nouveaux termes",
+      "id": "t-24f30d45-0",
+      "date": "2026-10-07",
+      "source": "plan"
+     },
+     {
+      "kind": "simulation",
+      "label": "Ösophaguskarzinom",
+      "estMin": 20,
+      "caseId": "case-oesophaguskarzinom",
+      "specialty": "Gastroenterologie",
+      "layer": 1,
+      "assistance": "assiste",
+      "teil": "anamnese",
+      "reason": "Parmi les cas les plus vus à l'examen, et jamais travaillé.",
+      "id": "t-24f30d45-2",
+      "date": "2026-10-07",
+      "source": "plan"
+     },
+     {
+      "kind": "simulation",
+      "label": "pAVK — Claudicatio intermittens",
+      "estMin": 20,
+      "caseId": "case-pavk",
+      "specialty": "Kardiologie",
+      "layer": 1,
+      "assistance": "assiste",
+      "teil": "anamnese",
+      "reason": "Parmi les cas les plus vus à l'examen, et jamais travaillé.",
+      "id": "t-24f30d45-3",
+      "date": "2026-10-07",
+      "source": "plan"
+     },
+     {
+      "kind": "simulation",
+      "label": "Obere GI-Blutung bei Ulcus ventriculi",
+      "estMin": 20,
+      "caseId": "case-gib",
+      "specialty": "Gastroenterologie",
+      "layer": 1,
+      "assistance": "assiste",
+      "teil": "anamnese",
+      "reason": "Parmi les cas les plus vus à l'examen, et jamais travaillé.",
+      "id": "t-24f30d45-4",
+      "date": "2026-10-07",
+      "source": "plan"
+     },
+     {
+      "kind": "simulation",
+      "label": "Lyme-Borreliose",
+      "estMin": 20,
+      "caseId": "case-lyme",
+      "specialty": "Infektiologie",
+      "layer": 1,
+      "assistance": "assiste",
+      "teil": "anamnese",
+      "reason": "Parmi les cas les plus vus à l'examen, et jamais travaillé.",
+      "id": "t-24f30d45-5",
+      "date": "2026-10-07",
+      "source": "plan"
+     },
+     {
+      "kind": "simulation",
+      "label": "Ambulant erworbene Pneumonie (CAP)",
+      "estMin": 20,
+      "caseId": "case-pneumonie",
+      "specialty": "Pneumologie",
+      "layer": 1,
+      "assistance": "assiste",
+      "teil": "anamnese",
+      "reason": "Parmi les cas les plus vus à l'examen, et jamais travaillé.",
+      "id": "t-24f30d45-6",
+      "date": "2026-10-07",
+      "source": "plan"
+     },
+     {
+      "kind": "simulation",
+      "label": "Kopfschmerzen nach Fahrradsturz",
+      "estMin": 20,
+      "caseId": "case-commotio",
+      "specialty": "Neurologie",
+      "layer": 1,
+      "assistance": "assiste",
+      "teil": "anamnese",
+      "reason": "Parmi les cas les plus vus à l'examen, et jamais travaillé.",
+      "id": "t-24f30d45-7",
+      "date": "2026-10-07",
+      "source": "plan"
+     },
+     {
+      "kind": "simulation",
+      "label": "Depressive Episode",
+      "estMin": 20,
+      "caseId": "case-depression",
+      "specialty": "Psychiatrie",
+      "layer": 1,
+      "assistance": "assiste",
+      "teil": "anamnese",
+      "reason": "Jamais rencontré, et il reste du temps pour le découvrir posément.",
+      "id": "t-24f30d45-8",
+      "date": "2026-10-07",
+      "source": "plan"
+     },
+     {
+      "kind": "fachwissen",
+      "label": "Gichtarthritis (akuter Gichtanfall)",
+      "estMin": 15,
+      "caseId": "case-gicht",
+      "specialty": "Rheumatologie",
+      "reason": "La théorie du cas que tu découvres aujourd'hui.",
+      "id": "t-24f30d45-9",
+      "date": "2026-10-07",
+      "source": "plan"
+     }
+    ],
+    "mode": "teil-first",
+    "seed": "2026-10-07:teil-first:5:1791352800000",
+    "targetMin": 180
+   }
+  },
+  {
+   "id": "75d6b6a6-66c7-4e20-9c32-40a9d3996429",
+   "user_id": "u",
+   "occurred_at": "2026-10-07T06:01:00.000Z",
+   "type": "training.logged",
+   "subject_id": "87b2ff40-b2c9-477b-b834-4cdec278df40",
+   "payload": {
+    "at": 1791352860000,
+    "kind": "simulation",
+    "caseId": "case-gicht",
+    "teile": [
+     "anamnese"
+    ],
+    "source": "plan",
+    "taskId": "t-24f30d45-1",
+    "spentMin": 3
+   }
+  },
+  {
+   "id": "0cbf6950-55ea-49d4-9696-f83bf02a6572",
+   "user_id": "u",
+   "occurred_at": "2026-10-07T06:02:00.000Z",
+   "type": "plan.replanned",
+   "subject_id": "2026-10-07",
+   "payload": {
+    "tasks": [
+     {
+      "kind": "simulation",
+      "label": "Akuter Gichtanfall",
+      "estMin": 20,
+      "caseId": "case-gicht",
+      "specialty": "Rheumatologie",
+      "layer": 1,
+      "assistance": "assiste",
+      "teil": "anamnese",
+      "reason": "Parmi les cas les plus vus à l'examen, et jamais travaillé.",
+      "id": "t-24f30d45-1",
+      "date": "2026-10-07",
+      "source": "plan",
+      "doneAt": 1791352860000,
+      "spentMin": 3,
+      "eventId": "87b2ff40-b2c9-477b-b834-4cdec278df40"
+     },
+     {
+      "kind": "simulation",
+      "label": "Ösophaguskarzinom",
+      "estMin": 20,
+      "caseId": "case-oesophaguskarzinom",
+      "specialty": "Gastroenterologie",
+      "layer": 1,
+      "assistance": "assiste",
+      "teil": "anamnese",
+      "reason": "Parmi les cas les plus vus à l'examen, et jamais travaillé.",
+      "id": "1f94d67a-56b2-4f89-bce5-52a6bf0cf1a4",
+      "date": "2026-10-07",
+      "source": "plan"
+     },
+     {
+      "kind": "drill",
+      "label": "Fachbegriffe",
+      "estMin": 2,
+      "reason": "5 nouveaux termes",
+      "id": "1603186e-58a6-4df2-bae3-9327f1c793dc",
+      "date": "2026-10-07",
+      "source": "plan"
+     },
+     {
+      "kind": "simulation",
+      "label": "pAVK — Claudicatio intermittens",
+      "estMin": 20,
+      "caseId": "case-pavk",
+      "specialty": "Kardiologie",
+      "layer": 1,
+      "assistance": "assiste",
+      "teil": "anamnese",
+      "reason": "Parmi les cas les plus vus à l'examen, et jamais travaillé.",
+      "id": "e09bc5c1-ea0e-49b8-88e2-b268fdfe3268",
+      "date": "2026-10-07",
+      "source": "plan"
+     },
+     {
+      "kind": "simulation",
+      "label": "Obere GI-Blutung bei Ulcus ventriculi",
+      "estMin": 20,
+      "caseId": "case-gib",
+      "specialty": "Gastroenterologie",
+      "layer": 1,
+      "assistance": "assiste",
+      "teil": "anamnese",
+      "reason": "Parmi les cas les plus vus à l'examen, et jamais travaillé.",
+      "id": "4dd64882-326a-4e4c-8cf1-b279f358b616",
+      "date": "2026-10-07",
+      "source": "plan"
+     },
+     {
+      "kind": "simulation",
+      "label": "Lyme-Borreliose",
+      "estMin": 20,
+      "caseId": "case-lyme",
+      "specialty": "Infektiologie",
+      "layer": 1,
+      "assistance": "assiste",
+      "teil": "anamnese",
+      "reason": "Parmi les cas les plus vus à l'examen, et jamais travaillé.",
+      "id": "b7541635-4c4d-45b1-a7a7-4c1a785eb7da",
+      "date": "2026-10-07",
+      "source": "plan"
+     },
+     {
+      "kind": "simulation",
+      "label": "Ambulant erworbene Pneumonie (CAP)",
+      "estMin": 20,
+      "caseId": "case-pneumonie",
+      "specialty": "Pneumologie",
+      "layer": 1,
+      "assistance": "assiste",
+      "teil": "anamnese",
+      "reason": "Parmi les cas les plus vus à l'examen, et jamais travaillé.",
+      "id": "47ad1447-cc6f-4d51-bf2a-7cb6e5456761",
+      "date": "2026-10-07",
+      "source": "plan"
+     },
+     {
+      "kind": "simulation",
+      "label": "Kopfschmerzen nach Fahrradsturz",
+      "estMin": 20,
+      "caseId": "case-commotio",
+      "specialty": "Neurologie",
+      "layer": 1,
+      "assistance": "assiste",
+      "teil": "anamnese",
+      "reason": "Parmi les cas les plus vus à l'examen, et jamais travaillé.",
+      "id": "4830f0b3-aa2f-435b-8f9c-7fdc1f80a4b8",
+      "date": "2026-10-07",
+      "source": "plan"
+     },
+     {
+      "kind": "simulation",
+      "label": "Depressive Episode",
+      "estMin": 20,
+      "caseId": "case-depression",
+      "specialty": "Psychiatrie",
+      "layer": 1,
+      "assistance": "assiste",
+      "teil": "anamnese",
+      "reason": "Jamais rencontré, et il reste du temps pour le découvrir posément.",
+      "id": "c429011c-a45b-4d48-a392-51a9d7889c9f",
+      "date": "2026-10-07",
+      "source": "plan"
+     }
+    ],
+    "reason": "manuel"
+   }
+  },
+  {
+   "id": "af71f3d4-a3c9-41b2-91c7-60461e38ea34",
+   "user_id": "u",
+   "occurred_at": "2026-10-07T06:12:00.000Z",
+   "type": "simulation.completed",
+   "subject_id": "sim-1791353520000",
+   "payload": {
+    "id": "sim-1791353520000",
+    "caseId": "case-oesophaguskarzinom",
+    "date": 1791353520000,
+    "parts": {
+     "anamnese": {
+      "done": true,
+      "durationSec": 600,
+      "checklist": [],
+      "feeling": 70,
+      "contentPct": 85,
+      "officialPct": 85
+     }
+    },
+    "notes": {},
+    "prioritizedCorrections": [],
+    "passed": true,
+    "assistance": "autonome",
+    "layer": 2,
+    "scope": "teil",
+    "teil": "anamnese",
+    "taskId": "1f94d67a-56b2-4f89-bce5-52a6bf0cf1a4",
+    "selfDeclared": false
+   }
+  },
+  {
+   "id": "1230b509-2e05-4312-bdd7-653e260fcbf6",
+   "user_id": "u",
+   "occurred_at": "2026-10-07T06:12:00.001Z",
+   "type": "case.layer_reached",
+   "subject_id": "case-oesophaguskarzinom",
+   "payload": {
+    "layer": 2
+   }
+  },
+  {
+   "id": "d64c2b31-186e-492c-9edb-6a6eecefea19",
+   "user_id": "u",
+   "occurred_at": "2026-10-08T06:00:00.000Z",
+   "type": "plan.materialized",
+   "subject_id": "2026-10-08",
+   "payload": {
+    "tasks": [
+     {
+      "kind": "simulation",
+      "label": "pAVK — Claudicatio intermittens",
+      "estMin": 40,
+      "caseId": "case-pavk",
+      "specialty": "Kardiologie",
+      "layer": 1,
+      "assistance": "assiste",
+      "reason": "Parmi les cas les plus vus à l'examen, et jamais travaillé.",
+      "id": "t-98b59b35-1",
+      "date": "2026-10-08",
+      "source": "plan"
+     },
+     {
+      "kind": "drill",
+      "label": "Fachbegriffe",
+      "estMin": 2,
+      "reason": "5 nouveaux termes",
+      "id": "t-98b59b35-0",
+      "date": "2026-10-08",
+      "source": "plan"
+     },
+     {
+      "kind": "simulation",
+      "label": "Obere GI-Blutung bei Ulcus ventriculi",
+      "estMin": 40,
+      "caseId": "case-gib",
+      "specialty": "Gastroenterologie",
+      "layer": 1,
+      "assistance": "assiste",
+      "reason": "Parmi les cas les plus vus à l'examen, et jamais travaillé.",
+      "id": "t-98b59b35-2",
+      "date": "2026-10-08",
+      "source": "plan"
+     },
+     {
+      "kind": "simulation",
+      "label": "Lyme-Borreliose",
+      "estMin": 40,
+      "caseId": "case-lyme",
+      "specialty": "Infektiologie",
+      "layer": 1,
+      "assistance": "assiste",
+      "reason": "Parmi les cas les plus vus à l'examen, et jamais travaillé.",
+      "id": "t-98b59b35-3",
+      "date": "2026-10-08",
+      "source": "plan"
+     },
+     {
+      "kind": "simulation",
+      "label": "Ambulant erworbene Pneumonie (CAP)",
+      "estMin": 40,
+      "caseId": "case-pneumonie",
+      "specialty": "Pneumologie",
+      "layer": 1,
+      "assistance": "assiste",
+      "reason": "Parmi les cas les plus vus à l'examen, et jamais travaillé.",
+      "id": "t-98b59b35-4",
+      "date": "2026-10-08",
+      "source": "plan"
+     },
+     {
+      "kind": "fachwissen",
+      "label": "Periphere arterielle Verschlusskrankheit (pAVK)",
+      "estMin": 15,
+      "caseId": "case-pavk",
+      "specialty": "Kardiologie",
+      "reason": "La théorie du cas que tu découvres aujourd'hui.",
+      "id": "t-98b59b35-5",
+      "date": "2026-10-08",
+      "source": "plan"
+     }
+    ],
+    "mode": "cas-complet",
+    "seed": "2026-10-08:cas-complet:7:1791439200000",
+    "targetMin": 180
+   }
+  },
+  {
+   "id": "29418ab3-32ce-4343-84a9-2bc2bd7c903c",
+   "user_id": "u",
+   "occurred_at": "2026-10-08T06:10:00.000Z",
+   "type": "simulation.completed",
+   "subject_id": "sim-1791439800000",
+   "payload": {
+    "id": "sim-1791439800000",
+    "caseId": "case-pavk",
+    "date": 1791439800000,
+    "parts": {
+     "anamnese": {
+      "done": true,
+      "durationSec": 600,
+      "checklist": [],
+      "feeling": 70,
+      "contentPct": 75,
+      "officialPct": 75
+     }
+    },
+    "notes": {},
+    "prioritizedCorrections": [],
+    "passed": true,
+    "assistance": "autonome",
+    "layer": 2,
+    "scope": "teil",
+    "teil": "anamnese",
+    "selfDeclared": false
+   }
+  },
+  {
+   "id": "5e745cac-c7c7-438a-a331-26e139e8f6a0",
+   "user_id": "u",
+   "occurred_at": "2026-10-08T06:10:00.001Z",
+   "type": "case.layer_reached",
+   "subject_id": "case-pavk",
+   "payload": {
+    "layer": 2
+   }
+  },
+  {
+   "id": "5a163ebf-e3d0-4ec3-8b25-38df87589630",
+   "user_id": "u",
+   "occurred_at": "2026-10-08T06:20:00.000Z",
+   "type": "simulation.completed",
+   "subject_id": "sim-1791440400000",
+   "payload": {
+    "id": "sim-1791440400000",
+    "caseId": "case-pavk",
+    "date": 1791440400000,
+    "parts": {
+     "dokumentation": {
+      "done": true,
+      "durationSec": 600,
+      "checklist": [],
+      "feeling": 70,
+      "contentPct": 75,
+      "officialPct": 75
+     }
+    },
+    "notes": {},
+    "prioritizedCorrections": [],
+    "passed": true,
+    "assistance": "autonome",
+    "layer": 2,
+    "scope": "teil",
+    "teil": "dokumentation",
+    "selfDeclared": false
+   }
+  },
+  {
+   "id": "f525877d-209a-4197-a4a9-f96abdf5e113",
+   "user_id": "u",
+   "occurred_at": "2026-10-08T06:20:00.001Z",
+   "type": "case.layer_reached",
+   "subject_id": "case-pavk",
+   "payload": {
+    "layer": 2
+   }
+  },
+  {
+   "id": "303baf28-1e99-49eb-a61f-c7595f22d794",
+   "user_id": "u",
+   "occurred_at": "2026-10-08T06:30:00.000Z",
+   "type": "simulation.completed",
+   "subject_id": "sim-1791441000000",
+   "payload": {
+    "id": "sim-1791441000000",
+    "caseId": "case-pavk",
+    "date": 1791441000000,
+    "parts": {
+     "fallvorstellung": {
+      "done": true,
+      "durationSec": 600,
+      "checklist": [],
+      "feeling": 70,
+      "contentPct": 90,
+      "officialPct": 90
+     }
+    },
+    "notes": {},
+    "prioritizedCorrections": [],
+    "passed": true,
+    "assistance": "autonome",
+    "layer": 2,
+    "scope": "teil",
+    "teil": "fallvorstellung",
+    "taskId": "t-98b59b35-1",
+    "selfDeclared": false
+   }
+  },
+  {
+   "id": "9653c205-3ee8-4cef-9268-95e9854ba559",
+   "user_id": "u",
+   "occurred_at": "2026-10-08T06:30:00.001Z",
+   "type": "case.layer_reached",
+   "subject_id": "case-pavk",
+   "payload": {
+    "layer": 2
+   }
+  },
+  {
+   "id": "2410c926-b61e-4c3a-8545-77ad85671500",
+   "user_id": "u",
+   "occurred_at": "2026-10-08T06:40:00.000Z",
+   "type": "simulation.completed",
+   "subject_id": "sim-1791441600000",
+   "payload": {
+    "id": "sim-1791441600000",
+    "caseId": "case-gib",
+    "date": 1791441600000,
+    "parts": {
+     "anamnese": {
+      "done": true,
+      "durationSec": 600,
+      "checklist": [],
+      "feeling": 70,
+      "contentPct": 82,
+      "officialPct": 82
+     },
+     "dokumentation": {
+      "done": true,
+      "durationSec": 600,
+      "checklist": [],
+      "feeling": 70,
+      "contentPct": 82,
+      "officialPct": 82
+     },
+     "fallvorstellung": {
+      "done": true,
+      "durationSec": 600,
+      "checklist": [],
+      "feeling": 70,
+      "contentPct": 82,
+      "officialPct": 82
+     }
+    },
+    "notes": {},
+    "prioritizedCorrections": [],
+    "passed": true,
+    "assistance": "autonome",
+    "layer": 2,
+    "scope": "full",
+    "taskId": "t-98b59b35-2",
+    "selfDeclared": false
+   }
+  },
+  {
+   "id": "fc503a59-ca95-446c-ae2d-df676ec9cfbe",
+   "user_id": "u",
+   "occurred_at": "2026-10-08T06:40:00.001Z",
+   "type": "case.layer_reached",
+   "subject_id": "case-gib",
+   "payload": {
+    "layer": 2
+   }
+  },
+  {
+   "id": "ffc01f32-6e00-444e-9274-7f4e84ffe0b3",
+   "user_id": "u",
+   "occurred_at": "2026-10-09T06:00:00.000Z",
+   "type": "plan.materialized",
+   "subject_id": "2026-10-09",
+   "payload": {
+    "tasks": [
+     {
+      "kind": "simulation",
+      "label": "Lyme-Borreliose",
+      "estMin": 40,
+      "caseId": "case-lyme",
+      "specialty": "Infektiologie",
+      "layer": 1,
+      "assistance": "assiste",
+      "reason": "Parmi les cas les plus vus à l'examen, et jamais travaillé.",
+      "id": "t-7728c71d-1",
+      "date": "2026-10-09",
+      "source": "plan"
+     },
+     {
+      "kind": "drill",
+      "label": "Fachbegriffe",
+      "estMin": 2,
+      "reason": "5 nouveaux termes",
+      "id": "t-7728c71d-0",
+      "date": "2026-10-09",
+      "source": "plan"
+     },
+     {
+      "kind": "simulation",
+      "label": "Ambulant erworbene Pneumonie (CAP)",
+      "estMin": 40,
+      "caseId": "case-pneumonie",
+      "specialty": "Pneumologie",
+      "layer": 1,
+      "assistance": "assiste",
+      "reason": "Parmi les cas les plus vus à l'examen, et jamais travaillé.",
+      "id": "t-7728c71d-2",
+      "date": "2026-10-09",
+      "source": "plan"
+     },
+     {
+      "kind": "simulation",
+      "label": "Kopfschmerzen nach Fahrradsturz",
+      "estMin": 40,
+      "caseId": "case-commotio",
+      "specialty": "Neurologie",
+      "layer": 1,
+      "assistance": "assiste",
+      "reason": "Parmi les cas les plus vus à l'examen, et jamais travaillé.",
+      "id": "t-7728c71d-3",
+      "date": "2026-10-09",
+      "source": "plan"
+     },
+     {
+      "kind": "simulation",
+      "label": "Depressive Episode",
+      "estMin": 40,
+      "caseId": "case-depression",
+      "specialty": "Psychiatrie",
+      "layer": 1,
+      "assistance": "assiste",
+      "reason": "Jamais rencontré, et il reste du temps pour le découvrir posément.",
+      "id": "t-7728c71d-4",
+      "date": "2026-10-09",
+      "source": "plan"
+     },
+     {
+      "kind": "fachwissen",
+      "label": "Lyme-Borreliose",
+      "estMin": 15,
+      "caseId": "case-lyme",
+      "specialty": "Infektiologie",
+      "reason": "La théorie du cas que tu découvres aujourd'hui.",
+      "id": "t-7728c71d-5",
+      "date": "2026-10-09",
+      "source": "plan"
+     }
+    ],
+    "mode": "cas-complet",
+    "seed": "2026-10-09:cas-complet:11:1791525600000",
+    "targetMin": 180
+   }
+  },
+  {
+   "id": "e1ae2808-9443-4d33-8c39-32c154e0c8d3",
+   "user_id": "u",
+   "occurred_at": "2026-10-09T06:10:00.000Z",
+   "type": "simulation.completed",
+   "subject_id": "sim-1791526200000",
+   "payload": {
+    "id": "sim-1791526200000",
+    "caseId": "case-lyme",
+    "date": 1791526200000,
+    "parts": {
+     "anamnese": {
+      "done": true,
+      "durationSec": 600,
+      "checklist": [],
+      "feeling": 70,
+      "contentPct": 60,
+      "officialPct": 60
+     },
+     "dokumentation": {
+      "done": true,
+      "durationSec": 600,
+      "checklist": [],
+      "feeling": 70,
+      "contentPct": 60,
+      "officialPct": 60
+     }
+    },
+    "notes": {},
+    "prioritizedCorrections": [],
+    "passed": true,
+    "assistance": "autonome",
+    "layer": 2,
+    "scope": "teil",
+    "selfDeclared": false
+   }
+  },
+  {
+   "id": "1fcd6664-527e-495a-ae6e-f472c21ee03f",
+   "user_id": "u",
+   "occurred_at": "2026-10-09T06:10:00.001Z",
+   "type": "case.layer_reached",
+   "subject_id": "case-lyme",
+   "payload": {
+    "layer": 2
+   }
+  },
+  {
+   "id": "c4c78008-51e2-4d09-8034-10da24d69c81",
+   "user_id": "u",
+   "occurred_at": "2026-10-09T06:40:00.000Z",
+   "type": "training.logged",
+   "subject_id": "810b0b27-a5bd-44c4-ae9c-531df028895b",
+   "payload": {
+    "at": 1791528000000,
+    "kind": "fiche",
+    "caseId": "case-lyme",
+    "teile": [],
+    "source": "plan",
+    "taskId": "t-7728c71d-5",
+    "spentMin": 9
+   }
+  },
+  {
+   "id": "898c8e95-e305-4112-bec5-a7a9281b301a",
+   "user_id": "u",
+   "occurred_at": "2026-10-12T06:00:00.000Z",
+   "type": "plan.materialized",
+   "subject_id": "2026-10-12",
+   "payload": {
+    "tasks": [
+     {
+      "kind": "simulation",
+      "label": "Ambulant erworbene Pneumonie (CAP)",
+      "estMin": 40,
+      "caseId": "case-pneumonie",
+      "specialty": "Pneumologie",
+      "layer": 1,
+      "assistance": "assiste",
+      "reason": "Parmi les cas les plus vus à l'examen, et jamais travaillé.",
+      "id": "t-e3c0b20e-1",
+      "date": "2026-10-12",
+      "source": "plan"
+     },
+     {
+      "kind": "drill",
+      "label": "Fachbegriffe",
+      "estMin": 2,
+      "reason": "5 nouveaux termes",
+      "id": "t-e3c0b20e-0",
+      "date": "2026-10-12",
+      "source": "plan"
+     },
+     {
+      "kind": "simulation",
+      "label": "Kopfschmerzen nach Fahrradsturz",
+      "estMin": 40,
+      "caseId": "case-commotio",
+      "specialty": "Neurologie",
+      "layer": 1,
+      "assistance": "assiste",
+      "reason": "Parmi les cas les plus vus à l'examen, et jamais travaillé.",
+      "id": "t-e3c0b20e-2",
+      "date": "2026-10-12",
+      "source": "plan"
+     },
+     {
+      "kind": "simulation",
+      "label": "Depressive Episode",
+      "estMin": 40,
+      "caseId": "case-depression",
+      "specialty": "Psychiatrie",
+      "layer": 1,
+      "assistance": "assiste",
+      "reason": "Jamais rencontré, et il reste du temps pour le découvrir posément.",
+      "id": "t-e3c0b20e-3",
+      "date": "2026-10-12",
+      "source": "plan"
+     },
+     {
+      "kind": "simulation",
+      "label": "Kolorektales Karzinom",
+      "estMin": 40,
+      "caseId": "case-kolorektales-ca",
+      "specialty": "Gastroenterologie",
+      "layer": 1,
+      "assistance": "assiste",
+      "reason": "Jamais rencontré, et il reste du temps pour le découvrir posément.",
+      "id": "t-e3c0b20e-4",
+      "date": "2026-10-12",
+      "source": "plan"
+     },
+     {
+      "kind": "fachwissen",
+      "label": "Ambulant erworbene Pneumonie (CAP)",
+      "estMin": 15,
+      "caseId": "case-pneumonie",
+      "specialty": "Pneumologie",
+      "reason": "La théorie du cas que tu découvres aujourd'hui.",
+      "id": "t-e3c0b20e-5",
+      "date": "2026-10-12",
+      "source": "plan"
+     }
+    ],
+    "mode": "cas-complet",
+    "seed": "2026-10-12:cas-complet:13:1791784800000",
+    "targetMin": 180
+   }
+  },
+  {
+   "id": "89c31b2a-a018-4071-a041-3c6f79ec1b41",
+   "user_id": "u",
+   "occurred_at": "2026-10-12T06:10:00.000Z",
+   "type": "simulation.completed",
+   "subject_id": "sim-1791785400000",
+   "payload": {
+    "id": "sim-1791785400000",
+    "caseId": "case-pneumonie",
+    "date": 1791785400000,
+    "parts": {
+     "fallvorstellung": {
+      "done": true,
+      "durationSec": 600,
+      "checklist": [],
+      "feeling": 70,
+      "contentPct": 55,
+      "officialPct": 55
+     }
+    },
+    "notes": {},
+    "prioritizedCorrections": [],
+    "passed": false,
+    "assistance": "autonome",
+    "layer": 2,
+    "scope": "teil",
+    "teil": "fallvorstellung",
+    "selfDeclared": false
+   }
+  },
+  {
+   "id": "0bb88860-d905-4512-bd10-26e3fde4546e",
+   "user_id": "u",
+   "occurred_at": "2026-10-12T06:10:00.001Z",
+   "type": "case.layer_reached",
+   "subject_id": "case-pneumonie",
+   "payload": {
+    "layer": 2
+   }
+  },
+  {
+   "id": "25b6e2cd-0c87-44d7-86ac-b7a255bc1ddd",
+   "user_id": "u",
+   "occurred_at": "2026-10-12T06:11:00.000Z",
+   "type": "training.logged",
+   "subject_id": "fdc853fa-b8aa-4ea3-9608-1b99ce3c03fa",
+   "payload": {
+    "at": 1791785460000,
+    "kind": "simulation",
+    "caseId": "case-kolorektales-ca",
+    "teile": [
+     "anamnese",
+     "dokumentation",
+     "fallvorstellung"
+    ],
+    "source": "plan",
+    "taskId": "t-e3c0b20e-4",
+    "spentMin": 0
+   }
+  }
+ ],
+ "plans": [
+  {
+   "date": "2026-10-05",
+   "mode": "teil-first",
+   "tasks": [
+    {
+     "id": "t-dec995e1-1",
+     "kind": "simulation",
+     "caseId": "case-leberzirrhose",
+     "teil": "anamnese",
+     "doneAt": 1791180600000,
+     "eventId": "te-sim-1791180600000",
+     "spentMin": 10
+    },
+    {
+     "id": "t-dec995e1-0",
+     "kind": "drill",
+     "caseId": null,
+     "teil": null,
+     "doneAt": null,
+     "eventId": null,
+     "spentMin": null
+    },
+    {
+     "id": "t-dec995e1-2",
+     "kind": "simulation",
+     "caseId": "case-allergische-rhinitis",
+     "teil": "anamnese",
+     "doneAt": 1791180660000,
+     "eventId": "20c3426c-7a9e-43b0-9072-034bb6168f61",
+     "spentMin": 4
+    },
+    {
+     "id": "t-dec995e1-3",
+     "kind": "simulation",
+     "caseId": "case-tvt",
+     "teil": "anamnese",
+     "doneAt": null,
+     "eventId": null,
+     "spentMin": null
+    },
+    {
+     "id": "t-dec995e1-4",
+     "kind": "simulation",
+     "caseId": "case-gicht",
+     "teil": "anamnese",
+     "doneAt": null,
+     "eventId": null,
+     "spentMin": null
+    },
+    {
+     "id": "t-dec995e1-5",
+     "kind": "simulation",
+     "caseId": "case-oesophaguskarzinom",
+     "teil": "anamnese",
+     "doneAt": null,
+     "eventId": null,
+     "spentMin": null
+    },
+    {
+     "id": "t-dec995e1-6",
+     "kind": "simulation",
+     "caseId": "case-pavk",
+     "teil": "anamnese",
+     "doneAt": null,
+     "eventId": null,
+     "spentMin": null
+    },
+    {
+     "id": "t-dec995e1-7",
+     "kind": "simulation",
+     "caseId": "case-gib",
+     "teil": "anamnese",
+     "doneAt": null,
+     "eventId": null,
+     "spentMin": null
+    },
+    {
+     "id": "t-dec995e1-8",
+     "kind": "simulation",
+     "caseId": "case-lyme",
+     "teil": "anamnese",
+     "doneAt": null,
+     "eventId": null,
+     "spentMin": null
+    },
+    {
+     "id": "t-dec995e1-9",
+     "kind": "fachwissen",
+     "caseId": "case-leberzirrhose",
+     "teil": null,
+     "doneAt": null,
+     "eventId": null,
+     "spentMin": null
+    }
+   ]
+  },
+  {
+   "date": "2026-10-06",
+   "mode": "teil-first",
+   "tasks": [
+    {
+     "id": "t-cd6ab725-1",
+     "kind": "simulation",
+     "caseId": "case-tvt",
+     "teil": "anamnese",
+     "doneAt": 1791267600000,
+     "eventId": "te-sim-1791267600000",
+     "spentMin": 10
+    },
+    {
+     "id": "t-cd6ab725-0",
+     "kind": "drill",
+     "caseId": null,
+     "teil": null,
+     "doneAt": 1791267900000,
+     "eventId": "44d72955-e7cf-480f-95b6-1268c714b2a9",
+     "spentMin": 12
+    },
+    {
+     "id": "t-cd6ab725-2",
+     "kind": "simulation",
+     "caseId": "case-gicht",
+     "teil": "anamnese",
+     "doneAt": null,
+     "eventId": null,
+     "spentMin": null
+    },
+    {
+     "id": "t-cd6ab725-3",
+     "kind": "simulation",
+     "caseId": "case-oesophaguskarzinom",
+     "teil": "anamnese",
+     "doneAt": null,
+     "eventId": null,
+     "spentMin": null
+    },
+    {
+     "id": "t-cd6ab725-4",
+     "kind": "simulation",
+     "caseId": "case-pavk",
+     "teil": "anamnese",
+     "doneAt": null,
+     "eventId": null,
+     "spentMin": null
+    },
+    {
+     "id": "t-cd6ab725-5",
+     "kind": "simulation",
+     "caseId": "case-gib",
+     "teil": "anamnese",
+     "doneAt": null,
+     "eventId": null,
+     "spentMin": null
+    },
+    {
+     "id": "t-cd6ab725-6",
+     "kind": "simulation",
+     "caseId": "case-lyme",
+     "teil": "anamnese",
+     "doneAt": null,
+     "eventId": null,
+     "spentMin": null
+    },
+    {
+     "id": "t-cd6ab725-7",
+     "kind": "simulation",
+     "caseId": "case-pneumonie",
+     "teil": "anamnese",
+     "doneAt": null,
+     "eventId": null,
+     "spentMin": null
+    },
+    {
+     "id": "t-cd6ab725-8",
+     "kind": "simulation",
+     "caseId": "case-commotio",
+     "teil": "anamnese",
+     "doneAt": null,
+     "eventId": null,
+     "spentMin": null
+    },
+    {
+     "id": "t-cd6ab725-9",
+     "kind": "fachwissen",
+     "caseId": "case-tvt",
+     "teil": null,
+     "doneAt": null,
+     "eventId": null,
+     "spentMin": null
+    }
+   ]
+  },
+  {
+   "date": "2026-10-07",
+   "mode": "teil-first",
+   "tasks": [
+    {
+     "id": "t-24f30d45-1",
+     "kind": "simulation",
+     "caseId": "case-gicht",
+     "teil": "anamnese",
+     "doneAt": 1791352860000,
+     "eventId": "87b2ff40-b2c9-477b-b834-4cdec278df40",
+     "spentMin": 3
+    },
+    {
+     "id": "1f94d67a-56b2-4f89-bce5-52a6bf0cf1a4",
+     "kind": "simulation",
+     "caseId": "case-oesophaguskarzinom",
+     "teil": "anamnese",
+     "doneAt": 1791353520000,
+     "eventId": "te-sim-1791353520000",
+     "spentMin": 10
+    },
+    {
+     "id": "1603186e-58a6-4df2-bae3-9327f1c793dc",
+     "kind": "drill",
+     "caseId": null,
+     "teil": null,
+     "doneAt": null,
+     "eventId": null,
+     "spentMin": null
+    },
+    {
+     "id": "e09bc5c1-ea0e-49b8-88e2-b268fdfe3268",
+     "kind": "simulation",
+     "caseId": "case-pavk",
+     "teil": "anamnese",
+     "doneAt": null,
+     "eventId": null,
+     "spentMin": null
+    },
+    {
+     "id": "4dd64882-326a-4e4c-8cf1-b279f358b616",
+     "kind": "simulation",
+     "caseId": "case-gib",
+     "teil": "anamnese",
+     "doneAt": null,
+     "eventId": null,
+     "spentMin": null
+    },
+    {
+     "id": "b7541635-4c4d-45b1-a7a7-4c1a785eb7da",
+     "kind": "simulation",
+     "caseId": "case-lyme",
+     "teil": "anamnese",
+     "doneAt": null,
+     "eventId": null,
+     "spentMin": null
+    },
+    {
+     "id": "47ad1447-cc6f-4d51-bf2a-7cb6e5456761",
+     "kind": "simulation",
+     "caseId": "case-pneumonie",
+     "teil": "anamnese",
+     "doneAt": null,
+     "eventId": null,
+     "spentMin": null
+    },
+    {
+     "id": "4830f0b3-aa2f-435b-8f9c-7fdc1f80a4b8",
+     "kind": "simulation",
+     "caseId": "case-commotio",
+     "teil": "anamnese",
+     "doneAt": null,
+     "eventId": null,
+     "spentMin": null
+    },
+    {
+     "id": "c429011c-a45b-4d48-a392-51a9d7889c9f",
+     "kind": "simulation",
+     "caseId": "case-depression",
+     "teil": "anamnese",
+     "doneAt": null,
+     "eventId": null,
+     "spentMin": null
+    }
+   ]
+  },
+  {
+   "date": "2026-10-08",
+   "mode": "cas-complet",
+   "tasks": [
+    {
+     "id": "t-98b59b35-1",
+     "kind": "simulation",
+     "caseId": "case-pavk",
+     "teil": null,
+     "doneAt": 1791441000000,
+     "eventId": "te-sim-1791441000000",
+     "spentMin": 10
+    },
+    {
+     "id": "t-98b59b35-0",
+     "kind": "drill",
+     "caseId": null,
+     "teil": null,
+     "doneAt": null,
+     "eventId": null,
+     "spentMin": null
+    },
+    {
+     "id": "t-98b59b35-2",
+     "kind": "simulation",
+     "caseId": "case-gib",
+     "teil": null,
+     "doneAt": 1791441600000,
+     "eventId": "te-sim-1791441600000",
+     "spentMin": 30
+    },
+    {
+     "id": "t-98b59b35-3",
+     "kind": "simulation",
+     "caseId": "case-lyme",
+     "teil": null,
+     "doneAt": null,
+     "eventId": null,
+     "spentMin": null
+    },
+    {
+     "id": "t-98b59b35-4",
+     "kind": "simulation",
+     "caseId": "case-pneumonie",
+     "teil": null,
+     "doneAt": null,
+     "eventId": null,
+     "spentMin": null
+    },
+    {
+     "id": "t-98b59b35-5",
+     "kind": "fachwissen",
+     "caseId": "case-pavk",
+     "teil": null,
+     "doneAt": null,
+     "eventId": null,
+     "spentMin": null
+    }
+   ]
+  },
+  {
+   "date": "2026-10-09",
+   "mode": "cas-complet",
+   "tasks": [
+    {
+     "id": "t-7728c71d-1",
+     "kind": "simulation",
+     "caseId": "case-lyme",
+     "teil": null,
+     "doneAt": null,
+     "eventId": null,
+     "spentMin": null
+    },
+    {
+     "id": "t-7728c71d-0",
+     "kind": "drill",
+     "caseId": null,
+     "teil": null,
+     "doneAt": null,
+     "eventId": null,
+     "spentMin": null
+    },
+    {
+     "id": "t-7728c71d-2",
+     "kind": "simulation",
+     "caseId": "case-pneumonie",
+     "teil": null,
+     "doneAt": null,
+     "eventId": null,
+     "spentMin": null
+    },
+    {
+     "id": "t-7728c71d-3",
+     "kind": "simulation",
+     "caseId": "case-commotio",
+     "teil": null,
+     "doneAt": null,
+     "eventId": null,
+     "spentMin": null
+    },
+    {
+     "id": "t-7728c71d-4",
+     "kind": "simulation",
+     "caseId": "case-depression",
+     "teil": null,
+     "doneAt": null,
+     "eventId": null,
+     "spentMin": null
+    },
+    {
+     "id": "t-7728c71d-5",
+     "kind": "fachwissen",
+     "caseId": "case-lyme",
+     "teil": null,
+     "doneAt": 1791528000000,
+     "eventId": "810b0b27-a5bd-44c4-ae9c-531df028895b",
+     "spentMin": 9
+    }
+   ]
+  },
+  {
+   "date": "2026-10-12",
+   "mode": "cas-complet",
+   "tasks": [
+    {
+     "id": "t-e3c0b20e-1",
+     "kind": "simulation",
+     "caseId": "case-pneumonie",
+     "teil": null,
+     "doneAt": null,
+     "eventId": null,
+     "spentMin": null
+    },
+    {
+     "id": "t-e3c0b20e-0",
+     "kind": "drill",
+     "caseId": null,
+     "teil": null,
+     "doneAt": null,
+     "eventId": null,
+     "spentMin": null
+    },
+    {
+     "id": "t-e3c0b20e-2",
+     "kind": "simulation",
+     "caseId": "case-commotio",
+     "teil": null,
+     "doneAt": null,
+     "eventId": null,
+     "spentMin": null
+    },
+    {
+     "id": "t-e3c0b20e-3",
+     "kind": "simulation",
+     "caseId": "case-depression",
+     "teil": null,
+     "doneAt": null,
+     "eventId": null,
+     "spentMin": null
+    },
+    {
+     "id": "t-e3c0b20e-4",
+     "kind": "simulation",
+     "caseId": "case-kolorektales-ca",
+     "teil": null,
+     "doneAt": 1791785460000,
+     "eventId": "fdc853fa-b8aa-4ea3-9608-1b99ce3c03fa",
+     "spentMin": 0
+    },
+    {
+     "id": "t-e3c0b20e-5",
+     "kind": "fachwissen",
+     "caseId": "case-pneumonie",
+     "teil": null,
+     "doneAt": null,
+     "eventId": null,
+     "spentMin": null
+    }
+   ]
+  }
+ ]
+}

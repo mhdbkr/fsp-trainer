@@ -6,7 +6,9 @@ const TYPES = ['simulation.completed','srs.reviewed','plan.done','case.layer_rea
   'term.favorited','term.unfavorited','deck.created','deck.renamed','deck.query_changed','deck.deleted','deck.term_added','deck.term_removed',
   'srs.settings_changed','term.personal_created','term.personal_deleted','term.personal_updated',
   // Série 3 — journal d'entraînement (docs/contracts/training-journal.md §2.2).
-  'training.logged','plan.materialized','plan.replanned'] as const;
+  'training.logged','plan.materialized','plan.replanned',
+  // Série 4 — les refus sont des événements synchronisés (training-journal.md §12.10).
+  'rythme.refused','rattrapage.refused'] as const;
 const Event = z.object({
   id: z.string().uuid(),
   type: z.string(),
@@ -25,7 +27,24 @@ const Score = z.number().min(0).max(100);
 const Tasks = z.array(z.object({
   id: Id, date: Day, estMin: Min, caseId: Id.optional(), teil: Teil.optional(),
   kind: z.enum(['simulation', 'drill', 'fachwissen', 'aufklaerung', 'revision', 'examen-blanc']),
+  // Série 4 (§12.1, §12.11) : la tâche de cas. Typés ici pour les BORNER ; le client les refiltre à la lecture (`lireTache`).
+  teile: z.array(Teil).max(3).optional(), rappel: Id.optional(), dUnTrait: z.literal(true).optional(),
+  creeA: z.number().int().nonnegative().optional(),
 }).passthrough()).max(50);
+// La configuration du programme (§12.10). Les bornes du serveur ne sont JAMAIS plus strictes que celles de
+// l'interface (`ProgramSetup`) ni que les valeurs de `accepterRythme` : 0,5 à 6 h pour l'interface, mais
+// `accepterRythme` peut produire moins de 0,5 h — d'où ]0, 12]. Le refus d'un `program.configured` n'efface jamais
+// la config locale (N2d) ; il n'en reste pas moins une perte de synchro, donc on ne refuse que l'inexploitable.
+const ConfigSchema = z.object({
+  startDate: Day, examDate: Day.optional(), weeks: z.number().min(1).max(520).optional(),
+  intensity: z.enum(['leicht', 'mittel', 'intensiv']),
+  hoursPerSession: z.number().gt(0).max(12),
+  offDays: z.array(z.number().int().min(0).max(6)).max(7),   // l'interface a laissé cocher les sept jours (≥ lireConfig, qui en refuse sept)
+  modus: z.enum(['teil-first', 'cas-complet', 'specialite', 'examen-blanc']).optional(),
+  strategy: z.enum(['teil-first', 'full']).optional(),
+}).passthrough();
+// Semaine ISO « yyyy-Www » : 01 à 53 (m-j).
+const Week = z.string().regex(/^\d{4}-W(0[1-9]|[1-4]\d|5[0-3])$/);
 const SCHEMAS: Partial<Record<(typeof TYPES)[number], { subject: z.ZodTypeAny; payload: z.ZodTypeAny }>> = {
   'training.logged': { subject: Id, payload: z.object({
     at: z.number().int().nonnegative(),
@@ -38,8 +57,13 @@ const SCHEMAS: Partial<Record<(typeof TYPES)[number], { subject: z.ZodTypeAny; p
   'plan.materialized': { subject: Day, payload: z.object({
     tasks: Tasks, mode: z.enum(['teil-first', 'cas-complet', 'specialite', 'examen-blanc']),
     seed: z.string().max(200), targetMin: Min.optional(),
+    tz: z.string().max(64).optional(),                       // fuseau IANA de l'appareil qui a matérialisé (§12.4, m11)
   }).strict() },
   'plan.replanned': { subject: Day, payload: z.object({ tasks: Tasks, reason: z.string().max(40) }).strict() },
+  // Série 4 (§12.10) : la config est PROJETÉE désormais ; les refus sont additifs.
+  'program.configured': { subject: z.null(), payload: ConfigSchema },
+  'rythme.refused': { subject: Week, payload: z.object({}).strict() },
+  'rattrapage.refused': { subject: Day, payload: z.object({}).strict() },
 };
 const Body = z.object({ events: z.array(z.unknown()).min(1).max(100) });
 type Rejected = { id: string | null; reason: string; retry?: true };

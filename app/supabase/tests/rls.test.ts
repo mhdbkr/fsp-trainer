@@ -91,3 +91,34 @@ describe('fondateur', () => {
     }
   });
 });
+
+// m-k (training-journal.md §12.10) : la CONTRAINTE SQL se teste seule, par REST direct, sans passer
+// par la fonction `events` (qui a son propre test). Sous les deux rôles A et B.
+describe('progress_events — contrainte de type (migration 20261004000018)', () => {
+  const ligne = (user: string, type: string, subject: string | null) =>
+    ({ id: crypto.randomUUID(), user_id: user, type, subject_id: subject, payload: {}, occurred_at: '2026-10-05T09:00:00Z' });
+
+  it.each([['A', () => A], ['B', () => B]] as const)('%s insère rythme.refused et rattrapage.refused', async (_n, who) => {
+    const u = who();
+    const { error } = await u.client.from('progress_events').insert([
+      ligne(u.id, 'rythme.refused', '2026-W41'), ligne(u.id, 'rattrapage.refused', '2026-10-02'),
+    ]);
+    expect(error).toBeNull();
+  });
+
+  it('un type inconnu échoue sur la contrainte ; les types déjà connus restent acceptés', async () => {
+    const { error } = await A.client.from('progress_events').insert(ligne(A.id, 'hack.refused', null));
+    expect(error?.message).toMatch(/progress_events_type_check/);
+    const { error: ok } = await A.client.from('progress_events').insert([
+      ligne(A.id, 'training.logged', crypto.randomUUID()), ligne(A.id, 'plan.done', 'p'), ligne(A.id, 'program.configured', null),
+    ]);
+    expect(ok).toBeNull();
+  });
+
+  it('l’isolation RLS est inchangée : B ne lit pas les refus de A, et ne peut pas en écrire au nom de A', async () => {
+    const { data } = await B.client.from('progress_events').select('user_id, type').in('type', ['rythme.refused', 'rattrapage.refused']);
+    expect(data!.every((r) => r.user_id === B.id)).toBe(true);
+    const { error } = await B.client.from('progress_events').insert(ligne(A.id, 'rythme.refused', '2026-W42'));
+    expect(error).not.toBeNull();
+  });
+});

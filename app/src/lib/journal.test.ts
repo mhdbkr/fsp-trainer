@@ -15,7 +15,7 @@ import type { ProgressEvent } from '@/lib/sync/events';
 import type { DayPlan, PartResult, SimTeil, Simulation, TaskInstance, TrainingEvent } from '@/db/types';
 import {
   computeCaseProgress, detteTeil, logTraining, markTaskDone, pointFaible,
-  projectDayPlans, projectTrainingEvents, rebuildJournal, satisfiedTask,
+  projectDayPlans, projectTrainingEvents, rebuildJournal, tacheQueFaitAvancer,
   spentByDay, trainingEventFromSimulation, workedDayKeys, applySimulationToJournal,
 } from '@/lib/journal';
 import { freezeAt, resetClock, DAY_MS } from '@/lib/clock';
@@ -224,39 +224,47 @@ describe('INV-7 — deux appareils, un seul plan figé', () => {
     expect(dp.replannedAt).toBe(Date.parse('2026-10-01T09:00:00Z'));
   });
 
-  it('`doneAt` se DÉRIVE du journal, jamais de la charge utile du plan', () => {
-    const m = ev('plan.materialized', '2026-10-01', payload('A'), '2026-10-01T06:00:00Z');
-    const te: TrainingEvent = { id: 'e1', at: Date.parse('2026-10-01T10:00:00Z'), kind: 'simulation', caseId: 'c1', teile: ['anamnese'], source: 'plan', taskId: 't-A', spentMin: 22 };
+  it('`doneAt` se DÉRIVE du journal par le CONTENU (§12.3), jamais de la charge utile du plan ni du `taskId`', () => {
+    const t = task({ id: 't-A', label: 'A', caseId: 'c1', teile: ['anamnese'] });
+    const m = ev('plan.materialized', '2026-10-01', { tasks: [{ ...t, doneAt: 1, eventId: 'faux' }], mode: 'cas-complet', seed: 'A', targetMin: 90 }, '2026-10-01T06:00:00Z');
+    const te: TrainingEvent = { id: 'e1', at: Date.parse('2026-10-01T10:00:00Z'), kind: 'simulation', caseId: 'c1', teile: ['anamnese'], source: 'libre', spentMin: 22, scores: { anamnese: 70 } };
+    const [sans] = projectDayPlans([m], []);
+    expect(sans.tasks[0].doneAt, 'un doneAt de la charge utile n’est pas cru').toBeUndefined();
     const [dp] = projectDayPlans([m], [te]);
     expect(dp.tasks[0].doneAt).toBe(te.at);
     expect(dp.tasks[0].spentMin).toBe(22);
     expect(dp.tasks[0].eventId).toBe('e1');
+    const [autre] = projectDayPlans([m], [{ ...te, caseId: 'c9', taskId: 't-A', source: 'plan' }]);
+    expect(autre.tasks[0].doneAt, 'le taskId est informatif : une partie d’un autre cas ne coche rien').toBeUndefined();
   });
 });
 
-describe('§3.4 — la machine s’adapte à l’humain', () => {
+describe('§12.3 — la machine s’adapte à l’humain : la tâche qu’un exercice FAIT AVANCER (informatif)', () => {
   const dp = plan({ date: '2026-10-01', tasks: [
     task({ id: 't1', caseId: 'c1', teil: 'anamnese', label: 'Leberzirrhose' }),
     task({ id: 't2', caseId: 'c2', label: 'TVT' }),
   ] });
+  const at = Date.parse('2026-10-01T10:00:00Z');
+  const joue = (caseId: string, teile: SimTeil[]) => ({ kind: 'simulation' as const, caseId, teile, at });
 
-  it('un exercice libre qui fait ce qui était prévu satisfait la tâche', () => {
-    expect(satisfiedTask(dp, { kind: 'simulation', caseId: 'c1', teile: ['anamnese'] })?.id).toBe('t1');
+  it('un exercice libre qui fait ce qui était prévu avance la tâche', () => {
+    expect(tacheQueFaitAvancer(dp, joue('c1', ['anamnese']), [])?.id).toBe('t1');
   });
 
-  it('une tâche sans `teil` (run complet) demande les TROIS Teile — le mode prime (D-C4 révisé)', () => {
-    expect(satisfiedTask(dp, { kind: 'simulation', caseId: 'c2', teile: ['fallvorstellung'] })).toBeUndefined();
-    expect(satisfiedTask(dp, { kind: 'simulation', caseId: 'c2', teile: ['anamnese', 'dokumentation', 'fallvorstellung'] })?.id).toBe('t2');
+  it('une tâche de cas entier (sans `teil`) AVANCE dès un Teil joué — mais ne sera faite qu’avec les trois (le genre ne compte pas)', () => {
+    expect(tacheQueFaitAvancer(dp, joue('c2', ['fallvorstellung']), [])?.id).toBe('t2');
+    expect(tacheQueFaitAvancer(dp, joue('c2', ['anamnese', 'dokumentation', 'fallvorstellung']), [])?.id).toBe('t2');
+    expect(tacheQueFaitAvancer(dp, { ...joue('c2', ['anamnese']), kind: 'examen-blanc' }, [])?.id).toBe('t2');
   });
 
-  it('un autre cas, ou un autre Teil que celui prévu, ne satisfait rien', () => {
-    expect(satisfiedTask(dp, { kind: 'simulation', caseId: 'c9', teile: ['anamnese'] })).toBeUndefined();
-    expect(satisfiedTask(dp, { kind: 'simulation', caseId: 'c1', teile: ['dokumentation'] })).toBeUndefined();
+  it('un autre cas, ou un Teil qui ne faisait pas partie de la tâche, n’avance rien', () => {
+    expect(tacheQueFaitAvancer(dp, joue('c9', ['anamnese']), [])).toBeUndefined();
+    expect(tacheQueFaitAvancer(dp, joue('c1', ['dokumentation']), [])).toBeUndefined();
   });
 
-  it('une tâche déjà faite n’est jamais satisfaite deux fois', () => {
-    const done = plan({ date: '2026-10-01', tasks: [{ ...dp.tasks[0], doneAt: 1 }] });
-    expect(satisfiedTask(done, { kind: 'simulation', caseId: 'c1', teile: ['anamnese'] })).toBeUndefined();
+  it('une tâche déjà faite (par le journal) n’est jamais avancée deux fois', () => {
+    const fait: TrainingEvent = { id: 'e0', at: at - 60_000, kind: 'simulation', caseId: 'c1', teile: ['anamnese'], source: 'libre', spentMin: 5, scores: { anamnese: 70 } };
+    expect(tacheQueFaitAvancer(dp, joue('c1', ['anamnese']), [fait])).toBeUndefined();
   });
 
   it('aucune tâche n’est CRÉÉE pour absorber un exercice libre', async () => {
