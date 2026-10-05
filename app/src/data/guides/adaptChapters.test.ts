@@ -22,12 +22,19 @@ describe('Frauenanamnese selon l’âge (FB2-J5)', () => {
   it('à 70 ans : ni grossesse ni contraception ; la question des règles devient celle du saignement post-ménopausique', () => {
     const qs = frauen(mk({ age: 70 }))!.questions;
     expect(qs.flatMap(phraseProbes)).toEqual(['frau-periode', 'frau-wechseljahre']);
-    expect(phraseText(qs[0])).toMatch(/seitdem noch einmal eine Blutung/);
+    expect(phraseText(qs[0])).toBe('Wann hatten Sie Ihre letzte Regelblutung?');
+    expect(phraseFollowUp(qs[0])).toEqual(['Hatten Sie seitdem noch einmal eine Blutung?']);
     expect(frauen(mk({ age: 70 }))!.tip).not.toMatch(/âge de procréer/);
   });
   it('à 50 ans : la dernière règle n’est pas demandée deux fois', () => {
-    const texts = frauen(mk({ age: 50 }))!.questions.map(phraseText);
-    expect(texts.filter((t) => /letzte (Regel|Periode)/i.test(t))).toHaveLength(1);
+    // Texte ET relances : la dernière règle est une relance de frau-periode (une question, une relance).
+    const said = frauen(mk({ age: 50 }))!.questions.flatMap((q) => [phraseText(q), ...phraseFollowUp(q)]);
+    expect(said.filter((t) => /letzte (Regel|Periode)/i.test(t))).toHaveLength(1);
+  });
+  it('sans Fach gynéco, « Frauenarzt regelmäßig » reste en relance de la ménopause (Q-gyn : elle ne l’est que fondue)', () => {
+    const q = frauen(mk({ age: 50 }))!.questions.find((x) => phraseProbes(x).includes('frau-wechseljahre'))!;
+    expect(phraseFollowUp(q)).toEqual(['Gehen Sie regelmäßig zum Frauenarzt?']);
+    expect((phraseText(q).match(/\?/g) ?? []).length).toBe(1);
   });
   it('homme : pas de Frauenanamnese', () => {
     expect(frauen(mk({ age: 50, geschlecht: 'm' }))).toBeUndefined();

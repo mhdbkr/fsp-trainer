@@ -731,11 +731,16 @@ export const ALLGEMEINE_ANAMNESE: AnamneseChapter[] = [
     id: 'frauenanamnese', title: 'Frauenanamnese', subtitle: 'Seulement si patiente', optional: true,
     icon: 'female', keywords: ['Monatsblutung', 'schwanger', 'Regelblutung', 'Verhütungsmethoden', 'Wechseljahre'],
     questions: [
-      { text: 'Verläuft Ihre Monatsblutung regelmäßig? Wann war Ihre letzte Regelblutung?', probe: 'frau-periode' },
-      { text: 'Besteht die Möglichkeit, dass Sie derzeit schwanger sind?', probe: 'frau-schwanger' },
-      { text: 'Verwenden Sie Verhütungsmethoden? Wenn ja, welche?', probe: 'frau-verhuetung' },
       {
-        text: 'Falls in den Wechseljahren: Wann hatten Sie Ihre letzte Periode? Gehen Sie regelmäßig zum Frauenarzt?',
+        text: 'Verläuft Ihre Monatsblutung regelmäßig?',
+        followUp: ['Wann war Ihre letzte Regelblutung?', 'Wie viele Tage liegen zwischen dem Beginn einer Blutung und dem Beginn der nächsten?'],
+        probe: 'frau-periode',
+      },
+      { text: 'Besteht die Möglichkeit, dass Sie derzeit schwanger sind?', probe: 'frau-schwanger' },
+      { text: 'Verwenden Sie Verhütungsmethoden?', followUp: ['Falls ja: Welche Methode verwenden Sie?'], probe: 'frau-verhuetung' },
+      {
+        text: 'Sind Sie in den Wechseljahren?',
+        followUp: ['Falls ja: Haben Sie Beschwerden, etwa Hitzewallungen?', 'Gehen Sie regelmäßig zum Frauenarzt?'],
         probe: 'frau-wechseljahre',
       },
     ],
@@ -758,6 +763,18 @@ export interface FachanamneseGuide {
 const F = (specialty: Specialty, icon: string, id: string, title: string, keywords: string[], questions: Phrase[], tip: string): FachanamneseGuide => ({
   specialty, icon, chapter: { id: `fach-${id}`, title, subtitle: 'Questions spécifiques à la spécialité', icon, keywords, questions, tip },
 });
+
+// Fach gynéco : textes que le bloc fondu (`fuseFrauenIntoGyn`) et les règles d'âge
+// (`FACH_RULES`) reprennent à l'identique.
+const GYN_BLUTUNG_TEXT = 'Hat sich Ihre Blutung verändert — stärker, länger, Zwischenblutungen oder Blutungen nach dem Geschlechtsverkehr?';
+// La régularité du cycle est déjà demandée en tête du bloc (frau-periode) : l'alternative ne la redit pas.
+const GYN_BLUTUNG_ALTS = ['Wie stark blutet es — wie viele Binden brauchen Sie pro Tag?'];
+const GYN_VORSORGE_TEXT = 'Wann waren Sie zuletzt bei der Vorsorge — Krebsabstrich, Mammographie?';
+const GYN_VORSORGE_ABSTRICH = 'Wann waren Sie zuletzt bei der Vorsorge — Krebsabstrich?';
+const GYN_HPV = 'Sind Sie gegen HPV geimpft?';
+const GYN_HORMONE = 'Nehmen oder nahmen Sie Hormone ein — etwa Hormonersatz in den Wechseljahren, oder die Pille oder Spirale als Behandlung?';
+const GYN_ALARME = 'Toute métrorragie post-ménopausique est un signal d\'alarme jusqu\'à preuve du contraire, comme le saignement post-coïtal.';
+const GYN_PREECL = 'Chez la femme enceinte : céphalées + éclairs visuels + hypertension → pré-éclampsie (urgence), à demander explicitement.';
 
 export const FACHANAMNESEN: FachanamneseGuide[] = [
   F('Kardiologie', 'heart', 'kardio', 'Fachanamnese Kardiologie',
@@ -1045,30 +1062,36 @@ export const FACHANAMNESEN: FachanamneseGuide[] = [
     ['Blutung', 'Ausfluss', 'Unterbauch', 'Brust', 'Vorsorge'],
     [
       {
-        text: 'Hat sich Ihre Blutung verändert — stärker, länger, Zwischenblutungen oder Blutungen nach dem Geschlechtsverkehr?',
+        text: GYN_BLUTUNG_TEXT,
         probe: 'fach-gyn-blutung',
         label: 'Alarmzeichen',
-        alts: ['Bekommen Sie Ihre Tage regelmäßig? Wie stark blutet es — wie viele Binden pro Tag?'],
-        followUp: ['Falls die Periode schon aufgehört hat: Hatten Sie seitdem noch einmal eine Blutung?'],
+        // La régularité du cycle est déjà demandée en tête du bloc (frau-periode) : l'alternative ne la redit pas.
+        alts: GYN_BLUTUNG_ALTS,
+        followUp: ['Falls Ihre Periode schon aufgehört hat: Hatten Sie seit Ihrer letzten Regelblutung noch einmal eine Blutung?'],
       },
       {
-        text: 'Haben Sie Unterbauchschmerzen? Wo genau, und hängen sie mit Ihrem Zyklus zusammen?',
+        text: 'Haben Sie Unterbauchschmerzen?',
         probe: 'fach-gyn-unterbauch',
+        followUp: ['Falls ja: Wo genau sitzen die Schmerzen?', 'Falls ja: Hängen die Schmerzen mit Ihrem Zyklus zusammen?'],
       },
       {
-        text: 'Haben Sie Ausfluss bemerkt? Welche Farbe hat er, riecht er, und juckt oder brennt es dabei?',
+        text: 'Haben Sie Ausfluss bemerkt?',
         probe: 'fach-gyn-fluor',
         alts: ['Haben Sie einen Ausfluss aus der Scheide bemerkt?'],
-        followUp: ['Falls ja: Welche Konsistenz hat der Ausfluss?', 'Falls ja: Seit wann haben Sie ihn?'],
+        followUp: ['Falls ja: Welche Farbe hat er?', 'Falls ja: Hat der Ausfluss einen auffälligen Geruch?', 'Falls ja: Juckt oder brennt es dabei?',
+          'Falls ja: Welche Konsistenz hat der Ausfluss?', 'Falls ja: Seit wann bemerken Sie den Ausfluss?'],
       },
       {
-        text: 'Haben Sie Schmerzen beim Geschlechtsverkehr oder beim Wasserlassen?',
+        text: 'Haben Sie Schmerzen beim Geschlechtsverkehr?',
         probe: 'fach-gyn-dyspareunie',
+        // Le Wasserlassen recoupe la vegetative (deepens: veg-ausscheidung, sur la sonde).
+        followUp: ['Falls ja: Eher am Anfang oder tief im Inneren?', 'Brennt oder schmerzt es beim Wasserlassen?'],
       },
       {
-        text: 'Wie viele Schwangerschaften und Geburten hatten Sie? Gab es Fehlgeburten oder Abbrüche?',
+        text: 'Wie viele Schwangerschaften und Geburten hatten Sie?',
         probe: 'fach-gyn-schwangerschaften',
-        followUp: ['Falls Geburten: Haben Sie normal entbunden oder per Kaiserschnitt? Warum?'],
+        followUp: ['Gab es dabei auch Fehlgeburten oder Schwangerschaftsabbrüche?', 'Falls Geburten: Haben Sie normal entbunden oder per Kaiserschnitt?',
+          'Falls Kaiserschnitt: Aus welchem Grund wurde der Kaiserschnitt gemacht?'],
       },
       {
         text: 'Besteht ein Kinderwunsch, oder gab es Schwierigkeiten, schwanger zu werden?',
@@ -1080,15 +1103,18 @@ export const FACHANAMNESEN: FachanamneseGuide[] = [
         label: 'Brust',
       },
       {
-        text: 'Wann waren Sie zuletzt bei der Vorsorge — Krebsabstrich, Mammographie? Sind Sie gegen HPV geimpft?',
+        text: GYN_VORSORGE_TEXT,
         probe: 'fach-gyn-vorsorge',
+        followUp: [GYN_HPV],
       },
       {
-        text: 'Wurden Sie schon an der Gebärmutter oder den Eierstöcken operiert? Nehmen Sie Hormone ein?',
+        text: 'Wurden Sie schon an der Gebärmutter, an den Eileitern oder an den Eierstöcken operiert?',
         probe: 'fach-gyn-eingriffe',
+        // Les hormones : UNE question, au passé et au thérapeutique (THS, Pille, Spirale) — la contraception d'aujourd'hui est celle de frau-verhuetung.
+        followUp: [GYN_HORMONE],
       },
     ],
-    'Toute métrorragie post-ménopausique est un signal d\'alarme jusqu\'à preuve du contraire, comme le saignement post-coïtal. Le cycle, la grossesse et la contraception sont déjà demandés dans la Frauenanamnese générale — ici on approfondit. Chez la femme enceinte : céphalées + éclairs visuels + hypertension → pré-éclampsie (urgence), à demander explicitement.'),
+    `${GYN_ALARME} ${GYN_PREECL}`),
   F('Neurologie', 'brain', 'neuro', 'Fachanamnese Neurologie',
     ['Kopfschmerzen', 'einseitig', 'Ohnmacht', 'Aura', 'Zungenbiss', 'Kribbeln'],
     [
@@ -1662,23 +1688,34 @@ export function leitsymptomOf(c: Case): LeitsymptomKategorie {
 const MENOPAUSE_FROM = 45;
 const FERTILE_UNTIL = 55;
 
-function frauenQuestionsForAge(questions: Phrase[], age: number): Phrase[] {
+// `fused` : la Frauenanamnese est fondue dans le bloc Fach gynéco (voir
+// `fuseFrauenIntoGyn`). Ce que ce bloc demande DÉJÀ plus bas n'est pas redit ici :
+// « Frauenarzt regelmäßig » ⊂ fach-gyn-vorsorge, « seitdem noch einmal eine
+// Blutung » = la relance de fach-gyn-blutung, « Hormone » = la relance de fach-gyn-eingriffe.
+function frauenQuestionsForAge(questions: Phrase[], age: number, fused = false): Phrase[] {
   const probeOf = (q: Phrase) => (typeof q === 'string' ? undefined : typeof q.probe === 'string' ? q.probe : undefined);
-  const retext = (q: Phrase, text: string): Phrase => (typeof q === 'string' ? text : { ...q, text, alts: undefined });
+  // Le texte est réécrit, les relances aussi : celles de la question d'origine
+  // ne se transmettent pas (« Wann war Ihre letzte Regelblutung? » est déjà dans le texte à 56 ans).
+  const retext = (q: Phrase, text: string, followUp?: string[]): Phrase =>
+    (typeof q === 'string' ? text : { ...q, text, alts: undefined, followUp: followUp?.length ? followUp : undefined });
+  const arzt = fused ? [] : ['Gehen Sie regelmäßig zum Frauenarzt?'];
   return questions.flatMap((q) => {
     const probe = probeOf(q);
     if (age > FERTILE_UNTIL) {
       // Après la ménopause, la question qui compte est le saignement
       // post-ménopausique — on ADAPTE la question des règles, on ne la retire pas.
-      if (probe === 'frau-periode') return [retext(q, 'Wann hatten Sie Ihre letzte Regelblutung? Hatten Sie seitdem noch einmal eine Blutung?')];
+      // Le saignement depuis la dernière règle est LA relance du rang 1 (fondue ou non) ; fach-gyn-blutung ne la redit pas après 55 ans.
+      if (probe === 'frau-periode') return [retext(q, 'Wann hatten Sie Ihre letzte Regelblutung?', ['Hatten Sie seitdem noch einmal eine Blutung?'])];
       if (probe === 'frau-schwanger' || probe === 'frau-verhuetung') return [];
-      if (probe === 'frau-wechseljahre') return [retext(q, 'Wie sind Sie durch die Wechseljahre gekommen — hatten Sie Beschwerden, haben Sie Hormone genommen? Gehen Sie regelmäßig zum Frauenarzt?')];
+      if (probe === 'frau-wechseljahre') {
+        return [retext(q, 'Wie haben Sie die Wechseljahre erlebt — hatten Sie Beschwerden?', [...(fused ? [] : [GYN_HORMONE]), ...arzt])];
+      }
       return [q];
     }
     if (probe === 'frau-wechseljahre') {
       if (age < MENOPAUSE_FROM) return [];
       // La dernière règle est déjà demandée par frau-periode : pas de redite.
-      return [retext(q, 'Haben die Wechseljahre bei Ihnen schon begonnen — Hitzewallungen, unregelmäßige Blutungen? Gehen Sie regelmäßig zum Frauenarzt?')];
+      return [retext(q, 'Haben die Wechseljahre bei Ihnen schon begonnen — Hitzewallungen, unregelmäßige Blutungen?', arzt)];
     }
     return [q];
   });
@@ -1767,6 +1804,11 @@ const FACH_RULES: Array<{ probe: string; applies?: (w: Who) => boolean; text?: (
   { probe: 'fach-uro-sexualanamnese', text: (w) => (w.geschlecht === 'w' || w.age > FERTILE_UNTIL
     ? 'Darf ich Ihnen ein paar Fragen zu Ihrer Partnerschaft stellen — das gehört zur Untersuchung dazu? Wie schützen Sie sich vor Geschlechtskrankheiten?' : undefined) },
   { probe: 'fach-gyn-kinderwunsch', applies: (w) => w.age <= FERTILE_UNTIL },
+  // Vorsorge selon l'âge : HPV jusqu'à 35 ans (vaccination de la génération), mammographie dès 50 ans (dépistage).
+  { probe: 'fach-gyn-vorsorge', text: (w) => (w.age <= 35 ? { text: GYN_VORSORGE_ABSTRICH, followUp: [GYN_HPV] }
+    : w.age < 50 ? { text: GYN_VORSORGE_ABSTRICH, followUp: undefined } : { text: GYN_VORSORGE_TEXT, followUp: undefined }) },
+  // Après 55 ans, le saignement depuis la dernière règle est la relance de frau-periode (rang 1) : la Blutung ne le redit pas.
+  { probe: 'fach-gyn-blutung', text: (w) => (w.age > FERTILE_UNTIL ? { text: GYN_BLUTUNG_TEXT, alts: GYN_BLUTUNG_ALTS, followUp: undefined } : undefined) },
 ];
 function adaptFach(questions: Phrase[], who: Who): Phrase[] {
   return questions.flatMap((q) => {
@@ -1789,7 +1831,71 @@ function fachChapterRaw(c: Case): FachanamneseGuide | undefined {
   const skip = new Set(s.fachSkip ?? []);
   const kept = adaptFach(f.chapter.questions, who).filter((q) => !phraseProbes(q).some((p) => skip.has(p)));
   const questions = [...kept, ...caseQuestionsForFach(c)];
-  return { ...f, chapter: { ...f.chapter, questions } };
+  const guide = { ...f, chapter: { ...f.chapter, questions } };
+  return fusesFrauenanamnese(c, guide) ? fuseFrauenIntoGyn(c, guide) : guide;
+}
+
+// ── La Frauenanamnese se FOND dans la Fach gynéco ────────────────────────────
+// Retour d'usage (4 oct.) : jouée à la fin de l'entretien, la Frauenanamnese
+// redemandait ce que la Fach gynéco venait de chercher (Frauenarzt/Vorsorge,
+// règles/Blutung, Pille/Hormone). Quand la Fach gynéco est jouée, il n'y a donc
+// qu'UN bloc, dans l'ordre clinique : d'abord ce que seule la Frauenanamnese
+// cherche (régularité et dernière règle, grossesse possible, contraception,
+// ménopause), puis les signes gynécologiques. Ce que les deux cherchaient est
+// dit une fois, là où le bloc le demande le mieux (`frauenQuestionsForAge`,
+// `fach-gyn-*`). Sans Fach gynéco, la Frauenanamnese reste son chapitre.
+const GYN_FACH = 'fach-gyn';
+/** Vrai quand la Frauenanamnese de cette patiente est portée par la Fach gynéco (écran du simulant : `buildRollenskript`). */
+export const fusesFrauenanamnese = (c: Case, f: FachanamneseGuide | undefined): boolean =>
+  f?.chapter.id === GYN_FACH && c.patientSheet.personalia.geschlecht === 'w';
+
+/** La Frauenanamnese d'une patiente telle qu'elle se joue : modulée par l'âge, + les questions du cas. */
+function frauenQuestionsFor(c: Case, fused: boolean): Phrase[] {
+  const ch = ALLGEMEINE_ANAMNESE.find((x) => x.id === 'frauenanamnese')!;
+  return [...frauenQuestionsForAge(ch.questions, c.patientSheet.personalia.age, fused), ...(caseQuestionsByKapitel(c).frauenanamnese ?? [])];
+}
+
+// Une question du cas se pose là où elle prolonge une sonde, pas en queue de liste :
+// « erste Regel » après la régularité, le test de grossesse après la grossesse possible,
+// « gestillt » après la gestité/parité. Table par sujet, sans nouveau champ de schéma
+// (ponytail : trois sujets ; au-delà, un champ `nach` sur la question du cas).
+const GYN_APRES: Array<[sujet: RegExp, apres: string]> = [
+  [/erste Regel|Menarche/i, 'frau-periode'],
+  [/Schwangerschaftstest/i, 'frau-schwanger'],
+  [/gestillt|stillen/i, 'fach-gyn-schwangerschaften'],
+];
+function placeCaseQuestions(list: Phrase[]): Phrase[] {
+  const out = [...list];
+  for (const q of list) {
+    if (typeof q === 'string' || !q.caseSpecific) continue;
+    const apres = GYN_APRES.find(([re]) => re.test(q.text))?.[1] ?? '';
+    const rang = (probe: string) => out.findIndex((x) => phraseProbes(x).includes(probe));
+    if (!apres || rang(apres) < 0) continue;
+    out.splice(out.indexOf(q), 1);
+    out.splice(rang(apres) + 1, 0, q);
+  }
+  return out;
+}
+
+function fuseFrauenIntoGyn(c: Case, f: FachanamneseGuide): FachanamneseGuide {
+  const frau = ALLGEMEINE_ANAMNESE.find((x) => x.id === 'frauenanamnese')!;
+  const age = c.patientSheet.personalia.age;
+  // Le conseil suit l'âge : après 55 ans, ni grossesse ni contraception, et l'alarme
+  // post-ménopausique n'est dite qu'une fois (dans le conseil de la Frauenanamnese).
+  const ordre = age > FERTILE_UNTIL
+    ? 'Ordre du bloc : dernière règle (et saignement depuis), ménopause, puis les signes gynécologiques.'
+    : `Ordre du bloc : régularité du cycle et dernière règle, grossesse possible, contraception${age >= MENOPAUSE_FROM ? ', ménopause' : ''}, puis les signes gynécologiques.`;
+  return {
+    ...f,
+    chapter: {
+      ...f.chapter,
+      title: 'Frauen- und Fachanamnese Gynäkologie',
+      subtitle: 'Frauenanamnese incluse — cycle, grossesse, contraception d\'abord',
+      keywords: [...frau.keywords, ...f.chapter.keywords],
+      questions: placeCaseQuestions([...frauenQuestionsFor(c, true), ...f.chapter.questions]),
+      tip: [frauenTipForAge(age), ordre, ...(age > FERTILE_UNTIL ? [] : [GYN_ALARME, GYN_PREECL])].join(' '),
+    },
+  };
 }
 
 /** La Fachanamnese JOUÉE pour un cas : celle de la spécialité, adaptée au sexe,
@@ -1835,14 +1941,16 @@ function adaptChaptersRaw(c: Case, fach: FachanamneseGuide | undefined): Anamnes
   const weiblich = c.patientSheet.personalia.geschlecht === 'w';
   const age = c.patientSheet.personalia.age;
   const kategorie = leitsymptomOf(c);
+  const fondue = fusesFrauenanamnese(c, fach);
   const byKapitel = caseQuestionsByKapitel(c);
   // Les questions du cas se posent APRÈS les questions standard du chapitre :
   // la trame apprise d'abord, puis ce qui est propre à ce patient.
   const withCase = (ch: AnamneseChapter, questions: Phrase[]): AnamneseChapter =>
     ({ ...ch, questions: [...questions, ...(byKapitel[ch.id] ?? [])] });
   return ALLGEMEINE_ANAMNESE
-    // Frauenanamnese : uniquement pour une patiente (elle est `optional`).
-    .filter((ch) => !(ch.id === 'frauenanamnese' && !weiblich))
+    // Frauenanamnese : uniquement pour une patiente (elle est `optional`), et
+    // pas à part quand la Fach gynéco la porte en tête de son bloc.
+    .filter((ch) => !(ch.id === 'frauenanamnese' && (!weiblich || fondue)))
     .map((ch) => {
       if (ch.id === 'frauenanamnese') return withCase({ ...ch, tip: frauenTipForAge(age) }, frauenQuestionsForAge(ch.questions, age));
       // « Aktuelle Beschwerden » : la déclinaison de la nature du motif —
