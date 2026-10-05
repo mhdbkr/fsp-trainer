@@ -1,10 +1,12 @@
-import type { AssistanceMode, BogenNotes, MusterCity } from '@/db/types';
-import { MUSTER_BOGEN, type BogenField } from '@/data/guides/musterBogen';
+import type { AssistanceMode, BogenNotes, MusterArt, MusterCity } from '@/db/types';
+import { MUSTER_BOGEN, autresNotes, bogenRubrik, musterArt, type BogenField } from '@/data/guides/musterBogen';
 import { Icon } from '@/components/icons';
 
 // ============================================================================
-// Anamnese-Bogen — le Muster de la ville choisie (header + boxes + split), au
-// lieu d'un champ texte plat. Assisté : les questions-guides apparaissent en
+// Anamnese-Bogen — le Muster choisi, guidé ou libre (header + boxes + split), au
+// lieu d'un champ texte plat. [S4] Une note déjà prise sous une clé que ce Muster
+// n'a pas (Lauf repris d'une feuille de ville) reste éditable dans « Autres notes »
+// (simulation-run.md §10.6, INV-74). Assisté : les questions-guides apparaissent en
 // placeholder ; Autonome : épuré (« en tête »).
 //
 // C'est la surface la plus longuement regardée de l'app — une vingtaine de
@@ -20,9 +22,10 @@ import { Icon } from '@/components/icons';
 // ============================================================================
 
 export function AnamneseBogen({ muster, notes, onChange, assistance }: {
-  muster: MusterCity; notes: BogenNotes; onChange: (n: BogenNotes) => void; assistance: AssistanceMode;
+  muster?: MusterArt | MusterCity; notes: BogenNotes; onChange: (n: BogenNotes) => void; assistance: AssistanceMode;
 }) {
-  const spec = MUSTER_BOGEN[muster];
+  const spec = MUSTER_BOGEN[musterArt(muster)];
+  const autres = autresNotes(notes, spec);
   const set = (key: string, val: string) => onChange({ ...notes, [key]: val });
   const showHints = assistance === 'assiste';
 
@@ -45,6 +48,16 @@ export function AnamneseBogen({ muster, notes, onChange, assistance }: {
           <BogenFieldView key={f.key} field={f} notes={notes} set={set} showHints={showHints} />
         ))}
       </div>
+
+      {autres.length > 0 && (
+        <div className="mt-3 space-y-3 border-t border-slate-200/70 pt-3 dark:border-ink-600/70">
+          <div className="text-xs font-bold text-slate-600 dark:text-slate-300">Autres notes</div>
+          {autres.map((k) => {
+            const r = bogenRubrik(k, spec);
+            return <BogenFieldView key={k} field={{ key: k, label: r.label, icon: r.icon, kind: 'box' }} notes={notes} set={set} showHints={false} />;
+          })}
+        </div>
+      )}
 
       {/* Zone Bericht (rédigée à la partie Doku) — rappel visuel */}
       <div className="mt-3 rounded-lg border border-dashed border-slate-300 bg-paper/50 px-3 py-2 text-[11px] text-slate-400 dark:border-slate-700 dark:bg-ink-700/40">
@@ -91,7 +104,7 @@ function BogenFieldView({ field, notes, set, showHints }: {
     <div>
       <FieldLabel field={field} />
       <textarea value={notes[field.key] ?? ''} onChange={(e) => set(field.key, e.target.value)}
-        placeholder={showHints ? field.hint : ''} rows={2}
+        placeholder={showHints ? field.hint : ''} rows={field.rows ?? 2}
         className="input mt-1 resize-y px-2 py-1.5 text-[13px]" />
     </div>
   );

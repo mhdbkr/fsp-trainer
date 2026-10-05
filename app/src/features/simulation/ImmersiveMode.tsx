@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from 'react';
-import type { BogenNotes, Case, MusterCity } from '@/db/types';
+import type { BogenNotes, Case, MusterArt, MusterCity } from '@/db/types';
 import { adaptChaptersForCase, fachChapterForCase } from '@/data/guides/anamneseChapters';
 import { VORSTELLUNG_CHAPTERS } from '@/data/guides/vorstellungChapters';
 import { phraseAlts, phraseFollowUp, phraseIsCaseSpecific, phraseLabel, phraseProbes, phraseText, splitDimension, type Phrase } from '@/data/guides/phrases';
@@ -9,7 +9,7 @@ import { DoctopusMascot } from '@/components/DoctopusMascot';
 import { useUi } from '@/store/ui';
 import { useSimSession } from '@/store/simSession';
 import { useTimeAmbiance, FocusTimeAura } from './TimeCapsule';
-import { MUSTER_BOGEN } from '@/data/guides/musterBogen';
+import { MUSTER_BOGEN, musterArt } from '@/data/guides/musterBogen';
 import { FollowUpControls, ProgressiveSteps, VariantPicker } from '@/components/PhraseControls';
 import { getPreferredVariant, setPreferredVariant } from '@/lib/variantPrefs';
 import { bogenKeysFor } from './bogenKeys';
@@ -27,7 +27,7 @@ export function ImmersiveMode({ part, c, onClose, initialChapterId, muster, boge
   part: 'anamnese' | 'fallvorstellung'; c: Case; onClose: () => void; initialChapterId?: string;
   /** Prise de notes en focus : on écrit dans le MÊME Bogen que la vue normale
    *  (aucune saisie en double), dans la rubrique du chapitre en cours. */
-  muster?: MusterCity; bogen?: BogenNotes; setBogen?: (b: BogenNotes) => void;
+  muster?: MusterArt | MusterCity; bogen?: BogenNotes; setBogen?: (b: BogenNotes) => void;
 }) {
   const openDoctopus = useUi((s) => s.openDoctopus);
   // Conseils ouverts d'emblée en mode assisté (épargne un clic à chaque
@@ -97,12 +97,13 @@ export function ImmersiveMode({ part, c, onClose, initialChapterId, muster, boge
   // chapitre courant — noter en jouant remplit la vraie feuille.
   const [notesOpen, setNotesOpen] = useState(false);
   const canNote = !!setBogen && !!bogen && part === 'anamnese';
-  const spec = muster ? MUSTER_BOGEN[muster] : undefined;
+  // [S4] Muster guidé ou libre (§10.6) : la rubrique du chapitre si le Muster l'a ; sinon le repli —
+  // `hauptbeschwerde` en guidé, `freitext` en libre. Une ville série 3 se lit par `musterArt()`.
+  const spec = MUSTER_BOGEN[musterArt(muster)];
   const noteKey = useMemo(() => {
-    if (!spec) return null;
     const has = (k: string) => spec.fields.some((f) => f.key === k);
     const wanted = bogenKeysFor(chapters[ci]?.id, chapters[ci]?.items ?? [], ii);
-    return wanted.find(has) ?? (has('hauptbeschwerde') ? 'hauptbeschwerde' : spec.fields.find((f) => f.kind === 'box')?.key ?? null);
+    return wanted.find(has) ?? (has('hauptbeschwerde') ? 'hauptbeschwerde' : has('freitext') ? 'freitext' : null);
   }, [spec, chapters, ci, ii]);
   const noteField = spec?.fields.find((f) => f.key === noteKey);
 

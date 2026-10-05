@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import type { AssistanceMode, BogenNotes, Case, MusterCity } from '@/db/types';
+import type { AssistanceMode, BogenNotes, Case, MusterArt, MusterCity } from '@/db/types';
 import { ARZTBRIEF_CHAPTERS, type ArztbriefChapter } from '@/data/guides/arztbriefChapters';
 import { compareArztbrief, type ArztbriefFeedback } from '@/lib/arztbriefCompare';
 import { MusterCard } from './MusterCard';
@@ -19,7 +19,7 @@ import { ArztbriefDiff } from './ArztbriefDiff';
 
 export function ArztbriefGuide({ c, assistance, text, onText, bogen, muster }: {
   c: Case; assistance: AssistanceMode; text: string; onText: (t: string) => void;
-  bogen: BogenNotes; muster: MusterCity;
+  bogen: BogenNotes; muster?: MusterArt | MusterCity;
 }) {
   const [fb, setFb] = useState<ArztbriefFeedback | null>(null);
   const [notesCol, setNotesCol] = useState(false);
