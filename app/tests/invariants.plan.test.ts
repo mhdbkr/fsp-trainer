@@ -187,6 +187,11 @@ describe('INV-55 — le plan d’un jour ne dépend que de ce qui PRÉCÈDE ce j
       events.push({ id: `pr${i}`, user_id: 'u', type: 'srs.reviewed', subject_id: id, payload: s, occurred_at: ISO(morning(JOUR_D, r.int(6, 20))) });
       srs.set(id, s);
     }
+    // Revue m1 : une partie COMMENCÉE la veille à 23 h 50, enregistrée après minuit — elle appartient au jour D (§12.4 coupe sur occurred_at).
+    if (r.bool(0.5)) {
+      const sim = simulationOf('nuit', r.pick(CORPUS).id, morning(addDaysISO(JOUR_D, -1), 23) + 50 * 60_000, TEILE, r.int(20, 98));
+      events.push({ id: 'pnuit', user_id: 'u', type: 'simulation.completed', subject_id: sim.id, payload: sim, occurred_at: ISO(morning(JOUR_D, 0) + 10 * 60_000) });
+    }
     if (r.bool(0.5)) events.push({ id: 'pset', user_id: 'u', type: 'srs.settings_changed', subject_id: 'srs', payload: { mode: 'manual', newPerDay: r.int(0, 3) }, occurred_at: ISO(morning(JOUR_D, 9)) });
     const nouvelle = r.bool(0.6) ? { ...cfg, hoursPerSession: r.pick([1, 4, 5]), intensity: r.pick(['leicht', 'intensiv'] as const) } : cfg;
     if (nouvelle !== cfg) events.push({ id: 'pcfg1', user_id: 'u', type: 'program.configured', subject_id: null, payload: nouvelle, occurred_at: ISO(morning(JOUR_D, 11)) });

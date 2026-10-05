@@ -85,9 +85,10 @@ export function begriffeAvant<T extends { id: string; srs?: Srs }>(begriffe: rea
 export function entreeDuJour(p: EntreeParams): Entree {
   const debut = debutJour(p.date, p.tz);
   const coupure = p.coupure ?? debut;
-  const limite = Number.isFinite(coupure) ? new Date(coupure).toISOString() : '9999-12-31T00:00:00.000Z';
-  const avant = p.events.filter((e) => e.occurred_at < limite);
-  const trainingEvents = projectTrainingEvents(p.events as ProgressEvent[]).filter((e) => e.at < coupure);
+  // J_D = progress_events d'occurred_at < debutJour(D) (§12.4) : on coupe le journal SOURCE (revue m1), jamais `at` —
+  // une partie commencée à 23 h 50 et enregistrée après minuit appartient au jour où elle est enregistrée.
+  const avant = p.events.filter((e) => Date.parse(e.occurred_at) < coupure);
+  const trainingEvents = projectTrainingEvents(avant as ProgressEvent[]);
   const progress = new Map(computeCaseProgress(trainingEvents).map((cp) => [cp.caseId, cp]));
   const begriffe = begriffeAvant(p.begriffe, p.events, coupure);
   const config = p.configForcee ?? configDuJour(p.events, debut, p.configLocale);

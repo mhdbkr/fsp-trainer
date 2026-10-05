@@ -616,6 +616,12 @@ export const MUTATIONS = [
     pourquoi: "une config écrite en S4 puis refusée : le push initial la remplace par une config plus ancienne du journal",
   },
   {
+    id: "INV-55-coupure-at", tests: 'tests/invariants.plan.test.ts', file: "src/lib/program/entree.ts",
+    from: "const trainingEvents = projectTrainingEvents(avant as ProgressEvent[]);",
+    to: "const trainingEvents = projectTrainingEvents(p.events as ProgressEvent[]).filter((e) => e.at < coupure);",
+    pourquoi: "revue m1 : le plan coupe sur `at` — une partie commencée à 23 h 50 et enregistrée après minuit change le plan du lendemain",
+  },
+  {
     id: "INV-65-hausse", tests: 'tests/invariants.apprentissage.test.ts', file: "src/lib/program/rythme.ts",
     from: "return valeur < dayTargetMin(i.config) ? { valeur, semaine } : null;", to: "return { valeur, semaine };",
     pourquoi: "proposition à la hausse (ou égale au budget)",
