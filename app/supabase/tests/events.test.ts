@@ -1,5 +1,5 @@
 import { describe, it, expect, beforeAll } from 'vitest';
-import { createTestUser, URL } from './helpers';
+import { createTestUser, serviceClient, URL } from './helpers';
 
 // EVENTS_FN_URL : servir la fonction d'un autre worktree (second edge-runtime) sans toucher au Supabase local.
 const FN = process.env.EVENTS_FN_URL ?? `${URL}/functions/v1/events`;
@@ -35,6 +35,15 @@ describe('events', () => {
     expect(all.events.every((e: { received_at?: string }) => !!e.received_at)).toBe(true);
     const after = await get(A, received[id]);                 // strictement après le dernier reçu
     expect(after.events.find((e: { id: string }) => e.id === id)).toBeUndefined();
+  });
+
+  it('B poste un événement en se disant A (user_id = A) : la ligne est à B (revue sécurité S4-2)', async () => {
+    const id = crypto.randomUUID();
+    const r = await post(B, [{ ...ev(id), user_id: A.id }]);
+    expect(r.acked ?? [], JSON.stringify(r)).toContain(id);
+    const { data } = await serviceClient().from('progress_events').select('user_id').eq('id', id);
+    expect(data, 'la ligne existe').toHaveLength(1);
+    expect(data![0].user_id).toBe(B.id);
   });
 
   it('B ne voit pas les événements de A via GET', async () => {
