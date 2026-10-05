@@ -622,6 +622,12 @@ export const MUTATIONS = [
     pourquoi: "revue m1 : le plan coupe sur `at` — une partie commencée à 23 h 50 et enregistrée après minuit change le plan du lendemain",
   },
   {
+    id: "INV-55-perso-live", tests: 'tests/invariants.plan.test.ts', file: "src/lib/program/entree.ts",
+    from: "begriffeAvant((p.personal ?? []).filter((t) => Date.parse(t.createdAt) < coupure), p.events, coupure).filter((t) => isNew(t.srs)).length",
+    to: "(p.personal ?? []).filter((t) => isNew(t.srs)).length",
+    pourquoi: "revue m2 : l'état SRS LIVE des termes personnels (révisés le jour D) entre dans le plan du jour D",
+  },
+  {
     id: "INV-65-hausse", tests: 'tests/invariants.apprentissage.test.ts', file: "src/lib/program/rythme.ts",
     from: "return valeur < dayTargetMin(i.config) ? { valeur, semaine } : null;", to: "return { valeur, semaine };",
     pourquoi: "proposition à la hausse (ou égale au budget)",

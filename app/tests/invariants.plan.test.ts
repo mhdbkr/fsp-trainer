@@ -147,6 +147,8 @@ const rngDe = (seed: number): Rng => rng(seed);
 
 // ================================================================== INV-55
 
+const PERSO = Array.from({ length: 400 }, (_, i) => `perso-${i}`);   // assez pour sortir du plancher de newBudget (5 par jour)
+
 describe('INV-55 — le plan d’un jour ne dépend que de ce qui PRÉCÈDE ce jour', () => {
   /** Un journal antérieur au jour D : parties, révisions SRS, une configuration. */
   function journalAvant(r: Rng, cfg: ProgramConfig): { events: ProgressEvent[]; srs: Map<string, Srs> } {
@@ -192,6 +194,8 @@ describe('INV-55 — le plan d’un jour ne dépend que de ce qui PRÉCÈDE ce j
       const sim = simulationOf('nuit', r.pick(CORPUS).id, morning(addDaysISO(JOUR_D, -1), 23) + 50 * 60_000, TEILE, r.int(20, 98));
       events.push({ id: 'pnuit', user_id: 'u', type: 'simulation.completed', subject_id: sim.id, payload: sim, occurred_at: ISO(morning(JOUR_D, 0) + 10 * 60_000) });
     }
+    // Revue m2 : des termes PERSONNELS révisés le jour D — l'état live n'est plus celui d'avant le jour.
+    if (r.bool(0.5)) for (const id of PERSO) events.push({ id: `pp-${id}`, user_id: 'u', type: 'srs.reviewed', subject_id: id, payload: { interval: 3, easeFactor: 2.5, dueDate: morning(addDaysISO(JOUR_D, 3), 8), repetitions: 1, lapses: 0, state: 'Gelernt' }, occurred_at: ISO(morning(JOUR_D, 12)) });
     if (r.bool(0.5)) events.push({ id: 'pset', user_id: 'u', type: 'srs.settings_changed', subject_id: 'srs', payload: { mode: 'manual', newPerDay: r.int(0, 3) }, occurred_at: ISO(morning(JOUR_D, 9)) });
     const nouvelle = r.bool(0.6) ? { ...cfg, hoursPerSession: r.pick([1, 4, 5]), intensity: r.pick(['leicht', 'intensiv'] as const) } : cfg;
     if (nouvelle !== cfg) events.push({ id: 'pcfg1', user_id: 'u', type: 'program.configured', subject_id: null, payload: nouvelle, occurred_at: ISO(morning(JOUR_D, 11)) });
@@ -203,6 +207,9 @@ describe('INV-55 — le plan d’un jour ne dépend que de ce qui PRÉCÈDE ce j
     await db.fachbegriffe.bulkPut(begriffe(30).map((b) => ({ ...b, srs: jour?.srs.get(b.id) ?? journal.srs.get(b.id) ?? b.srs })));   // l'état LIVE : celui que le code actuel lit
     await db.meta.bulkPut([{ key: 'program', value: cfgMeta }, { key: 'program.at', value: morning(JOUR_D, 23) }]);
     await db.progress_events.bulkPut([...journal.events, ...(jour?.events ?? [])]);
+    const revusAuJour = new Set((jour?.events ?? []).filter((e) => e.type === 'srs.reviewed').map((e) => e.subject_id));
+    await db.personal_terms.bulkPut(PERSO.map((id) => ({ id, term: id, createdAt: '2026-09-01T08:00:00.000Z',
+      srs: revusAuJour.has(id) ? { interval: 3, easeFactor: 2.5, dueDate: morning(addDaysISO(JOUR_D, 3), 8), repetitions: 1, lapses: 0, state: 'Gelernt' } : { interval: 0, easeFactor: 2.5, dueDate: 0, repetitions: 0, lapses: 0, state: 'Neu' } } as never)));   // l'état LIVE
     await rebuildJournal();                           // case_progress, training_events : le live contient le jour D
   }
 

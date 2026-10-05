@@ -323,7 +323,7 @@ async function loadBuildInput(date: string, tz: string, at: number, opts: { coup
   const locale = meta?.value as ProgramConfig | undefined;
   const e = entreeDuJour({
     date, tz, events, cases, begriffe, configLocale: locale, reglagesLocaux, coupure: opts.coupure,
-    personalFresh: personal.filter((p) => p.srs?.state === 'Neu').length,
+    personal,
     ...(opts.courante && locale ? { configForcee: locale } : {}),
   });
   if (!e.config) return null;                                     // pas de programme : rien à planifier

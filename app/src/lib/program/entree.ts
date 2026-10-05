@@ -14,7 +14,7 @@
 // ni la base ni l'horloge.
 // ============================================================================
 
-import type { Case, CaseProgress, Fachbegriff, ProgramConfig, Srs, TrainingEvent } from '@/db/types';
+import type { Case, CaseProgress, Fachbegriff, PersonalTerm, ProgramConfig, Srs, TrainingEvent } from '@/db/types';
 import { projectTrainingEvents } from '@/lib/journal';
 import { computeCaseProgress } from '@/lib/progression';
 import { sortEvents } from '@/lib/collections/project';
@@ -34,8 +34,8 @@ export interface EntreeParams {
   cases: readonly Case[];
   /** Le glossaire tel que `db.fachbegriffe` le porte — son état SRS LIVE n'est pas cru : il est reconstruit. */
   begriffe: readonly Fachbegriff[];
-  /** Termes personnels jamais présentés (compte dans le budget de nouveaux termes). */
-  personalFresh: number;
+  /** Les termes personnels (`db.personal_terms`) : leur état SRS LIVE n'est pas cru non plus (revue m2). */
+  personal?: readonly PersonalTerm[];
   /** `db.meta['program']` : le repli quand le journal ne porte aucune config valide. */
   configLocale?: ProgramConfig;
   /** `db.meta['srs.settings']` : le repli quand le journal ne porte aucun `srs.settings_changed`. */
@@ -98,7 +98,9 @@ export function entreeDuJour(p: EntreeParams): Entree {
   if (config) {
     const instant = Number.isFinite(coupure) ? coupure : debut;
     const budget = newBudget({
-      freshRemaining: begriffe.filter((b) => isNew(b.srs)).length + p.personalFresh,
+      // Revue m2 : les termes personnels aussi, dans leur état d'AVANT le jour (créés avant, révisions d'avant).
+      freshRemaining: begriffe.filter((b) => isNew(b.srs)).length
+        + begriffeAvant((p.personal ?? []).filter((t) => Date.parse(t.createdAt) < coupure), p.events, coupure).filter((t) => isNew(t.srs)).length,
       workingDaysToExam: config.examDate ? workingDaysUntilExam(config.examDate, new Date(instant), config) : null,
       retention7d: retention7d(avant as ProgressEvent[], instant),
     });
