@@ -109,8 +109,10 @@ describe('favori déjà appris : échéance avancée au lendemain (point 2)', ()
     expect(term.srs).toEqual(before);
   });
   it('ne recule jamais une échéance déjà plus proche', () => {
+    // Revu il y a ~5 j (intervalle 5) : dû dans 1 h, avant le « lendemain » du favori posé maintenant.
     const soon = { ...learned('S', 5, 5), srs: { ...learned('S', 5, 5).srs, dueDate: now + 3600_000, interval: 5 } };
-    const f = ctxWith([{ termId: 'S', since: iso(now - 5 * DAY_MS + 60_000) }]);
+    const f = ctxWith([{ termId: 'S', since: iso(now) }]);
+    expect(tomorrow(now)).toBeGreaterThan(now + 3600_000);
     expect(nextDueAt([soon], now, f.favorites)).toBe(now + 3600_000);
   });
   it('revu depuis le favori : l\'échéance SRS reprend la main', () => {

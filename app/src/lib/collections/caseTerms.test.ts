@@ -29,7 +29,9 @@ describe('termsInOrder (m1)', () => {
 
 describe('caseFavoriteIds (lot F point 3)', () => {
   it('favoris posés pendant CE cas, encore favoris, en ordre d\'événement, sans doublon', () => {
-    const events = [ev('term.favorited', 'b', { caseId: 'c1' }), ev('term.favorited', 'x', { caseId: 'c9' }), ev('term.favorited', 'a', { caseId: 'c1' }), ev('term.favorited', 'gone', { caseId: 'c1' }), ev('term.favorited', 'b', { caseId: 'c1' }), ev('deck.term_added', 'd1', { termId: 'c', caseId: 'c1' })];
+    // Horodatages distincts ; la base les rend dans l'ordre d'index (type, id), pas d'événement : on les passe mélangés.
+    const at = (e: ProgressEvent, min: number): ProgressEvent => ({ ...e, id: `${e.id}-${min}`, occurred_at: `2026-09-17T10:${String(min).padStart(2, '0')}:00Z` });
+    const events = [at(ev('term.favorited', 'a', { caseId: 'c1' }), 3), at(ev('term.favorited', 'x', { caseId: 'c9' }), 2), at(ev('term.favorited', 'b', { caseId: 'c1' }), 1), at(ev('term.favorited', 'gone', { caseId: 'c1' }), 4), at(ev('term.favorited', 'b', { caseId: 'c1' }), 5), at(ev('deck.term_added', 'd1', { termId: 'c', caseId: 'c1' }), 6)];
     const favorites = ['a', 'b', 'x'].map((termId) => ({ termId, since: '2026-09-17T10:00:00Z' }));
     expect(caseFavoriteIds('c1', events, favorites)).toEqual(['b', 'a']);
   });
