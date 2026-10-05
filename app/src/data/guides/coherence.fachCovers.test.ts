@@ -62,7 +62,8 @@ describe('FACH_COVERS absorbé par r2 — chaque paire retirée, ou gardée pour
     const fach = brute.find((ch) => ch.id === 'fach')?.questions.flatMap(phraseProbes) ?? [];
     const akt = brute.find((ch) => ch.id === 'aktuell')!.questions.flatMap(phraseProbes);
     const t = playedTrame(c);
-    const joue = t.chapters.find((ch) => ch.id === 'aktuell')!.questions.flatMap(phraseProbes);
+    // une relance détachée porte la sonde de sa mère (pour le simulant) : elle n'est pas la question de variante
+    const joue = t.chapters.find((ch) => ch.id === 'aktuell')!.questions.filter((p) => typeof p === 'string' || !p.detacheDe).flatMap(phraseProbes);
     for (const [f, a] of PAIRES) {
       if (!fach.includes(f) || !akt.includes(a)) continue;
       const k = `${f} -> ${a}`;

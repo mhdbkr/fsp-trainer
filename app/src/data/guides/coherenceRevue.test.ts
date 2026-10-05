@@ -85,3 +85,21 @@ describe('P0-1 — le sang dans les selles (`stuhl_blut`) est un signe, exigé p
     for (const c of cases) expect(compteursApresCas(c).ajouteSansReponse, c.id).toBe(0);
   });
 });
+
+describe('P0-2 — Zungenbiss et Einnässen : deux signes du malaise (syncope ≠ crise)', () => {
+  const textes = (id: string) => trameJouee(byId(id)).flatMap((x) => x.questions.flatMap((p) => [phraseText(p), ...phraseFollowUps(p).map((f) => f.text)]));
+  it('case-synkope pose la morsure de langue et l\'énurésie, même quand la Fach Kardio prend la perte de connaissance', () => {
+    expect(textes('case-synkope').filter((t) => /Zunge gebissen/.test(t))).toHaveLength(1);
+    expect(textes('case-synkope').filter((t) => /Urin abgegangen/.test(t))).toHaveLength(1);
+  });
+  it('case-epilepsie : une seule fois chacune (la Fach neuro les pose, r2)', () => {
+    expect(textes('case-epilepsie').filter((t) => /Zungenbiss\?|auf die Zunge gebissen/.test(t))).toHaveLength(1);
+  });
+  it('chaque cas qui les pose a la réponse (dans celle de la question mère)', () => {
+    for (const c of cases) {
+      if (!textes(c.id).some((t) => /etwa auf die Zunge gebissen/.test(t))) continue;
+      expect(c.patientSheet.antworten?.['akt-anfall-bewusstsein'], c.id).toMatch(/Zunge/);
+      expect(c.patientSheet.antworten?.['akt-anfall-bewusstsein'], c.id).toMatch(/[Ee]ingenässt|Urin|Hose/);
+    }
+  });
+});

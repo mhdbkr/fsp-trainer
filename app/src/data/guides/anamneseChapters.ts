@@ -424,7 +424,9 @@ const AKTUELL_VARIANTS: Record<LeitsymptomKategorie, AktuellVariant> = {
         text: 'Bewusstsein — Waren Sie dabei bewusstlos, oder ist Ihnen schwarz vor Augen geworden?',
         probe: 'akt-anfall-bewusstsein',
         followUp: ['Haben Sie sich dabei verletzt, etwa auf die Zunge gebissen?', 'Ist dabei Urin abgegangen?', 'Hat jemand gesehen, was passiert ist?'],
-        // K3 : Zungenbiss, Urin, témoin précisent CET épisode (« dabei ») — relances gardées sous la question, qui suivent sa décision.
+        // K3 (revue clinique P0-2) : Zungenbiss et Einnässen sont deux signes (syncope ≠ crise) — r4a les détache, et elles
+        // restent posées quand la Fach (Kardio) prend la perte de connaissance ; le témoin précise l'épisode et suit sa mère.
+        followUpSucht: [['zungenbiss'], ['einnaessen'], []],
       },
       { text: 'Verlauf — Werden die Anfälle häufiger oder länger? Sind Sie zwischen den Anfällen völlig beschwerdefrei?', probe: 'akt-verlauf' },
       { text: 'Auslöser — Gibt es einen Auslöser — Anstrengung, Aufregung, Kaffee, Alkohol, Schlafmangel, schnelles Aufstehen?', probe: 'akt-ausloeser' },

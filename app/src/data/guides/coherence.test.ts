@@ -138,9 +138,10 @@ describe('INV-84 — une relance qui cherche un autre signe (r4a)', () => {
     expect(un(r.ecarts, 'fach-rheuma-vorgeschichte#2', 'anomalie')).toMatchObject({ regle: 4, cause: 'relance' });
     expect(compteursApres(r.trame, RHEUMA, r.ecarts).relancesOrphelines).toBe(1);
   });
-  it('130 cas : seules trois relances sont détachées (impfung → végétative, Gicht/Nierensteine, Familie Rheuma)', () => {
+  it('130 cas : seules cinq relances sont détachées (impfung → végétative, Gicht/Nierensteine, Familie Rheuma, Zungenbiss, Einnässen)', () => {
     const det = new Set(cases.flatMap((c) => playedTrame(c).ecarts.filter((e) => e.action === 'detache').map((e) => `${e.question} → ${e.vers}`)));
-    expect([...det].sort()).toEqual(['fach-rheuma-vorgeschichte#1 → fach', 'fach-rheuma-vorgeschichte#2 → familie-sozial', 'veg-fieber#5 → vegetativ']);
+    expect([...det].sort()).toEqual(['akt-anfall-bewusstsein#1 → aktuell', 'akt-anfall-bewusstsein#2 → aktuell',
+      'fach-rheuma-vorgeschichte#1 → fach', 'fach-rheuma-vorgeschichte#2 → familie-sozial', 'veg-fieber#5 → vegetativ']);
     for (const c of cases) expect(compteursApresCas(c).relancesOrphelines, c.id).toBe(0);
     expect(coeur(byId('case-rheumatoide-arthritis')).fach).toContain('^fach-rheuma-vorgeschichte#1');
   });
@@ -206,10 +207,12 @@ describe('INV-86 — pure, déterministe, idempotente', () => {
 });
 
 describe('INV-87 — écarts complets', () => {
-  const ids = (t: TrameChapter[], c: Case) => new Set(t.flatMap((x) => x.questions.flatMap((p) => {
+  // clé → identifiant d'écart. Une relance se reconnaît à son texte (une détachée décale l'index des suivantes) ;
+  // son identifiant d'écart est celui de la trame BRUTE (`<mère>#<rang>`).
+  const ids = (t: TrameChapter[], c: Case) => new Map(t.flatMap((x) => x.questions.flatMap((p) => {
     const v = typeof p === 'string' ? undefined : p;
     const id = v?.detacheDe ?? (phraseIsCaseSpecific(p) ? `cas:${ctxDuCas(c).casIndex!(p)}` : phraseProbes(p).join('+'));
-    return id ? [id, ...phraseFollowUps(p).map((_, i) => `${id}#${i + 1}`)] : [];
+    return id ? [[id, id] as const, ...phraseFollowUps(p).map((f, i) => [`${id}::${f.text}`, `${id}#${i + 1}`] as const)] : [];
   })));
   it('130 cas : un écart par (question, action) ; tout ce qui disparaît, apparaît ou bouge a son écart', () => {
     for (const c of cases) {
@@ -218,8 +221,8 @@ describe('INV-87 — écarts complets', () => {
       expect(new Set(k).size, c.id).toBe(k.length);
       const brut = ids(trameBrute(c), c), joue = ids(trameJouee(c), c);
       const vu = (q: string, actions: string[]) => ecarts.some((e) => e.question === q && actions.includes(e.action));
-      for (const q of brut) if (!joue.has(q)) expect(vu(q, ['retire', 'reduit', 'detache']), `${c.id} ${q} disparaît`).toBe(true);
-      for (const q of joue) if (!brut.has(q)) expect(vu(q, ['ajoute', 'detache']) || vu(q.replace(/#\d+$/, ''), ['ajoute', 'detache']), `${c.id} ${q} apparaît`).toBe(true);
+      for (const [k, q] of brut) if (!joue.has(k)) expect(vu(q, ['retire', 'reduit', 'detache']), `${c.id} ${q} disparaît`).toBe(true);
+      for (const [k, q] of joue) if (!brut.has(k)) expect(vu(q, ['ajoute', 'detache']) || vu(q.replace(/#\d+$/, ''), ['ajoute', 'detache', 'reduit']), `${c.id} ${q} apparaît`).toBe(true);   // la relance d'une `part` gardée
     }
   });
   it('une mère retirée : chaque relance de précision a SON écart, lié par `mere`', () => {
