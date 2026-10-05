@@ -1,15 +1,15 @@
 {
   "mesureLe": "2026-10-05",
   "cas": 130,
-  "source": "K1 — les 227 sondes sont DÉCLARÉES (PROBE_SUCHT, followUpSucht) : leur déclaration remplace la lecture du texte (exact). Les questions du cas se lisent encore ; profil PROPOSÉ depuis la fiche. Exacts quand K2 (profils) et K4 (questions du cas) auront déclaré.",
+  "source": "K1 — les 229 sondes sont DÉCLARÉES (PROBE_SUCHT, followUpSucht) : leur déclaration remplace la lecture du texte (exact). Les questions du cas se lisent encore ; profil PROPOSÉ depuis la fiche. Exacts quand K2 (profils) et K4 (questions du cas) auront déclaré.",
   "brut": {
-    "doublons": 278,
+    "doublons": 266,
     "doublonsCas": 24,
     "horsProfil": 58,
-    "exigeAbsent": 67,
+    "exigeAbsent": 68,
     "relancesOrphelines": 0,
     "brauchtViole": 20,
-    "ajouteSansReponse": 65
+    "ajouteSansReponse": 66
   },
   "residu": {
     "questionsMuettes": 825,
@@ -56,16 +56,16 @@
       "lot": "K1",
       "compteur": "exigeAbsent",
       "de": 58,
-      "a": 67,
-      "raison": "Mesure, pas contenu : la déclaration des sondes remplace la lecture du texte, qui prenait une mention pour une question. « atemnot » absent dans 8 cas tagués dyspnoe (lu dans la relance allergique « Hautausschlag, Atemnot, Kreislaufprobleme » de all-allergie), « husten » dans bronchialkarzinom (lu dans « Blut beim Husten » de fach-onko-blutung), « gelenke » dans rheumatisches-fieber et malaria (lu dans fach-infekt-gelenke, qui cherche `arthralgie`) ; moins « ort » dans zystitis et erysipel (désormais cherché par fach-uro-flanke et fach-derma-beginn-ort). 58 → 67 = +9 manques réels auparavant masqués."
+      "a": 68,
+      "raison": "Mesure, pas contenu : la déclaration des sondes remplace la lecture du texte, qui prenait une mention pour une question. « atemnot » absent dans 8 cas tagués dyspnoe (lu dans la relance allergique « Hautausschlag, Atemnot, Kreislaufprobleme » de all-allergie), « husten » dans bronchialkarzinom (lu dans « Blut beim Husten » de fach-onko-blutung), « gelenke » dans rheumatisches-fieber et malaria (lu dans fach-infekt-gelenke, qui cherche `arthralgie`) ; moins « ort » dans erysipel (désormais cherché par fach-derma-beginn-ort). 58 → 67 = +9 manques réels auparavant masqués. Revue K1 C3 (+1) : fach-uro-flanke cherche `flankenschmerz` (la douleur du flanc), plus `ort` de la plainte : « ort » redevient absent dans zystitis, où rien d’autre ne le cherche. 58 → 68."
     },
     {
       "date": "2026-10-05",
       "lot": "K1",
       "compteur": "ajouteSansReponse",
       "de": 56,
-      "a": 65,
-      "raison": "La projection de exigeAbsent : une banque sans réponse par signe nouvellement absent (akt-atemnot-belastung ×8, akt-atemnot-husten ×5, fach-rheuma-gelenke ×5…, moins akt-ort ×2). 56 → 65 : le travail d'écriture de K2, auparavant masqué par la même lecture."
+      "a": 66,
+      "raison": "La projection de exigeAbsent : une banque sans réponse par signe nouvellement absent (akt-atemnot-belastung ×8, akt-atemnot-husten ×5, fach-rheuma-gelenke ×5…, moins akt-ort ×2). 56 → 65 : le travail d'écriture de K2, auparavant masqué par la même lecture. Revue K1 C3 (+1) : akt-ort ajouté sans réponse dans zystitis, la projection de exigeAbsent « ort ». 56 → 66."
     }
   ]
 }

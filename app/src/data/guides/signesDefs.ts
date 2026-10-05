@@ -32,7 +32,7 @@ export const DEFS = {
   schwaeche: { kapitel: 'aktuell', pertinence: S },
   muedigkeit: { kapitel: 'aktuell', pertinence: S },
   oedeme: { kapitel: 'aktuell', pertinence: S },
-  blutung: { kapitel: 'aktuell', pertinence: S },
+  blutung: { kapitel: 'aktuell', pertinence: S },          // signe GROSSIER : ce que la lecture du texte trouve ; les sondes déclarent l'un des signes fins (revue K1 C5)
   stuhlfrequenz: { kapitel: 'aktuell', pertinence: S, bank: 'akt-ausscheid-haeufigkeit' },
   stuhlaussehen: { kapitel: 'aktuell', pertinence: S, bank: 'akt-ausscheid-aussehen' },
   nykturie: { kapitel: 'aktuell', pertinence: S },
@@ -203,6 +203,16 @@ export const DEFS = {
   familie_endokrin: { kapitel: 'fach', pertinence: S },
   familie_haut: { kapitel: 'fach', pertinence: S },
   familie_niere: { kapitel: 'fach', pertinence: S },
+  // --- Revue K1 (C1, C2, C3, C5, DPN) : granularité clinique ---------------------
+  atopie: { kapitel: 'fach', pertinence: S },               // terrain atopique (rhume des foins, eczéma) ≠ `allergie` (médicamenteuse, à la pénicilline…)
+  auswurf_aspekt: { kapitel: 'fach', pertinence: S },       // couleur, quantité, consistance du crachat ≠ `auswurf` (en crache-t-il ?) — modèle stuhl / stuhlaussehen
+  haemoptyse: { kapitel: 'fach', pertinence: S },           // sang dans le crachat : red flag, une réplique à elle seule
+  flankenschmerz: { kapitel: 'fach', pertinence: S },       // douleur du flanc ou du dos (colique) ≠ `ort` de la plainte
+  dpn: { kapitel: 'aktuell', pertinence: S },               // dyspnée paroxystique nocturne (réveil par la dyspnée) ≠ `orthopnoe` (dormir surélevé)
+  blutungsneigung: { kapitel: 'fach', pertinence: S },      // diathèse : hématomes spontanés, épistaxis, gingivorragies
+  blutverlust: { kapitel: 'fach', pertinence: S },          // source d'une perte de sang chronique (selles, règles)
+  vaginalblutung: { kapitel: 'fach', pertinence: S },       // saignement génital anormal (intermenstruel, post-ménopausique, post-coïtal)
+  lokalblutung: { kapitel: 'aktuell', pertinence: S },      // une lésion (grain de beauté, nodule, plaie) qui saigne
   // --- Frauenanamnese ---------------------------------------------------------
   zyklus: { kapitel: 'frauenanamnese', pertinence: S },      // régularité du cycle ≠ `blutung` (une hémorragie qui a changé)
   schwangerschaft: { kapitel: 'frauenanamnese', pertinence: S },

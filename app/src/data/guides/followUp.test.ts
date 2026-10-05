@@ -40,7 +40,6 @@ describe('G4 — relances conditionnelles préfixées', () => {
     ['nox-alkohol', 'Trinken Sie täglich', 'ja'],
     ['fach-gastro-uebelkeit', 'Geht es Ihnen besser', 'ja'],
     ['fach-onko-knoten', 'Tut es beim Tasten weh', 'ja'],
-    ['akt-atemnot-husten', 'Husten Sie dabei etwas ab', 'ja'],
     ['akt-atemnot-husten', 'Ist Blut dabei', 'ja'],
     ['fach-uro-frequenz', 'Wie oft müssen Sie nachts', 'ja'],
     ['fach-neuro-kopfschmerz', 'Ist Ihnen während der Schmerzen übel', 'ja'],
@@ -58,6 +57,9 @@ describe('G4 — relances conditionnelles préfixées', () => {
       for (const r of rs) expect(parseFollowUp(r).kind).toBe(kind);
     });
   }
+  it('« Husten Sie dabei etwas ab ? » est inconditionnelle : elle cherche `auswurf`, une relance conditionnelle ne le peut pas (INV-84, revue K1)', () => {
+    expect(relancesOf('akt-atemnot-husten', 'Husten Sie dabei etwas ab').map((r) => parseFollowUp(r).kind)).toEqual(['immer']);
+  });
   it('fach-infekt-fieber n\'a plus de relance : Schüttelfrost / Nachtschweiß sont à veg-schuettelfrost (revue K1 I-2 c)', () => {
     expect(relancesOf('fach-infekt-fieber', '')).toEqual([]);
   });

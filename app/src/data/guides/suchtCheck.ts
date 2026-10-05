@@ -11,7 +11,8 @@ import { PROBE_SUCHT, SIGNES, SIGNE_AFFINE, symptomsInText, type Signe } from '.
 //     (« Falls … : ») est une précision : elle ne déclare pas un autre signe (INV-84).
 //  3. Discordance : un signe que le texte (ou une relance) nomme et que ni `sucht` ni l'héritage ne couvre échoue,
 //     sauf `relu`. Une dimension (Beginn, Verlauf…) porte SUR le motif : les signes qu'elle nomme sont son objet.
-//  4. `relu` ne s'accepte jamais sur la question MÈRE d'une énumération : D1, elle cherche chaque signe qu'elle nomme.
+//  4. `relu` ne s'accepte jamais sur une énumération (≥ 2 signes dans la mère, une variante ou une relance) : D1,
+//     elle cherche chaque signe qu'elle nomme (revue K1 I-3).
 // Pure : les tables sont un paramètre, pour que les tests puissent les muter.
 // ============================================================================
 const DIMENSIONS: ReadonlySet<string> = new Set(['ort', 'beginn', 'charakter', 'intensitaet', 'ausstrahlung', 'verlauf', 'ausloeser', 'einfluss', 'frueher', 'gelenke']);
@@ -61,7 +62,10 @@ export function suchtIncoherences(t: SuchtTables = SUCHT_TABLES): string[] {
     const lus = new Set([phraseText(p), ...phraseAlts(p)].flatMap(t.lire));
     const manque = [...lus].filter((x) => !decl.has(x));
     if (!dimension && manque.length && !p.relu) bad.push(`INV-79 : ${id} (${where}) nomme [${manque.join(', ')}] sans le déclarer (sucht) ni poser relu`);
-    if (p.relu && manque.length >= 2 && !dimension) bad.push(`INV-79 : ${id} (${where}) pose relu sur une énumération [${manque.join(', ')}] — D1 : déclarer chaque signe nommé`);
+    // Revue K1 I-3 : 2 signes ou plus nommés dans UN texte (la mère OU une variante) = une énumération ; `relu`
+    // n'y couvre aucun manque (D1). Il ne vaut que pour une mention unique.
+    const enumere = [phraseText(p), ...phraseAlts(p)].some((x) => t.lire(x).length >= 2 && t.lire(x).some((y) => !decl.has(y)));
+    if (p.relu && !dimension && (manque.length >= 2 || (manque.length && enumere))) bad.push(`INV-79 : ${id} (${where}) pose relu sur une énumération [${manque.join(', ')}] — D1 : déclarer chaque signe nommé`);
     fu.forEach((l, i) => {
       const cond = /^Falls\s+[^:]{2,40}:/.test(l.text);
       if (l.sucht) {
@@ -69,8 +73,10 @@ export function suchtIncoherences(t: SuchtTables = SUCHT_TABLES): string[] {
         if (cond) bad.push(`INV-84 : ${id} (${where}) relance conditionnelle ${i} « ${l.text.slice(0, 50)}… » cherche un autre signe [${l.sucht.join(', ')}] que sa mère`);
       }
       const propres = l.sucht ? couvert(l.sucht) : decl;
-      const lu = t.lire(l.text.replace(/^Falls\s+[^:]{2,40}:\s*/, '')).filter((x) => !propres.has(x) && !decl.has(x));
+      const brut = t.lire(l.text.replace(/^Falls\s+[^:]{2,40}:\s*/, ''));
+      const lu = brut.filter((x) => !propres.has(x) && !decl.has(x));
       if (lu.length && !dimension && !p.relu) bad.push(`INV-79 : ${id} (${where}) relance ${i} nomme [${lu.join(', ')}] hors de son signe — la déclarer (followUpSucht) ou poser relu`);
+      if (lu.length && !dimension && p.relu && brut.length >= 2) bad.push(`INV-79 : ${id} (${where}) relance ${i} pose relu sur une énumération [${brut.join(', ')}] — D1 : la déclarer (followUpSucht)`);
     });
   }
   return bad;

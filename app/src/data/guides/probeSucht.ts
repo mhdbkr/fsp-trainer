@@ -32,15 +32,15 @@ export const PROBE_SUCHT: Readonly<Record<string, Sucht>> = {
   'akt-atemnot-geraeusch': ['giemen'],
   'akt-allgemein-art': ['muedigkeit', 'schwindel'],   // « Müdigkeit, Kraftlosigkeit, Schwindel » (D1)
   'akt-allgemein-alltag': ['leistung'], 'akt-allgemein-tageszeit': ['tageszeit'],
-  'akt-allgemein-gewicht': ['gewicht', 'appetit', 'durst'],   // parts : gewicht / appetit + durst
+  'akt-allgemein-gewicht': ['gewicht'],   // revue K1 m-2 : son texte ne demande que le poids ; appetit + durst sont à sa relance (followUpSucht)
   'akt-allgemein-schwellung': ['oedeme'],
   'akt-psych-stimmung': ['stimmung'], 'akt-psych-antrieb': ['antrieb'], 'akt-psych-schlaf': ['schlaf'], 'akt-psych-sicherheit': ['suizid'],
-  'akt-neuro-ausfall': ['schwaeche', 'taubheit'], 'akt-neuro-dauer': ['dauer'], 'akt-neuro-lage': ['schwindel'],
+  'akt-neuro-ausfall': ['schwaeche', 'taubheit'], 'akt-neuro-dauer': ['dauer'], 'akt-neuro-lage': ['lageabhaengig'],
   'akt-nerven-art': ['taubheit', 'schwaeche'], 'akt-nerven-alltag': ['feinmotorik'], 'akt-nerven-tageszeit': ['tageszeit'],
   'akt-infekt-fieber': ['fieber'], 'akt-infekt-kontakt': ['reise'],   // « Kontakt » et « Essen » sont des relances (followUpSucht)
   'akt-infekt-herd': ['husten', 'halsschmerzen', 'miktion', 'stuhl', 'ausschlag', 'wunde'],   // énumération (D1)
-  'akt-veraend-was': ['knoten', 'ausschlag', 'blutung', 'haematome'],
-  'akt-veraend-entwicklung': ['entwicklung'], 'akt-veraend-blutung': ['lokalschmerz', 'juckreiz', 'blutung'],
+  'akt-veraend-was': ['knoten', 'ausschlag', 'lokalblutung', 'haematome'],
+  'akt-veraend-entwicklung': ['entwicklung'], 'akt-veraend-blutung': ['lokalschmerz', 'juckreiz', 'lokalblutung'],
   'akt-ausscheid-was': ['stuhl', 'miktion', 'gelbfaerbung', 'urin_aspekt', 'stuhlaussehen'],   // D1
   'akt-ausscheid-haeufigkeit': ['stuhlfrequenz'], 'akt-ausscheid-harn-haeufigkeit': ['miktion_frequenz', 'nykturie'],
   'akt-ausscheid-aussehen': ['stuhlaussehen'], 'akt-ausscheid-harn-aussehen': ['urin_aspekt'],
@@ -76,17 +76,17 @@ export const PROBE_SUCHT: Readonly<Record<string, Sucht>> = {
   'fach-psych-schlaf': ['schlaf'], 'fach-psych-tagesverlauf': ['tageszeit'], 'fach-psych-konzentration': ['konzentration'],
   'fach-psych-angst': ['angst'], 'fach-psych-suizid': ['suizid'], 'fach-psych-ausloeser': ['ausloeser'], 'fach-psych-frueher': ['frueher'],
   // --- Fach Pneumologie ---------------------------------------------------------
-  'fach-pneumo-husten': ['husten', 'auswurf'], 'fach-pneumo-auswurf': ['auswurf'], 'fach-pneumo-atemnot': ['atemnot'],
-  'fach-pneumo-orthopnoe': ['orthopnoe', 'schlafapnoe'], 'fach-pneumo-schmerz': ['brustschmerz', 'atemabhaengig'],
+  'fach-pneumo-husten': ['husten', 'auswurf'], 'fach-pneumo-auswurf': ['auswurf_aspekt', 'haemoptyse'], 'fach-pneumo-atemnot': ['atemnot'],   // fach-pneumo-auswurf, revue K1 C2 : la seule hémoptysie de la Lungenembolie
+  'fach-pneumo-orthopnoe': ['orthopnoe', 'dpn', 'schlafapnoe'], 'fach-pneumo-schmerz': ['brustschmerz', 'atemabhaengig'],
   'fach-pneumo-fieber': ['fieber', 'schuettelfrost'], 'fach-pneumo-giemen': ['giemen'],
-  'fach-pneumo-infekt': ['atemwegsinfekt', 'kontakt', 'reise'], 'fach-pneumo-noxen': ['lungennoxen'], 'fach-pneumo-allergie': ['allergie', 'asthma'],
+  'fach-pneumo-infekt': ['atemwegsinfekt', 'kontakt', 'reise'], 'fach-pneumo-noxen': ['lungennoxen'], 'fach-pneumo-allergie': ['atopie', 'asthma'],   // revue K1 C1 : ≠ all-allergie (pénicilline), que K3 ne doit pas retirer
   // --- Fach Infektiologie -------------------------------------------------------
   'fach-infekt-fieber': ['fieber'], 'fach-infekt-zecke': ['zecke'], 'fach-infekt-haut': ['ausschlag', 'erythem_ring'],
   'fach-infekt-gelenke': ['arthralgie'], 'fach-infekt-neuro': ['kopfschmerz', 'meningismus', 'taubheit', 'fazialis'],
   'fach-infekt-reise': ['reise'], 'fach-infekt-kontakt': ['kontakt'], 'fach-infekt-impfung': ['impfung'],
   // --- Fach Urologie ------------------------------------------------------------
   'fach-uro-miktion': ['miktion'], 'fach-uro-frequenz': ['miktion_frequenz', 'nykturie'], 'fach-uro-drang': ['drang', 'inkontinenz'],
-  'fach-uro-farbe': ['urin_aspekt'], 'fach-uro-flanke': ['ort', 'ausstrahlung'], 'fach-uro-fieber': ['fieber', 'schuettelfrost'],
+  'fach-uro-farbe': ['urin_aspekt'], 'fach-uro-flanke': ['flankenschmerz', 'ausstrahlung'], 'fach-uro-fieber': ['fieber', 'schuettelfrost'],
   'fach-uro-strahl': ['harnstrahl'], 'fach-uro-sexualanamnese': ['sexualanamnese'], 'fach-uro-funktion': ['sexualfunktion', 'blutung'],
   'fach-uro-vorgeschichte': ['harnwegsinfekt', 'nierensteine', 'prostata'],
   // --- Fach Orthopädie ----------------------------------------------------------
@@ -95,7 +95,7 @@ export const PROBE_SUCHT: Readonly<Record<string, Sucht>> = {
   'fach-ortho-schwellung': ['gelenk_entzuendung', 'haematome'], 'fach-ortho-belastung': ['belastbarkeit'], 'fach-ortho-vorgeschichte': ['ortho_vorgeschichte'],
   // --- Fach Rheumatologie -------------------------------------------------------
   'fach-rheuma-gelenke': ['gelenke'], 'fach-rheuma-morgensteifigkeit': ['steifigkeit'], 'fach-rheuma-entzuendung': ['gelenk_entzuendung'],
-  'fach-rheuma-verlauf': ['verlauf'], 'fach-rheuma-ausloeser': ['ausloeser'], 'fach-rheuma-haut': ['ausschlag'],
+  'fach-rheuma-verlauf': ['beginn'], 'fach-rheuma-ausloeser': ['ausloeser'], 'fach-rheuma-haut': ['ausschlag'],   // fach-rheuma-verlauf, « plötzlich und anfallsartig, oder langsam » : le mode de début
   'fach-rheuma-systemisch': ['fieber', 'augenentzuendung', 'ulzera', 'stuhl', 'ausschlag'], 'fach-rheuma-vorgeschichte': ['frueher'],
   // --- Fach Neurologie ----------------------------------------------------------
   'fach-neuro-sehen': ['sehstoerung'], 'fach-neuro-sensibilitaet': ['taubheit'], 'fach-neuro-kraft': ['schwaeche'],
@@ -111,16 +111,16 @@ export const PROBE_SUCHT: Readonly<Record<string, Sucht>> = {
   'fach-endo-folgeschaeden': ['taubheit', 'sehstoerung', 'nierenprobleme'], 'fach-endo-familie-therapie': ['familie_endokrin', 'endokrine_therapie'],
   // --- Fach Hämatologie ---------------------------------------------------------
   'fach-haem-leistung': ['muedigkeit', 'leistung', 'blaesse'], 'fach-haem-belastung': ['atemnot', 'herzrasen', 'schwindel'],
-  'fach-haem-blutung': ['blutung', 'haematome'], 'fach-haem-blutverlust': ['blutung', 'stuhlaussehen'],
+  'fach-haem-blutung': ['blutungsneigung', 'haematome'], 'fach-haem-blutverlust': ['blutverlust', 'stuhlaussehen'],
   'fach-haem-ernaehrung': ['ernaehrung'], 'fach-haem-bsymptomatik': ['fieber', 'nachtschweiss', 'gewicht'],
   'fach-haem-lymphknoten': ['lymphknoten'], 'fach-haem-infekte': ['infektneigung', 'fieber', 'wundheilung'],
   'fach-haem-knochen': ['knochenschmerz'], 'fach-haem-thrombose': ['thrombose_vorgeschichte', 'familie_thrombose'],
   // --- Fach Dermatologie --------------------------------------------------------
   'fach-derma-beginn-ort': ['ort', 'ausbreitung'], 'fach-derma-empfinden': ['juckreiz', 'lokalschmerz'], 'fach-derma-aussehen': ['hautbefund'],
   'fach-derma-ausloeser': ['ausloeser'], 'fach-derma-verlauf': ['verlauf'], 'fach-derma-systemisch': ['fieber', 'arthralgie', 'ulzera', 'augenentzuendung'],
-  'fach-derma-vorgeschichte': ['hautvorgeschichte', 'familie_haut'], 'fach-derma-muttermal': ['muttermal', 'juckreiz', 'blutung'], 'fach-derma-vorbehandlung': ['vorbehandlung'],
+  'fach-derma-vorgeschichte': ['hautvorgeschichte', 'familie_haut'], 'fach-derma-muttermal': ['muttermal', 'juckreiz', 'lokalblutung'], 'fach-derma-vorbehandlung': ['vorbehandlung'],
   // --- Fach Gynäkologie ---------------------------------------------------------
-  'fach-gyn-blutung': ['blutung'], 'fach-gyn-unterbauch': ['unterbauchschmerz'], 'fach-gyn-fluor': ['fluor'], 'fach-gyn-dyspareunie': ['dyspareunie'],
+  'fach-gyn-blutung': ['vaginalblutung'], 'fach-gyn-unterbauch': ['unterbauchschmerz'], 'fach-gyn-fluor': ['fluor'], 'fach-gyn-dyspareunie': ['dyspareunie'],
   'fach-gyn-schwangerschaften': ['geburten'], 'fach-gyn-kinderwunsch': ['kinderwunsch'], 'fach-gyn-brust': ['brust'],
   'fach-gyn-vorsorge': ['vorsorge_gyn'], 'fach-gyn-eingriffe': ['gyn_op'],
   // --- Fach Angiologie ----------------------------------------------------------
@@ -134,6 +134,6 @@ export const PROBE_SUCHT: Readonly<Record<string, Sucht>> = {
   'fach-nephro-infekt': ['vorinfekt'], 'fach-nephro-vorgeschichte': ['nierenvorgeschichte', 'familie_niere'],
   // --- Fach Onkologie -----------------------------------------------------------
   'fach-onko-bsymptomatik': ['fieber', 'nachtschweiss', 'gewicht'], 'fach-onko-leistung': ['leistung'], 'fach-onko-schmerz': ['ruheschmerz'],
-  'fach-onko-knoten': ['knoten'], 'fach-onko-blutung': ['blutung'], 'fach-onko-appetit': ['schluck', 'voellegefuehl', 'appetit'],
+  'fach-onko-knoten': ['knoten'], 'fach-onko-blutung': ['stuhlaussehen', 'urin_aspekt', 'haemoptyse', 'vaginalblutung'], 'fach-onko-appetit': ['schluck', 'voellegefuehl', 'appetit'],   // fach-onko-blutung, D1 : « im Stuhl, im Urin, beim Husten, aus der Scheide »
   'fach-onko-vorbehandlung': ['tumor_vorgeschichte'], 'fach-onko-familie': ['familie_krebs'], 'fach-onko-vorsorge': ['vorsorge_krebs'],
 };

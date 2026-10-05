@@ -138,12 +138,15 @@ const AKTUELL_VARIANTS: Record<LeitsymptomKategorie, AktuellVariant> = {
         text: 'Nachts — Müssen Sie mit erhöhtem Oberkörper schlafen?',
         probe: 'akt-atemnot-nachts',
         followUp: ['Falls ja: Mit wie vielen Kissen?', 'Wachen Sie nachts auf, weil Ihnen die Luft wegbleibt?'],
-        relu: true,
+        followUpSucht: [[], ['dpn']],   // la dyspnée paroxystique nocturne, distincte de l'orthopnée (revue K1)
       },
       {
         text: 'Husten — Haben Sie Husten?',
         probe: 'akt-atemnot-husten',
-        followUp: ['Falls ja: Husten Sie dabei etwas ab?', 'Falls Auswurf: Welche Farbe hat das?', 'Falls Auswurf: Ist Blut dabei?'],
+        // Revue K1 : « Husten Sie dabei etwas ab ? » cherche `auswurf` (unité à part, doublon vrai avec fach-pneumo-husten
+        // traité par K3). Une relance conditionnelle ne déclare pas d'autre signe (INV-84) : elle perd « Falls ja: ».
+        followUp: ['Husten Sie dabei etwas ab?', 'Falls Auswurf: Welche Farbe hat das?', 'Falls Auswurf: Ist Blut dabei?'],
+        followUpSucht: [['auswurf']],
         relu: true,
       },
       { text: 'Geräusche — Hören Sie beim Atmen ein Pfeifen oder Brummen? Beim Ein- oder beim Ausatmen?', probe: 'akt-atemnot-geraeusch' },
@@ -260,6 +263,7 @@ const AKTUELL_VARIANTS: Record<LeitsymptomKategorie, AktuellVariant> = {
         text: 'Lage und Bewegung — Wird es schlimmer, wenn Sie den Kopf drehen, sich hinlegen oder aufstehen?',
         probe: 'akt-neuro-lage',
         followUp: ['Dreht sich alles, oder schwankt es?'],
+        relu: true,   // la sonde cherche `lageabhaengig` ; la relance qualifie le vertige du motif, mention unique
       },
       { text: 'Verlauf — Kam es einmal, oder in Schüben? Ist es zwischendurch ganz weg?', probe: 'akt-verlauf' },
       { text: 'Auslöser — Gab es einen Auslöser — Anstrengung, Aufregung, Schlafmangel, Alkohol, ein neues Medikament?', probe: 'akt-ausloeser' },
@@ -320,7 +324,7 @@ const AKTUELL_VARIANTS: Record<LeitsymptomKategorie, AktuellVariant> = {
         text: 'Schmerz und Blutung — Tut es weh, juckt es, oder blutet es?',
         probe: 'akt-veraend-blutung',
         followUp: ['Haben Sie Blut im Stuhl oder im Urin bemerkt?', 'Husten Sie Blut ab?'],
-        followUpSucht: [[], ['husten', 'blutung']],
+        followUpSucht: [['stuhlaussehen', 'urin_aspekt'], ['haemoptyse']],   // revue K1 C6
       },
       { text: 'Verlauf — Ist es dauernd da, oder kommt und geht es?', probe: 'akt-verlauf' },
       { text: 'Auslöser — Ist Ihnen ein Auslöser aufgefallen — eine Verletzung, Sonne, ein neues Medikament, eine Ernährungsumstellung?', probe: 'akt-ausloeser' },
@@ -370,17 +374,18 @@ const AKTUELL_VARIANTS: Record<LeitsymptomKategorie, AktuellVariant> = {
         text: 'Veränderung — Was hat sich verändert: beim Wasserlassen, beim Stuhlgang, oder an der Farbe von Haut, Augen, Urin oder Stuhl?',
         probe: 'akt-ausscheid-was',
       },
+      // Revue K1 : par organe — les selles (fréquence, aspect), puis les urines (fréquence, aspect).
       {
-        text: 'Häufigkeit — Wie oft haben Sie am Tag Stuhlgang, und müssen Sie nachts zur Toilette?',
+        text: 'Häufigkeit — Wie oft haben Sie am Tag Stuhlgang, und müssen Sie auch nachts zum Stuhlgang aufstehen?',
         probe: 'akt-ausscheid-haeufigkeit',
         followUp: ['Mehr oder weniger als sonst?'],
       },
+      { text: 'Aussehen — Ist Ihnen Blut, Schleim oder eine ungewöhnliche Farbe im Stuhl aufgefallen?', probe: 'akt-ausscheid-aussehen' },
       {
         text: 'Wasserlassen — Wie oft müssen Sie am Tag Wasser lassen, und wie oft nachts?',
         probe: 'akt-ausscheid-harn-haeufigkeit',
         followUp: ['Mehr oder weniger als sonst?'],
       },
-      { text: 'Aussehen — Ist Ihnen Blut, Schleim oder eine ungewöhnliche Farbe im Stuhl aufgefallen?', probe: 'akt-ausscheid-aussehen' },
       { text: 'Urin — Ist Ihnen Blut, Schaum oder eine ungewöhnliche Farbe im Urin aufgefallen?', probe: 'akt-ausscheid-harn-aussehen' },
       { text: 'Schlucken — Bleibt beim Schlucken nur Festes stecken, oder auch Flüssiges?', probe: 'akt-ausscheid-schlucken' },
       { text: 'Verlauf — Ist es dauernd so, oder gibt es Tage, an denen es normal ist? Wird es schlimmer?', probe: 'akt-verlauf' },
@@ -674,8 +679,9 @@ export const ALLGEMEINE_ANAMNESE: AnamneseChapter[] = [
       {
         text: 'Sind Sie allergisch gegen bestimmte Medikamente oder Nahrungsmittel?',
         probe: 'all-allergie',
-        followUp: ['Falls ja: Beschreiben Sie bitte, wie Sie genau reagieren — Hautausschlag, Atemnot, Kreislaufprobleme?'],
-        relu: true,
+        // Revue K1 I-3 : la relance décrit la RÉACTION allergique, elle ne demande ni la dyspnée ni l'éruption
+        // actuelles ; elle ne les nomme plus (une énumération ne se couvre pas par `relu`).
+        followUp: ['Falls ja: Beschreiben Sie bitte, wie Sie genau reagieren — an der Haut, an der Atmung, am Kreislauf?'],
       },
       { text: 'Vertragen Sie bestimmte Speisen nicht (Laktose, Gluten)?', probe: 'all-unvertraeglich' },
     ],
@@ -861,7 +867,6 @@ export const FACHANAMNESEN: FachanamneseGuide[] = [
         text: 'Wie sieht der Auswurf aus — Farbe und Menge? Ist Blut beigemengt?',
         probe: 'fach-pneumo-auswurf',
         followUp: ['Welche Konsistenz — durchsichtig, gelblich, grünlich, eitrig, dünn, schaumig? Nur Blutfäden oder richtig blutig?'],
-        relu: true,
       },
       {
         text: 'Bekommen Sie schwer Luft? In Ruhe oder bei Belastung? Wie viele Stockwerke schaffen Sie ohne Pause?',
@@ -872,7 +877,6 @@ export const FACHANAMNESEN: FachanamneseGuide[] = [
         text: 'Wie viele Kissen brauchen Sie zum Schlafen? Wachen Sie nachts mit Luftnot auf, oder klagt Ihr Partner über lautes Schnarchen und Atemaussetzer?',
         probe: 'fach-pneumo-orthopnoe',
         label: 'Nachts',
-        relu: true,
       },
       {
         text: 'Haben Sie Schmerzen beim Atmen oder Husten? Sind sie atemabhängig?',
@@ -1333,14 +1337,13 @@ export const FACHANAMNESEN: FachanamneseGuide[] = [
         text: 'Haben Sie Fieber, Nachtschweiß — so stark, dass Sie die Wäsche wechseln müssen — oder ungewollt Gewicht verloren?',
         probe: 'fach-haem-bsymptomatik',
         label: 'B-Symptomatik',
-        alts: ['Haben Sie Fieber, Schüttelfrost oder Nachtschweiß bemerkt?'],
+        alts: ['Haben Sie Fieber oder Nachtschweiß bemerkt?'],   // revue K1 I-3 : sans Schüttelfrost (veg-schuettelfrost)
         followUp: ['Falls Gewichtsverlust: Wie viele Kilo haben Sie abgenommen?', 'Falls Gewichtsverlust: In welchem Zeitraum?'],
         parts: [
           { sucht: ['fieber'], text: 'Haben Sie Fieber?' },
           { sucht: ['nachtschweiss'], text: 'Schwitzen Sie nachts so stark, dass Sie die Wäsche wechseln müssen?' },
           { sucht: ['gewicht'], text: 'Haben Sie ungewollt Gewicht verloren?', followUp: ['Falls ja: Wie viele Kilo haben Sie abgenommen?', 'Falls ja: In welchem Zeitraum?'] },
         ],
-        relu: true,
       },
       {
         text: 'Haben Sie Schwellungen oder Knoten am Hals, in den Achseln oder in der Leiste getastet?',
@@ -1398,7 +1401,6 @@ export const FACHANAMNESEN: FachanamneseGuide[] = [
       {
         text: 'Haben Sie Blutungen bemerkt — im Stuhl, im Urin, beim Husten oder aus der Scheide?',
         probe: 'fach-onko-blutung',
-        relu: true,
       },
       {
         text: 'Haben Sie Schluckbeschwerden, ein Völlegefühl oder keinen Appetit mehr?',
@@ -1423,13 +1425,14 @@ export const FACHANAMNESEN: FachanamneseGuide[] = [
     ['Gewicht', 'Schwitzen', 'Durst', 'Herzrasen', 'Hals'],
     [
       {
-        text: 'Haben Sie vermehrt Durst und müssen Sie häufiger Wasser lassen, auch nachts?',
+        // Revue K1 : polyurie (le VOLUME), pas miktion_frequenz — le texte dit « mehr », pas « häufiger » (paire D4).
+        text: 'Haben Sie vermehrt Durst und müssen Sie mehr Wasser lassen als sonst, auch nachts?',
         probe: 'fach-endo-durst',
         alts: ['Haben Sie großen Durst und müssen viel Wasser lassen?'],
         // Quand le cas a déjà compté les levers nocturnes (case-diabetes-typ1),
         // il ne reste que la soif — l'autre moitié de la paire cardinale.
         parts: [
-          { sucht: ['polyurie', 'nykturie'], text: 'Müssen Sie häufiger Wasser lassen als früher, auch nachts?' },
+          { sucht: ['polyurie', 'nykturie'], text: 'Müssen Sie mehr Wasser lassen als früher, auch nachts?' },
           { sucht: ['durst'], text: 'Haben Sie dabei vermehrt Durst?' },
         ],
       },
@@ -1532,7 +1535,8 @@ export const FACHANAMNESEN: FachanamneseGuide[] = [
         text: 'Haben Sie Ängste, oder machen Sie sich viele Sorgen — auch wenn Sie eigentlich in Sicherheit sind?',
         probe: 'fach-psych-angst',
         followUp: ['Haben Sie Panikattacken — mit Luftnot, Herzrasen, Herzklopfen oder sogar Todesangst?'],
-        followUpSucht: [['panikattacke', 'atemnot', 'herzrasen']],
+        // Revue K1 C4 : la relance cherche la crise ; Luftnot, Herzrasen la décrivent (SIGNE_AFFINE.panikattacke).
+        followUpSucht: [['panikattacke']],
       },
       {
         text: 'Denken Sie manchmal, dass das Leben nicht mehr lebenswert ist? Haben Sie Gedanken, sich etwas anzutun?',

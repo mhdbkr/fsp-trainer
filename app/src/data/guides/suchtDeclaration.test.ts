@@ -56,10 +56,26 @@ describe('INV-79 — texte ↔ déclaration', () => {
     const bad = suchtIncoherences({ ...t, sucht: { ...PROBE_SUCHT, 'fach-rheuma-systemisch': ['fieber'] } });
     expect(bad.some((m) => /fach-rheuma-systemisch.*pose relu sur une énumération/.test(m))).toBe(true);
   });
-  it('`relu` reste permis pour UNE mention qui n’interroge pas : « Ist Blut beigemengt ? » sous l’Auswurf', () => {
-    expect(row('fach-pneumo-auswurf').p).toMatchObject({ relu: true });
-    const sans = swap('fach-pneumo-auswurf', { relu: false });
-    expect(suchtIncoherences(sans).some((m) => /fach-pneumo-auswurf.*nomme \[blutung\]/.test(m))).toBe(true);
+  it('revue K1 I-3 : une VARIANTE qui énumère (≥ 2 signes) n’est jamais couverte par `relu` — fach-haem-bsymptomatik sans Schüttelfrost', () => {
+    expect(row('fach-haem-bsymptomatik').p).not.toMatchObject({ relu: true });
+    const t = swap('fach-haem-bsymptomatik', { relu: true, alts: ['Haben Sie Fieber, Schüttelfrost oder Nachtschweiß bemerkt?'] });
+    expect(suchtIncoherences(t).some((m) => /fach-haem-bsymptomatik.*pose relu sur une énumération/.test(m))).toBe(true);
+  });
+  it('revue K1 I-3 : une RELANCE qui énumère (≥ 2 signes) n’est jamais couverte par `relu`', () => {
+    const fu = ['Falls ja: Husten Sie dabei etwas ab?', 'Falls Auswurf: Welche Farbe hat das?', 'Falls Auswurf: Ist Blut dabei? Haben Sie Fieber oder Nachtschweiß?'];
+    const bad = suchtIncoherences(swap('akt-atemnot-husten', { followUp: fu }));
+    expect(bad.some((m) => /akt-atemnot-husten.*relance 2 pose relu sur une énumération/.test(m))).toBe(true);
+  });
+  it('`relu` reste permis pour UNE mention qui n’interroge pas : « Falls Auswurf: Ist Blut dabei ? » sous le Husten', () => {
+    expect(row('akt-atemnot-husten').p).toMatchObject({ relu: true });
+    const sans = swap('akt-atemnot-husten', { relu: false });
+    expect(suchtIncoherences(sans).some((m) => /akt-atemnot-husten.*nomme \[blutung\]/.test(m))).toBe(true);
+  });
+  it('revue K1 C2 : fach-pneumo-auswurf cherche l’aspect ET l’hémoptysie, sans `relu` ; mutation : sans haemoptyse, « Blut beigemengt » rougit', () => {
+    expect(PROBE_SUCHT['fach-pneumo-auswurf']).toEqual(['auswurf_aspekt', 'haemoptyse']);
+    expect(row('fach-pneumo-auswurf').p).not.toMatchObject({ relu: true });
+    const bad = suchtIncoherences(mutated({ sucht: { ...PROBE_SUCHT, 'fach-pneumo-auswurf': ['auswurf_aspekt'] } }));
+    expect(bad.some((m) => /fach-pneumo-auswurf.*nomme \[blutung\]/.test(m))).toBe(true);
   });
   it('une variante qui énumère (akt-begleit) déclare ses signes dans `enumere` ; mutation : sans lui, la porte rougit', () => {
     const neuro = row('akt-begleit', 'Begleitbeschwerden — Hatten Sie dabei Kopfschmerzen');

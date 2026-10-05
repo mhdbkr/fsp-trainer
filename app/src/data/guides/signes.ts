@@ -91,6 +91,13 @@ export const SUCHT_AUSSER: Partial<Record<ProbeId, Partial<Record<ProfilTag, Sig
  *  est `stuhlfrequenz`, pas `stuhl`). Sert la porte (INV-79, discordance) ; l'identité reste celle de la fiche. */
 export const SIGNE_AFFINE: Partial<Record<Signe, readonly Signe[]>> = {
   stuhlfrequenz: ['stuhl'], stuhlaussehen: ['stuhl'], miktion_frequenz: ['miktion'], nykturie: ['miktion'], urin_aspekt: ['miktion'],
+  // Revue K1 C5 : `blutung` est le signe que la LECTURE trouve ; chaque sonde déclare le saignement qu'elle cherche.
+  blutungsneigung: ['blutung'], blutverlust: ['blutung'], vaginalblutung: ['blutung'], lokalblutung: ['blutung'],
+  haemoptyse: ['blutung', 'husten'],   // « Blut beim Husten », « Husten Sie Blut ab ? »
+  auswurf_aspekt: ['auswurf'], dpn: ['atemnot'],   // « Wachen Sie nachts mit Luftnot auf ? »
+  // La crise de panique se décrit par ses signes (« mit Luftnot, Herzrasen ») : ils la définissent, ils ne sont pas
+  // demandés comme plaintes (revue K1 C4). Porte seulement : la mesure ne les compte pas comme cherchés.
+  panikattacke: ['angst', 'atemnot', 'herzrasen'],
 };
 
 /** Paires de discrimination (INV-78) : leurs `sucht` déclarés sont disjoints. Chaque lot qui touche le lexique en ajoute une. */
@@ -101,6 +108,14 @@ export const GRANULARITE_PAIRES: ReadonlyArray<readonly [ProbeId, ProbeId]> = [
   ['fach-endo-durst', 'fach-uro-miktion'],              // polyurie ≠ miktion (décision D4, série 3)
   ['fach-neuro-kraft', 'fach-haem-leistung'],           // schwaeche ≠ muedigkeit
   ['fach-neuro-sensibilitaet', 'fach-ortho-cauda'],     // taubheit ≠ sattel
+  // Revue K1 : les saignements (C5), le crachat (C2), l'atopie (C1), la DPN.
+  ['fach-haem-blutung', 'fach-haem-blutverlust'],       // blutungsneigung ≠ blutverlust
+  ['fach-haem-blutung', 'fach-gyn-blutung'],            // blutungsneigung ≠ vaginalblutung
+  ['fach-haem-blutung', 'akt-veraend-blutung'],         // blutungsneigung ≠ lokalblutung
+  ['fach-gyn-blutung', 'akt-veraend-blutung'],          // vaginalblutung ≠ lokalblutung
+  ['fach-pneumo-husten', 'fach-pneumo-auswurf'],        // auswurf ≠ auswurf_aspekt
+  ['all-allergie', 'fach-pneumo-allergie'],             // allergie ≠ atopie
+  ['akt-atemnot-nachts', 'fach-kardio-luft'],           // orthopnoe ≠ atemnot
 ];
 
 export interface LexiqueTables {

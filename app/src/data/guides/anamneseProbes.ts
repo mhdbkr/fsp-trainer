@@ -118,7 +118,7 @@ export const FACH_PROBES: Partial<Record<Specialty, AnamneseProbe[]>> = {
     { id: 'fach-kardio-herzrasen', kapitel: 'fach', frage: 'Haben Sie Herzrasen, Herzklopfen oder Herzstolpern bemerkt?' },
     { id: 'fach-kardio-luft', kapitel: 'fach', frage: 'Bekommen Sie schwer Luft, besonders beim Treppensteigen? Wie viele Stockwerke schaffen Sie ohne Pause?' },
     { id: 'fach-kardio-oedeme', kapitel: 'fach', frage: 'Sind Ihre Beine oder Knöchel geschwollen? Mit wie vielen Kissen schlafen Sie?' },
-    { id: 'fach-kardio-nykturie', kapitel: 'fach', frage: 'Müssen Sie nachts Wasser lassen? Wie oft?', deepens: 'akt-ausscheid-haeufigkeit' },
+    { id: 'fach-kardio-nykturie', kapitel: 'fach', frage: 'Müssen Sie nachts Wasser lassen? Wie oft?', deepens: 'akt-ausscheid-harn-haeufigkeit' },
     { id: 'fach-kardio-synkope', kapitel: 'fach', frage: 'Wird es Ihnen manchmal schwarz vor Augen? Sind Sie schon einmal ohnmächtig geworden?', deepens: 'akt-anfall-bewusstsein' },
   ],
   Chirurgie: [
@@ -377,7 +377,7 @@ export const AKTUELL_VARIANT_PROBES: Record<LeitsymptomKategorie, AnamneseProbe[
     { id: 'akt-ausscheid-was', kapitel: 'aktuell', frage: 'Was hat sich verändert: Wasserlassen, Stuhlgang, Farbe von Haut/Augen/Urin/Stuhl?' },
     // K1 : « Häufigkeit » et « Aussehen » cherchaient chacune les selles ET les urines (deux répliques de fiche
     // différentes). Chaque question se coupe en deux sondes mono-signe ; les ids historiques gardent les selles.
-    { id: 'akt-ausscheid-haeufigkeit', kapitel: 'aktuell', frage: 'Wie oft haben Sie am Tag Stuhlgang, und müssen Sie nachts zur Toilette?' },
+    { id: 'akt-ausscheid-haeufigkeit', kapitel: 'aktuell', frage: 'Wie oft haben Sie am Tag Stuhlgang, und müssen Sie auch nachts zum Stuhlgang aufstehen?' },
     { id: 'akt-ausscheid-harn-haeufigkeit', kapitel: 'aktuell', frage: 'Wie oft müssen Sie am Tag Wasser lassen, und wie oft nachts?' },
     { id: 'akt-ausscheid-aussehen', kapitel: 'aktuell', frage: 'Ist Ihnen Blut, Schleim oder eine ungewöhnliche Farbe im Stuhl aufgefallen?' },
     { id: 'akt-ausscheid-harn-aussehen', kapitel: 'aktuell', frage: 'Ist Ihnen Blut, Schaum oder eine ungewöhnliche Farbe im Urin aufgefallen?' },

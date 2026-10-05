@@ -72,14 +72,15 @@ describe('parts ↔ PROBE_SUCHT (I5)', () => {
   const catalogue = [
     ...ALLGEMEINE_ANAMNESE, ...FACHANAMNESEN.map((f) => f.chapter), ...LEITSYMPTOM_KATEGORIEN.map((k) => aktuellChapterFor(k)),
   ].flatMap((ch) => ch.questions);
-  it('l’union des `parts.sucht` d’une phrase égale la carte de sa sonde', () => {
+  it('l’union des `parts.sucht` d’une phrase couvre la carte de sa sonde, et n’en sort que vers ses relances déclarées (revue K1 m-2)', () => {
     const bad: string[] = [];
     for (const q of catalogue) {
       if (typeof q === 'string' || !q.parts) continue;
       const probe = phraseProbes(q)[0];
       const union = [...new Set(q.parts.flatMap((pt) => pt.sucht))].sort();
-      const map = [...(PROBE_SUCHT[probe] ?? [])].sort();
-      if (union.join() !== map.join()) bad.push(`${probe}: parts [${union}] ≠ carte [${map}]`);
+      const carte: readonly string[] = PROBE_SUCHT[probe] ?? [];
+      const permis = new Set([...carte, ...(q.followUpSucht ?? []).flat()]);
+      if (carte.some((x) => !union.includes(x)) || union.some((x) => !permis.has(x))) bad.push(`${probe}: parts [${union}] ≠ carte [${[...carte].sort()}] (+ relances [${[...permis].filter((x) => !carte.includes(x))}])`);
     }
     expect(bad).toEqual([]);
   });
@@ -132,8 +133,8 @@ describe('Lexique de signes — INV-77 (cohérent) et INV-78 (granularité)', ()
   it('le lexique réel est cohérent', () => {
     expect(lexiqueIncoherences()).toEqual([]);
   });
-  it('porte 206 signes : 69 de K0 (11 dimensions, 39 concepts d\u2019origine, 19 ajouts), puis ceux de K1 ; un SIGNE_DEF chacun', () => {
-    expect(SIGNES).toHaveLength(206);
+  it('porte 215 signes : 69 de K0 (11 dimensions, 39 concepts d\u2019origine, 19 ajouts), puis ceux de K1 (137 + 9 de sa revue) ; un SIGNE_DEF chacun', () => {
+    expect(SIGNES).toHaveLength(215);
     expect(Object.keys(SIGNE_DEF)).toEqual([...SIGNES]);
     expect(SIGNES.slice(0, 11)).toEqual(['ort', 'beginn', 'charakter', 'intensitaet', 'ausstrahlung', 'verlauf', 'ausloeser', 'einfluss', 'frueher', 'begleit', 'gelenke']);
     expect(new Set(SIGNES).size).toBe(SIGNES.length);

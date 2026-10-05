@@ -38,9 +38,10 @@ test('nouveau doublon de concept → porte rouge', { timeout: 300_000 }, () => {
 // constat qu'elle éteignait doit rouvrir la porte, sans exception de socle.
 const cases = 'src/data/seedCases.ts';
 
-test('socle vide → une annotation `relu` annulée rouvre la porte', { timeout: 300_000 }, () => {
+test('socle connu → une annotation `relu` annulée rouvre la porte', { timeout: 300_000 }, () => {
   const b = JSON.parse(sb.read(baseline));
-  assert.equal(b.findings.length, 0, 'le socle doit être vide après la série 3');
+  // Vide après la série 3 ; la revue K1 (I-2) y inscrit deux vrais doublons de la nausée, échéance K4.
+  assert.deepEqual(b.findings.map((f) => f.split(' ')[0]), ['R|case-anorexia-nervosa', 'R|case-myokardinfarkt']);
   const r = sb.mutate(cases,
     "{ frage: 'Hat die Rötung in der Mitte eine hellere Stelle, sodass sie wie eine Zielscheibe aussieht?', kapitel: 'aktuell', relu: true },",
     "{ frage: 'Hat die Rötung in der Mitte eine hellere Stelle, sodass sie wie eine Zielscheibe aussieht?', kapitel: 'aktuell' },",
