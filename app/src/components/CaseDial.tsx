@@ -58,6 +58,13 @@ const abonneReduit = (rappel: () => void) => {
 /** Le mouvement est-il réduit ? Relu au changement de réglage système. */
 const useMouvementReduit = (): boolean => useSyncExternalStore(abonneReduit, lisReduit, () => false);
 
+// « Une fois » : ce qui s'est dessiné reste dessiné tant que l'onglet vit. Sans cela, filtrer la liste
+// (les cartes se remontent) redessinerait chaque arc. La clé suit l'instant du dernier jeu : une
+// nouvelle partie dessine à nouveau.
+const dessines = new Set<string>();
+/** Pour les tests : oublier ce qui a déjà été dessiné. */
+export const oublieLesTraces = (): void => dessines.clear();
+
 const SURVOL_MS = 300;
 const APPUI_LONG_MS = 450;
 const GRACE_MS = 250;                            // le temps de passer du cadran au détail
@@ -113,10 +120,18 @@ export function CaseDial({ data, size = 64, nom, vientDeSouder = false, action =
     if (!ouvert) parClavier.current = false;
   }, [ouvert]);
 
+  // La décision d'animer est prise au premier rendu et gardée : retirer la classe en cours de route
+  // couperait l'animation net.
+  const aDessiner = useRef<Set<string> | null>(null);
+  if (aDessiner.current === null) {
+    const ids = [...(data.vientDEtreJoue ?? []).map((t) => `${data.caseId}:${t}:${data.teile[t].lastAt}`), ...(vientDeSouder ? [`${data.caseId}:soude:${data.pretAt}`] : [])];
+    aDessiner.current = new Set(ids.filter((k) => !dessines.has(k)));
+  }
+  useEffect(() => { aDessiner.current?.forEach((k) => dessines.add(k)); }, []);
+  const trace = (t: SimTeil) => !reduit && !!aDessiner.current?.has(`${data.caseId}:${t}:${data.teile[t].lastAt}`);
   const soude = data.soude;
   const maitrise = data.maitrise;
   const etats = Object.fromEntries(TEILE.map(({ key }) => [key, etatTeil(data.teile[key])])) as Record<SimTeil, EtatTeil>;
-  const joue = new Set(data.vientDEtreJoue ?? []);
   const avecCentre = size >= 64;
   const avecLegende = size >= 96;
 
@@ -164,7 +179,7 @@ export function CaseDial({ data, size = 64, nom, vientDeSouder = false, action =
             <g transform="rotate(-90 60 60)">
               <circle
                 data-soude="" cx="60" cy="60" r={R_OUT} fill="none" stroke="var(--cd-solide)" strokeWidth="7" pathLength={1}
-                className={`cd-soude${vientDeSouder && !reduit ? ' cd-soude-trace' : ''}`}
+                className={`cd-soude${!reduit && aDessiner.current?.has(`${data.caseId}:soude:${data.pretAt}`) ? ' cd-soude-trace' : ''}`}
               />
             </g>
           ) : (
@@ -179,7 +194,7 @@ export function CaseDial({ data, size = 64, nom, vientDeSouder = false, action =
                   <path
                     data-arc={key} data-etat={etat} d={d} fill="none" stroke={COULEUR[etat]} strokeWidth={EPAISSEUR[etat]}
                     strokeLinecap="round" pathLength={1} strokeDasharray={etat === 'non-mesure' ? '0.07 0.05' : undefined}   /* pathLength = 1 : des tirets de 0,07 du tracé */
-                    className={`cd-arc${joue.has(key) && etat !== 'vierge' && etat !== 'non-mesure' && !reduit ? ' cd-trace' : ''}`}
+                    className={`cd-arc${trace(key) && etat !== 'vierge' && etat !== 'non-mesure' ? ' cd-trace' : ''}`}
                   />
                   {etat === 'a-confirmer' && (
                     <path data-fil={key} d={d} fill="none" stroke="var(--cd-solide)" strokeWidth="2" strokeLinecap="round" />

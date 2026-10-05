@@ -8,7 +8,7 @@ import { act, cleanup, fireEvent, render, screen } from '@testing-library/react'
 import { MemoryRouter } from 'react-router-dom';
 import { freezeAt, resetClock } from '@/lib/clock';
 import type { CaseDialData } from '@/lib/dialData';
-import { CaseDial, type CaseDialSize } from './CaseDial';
+import { CaseDial, oublieLesTraces, type CaseDialSize } from './CaseDial';
 import { etiquette } from './CaseDialText';
 
 const AUJOURDHUI = new Date(2026, 9, 5, 12).getTime();        // lundi 5 oct. 2026
@@ -45,7 +45,7 @@ const reduit = (v: boolean) => vi.stubGlobal('matchMedia', (q: string) => ({
   matches: v && q.includes('reduce'), media: q, addEventListener() {}, removeEventListener() {}, addListener() {}, removeListener() {},
 }));
 
-beforeEach(() => { freezeAt(AUJOURDHUI); reduit(false); });
+beforeEach(() => { freezeAt(AUJOURDHUI); reduit(false); oublieLesTraces(); });
 afterEach(() => { cleanup(); resetClock(); vi.useRealTimers(); vi.unstubAllGlobals(); });
 
 describe('rendu de chaque état, depuis CaseDialData', () => {
@@ -257,6 +257,24 @@ describe('animations — une fois, sans confettis', () => {
     const { container } = monte(ENTAME, { data: { ...ENTAME, vientDEtreJoue: ['fallvorstellung'] } });
     expect(arc(container, 'fallvorstellung').classList.contains('cd-trace')).toBe(true);
     expect(arc(container, 'anamnese').classList.contains('cd-trace')).toBe(false);
+  });
+
+  it('une seule fois : remonter la carte (filtre, retour) ne redessine rien ; une nouvelle partie, si', () => {
+    const joue = { ...ENTAME, vientDEtreJoue: ['fallvorstellung' as const] };
+    const a = monte(ENTAME, { data: joue });
+    expect(arc(a.container, 'fallvorstellung').classList.contains('cd-trace')).toBe(true);
+    a.unmount();
+    const b = monte(ENTAME, { data: joue });
+    expect(b.container.querySelector('.cd-trace')).toBeNull();
+    b.unmount();
+    const rejoue = { ...joue, teile: { ...joue.teile, fallvorstellung: { ...joue.teile.fallvorstellung, lastAt: AUJOURDHUI } } };
+    expect(arc(monte(ENTAME, { data: rejoue }).container, 'fallvorstellung').classList.contains('cd-trace')).toBe(true);
+  });
+
+  it('la classe tient pendant toute la vie du cadran (ouvrir ne coupe pas le tracé)', () => {
+    const { container } = monte(ENTAME, { data: { ...ENTAME, vientDEtreJoue: ['fallvorstellung'] } });
+    fireEvent.keyDown(screen.getByRole('button'), { key: 'Enter' });
+    expect(arc(container, 'fallvorstellung').classList.contains('cd-trace')).toBe(true);
   });
 
   it('un Teil vierge ne se dessine pas', () => {
