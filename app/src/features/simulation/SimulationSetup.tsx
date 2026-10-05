@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import type { MusterArt, SimTeil } from '@/db/types';
+import { useLiveQuery } from 'dexie-react-hooks';
+import type { AssistanceMode, MusterArt, SimTeil, TaskInstance } from '@/db/types';
+import { db } from '@/db/db';
 import { useUi } from '@/store/ui';
 import { Icon } from '@/components/icons';
 import { useCase, useSimulations } from '@/hooks/useData';
@@ -10,38 +12,52 @@ import { patientUrl, localPatientUrl } from './usePatientSync';
 import { listAccounts, getActiveUserId, setActiveUserId, initials, ACCOUNT_DOT as DOT } from '@/lib/auth/accounts';
 import { switchAccount, AUTH_MODE } from '@/lib/auth/session';
 import { restartApp } from '@/lib/auth/restart';
+import { couchePour, niveauDeDepart } from './niveau';
 
 // ============================================================================
 // Le réglage de la simulation : niveau d'assistance · Muster-Bogen.
 //
 // [S4] (simulation-run.md §10.1, ADR-0021 déc. 8 et 9, décision (d) de la
 // direction) — la COUCHE se fond dans le niveau d'assistance : plus de bloc ni de
-// mot « Couche » à l'écran. Le niveau est présélectionné par `layerAdvice` ;
-// `Lauf.layer` reste écrit (la couche conseillée), pour l'historique et le
-// scoring. Le Muster offre deux choix, guidé ou libre.
-// Les textes d'aide lisent le Teil de DÉPART (ou l'Anamnese) : la partie porte
-// toujours les trois Teile, le départ dit seulement par où elle commence.
+// mot « Couche » à l'écran. Le niveau (fixeur I2, décision de main) : la tâche du
+// plan qui le prescrit l'emporte, sinon le conseil de `layerAdvice` dès un passage,
+// sinon le dernier choix du candidat — toujours avec sa raison. `Lauf.layer` reste
+// écrit, DÉDUIT du niveau choisi (M7, `couchePour`). Le Muster : guidé ou libre.
+// Les textes d'aide parlent de la PARTIE ENTIÈRE, ou du Teil de départ s'il y en a un.
 // ============================================================================
 
-export function SimulationSetup({ caseId, depart }: { caseId: string; depart: SimTeil }) {
+export type Aide = SimTeil | 'komplett';
+
+/** La tâche du plan lancée (`?task=`) : `undefined` tant qu'elle est lue, `null` sans tâche. */
+const useTache = (taskId?: string): TaskInstance | null | undefined => useLiveQuery(async () => {
+  if (!taskId) return null;
+  const plan = await db.day_plans.filter((p) => p.tasks.some((t) => t.id === taskId)).first();
+  return plan?.tasks.find((t) => t.id === taskId) ?? null;
+}, [taskId], undefined);
+
+export function SimulationSetup({ caseId, aide, taskId }: { caseId: string; aide: Aide; taskId?: string }) {
   const { assistance, setAssistance, setLayer, muster, setMuster } = useUi();
   const c = useCase(caseId);
   const sims = useSimulations();
+  const tache = useTache(taskId);
   const advice = computeLayerAdvice(c, sims);
-  const conseil = advice.suggestAutonome ? 'autonome' : 'assiste';
-  // Présélection par le conseil, une fois par cas, dès que l'historique est lu. Le
-  // candidat peut ensuite changer de niveau ; la couche, elle, suit le conseil.
-  const lu = !!c && sims !== undefined;
+  const niveau = niveauDeDepart({ advice, sims, caseId, courant: assistance, tache: tache ?? undefined, layerProgress: c?.layerProgress });
+  const choisir = (a: AssistanceMode) => { setAssistance(a); setLayer(couchePour(a, advice, tache ?? undefined)); };
+  // Présélection, une fois par cas, dès que l'historique et la tâche sont lus. Le candidat peut ensuite changer.
+  const lu = !!c && sims !== undefined && tache !== undefined;
+  const [initial, setInitial] = useState<typeof niveau | null>(null);
   useEffect(() => {
     if (!lu) return;
-    setLayer(advice.layer);
-    setAssistance(conseil);
+    setInitial(niveau);
+    choisir(niveau.assistance);
   }, [lu, caseId]); // eslint-disable-line react-hooks/exhaustive-deps
+  const raison = (initial ?? niveau).raison;
+  const conseil = (initial ?? niveau).conseil;
 
   return (
     <div className="space-y-4">
-      {/* (3) Niveau d'assistance — deux grandes cartes, le conseil présélectionné */}
-      <div>
+      {/* (3) Niveau d'assistance — même anatomie que les deux autres blocs */}
+      <div className="card p-4">
         <div className="mb-2 flex items-baseline justify-between gap-2">
           <div className="label">Niveau d’assistance</div>
           {advice.attempts > 0 && (
@@ -53,18 +69,23 @@ export function SimulationSetup({ caseId, depart }: { caseId: string; depart: Si
         </div>
         <div className="grid gap-3 sm:grid-cols-2">
           <ModeCard
-            active={assistance === 'assiste'} onClick={() => setAssistance('assiste')}
+            active={assistance === 'assiste'} onClick={() => choisir('assiste')}
             icon="handshake" title="Assisté" tag={conseil === 'assiste' ? 'Conseillé' : 'Débutant'}
-            desc={ASSISTE_DESC[depart]}
+            desc={ASSISTE_DESC[aide]}
             tone="brand"
           />
           <ModeCard
-            active={assistance === 'autonome'} onClick={() => setAssistance('autonome')}
+            active={assistance === 'autonome'} onClick={() => choisir('autonome')}
             icon="stethoscope" title="Autonome" tag={conseil === 'autonome' ? 'Conseillé' : 'Avancé · score ↑'}
-            desc={AUTONOME_DESC[depart]}
+            desc={AUTONOME_DESC[aide]}
             tone="violet"
           />
         </div>
+        {raison && (
+          <p className="mt-2.5 flex items-start gap-1.5 text-[11.5px] leading-relaxed text-slate-500 dark:text-slate-400">
+            <Icon name="bulb" className="mt-0.5 h-3.5 w-3.5 shrink-0 text-brand-500" /><span>{raison}</span>
+          </p>
+        )}
       </div>
 
       {/* (4) Muster-Bogen : guidé ou libre. Présent dès l'Anamnese : le Bogen est le
@@ -91,13 +112,15 @@ const MUSTER_CHOIX: { art: MusterArt; titre: string; icon: string; desc: string 
   { art: 'libre', titre: 'Libre', icon: 'pen', desc: 'L’identité, puis une page libre, dans l’ordre où tu prends tes notes.' },
 ];
 
-// Le Teil de départ change le CONTENU, pas la présence du bloc.
-const ASSISTE_DESC: Record<SimTeil, string> = {
+// Le Teil de départ change le CONTENU, pas la présence du bloc ; sans départ, la partie entière (I3).
+const ASSISTE_DESC: Record<Aide, string> = {
+  komplett: 'Chaque Teil a sa trame déroulée : questions écrites, formulations types, chapitres à cocher.',
   anamnese: 'Les chapitres sont déroulés, chaque question est écrite, les mots-clés sont visibles.',
   dokumentation: 'La trame de l\'Arztbrief est dépliée, les formulations types sont proposées.',
   fallvorstellung: 'Le plan de présentation est déroulé, avec les phrases de liaison.',
 };
-const AUTONOME_DESC: Record<SimTeil, string> = {
+const AUTONOME_DESC: Record<Aide, string> = {
+  komplett: 'Conditions réelles : tu mènes chaque Teil de mémoire ; l\'aide ne s\'ouvre que si tu la demandes.',
   anamnese: 'Conditions réelles : tu mènes l\'entretien de mémoire, l\'aide se révèle question par question.',
   dokumentation: 'Conditions réelles : page blanche, la trame ne se révèle que si tu la demandes.',
   fallvorstellung: 'Conditions réelles : tu présentes de mémoire, le plan reste replié.',
@@ -121,21 +144,27 @@ export function StartButton({ caseId, depart, taskId }: { caseId: string; depart
   );
 }
 
+type Partenaire = 'seul' | 'simulant' | 'ia';
+const PARTENAIRE_KEY = 'fsp-partenaire';
+const lirePartenaire = (): Partenaire => {
+  const v = localStorage.getItem(PARTENAIRE_KEY);
+  return v === 'simulant' || v === 'ia' ? v : 'seul';
+};
+
 /** « Avec qui tu joues » — UN seul cadre. Choisir un partenaire SÉLECTIONNE,
  *  il ne lance rien : le départ est le `StartButton` de l'en-tête. L'IA externe
  *  ne s'ouvre pas ici : elle se lance DEPUIS la partie jouée, au Teil concerné
- *  (contrat `ai-bridge.md` §3.1). [S4] Il lit le Teil de DÉPART (§10.1). */
-export function PartnerCard({ caseId, depart }: { caseId: string; depart: SimTeil }) {
-  const teil = depart;
-  const [partenaire, setPartenaire] = useState<'seul' | 'simulant' | 'ia'>('seul');
+ *  (contrat `ai-bridge.md` §3.1). [S4] La partie porte les trois Teile : l'IA est
+ *  toujours proposée (fixeur I9/M1), le simulant joue tous ses rôles ; le choix est
+ *  mémorisé sur l'appareil. */
+export function PartnerCard({ caseId, depart }: { caseId: string; depart: SimTeil | null }) {
+  const teil = depart ?? undefined;
+  const [partenaire, setPartenaireState] = useState<Partenaire>(lirePartenaire);
+  const setPartenaire = (p: Partenaire) => { localStorage.setItem(PARTENAIRE_KEY, p); setPartenaireState(p); };
   const [copied, setCopied] = useState(false);
   const url = patientUrl(caseId, teil);
   const copyUrl = () => { navigator.clipboard?.writeText(url); setCopied(true); setTimeout(() => setCopied(false), 1600); };
-
-  // L'IA ne peut jouer que les deux parties dialoguées. En Dokumentation, la
-  // proposer serait un choix qui n'en est pas un (contrat `ai-bridge.md`).
-  const iaMoeglich = teil !== 'dokumentation';
-  const choix = !iaMoeglich && partenaire === 'ia' ? 'seul' : partenaire;
+  const choix = partenaire;
 
   return (
     <section className="card p-4" aria-label="Avec qui tu joues">
@@ -143,7 +172,7 @@ export function PartnerCard({ caseId, depart }: { caseId: string; depart: SimTei
       <div className="grid gap-3 sm:grid-cols-3">
         <PartnerChoice
           icon="user" title="Seul" active={choix === 'seul'}
-          desc="Tu joues les deux rôles, guidé par la trame."
+          desc="Tu joues les deux rôles."
           onClick={() => setPartenaire('seul')}
         />
         <PartnerChoice
@@ -151,19 +180,16 @@ export function PartnerCard({ caseId, depart }: { caseId: string; depart: SimTei
           desc="Il lit sa fiche de rôle sur son téléphone et suit ta partie en direct."
           onClick={() => setPartenaire('simulant')}
         />
-        {iaMoeglich && (
-          <PartnerChoice
-            icon="spark" title="Avec ton IA" active={choix === 'ia'}
-            desc="ChatGPT ou Gemini, en vocal : tu la lances depuis la partie."
-            onClick={() => setPartenaire('ia')}
-          />
-        )}
+        <PartnerChoice
+          icon="spark" title="Avec ton IA" active={choix === 'ia'}
+          desc="ChatGPT ou Gemini, en vocal : tu la lances depuis la partie."
+          onClick={() => setPartenaire('ia')}
+        />
       </div>
 
       {choix === 'ia' && (
         <p className="mt-3 text-xs text-slate-500 dark:text-slate-400">
-          Dans la partie, la puce <b>« IA »</b> de l’en-tête prépare le prompt
-          {teil === 'fallvorstellung' ? ' de l’Oberarzt' : teil === 'anamnese' ? ' du patient' : ' du Teil en cours'}.
+          Dans la partie, la puce « IA » de l’en-tête prépare le prompt du patient en Anamnese, de l’Oberarzt en Fallvorstellung.
         </p>
       )}
 
@@ -210,7 +236,7 @@ function ModeCard({ active, onClick, icon, title, tag, desc, tone }: {
   const ring = tone === 'brand' ? 'border-brand-500 bg-brand-50 dark:bg-brand-900/30' : 'border-violet-500 bg-violet-50 dark:bg-violet-900/20';
   const iconColor = tone === 'brand' ? 'text-brand-600 dark:text-brand-300' : 'text-violet-600 dark:text-violet-300';
   return (
-    <button onClick={onClick} className={`card flex items-start gap-3 p-4 text-left transition-all ${active ? `${ring} ring-1 ring-inset` : 'hover:border-slate-300 dark:hover:border-slate-600'}`}>
+    <button onClick={onClick} aria-pressed={active} className={`card flex items-start gap-3 p-4 text-left transition-all ${active ? `${ring} ring-1 ring-inset` : 'hover:border-slate-300 dark:hover:border-slate-600'}`}>
       <div className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-slate-100 dark:bg-slate-800 ${iconColor}`}>
         <Icon name={icon} className="h-6 w-6" />
       </div>

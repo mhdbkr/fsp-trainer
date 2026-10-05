@@ -79,10 +79,12 @@ describe('PartnerCard — choisir avec qui jouer (sans lancer)', () => {
     expect(screen.getByRole('button', { name: /ton ia/i }).getAttribute('aria-pressed')).toBe('true');
   });
 
-  it('départ en Dokumentation, l’IA n’est pas proposée — ce serait un choix qui n’en est pas un', () => {
+  // Fixeur S4-3 (I9 direction, M1 mécanique, décision de main) : la partie porte les trois Teile — partir de la
+  // Dokumentation n'empêche pas l'Anamnese et la Fallvorstellung, que l'IA peut jouer. Elle est TOUJOURS proposée.
+  it('départ en Dokumentation : l’IA reste proposée, et dit à quels Teile elle sert', () => {
     render(<MemoryRouter><PartnerCard caseId="c1" depart="dokumentation" /></MemoryRouter>);
-    expect(screen.queryByRole('button', { name: /ton ia/i })).toBeNull();
-    expect(screen.getByRole('button', { name: /seul/i })).toBeTruthy();
+    fireEvent.click(screen.getByRole('button', { name: /ton ia/i }));
+    expect(screen.getByText(/prépare le prompt du patient en Anamnese, de l’Oberarzt en Fallvorstellung/)).toBeTruthy();
   });
 });
 
