@@ -12,7 +12,7 @@ const without = <T extends object>(o: T, k: string): T => Object.fromEntries(Obj
 const row = (probe: string, startsWith = '') => SUCHT_TABLES.phrases.find(({ p }) => phraseProbes(p).includes(probe) && (typeof p !== 'string' && p.text.startsWith(startsWith)))!;
 const swap = (probe: string, patch: Record<string, unknown>, startsWith = ''): SuchtTables => {
   const target = row(probe, startsWith);
-  return mutated({ phrases: SUCHT_TABLES.phrases.map((r) => (r === target ? { ...r, p: { ...(r.p as object), ...patch } as Phrase } : r)) });
+  return mutated({ phrases: SUCHT_TABLES.phrases.map((r) => (r === target ? { ...r, p: { ...(r.p as object), ...patch } as unknown as Phrase } : r)) });
 };
 
 describe('INV-79 — PROBE_SUCHT est totale', () => {
