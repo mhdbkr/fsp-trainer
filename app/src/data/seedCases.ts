@@ -33908,6 +33908,7 @@ export function seedCases(): Case[] {
       frequency: 2,
       difficulty: 3,
       patientSheet: {
+        profil: { tags: ['schmerz', 'gelenk', 'steifigkeit', 'gewichtsverlust'] },
         personalia: {
           name: 'Waltraud Kienzle',
           age: 72,
@@ -34445,6 +34446,7 @@ export function seedCases(): Case[] {
       frequency: 0,
       difficulty: 2,
       patientSheet: {
+        profil: { tags: ['schmerz', 'dyspnoe', 'husten'] },
         personalia: {
           name: 'Tobias Krämer',
           age: 23,
@@ -34965,6 +34967,7 @@ export function seedCases(): Case[] {
       frequency: 1,
       difficulty: 2,
       patientSheet: {
+        profil: { tags: ['allgemein'] },
         leitsymptomKategorie: 'allgemein',
         personalia: {
           name: 'Hans Müller',
@@ -35459,6 +35462,7 @@ export function seedCases(): Case[] {
       frequency: 0,
       difficulty: 3,
       patientSheet: {
+        profil: { tags: ['psychisch'] },
         leitsymptomKategorie: 'psychisch',
         personalia: {
           name: 'Jonas Wielandt',
@@ -35984,6 +35988,7 @@ export function seedCases(): Case[] {
       frequency: 4,
       difficulty: 3,
       patientSheet: {
+        profil: { tags: ['neurologisch', 'fieber', 'gewichtsverlust'] },
         leitsymptomKategorie: 'neurologisch',
         personalia: {
           name: 'Alfred Wirtz',
@@ -36548,6 +36553,7 @@ export function seedCases(): Case[] {
       frequency: 6,
       difficulty: 3,
       patientSheet: {
+        profil: { tags: ['ausscheidung', 'dysphagie', 'hals', 'gewichtsverlust'] },
         leitsymptomKategorie: 'ausscheidung',
         personalia: {
           name: 'Katharina Vogel',
@@ -37032,6 +37038,7 @@ export function seedCases(): Case[] {
       frequency: 5,
       difficulty: 3,
       patientSheet: {
+        profil: { tags: ['schmerz', 'gelenk', 'arthritis', 'fieber', 'gicht'] },
         personalia: {
           name: 'Werner Kaltenbach',
           age: 68,
@@ -37596,6 +37603,7 @@ export function seedCases(): Case[] {
       frequency: 4,
       difficulty: 2,
       patientSheet: {
+        profil: { tags: ['schmerz'] },
         motiv: { trauma: false, region: 'lws' },
         personalia: {
           name: 'Gerhard Lindner',
@@ -38135,6 +38143,7 @@ export function seedCases(): Case[] {
       frequency: 14,
       difficulty: 2,
       patientSheet: {
+        profil: { tags: ['schmerz'] },
         motiv: { trauma: false, region: 'hws' },
         personalia: {
           name: 'Konrad Preiss',
@@ -38671,6 +38680,7 @@ export function seedCases(): Case[] {
       frequency: 8,
       difficulty: 2,
       patientSheet: {
+        profil: { tags: ['ausscheidung', 'diarrhoe'] },
         leitsymptomKategorie: 'ausscheidung',
         personalia: {
           name: 'Peter Novak',
@@ -39214,6 +39224,7 @@ export function seedCases(): Case[] {
       frequency: 6,
       difficulty: 2,
       patientSheet: {
+        profil: { tags: ['neurologisch', 'hals'] },
         leitsymptomKategorie: 'neurologisch',
         personalia: {
           name: 'Arnd Kartmann',
@@ -39697,6 +39708,7 @@ export function seedCases(): Case[] {
       frequency: 14,
       difficulty: 2,
       patientSheet: {
+        profil: { tags: ['allgemein', 'dyspnoe', 'gewichtsverlust'] },
         leitsymptomKategorie: 'allgemein',
         personalia: {
           name: 'Franz Maier',
@@ -39835,6 +39847,8 @@ export function seedCases(): Case[] {
           'fach-endo-unterzucker': 'Nein, so etwas kenne ich nicht. Zittern, Schwitzen, Heißhunger oder Verwirrtheit, die nach dem Essen weggehen — nein, das hatte ich nie.',
           'fach-endo-folgeschaeden': 'Kribbeln oder taube Füße habe ich nicht. Mit den Nieren war nie etwas. Nur dieses zeitweise verschwommene Sehen, das ich vorhin erwähnt habe.',
           'fach-endo-familie-therapie': 'Meine Mutter hat Zucker, Typ 2, und nimmt Tabletten; meine Schwester hat eine Schilddrüsenunterfunktion und nimmt Hormone. Ich selbst bin deswegen nie behandelt oder kontrolliert worden — mein Blutzucker ist meines Wissens noch nie gemessen worden.',
+          // K2 (ADR-0023) : réponses des sondes de banque que le profil exige (r3)
+          'akt-atemnot-belastung': 'Nur bei Anstrengung. Beim Treppensteigen in den dritten Stock bin ich oben aus der Puste, das kannte ich früher nicht. In Ruhe ist alles gut.',
         },
         schwierigeReaktionen: [
           '"Was habe ich denn, Frau Doktor? Sagen Sie es mir bitte ehrlich."',
@@ -40233,6 +40247,7 @@ export function seedCases(): Case[] {
       frequency: 6,
       difficulty: 2,
       patientSheet: {
+        profil: { tags: ['ausscheidung', 'schmerz', 'diarrhoe', 'reise', 'gewichtsverlust'] },
         fachSkip: ['fach-infekt-zecke'],
         leitsymptomKategorie: 'ausscheidung',
         personalia: {
@@ -40385,6 +40400,10 @@ export function seedCases(): Case[] {
           'fach-infekt-reise': 'Ja, drei Wochen Indonesien, Bali und Java, seit drei Wochen zurück. Viel an Straßenständen gegessen, Salat, Obst, Eiswürfel. Keine Malariatabletten.',
           'fach-infekt-kontakt': 'Ja, jetzt, wo Sie fragen: Meine Frau und mein Sohn hatten in der ersten Woche nach der Rückkehr auch Durchfall, aber nur zwei Tage, dann war es vorbei. Bei mir hört es einfach nicht auf. Meine Frau arbeitet übrigens in der Küche eines Kindergartens — muss sie deswegen etwas beachten?',
           'fach-infekt-impfung': 'Ich habe einen Impfpass, die normalen Impfungen sind drin, Tetanus vor sechs Jahren. Gegen Hepatitis oder Typhus bin ich nicht geimpft, das habe ich vor der Reise leider versäumt.',
+          // K2 (ADR-0023) : réponses des sondes de banque que le profil exige (r3)
+          'akt-ort': 'Im mittleren Bauch und unten im Unterbauch, so verteilt. Einen einzelnen Punkt kann ich nicht zeigen.',
+          'akt-charakter': 'Krampfartig. Das zieht sich in Wellen zusammen und lässt dann wieder nach.',
+          'akt-intensitaet': 'So sechs von zehn, wenn die Krämpfe kommen.',
         },
         schwierigeReaktionen: [
           '„Herr Doktor, sagen Sie mir bitte ehrlich: Ist das Krebs? Meine Mutter hatte genau das Gleiche und ist mit sechzig gestorben.“',
@@ -40775,6 +40794,7 @@ export function seedCases(): Case[] {
       frequency: 9,
       difficulty: 2,
       patientSheet: {
+        profil: { tags: ['schmerz', 'gelenk', 'arthritis', 'fieber', 'lyme'] },
         personalia: {
           name: 'Olaf Starkmann',
           age: 48,
@@ -40925,6 +40945,8 @@ export function seedCases(): Case[] {
           'fach-infekt-reise': 'Nein, im Ausland war ich schon über ein Jahr nicht mehr. Der letzte Urlaub war an der Nordsee.',
           'fach-infekt-kontakt': 'Vor vier Wochen hatte meine Tochter eine Halsentzündung, kurz danach ich auch. Der Hausarzt hat Penicillin für zehn Tage aufgeschrieben, ich habe es aber nur drei Tage genommen.',
           'fach-infekt-impfung': 'Mein Impfausweis ist vollständig, das hat der Hausarzt letztes Jahr kontrolliert. Tetanus wurde vor vier Jahren aufgefrischt. Gegen FSME bin ich nicht geimpft, aber ich bin ja auch nicht im Wald unterwegs.',
+          // K2 (ADR-0023) : réponses des sondes de banque que le profil exige (r3)
+          'fach-rheuma-entzuendung': 'Ja, das rechte Knie und das rechte Sprunggelenk sind dick geschwollen, richtig rot und heiß. Anfassen kann ich sie kaum, schon die Bettdecke tut weh.',
         },
         schwierigeReaktionen: [
           '"Was habe ich denn nun, Herr Doktor? Sagen Sie es mir bitte gerade heraus — ich halte das schon aus."',
