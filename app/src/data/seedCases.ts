@@ -655,7 +655,7 @@ export function seedCases(): Case[] {
       frequency: 19,
       difficulty: 3,
       patientSheet: {
-        profil: { tags: ['veraenderung', 'gastro'] },
+        profil: { tags: ['veraenderung', 'gastro'], exige: ['charakter'] },   // 3e revue B2 : la douleur épigastrique (fiche : schmerz Oberbauch, brennend, kurz nach dem Essen) distingue l'ulcère sous AINS
         // K3 : hématémèse : pas de lésion à décrire — ni « Befund », ni « Tut es weh, juckt es? », ni « größer geworden » (revue clinique, décision de main).
         aktuellSkip: ['akt-veraend-was', 'akt-veraend-blutung', 'akt-veraend-entwicklung'],
         leitsymptomKategorie: 'veraenderung',
@@ -692,6 +692,7 @@ export function seedCases(): Case[] {
           // Aktuelle Beschwerden (OPQRST)
           'akt-motiv': 'Ich hatte heute Morgen ganz schwarzen Stuhl und musste einmal braun erbrechen.',
           'akt-beginn': 'Der schwarze Stuhl war heute Morgen; das Brennen im Bauch habe ich aber schon seit Wochen.',
+          'akt-charakter': 'Es brennt, oben im Bauch, in der Magengrube — vor allem kurz nach dem Essen.',
           'akt-veraend-was': 'Mir ist vor allem der schwarze Stuhl aufgefallen, ganz klebrig-schwarz, und dann hab ich einmal so braunes Zeug erbrochen, wie Kaffeesatz.',
           'akt-veraend-entwicklung': 'Der Stuhl war heute schon zweimal so schwarz, das Erbrechen nur das eine Mal. Es ist eigentlich seitdem gleich geblieben, nicht schlimmer.',
           'akt-veraend-blutung': 'Wehtun oder jucken tut da nichts. Aber Blut ist eben dabei — im Stuhl, schwarz halt, und beim Erbrechen war\'s wie Kaffeesatz, nicht hellrot. Im Urin oder beim Husten ist mir nichts aufgefallen.',

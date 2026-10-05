@@ -283,6 +283,15 @@ describe('R3 / P2 / gib — le bloc « Veränderung » d\'une lésion cutanée r
     expect(textes('case-mammakarzinom')).toContain('Schmerz und Blutung — Tut es weh, juckt es?');
     expect(textes('case-mammakarzinom')).not.toContain('Tut es weh, juckt es, oder blutet es?');
   });
+  it('3e revue B2 — gib : la douleur épigastrique est demandée (exige charakter), avec une réponse fidèle à la fiche, sans « jucken »', () => {
+    const g = byId('case-gib');
+    expect(profilDuCas(g).exige.charakter).toBeTruthy();
+    expect(coeur(g).aktuell).toContain('akt-charakter');
+    const r = g.patientSheet.antworten?.['akt-charakter'] ?? '';
+    expect(r).toMatch(/brenn/i);
+    expect(r).not.toMatch(/juck/i);
+    expect(compteursApresCas(g)).toMatchObject({ ajouteSansReponse: 0, brauchtViole: 0 });
+  });
   it('gib, itp, lymphom : décisions cas par cas (rapport § 0bis)', () => {
     for (const id of ['case-gib', 'case-lymphom']) expect(coeur(byId(id)).aktuell.some((k) => /^akt-veraend-(was|blutung)/.test(k)), id).toBe(false);
     expect(coeur(byId('case-itp')).aktuell.some((k) => k.startsWith('akt-veraend-blutung'))).toBe(false);

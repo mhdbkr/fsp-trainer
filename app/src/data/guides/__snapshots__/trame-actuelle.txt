@@ -38,7 +38,7 @@ case-pankreatitis
 case-gib
   eroeffnung[· · · ·]
   personalia[pers-name pers-name pers-alter pers-groesse pers-hausarzt ·]
-  aktuell[akt-motiv akt-beginn akt-verlauf akt-ausloeser akt-einfluss akt-frueher↳1 akt-begleit cas cas]
+  aktuell[akt-motiv akt-beginn akt-charakter akt-verlauf akt-ausloeser akt-einfluss akt-frueher↳1 akt-begleit cas cas]
   fach-gastro[fach-gastro-sodbrennen fach-gastro-voelle fach-gastro-speisen fach-gastro-stuhl↳2 fach-gastro-tenesmen fach-gastro-spiegelung]
   vegetativ[veg-fieber~fieber↳3 veg-schuettelfrost veg-ausscheidung~miktion↳1 veg-gewicht↳2 veg-appetit veg-schlaf ^veg-fieber#5~impfung]
   vorerkrankungen[· vor-erkrank↳1 vor-op↳1 vor-krankenhaus]
