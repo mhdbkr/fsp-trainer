@@ -141,9 +141,16 @@ export function unitesDe(rows, lire = () => [], connu = () => true) {
   for (const r of rows) {
     if (ECARTE.has(r.ch)) continue;
     rank++;
-    const ms = signesDe(r.text, { mother: true, ch: r.ch }, lire);
+    // K1 : une phrase du GUIDE (une sonde) est DÉCLARÉE (`PROBE_SUCHT`, `followUpSucht`) — la déclaration remplace la
+    // lecture du texte, une relance sans déclaration hérite du signe de sa mère. Une question du CAS se lit encore
+    // (K4), complétée de son `sucht` s'il y en a un.
+    const decl = !!r.probes?.length && !r.cs;
+    const ms = decl ? new Set() : signesDe(r.text, { mother: true, ch: r.ch }, lire);
     for (const s of r.sucht ?? []) if (connu(s)) ms.add(s);
-    const fus = (r.fu ?? []).map((f) => ({ text: f, signs: signesDe(f.replace(/^Falls [^:]{2,40}:\s*/, ''), { mother: false, ch: r.ch }, lire), cond: /^Falls /.test(f) }));
+    const fus = (r.fu ?? []).map((f, i) => ({
+      text: f, cond: /^Falls /.test(f),
+      signs: decl ? new Set((r.fuSucht?.[i] ?? []).filter(connu)) : signesDe(f.replace(/^Falls [^:]{2,40}:\s*/, ''), { mother: false, ch: r.ch }, lire),
+    }));
     const all = new Set([...ms, ...fus.flatMap((f) => [...f.signs])]);
     units.push({ rank, ch: r.ch, cs: r.cs, probe: r.probes.join(',') || (r.cs ? 'CAS' : '-'), text: r.text, declared: !!r.sucht?.length, ms, fus, all });
   }
@@ -215,6 +222,19 @@ export function mesurerCas(c, lex, qo = []) {
     dup, dupCas, imp, miss, ajoutSansReponse, fu, fuCond, fuLarge, ord, muettes, casTotal: units.filter((u) => u.cs).length,
     score: dup.length + imp.length + miss.length + fu.length + ord.length,
   };
+}
+
+// ── 3 bis. PROPOSER la déclaration d'une question non déclarée (K1, `--propose`) ──
+/** Pour une unité du CAS sans `sucht` : les signes que son texte nomme et, par relance, ceux qu'elle nomme hors de sa mère
+ *  (une relance sans signe propre est une précision : elle hérite). Une AIDE à l'annotation (K2, K4) — précision relue de la
+ *  lecture : 50 à 74 % — qui n'écrit rien : la déclaration fait foi, un relecteur la pose. */
+export function proposer(unit) {
+  const sucht = [...unit.ms];
+  const relances = unit.fus.map((f, i) => {
+    const propres = [...f.signs].filter((s) => !unit.ms.has(s) && !DIM[s]);
+    return { i, text: f.text, cond: f.cond, sucht: propres, horsSigne: propres.length > 0, alerte: f.cond && propres.length > 0 };
+  });
+  return { sucht, relances };
 }
 
 // ── 4. Les compteurs du contrat (§10.6) ──────────────────────────────────────

@@ -91,11 +91,11 @@ describe('Revue clinique L0', () => {
     expect(phraseAlts(mech).filter((t) => / — |, und /.test(t))).toEqual([]);
     expect(phraseText(fachQ('lyme', 'fach-infekt-impfung')!)).toBe('Sind Ihre Impfungen auf dem neuesten Stand?');
   });
-  it('FSME : en relance de la tique, sur les seules trames qui la posent (décision de main)', () => {
+  it('FSME : plus de relance de la tique (DM2) ; la vaccination est celle de fach-infekt-impfung, dont la fiche répond FSME', () => {
     const fsme = (id: string) => (fachChapterForCase(byId.get(`case-${id}`)!)?.chapter.questions ?? []).flatMap(allTexts).filter((t) => /FSME/.test(t));
-    expect(phraseFollowUp(fachQ('lyme', 'fach-infekt-zecke')!)).toContain('Falls ja: Sind Sie gegen FSME geimpft?');
-    expect(fsme('meningitis')).toHaveLength(1);
-    for (const id of ['tonsillitis', 'hepatitis-b', 'covid19']) expect(fsme(id)).toEqual([]);
+    expect(phraseFollowUp(fachQ('lyme', 'fach-infekt-zecke')!)).toEqual([]);
+    for (const id of ['lyme', 'meningitis', 'tonsillitis', 'hepatitis-b', 'covid19']) expect(fsme(id), id).toEqual([]);
+    for (const id of ['lyme', 'meningitis']) expect(byId.get(`case-${id}`)!.patientSheet.antworten!['fach-infekt-impfung']).toMatch(/FSME/);
   });
   it('osteoporose : la question de cas (« War es ein Sturz, oder reichte … ») tient lieu de mécanisme', () => {
     expect(fachQ('osteoporose', 'fach-ortho-mechanismus')).toBeUndefined();

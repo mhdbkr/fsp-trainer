@@ -117,7 +117,8 @@ jobs:
         run: node scripts/checkCaseQuestionAnswers.mjs || true
       # K0 (ADR-0023) : la mesure du moteur de cohérence. Seul l'AFFICHAGE est informatif (`|| true`,
       # jusqu'à K3). Sont BLOQUANTS : le plancher coherence-budget.json (checkBudgetFloor), l'égalité
-      # mesure = fixture, et la structure du lexique INV-77/78 (checkCoherence.test.mjs, étape Mutations).
+      # mesure = fixture, la structure du lexique INV-77/78 et, dès K1, la déclaration des sondes INV-79 / INV-84
+      # (checkCoherence.test.mjs, étape Mutations).
       - name: Cohérence de l'anamnèse — mesure des 130 cas (informatif jusqu'à K3)
         run: node scripts/checkCoherence.mjs || true
 

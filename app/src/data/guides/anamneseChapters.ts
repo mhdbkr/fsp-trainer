@@ -86,9 +86,11 @@ const AKTUELL_VARIANTS: Record<LeitsymptomKategorie, AktuellVariant> = {
       {
         text: 'Intensität — Auf einer Skala von 1 bis 10, wobei 1 leichte und 10 unerträgliche Schmerzen bedeutet: Wie stark sind Ihre Schmerzen?',
         probe: 'akt-intensitaet',
+        // DM2 : la relance « Gibt es Allergien… ? » cherchait un autre signe (l'allergie, que `all-allergie` demande
+        // dans son chapitre) sous une relance conditionnelle sur l'intensité. Elle devient la consigne de la relance
+        // qui propose le Schmerzmittel, sans question de plus.
         followUp: [
-          'Falls sehr stark: „Können Sie die Schmerzen bis zum Ende unseres Gesprächs (ca. 15 Minuten) ertragen, oder soll ich Ihnen ein Schmerzmittel geben?“',
-          'Falls sehr stark: Vor jedem Schmerzmittel zuerst fragen: „Gibt es Allergien oder Unverträglichkeiten gegenüber Medikamenten?“',
+          'Falls sehr stark: „Können Sie die Schmerzen bis zum Ende unseres Gesprächs (ca. 15 Minuten) ertragen, oder soll ich Ihnen ein Schmerzmittel geben?“ (Vor jedem Schmerzmittel zuerst nach Allergien und Unverträglichkeiten gegenüber Medikamenten fragen.)',
         ],
       },
       {
@@ -136,11 +138,16 @@ const AKTUELL_VARIANTS: Record<LeitsymptomKategorie, AktuellVariant> = {
         text: 'Nachts — Müssen Sie mit erhöhtem Oberkörper schlafen?',
         probe: 'akt-atemnot-nachts',
         followUp: ['Falls ja: Mit wie vielen Kissen?', 'Wachen Sie nachts auf, weil Ihnen die Luft wegbleibt?'],
+        followUpSucht: [[], ['dpn']],   // la dyspnée paroxystique nocturne, distincte de l'orthopnée (revue K1)
       },
       {
         text: 'Husten — Haben Sie Husten?',
         probe: 'akt-atemnot-husten',
-        followUp: ['Falls ja: Husten Sie dabei etwas ab?', 'Falls Auswurf: Welche Farbe hat das?', 'Falls Auswurf: Ist Blut dabei?'],
+        // Revue K1 : « Husten Sie dabei etwas ab ? » cherche `auswurf` (unité à part, doublon vrai avec fach-pneumo-husten
+        // traité par K3). Une relance conditionnelle ne déclare pas d'autre signe (INV-84) : elle perd « Falls ja: ».
+        followUp: ['Husten Sie dabei etwas ab?', 'Falls Auswurf: Welche Farbe hat das?', 'Falls Auswurf: Ist Blut dabei?'],
+        followUpSucht: [['auswurf']],
+        relu: true,
       },
       { text: 'Geräusche — Hören Sie beim Atmen ein Pfeifen oder Brummen? Beim Ein- oder beim Ausatmen?', probe: 'akt-atemnot-geraeusch' },
       { text: 'Verlauf — Ist die Luftnot dauerhaft da oder kommt sie anfallsartig? Wird es von Tag zu Tag schlimmer?', probe: 'akt-verlauf' },
@@ -180,11 +187,13 @@ const AKTUELL_VARIANTS: Record<LeitsymptomKategorie, AktuellVariant> = {
           { sucht: ['gewicht'], text: 'Gewicht — Hat sich Ihr Gewicht verändert, ohne dass Sie es wollten?', followUp: ['Falls ja: Wie viele Kilo, in welchem Zeitraum?'] },
           { sucht: ['appetit', 'durst'], text: 'Appetit — Wie sind Ihr Appetit und Ihr Durst in letzter Zeit?' },
         ],
+        followUpSucht: [[], ['appetit', 'durst']],
       },
       {
         text: 'Schwellungen — Sind Ihre Beine, das Gesicht oder der Bauch angeschwollen?',
         probe: 'akt-allgemein-schwellung',
         followUp: ['Hat sich die Urinmenge verändert?'],
+        followUpSucht: [['urinmenge']],
       },
       { text: 'Verlauf — Ist es gleichbleibend, wird es schlimmer, oder gibt es gute und schlechte Tage?', probe: 'akt-verlauf' },
       { text: 'Auslöser — Ist Ihnen ein Auslöser aufgefallen — eine Krankheit, eine Veränderung der Ernährung, Stress, ein neues Medikament?', probe: 'akt-ausloeser' },
@@ -243,6 +252,7 @@ const AKTUELL_VARIANTS: Record<LeitsymptomKategorie, AktuellVariant> = {
         text: 'Art des Ausfalls — Was war anders: eine Schwäche oder ein Taubheitsgefühl?',
         probe: 'akt-neuro-ausfall',
         followUp: ['Auf welcher Seite?', 'Konnten Sie normal sprechen, sehen und gehen?'],
+        followUpSucht: [[], ['sprache', 'sehstoerung', 'gang']],
       },
       {
         text: 'Dauer — Wie lange hat es angehalten?',
@@ -253,12 +263,13 @@ const AKTUELL_VARIANTS: Record<LeitsymptomKategorie, AktuellVariant> = {
         text: 'Lage und Bewegung — Wird es schlimmer, wenn Sie den Kopf drehen, sich hinlegen oder aufstehen?',
         probe: 'akt-neuro-lage',
         followUp: ['Dreht sich alles, oder schwankt es?'],
+        relu: true,   // la sonde cherche `lageabhaengig` ; la relance qualifie le vertige du motif, mention unique
       },
       { text: 'Verlauf — Kam es einmal, oder in Schüben? Ist es zwischendurch ganz weg?', probe: 'akt-verlauf' },
       { text: 'Auslöser — Gab es einen Auslöser — Anstrengung, Aufregung, Schlafmangel, Alkohol, ein neues Medikament?', probe: 'akt-ausloeser' },
       { text: 'Einflussfaktoren — Gibt es etwas, das es bessert oder verschlimmert?', probe: 'akt-einfluss' },
       FRUEHER('so etwas'),
-      { text: 'Begleitbeschwerden — Hatten Sie dabei Kopfschmerzen, Übelkeit, Doppelbilder, Bewusstlosigkeit oder ein Zucken?', probe: 'akt-begleit' },
+      { text: 'Begleitbeschwerden — Hatten Sie dabei Kopfschmerzen, Übelkeit, Doppelbilder, Bewusstlosigkeit oder ein Zucken?', probe: 'akt-begleit', enumere: ['begleit', 'kopfschmerz', 'uebelkeit', 'sehstoerung', 'bewusstlos', 'krampf'] },
     ],
     tip: 'Neurologie : l’heure exacte du début (fenêtre de thrombolyse), le côté, la rückläufigkeit et les signes d’accompagnement décident de la prise en charge. Note « Symptombeginn um … Uhr ».',
   },
@@ -281,6 +292,7 @@ const AKTUELL_VARIANTS: Record<LeitsymptomKategorie, AktuellVariant> = {
         text: 'Kontakt und Reise — Waren Sie in den letzten Wochen im Ausland?',
         probe: 'akt-infekt-kontakt',
         followUp: ['Hatten Sie Kontakt zu Kranken oder Tieren?', 'Haben Sie etwas Ungewöhnliches gegessen?'],
+        followUpSucht: [['kontakt'], ['essen_expo']],
       },
       {
         text: 'Herd — Haben Sie Husten, Halsschmerzen, Brennen beim Wasserlassen, Durchfall, einen Ausschlag oder eine Wunde bemerkt?',
@@ -312,6 +324,7 @@ const AKTUELL_VARIANTS: Record<LeitsymptomKategorie, AktuellVariant> = {
         text: 'Schmerz und Blutung — Tut es weh, juckt es, oder blutet es?',
         probe: 'akt-veraend-blutung',
         followUp: ['Haben Sie Blut im Stuhl oder im Urin bemerkt?', 'Husten Sie Blut ab?'],
+        followUpSucht: [['stuhlaussehen', 'urin_aspekt'], ['haemoptyse']],   // revue K1 C6
       },
       { text: 'Verlauf — Ist es dauernd da, oder kommt und geht es?', probe: 'akt-verlauf' },
       { text: 'Auslöser — Ist Ihnen ein Auslöser aufgefallen — eine Verletzung, Sonne, ein neues Medikament, eine Ernährungsumstellung?', probe: 'akt-ausloeser' },
@@ -336,6 +349,7 @@ const AKTUELL_VARIANTS: Record<LeitsymptomKategorie, AktuellVariant> = {
         text: 'Alltag — Was fällt Ihnen schwer: Knöpfe schließen, schreiben, eine Tasse halten?',
         probe: 'akt-nerven-alltag',
         followUp: ['Und beim Gehen — sind Sie schon gestürzt?'],
+        followUpSucht: [['sturz']],
       },
       {
         text: 'Tageszeit — Ist es nachts oder morgens schlimmer?',
@@ -346,7 +360,7 @@ const AKTUELL_VARIANTS: Record<LeitsymptomKategorie, AktuellVariant> = {
       { text: 'Auslöser — Ist Ihnen ein Auslöser aufgefallen — eine Verletzung, ein Infekt, ein neues Medikament, eine neue Tätigkeit?', probe: 'akt-ausloeser' },
       { text: 'Einflussfaktoren — Gibt es etwas, das es bessert — Ausschütteln der Hand, Ruhe, Bewegung, Kälte?', probe: 'akt-einfluss' },
       FRUEHER('so etwas'),
-      { text: 'Begleitbeschwerden — Haben Sie dazu Sehstörungen, Schwindel, Probleme mit Blase oder Stuhlgang, oder Schmerzen?', probe: 'akt-begleit' },
+      { text: 'Begleitbeschwerden — Haben Sie dazu Sehstörungen, Schwindel, Probleme mit Blase oder Stuhlgang, oder Schmerzen?', probe: 'akt-begleit', enumere: ['begleit', 'sehstoerung', 'schwindel', 'miktion', 'stuhl'] },
     ],
     tip: 'Chronique ≠ aigu : ici, pas d’heure de début, mais la nature du trouble (tremblement/paresthésies/faiblesse), sa distribution (côté, distal/proximal), l’évolution (progressive ou par poussées) et l’impact fin (boutons, écriture, marche).',
   },
@@ -360,12 +374,19 @@ const AKTUELL_VARIANTS: Record<LeitsymptomKategorie, AktuellVariant> = {
         text: 'Veränderung — Was hat sich verändert: beim Wasserlassen, beim Stuhlgang, oder an der Farbe von Haut, Augen, Urin oder Stuhl?',
         probe: 'akt-ausscheid-was',
       },
+      // Revue K1 : par organe — les selles (fréquence, aspect), puis les urines (fréquence, aspect).
       {
-        text: 'Häufigkeit — Wie oft müssen Sie am Tag auf die Toilette, und wie oft nachts?',
+        text: 'Häufigkeit — Wie oft haben Sie am Tag Stuhlgang, und müssen Sie auch nachts zum Stuhlgang aufstehen?',
         probe: 'akt-ausscheid-haeufigkeit',
         followUp: ['Mehr oder weniger als sonst?'],
       },
-      { text: 'Aussehen — Ist Ihnen Blut, Schleim oder eine ungewöhnliche Farbe aufgefallen?', probe: 'akt-ausscheid-aussehen' },
+      { text: 'Aussehen — Ist Ihnen Blut, Schleim oder eine ungewöhnliche Farbe im Stuhl aufgefallen?', probe: 'akt-ausscheid-aussehen' },
+      {
+        text: 'Wasserlassen — Wie oft müssen Sie am Tag Wasser lassen, und wie oft nachts?',
+        probe: 'akt-ausscheid-harn-haeufigkeit',
+        followUp: ['Mehr oder weniger als sonst?'],
+      },
+      { text: 'Urin — Ist Ihnen Blut, Schaum oder eine ungewöhnliche Farbe im Urin aufgefallen?', probe: 'akt-ausscheid-harn-aussehen' },
       { text: 'Schlucken — Bleibt beim Schlucken nur Festes stecken, oder auch Flüssiges?', probe: 'akt-ausscheid-schlucken' },
       { text: 'Verlauf — Ist es dauernd so, oder gibt es Tage, an denen es normal ist? Wird es schlimmer?', probe: 'akt-verlauf' },
       { text: 'Auslöser — Ist Ihnen ein Auslöser aufgefallen — ein bestimmtes Essen, eine Reise, ein neues Medikament, Stress?', probe: 'akt-ausloeser' },
@@ -395,12 +416,13 @@ const AKTUELL_VARIANTS: Record<LeitsymptomKategorie, AktuellVariant> = {
         text: 'Bewusstsein — Waren Sie dabei bewusstlos, oder ist Ihnen schwarz vor Augen geworden?',
         probe: 'akt-anfall-bewusstsein',
         followUp: ['Haben Sie sich dabei verletzt, etwa auf die Zunge gebissen?', 'Ist dabei Urin abgegangen?', 'Hat jemand gesehen, was passiert ist?'],
+        followUpSucht: [['anfallszeichen'], ['anfallszeichen'], ['fremdanamnese']],
       },
       { text: 'Verlauf — Werden die Anfälle häufiger oder länger? Sind Sie zwischen den Anfällen völlig beschwerdefrei?', probe: 'akt-verlauf' },
       { text: 'Auslöser — Gibt es einen Auslöser — Anstrengung, Aufregung, Kaffee, Alkohol, Schlafmangel, schnelles Aufstehen?', probe: 'akt-ausloeser' },
       { text: 'Einflussfaktoren — Gibt es etwas, das den Anfall beendet oder verhindert — Hinsetzen, Ruhe, ein Medikament?', probe: 'akt-einfluss' },
       FRUEHER('solche Anfälle'),
-      { text: 'Begleitbeschwerden — Hatten Sie dabei Luftnot, Brustschmerzen, Schwindel, Schwitzen oder Übelkeit?', probe: 'akt-begleit' },
+      { text: 'Begleitbeschwerden — Hatten Sie dabei Luftnot, Brustschmerzen, Schwindel, Schwitzen oder Übelkeit?', probe: 'akt-begleit', enumere: ['begleit', 'atemnot', 'brustschmerz', 'schwindel', 'schwitzen', 'uebelkeit'] },
     ],
     tip: 'Un épisode se décrit par son déroulé (début, fin, durée, fréquence) et par ce qui l’accompagne — pas par une localisation ni une échelle. Le témoin oculaire est une source : demande-le.',
   },
@@ -434,10 +456,11 @@ export const FACH_COVERS: Record<string, string[]> = {
   'fach-haem-lymphknoten': ['akt-veraend-was'], 'fach-haem-bsymptomatik': ['akt-allgemein-gewicht'],
   'fach-onko-leistung': ['akt-allgemein-alltag'], 'fach-onko-bsymptomatik': ['akt-allgemein-gewicht'], 'fach-onko-knoten': ['akt-veraend-was'],
   'fach-onko-blutung': ['akt-veraend-blutung'], 'fach-onko-appetit': ['akt-ausscheid-was'],
-  'fach-nephro-menge': ['akt-ausscheid-haeufigkeit', 'akt-allgemein-schwellung'], 'fach-nephro-aussehen': ['akt-ausscheid-aussehen'], 'fach-nephro-oedeme': ['akt-allgemein-schwellung'],
-  // Urologie / Gastroenterologie (ausscheidung)
-  'fach-uro-frequenz': ['akt-ausscheid-haeufigkeit'], 'fach-uro-drang': ['akt-ausscheid-haeufigkeit'], 'fach-uro-strahl': ['akt-ausscheid-haeufigkeit'],
-  'fach-uro-farbe': ['akt-ausscheid-aussehen'],
+  'fach-nephro-menge': ['akt-ausscheid-haeufigkeit', 'akt-ausscheid-harn-haeufigkeit', 'akt-allgemein-schwellung'], 'fach-nephro-aussehen': ['akt-ausscheid-aussehen', 'akt-ausscheid-harn-aussehen'], 'fach-nephro-oedeme': ['akt-allgemein-schwellung'],
+  // Urologie / Gastroenterologie (ausscheidung). K1 : la sonde commune « selles ET urines » est coupée en deux ;
+  // la Fach urologique / néphrologique couvre aussi la version urinaire (celle des selles reste couverte, comme avant).
+  'fach-uro-frequenz': ['akt-ausscheid-haeufigkeit', 'akt-ausscheid-harn-haeufigkeit'], 'fach-uro-drang': ['akt-ausscheid-haeufigkeit', 'akt-ausscheid-harn-haeufigkeit'],
+  'fach-uro-strahl': ['akt-ausscheid-haeufigkeit', 'akt-ausscheid-harn-haeufigkeit'], 'fach-uro-farbe': ['akt-ausscheid-aussehen', 'akt-ausscheid-harn-aussehen'],
   'fach-gastro-stuhl': ['akt-ausscheid-aussehen', 'akt-ausscheid-haeufigkeit'], 'fach-gastro-speisen': ['akt-ausloeser'],
   // Infektiologie
   'fach-infekt-kontakt': ['akt-infekt-kontakt'], 'fach-infekt-reise': ['akt-infekt-kontakt'],
@@ -578,6 +601,7 @@ export const ALLGEMEINE_ANAMNESE: AnamneseChapter[] = [
           { sucht: ['fieber'], text: 'Haben Sie Ihre Körpertemperatur in letzter Zeit gemessen? Haben Sie Fieber festgestellt?', followUp: ['Falls Fieber: Seit wann haben Sie Fieber?', 'Falls ja: Wie hoch war die Temperatur?', 'Falls ja: Wo haben Sie gemessen (z. B. im Mund)?'] },
           { sucht: ['reise'], text: 'Waren Sie kürzlich im Ausland?' },
         ],
+        followUpSucht: [[], [], [], ['reise'], ['impfung']],
       },
       {
         text: 'Treten bei Ihnen Schüttelfrost, Nachtschweiß oder starke Schweißausbrüche auf?',
@@ -655,7 +679,9 @@ export const ALLGEMEINE_ANAMNESE: AnamneseChapter[] = [
       {
         text: 'Sind Sie allergisch gegen bestimmte Medikamente oder Nahrungsmittel?',
         probe: 'all-allergie',
-        followUp: ['Falls ja: Beschreiben Sie bitte, wie Sie genau reagieren — Hautausschlag, Atemnot, Kreislaufprobleme?'],
+        // Revue K1 I-3 : la relance décrit la RÉACTION allergique, elle ne demande ni la dyspnée ni l'éruption
+        // actuelles ; elle ne les nomme plus (une énumération ne se couvre pas par `relu`).
+        followUp: ['Falls ja: Beschreiben Sie bitte, wie Sie genau reagieren — an der Haut, an der Atmung, am Kreislauf?'],
       },
       { text: 'Vertragen Sie bestimmte Speisen nicht (Laktose, Gluten)?', probe: 'all-unvertraeglich' },
     ],
@@ -735,6 +761,7 @@ export const ALLGEMEINE_ANAMNESE: AnamneseChapter[] = [
         text: 'Verläuft Ihre Monatsblutung regelmäßig?',
         followUp: ['Wann war Ihre letzte Regelblutung?', 'Wie viele Tage liegen zwischen dem Beginn einer Blutung und dem Beginn der nächsten?'],
         probe: 'frau-periode',
+        relu: true,
       },
       { text: 'Besteht die Möglichkeit, dass Sie derzeit schwanger sind?', probe: 'frau-schwanger' },
       { text: 'Verwenden Sie Verhütungsmethoden?', followUp: ['Falls ja: Welche Methode verwenden Sie?'], probe: 'frau-verhuetung' },
@@ -742,6 +769,7 @@ export const ALLGEMEINE_ANAMNESE: AnamneseChapter[] = [
         text: 'Sind Sie in den Wechseljahren?',
         followUp: ['Falls ja: Haben Sie Beschwerden, etwa Hitzewallungen?', 'Gehen Sie regelmäßig zum Frauenarzt?'],
         probe: 'frau-wechseljahre',
+        followUpSucht: [[], ['vorsorge_gyn']],
       },
     ],
     tip: 'Obligatoire chez toute patiente en âge de procréer : pense grossesse AVANT toute imagerie ou médicament potentiellement tératogène.',
@@ -833,6 +861,7 @@ export const FACHANAMNESEN: FachanamneseGuide[] = [
         probe: 'fach-pneumo-husten',
         alts: ['Seit wann husten Sie? Ist der Husten trocken oder haben Sie Auswurf bemerkt?'],
         followUp: ['Sind Sie heiser? Haben Sie sich verschluckt?'],
+        followUpSucht: [['stimme', 'verschlucken']],
       },
       {
         text: 'Wie sieht der Auswurf aus — Farbe und Menge? Ist Blut beigemengt?',
@@ -853,6 +882,7 @@ export const FACHANAMNESEN: FachanamneseGuide[] = [
         text: 'Haben Sie Schmerzen beim Atmen oder Husten? Sind sie atemabhängig?',
         probe: 'fach-pneumo-schmerz',
         alts: ['Bekommen Sie Brustschmerzen beim Atmen? Eher beim tiefen Einatmen oder beim Ausatmen?'],
+        relu: true,
       },
       {
         text: 'Haben Sie Fieber oder Schüttelfrost?',
@@ -942,6 +972,7 @@ export const FACHANAMNESEN: FachanamneseGuide[] = [
       {
         text: 'Waren Sie in letzter Zeit länger unbeweglich — eine lange Reise, Bettruhe, ein Gips, eine Operation?',
         probe: 'fach-gefaess-immobilisation',
+        relu: true,
       },
       {
         text: 'Nehmen Sie die Pille oder Hormone? Sind Sie schwanger, oder haben Sie kürzlich entbunden?',
@@ -975,6 +1006,7 @@ export const FACHANAMNESEN: FachanamneseGuide[] = [
         text: 'Welche Farbe hat Ihr Urin — schaumig, trüb, rötlich oder cola-farben? War sichtbar Blut dabei?',
         probe: 'fach-nephro-aussehen',
         alts: ['Wie sieht Ihr Urin aus? Riecht er ungewöhnlich?'],
+        relu: true,
       },
       {
         text: 'Sind Ihre Augenlider morgens geschwollen oder die Beine abends dick? Haben Sie rasch an Gewicht zugenommen?',
@@ -1025,11 +1057,13 @@ export const FACHANAMNESEN: FachanamneseGuide[] = [
         text: 'Welche Farbe hat der Urin? Ist Blut dabei, oder riecht er auffällig?',
         probe: 'fach-uro-farbe',
         alts: ['Haben Sie Blut im Urin oder einen Ausfluss bemerkt?'],
+        relu: true,
       },
       {
         text: 'Wie ist der Harnstrahl — abgeschwächt? Müssen Sie pressen, oder tropft es nach?',
         probe: 'fach-uro-strahl',
         alts: ['Ist der Urinstrahl schwächer geworden? Haben Sie das Gefühl, die Blase nicht vollständig zu entleeren?'],
+        relu: true,
       },
       {
         text: 'Haben Sie Schmerzen in der Flanke oder im Rücken? Strahlen sie in die Leiste aus?',
@@ -1047,6 +1081,7 @@ export const FACHANAMNESEN: FachanamneseGuide[] = [
         label: 'Sexualanamnese',
         alts: ['Könnten Sie mir etwas über Ihre Beziehung erzählen?'],
         followUp: ['Hatten Sie schon einmal eine sexuell übertragbare Erkrankung?'],
+        followUpSucht: [['std_vorgeschichte']],
       },
       {
         text: 'Haben Sie Schmerzen oder Blutungen beim oder nach dem Geschlechtsverkehr? Haben Sie Probleme, eine Erektion zu bekommen oder zu halten?',
@@ -1080,12 +1115,14 @@ export const FACHANAMNESEN: FachanamneseGuide[] = [
         alts: ['Haben Sie einen Ausfluss aus der Scheide bemerkt?'],
         followUp: ['Falls ja: Welche Farbe hat er?', 'Falls ja: Hat der Ausfluss einen auffälligen Geruch?', 'Falls ja: Juckt oder brennt es dabei?',
           'Falls ja: Welche Konsistenz hat der Ausfluss?', 'Falls ja: Seit wann bemerken Sie den Ausfluss?'],
+        relu: true,
       },
       {
         text: 'Haben Sie Schmerzen beim Geschlechtsverkehr?',
         probe: 'fach-gyn-dyspareunie',
         // Le Wasserlassen recoupe la vegetative (deepens: veg-ausscheidung, sur la sonde).
         followUp: ['Falls ja: Eher am Anfang oder tief im Inneren?', 'Brennt oder schmerzt es beim Wasserlassen?'],
+        followUpSucht: [[], ['miktion']],
       },
       {
         text: 'Wie viele Schwangerschaften und Geburten hatten Sie?',
@@ -1101,17 +1138,20 @@ export const FACHANAMNESEN: FachanamneseGuide[] = [
         text: 'Haben Sie in der Brust einen Knoten, Schmerzen, Absonderungen aus der Brustwarze oder Hautveränderungen bemerkt?',
         probe: 'fach-gyn-brust',
         label: 'Brust',
+        relu: true,
       },
       {
         text: GYN_VORSORGE_TEXT,
         probe: 'fach-gyn-vorsorge',
         followUp: [GYN_HPV],
+        followUpSucht: [['impfung']],
       },
       {
         text: 'Wurden Sie schon an der Gebärmutter, an den Eileitern oder an den Eierstöcken operiert?',
         probe: 'fach-gyn-eingriffe',
         // Les hormones : UNE question, au passé et au thérapeutique (THS, Pille, Spirale) — la contraception d'aujourd'hui est celle de frau-verhuetung.
         followUp: [GYN_HORMONE],
+        followUpSucht: [['hormone']],
       },
     ],
     `${GYN_ALARME} ${GYN_PREECL}`),
@@ -1123,10 +1163,12 @@ export const FACHANAMNESEN: FachanamneseGuide[] = [
         probe: 'fach-neuro-kopfschmerz',
         alts: ['Haben Sie Kopfschmerzen? Wie fühlen sie sich an — pochend, drückend oder stechend?'],
         followUp: ['Falls ja: Ist Ihnen während der Schmerzen übel?', 'Falls ja: Sind Sie licht- oder lärmempfindlich?'],
+        relu: true,
       },
       {
         text: 'Kamen die Beschwerden plötzlich wie ein Schlag, oder gab es Vorboten — Lichtblitze, Zickzacklinien, Kribbeln in den Fingern oder im Gesicht?',
         probe: 'fach-neuro-aura',
+        relu: true,
       },
       {
         text: 'Hatten Sie dabei Begleitbeschwerden an Auge oder Nase — Tränenfluss, Nasenverstopfung, ein hängendes Augenlid?',
@@ -1173,6 +1215,7 @@ export const FACHANAMNESEN: FachanamneseGuide[] = [
         probe: 'fach-ortho-mechanismus',
         alts: ['Was genau ist passiert?'],
         followUp: ['Sind Sie dabei ohnmächtig geworden?', 'Haben Sie sich dabei noch woanders verletzt?'],
+        followUpSucht: [['bewusstlos'], ['begleitverletzung']],
       },
       {
         text: 'Sind die Schmerzen von Bewegung und Belastung abhängig, oder treten sie auch in Ruhe und nachts auf?',
@@ -1257,6 +1300,7 @@ export const FACHANAMNESEN: FachanamneseGuide[] = [
         text: 'Hatten Sie solche Gelenkbeschwerden schon einmal?',
         probe: 'fach-rheuma-vorgeschichte',
         followUp: ['Hatten Sie schon einmal einen Gichtanfall oder Nierensteine?', 'Gibt es in Ihrer Familie Rheuma oder Gicht?'],
+        followUpSucht: [['gicht', 'nierensteine'], ['familie_rheuma']],
       },
     ],
     'Deux questions décident presque tout : la DURÉE de la raideur matinale (> 30–60 min = inflammatoire) et le MODE d\'installation (brutal, monoarticulaire, nocturne = goutte / arthrite septique ; lent et symétrique = polyarthrite rhumatoïde). Le déclencheur alimentaire ou diurétique oriente vers la goutte.'),
@@ -1293,7 +1337,7 @@ export const FACHANAMNESEN: FachanamneseGuide[] = [
         text: 'Haben Sie Fieber, Nachtschweiß — so stark, dass Sie die Wäsche wechseln müssen — oder ungewollt Gewicht verloren?',
         probe: 'fach-haem-bsymptomatik',
         label: 'B-Symptomatik',
-        alts: ['Haben Sie Fieber, Schüttelfrost oder Nachtschweiß bemerkt?'],
+        alts: ['Haben Sie Fieber oder Nachtschweiß bemerkt?'],   // revue K1 I-3 : sans Schüttelfrost (veg-schuettelfrost)
         followUp: ['Falls Gewichtsverlust: Wie viele Kilo haben Sie abgenommen?', 'Falls Gewichtsverlust: In welchem Zeitraum?'],
         parts: [
           { sucht: ['fieber'], text: 'Haben Sie Fieber?' },
@@ -1381,13 +1425,14 @@ export const FACHANAMNESEN: FachanamneseGuide[] = [
     ['Gewicht', 'Schwitzen', 'Durst', 'Herzrasen', 'Hals'],
     [
       {
-        text: 'Haben Sie vermehrt Durst und müssen Sie häufiger Wasser lassen, auch nachts?',
+        // Revue K1 : polyurie (le VOLUME), pas miktion_frequenz — le texte dit « mehr », pas « häufiger » (paire D4).
+        text: 'Haben Sie vermehrt Durst und müssen Sie mehr Wasser lassen als sonst, auch nachts?',
         probe: 'fach-endo-durst',
         alts: ['Haben Sie großen Durst und müssen viel Wasser lassen?'],
         // Quand le cas a déjà compté les levers nocturnes (case-diabetes-typ1),
         // il ne reste que la soif — l'autre moitié de la paire cardinale.
         parts: [
-          { sucht: ['polyurie'], text: 'Müssen Sie häufiger Wasser lassen als früher, auch nachts?' },
+          { sucht: ['polyurie', 'nykturie'], text: 'Müssen Sie mehr Wasser lassen als früher, auch nachts?' },
           { sucht: ['durst'], text: 'Haben Sie dabei vermehrt Durst?' },
         ],
       },
@@ -1422,6 +1467,7 @@ export const FACHANAMNESEN: FachanamneseGuide[] = [
         text: 'Hatten Sie Episoden mit Zittern, Schwitzen, Heißhunger oder Verwirrtheit, die nach dem Essen besser wurden?',
         probe: 'fach-endo-unterzucker',
         label: 'Hypoglykämie',
+        relu: true,
       },
       {
         text: 'Haben Sie Kribbeln oder Taubheit in den Füßen, eine Sehverschlechterung oder Probleme mit den Nieren?',
@@ -1442,22 +1488,15 @@ export const FACHANAMNESEN: FachanamneseGuide[] = [
         probe: 'fach-chir-essen',
         label: 'Nüchternheit',
       },
-      { text: 'Ist Ihnen übel? Haben Sie sich übergeben?', probe: 'fach-chir-uebelkeit' },
       {
         text: 'Hatten Sie heute Stuhlgang? Gehen noch Winde ab?',
         probe: 'fach-chir-ileus',
         label: 'Ileus-Frage',
       },
-      { text: 'Haben Sie Fieber?', probe: 'fach-chir-fieber' },
       {
         text: 'Wurden Sie schon einmal am Bauch operiert? Haben Sie Narben?',
         probe: 'fach-chir-op',
         followUp: ['Falls ja: Wann war das?', 'Falls ja: Weswegen wurden Sie operiert?', 'Falls ja: Gab es Komplikationen bei der Narkose?'],
-      },
-      {
-        text: 'Nehmen Sie Blutverdünner ein?',
-        probe: 'fach-chir-blutverduenner',
-        followUp: ['Falls ja: Wichtig vor jeder Operation: Wann haben Sie die letzte Dosis genommen?'],
       },
       { text: 'Haben Sie bekannte Gallensteine oder einen Leistenbruch?', probe: 'fach-chir-gallensteine' },
     ],
@@ -1496,6 +1535,8 @@ export const FACHANAMNESEN: FachanamneseGuide[] = [
         text: 'Haben Sie Ängste, oder machen Sie sich viele Sorgen — auch wenn Sie eigentlich in Sicherheit sind?',
         probe: 'fach-psych-angst',
         followUp: ['Haben Sie Panikattacken — mit Luftnot, Herzrasen, Herzklopfen oder sogar Todesangst?'],
+        // Revue K1 C4 : la relance cherche la crise ; Luftnot, Herzrasen la décrivent (SIGNE_AFFINE.panikattacke).
+        followUpSucht: [['panikattacke']],
       },
       {
         text: 'Denken Sie manchmal, dass das Leben nicht mehr lebenswert ist? Haben Sie Gedanken, sich etwas anzutun?',
@@ -1508,6 +1549,7 @@ export const FACHANAMNESEN: FachanamneseGuide[] = [
           'Haben Sie konkrete Pläne, sich das Leben zu nehmen?',
           'Falls konkrete Absicht oder Plan: NOTFALL — der Patient bleibt stationär. Rücksprache mit dem Oberarzt nach der Anamnese.',
         ],
+        followUpSucht: [['selbstverletzung'], ['selbstverletzung']],
       },
       {
         text: 'Gab es belastende Ereignisse — ein Verlust, eine Trennung, Stress bei der Arbeit?',
@@ -1527,15 +1569,16 @@ export const FACHANAMNESEN: FachanamneseGuide[] = [
         text: 'Haben Sie Fieber gemessen? Wie hoch, seit wann, und verläuft es in Schüben?',
         probe: 'fach-infekt-fieber',
         alts: ['Hatten Sie Fieber — haben Sie es gemessen, wie hoch?'],
-        followUp: ['Falls ja: Haben Sie Schüttelfrost dabei?', 'Falls ja: Haben Sie Nachtschweiß?'],
+        // Revue K1 I-2 (c) : les relances Schüttelfrost / Nachtschweiß sont parties — `veg-schuettelfrost`
+        // les pose dans les 5 cas de ce Fach ; les garder, c'était un vrai doublon éteint par `relu`.
       },
       {
         text: 'Hatten Sie einen Zeckenstich oder einen Insektenstich bemerkt? Waren Sie im Wald, im hohen Gras oder im Garten?',
         probe: 'fach-infekt-zecke',
         label: 'Exposition',
-        // Critère de la méningite en zone à risque ; ne vit que là où la tique
-        // est posée (fachSkip la retire aux autres trames).
-        followUp: ['Falls ja: Sind Sie gegen FSME geimpft?'],
+        // DM2 : la relance « Sind Sie gegen FSME geimpft ? » cherchait un autre signe (la vaccination) sous une relance
+        // conditionnelle sur la tique. Elle est retirée : `fach-infekt-impfung`, dans la même Fachanamnese, le demande,
+        // et la fiche y répond FSME (lyme, meningitis). Décision de main antérieure (relance de la tique) levée par DM2.
       },
       {
         text: 'Haben Sie eine Hautveränderung oder Rötung bemerkt? Hat sie sich ausgebreitet, zum Beispiel ringförmig?',
@@ -1560,6 +1603,7 @@ export const FACHANAMNESEN: FachanamneseGuide[] = [
         probe: 'fach-infekt-kontakt',
         alts: ['Hat jemand in Ihrer Familie oder Ihrem Umfeld ähnliche Beschwerden gehabt?'],
         followUp: ['Arbeiten Sie mit vielen Menschen? Haben Sie ungewöhnliche Lebensmittel gegessen — rohe Milch, rohes Fleisch?'],
+        followUpSucht: [['kontakt', 'essen_expo']],
       },
       {
         text: 'Sind Ihre Impfungen auf dem neuesten Stand?',
@@ -1611,6 +1655,7 @@ export const FACHANAMNESEN: FachanamneseGuide[] = [
         probe: 'fach-derma-muttermal',
         label: 'ABCDE',
         followUp: ['Waren Sie schon einmal bei der Hautkrebsvorsorge?'],
+        followUpSucht: [['vorsorge_krebs']],
       },
       {
         text: 'Womit haben Sie die Stelle bisher behandelt, und hat das geholfen?',
@@ -1696,8 +1741,8 @@ function frauenQuestionsForAge(questions: Phrase[], age: number, fused = false):
   const probeOf = (q: Phrase) => (typeof q === 'string' ? undefined : typeof q.probe === 'string' ? q.probe : undefined);
   // Le texte est réécrit, les relances aussi : celles de la question d'origine
   // ne se transmettent pas (« Wann war Ihre letzte Regelblutung? » est déjà dans le texte à 56 ans).
-  const retext = (q: Phrase, text: string, followUp?: string[]): Phrase =>
-    (typeof q === 'string' ? text : { ...q, text, alts: undefined, followUp: followUp?.length ? followUp : undefined });
+  const retext = (q: Phrase, text: string, followUp?: string[], followUpSucht?: string[][]): Phrase =>
+    (typeof q === 'string' ? text : { ...q, text, alts: undefined, followUp: followUp?.length ? followUp : undefined, followUpSucht: followUp?.length ? followUpSucht : undefined });
   const arzt = fused ? [] : ['Gehen Sie regelmäßig zum Frauenarzt?'];
   return questions.flatMap((q) => {
     const probe = probeOf(q);
@@ -1708,14 +1753,14 @@ function frauenQuestionsForAge(questions: Phrase[], age: number, fused = false):
       if (probe === 'frau-periode') return [retext(q, 'Wann hatten Sie Ihre letzte Regelblutung?', ['Hatten Sie seitdem noch einmal eine Blutung?'])];
       if (probe === 'frau-schwanger' || probe === 'frau-verhuetung') return [];
       if (probe === 'frau-wechseljahre') {
-        return [retext(q, 'Wie haben Sie die Wechseljahre erlebt — hatten Sie Beschwerden?', [...(fused ? [] : [GYN_HORMONE]), ...arzt])];
+        return [retext(q, 'Wie haben Sie die Wechseljahre erlebt — hatten Sie Beschwerden?', [...(fused ? [] : [GYN_HORMONE]), ...arzt], [...(fused ? [] : [['hormone']]), ...arzt.map(() => ['vorsorge_gyn'])])];
       }
       return [q];
     }
     if (probe === 'frau-wechseljahre') {
       if (age < MENOPAUSE_FROM) return [];
       // La dernière règle est déjà demandée par frau-periode : pas de redite.
-      return [retext(q, 'Haben die Wechseljahre bei Ihnen schon begonnen — Hitzewallungen, unregelmäßige Blutungen?', arzt)];
+      return [retext(q, 'Haben die Wechseljahre bei Ihnen schon begonnen — Hitzewallungen, unregelmäßige Blutungen?', arzt, arzt.map(() => ['vorsorge_gyn']))];
     }
     return [q];
   });
@@ -1753,7 +1798,7 @@ function caseQuestionsByKapitel(c: Case): Record<string, PhraseVariant[]> {
 // (`applies`) ou la reformule (`text` : chaîne, ou relances/alternatives) ;
 // le résidu propre à un cas passe par `fachSkip`.
 type Who = { geschlecht?: 'm' | 'w'; age: number; kategorie: LeitsymptomKategorie; schmerzOrt?: string; motiv?: PatientSheet['motiv'] };
-type FachPatch = string | Pick<PhraseVariant, 'text' | 'alts' | 'followUp'>;
+type FachPatch = string | Pick<PhraseVariant, 'text' | 'alts' | 'followUp' | 'followUpSucht'>;
 const ARM = new Set(['obere', 'hws']), RUMPF = new Set(['lws', 'bws']), RACHIS = new Set(['lws', 'bws', 'hws']);
 const region = (w: Who) => w.motiv?.region;
 // « Herz » en début de mot seulement : « Schmerz » contient « herz ».
@@ -1805,7 +1850,7 @@ const FACH_RULES: Array<{ probe: string; applies?: (w: Who) => boolean; text?: (
     ? 'Darf ich Ihnen ein paar Fragen zu Ihrer Partnerschaft stellen — das gehört zur Untersuchung dazu? Wie schützen Sie sich vor Geschlechtskrankheiten?' : undefined) },
   { probe: 'fach-gyn-kinderwunsch', applies: (w) => w.age <= FERTILE_UNTIL },
   // Vorsorge selon l'âge : HPV jusqu'à 35 ans (vaccination de la génération), mammographie dès 50 ans (dépistage).
-  { probe: 'fach-gyn-vorsorge', text: (w) => (w.age <= 35 ? { text: GYN_VORSORGE_ABSTRICH, followUp: [GYN_HPV] }
+  { probe: 'fach-gyn-vorsorge', text: (w) => (w.age <= 35 ? { text: GYN_VORSORGE_ABSTRICH, followUp: [GYN_HPV], followUpSucht: [['impfung']] }
     : w.age < 50 ? { text: GYN_VORSORGE_ABSTRICH, followUp: undefined } : { text: GYN_VORSORGE_TEXT, followUp: undefined }) },
   // Après 55 ans, le saignement depuis la dernière règle est la relance de frau-periode (rang 1) : la Blutung ne le redit pas.
   { probe: 'fach-gyn-blutung', text: (w) => (w.age > FERTILE_UNTIL ? { text: GYN_BLUTUNG_TEXT, alts: GYN_BLUTUNG_ALTS, followUp: undefined } : undefined) },
@@ -1817,7 +1862,10 @@ function adaptFach(questions: Phrase[], who: Who): Phrase[] {
     if (!r) return [q];
     if (r.applies && !r.applies(who)) return [];
     const t = r.text?.(who);
-    return [t && typeof q !== 'string' ? { ...q, ...(typeof t === 'string' ? { text: t } : t) } : q];
+    if (!t || typeof q === 'string') return [q];
+    const patch = typeof t === 'string' ? { text: t } : t;
+    // Une relance réécrite emporte ses signes : `followUpSucht` est parallèle à `followUp`, il ne survit pas à un autre `followUp`.
+    return [{ ...q, ...patch, ...('followUp' in patch && !('followUpSucht' in patch) ? { followUpSucht: undefined } : {}) }];
   });
 }
 

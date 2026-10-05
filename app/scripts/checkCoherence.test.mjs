@@ -13,7 +13,7 @@ import { fileURLToPath, pathToFileURL } from 'node:url';
 import assert from 'node:assert/strict';
 import { readFileSync, writeFileSync } from 'node:fs';
 import { sandbox } from './mutationSandbox.mjs';
-import { mesurerCas, profilPropose, signesDe } from './coherenceMesure.mjs';
+import { DIM, SIG, mesurerCas, profilPropose, proposer, signesDe } from './coherenceMesure.mjs';
 
 // ── La mesure : un lexique minimal, des trames de poche ──────────────────────
 // La lecture du texte est CELLE du lexique (`symptomsInText`, symptoms.ts) : on la charge pour de vrai.
@@ -39,11 +39,11 @@ const lex = () => ({
     schluck: def('aktuell', ['dysphagie', 'hals'], 'akt-ausscheid-schlucken'), gelenke: def('fach', ['gelenk', 'arthritis']),
   },
 });
-const row = (ch, text, extra = {}) => ({ ch, text, probes: extra.probes ?? [], cs: !!extra.cs, sucht: extra.sucht ?? [], fu: extra.fu ?? [] });
+const row = (ch, text, extra = {}) => ({ ch, text, probes: extra.probes ?? [], cs: !!extra.cs, sucht: extra.sucht ?? [], fu: extra.fu ?? [], fuSucht: extra.fuSucht ?? [] });
 const cas = (rows, over = {}) => ({ id: 'case-x', specialty: 'Allgemeinmedizin', kategorie: 'infekt', leit: ['Fieber'], antworten: {}, rows, ...over });
 
 test('un signe cherché par deux unités → un doublon, avec sa raison ; une seule unité → aucun', () => {
-  const r = mesurerCas(cas([row('aktuell', 'Haben Sie Fieber gemessen?', { probes: ['akt-infekt-fieber'] }), row('vegetativ', 'Hatten Sie Fieber?', { probes: ['veg-fieber'] })]), lex());
+  const r = mesurerCas(cas([row('aktuell', 'Haben Sie Fieber gemessen?', { probes: ['akt-infekt-fieber'], sucht: ['fieber'] }), row('vegetativ', 'Hatten Sie Fieber?', { probes: ['veg-fieber'], sucht: ['fieber'] })]), lex());
   assert.equal(r.dup.length, 1);
   assert.match(r.dup[0].why, /fieber.*2 unités/);
   assert.equal(mesurerCas(cas([row('aktuell', 'Haben Sie Fieber gemessen?')]), lex()).dup.length, 0);
@@ -57,7 +57,7 @@ test('D1 : une énumération cherche chaque signe qu\'elle nomme ; une dimension
 });
 
 test('hors profil : « Schlucken » sans dysphagie → constat ; avec dysphagie → rien ; mutation : signe de dépistage → rien', () => {
-  const rows = [row('aktuell', 'Bleibt beim Schlucken nur Festes stecken?', { probes: ['akt-ausscheid-schlucken'] })];
+  const rows = [row('aktuell', 'Bleibt beim Schlucken nur Festes stecken?', { probes: ['akt-ausscheid-schlucken'], sucht: ['schluck'] })];
   assert.equal(mesurerCas(cas(rows), lex()).imp.length, 1);
   assert.equal(mesurerCas(cas(rows, { leit: ['Schluckbeschwerden'] }), lex()).imp.length, 0, 'dysphagie proposée depuis le motif');
   const l = lex(); l.SIGNE_DEF.schluck.pertinence = 'screening';
@@ -65,7 +65,7 @@ test('hors profil : « Schlucken » sans dysphagie → constat ; avec dysphagie 
 });
 
 test('exclusion : l\'irradiation d\'une douleur généralisée est hors profil', () => {
-  const rows = [row('aktuell', 'Strahlen die Beschwerden irgendwohin aus?', { probes: ['akt-ausstrahlung'] })];
+  const rows = [row('aktuell', 'Strahlen die Beschwerden irgendwohin aus?', { probes: ['akt-ausstrahlung'], sucht: ['ausstrahlung'] })];
   const r = mesurerCas(cas(rows, { kategorie: 'schmerz', schmerz: { ort: 'am ganzen Körper', ausstrahlung: 'generalisiert' } }), lex());
   assert.equal(r.imp.length, 1);
   assert.match(r.imp[0].why, /exclu par le tag « generalisiert »/);
@@ -89,13 +89,52 @@ test('D2 : le tag schmerz se propose depuis le PREMIER symptôme du motif, pas d
 });
 
 test('relances : l\'antécédent nommé sous une question sans rapport est détaché (sans condition) ou anomalie r4a (conditionnelle)', () => {
-  const mere = (fu) => row('fach', 'Hatten Sie solche Gelenkbeschwerden schon einmal?', { probes: ['fach-rheuma-vorgeschichte'], fu });
+  // une question du CAS (sans déclaration) : sa lecture dit si une relance sort de son signe
+  const mere = (fu) => row('fach', 'Hatten Sie solche Gelenkbeschwerden schon einmal?', { cs: true, fu });
   const libre = mesurerCas(cas([mere(['Hatten Sie schon einmal einen Gichtanfall oder Nierensteine?'])]), lex());
   assert.equal(libre.fu.length, 1);
   assert.equal(libre.fu[0].cond, false);
   const cond = mesurerCas(cas([mere(['Falls ja: Hatten Sie schon einmal einen Gichtanfall?'])]), lex());
   assert.equal(cond.fu[0].cond, true);
   assert.equal(mesurerCas(cas([mere(['Seit wann?'])]), lex()).fu.length, 0, 'une précision n\'est pas une relance hors signe');
+});
+
+test('K1 : pour une sonde, la déclaration REMPLACE la lecture du texte ; une question du cas se lit encore', () => {
+  const lex1 = lex();
+  // « Seit wann haben Sie Fieber ? » : la sonde déclare `beginn`, le texte nomme `fieber` — seule la déclaration compte
+  const guide = mesurerCas(cas([row('aktuell', 'Beginn — Seit wann haben Sie Fieber?', { probes: ['akt-beginn'], sucht: ['beginn'] }), row('vegetativ', 'Hatten Sie Fieber?', { probes: ['veg-fieber'], sucht: ['fieber'] })]), lex1);
+  assert.equal(guide.dup.length, 0, 'beginn ≠ fieber : pas de faux doublon');
+  // la même question, posée par le CAS sans déclaration, se lit : `fieber` y est cherché → doublon avec la sonde
+  const cas1 = mesurerCas(cas([row('aktuell', 'Haben Sie Fieber?', { cs: true }), row('vegetativ', 'Hatten Sie Fieber?', { probes: ['veg-fieber'], sucht: ['fieber'] })]), lex1);
+  assert.equal(cas1.dup.length, 1);
+});
+
+test('K1 : une relance sans `followUpSucht` hérite de sa mère ; avec, elle devient une unité à part (son signe compte)', () => {
+  const mere = (fu, fuSucht) => row('fach', 'Hatten Sie solche Gelenkbeschwerden schon einmal?', { probes: ['fach-rheuma-vorgeschichte'], sucht: ['gelenke'], fu, fuSucht });
+  const herite = mesurerCas(cas([mere(['Hatten Sie schon einmal einen Gichtanfall oder Nierensteine?'], [])]), lex());
+  assert.equal(herite.fu.length, 0, 'déclarée comme précision : aucun constat (la déclaration remplace la lecture)');
+  const unite = mesurerCas(cas([row('aktuell', 'Haben Sie Fieber?', { probes: ['akt-infekt-fieber'], sucht: ['fieber'] }), mere(['Hatten Sie schon einmal Fieber?'], [['fieber']])]), lex());
+  assert.equal(unite.dup.length, 1, 'la relance déclarée `fieber` double la question de fièvre');
+});
+
+test('K1 --propose : les signes lus d\'une question du cas non déclarée ; une relance qui nomme un autre signe est signalée, conditionnelle = alerte DM2', () => {
+  const u = (r) => mesurerCas(cas([r]), lex()).units[0];
+  const p = proposer(u(row('aktuell', 'Haben Sie Fieber gemessen? Wie hoch?', { cs: true, fu: ['Falls ja: Wann ist das Fieber am höchsten?', 'Haben Sie Husten?'] })));
+  assert.deepEqual(p.sucht, ['fieber']);
+  assert.equal(p.relances[0].horsSigne, false, 'une précision hérite');
+  assert.deepEqual(p.relances[1].sucht, ['husten']);
+  assert.equal(p.relances[1].alerte, false, 'inconditionnelle : unité à part');
+  const cond = proposer(u(row('aktuell', 'Haben Sie Fieber gemessen?', { cs: true, fu: ['Falls ja: Haben Sie Husten?'] })));
+  assert.equal(cond.relances[0].alerte, true, 'conditionnelle hors signe : à corriger à la source');
+  assert.deepEqual(proposer(u(row('aktuell', 'Wie ist Ihre Gemütslage?', { cs: true }))).sucht, [], 'aucun signe lu : le relecteur déclare');
+});
+
+test('K1 : aucun motif de la mesure ne place `\\b` contre une lettre accentuée (« übel », « Ängste » n\'étaient jamais lus)', () => {
+  const garde = /\\b\(?(?:[^|)]*\|)*[äöüÄÖÜß]|[äöüÄÖÜß]\\b/;
+  assert.deepEqual(Object.entries({ ...DIM, ...SIG }).filter(([, re]) => garde.test(re.source)).map(([k]) => k), []);
+  assert.ok(garde.test(/\b(übel|übergeben)\b/.source), 'la garde rougit sur l\'ancien motif');
+  assert.ok(lis('Ist Ihnen während der Schmerzen übel?', { mother: false, ch: 'fach' }).has('uebelkeit'));
+  assert.ok(lis('Haben Sie Ängste?', { mother: true, ch: 'fach' }).has('angst'));
 });
 
 test('ordre : « dort » avant toute question de voyage ; le voyage posé avant → rien ; les constats Q0 sont repris', () => {
@@ -180,7 +219,7 @@ test('mutation INV-77 : ausstrahlung exigé par « generalisiert » → exit 1, 
 });
 
 test('mutation INV-78 : stuhlfrequenz fusionné dans stuhl → exit 1', () => {
-  const r = sb.mutate('src/data/guides/signes.ts', "'akt-ausscheid-haeufigkeit': ['stuhlfrequenz'],", "'akt-ausscheid-haeufigkeit': ['stuhl'],", () => run());
+  const r = sb.mutate('src/data/guides/probeSucht.ts', "'akt-ausscheid-haeufigkeit': ['stuhlfrequenz'],", "'akt-ausscheid-haeufigkeit': ['stuhl'],", () => run());
   assert.equal(r.status, 1);
   assert.match(r.stdout, /INV-78.*akt-ausscheid-was.*akt-ausscheid-haeufigkeit/);
 });
@@ -193,7 +232,7 @@ test('mutation de motif : un motif de lecture qui nomme un signe hors lexique �
 
 test('la mesure LIT le lexique : « Schlucken » devenu signe de dépistage → moins de questions hors profil', () => {
   const base = json(run('--json')).brut.horsProfil;
-  const mut = sb.mutate('src/data/guides/signes.ts', "pertinence: ['dysphagie', 'hals'], bank: 'akt-ausscheid-schlucken'", "pertinence: S, bank: 'akt-ausscheid-schlucken'", () => json(run('--json')).brut.horsProfil);
+  const mut = sb.mutate('src/data/guides/signesDefs.ts', "pertinence: ['dysphagie', 'hals'], bank: 'akt-ausscheid-schlucken'", "pertinence: S, bank: 'akt-ausscheid-schlucken'", () => json(run('--json')).brut.horsProfil);
   assert.ok(mut < base, `${mut} < ${base}`);
 });
 
@@ -219,4 +258,30 @@ test('--case : la trame jouée, chaque constat et sa RAISON ; un cas inconnu →
   assert.match(r.stdout, /RAISON : « schluck » n'est pertinent que pour/);
   assert.match(r.stdout, /RAISON : « dort » avant toute question sur « reise »/);
   assert.equal(run('--case', 'case-qui-nexiste-pas').status, 2);
+});
+
+test('--propose : la proposition lit les questions du cas non déclarées, n\'écrit rien, un cas inconnu → exit 2', () => {
+  const avant = sb.read('src/data/seedCases.ts');
+  const r = run('--propose', '--case', 'gastroenteritis');
+  assert.equal(r.status, 0, r.stderr);
+  assert.match(r.stdout, /PROPOSITION de `sucht`/);
+  assert.match(r.stdout, /sucht proposé : essen_expo/);
+  assert.match(r.stdout, /rien n'est appliqué/);
+  assert.equal(sb.read('src/data/seedCases.ts'), avant, 'jamais appliqué automatiquement');
+  assert.equal(run('--propose', '--case', 'case-qui-nexiste-pas').status, 2);
+  const j = JSON.parse(run('--propose', '--json').stdout);
+  assert.equal(j.length, json(run('--json')).residu.questionsMuettes, 'une proposition par question du cas muette');
+  assert.ok(j.every((p) => Array.isArray(p.sucht) && Array.isArray(p.relances)));
+});
+
+test('INV-79 mutation : une sonde qui perd son entrée de PROBE_SUCHT → exit 1 (la porte lit la déclaration)', () => {
+  const r = sb.mutate('src/data/guides/probeSucht.ts', "'fach-rheuma-systemisch': ['fieber', 'augenentzuendung', 'ulzera', 'stuhl', 'ausschlag'],", '', () => run());
+  assert.equal(r.status, 1);
+  assert.match(r.stdout, /INV-79 : la sonde « fach-rheuma-systemisch » ne déclare aucun sucht/);
+});
+
+test('INV-84 mutation : une relance conditionnelle qui déclare un autre signe → exit 1', () => {
+  const r = sb.mutate('src/data/guides/anamneseChapters.ts', "'Hatten Sie schon einmal einen Gichtanfall oder Nierensteine?'", "'Falls ja: Hatten Sie schon einmal einen Gichtanfall oder Nierensteine?'", () => run());
+  assert.equal(r.status, 1);
+  assert.match(r.stdout, /INV-84.*fach-rheuma-vorgeschichte.*conditionnelle 0/);
 });
