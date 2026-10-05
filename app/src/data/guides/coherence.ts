@@ -61,8 +61,9 @@ export const COHERENCE_ALLOWED: ReadonlyArray<CoherenceException> = [];
 /** La question du nom et son épellation sont la MÊME sonde posée deux fois (décision de main, K1/K2) : r2 ne les compte pas. */
 export const R2_EXEMPTES: ReadonlySet<string> = new Set(['pers-name']);
 
-/** SÉCURITÉ (décision de main, K3) : une question de risque suicidaire ou d'automutilation n'est JAMAIS retirée ni réduite —
- *  ni par r1 (jamais hors profil), ni par r2 (le signe ne se dispute pas : deux questions de risque restent deux). */
+/** SÉCURITÉ (décision de main, K3) : un signe de risque suicidaire ou d'automutilation n'est JAMAIS perdu. r1 ne le met
+ *  jamais hors profil ; r2 s'applique normalement (le gagnant D4 reste posé, il porte le signe). L'idéation (`suizid`,
+ *  `selbstverletzung_wunsch`) n'est jamais confondue avec l'acte (`selbstverletzung`) : trois signes distincts. */
 export const RISIKO_SIGNES: ReadonlySet<Signe> = new Set<Signe>(['suizid', 'selbstverletzung', 'selbstverletzung_wunsch']);
 
 export interface CohereCtx {
@@ -214,7 +215,7 @@ export function cohere<T extends TrameChapter>(trame: readonly T[], profil: Prof
   // ── r2 — un signe, une question (gagnants calculés en une fois) ─────────────
   const live = vivants().filter((u) => u.signes.length && !phraseProbes(u.p).some((p) => R2_EXEMPTES.has(p)));
   const pertes = new Map<U, Map<Signe, U>>();
-  for (const s of uniq(live.flatMap((u) => u.signes)).filter((x) => !RISIKO_SIGNES.has(x))) {
+  for (const s of uniq(live.flatMap((u) => u.signes))) {
     const us = live.filter((u) => u.signes.includes(s));
     if (us.length < 2) continue;
     const w = us.reduce((a, b) => (b.rang < a.rang ? b : a));
@@ -320,7 +321,7 @@ export function compteursApres(trame: readonly TrameChapter[], profil: ProfilEff
   const compte = (u: U, s: Signe) => !nonReduit.has(u.id) && !exception.has(`${u.id}|${s}`);
   const detail: string[] = [];
   let doublons = 0;
-  for (const s of uniq(units.flatMap((u) => u.signes)).filter((x) => !RISIKO_SIGNES.has(x))) {
+  for (const s of uniq(units.flatMap((u) => u.signes))) {
     const us = units.filter((u) => u.signes.includes(s) && compte(u, s));
     if (us.length > 1) { doublons++; detail.push(`doublon « ${s} » : ${us.map((u) => u.id).join(' | ')}`); }
   }

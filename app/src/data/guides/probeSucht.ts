@@ -76,7 +76,7 @@ export const PROBE_SUCHT: Readonly<Record<string, Sucht>> = {
   // --- Fach Psychiatrie ---------------------------------------------------------
   'fach-psych-stimmung': ['stimmung'], 'fach-psych-interesse': ['interesse'], 'fach-psych-antrieb': ['antrieb'],
   'fach-psych-schlaf': ['schlaf'], 'fach-psych-tagesverlauf': ['tageszeit'], 'fach-psych-konzentration': ['konzentration'],
-  'fach-psych-angst': ['angst', 'panikattacke'], 'fach-psych-suizid': ['suizid', 'selbstverletzung', 'selbstverletzung_wunsch'],   // K3 SÉCURITÉ : idéation, acte, désir d'automutilation — une unité, trois signes, jamais retirés (RISIKO_SIGNES)
+  'fach-psych-angst': ['angst', 'panikattacke'], 'fach-psych-suizid': ['suizid', 'selbstverletzung', 'selbstverletzung_wunsch'],   // K3 SÉCURITÉ : idéation, acte, désir d'automutilation — trois signes distincts, jamais perdus (RISIKO_SIGNES)
   'fach-psych-ausloeser': ['ausloeser'], 'fach-psych-frueher': ['frueher'],
   // --- Fach Pneumologie ---------------------------------------------------------
   'fach-pneumo-husten': ['husten', 'auswurf', 'stimme', 'verschlucken'], 'fach-pneumo-auswurf': ['auswurf_aspekt', 'haemoptyse'], 'fach-pneumo-atemnot': ['atemnot'],   // fach-pneumo-auswurf, revue K1 C2 : la seule hémoptysie de la Lungenembolie

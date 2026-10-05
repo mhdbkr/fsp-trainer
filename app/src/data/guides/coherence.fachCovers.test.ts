@@ -3,7 +3,6 @@ import { join } from 'node:path';
 import { describe, expect, it } from 'vitest';
 import { seedCases } from '@/data/seedCases';
 import { playedTrame, trameBrute } from './anamneseChapters';
-import { RISIKO_SIGNES } from './coherence';
 import { phraseProbes } from './phrases';
 import { PROBE_SUCHT, SUCHT_AUSSER } from './symptoms';
 
@@ -13,7 +12,7 @@ import { PROBE_SUCHT, SUCHT_AUSSER } from './symptoms';
 const PAIRES = readFileSync(join(__dirname, '__snapshots__/fach-covers.txt'), 'utf8').trim().split('\n')
   .flatMap((l) => { const [f, as] = l.split(' -> '); return as.split(', ').map((a) => [f, a] as const); });
 
-type Raison = 'signe-distinct' | 'non-reduit' | 'reduit' | 'risque' | 'sucht-ausser';
+type Raison = 'signe-distinct' | 'non-reduit' | 'reduit' | 'sucht-ausser';
 /** Les paires que r2 ne retire pas (sur au moins un cas), et pourquoi. */
 const GARDEES: Record<string, Raison> = {
   // Signe distinct : l'ancienne table couvrait une AUTRE information que la Fach ne demande pas (règle d'identité).
@@ -48,8 +47,6 @@ const GARDEES: Record<string, Raison> = {
   'fach-neuro-kraft -> akt-nerven-alltag': 'non-reduit',
   // Signe partagé, la perdante a des `parts` : réduite à ce que la Fach ne demande pas (Appetit, Durst).
   'fach-haem-bsymptomatik -> akt-allgemein-gewicht': 'reduit',
-  // Sécurité (décision de main) : une question de risque suicidaire n'est jamais retirée.
-  'fach-psych-suizid -> akt-psych-sicherheit': 'risque',
   // L'exception testiculaire, devenue règle générique (SUCHT_AUSSER, tag dérivé `hoden`) : case-hodentorsion.
   'fach-uro-flanke -> akt-ausstrahlung': 'sucht-ausser',
 };
@@ -74,10 +71,10 @@ describe('FACH_COVERS absorbé par r2 — chaque paire retirée, ou gardée pour
     }
   }
 
-  it('la table gelée a 73 paires ; 71 s\'appliquent à au moins un cas ; 30 restent posées (raison listée)', () => {
+  it('la table gelée a 73 paires ; 71 s\'appliquent à au moins un cas ; 29 restent posées (raison listée)', () => {
     expect(PAIRES).toHaveLength(73);
     expect(etat.size).toBe(71);
-    expect(Object.keys(GARDEES)).toHaveLength(30);
+    expect(Object.keys(GARDEES)).toHaveLength(29);
   });
   it('les paires gardées sont exactement celles listées', () => {
     const gardees = [...etat].filter(([, s]) => s.retiree < s.n).map(([k]) => k).sort();
@@ -96,7 +93,6 @@ describe('FACH_COVERS absorbé par r2 — chaque paire retirée, ou gardée pour
       if (raison === 'signe-distinct') expect(commun, k).toEqual([]);
       if (raison === 'non-reduit') expect(ecarts, k).toContain('non-reduit');
       if (raison === 'reduit') expect(ecarts, k).toContain('reduit');
-      if (raison === 'risque') expect(PROBE_SUCHT[a].every((s) => RISIKO_SIGNES.has(s)), k).toBe(true);
       if (raison === 'sucht-ausser') expect(SUCHT_AUSSER[f]?.hoden ?? [], k).toEqual(commun);
     }
   });

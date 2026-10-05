@@ -162,7 +162,7 @@ case-appendizitis
 case-depression
   eroeffnung[· · · ·]
   personalia[pers-name pers-name pers-alter pers-groesse pers-hausarzt ·]
-  aktuell[akt-motiv akt-beginn akt-psych-sicherheit↳1 akt-verlauf akt-einfluss akt-begleit cas]
+  aktuell[akt-motiv akt-beginn akt-verlauf akt-einfluss akt-begleit cas]
   fach-psy[fach-psych-stimmung fach-psych-interesse fach-psych-antrieb fach-psych-schlaf fach-psych-tagesverlauf fach-psych-konzentration fach-psych-angst↳1 fach-psych-suizid↳4 fach-psych-ausloeser fach-psych-frueher]
   vegetativ[veg-fieber↳4 veg-schuettelfrost veg-uebelkeit↳1 veg-ausscheidung↳1 veg-gewicht↳2 veg-appetit ^veg-fieber#5~impfung cas]
   vorerkrankungen[· vor-erkrank↳1 vor-op↳1 vor-krankenhaus cas]
@@ -595,7 +595,7 @@ case-bph
 case-demenz
   eroeffnung[· · · ·]
   personalia[pers-name pers-name pers-alter pers-groesse pers-hausarzt ·]
-  aktuell[akt-motiv akt-beginn akt-psych-sicherheit↳1 akt-verlauf akt-einfluss akt-begleit cas cas cas cas cas cas]
+  aktuell[akt-motiv akt-beginn akt-verlauf akt-einfluss akt-begleit cas cas cas cas cas cas]
   fach-psy[fach-psych-stimmung fach-psych-interesse fach-psych-antrieb fach-psych-schlaf fach-psych-tagesverlauf fach-psych-konzentration fach-psych-angst↳1 fach-psych-suizid↳4 fach-psych-ausloeser fach-psych-frueher]
   vegetativ[veg-fieber↳4 veg-schuettelfrost veg-uebelkeit↳1 veg-ausscheidung↳1 veg-gewicht↳2 veg-appetit ^veg-fieber#5~impfung]
   vorerkrankungen[· vor-erkrank↳1 vor-op↳1 vor-krankenhaus]
@@ -843,7 +843,7 @@ case-leistenhernie
 case-alkoholentzug
   eroeffnung[· · · ·]
   personalia[pers-name pers-name pers-alter pers-groesse pers-hausarzt ·]
-  aktuell[akt-motiv akt-beginn akt-psych-sicherheit↳1 akt-verlauf akt-einfluss akt-begleit cas cas]
+  aktuell[akt-motiv akt-beginn akt-verlauf akt-einfluss akt-begleit cas cas]
   fach-psy[fach-psych-stimmung fach-psych-interesse fach-psych-antrieb fach-psych-schlaf fach-psych-tagesverlauf fach-psych-konzentration fach-psych-angst↳1 fach-psych-suizid↳4 fach-psych-ausloeser fach-psych-frueher]
   vegetativ[veg-fieber↳4 veg-schuettelfrost veg-uebelkeit↳1 veg-ausscheidung↳1 veg-gewicht↳2 veg-appetit ^veg-fieber#5~impfung cas]
   vorerkrankungen[· vor-erkrank↳1 vor-op↳1 vor-krankenhaus cas]
@@ -955,7 +955,7 @@ case-schlafapnoe
 case-schizophrenie
   eroeffnung[· · · ·]
   personalia[pers-name pers-name pers-alter pers-groesse pers-hausarzt ·]
-  aktuell[akt-motiv akt-beginn akt-psych-sicherheit↳1 akt-verlauf akt-einfluss akt-begleit cas↳1 cas cas cas cas cas]
+  aktuell[akt-motiv akt-beginn akt-verlauf akt-einfluss akt-begleit cas↳1 cas cas cas cas cas]
   fach-psy[fach-psych-stimmung fach-psych-interesse fach-psych-antrieb fach-psych-schlaf fach-psych-tagesverlauf fach-psych-konzentration fach-psych-angst↳1 fach-psych-suizid↳4 fach-psych-ausloeser fach-psych-frueher]
   vegetativ[veg-fieber↳4 veg-schuettelfrost veg-uebelkeit↳1 veg-ausscheidung↳1 veg-gewicht↳2 veg-appetit ^veg-fieber#5~impfung]
   vorerkrankungen[· vor-erkrank↳1 vor-op↳1 vor-krankenhaus]
@@ -1150,7 +1150,7 @@ case-abszess
 case-anorexia-nervosa
   eroeffnung[· · · ·]
   personalia[pers-name pers-name pers-alter pers-groesse pers-hausarzt ·]
-  aktuell[akt-motiv akt-beginn akt-psych-sicherheit↳1 akt-verlauf akt-einfluss akt-begleit cas cas↳1 cas cas cas↳1 cas cas]
+  aktuell[akt-motiv akt-beginn akt-verlauf akt-einfluss akt-begleit cas cas↳1 cas cas cas↳1 cas cas]
   fach-psy[fach-psych-stimmung fach-psych-interesse fach-psych-antrieb fach-psych-schlaf fach-psych-tagesverlauf fach-psych-konzentration fach-psych-angst↳1 fach-psych-suizid↳4 fach-psych-ausloeser fach-psych-frueher]
   vegetativ[veg-fieber↳4 veg-schuettelfrost veg-uebelkeit↳1 veg-ausscheidung↳1 veg-gewicht↳2 veg-appetit ^veg-fieber#5~impfung]
   vorerkrankungen[· vor-erkrank↳1 vor-op↳1 vor-krankenhaus]
@@ -1570,7 +1570,7 @@ case-perniziose-anaemie
 case-opioidabhaengigkeit
   eroeffnung[· · · ·]
   personalia[pers-name pers-name pers-alter pers-groesse pers-hausarzt ·]
-  aktuell[akt-motiv akt-beginn akt-psych-sicherheit↳1 akt-verlauf akt-einfluss akt-begleit]
+  aktuell[akt-motiv akt-beginn akt-verlauf akt-einfluss akt-begleit]
   fach-psy[fach-psych-stimmung fach-psych-interesse fach-psych-antrieb fach-psych-schlaf fach-psych-tagesverlauf fach-psych-konzentration fach-psych-angst↳1 fach-psych-suizid↳4 fach-psych-ausloeser fach-psych-frueher]
   vegetativ[veg-fieber↳4 veg-schuettelfrost veg-uebelkeit↳1 veg-ausscheidung↳1 veg-gewicht↳2 veg-appetit ^veg-fieber#5~impfung]
   vorerkrankungen[· vor-erkrank↳1 vor-op↳1 vor-krankenhaus]

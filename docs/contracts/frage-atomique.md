@@ -645,11 +645,14 @@ absorbé, par r2.
 
 **Ordre d'exécution, en une passe** : r1 → r4a → r2 → r3 → r4b.
 
-**Sécurité (décision de main, K3).** Une question de risque suicidaire ou
-d'automutilation n'est **jamais** retirée ni réduite par r1 ou r2 :
-`RISIKO_SIGNES` = `suizid`, `selbstverletzung` (l'acte), `selbstverletzung_wunsch`
-(l'idéation d'automutilation, signe distinct). Ces signes ne sont jamais hors
-profil et ne se disputent pas en r2 ; deux questions de risque restent deux.
+**Sécurité (décision de main, K3).** Garantie opposable, testée : **tout signe
+de risque cherché par la trame brute reste cherché par au moins une question
+de la trame jouée**. `RISIKO_SIGNES` = `suizid`, `selbstverletzung` (l'acte),
+`selbstverletzung_wunsch` (l'idéation d'automutilation) — l'idéation n'est
+jamais confondue avec l'acte (signes distincts). r1 ne retire jamais une
+question de risque (ces signes ne sont jamais hors profil) ; r2 s'applique
+normalement : le gagnant D4 (la Fach psy devant Aktuelle Beschwerden) reste posé
+et porte le signe.
 
 | Règle | Décision déterministe | Écarts |
 |---|---|---|

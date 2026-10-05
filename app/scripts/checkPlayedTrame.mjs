@@ -21,8 +21,6 @@ writeFileSync(entry, `
   export { seedCases } from ${JSON.stringify(join(root, 'src/data/seedCases.ts'))};
   export { adaptChaptersForCase, fachChapterForCase } from ${JSON.stringify(join(root, 'src/data/guides/anamneseChapters.ts'))};
   export { playedTrame } from ${JSON.stringify(join(root, 'src/data/guides/anamneseChapters.ts'))};
-  export { RISIKO_SIGNES } from ${JSON.stringify(join(root, 'src/data/guides/coherence.ts'))};
-  export { phraseSucht } from ${JSON.stringify(join(root, 'src/data/guides/symptoms.ts'))};
   export { phraseText, phraseAlts, phraseFollowUp, phraseProbes } from ${JSON.stringify(join(root, 'src/data/guides/phrases.ts'))};
   export { PROBE_BY_ID } from ${JSON.stringify(join(root, 'src/data/guides/anamneseProbes.ts'))};
 `);
@@ -55,16 +53,15 @@ for (const c of cases) {
   n++;
   const lines = [];
   // K3 : le résidu ASSUMÉ du moteur n'est pas un doublon ici — une question NON RÉDUITE (pas de `parts`, comptée par
-  // checkCoherence, résidu nonReduit, échéance K4) et deux questions de RISQUE (décision de main : jamais retirées).
+  // checkCoherence, résidu nonReduit, échéance K4).
   const nonReduit = new Set(m.playedTrame(c).ecarts.filter((e) => e.action === 'non-reduit').map((e) => e.question));
-  const push = (ch, p) => { const t = m.phraseText(p); lines.push({ ch, t, k: tokens(t), probes: m.phraseProbes(p), risque: m.phraseSucht(p).some((x) => m.RISIKO_SIGNES.has(x)) }); };
+  const push = (ch, p) => { const t = m.phraseText(p); lines.push({ ch, t, k: tokens(t), probes: m.phraseProbes(p) }); };
   for (const ch of m.adaptChaptersForCase(c)) for (const p of ch.questions) push(ch.id, p);
   const f = m.fachChapterForCase(c); if (f) for (const p of f.chapter.questions) push(f.chapter.id, p);
   q += lines.length;
   for (let i = 0; i < lines.length; i++) for (let j = i + 1; j < lines.length; j++) {
     const a = lines[i], b = lines[j];
     // D3 (contrat §10.6, K3) : la tolérance `deepens` est retirée — un signe, une question (r2).
-    if (a.risque && b.risque) continue;
     if (nonReduit.has(a.probes.join('+')) || nonReduit.has(b.probes.join('+'))) continue;
     const s = jac(a.k, b.k);
     if (s >= 0.6 && a.k.size >= 4 && b.k.size >= 4) problems.push(`${c.id} — ${a.ch} ↔ ${b.ch} (${s.toFixed(2)}) : « ${a.t.slice(0, 55)} » ≈ « ${b.t.slice(0, 55)} »`);

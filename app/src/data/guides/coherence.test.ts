@@ -311,26 +311,38 @@ describe('INV-91 — une relance de précision n\'est pas une unité', () => {
   });
 });
 
-describe('SÉCURITÉ (décision de main) — aucune question de risque n\'est retirée par r1 ni r2', () => {
+// SÉCURITÉ (décision de main, K3) — la garantie opposable : tout signe de risque cherché par la trame BRUTE reste cherché
+// par au moins une question de la trame JOUÉE. r1 ne retire jamais une question de risque ; r2 s'applique (le gagnant D4 reste).
+describe('SÉCURITÉ — aucun signe de risque n\'est perdu (r1 ne le retire jamais, r2 garde le gagnant)', () => {
   const psy = cases.filter((c) => playedTrame(c).fach?.chapter.id === 'fach-psy');
-  const risque = (t: TrameChapter[]) => t.flatMap((x) => x.questions).filter((p) => phraseSucht(p).some((x) => RISIKO_SIGNES.has(x)));
-  it('les 10 cas psy gardent l\'idéation, l\'acte et le désir d\'automutilation, et la question de sécurité', () => {
+  const RISQUE = new Set<string>(RISIKO_SIGNES);   // copie : la mutation vide la table du moteur, pas celle du test
+  const risques = (t: TrameChapter[]) => [...signesJoues(t)].filter((x) => RISQUE.has(x)).sort();
+  const garantie = (brute: TrameChapter[], jouee: TrameChapter[]) => risques(brute).every((x) => risques(jouee).includes(x));
+  it('130 cas : chaque signe de risque de la trame brute reste cherché par la trame jouée', () => {
+    for (const c of cases) expect(risques(trameJouee(c)), c.id).toEqual(risques(trameBrute(c)));
+  });
+  it('10 cas psy : idéation, acte et désir d\'automutilation posés ; la question de sécurité n\'est posée qu\'UNE fois (D4 : la Fach psy l\'emporte)', () => {
     expect(psy).toHaveLength(10);
     for (const c of psy) {
       const t = trameJouee(c);
       const textes = t.flatMap((x) => x.questions.flatMap((p) => [phraseText(p), ...phraseFollowUps(p).map((f) => f.text)]));
       expect(textes, c.id).toContain('Haben Sie sich selbst verletzt?');
       expect(textes, c.id).toContain('Haben Sie den Wunsch, sich zu verletzen?');
-      expect(risque(t).length, c.id).toBe(risque(trameBrute(c)).length);
-      expect(playedTrame(c).ecarts.filter((e) => e.signes.some((x) => RISIKO_SIGNES.has(x)) && ['retire', 'reduit'].includes(e.action)), c.id).toEqual([]);
+      expect(risques(t), c.id).toEqual(['selbstverletzung', 'selbstverletzung_wunsch', 'suizid']);
+      expect(t.flatMap((x) => x.questions).filter((p) => phraseSucht(p).includes('suizid')).flatMap(phraseProbes), c.id).toEqual(['fach-psych-suizid']);
+      const sicherheit = playedTrame(c).ecarts.find((e) => e.question === 'akt-psych-sicherheit');
+      if (sicherheit) expect(sicherheit, c.id).toMatchObject({ regle: 2, action: 'retire', cause: 'fach-psych-suizid' });
     }
   });
-  it('mutation : sans la protection, r2 retire la question de sécurité d\'Aktuelle Beschwerden', () => {
+  it('mutation : sans la protection r1, un profil qui exclut les signes de risque les fait perdre — la garantie rougit', () => {
+    const t = [ch('aktuell', s('akt-psych-sicherheit')), ch('fach', s('fach-psych-suizid'))];
+    const p: ProfilEffectif = { ...PSY, exclut: { suizid: 'mutation', selbstverletzung: 'mutation', selbstverletzung_wunsch: 'mutation' } };
+    expect(garantie(t, run(t, p).trame)).toBe(true);   // protégé : r1 n'y touche pas ; r2 garde la Fach (D4)
+    expect(vue(run(t, p).trame)).toEqual({ aktuell: [], fach: ['fach-psych-suizid'] });
     const garde = [...RISIKO_SIGNES];
     (RISIKO_SIGNES as Set<Signe>).clear();
     try {
-      const retirees = psy.filter((c) => cohere(trameBrute(c), profilDuCas(c), c.id, ctxDuCas(c)).ecarts.some((e) => e.question === 'akt-psych-sicherheit' && e.action === 'retire'));
-      expect(retirees.length).toBeGreaterThan(0);
+      expect(garantie(t, run(t, p).trame)).toBe(false);
     } finally { for (const x of garde) (RISIKO_SIGNES as Set<Signe>).add(x); }
   });
 });

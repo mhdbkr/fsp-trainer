@@ -1495,7 +1495,7 @@ export const FACHANAMNESEN: FachanamneseGuide[] = [
           'Haben Sie konkrete Pläne, sich das Leben zu nehmen?',
           'Falls konkrete Absicht oder Plan: NOTFALL — der Patient bleibt stationär. Rücksprache mit dem Oberarzt nach der Anamnese.',
         ],
-        // K3 SÉCURITÉ : l'acte et le désir d'automutilation sont DEUX signes ; la mère les déclare tous deux (RISIKO_SIGNES).
+        // K3 SÉCURITÉ : l'acte et le désir d'automutilation sont DEUX signes ; la mère les déclare tous deux (jamais perdus, RISIKO_SIGNES).
         followUpSucht: [['selbstverletzung'], ['selbstverletzung_wunsch']],
       },
       {

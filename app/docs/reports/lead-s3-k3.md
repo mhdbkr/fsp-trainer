@@ -1,7 +1,7 @@
 # Rapport lot K3 — le moteur de cohérence au montage
 
 > `sim-engine-engineer` · 5 oct. 2026 · branche `feat/s3-k3-cohere` (base `origin/main` @ `967d9d20` ; `origin/main` @ `142835d1`, avec S4-2 #76, fusionné en `0fbcf112`, sans conflit).
-> Statut : **DONE_WITH_CONCERNS**. Les concerns sont au § 9 : quatre points de relecture clinique et une extension de périmètre à acter.
+> Statut : **DONE**. Les décisions de main sur le § 9 sont appliquées (§ 9 bis). Les points de relecture clinique restent ouverts pour la revue Opus.
 > Première passe : BLOQUÉE sur `ajouteSansReponse = 8` (§ 10). Elle a été reprise après les décisions de main (5 oct.).
 
 ## 1. Livrables et commits
@@ -97,32 +97,32 @@ Voies : (a) précision — la mère déclare le signe (a1), ou la relance n'en d
 - **3. « Seit wann ».** Nouveau signe `beginn_art` (mode de début) ; `fach-rheuma-verlauf` ne déclare plus que lui. « Beginn — Seit wann haben Sie die Schmerzen? » reste dans les 6 cas rhumato.
 - **4. Motif en tête.** `motiv` est le premier signe du lexique. Exemple : gastroenteritis pose `akt-motiv · akt-ort · akt-beginn · akt-charakter · akt-intensitaet`.
 - **5. Contrat.** Insertion « précède **ou égale** » ; `casRetiresParR1 = 0` ; plancher `brut` mesuré sur la trame jouée (§ 7).
-- **Sécurité.**
-  - `RISIKO_SIGNES = {suizid, selbstverletzung, selbstverletzung_wunsch}` : ni r1 ni r2 n'y touchent.
-  - Test sur les **10 cas psy** : idéation, acte et désir d'automutilation sont présents. Autant de questions de risque dans la trame jouée que dans la trame brute.
-  - **Mutation** : sans la protection, r2 retire la question de sécurité. Aucune autre paire de risque ne partageait un signe : « konkrete Pläne » est une précision qui suit la mère.
+- **Sécurité (règle finale, décision de main sur le § 9.1).** Garantie : tout signe de risque cherché par la trame brute reste cherché par la trame jouée.
+  - `RISIKO_SIGNES = {suizid, selbstverletzung, selbstverletzung_wunsch}` : r1 ne les met jamais hors profil ; r2 s'applique, et le gagnant D4 reste posé.
+  - Testé sur les 130 cas. Sur les **10 cas psy** : idéation, acte et désir d'automutilation sont posés, et la question de sécurité **une seule fois**. `akt-psych-sicherheit` est retirée au profit de `fach-psych-suizid` (D4).
+  - **Mutation** : sans la protection r1, un profil qui exclut ces signes les fait perdre, et la garantie rougit.
+  - Aucune autre paire de risque ne partageait un signe : « konkrete Pläne » est une précision qui suit la mère.
 - **Décision 4 (fréquence des selles).** r3 ajoute `akt-ausscheid-haeufigkeit` à crohn, zoeliakie et chronische-pankreatitis. Elle est posée sans condition, avec la réponse de K2 (testé). Dans les 6 cas gastro où `FACH_COVERS` l'effaçait, elle revient.
 - **SUCHT_MONTAGE dégelé.** Il est supprimé, avec `dedupeBySymptom`. `phraseSymptoms` lit la déclaration.
 - **karpaltunnel.**
   - Fait en K3 : `fach-ortho-schwellung` reste entière, en non-réduite assumée, comme demandé en K2. Le seul signe hors profil est `gelenk_entzuendung`. Le moteur ne coupe rien.
   - Renvoyé à K4 : écrire ses `parts`.
 
-## 5. Tests du lot (vitest `--dir src` : 166 fichiers, 1 646 tests, 0)
+## 5. Tests du lot (vitest `--dir src` : 166 fichiers, 1 647 tests, 0)
 
-**`coherence.test.ts`** (36 tests) :
+**`coherence.test.ts`** (37 tests) :
 - INV-81 à 88, 90 et 91 sur fixtures (sondes réelles) et sur les 130 cas ;
 - INV-86 : chaque garde rougit sur un moteur abîmé (entrée mutée, ordre instable, ajout à chaque passe) ;
 - sécurité, avec sa mutation ;
 - gastroenteritis et fibromyalgie ligne à ligne, plus la spec §3.3 « une fois annotés » : K4 simulé sur une copie, la question du cas gagne Ort, Verlauf, Steifigkeit et Entzündung, et « dort » suit le voyage.
 
-**`coherence.fachCovers.test.ts`** : 73 paires, dont 71 s'appliquent. **41 sont retirées par r2 ; 30 restent posées**, avec leur raison vérifiée dans les données :
+**`coherence.fachCovers.test.ts`** : 73 paires, dont 71 s'appliquent. **42 sont retirées par r2 ; 29 restent posées**, avec leur raison vérifiée dans les données :
 
 | Raison | Nombre | Détail |
 |---|---:|---|
 | signe distinct | 20 | dont le pont urinaire vers les selles (décision 3) et la fréquence des selles sous la Fach gastro (décision 4) |
 | non réduite | 7 | la perdante n'a pas de `parts` (K4) |
 | réduite | 1 | `fach-haem-bsymptomatik` → `akt-allgemein-gewicht` |
-| risque | 1 | `fach-psych-suizid` → `akt-psych-sicherheit` |
 | `SUCHT_AUSSER` | 1 | hodentorsion |
 
 **Gel I3** : la Fach brute est identique pour les 130 cas, texte compris. Seules ont changé des déclarations K : FACH_RULES HPV et le catalogue (`fachRaw.test.ts`).
@@ -158,7 +158,6 @@ Ce que l'utilisateur voit en plus, et que `FACH_COVERS` effaçait :
 - la fréquence des selles (gastro, uro) ;
 - `akt-verlauf` dans les cas psy et neuro (`tageszeit` et `schub` ne sont pas le cours de la maladie) ;
 - `akt-veraend-was` et `-entwicklung` dans les cas derma et gyn ;
-- `akt-psych-sicherheit` dans 6 cas psy (sécurité).
 
 ## 7. La porte et le plancher
 
@@ -171,7 +170,7 @@ Ce que l'utilisateur voit en plus, et que `FACH_COVERS` effaçait :
 
 | Plancher (`coherence-budget.json`) | K2 | **K3** |
 |---|---:|---:|
-| doublons | 269 | **230** |
+| doublons | 269 | **224** |
 | doublonsCas | 24 | 24 |
 | horsProfil | 70 | **38** |
 | exigeAbsent | 47 | **0** |
@@ -182,23 +181,35 @@ Ce que l'utilisateur voit en plus, et que `FACH_COVERS` effaçait :
 | nonReduit | — | **117** (mesuré) |
 | casRetiresParR1 | — | **0** |
 
-Ce qui reste dans `brut`, c'est la dette que le moteur ne corrige pas : les questions du cas muettes, encore lues par leur texte, et les non-réduites. **Contrat amendé** (§10.4, §10.6) : r1 et le rang 0 ; « précède ou égale » ; motif en tête ; `RISIKO_SIGNES` ; `brut` sur la trame jouée ; `horsProfil` hors questions du cas gardées.
+Ce qui reste dans `brut`, c'est la dette que le moteur ne corrige pas : les questions du cas muettes, encore lues par leur texte, et les non-réduites. **Contrat amendé** (§10.4, §10.6) : r1 et le rang 0 ; « précède ou égale » ; motif en tête ; `RISIKO_SIGNES` (aucun signe de risque perdu) ; `brut` sur la trame jouée ; `horsProfil` hors questions du cas gardées.
 
 ## 8. Portes secondaires
 
 - **`checkPlayedTrame`** : la tolérance `deepens` est retirée (D3), sans aucun constat nouveau.
 - **`checkTrameSymptoms`** :
   - il lit la déclaration ;
-  - le résidu assumé du moteur n'y compte pas comme doublon : questions non réduites, questions de risque, nom et épellation, `SUCHT_AUSSER` ;
+  - le résidu assumé du moteur n'y compte pas comme doublon : questions non réduites, nom et épellation, `SUCHT_AUSSER` ;
   - **10 constats de relecture ouverts**, hausse documentée de 2 à 12 au fixture, échéance K4 (cml, diabetes, lymphom ×2, nhl ×3, prostatakarzinom, schenkelhalsfraktur, zystitis). Ce sont des questions du cas muettes qui citent un signe qu'une autre question déclare. Lymphom et nhl : le prurit **généralisé** (signe B) n'est pas le « juckt es » d'une lésion.
 
-## 9. Concerns — à relire (revue clinique Opus annoncée)
+## 9. Points soumis à main (première rédaction)
 
 1. **Le risque suicidaire est demandé deux fois dans 6 cas psy.** `akt-psych-sicherheit` (« Sicherheit — Ich frage das jeden Patienten … ») et `fach-psych-suizid` cherchent `suizid`. C'est l'application littérale de « jamais retirée par r2 ». Si main le veut, une exception étroite est possible : la Fach garde la question de sécurité quand elle pose le même signe et que l'acte et le désir restent posés. **À trancher** (cas psy de la revue : `case-depression`).
 2. **Revue K1 C6 inversée** : les relances de `akt-veraend-blutung` sont redevenues des précisions (§ 3). La revue C6 avait demandé `stuhlaussehen`, `urin_aspekt` et `haemoptyse` ; ces signes restent portés par les Fach.
 3. **Extension de périmètre** : deux questions du cas déclarées en plus des 8 (§ 2). Même règle, à acter.
 4. **Cas gynéco (`case-uterus-myomatosus`).** `akt-veraend-was` et `akt-veraend-blutung` reviennent (signes distincts de `fach-gyn-blutung` et `-brust`). `akt-veraend-blutung` est non réduite et porte ses relances « Blut im Stuhl / Urin, Blut abhusten ».
 5. **gastroenteritis.** « Aussehen — Blut, Schleim im Stuhl? » est retirée par `akt-ausscheid-was`, qui énumère l'aspect (D1, déclaration K0 I2). La question du cas « Wie sieht Ihr Stuhl aus » reste muette jusqu'en K4. **fibromyalgie** : la végétative garde « Waren Sie kürzlich im Ausland? » seule, comme `part` de `veg-fieber`, la Fach ayant pris la fièvre.
+
+## 9 bis. Décisions de main sur le § 9 (5 oct.), appliquées
+
+| § 9 | Décision | Effet |
+|---|---|---|
+| 1 | La sécurité garantit qu'aucun signe de risque n'est perdu ; r2 s'applique | la question de sécurité n'est posée qu'une fois (6 cas psy), la Fach l'emporte ; tests, `adaptChapters` (assertion d'origine rétablie), `fachCovers` (29 paires gardées), contrat et plancher (doublons 230 → 224) à jour |
+| 2 | Relances de `akt-veraend-blutung` en précisions : acceptées | — |
+| 3 | Les deux questions du cas en plus : acceptées | — |
+| 4 | Hausse `checkTrameSymptoms` 2 → 12 (K4) : acceptée | — |
+| 5 | Vérification à deux onglets : par main, après le merge | — |
+
+Restent pour la revue clinique : § 9.4 (cas gynéco) et § 9.5 (gastroenteritis, fibromyalgie).
 
 ## 10. Première passe (BLOQUÉE) — rappel
 
@@ -237,7 +248,7 @@ Elle s'est arrêtée sur `ajouteSansReponse = 8` : 8 questions du cas posaient l
 
 ## Vérifications (codes de sortie, sommet de branche)
 
-- `npx tsc -b --noEmit` : **0**. `npx vitest run --dir src --maxWorkers=2` : **0** (166 fichiers, 1 646 tests).
+- `npx tsc -b --noEmit` : **0**. `npx vitest run --dir src --maxWorkers=2` : **0** (166 fichiers, 1 647 tests).
 - `node scripts/check*.mjs` : **tous 0**, sauf `checkProbeOverlap` (1, informatif, `|| true`). Dont `checkCoherence` 0, `checkPlayedTrame` 0, `checkTrameSymptoms` 0, `checkGuideCoverage` 0 (contrat guide ↔ fiche), `checkTermRegister --require-all` 0. `checkBudgetFloor.mjs origin/main` : **0**, avec une hausse documentée : constats de trame-symptoms, 2 → 12.
 - `node --test scripts/*.test.mjs` (12 fichiers) : **tous 0**.
 - `git merge-tree --write-tree origin/main HEAD` (`origin/main` @ `db306481`) : **0**. `evalDoctopus --dry` : **0**.

@@ -20,7 +20,7 @@ writeFileSync(entry, `
   export { seedCases } from ${JSON.stringify(join(root, 'src/data/seedCases.ts'))};
   export { playedTrame } from ${JSON.stringify(join(root, 'src/data/guides/anamneseChapters.ts'))};
   export { profilDuCas } from ${JSON.stringify(join(root, 'src/data/guides/anamneseChapters.ts'))};
-  export { RISIKO_SIGNES, R2_EXEMPTES } from ${JSON.stringify(join(root, 'src/data/guides/coherence.ts'))};
+  export { R2_EXEMPTES } from ${JSON.stringify(join(root, 'src/data/guides/coherence.ts'))};
   export { phraseText, phraseFollowUp, phraseIsCaseSpecific, phraseProbes } from ${JSON.stringify(join(root, 'src/data/guides/phrases.ts'))};
   export { phraseSymptoms, symptomsInText, SIGNE_AFFINE, SUCHT_AUSSER } from ${JSON.stringify(join(root, 'src/data/guides/symptoms.ts'))};
   export { cqText, cqKapitel } from ${JSON.stringify(join(root, 'src/lib/caseQuestions.ts'))};
@@ -65,8 +65,8 @@ if (showIdx > 0) {
 //    tranche en l'annotant ou en la reformulant.
 const errors = []; const review = []; let n = 0;
 // K3 : le montage est `cohere`. Une question que le moteur a laissée NON RÉDUITE (pas de `parts`), une exception
-// COHERENCE_ALLOWED, la question du nom et son épellation (même sonde) et les signes de risque (jamais retirés) sont
-// le résidu ASSUMÉ du moteur — compté par checkCoherence (nonReduit), pas une erreur ici.
+// COHERENCE_ALLOWED, et la question du nom et son épellation (même sonde) sont
+// le résidu ASSUMÉ du moteur — compté par checkCoherence (nonReduit), pas une erreur ici. (Les signes de risque suivent r2.)
 const sondeOuCas = (p) => (m.phraseIsCaseSpecific(p) ? null : m.phraseProbes(p).join('+'));
 for (const c of cases) {
   n++;
@@ -75,7 +75,7 @@ for (const c of cases) {
   const rows = trame(c);
   const { ecarts } = m.playedTrame(c);
   const tags = m.profilDuCas(c).tags;   // SUCHT_AUSSER : une sonde ne cherche pas ce signe sous ce tag (règle testiculaire)
-  const assume = (p, s) => m.phraseProbes(p).some((x) => m.R2_EXEMPTES.has(x) || tags.some((t) => m.SUCHT_AUSSER[x]?.[t]?.includes(s))) || m.RISIKO_SIGNES.has(s)
+  const assume = (p, s) => m.phraseProbes(p).some((x) => m.R2_EXEMPTES.has(x) || tags.some((t) => m.SUCHT_AUSSER[x]?.[t]?.includes(s)))
     || ecarts.some((e) => (e.action === 'non-reduit' || e.action === 'garde-exception') && e.question === sondeOuCas(p));
   rows.forEach(({ ch, p }) => {
     const t = m.phraseText(p);

@@ -105,9 +105,7 @@ describe('Un seul endroit par trame (FACH_COVERS, aktuellSkip, règles de Fach)'
     const c = mk({ specialty: 'Psychiatrie', patientSheet: { personalia: { name: 'X', age: 40, geschlecht: 'm' }, leitsymptomKategorie: 'psychisch' } });
     const akt = adaptChaptersForCase(c).find((ch) => ch.id === 'aktuell')!.questions.flatMap(phraseProbes);
     expect(akt).not.toContain('akt-psych-stimmung');
-    // K3, SÉCURITÉ (décision de main) : une question de risque suicidaire n'est JAMAIS retirée par r2 — la question de
-    // sécurité reste, même quand la Fach Psychiatrie la repose (FACH_COVERS la retirait avant K3).
-    expect(akt).toContain('akt-psych-sicherheit');
+    expect(akt).not.toContain('akt-psych-sicherheit');
     // Sans Fach psy, la variante les pose.
     const d = mk({ specialty: 'Kardiologie', patientSheet: { personalia: { name: 'X', age: 40, geschlecht: 'm' }, leitsymptomKategorie: 'psychisch' } });
     expect(adaptChaptersForCase(d).find((ch) => ch.id === 'aktuell')!.questions.flatMap(phraseProbes)).toContain('akt-psych-sicherheit');
