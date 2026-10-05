@@ -144,15 +144,17 @@ export const MUTATIONS = [
     pourquoi: 'le plan est de nouveau recalculé à chaque ouverture (le défaut d’origine de l’audit programme)',
   },
   {
+    // S4-2 : la complétion est dérivée (deriverPlan) — le chemin incrémental (applyEventToLocalState) perd `eventId`.
     id: 'INV-10', tests: 'tests/parcours14j.test.ts', file: 'src/lib/journal.ts',
-    from: 'spentMin: event.spentMin, eventId: event.id } : t));',
-    to: 'spentMin: event.spentMin } : t));',
+    from: 'await db.day_plans.put({ ...plan, tasks });',
+    to: 'await db.day_plans.put({ ...plan, tasks: tasks.map(({ eventId: _e, ...t }) => t) });',
     pourquoi: 'la projection locale diverge de la reconstruction (état qui ne survit pas au redémarrage)',
   },
   {
-    id: 'INV-12', tests: 'tests/parcours14j.test.ts', file: 'src/lib/program/dayPlan.ts',
-    from: '  const start = startOfDay(parseISO(config.startDate));\n  const last = addDays(startOfDay(programEnd(config)), -1);',
-    to: '  const start = startOfDay(new Date(clockNow()));\n  const last = addDays(startOfDay(programEnd(config)), -1);',
+    // S4-2 : `taperDays` vit dans calendrier.ts, sans horloge — la mutation l'apporte (un `import` est remonté au niveau module).
+    id: 'INV-12', tests: 'tests/parcours14j.test.ts', file: 'src/lib/program/calendrier.ts',
+    from: 'export function taperDays(config: ProgramConfig): Set<string> {\n  const start = startOfDay(parseISO(config.startDate));',
+    to: "import { now as clockNow } from '@/lib/clock';\nexport function taperDays(config: ProgramConfig): Set<string> {\n  const start = startOfDay(new Date(clockNow()));",
     pourquoi: 'la fenêtre de dernière ligne droite se calcule sur les jours restants : elle glisse chaque jour (program.ts:35-37)',
   },
   {
@@ -304,8 +306,8 @@ export const MUTATIONS = [
   },
   {
     id: "INV-76a-partiel", tests: 'tests/invariants.config.test.ts', file: "src/lib/programAdjust.ts",
-    from: "return ecrireConfig({ ...config, modus });",
-    to: "return ecrireConfig({ modus } as never);",
+    from: "return ecrireConfig(modus ? { ...sans, modus } : sans);",
+    to: "return ecrireConfig((modus ? { modus } : {}) as never);",
     pourquoi: "payload partiel `{ modus }` : la projection d'un autre appareil écrase la config entière par un fragment",
   },
   {
