@@ -16,6 +16,7 @@
 //   3. `taskSubject()` devient l'IDENTITÉ : `TaskInstance.label` est désormais
 //      le seul nom du sujet. La cale de transition peut disparaître.
 // ============================================================================
+import { useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import type { DayPlan, SimTeil, TaskInstance, TaskKind, TrainingEvent } from '@/db/types';
 import { TEILE } from '@/lib/simScope';
@@ -25,6 +26,8 @@ import { estTacheDeCas, evaluerTache } from '@/lib/program/completion';
 import { dureesTeile } from '@/lib/program/durees';
 import { erreursTransversales, libelleItem, texteRappel } from '@/lib/program/erreurs';
 import { debutJour } from '@/lib/program/fuseau';
+import { useToday } from '@/lib/today';
+import { useDayPlan, useTrainingEvents } from './useProgram';
 
 export const TASK_META: Record<TaskKind, { icon: string; badge: string; bar: string; label: string }> = {
   simulation: { icon: 'stethoscope', badge: 'bg-brand-100 text-brand-600 dark:bg-brand-900/30 dark:text-brand-300', bar: 'bg-brand-500', label: 'Simulation' },
@@ -164,6 +167,12 @@ export function raisonCommune(tasks: TaskInstance[]): { reason: string; n: numbe
  *  raison commune dite une seule fois, au-dessus des lignes qui la partagent. */
 export function TaskList({ tasks }: { tasks: TaskInstance[] }) {
   const commune = raisonCommune(tasks);
+  // Ce qui reste et les rappels (l'accueil monte cette liste) : lus sur le plan FIGÉ du jour (son fuseau) et le journal.
+  const date = tasks[0]?.date;
+  const today = useToday((s) => s.day);
+  const plan = useDayPlan(date);
+  const events = useTrainingEvents();
+  const lecture = useMemo(() => (plan && events && date === today ? lectureDuPlan(plan, events) : new Map<string, LectureTache>()), [plan, events, date, today]);
   return (
     <div className="space-y-2">
       {commune && (
@@ -171,7 +180,7 @@ export function TaskList({ tasks }: { tasks: TaskInstance[] }) {
           <span className="label">Même raison pour les {commune.n} cas</span> · {commune.reason}
         </p>
       )}
-      {tasks.map((t) => <TaskLine key={t.id} task={t} showReason={!commune || t.doneAt !== undefined || t.reason !== commune.reason} />)}
+      {tasks.map((t) => <TaskLine key={t.id} task={t} lecture={lecture.get(t.id)} showReason={!commune || t.doneAt !== undefined || t.reason !== commune.reason} />)}
     </div>
   );
 }

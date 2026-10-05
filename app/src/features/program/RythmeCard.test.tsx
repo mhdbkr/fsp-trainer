@@ -17,7 +17,7 @@ import { freezeAt, resetClock } from '@/lib/clock';
 import { refreshToday } from '@/lib/today';
 import { rebuildJournal } from '@/lib/journal';
 import { RythmeCard } from './RythmeCard';
-import { lectureDuPlan, TaskLine } from './TaskLine';
+import { lectureDuPlan, TaskLine, TaskList } from './TaskLine';
 
 const config = { startDate: '2026-09-01', examDate: '2026-12-18', intensity: 'mittel', hoursPerSession: 2, offDays: [0, 6], prioritySpecialties: [], selfLevel: {}, createdAt: 0 } as unknown as ProgramConfig;
 const drill = (date: string): TaskInstance => ({ id: `d${date}`, date, kind: 'drill', label: 'Fachbegriffe', estMin: 10, source: 'plan', reason: 'r' });
@@ -83,6 +83,13 @@ describe('La ligne d’une tâche de cas — ce qui reste, le rappel', () => {
     expect(txt()).toMatch(/Il te reste la Dokumentation et la Fallvorstellung/);
     expect(txt()).toMatch(/32 min/);
     expect(txt()).toMatch(/« Allergien inkl\. Medikamentenallergien » manque dans 3 de tes 3 dernières Anamnesen\./);
+  });
+
+  it('la liste de l’accueil (TaskList) lit elle-même le plan figé du jour : « Il te reste … »', async () => {
+    const tache: TaskInstance = { id: 't1', date: '2026-10-12', kind: 'simulation', caseId: 'c1', label: 'Pneumonie', teile: ['dokumentation'], estMin: 20, source: 'plan', reason: 'r', creeA: new Date(2026, 9, 12, 7).getTime() };
+    await db.day_plans.put(plan([tache]));
+    await act(async () => { root.render(<MemoryRouter><TaskList tasks={[tache]} /></MemoryRouter>); });
+    await vi.waitFor(() => expect(txt()).toMatch(/Il te reste la Dokumentation/), { timeout: 10000 });
   });
 
   it('entamée dans la journée : le reste suit le journal, avec les minutes de ce qui reste', () => {
