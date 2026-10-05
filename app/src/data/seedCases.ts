@@ -26309,6 +26309,7 @@ export function seedCases(): Case[] {
       frequency: 0,
       difficulty: 2,
       patientSheet: {
+        profil: { tags: ['schmerz', 'fieber', 'meningitis'] },
         fachSkip: ['fach-infekt-zecke'],
         personalia: {
           name: 'Katrin Vollmer',
@@ -26832,6 +26833,7 @@ export function seedCases(): Case[] {
       frequency: 0,
       difficulty: 3,
       patientSheet: {
+        profil: { tags: ['schmerz'] },
         personalia: {
           name: 'Renate Vollmer',
           age: 64,
@@ -27413,6 +27415,7 @@ export function seedCases(): Case[] {
       frequency: 0,
       difficulty: 2,
       patientSheet: {
+        profil: { tags: ['neurologisch', 'hals'] },
         fachSkip: ['fach-neuro-anfallzeichen'],
         leitsymptomKategorie: 'neurologisch',
         personalia: {
@@ -27904,6 +27907,7 @@ export function seedCases(): Case[] {
       frequency: 1,
       difficulty: 3,
       patientSheet: {
+        profil: { tags: ['anfall', 'dyspnoe'] },
         leitsymptomKategorie: 'anfall',
         personalia: {
           name: 'Ottmar Reichenbach',
@@ -28436,6 +28440,7 @@ export function seedCases(): Case[] {
       frequency: 6,
       difficulty: 2,
       patientSheet: {
+        profil: { tags: ['schmerz', 'diarrhoe', 'gewichtsverlust'] },
         personalia: {
           name: 'Gustav Hirschmann',
           age: 46,
@@ -28584,6 +28589,8 @@ export function seedCases(): Case[] {
           'fach-gastro-stuhl': 'Drei- bis viermal am Tag, breiig bis wässrig, sehr voluminös, grau und fettig-glänzend. Er schwimmt oben und klebt in der Schüssel, ich bekomme ihn kaum weggespült. Der Geruch ist wirklich übel. Blut ist nicht dabei, schwarz ist er nicht, Schleim auch nicht. Und nachts muss ich nicht raus.',
           'fach-gastro-tenesmen': 'Nein, Schmerzen beim Stuhlgang habe ich nicht. Und dieses ständige Drücken, dass ich müsste und es kommt nichts — das kenne ich nicht.',
           'fach-gastro-spiegelung': 'Nein, gespiegelt wurde bei mir noch nie, weder oben noch unten. Bei der Gallenblasen-Operation haben sie mit der Kamera durch den Bauch geschaut, aber das ist ja etwas anderes.',
+          // K2 (ADR-0023) : réponses des sondes de banque que le profil exige (r3)
+          'akt-ausscheid-haeufigkeit': 'Drei- bis viermal am Tag. Nachts muss ich deswegen nicht aufstehen.',
         },
         schwierigeReaktionen: [
           '„Muss ich denn hier bleiben? Ich habe einen Hof, die Kühe müssen gemolken werden.“',
@@ -29016,6 +29023,7 @@ export function seedCases(): Case[] {
       frequency: 6,
       difficulty: 2,
       patientSheet: {
+        profil: { tags: ['schmerz', 'gelenk'] },
         motiv: { trauma: true, region: 'untere' },
         personalia: {
           name: 'Lisele Müller',
@@ -29585,6 +29593,7 @@ export function seedCases(): Case[] {
       frequency: 0,
       difficulty: 2,
       patientSheet: {
+        profil: { tags: ['veraenderung'] },
         leitsymptomKategorie: 'veraenderung',
         personalia: {
           name: 'Renate Bergmann',
@@ -30133,6 +30142,7 @@ export function seedCases(): Case[] {
       frequency: 0,
       difficulty: 2,
       patientSheet: {
+        profil: { tags: ['veraenderung', 'schmerz'] },
         leitsymptomKategorie: 'veraenderung',
         personalia: {
           name: 'Gerhard Wenzel',
@@ -30275,6 +30285,10 @@ export function seedCases(): Case[] {
           'fach-chir-ileus': 'Stuhlgang hatte ich gestern Abend, heute noch nicht — das ist bei mir aber normal, ich habe ja nur alle zwei bis drei Tage. Winde gehen ganz normal ab, und der Bauch ist nicht aufgebläht.',
           'fach-chir-op': 'Ja, am Bauch bin ich einmal operiert worden: der Blinddarm, mit 19, offen aufgeschnitten. Die Narbe sieht man rechts unten am Bauch. Sonst habe ich keine Narben.',
           'fach-chir-gallensteine': 'Gallensteine wurden bei mir nie festgestellt. Aber ein Leistenbruch — ja, genau deswegen bin ich hier, das ist ja diese Beule rechts. Bei meinem Vater war es dasselbe.',
+          // K2 (ADR-0023) : réponses des sondes de banque que le profil exige (r3)
+          'akt-ort': 'Hier in der rechten Leiste, direkt über der Beule. Manchmal zieht es bis in den rechten Hoden hinunter.',
+          'akt-charakter': 'Es zieht und drückt, als ob da ein Fremdkörper drin wäre. Stechend oder krampfartig ist es nicht.',
+          'akt-intensitaet': 'In Ruhe so drei bis vier von zehn, beim schweren Heben bis sechs. Vor drei Tagen, als die Beule nicht mehr zurückging, war es kurz eine Acht.',
         },
         schwierigeReaktionen: [
           '„Muss das wirklich operiert werden? Kann man das nicht mit so einem Bruchband richten? Mein Großvater hatte auch so eins.“',
@@ -30609,6 +30623,7 @@ export function seedCases(): Case[] {
       frequency: 6,
       difficulty: 3,
       patientSheet: {
+        profil: { tags: ['psychisch'] },
         leitsymptomKategorie: 'psychisch',
         personalia: {
           name: 'Max Freudenberg',
@@ -31160,6 +31175,7 @@ export function seedCases(): Case[] {
       frequency: 16,
       difficulty: 2,
       patientSheet: {
+        profil: { tags: ['neurologisch', 'schmerz'] },
         fachSkip: ['fach-neuro-aura'],
         leitsymptomKategorie: 'neurologisch',
         personalia: {
@@ -31316,6 +31332,10 @@ export function seedCases(): Case[] {
           'frau-schwanger': 'Ich glaube nicht — aber ganz sicher ausschließen kann ich es ehrlich gesagt nicht, meine Regel ist ja unregelmäßig und die letzte ist sieben Wochen her.',
           'frau-verhuetung': 'Nein, wir verhüten nicht mehr regelmäßig, die Familienplanung ist abgeschlossen. Die Pille habe ich seit Jahren nicht mehr genommen.',
           'frau-wechseljahre': 'Ich denke, ich bin gerade mittendrin — seit etwa einem Jahr habe ich Hitzewallungen und schlafe schlechter. Hormone nehme ich keine. Zur Frauenärztin gehe ich einmal im Jahr zur Vorsorge.',
+          // K2 (ADR-0023) : réponses des sondes de banque que le profil exige (r3)
+          'akt-ort': 'Eigentlich im ganzen Kopf, am meisten links oben, da, wo die Beule ist. Ein bisschen zieht es auch in den Nacken.',
+          'akt-charakter': 'Dumpf und drückend, wie ein Reifen um den Kopf. Direkt an der Beule sticht es, wenn ich sie berühre.',
+          'akt-intensitaet': 'Ungefähr fünf von zehn. Seit dem Sturz gleich stark, mehr geworden ist es nicht.',
         },
         schwierigeReaktionen: [
           '"Kann ich nicht einfach nach Hause? Ich habe morgen früh Unterricht, die Klasse kann ich nicht hängen lassen."',
@@ -31678,6 +31698,7 @@ export function seedCases(): Case[] {
       frequency: 0,
       difficulty: 3,
       patientSheet: {
+        profil: { tags: ['veraenderung'] },
         leitsymptomKategorie: 'veraenderung',
         personalia: {
           name: 'Katrin Vollmer',
@@ -32236,6 +32257,7 @@ export function seedCases(): Case[] {
       frequency: 1,
       difficulty: 2,
       patientSheet: {
+        profil: { tags: ['veraenderung', 'dyspnoe'] },
         leitsymptomKategorie: 'veraenderung',
         personalia: {
           name: 'Nadine Brückner',
@@ -32385,6 +32407,8 @@ export function seedCases(): Case[] {
           'frau-schwanger': 'Nein, schwanger bin ich sicher nicht. Die letzte Blutung war vor zehn Tagen und wir verhüten.',
           'frau-verhuetung': 'Wir verhüten mit Kondomen. Die Pille habe ich vor Jahren abgesetzt, weil ich rauche — meine Frauenärztin hat mir davon abgeraten. Eine Spirale hatte ich noch nie.',
           'frau-wechseljahre': 'Nein, in den Wechseljahren bin ich noch nicht: keine Hitzewallungen, und die Blutung kommt regelmäßig. Zur Frauenärztin gehe ich einmal im Jahr.',
+          // K2 (ADR-0023) : réponses des sondes de banque que le profil exige (r3)
+          'akt-atemnot-belastung': 'Nur bei Anstrengung. Wenn ich die Treppe in den dritten Stock hochgehe, muss ich zwischendurch stehen bleiben. In Ruhe habe ich keine Luftnot.',
         },
         schwierigeReaktionen: [
           '"Muss mir jetzt die Gebärmutter herausgenommen werden? Meine Mutter hat das damals nie verkraftet."',
@@ -32750,6 +32774,7 @@ export function seedCases(): Case[] {
       frequency: 1,
       difficulty: 3,
       patientSheet: {
+        profil: { tags: ['allgemein', 'diarrhoe'] },
         leitsymptomKategorie: 'allgemein',
         personalia: {
           name: 'Werner Hoffmann',
@@ -32890,6 +32915,8 @@ export function seedCases(): Case[] {
           'fach-nephro-uraemie': 'Ja, tatsächlich: Seit gestern juckt mich die Haut am ganzen Körper, ohne dass ich etwas sehe. Übel ist mir dauernd, Appetit habe ich gar keinen, und ich habe diesen pelzigen, metallischen Geschmack im Mund. Meine Tochter sagt, ich sei manchmal etwas verwirrt und nicke ständig ein.',
           'fach-nephro-infekt': 'Nein, eine Halsentzündung hatte ich nicht, und eine offene oder entzündete Stelle an der Haut auch nicht. Nur den Brechdurchfall seit fünf Tagen nach dem Gasthausbesuch.',
           'fach-nephro-vorgeschichte': 'In der Familie ist keine Nierenkrankheit bekannt, keine Zystennieren, niemand an der Dialyse. Bei mir hat der Hausarzt vor einem Jahr gesagt, die Nierenwerte seien wegen dem Zucker grenzwertig — ein Wert von 1,3, glaube ich. Nierensteine hatte ich nie.',
+          // K2 (ADR-0023) : réponses des sondes de banque que le profil exige (r3)
+          'akt-ausscheid-aussehen': 'Nein. Der Durchfall war wässrig, aber Blut oder Schleim war nicht dabei, und schwarz war er auch nicht.',
         },
         schwierigeReaktionen: [
           '„Herr Doktor, hört das wieder auf? Muss ich jetzt an die Dialyse?“',
@@ -33293,6 +33320,12 @@ export function seedCases(): Case[] {
       frequency: 8,
       difficulty: 3,
       patientSheet: {
+        profil: {
+          tags: ['schmerz', 'generalisiert', 'steifigkeit'],
+          exclut: {
+            gelenke: 'Douleur généralisée des parties molles, sans atteinte articulaire : « Welche Gelenke » n\'a pas d\'objet (contrat §10.3, revue de direction du 4 oct.).',
+          },
+        },
         personalia: {
           name: 'Ina Scheubele',
           age: 53,
