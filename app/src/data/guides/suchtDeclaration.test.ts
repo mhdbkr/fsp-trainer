@@ -24,7 +24,7 @@ describe('INV-79 — PROBE_SUCHT est totale', () => {
     expect(Object.keys(PROBE_SUCHT).filter((id) => !(id in PROBE_BY_ID))).toEqual([]);
     expect(Object.values(PROBE_SUCHT).flat().filter((s) => !SIGNES.includes(s))).toEqual([]);
   });
-  it('227 sondes de la banque (230 − 3 de DM1) + 2 de la scission', () => {
+  it('229 sondes : 230 de la banque − 3 de DM1 + 2 de la scission', () => {
     expect(Object.keys(PROBE_BY_ID)).toHaveLength(229);
     expect(Object.keys(PROBE_SUCHT)).toHaveLength(229);
   });

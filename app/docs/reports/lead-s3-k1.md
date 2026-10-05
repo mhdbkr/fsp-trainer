@@ -2,7 +2,8 @@
 
 > `sim-engine-engineer` · 5 oct. 2026 · branche `feat/s3-k1-annotation`, base `origin/main` (contrat #69, K0 #72, Q-gyn #70 mergés). `git merge-tree --write-tree origin/main HEAD` : 0.
 > Statut : **DONE** après les décisions de main (5 oct.) : hausses de mesure acceptées et `checkBudgetFloor` précisé (§ 6), montage gelé jusqu'à K3 (§ 2.1), FSME levée (§ 3), `parts` renvoyé à K3 / K4 (§ 2.7), défaut de lecture des voyelles accentuées corrigé (§ 2.9, § 9).
-> Le montage ne change pas : le gel `trame-actuelle.txt` ne bouge que par DM2 (58 lignes, § 4).
+> Le montage ne change pas au niveau des ids : le gel `trame-actuelle.txt` ne bouge que par le nombre de relances (DM2, 58 lignes, § 4 ; fixeur, 5 lignes, § 10).
+> **Revues Opus (mécanique + clinique) appliquées par le fixeur : § 10.**
 
 ## 1. Livrables et commits
 
@@ -74,7 +75,7 @@ Gel : 53 cas (`akt-intensitaet↳2 → ↳1`) et 5 cas (`fach-infekt-zecke↳1 �
 | oesophaguskarzinom, achalasie | la fréquence de blocage qu'ils avaient mise sous « Häufigkeit » rejoint `akt-ausscheid-schlucken` ; « Hochwürgen » aussi |
 | kolorektales-ca, laktoseintoleranz, gastroenteritis, colitis-ulcerosa, obstipation | selles inchangées ; l'urine répond « rien de changé » (reprise de leur réplique « Veränderung ») |
 
-Aucune information perdue : 19 tests par fragments de fiche (« bestimmt fünfzehnmal », « dunkel wie Bier », « Essensreste wieder hochwürgen »…). **Le montage ne change pas** : les moitiés urinaires gardent la carte de l'ancienne sonde commune (effacées par `akt-ausscheid-was`), la fréquence des selles reste effacée jusqu'à K3 (c'est le défaut que la direction a cité). Le simulant, lui, voit les quatre lignes (le Rollenskript lit `antworten` et `PROBE_BY_ID.frage`).
+Aucune information perdue : 19 tests par fragments de fiche (« bestimmt fünfzehnmal », « dunkel wie Bier », « Essensreste wieder hochwürgen »…). **Le montage ne change pas au niveau des ids** : les moitiés urinaires gardent la carte de l'ancienne sonde commune (effacées par `akt-ausscheid-was`), la fréquence des selles reste effacée jusqu'à K3 (c'est le défaut que la direction a cité). Le simulant, lui, voit les quatre lignes (le Rollenskript lit `antworten` et `PROBE_BY_ID.frage`).
 
 **Gel `trame-actuelle.txt`** (régénéré, `vitest -u` rouge avant) : **DM2 seul**, 58 lignes — 53 × `akt-intensitaet↳2 → ↳1`, 5 × `fach-infekt-zecke↳1 → ·`. DM1, la scission, la déclaration et `followUpSucht` ne le déplacent pas. `fach-covers.txt` : les ids urinaires s'ajoutent à `fach-uro-*` / `fach-nephro-*`.
 
@@ -132,3 +133,69 @@ Re-mesure : `doublons` 273 → **278** (5 doublons `uebelkeit` / `angst` que la 
 - **La CI réelle** : le workflow n'a pas tourné sur GitHub.
 - **`graphify update app/src`** : le graphe n'existe pas dans ce worktree ; non relancé.
 - **Le contenu publié** : `publishContent.mjs` republiera `seedCases.ts` (28 lignes de fiches, 20 lignes de DM1) au merge sur `main` ; non rejoué.
+
+## 10. Revues et fixeur (5 oct. 2026)
+
+### Revues
+
+| Revue | Verdict | Constats |
+|---|---|---|
+| Mécanique (`k1-revue-meca`, Opus) | **Changements demandés** | I-1 plancher : une vieille entrée `hausses` excusait une hausse future ; I-2 `relu` éteignait de vrais doublons ; I-3 `relu` toléré sur une énumération dans une variante ou une relance ; m-1 à m-5 |
+| Clinique (`k1-revue-clinique`, Opus) | **Changements demandés** | C1 atopie ≠ allergie médicamenteuse (sécurité) ; C2 hémoptysie ; C3 flanc ; C4 panique ; C5/C6 saignements trop grossiers ; C7 nycturie ; mineurs (DPN, ordre selles/urines, réponses de fiche, INV-88 goutte) |
+
+Tout est appliqué ci-dessous. Une seule contradiction dans le brief : C4 (« `[['panikattacke']]` avec `relu` ») heurte I-3 (une relance qui nomme ≥ 2 signes ne prend jamais `relu`). Je l'ai résolue sans `relu` : `SIGNE_AFFINE.panikattacke = [angst, atemnot, herzrasen]`, utilisé par la porte seulement, car ces signes décrivent la crise. Le texte clinique est gardé. Signalé à main.
+
+### Commits du fixeur
+
+| Commit | Objet |
+|---|---|
+| `a2bc5688` | I-1 : `checkBudgetFloor` n'accepte qu'une entrée `hausses` **absente des `hausses` de la base** (test de mutation : garde retirée → rouge) ; l'entrée dormante `doublons` 273 → 278 est retirée (la base est à 279) |
+| `0bff4991` | I-2 : `relu` retiré de `case-myokardinfarkt` et `case-anorexia-nervosa`, inscrits **constats ouverts** (`trame-symptoms-baseline.json`, `findings_note`), échéance **K4** (le montage ne bouge pas) ; pour l'anorexie, K4 reformule en « Führen Sie das Erbrechen manchmal selbst herbei? », avec un signe propre `purging`. Les relances Schüttelfrost / Nachtschweiß de `fach-infekt-fieber` sont supprimées (`veg-schuettelfrost`, 5 cas sur 5). `fach-neuro-kopfschmerz` garde `relu` (ICHD-3) |
+| `f71953ee` | I-3 + clinique : voir ci-dessous |
+| `bc3866f6` | Fiches : fréquence des selles (`case-kolorektales-ca`), « Auch » orphelin (`case-pankreaskarzinom`), diurétique de la goutte fusionné dans `akt-ausloeser` (INV-88, avant K3) |
+
+**I-3.** `suchtCheck` refuse `relu` dès qu'**un** texte (la mère, une variante ou une relance) nomme au moins 2 signes et que l'un d'eux n'est pas déclaré. Deux mutations : la variante Schüttelfrost de la B-symptomatique, et une relance qui énumère. La règle a révélé 4 phrases, toutes corrigées :
+- `fach-haem-bsymptomatik` : la variante perd Schüttelfrost, `relu` est retiré.
+- `all-allergie` : la relance décrit la réaction (« an der Haut, an der Atmung, am Kreislauf ») sans nommer de plainte actuelle. Le déclarer aurait masqué les 8 `atemnot` absents.
+- `fach-pneumo-orthopnoe` et `fach-onko-blutung` : déclarés (ci-dessous).
+
+**Les nouveaux signes (9), dans `signesDefs.ts`, commentés.**
+
+| Signe | Sonde(s) | Pourquoi |
+|---|---|---|
+| `atopie` | `fach-pneumo-allergie` → `[atopie, asthma]` (C1) | Sinon K3 retirerait `all-allergie` (allergie à la pénicilline) dans 8 cas. Paire INV-78 `all-allergie` ≠ `fach-pneumo-allergie` |
+| `auswurf_aspekt`, `haemoptyse` | `fach-pneumo-auswurf` → `[auswurf_aspekt, haemoptyse]`, sans `relu` (C2) | Sur le modèle stuhl / stuhlaussehen ; c'est la seule hémoptysie de la Lungenembolie |
+| `flankenschmerz` | `fach-uro-flanke` → `[flankenschmerz, ausstrahlung]` (C3) | La douleur du flanc n'est pas le `ort` de la plainte |
+| `dpn` | relance « Wachen Sie nachts auf, weil Ihnen die Luft wegbleibt? » d'`akt-atemnot-nachts` (`followUpSucht`, `relu` retiré) ; `fach-pneumo-orthopnoe` → `[orthopnoe, dpn, schlafapnoe]` (`relu` retiré) | La DPN est distincte de l'orthopnée |
+| `blutungsneigung`, `blutverlust`, `vaginalblutung`, `lokalblutung` | `fach-haem-blutung`, `fach-haem-blutverlust`, `fach-gyn-blutung`, `akt-veraend-was` / `-blutung` / `fach-derma-muttermal` ; `fach-onko-blutung` (selon son texte, D1) → `[stuhlaussehen, urin_aspekt, haemoptyse, vaginalblutung]`, sans `relu` (C5, m-1) | `blutung` reste le signe que **lit** le texte (TEXT_RE, questions du cas) ; `SIGNE_AFFINE` relie chaque signe fin à `blutung`. `PROFIL_EXIGE` / `PROFIL_EXCLUT` ne citaient pas `blutung` : rien à changer. Paires INV-78 : 4 sur les saignements, auswurf ≠ auswurf_aspekt, orthopnoe ≠ atemnot |
+
+**Autres corrections.**
+- C4 : la relance de panique → `[['panikattacke']]`.
+- C6 : sous `akt-veraend-blutung` → `[['stuhlaussehen', 'urin_aspekt'], ['haemoptyse']]`.
+- C7 : `fach-kardio-nykturie` `deepens: 'akt-ausscheid-harn-haeufigkeit'`.
+- m-2 : `akt-allgemein-gewicht` → `[gewicht]`. Appétit et soif restent à sa relance, et le test des `parts` l'admet.
+- `fach-rheuma-verlauf` → `beginn` ; `akt-neuro-lage` → `lageabhaengig`, plus `relu` pour « schwankt es », mention unique.
+- `fach-endo-durst` garde `polyurie` (paire D4). Son texte dit maintenant « mehr Wasser lassen » au lieu de « häufiger », qui voulait dire `miktion_frequenz`.
+- « Husten Sie dabei etwas ab? » déclare `auswurf` et perd son « Falls ja: » : une relance conditionnelle ne peut pas déclarer un autre signe (INV-84). C'est un doublon vrai avec `fach-pneumo-husten`, que K3 traite.
+- Selles (fréquence, aspect) puis urines (fréquence, aspect). Nouvelle question : « …müssen Sie auch nachts zum Stuhlgang aufstehen? ».
+- m-5 : « 229 sondes » partout (test, `signesDefs.ts`, fixture).
+
+**Non fait, laissé à K3.**
+- `fach-pneumo-fieber` et `fach-uro-fieber` déclarent tous deux `[fieber, schuettelfrost]`, mais seule la pneumo a des `parts`. En ajouter à l'uro toucherait le montage, gelé.
+- Retirer le pont `FACH_COVERS` urinaire → selles (`anamneseChapters.ts`, bloc `FACH_COVERS`).
+- `fach-uro-funktion` garde `blutung`, parce que son texte change selon le sexe.
+
+### Compteurs avant / après le fixeur (130 cas)
+
+| Compteur | K1 avant revue (`331196b8`) | **Après** | Lecture |
+|---|---:|---:|---|
+| `doublons` | 278 | **266** | −12 : −5 `verlauf` +6 `beginn` (rhumato, `fach-rheuma-verlauf`), −5 `auswurf`, −5 `blutung` +3 `lokalblutung` (vrai doublon `akt-veraend-was` / `-blutung`), −3 `ort` (flanc), −1 `atemnot` (panique), −1 `husten`, −1 `schwindel` |
+| `doublonsCas` | 24 | 24 | |
+| `horsProfil` | 58 | 58 | |
+| `exigeAbsent` | 67 | **68** | +1 : « ort » dans zystitis, que `fach-uro-flanke` ne cherche plus (C3). Hausse face à `origin/main` 58 → 68 documentée |
+| `ajouteSansReponse` | 65 | **66** | +1 : sa projection (`akt-ort`, zystitis). 56 → 66 documentée |
+| `relancesOrphelines` / `brauchtViole` / `questionsMuettes` / `sondesMuettes` | 0 / 20 / 825 / 0 | 0 / 20 / 825 / 0 | |
+| `trame-symptoms` constats / `relu` | 0 / 120 | **2 / 118** | I-2 : 2 constats ouverts (K4), hausse documentée ; `relu` revient à la base |
+| `checkProbeOverlap` (informatif) | 7 | 8 | + `fach-nephro-menge` ~ `akt-ausscheid-haeufigkeit` (33 %) : lexical, c'est la nouvelle formulation « nachts zum Stuhlgang » ; pas de `deepens` (urines ≠ selles) |
+
+Gel `trame-actuelle.txt` : 5 lignes, `fach-infekt-fieber↳2` → `fach-infekt-fieber` (ids inchangés) ; l'ordre selles / urines ne le déplace pas (les moitiés urinaires restent effacées par le montage gelé).

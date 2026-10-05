@@ -83,7 +83,7 @@ export const DEFS = {
   familie_rheuma: { kapitel: 'familie-sozial', pertinence: ['gelenk', 'arthritis'] },
 
   // ==========================================================================
-  // K1 (ADR-0023) : le lexique s'étend aux 227 sondes. Liste fermée ; chaque signe
+  // K1 (ADR-0023) : le lexique s'étend aux 229 sondes. Liste fermée ; chaque signe
   // est celui d'UNE réplique de la fiche (règle d'identité). L'ordre n'est plus celui
   // de l'entretien : il groupe par chapitre. Il ne sert qu'aux banques (r3), toutes en K0.
   // `screening` partout : K2 affine la pertinence avec les profils, pas K1.
