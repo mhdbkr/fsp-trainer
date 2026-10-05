@@ -14,7 +14,7 @@ import { ecrireConfig, refusRythme } from '@/lib/sync/configProjetee';
 import { isWorkingDay } from './calendrier';
 import { dayTargetMin } from './dayPlan';
 import { dureesTeile } from './durees';
-import { BUDGET_PLANCHER_MIN, RYTHME_FENETRE_JOURS, RYTHME_MIN_JOURS, RYTHME_REFUS_MAX, RYTHME_SEUIL, SEUIL_FREQUENT } from './parametres';
+import { BUDGET_PLANCHER_MIN, RYTHME_FENETRE_JOURS, RYTHME_MIN_JOURS, RYTHME_REFUS_MAX, RYTHME_SEUIL, SEUIL_FREQUENT, SESSION_MAX_MIN, SESSION_MIN_MIN, SESSION_PAS_MIN } from './parametres';
 import { freq } from './select';
 
 const ISO = 'yyyy-MM-dd';
@@ -30,7 +30,16 @@ export interface RefusRythme { semaines: ReadonlySet<string>; depuisDerniereConf
  * hausse, jamais sous `BUDGET_PLANCHER_MIN` ; rien la semaine d'un refus, rien après `RYTHME_REFUS_MAX` refus depuis la
  * dernière modification du programme (P2).
  */
-export function proposerRythme(i: { plans: readonly DayPlan[]; events: TrainingEvent[]; config: ProgramConfig; refus: RefusRythme; today: string }): { valeur: number; semaine: string } | null {
+/** La plus petite session du curseur de ProgramSetup (minutes, pas de 5) dont le budget du jour, ARRONDI comme
+ *  `dayTargetMin`, couvre `budget` — proposer puis accepter rend exactement la valeur proposée. */
+function sessionPour(budget: number, intensity: ProgramConfig['intensity']): number {
+  const f = INTENSITY_FACTOR[intensity];
+  let s = Math.ceil(budget / f / SESSION_PAS_MIN - 1e-9) * SESSION_PAS_MIN;
+  while (s - SESSION_PAS_MIN >= SESSION_MIN_MIN && Math.round((s - SESSION_PAS_MIN) * f) >= budget) s -= SESSION_PAS_MIN;
+  return Math.min(SESSION_MAX_MIN, Math.max(SESSION_MIN_MIN, s));
+}
+
+export function proposerRythme(i: { plans: readonly DayPlan[]; events: TrainingEvent[]; config: ProgramConfig; refus: RefusRythme; today: string }): { valeur: number; semaine: string; minutesSession: number; moyenne: number } | null {
   const fenetre = new Set(Array.from({ length: RYTHME_FENETRE_JOURS }, (_, k) => format(addDays(parseISO(i.today), -(k + 1)), ISO)));
   const figes = i.plans.filter((p) => fenetre.has(p.date) && p.tasks.length > 0);
   if (figes.length < RYTHME_MIN_JOURS) return null;
@@ -40,15 +49,18 @@ export function proposerRythme(i: { plans: readonly DayPlan[]; events: TrainingE
   if (!(spent < RYTHME_SEUIL * cible)) return null;
   const semaine = semaineIso(i.today);
   if (i.refus.semaines.has(semaine) || i.refus.depuisDerniereConfig >= RYTHME_REFUS_MAX) return null;
-  const valeur = Math.max(BUDGET_PLANCHER_MIN, Math.round(spent / figes.length / 5) * 5);
-  return valeur < dayTargetMin(i.config) ? { valeur, semaine } : null;
+  // Revue m3 : le multiple de 5 SUPÉRIEUR (le temps réel tient dans la proposition). Revue m4 : posé sur la grille du
+  // curseur ; la valeur proposée est le budget du jour de cette session — exactement ce qu'accepter donnera.
+  const moyenne = spent / figes.length;
+  const minutesSession = sessionPour(Math.max(BUDGET_PLANCHER_MIN, Math.ceil(moyenne / 5 - 1e-9) * 5), i.config.intensity);
+  const valeur = Math.round(minutesSession * INTENSITY_FACTOR[i.config.intensity]);
+  return valeur < dayTargetMin(i.config) ? { valeur, semaine, minutesSession, moyenne } : null;
 }
 
 /** Accepter : la config COMPLÈTE par `ecrireConfig` (INV-76 a), seul `hoursPerSession` change pour que le budget du jour
  *  vaille `valeur`. Les jours déjà figés gardent leur `targetMin`. */
 export function accepterRythme(valeur: number, config: ProgramConfig): Promise<void> {
-  const h = Math.round((valeur / (60 * INTENSITY_FACTOR[config.intensity])) * 1e4) / 1e4;
-  return ecrireConfig({ ...config, hoursPerSession: h });
+  return ecrireConfig({ ...config, hoursPerSession: sessionPour(valeur, config.intensity) / 60 });
 }
 
 /** Refuser : un `rythme.refused` synchronisé pour la semaine, un seul (un double clic n'en écrit pas deux). */

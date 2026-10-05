@@ -23,7 +23,8 @@ import { erreursTransversales, texteRappel } from '@/lib/program/erreurs';
 import { rattrapageAProposer } from '@/lib/program/rattrapage';
 import { accepterRythme, consequenceRythme, proposerRythme, refuserRythme, semaineIso } from '@/lib/program/rythme';
 import { lireTache, teileDeTache } from '@/lib/program/tacheDeCas';
-import { BUDGET_PLANCHER_MIN, DUREE_BORNES, DUREE_FENETRE, DUREE_MIN_MESURES, ERREUR_CAS_MIN, ERREUR_FENETRE, ERREUR_SEUIL, RYTHME_MIN_JOURS, RYTHME_SEUIL, TEIL_MIN } from '@/lib/program/parametres';
+import { INTENSITY_FACTOR } from '@/lib/intensity';
+import { BUDGET_PLANCHER_MIN, SESSION_MAX_MIN, SESSION_MIN_MIN, SESSION_PAS_MIN, DUREE_BORNES, DUREE_FENETRE, DUREE_MIN_MESURES, ERREUR_CAS_MIN, ERREUR_FENETRE, ERREUR_SEUIL, RYTHME_MIN_JOURS, RYTHME_SEUIL, TEIL_MIN } from '@/lib/program/parametres';
 import { ecrireConfig, lireConfig, refusRythme } from '@/lib/sync/configProjetee';
 import type { Case, CaseProgress, DayPlan, ProgramConfig, SimTeil, TaskInstance, TrainingEvent } from '@/db/types';
 import { forAll } from './helpers/prop';
@@ -304,7 +305,12 @@ describe('INV-65 — le rythme est PROPOSÉ, jamais appliqué : pas de budget ch
     const cible = figes.reduce((s, p) => s + p.targetMin, 0);
     if (!(spent < RYTHME_SEUIL * cible)) return null;
     if (refus.semaines.has(semaineIso(today)) || refus.depuisDerniereConfig >= 2) return null;
-    const valeur = Math.max(BUDGET_PLANCHER_MIN, Math.round(spent / figes.length / 5) * 5);
+    // Revue m3 : arrondi au multiple de 5 SUPÉRIEUR. Revue m4 : sur la grille du curseur (minutes de session, pas de 5),
+    // vers le haut ; la valeur proposée est le budget du jour de cette session.
+    const brut = Math.max(BUDGET_PLANCHER_MIN, Math.ceil(spent / figes.length / 5 - 1e-9) * 5);
+    let session = SESSION_MIN_MIN;                                         // la plus petite session du curseur qui couvre le brut
+    while (session < SESSION_MAX_MIN && Math.round(session * INTENSITY_FACTOR[c.intensity]) < brut) session += SESSION_PAS_MIN;
+    const valeur = Math.round(session * INTENSITY_FACTOR[c.intensity]);
     return valeur < dayTargetMin(c) ? valeur : null;
   }
 
@@ -324,7 +330,8 @@ describe('INV-65 — le rythme est PROPOSÉ, jamais appliqué : pas de budget ch
       if (lu) {
         expect(lu.valeur, 'jamais à la hausse').toBeLessThan(cible);
         expect(lu.valeur, 'jamais sous le plancher').toBeGreaterThanOrEqual(BUDGET_PLANCHER_MIN);
-        vus.proposees++; if (lu.valeur === BUDGET_PLANCHER_MIN) vus.plancher++;
+        expect(lu.minutesSession % SESSION_PAS_MIN, 'sur la grille du curseur').toBe(0);
+        vus.proposees++; if (lu.valeur < BUDGET_PLANCHER_MIN + SESSION_PAS_MIN * INTENSITY_FACTOR[c.intensity]) vus.plancher++;
       } else vus.silence++;
       if (refus.depuisDerniereConfig >= 2 || refus.semaines.size) vus.refus++;
     });
@@ -360,17 +367,31 @@ describe('INV-65 — le rythme est PROPOSÉ, jamais appliqué : pas de budget ch
     const n0 = await db.progress_events.where('type').equals('program.configured').count();
     for (const valeur of [20, 25, 35, 60]) {
       await accepterRythme(valeur, c);
+      // m4 : la config acceptée est un point du curseur de ProgramSetup (minutes de session, pas de 5).
+      const minutes = ((await db.meta.get('program'))!.value as ProgramConfig).hoursPerSession * 60;
+      expect(Math.abs(minutes - Math.round(minutes)) < 1e-9 && Math.round(minutes) % SESSION_PAS_MIN === 0, `${valeur} min : ${minutes} min de session, hors du curseur`).toBe(true);
       const evs = (await db.progress_events.where('type').equals('program.configured').toArray()).sort((a, b) => (a.occurred_at < b.occurred_at ? -1 : 1));
       const dernier = evs[evs.length - 1].payload as ProgramConfig;
       expect(Object.keys(dernier).sort(), `payload partiel à ${valeur} min`).toEqual(Object.keys(c).sort());
       expect({ ...dernier, hoursPerSession: c.hoursPerSession }, 'seul le budget change').toEqual(c);
-      expect(dayTargetMin(dernier), `le budget du jour vaut ${valeur} min`).toBe(valeur);
+      expect(dayTargetMin(dernier), `le budget du jour couvre ${valeur} min`).toBeGreaterThanOrEqual(valeur);
+      expect(dayTargetMin(dernier), 'au plus un pas de curseur au-dessus').toBeLessThan(valeur + SESSION_PAS_MIN * INTENSITY_FACTOR.intensiv + 1);
       expect(dernier.hoursPerSession).toBeLessThan(c.hoursPerSession);
       expect(lireConfig(dernier), `${valeur} min en intensité haute : la config est lisible`).not.toBeNull();
       expect((await db.meta.get('program'))?.value, 'la config locale suit').toEqual(dernier);
     }
     expect(await db.progress_events.where('type').equals('program.configured').count()).toBe(n0 + 4);
     expect(await db.day_plans.toArray(), 'aucun jour figé ne change à l’acceptation').toEqual(figes);
+    // La valeur PROPOSÉE est exactement le budget qu'on obtient en l'acceptant (la carte ne promet pas 25 pour donner 26).
+    for (const intensity of ['leicht', 'mittel', 'intensiv'] as const) {
+      const ci = cfg({ intensity, hoursPerSession: 4 });
+      const jours = ['2026-10-05', '2026-10-06', '2026-10-07', '2026-10-08'];
+      for (const m of [3, 22, 37, 61]) {
+        const p = proposerRythme({ plans: jours.map((j) => plan(j, 300)), events: jours.map((j) => minutes(j, m)), config: ci, refus: SANS_REFUS, today: AUJOURDHUI })!;
+        await accepterRythme(p.valeur, ci);
+        expect(dayTargetMin((await db.meta.get('program'))!.value as ProgramConfig), `${intensity}, ${m} min par jour`).toBe(p.valeur);
+      }
+    }
   });
 
   it('refuserRythme : un événement SYNCHRONISÉ par semaine ISO ; l’autre appareil ne repropose pas ; deux refus de suite = plus de proposition jusqu’à une modification', async () => {

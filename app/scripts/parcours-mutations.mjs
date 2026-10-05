@@ -628,13 +628,24 @@ export const MUTATIONS = [
     pourquoi: "revue m2 : l'état SRS LIVE des termes personnels (révisés le jour D) entre dans le plan du jour D",
   },
   {
+    id: "INV-65-arrondi-bas", tests: 'tests/invariants.apprentissage.test.ts', file: "src/lib/program/rythme.ts",
+    from: "Math.ceil(moyenne / 5 - 1e-9) * 5", to: "Math.round(moyenne / 5) * 5",
+    pourquoi: "revue m3 : la proposition s'arrondit vers le bas — le temps réel ne tient plus dans le budget proposé",
+  },
+  {
+    id: "INV-65-hors-curseur", tests: 'tests/invariants.apprentissage.test.ts', file: "src/lib/program/rythme.ts",
+    from: "return ecrireConfig({ ...config, hoursPerSession: sessionPour(valeur, config.intensity) / 60 });",
+    to: "return ecrireConfig({ ...config, hoursPerSession: valeur / (60 * INTENSITY_FACTOR[config.intensity]) });",
+    pourquoi: "revue m4 : accepter écrit 0,2564 h, une valeur que le curseur de ProgramSetup ne sait pas afficher",
+  },
+  {
     id: "INV-65-hausse", tests: 'tests/invariants.apprentissage.test.ts', file: "src/lib/program/rythme.ts",
-    from: "return valeur < dayTargetMin(i.config) ? { valeur, semaine } : null;", to: "return { valeur, semaine };",
+    from: "return valeur < dayTargetMin(i.config) ? { valeur, semaine, minutesSession, moyenne } : null;", to: "return { valeur, semaine, minutesSession, moyenne };",
     pourquoi: "proposition à la hausse (ou égale au budget)",
   },
   {
     id: "INV-65-plancher", tests: 'tests/invariants.apprentissage.test.ts', file: "src/lib/program/rythme.ts",
-    from: "Math.max(BUDGET_PLANCHER_MIN, Math.round(", to: "Math.max(0, Math.round(",
+    from: "sessionPour(Math.max(BUDGET_PLANCHER_MIN, Math.ceil(", to: "sessionPour(Math.max(0, Math.ceil(",
     pourquoi: "proposition sous le plancher de 20 min",
   },
   {
@@ -659,7 +670,7 @@ export const MUTATIONS = [
   },
   {
     id: "INV-65-partiel", tests: 'tests/invariants.apprentissage.test.ts', file: "src/lib/program/rythme.ts",
-    from: "return ecrireConfig({ ...config, hoursPerSession: h });", to: "return ecrireConfig({ hoursPerSession: h } as ProgramConfig);",
+    from: "return ecrireConfig({ ...config, hoursPerSession: sessionPour(valeur, config.intensity) / 60 });", to: "return ecrireConfig({ hoursPerSession: sessionPour(valeur, config.intensity) / 60 } as ProgramConfig);",
     pourquoi: "accepter écrit un fragment de config (INV-76 a)",
   },
 ];

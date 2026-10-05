@@ -98,3 +98,14 @@ describe('La ligne d’une tâche de cas — ce qui reste, le rappel', () => {
     expect(lectureDuPlan(plan([tache]), [jouee]).get('t1')!.reste).toEqual({ teile: ['dokumentation', 'fallvorstellung'], min: 20 + 12 });
   });
 });
+
+describe('Revue m4 — le curseur de ProgramSetup sait afficher une valeur acceptée', () => {
+  it('25 min de session (en dessous de l’ancien minimum de 0,5 h) : le curseur la porte, au pas de 5 min', async () => {
+    const { ProgramSetup } = await import('./ProgramSetup');
+    await act(async () => { root.render(<MemoryRouter><ProgramSetup initial={{ ...config, hoursPerSession: 25 / 60 }} onDone={() => {}} /></MemoryRouter>); });
+    // ProgramSetup est un Portal : on lit le document, pas le conteneur.
+    const curseur = [...document.querySelectorAll('.label')].find((l) => l.textContent?.startsWith('Volume par session'))!.parentElement!.querySelector('input[type=range]') as HTMLInputElement;
+    expect(curseur.min).toBe('15'); expect(curseur.step).toBe('5'); expect(curseur.value).toBe('25');
+    expect(document.body.textContent).toMatch(/Volume par session : 25 min/);
+  });
+});

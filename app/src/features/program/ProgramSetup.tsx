@@ -7,6 +7,13 @@ import { AXES, type Axis, type Intensity, type ProgramConfig, type Specialty } f
 import { Icon, SpecialtyIcon } from '@/components/icons';
 import { Portal } from '@/components/Portal';
 import { SrsSettingsSheet } from '@/features/fachbegriffe/SrsSettingsSheet';
+import { SESSION_MAX_MIN, SESSION_MIN_MIN, SESSION_PAS_MIN } from '@/lib/program/parametres';
+
+/** « 25 min », « 2 h », « 1 h 30 ». */
+const dureeSession = (h: number): string => {
+  const m = Math.round(h * 60);
+  return m < 60 ? `${m} min` : m % 60 ? `${Math.floor(m / 60)} h ${String(m % 60).padStart(2, '0')}` : `${m / 60} h`;
+};
 
 // ============================================================================
 // Onboarding du Programme de révision — dialogue illustré collectant les
@@ -120,8 +127,9 @@ export function ProgramSetup({ onDone, onCancel, initial }: { onDone: () => void
               (page Programme). */}
 
           {/* Volume */}
-          <Field label={`Volume par session : ${hours} h`}>
-            <input type="range" min={0.5} max={6} step={0.5} value={hours} onChange={(e) => setHours(+e.target.value)} className="w-full accent-brand-600" />
+          {/* En minutes, au pas de 5 (revue m4) : une valeur calée sur le rythme réel (accepterRythme) y est un point du curseur. */}
+          <Field label={`Volume par session : ${dureeSession(hours)}`}>
+            <input type="range" min={SESSION_MIN_MIN} max={SESSION_MAX_MIN} step={SESSION_PAS_MIN} value={Math.round(hours * 60)} onChange={(e) => setHours(+e.target.value / 60)} className="w-full accent-brand-600" />
           </Field>
 
           {/* Jours off */}

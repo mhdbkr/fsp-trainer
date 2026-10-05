@@ -41,6 +41,11 @@ export const RYTHME_SEUIL = 0.6;
 export const RYTHME_MIN_JOURS = 3;
 export const BUDGET_PLANCHER_MIN = 20;
 export const RYTHME_REFUS_MAX = 2;
+/** Le curseur « Volume par session » de ProgramSetup, en MINUTES de session (revue m4) : toute config écrite par
+ *  `accepterRythme` y tombe sur un point — jamais 0,2564 h. */
+export const SESSION_PAS_MIN = 5;
+export const SESSION_MIN_MIN = 15;
+export const SESSION_MAX_MIN = 360;
 
 // --- simulation-run.md §10.7 : l'annonce unique des changements rétroactifs ---
 // Chaque sujet a sa garde : l'annonce ne parle d'un changement qu'une fois LIVRÉ.

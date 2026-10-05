@@ -160,9 +160,9 @@ describe('INV-76 (a) — toute écriture de la config émet la config COMPLÈTE'
 });
 
 describe('INV-76 (c) — tout ce que l’interface produit est lisible par `lireConfig` (bornes serveur ⊇ lireConfig ⊇ interface)', () => {
-  it('curseurs de ProgramSetup (0,5 à 6 h par pas de 0,5 ; 2 à 24 semaines), jours off (au plus six), intensités et modes', () => {
+  it('curseurs de ProgramSetup (15 min à 6 h par pas de 5 min ; 2 à 24 semaines), jours off (au plus six), intensités et modes', () => {
     const r = rngFixe();
-    for (let h = 0.5; h <= 6; h += 0.5) expect(lireConfig(configOf(r, { hoursPerSession: h })), `${h} h`).not.toBeNull();
+    for (let m = 15; m <= 360; m += 5) expect(lireConfig(configOf(r, { hoursPerSession: m / 60 })), `${m} min`).not.toBeNull();
     for (const w of [2, 12, 24]) expect(lireConfig(configOf(r, { examDate: undefined, weeks: w })), `${w} semaines`).not.toBeNull();
     expect(lireConfig(configOf(r, { offDays: [] }))).not.toBeNull();
     expect(lireConfig(configOf(r, { offDays: [0, 1, 2, 3, 4, 5] }))).not.toBeNull();
