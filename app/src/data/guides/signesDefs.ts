@@ -45,8 +45,9 @@ export const DEFS = {
   reise: { kapitel: 'fach', pertinence: S, bank: 'fach-infekt-reise' },
   kontakt: { kapitel: 'fach', pertinence: S },
   zecke: { kapitel: 'fach', pertinence: ['lyme'] },
+  insektenstich: { kapitel: 'fach', pertinence: S },   // K2 (revue clinique C3) : « oder einen Insektenstich » — les piqûres de moustique du paludisme, hors du gabarit borréliose
   erythem_ring: { kapitel: 'fach', pertinence: ['lyme'] },
-  meningismus: { kapitel: 'fach', pertinence: ['meningitis', 'lyme'] },
+  meningismus: { kapitel: 'fach', pertinence: ['meningitis', 'lyme', 'fieber'] },   // K2 (revue clinique C1) : + fieber — la raideur de nuque est un drapeau rouge de tout tableau fébrile
   fazialis: { kapitel: 'fach', pertinence: ['lyme'] },
   steifigkeit: { kapitel: 'fach', pertinence: ['steifigkeit'], bank: 'fach-rheuma-morgensteifigkeit' },
   // K2 : + `generalisiert` — devant une douleur diffuse, « ein Gelenk jemals geschwollen ? » écarte l'arthrite (DD de la fibromyalgie) ; « Welche Gelenke » (`gelenke`) reste hors profil.

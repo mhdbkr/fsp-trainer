@@ -20468,7 +20468,7 @@ export function seedCases(): Case[] {
           'fach-onko-familie': 'Mein Vater ist an Lungenkrebs gestorben, mit 72. Sonst gibt es in der Familie keinen Krebs, von dem ich wüsste — keinen Darmkrebs, keinen Brustkrebs, nichts.',
           'fach-onko-vorsorge': 'Darmspiegelung mit 60, alles in Ordnung. Zum Urologen gehe ich jedes Jahr, der Wert war immer normal. Und die Lunge wurde vor drei Monaten geröntgt, wegen der Lungenentzündung.',
           // K2 (ADR-0023) : réponses des sondes de banque que le profil exige (r3)
-          'akt-atemnot-belastung': 'Nur bei Anstrengung. Nach etwa hundert Metern in der Ebene oder nach einer Treppe muss ich stehen bleiben — vor einem halben Jahr bin ich noch den Hang zum Garten hoch. Im Sitzen habe ich keine Luftnot.',
+          'akt-atemnot-belastung': 'Bei Belastung. Nach etwa hundert Metern in der Ebene oder nach einer Treppe muss ich stehen bleiben — vor einem halben Jahr bin ich noch den Hang zum Garten hoch. Im Sitzen habe ich keine Luftnot.',
         },
         schwierigeReaktionen: [
           '"Habe ich Krebs? Sagen Sie es mir bitte ehrlich. Mein Vater ist daran gestorben."',
@@ -21447,7 +21447,7 @@ export function seedCases(): Case[] {
       frequency: 8,
       difficulty: 2,
       patientSheet: {
-        profil: { tags: ['schmerz', 'gelenk', 'arthritis', 'steifigkeit', 'lyme'] },
+        profil: { tags: ['schmerz', 'gelenk', 'arthritis', 'steifigkeit', 'gicht', 'lyme'] },
         personalia: {
           name: 'Clemens Wurster',
           age: 41,
@@ -30288,7 +30288,7 @@ export function seedCases(): Case[] {
           // K2 (ADR-0023) : réponses des sondes de banque que le profil exige (r3)
           'akt-ort': 'Hier in der rechten Leiste, direkt über der Beule. Manchmal zieht es bis in den rechten Hoden hinunter.',
           'akt-charakter': 'Es zieht und drückt, als ob da ein Fremdkörper drin wäre. Stechend oder krampfartig ist es nicht.',
-          'akt-intensitaet': 'In Ruhe so drei bis vier von zehn, beim schweren Heben bis sechs. Vor drei Tagen, als die Beule nicht mehr zurückging, war es kurz eine Acht.',
+          'akt-intensitaet': 'In Ruhe so drei bis vier von zehn, beim schweren Heben bis sechs. Vor drei Tagen war es einmal kurz eine Acht.',
         },
         schwierigeReaktionen: [
           '„Muss das wirklich operiert werden? Kann man das nicht mit so einem Bruchband richten? Mein Großvater hatte auch so eins.“',
@@ -32408,7 +32408,7 @@ export function seedCases(): Case[] {
           'frau-verhuetung': 'Wir verhüten mit Kondomen. Die Pille habe ich vor Jahren abgesetzt, weil ich rauche — meine Frauenärztin hat mir davon abgeraten. Eine Spirale hatte ich noch nie.',
           'frau-wechseljahre': 'Nein, in den Wechseljahren bin ich noch nicht: keine Hitzewallungen, und die Blutung kommt regelmäßig. Zur Frauenärztin gehe ich einmal im Jahr.',
           // K2 (ADR-0023) : réponses des sondes de banque que le profil exige (r3)
-          'akt-atemnot-belastung': 'Nur bei Anstrengung. Wenn ich die Treppe in den dritten Stock hochgehe, muss ich zwischendurch stehen bleiben. In Ruhe habe ich keine Luftnot.',
+          'akt-atemnot-belastung': 'Wenn ich die Treppe in den dritten Stock hochgehe, muss ich zwischendurch stehen bleiben. In Ruhe habe ich keine Luftnot.',
         },
         schwierigeReaktionen: [
           '"Muss mir jetzt die Gebärmutter herausgenommen werden? Meine Mutter hat das damals nie verkraftet."',
@@ -32601,7 +32601,7 @@ export function seedCases(): Case[] {
         { frage: 'Wie lange dauert Ihre Blutung, und wie viele Binden oder Tampons brauchen Sie an den starken Tagen? Müssen Sie auch nachts wechseln?', kapitel: 'aktuell', relu: true },
         { frage: 'Gehen bei Ihnen dabei Blutklumpen ab — wie groß sind die etwa?', kapitel: 'aktuell' },
         { frage: 'Müssen Sie häufiger Wasser lassen als früher, auch nachts? Haben Sie das Gefühl, die Blase nicht ganz zu entleeren?', kapitel: 'aktuell' },
-        { frage: 'Sind Sie schneller müde als früher, kommen Sie beim Treppensteigen außer Atem, ist Ihnen schwindelig?', kapitel: 'aktuell' },
+        { frage: 'Sind Sie schneller müde als früher, kommen Sie beim Treppensteigen außer Atem, ist Ihnen schwindelig?', kapitel: 'aktuell', sucht: ['muedigkeit', 'atemnot', 'schwindel'] },
         { frage: 'Hatten Sie schon als junges Mädchen sehr starke Blutungen? Bluten Sie leicht aus der Nase oder am Zahnfleisch, bekommen Sie schnell blaue Flecken?', kapitel: 'aktuell', relu: true },
       ],
       examinerQuestions: [
@@ -39848,7 +39848,7 @@ export function seedCases(): Case[] {
           'fach-endo-folgeschaeden': 'Kribbeln oder taube Füße habe ich nicht. Mit den Nieren war nie etwas. Nur dieses zeitweise verschwommene Sehen, das ich vorhin erwähnt habe.',
           'fach-endo-familie-therapie': 'Meine Mutter hat Zucker, Typ 2, und nimmt Tabletten; meine Schwester hat eine Schilddrüsenunterfunktion und nimmt Hormone. Ich selbst bin deswegen nie behandelt oder kontrolliert worden — mein Blutzucker ist meines Wissens noch nie gemessen worden.',
           // K2 (ADR-0023) : réponses des sondes de banque que le profil exige (r3)
-          'akt-atemnot-belastung': 'Nur bei Anstrengung. Beim Treppensteigen in den dritten Stock bin ich oben aus der Puste, das kannte ich früher nicht. In Ruhe ist alles gut.',
+          'akt-atemnot-belastung': 'Beim Treppensteigen in den dritten Stock bin ich oben aus der Puste, das kannte ich früher nicht. Im Sitzen ist alles gut.',
         },
         schwierigeReaktionen: [
           '"Was habe ich denn, Frau Doktor? Sagen Sie es mir bitte ehrlich."',
@@ -42675,7 +42675,7 @@ export function seedCases(): Case[] {
           'fach-endo-folgeschaeden': 'Ja: In beiden Füßen kribbelt es seit einigen Monaten, wie Ameisenlaufen, vor allem nachts, und manchmal fühlen sie sich taub an. Schlechter sehen tue ich auch, das sagte ich ja. Mit den Nieren war nie etwas — untersucht wurde das allerdings auch nie.',
           'fach-endo-familie-therapie': 'Mein Vater hatte Zucker, er hat Tabletten genommen. Von der Schilddrüse ist in der Familie nichts bekannt. Ich selbst werde deswegen nicht behandelt — bis gestern hat mir nie jemand gesagt, dass ich Zucker habe. Nur den Blutdruck lasse ich beim Hausarzt kontrollieren.',
           // K2 (ADR-0023) : réponses des sondes de banque que le profil exige (r3)
-          'akt-atemnot-belastung': 'Nur bei Anstrengung. Die Treppe in den dritten Stock, da muss ich zweimal stehen bleiben. In Ruhe oder im Liegen habe ich keine Luftnot.',
+          'akt-atemnot-belastung': 'Auf der Treppe in den dritten Stock muss ich zweimal stehen bleiben. In Ruhe oder im Liegen habe ich keine Luftnot.',
         },
         frageAntworten: [
           {
@@ -46061,7 +46061,7 @@ export function seedCases(): Case[] {
         { frage: 'Ging es Ihnen zwischendurch schon einmal besser, bevor es wieder schlimmer wurde — an welchem Krankheitstag war das?', kapitel: 'aktuell', relu: true },
         { frage: 'Riechen und schmecken Sie normal, obwohl die Nase frei ist?', kapitel: 'aktuell' },
         { frage: 'Wie sind Sie gegen Corona geimpft: wie viele Impfungen, wann die letzte, und hatten Sie schon einmal Corona?', kapitel: 'vorerkrankungen' },
-        { frage: 'Bekommen Sie beim Treppensteigen oder beim Sprechen schlechter Luft als sonst?', kapitel: 'aktuell' },
+        { frage: 'Bekommen Sie beim Treppensteigen oder beim Sprechen schlechter Luft als sonst?', kapitel: 'aktuell', sucht: ['atemnot'] },
         { frage: 'Haben Sie Schmerzen in der Brust beim Atmen oder ein geschwollenes, schmerzendes Bein?', kapitel: 'aktuell' },
         { frage: 'Nehmen Sie Medikamente, die das Immunsystem unterdrücken, Kortison oder Blutverdünner? Gibt es eine Zuckerkrankheit, ein Herz- oder Lungenleiden?', kapitel: 'vorerkrankungen' },
         { frage: 'Gibt es zu Hause Personen, für die eine Ansteckung besonders gefährlich wäre?', kapitel: 'familie-sozial' },
@@ -49327,7 +49327,7 @@ export function seedCases(): Case[] {
           'fach-nephro-infekt': 'Nein, keine Halsentzündung, keine Erkältung, keine Hautinfektion — in den letzten Wochen war ich nicht krank. Kein Magen-Darm-Infekt, kein Zeckenstich.',
           'fach-nephro-vorgeschichte': 'Nein, mit den Nieren hatte ich nie etwas. Keine Steine, keine Blasenentzündung, und der Urin war beim Check-up vor zwei Jahren in Ordnung. In der Familie gibt es auch keine Nierenkrankheit — keine Zystennieren, keine Dialyse.',
           // K2 (ADR-0023) : réponses des sondes de banque que le profil exige (r3)
-          'akt-atemnot-belastung': 'Nur bei Anstrengung, schon beim ersten Stock komme ich außer Atem. In Ruhe nicht, und flach liegen kann ich auch.',
+          'akt-atemnot-belastung': 'Schon beim ersten Stock komme ich außer Atem. In Ruhe nicht, und flach liegen kann ich auch.',
         },
         schwierigeReaktionen: [
           '"Das ist doch nur Wasser in den Beinen — kann man mir nicht einfach eine Wassertablette geben und ich gehe wieder?"',

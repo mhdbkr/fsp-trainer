@@ -83,7 +83,8 @@ export const PROBE_SUCHT: Readonly<Record<string, Sucht>> = {
   'fach-pneumo-fieber': ['fieber', 'schuettelfrost'], 'fach-pneumo-giemen': ['giemen'],
   'fach-pneumo-infekt': ['atemwegsinfekt', 'kontakt', 'reise'], 'fach-pneumo-noxen': ['lungennoxen'], 'fach-pneumo-allergie': ['atopie', 'asthma'],   // revue K1 C1 : ≠ all-allergie (pénicilline), que K3 ne doit pas retirer
   // --- Fach Infektiologie -------------------------------------------------------
-  'fach-infekt-fieber': ['fieber'], 'fach-infekt-zecke': ['zecke'], 'fach-infekt-haut': ['ausschlag', 'erythem_ring'],
+  'fach-infekt-fieber': ['fieber'], 'fach-infekt-zecke': ['zecke', 'insektenstich'],   // K2 (revue clinique C3)
+  'fach-infekt-haut': ['ausschlag', 'erythem_ring'],
   'fach-infekt-gelenke': ['arthralgie', 'gelenke'],   // K2 : « Wandern sie von Gelenk zu Gelenk ? » cherche aussi le schéma articulaire (D1)
   'fach-infekt-neuro': ['kopfschmerz', 'meningismus', 'taubheit', 'fazialis'],
   'fach-infekt-reise': ['reise'], 'fach-infekt-kontakt': ['kontakt'], 'fach-infekt-impfung': ['impfung'],
