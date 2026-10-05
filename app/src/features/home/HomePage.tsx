@@ -11,7 +11,7 @@
 import { Link } from 'react-router-dom';
 import { format, parseISO } from 'date-fns';
 import { fr } from 'date-fns/locale';
-import { useCases, useFachbegriffe, useProgramConfig } from '@/hooks/useData';
+import { useCases, useFachbegriffe, useFavorites, useProgramConfig } from '@/hooks/useData';
 import { useCaseProgress, useDayPlan, useTrainingEvents } from '@/features/program/useProgram';
 import { dueCount, streakFromDays, weakCases } from '@/lib/stats';
 import { workedDayKeys } from '@/lib/journal';
@@ -31,7 +31,7 @@ import { AnnonceS4 } from './AnnonceS4';
 
 export function HomePage() {
   const cases = useCases();
-  const begriffe = useFachbegriffe();
+  const begriffe = useFachbegriffe(); const favorites = useFavorites();
   const config = useProgramConfig();
   const plan = useDayPlan();
   const today = useToday((s) => s.day);
@@ -43,7 +43,7 @@ export function HomePage() {
   }
 
   const streak = streakFromDays(workedDayKeys(events), nowDate(), config?.offDays ?? []);
-  const due = dueCount(begriffe);
+  const due = dueCount(begriffe, undefined, favorites);
   const session = sessionDuJour(plan);
   // S4-2 (revue I2) : un cas entamé se dit par ce qui RESTE, comme sa ligne dans le plan.
   const reste = plan && session ? lectureDuPlan(plan, events).get(session.id)?.reste : undefined;

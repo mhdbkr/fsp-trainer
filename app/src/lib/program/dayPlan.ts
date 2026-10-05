@@ -21,7 +21,7 @@
 
 import { differenceInCalendarDays, parseISO, startOfDay } from 'date-fns';
 import type {
-  Case, CaseProgress, DayPlan, Fachbegriff, Layer, ProgramConfig, SimTeil, Specialty, TaskInstance, TrainingEvent,
+  Case, CaseProgress, DayPlan, Fachbegriff, Favorite, Layer, ProgramConfig, SimTeil, Specialty, TaskInstance, TrainingEvent,
 } from '@/db/types';
 import { db } from '@/db/db';
 import { newId } from '@/lib/sync/events';
@@ -56,6 +56,12 @@ const drillReason = (due: number, fresh: number): string => [
   fresh > 0 ? `${fresh} nouveau${fresh > 1 ? 'x termes' : ' terme'}` : null,
 ].filter(Boolean).join(' · ');
 
+/** Complément de la tâche drill (lot F point 4) : « dont N favoris de ta séance ».
+ *  Calculé à l'AFFICHAGE depuis l'état courant (`queueCounts().favorites`), jamais
+ *  à la matérialisation : le plan figé (INV-55) ne dépend pas d'un favori du jour. */
+export const drillFavorisNote = (n: number): string | null =>
+  n > 0 ? `dont ${n} favori${n > 1 ? 's' : ''} de ta séance` : null;
+
 /** Sans terme DÛ, les nouveaux termes ne sont jamais urgents : le drill passe
  *  juste APRÈS la première tâche de travail (C6-B). Dû ⇒ il reste en tête.
  *  Ne touche qu'à la génération : un jour déjà figé n'est jamais retraité. */
@@ -88,6 +94,9 @@ export interface BuildInput {
   /** `false` quand le jour porte déjà sa tâche de cas (replanifier après une tâche faite) : « une seule tâche forcée par jour »
    *  (INV-58) — la première tâche de cas ne dépasse alors pas le budget restant. Défaut : `true`. */
   forcerLaPremiere?: boolean;
+  /** Favoris projetés du journal coupé (`entreeDuJour`, INV-55) : l'échéance avancée d'un favori appris (lot F)
+   *  compte dans les dus du plan — jamais un favori posé le jour D dans le plan de D. */
+  favorites?: Favorite[];
 }
 
 /** La spécialité de plus forte dette agrégée — mode `specialite`. */
@@ -143,7 +152,9 @@ export function buildTasks(input: BuildInput, mkId: () => string = newId): TaskI
   // 1. Le drill. Son coût est FIGÉ avec le jour : faire ses cartes ne libère
   //    plus de minutes, donc n'attire plus de nouvelles simulations
   //    (audit §2.4 — l'effet existait sans rien cocher). Les termes DUS se comptent à la fin du jour (§12.4).
-  const terms = counts(begriffe, fin);
+  // Dus PENDANT D (§12.4) : sur [debut, fin), d'où `fin - 1`. Un favori appris posé le jour D est dû à minuit de D+1
+  // (= fin) : le drill ne le sert que demain, il ne compte donc jamais dans un plan (même replanifié) de D (revue delta I1).
+  const terms = counts(begriffe, fin - 1, input.favorites);
   const fresh = Math.min(terms.fresh, input.newPerDay ?? NEW_PER_DAY_DEFAULT);
   const drillTotal = terms.due + fresh;
   if (drillTotal > 0 && targetMin > 0) {   // ni dû ni nouveau : pas de tâche, donc jamais la session de tête (C6-B)
@@ -329,7 +340,7 @@ async function loadBuildInput(date: string, tz: string, at: number, opts: { coup
   if (!e.config) return null;                                     // pas de programme : rien à planifier
   // Replanifier : le budget de nouveaux termes d'AUJOURD'HUI est entamé par ce qui a déjà été introduit (compteur local).
   const newPerDay = opts.restant ? Math.max(0, e.newPerDay - await introducedToday(new Date(at))) : e.newPerDay;
-  return { config: e.config, input: { config: e.config, date, cases, begriffe: e.begriffe, trainingEvents: e.trainingEvents, progress: e.progress, now: at, newPerDay, tz } };
+  return { config: e.config, input: { config: e.config, date, cases, begriffe: e.begriffe, trainingEvents: e.trainingEvents, progress: e.progress, now: at, newPerDay, tz, favorites: e.favorites } };
 }
 
 /** Les ids des tâches d'un plan, dérivés de sa graine (M2) : rejouables. */

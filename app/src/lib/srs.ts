@@ -1,4 +1,4 @@
-import type { Srs } from '@/db/types';
+import type { Favorite, Srs } from '@/db/types';
 import { now as clockNow } from '@/lib/clock';
 
 // ============================================================================
@@ -45,8 +45,23 @@ export function reviewSrs(prev: Srs, grade: Grade, now = clockNow()): Srs {
   };
 }
 
-/** Dû = déjà présenté (state ≠ Neu) et échéance passée. Un Neu n'est jamais réclamé (spec F2a D1). */
-export function isDue(srs: Srs, now = clockNow()): boolean {
-  return srs.state !== 'Neu' && srs.dueDate <= now;
+/** termId → instant du favori (ms). Construite UNE fois par l'appelant, lue par terme. */
+export const favoriteSinceMap = (favorites: readonly Favorite[] = []): Map<string, number> =>
+  new Map(favorites.map((f) => [f.termId, Date.parse(f.since)]));
+
+/** Échéance effective (lot F point 2) : un terme appris mis en favori, et pas revu
+ *  depuis, est dû au lendemain du favori — jamais plus tard que son échéance SRS.
+ *  Calculée à la lecture : le SRS et son historique ne sont jamais réécrits. */
+export function effectiveDue(srs: Srs, favoriteSince?: number): number {
+  if (srs.state === 'Neu' || favoriteSince === undefined) return srs.dueDate;
+  // Dernière revue = dueDate − interval (reviewSrs : réussite → now + interval·j ; raté → now + 60 s, interval 0).
+  if (srs.dueDate - srs.interval * DAY_MS >= favoriteSince) return srs.dueDate;
+  const lendemain = new Date(favoriteSince); lendemain.setHours(24, 0, 0, 0);
+  return Math.min(srs.dueDate, lendemain.getTime());
+}
+
+/** Dû = déjà présenté (state ≠ Neu) et échéance (effective) passée. Un Neu n'est jamais réclamé (spec F2a D1). */
+export function isDue(srs: Srs, now = clockNow(), favoriteSince?: number): boolean {
+  return srs.state !== 'Neu' && effectiveDue(srs, favoriteSince) <= now;
 }
 export const isNew = (srs: Srs): boolean => srs.state === 'Neu';

@@ -291,6 +291,13 @@ describe('DrillPage — pas de boucle de rendu', () => {
     renderAt('/fachbegriffe/drill');
     expect((await screen.findByRole('button', { name: /Bedeutung → Fachbegriff/ })).getAttribute('aria-pressed')).toBe('true');
   });
+  it('m2 : une seule source de favoris, la liste vivante (pas l\'instantané du contexte)', async () => {
+    // Contexte chargé sans favori, budget épuisé ; fb-a est favori dans la base vivante → forcé.
+    vi.mocked(loadDrillContext).mockResolvedValue({ ...defaultCtx, remaining: 0 });
+    renderAt('/fachbegriffe/drill');
+    fireEvent.click(await screen.findByRole('button', { name: /Commencer$/ }));
+    expect(await screen.findByText('Abdomen')).toBeTruthy();
+  });
   it('budget du jour affiché seulement quand il retient des nouveaux', async () => {
     vi.mocked(loadDrillContext).mockResolvedValue({ ...defaultCtx, remaining: 1, daily: { ...defaultCtx.daily, newPerDay: 1 } });
     renderAt('/fachbegriffe/drill');

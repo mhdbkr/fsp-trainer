@@ -56,7 +56,7 @@ describe('buildDrillQueue', () => {
   });
   it('queueCounts reflète la file', () => {
     const pool = [mk('n1', 'Neu', 0), mk('n2', 'Neu', 0), mk('due', 'Gelernt', -1)];
-    expect(queueCounts(pool, { now, newLimit: 1 })).toEqual({ due: 1, fresh: 1 });
+    expect(queueCounts(pool, { now, newLimit: 1 })).toEqual({ due: 1, fresh: 1, favorites: 0 });
   });
 });
 
@@ -64,5 +64,131 @@ describe('nextDueAt', () => {
   it('prochain dû futur, sinon null', () => {
     expect(nextDueAt([mk('a', 'Gelernt', +3), mk('b', 'Gelernt', +1)], now)).toBe(now + DAY_MS);
     expect(nextDueAt([mk('a', 'Neu', 0)], now)).toBeNull();
+  });
+});
+
+// ── Lot F : un favori est « à revoir bientôt » (décision direction) ──────────
+const iso = (t: number) => new Date(t).toISOString();
+const ctxWith = (favorites: { termId: string; since: string }[]): RelevanceContext => ({ now, favorites, deckTerms: [], recentSimulations: [], todayCaseIds: [], cases: [] });
+/** Terme appris revu il y a `agoDays` jours avec un intervalle de `interval` jours (reviewSrs : dueDate = revue + interval). */
+const learned = (id: string, agoDays: number, interval: number): Fachbegriff =>
+  ({ ...mk(id, 'Gelernt', 0), srs: { ...freshSrs(now), state: 'Gelernt', interval, repetitions: 3, dueDate: now - agoDays * DAY_MS + interval * DAY_MS } });
+const tomorrow = (t: number) => { const d = new Date(t); d.setHours(24, 0, 0, 0); return d.getTime(); };
+
+describe('favoris Neu de la séance (point 1)', () => {
+  it('TOUS les favoris Neu < 48 h entrent au drill suivant, même budget épuisé et dus saturants', () => {
+    const pool = [...Array.from({ length: 25 }, (_, i) => mk(`d${i}`, 'Gelernt', -1 - i)), ...Array.from({ length: 6 }, (_, i) => mk(`f${i}`, 'Neu', 0)), mk('n', 'Neu', 0)];
+    const ctx = ctxWith(Array.from({ length: 6 }, (_, i) => ({ termId: `f${i}`, since: iso(now - 3600_000) })));
+    const q = buildDrillQueue(pool, { now, newLimit: 0, relevance: ctx });
+    expect(q).toHaveLength(23);                                   // I1 : 17 dus gardés + 6 favoris en plus
+    expect(q.filter((b) => b.id.startsWith('d'))).toHaveLength(17);
+    expect(q.filter((b) => b.id.startsWith('f'))).toHaveLength(6);
+    expect(q.some((b) => b.id === 'n')).toBe(false);
+  });
+  it('les favoris comptent dans le budget sans jamais être coupés par lui', () => {
+    const pool = [mk('f1', 'Neu', 0), mk('f2', 'Neu', 0), mk('n1', 'Neu', 0), mk('n2', 'Neu', 0)];
+    const ctx = ctxWith([{ termId: 'f1', since: iso(now) }, { termId: 'f2', since: iso(now) }]);
+    expect(buildDrillQueue(pool, { now, newLimit: 3, relevance: ctx }).map((b) => b.id)).toEqual(['f1', 'f2', 'n1']);
+  });
+  it('un favori Neu ancien (≥ 48 h) n\'est plus forcé', () => {
+    const pool = [mk('old', 'Neu', 0)];
+    expect(buildDrillQueue(pool, { now, newLimit: 0, relevance: ctxWith([{ termId: 'old', since: iso(now - 49 * 3600_000) }]) })).toEqual([]);
+  });
+});
+
+describe('favori déjà appris : échéance avancée au lendemain (point 2)', () => {
+  const term = learned('L', 2, 12);                         // revu il y a 2 j, dû dans 10 j
+  const fav = ctxWith([{ termId: 'L', since: iso(now) }]);
+  it('pas dû aujourd\'hui, dû dès demain', () => {
+    expect(buildDrillQueue([term], { now, relevance: fav })).toEqual([]);
+    expect(buildDrillQueue([term], { now: tomorrow(now), relevance: { ...fav, now: tomorrow(now) } }).map((b) => b.id)).toEqual(['L']);
+    expect(nextDueAt([term], now, fav.favorites)).toBe(tomorrow(now));
+  });
+  it('n\'écrit rien dans le SRS (historique intact)', () => {
+    const before = { ...term.srs };
+    buildDrillQueue([term], { now: tomorrow(now), relevance: fav });
+    expect(term.srs).toEqual(before);
+  });
+  it('ne recule jamais une échéance déjà plus proche', () => {
+    // Revu il y a ~5 j (intervalle 5) : dû dans 1 h, avant le « lendemain » du favori posé maintenant.
+    const soon = { ...learned('S', 5, 5), srs: { ...learned('S', 5, 5).srs, dueDate: now + 3600_000, interval: 5 } };
+    const f = ctxWith([{ termId: 'S', since: iso(now) }]);
+    expect(tomorrow(now)).toBeGreaterThan(now + 3600_000);
+    expect(nextDueAt([soon], now, f.favorites)).toBe(now + 3600_000);
+  });
+  it('revu depuis le favori : l\'échéance SRS reprend la main', () => {
+    const f = ctxWith([{ termId: 'L', since: iso(now - 3 * DAY_MS) }]);   // favori AVANT la dernière revue
+    expect(buildDrillQueue([term], { now: tomorrow(now), relevance: { ...f, now: tomorrow(now) } })).toEqual([]);
+  });
+  it('idempotent : même état, même file', () => {
+    const a = buildDrillQueue([term], { now: tomorrow(now), relevance: fav });
+    expect(buildDrillQueue([term], { now: tomorrow(now), relevance: fav })).toEqual(a);
+  });
+});
+
+describe('drill après le cas : les favoris du cas en tête (point 3)', () => {
+  it('leadIds ouvre la file, dans leur ordre, même hors budget', () => {
+    const pool = [mk('d1', 'Gelernt', -2), mk('n1', 'Neu', 0), mk('c2', 'Neu', 0), mk('c1', 'Gelernt', -1)];
+    const q = buildDrillQueue(pool, { now, newLimit: 0, leadIds: ['c1', 'c2'], relevance: ctxWith([]) });
+    expect(q.map((b) => b.id)).toEqual(['c1', 'c2', 'd1']);
+  });
+});
+
+describe('queueCounts.favorites (point 4)', () => {
+  it('compte les favoris de la séance présents dans la file', () => {
+    const pool = [mk('f1', 'Neu', 0), mk('n1', 'Neu', 0), mk('due', 'Gelernt', -1)];
+    expect(queueCounts(pool, { now, newLimit: 1, relevance: ctxWith([{ termId: 'f1', since: iso(now) }]) })).toEqual({ due: 1, fresh: 1, favorites: 1 });
+  });
+});
+
+// ── Revue Opus 336adf0a : I1 (les favoris n'évincent plus les dus) et m1 ─────
+describe('I1 — un afflux de favoris n\'évince pas les dus', () => {
+  const dues = Array.from({ length: 30 }, (_, i) => mk(`d${i}`, 'Gelernt', -1 - i));
+  const favs = Array.from({ length: 40 }, (_, i) => mk(`f${i}`, 'Neu', 0));
+  const ctx = ctxWith(favs.map((f) => ({ termId: f.id, since: iso(now - 3600_000) })));
+  it('30 dus + 40 favoris (limit 100) → les 30 dus ET les 40 favoris', () => {
+    const q = buildDrillQueue([...dues, ...favs], { now, newLimit: 10, limit: 100, relevance: ctx });
+    expect(q.filter((b) => b.id.startsWith('d'))).toHaveLength(30);
+    expect(q.filter((b) => b.id.startsWith('f'))).toHaveLength(40);
+  });
+  it('limit 20 : les dus gardent leurs places (20 − 3 réservées), les favoris s\'ajoutent', () => {
+    const q = buildDrillQueue([...dues, ...favs], { now, newLimit: 10, relevance: ctx });
+    expect(q.filter((b) => b.id.startsWith('d'))).toHaveLength(17);
+    expect(q.filter((b) => b.id.startsWith('f'))).toHaveLength(40);
+  });
+  it('queueCounts = la file réelle, exactement (en-tête et durée annoncée)', () => {
+    const pool = [...dues, ...favs, mk('n', 'Neu', 0)];
+    for (const opts of [{ now, newLimit: 10, relevance: ctx }, { now, newLimit: 10 }, { now, newLimit: 0, limit: 5 }]) {
+      const q = buildDrillQueue(pool, opts);
+      expect(queueCounts(pool, opts)).toMatchObject({ due: q.filter((b) => b.srs.state !== 'Neu').length, fresh: q.filter((b) => b.srs.state === 'Neu').length });
+    }
+  });
+});
+
+describe('m1 — les favoris forcés ne sont jamais coupés par limit', () => {
+  it('25 favoris forcés, limit 20 → 25 cartes', () => {
+    const favs = Array.from({ length: 25 }, (_, i) => mk(`f${i}`, 'Neu', 0));
+    const q = buildDrillQueue(favs, { now, newLimit: 0, limit: 20, relevance: ctxWith(favs.map((f) => ({ termId: f.id, since: iso(now) }))) });
+    expect(q).toHaveLength(25);
+  });
+});
+
+// ── Revue I3 : « entre au drill suivant » = posé APRÈS la dernière séance de drill ──
+describe('I3 — favori forcé s\'il est posé après la dernière séance de drill', () => {
+  const fri = new Date(2026, 9, 2, 18).getTime();          // vendredi 18 h
+  const thu = new Date(2026, 9, 1, 20).getTime();          // dernier drill : jeudi 20 h
+  const mon = new Date(2026, 9, 5, 9).getTime();           // drill suivant : lundi 9 h (> 48 h)
+  const ctxDrill = (since: number, lastDrillAt: number | undefined, at: number): RelevanceContext =>
+    ({ now: at, favorites: [{ termId: 'f', since: iso(since) }], deckTerms: [], recentSimulations: [], todayCaseIds: [], cases: [], lastDrillAt });
+  it('week-end off : favori vendredi, drill lundi → forcé', () => {
+    expect(buildDrillQueue([mk('f', 'Neu', 0)], { now: mon, newLimit: 0, relevance: ctxDrill(fri, thu, mon) }).map((b) => b.id)).toEqual(['f']);
+  });
+  it('favori posé AVANT la dernière séance (même < 48 h) → plus forcé', () => {
+    const drillSat = new Date(2026, 9, 3, 10).getTime();
+    expect(buildDrillQueue([mk('f', 'Neu', 0)], { now: drillSat + 3600_000, newLimit: 0, relevance: ctxDrill(fri, drillSat, drillSat + 3600_000) })).toEqual([]);
+  });
+  it('aucun drill antérieur → repli sur la fenêtre de 48 h', () => {
+    expect(buildDrillQueue([mk('f', 'Neu', 0)], { now: mon, newLimit: 0, relevance: ctxDrill(fri, undefined, mon) })).toEqual([]);
+    expect(buildDrillQueue([mk('f', 'Neu', 0)], { now: fri + 3600_000, newLimit: 0, relevance: ctxDrill(fri, undefined, fri + 3600_000) }).map((b) => b.id)).toEqual(['f']);
   });
 });

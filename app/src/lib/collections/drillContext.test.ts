@@ -104,3 +104,23 @@ describe('loadDrillContext (config injectée en base)', () => {
     }
   });
 });
+
+// Revue I3 : la dernière séance de drill TERMINÉE (journal), jamais une coche nue.
+import { lastDrillAt } from './drillContext';
+import type { TrainingEvent } from '@/db/types';
+describe('lastDrillAt', () => {
+  const te = (over: Partial<TrainingEvent>): TrainingEvent => ({ id: Math.random().toString(36), at: 0, kind: 'drill', teile: [], source: 'libre', spentMin: 3, ...over });
+  it('dernier drill réel ≤ now ; ignore coches nues, autres types, futur', () => {
+    const events = [te({ at: 100 }), te({ at: 300 }), te({ at: 400, taskId: 't', spentMin: 0 }), te({ at: 500, kind: 'simulation' }), te({ at: 900 })];
+    expect(lastDrillAt(events, 600)).toBe(300);
+    expect(lastDrillAt([], 600)).toBeUndefined();
+  });
+});
+describe('loadDrillContext.relevance.lastDrillAt (I3)', () => {
+  beforeEach(async () => { await db.training_events.clear(); });
+  it('lit la dernière séance de drill du journal', async () => {
+    const at = new Date(2026, 9, 1, 20).getTime();
+    await db.training_events.put({ id: 'te1', at, kind: 'drill', teile: [], source: 'libre', spentMin: 4 });
+    expect((await loadDrillContext(new Date(2026, 9, 5, 9))).relevance.lastDrillAt).toBe(at);
+  });
+});

@@ -16,7 +16,7 @@
 //   3. `taskSubject()` devient l'IDENTITÉ : `TaskInstance.label` est désormais
 //      le seul nom du sujet. La cale de transition peut disparaître.
 // ============================================================================
-import { useMemo } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import type { DayPlan, SimTeil, TaskInstance, TaskKind, TrainingEvent } from '@/db/types';
 import { TEILE } from '@/lib/simScope';
@@ -29,6 +29,10 @@ import { teileDeTache } from '@/lib/program/tacheDeCas';
 import { debutJour } from '@/lib/program/fuseau';
 import { useToday } from '@/lib/today';
 import { useDayPlan, useTrainingEvents } from './useProgram';
+import { useAllTerms, useFavorites } from '@/hooks/useData';
+import { loadDrillContext, type DrillContext } from '@/lib/collections/drillContext';
+import { queueCounts } from '@/lib/collections/drillQueue';
+import { drillFavorisNote } from '@/lib/program/dayPlan';
 
 export const TASK_META: Record<TaskKind, { icon: string; badge: string; bar: string; label: string }> = {
   simulation: { icon: 'stethoscope', badge: 'bg-brand-100 text-brand-600 dark:bg-brand-900/30 dark:text-brand-300', bar: 'bg-brand-500', label: 'Simulation' },
@@ -128,6 +132,21 @@ export function TaskAnatomy({ task, reste }: { task: TaskInstance; reste?: Lectu
   );
 }
 
+/** « dont N favoris de ta séance » sous la tâche drill du jour (lot F point 4). Lu à l'AFFICHAGE — favoris vivants,
+ *  file que le drill servirait maintenant (`queueCounts`) — jamais stocké : le plan figé (INV-55) n'en dépend pas.
+ *  Monté seulement sur la tâche drill à faire du jour : le glossaire n'est lu que là. */
+function DrillFavoris() {
+  const terms = useAllTerms();
+  const favorites = useFavorites();
+  const [ctx, setCtx] = useState<DrillContext | null>(null);
+  useEffect(() => { let vivant = true; loadDrillContext().then((c) => { if (vivant) setCtx(c); }).catch((e) => console.warn('[drill-favoris]', e)); return () => { vivant = false; }; }, []);
+  const n = useMemo(() => (ctx && terms && favorites
+    ? queueCounts(terms, { newLimit: ctx.remaining, maxReviews: ctx.reviewsRemaining, relevance: { ...ctx.relevance, favorites } }).favorites
+    : 0), [ctx, terms, favorites]);
+  const note = drillFavorisNote(n);
+  return note ? <div className="mt-0.5 text-[11px] text-slate-500 dark:text-slate-400">{note}</div> : null;
+}
+
 /**
  * Une tâche, cochable — TOUTES les tâches, pas seulement les simulations à
  * couche : Fachwissen, examen à blanc et reprise de partie faible n'avaient
@@ -139,6 +158,7 @@ export function TaskAnatomy({ task, reste }: { task: TaskInstance; reste?: Lectu
 export function TaskLine({ task, readOnly = false, showReason = true, lecture }: { task: TaskInstance; readOnly?: boolean; showReason?: boolean; lecture?: LectureTache }) {
   const meta = TASK_META[task.kind];
   const done = task.doneAt !== undefined;
+  const today = useToday((s) => s.day);
   return (
     <div className={`rounded-xl border transition-colors ${done ? 'border-emerald-200 bg-emerald-50/40 dark:border-emerald-900/40 dark:bg-emerald-900/10' : 'border-slate-200 dark:border-slate-800'}`}>
       <div className="flex flex-wrap items-center gap-3 px-3 py-2.5">
@@ -152,6 +172,7 @@ export function TaskLine({ task, readOnly = false, showReason = true, lecture }:
           {/* Le rappel d'une erreur transversale : un fait, sans jugement (T2). */}
           {!done && lecture?.rappel && <div className="mt-0.5 text-[11px] text-slate-500 dark:text-slate-400">{lecture.rappel}</div>}
           {!done && lecture?.soiree && <div className="mt-0.5 text-[11px] text-slate-500 dark:text-slate-400">{lecture.soiree}</div>}
+          {!done && !readOnly && task.kind === 'drill' && task.date === today && <DrillFavoris />}
         </div>
         {done ? (
           <span className="ml-auto flex shrink-0 items-center gap-1 text-[11px] font-medium text-emerald-600 dark:text-emerald-300">
