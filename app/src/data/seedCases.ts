@@ -9903,6 +9903,7 @@ export function seedCases(): Case[] {
       frequency: 7,
       difficulty: 2,
       patientSheet: {
+        profil: { tags: ['schmerz'] },
         fachSkip: ['fach-neuro-anfallzeichen'],
         personalia: {
           name: 'Elke Kovermann',
@@ -10465,6 +10466,7 @@ export function seedCases(): Case[] {
       frequency: 3,
       difficulty: 2,
       patientSheet: {
+        profil: { tags: ['atemnot', 'dyspnoe', 'husten'] },
         leitsymptomKategorie: 'atemnot',
         personalia: {
           name: 'Maximilian Volk',
@@ -11068,6 +11070,7 @@ export function seedCases(): Case[] {
       frequency: 3,
       difficulty: 3,
       patientSheet: {
+        profil: { tags: ['atemnot', 'dyspnoe', 'husten'] },
         fachSkip: ['fach-kardio-ausstrahlung'],
         leitsymptomKategorie: 'atemnot',
         personalia: {
@@ -11633,6 +11636,7 @@ export function seedCases(): Case[] {
       frequency: 13,
       difficulty: 3,
       patientSheet: {
+        profil: { tags: ['schmerz', 'fieber', 'stein'] },
         personalia: {
           name: 'Jörg Müller',
           age: 79,
@@ -12191,6 +12195,7 @@ export function seedCases(): Case[] {
       frequency: 3,
       difficulty: 2,
       patientSheet: {
+        profil: { tags: ['schmerz', 'fieber', 'dysphagie', 'hals'] },
         fachSkip: ['fach-infekt-zecke'],
         personalia: {
           name: 'Norbert Mayer',
@@ -12343,6 +12348,8 @@ export function seedCases(): Case[] {
           'fach-infekt-reise': 'Nein, ich war nirgends. Keine Reise, schon gar nicht ins Ausland — ich komme kaum aus dem Laden raus.',
           'fach-infekt-kontakt': 'Nein, bei uns zu Hause ist niemand krank, und ich weiß auch von niemandem im Bekanntenkreis. Im Laden habe ich natürlich den ganzen Tag Kundenkontakt, da kann alles Mögliche dabei sein. Ich habe zu Hause einen Corona-Schnelltest gemacht, der war negativ. Rohmilch trinke ich nicht.',
           'fach-infekt-impfung': 'Tetanus wurde vor fünf Jahren aufgefrischt, nach der Sache mit der Hand. Gegen Corona bin ich dreimal geimpft. Gegen Grippe lasse ich mich nicht impfen. Ob da bei der Tetanusspritze auch Diphtherie dabei war, weiß ich ehrlich gesagt nicht — im Impfpass müsste es stehen.',
+          // K2 (ADR-0023) : réponses des sondes de banque que le profil exige (r3)
+          'akt-ausscheid-schlucken': 'Stecken bleibt nichts, es tut nur furchtbar weh. Festes Essen kriege ich kaum runter, Trinken geht in kleinen Schlucken, kalt am besten. Meinen Speichel kann ich schlucken.',
         },
         schwierigeReaktionen: [
           '„Herr Doktor, ich brauche einfach ein Antibiotikum. Fünf Tage Fieber, da hilft doch nichts anderes.“',
@@ -12707,6 +12714,7 @@ export function seedCases(): Case[] {
       frequency: 0,
       difficulty: 2,
       patientSheet: {
+        profil: { tags: ['allgemein', 'dyspnoe', 'gewichtsverlust'] },
         leitsymptomKategorie: 'allgemein',
         personalia: {
           name: 'Renate Bergmann',
@@ -13233,6 +13241,7 @@ export function seedCases(): Case[] {
       frequency: 8,
       difficulty: 3,
       patientSheet: {
+        profil: { tags: ['anfall', 'dyspnoe'] },
         leitsymptomKategorie: 'anfall',
         personalia: {
           name: 'Reinhard Kessler',
@@ -13757,6 +13766,7 @@ export function seedCases(): Case[] {
       frequency: 0,
       difficulty: 2,
       patientSheet: {
+        profil: { tags: ['veraenderung', 'schmerz', 'fieber'] },
         fachSkip: ['fach-derma-muttermal', 'fach-derma-verlauf'],
         leitsymptomKategorie: 'veraenderung',
         personalia: {
@@ -13917,6 +13927,9 @@ export function seedCases(): Case[] {
           'fach-derma-vorgeschichte': 'Neurodermitis oder Schuppenflechte hatte ich nie, und in der Familie gibt es das auch nicht. Nur eben die Wundrose vor zwei Jahren. Die Krampfadern habe ich wohl von meinem Vater geerbt.',
           'fach-derma-muttermal': 'Nein, an meinen Muttermalen hat sich nichts verändert, keines blutet oder juckt. Beim Hautarzt war ich allerdings noch nie.',
           'fach-derma-vorbehandlung': 'Ich habe eine alte Zinksalbe aus dem Schrank draufgeschmiert und gekühlt und Ibuprofen 400 genommen. Geholfen hat das nicht, die Rötung ist trotzdem größer geworden. Gegen den Fußpilz hatte ich vor Monaten mal eine Creme, die habe ich aber nur ein paar Tage benutzt, weil das Jucken weg war.',
+          // K2 (ADR-0023) : réponses des sondes de banque que le profil exige (r3)
+          'akt-charakter': 'Es brennt und spannt, als wäre die Haut zu eng. Wenn man draufdrückt, sticht es.',
+          'akt-intensitaet': 'Im Liegen ungefähr sechs von zehn, im Stehen bis acht.',
         },
         schwierigeReaktionen: [
           '"Muss ich denn wirklich ins Krankenhaus? Ich habe morgen Frühschicht, wir sind sowieso zu wenige Fahrer."',
@@ -14291,6 +14304,7 @@ export function seedCases(): Case[] {
       frequency: 0,
       difficulty: 2,
       patientSheet: {
+        profil: { tags: ['allgemein', 'hals'] },
         leitsymptomKategorie: 'allgemein',
         personalia: {
           name: 'Beate Lindner',
@@ -14843,6 +14857,7 @@ export function seedCases(): Case[] {
       frequency: 0,
       difficulty: 3,
       patientSheet: {
+        profil: { tags: ['allgemein', 'dyspnoe', 'gewichtsverlust'] },
         leitsymptomKategorie: 'allgemein',
         personalia: {
           name: 'Werner Kolbe',
@@ -15396,6 +15411,7 @@ export function seedCases(): Case[] {
       frequency: 4,
       difficulty: 3,
       patientSheet: {
+        profil: { tags: ['veraenderung', 'fieber', 'hals', 'lyme', 'gewichtsverlust'] },
         leitsymptomKategorie: 'veraenderung',
         personalia: {
           name: 'Elisabeth Länge',
@@ -15953,6 +15969,7 @@ export function seedCases(): Case[] {
       frequency: 14,
       difficulty: 3,
       patientSheet: {
+        profil: { tags: ['atemnot', 'dyspnoe', 'husten'] },
         leitsymptomKategorie: 'atemnot',
         personalia: {
           name: 'Manfred Thaler',
@@ -16503,6 +16520,7 @@ export function seedCases(): Case[] {
       frequency: 9,
       difficulty: 3,
       patientSheet: {
+        profil: { tags: ['schmerz'] },
         personalia: {
           name: 'Maria Schiltknecht',
           age: 35,
@@ -17033,6 +17051,7 @@ export function seedCases(): Case[] {
       frequency: 0,
       difficulty: 3,
       patientSheet: {
+        profil: { tags: ['schmerz', 'fieber', 'meningitis', 'lyme'] },
         personalia: {
           name: 'Tobias Wendland',
           age: 34,
@@ -17549,6 +17568,7 @@ export function seedCases(): Case[] {
       frequency: 3,
       difficulty: 3,
       patientSheet: {
+        profil: { tags: ['ausscheidung', 'gewichtsverlust'] },
         leitsymptomKategorie: 'ausscheidung',
         personalia: {
           name: 'Ilsi Bachmann',
