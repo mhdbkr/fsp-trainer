@@ -44,9 +44,8 @@ export function PhraseLine({ phrase, keywords = [], tone = 'brand', active = fal
   const dot = caseSpecific && caseLabel ? 'h-2 w-2 bg-brand-600 ring-2 ring-brand-200 dark:bg-brand-400 dark:ring-brand-900' : tone === 'emerald' ? 'bg-emerald-400' : 'bg-brand-400';
   const askable = !!onAsk && probes.length > 0;
   // Recouvrement avec l'anamnèse générale : le candidat a déjà posé la question
-  // plus haut. On le DIT au lieu de le laisser répéter — « approfondit » quand
-  // la version Fach ajoute un axe clinique, « déjà demandé » quand elle
-  // n'ajoute rien.
+  // plus haut. On le DIT au lieu de le laisser répéter — « approfondit » : la
+  // version Fach ajoute un axe clinique (DM1 a supprimé les vraies redites).
   const src = probes.length === 1 ? PROBE_BY_ID[probes[0]] : undefined;
   const target = src?.deepens ? PROBE_BY_ID[src.deepens] : undefined;
   const covered = target && (overlapHints || target.kapitel === 'aktuell') ? target : undefined;
@@ -77,11 +76,8 @@ export function PhraseLine({ phrase, keywords = [], tone = 'brand', active = fal
 
         {covered && (
           <span title={`Anamnèse générale : « ${covered.frage} »`}
-            className={`ml-1.5 inline-flex items-center gap-1 rounded-full px-1.5 py-px align-middle text-[10px] font-semibold ${
-              src?.redundant
-                ? 'bg-slate-100 text-slate-500 dark:bg-slate-800 dark:text-slate-400'
-                : 'bg-violet-100 text-violet-700 dark:bg-violet-900/40 dark:text-violet-300'}`}>
-            {src?.redundant ? '↻ déjà demandé' : '↗ approfondit'}
+            className="ml-1.5 inline-flex items-center gap-1 rounded-full bg-violet-100 px-1.5 py-px align-middle text-[10px] font-semibold text-violet-700 dark:bg-violet-900/40 dark:text-violet-300">
+            ↗ approfondit
           </span>
         )}
 

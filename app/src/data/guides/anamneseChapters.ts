@@ -1442,22 +1442,15 @@ export const FACHANAMNESEN: FachanamneseGuide[] = [
         probe: 'fach-chir-essen',
         label: 'Nüchternheit',
       },
-      { text: 'Ist Ihnen übel? Haben Sie sich übergeben?', probe: 'fach-chir-uebelkeit' },
       {
         text: 'Hatten Sie heute Stuhlgang? Gehen noch Winde ab?',
         probe: 'fach-chir-ileus',
         label: 'Ileus-Frage',
       },
-      { text: 'Haben Sie Fieber?', probe: 'fach-chir-fieber' },
       {
         text: 'Wurden Sie schon einmal am Bauch operiert? Haben Sie Narben?',
         probe: 'fach-chir-op',
         followUp: ['Falls ja: Wann war das?', 'Falls ja: Weswegen wurden Sie operiert?', 'Falls ja: Gab es Komplikationen bei der Narkose?'],
-      },
-      {
-        text: 'Nehmen Sie Blutverdünner ein?',
-        probe: 'fach-chir-blutverduenner',
-        followUp: ['Falls ja: Wichtig vor jeder Operation: Wann haben Sie die letzte Dosis genommen?'],
       },
       { text: 'Haben Sie bekannte Gallensteine oder einen Leistenbruch?', probe: 'fach-chir-gallensteine' },
     ],

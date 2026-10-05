@@ -1,7 +1,6 @@
 import type { Phrase, PhraseVariant } from './phrases';
 import type { Signe } from './signes';
 import { phraseIsCaseSpecific, phraseProbes } from './phrases';
-import { PROBE_BY_ID } from './anamneseProbes';
 
 // ============================================================================
 // UN SYMPTÔME, UNE QUESTION — par trame jouée (FB2-J10).
@@ -89,7 +88,6 @@ export const PROBE_SUCHT: Record<string, Symptom[]> = {
   'fach-uro-miktion': ['miktion'], 'fach-uro-frequenz': ['miktion'], 'fach-uro-farbe': ['miktion'],
   'fach-infekt-fieber': ['fieber'], 'fach-infekt-reise': ['reise'], 'fach-infekt-kontakt': ['kontakt'],
   'fach-infekt-haut': ['ausschlag'],
-  'fach-chir-fieber': ['fieber'], 'fach-chir-uebelkeit': ['uebelkeit'],
   'fach-gastro-uebelkeit': ['uebelkeit'], 'fach-gastro-stuhl': ['stuhl'],
   'fach-haem-bsymptomatik': ['fieber', 'nachtschweiss', 'gewicht'],
   'fach-onko-bsymptomatik': ['fieber', 'nachtschweiss', 'gewicht'],
@@ -197,15 +195,6 @@ export function dedupeBySymptom<T extends TrameChapter>(chapters: T[]): T[] {
     for (const s of phraseSymptoms(q)) set.add(s);
     reserved.set(ch.id, set);
   }
-  // Vrai doublon déclaré (`redundant`) : la version générale, plus riche, est
-  // dans la trame → c'est la version Fach qui s'efface, quel que soit l'ordre.
-  const present = new Set(chapters.flatMap((ch) => ch.questions.flatMap(phraseProbes)));
-  const yieldsToGeneral = (q: Phrase) => {
-    const ps = phraseProbes(q);
-    if (ps.length !== 1) return false;
-    const src = PROBE_BY_ID[ps[0]];
-    return !!src?.redundant && !!src.deepens && present.has(src.deepens);
-  };
   return chapters.map((ch) => {
     // Position où une question du cas (`sucht`) prend la place de la
     // première générale qu'elle remplace — sinon elle resterait en fin de
@@ -213,7 +202,6 @@ export function dedupeBySymptom<T extends TrameChapter>(chapters: T[]): T[] {
     const slot = new Map<Symptom, number>();
     const rows: Array<{ q: Phrase; at: number }> = [];
     ch.questions.forEach((q, i) => {
-      if (yieldsToGeneral(q)) return;
       const syms = phraseSymptoms(q);
       if (!syms.length) { rows.push({ q, at: i }); return; }
       const own = phraseIsCaseSpecific(q);

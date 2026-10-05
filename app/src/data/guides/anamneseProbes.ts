@@ -30,9 +30,6 @@ export interface AnamneseProbe {
    *  toujours un axe clinique décisif (Reithosenanästhesie, Kaffeesatz,
    *  poids ↔ appétit…). */
   deepens?: string;
-  /** Vrai doublon : la version générale est strictement plus riche, la question
-   *  Fach n'ajoute rien → le guide invite à passer. */
-  redundant?: boolean;
 }
 
 // --- Allgemeine Anamnese (tous les cas) -------------------------------------
@@ -126,11 +123,8 @@ export const FACH_PROBES: Partial<Record<Specialty, AnamneseProbe[]>> = {
   ],
   Chirurgie: [
     { id: 'fach-chir-essen', kapitel: 'fach', frage: 'Wann haben Sie zuletzt gegessen und getrunken? Was genau?' },
-    { id: 'fach-chir-uebelkeit', kapitel: 'fach', frage: 'Ist Ihnen übel? Haben Sie sich übergeben?', deepens: 'veg-uebelkeit', redundant: true },
     { id: 'fach-chir-ileus', kapitel: 'fach', frage: 'Hatten Sie heute Stuhlgang? Gehen noch Winde ab?' },
-    { id: 'fach-chir-fieber', kapitel: 'fach', frage: 'Haben Sie Fieber?', deepens: 'veg-fieber', redundant: true },
     { id: 'fach-chir-op', kapitel: 'fach', frage: 'Wurden Sie schon einmal am Bauch operiert? Haben Sie Narben?', deepens: 'vor-op' },
-    { id: 'fach-chir-blutverduenner', kapitel: 'fach', frage: 'Nehmen Sie Blutverdünner ein?', deepens: 'med-blutverduenner', redundant: true },
     { id: 'fach-chir-gallensteine', kapitel: 'fach', frage: 'Haben Sie bekannte Gallensteine oder einen Leistenbruch?' },
   ],
   Psychiatrie: [

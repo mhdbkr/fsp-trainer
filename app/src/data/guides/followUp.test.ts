@@ -46,7 +46,6 @@ describe('G4 — relances conditionnelles préfixées', () => {
     ['fach-neuro-kopfschmerz', 'Ist Ihnen während der Schmerzen übel', 'ja'],
     ['fach-neuro-kraft', 'Lassen Sie Dinge fallen', 'ja'],
     ['fach-chir-op', 'Wann war das', 'ja'],
-    ['fach-chir-blutverduenner', 'Wichtig vor jeder Operation', 'ja'],
     ['fach-infekt-fieber', 'Haben Sie Schüttelfrost', 'ja'],
     ['fach-kardio-brust', 'Können Sie mit einem Finger', 'ja'],
     ['akt-infekt-fieber', 'Wie hoch war es', 'ja'],
@@ -109,15 +108,6 @@ describe('Revue Q0 — m2 : le sang dépend du crachat', () => {
     const auswurf = g.find((x) => x.control.kind === 'ja' && x.control.label === 'Auswurf')!;
     expect(auswurf.questions).toEqual(['Welche Farbe hat das?', 'Ist Blut dabei?']);
     // Défaut ANTÉRIEUR, non corrigé ici : l'interrupteur « Auswurf » est visible avant « Husten = Ja ».
-  });
-});
-
-describe('Revue Q0 — m7 : héparine, Clexane', () => {
-  it('le blutverdünner demande la dernière DOSE, pas la dernière tablette', () => {
-    const rs = relancesOf('fach-chir-blutverduenner', 'Wichtig vor jeder Operation');
-    expect(rs).toHaveLength(1);
-    expect(rs[0]).toMatch(/die letzte Dosis/);
-    expect(rs[0]).not.toMatch(/Tablette/);
   });
 });
 
