@@ -184,7 +184,8 @@ describe('I-3 — une tâche faite n\'est jamais perdue (décision de main, amen
   it('deux appareils, plan de A gagnant, sans équivalent : la tâche faite sur B est AJOUTÉE au plan de A, faite', async () => {
     const a = task({ id: 'ta', caseId: 'c9', teil: 'dokumentation' });     // A n'a pas vu la simulation d'hier : autre Teil du jour
     const b = task({ id: 'tb', caseId: 'c5', teil: 'anamnese' });
-    const done = { at: Date.parse('2026-10-01T10:00:00Z'), kind: 'simulation', caseId: 'c5', teile: ['anamnese'], source: 'plan', taskId: 'tb', spentMin: 20 };
+    // §12.3 : D-I2 est conservé pour la COCHE MANUELLE seule (coche nue, 0 minute) ; les parties se retrouvent par leur contenu.
+    const done = { at: Date.parse('2026-10-01T10:00:00Z'), kind: 'simulation', caseId: 'c5', teile: ['anamnese'], source: 'plan', taskId: 'tb', spentMin: 0 };
     await rebuildJournal([
       planEv('plan.materialized', '2026-10-01', [a], '2026-10-01T06:00:00Z'),
       planEv('plan.materialized', '2026-10-01', [b], '2026-10-01T07:00:00Z'),
@@ -233,8 +234,8 @@ describe('D-C4 révisé — le mode prime : une tâche « cas complet » demande
   });
   it('une Anamnese seule progresse et entre dans l\'historique, sans cocher la tâche complète', async () => {
     const r = await jouer(sim('s1', 9, { anamnese: 85 }));
-    expect(r.taskId).toBeUndefined();
-    expect((await db.day_plans.get('2026-10-01'))!.tasks[0].doneAt).toBeUndefined();
+    expect(r.taskId, 'informatif : la partie fait AVANCER la tâche (« dans le plan »)').toBe('tc');
+    expect((await db.day_plans.get('2026-10-01'))!.tasks[0].doneAt, '…mais elle ne la coche pas').toBeUndefined();
     expect((await db.case_progress.get('c1'))!.teile.anamnese.status).toBe('acquis');   // S4-1 : une réussite unique ≥ 80 ne suffit plus à « solide » (§13.2)
     expect(await db.training_events.get('te-s1')).toBeDefined();
   });
@@ -244,9 +245,13 @@ describe('D-C4 révisé — le mode prime : une tâche « cas complet » demande
     expect(r.taskId).toBe('tc');
     await expectLocalEqualsRebuild();
   });
-  it('un run complet coche ; un taskId explicite sur une partie incomplète ne coche pas', async () => {
-    expect((await resolveSimulationTask(sim('s3', 9, { anamnese: 80 }, 'tc'))).taskId).toBeUndefined();
-    expect((await resolveSimulationTask(sim('s4', 9, { anamnese: 80, dokumentation: 80, fallvorstellung: 80 }))).taskId).toBe('tc');
+  it('un run complet coche ; un taskId explicite sur une partie incomplète est gardé (informatif) mais ne coche pas', async () => {
+    const partielle = await jouer(sim('s3', 9, { anamnese: 80 }, 'tc'));
+    expect(partielle.taskId).toBe('tc');
+    expect((await db.day_plans.get('2026-10-01'))!.tasks[0].doneAt).toBeUndefined();
+    const complete = await jouer(sim('s4', 10, { dokumentation: 80, fallvorstellung: 80 }));
+    expect(complete.taskId).toBe('tc');
+    expect((await db.day_plans.get('2026-10-01'))!.tasks[0].doneAt, 'les trois Teile en deux parties').toBeDefined();
   });
 });
 
@@ -292,7 +297,14 @@ describe('m-2 — une coche n\'est pas un Teil JOUÉ le jour même', () => {
     await rebuildJournal(await db.progress_events.toArray());
     const coche = await markTaskDone(t);
     expect(coche.teile).toHaveLength(3);
+    expect((await db.day_plans.get('2026-10-01'))!.tasks[0].doneAt, 'la coche fait la tâche').toBe(coche.at);
     const s = await resolveSimulationTask({ id: 's-ana', caseId: 'c1', date: new Date(2026, 9, 1, 9, 0).getTime(), notes: {}, prioritizedCorrections: [], parts: { anamnese: part(85) } } as unknown as Simulation);
-    expect(s.taskId).toBeUndefined();                                // les Teile de la coche ne complètent pas la partie
+    await db.progress_events.put(ev('simulation.completed', 'c1', s, new Date(s.date).toISOString()));
+    await applySimulationToJournal(s);
+    // Les Teile déclarés par la coche ne sont pas des Teile JOUÉS : la partie seule ne complète pas la tâche, donc la coche
+    // n'est pas absorbée — elle reste ce qui fait la tâche (D-C4).
+    expect((await db.training_events.toArray()).map((x) => x.id).sort()).toEqual([coche.id, 'te-s-ana'].sort());
+    expect((await db.day_plans.get('2026-10-01'))!.tasks[0].doneAt).toBe(coche.at);
+    await expectLocalEqualsRebuild();
   });
 });

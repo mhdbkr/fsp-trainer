@@ -13,7 +13,12 @@ export type ProgressEventType =
   //                        occurred_at gagne — « fige » veut dire que le premier fige.
   // `plan.replanned`       subject = yyyy-MM-dd        · payload = { tasks, reason }
   //                        dernier-gagne, et bat toujours plan.materialized.
-  | 'training.logged' | 'plan.materialized' | 'plan.replanned';
+  // `program.configured`  subject = null · payload = ProgramConfig COMPLÈTE · PROJETÉ désormais (configProjetee.ts)
+  | 'training.logged' | 'plan.materialized' | 'plan.replanned'
+  // --- Série 4 (training-journal.md §12.10) : les refus sont des événements SYNCHRONISÉS ------
+  // `rythme.refused`       subject = yyyy-Www (semaine ISO) · payload = {} · additif
+  // `rattrapage.refused`   subject = yyyy-MM-dd (jour refusé) · payload = {} · additif
+  | 'rythme.refused' | 'rattrapage.refused';
 export interface ProgressEvent {
   id: string;            // uuid client
   user_id: string;       // 'local' tant qu'anonyme ; réattribué à la migration

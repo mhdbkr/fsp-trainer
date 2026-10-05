@@ -13,19 +13,19 @@
 //    (ADR-0020 §2). Remplacées par le champ de couverture.
 // ============================================================================
 
-import { addDays, differenceInCalendarDays, parseISO, startOfDay } from 'date-fns';
+import { differenceInCalendarDays } from 'date-fns';
 import type { Case, CaseProgress, ProgramConfig, SimTeil, TrainingEvent } from '@/db/types';
 import { spentByDay, workedDayKeys, blankProgress } from '@/lib/journal';
 import { TEILE } from '@/lib/simScope';
 import { nowDate } from '@/lib/clock';
-import { isWorkingDay, programEnd } from './dayPlan';
+import { programEnd } from './calendrier';
 
 export {
-  buildTasks, dayTargetMin, ensureDayPlan, isWorkingDay, modusOf, nextWorkingDay,
+  buildTasks, dayTargetMin, ensureDayPlan, isWorkingDay, nextWorkingDay,
   planProgress, programEnd, projectedDays, replanifier, sessionDuJour,
-  specialiteLaPlusEnDette, taperDays, teilLePlusEnDette,
+  specialiteLaPlusEnDette, taperDays,
 } from './dayPlan';
-export { observeModus, modusAProposer, MIN_SEANCES } from './modus';
+export { observeMode, observeModus, observation, modeDuJour, MIN_SEANCES } from './modus';
 export {
   fraicheur, freq, pickWithDiversity, pourquoiAujourdhui, pressionExamen,
   rankCandidates, scoreCase, urgence, type Scored, type SelectContext,
@@ -33,16 +33,7 @@ export {
 
 const TEIL_KEYS: SimTeil[] = TEILE.map((t) => t.key);
 
-/** Nombre de jours ouvrés strictement après `now` jusqu'à `examDateISO` inclus. */
-export function workingDaysUntilExam(examDateISO: string, now = nowDate(), config?: ProgramConfig): number {
-  const cfg = config ?? ({ offDays: [0, 6] } as ProgramConfig);
-  const end = startOfDay(parseISO(examDateISO));
-  let count = 0;
-  for (let d = startOfDay(addDays(now, 1)), guard = 0; d <= end && guard < 10_000; d = addDays(d, 1), guard++) {
-    if (isWorkingDay(d, cfg)) count++;
-  }
-  return count;
-}
+export { workingDaysUntilExam } from './calendrier';
 
 export interface ProgramStats {
   daysUntilExam: number | null;

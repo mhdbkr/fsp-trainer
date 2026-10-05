@@ -114,12 +114,13 @@ describe('D-I5 — le mode choisi prime', () => {
   });
 });
 
-describe('M3 — l\'examen à blanc respecte le budget', () => {
-  it('un jour de 45 min ne reçoit pas un examen à blanc de 60 min', () => {
+describe('I7 — l\'examen à blanc est la tâche FORCÉE du jour (remplace M3, §12.4 ; INV-58)', () => {
+  it('un jour de 45 min en mode `examen-blanc` reçoit quand même son examen (52 min), et rien d\'autre en plus', () => {
     const cfg = config({ modus: 'examen-blanc', hoursPerSession: 0.75 });
-    expect(dayTargetMin(cfg)).toBeLessThan(60);
+    expect(dayTargetMin(cfg)).toBeLessThan(52);
     const tasks = buildTasks(input({ config: cfg }), ids());
-    expect(used(tasks)).toBeLessThanOrEqual(dayTargetMin(cfg));
+    expect(tasks.filter((t) => t.kind === 'examen-blanc')).toHaveLength(1);
+    expect(tasks.filter((t) => t.kind === 'simulation' || t.kind === 'revision')).toEqual([]);
   });
 });
 
@@ -174,6 +175,6 @@ describe('M-a — le drill reste dans le budget', () => {
     const cfg = config({ hoursPerSession: 0.75 });
     const due = Array.from({ length: 300 }, (_, i) => ({ id: `fb${i}`, srs: { state: 'Gelernt', repetitions: 2, interval: 3, easeFactor: 2.5, dueDate: 0, lapses: 0 } })) as never;
     const tasks = buildTasks(input({ config: cfg, begriffe: due }), ids());
-    expect(used(tasks)).toBeLessThanOrEqual(dayTargetMin(cfg));
+    expect(tasks.find((t) => t.kind === 'drill')!.estMin).toBeLessThanOrEqual(dayTargetMin(cfg));   // la première tâche de cas, forcée, n'est pas le drill
   });
 });

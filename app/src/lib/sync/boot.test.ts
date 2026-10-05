@@ -18,6 +18,7 @@ import type { ProgressEvent } from './events';
 import { freezeAt, resetClock } from '@/lib/clock';
 import { bootJournal, msToNextDay, watchDayPlan } from './boot';
 import { ensureDayPlan } from '@/lib/program/dayPlan';
+import { joursRefuses, rattrapageAProposer, RATTRAPAGE_REFUS_KEY } from '@/lib/program/rattrapage';
 
 const SPECS: Specialty[] = ['Kardiologie', 'Gastroenterologie', 'Pneumologie', 'Neurologie', 'Nephrologie', 'Endokrinologie'];
 const corpus = (n = 24): Case[] => Array.from({ length: n }, (_, i) => ({
@@ -103,6 +104,25 @@ describe('D-I2 — un second appareil ne fige pas un autre plan que le premier',
   });
 });
 
+describe('INV-76 (b) — le premier démarrage S4-2 ne laisse pas une config distante écraser la locale', () => {
+  it('pull d\'une config distante PLUS ANCIENNE : la config locale est poussée d\'abord et reste la référence', async () => {
+    freezeAt('2026-10-01T08:00:00Z');
+    await db.cases.bulkPut(corpus());
+    const locale: ProgramConfig = { ...config, hoursPerSession: 3 };
+    await db.meta.put({ key: 'program', value: locale });                  // une install d'avant S4-2 : meta seule
+    session.token = 'tok';
+    const distante = ev('program.configured', null, { ...config, hoursPerSession: 1 }, '2026-09-15T08:00:00Z', { received_at: '2026-09-15T08:00:01Z' });
+    // GET (pull) : la config distante ; POST (flush du plan matérialisé) : un acquittement vide, jamais un 400.
+    fetchMock.mockImplementation(async (url: string, init?: { method?: string }) => ({ ok: true, status: 200, json: async () =>
+      (init?.method === 'POST' ? { acked: [], rejected: [] } : { events: String(url).includes('since=') ? [distante] : [] }) }));
+    await bootJournal();
+    expect((await db.meta.get('program'))!.value).toEqual(locale);
+    expect(await db.progress_events.where('type').equals('program.configured').count()).toBe(2);   // la distante + la locale poussée
+    await bootJournal();                                                   // deuxième démarrage : pas de second push
+    expect(await db.progress_events.where('type').equals('program.configured').count()).toBe(2);
+  });
+});
+
 describe('10 000 événements — le démarrage reconstruit tout, sans rien perdre', () => {
   it('3 000 simulations + 2 000 training.logged + 5 000 révisions SRS', async () => {
     freezeAt('2026-10-01T08:00:00Z');
@@ -153,5 +173,21 @@ describe('M7 — une horloge qui recule ne matérialise jamais le passé', () =>
     advance(-24 * 3600_000);
     expect(await ensureDayPlan()).toBeNull();
     expect((await db.day_plans.toArray()).map((p) => p.date)).toEqual(['2026-10-02']);
+  });
+});
+
+describe('S4-2 revue I3 — la clé locale de refus du rattrapage est migrée au démarrage', () => {
+  it('un rattrapage refusé avant la série 4 n’est pas reproposé le jour du déploiement', async () => {
+    freezeAt('2026-10-02T08:00:00Z');
+    await db.cases.bulkPut(corpus());
+    await db.meta.put({ key: 'program', value: config });
+    const veille = { id: 'h1', date: '2026-10-01', kind: 'simulation', caseId: 'c3', label: 'Cas 3', estMin: 20, source: 'plan', reason: 'r' };
+    await db.progress_events.put(ev('plan.materialized', '2026-10-01', { tasks: [veille], mode: 'cas-complet', seed: 's', targetMin: 90 }, '2026-10-01T06:00:00Z'));
+    await db.meta.put({ key: RATTRAPAGE_REFUS_KEY, value: ['2026-10-01'] });          // refusé sur cet appareil, avant S4-2
+    await bootJournal(0);
+    expect(await db.meta.get(RATTRAPAGE_REFUS_KEY), 'la clé locale est migrée puis retirée').toBeUndefined();
+    expect([...await joursRefuses()]).toEqual(['2026-10-01']);
+    const plans = await db.day_plans.toArray();
+    expect(rattrapageAProposer(plans, '2026-10-02', await joursRefuses(), await db.training_events.toArray())).toBeNull();
   });
 });

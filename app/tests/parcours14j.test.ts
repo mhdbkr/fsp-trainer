@@ -6,7 +6,7 @@
 // CI, et nomme la graine du parcours fautif.
 //
 // Persona : candidate FSP, trois heures par jour, examen dans 10 semaines,
-// d'abord par Teil, puis cas complets ; deux jours manqués (jours 4 et 5), un
+// qui joue des cas ; deux jours manqués (jours 4 et 5), un
 // drill libre, une partie interrompue en plein jeu (rechargement) puis reprise.
 //
 // Invariants vérifiés chaque soir :
@@ -30,6 +30,7 @@ import { erstelleLauf, transition } from '@/lib/lauf/automat';
 import { ladeAktivenLauf, speichereAktivenLauf, speichern } from '@/lib/lauf/speichern';
 import { logTraining, markTaskDone, pointFaible, rebuildJournal } from '@/lib/journal';
 import { ensureDayPlan, sessionDuJour, taperDays } from '@/lib/program';
+import { teileDeTache } from '@/lib/program/tacheDeCas';
 import type { Case, DayPlan, ProgramConfig, TaskInstance } from '@/db/types';
 import { forAll, type Rng } from './helpers/prop';
 import { CORPUS, TEILE, addDaysISO, partResult, resetTime, resetWorld, startOn } from './helpers/world';
@@ -43,7 +44,7 @@ const open = (p: DayPlan) => p.tasks.filter((t) => t.doneAt === undefined);
 /** Ce que « figé » veut dire : tout sauf l'état fait/pas fait. */
 const structure = (p: DayPlan) => JSON.stringify({
   date: p.date, mode: p.mode, seed: p.seed, targetMin: p.targetMin, materializedAt: p.materializedAt,
-  tasks: p.tasks.map((t) => ({ id: t.id, kind: t.kind, caseId: t.caseId, teil: t.teil, label: t.label, estMin: t.estMin, reason: t.reason, specialty: t.specialty })),
+  tasks: p.tasks.map((t) => ({ id: t.id, kind: t.kind, caseId: t.caseId, teile: t.teile, label: t.label, estMin: t.estMin, reason: t.reason, specialty: t.specialty })),
 });
 
 /** L'état du journal tel que l'app le stocke, normalisé (JSON ignore les `undefined`). */
@@ -61,7 +62,7 @@ async function jouer(r: Rng, t: TaskInstance, tick: (ms: number) => void): Promi
   tick(r.int(60_000, 20 * 60_000));
   if (t.kind === 'simulation' && t.caseId && r.bool(0.8)) {
     const c = CORPUS.find((x) => x.id === t.caseId)! as Case;
-    const teile = t.teil ? [t.teil] : TEILE;
+    const teile = teileDeTache(t);
     let l = erstelleLauf({ caseId: c.id, caseName: c.name, geplanteTeile: teile, assistance: t.assistance ?? 'autonome', layer: t.layer ?? 2, mode: 'texte', taskId: t.id });
     l = transition(l, { typ: 'demarrer', checkliste: MODELLE() });
     for (let i = 0; i < teile.length; i++) {
@@ -71,7 +72,7 @@ async function jouer(r: Rng, t: TaskInstance, tick: (ms: number) => void): Promi
     }
     l = transition(transition(l, { typ: 'versChecklist' }), { typ: 'speichern' });
     await speichern(l, c);
-    return `${t.label} (${t.teil ?? 'cas complet'}) joué`;
+    return `${t.label} (${teile.join('+')}) joué`;
   }
   await markTaskDone(t, r.int(1, 25));
   return `${t.label} coché`;
@@ -84,8 +85,8 @@ describe('Candidate synthétique — 14 jours ouvrés, 2 jours manqués, un dril
       await resetWorld();
       const cfg: ProgramConfig = {
         startDate: '2026-10-05', examDate: r.pick(['2026-12-18', '2026-10-23']), intensity: 'mittel', hoursPerSession: 3,
-        offDays: [0, 6], prioritySpecialties: [], selfLevel: {}, createdAt: 0, modus: 'teil-first',
-      } as ProgramConfig;
+        offDays: [0, 6], prioritySpecialties: [], selfLevel: {}, createdAt: 0,
+      } as ProgramConfig;                              // aucun mode choisi : il est OBSERVÉ (§12.5)
       await db.meta.put({ key: 'program', value: cfg } as never);
       const taper0 = JSON.stringify([...taperDays(cfg)]);
       const figes = new Map<string, string>();       // date → structure à la matérialisation
@@ -105,16 +106,13 @@ describe('Candidate synthétique — 14 jours ouvrés, 2 jours manqués, un dril
           expect(await db.day_plans.get(date), ctx('un jour manqué a un plan')).toBeUndefined();
           continue;
         }
-        // Jour 8 : elle passe aux cas complets (le mode est un choix du candidat, figé jour par jour).
-        if (jour === 8) await db.meta.put({ key: 'program', value: { ...cfg, modus: 'cas-complet' } } as never);
-
         const plan = (await ensureDayPlan(date))!;
         expect(plan, ctx('pas de plan à l’ouverture')).toBeTruthy();
         bilan.jours++;
         figes.set(date, structure(plan));
         // Ni jour futur, ni jour manqué rétroactif : exactement les jours OUVERTS ont un plan.
         expect(await db.day_plans.count(), ctx('des plans existent pour des jours non ouverts')).toBe(figes.size);
-        expect(plan.mode, ctx('le mode figé')).toBe(jour >= 8 ? 'cas-complet' : 'teil-first');
+        expect(['cas-complet', 'teil-first'], ctx('le mode figé est OBSERVÉ : deux valeurs')).toContain(plan.mode);
         expect(plan.targetMin, ctx('le jour dépasse le budget de la candidate')).toBeLessThanOrEqual(180);
         // Après des jours manqués, le jour ne se gonfle pas pour « rattraper » : même budget, jamais dépassé.
         const prevu = plan.tasks.filter((t) => t.kind !== 'examen-blanc').reduce((n, t) => n + t.estMin, 0);
@@ -126,8 +124,8 @@ describe('Candidate synthétique — 14 jours ouvrés, 2 jours manqués, un dril
           expect(plan.tasks.some((t) => t.kind === 'examen-blanc'), ctx('INV-12 : jour de dernière ligne droite sans répétition générale')).toBe(true);
         }
 
-        // INV-4 sur ce plan (teil-first : seul mode où la diversité est une contrainte dure).
-        if (plan.mode === 'teil-first') {
+        // INV-4 sur ce plan (série 4 : la diversité est une contrainte dure dans tous les modes sauf `specialite`).
+        {
           const sp = plan.tasks.filter((t) => t.specialty);
           for (let i = 1; i < sp.length; i++) if (sp[i].specialty === sp[i - 1].specialty) expect(sp[i].diversityRelaxed, ctx('même spécialité de suite')).toBe(true);
         }
@@ -136,7 +134,7 @@ describe('Candidate synthétique — 14 jours ouvrés, 2 jours manqués, un dril
         if (jour === 3) {
           const sim = plan.tasks.find((t) => t.kind === 'simulation' && t.caseId);
           if (sim) {
-            let l = erstelleLauf({ caseId: sim.caseId!, geplanteTeile: sim.teil ? [sim.teil] : TEILE, assistance: 'autonome', layer: 2, taskId: sim.id });
+            let l = erstelleLauf({ caseId: sim.caseId!, geplanteTeile: teileDeTache(sim), assistance: 'autonome', layer: 2, taskId: sim.id });
             l = transition(l, { typ: 'demarrer', checkliste: MODELLE() });
             l = transition(l, { typ: 'terminerPartie', ergebnis: partResult(70, { durationSec: 600 }) });
             await speichereAktivenLauf(l);

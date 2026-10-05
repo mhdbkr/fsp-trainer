@@ -1,13 +1,19 @@
 import { useState } from 'react';
 import { format } from 'date-fns';
-import { setMeta } from '@/db/db';
-import { syncQueue } from '@/lib/sync/queue';
+import { ecrireConfig } from '@/lib/sync/configProjetee';
 import { ensureDayPlan } from '@/lib/program/dayPlan';
 import { now, nowDate } from '@/lib/clock';
 import { AXES, type Axis, type Intensity, type ProgramConfig, type Specialty } from '@/db/types';
 import { Icon, SpecialtyIcon } from '@/components/icons';
 import { Portal } from '@/components/Portal';
 import { SrsSettingsSheet } from '@/features/fachbegriffe/SrsSettingsSheet';
+import { SESSION_MAX_MIN, SESSION_MIN_MIN, SESSION_PAS_MIN } from '@/lib/program/parametres';
+
+/** « 25 min », « 2 h », « 1 h 30 ». */
+const dureeSession = (h: number): string => {
+  const m = Math.round(h * 60);
+  return m < 60 ? `${m} min` : m % 60 ? `${Math.floor(m / 60)} h ${String(m % 60).padStart(2, '0')}` : `${m / 60} h`;
+};
 
 // ============================================================================
 // Onboarding du Programme de révision — dialogue illustré collectant les
@@ -39,7 +45,8 @@ export function ProgramSetup({ onDone, onCancel, initial }: { onDone: () => void
     initial?.selfLevel ?? Object.fromEntries(AXES.map((a) => [a, 40])),
   );
 
-  const toggleOff = (i: number) => setOffDays((s) => (s.includes(i) ? s.filter((x) => x !== i) : [...s, i]));
+  // Au moins un jour travaillé : sept jours off ne sont pas un programme (et `lireConfig` n'en accepte que six, §12.10).
+  const toggleOff = (i: number) => setOffDays((s) => (s.includes(i) ? s.filter((x) => x !== i) : s.length >= 6 ? s : [...s, i]));
   const togglePrio = (sp: Specialty) => setPriority((s) => (s.includes(sp) ? s.filter((x) => x !== sp) : [...s, sp]));
 
   const save = async () => {
@@ -51,12 +58,11 @@ export function ProgramSetup({ onDone, onCancel, initial }: { onDone: () => void
       weeks: mode === 'weeks' ? weeks : undefined,
       intensity, hoursPerSession: hours, offDays, prioritySpecialties: priority,
       selfLevel, createdAt: initial?.createdAt ?? now(),
-      // Le mode d'avancement n'est PAS choisi ici : absent a la creation,
-      // il sera deduit puis propose. Un mode deja etabli est preserve.
+      // Le mode d'avancement n'est PAS choisi ici : absent à la création, il est
+      // OBSERVÉ (jamais proposé). Un choix explicite déjà fait est préservé.
       ...(initial?.modus ? { modus: initial.modus } : {}),
     };
-    await setMeta('program', config);
-    await syncQueue.push({ type: 'program.configured', subject_id: null, payload: config });
+    await ecrireConfig(config);                  // la clé locale ET l'événement, config complète (INV-76 a)
     // I1 : un programme tout juste créé ouvre la journée sans rechargement.
     // Sur un jour déjà figé, ensureDayPlan ne fait que le relire.
     await ensureDayPlan().catch((e) => console.warn('[programme]', e));
@@ -115,15 +121,15 @@ export function ProgramSetup({ onDone, onCancel, initial }: { onDone: () => void
           </Field>
 
           {/* PAS de question « comment tu veux avancer » ici — décision de
-              direction du 30 sept. 2026. Personne ne sait, au jour zéro, quelle
-              stratégie lui convient : la question demandait au candidat de
-              trancher ce que seul l'usage révèle. L'app OBSERVE le journal
-              (`observeModus`) et PROPOSE au bout de ~3 séances, depuis la page
-              Programme. Le réglage explicite y reste disponible (`ModusSwitch`). */}
+              direction du 30 sept. 2026, confirmée le 4 oct. : l'app OBSERVE le
+              journal (`observeMode`) et ne propose ni ne demande rien. Seuls
+              « Spécialité » et « Examen blanc » restent des choix explicites
+              (page Programme). */}
 
           {/* Volume */}
-          <Field label={`Volume par session : ${hours} h`}>
-            <input type="range" min={0.5} max={6} step={0.5} value={hours} onChange={(e) => setHours(+e.target.value)} className="w-full accent-brand-600" />
+          {/* En minutes, au pas de 5 (revue m4) : une valeur calée sur le rythme réel (accepterRythme) y est un point du curseur. */}
+          <Field label={`Volume par session : ${dureeSession(hours)}`}>
+            <input type="range" min={SESSION_MIN_MIN} max={SESSION_MAX_MIN} step={SESSION_PAS_MIN} value={Math.round(hours * 60)} onChange={(e) => setHours(+e.target.value / 60)} className="w-full accent-brand-600" />
           </Field>
 
           {/* Jours off */}
