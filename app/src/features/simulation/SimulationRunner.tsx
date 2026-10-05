@@ -302,14 +302,14 @@ export function SimulationRunner() {
                         const isDone = !!lauf.teile[f.key]?.done;
                         const weg = wegZu(lauf, f.key);
                         return (
-                          <div key={f.key} className={`relative flex min-w-0 flex-col items-center justify-center transition-opacity duration-300 ${merged && !isActive ? 'opacity-0' : 'opacity-100'}`}>
+                          <div key={f.key} className={`relative flex min-w-0 flex-col items-center justify-center transition-opacity duration-300 ${merged && !isActive ? 'pointer-events-none opacity-0' : 'opacity-100'}`}>
                             {i < flow.length - 1 && (
                               <span aria-hidden
                                 className={`absolute top-[19px] h-0.5 -translate-y-1/2 rounded transition-opacity duration-300 ${merged ? 'opacity-0' : 'opacity-100'} ${isDone ? 'bg-emerald-400' : 'bg-slate-200 dark:bg-slate-700'}`}
                                 style={{ left: 'calc(50% + 34px)', width: 'calc(100% - 68px)' }} />
                             )}
                             <Etape weg={weg} label={`${lauf.zustand === 'bilanz' ? 'Continuer' : 'Commencer'} par la ${f.label}`}
-                              onWeg={() => weg && steuerung.dispatch(weg)} aktiv={isActive}>
+                              onWeg={() => weg && steuerung.dispatch(weg)} aktiv={isActive} versteckt={merged && !isActive}>
                               <span className={`flex h-10 w-10 items-center justify-center rounded-full border-2 ${
                                 isDone ? 'border-emerald-500 bg-emerald-500 text-white'
                                 : isActive ? 'border-brand-600 bg-brand-600 text-white'
@@ -449,12 +449,14 @@ export function SimulationRunner() {
 const teilOderNull = (p: Part): SimTeil | undefined => (p === 'aufklaerung' ? undefined : p);
 
 /** Une étape du fil : un bouton quand l'automate y mène (`wegZu`), un repère sinon. */
-function Etape({ weg, label, onWeg, aktiv, children }: {
-  weg: unknown; label: string; onWeg: () => void; aktiv: boolean; children: React.ReactNode;
+function Etape({ weg, label, onWeg, aktiv, versteckt, children }: {
+  weg: unknown; label: string; onWeg: () => void; aktiv: boolean; versteckt: boolean; children: React.ReactNode;
 }) {
   const cls = 'relative z-10 flex flex-col items-center gap-1';
+  // En-tête condensé : les étapes non courantes s'effacent — invisibles, elles ne se cliquent ni ne se tabulent.
   return weg
-    ? <button type="button" onClick={onWeg} aria-label={label} title={label} className={`${cls} min-h-11 rounded-xl`}>{children}</button>
+    ? <button type="button" onClick={onWeg} aria-label={label} title={label} tabIndex={versteckt ? -1 : undefined} aria-hidden={versteckt || undefined}
+        className={`${cls} min-h-11 rounded-xl`}>{children}</button>
     : <div aria-current={aktiv ? 'step' : undefined} className={cls}>{children}</div>;
 }
 

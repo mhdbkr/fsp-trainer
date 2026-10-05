@@ -29,7 +29,7 @@ describe('bilanErreurs — la sortie « bilan » des erreurs transversales', () 
   });
 
   it('rouvert plus tard : les parties POSTÉRIEURES ne changent pas le bilan de celle-ci', () => {
-    const ensuite = [ev(6, 'e', ['anam-allergien']), ev(7, 'f', ['anam-allergien'])];
+    const ensuite = [ev(6, 'e', ['anam-allergien', 'anam-noxen']), ev(7, 'f', ['anam-allergien', 'anam-noxen'])];   // un signal NOUVEAU (noxen) après coup
     expect(bilanErreurs([...passe, ev(5, 'd', []), ...ensuite], 's5')).toEqual(bilanErreurs([...passe, ev(5, 'd', [])], 's5'));
   });
 });
