@@ -17,10 +17,13 @@ import type { DayPlan } from '@/db/types';
 import { now } from '@/lib/clock';
 import { refreshToday } from '@/lib/today';
 import { syncQueue } from './queue';
+import { pousserConfigInitiale } from './configProjetee';
 
 export const BOOT_PULL_MS = 2500;
 
 export async function bootJournal(pullMs = BOOT_PULL_MS): Promise<DayPlan | null> {
+  // N2b : la config locale d'avant la série 4 part UNE fois, AVANT que le pull ne puisse projeter une config distante.
+  await pousserConfigInitiale().catch((e) => console.warn('[programme]', e));
   let pulled = 0;
   if (typeof navigator === 'undefined' || navigator.onLine) {
     let timer: ReturnType<typeof setTimeout> | undefined;

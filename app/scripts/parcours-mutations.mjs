@@ -295,6 +295,61 @@ export const MUTATIONS = [
     to: "teilAConfirmer(cp.teile[t], jour) ? 1 : 1)",
     pourquoi: "un Teil à confirmer pèse comme un Teil jamais travaillé : dix cas redevenus acquis remplissent le plan (revue P1)",
   },
+  // --- S4-2 : la configuration et les refus synchronisés (training-journal.md §12.10 ; INV-68, INV-76) ---
+  {
+    id: "INV-76a-sans-evenement", tests: 'tests/invariants.config.test.ts', file: "src/lib/programAdjust.ts",
+    from: "return ecrireConfig({ ...config, intensity });",
+    to: "return setMeta('program', { ...config, intensity });",
+    pourquoi: "`setIntensity` n'émet plus rien (l'état d'avant S4-2) : le budget de l'autre appareil ne suit jamais",
+  },
+  {
+    id: "INV-76a-partiel", tests: 'tests/invariants.config.test.ts', file: "src/lib/programAdjust.ts",
+    from: "return ecrireConfig({ ...config, modus });",
+    to: "return ecrireConfig({ modus } as never);",
+    pourquoi: "payload partiel `{ modus }` : la projection d'un autre appareil écrase la config entière par un fragment",
+  },
+  {
+    id: "INV-76b-avant-push", tests: 'tests/invariants.config.test.ts', file: "src/lib/sync/configProjetee.ts",
+    from: "  await pousserConfigInitiale();                               // AVANT toute projection distante (N2b)\n",
+    to: "",
+    pourquoi: "la projection distante passe avant le push initial : la config locale d'avant la série 4 est écrasée",
+  },
+  {
+    id: "INV-76b-garde", tests: 'tests/invariants.config.test.ts', file: "src/lib/sync/configProjetee.ts",
+    from: "if (await db.meta.get(CONFIG_POUSSEE_S4)) return false;",
+    to: "if (false as boolean) return false;",
+    pourquoi: "garde absente : chaque démarrage pousse la config locale (double push)",
+  },
+  {
+    id: "INV-76c-borne", tests: 'tests/invariants.config.test.ts', file: "src/lib/sync/configProjetee.ts",
+    from: "p.hoursPerSession <= 0 ||",
+    to: "p.hoursPerSession < 0.5 ||",
+    pourquoi: "borne à 0,5 h : la config que `accepterRythme` produit (20 min) est refusée, puis ignorée par les autres appareils",
+  },
+  {
+    id: "INV-76d-retombee", tests: 'tests/invariants.config.test.ts', file: "src/lib/sync/configProjetee.ts",
+    from: "if (local?.value && cand.at <= localAt) return;",
+    to: "if (false as boolean) return;",
+    pourquoi: "après un refus serveur (événement retiré de l'outbox), la projection retombe sur une config plus ancienne",
+  },
+  {
+    id: "INV-68-invalide", tests: 'tests/invariants.config.test.ts', file: "src/lib/sync/configProjetee.ts",
+    from: "const config = lireConfig(tries[i].payload);",
+    to: "const config = tries[i].payload as ProgramConfig;",
+    pourquoi: "un payload invalide plus récent remplace la config valide",
+  },
+  {
+    id: "INV-68-sans-projection", tests: 'tests/invariants.config.test.ts', file: "src/lib/sync/configProjetee.ts",
+    from: "  if (!cand) return;\n  const [local, localAt]",
+    to: "  return;\n  const [local, localAt]",
+    pourquoi: "program.configured n'est pas projeté au retour (l'état d'avant S4-2) : deux appareils, deux programmes",
+  },
+  {
+    id: "INV-68-refus-cumul", tests: 'tests/invariants.config.test.ts', file: "src/lib/sync/configProjetee.ts",
+    from: ".filter((e) => e.occurred_at > derniere)",
+    to: ".filter(() => true)",
+    pourquoi: "les refus de rythme ne repartent pas de zéro à la modification du programme (réserve P2)",
+  },
 ];
 
 /** Mutations jouées par le candidat NAVIGATEUR : { id: invariant attendu KO, days: jours à jouer }. */

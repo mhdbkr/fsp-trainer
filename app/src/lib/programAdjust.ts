@@ -1,5 +1,6 @@
-import { db, setMeta } from '@/db/db';
+import { setMeta } from '@/db/db';
 import type { Fortschrittsmodus, ProgramConfig } from '@/db/types';
+import { ecrireConfig } from '@/lib/sync/configProjetee';
 
 // ============================================================================
 // Réglages du programme. Ce qui a disparu, et pourquoi (ADR-0017 §9) :
@@ -18,8 +19,6 @@ import type { Fortschrittsmodus, ProgramConfig } from '@/db/types';
 // Ce qui reste : le mode d'avancement et l'intensité, deux choix de l'utilisateur.
 // ============================================================================
 
-const key = () => 'program';
-
 /** Clé du mode explicitement REFUSÉ par le candidat, pour ne pas le reproposer. */
 export const MODUS_REFUSE_KEY = 'modusRefuse';
 
@@ -31,13 +30,13 @@ export const MODUS_REFUSE_KEY = 'modusRefuse';
  * matérialisation.
  */
 export function setModus(config: ProgramConfig, modus: Fortschrittsmodus) {
-  return db.meta.put({ key: key(), value: { ...config, modus } });
+  return ecrireConfig({ ...config, modus });          // la config COMPLÈTE, jamais un fragment (INV-76 a)
 }
 
 /** Change l'intensité : le budget du jour suivant en tient compte. Les jours
  *  déjà figés gardent leur `targetMin`. */
 export function setIntensity(config: ProgramConfig, intensity: ProgramConfig['intensity']) {
-  return db.meta.put({ key: key(), value: { ...config, intensity } });
+  return ecrireConfig({ ...config, intensity });      // idem : avant S4-2, rien n'était émis (INV-76 a)
 }
 
 /** « Non, laisse » — le refus se retient, sinon la proposition harcèle. Il ne

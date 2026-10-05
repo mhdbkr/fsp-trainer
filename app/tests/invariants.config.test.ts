@@ -23,7 +23,9 @@ import {
 import type { Fortschrittsmodus, Intensity, ProgramConfig } from '@/db/types';
 import type { ProgressEvent } from '@/lib/sync/events';
 import { now } from '@/lib/clock';
-import { forAll, rng as rngFixe, type Rng } from './helpers/prop';
+import { forAll, rng, type Rng } from './helpers/prop';
+
+const rngFixe = (seed = 1): Rng => rng(seed);   // un tirage déterministe, pour les cas qui n'ont pas besoin du hasard
 import { resetTime, resetWorld, startOn } from './helpers/world';
 
 beforeEach(() => resetWorld());
