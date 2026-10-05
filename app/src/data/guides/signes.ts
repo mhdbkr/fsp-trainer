@@ -11,8 +11,8 @@ export type { Signe };
 // `docs/contracts/frage-atomique.md` §10.1). Réexporté par `symptoms.ts` :
 // il n'y a qu'un lexique, ce fichier n'en est que la moitié déclarative.
 //
-// Rien ici ne branche le montage : `dedupeBySymptom` lit `SUCHT_MONTAGE` (symptoms.ts) jusqu'à K3. Ces tables sont
-// mesurées (`scripts/checkCoherence.mjs`) et vérifiées (`lexiqueIncoherences`, INV-77 / INV-78). Les définitions
+// Depuis K3, le montage (`cohere`, coherence.ts) lit ces tables : r1 (pertinence, exclusions), r3 (banques), règle
+// d'insertion (ordre de `SIGNES`, chapitre de chaque signe). Elles sont aussi mesurées (`scripts/checkCoherence.mjs`) et vérifiées (`lexiqueIncoherences`, INV-77 / INV-78). Les définitions
 // vivent dans `signesDefs.ts` (`Signe` en est dérivé), la déclaration des sondes dans `probeSucht.ts` (K1).
 //
 // RÈGLE D'IDENTITÉ (opposable). Deux unités cherchent le même signe si et

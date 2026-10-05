@@ -43,8 +43,8 @@ import { PROBE_SUCHT } from './probeSucht';
 //     Vegetative Anamnese dans les cas endocriniens (décision D4).
 // K0 (ADR-0023) : `Symptom` devient `Signe` — un seul lexique, déclaré dans
 // `signes.ts` (les 39 concepts ci-dessus, les 11 dimensions de plainte et les
-// signes ajoutés). L'alias reste, déprécié, jusqu'à K5. Le montage n'a pas
-// changé : `PROBE_SUCHT` et `dedupeBySymptom` lisent les mêmes ids qu'avant.
+// signes ajoutés). L'alias reste, déprécié, jusqu'à K5. Le montage (K3) est
+// `cohere`, qui lit `PROBE_SUCHT`.
 export * from './signes';
 export type Symptom = Signe;
 

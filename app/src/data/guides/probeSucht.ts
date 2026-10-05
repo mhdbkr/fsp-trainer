@@ -14,8 +14,8 @@ import type { Signe } from './signesDefs';
 //   phrase (anamneseChapters.ts) et devient une unité à part.
 // • Une phrase qui énumère autre chose que sa sonde (les variantes d'`akt-begleit`)
 //   porte son propre `sucht` ; ici, la sonde dit ce qu'elle est.
-// • Le montage ne la lit PAS encore : `dedupeBySymptom` lit `SUCHT_MONTAGE`
-//   (symptoms.ts) jusqu'à K3, qui remplace l'un et l'autre par `cohere`.
+// • Le montage la lit depuis K3 : `cohere` (coherence.ts) en tire les signes de chaque unité
+//   (`SUCHT_MONTAGE` et `dedupeBySymptom` ont été supprimés).
 // ============================================================================
 export type Sucht = readonly [Signe, ...Signe[]];
 
