@@ -4279,7 +4279,7 @@ export function seedCases(): Case[] {
       frequency: 17,
       difficulty: 3,
       patientSheet: {
-        profil: { tags: ['infekt', 'lyme'] },
+        profil: { tags: ['infekt', 'lyme', 'fieber'] },   // 3e revue B1 : « leicht erhöhte Temperatur » est dans le motif (D4-bis)
         leitsymptomKategorie: 'infekt',
         personalia: {
           name: 'Nadine Brückner',

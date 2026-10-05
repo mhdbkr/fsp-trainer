@@ -211,8 +211,8 @@ case-pavk
 case-lyme
   eroeffnung[· · · ·]
   personalia[pers-name pers-name pers-alter pers-groesse pers-hausarzt ·]
-  aktuell[akt-motiv akt-beginn akt-verlauf akt-infekt-herd akt-ausloeser akt-einfluss akt-frueher↳1 akt-begleit cas cas cas cas]
-  fach-infektio[fach-infekt-fieber fach-infekt-zecke fach-infekt-haut fach-infekt-gelenke fach-infekt-neuro fach-infekt-reise fach-infekt-kontakt↳1 fach-infekt-impfung]
+  aktuell[akt-motiv akt-beginn akt-infekt-fieber↳2 akt-verlauf akt-infekt-herd akt-ausloeser akt-einfluss akt-frueher↳1 akt-begleit cas cas cas cas]
+  fach-infektio[fach-infekt-zecke fach-infekt-haut fach-infekt-gelenke fach-infekt-neuro fach-infekt-reise fach-infekt-kontakt↳1 fach-infekt-impfung]
   vegetativ[veg-schuettelfrost veg-uebelkeit↳1 veg-gewicht↳2 veg-appetit veg-schlaf]
   vorerkrankungen[· vor-erkrank↳1 vor-op↳1 vor-krankenhaus]
   medikamente[med-regelmaessig↳4 med-blutverduenner med-otc]

@@ -246,6 +246,15 @@ describe('R5 — D4-bis se fonde sur le motif DÉCLARÉ (tag du profil), pas sur
     expect(coeur(byId('case-allergische-rhinitis')).fach).toContain('fach-pneumo-atemnot');
     expect(coeur(byId('case-copd')).fach).not.toContain('fach-pneumo-atemnot');   // copd déclare dyspnoe : Aktuelle Beschwerden la pose
   });
+  it('3e revue B1 — lyme (« leicht erhöhte Temperatur ») déclare fieber : la fièvre se demande une fois, dans Aktuelle Beschwerden', () => {
+    const lyme = trameJouee(byId('case-lyme')).flatMap((x) => x.questions);
+    expect(lyme.filter((p) => phraseSucht(p).includes('fieber')).map((p) => phraseProbes(p)[0])).toEqual(['akt-infekt-fieber']);
+    expect(lyme.filter((p) => /Schüben/.test(phraseText(p)))).toHaveLength(1);
+  });
+  it('3e revue B1 — 130 cas : tout motif fébrile (réponse à akt-motiv) déclare fieber, sinon D4-bis ne joue pas', () => {
+    const febril = (c: (typeof cases)[number]) => /Fieber|Temperatur|fiebr|Schüttelfrost/i.test(c.patientSheet.antworten?.['akt-motiv'] ?? '');
+    expect(cases.filter((c) => febril(c) && !profilDuCas(c).tags.includes('fieber')).map((c) => c.id)).toEqual([]);
+  });
 });
 
 describe('R1 / R2 — le sang dans les selles et la nycturie ne se demandent que là où ils servent', () => {
