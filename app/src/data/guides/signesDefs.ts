@@ -45,8 +45,10 @@ export const DEFS = {
   stuhlaussehen: { kapitel: 'aktuell', pertinence: S },   // l'aspect : consistance, couleur (« wässrig oder breiig »)
   // K3 (revue clinique P0-1) : le SANG dans les selles (rouge, noir, mucus sanglant) — signe d'alarme, autre réplique que l'aspect.
   // Banque : « Ist Ihnen Blut, Schleim oder eine ungewöhnliche Farbe im Stuhl aufgefallen? » (sa réplique est l'alarme).
-  stuhl_blut: { kapitel: 'aktuell', pertinence: S, bank: 'akt-ausscheid-aussehen' },
-  nykturie: { kapitel: 'aktuell', pertinence: S },
+  // K3 (revue R1) : se cherche dans une diarrhée, un trouble du transit, un terrain gastro / hémato / onco — pas une plainte urinaire.
+  stuhl_blut: { kapitel: 'aktuell', pertinence: ['diarrhoe', 'transit', 'gastro', 'haem', 'onko'], bank: 'akt-ausscheid-aussehen' },
+  // K3 (revue R2, décision de main) : plainte urinaire / rénale, insuffisance cardiaque (Fach Kardio), polyurie (Fach Endo).
+  nykturie: { kapitel: 'aktuell', pertinence: ['harn', 'kardio', 'endo'] },
   schluck: { kapitel: 'aktuell', pertinence: ['dysphagie', 'hals'], bank: 'akt-ausscheid-schlucken' },
   gelbfaerbung: { kapitel: 'aktuell', pertinence: S },
   stimmung: { kapitel: 'aktuell', pertinence: S },

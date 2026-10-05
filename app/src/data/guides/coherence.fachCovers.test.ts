@@ -30,9 +30,6 @@ const GARDEES: Record<string, Raison> = {
   'fach-neuro-koordination -> akt-neuro-lage': 'signe-distinct',
   'fach-psych-tagesverlauf -> akt-verlauf': 'reduit',   // revue P1-3 : la variante psy se réduit au cours
   'fach-onko-appetit -> akt-ausscheid-was': 'signe-distinct',
-  // Revue P0-1 : « Blut, Schleim im Stuhl » cherche le sang dans les selles (stuhl_blut), pas l'aspect du urine.
-  'fach-nephro-aussehen -> akt-ausscheid-aussehen': 'signe-distinct',
-  'fach-uro-farbe -> akt-ausscheid-aussehen': 'signe-distinct',
   // Le pont urinaire → selles (K1) : retiré (décision 3) ; depuis la revue P1-5, r1 retire la fréquence des selles hors diarrhée / transit.
   // Signe partagé, mais la question perdante n'a pas de `parts` : non réduite (résidu, K4 écrit les parts).
   'fach-gyn-blutung -> akt-veraend-blutung': 'non-reduit',
@@ -73,10 +70,10 @@ describe('FACH_COVERS absorbé par r2 — chaque paire retirée, ou gardée pour
     }
   }
 
-  it('la table gelée a 73 paires ; 71 s\'appliquent à au moins un cas ; 26 restent posées (raison listée)', () => {
+  it('la table gelée a 73 paires ; 71 s\'appliquent à au moins un cas ; 24 restent posées (raison listée)', () => {
     expect(PAIRES).toHaveLength(73);
     expect(etat.size).toBe(71);
-    expect(Object.keys(GARDEES)).toHaveLength(26);
+    expect(Object.keys(GARDEES)).toHaveLength(24);
   });
   it('les paires gardées sont exactement celles listées', () => {
     const gardees = [...etat].filter(([, s]) => s.retiree < s.n).map(([k]) => k).sort();

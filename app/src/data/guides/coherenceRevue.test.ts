@@ -46,8 +46,9 @@ describe('M4 — r3 sans phrase de banque échoue franchement (jamais un id affi
 });
 
 describe('I2 — Wasserlassen jour / nuit : les `parts` découpées du texte existant', () => {
-  it('gastroenteritis : la question du cas pose la fréquence du jour ; la générale se réduit à la nuit, sans doublon', () => {
-    expect(coeur(byId('case-gastroenteritis')).aktuell).toContain('akt-ausscheid-harn-haeufigkeit~nykturie');
+  it('gastroenteritis : la question du cas pose la fréquence du jour ; la nuit est hors sujet (R2) — la générale disparaît', () => {
+    expect(coeur(byId('case-gastroenteritis')).aktuell.some((k) => k.startsWith('akt-ausscheid-harn-haeufigkeit'))).toBe(false);
+    expect(coeur(byId('case-laktoseintoleranz')).aktuell).toContain('akt-ausscheid-harn-haeufigkeit~miktion_frequenz');   // diarrhée : la diurèse du jour reste
   });
 });
 
@@ -144,7 +145,7 @@ describe('P1-2 à P1-5 — dimensions et pertinence', () => {
     expect(SIGNE_DEF.miktion_frequenz.pertinence).toEqual(['harn', 'diarrhoe']);
     for (const id of ['case-zystitis', 'case-bph', 'case-oesophaguskarzinom', 'case-hepatitis-b']) expect(akt(id), id).not.toContain('akt-ausscheid-haeufigkeit');
     for (const id of ['case-obstipation', 'case-kolorektales-ca', 'case-gastroenteritis']) expect(akt(id).some((k) => k.startsWith('akt-ausscheid-haeufigkeit')), id).toBe(true);
-    expect(akt('case-kolorektales-ca')).toContain('akt-ausscheid-harn-haeufigkeit~nykturie');
+    expect(akt('case-kolorektales-ca').some((k) => k.startsWith('akt-ausscheid-harn-haeufigkeit'))).toBe(false);   // R2 : ni le jour ni la nuit
     // nykturie reste de dépistage : la Fach Kardio (insuffisance cardiaque) et Endo (polyurie) en ont besoin
     expect(coeur(byId('case-herzinsuffizienz')).fach).toContain('fach-kardio-nykturie');
     for (const c of cases) expect(compteursApresCas(c), c.id).toMatchObject({ horsProfil: 0, exigeAbsent: 0, ajouteSansReponse: 0 });
@@ -244,5 +245,21 @@ describe('R5 — D4-bis se fonde sur le motif DÉCLARÉ (tag du profil), pas sur
   it('allergische-rhinitis (nature atemnot, sans tag dyspnoe) : la question neutre de la Fach pneumo revient', () => {
     expect(coeur(byId('case-allergische-rhinitis')).fach).toContain('fach-pneumo-atemnot');
     expect(coeur(byId('case-copd')).fach).not.toContain('fach-pneumo-atemnot');   // copd déclare dyspnoe : Aktuelle Beschwerden la pose
+  });
+});
+
+describe('R1 / R2 — le sang dans les selles et la nycturie ne se demandent que là où ils servent', () => {
+  const cherche = (id: string, s: string) => trameJouee(byId(id)).flatMap((x) => x.questions).some((p) => phraseSucht(p).includes(s as never));
+  it('R1 : stuhl_blut pertinent pour diarrhoe, transit, gastro, haem, onko ; plus dans les cas uro / néphro', () => {
+    expect(SIGNE_DEF.stuhl_blut.pertinence).toEqual(['diarrhoe', 'transit', 'gastro', 'haem', 'onko']);
+    for (const id of ['case-zystitis', 'case-bph', 'case-prostatakarzinom', 'case-glomerulonephritis']) expect(cherche(id, 'stuhl_blut'), id).toBe(false);
+    for (const id of ['case-gib', 'case-itp', 'case-lymphom', 'case-gastroenteritis']) expect(cherche(id, 'stuhl_blut'), id).toBe(true);
+  });
+  it('R2 : nykturie pertinente pour kardio, endo, harn ; les 15 cas Kardio / Endo la gardent ; les cas digestifs ne la posent plus', () => {
+    expect(SIGNE_DEF.nykturie.pertinence).toEqual(['harn', 'kardio', 'endo']);
+    for (const c of cases.filter((x) => ['kardio', 'endo'].some((t) => profilDuCas(x).tags.includes(t as never)))) expect(cherche(c.id, 'nykturie'), c.id).toBe(true);
+    expect(cases.filter((x) => ['kardio', 'endo'].some((t) => profilDuCas(x).tags.includes(t as never)))).toHaveLength(15);
+    for (const id of ['case-kolorektales-ca', 'case-oesophaguskarzinom', 'case-pankreaskarzinom', 'case-hepatitis-b', 'case-achalasie', 'case-obstipation', 'case-gastroenteritis'])
+      expect(cherche(id, 'nykturie'), id).toBe(false);
   });
 });

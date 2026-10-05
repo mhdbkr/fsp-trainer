@@ -19,7 +19,7 @@ export function seedCases(): Case[] {
       frequency: 26,
       difficulty: 2,
       patientSheet: {
-        profil: { tags: ['schmerz'] },
+        profil: { tags: ['schmerz', 'gastro'] },
         leitsymptomKategorie: 'schmerz',
         motiv: { trauma: false, region: 'abdomen' },
         // « in den letzten Stunden gegessen » ne convient pas à une évolution sur 3 mois ; la réponse reste dans la fiche.
@@ -278,7 +278,7 @@ export function seedCases(): Case[] {
       frequency: 11,
       difficulty: 2,
       patientSheet: {
-        profil: { tags: ['schmerz', 'dyspnoe'] },
+        profil: { tags: ['schmerz', 'dyspnoe', 'kardio'] },
         personalia: {
           name: 'Manfred Bauer', age: 64, geschlecht: 'm', groesseCm: 175, gewichtKg: 92,
           beruf: 'Rentner (früher Busfahrer)', hausarzt: 'Dr. Weber',
@@ -471,7 +471,7 @@ export function seedCases(): Case[] {
       frequency: 14,
       difficulty: 2,
       patientSheet: {
-        profil: { tags: ['schmerz'] },
+        profil: { tags: ['schmerz', 'gastro'] },
         personalia: { name: 'Gisela Hoffmann', age: 55, geschlecht: 'w', groesseCm: 165, gewichtKg: 88, beruf: 'Verkäuferin', familienstand: 'verheiratet' },
         leitsymptome: ['Seit gestern Abend heftige Oberbauchschmerzen, gürtelförmig in den Rücken ausstrahlend'],
         begleitsymptome: ['Übelkeit, mehrfaches Erbrechen', 'aufgeblähter Bauch'],
@@ -655,7 +655,7 @@ export function seedCases(): Case[] {
       frequency: 19,
       difficulty: 3,
       patientSheet: {
-        profil: { tags: ['veraenderung'] },
+        profil: { tags: ['veraenderung', 'gastro'] },
         leitsymptomKategorie: 'veraenderung',
         personalia: { name: 'Werner Klein', age: 71, geschlecht: 'm', groesseCm: 172, gewichtKg: 70, beruf: 'Rentner', familienstand: 'verwitwet' },
         leitsymptome: ['Seit heute Morgen schwarzer, klebriger Stuhl und einmal kaffeesatzartiges Erbrechen'],
@@ -822,7 +822,7 @@ export function seedCases(): Case[] {
       name: 'Akute Divertikulitis', pathology: 'Divertikulitis', specialty: 'Gastroenterologie',
       centers: ['Freiburg', 'Karlsruhe', 'Stuttgart'], frequency: 11, difficulty: 1,
       patientSheet: {
-        profil: { tags: ['schmerz', 'fieber'] },
+        profil: { tags: ['schmerz', 'fieber', 'gastro'] },
         personalia: { name: 'Ursula Maier', age: 67, geschlecht: 'w', groesseCm: 168, gewichtKg: 72, beruf: 'Rentnerin', familienstand: 'verheiratet' },
         leitsymptome: ['Seit 3 Tagen Schmerzen im linken Unterbauch'],
         begleitsymptome: ['Fieber', 'Stuhlunregelmäßigkeiten (Verstopfung)'],
@@ -1170,7 +1170,7 @@ export function seedCases(): Case[] {
       name: 'Kolorektales Karzinom', pathology: 'Kolorektales Karzinom', specialty: 'Gastroenterologie',
       centers: ['Karlsruhe', 'Stuttgart', 'Freiburg'], frequency: 15, difficulty: 2,
       patientSheet: {
-        profil: { tags: ['ausscheidung', 'gewichtsverlust', 'transit'] },
+        profil: { tags: ['ausscheidung', 'gewichtsverlust', 'transit', 'gastro'] },
         leitsymptomKategorie: 'ausscheidung',
         personalia: { name: 'Heinrich Vogt', age: 68, geschlecht: 'm', beruf: 'Rentner', familienstand: 'verheiratet' },
         leitsymptome: ['Seit Wochen wechselnder Stuhlgang und Blut im Stuhl'],
@@ -1342,7 +1342,7 @@ export function seedCases(): Case[] {
       name: 'Gastroösophageale Refluxkrankheit', pathology: 'GERD (Refluxkrankheit)', specialty: 'Gastroenterologie',
       centers: ['Freiburg', 'Karlsruhe', 'Stuttgart'], frequency: 7, difficulty: 1,
       patientSheet: {
-        profil: { tags: ['schmerz', 'hals', 'husten'] },
+        profil: { tags: ['schmerz', 'hals', 'husten', 'gastro'] },
         personalia: { name: 'Sabine Wolf', age: 42, geschlecht: 'w', groesseCm: 170, gewichtKg: 84, beruf: 'Bürokauffrau', familienstand: 'ledig' },
         leitsymptome: ['Seit Monaten Sodbrennen, besonders nach dem Essen und im Liegen'],
         begleitsymptome: ['saures Aufstoßen', 'gelegentlich Reizhusten nachts'],
@@ -1518,7 +1518,7 @@ export function seedCases(): Case[] {
       name: 'Akuter Myokardinfarkt (STEMI)', pathology: 'Myokardinfarkt', specialty: 'Kardiologie',
       centers: ['Freiburg', 'Karlsruhe', 'Reutlingen'], frequency: 7, difficulty: 3,
       patientSheet: {
-        profil: { tags: ['schmerz'] },
+        profil: { tags: ['schmerz', 'kardio'] },
         personalia: { name: 'Dieter Fischer', age: 59, geschlecht: 'm', beruf: 'Bauleiter', familienstand: 'verheiratet' },
         leitsymptome: ['Seit 45 Minuten stärkste Schmerzen hinter dem Brustbein, auch in Ruhe'],
         begleitsymptome: ['Kaltschweißigkeit', 'Übelkeit', 'Todesangst', 'Ausstrahlung linker Arm/Kiefer'],
@@ -1698,7 +1698,7 @@ export function seedCases(): Case[] {
       name: 'Ösophaguskarzinom', pathology: 'Ösophaguskarzinom', specialty: 'Gastroenterologie',
       centers: ['Stuttgart', 'Karlsruhe'], frequency: 22, difficulty: 2,
       patientSheet: {
-        profil: { tags: ['ausscheidung', 'dysphagie', 'hals', 'gewichtsverlust'] },
+        profil: { tags: ['ausscheidung', 'dysphagie', 'hals', 'gewichtsverlust', 'gastro'] },
         leitsymptomKategorie: 'ausscheidung',
         personalia: { name: 'Anna Sichel', age: 53, geschlecht: 'w', groesseCm: 168, gewichtKg: 58, beruf: 'Schneiderin', familienstand: 'verheiratet' },
         leitsymptome: ['Seit 4 Wochen zunehmende Schluckbeschwerden, erst bei fester, jetzt bei weicher Kost'],
@@ -1898,7 +1898,7 @@ export function seedCases(): Case[] {
       frequency: 6,
       difficulty: 2,
       patientSheet: {
-        profil: { tags: ['schmerz', 'hals'] },
+        profil: { tags: ['schmerz', 'hals', 'gastro'] },
         personalia: {
           name: 'Jobst Donalies',
           age: 38,
@@ -2224,7 +2224,7 @@ export function seedCases(): Case[] {
       frequency: 15,
       difficulty: 3,
       patientSheet: {
-        profil: { tags: ['allgemein', 'hals', 'gewichtsverlust'] },
+        profil: { tags: ['allgemein', 'hals', 'gewichtsverlust', 'gastro'] },
         leitsymptomKategorie: 'allgemein',
         personalia: {
           name: 'Julian Brückner',
@@ -6200,7 +6200,7 @@ export function seedCases(): Case[] {
       frequency: 7,
       difficulty: 3,
       patientSheet: {
-        profil: { tags: ['schmerz', 'transit'] },
+        profil: { tags: ['schmerz', 'transit', 'gastro'] },
         personalia: {
           name: 'Frida Zimmermann',
           age: 52,
@@ -7720,7 +7720,7 @@ export function seedCases(): Case[] {
       frequency: 8,
       difficulty: 2,
       patientSheet: {
-        profil: { tags: ['allgemein', 'gewichtsverlust'] },
+        profil: { tags: ['allgemein', 'gewichtsverlust', 'endo'] },
         leitsymptomKategorie: 'allgemein',
         personalia: {
           name: 'Thomas Rosnier',
@@ -8273,7 +8273,7 @@ export function seedCases(): Case[] {
       frequency: 6,
       difficulty: 2,
       patientSheet: {
-        profil: { tags: ['allgemein', 'hals', 'gewichtsverlust'] },
+        profil: { tags: ['allgemein', 'hals', 'gewichtsverlust', 'endo'] },
         leitsymptomKategorie: 'allgemein',
         personalia: {
           name: 'Jessica Suess',
@@ -11072,7 +11072,7 @@ export function seedCases(): Case[] {
       frequency: 3,
       difficulty: 3,
       patientSheet: {
-        profil: { tags: ['atemnot', 'dyspnoe', 'husten'] },
+        profil: { tags: ['atemnot', 'dyspnoe', 'husten', 'kardio'] },
         fachSkip: ['fach-kardio-ausstrahlung'],
         leitsymptomKategorie: 'atemnot',
         personalia: {
@@ -12716,7 +12716,7 @@ export function seedCases(): Case[] {
       frequency: 0,
       difficulty: 2,
       patientSheet: {
-        profil: { tags: ['allgemein', 'dyspnoe', 'gewichtsverlust'] },
+        profil: { tags: ['allgemein', 'dyspnoe', 'gewichtsverlust', 'haem'] },
         leitsymptomKategorie: 'allgemein',
         personalia: {
           name: 'Renate Bergmann',
@@ -13243,7 +13243,7 @@ export function seedCases(): Case[] {
       frequency: 8,
       difficulty: 3,
       patientSheet: {
-        profil: { tags: ['anfall', 'dyspnoe'] },
+        profil: { tags: ['anfall', 'dyspnoe', 'kardio'] },
         leitsymptomKategorie: 'anfall',
         personalia: {
           name: 'Reinhard Kessler',
@@ -14306,7 +14306,7 @@ export function seedCases(): Case[] {
       frequency: 0,
       difficulty: 2,
       patientSheet: {
-        profil: { tags: ['allgemein', 'hals'] },
+        profil: { tags: ['allgemein', 'hals', 'endo'] },
         leitsymptomKategorie: 'allgemein',
         personalia: {
           name: 'Beate Lindner',
@@ -15413,7 +15413,7 @@ export function seedCases(): Case[] {
       frequency: 4,
       difficulty: 3,
       patientSheet: {
-        profil: { tags: ['veraenderung', 'fieber', 'hals', 'lyme', 'gewichtsverlust'] },
+        profil: { tags: ['veraenderung', 'fieber', 'hals', 'lyme', 'gewichtsverlust', 'onko'] },
         leitsymptomKategorie: 'veraenderung',
         personalia: {
           name: 'Elisabeth Länge',
@@ -17570,7 +17570,7 @@ export function seedCases(): Case[] {
       frequency: 3,
       difficulty: 3,
       patientSheet: {
-        profil: { tags: ['ausscheidung', 'gewichtsverlust'] },
+        profil: { tags: ['ausscheidung', 'gewichtsverlust', 'onko'] },
         leitsymptomKategorie: 'ausscheidung',
         personalia: {
           name: 'Ilsi Bachmann',
@@ -20315,7 +20315,7 @@ export function seedCases(): Case[] {
       frequency: 6,
       difficulty: 3,
       patientSheet: {
-        profil: { tags: ['veraenderung', 'dyspnoe', 'hals', 'gewichtsverlust'] },
+        profil: { tags: ['veraenderung', 'dyspnoe', 'hals', 'gewichtsverlust', 'onko'] },
         leitsymptomKategorie: 'veraenderung',
         personalia: {
           name: 'Michael Witzinger',
@@ -21963,7 +21963,7 @@ export function seedCases(): Case[] {
       frequency: 3,
       difficulty: 2,
       patientSheet: {
-        profil: { tags: ['schmerz', 'diarrhoe', 'steifigkeit', 'gewichtsverlust'] },
+        profil: { tags: ['schmerz', 'diarrhoe', 'steifigkeit', 'gewichtsverlust', 'gastro'] },
         personalia: {
           name: 'Jonas Reinhardt',
           age: 26,
@@ -25792,7 +25792,7 @@ export function seedCases(): Case[] {
       frequency: 2,
       difficulty: 2,
       patientSheet: {
-        profil: { tags: ['veraenderung', 'dysphagie', 'hals'] },
+        profil: { tags: ['veraenderung', 'dysphagie', 'hals', 'endo'] },
         leitsymptomKategorie: 'veraenderung',
         personalia: {
           name: 'Renate Brunner',
@@ -27911,7 +27911,7 @@ export function seedCases(): Case[] {
       frequency: 1,
       difficulty: 3,
       patientSheet: {
-        profil: { tags: ['anfall', 'dyspnoe'] },
+        profil: { tags: ['anfall', 'dyspnoe', 'kardio'] },
         leitsymptomKategorie: 'anfall',
         personalia: {
           name: 'Ottmar Reichenbach',
@@ -28444,7 +28444,7 @@ export function seedCases(): Case[] {
       frequency: 6,
       difficulty: 2,
       patientSheet: {
-        profil: { tags: ['schmerz', 'diarrhoe', 'gewichtsverlust'] },
+        profil: { tags: ['schmerz', 'diarrhoe', 'gewichtsverlust', 'gastro'] },
         personalia: {
           name: 'Gustav Hirschmann',
           age: 46,
@@ -31702,7 +31702,7 @@ export function seedCases(): Case[] {
       frequency: 0,
       difficulty: 3,
       patientSheet: {
-        profil: { tags: ['veraenderung'] },
+        profil: { tags: ['veraenderung', 'haem'] },
         leitsymptomKategorie: 'veraenderung',
         personalia: {
           name: 'Katrin Vollmer',
@@ -36560,7 +36560,7 @@ export function seedCases(): Case[] {
       frequency: 6,
       difficulty: 3,
       patientSheet: {
-        profil: { tags: ['ausscheidung', 'dysphagie', 'hals', 'gewichtsverlust'] },
+        profil: { tags: ['ausscheidung', 'dysphagie', 'hals', 'gewichtsverlust', 'gastro'] },
         leitsymptomKategorie: 'ausscheidung',
         personalia: {
           name: 'Katharina Vogel',
@@ -38687,7 +38687,7 @@ export function seedCases(): Case[] {
       frequency: 8,
       difficulty: 2,
       patientSheet: {
-        profil: { tags: ['ausscheidung', 'schmerz', 'diarrhoe'] },
+        profil: { tags: ['ausscheidung', 'schmerz', 'diarrhoe', 'gastro'] },
         leitsymptomKategorie: 'ausscheidung',
         personalia: {
           name: 'Peter Novak',
@@ -39721,7 +39721,7 @@ export function seedCases(): Case[] {
       frequency: 14,
       difficulty: 2,
       patientSheet: {
-        profil: { tags: ['allgemein', 'dyspnoe', 'gewichtsverlust'] },
+        profil: { tags: ['allgemein', 'dyspnoe', 'gewichtsverlust', 'endo'] },
         leitsymptomKategorie: 'allgemein',
         personalia: {
           name: 'Franz Maier',
@@ -42544,7 +42544,7 @@ export function seedCases(): Case[] {
       frequency: 7,
       difficulty: 3,
       patientSheet: {
-        profil: { tags: ['allgemein', 'dyspnoe'] },
+        profil: { tags: ['allgemein', 'dyspnoe', 'endo'] },
         leitsymptomKategorie: 'allgemein',
         personalia: {
           name: 'Anton Kaiser',
@@ -43145,7 +43145,7 @@ export function seedCases(): Case[] {
       frequency: 5,
       difficulty: 3,
       patientSheet: {
-        profil: { tags: ['schmerz', 'diarrhoe', 'dyspnoe', 'stein', 'gewichtsverlust'] },
+        profil: { tags: ['schmerz', 'diarrhoe', 'dyspnoe', 'stein', 'gewichtsverlust', 'onko'] },
         personalia: {
           name: 'Gabi Hubertus',
           age: 48,
@@ -45300,7 +45300,7 @@ export function seedCases(): Case[] {
       frequency: 5,
       difficulty: 3,
       patientSheet: {
-        profil: { tags: ['infekt', 'fieber', 'dyspnoe', 'gewichtsverlust'] },
+        profil: { tags: ['infekt', 'fieber', 'dyspnoe', 'gewichtsverlust', 'kardio'] },
         leitsymptomKategorie: 'infekt',
         personalia: {
           name: 'Gerhard Steinbach',
@@ -47701,7 +47701,7 @@ export function seedCases(): Case[] {
       frequency: 2,
       difficulty: 2,
       patientSheet: {
-        profil: { tags: ['ausscheidung', 'schmerz', 'diarrhoe', 'gelenk', 'arthritis', 'dyspnoe', 'gewichtsverlust'] },
+        profil: { tags: ['ausscheidung', 'schmerz', 'diarrhoe', 'gelenk', 'arthritis', 'dyspnoe', 'gewichtsverlust', 'gastro'] },
         leitsymptomKategorie: 'ausscheidung',
         personalia: {
           name: 'Tanya Krüger',
@@ -48249,7 +48249,7 @@ export function seedCases(): Case[] {
       frequency: 2,
       difficulty: 2,
       patientSheet: {
-        profil: { tags: ['schmerz', 'diarrhoe', 'gewichtsverlust'] },
+        profil: { tags: ['schmerz', 'diarrhoe', 'gewichtsverlust', 'gastro'] },
         personalia: {
           name: 'Miriam Freudenberg',
           age: 43,
@@ -48733,7 +48733,7 @@ export function seedCases(): Case[] {
       frequency: 5,
       difficulty: 3,
       patientSheet: {
-        profil: { tags: ['schmerz', 'dyspnoe'] },
+        profil: { tags: ['schmerz', 'dyspnoe', 'kardio'] },
         personalia: {
           name: 'Jonas Feldmann',
           age: 28,
@@ -49683,7 +49683,7 @@ export function seedCases(): Case[] {
       frequency: 1,
       difficulty: 3,
       patientSheet: {
-        profil: { tags: ['allgemein', 'fieber', 'dyspnoe', 'gewichtsverlust'] },
+        profil: { tags: ['allgemein', 'fieber', 'dyspnoe', 'gewichtsverlust', 'haem'] },
         leitsymptomKategorie: 'allgemein',
         personalia: {
           name: 'Birgit Steinmann',
@@ -52618,7 +52618,7 @@ export function seedCases(): Case[] {
       frequency: 3,
       difficulty: 2,
       patientSheet: {
-        profil: { tags: ['veraenderung', 'fieber', 'hals', 'gewichtsverlust'] },
+        profil: { tags: ['veraenderung', 'fieber', 'hals', 'gewichtsverlust', 'haem'] },
         leitsymptomKategorie: 'veraenderung',
         personalia: {
           name: 'Elisabeth Länge',
@@ -53114,7 +53114,7 @@ export function seedCases(): Case[] {
       frequency: 0,
       difficulty: 2,
       patientSheet: {
-        profil: { tags: ['allgemein', 'gicht', 'gewichtsverlust'] },
+        profil: { tags: ['allgemein', 'gicht', 'gewichtsverlust', 'haem'] },
         leitsymptomKategorie: 'allgemein',
         personalia: {
           name: 'Bernd Ostermann',
@@ -54970,7 +54970,7 @@ export function seedCases(): Case[] {
       frequency: 1,
       difficulty: 2,
       patientSheet: {
-        profil: { tags: ['ausscheidung', 'transit'] },
+        profil: { tags: ['ausscheidung', 'transit', 'gastro'] },
         leitsymptomKategorie: 'ausscheidung',
         personalia: {
           name: 'Walter Schwarz',
@@ -57422,7 +57422,7 @@ export function seedCases(): Case[] {
       frequency: 3,
       difficulty: 2,
       patientSheet: {
-        profil: { tags: ['schmerz', 'fieber'] },
+        profil: { tags: ['schmerz', 'fieber', 'kardio'] },
         personalia: {
           name: 'Jonas Hartmann',
           age: 34,
@@ -60204,7 +60204,7 @@ export function seedCases(): Case[] {
       frequency: 0,
       difficulty: 2,
       patientSheet: {
-        profil: { tags: ['allgemein', 'dyspnoe', 'gewichtsverlust'] },
+        profil: { tags: ['allgemein', 'dyspnoe', 'gewichtsverlust', 'haem'] },
         leitsymptomKategorie: 'allgemein',
         personalia: {
           name: 'Renate Hoffmeister',
@@ -61680,7 +61680,7 @@ export function seedCases(): Case[] {
       frequency: 1,
       difficulty: 2,
       patientSheet: {
-        profil: { tags: ['allgemein', 'schmerz'] },
+        profil: { tags: ['allgemein', 'schmerz', 'kardio'] },
         leitsymptomKategorie: 'allgemein',
         personalia: {
           name: 'Markus Lindner',
