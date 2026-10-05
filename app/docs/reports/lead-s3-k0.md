@@ -1,18 +1,18 @@
 # Rapport lot K0 — le lexique de signes et la mesure de cohérence
 
-> `sim-engine-engineer` · 4 oct. 2026 · branche `feat/s3-k0-lexique` (partie de `feat/s3-coherence` @ `0cb840d5`)
-> Statut : **DONE_WITH_CONCERNS** (concerns = écarts au contrat §10 listés en § 2, à acter par main) — revue Opus de `640bd4ff` : *Needs fixes*, corrigée au § 7 ; **I3 (rebase Q-gyn) en attente du signal de main**.
+> `sim-engine-engineer` · 4-5 oct. 2026 · branche `feat/s3-k0-lexique`, **rebasée sur `origin/main` @ `ff87f4e0`** (contrat #69 et Q-gyn #70 mergés ; les hashes cités sont ceux d'après rebase)
+> Statut : **DONE_WITH_CONCERNS** (concerns = écarts au contrat §10 listés en § 2, à acter par main) — revue Opus de l'ancien sommet (rapport `6c70ccd3` d'avant rebase) : *Needs fixes*, corrigée au § 7, I3 compris.
 > K0 ne branche rien sur le montage et ne touche pas `seedCases.ts` : aucun comportement visible ne change (gel § 6).
 
 ## 1. Livrables et commits
 
 | # | Livrable | Commit | Fichiers |
 |---|---|---|---|
-| 1-2 | Lexique `Signe` (69), `SIGNE_DEF`, `PROFIL_EXIGE/EXCLUT`, `SUCHT_AUSSER`, INV-77 / INV-78 avec leurs mutations | `0c3e3eba`, `ec4f34dc` | `app/src/data/guides/signes.ts` (nouveau), `symptoms.ts`, `symptoms.test.ts` |
-| 4 | Gel du montage actuel (`FACH_COVERS` + `dedupeBySymptom`, 130 cas) | `449574dc` | `trameActuelle.test.ts`, `__snapshots__/trame-actuelle.txt`, `__snapshots__/fach-covers.txt` |
-| 3 | `checkCoherence.mjs` en mode MESURE, plancher | `65f604bc` | `app/scripts/checkCoherence.mjs`, `coherenceMesure.mjs`, `checkCoherence.test.mjs`, `fixtures/coherence-budget.json` |
-| 3 | Plancher suivi par `checkBudgetFloor` | `ab36a41c` | `checkBudgetFloor.mjs`, `checkBudgetFloor.test.mjs` |
-| 5 | CI | `f20643fd` | `.github/workflows/quality.yml` |
+| 1-2 | Lexique `Signe` (69), `SIGNE_DEF`, `PROFIL_EXIGE/EXCLUT`, `SUCHT_AUSSER`, INV-77 / INV-78 avec leurs mutations | `81798838`, `339e607e` | `app/src/data/guides/signes.ts` (nouveau), `symptoms.ts`, `symptoms.test.ts` |
+| 4 | Gel du montage actuel (`FACH_COVERS` + `dedupeBySymptom`, 130 cas) | `0a553e30` | `trameActuelle.test.ts`, `__snapshots__/trame-actuelle.txt`, `__snapshots__/fach-covers.txt` |
+| 3 | `checkCoherence.mjs` en mode MESURE, plancher | `e25043ec` | `app/scripts/checkCoherence.mjs`, `coherenceMesure.mjs`, `checkCoherence.test.mjs`, `fixtures/coherence-budget.json` |
+| 3 | Plancher suivi par `checkBudgetFloor` | `081bfe19` | `checkBudgetFloor.mjs`, `checkBudgetFloor.test.mjs` |
+| 5 | CI | `24309d59` | `.github/workflows/quality.yml` |
 
 ## 2. Hypothèses et écarts au contrat (à acter)
 
@@ -46,7 +46,7 @@ Chacun est un choix de K0, pas une décision de fond ; aucun ne contredit D1-D7 
 
 | Compteur du contrat | Spec §2 | K0 | Exact dès | Écart |
 |---|---:|---:|---|---|
-| `doublons` | 266 (101 cas) | **276** (102 cas) | K1 sondes / K4 cas | **266** à la première mesure (reproduit la spec), 265 après m1, **276 après m6** : hausse de mesure, § 7 |
+| `doublons` | 266 (101 cas) | **279** (102 cas) | K1 sondes / K4 cas | **266** à la première mesure (reproduit la spec), 265 après m1, 276 après m6 (hausse de mesure), **279 après Q-gyn** (3 × `blutung`) : § 7 |
 | `doublonsCas` (≥ 2 questions du cas) | 5 « cas × cas » | **24** (20 avant m6) | K4 | autre définition : la spec ne comptait que les doublons dont **toutes** les unités sont du cas ; le contrat compte tout signe cherché par ≥ 2 questions du cas |
 | `horsProfil` | 55 (24 cas) | **56** (25 cas) | K2 | +1 : `ausstrahlung` hors de ses tags dans `case-leistenhernie` (deux autres cas urologiques absorbés par `stein` / `hoden`) |
 | `exigeAbsent` | 44 (25 cas) | **58** (25 cas) | K2 | **+14 = `charakter`**, que le contrat ajoute à « schmerz » (§ 2.9) ; Ort 13, Intensität 14 : identiques |
@@ -56,10 +56,10 @@ Chacun est un choix de K0, pas une décision de fond ; aucun ne contredit D1-D7 
 
 Repères : relances sans condition lisant un autre signe (large) **39**, comme la spec (d'). Relances **conditionnelles** lues large : 234, **non comptées** (les exemples d'une réaction allergique « Hautausschlag, Atemnot » y sont lus comme des signes : du bruit). Distribution du score par cas (a+b+c+d+e) : `0` 24 · `1-3` 57 · `4-6` 27 · `7-10` 20 · `>10` 2 (spec : 24 · 58 · 30 · 17 · 1).
 
-Résidu de contenu (fixture) : `questionsMuettes` **829** (36 sur 865 déclarent `sucht`, comme la spec) · `sondesMuettes` **148** (82 sur 230 déclarées) · `nonReduit`, `casRetiresParR1` : **non mesurable avant K3**.
+Résidu de contenu (fixture) : `questionsMuettes` **825** (829 avant Q-gyn, qui a déclaré `sucht` sur 4 questions ; 36 sur 865 déclaraient `sucht` dans la spec) · `sondesMuettes` **148** (82 sur 230 déclarées) · `nonReduit`, `casRetiresParR1` : **non mesurable avant K3**.
 
 - **Hors profil par signe** (inchangé par la revue) : schluck 14 · gelenke 9 · erythem_ring 8 · fazialis 8 · meningismus 5 · zecke 3 · ausstrahlung 2 · gelenk_entzuendung 2 · gicht 2 · nierensteine 2 · familie_rheuma 1 (la spec : mêmes, ausstrahlung 1).
-- **Signes doublés** : stuhl 35 · fieber 24 · miktion 17 · schwitzen 14 · atemnot 13 · ausschlag 12 · sehstoerung 12 · husten 11 (la spec : miktion 16, reise 10, ausschlag 9 ; `reise` tombe à 6 parce que « Urlaub » n'est plus lu comme un voyage).
+- **Signes doublés** : stuhl 35 · fieber 24 · miktion 17 · schwitzen 14 · atemnot 13 · blutung 12 · ausschlag 12 · sehstoerung 12 · husten 11 (la spec : miktion 16, reise 10, ausschlag 9 ; `reise` tombe à 6 parce que « Urlaub » n'est plus lu comme un voyage).
 - **Projection `ajouteSansReponse` par banque** : `akt-intensitaet` 14 · `akt-charakter` 14 · `akt-ort` 13 · `akt-atemnot-husten` 4 · `fach-rheuma-entzuendung` 4 · `fach-rheuma-gelenke` 3 · `akt-ausscheid-haeufigkeit` 2 · `akt-ausscheid-schlucken` 1 · `akt-ausscheid-aussehen` 1. C'est le travail d'écriture de K2 pour que K3 puisse merger à 0.
 
 ### Les cas les plus touchés
@@ -82,7 +82,7 @@ Résidu de contenu (fixture) : `questionsMuettes` **829** (36 sur 865 déclarent
 | erysipel | veraenderung | 7 | 3 | 0 | 3 | 0 | 1 |
 | hepatitis-b | ausscheidung | 7 | 3 | 4 | 0 | 0 | 0 |
 
-Les deux cas de la direction sont #1 et #2 (la spec : #1 et #3). Par nature, le score moyen par cas : `infekt` 7,6 (8 cas) · `neurologisch` 6,2 · `anfall` 5,4 · `ausscheidung` 3,8 · `veraenderung` 3,6 · `schmerz` 2,3 (53 cas). La Fach Infekt (gabarit borréliose) et la rhumato restent les gabarits fautifs.
+Les deux cas de la direction sont #1 et #2 (la spec : #1 et #3). Par nature, le score moyen par cas : `infekt` 7,6 (8 cas) · `neurologisch` 6,2 · `anfall` 5,4 · `ausscheidung` 3,8 · `veraenderung` 3,7 · `schmerz` 2,4 (53 cas). La Fach Infekt (gabarit borréliose) et la rhumato restent les gabarits fautifs.
 
 `node scripts/checkCoherence.mjs --case gastroenteritis` rend la trame jouée avec, pour chaque constat, sa `RAISON` : ex. « le tag « diarrhoe » exige « stuhlfrequenz » ; aucune unité ne le cherche » ; « « schluck » n'est pertinent que pour [dysphagie, hals] ; profil proposé : [ausscheidung, schmerz, diarrhoe, reise, gewichtsverlust, stein] » ; « « dort » avant toute question sur « reise » ».
 
@@ -94,28 +94,28 @@ Les deux cas de la direction sont #1 et #2 (la spec : #1 et #3). Par nature, le 
 - **K3** : `cohere` (remplace `dedupeBySymptom` et `FACH_COVERS`) ; `nonReduit` et `casRetiresParR1` deviennent mesurables ; K3 compare à `trame-actuelle.txt` et `fach-covers.txt`. Il lui faudra la sortie brute de `fachChapterRaw` (non exportée, I3) : le gel porte la Fach jouée, pas la Fach brute, donc il ne dit pas quelle paire de `FACH_COVERS` a tiré sur chaque cas.
 - **K4** : `sucht` des 829 questions, `braucht` (`brauchtViole` 20, `doublonsCas` 20). **K5** : `sucht` requis au type, porte bloquante.
 
-## 6. Vérifications (par code de sortie, sommet de branche après la revue — avant I3)
+## 6. Vérifications (par code de sortie, sommet de branche, après la revue et le rebase I3)
 
-- `node scripts/check*.mjs` du job `contrats` : **tous 0** — `checkProbeCoverage`, `checkMusterCoverage`, `checkCaseCoherence`, `checkGuideCoverage`, `checkGuideDuplicates`, `checkUiTells`, `checkCaseQuestionChapters`, `checkPatientWorte`, `checkPlayedTrame`, `checkTrameSymptoms`, `checkQuestionAtomicity`, `checkBudgetFloor.mjs origin/main`, `evalDoctopus.mjs --dry`, `checkTherapieLabels`, `checkFachwissenVisuals`, `checkAllergyConflicts`, `checkCaseTermLinks`, `checkTermRegister --require-all`, `checkBedeutung`, `checkCaseCohesion`, `checkQuestionOrder`, `checkCaseQuestionAnswers`, `checkCoherence`. **Une exception** : `checkProbeOverlap.mjs` sort 1 (5 répétitions non marquées, ex. `fach-pneumo-giemen` / `akt-atemnot-geraeusch` 67 %) ; son job porte `|| true` et K0 ne touche ni `anamneseProbes.ts` ni `seedCases.ts` (`git diff 0cb840d5 --stat` vide sur les deux) : préexistant, je ne l'ai pas rejoué sur la base.
+- `node scripts/check*.mjs` du job `contrats` : **tous 0** — `checkProbeCoverage`, `checkMusterCoverage`, `checkCaseCoherence`, `checkGuideCoverage`, `checkGuideDuplicates`, `checkUiTells`, `checkCaseQuestionChapters`, `checkPatientWorte`, `checkPlayedTrame`, `checkTrameSymptoms`, `checkQuestionAtomicity`, `checkBudgetFloor.mjs origin/main`, `evalDoctopus.mjs --dry`, `checkTherapieLabels`, `checkFachwissenVisuals`, `checkAllergyConflicts`, `checkCaseTermLinks`, `checkTermRegister --require-all`, `checkBedeutung`, `checkCaseCohesion`, `checkQuestionOrder`, `checkCaseQuestionAnswers`, `checkCoherence`. **Une exception** : `checkProbeOverlap.mjs` sort 1 (5 répétitions non marquées, ex. `fach-pneumo-giemen` / `akt-atemnot-geraeusch` 67 %) ; son job porte `|| true` et K0 ne touche ni `anamneseProbes.ts` ni `seedCases.ts` (`git diff 0cb840d5 --stat` vide sur les deux) : préexistant : rejoué sur `origin/main` @ `ff87f4e0` (worktree jetable), il sort 1 aussi.
 - `node --test` : `checkQuestionAtomicity`, `checkTrameSymptoms`, `checkBudgetFloor` (13 tests, dont 4 nouveaux), `checkProbeCoverage`, `checkQuestionOrder`, `checkCaseQuestionAnswers`, `checkCoherence` (22 : 12 de la mesure + 10 de la porte), `linkCaseTerms`, `checkCaseTermLinks`, `checkTermRegister`, `checkBedeutung` : **tous 0**.
-- `npx tsc -b --noEmit` : **0**. `npx vitest run --dir src/data --maxWorkers=2` : **0** (12 fichiers, 235 tests). `git merge-tree --write-tree origin/main HEAD` : **0** (aucun conflit).
+- `npx tsc -b --noEmit` : **0**. `npx vitest run --dir src/data --maxWorkers=2` : **0** (271 tests, main inclus). `git merge-tree --write-tree origin/main HEAD` : **0** (aucun conflit).
 - **Aucun comportement changé** : `trameActuelle.test.ts` fige la structure de la trame jouée des 130 cas (1 610 lignes, relances comptées depuis m5) et la table `FACH_COVERS` (61 entrées) ; il reste vert sur toute la branche. Ses mutations rougissent : une entrée `FACH_COVERS` vidée (test de la table), la réduction par `parts` de `dedupeBySymptom` désactivée (test de la trame).
 - Mutations de la porte (`checkCoherence.test.mjs`, copie de travail) : lexique abîmé INV-77 → 1 ; INV-78 → 1 ; motif de lecture hors lexique → 1 ; la mesure lit le lexique (`schluck` en dépistage → `horsProfil` baisse) ; plancher dépassé → 1 ; `--bless` refuse la hausse et laisse le fixture intact ; `--case` inconnu → 2.
 
-## 7. Revue Opus de `640bd4ff` — verdict *Needs fixes* ; fixeur (5 oct.)
+## 7. Revue Opus du sommet d'avant rebase (`640bd4ff`) — verdict *Needs fixes* ; fixeur (5 oct.)
 
 Verdict de la revue : aucun changement de comportement (trame des 130 cas byte-identique) ; INV-77 / INV-78 et `--bless` solides. Corrections, un commit par item, test rouge d'abord :
 
 | Item | Commit | Correction | Preuve |
 |---|---|---|---|
-| **I1** | `ab501a1c` | `checkCoherence.test.mjs` vérifie l'ÉGALITÉ de la mesure `--json` (`brut` et `residu`) au fixture, plus seulement `≤` | mutation : lecture de `stuhl` désactivée → la mesure tombe sous le plancher et l'égalité rougit |
-| **I2** | `2bafcf93` | `akt-ausscheid-was` : `stuhl, miktion` + `gelbfaerbung, urin_aspekt, stuhlaussehen` (D1) | test rouge puis vert ; INV-78 (`-was` / `-haeufigkeit`) reste disjoint |
-| **m2** | `b5101f1a` | `fach-endo-durst` : + `nykturie` | idem |
-| **m1** | `630dab4b` | `gedaechtnis` distinct de `konzentration` (faux doublon de `case-demenz` disparu) ; `konzentration` lit aussi « Konzentrationsprobleme » (le motif `konzentrier` la ratait) | doublons 266 → 265, `--bless` |
-| **m3** | `d569eb34` | `checkBudgetFloor.test.mjs` : base entière + tête `null` → 1 ; base `null` + tête entière → 0 | mutation du garde (`h !== null` toléré) → le premier test rougit |
-| **m4** | `8bf492f2` | le commentaire de `quality.yml` dit ce qui bloque (plancher, égalité, structure du lexique) ; seul l'affichage est informatif | — |
-| **m5** | `2a46ce27` | la clé du gel compte les relances (`↳n`, `phraseFollowUp`) | 2 385 marqueurs ; hors `↳n`, le snapshot est identique octet pour octet à l'ancien |
-| **m6** | `7b8844ba` | une seule lecture : la mesure appelle `symptomsInText` ; `SIG` ne garde que `kontakt`, `oedeme`, `polyurie` (sans motif dans `TEXT_RE`) et les ajouts de K0 | mutation de `TEXT_RE` (`stuhl`) → la mesure change et l'égalité rougit |
+| **I1** | `8ed2d982` | `checkCoherence.test.mjs` vérifie l'ÉGALITÉ de la mesure `--json` (`brut` et `residu`) au fixture, plus seulement `≤` | mutation : lecture de `stuhl` désactivée → la mesure tombe sous le plancher et l'égalité rougit |
+| **I2** | `72788723` | `akt-ausscheid-was` : `stuhl, miktion` + `gelbfaerbung, urin_aspekt, stuhlaussehen` (D1) | test rouge puis vert ; INV-78 (`-was` / `-haeufigkeit`) reste disjoint |
+| **m2** | `db8c2acc` | `fach-endo-durst` : + `nykturie` | idem |
+| **m1** | `cbab9db3` | `gedaechtnis` distinct de `konzentration` (faux doublon de `case-demenz` disparu) ; `konzentration` lit aussi « Konzentrationsprobleme » (le motif `konzentrier` la ratait) | doublons 266 → 265, `--bless` |
+| **m3** | `42ce121c` | `checkBudgetFloor.test.mjs` : base entière + tête `null` → 1 ; base `null` + tête entière → 0 | mutation du garde (`h !== null` toléré) → le premier test rougit |
+| **m4** | `2258146b` | le commentaire de `quality.yml` dit ce qui bloque (plancher, égalité, structure du lexique) ; seul l'affichage est informatif | — |
+| **m5** | `f5ba69de` | la clé du gel compte les relances (`↳n`, `phraseFollowUp`) | 2 385 marqueurs ; hors `↳n`, le snapshot est identique octet pour octet à l'ancien |
+| **m6** | `ee376809` | une seule lecture : la mesure appelle `symptomsInText` ; `SIG` ne garde que `kontakt`, `oedeme`, `polyurie` (sans motif dans `TEXT_RE`) et les ajouts de K0 | mutation de `TEXT_RE` (`stuhl`) → la mesure change et l'égalité rougit |
 | **m7** | ce rapport | `akt-ausscheid-aussehen` (« Blut, Schleim oder eine ungewöhnliche Farbe aufgefallen ? ») a la **même ambiguïté selles / urine** que `akt-ausscheid-haeufigkeit` (§ 2.8) : elle est banque de `stuhlaussehen` mais cherche aussi `urin_aspekt`. **Scission en K1**, avec `akt-ausscheid-haeufigkeit` | — |
 
 **m6 est une hausse de mesure**, acceptée et écrite au fixture (`hausses[0]`) : `doublons` 265 → **276**, `doublonsCas` 20 → **24**. Ce n'est pas du contenu qui se dégrade : la table parallèle `SIG` était plus fine que `TEXT_RE` sur quelques signes, et plus large sur d'autres.
@@ -124,7 +124,9 @@ Verdict de la revue : aucun changement de comportement (trame des 130 cas byte-i
 - Deux corrections de lecture qui vont avec : `TEXT_RE` `schlaf` ne lit plus « nach Ruhe oder Schlaf » (Einfluss ; 13 faux doublons, la porte `checkTrameSymptoms` reste à 0 constat, relu 118/118) ; les parties d'une question réduite par `parts` (une même sonde) ne sont plus des unités concurrentes.
 - **Reste du travail pour K1** : `TEXT_RE` reste moins précise que l'ancienne table sur des cas non triés (« Rötung » lu comme `ausschlag`). Elle sera remplacée par la déclaration.
 
-**I3 — non fait, en attente du signal de main** (rebase sur `origin/main` après le merge de Q-gyn, `vitest -u` sur `trame-actuelle.txt`, hausse `doublons` 266 → 269 à accepter, « fusion Q-gyn ; retirés par la règle 2 en K3 » : 3 × `blutung` dans eug, mammakarzinom, adnexitis). Attention : le chiffre de départ est désormais **276**, pas 266 (m1 et m6) ; la hausse attendue de +3 se lira 276 → 279, à confirmer par la mesure après rebase.
+**I3 — fait (rebase sur main après Q-gyn #70).** `git fetch && git rebase origin/main` : **rebase, pas merge — aucun conflit** (16 commits rejoués, `origin/main` @ `ff87f4e0`). Commit `1a8a8438`.
+- **Gel `trame-actuelle.txt` régénéré** (`vitest -u`, rouge avant) : 50 cas changent, et seulement des sondes `frau-*` / `fach-gyn-*` — 5 cas perdent le chapitre `frauenanamnese`, fondu dans la Fach gynéco (eug, mammakarzinom, uterus-myomatosus, endometriose, adnexitis) ; 45 cas de patientes gagnent des relances sur `frau-periode`, `frau-verhuetung`, `frau-wechseljahre`. `fach-covers.txt` est inchangé. Aucune autre sonde ne bouge.
+- **Mesure** : `doublons` **276 → 279** = exactement 3 × `blutung` nouveaux (`frau-periode` / `fach-gyn-blutung` dans case-eug, case-mammakarzinom, case-adnexitis), accepté avec sa raison au fixture (`hausses[1]` : « Fusion Q-gyn ; retirés par la règle 2 en K3 »). Les autres lignes du diff de mesure ne changent pas le compte : mêmes signes doublés, rangs décalés par la fusion, et `frau-periode` qui rejoint le doublon `blutung` déjà existant d'uterus-myomatosus et d'endometriose (3 → 4 unités, 1 doublon). `questionsMuettes` **829 → 825** (baisse : 4 questions du cas déclarent `sucht` dans uterus-myomatosus et adnexitis). Les 5 autres compteurs sont inchangés (`doublonsCas` 24, `horsProfil` 56, `exigeAbsent` 58, `relancesOrphelines` 0, `brauchtViole` 20, `ajouteSansReponse` 56).
 
 ## Non vérifié
 
@@ -132,4 +134,3 @@ Verdict de la revue : aucun changement de comportement (trame des 130 cas byte-i
 - **La CI réelle** : `quality.yml` parse (Ruby `YAML.load_file`) et les commandes ajoutées tournent en local, mais le workflow n'a pas tourné sur GitHub. `npx vitest run --dir src` complet (job `build`) n'a pas été lancé, seulement `--dir src/data`.
 - **La justesse clinique des pertinences et des tags** : 12 signes tag-gated et 16 tags déclarés sont mon calibrage sur les 130 cas, non relu par un clinicien. Les chiffres (b), (c), (e) sont des estimations à 50-70 %.
 - **`graphify update app/src`** : le graphe n'existe pas dans ce worktree ; non relancé.
-- **`checkProbeOverlap` sur la base** : l'exit 1 est attribué par le périmètre (fichiers non touchés), pas par un rejeu sur `origin/main`.
