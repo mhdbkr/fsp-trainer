@@ -29,7 +29,7 @@ export function BogenPreview({ bogen, muster, title = 'Notes de l\'anamnèse', s
       {open && (
         <div className="border-t border-slate-100 px-3 py-2 dark:border-slate-800">
           {cles.length === 0 ? (
-            <p className="text-xs text-slate-400">Aucune note saisie pendant l'anamnèse. Reviens à la partie Anamnese pour remplir le Bogen — il te sert de base ici.</p>
+            <p className="text-xs text-slate-400">Aucune note d'anamnèse pour l'instant.</p>
           ) : (
             <dl className="space-y-1.5">
               {cles.map((k) => {

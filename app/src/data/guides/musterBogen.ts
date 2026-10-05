@@ -32,6 +32,9 @@ export interface MusterBogenSpec {
   berichtLabel: string;      // libellé de la page Bericht
 }
 
+/** L'aide de Hauptbeschwerde quand le cas ne dit pas la nature de son motif. */
+export const HAUPTBESCHWERDE_REPLI = 'Seit wann · Verlauf · Begleitbeschwerden';
+
 const HEADER: BogenField = {
   key: 'personalia', label: 'Patient/-in', icon: 'id', kind: 'header',
   hint: 'Name · Geburtsdatum · Alter · Größe · Gewicht',
@@ -50,14 +53,16 @@ export const MUSTER_BOGEN: Record<MusterArt, MusterBogenSpec> = {
     berichtLabel: 'Diagnostik & Procedere',
     fields: [
       HEADER,
-      { key: 'hauptbeschwerde', label: 'Hauptbeschwerde', icon: 'pain', kind: 'box', hint: 'Ort · Dauer · Charakter · Verlauf · Intensität · Ausstrahlung' },
+      // L'aide suit la nature du motif du cas (`AnamneseBogen`, fixeur B1) ; celle-ci est le repli, valable pour tout motif.
+      { key: 'hauptbeschwerde', label: 'Hauptbeschwerde', icon: 'pain', kind: 'box', hint: HAUPTBESCHWERDE_REPLI },
       { key: 'vegetativ', label: 'Vegetativ', icon: 'pulse', kind: 'box', hint: 'Fieber, Übelkeit, Gewicht, Schlaf, Stuhl…' },
       { key: 'vorerkrankungen', label: 'Vorerkrankungen · Voroperationen', icon: 'history', kind: 'box' },
       { key: 'medikamente', label: 'Medikamente', icon: 'pill', kind: 'box', hint: 'Name · Dosierung · 0-0-0' },
       SOZIAL, FAMILIE, ALLERGIEN,
       { key: 'impfung', label: 'Impfung', icon: 'syringe', kind: 'box' },
-      { key: 'noxen', label: 'Noxen', icon: 'cigarette', kind: 'split', subFields: [{ key: 'rauchen', label: 'Rauchen' }, { key: 'drogen', label: 'Drogen' }] },
-      { key: 'frauen', label: 'Frauenanamnese', icon: 'female', kind: 'box' },
+      // Les clés du Standard (`noxen.rauchen`, `noxen.drogen`) sont gardées ; l'alcool a sa case (fixeur B1).
+      { key: 'noxen', label: 'Noxen', icon: 'cigarette', kind: 'split', subFields: [{ key: 'rauchen', label: 'Rauchen' }, { key: 'alkohol', label: 'Alkohol' }, { key: 'drogen', label: 'Drogen' }] },
+      { key: 'frauen', label: 'Frauenanamnese', icon: 'female', kind: 'box' },     // une patiente seulement (`AnamneseBogen`)
     ],
   },
   libre: {
@@ -83,7 +88,7 @@ export const musterArt = (m: MusterArt | MusterCity | string | undefined | null)
 /** Les cinq feuilles de la série 3, en LECTURE SEULE : elles ne servent qu'à libeller une
  *  note déjà prise sous une clé que les deux Muster n'ont pas (`genussmittel`…). */
 export const MUSTER_BOGEN_LEGACY: Record<MusterCity, Pick<MusterBogenSpec, 'fields'>> = {
-  Standard: { fields: MUSTER_BOGEN.guide.fields.filter((f) => f.key !== 'medikamente') },
+  Standard: { fields: MUSTER_BOGEN.guide.fields.filter((f) => f.key !== 'medikamente') },   // libellés : ceux du guidé
   Freiburg: { fields: [HEADER, ALLERGIEN, { key: 'noxen', label: 'Noxen', icon: 'cigarette', kind: 'box' }, SOZIAL, FAMILIE] },
   Karlsruhe: { fields: [HEADER, ALLERGIEN, { key: 'genussmittel', label: 'Genussmittel / Drogen', icon: 'cigarette', kind: 'box' }, SOZIAL, FAMILIE] },
   Reutlingen: {
