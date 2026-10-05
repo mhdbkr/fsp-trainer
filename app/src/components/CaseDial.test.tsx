@@ -199,6 +199,14 @@ describe('ouverture', () => {
     expect(vibrate.mock.calls[0][0]).toBeLessThanOrEqual(20);
   });
 
+  it('un appui ailleurs referme le détail (tactile : pas de survol pour le fermer)', () => {
+    monte(ENTAME);
+    fireEvent.keyDown(screen.getByRole('button'), { key: 'Enter' });
+    expect(screen.getByRole('dialog')).toBeTruthy();
+    pointer(document.body, 'pointerdown', 'touch');
+    expect(screen.queryByRole('dialog')).toBeNull();
+  });
+
   it('le toucher ne déclenche pas le survol', () => {
     vi.useFakeTimers();
     monte(ENTAME);
