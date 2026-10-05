@@ -622,9 +622,8 @@ export const ALLGEMEINE_ANAMNESE: AnamneseChapter[] = [
         probe: 'veg-ausscheidung',
         followUp: ['Falls ja: Seit wann, und wie oft täglich? Können Sie das Aussehen von Stuhl oder Urin näher beschreiben?'],
         parts: [
-          // K2 : la relance « wie oft, Aussehen » est une précision : la partie cherche aussi fréquence et aspect (PROBE_SUCHT).
-          { sucht: ['stuhl', 'stuhlfrequenz', 'stuhlaussehen'], text: 'Haben Sie Schwierigkeiten mit dem Stuhlgang?', followUp: ['Falls ja: Seit wann, und wie oft täglich? Können Sie das Aussehen des Stuhls näher beschreiben?'] },
-          { sucht: ['miktion', 'miktion_frequenz', 'urin_aspekt'], text: 'Haben Sie Schwierigkeiten beim Wasserlassen?', followUp: ['Falls ja: Seit wann, und wie oft täglich? Können Sie das Aussehen des Urins näher beschreiben?'] },
+          { sucht: ['stuhl'], text: 'Haben Sie Schwierigkeiten mit dem Stuhlgang?', followUp: ['Falls ja: Seit wann, und wie oft täglich? Können Sie das Aussehen des Stuhls näher beschreiben?'] },
+          { sucht: ['miktion'], text: 'Haben Sie Schwierigkeiten beim Wasserlassen?', followUp: ['Falls ja: Seit wann, und wie oft täglich? Können Sie das Aussehen des Urins näher beschreiben?'] },
         ],
       },
       {

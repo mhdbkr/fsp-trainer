@@ -49,7 +49,7 @@ export const PROBE_SUCHT: Readonly<Record<string, Sucht>> = {
   // --- Vegetative Anamnese ------------------------------------------------------
   'veg-fieber': ['fieber', 'reise'],   // parts : fieber / reise
   'veg-schuettelfrost': ['schuettelfrost', 'nachtschweiss', 'schwitzen'], 'veg-uebelkeit': ['uebelkeit'],
-  'veg-ausscheidung': ['stuhl', 'miktion', 'stuhlfrequenz', 'stuhlaussehen', 'miktion_frequenz', 'urin_aspekt'],   // K2 : « Aussehen, wie oft ? » vaut pour les selles et les urines (D1)
+  'veg-ausscheidung': ['stuhl', 'miktion'],   // la mère seule : fréquence et aspect ne sont demandés que par la relance « Falls ja » (revue K2 m2, esprit d'INV-84)
   'veg-gewicht': ['gewicht'], 'veg-appetit': ['appetit'], 'veg-schlaf': ['schlaf'],
   // --- Vorerkrankungen, Medikamente, Allergien, Noxen, Familie & Sozial ---------
   'vor-erkrank': ['vorerkrankung'], 'vor-op': ['operation'], 'vor-krankenhaus': ['krankenhaus'],
