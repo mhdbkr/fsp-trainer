@@ -28,7 +28,7 @@ import {
   assertLocalSupabase, barre, buildApp, idb, loadChromium, readEnvFile, rows, startPreview, texte, until, warmContent,
 } from './parcours-lib.mjs';
 import { Rapport } from './parcours-rapport.mjs';
-import { accueil, carteRetourIA, choisirMode, cocher, configurer, drill, ficheLue, jouerPartie, programmeDuMatin } from './parcours-actes.mjs';
+import { accueil, carteRetourIA, cocher, configurer, drill, ficheLue, jouerPartie, programmeDuMatin } from './parcours-actes.mjs';
 
 const APP = fileURLToPath(new URL('..', import.meta.url));
 const argv = process.argv.slice(2);
@@ -83,7 +83,7 @@ async function main() {
   rapport.write(OUT);
   const tous = rapport.tousLesChecks();
   // Faux vert : un parcours qui n'a rien joué ou n'a pas évalué ce qu'il prétend garder ne prouve rien (sortie 2 = harnais en défaut).
-  const attendus = { D7: 1, D8: 1, ...(NB_JOURS >= 3 ? { D10: 1 } : {}), ...(NB_JOURS >= 7 ? { D9: 1 } : {}) };
+  const attendus = { D7: 1, D8: 1, D15: 2, ...(NB_JOURS >= 2 ? { D17: 1 } : {}), ...(NB_JOURS >= 6 ? { D13: 1 } : {}), ...(NB_JOURS >= 3 ? { D10: 1 } : {}), ...(NB_JOURS >= 7 ? { D9: 1 } : {}) };
   const manquants = Object.entries(attendus).filter(([id, n]) => tous.filter((x) => x.id === id).length < n).map(([id]) => id);
   if (NB_JOURS >= 14 && rapport.jouees < 10) manquants.push(`parties jouées (${rapport.jouees} < 10)`);
   if (manquants.length) { console.error(`HARNAIS EN DÉFAUT : vérification(s) jamais évaluée(s) — ${manquants.join(', ')} : faux vert écarté.`); process.exit(2); }
@@ -114,7 +114,7 @@ async function parcours({ browser, base, supabaseUrl }) {
 
   const rapport = new Rapport({
     nbJours: NB_JOURS, date: TODAY, dureeS: 0,
-    persona: 'Léa, candidate FSP médecine (diplôme hors UE) ; 2 h par jour ; programme de 8 semaines, intensité moyenne ; d\'abord par Teil, puis cas complets ; deux jours manqués ; un drill libre ; une partie interrompue ; une partie avec le lanceur IA ouvert.',
+    persona: 'Léa, candidate FSP médecine (diplôme hors UE) ; 2 h par jour ; programme de 8 semaines, intensité moyenne ; elle joue librement un Teil ici, un cas entier là, parfois hors du plan ; deux jours manqués ; un drill libre ; une partie interrompue ; une partie avec le lanceur IA ouvert.',
     build: 'npm run build', supabase: supabaseUrl,
     premierJour: iso(jours[0]), dernierJour: iso(jours[jours.length - 1]),
     contenu: 'palier gratuit tel que le serveur local le publie (12 cas, 3 Teile chacun) — ce que voit un·e candidat·e anonyme. Aucun compte n\'est créé.',
@@ -176,7 +176,9 @@ async function parcours({ browser, base, supabaseUrl }) {
     await c.aller('/programme');
     await until(page, () => /min prévues/.test(document.body.innerText), 'plan');
     const rs = await rows(page);
-    const i = rs.findIndex((r) => !r.fait && r.label !== 'Fachbegriffe');
+    // « Une AUTRE » : pas la tâche qu'elle vient d'entamer (la ligne dit « Il te reste ») — celle-là, elle la finira.
+    const entamees = await page.evaluate(() => [...document.querySelectorAll('div.rounded-xl.border.transition-colors')].map((r) => /Il te reste/.test(r.textContent ?? '')));
+    const i = rs.findIndex((r, k) => !r.fait && r.label !== 'Fachbegriffe' && !entamees[k]);
     if (i < 0) return;
     await cocher(c, i);
   };
@@ -240,33 +242,60 @@ async function parcours({ browser, base, supabaseUrl }) {
     await accueil(c);
     await programmeDuMatin(c, c.jourIso);
 
+    // Le lendemain d'un cas entamé : le reste revient, PROPOSÉ — accepté, il passe en tête avec exactement ce qui reste (§12.8).
+    if (n === 2) {
+      await c.aller('/programme');
+      await sleep(600);
+      const propose = await page.getByRole('button', { name: /^Rattraper$/ }).count() > 0;
+      const phrase = (await texte(page)).split('\n').find((l) => /La finir ce soir|Il reste \d+ tâche|glissé/.test(l)) ?? '';
+      rapport.vu(propose ? `Programme — « ${phrase} »` : 'Programme — rien d\'hier à reprendre (le cas entamé est déjà au plan du jour, ou rien n\'est resté).');
+      const avant = (await idb(page, 'day_plans')).find((p) => p.date === c.jourIso);
+      if (propose) {
+        await page.getByRole('button', { name: /^Rattraper$/ }).click();
+        rapport.fait('Accepte de finir ce qui reste d\'hier (« Rattraper »).');
+      }
+      await sleep(800);
+      const apres = (await idb(page, 'day_plans')).find((p) => p.date === c.jourIso);
+      await c.verifie('D17', 'le reste d\'hier est proposé, jamais imposé ; accepté, il revient en tête avec exactement ce qui reste, sans « d\'un trait »', () => {
+        if (!propose) return { ok: JSON.stringify(avant) === JSON.stringify(apres), detail: 'aucune proposition ; le plan du jour est intact' };
+        const reprises = apres.tasks.filter((t) => !avant.tasks.some((x) => x.id === t.id));
+        const tete = apres.tasks.findIndex((t) => t.doneAt === undefined);
+        const fautes = reprises.filter((t) => t.dUnTrait || (t.caseId && !(t.teile?.length > 0 && t.teile.length <= 3)) || !/^Finir |^Reprise /.test(t.reason));
+        // Insérée : avant la première tâche non faite. Hors budget, elle REMPLACE une tâche de cas ni faite ni entamée (m-c).
+        const insere = apres.tasks.length > avant.tasks.length;
+        return { ok: reprises.length > 0 && !fautes.length && (!insere || apres.tasks.indexOf(reprises[0]) === tete), detail: `${reprises.length} reprise(s) : ${reprises.map((t) => `${t.label} [${(t.teile ?? []).join(', ')}] « ${t.reason} »`).join(' ; ')}${fautes.length ? ' — FAUTIVE(S)' : ''}` };
+      });
+    }
+
     // Après un trou : le rattrapage est PROPOSÉ, jamais imposé.
     if (n === 6) {
       await c.aller('/programme');
-      const propose = /Les reprendre/.test(await texte(page));
-      rapport.vu(propose ? 'Programme — le rattrapage des tâches non faites du dernier jour ouvert est PROPOSÉ (« Les reprendre » / « Non, laisser »).' : 'Programme — aucun rattrapage proposé.');
+      await sleep(600);
+      // « Laisser » quand il y a quelque chose à reprendre ; « Compris » quand tout ce qui a glissé est déjà au plan du jour.
+      const LAISSER = /^(Laisser|Compris)$/;
+      const propose = await page.getByRole('button', { name: LAISSER }).count() > 0;
+      rapport.vu(propose ? `Programme — « ${(await texte(page)).split('\n').find((l) => /jours? manqués?/.test(l)) ?? ''} »` : 'Programme — aucun rattrapage proposé.');
       if (propose) {
         const avant = (await barre(page)).total;
-        await page.getByRole('button', { name: /Non, laisser/ }).click();
+        await page.getByRole('button', { name: LAISSER }).first().click();
         await sleep(500);
-        rapport.fait('Refuse le rattrapage (« Non, laisser »).');
+        rapport.fait('Refuse le rattrapage (« Laisser » / « Compris »).');
         await c.verifie('D13', 'le rattrapage est proposé, jamais imposé : refusé, le plan ne bouge pas et la proposition ne revient pas', async () => {
           const ap = (await barre(page)).total;
           await page.reload(); await sleep(900);
-          return { ok: ap === avant && !/Les reprendre/.test(await texte(page)), detail: `${avant} → ${ap} tâches ; proposition ${/Les reprendre/.test(await texte(page)) ? 'revenue' : 'close après rechargement'}` };
+          const revenue = await page.getByRole('button', { name: LAISSER }).count() > 0;
+          return { ok: ap === avant && !revenue, detail: `${avant} → ${ap} tâches ; proposition ${revenue ? 'revenue' : 'close après rechargement'}` };
         });
       }
     }
 
     switch (n) {
-      case 1: await drill(c, { cartes: 4, depuis: 'plan' }); await jouer({ qualite: 0.3 }); await cocheUneAutre(); break;
-      case 2: await jouer({ qualite: 0.4, doubleSave: true }); await jouer({ qualite: 0.5 }); break;
-      case 3: await jouer({ qualite: 0.5, interrompre: 'laufend' }); await jouer({ qualite: 0.55, interrompre: 'bilan' }); break;
-      case 6: await jouer({ qualite: 0.6, doubleSave: true }); await drill(c, { cartes: 4, depuis: 'glossaire' }); break;
-      case 7:
-        await jouer({ qualite: 0.6, ia: 'pendant' }); await jouer({ qualite: 0.65, retourBilan: true });
-        await choisirMode(c, 'Cas complet');
-        break;
+      // « Un Teil ici, un cas entier là » : le mode n'est plus choisi, il est OBSERVÉ (§12.5) — elle joue comme elle veut.
+      case 1: await drill(c, { cartes: 4, depuis: 'plan' }); await jouer({ qualite: 0.3, unTeil: true }); await cocheUneAutre(); break;
+      case 2: await jouer({ qualite: 0.4, doubleSave: true, unTeil: true }); await jouer({ qualite: 0.5 }); break;
+      case 3: await jouer({ qualite: 0.5, interrompre: 'laufend' }); await jouer({ qualite: 0.55, interrompre: 'bilan', unTeil: true }); break;
+      case 6: await jouer({ qualite: 0.6, doubleSave: true }); await drill(c, { cartes: 4, depuis: 'glossaire' }); await jouerPartie(c, 0, { qualite: 0.6, libre: true, unTeil: true }); break;
+      case 7: await jouer({ qualite: 0.6, ia: 'pendant' }); await jouer({ qualite: 0.65, retourBilan: true }); break;
       case 8: await jouer({ qualite: 0.65 }); await cocheUneAutre(); break;
       case 9: {
         const t = await jouer({ ia: 'abandon' });
@@ -275,7 +304,10 @@ async function parcours({ browser, base, supabaseUrl }) {
         break;
       }
       case 10: await jouer({ qualite: 0.8 }); await ficheLue(c); break;
-      default: await jouer({ qualite: Math.min(0.95, 0.5 + n * 0.03) }); if (n % 2) await cocheUneAutre();
+      default:
+        await jouer({ qualite: Math.min(0.95, 0.5 + n * 0.03), unTeil: n % 4 === 0 });
+        if (n % 2) await cocheUneAutre();
+        if (n % 3 === 0) await jouerPartie(c, 0, { qualite: 0.7, libre: true, unTeil: n % 2 === 0 });
     }
     await soir(n);
     if (n === NB_JOURS) {

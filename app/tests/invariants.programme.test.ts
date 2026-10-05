@@ -17,6 +17,7 @@ import { db } from '@/db/db';
 import { logTraining, markTaskDone, rebuildJournal } from '@/lib/journal';
 import { saveSimulation } from '@/lib/simulationSave';
 import { ensureDayPlan, sessionDuJour } from '@/lib/program';
+import { teileDeTache } from '@/lib/program/tacheDeCas';
 import type { DayPlan, ProgramConfig, TaskInstance } from '@/db/types';
 import { forAll, type Rng } from './helpers/prop';
 import {
@@ -110,11 +111,11 @@ describe('INV-1 et INV-2 — cocher ne fait pas grandir le jour, la session rest
 });
 
 describe('INV-4 — deux spécialités identiques ne se suivent jamais dans un plan', () => {
-  it('14 jours ouvrés de préparation (20 jours calendaires) sur le corpus complet, en teil-first, plan après plan', async () => {
+  it('14 jours ouvrés de préparation (20 jours calendaires) sur le corpus complet, en cas-complet (INV-4 vaut désormais dans tous les modes sauf specialite), plan après plan', async () => {
     const vues: string[] = [];
     await forAll(6, async (r, seed) => {
       await resetWorld();
-      const cfg: ProgramConfig = randomConfig(r, { modus: 'teil-first', hoursPerSession: r.pick([2, 3]), intensity: 'intensiv' });
+      const cfg: ProgramConfig = randomConfig(r, { modus: 'cas-complet', hoursPerSession: r.pick([2, 3]), intensity: 'intensiv' });
       await db.meta.put({ key: 'program', value: cfg } as never);
       let sims = 0;
       for (let j = 0; j < 20 && sims < 14 * 3; j++) {
@@ -135,10 +136,10 @@ describe('INV-4 — deux spécialités identiques ne se suivent jamais dans un p
           tick(60_000);
           if (t.kind === 'simulation' && t.caseId && r.bool(0.6)) {
             const c = CORPUS.find((x) => x.id === t.caseId)!;
-            const teile = t.teil ? [t.teil] : TEILE;
+            const teile = teileDeTache(t);
             await saveSimulation({ c, assistance: 'autonome', layer: 2, taskId: t.id,
               parts: Object.fromEntries(teile.map((x) => [x, partResult(r.int(30, 95))])),
-              scope: t.teil ? 'teil' : 'full', ...(t.teil ? { teil: t.teil } : {}) });
+              scope: teile.length === 3 ? 'full' : 'teil', ...(teile.length === 1 ? { teil: teile[0] } : {}) });
           } else await markTaskDone(t, 5);
         }
       }

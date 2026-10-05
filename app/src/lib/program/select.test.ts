@@ -169,6 +169,17 @@ describe('le « pourquoi aujourd’hui » — une ligne, lisible, jamais accusat
     expect(pourquoiAujourdhui(scoreCase(a, c), c)).toContain('48 %');
   });
 
+  it('revue S4-2 — consolidation : « Solide il y a n jours : on vérifie qu’il tient. », jamais « 0 jour »', () => {
+    const scored = (n?: number) => {
+      const c = ctx([a], { lastPlayedAt: new Map(n === undefined ? [] : [['a', NOW - n * DAY_MS]]) });
+      return pourquoiAujourdhui({ c: a, score: 1, parts: { freq: 1, urgence: 1, dette: 1 / 3, fraicheur: 1, du: true } }, c);
+    };
+    expect(scored(21)).toBe("Solide il y a 21 jours : on vérifie qu'il tient.");
+    expect(scored(1)).toBe("Solide il y a 1 jour : on vérifie qu'il tient.");
+    expect(scored(undefined), 'dernier jeu inconnu').toBe("Solide : on vérifie qu'il tient.");
+    expect(scored(0)).toBe("Solide : on vérifie qu'il tient.");
+  });
+
   it('un cas jamais travaillé n’est jamais présenté comme un défaut', () => {
     const c = ctx([a], { progress: new Map([['a', blankProgress('a')]]) });
     const why = pourquoiAujourdhui(scoreCase(a, c), c);
@@ -179,13 +190,15 @@ describe('le « pourquoi aujourd’hui » — une ligne, lisible, jamais accusat
   it('revue P2 : un cas déjà joué n’est jamais « jamais travaillé », même à dette pleine', () => {
     freezeAt(NOW);
     try {
-      // trois réussites d'hier : acquis, `solideDes` dans deux jours — la dette reste pleine, mais le cas a été joué
+      // trois réussites d'il y a quatre jours : acquis, `solideDes` passé — le cas a été joué, il attend sa confirmation
+      // (P1) : sa dette ne pèse que POIDS_CONSOLIDATION, et la raison le dit. (Joué hier, il ne serait pas à planifier : R2.)
       const ev = (t: 'anamnese' | 'dokumentation' | 'fallvorstellung') =>
-        ({ id: `e-${t}`, at: NOW - DAY_MS, kind: 'simulation' as const, caseId: 'a', teile: [t], source: 'libre' as const, spentMin: 10, scores: { [t]: 85 } });
+        ({ id: `e-${t}`, at: NOW - 4 * DAY_MS, kind: 'simulation' as const, caseId: 'a', teile: [t], source: 'libre' as const, spentMin: 10, scores: { [t]: 85 } });
       const progress = new Map(computeCaseProgress([ev('anamnese'), ev('dokumentation'), ev('fallvorstellung')]).map((p) => [p.caseId, p]));
-      const c = ctx([a], { progress, lastPlayedAt: new Map([['a', NOW - DAY_MS]]) });
-      expect(scoreCase(a, c).parts.dette).toBe(1);
+      const c = ctx([a], { progress, lastPlayedAt: new Map([['a', NOW - 4 * DAY_MS]]) });
+      expect(scoreCase(a, c).parts.dette).toBeCloseTo(1 / 3, 6);
       expect(pourquoiAujourdhui(scoreCase(a, c), c)).not.toMatch(/jamais travaillé/i);
+      expect(pourquoiAujourdhui(scoreCase(a, c), c)).toMatch(/^Réussi à 85 le .* une seconde partie à 80 ou plus le confirme\.$/);
     } finally { resetClock(); }
   });
 

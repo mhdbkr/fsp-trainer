@@ -49,7 +49,8 @@ export const PROBE_SUCHT: Readonly<Record<string, Sucht>> = {
   // --- Vegetative Anamnese ------------------------------------------------------
   'veg-fieber': ['fieber', 'reise'],   // parts : fieber / reise
   'veg-schuettelfrost': ['schuettelfrost', 'nachtschweiss', 'schwitzen'], 'veg-uebelkeit': ['uebelkeit'],
-  'veg-ausscheidung': ['stuhl', 'miktion'], 'veg-gewicht': ['gewicht'], 'veg-appetit': ['appetit'], 'veg-schlaf': ['schlaf'],
+  'veg-ausscheidung': ['stuhl', 'miktion'],   // la mère seule : fréquence et aspect ne sont demandés que par la relance « Falls ja » (revue K2 m2, esprit d'INV-84)
+  'veg-gewicht': ['gewicht'], 'veg-appetit': ['appetit'], 'veg-schlaf': ['schlaf'],
   // --- Vorerkrankungen, Medikamente, Allergien, Noxen, Familie & Sozial ---------
   'vor-erkrank': ['vorerkrankung'], 'vor-op': ['operation'], 'vor-krankenhaus': ['krankenhaus'],
   'med-regelmaessig': ['medikation'], 'med-blutverduenner': ['antikoagulation', 'kortison'], 'med-otc': ['selbstmedikation'],
@@ -61,7 +62,8 @@ export const PROBE_SUCHT: Readonly<Record<string, Sucht>> = {
   'frau-periode': ['zyklus'], 'frau-schwanger': ['schwangerschaft'], 'frau-verhuetung': ['verhuetung'], 'frau-wechseljahre': ['wechseljahre'],
   // --- Fach Gastroenterologie ---------------------------------------------------
   'fach-gastro-uebelkeit': ['uebelkeit'], 'fach-gastro-sodbrennen': ['sodbrennen'], 'fach-gastro-voelle': ['voellegefuehl'],
-  'fach-gastro-speisen': ['speisen', 'essen_expo'], 'fach-gastro-stuhl': ['stuhl'], 'fach-gastro-tenesmen': ['tenesmen'],
+  'fach-gastro-speisen': ['speisen', 'essen_expo'], 'fach-gastro-stuhl': ['stuhl', 'stuhlaussehen'],   // K2 : « Welche Farbe (blutig, teerschwarz, hell) » = l'aspect des selles (D1)
+  'fach-gastro-tenesmen': ['tenesmen'],
   'fach-gastro-spiegelung': ['spiegelung'],
   // --- Fach Kardiologie ---------------------------------------------------------
   'fach-kardio-brust': ['brustschmerz'], 'fach-kardio-belastung': ['belastung', 'dauer'], 'fach-kardio-ausstrahlung': ['ausstrahlung'],
@@ -81,8 +83,10 @@ export const PROBE_SUCHT: Readonly<Record<string, Sucht>> = {
   'fach-pneumo-fieber': ['fieber', 'schuettelfrost'], 'fach-pneumo-giemen': ['giemen'],
   'fach-pneumo-infekt': ['atemwegsinfekt', 'kontakt', 'reise'], 'fach-pneumo-noxen': ['lungennoxen'], 'fach-pneumo-allergie': ['atopie', 'asthma'],   // revue K1 C1 : ≠ all-allergie (pénicilline), que K3 ne doit pas retirer
   // --- Fach Infektiologie -------------------------------------------------------
-  'fach-infekt-fieber': ['fieber'], 'fach-infekt-zecke': ['zecke'], 'fach-infekt-haut': ['ausschlag', 'erythem_ring'],
-  'fach-infekt-gelenke': ['arthralgie'], 'fach-infekt-neuro': ['kopfschmerz', 'meningismus', 'taubheit', 'fazialis'],
+  'fach-infekt-fieber': ['fieber'], 'fach-infekt-zecke': ['zecke', 'insektenstich'],   // K2 (revue clinique C3)
+  'fach-infekt-haut': ['ausschlag', 'erythem_ring'],
+  'fach-infekt-gelenke': ['arthralgie', 'gelenke'],   // K2 : « Wandern sie von Gelenk zu Gelenk ? » cherche aussi le schéma articulaire (D1)
+  'fach-infekt-neuro': ['kopfschmerz', 'meningismus', 'taubheit', 'fazialis'],
   'fach-infekt-reise': ['reise'], 'fach-infekt-kontakt': ['kontakt'], 'fach-infekt-impfung': ['impfung'],
   // --- Fach Urologie ------------------------------------------------------------
   'fach-uro-miktion': ['miktion'], 'fach-uro-frequenz': ['miktion_frequenz', 'nykturie'], 'fach-uro-drang': ['drang', 'inkontinenz'],

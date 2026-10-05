@@ -133,6 +133,57 @@ export const LEXIQUE: LexiqueTables = {
 /** Un signe est pertinent pour un tag s'il est de dépistage ou si le tag figure dans sa pertinence. */
 export const pertinentPour = (d: SigneDef, tag: ProfilTag): boolean => d.pertinence === 'screening' || d.pertinence.includes(tag);
 
+// ── Le profil clinique du cas (contrat §10.3, lot K2) ────────────────────────
+/** Déclaré à la main et relu (`PatientSheet.profil`). La nature du motif et `hoden` se DÉRIVENT des données du cas :
+ *  ils n'ont pas à figurer dans `tags`. `exclut` : signe NON screening → raison écrite. */
+export interface Profil {
+  tags: [ProfilTag, ...ProfilTag[]];
+  exige?: Signe[];
+  exclut?: Partial<Record<Signe, string>>;
+}
+
+/** Ce que `profilIncoherences` lit d'un cas : la nature (`leitsymptomOf`) et la fiche. */
+export interface ProfilCas {
+  id: string;
+  kategorie: LeitsymptomKategorie;
+  sheet: { profil?: Profil; schmerz?: { ort?: string }; aktuellSkip?: string[]; fachSkip?: string[] };
+}
+
+/** Tags effectifs (§10.3) : dérivés (nature, `hoden` lu sur schmerz.ort) ∪ déclarés. */
+export const tagsEffectifs = (c: ProfilCas): ProfilTag[] =>
+  [...new Set<ProfilTag>([c.kategorie, ...(/hoden|skrot/i.test(c.sheet.schmerz?.ort ?? '') ? ['hoden' as const] : []), ...(c.sheet.profil?.tags ?? [])])];
+
+/** INV-80 : tout cas a un profil valide. Pure ; les tables sont un paramètre pour que les tests puissent les muter. */
+export function profilIncoherences(cases: readonly ProfilCas[], t: LexiqueTables = LEXIQUE): string[] {
+  const bad: string[] = [];
+  for (const c of cases) {
+    const p = c.sheet.profil;
+    if (!p) { bad.push(`INV-80 : ${c.id} n'a pas de profil`); continue; }
+    if (!p.tags?.length) bad.push(`INV-80 : ${c.id} — tags vides`);
+    for (const g of p.tags ?? []) if (!t.tags.includes(g)) bad.push(`INV-80 : ${c.id} — tag inconnu « ${g} »`);
+    const tags = tagsEffectifs(c);
+    const exige = new Set<Signe>([...tags.flatMap((g) => t.exige[g] ?? []), ...(p.exige ?? [])]);
+    const exclut = new Set<Signe>([...tags.flatMap((g) => t.exclut[g] ?? []), ...(Object.keys(p.exclut ?? {}) as Signe[])]);
+    for (const [s, raison] of Object.entries(p.exclut ?? {})) {
+      const d = t.def[s as Signe];
+      if (!d) bad.push(`INV-80 : ${c.id} — exclut « ${s} », qui n'est pas un signe`);
+      else if (d.pertinence === 'screening') bad.push(`INV-80 : ${c.id} — exclut « ${s} », signe de dépistage`);
+      if (!raison?.trim()) bad.push(`INV-80 : ${c.id} — exclut « ${s} » sans raison`);
+    }
+    const skips = new Set([...(c.sheet.aktuellSkip ?? []), ...(c.sheet.fachSkip ?? [])]);
+    for (const s of exige) {
+      const d = t.def[s];
+      if (!d) { bad.push(`INV-80 : ${c.id} — exige « ${s} », qui n'est pas un signe`); continue; }
+      if (exclut.has(s)) bad.push(`INV-80 : ${c.id} — exige ET exclut « ${s} »`);
+      if (!tags.some((g) => pertinentPour(d, g))) bad.push(`INV-80 : ${c.id} — exige « ${s} », pertinent seulement pour [${(d.pertinence as string[]).join(', ')}]`);
+      if (!d.bank) { bad.push(`INV-80 : ${c.id} — exige « ${s} », sans banque`); continue; }
+      if (skips.has(d.bank)) bad.push(`INV-80 : ${c.id} — exige « ${s} », dont la banque « ${d.bank} » est skippée`);
+      if (tags.some((g) => t.ausser[d.bank!]?.[g]?.includes(s))) bad.push(`INV-80 : ${c.id} — exige « ${s} », que la banque « ${d.bank} » ne cherche pas sous ses tags (SUCHT_AUSSER)`);
+    }
+  }
+  return bad;
+}
+
 /** INV-77 (lexique cohérent) et INV-78 (granularité) : la liste des incohérences, vide si le lexique tient.
  *  Pure ; les tables sont un paramètre pour que les tests puissent les muter. */
 export function lexiqueIncoherences(t: LexiqueTables = LEXIQUE): string[] {

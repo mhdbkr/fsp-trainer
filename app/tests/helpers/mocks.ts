@@ -8,7 +8,9 @@ export async function queueMock() {
   const { newId } = await import('@/lib/sync/events');
   const { now } = await import('@/lib/clock');
   let last = 0;   // occurred_at strictement croissant, comme la vraie file (queue.ts:17), sur l'HORLOGE INJECTÉE
-  const stamp = () => new Date((last = Math.max(now(), last + 1))).toISOString();
+  // Un NOUVEAU monde (resetWorld) fait reculer l'horloge injectée : le compteur repart, sinon tout le journal d'un monde
+  // serait horodaté dans le futur du précédent (revue m1 : la coupure du plan se fait sur occurred_at).
+  const stamp = () => { if (now() < last - 3_600_000) last = 0; return new Date((last = Math.max(now(), last + 1))).toISOString(); };
   return {
     syncQueue: {
       push: vi.fn(async (i: { type: string; subject_id: string | null; payload: unknown; occurred_at?: string }) => {

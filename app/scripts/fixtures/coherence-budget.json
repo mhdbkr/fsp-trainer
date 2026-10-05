@@ -1,18 +1,18 @@
 {
   "mesureLe": "2026-10-05",
   "cas": 130,
-  "source": "K1 — les 229 sondes sont DÉCLARÉES (PROBE_SUCHT, followUpSucht) : leur déclaration remplace la lecture du texte (exact). Les questions du cas se lisent encore ; profil PROPOSÉ depuis la fiche. Exacts quand K2 (profils) et K4 (questions du cas) auront déclaré.",
+  "source": "K2 — les 229 sondes sont DÉCLARÉES (PROBE_SUCHT, followUpSucht) et les 130 cas déclarent leur PROFIL (patientSheet.profil, INV-80) : doublons des sondes, horsProfil, exigeAbsent et ajouteSansReponse sont exacts. Les questions du cas se lisent encore (K4).",
   "brut": {
-    "doublons": 266,
+    "doublons": 269,
     "doublonsCas": 24,
-    "horsProfil": 58,
-    "exigeAbsent": 68,
+    "horsProfil": 70,
+    "exigeAbsent": 47,
     "relancesOrphelines": 0,
     "brauchtViole": 20,
-    "ajouteSansReponse": 66
+    "ajouteSansReponse": 0
   },
   "residu": {
-    "questionsMuettes": 825,
+    "questionsMuettes": 820,
     "sondesMuettes": 0,
     "nonReduit": null,
     "casRetiresParR1": null
@@ -66,6 +66,22 @@
       "de": 56,
       "a": 66,
       "raison": "La projection de exigeAbsent : une banque sans réponse par signe nouvellement absent (akt-atemnot-belastung ×8, akt-atemnot-husten ×5, fach-rheuma-gelenke ×5…, moins akt-ort ×2). 56 → 65 : le travail d'écriture de K2, auparavant masqué par la même lecture. Revue K1 C3 (+1) : akt-ort ajouté sans réponse dans zystitis, la projection de exigeAbsent « ort ». 56 → 66."
+    },
+    {
+      "date": "2026-10-05",
+      "lot": "K2",
+      "compteur": "doublons",
+      "de": 266,
+      "a": 269,
+      "raison": "Déclaration, pas contenu : fach-gastro-stuhl (« Welche Farbe (blutig, teerschwarz, hell) und Konsistenz ») déclare désormais `stuhlaussehen` à côté de `stuhl` (D1). Trois doublons vrais deviennent visibles avec akt-ausscheid-aussehen ou une question qui cherche l’aspect des selles : case-gib, case-morbus-crohn, case-chronische-pankreatitis (stuhlaussehen). r2 les retire en K3 ; sans cette déclaration, r3 aurait ajouté à case-zoeliakie une question d’aspect déjà posée par la Fach. (veg-ausscheidung, déclarée en entier puis ramenée à sa question mère par la revue K2 m2, ne compte plus.) 266 → 269."
+    },
+    {
+      "date": "2026-10-05",
+      "lot": "K2",
+      "compteur": "horsProfil",
+      "de": 58,
+      "a": 70,
+      "raison": "Le profil DÉCLARÉ remplace le profil proposé par la lecture de la fiche, dont les tags hals (57 cas), stein, meningitis, steifigkeit et gelenk sortaient trop larges (rapport K0 § 5) : +26 signes hors profil, que r1 retirera en K3 — schluck +8 (akt-ausscheid-schlucken dans bph, glomerulonephritis, obstipation ; fach-neuro-sprache dans migraene, commotio, sturz-im-alter, epilepsie ; fach-onko-appetit dans karzinoid), gelenke +6 (fach-infekt-gelenke déclare aussi le schéma articulaire : tonsillitis, otitis-media, gastroenteritis, influenza, covid19, typhus), meningismus +2 (influenza, malaria), arthralgie +2 (fach-derma-systemisch dans erysipel, urtikaria), steifigkeit +2 (fach-rheuma-morgensteifigkeit dans gicht et septische-arthritis), gicht et nierensteine +3 (fach-rheuma-vorgeschichte dans rheumatoide-arthritis ; CAS de karzinoid), ausstrahlung +2 et gelenk_entzuendung +1 (CAS de pankreaskarzinom et cml, fach-ortho-schwellung dans karpaltunnel) ; −6 levés par un tag motivé (lyme pour lymphom, hals pour bronchialkarzinom et nhl, schmerz pour leistenhernie, generalisiert pour la tuméfaction articulaire de fibromyalgie, CAS et Fach). Puis les 3 questions du cas de DD déclarent leur `sucht` ; seul case-karzinoid reçoit le tag `stein` (lithiase d’une NEM 1) : −1. Pankreaskarzinom et cml gardent leur question hors profil : décision de main (revue K2 m3), r1 ne retire jamais une question propre au cas (contrat en K3, casRetiresParR1 = 0). Revue clinique K2 : `meningismus` pertinent aussi sous `fieber` (C1 : tonsillitis, influenza, malaria, covid19, typhus gardent la raideur de nuque, −5) ; tag `gicht` sur rheumatoide-arthritis (C4 : gicht, nierensteine, −2). 58 → 70."
     }
   ]
 }

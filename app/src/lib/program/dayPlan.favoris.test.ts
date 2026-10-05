@@ -9,7 +9,8 @@ import { db } from '@/db/db';
 import type { Fachbegriff, ProgramConfig } from '@/db/types';
 import type { ProgressEvent } from '@/lib/sync/events';
 import { DAY_MS, freezeAt, resetClock } from '@/lib/clock';
-import { drillFavorisNote, ensureDayPlan, favoritesBefore } from './dayPlan';
+import { drillFavorisNote, ensureDayPlan } from './dayPlan';
+import { entreeDuJour } from './entree';
 
 // Lot F point 4 : la tâche drill dit « dont N favoris de ta séance », N > 0 seulement.
 // Lu à l'AFFICHAGE (état courant) : le plan figé (INV-55) n'en dépend pas.
@@ -24,11 +25,13 @@ describe('drillFavorisNote', () => {
 // Revue I2 / INV-55 : le plan de D ne lit que le journal `at < startOfDay(D)`.
 const fav = (termId: string, at: string): ProgressEvent => ({ id: `f-${termId}-${at}`, user_id: 'u', type: 'term.favorited', subject_id: termId, payload: {}, occurred_at: at });
 
-describe('favoritesBefore — l\'entrée du plan s\'arrête à minuit de D', () => {
-  it('un favori posé le jour D n\'entre pas ; celui de la veille, si', () => {
-    const events = [fav('veille', '2026-09-30T20:00:00'), fav('jourD', '2026-10-01T09:00:00')];
-    expect(favoritesBefore(events, '2026-10-01').map((f) => f.termId)).toEqual(['veille']);
-    expect(favoritesBefore(events, '2026-10-02').map((f) => f.termId).sort()).toEqual(['jourD', 'veille']);
+describe('entreeDuJour.favorites — la MÊME coupure que le journal et le SRS (S4-2)', () => {
+  it('un favori posé le jour D n\'entre pas ; celui de la veille, si ; un retrait d\'avant minuit compte', () => {
+    const unfav = { ...fav('retire', '2026-09-30T21:00:00'), id: 'u-retire', type: 'term.unfavorited' as const };
+    const events = [fav('veille', '2026-09-30T20:00:00'), fav('retire', '2026-09-30T19:00:00'), unfav, fav('jourD', '2026-10-01T09:00:00')];
+    const of = (date: string) => entreeDuJour({ date, events, cases: [], begriffe: [] }).favorites.map((f) => f.termId).sort();
+    expect(of('2026-10-01')).toEqual(['veille']);
+    expect(of('2026-10-02')).toEqual(['jourD', 'veille']);
   });
 });
 

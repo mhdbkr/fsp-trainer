@@ -18,7 +18,7 @@ import { workedDayKeys } from '@/lib/journal';
 import { planProgress, sessionDuJour } from '@/lib/program';
 import { RattrapageLine } from '@/features/program/RattrapageLine';
 import { TrajectoryStrip } from '@/features/program/TrajectoryStrip';
-import { TaskList, taskCta, taskLink } from '@/features/program/TaskLine';
+import { lectureDuPlan, TaskList, taskCta, taskLink } from '@/features/program/TaskLine';
 import { nowDate } from '@/lib/clock';
 import { useToday } from '@/lib/today';
 import { TEILE } from '@/lib/simScope';
@@ -45,7 +45,9 @@ export function HomePage() {
   const streak = streakFromDays(workedDayKeys(events), nowDate(), config?.offDays ?? []);
   const due = dueCount(begriffe, undefined, favorites);
   const session = sessionDuJour(plan);
-  const { done, total } = planProgress(plan);
+  // S4-2 (revue I2) : un cas entamé se dit par ce qui RESTE, comme sa ligne dans le plan.
+  const reste = plan && session ? lectureDuPlan(plan, events).get(session.id)?.reste : undefined;
+  const { faites: done, total } = planProgress(plan);
   const weak = weakCases(progress, cases, 3);
 
   const greeting = (() => {
@@ -97,9 +99,9 @@ export function HomePage() {
               </div>
               <h2 className="mt-1.5 text-xl font-bold tracking-tightish md:text-2xl">{session.label}</h2>
               {/* L'explication, en une ligne, figée avec la tâche. */}
-              <p className="mt-1.5 max-w-xl text-sm text-brand-100/90">{session.reason} · <span className="tnum">{session.estMin} min</span></p>
+              <p className="mt-1.5 max-w-xl text-sm text-brand-100/90">{session.reason} · <span className="tnum">{reste?.min ?? session.estMin} min</span></p>
             </div>
-            <Link to={taskLink(session)} className="btn shrink-0 gap-2 bg-white px-6 py-3 text-base font-bold text-brand-700 hover:bg-brand-50">
+            <Link to={taskLink(session, reste?.teile)} className="btn shrink-0 gap-2 bg-white px-6 py-3 text-base font-bold text-brand-700 hover:bg-brand-50">
               <Icon name="play" className="h-4 w-4" />{taskCta(session)}
             </Link>
           </div>

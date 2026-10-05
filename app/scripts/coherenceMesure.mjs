@@ -117,16 +117,21 @@ export function profilPropose(c) {
   return { tags: Object.keys(f).filter((k) => f[k]), complaint };
 }
 
-/** Profil effectif (§10.3) : tags dérivés (nature, `hoden`) ∪ tags proposés ; exige / exclut par la table du lexique. */
+/** Profil effectif (§10.3) : tags dérivés (nature, `hoden`) ∪ tags DÉCLARÉS (`c.profil`, K2) ; sans profil déclaré,
+ *  les tags PROPOSÉS par la lecture de la fiche (contenu ancien : la mesure reste une boussole, INV-90).
+ *  exige = PROFIL_EXIGE[tags] ∪ profil.exige ; exclut = PROFIL_EXCLUT[tags] ∪ clés(profil.exclut). */
 export function profilEffectif(c, kategorie, lex) {
-  const propose = profilPropose(c);
+  const declare = c.profil;
+  const propose = declare ? [] : profilPropose(c).tags;
   const derives = [kategorie, ...(/hoden|skrot/i.test(c.schmerz?.ort ?? '') ? ['hoden'] : [])];
-  const tags = [...new Set([...derives, ...propose.tags])];
-  const exige = new Map(); // signe → tag qui l'exige
+  const tags = [...new Set([...derives, ...(declare ? declare.tags : propose)])];
+  const exige = new Map(); // signe → tag qui l'exige (ou 'exige' : déclaré par le cas)
   for (const t of tags) for (const s of lex.PROFIL_EXIGE[t] ?? []) if (!exige.has(s)) exige.set(s, t);
-  const exclut = new Map();
+  for (const s of declare?.exige ?? []) if (!exige.has(s)) exige.set(s, 'exige');
+  const exclut = new Map(); // signe → tag qui l'exclut (ou 'exclut' : déclaré par le cas, avec sa raison)
   for (const t of tags) for (const s of lex.PROFIL_EXCLUT[t] ?? []) if (!exclut.has(s)) exclut.set(s, t);
-  return { tags, derives, propose: propose.tags, exige, exclut };
+  for (const s of Object.keys(declare?.exclut ?? {})) if (!exclut.has(s)) exclut.set(s, 'exclut');
+  return { tags, derives, declare: !!declare, propose, exige, exclut };
 }
 
 // ── 3. Mesurer un cas ────────────────────────────────────────────────────────
@@ -184,8 +189,8 @@ export function mesurerCas(c, lex, qo = []) {
     const d = lex.SIGNE_DEF[s];
     if (!d) continue;
     const at = `#${u.rank} ${u.ch}:${u.probe}`;
-    if (profil.exclut.has(s)) imp.push({ s, at, why: `« ${s} » est exclu par le tag « ${profil.exclut.get(s)} » du profil` });
-    else if (d.pertinence !== 'screening' && !d.pertinence.some((t) => profil.tags.includes(t))) imp.push({ s, at, why: `« ${s} » n'est pertinent que pour [${d.pertinence.join(', ')}] ; profil proposé : [${tagsTxt}]` });
+    if (profil.exclut.has(s)) imp.push({ s, at, why: profil.exclut.get(s) === 'exclut' ? `« ${s} » est exclu par le profil du cas` : `« ${s} » est exclu par le tag « ${profil.exclut.get(s)} » du profil` });
+    else if (d.pertinence !== 'screening' && !d.pertinence.some((t) => profil.tags.includes(t))) imp.push({ s, at, why: `« ${s} » n'est pertinent que pour [${d.pertinence.join(', ')}] ; profil ${profil.declare ? 'déclaré' : 'proposé'} : [${tagsTxt}]` });
   }
   // (c) exigés et absents : aucune unité de la trame (hors ouverture, personalia, clôture) ne cherche le signe.
   const present = new Set(units.flatMap((u) => [...u.all]));
@@ -193,7 +198,7 @@ export function mesurerCas(c, lex, qo = []) {
   for (const [s, tag] of profil.exige) {
     if (present.has(s) || profil.exclut.has(s)) continue;
     const bank = lex.SIGNE_DEF[s]?.bank;
-    miss.push({ s, tag, bank, why: `le tag « ${tag} » exige « ${s} » ; aucune unité ne le cherche` });
+    miss.push({ s, tag, bank, why: `${tag === 'exige' ? 'le profil du cas' : `le tag « ${tag} »`} exige « ${s} » ; aucune unité ne le cherche` });
     if (bank && !c.antworten?.[bank]) ajoutSansReponse.push({ s, bank, why: `r3 ajouterait « ${bank} » pour « ${s} » : la fiche n'a pas d'antworten[${bank}]` });
   }
   // (d) relances hors signe de leur mère (famille sous une question personnelle, antécédent nommé).
@@ -242,8 +247,8 @@ export const COMPTEURS = [
   // [clé, libellé, quel(le) mesure, exact dès]
   ['doublons', 'signes cherchés par ≥ 2 unités', 'lecture du texte + sucht déclarés (précision ≈ 74 %)', 'K1 (sondes) / K4 (questions du cas)'],
   ['doublonsCas', 'dont par ≥ 2 questions du cas', 'lecture du texte', 'K4'],
-  ['horsProfil', 'signes hors profil encore cherchés', 'profil PROPOSÉ depuis la fiche (précision ≈ 70 %)', 'K2 (profil déclaré)'],
-  ['exigeAbsent', 'signes exigés par le profil, cherchés par personne', 'profil PROPOSÉ depuis la fiche (précision ≈ 50 %)', 'K2 (profil déclaré)'],
+  ['horsProfil', 'signes hors profil encore cherchés', 'profil DÉCLARÉ (K2) ; sans profil, proposé depuis la fiche', 'K2 (profil déclaré)'],
+  ['exigeAbsent', 'signes exigés par le profil, cherchés par personne', 'profil DÉCLARÉ (K2) ; sans profil, proposé depuis la fiche', 'K2 (profil déclaré)'],
   ['relancesOrphelines', 'relances CONDITIONNELLES hors signe (anomalies r4a)', 'lecture stricte : famille / antécédent nommé (la lecture large est du bruit)', 'K1 (sondes) / K5 (cas)'],
   ['brauchtViole', 'questions placées avant le fait qu\'elles présupposent', 'anaphore + détecteur Q0 (précision ≈ 55 %)', 'K4 (`braucht` déclaré)'],
   ['ajouteSansReponse', 'banques que r3 ajouterait sans réponse dans la fiche', 'projection : exigeAbsent × antworten[banque]', 'K3 (mesuré sur le montage)'],

@@ -5,6 +5,7 @@ import { projectCollections, writeCollections } from '@/lib/collections/project'
 import { projectSrsSettings } from '@/lib/srsSettings';
 import { isPersonalId, projectPersonalTerms, writePersonalTerms } from '@/lib/collections/personalTerms';
 import { rebuildJournal } from '@/lib/journal';
+import { projeterConfig } from './configProjetee';
 
 export function latestSrs(events: ProgressEvent[], fachbegriffId: string): Srs | null {
   let best: ProgressEvent | null = null;
@@ -38,6 +39,9 @@ export async function rebuildProjections(): Promise<void> {
   await writePersonalTerms(projectPersonalTerms(events));
   // Réglages quotidiens du SRS (F2b)
   await setMeta('srs.settings', projectSrsSettings(events));
+  // La configuration du programme (S4-2, §12.10) : le dernier payload valide, sans jamais écraser une config
+  // locale plus récente. Le push initial de la config locale précède toute projection distante (INV-76 b).
+  await projeterConfig(events);
   // Journal d'entraînement, plans figés, progression par Teil (ADR-0017).
   // Reconstruction intégrale : `training_events`, `day_plans` et
   // `case_progress` sont des projections, jamais des sources.

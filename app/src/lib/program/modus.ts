@@ -1,19 +1,21 @@
 // ============================================================================
-// Le mode d'avancement — DÉDUIT, puis PROPOSÉ. Jamais demandé à l'inscription.
+// Le mode d'avancement — OBSERVÉ en silence, jamais proposé ni demandé.
+// Contrat : training-journal.md §12.5 · INV-57 · ADR-0021 décision 1 (I8).
 //
-// Décision de direction (30 sept. 2026) : l'app n'ouvre pas sur un
-// questionnaire de stratégie. Personne ne sait, au jour zéro, « comment il veut
-// avancer » — la question demande au candidat de trancher ce que seul l'usage
-// révèle. L'app OBSERVE, et au bout de quelques séances elle propose :
-// « tu avances par Teil, je cale le programme là-dessus ? ». Le candidat
-// confirme ou refuse ; le refus se retient (on ne repropose pas le même mode).
+// Décision de direction du 4 oct. 2026 : l'app n'ouvre pas sur un questionnaire de
+// stratégie, et elle ne propose plus « tu avances par Teil, je cale le programme ? ».
+// `examen-blanc` et `specialite` restent des CHOIX EXPLICITES du candidat, respectés.
+// Pour le reste, l'usage décide, entre deux valeurs seulement : `cas-complet` et la
+// pondération interne `teil-first`. L'observation ne rend JAMAIS `examen-blanc` ni
+// `specialite` : un plan qui pose des examens à blanc ferait observer « examen-blanc »,
+// qui en poserait davantage — la boucle écartée.
 //
-// Ce qui est observé, et ce qui ne l'est pas : seules les séances MESURÉES
-// portant un cas comptent. Une séance auto-déclarée dans une IA externe
-// (`selbstbewertet`) entre dans l'historique et dans la série, mais elle ne
-// dit rien de fiable sur la FORME du travail — elle ne vote pas ici non plus.
+// Ce qui est observé, et ce qui ne l'est pas : seules les séances MESURÉES portant un
+// cas comptent. Une séance auto-déclarée dans une IA externe (`selbstbewertet`) entre
+// dans l'historique et dans la série, mais elle ne dit rien de fiable sur la FORME du
+// travail — elle ne vote pas ici non plus.
 // ============================================================================
-import type { Case, Fortschrittsmodus, Specialty, TrainingEvent } from '@/db/types';
+import type { Case, Fortschrittsmodus, ProgramConfig, SimTeil, Specialty, TrainingEvent } from '@/db/types';
 import { TEILE } from '@/lib/simScope';
 
 /** Trois séances : le seuil de la direction (« au bout d'environ trois
@@ -46,37 +48,38 @@ function dominant<T>(xs: T[]): { value: T; count: number } | null {
  * plus. Si les propositions tombent à côté, la piste est de pondérer par les
  * minutes passées plutôt que par le nombre de séances ; pas un modèle appris.
  */
-export function observeModus(
-  events: TrainingEvent[],
-  cases: Case[],
+export function observation(
+  events: readonly TrainingEvent[],
+  cases: readonly Case[],
   minSeances = MIN_SEANCES,
-): Fortschrittsmodus | null {
+): { modus: Fortschrittsmodus | null; teilHabituel?: SimTeil } {
   // Seules les séances mesurées et rattachées à un cas votent (cf. en-tête).
   // M4 : une coche manuelle porte le Teil de la TÂCHE — elle ne ferait que
   // refléter le plan. Seul un score mesuré fait d'un événement une séance.
   const seances = events.filter((e) => e.caseId && e.selbstbewertet !== true && !!e.scores && Object.keys(e.scores).length > 0);
-  if (seances.length < minSeances) return null;
+  if (seances.length < minSeances) return { modus: null };
 
   const recent = seances.slice(-FENETRE);
   const part = (n: number) => n / recent.length;
 
   // 1. Examen blanc — des runs déclarés en conditions d'examen. Le genre porte
   //    déjà l'information, inutile de la redéduire.
-  if (part(recent.filter((e) => e.kind === 'examen-blanc').length) >= 0.5) return 'examen-blanc';
+  if (part(recent.filter((e) => e.kind === 'examen-blanc').length) >= 0.5) return { modus: 'examen-blanc' };
 
   // 2. Cas complet — la séance couvre le cas en entier avant de passer au suivant.
-  if (part(recent.filter((e) => e.teile.length >= TEIL_KEYS.length).length) >= 0.5) return 'cas-complet';
+  if (part(recent.filter((e) => e.teile.length >= TEIL_KEYS.length).length) >= 0.5) return { modus: 'cas-complet' };
 
   // 3. Par partie — une seule partie à la fois, ET c'est LA MÊME d'une séance à
   //    l'autre, sur des cas DIFFÉRENTS. Les deux conditions comptent : refaire
   //    l'Anamnese du même cas trois fois, c'est de l'acharnement sur un cas,
-  //    pas une progression par Teil.
+  //    pas une progression par Teil. `teilHabituel` : le Teil que le candidat joue
+  //    seul d'habitude — la durée d'une tâche se compte sur lui (§13.4, m13).
   const uniques = recent.filter((e) => e.teile.length === 1);
   if (part(uniques.length) >= 0.6) {
     const top = dominant(uniques.map((e) => e.teile[0]));
     if (top && top.count >= minSeances) {
       const casDuTeil = new Set(uniques.filter((e) => e.teile[0] === top.value).map((e) => e.caseId));
-      if (casDuTeil.size >= 2) return 'teil-first';
+      if (casDuTeil.size >= 2) return { modus: 'teil-first', teilHabituel: top.value };
     }
   }
 
@@ -84,22 +87,26 @@ export function observeModus(
   const specOf = new Map(cases.map((c) => [c.id, c.specialty]));
   const specs = recent.map((e) => specOf.get(e.caseId!)).filter((s): s is Specialty => s !== undefined);
   const topSpec = dominant(specs);
-  if (topSpec && specs.length === recent.length && part(topSpec.count) >= 0.7) return 'specialite';
+  if (topSpec && specs.length === recent.length && part(topSpec.count) >= 0.7) return { modus: 'specialite' };
 
-  return null;
+  return { modus: null };
 }
 
+/** Le comportement BRUT de l'observation (série 3) : peut rendre `examen-blanc` ou `specialite`. Ne pilote plus rien
+ *  seul — voir `observeMode`. */
+export const observeModus = (events: readonly TrainingEvent[], cases: readonly Case[], minSeances = MIN_SEANCES): Fortschrittsmodus | null =>
+  observation(events, cases, minSeances).modus;
+
+/** Le mode OBSERVÉ (§12.5) : `teil-first` quand l'usage est de jouer une seule partie, `cas-complet` sinon — jamais
+ *  `examen-blanc` ni `specialite`, qui ne se déduisent pas. */
+export const observeMode = (events: readonly TrainingEvent[], cases: readonly Case[]): 'cas-complet' | 'teil-first' =>
+  observeModus(events, cases) === 'teil-first' ? 'teil-first' : 'cas-complet';
+
 /**
- * Faut-il proposer quelque chose, ici, maintenant ? Trois raisons de se taire :
- * le journal ne dit rien de net, le mode observé est DÉJÀ celui du programme,
- * ou le candidat a déjà refusé celui-là. Un refus vaut pour ce mode seulement :
- * si l'usage change et désigne un autre mode, la question redevient légitime.
+ * Le mode du jour (§12.5, INV-57). `examen-blanc` et `specialite` sont des choix EXPLICITES, respectés. Tout le reste
+ * est observé sur le journal ANTÉRIEUR au jour : un `teil-first` explicite (ou `strategy`) d'une config série 3 devient
+ * `cas-complet`, l'observation pouvant ensuite le retrouver.
  */
-export function modusAProposer(
-  observe: Fortschrittsmodus | null,
-  actuel: Fortschrittsmodus,
-  refuse: Fortschrittsmodus | null,
-): Fortschrittsmodus | null {
-  if (!observe || observe === actuel || observe === refuse) return null;
-  return observe;
+export function modeDuJour(config: Pick<ProgramConfig, 'modus'>, events: readonly TrainingEvent[], cases: readonly Case[]): Fortschrittsmodus {
+  return config.modus === 'examen-blanc' || config.modus === 'specialite' ? config.modus : observeMode(events, cases);
 }

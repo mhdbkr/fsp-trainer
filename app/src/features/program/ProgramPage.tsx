@@ -21,15 +21,16 @@ import {
 } from 'date-fns';
 import { fr } from 'date-fns/locale';
 import { useCases, useProgramConfig } from '@/hooks/useData';
-import { useCaseProgress, useDayPlans, useModusRefuse, useProjectedDays, useTrainingEvents } from './useProgram';
-import { modusAProposer, modusOf, observeModus, planProgress, programEnd, replanifier, sessionDuJour, taperDays } from '@/lib/program';
-import { refuserModus, setIntensity, setModus } from '@/lib/programAdjust';
+import { useCaseProgress, useDayPlans, useProjectedDays, useTrainingEvents } from './useProgram';
+import { planProgress, programEnd, replanifier, sessionDuJour, taperDays } from '@/lib/program';
+import { setIntensity, setModus } from '@/lib/programAdjust';
 import { useToday } from '@/lib/today';
 import { joursRestants } from '@/lib/program/trajectory';
-import type { DayPlan, Fortschrittsmodus, Intensity, TaskInstance, TaskKind } from '@/db/types';
+import type { DayPlan, Intensity, TaskInstance, TaskKind, TrainingEvent } from '@/db/types';
 import { ProgramSetup } from './ProgramSetup';
 import { RattrapageLine } from './RattrapageLine';
-import { TaskLine, TASK_META } from './TaskLine';
+import { RythmeCard } from './RythmeCard';
+import { lectureDuPlan, TaskLine, TASK_META } from './TaskLine';
 import { CoverageField } from './CoverageField';
 import { Icon } from '@/components/icons';
 import { EmptyState } from '@/components/ui';
@@ -42,7 +43,6 @@ export function ProgramPage() {
   const progress = useCaseProgress();
   const plans = useDayPlans();
   const events = useTrainingEvents();
-  const refuse = useModusRefuse();
   const [editing, setEditing] = useState(false);
   const [view, setView] = useState<View>('semaine');
   const today = useToday((s) => s.day);
@@ -68,7 +68,7 @@ export function ProgramPage() {
   const projected = useProjectedDays(calDates) ?? NO_PROJECTION;
   const taper = useMemo(() => (config ? taperDays(config) : new Set<string>()), [config]);
 
-  if (config === undefined || !cases || !progress || !plans || !events || refuse === undefined) return <div className="text-slate-400">Chargement…</div>;
+  if (config === undefined || !cases || !progress || !plans || !events) return <div className="text-slate-400">Chargement…</div>;
   if (config === null) {
     return (
       <>
@@ -93,7 +93,7 @@ export function ProgramPage() {
           </p>
         </div>
         <div className="flex flex-wrap items-center gap-2">
-          <ModusSwitch value={modusOf(config)} onChange={(m) => setModus(config, m)} />
+          <ModusSwitch value={config.modus === 'specialite' || config.modus === 'examen-blanc' ? config.modus : 'auto'} onChange={(m) => setModus(config, m === 'auto' ? null : m)} />
           <IntensitySwitch value={config.intensity} onChange={(i) => setIntensity(config, i)} />
           <button type="button" onClick={() => setEditing(true)} className="btn-outline gap-1.5 text-sm">
             <Icon name="gear" className="h-4 w-4" />Ajuster
@@ -101,16 +101,11 @@ export function ProgramPage() {
         </div>
       </header>
 
-      <ModusProposal
-        propose={modusAProposer(observeModus(events, cases), modusOf(config), refuse)}
-        onAccept={(m) => setModus(config, m)}
-        onRefuse={(m) => refuserModus(m)}
-      />
-
       <RattrapageLine />
+      <RythmeCard />
 
       <div ref={dayRef} className="scroll-mt-24">
-        <DaySurface date={selected} plan={byDate.get(selected) ?? null} projection={projected.get(selected)} isTaper={taper.has(selected)} onPick={focusDay} />
+        <DaySurface date={selected} plan={byDate.get(selected) ?? null} projection={projected.get(selected)} isTaper={taper.has(selected)} onPick={focusDay} events={events} />
       </div>
 
       <CoverageField cases={cases} progress={progress} />
@@ -135,16 +130,18 @@ function visibleDates(view: View, anchor: string): string[] {
   return days.map((d) => format(d, 'yyyy-MM-dd'));
 }
 
-function DaySurface({ date, plan, projection, isTaper, onPick }: {
-  date: string; plan: DayPlan | null; projection?: TaskInstance[]; isTaper: boolean; onPick: (d: string) => void;
+function DaySurface({ date, plan, projection, isTaper, onPick, events }: {
+  date: string; plan: DayPlan | null; projection?: TaskInstance[]; isTaper: boolean; onPick: (d: string) => void; events: TrainingEvent[];
 }) {
   const d = parseISO(date);
   const today = useToday((s) => s.day);                    // m-4
   const isToday = date === today;
   const isPast = date < today;
-  const { done, total } = planProgress(plan);
+  const { faites: done, total } = planProgress(plan);
   const session = sessionDuJour(plan);
   const [busy, setBusy] = useState(false);
+  // Ce qui reste de chaque cas et les rappels : lus dans le journal, pour le jour courant seulement (un jour passé est figé).
+  const lecture = useMemo(() => (plan && isToday ? lectureDuPlan(plan, events) : new Map()), [plan, isToday, events]);
 
   return (
     <section className="card overflow-hidden border-brand-200 dark:border-brand-900/40">
@@ -189,7 +186,7 @@ function DaySurface({ date, plan, projection, isTaper, onPick }: {
         ) : (
           <>
             <div className="space-y-2">
-              {plan.tasks.map((t) => <TaskLine key={t.id} task={t} readOnly={isPast} />)}
+              {plan.tasks.map((t) => <TaskLine key={t.id} task={t} readOnly={isPast} lecture={lecture.get(t.id)} />)}
             </div>
             {session === null && (
               <p className="mt-3 text-center text-[13px] text-emerald-600 dark:text-emerald-300">
@@ -225,55 +222,24 @@ function DaySurface({ date, plan, projection, isTaper, onPick }: {
 
 // --- Réglages ----------------------------------------------------------------
 
-const MODUS_META: { id: Fortschrittsmodus; label: string; hint: string }[] = [
-  { id: 'teil-first', label: 'Par partie', hint: 'La même partie sur plusieurs cas — un geste à la fois.' },
-  { id: 'cas-complet', label: 'Cas complet', hint: 'Les trois parties d\'un cas avant de passer au suivant.' },
+/**
+ * Le réglage EXPLICITE du mode — il n'en reste que deux (ADR-0021 décision 1). Tout le reste est observé en silence :
+ * l'app suit la façon de travailler du candidat, sans la lui proposer ni la lui demander (« Automatique »).
+ * Changer de mode ne réécrit AUCUN jour déjà figé.
+ */
+type ModusChoix = 'auto' | 'specialite' | 'examen-blanc';
+const MODUS_META: { id: ModusChoix; label: string; hint: string }[] = [
+  { id: 'auto', label: 'Automatique', hint: 'Le plan suit ta façon de travailler.' },
   { id: 'specialite', label: 'Spécialité', hint: 'Une spécialité travaillée à fond, puis la suivante.' },
   { id: 'examen-blanc', label: 'Examen blanc', hint: 'Des runs complets chronométrés, sans assistance.' },
 ];
 
-/**
- * La PROPOSITION de mode d'avancement (direction, 30 sept. 2026).
- *
- * L'inscription ne pose plus la question : au jour zéro, personne ne sait
- * « comment il veut avancer ». L'app observe le journal et, au bout de ~3
- * séances, propose ce qu'elle VOIT — une phrase, deux réponses, aucune modale.
- * Refuser est un vrai choix, retenu : la proposition ne revient pas pour ce
- * mode-là. `propose === null` ⇒ rien ne s'affiche, et c'est le cas normal.
- */
-function ModusProposal({ propose, onAccept, onRefuse }: {
-  propose: Fortschrittsmodus | null;
-  onAccept: (m: Fortschrittsmodus) => void;
-  onRefuse: (m: Fortschrittsmodus) => void;
-}) {
-  if (!propose) return null;
-  const meta = MODUS_META.find((m) => m.id === propose)!;
-  return (
-    <div className="flex flex-wrap items-center gap-x-4 gap-y-2 rounded-xl border border-brand-200 bg-brand-50/60 px-4 py-3 dark:border-brand-900/50 dark:bg-brand-900/20">
-      <Icon name="spark" className="h-4 w-4 shrink-0 text-brand-600 dark:text-brand-300" />
-      <p className="min-w-0 flex-1 text-sm text-slate-700 dark:text-slate-200">
-        {/* On DIT ce qu'on a vu avant de demander : la proposition doit être
-            vérifiable par le candidat, pas un oracle. */}
-        Tu avances <b>{meta.label.toLowerCase()}</b> ces derniers temps. Je cale le programme là-dessus ?
-        <span className="block text-[11px] text-slate-500 dark:text-slate-400">{meta.hint}</span>
-      </p>
-      <div className="flex shrink-0 items-center gap-2">
-        <button type="button" onClick={() => onRefuse(propose)} className="btn-ghost text-xs">Non, laisse</button>
-        <button type="button" onClick={() => onAccept(propose)} className="btn-primary px-3 py-1.5 text-xs">Oui, cale-le</button>
-      </div>
-    </div>
-  );
-}
-
-/** Le réglage explicite du mode. L'app le DÉDUIT et le PROPOSE
- *  (`ModusProposal`) ; ce sélecteur reste la commande directe. Changer de mode
- *  ne réécrit AUCUN jour déjà figé. */
-function ModusSwitch({ value, onChange }: { value: Fortschrittsmodus; onChange: (m: Fortschrittsmodus) => void }) {
+function ModusSwitch({ value, onChange }: { value: ModusChoix; onChange: (m: ModusChoix) => void }) {
   const current = MODUS_META.find((m) => m.id === value)!;
   return (
     <label className="flex items-center gap-1.5" title={current.hint}>
       <span className="label hidden sm:inline">Avancement</span>
-      <select value={value} onChange={(e) => onChange(e.target.value as Fortschrittsmodus)}
+      <select value={value} onChange={(e) => onChange(e.target.value as ModusChoix)}
         className="rounded-lg border border-slate-300 bg-white px-2 py-1.5 text-xs outline-none focus:border-brand-400 dark:border-slate-700 dark:bg-slate-900">
         {MODUS_META.map((m) => <option key={m.id} value={m.id}>{m.label}</option>)}
       </select>
@@ -349,7 +315,7 @@ function DayCell({ plan, kinds, projection }: { plan?: DayPlan; kinds: TaskKind[
     );
   }
   if (!plan || plan.tasks.length === 0) return null;
-  const { done, total } = planProgress(plan);
+  const { faites: done, total } = planProgress(plan);
   return (
     <>
       <div className="h-1.5 w-full overflow-hidden rounded-full bg-slate-100 dark:bg-slate-800">
@@ -409,7 +375,7 @@ function MonthView({ anchor, byDate, projected, selected, taper, examISO, onZoom
         {days.map((date) => {
           const k = format(date, 'yyyy-MM-dd');
           const plan = byDate.get(k);
-          const { done, total } = planProgress(plan);
+          const { faites: done, total } = planProgress(plan);
           return (
             <button key={k} type="button" onClick={() => onZoomToDay(k)}
               className={`flex min-h-[58px] flex-col rounded-lg border p-1.5 text-left transition-all hover:-translate-y-0.5 hover:border-brand-400

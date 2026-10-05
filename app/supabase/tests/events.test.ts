@@ -1,7 +1,8 @@
 import { describe, it, expect, beforeAll } from 'vitest';
-import { createTestUser, URL } from './helpers';
+import { createTestUser, serviceClient, URL } from './helpers';
 
-const FN = `${URL}/functions/v1/events`;
+// EVENTS_FN_URL : servir la fonction d'un autre worktree (second edge-runtime) sans toucher au Supabase local.
+const FN = process.env.EVENTS_FN_URL ?? `${URL}/functions/v1/events`;
 let A: Awaited<ReturnType<typeof createTestUser>>, B: Awaited<ReturnType<typeof createTestUser>>;
 const tok = async (u: typeof A) => (await u.client.auth.getSession()).data.session!.access_token;
 const post = async (u: typeof A, events: unknown[]) =>
@@ -34,6 +35,15 @@ describe('events', () => {
     expect(all.events.every((e: { received_at?: string }) => !!e.received_at)).toBe(true);
     const after = await get(A, received[id]);                 // strictement après le dernier reçu
     expect(after.events.find((e: { id: string }) => e.id === id)).toBeUndefined();
+  });
+
+  it('B poste un événement en se disant A (user_id = A) : la ligne est à B (revue sécurité S4-2)', async () => {
+    const id = crypto.randomUUID();
+    const r = await post(B, [{ ...ev(id), user_id: A.id }]);
+    expect(r.acked ?? [], JSON.stringify(r)).toContain(id);
+    const { data } = await serviceClient().from('progress_events').select('user_id').eq('id', id);
+    expect(data, 'la ligne existe').toHaveLength(1);
+    expect(data![0].user_id).toBe(B.id);
   });
 
   it('B ne voit pas les événements de A via GET', async () => {
@@ -150,5 +160,84 @@ describe('events', () => {
   it('sans token → 401', async () => {
     const r = await fetch(FN, { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ events: [ev(crypto.randomUUID())] }) });
     expect(r.status).toBe(401);
+  });
+
+  // --- Série 4, S4-2 (training-journal.md §12.10) -------------------------------
+  // Trois changements de la fonction : TYPES, SCHEMAS (program.configured, deux refus) et
+  // `tz` de plan.materialized. La CONTRAINTE SQL a son propre test (rls.test.ts, m-k).
+  const cfg = (over: Record<string, unknown> = {}) => ({
+    startDate: '2026-10-05', examDate: '2026-12-18', intensity: 'mittel', hoursPerSession: 2,
+    offDays: [0, 6], prioritySpecialties: [], selfLevel: {}, createdAt: 1790000000000, ...over,
+  });
+  const configured = (payload: unknown, subject: string | null = null) =>
+    ({ id: crypto.randomUUID(), type: 'program.configured', subject_id: subject, payload, occurred_at: '2026-10-05T08:00:00Z' });
+
+  it('program.configured : accepte toute config aux bornes de l\'interface ET de accepterRythme (N2c)', async () => {
+    const bornes = [
+      cfg(),
+      cfg({ hoursPerSession: 0.5 }), cfg({ hoursPerSession: 6 }),                 // le curseur de ProgramSetup
+      cfg({ hoursPerSession: 12 }),                                                // la borne haute du contrat
+      cfg({ hoursPerSession: 20 / (60 * 1.3), intensity: 'intensiv' }),            // accepterRythme à 20 min en intensité haute (< 0,5 h)
+      cfg({ examDate: undefined, weeks: 2 }), cfg({ examDate: undefined, weeks: 24 }),
+      cfg({ offDays: [] }), cfg({ offDays: [0, 1, 2, 3, 4, 5] }), cfg({ offDays: [0, 1, 2, 3, 4, 5, 6] }),   // l'interface a laissé cocher les sept jours
+      ...(['leicht', 'mittel', 'intensiv'] as const).map((intensity) => cfg({ intensity })),
+      ...(['teil-first', 'cas-complet', 'specialite', 'examen-blanc'] as const).map((modus) => cfg({ modus })),
+      cfg({ strategy: 'full' }), cfg({ adjust: { postpone: {} }, champInconnu: 'x' }),   // passthrough : le reste n'est pas refusé
+    ];
+    const r = await post(A, bornes.map((p) => configured(p)));
+    expect(r.rejected).toEqual([]);
+    expect(r.acked).toHaveLength(bornes.length);
+  });
+
+  it('program.configured : sujet non nul, valeurs hors bornes ou de mauvais type → rejeté par événement, sans retry', async () => {
+    const mauvais = [
+      configured(cfg(), 'program'),                                  // subject_id doit être null
+      configured(cfg({ hoursPerSession: 0 })),                       // ]0, 12]
+      configured(cfg({ hoursPerSession: 12.5 })),
+      configured(cfg({ hoursPerSession: '2' })),
+      configured(cfg({ intensity: 'brutal' })),
+      configured(cfg({ offDays: [7] })), configured(cfg({ offDays: [-1] })),
+      configured(cfg({ offDays: [0, 1, 2, 3, 4, 5, 6, 0] })),        // plus de sept entrées
+      configured(cfg({ startDate: 'lundi' })), configured(cfg({ examDate: '18/12/2026' })),
+      configured(cfg({ modus: 'par-partie' })),
+      configured({}),                                                // une config sans rien : le client n'en émet jamais
+    ];
+    const r = await post(A, mauvais);
+    expect(r.acked).toEqual([]);
+    expect(r.rejected).toHaveLength(mauvais.length);
+    expect(r.rejected.every((x: { retry?: boolean }) => !x.retry)).toBe(true);
+  });
+
+  const refus = (type: string, subject: string | null, payload: unknown = {}) =>
+    ({ id: crypto.randomUUID(), type, subject_id: subject, payload, occurred_at: '2026-10-05T09:00:00Z' });
+
+  it('rythme.refused : semaine ISO valide acceptée, mal formée ou payload non vide rejetés', async () => {
+    const ok = await post(A, ['2026-W01', '2026-W41', '2026-W53'].map((w) => refus('rythme.refused', w)));
+    expect(ok.rejected).toEqual([]); expect(ok.acked).toHaveLength(3);
+    const ko = await post(A, [
+      refus('rythme.refused', '2026-W00'), refus('rythme.refused', '2026-W54'), refus('rythme.refused', '2026-41'),
+      refus('rythme.refused', '2026-10-05'), refus('rythme.refused', null), refus('rythme.refused', '2026-W41', { x: 1 }),
+    ]);
+    expect(ko.acked).toEqual([]); expect(ko.rejected).toHaveLength(6);
+    expect(ko.rejected.every((x: { retry?: boolean }) => !x.retry)).toBe(true);
+  });
+
+  it('rattrapage.refused : jour yyyy-MM-dd accepté, sujet non date ou payload non vide rejetés', async () => {
+    const ok = await post(A, [refus('rattrapage.refused', '2026-10-02')]);
+    expect(ok.rejected).toEqual([]); expect(ok.acked).toHaveLength(1);
+    const ko = await post(A, [refus('rattrapage.refused', 'hier'), refus('rattrapage.refused', null), refus('rattrapage.refused', '2026-10-02', { x: 1 })]);
+    expect(ko.acked).toEqual([]); expect(ko.rejected).toHaveLength(3);
+  });
+
+  it('plan.materialized : `tz` et les champs de tâche de cas passent ; un `tz` de plus de 64 caractères est rejeté', async () => {
+    const tache = { id: 't-1', date: '2026-10-05', kind: 'simulation', caseId: 'case-gib', estMin: 40, source: 'plan', reason: 'r', label: 'GIB', teile: ['anamnese', 'dokumentation'], rappel: 'anam-allergien', creeA: 1790000000000 };
+    const payload = (over: Record<string, unknown>) => ({ tasks: [tache], mode: 'cas-complet', seed: 's', targetMin: 90, ...over });
+    const ok = await post(A, [{ id: crypto.randomUUID(), type: 'plan.materialized', subject_id: '2026-10-05', payload: payload({ tz: 'Europe/Berlin' }), occurred_at: '2026-10-05T08:00:00Z' }]);
+    expect(ok.rejected).toEqual([]); expect(ok.acked).toHaveLength(1);
+    const ko = await post(A, [
+      { id: crypto.randomUUID(), type: 'plan.materialized', subject_id: '2026-10-06', payload: payload({ tz: 'x'.repeat(65) }), occurred_at: '2026-10-06T08:00:00Z' },
+      { id: crypto.randomUUID(), type: 'plan.materialized', subject_id: '2026-10-07', payload: payload({ tasks: [{ ...tache, teile: ['hack'] }] }), occurred_at: '2026-10-07T08:00:00Z' },
+    ]);
+    expect(ko.acked).toEqual([]); expect(ko.rejected).toHaveLength(2);
   });
 });

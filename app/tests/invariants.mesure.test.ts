@@ -646,7 +646,9 @@ describe('P1 — un Teil « à confirmer » ne pèse pas comme un Teil jamais tr
   it('la dette : solide 0 ; acquis déjà réussi ≥ 80 dont solideDes est passé 1/3 ; tout autre Teil 1', () => {
     const a = progressOf([mesure('c1', '2026-09-12', tous(85))]);                     // trois acquis, solideDes = 15 sept.
     expect(detteTeil(a, AUJOURDHUI)).toBeCloseTo(1 / 3);
-    expect(detteTeil(a, '2026-09-14'), 'solideDes pas encore passé : rejouer ne peut pas confirmer').toBe(1);
+    // S4-2 (R2, INV-67) : joué il y a moins de 3 jours, un Teil n'est pas à planifier — rejouer avant l'écart ne peut pas le
+    // confirmer. La dette de 1 que S4-1 donnait ici (`status ≠ solide` seul) est exactement ce que S4-2 remplace par `restePlan`.
+    expect(detteTeil(a, '2026-09-14'), 'solideDes pas encore passé : rien à planifier avant l\'écart').toBe(0);
     expect(detteTeil(a, '2026-09-15')).toBeCloseTo(1 / 3);
     const mixte = progressOf([mesure('c1', '2026-09-12', { anamnese: 85, dokumentation: 70 }), mesure('c1', '2026-09-13', { fallvorstellung: 40 })]);
     expect(detteTeil(mixte, AUJOURDHUI), 'anamnese à confirmer (1/3), dokumentation acquis sans réussite ≥ 80 (1), fallvorstellung fragile (1)').toBeCloseTo((1 / 3 + 1 + 1) / 3);

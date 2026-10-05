@@ -210,8 +210,9 @@ const planDuJour = () => probe(`
 const P4 = preuve('P4', `deux spécialités identiques ne se suivent jamais dans un plan généré`, async () => {
   const plan = planDuJour();
   exige(plan, 'aucun plan figé');
-  exige(plan.mode === 'teil-first', `mode ${plan.mode} : la diversité n'est une contrainte dure qu'en teil-first (select.ts:127)`);
-  const picks = plan.tasks.filter((t) => (t.kind === 'simulation' || t.kind === 'examen-blanc') && t.specialty);
+  // Série 4 (training-journal.md §8, INV-4 modifié) : C1/C2 tiennent dans tout plan dont le mode n'est pas `specialite`.
+  exige(plan.mode !== 'specialite', `mode ${plan.mode} : la diversité est volontairement levée en mode spécialité`);
+  const picks = plan.tasks.filter((t) => (t.kind === 'simulation' || t.kind === 'revision' || t.kind === 'examen-blanc') && t.specialty);
   exige(picks.length >= 2, `${picks.length} tâche(s) sélectionnée(s) : la contrainte d'adjacence ne se mesure pas`);
   const fautes = [];
   for (let i = 1; i < picks.length; i++) {
@@ -321,11 +322,12 @@ async function jouerTeil(caseId, teil) {
 
 let joue = null;   // le Teil joué par P3a, relu par P3b
 
-const P3a = preuve('P3a', "travailler un seul Teil ne rend fautif aucun autre Teil", async () => {
+const P3a = preuve('P3a', "travailler un seul Teil ne rend fautif aucun autre Teil — et ne coche pas la tâche du cas entier", async () => {
   const plan = planDuJour();
-  const tache = plan.tasks.find((t) => t.kind === 'simulation' && t.teil && t.doneAt === undefined)
-    ?? plan.tasks.find((t) => t.kind === 'simulation' && t.teil);
-  exige(tache, 'aucune tâche de simulation portée par un seul Teil');
+  // Série 4 (INV-50) : une tâche est un CAS ; la candidate n'en joue qu'un Teil, le premier de ce qui reste.
+  const tacheBrute = plan.tasks.find((t) => t.kind === 'simulation' && t.caseId && t.doneAt === undefined && (t.teile ?? []).length > 1);
+  exige(tacheBrute, 'aucune tâche de cas à plusieurs Teile, non faite, dans le plan du jour');
+  const tache = { ...tacheBrute, teil: tacheBrute.teile[0] };
   const score = await jouerTeil(tache.caseId, tache.teil);
   // R-C2 : la projection existe À L'ENREGISTREMENT, sans redémarrage…
   const avant = await until(`
@@ -345,9 +347,16 @@ const P3a = preuve('P3a', "travailler un seul Teil ne rend fautif aucun autre Te
   for (const t of autres) {
     exige(statuts[t] === 'vierge' && cp.teile[t].attempts === 0, `« ${t} » jamais travaillé mais vaut « ${statuts[t]} » (${cp.teile[t].attempts} essais)`);
   }
-  // La tâche du plan est cochée par le JEU (D-C4 : taskId posé à l'écriture ou par la résolution).
+  // S4-2 (INV-51) : un seul Teil ne coche JAMAIS la tâche du cas entier, et la ligne du plan dit ce qui reste.
+  const apres = (await until(`return (await read('day_plans')).find((p) => p.date === '${plan.date}') || null;`, 'plan du jour relu')).tasks.find((t) => t.id === tache.id);
+  exige(apres && apres.doneAt === undefined, `la tâche « ${tache.label} » est cochée par un seul Teil (${tache.teil})`);
+  goto('/programme');
+  const ligne = await until(`
+    const r = [...document.querySelectorAll('div.rounded-xl.border.transition-colors')].find((x) => x.textContent.includes(${JSON.stringify(tache.label)}));
+    return r && /Il te reste/.test(r.innerText) ? r.innerText.split('\\n').find((l) => /Il te reste/.test(l)) : null;
+  `, 'la ligne dit ce qui reste');
   joue = { tache, score };
-  return `${tache.label} (${tache.teil}) joué → ${score.join('/')} % ; ${Object.entries(statuts).map(([k, v]) => `${k}=${v}`).join(', ')}, overall=${cp.overall}`;
+  return `${tache.label} (${tache.teil}) joué → ${score.join('/')} % ; ${Object.entries(statuts).map(([k, v]) => `${k}=${v}`).join(', ')}, overall=${cp.overall} ; tâche non faite, « ${ligne} »`;
 });
 
 const P3b = preuve('P3b', "une session réussie sur un seul Teil ne fait régresser aucun statut", async () => {
@@ -359,16 +368,23 @@ const P3b = preuve('P3b', "une session réussie sur un seul Teil ne fait régres
     `le Teil travaillé est « ${cp.teile[tache.teil].status} » alors que la session a réussi`);
   exige(cp.overall === 'entame', `overall « ${cp.overall} » : vierge → entamé attendu, jamais une régression`);
 
-  // B-C5 : la page Cas lit case_progress — « Entamé », jamais l'ancien statut
-  // (« Maîtrisé » après un seul Teil, puis « En cours » au Teil suivant).
+  // B-C5 : la page Cas lit case_progress — jamais l'ancien statut (« Maîtrisé » après un seul Teil, puis « En cours »).
+  // Série 4 (S4-4, #73) : la carte porte le CADRAN ; son étiquette accessible dit chaque Teil — les Teile jamais
+  // joués y sont « pas encore travaillé » (CaseDialText.MOT_ETAT), le Teil joué porte son score.
   goto('/cas');
   const carte = await until(`
     const h = [...document.querySelectorAll('h3')].find((x) => x.textContent.trim() === ${JSON.stringify(tache.label)});
     const c = h && h.closest('.card');
-    return c ? c.innerText : null;
-  `, `carte du cas « ${tache.label} »`);
-  exige(/Entamé/.test(carte), `la carte du cas ne dit pas « Entamé » : ${carte.replace(/\n/g, ' ')}`);
-  exige(!/Maîtrisé|En cours|À faire/.test(carte), `la carte du cas affiche un statut déprécié : ${carte.replace(/\n/g, ' ')}`);
+    if (!c) return null;
+    const dial = [...c.querySelectorAll('[aria-label]')].map((x) => x.getAttribute('aria-label')).find((l) => / : /.test(l) && /Anamnese/.test(l));
+    return dial ? { texte: c.innerText, dial } : null;
+  `, `carte du cas « ${tache.label} » et son cadran`);
+  exige(!/Maîtrisé|En cours|À faire/.test(carte.texte), `la carte du cas affiche un statut déprécié : ${carte.texte.replace(/\n/g, ' ')}`);
+  const NOM = { anamnese: 'Anamnese', dokumentation: 'Dokumentation', fallvorstellung: 'Fallvorstellung' };
+  for (const t of ['anamnese', 'dokumentation', 'fallvorstellung'].filter((k) => k !== tache.teil)) {
+    exige(carte.dial.includes(`${NOM[t]} : pas encore travaillé`), `le cadran ne dit pas « ${NOM[t]} : pas encore travaillé » : ${carte.dial}`);
+  }
+  exige(!carte.dial.includes(`${NOM[tache.teil]} : pas encore travaillé`), `le cadran ignore le Teil joué : ${carte.dial}`);
 
   // Et le champ de couverture n'accuse pas les Teile jamais travaillés.
   goto('/programme');
@@ -380,7 +396,7 @@ const P3b = preuve('P3b', "une session réussie sur un seul Teil ne fait régres
   const cible = cellules.filter((t) => t.startsWith(`${tache.specialty} ×`));
   exige(cible.length >= autres.length,
     `champ de couverture : ${cible.length} cellule(s) « pas encore travaillé » pour ${tache.specialty}, ${autres.length} attendues`);
-  return `${tache.caseId} : ${tache.teil}=${cp.teile[tache.teil].status}, ${autres.map((t) => `${t}=${cp.teile[t].status}`).join(', ')} ; carte « Entamé » ; overall=${cp.overall}`;
+  return `${tache.caseId} : ${tache.teil}=${cp.teile[tache.teil].status}, ${autres.map((t) => `${t}=${cp.teile[t].status}`).join(', ')} ; cadran « ${carte.dial} » ; overall=${cp.overall}`;
 });
 
 // --- exécution --------------------------------------------------------------

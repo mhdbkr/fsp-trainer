@@ -1,0 +1,138 @@
+// S4-2 — les textes du plan : la carte de rythme (§13.5) et la ligne d'une tâche de cas (« il te reste la Dokumentation · 10 min »,
+// le rappel d'une erreur transversale, §13.3). Proposé, jamais imposé ; un fait, jamais un jugement.
+import { describe, it, expect, vi, afterEach, beforeEach } from 'vitest';
+import { act } from 'react';
+import { createRoot, type Root } from 'react-dom/client';
+import { MemoryRouter } from 'react-router-dom';
+
+vi.mock('@/lib/auth/session', () => ({
+  AUTH_MODE: 'public',
+  getAccessToken: async () => null,
+  useSession: { getState: () => ({ user: null }) },
+}));
+
+import { db } from '@/db/db';
+import type { Case, DayPlan, ProgramConfig, TaskInstance, TrainingEvent } from '@/db/types';
+import { freezeAt, resetClock } from '@/lib/clock';
+import { refreshToday } from '@/lib/today';
+import { rebuildJournal } from '@/lib/journal';
+import { RythmeCard } from './RythmeCard';
+import { lectureDuPlan, TaskLine, TaskList } from './TaskLine';
+
+const config = { startDate: '2026-09-01', examDate: '2026-12-18', intensity: 'mittel', hoursPerSession: 2, offDays: [0, 6], prioritySpecialties: [], selfLevel: {}, createdAt: 0 } as unknown as ProgramConfig;
+const drill = (date: string): TaskInstance => ({ id: `d${date}`, date, kind: 'drill', label: 'Fachbegriffe', estMin: 10, source: 'plan', reason: 'r' });
+
+let container: HTMLDivElement; let root: Root;
+const txt = () => container.textContent ?? '';
+const btn = (re: RegExp) => [...container.querySelectorAll('button')].find((b) => re.test(b.textContent ?? ''));
+
+beforeEach(async () => {
+  freezeAt(new Date(2026, 9, 12, 8, 0));                           // lundi 12 octobre ; la fenêtre = du 5 au 11
+  refreshToday();
+  await Promise.all([db.cases.clear(), db.meta.clear(), db.day_plans.clear(), db.training_events.clear(), db.case_progress.clear(), db.progress_events.clear(), db.outbox.clear()]);
+  await db.cases.bulkPut(['c1', 'c2'].map((id) => ({ id, name: `Cas ${id}`, pathology: 'p', specialty: 'Kardiologie', frequency: 10, centers: [], linkedFachbegriffeIds: [] } as unknown as Case)));
+  await db.meta.put({ key: 'program', value: config });
+  await db.progress_events.bulkPut(['2026-10-06', '2026-10-07', '2026-10-08', '2026-10-09'].map((d, i) => (
+    { id: `p${i}`, user_id: 'u', type: 'plan.materialized', subject_id: d, payload: { tasks: [drill(d)], mode: 'cas-complet', seed: 's', targetMin: 120 }, occurred_at: `${d}T06:00:00Z` })));
+  await rebuildJournal(await db.progress_events.toArray());
+  container = document.createElement('div'); document.body.appendChild(container); root = createRoot(container);
+  await act(async () => { root.render(<RythmeCard />); });
+});
+afterEach(() => { act(() => root.unmount()); container.remove(); resetClock(); });
+
+describe('RythmeCard — proposé, jamais imposé (§13.5)', () => {
+  it('dit la valeur et sa CONSÉQUENCE sur la projection, jamais un écart en % ; « Garder » écrit un refus synchronisé', async () => {
+    await vi.waitFor(() => expect(txt()).toMatch(/Ces 7 derniers jours, tu as travaillé moins de 5 min par soir\./), { timeout: 10000 });
+    expect(txt()).toMatch(/À ce rythme, tu auras joué une fois chacun des 2 cas les plus fréquents le \d+ \S+ \(au lieu du \d+ \S+\)\./);
+    expect(txt()).not.toMatch(/après ton examen/);
+    expect(txt()).not.toMatch(/%|retard|manqu|insuffisan/i);
+    const avant = await db.day_plans.toArray();
+    await act(async () => { btn(/^garder 120 min$/i)!.click(); });
+    await vi.waitFor(() => expect(txt()).toBe(''), { timeout: 10000 });
+    const refus = await db.progress_events.where('type').equals('rythme.refused').toArray();
+    expect(refus.map((e) => e.subject_id)).toEqual(['2026-W42']);
+    expect((await db.meta.get('program'))!.value, 'refuser ne change pas le budget').toEqual(config);
+    expect(await db.day_plans.toArray()).toEqual(avant);
+  });
+
+  it('« environ N min par soir » : le temps réel, arrondi à 5 min', async () => {
+    await db.training_events.bulkPut(['2026-10-06', '2026-10-07', '2026-10-08', '2026-10-09'].map((d, i) =>
+      ({ id: `te${i}`, at: new Date(`${d}T19:00:00`).getTime(), kind: 'drill', teile: [], source: 'libre', spentMin: 12 })));
+    await vi.waitFor(() => expect(txt()).toMatch(/Ces 7 derniers jours, tu as travaillé environ 10 min par soir\./), { timeout: 10000 });
+  });
+
+  it('VETO — la date projetée tombe APRÈS l’examen : la carte le dit, et « Garder » est proposé EN PREMIER', async () => {
+    await db.meta.put({ key: 'program', value: { ...config, examDate: '2026-10-14' } });
+    await vi.waitFor(() => expect(txt()).toMatch(/après ton examen du 14 oct\./), { timeout: 10000 });
+    const [premier, second] = [...container.querySelectorAll('button')];
+    expect(premier.textContent).toMatch(/^Garder/); expect(premier.className).toMatch(/btn-outline/);
+    expect(second.textContent).toMatch(/^Caler/); expect(second.className).not.toMatch(/btn-outline/);
+  });
+
+  it('« Caler » écrit la config complète, le budget du jour vaut la valeur, aucun jour figé ne bouge', async () => {
+    await vi.waitFor(() => expect(btn(/^caler sur 20 min$/i)).toBeDefined(), { timeout: 10000 });
+    const avant = await db.day_plans.toArray();
+    await act(async () => { btn(/^caler sur 20 min$/i)!.click(); });
+    await vi.waitFor(() => expect(txt()).toBe(''), { timeout: 10000 });
+    const c = (await db.meta.get('program'))!.value as ProgramConfig;
+    expect({ ...c, hoursPerSession: config.hoursPerSession }).toEqual(config);
+    expect(Math.round(c.hoursPerSession * 60)).toBe(20);
+    expect(await db.progress_events.where('type').equals('program.configured').count()).toBe(1);
+    expect(await db.day_plans.toArray()).toEqual(avant);
+  });
+});
+
+describe('La ligne d’une tâche de cas — ce qui reste, le rappel', () => {
+  const plan = (tasks: TaskInstance[]): DayPlan => ({ date: '2026-10-12', materializedAt: 0, mode: 'cas-complet', seed: 's', targetMin: 120, tasks });
+  const partie = (i: number, caseId: string, at: number, over: Partial<TrainingEvent> = {}): TrainingEvent =>
+    ({ id: `e${i}`, at, kind: 'simulation', caseId, teile: ['anamnese'], source: 'libre', spentMin: 15, scores: { anamnese: 70 }, manques: { anamnese: ['anam-allergien'] }, ...over });
+
+  it('« Il te reste la Dokumentation et la Fallvorstellung · N min » et le rappel chiffré, sans jugement', async () => {
+    const tache: TaskInstance = { id: 't1', date: '2026-10-12', kind: 'simulation', caseId: 'c1', label: 'Pneumonie', teile: ['dokumentation', 'fallvorstellung'], estMin: 32, source: 'plan', reason: 'r', rappel: 'anam-allergien', creeA: new Date(2026, 9, 12, 7).getTime() };
+    const autre: TaskInstance = { ...tache, id: 't2', teile: ['anamnese', 'dokumentation', 'fallvorstellung'], rappel: undefined, caseId: 'c2', label: 'Asthma' };
+    const events = [0, 1, 2].map((i) => partie(i, `x${i}`, new Date(2026, 9, 8 + i, 10).getTime()));
+    const lecture = lectureDuPlan(plan([tache, autre]), events);
+    expect(lecture.get('t1')!.reste).toEqual({ teile: ['dokumentation', 'fallvorstellung'], min: 32 });
+    expect(lecture.has('t2'), 'le cas entier ne dit pas « il te reste »').toBe(false);
+    await act(async () => { root.render(<MemoryRouter><TaskLine task={tache} lecture={lecture.get('t1')} /></MemoryRouter>); });
+    expect(txt()).toMatch(/Il te reste la Dokumentation et la Fallvorstellung/);
+    expect(txt()).toMatch(/32 min/);
+    expect(txt()).toMatch(/Dans cette Anamnese, pose la question « Allergien inkl\. Medikamentenallergien » : oubliée 3 fois sur tes 3 dernières\./);
+  });
+
+  it('la liste de l’accueil (TaskList) lit elle-même le plan figé du jour : « Il te reste … »', async () => {
+    const tache: TaskInstance = { id: 't1', date: '2026-10-12', kind: 'simulation', caseId: 'c1', label: 'Pneumonie', teile: ['dokumentation'], estMin: 20, source: 'plan', reason: 'r', creeA: new Date(2026, 9, 12, 7).getTime() };
+    await db.day_plans.put(plan([tache]));
+    await act(async () => { root.render(<MemoryRouter><TaskList tasks={[tache]} /></MemoryRouter>); });
+    await vi.waitFor(() => expect(txt()).toMatch(/Il te reste la Dokumentation/), { timeout: 10000 });
+  });
+
+  it('soirée courte : la tâche forcée dépasse le budget ⇒ « Ce soir l’Anamnese (20 min) · demain la suite. »', async () => {
+    const cas = (id: string, over: Partial<TaskInstance> = {}): TaskInstance => ({ id, date: '2026-10-12', kind: 'simulation', caseId: id, label: `Cas ${id}`, teile: ['anamnese', 'dokumentation', 'fallvorstellung'], estMin: 52, source: 'plan', reason: 'r', creeA: new Date(2026, 9, 12, 7).getTime(), ...over });
+    const court = { ...plan([cas('a')]), targetMin: 30 };
+    expect(lectureDuPlan(court, []).get('a')!.soiree).toBe("Ce soir l'Anamnese (20 min) · demain la suite.");
+    expect(lectureDuPlan({ ...plan([cas('a')]), targetMin: 120 }, []).get('a')?.soiree, 'dans le budget : rien').toBeUndefined();
+    expect(lectureDuPlan({ ...plan([cas('a', { kind: 'examen-blanc' })]), targetMin: 30 }, []).get('a')?.soiree, 'un examen à blanc se joue d’un trait').toBeUndefined();
+    expect(lectureDuPlan({ ...plan([cas('a', { dUnTrait: true })]), targetMin: 30 }, []).get('a')?.soiree, 'une tâche d’un trait aussi').toBeUndefined();
+    expect(lectureDuPlan({ ...plan([cas('a', { teile: ['fallvorstellung'], estMin: 40 })]), targetMin: 30 }, []).get('a')?.soiree, 'un seul Teil : rien à couper').toBeUndefined();
+    await act(async () => { root.render(<MemoryRouter><TaskLine task={cas('a')} lecture={lectureDuPlan(court, []).get('a')} /></MemoryRouter>); });
+    expect(txt()).toMatch(/Ce soir l'Anamnese \(20 min\) · demain la suite\./);
+  });
+
+  it('entamée dans la journée : le reste suit le journal, avec les minutes de ce qui reste', () => {
+    const tache: TaskInstance = { id: 't1', date: '2026-10-12', kind: 'simulation', caseId: 'c1', label: 'Pneumonie', teile: ['anamnese', 'dokumentation', 'fallvorstellung'], estMin: 52, source: 'plan', reason: 'r', creeA: new Date(2026, 9, 12, 7).getTime() };
+    const jouee = partie(9, 'c1', new Date(2026, 9, 12, 9).getTime(), { manques: undefined });
+    expect(lectureDuPlan(plan([tache]), [jouee]).get('t1')!.reste).toEqual({ teile: ['dokumentation', 'fallvorstellung'], min: 20 + 12 });
+  });
+});
+
+describe('Revue m4 — le curseur de ProgramSetup sait afficher une valeur acceptée', () => {
+  it('25 min de session (en dessous de l’ancien minimum de 0,5 h) : le curseur la porte, au pas de 5 min', async () => {
+    const { ProgramSetup } = await import('./ProgramSetup');
+    await act(async () => { root.render(<MemoryRouter><ProgramSetup initial={{ ...config, hoursPerSession: 25 / 60 }} onDone={() => {}} /></MemoryRouter>); });
+    // ProgramSetup est un Portal : on lit le document, pas le conteneur.
+    const curseur = [...document.querySelectorAll('.label')].find((l) => l.textContent?.startsWith('Volume par session'))!.parentElement!.querySelector('input[type=range]') as HTMLInputElement;
+    expect(curseur.min).toBe('15'); expect(curseur.step).toBe('5'); expect(curseur.value).toBe('25');
+    expect(document.body.textContent).toMatch(/Volume par session : 25 min/);
+  });
+});

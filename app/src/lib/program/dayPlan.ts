@@ -1,6 +1,6 @@
 // ============================================================================
 // Le plan du jour FIGÉ.
-// Contrat : docs/contracts/training-journal.md §3 et §7 · ADR-0017 §2 et §3.
+// Contrat : docs/contracts/training-journal.md §3, §7, §12.4 · ADR-0017 §2 et §3 · ADR-0021 · ADR-0022.
 //
 // L'audit conclut en une phrase : « le plan est une fonction pure recalculée
 // depuis `now`, jamais un état matérialisé ». Tout est là. `schedule()` repartait
@@ -11,28 +11,41 @@
 // Ici : le jour est construit UNE FOIS, à la première ouverture, et stocké.
 // Cocher pose `doneAt` (dérivé du journal) ; RIEN d'autre ne bouge. Le plan ne
 // change qu'à l'action nommée « replanifier ».
+//
+// *[S4]* Ce que le plan est, depuis la série 4 :
+//  • des tâches de CAS : « il te reste la Dokumentation · 10 min » — jamais une tâche d'un seul Teil (INV-50) ;
+//  • déterministe : il ne dépend que du journal ANTÉRIEUR au jour (INV-55) — `entree.ts` ;
+//  • budgété sur les minutes réelles : UNE tâche forcée par jour, puis un remplissage glouton (INV-58) ;
+//  • un mode observé en silence (INV-57), des cas solides qui reviennent à leur échéance (INV-60).
 // ============================================================================
 
-import { addDays, differenceInCalendarDays, format, getDay, parseISO, startOfDay } from 'date-fns';
+import { differenceInCalendarDays, parseISO, startOfDay } from 'date-fns';
 import type {
-  Case, CaseProgress, DayPlan, Fachbegriff, Favorite, Fortschrittsmodus, Layer, ProgramConfig,
-  SimTeil, Specialty, TaskInstance, TrainingEvent,
+  Case, CaseProgress, DayPlan, Fachbegriff, Favorite, Layer, ProgramConfig, SimTeil, Specialty, TaskInstance, TrainingEvent,
 } from '@/db/types';
 import { db } from '@/db/db';
-import { newId, type ProgressEvent } from '@/lib/sync/events';
-import { projectCollections } from '@/lib/collections/project';
+import { newId } from '@/lib/sync/events';
 import { fnv1a32 } from '@/lib/collections/personalTerms';
 import { counts } from '@/lib/stats';
 import { INTENSITY_FACTOR } from '@/lib/intensity';
 import { TEILE } from '@/lib/simScope';
 import { blankProgress } from '@/lib/journal';
 import { dayKey, now as clockNow } from '@/lib/clock';
-import { pickWithDiversity, pourquoiAujourdhui, rankCandidates, violatesDiversity, type SelectContext } from './select';
+import { introducedToday } from '@/lib/srsBudget';
+import { getSrsSettings } from '@/lib/srsSettings';
+import { estTacheDeCas, evaluerTache } from './completion';
+import { isWorkingDay, fenetreDUnTrait, nextWorkingDay, programEnd, taperDays } from './calendrier';
+export { isWorkingDay, nextWorkingDay, programEnd, taperDays };
+import { dureesTeile } from './durees';
+import { erreursTransversales, poserRappels } from './erreurs';
+import { entreeDuJour } from './entree';
+import { debutJour, finJour, fuseauLocal } from './fuseau';
+import { modeDuJour, observation } from './modus';
+import { D_UN_TRAIT_ACTIF, SEUIL_FREQUENT } from './parametres';
+import { pickWithDiversity, pourquoiAujourdhui, rankCandidates, violatesDiversity, type Scored, type SelectContext } from './select';
+import { restePlan } from './tacheDeCas';
 
 const NEW_PER_DAY_DEFAULT = 10;
-const SIM_MIN = 40;
-const TEIL_MIN: Record<SimTeil, number> = { anamnese: 20, dokumentation: 20, fallvorstellung: 12 };
-const MOCK_MIN = 60;
 const FACHWISSEN_MIN = 15;
 const TEIL_KEYS: SimTeil[] = TEILE.map((t) => t.key);
 
@@ -49,44 +62,6 @@ const drillReason = (due: number, fresh: number): string => [
 export const drillFavorisNote = (n: number): string | null =>
   n > 0 ? `dont ${n} favori${n > 1 ? 's' : ''} de ta séance` : null;
 
-/** Le mode par défaut tant que le candidat n'a rien choisi. Lecture tolérante
- *  de l'ancien `strategy` (contrat §6 et §11.2) : aucune sémantique perdue. */
-export function modusOf(config: ProgramConfig): Fortschrittsmodus {
-  if (config.modus) return config.modus;
-  return config.strategy === 'full' ? 'cas-complet' : 'teil-first';
-}
-
-export const isWorkingDay = (d: Date, config: Pick<ProgramConfig, 'offDays'>): boolean => !config.offDays.includes(getDay(d));
-
-export function nextWorkingDay(d: Date, config: ProgramConfig): Date {
-  let x = d;
-  for (let guard = 0; guard < 14 && !isWorkingDay(x, config); guard++) x = addDays(x, 1);
-  return x;
-}
-
-export function programEnd(config: ProgramConfig): Date {
-  if (config.examDate) return parseISO(config.examDate);
-  return addDays(parseISO(config.startDate), (config.weeks ?? 8) * 7);
-}
-
-/**
- * La « dernière ligne droite », en dates ABSOLUES.
- *
- * INV-12 : l'ancienne version mesurait `taperLen(workingDays.length)` sur les
- * jours RESTANTS (`program.ts:35-37,136`) — la fenêtre se rétrécissait et
- * glissait chaque jour, et le badge apparaissait puis disparaissait tout seul.
- * Ici la fenêtre se calcule sur la date d'examen : elle ne dépend pas de `now`,
- * donc la phase d'un jour figé ne change plus jamais.
- */
-export function taperDays(config: ProgramConfig): Set<string> {
-  const start = startOfDay(parseISO(config.startDate));
-  const last = addDays(startOfDay(programEnd(config)), -1);   // le jour de l'examen n'est pas un jour d'entraînement
-  const working: Date[] = [];
-  for (let d = start; d <= last; d = addDays(d, 1)) if (isWorkingDay(d, config)) working.push(d);
-  const len = Math.max(3, Math.min(8, Math.round(working.length * 0.15)));
-  return new Set(working.slice(-len).map((d) => format(d, 'yyyy-MM-dd')));
-}
-
 /** Sans terme DÛ, les nouveaux termes ne sont jamais urgents : le drill passe
  *  juste APRÈS la première tâche de travail (C6-B). Dû ⇒ il reste en tête.
  *  Ne touche qu'à la génération : un jour déjà figé n'est jamais retraité. */
@@ -100,43 +75,36 @@ export interface BuildInput {
   date: string;                       // ISO yyyy-MM-dd
   cases: Case[];
   progress: Map<string, CaseProgress>;
+  /** Le journal à partir duquel on planifie : celui d'AVANT le jour (`entreeDuJour`), jamais celui qui le contient. */
   trainingEvents: TrainingEvent[];
   begriffe: Fachbegriff[];
+  /** L'instant de matérialisation. Il n'entre QUE dans `creeA` (INV-55) : la sélection lit `debutJour(date)`, le drill `finJour(date)`. */
   now: number;
   /** Nouveaux termes par jour : le réglage EFFECTIF du drill (`effectiveDaily`).
    *  Absent ⇒ 10, comme le repli du drill. */
   newPerDay?: number;
   /** Budget restant, s'il n'est pas le budget plein du jour (replanifier, I3). */
   budgetMin?: number;
-  /** Favoris projetés du journal `at < startOfDay(D)` (INV-55) : l'échéance avancée
-   *  d'un favori appris (lot F) compte dans les dus du plan — jamais un favori du jour. */
+  /** Le fuseau du plan (bornes du jour, `DayPlan.tz`). Absent : le fuseau local. */
+  tz?: string;
+  /** `creeA` des tâches posées. Défaut : `now`. */
+  creeA?: number;
+  /** La garde « d'un trait » (§12.12). Défaut : `D_UN_TRAIT_ACTIF`, `false` jusqu'à ce que S4-3 soit en production. */
+  dUnTraitActif?: boolean;
+  /** `false` quand le jour porte déjà sa tâche de cas (replanifier après une tâche faite) : « une seule tâche forcée par jour »
+   *  (INV-58) — la première tâche de cas ne dépasse alors pas le budget restant. Défaut : `true`. */
+  forcerLaPremiere?: boolean;
+  /** Favoris projetés du journal coupé (`entreeDuJour`, INV-55) : l'échéance avancée d'un favori appris (lot F)
+   *  compte dans les dus du plan — jamais un favori posé le jour D dans le plan de D. */
   favorites?: Favorite[];
 }
 
-/** Favoris tels qu'ils étaient à minuit de `date` : seule entrée « favoris » du plan figé (INV-55). */
-export function favoritesBefore(events: ProgressEvent[], date: string): Favorite[] {
-  const cut = startOfDay(parseISO(date)).getTime();
-  return projectCollections(events.filter((e) => Date.parse(e.occurred_at) < cut)).favorites;
-}
-
-/** Le Teil de plus forte dette DU CORPUS — celui sur lequel le candidat a le
- *  plus de travail devant lui. Mode `teil-first` : le même pour toutes les
- *  tâches du jour, « un geste à la fois ». */
-export function teilLePlusEnDette(progress: Map<string, CaseProgress>, cases: Case[]): SimTeil {
-  const debt = new Map<SimTeil, number>(TEIL_KEYS.map((t) => [t, 0]));
-  for (const c of cases) {
-    const cp = progress.get(c.id) ?? blankProgress(c.id);
-    for (const t of TEIL_KEYS) if (cp.teile[t].status !== 'solide') debt.set(t, debt.get(t)! + 1);
-  }
-  return [...debt.entries()].sort((a, b) => b[1] - a[1] || TEIL_KEYS.indexOf(a[0]) - TEIL_KEYS.indexOf(b[0]))[0][0];
-}
-
 /** La spécialité de plus forte dette agrégée — mode `specialite`. */
-export function specialiteLaPlusEnDette(progress: Map<string, CaseProgress>, cases: Case[]): Specialty | undefined {
+export function specialiteLaPlusEnDette(progress: Map<string, CaseProgress>, cases: Case[], date?: string, tz?: string): Specialty | undefined {
+  const jour = date ?? dayKey(clockNow());
   const debt = new Map<Specialty, number>();
   for (const c of cases) {
-    const cp = progress.get(c.id) ?? blankProgress(c.id);
-    const n = TEIL_KEYS.filter((t) => cp.teile[t].status !== 'solide').length;
+    const n = restePlan(progress.get(c.id) ?? blankProgress(c.id), jour, tz).length;
     if (n) debt.set(c.specialty, (debt.get(c.specialty) ?? 0) + n);
   }
   return [...debt.entries()].sort((a, b) => b[1] - a[1] || (a[0] < b[0] ? -1 : 1))[0]?.[0];
@@ -148,7 +116,11 @@ const layerFor = (cp: CaseProgress | undefined): Layer =>
 /**
  * Construit les tâches d'un jour. FONCTION PURE : mêmes entrées, mêmes sorties,
  * y compris les identifiants si `mkId` est déterministe. Elle ne lit ni la base
- * ni l'horloge — `input.now` est passé, jamais pris.
+ * ni l'horloge — `input.now` est passé, jamais pris, et ne sert qu'à `creeA`.
+ *
+ * Le budget (§12.4, I7) : le drill d'abord ; en dernière ligne droite ou en mode `examen-blanc` explicite, l'examen à
+ * blanc est LA tâche forcée (il dépasse le budget s'il le faut) ; sinon la première tâche de cas l'est. Tout le reste
+ * respecte le budget, par remplissage glouton sur les `estMin` réels : on s'arrête quand aucun candidat ne tient.
  */
 export function buildTasks(input: BuildInput, mkId: () => string = newId): TaskInstance[] {
   const { config, date, cases, progress, begriffe } = input;
@@ -156,8 +128,20 @@ export function buildTasks(input: BuildInput, mkId: () => string = newId): TaskI
   if (!isWorkingDay(day, config)) return [];
   if (day >= startOfDay(programEnd(config))) return [];      // le jour de l'examen reste vide
 
-  const modus = modusOf(config);
+  const tz = input.tz;
+  const debut = debutJour(date, tz), fin = finJour(date, tz);
+  const creeA = input.creeA ?? input.now;
+  const modus = modeDuJour(config, input.trainingEvents, cases);
+  const teilHabituel = modus === 'teil-first' ? observation(input.trainingEvents, cases).teilHabituel : undefined;
+  const actif = input.dUnTraitActif ?? D_UN_TRAIT_ACTIF;
   const targetMin = input.budgetMin ?? dayTargetMin(config);
+  const durees = dureesTeile(input.trainingEvents);             // apprises (§13.4), calculées une fois
+  const duree = (t: SimTeil) => durees[t];
+  const sommeTrois = TEIL_KEYS.reduce((s, t) => s + duree(t), 0);
+  const taper = taperDays(config);
+  const isTaper = taper.has(date);
+  const dansFenetre = actif && fenetreDUnTrait(config).has(date);
+
   const tasks: TaskInstance[] = [];
   let used = 0;
   const push = (t: Omit<TaskInstance, 'id' | 'date' | 'source'>) => {
@@ -167,8 +151,8 @@ export function buildTasks(input: BuildInput, mkId: () => string = newId): TaskI
 
   // 1. Le drill. Son coût est FIGÉ avec le jour : faire ses cartes ne libère
   //    plus de minutes, donc n'attire plus de nouvelles simulations
-  //    (audit §2.4 — l'effet existait sans rien cocher).
-  const terms = counts(begriffe, input.now, input.favorites);
+  //    (audit §2.4 — l'effet existait sans rien cocher). Les termes DUS se comptent à la fin du jour (§12.4).
+  const terms = counts(begriffe, fin, input.favorites);
   const fresh = Math.min(terms.fresh, input.newPerDay ?? NEW_PER_DAY_DEFAULT);
   const drillTotal = terms.due + fresh;
   if (drillTotal > 0 && targetMin > 0) {   // ni dû ni nouveau : pas de tâche, donc jamais la session de tête (C6-B)
@@ -179,56 +163,86 @@ export function buildTasks(input: BuildInput, mkId: () => string = newId): TaskI
     });
   }
 
-  // 2. L'examen à blanc occupe la dernière ligne droite, et le mode dédié.
-  const taper = taperDays(config);
-  const isTaper = taper.has(date);
+  // 2. L'examen à blanc occupe la dernière ligne droite, et le mode dédié. C'est la tâche FORCÉE du jour : il peut dépasser le
+  //    budget (le seul à le pouvoir en dernière ligne droite) ; ce jour-là, les tâches de cas respectent le budget (m-c).
+  // La fin commune : les rappels d'erreurs transversales (§13.3, lus dans le journal d'AVANT le jour), puis le drill à sa place.
+  const finir = () => drillApresLaPremierePartie(poserRappels(tasks, erreursTransversales(input.trainingEvents)), terms.due);
+  const ctx = selectContext(input, debut);
+  const ranked = rankCandidates(cases, ctx);
+  let examenForce = false;
   if (modus === 'examen-blanc' || isTaper) {
-    const ctx = selectContext(input);
-    const best = rankCandidates(cases, ctx)[0];
-    if (best && used + MOCK_MIN <= targetMin) {                // M3 : jamais au-delà du budget
+    const best = (dansFenetre ? ranked.find((s) => progress.get(s.c.id)?.etat === 'solide' && s.parts.freq >= SEUIL_FREQUENT) : undefined) ?? ranked[0];
+    if (best) {
+      examenForce = true;
       push({
-        kind: 'examen-blanc', label: best.c.name, estMin: MOCK_MIN, caseId: best.c.id,
-        specialty: best.c.specialty, layer: 3, assistance: 'autonome',
+        kind: 'examen-blanc', label: best.c.name, estMin: sommeTrois, caseId: best.c.id, teile: [...TEIL_KEYS], creeA,
+        specialty: best.c.specialty, layer: 3, assistance: 'autonome', ...(dansFenetre ? { dUnTrait: true as const } : {}),
         reason: isTaper ? `Répétition générale : conditions réelles, sans aide.` : pourquoiAujourdhui(best, ctx),
       });
     }
-    if (modus === 'examen-blanc') return drillApresLaPremierePartie(tasks, terms.due);
+    if (modus === 'examen-blanc') return finir();
   }
 
-  // 3. Les simulations. Un seul moteur de sélection dans le dépôt.
-  const ctx = selectContext(input);
-  let candidates = rankCandidates(cases, ctx);
-  const enforceDiversity = modus === 'teil-first';
+  // 3. Les tâches de cas. Un seul moteur de sélection dans le dépôt.
+  const alreadyToday = new Set(tasks.map((t) => t.caseId).filter(Boolean));
+  let candidates = ranked.filter((s) => !alreadyToday.has(s.c.id));
   if (modus === 'specialite') {
-    const sp = specialiteLaPlusEnDette(progress, cases);
+    const sp = specialiteLaPlusEnDette(progress, cases, date, tz);
     if (sp) candidates = candidates.filter((s) => s.c.specialty === sp);
   }
-  const alreadyToday = new Set(tasks.map((t) => t.caseId).filter(Boolean));
-  candidates = candidates.filter((s) => !alreadyToday.has(s.c.id));
+  if (teilHabituel) {                                   // observé « par Teil » : les cas où ce Teil reste à faire, si l'on en a —
+    // un cas solide DÛ reste candidat : sa consolidation (§13.1) ne dépend pas de la façon de jouer.
+    const sous = candidates.filter((s) => s.parts.du || restePlan(progress.get(s.c.id), date, tz).includes(teilHabituel));
+    if (sous.length) candidates = sous;
+  }
+  // « D'un trait » (m-l) : entre J-15 ouvrés et la dernière ligne droite, un cas solide non prêt et fréquent passe en tête.
+  const unTrait = new Set<string>();
+  if (dansFenetre && !isTaper) {
+    const choisi = cases
+      .filter((c) => progress.get(c.id)?.etat === 'solide' && !alreadyToday.has(c.id))
+      .sort((a, b) => b.frequency - a.frequency || (a.id < b.id ? -1 : 1))[0];
+    if (choisi && choisi.frequency / Math.max(1, ctx.freqMax) >= SEUIL_FREQUENT) {
+      unTrait.add(choisi.id);
+      const deja = candidates.find((s) => s.c.id === choisi.id);
+      candidates = [deja ?? { c: choisi, score: Infinity, parts: { freq: choisi.frequency / Math.max(1, ctx.freqMax), urgence: 1, dette: 0, fraicheur: 1, du: true } }, ...candidates.filter((s) => s.c.id !== choisi.id)];
+    }
+  }
 
-  const teilDuJour = modus === 'teil-first' ? teilLePlusEnDette(progress, cases) : undefined;
-  const room = () => Math.max(0, targetMin - used);
-  const unitMin = teilDuJour ? TEIL_MIN[teilDuJour] : SIM_MIN;
-  const wanted = Math.max(1, Math.floor(room() / unitMin));
+  /** Ce que la tâche de ce candidat demande : un cas solide dû revient en entier (`revision`) ; sinon ce qui reste (`simulation`). */
+  const decrire = (s: Scored) => {
+    if (s.parts.du) {
+      const dUnTrait = actif && dansFenetre && s.parts.freq >= SEUIL_FREQUENT;
+      return { kind: 'revision' as const, teile: [...TEIL_KEYS], estMin: sommeTrois, dUnTrait };
+    }
+    const teile = restePlan(progress.get(s.c.id), date, tz);
+    const probable = teilHabituel && teile.includes(teilHabituel) ? teilHabituel : teile[0];
+    // Observé « par Teil » : on compte la durée du Teil le plus probable seul (m13) ; sinon la somme de ce qui reste.
+    const estMin = teilHabituel ? duree(probable) : teile.reduce((sum, t) => sum + duree(t), 0);
+    return { kind: 'simulation' as const, teile, estMin, dUnTrait: false };
+  };
 
-  const seedSp = tasks.map((t) => t.specialty).filter((x): x is Specialty => !!x);
-  for (const { scored, diversityRelaxed } of pickWithDiversity(candidates, wanted, enforceDiversity, seedSp)) {
-    const cp = progress.get(scored.c.id);
-    // Une partie mesurée FRAGILE passe devant le Teil du jour : c'est le
-    // travail de plus forte valeur, et c'est ce que dit déjà l'explication.
-    // D-I5 : en `cas-complet`, le mode du candidat prime — jamais un Teil seul.
-    const fragile = modus !== 'cas-complet' && cp ? TEIL_KEYS.find((t) => cp.teile[t].status === 'fragile') : undefined;
-    const teil = fragile ?? teilDuJour;
-    const estMin = teil ? TEIL_MIN[teil] : SIM_MIN;
-    if (used + estMin > targetMin) break;
+  const specialties: Specialty[] = tasks.map((t) => t.specialty).filter((x): x is Specialty => !!x);
+  let premiere = !examenForce && input.forcerLaPremiere !== false;
+  while (candidates.length) {
+    const room = targetMin - used;
+    // La PREMIÈRE tâche de cas est posée même au-delà du budget (ADR-0021, contradiction 5) ; les suivantes doivent tenir.
+    const pool = premiere ? candidates : candidates.filter((s) => decrire(s).estMin <= room);
+    if (!pool.length) break;
+    const [pick] = pickWithDiversity(pool, 1, modus !== 'specialite', specialties);
+    if (!pick) break;
+    candidates = candidates.filter((s) => s.c.id !== pick.scored.c.id);
+    const cp = progress.get(pick.scored.c.id);
+    const d = decrire(pick.scored);
     const layer = layerFor(cp);
     push({
-      kind: 'simulation', label: scored.c.name, estMin, caseId: scored.c.id,
-      specialty: scored.c.specialty, layer, assistance: layer === 1 ? 'assiste' : 'autonome',
-      ...(teil ? { teil } : {}),
-      ...(diversityRelaxed ? { diversityRelaxed: true } : {}),
-      reason: pourquoiAujourdhui(scored, ctx),
+      kind: d.kind, label: pick.scored.c.name, estMin: d.estMin, caseId: pick.scored.c.id, teile: d.teile, creeA,
+      specialty: pick.scored.c.specialty, layer, assistance: layer === 1 ? 'assiste' : 'autonome',
+      ...(d.dUnTrait || unTrait.has(pick.scored.c.id) ? { dUnTrait: true as const } : {}),
+      ...(pick.diversityRelaxed ? { diversityRelaxed: true } : {}),
+      reason: unTrait.has(pick.scored.c.id) && actif ? `Pour la fin de la préparation : ce cas, d'un trait, comme à l'examen.` : pourquoiAujourdhui(pick.scored, ctx),
     });
+    specialties.push(pick.scored.c.specialty);
+    premiere = false;
   }
 
   // 4. La théorie liée au premier cas découvert aujourd'hui, si le budget reste.
@@ -237,7 +251,7 @@ export function buildTasks(input: BuildInput, mkId: () => string = newId): TaskI
   if (linked && used + FACHWISSEN_MIN <= targetMin) {
     // I4 : la tâche de théorie entre dans la liste soumise à C1/C2 ; seul
     // candidat possible, elle porte `diversityRelaxed` si elle les viole.
-    const relaxed = enforceDiversity && !!first!.specialty
+    const relaxed = modus !== 'specialite' && !!first!.specialty
       && violatesDiversity(tasks.map((t) => t.specialty).filter((x): x is Specialty => !!x), first!.specialty);
     push({
       kind: 'fachwissen', label: cases.find((c) => c.id === first!.caseId)!.pathology,
@@ -246,13 +260,18 @@ export function buildTasks(input: BuildInput, mkId: () => string = newId): TaskI
       reason: `La théorie du cas que tu découvres aujourd'hui.`,
     });
   }
-  return drillApresLaPremierePartie(tasks, terms.due);
+  return finir();
 }
 
 export const dayTargetMin = (config: ProgramConfig): number =>
   Math.round(config.hoursPerSession * 60 * INTENSITY_FACTOR[config.intensity]);
 
-function selectContext(input: BuildInput): SelectContext {
+/**
+ * Le contexte de sélection du jour D. `now` y vaut le DÉBUT du jour (jamais l'instant de matérialisation, INV-55) : la
+ * fraîcheur d'un cas se mesure depuis minuit, le plan de D est le même à 8 h et à 14 h. `lastPlayedAt` vient du journal
+ * passé en entrée, qui ne contient pas le jour D.
+ */
+function selectContext(input: BuildInput, debut: number): SelectContext {
   const lastPlayedAt = new Map<string, number>();
   for (const te of input.trainingEvents) {
     if (!te.caseId || !te.teile.length) continue;             // « dernier JEU » : une fiche lue n'est pas un jeu
@@ -263,9 +282,11 @@ function selectContext(input: BuildInput): SelectContext {
   return {
     daysUntilExam: input.config.examDate ? Math.max(0, differenceInCalendarDays(end, parseISO(input.date))) : null,
     freqMax: input.cases.reduce((m, c) => Math.max(m, c.frequency), 1),
-    now: input.now,
+    now: debut,
     lastPlayedAt,
     progress: input.progress,
+    jour: input.date,
+    tz: input.tz,
   };
 }
 
@@ -283,27 +304,41 @@ function selectContext(input: BuildInput): SelectContext {
 export const sessionDuJour = (plan: DayPlan | null | undefined): TaskInstance | null =>
   plan?.tasks.find((t) => t.doneAt === undefined) ?? null;
 
-export const planProgress = (plan: DayPlan | null | undefined): { done: number; total: number } => ({
-  done: plan?.tasks.filter((t) => t.doneAt !== undefined).length ?? 0,
-  total: plan?.tasks.length ?? 0,
-});
+/**
+ * Faites, entamées, total — jamais « manquées » (INV-52, §12.3). Une tâche est ENTAMÉE quand elle n'est pas faite et
+ * qu'une partie du cas en a fait avancer au moins un Teil : le candidat a commencé, le reste revient en tête le
+ * lendemain, proposé. Sans le journal (`events`), seules les faites sont comptées.
+ */
+export function planProgress(plan: DayPlan | null | undefined, events: readonly TrainingEvent[] = []): { faites: number; entamees: number; total: number } {
+  const tasks = plan?.tasks ?? [];
+  const faites = tasks.filter((t) => t.doneAt !== undefined).length;
+  const entamees = events.length ? tasks.filter((t) => t.doneAt === undefined && evaluerTache(t, events, plan?.tz).statut === 'entamee').length : 0;
+  return { faites, entamees, total: tasks.length };
+}
 
 // ---------------------------------------------------------------------------
 // Matérialisation et replanification
 // ---------------------------------------------------------------------------
 
-/** `restant` : ce que le drill servira ENCORE aujourd'hui (budget − déjà introduits) —
- *  ensureDayPlan et replanifier. La projection d'un jour futur prend le budget plein. */
-async function loadBuildInput(config: ProgramConfig, date: string, at: number, restant = true): Promise<BuildInput> {
-  const [cases, begriffe, trainingEvents, progressRows, favEvents] = await Promise.all([
-    db.cases.toArray(), db.fachbegriffe.toArray(), db.training_events.toArray(), db.case_progress.toArray(),
-    db.progress_events.where('type').anyOf(['term.favorited', 'term.unfavorited']).toArray(),
+/**
+ * L'entrée d'un jour, lue dans la base (`entree.ts` fait le calcul, pur). `coupure` : l'instant avant lequel on lit le
+ * journal — `debutJour(date)` à la matérialisation (INV-55), `Infinity` pour replanifier et projeter (tout ce qu'on sait).
+ * `courante` : planifier avec la config COURANTE (replanifier, projection) plutôt que celle d'avant le jour.
+ */
+async function loadBuildInput(date: string, tz: string, at: number, opts: { coupure?: number; courante?: boolean; restant?: boolean } = {}): Promise<{ input: BuildInput; config: ProgramConfig } | null> {
+  const [cases, begriffe, events, personal, meta, reglagesLocaux] = await Promise.all([
+    db.cases.toArray(), db.fachbegriffe.toArray(), db.progress_events.toArray(), db.personal_terms.toArray(), db.meta.get('program'), getSrsSettings(),
   ]);
-  // Le MÊME réglage que le drill annonce (auto = budget × intensité, ou manuel).
-  // Import paresseux : `drillContext` importe `@/lib/program` (cycle sinon).
-  const { loadDrillContext } = await import('@/lib/collections/drillContext');
-  const newPerDay = await loadDrillContext(new Date(at)).then((c) => (restant ? c.remaining : c.daily.newPerDay)).catch(() => undefined);
-  return { config, date, cases, begriffe, trainingEvents, progress: new Map(progressRows.map((p) => [p.caseId, p])), now: at, newPerDay, favorites: favoritesBefore(favEvents, date) };
+  const locale = meta?.value as ProgramConfig | undefined;
+  const e = entreeDuJour({
+    date, tz, events, cases, begriffe, configLocale: locale, reglagesLocaux, coupure: opts.coupure,
+    personal,
+    ...(opts.courante && locale ? { configForcee: locale } : {}),
+  });
+  if (!e.config) return null;                                     // pas de programme : rien à planifier
+  // Replanifier : le budget de nouveaux termes d'AUJOURD'HUI est entamé par ce qui a déjà été introduit (compteur local).
+  const newPerDay = opts.restant ? Math.max(0, e.newPerDay - await introducedToday(new Date(at))) : e.newPerDay;
+  return { config: e.config, input: { config: e.config, date, cases, begriffe: e.begriffe, trainingEvents: e.trainingEvents, progress: e.progress, now: at, newPerDay, tz, favorites: e.favorites } };
 }
 
 /** Les ids des tâches d'un plan, dérivés de sa graine (M2) : rejouables. */
@@ -340,23 +375,26 @@ async function materialiser(date: string): Promise<DayPlan | null> {
   // un jour antérieur au dernier figé — le passé n'est jamais rétroactif.
   const last = await db.day_plans.orderBy('date').last();
   if (last && date < last.date) return null;
-  const config = (await db.meta.get('program'))?.value as ProgramConfig | undefined;
-  if (!config) return null;                                       // pas de programme : rien à matérialiser
 
   const at = clockNow();
-  const input = await loadBuildInput(config, date, at);
+  const tz = fuseauLocal();
+  const charge = await loadBuildInput(date, tz, at);
+  if (!charge) return null;
+  const { input, config } = charge;
+  // INV-55 : l'entrée est le journal d'AVANT le jour. Le mode se lit sur elle ; il est figé avec le plan.
+  const mode = modeDuJour(config, input.trainingEvents, input.cases);
   // M2 : la graine porte l'instant de matérialisation et FONDE les ids — le
   // plan se rejoue depuis elle, et deux appareils n'ont jamais d'ids communs.
-  const seed = `${date}:${modusOf(config)}:${input.trainingEvents.length}:${at}`;
+  const seed = `${date}:${mode}:${input.trainingEvents.length}:${at}`;
   const tasks = buildTasks(input, idsFromSeed(seed));
-  const plan: DayPlan = { date, materializedAt: at, mode: modusOf(config), seed, targetMin: dayTargetMin(config), tasks };
+  const plan: DayPlan = { date, materializedAt: at, mode, seed, targetMin: dayTargetMin(config), tasks, tz };
   // L'événement D'ABORD, horodaté à l'instant de matérialisation : la
   // reconstruction dérive `materializedAt` de `occurred_at` — un autre
   // horodatage changerait le plan au redémarrage (INV-9).
   const { syncQueue } = await import('@/lib/sync/queue');
   await syncQueue.push({
     type: 'plan.materialized', subject_id: date, occurred_at: new Date(at).toISOString(),
-    payload: { tasks, mode: plan.mode, seed: plan.seed, targetMin: plan.targetMin },
+    payload: { tasks, mode: plan.mode, seed: plan.seed, targetMin: plan.targetMin, tz },
   }).catch((e) => console.warn('[sync]', e));
   await db.day_plans.put(plan);
   return plan;
@@ -367,19 +405,23 @@ async function materialiser(date: string): Promise<DayPlan | null> {
  * un geste explicite. Elle CONSERVE à l'identique (id compris) toutes les
  * tâches déjà faites, et ne remplace que les non faites (INV-8). Elle porte sur
  * le jour courant seul : aucun jour futur n'est matérialisé.
+ *
+ * Le journal lu va jusqu'à MAINTENANT (ce qui a été joué aujourd'hui compte : un Teil déjà joué ne revient pas) et
+ * les tâches neuves ont un `creeA` neuf.
  */
 export async function replanifier(date = dayKey(clockNow())): Promise<DayPlan | null> {
   const plan = await db.day_plans.get(date);
-  const config = (await db.meta.get('program'))?.value as ProgramConfig | undefined;
-  if (!plan || !config) return null;
+  if (!plan) return null;
 
   const at = clockNow();
+  const charge = await loadBuildInput(date, plan.tz ?? fuseauLocal(), at, { coupure: Infinity, courante: true, restant: true });
+  if (!charge) return null;
+  const { input, config } = charge;
   const done = plan.tasks.filter((t) => t.doneAt !== undefined);
-  const input = await loadBuildInput(config, date, at);
   const doneCaseIds = new Set(done.map((t) => t.caseId).filter(Boolean));
   // I3 : le budget des tâches faites est CONSOMMÉ — cocher ne libère rien.
   const budgetMin = Math.max(0, (plan.targetMin || dayTargetMin(config)) - done.reduce((s, t) => s + t.estMin, 0));
-  const fresh = buildTasks({ ...input, budgetMin, cases: input.cases.filter((c) => !doneCaseIds.has(c.id)) })
+  const fresh = buildTasks({ ...input, budgetMin, forcerLaPremiere: !done.some((t) => estTacheDeCas(t.kind)), cases: input.cases.filter((c) => !doneCaseIds.has(c.id)) })
     .filter((t) => !done.some((d) => d.kind === t.kind && d.caseId === t.caseId));
 
   const tasks = [...done, ...fresh];
@@ -404,12 +446,12 @@ export async function projectedDays(dates: string[]): Promise<Map<string, TaskIn
   const at = clockNow();
   const today = dayKey(at);
   const future = dates.filter((d) => d > today);
-  const config = (await db.meta.get('program'))?.value as ProgramConfig | undefined;
-  if (!config || !future.length) return out;
-  const input = await loadBuildInput(config, today, at, false);
+  if (!future.length) return out;
+  const charge = await loadBuildInput(today, fuseauLocal(), at, { coupure: Infinity, courante: true });
+  if (!charge) return out;
   for (const date of future) {
     let n = 0;
-    const tasks = buildTasks({ ...input, date }, () => `projection:${date}:${n++}`);
+    const tasks = buildTasks({ ...charge.input, date }, () => `projection:${date}:${n++}`);
     if (tasks.length) out.set(date, tasks);
   }
   return out;
