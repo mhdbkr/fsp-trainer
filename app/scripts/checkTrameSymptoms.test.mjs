@@ -20,15 +20,15 @@ test('socle intact → porte verte', { timeout: 300_000 }, () => {
 });
 
 test('nouveau doublon de concept → porte rouge', { timeout: 300_000 }, () => {
-  // `fach-rheuma-systemisch` est une énumération de dépistage : la déclarer
-  // comme CHERCHANT la fièvre crée un doublon avec la Vegetative Anamnese.
-  const r = sb.mutate(symptoms,
-    "'fach-rheuma-haut': ['ausschlag'],",
-    "'fach-rheuma-haut': ['ausschlag'], 'fach-rheuma-systemisch': ['fieber'],",
+  // K3 : le montage est `cohere` (la carte SUCHT_MONTAGE n'existe plus). Désactiver r2 laisse la fièvre de
+  // `fach-rheuma-systemisch` ET celle de la Vegetative Anamnese : doublon déclaré, la porte rougit.
+  const r = sb.mutate('src/data/guides/coherence.ts',
+    'for (const [u, m] of pertes) perdre(',
+    'for (const [u, m] of new Map<U, Map<Signe, U>>()) perdre(',
     gate);
   assert.equal(r.status, 1, 'la porte aurait dû échouer');
   assert.match(r.stdout, /NOUVEAU\(X\) doublon/);
-  assert.match(r.stdout, /case-polymyalgia/);
+  assert.match(r.stdout, /case-abszess — « ausloeser » deux fois/);
 });
 
 // Le socle est VIDE depuis l'arbitrage des 85 constats (série 3) : il n'y a
@@ -40,8 +40,10 @@ const cases = 'src/data/seedCases.ts';
 
 test('socle connu → une annotation `relu` annulée rouvre la porte', { timeout: 300_000 }, () => {
   const b = JSON.parse(sb.read(baseline));
-  // Vide après la série 3 ; la revue K1 (I-2) y inscrit deux vrais doublons de la nausée, échéance K4.
-  assert.deepEqual(b.findings.map((f) => f.split(' ')[0]), ['R|case-anorexia-nervosa', 'R|case-myokardinfarkt']);
+  // Vide après la série 3 ; la revue K1 (I-2) y inscrit deux vrais doublons de la nausée, K3 dix questions du cas muettes
+  // (hausse documentée au fixture), échéance K4.
+  assert.deepEqual(b.findings.map((f) => f.split(' ')[0]), ['R|case-anorexia-nervosa', 'R|case-cml', 'R|case-diabetes',
+    'R|case-myokardinfarkt', 'R|case-nhl', 'R|case-nhl', 'R|case-nhl', 'R|case-prostatakarzinom', 'R|case-schenkelhalsfraktur', 'R|case-zystitis']);
   const r = sb.mutate(cases,
     "{ frage: 'Hat die Rötung in der Mitte eine hellere Stelle, sodass sie wie eine Zielscheibe aussieht?', kapitel: 'aktuell', relu: true },",
     "{ frage: 'Hat die Rötung in der Mitte eine hellere Stelle, sodass sie wie eine Zielscheibe aussieht?', kapitel: 'aktuell' },",

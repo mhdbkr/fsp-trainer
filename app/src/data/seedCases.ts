@@ -19,7 +19,7 @@ export function seedCases(): Case[] {
       frequency: 26,
       difficulty: 2,
       patientSheet: {
-        profil: { tags: ['schmerz'] },
+        profil: { tags: ['schmerz', 'gastro'] },
         leitsymptomKategorie: 'schmerz',
         motiv: { trauma: false, region: 'abdomen' },
         // « in den letzten Stunden gegessen » ne convient pas à une évolution sur 3 mois ; la réponse reste dans la fiche.
@@ -278,7 +278,7 @@ export function seedCases(): Case[] {
       frequency: 11,
       difficulty: 2,
       patientSheet: {
-        profil: { tags: ['schmerz', 'dyspnoe'] },
+        profil: { tags: ['schmerz', 'dyspnoe', 'kardio'] },
         personalia: {
           name: 'Manfred Bauer', age: 64, geschlecht: 'm', groesseCm: 175, gewichtKg: 92,
           beruf: 'Rentner (früher Busfahrer)', hausarzt: 'Dr. Weber',
@@ -471,7 +471,7 @@ export function seedCases(): Case[] {
       frequency: 14,
       difficulty: 2,
       patientSheet: {
-        profil: { tags: ['schmerz'] },
+        profil: { tags: ['schmerz', 'gastro'] },
         personalia: { name: 'Gisela Hoffmann', age: 55, geschlecht: 'w', groesseCm: 165, gewichtKg: 88, beruf: 'Verkäuferin', familienstand: 'verheiratet' },
         leitsymptome: ['Seit gestern Abend heftige Oberbauchschmerzen, gürtelförmig in den Rücken ausstrahlend'],
         begleitsymptome: ['Übelkeit, mehrfaches Erbrechen', 'aufgeblähter Bauch'],
@@ -655,7 +655,9 @@ export function seedCases(): Case[] {
       frequency: 19,
       difficulty: 3,
       patientSheet: {
-        profil: { tags: ['veraenderung'] },
+        profil: { tags: ['veraenderung', 'gastro'], exige: ['charakter'] },   // 3e revue B2 : la douleur épigastrique (fiche : schmerz Oberbauch, brennend, kurz nach dem Essen) distingue l'ulcère sous AINS
+        // K3 : hématémèse : pas de lésion à décrire — ni « Befund », ni « Tut es weh, juckt es? », ni « größer geworden » (revue clinique, décision de main).
+        aktuellSkip: ['akt-veraend-was', 'akt-veraend-blutung', 'akt-veraend-entwicklung'],
         leitsymptomKategorie: 'veraenderung',
         personalia: { name: 'Werner Klein', age: 71, geschlecht: 'm', groesseCm: 172, gewichtKg: 70, beruf: 'Rentner', familienstand: 'verwitwet' },
         leitsymptome: ['Seit heute Morgen schwarzer, klebriger Stuhl und einmal kaffeesatzartiges Erbrechen'],
@@ -690,6 +692,7 @@ export function seedCases(): Case[] {
           // Aktuelle Beschwerden (OPQRST)
           'akt-motiv': 'Ich hatte heute Morgen ganz schwarzen Stuhl und musste einmal braun erbrechen.',
           'akt-beginn': 'Der schwarze Stuhl war heute Morgen; das Brennen im Bauch habe ich aber schon seit Wochen.',
+          'akt-charakter': 'Es brennt, oben im Bauch, in der Magengrube — vor allem kurz nach dem Essen.',
           'akt-veraend-was': 'Mir ist vor allem der schwarze Stuhl aufgefallen, ganz klebrig-schwarz, und dann hab ich einmal so braunes Zeug erbrochen, wie Kaffeesatz.',
           'akt-veraend-entwicklung': 'Der Stuhl war heute schon zweimal so schwarz, das Erbrechen nur das eine Mal. Es ist eigentlich seitdem gleich geblieben, nicht schlimmer.',
           'akt-veraend-blutung': 'Wehtun oder jucken tut da nichts. Aber Blut ist eben dabei — im Stuhl, schwarz halt, und beim Erbrechen war\'s wie Kaffeesatz, nicht hellrot. Im Urin oder beim Husten ist mir nichts aufgefallen.',
@@ -822,7 +825,7 @@ export function seedCases(): Case[] {
       name: 'Akute Divertikulitis', pathology: 'Divertikulitis', specialty: 'Gastroenterologie',
       centers: ['Freiburg', 'Karlsruhe', 'Stuttgart'], frequency: 11, difficulty: 1,
       patientSheet: {
-        profil: { tags: ['schmerz', 'fieber'] },
+        profil: { tags: ['schmerz', 'fieber', 'gastro'] },
         personalia: { name: 'Ursula Maier', age: 67, geschlecht: 'w', groesseCm: 168, gewichtKg: 72, beruf: 'Rentnerin', familienstand: 'verheiratet' },
         leitsymptome: ['Seit 3 Tagen Schmerzen im linken Unterbauch'],
         begleitsymptome: ['Fieber', 'Stuhlunregelmäßigkeiten (Verstopfung)'],
@@ -1170,7 +1173,7 @@ export function seedCases(): Case[] {
       name: 'Kolorektales Karzinom', pathology: 'Kolorektales Karzinom', specialty: 'Gastroenterologie',
       centers: ['Karlsruhe', 'Stuttgart', 'Freiburg'], frequency: 15, difficulty: 2,
       patientSheet: {
-        profil: { tags: ['ausscheidung', 'gewichtsverlust'] },
+        profil: { tags: ['ausscheidung', 'gewichtsverlust', 'transit', 'gastro'] },
         leitsymptomKategorie: 'ausscheidung',
         personalia: { name: 'Heinrich Vogt', age: 68, geschlecht: 'm', beruf: 'Rentner', familienstand: 'verheiratet' },
         leitsymptome: ['Seit Wochen wechselnder Stuhlgang und Blut im Stuhl'],
@@ -1342,7 +1345,7 @@ export function seedCases(): Case[] {
       name: 'Gastroösophageale Refluxkrankheit', pathology: 'GERD (Refluxkrankheit)', specialty: 'Gastroenterologie',
       centers: ['Freiburg', 'Karlsruhe', 'Stuttgart'], frequency: 7, difficulty: 1,
       patientSheet: {
-        profil: { tags: ['schmerz', 'hals', 'husten'] },
+        profil: { tags: ['schmerz', 'hals', 'husten', 'gastro'] },
         personalia: { name: 'Sabine Wolf', age: 42, geschlecht: 'w', groesseCm: 170, gewichtKg: 84, beruf: 'Bürokauffrau', familienstand: 'ledig' },
         leitsymptome: ['Seit Monaten Sodbrennen, besonders nach dem Essen und im Liegen'],
         begleitsymptome: ['saures Aufstoßen', 'gelegentlich Reizhusten nachts'],
@@ -1497,7 +1500,7 @@ export function seedCases(): Case[] {
       caseSpecificQuestions: [
         { frage: 'Wann sind die Beschwerden am schlimmsten — nach dem Essen, im Liegen oder nachts?', kapitel: 'aktuell' },
         { frage: 'Haben Sie Schluckbeschwerden bemerkt, zum Beispiel dass Essen stecken bleibt?', kapitel: 'aktuell' },
-        { frage: 'Haben Sie nachts Husten oder eine heisere Stimme bemerkt?', kapitel: 'aktuell' },
+        { frage: 'Haben Sie nachts Husten oder eine heisere Stimme bemerkt?', kapitel: 'aktuell', sucht: ['husten', 'stimme'] },
         { frage: 'Verschlimmern sich die Beschwerden nach Kaffee, Alkohol oder fettigem Essen?', kapitel: 'aktuell' },
       ],
       examinerQuestions: ['Wann ÖGD indiziert?', 'Nennen Sie Alarmsymptome.'],
@@ -1518,7 +1521,7 @@ export function seedCases(): Case[] {
       name: 'Akuter Myokardinfarkt (STEMI)', pathology: 'Myokardinfarkt', specialty: 'Kardiologie',
       centers: ['Freiburg', 'Karlsruhe', 'Reutlingen'], frequency: 7, difficulty: 3,
       patientSheet: {
-        profil: { tags: ['schmerz'] },
+        profil: { tags: ['schmerz', 'kardio'] },
         personalia: { name: 'Dieter Fischer', age: 59, geschlecht: 'm', beruf: 'Bauleiter', familienstand: 'verheiratet' },
         leitsymptome: ['Seit 45 Minuten stärkste Schmerzen hinter dem Brustbein, auch in Ruhe'],
         begleitsymptome: ['Kaltschweißigkeit', 'Übelkeit', 'Todesangst', 'Ausstrahlung linker Arm/Kiefer'],
@@ -1698,7 +1701,7 @@ export function seedCases(): Case[] {
       name: 'Ösophaguskarzinom', pathology: 'Ösophaguskarzinom', specialty: 'Gastroenterologie',
       centers: ['Stuttgart', 'Karlsruhe'], frequency: 22, difficulty: 2,
       patientSheet: {
-        profil: { tags: ['ausscheidung', 'dysphagie', 'hals', 'gewichtsverlust'] },
+        profil: { tags: ['ausscheidung', 'dysphagie', 'hals', 'gewichtsverlust', 'gastro'] },
         leitsymptomKategorie: 'ausscheidung',
         personalia: { name: 'Anna Sichel', age: 53, geschlecht: 'w', groesseCm: 168, gewichtKg: 58, beruf: 'Schneiderin', familienstand: 'verheiratet' },
         leitsymptome: ['Seit 4 Wochen zunehmende Schluckbeschwerden, erst bei fester, jetzt bei weicher Kost'],
@@ -1898,7 +1901,7 @@ export function seedCases(): Case[] {
       frequency: 6,
       difficulty: 2,
       patientSheet: {
-        profil: { tags: ['schmerz', 'hals'] },
+        profil: { tags: ['schmerz', 'hals', 'gastro'] },
         personalia: {
           name: 'Jobst Donalies',
           age: 38,
@@ -2224,7 +2227,7 @@ export function seedCases(): Case[] {
       frequency: 15,
       difficulty: 3,
       patientSheet: {
-        profil: { tags: ['allgemein', 'hals', 'gewichtsverlust'] },
+        profil: { tags: ['allgemein', 'hals', 'gewichtsverlust', 'gastro'] },
         leitsymptomKategorie: 'allgemein',
         personalia: {
           name: 'Julian Brückner',
@@ -3458,7 +3461,7 @@ export function seedCases(): Case[] {
       },
       probableAufklaerungIds: [],
       caseSpecificQuestions: [
-        { frage: 'Sind Sie gegen die Grippe oder gegen Pneumokokken geimpft?', kapitel: 'vorerkrankungen' },
+        { frage: 'Sind Sie gegen die Grippe oder gegen Pneumokokken geimpft?', kapitel: 'vorerkrankungen', sucht: ['impfung'] },
         { frage: 'Wurden Sie wegen Ihrer Krebserkrankung mit einer Chemotherapie oder Bestrahlung behandelt?', kapitel: 'medikamente' },
         { frage: 'Haben Sie in den letzten Wochen ein Antibiotikum eingenommen?', kapitel: 'medikamente' },
       ],
@@ -3593,7 +3596,7 @@ export function seedCases(): Case[] {
       frequency: 14,
       difficulty: 2,
       patientSheet: {
-        profil: { tags: ['schmerz', 'fieber', 'stein'] },
+        profil: { tags: ['schmerz', 'fieber', 'stein', 'harn'] },
         personalia: {
           name: 'Lisa Häberle',
           age: 76,
@@ -4277,7 +4280,7 @@ export function seedCases(): Case[] {
       frequency: 17,
       difficulty: 3,
       patientSheet: {
-        profil: { tags: ['infekt', 'lyme'] },
+        profil: { tags: ['infekt', 'lyme', 'fieber'] },   // 3e revue B1 : « leicht erhöhte Temperatur » est dans le motif (D4-bis)
         leitsymptomKategorie: 'infekt',
         personalia: {
           name: 'Nadine Brückner',
@@ -6200,7 +6203,7 @@ export function seedCases(): Case[] {
       frequency: 7,
       difficulty: 3,
       patientSheet: {
-        profil: { tags: ['schmerz'] },
+        profil: { tags: ['schmerz', 'transit', 'gastro'] },
         personalia: {
           name: 'Frida Zimmermann',
           age: 52,
@@ -6692,6 +6695,8 @@ export function seedCases(): Case[] {
       difficulty: 3,
       patientSheet: {
         profil: { tags: ['neurologisch', 'hals'] },
+        // K3 (revue clinique P2) : la rotation de la tête (vertige positionnel) n'est pas une question de l'AVC / AIT ici.
+        aktuellSkip: ['akt-neuro-lage'],
         leitsymptomKategorie: 'neurologisch',
         personalia: {
           name: 'Arnd Kartmann',
@@ -7718,7 +7723,7 @@ export function seedCases(): Case[] {
       frequency: 8,
       difficulty: 2,
       patientSheet: {
-        profil: { tags: ['allgemein', 'gewichtsverlust'] },
+        profil: { tags: ['allgemein', 'gewichtsverlust', 'endo'] },
         leitsymptomKategorie: 'allgemein',
         personalia: {
           name: 'Thomas Rosnier',
@@ -8271,7 +8276,7 @@ export function seedCases(): Case[] {
       frequency: 6,
       difficulty: 2,
       patientSheet: {
-        profil: { tags: ['allgemein', 'hals', 'gewichtsverlust'] },
+        profil: { tags: ['allgemein', 'hals', 'gewichtsverlust', 'endo'] },
         leitsymptomKategorie: 'allgemein',
         personalia: {
           name: 'Jessica Suess',
@@ -9187,7 +9192,7 @@ export function seedCases(): Case[] {
       caseSpecificQuestions: [
         { frage: 'Husten Sie schon seit Jahren, fast jeden Morgen, oder ist der Husten neu aufgetreten?', kapitel: 'aktuell', sucht: ['husten'] },
         { frage: 'Wie oft hatten Sie im letzten Jahr eine solche Verschlechterung? Haben Sie dafür Kortisontabletten oder ein Antibiotikum bekommen, und waren Sie deswegen im Krankenhaus?', kapitel: 'vorerkrankungen' },
-        { frage: 'Sind Sie gegen Grippe und gegen Pneumokokken geimpft?', kapitel: 'vorerkrankungen' },
+        { frage: 'Sind Sie gegen Grippe und gegen Pneumokokken geimpft?', kapitel: 'vorerkrankungen', sucht: ['impfung'] },
         { frage: 'Sind Ihre Beine geschwollen? Müssen Sie nachts Wasser lassen, und mit wie vielen Kissen schlafen Sie?', kapitel: 'aktuell', sucht: ['oedeme', 'orthopnoe'] },
         { frage: 'Was heißt bei Ihnen „das Spray bei Bedarf nehmen“ — wie oft nehmen Sie es tatsächlich, und wie wenden Sie es an?', kapitel: 'medikamente' },
         { frage: 'Waren Sie beruflich Stäuben, Abgasen, Asbest oder Vögeln ausgesetzt? Wird bei Ihnen zu Hause geraucht?', kapitel: 'familie-sozial' },
@@ -9378,7 +9383,7 @@ export function seedCases(): Case[] {
       frequency: 0,
       difficulty: 2,
       patientSheet: {
-        profil: { tags: ['ausscheidung', 'schmerz', 'stein'] },
+        profil: { tags: ['ausscheidung', 'schmerz', 'stein', 'harn'] },
         leitsymptomKategorie: 'ausscheidung',
         personalia: {
           name: 'Lena Hartmann',
@@ -11070,7 +11075,7 @@ export function seedCases(): Case[] {
       frequency: 3,
       difficulty: 3,
       patientSheet: {
-        profil: { tags: ['atemnot', 'dyspnoe', 'husten'] },
+        profil: { tags: ['atemnot', 'dyspnoe', 'husten', 'kardio'] },
         fachSkip: ['fach-kardio-ausstrahlung'],
         leitsymptomKategorie: 'atemnot',
         personalia: {
@@ -11433,7 +11438,7 @@ export function seedCases(): Case[] {
         'auf-sonographie',
       ],
       caseSpecificQuestions: [
-        { frage: 'Mit wie vielen Kissen schlafen Sie, und wachen Sie nachts auf, weil Sie keine Luft bekommen?', kapitel: 'aktuell', sucht: ['orthopnoe'] },
+        { frage: 'Mit wie vielen Kissen schlafen Sie, und wachen Sie nachts auf, weil Sie keine Luft bekommen?', kapitel: 'aktuell', sucht: ['orthopnoe', 'dpn'] },
         { frage: 'Haben Sie sich gewogen?', kapitel: 'vegetativ', sucht: ['gewicht'], followUp: 'Falls ja: Wie viel haben Sie zugenommen?' },
         { frage: 'Sind beide Beine gleich stark geschwollen? Bleibt eine Delle stehen, wenn Sie mit dem Finger daraufdrücken?', kapitel: 'aktuell' },
         { frage: 'Nehmen Sie alle Ihre Tabletten so ein, wie sie verschrieben wurden — haben Sie eine davon weggelassen, zum Beispiel die Entwässerungstablette?', kapitel: 'medikamente' },
@@ -11636,7 +11641,7 @@ export function seedCases(): Case[] {
       frequency: 13,
       difficulty: 3,
       patientSheet: {
-        profil: { tags: ['schmerz', 'fieber', 'stein'] },
+        profil: { tags: ['schmerz', 'fieber', 'stein', 'harn'] },
         personalia: {
           name: 'Jörg Müller',
           age: 79,
@@ -12714,7 +12719,7 @@ export function seedCases(): Case[] {
       frequency: 0,
       difficulty: 2,
       patientSheet: {
-        profil: { tags: ['allgemein', 'dyspnoe', 'gewichtsverlust'] },
+        profil: { tags: ['allgemein', 'dyspnoe', 'gewichtsverlust', 'haem'] },
         leitsymptomKategorie: 'allgemein',
         personalia: {
           name: 'Renate Bergmann',
@@ -13241,7 +13246,7 @@ export function seedCases(): Case[] {
       frequency: 8,
       difficulty: 3,
       patientSheet: {
-        profil: { tags: ['anfall', 'dyspnoe'] },
+        profil: { tags: ['anfall', 'dyspnoe', 'kardio'], exclut: { zungenbiss: 'keine Synkope', einnaessen: 'keine Synkope' } },
         leitsymptomKategorie: 'anfall',
         personalia: {
           name: 'Reinhard Kessler',
@@ -14304,7 +14309,7 @@ export function seedCases(): Case[] {
       frequency: 0,
       difficulty: 2,
       patientSheet: {
-        profil: { tags: ['allgemein', 'hals'] },
+        profil: { tags: ['allgemein', 'hals', 'endo'] },
         leitsymptomKategorie: 'allgemein',
         personalia: {
           name: 'Beate Lindner',
@@ -14857,7 +14862,7 @@ export function seedCases(): Case[] {
       frequency: 0,
       difficulty: 3,
       patientSheet: {
-        profil: { tags: ['allgemein', 'dyspnoe', 'gewichtsverlust'] },
+        profil: { tags: ['allgemein', 'dyspnoe', 'gewichtsverlust', 'harn'] },
         leitsymptomKategorie: 'allgemein',
         personalia: {
           name: 'Werner Kolbe',
@@ -15216,7 +15221,7 @@ export function seedCases(): Case[] {
         { frage: 'Wurden Ihnen schon einmal erhöhte Nierenwerte mitgeteilt?', kapitel: 'vorerkrankungen', followUp: 'Falls ja: Wann war Ihre letzte Blutabnahme?' },
         { frage: 'Seit wann besteht Ihr Diabetes, und waren Sie in augenärztlicher Kontrolle?', kapitel: 'vorerkrankungen' },
         { frage: 'Ist Ihr Harnstrahl abgeschwächt, tröpfelt es nach, oder haben Sie das Gefühl, die Blase nicht ganz zu entleeren?', kapitel: 'aktuell' },
-        { frage: 'Bekommen Sie Luftnot beim Treppensteigen, und schlafen Sie flach oder mit mehreren Kissen?', kapitel: 'aktuell', sucht: ['orthopnoe'] },
+        { frage: 'Bekommen Sie Luftnot beim Treppensteigen, und schlafen Sie flach oder mit mehreren Kissen?', kapitel: 'aktuell', sucht: ['atemnot', 'orthopnoe'] },
         { frage: 'Hat sich Ihr Insulin- oder Tablettenbedarf für den Zucker in letzter Zeit verändert?', kapitel: 'medikamente' },
       ],
       examinerQuestions: [
@@ -15411,7 +15416,9 @@ export function seedCases(): Case[] {
       frequency: 4,
       difficulty: 3,
       patientSheet: {
-        profil: { tags: ['veraenderung', 'fieber', 'hals', 'lyme', 'gewichtsverlust'] },
+        profil: { tags: ['veraenderung', 'fieber', 'hals', 'lyme', 'gewichtsverlust', 'onko'] },
+        // K3 : l'adénopathie est demandée par la Fach onko et la question du cas (trois fois sinon) ; douleur à l'alcool et prurit par les questions du cas (revue clinique).
+        aktuellSkip: ['akt-veraend-was', 'akt-veraend-blutung'],
         leitsymptomKategorie: 'veraenderung',
         personalia: {
           name: 'Elisabeth Länge',
@@ -17568,7 +17575,7 @@ export function seedCases(): Case[] {
       frequency: 3,
       difficulty: 3,
       patientSheet: {
-        profil: { tags: ['ausscheidung', 'gewichtsverlust'] },
+        profil: { tags: ['ausscheidung', 'gewichtsverlust', 'onko'] },
         leitsymptomKategorie: 'ausscheidung',
         personalia: {
           name: 'Ilsi Bachmann',
@@ -19156,7 +19163,7 @@ export function seedCases(): Case[] {
       frequency: 6,
       difficulty: 2,
       patientSheet: {
-        profil: { tags: ['ausscheidung', 'stein'] },
+        profil: { tags: ['ausscheidung', 'stein', 'harn'] },
         leitsymptomKategorie: 'ausscheidung',
         personalia: {
           name: 'Oliver Müller',
@@ -20313,7 +20320,7 @@ export function seedCases(): Case[] {
       frequency: 6,
       difficulty: 3,
       patientSheet: {
-        profil: { tags: ['veraenderung', 'dyspnoe', 'hals', 'gewichtsverlust'] },
+        profil: { tags: ['veraenderung', 'dyspnoe', 'hals', 'gewichtsverlust', 'onko'] },
         leitsymptomKategorie: 'veraenderung',
         personalia: {
           name: 'Michael Witzinger',
@@ -20469,6 +20476,8 @@ export function seedCases(): Case[] {
           'fach-onko-vorsorge': 'Darmspiegelung mit 60, alles in Ordnung. Zum Urologen gehe ich jedes Jahr, der Wert war immer normal. Und die Lunge wurde vor drei Monaten geröntgt, wegen der Lungenentzündung.',
           // K2 (ADR-0023) : réponses des sondes de banque que le profil exige (r3)
           'akt-atemnot-belastung': 'Bei Belastung. Nach etwa hundert Metern in der Ebene oder nach einer Treppe muss ich stehen bleiben — vor einem halben Jahr bin ich noch den Hang zum Garten hoch. Im Sitzen habe ich keine Luftnot.',
+          // K3 (revue P1-9) : la banque de la dyspnée est fach-pneumo-atemnot — même réplique que pour la question de la variante.
+          'fach-pneumo-atemnot': 'Bei Belastung. Nach etwa hundert Metern in der Ebene oder nach einer Treppe muss ich stehen bleiben — vor einem halben Jahr bin ich noch den Hang zum Garten hoch. Im Sitzen habe ich keine Luftnot.',
         },
         schwierigeReaktionen: [
           '"Habe ich Krebs? Sagen Sie es mir bitte ehrlich. Mein Vater ist daran gestorben."',
@@ -21959,7 +21968,7 @@ export function seedCases(): Case[] {
       frequency: 3,
       difficulty: 2,
       patientSheet: {
-        profil: { tags: ['schmerz', 'diarrhoe', 'steifigkeit', 'gewichtsverlust'] },
+        profil: { tags: ['schmerz', 'diarrhoe', 'steifigkeit', 'gewichtsverlust', 'gastro'] },
         personalia: {
           name: 'Jonas Reinhardt',
           age: 26,
@@ -22308,7 +22317,7 @@ export function seedCases(): Case[] {
       ],
       caseSpecificQuestions: [
         { frage: 'Haben Sie Blut IM Stuhl gesehen, oder nur AM Toilettenpapier beim Abputzen? Brennt es dabei?', kapitel: 'aktuell' },
-        { frage: 'Müssen Sie auch nachts wegen des Durchfalls aufstehen?', kapitel: 'aktuell' },
+        { frage: 'Müssen Sie auch nachts wegen des Durchfalls aufstehen?', kapitel: 'aktuell', sucht: ['stuhl_nachts'] },
         { frage: 'Ist Ihr Stuhl fettig-glänzend und schwer abzuspülen?', kapitel: 'aktuell' },
         { frage: 'Waren Sie in den letzten Monaten im Ausland?', kapitel: 'vegetativ', sucht: ['reise'], relu: true, followUp: 'Falls ja: Hatten Sie dort Durchfall?' },
         { frage: 'Haben Sie in den letzten Monaten Antibiotika eingenommen?', kapitel: 'medikamente' },
@@ -23596,7 +23605,7 @@ export function seedCases(): Case[] {
       frequency: 7,
       difficulty: 3,
       patientSheet: {
-        profil: { tags: ['ausscheidung', 'stein', 'gewichtsverlust'] },
+        profil: { tags: ['ausscheidung', 'stein', 'gewichtsverlust', 'harn'] },
         leitsymptomKategorie: 'ausscheidung',
         personalia: {
           name: 'Hermann Kastner',
@@ -25788,7 +25797,7 @@ export function seedCases(): Case[] {
       frequency: 2,
       difficulty: 2,
       patientSheet: {
-        profil: { tags: ['veraenderung', 'dysphagie', 'hals'] },
+        profil: { tags: ['veraenderung', 'dysphagie', 'hals', 'endo'] },
         leitsymptomKategorie: 'veraenderung',
         personalia: {
           name: 'Renate Brunner',
@@ -27907,7 +27916,7 @@ export function seedCases(): Case[] {
       frequency: 1,
       difficulty: 3,
       patientSheet: {
-        profil: { tags: ['anfall', 'dyspnoe'] },
+        profil: { tags: ['anfall', 'dyspnoe', 'kardio'] },
         leitsymptomKategorie: 'anfall',
         personalia: {
           name: 'Ottmar Reichenbach',
@@ -28022,7 +28031,7 @@ export function seedCases(): Case[] {
           'akt-beginn': 'Gestern Vormittag, so gegen elf. Vorher war überhaupt nichts, ich habe mich ganz normal gefühlt.',
           'akt-anfall-ablauf': 'Das kann ich Ihnen gar nicht sagen — ich war ja weg, ich habe nichts gespürt und weiß auch nicht, wie es angefangen hat. Auf einmal war ich wieder da, unten auf dem Boden.',
           'akt-anfall-dauer': 'Meine Frau sagt, zwanzig bis dreißig Sekunden war ich weg. Passiert ist das erst einmal, gestern. Vor zwei Monaten wurde mir beim Radfahren bergauf kurz schwarz vor Augen, aber da bin ich nicht umgefallen.',
-          'akt-anfall-bewusstsein': 'Ja, bewusstlos war ich wohl, meine Frau hat mich nicht wachbekommen. Verletzt habe ich mich beim Sturz — die Stirn ist aufgeplatzt und die linke Schulter ist geprellt, die Brille ist kaputtgegangen.',
+          'akt-anfall-bewusstsein': 'Ja, bewusstlos war ich wohl, meine Frau hat mich nicht wachbekommen. Verletzt habe ich mich beim Sturz — die Stirn ist aufgeplatzt und die linke Schulter ist geprellt, die Brille ist kaputtgegangen. Auf die Zunge gebissen habe ich mich nicht, und eingenässt habe ich mich auch nicht.',
           'akt-verlauf': 'Die Ohnmacht war einmalig und kurz. Meine Frau sagt, zwanzig, dreißig Sekunden — sie hat schon den Notruf gewählt, da bin ich wieder wach geworden. Und ich war sofort wieder ganz da, ich wusste, wo ich bin, und habe mich über die Kisten geärgert. Verwirrt war ich keine Sekunde.',
           'akt-ausloeser': 'Ich bin die Treppe hochgestiegen, mit zwei vollen Getränkekisten. Also unter Anstrengung. Nicht beim Aufstehen, nicht nach langem Stehen, nicht in der Hitze. Und geschlagen oder gestoßen hat mich auch niemand.',
           'akt-einfluss': 'Der Brustdruck kommt immer nur bei Anstrengung — Treppe, bergauf, Kisten tragen, und bei Kälte schneller. Wenn ich stehen bleibe, ist er nach zwei, drei Minuten weg. In Ruhe und nachts habe ich gar nichts. Tabletten dagegen habe ich nie genommen.',
@@ -28245,8 +28254,8 @@ export function seedCases(): Case[] {
         'auf-roentgen-thorax',
       ],
       caseSpecificQuestions: [
-        { frage: 'Ist Ihre Frau dabei gewesen? Dürfte ich sie kurz dazu bitten? Was genau hat sie gesehen?', kapitel: 'aktuell' },
-        { frage: 'Wie lange waren Sie nach Angabe Ihrer Frau nicht ansprechbar, und wie schnell waren Sie danach wieder ganz bei sich — sofort oder erst nach einigen Minuten?', kapitel: 'aktuell' },
+        { frage: 'Ist Ihre Frau dabei gewesen? Dürfte ich sie kurz dazu bitten? Was genau hat sie gesehen?', kapitel: 'aktuell', sucht: ['fremdanamnese'] },
+        { frage: 'Wie lange waren Sie nach Angabe Ihrer Frau nicht ansprechbar, und wie schnell waren Sie danach wieder ganz bei sich — sofort oder erst nach einigen Minuten?', kapitel: 'aktuell', sucht: ['anfallszeichen'] },
         { frage: 'Hat sich der Anfall angekündigt, oder kam er völlig ohne Vorwarnung?', kapitel: 'aktuell' },
         { frage: 'Was haben Sie in dem Moment gemacht: Sind Sie aufgestanden, haben Sie lange gestanden, oder haben Sie sich angestrengt?', kapitel: 'aktuell' },
         { frage: 'Haben Sie sich beim Sturz noch abfangen können, oder sind Sie ungebremst gefallen?', kapitel: 'aktuell' },
@@ -28440,7 +28449,7 @@ export function seedCases(): Case[] {
       frequency: 6,
       difficulty: 2,
       patientSheet: {
-        profil: { tags: ['schmerz', 'diarrhoe', 'gewichtsverlust'] },
+        profil: { tags: ['schmerz', 'diarrhoe', 'gewichtsverlust', 'gastro'] },
         personalia: {
           name: 'Gustav Hirschmann',
           age: 46,
@@ -28799,7 +28808,7 @@ export function seedCases(): Case[] {
         { frage: 'Ist Ihr Stuhl fettig-glänzend, schwimmt er oben, oder klebt er in der Toilette?', kapitel: 'aktuell' },
         { frage: 'Reagieren Sie eher auf Brot, Nudeln und Kuchen, oder eher auf Milch und Milchprodukte?', kapitel: 'aktuell' },
         { frage: 'Haben Sie von sich aus bereits begonnen, bestimmte Lebensmittel wegzulassen — zum Beispiel Brot oder Mehlprodukte?', kapitel: 'aktuell' },
-        { frage: 'Müssen Sie auch nachts zum Stuhlgang aufstehen?', kapitel: 'aktuell', relu: true },
+        { frage: 'Müssen Sie auch nachts zum Stuhlgang aufstehen?', kapitel: 'aktuell', relu: true, sucht: ['stuhl_nachts'] },
         { frage: 'Haben Sie stark juckende Bläschen oder Hautausschläge, besonders an Ellenbogen, Knien oder am Gesäß?', kapitel: 'aktuell' },
         { frage: 'Leiden Sie an wiederkehrenden Aphthen im Mund, an brüchigen Nägeln oder an Knochenschmerzen?', kapitel: 'aktuell' },
         { frage: 'Sind bei Ihnen Blutarmut oder Eisenmangel bekannt, und hat eine Eisentablette jemals nicht angeschlagen?', kapitel: 'vorerkrankungen' },
@@ -31698,7 +31707,9 @@ export function seedCases(): Case[] {
       frequency: 0,
       difficulty: 3,
       patientSheet: {
-        profil: { tags: ['veraenderung'] },
+        profil: { tags: ['veraenderung', 'haem'] },
+        // K3 : les pétéchies sont la « Veränderung » (Befund gardé) ; douleur / prurit hors sujet, la Fach hémato pose les saignements (revue clinique).
+        aktuellSkip: ['akt-veraend-blutung'],
         leitsymptomKategorie: 'veraenderung',
         personalia: {
           name: 'Katrin Vollmer',
@@ -32056,7 +32067,7 @@ export function seedCases(): Case[] {
         { frage: 'Lassen sich die roten Punkte an den Beinen wegdrücken, wenn Sie mit dem Finger oder einem Glas darauf drücken?', kapitel: 'aktuell' },
         { frage: 'Blutet Ihr Zahnfleisch beim Zähneputzen, und hatten Sie Nasenbluten?', kapitel: 'aktuell', relu: true },
         { frage: 'Ist Ihre letzte Regelblutung stärker oder länger gewesen als sonst?', kapitel: 'frauenanamnese', followUp: 'Falls ja: Wie viele Binden oder Tampons haben Sie gebraucht?' },
-        { frage: 'Hatten Sie in den letzten Wochen einen Infekt, eine Erkältung oder eine Impfung?', kapitel: 'vorerkrankungen' },
+        { frage: 'Hatten Sie in den letzten Wochen einen Infekt, eine Erkältung oder eine Impfung?', kapitel: 'vorerkrankungen', sucht: ['vorinfekt', 'impfung'] },
         { frage: 'Haben Sie in den letzten Monaten Spritzen in den Bauch bekommen, zum Beispiel Thrombosespritzen nach einer Operation?', kapitel: 'medikamente' },
         { frage: 'Haben Sie Kopfschmerzen, Erbrechen, Sehstörungen oder Schwindel bemerkt?', kapitel: 'aktuell', relu: true },
       ],
@@ -32258,6 +32269,9 @@ export function seedCases(): Case[] {
       difficulty: 2,
       patientSheet: {
         profil: { tags: ['veraenderung', 'dyspnoe'] },
+        // K3 (revue clinique P1-7, décision de main) : trouble hémorragique, pas de constat cutané — ni « Befund — Knoten, Ausschlag »,
+        // ni « Tut es weh, juckt es, oder blutet es? ». Le profil `exclut` ne peut viser des signes de dépistage (INV-80) : aktuellSkip.
+        aktuellSkip: ['akt-veraend-was', 'akt-veraend-blutung'],
         leitsymptomKategorie: 'veraenderung',
         personalia: {
           name: 'Nadine Brückner',
@@ -32774,7 +32788,7 @@ export function seedCases(): Case[] {
       frequency: 1,
       difficulty: 3,
       patientSheet: {
-        profil: { tags: ['allgemein', 'diarrhoe'] },
+        profil: { tags: ['allgemein', 'diarrhoe', 'harn'] },
         leitsymptomKategorie: 'allgemein',
         personalia: {
           name: 'Werner Hoffmann',
@@ -33112,7 +33126,7 @@ export function seedCases(): Case[] {
       ],
       caseSpecificQuestions: [
         { frage: 'Wie viel Urin lassen Sie ungefähr an einem ganzen Tag — können Sie es mit einem Glas oder einer Flasche vergleichen? Und wie viel war es vorher?', kapitel: 'vegetativ' },
-        { frage: 'Wie viel haben Sie in den letzten Tagen wirklich getrunken, und wie oft mussten Sie erbrechen oder zur Toilette wegen des Durchfalls?', kapitel: 'vegetativ', relu: true },
+        { frage: 'Wie viel haben Sie in den letzten Tagen wirklich getrunken, und wie oft mussten Sie erbrechen oder zur Toilette wegen des Durchfalls?', kapitel: 'vegetativ', relu: true, sucht: ['uebelkeit', 'stuhlfrequenz'] },
         { frage: 'Haben Sie sich in den letzten Tagen gewogen?', kapitel: 'aktuell', sucht: ['gewicht'], followUp: 'Falls ja: Wie viel haben Sie abgenommen oder zugenommen?' },
         { frage: 'Nehmen Sie Schmerzmittel ein, die Sie ohne Rezept in der Apotheke bekommen — Ibuprofen, Diclofenac oder Voltaren?', kapitel: 'medikamente', followUp: 'Falls ja: Wie viele Tabletten nehmen Sie pro Tag?' },
         { frage: 'Können Sie mir Ihre Blutdrucktablette genau beschreiben oder die Packung zeigen? Ist eine Entwässerungstablette darin enthalten?', kapitel: 'medikamente' },
@@ -33320,6 +33334,9 @@ export function seedCases(): Case[] {
       frequency: 8,
       difficulty: 3,
       patientSheet: {
+        // K3 (revue clinique) : la Fach rhumato pose l'Auslöser avec les relances de la goutte (Bier, Wassertablette), hors sujet ici ;
+        // celui d'Aktuelle Beschwerden reste.
+        fachSkip: ['fach-rheuma-ausloeser'],
         profil: {
           tags: ['schmerz', 'generalisiert', 'steifigkeit'],
           exclut: {
@@ -33666,12 +33683,12 @@ export function seedCases(): Case[] {
         'auf-sonographie',
       ],
       caseSpecificQuestions: [
-        { frage: 'Können Sie mir bitte auf dieser Zeichnung einzeichnen, wo überall es wehtut? Ist es links und rechts gleich?', kapitel: 'aktuell' },
-        { frage: 'Haben Sie diese Schmerzen ununterbrochen seit mehr als drei Monaten, oder gibt es bei Ihnen beschwerdefreie Phasen?', kapitel: 'aktuell' },
+        { frage: 'Können Sie mir bitte auf dieser Zeichnung einzeichnen, wo überall es wehtut? Ist es links und rechts gleich?', kapitel: 'aktuell', sucht: ['ort'] },
+        { frage: 'Haben Sie diese Schmerzen ununterbrochen seit mehr als drei Monaten, oder gibt es bei Ihnen beschwerdefreie Phasen?', kapitel: 'aktuell', sucht: ['verlauf'] },
         { frage: 'Wie ist Ihr Schlaf? Fühlen Sie sich morgens erholt, wenn Sie aufgewacht sind?', kapitel: 'vegetativ', sucht: ['schlaf'] },
         { frage: 'Haben Sie Schwierigkeiten, sich zu konzentrieren oder auf Wörter zu kommen? Passiert Ihnen das auch im Unterricht?', kapitel: 'aktuell' },
-        { frage: 'Wie lange sind Sie morgens steif — Minuten oder länger als eine Stunde? Bessert sich das durch Bewegung?', kapitel: 'aktuell' },
-        { frage: 'Sind Ihre Gelenke jemals sichtbar geschwollen, gerötet oder überwärmt gewesen — oder fühlen sie sich nur dick an?', kapitel: 'aktuell' },
+        { frage: 'Wie lange sind Sie morgens steif — Minuten oder länger als eine Stunde? Bessert sich das durch Bewegung?', kapitel: 'aktuell', sucht: ['steifigkeit'] },
+        { frage: 'Sind Ihre Gelenke jemals sichtbar geschwollen, gerötet oder überwärmt gewesen — oder fühlen sie sich nur dick an?', kapitel: 'aktuell', sucht: ['gelenk_entzuendung'] },
         { frage: 'Nehmen Sie ein Medikament gegen erhöhte Cholesterinwerte oder haben Sie in letzter Zeit ein neues Medikament begonnen?', kapitel: 'medikamente' },
         { frage: 'Wie geht es Ihnen seelisch? Fühlen Sie sich in den letzten Wochen häufig niedergeschlagen oder freudlos?', kapitel: 'aktuell' },
       ],
@@ -36553,7 +36570,7 @@ export function seedCases(): Case[] {
       frequency: 6,
       difficulty: 3,
       patientSheet: {
-        profil: { tags: ['ausscheidung', 'dysphagie', 'hals', 'gewichtsverlust'] },
+        profil: { tags: ['ausscheidung', 'dysphagie', 'hals', 'gewichtsverlust', 'gastro'] },
         leitsymptomKategorie: 'ausscheidung',
         personalia: {
           name: 'Katharina Vogel',
@@ -38680,7 +38697,7 @@ export function seedCases(): Case[] {
       frequency: 8,
       difficulty: 2,
       patientSheet: {
-        profil: { tags: ['ausscheidung', 'schmerz', 'diarrhoe'] },
+        profil: { tags: ['ausscheidung', 'schmerz', 'diarrhoe', 'gastro'] },
         leitsymptomKategorie: 'ausscheidung',
         personalia: {
           name: 'Peter Novak',
@@ -39229,6 +39246,8 @@ export function seedCases(): Case[] {
       difficulty: 2,
       patientSheet: {
         profil: { tags: ['neurologisch', 'hals'] },
+        // K3 (revue clinique P2) : la rotation de la tête (vertige positionnel) n'est pas une question de l'AVC / AIT ici.
+        aktuellSkip: ['akt-neuro-lage'],
         leitsymptomKategorie: 'neurologisch',
         personalia: {
           name: 'Arnd Kartmann',
@@ -39712,7 +39731,7 @@ export function seedCases(): Case[] {
       frequency: 14,
       difficulty: 2,
       patientSheet: {
-        profil: { tags: ['allgemein', 'dyspnoe', 'gewichtsverlust'] },
+        profil: { tags: ['allgemein', 'dyspnoe', 'gewichtsverlust', 'endo'] },
         leitsymptomKategorie: 'allgemein',
         personalia: {
           name: 'Franz Maier',
@@ -39853,6 +39872,8 @@ export function seedCases(): Case[] {
           'fach-endo-familie-therapie': 'Meine Mutter hat Zucker, Typ 2, und nimmt Tabletten; meine Schwester hat eine Schilddrüsenunterfunktion und nimmt Hormone. Ich selbst bin deswegen nie behandelt oder kontrolliert worden — mein Blutzucker ist meines Wissens noch nie gemessen worden.',
           // K2 (ADR-0023) : réponses des sondes de banque que le profil exige (r3)
           'akt-atemnot-belastung': 'Beim Treppensteigen in den dritten Stock bin ich oben aus der Puste, das kannte ich früher nicht. Im Sitzen ist alles gut.',
+          // K3 (revue P1-9) : la banque de la dyspnée est fach-pneumo-atemnot — même réplique que pour la question de la variante.
+          'fach-pneumo-atemnot': 'Beim Treppensteigen in den dritten Stock bin ich oben aus der Puste, das kannte ich früher nicht. Im Sitzen ist alles gut.',
         },
         schwierigeReaktionen: [
           '"Was habe ich denn, Frau Doktor? Sagen Sie es mir bitte ehrlich."',
@@ -40252,7 +40273,10 @@ export function seedCases(): Case[] {
       difficulty: 2,
       patientSheet: {
         profil: { tags: ['ausscheidung', 'schmerz', 'diarrhoe', 'reise', 'gewichtsverlust'] },
-        fachSkip: ['fach-infekt-zecke'],
+        // K3 (revue clinique, décision de main) : la peau et le neuro de la Fach Infektio sont le gabarit borréliose, hors sujet ici.
+        fachSkip: ['fach-infekt-zecke', 'fach-infekt-haut', 'fach-infekt-neuro'],
+        // K3 : « Was hat sich verändert » redemande l'aspect des selles et des urines que les questions du cas posent.
+        aktuellSkip: ['akt-ausscheid-was'],
         leitsymptomKategorie: 'ausscheidung',
         personalia: {
           name: 'Michael Müller',
@@ -40609,11 +40633,11 @@ export function seedCases(): Case[] {
         'auf-sonographie',
       ],
       caseSpecificQuestions: [
-        { frage: 'Was haben Sie dort gegessen und getrunken? Hatten Sie Eiswürfel in den Getränken, rohen Salat, ungeschältes Obst oder Leitungswasser?', kapitel: 'aktuell' },
-        { frage: 'Was arbeiten Sie beruflich, und arbeitet jemand in Ihrem Haushalt in einer Küche, in der Gastronomie oder in einem Kindergarten?', kapitel: 'familie-sozial' },
-        { frage: 'Wie sieht Ihr Stuhl aus — wässrig oder breiig, welche Farbe, riecht er auffällig, schwimmt er oben?', kapitel: 'aktuell', relu: true },
-        { frage: 'Trinken Sie genug? Wie oft müssen Sie Wasser lassen, und welche Farbe hat der Urin? Wird Ihnen beim Aufstehen schwindelig?', kapitel: 'vegetativ' },
-        { frage: 'Haben Sie in den letzten Wochen oder Monaten Antibiotika eingenommen oder waren Sie im Krankenhaus?', kapitel: 'medikamente' },
+        { frage: 'Was haben Sie dort gegessen und getrunken? Hatten Sie Eiswürfel in den Getränken, rohen Salat, ungeschältes Obst oder Leitungswasser?', kapitel: 'aktuell', sucht: ['essen_expo'], braucht: ['reise'] },
+        { frage: 'Was arbeiten Sie beruflich, und arbeitet jemand in Ihrem Haushalt in einer Küche, in der Gastronomie oder in einem Kindergarten?', kapitel: 'familie-sozial', sucht: ['beruf'] },
+        { frage: 'Wie sieht Ihr Stuhl aus — wässrig oder breiig, welche Farbe, riecht er auffällig, schwimmt er oben?', sucht: ['stuhl', 'stuhlaussehen'], kapitel: 'aktuell', relu: true },
+        { frage: 'Trinken Sie genug? Wie oft müssen Sie Wasser lassen, und welche Farbe hat der Urin? Wird Ihnen beim Aufstehen schwindelig?', kapitel: 'vegetativ', sucht: ['miktion_frequenz', 'urin_aspekt', 'schwindel'] },
+        { frage: 'Haben Sie in den letzten Wochen oder Monaten Antibiotika eingenommen oder waren Sie im Krankenhaus?', kapitel: 'medikamente', sucht: ['krankenhaus'] },
         { frage: 'Haben Sie Fieber gemessen? Hatten Sie Schüttelfrost oder Nachtschweiß?', kapitel: 'aktuell', sucht: ['fieber', 'schuettelfrost', 'nachtschweiss'] },
       ],
       examinerQuestions: [
@@ -42533,7 +42557,7 @@ export function seedCases(): Case[] {
       frequency: 7,
       difficulty: 3,
       patientSheet: {
-        profil: { tags: ['allgemein', 'dyspnoe'] },
+        profil: { tags: ['allgemein', 'dyspnoe', 'endo'] },
         leitsymptomKategorie: 'allgemein',
         personalia: {
           name: 'Anton Kaiser',
@@ -42680,6 +42704,8 @@ export function seedCases(): Case[] {
           'fach-endo-familie-therapie': 'Mein Vater hatte Zucker, er hat Tabletten genommen. Von der Schilddrüse ist in der Familie nichts bekannt. Ich selbst werde deswegen nicht behandelt — bis gestern hat mir nie jemand gesagt, dass ich Zucker habe. Nur den Blutdruck lasse ich beim Hausarzt kontrollieren.',
           // K2 (ADR-0023) : réponses des sondes de banque que le profil exige (r3)
           'akt-atemnot-belastung': 'Auf der Treppe in den dritten Stock muss ich zweimal stehen bleiben. In Ruhe oder im Liegen habe ich keine Luftnot.',
+          // K3 (revue P1-9) : la banque de la dyspnée est fach-pneumo-atemnot — même réplique que pour la question de la variante.
+          'fach-pneumo-atemnot': 'Auf der Treppe in den dritten Stock muss ich zweimal stehen bleiben. In Ruhe oder im Liegen habe ich keine Luftnot.',
         },
         frageAntworten: [
           {
@@ -43132,7 +43158,7 @@ export function seedCases(): Case[] {
       frequency: 5,
       difficulty: 3,
       patientSheet: {
-        profil: { tags: ['schmerz', 'diarrhoe', 'dyspnoe', 'stein', 'gewichtsverlust'] },
+        profil: { tags: ['schmerz', 'diarrhoe', 'dyspnoe', 'stein', 'gewichtsverlust', 'onko'] },
         personalia: {
           name: 'Gabi Hubertus',
           age: 48,
@@ -43506,10 +43532,10 @@ export function seedCases(): Case[] {
       caseSpecificQuestions: [
         { frage: 'Sie sagen, Ihr Gesicht werde plötzlich rot — wie lange dauert das, wo genau breitet es sich aus, und schwitzen Sie dabei?', kapitel: 'aktuell', relu: true },
         { frage: 'Gibt es etwas, das diese Rötung regelmäßig auslöst — Alkohol, scharfes Essen, Käse, Schokolade, Aufregung oder Anstrengung?', kapitel: 'aktuell' },
-        { frage: 'Müssen Sie auch nachts wegen Durchfall aufstehen, und wie oft haben Sie insgesamt Stuhlgang am Tag?', kapitel: 'aktuell', sucht: ['stuhl'] },
+        { frage: 'Müssen Sie auch nachts wegen Durchfall aufstehen, und wie oft haben Sie insgesamt Stuhlgang am Tag?', kapitel: 'aktuell', sucht: ['stuhl_nachts', 'stuhlfrequenz'] },
         { frage: 'Und wie war es vor diesen sechs Wochen — hatten Sie schon früher Phasen mit Durchfall und Bauchschmerzen?', kapitel: 'aktuell', relu: true },
         { frage: 'Was hat Ihr Hausarzt damals untersucht, bevor er Ihnen gesagt hat, das sei ein Reizdarm? Wurde eine Darmspiegelung gemacht?', kapitel: 'vorerkrankungen' },
-        { frage: 'Bekommen Sie während dieser Rötungsanfälle Herzrasen oder Luftnot, und pfeift es dabei beim Atmen?', kapitel: 'aktuell' },
+        { frage: 'Bekommen Sie während dieser Rötungsanfälle Herzrasen oder Luftnot, und pfeift es dabei beim Atmen?', kapitel: 'aktuell', sucht: ['herzrasen', 'atemnot', 'giemen'] },
         { frage: 'Haben Sie noch Ihre Regelblutung? Sind diese Hitzeanfälle anders als Hitzewallungen in den Wechseljahren?', kapitel: 'frauenanamnese' },
         { frage: 'Gibt es in Ihrer Familie außer dem Darmkrebs Ihrer Schwester Drüsen- oder Hormonerkrankungen, Nierensteine, Nebenschilddrüsenoperationen oder Hirnanhangdrüsentumoren?', kapitel: 'familie-sozial', sucht: ['familie_endokrin', 'nierensteine'] },
       ],
@@ -44030,7 +44056,7 @@ export function seedCases(): Case[] {
         { frage: 'Wie gut ist Ihr Zucker eingestellt — wann wurde zuletzt der Langzeitzucker bestimmt?', kapitel: 'vorerkrankungen' },
         { frage: 'Nehmen Sie Kortison oder Medikamente, die das Abwehrsystem unterdrücken?', kapitel: 'medikamente' },
         { frage: 'Haben Sie im Bein ein Kribbeln, ein Taubheitsgefühl oder eine Schwäche bemerkt?', kapitel: 'aktuell' },
-        { frage: 'Wann hatten Sie die letzte Tetanusimpfung?', kapitel: 'vorerkrankungen' },
+        { frage: 'Wann hatten Sie die letzte Tetanusimpfung?', kapitel: 'vorerkrankungen', sucht: ['impfung'] },
       ],
       examinerQuestions: [
         'Warum ist der Patient hier, und welche Beschwerden hat er?',
@@ -45287,7 +45313,7 @@ export function seedCases(): Case[] {
       frequency: 5,
       difficulty: 3,
       patientSheet: {
-        profil: { tags: ['infekt', 'fieber', 'dyspnoe', 'gewichtsverlust'] },
+        profil: { tags: ['infekt', 'fieber', 'dyspnoe', 'gewichtsverlust', 'kardio'] },
         leitsymptomKategorie: 'infekt',
         personalia: {
           name: 'Gerhard Steinbach',
@@ -47522,7 +47548,7 @@ export function seedCases(): Case[] {
         { frage: 'Ziehen Sie am Ende des Anfalls hörbar die Luft ein, so ein Keuchen oder Juchzen?', kapitel: 'aktuell' },
         { frage: 'Müssen Sie sich nach dem Husten übergeben? Würgen Sie Schleim hoch?', kapitel: 'aktuell', relu: true },
         { frage: 'Wie geht es Ihnen zwischen den Anfällen — sind Sie dann ganz beschwerdefrei?', kapitel: 'aktuell' },
-        { frage: 'Wann wurden Sie zuletzt geimpft — steht in Ihrem Impfpass eine Keuchhusten-Impfung als Erwachsener?', kapitel: 'vorerkrankungen' },
+        { frage: 'Wann wurden Sie zuletzt geimpft — steht in Ihrem Impfpass eine Keuchhusten-Impfung als Erwachsener?', kapitel: 'vorerkrankungen', sucht: ['impfung'] },
         { frage: 'Leben Säuglinge oder Schwangere in Ihrem Haushalt oder Umfeld? Hatten Sie in den letzten Wochen Kontakt zu einem Baby?', kapitel: 'familie-sozial' },
         { frage: 'Nehmen Sie Blutdruckmedikamente, insbesondere einen ACE-Hemmer?', kapitel: 'medikamente' },
       ],
@@ -47688,7 +47714,7 @@ export function seedCases(): Case[] {
       frequency: 2,
       difficulty: 2,
       patientSheet: {
-        profil: { tags: ['ausscheidung', 'schmerz', 'diarrhoe', 'gelenk', 'arthritis', 'dyspnoe', 'gewichtsverlust'] },
+        profil: { tags: ['ausscheidung', 'schmerz', 'diarrhoe', 'gelenk', 'arthritis', 'dyspnoe', 'gewichtsverlust', 'gastro'] },
         leitsymptomKategorie: 'ausscheidung',
         personalia: {
           name: 'Tanya Krüger',
@@ -47847,6 +47873,8 @@ export function seedCases(): Case[] {
           'frau-wechseljahre': 'Seit ich 51 bin, seit drei Jahren. Anfangs hatte ich Hitzewallungen, das ist besser geworden. Hormone nehme ich keine.',
           // K2 (ADR-0023) : réponses des sondes de banque que le profil exige (r3)
           'akt-atemnot-belastung': 'Beim Treppensteigen bin ich schnell außer Atem, in Ruhe nicht.',
+          // K3 (revue P1-9) : la banque de la dyspnée est fach-pneumo-atemnot — même réplique que pour la question de la variante.
+          'fach-pneumo-atemnot': 'Beim Treppensteigen bin ich schnell außer Atem, in Ruhe nicht.',
           'fach-rheuma-gelenke': 'Nur das rechte Knie und der linke Knöchel, seit ungefähr zwei Wochen. Gewandert ist das nicht.',
           // K2 (ADR-0023) : réponses des sondes de banque que le profil exige (r3)
           'akt-ort': 'Links unten im Bauch, manchmal zieht es bis zum Schambein.',
@@ -48017,12 +48045,12 @@ export function seedCases(): Case[] {
         'auf-bluttransfusion',
       ],
       caseSpecificQuestions: [
-        { frage: 'Wie oft müssen Sie am Tag zur Toilette — und müssen Sie auch nachts aufstehen?', kapitel: 'aktuell' },
+        { frage: 'Wie oft müssen Sie am Tag zur Toilette — und müssen Sie auch nachts aufstehen?', kapitel: 'aktuell', sucht: ['stuhlfrequenz', 'stuhl_nachts'] },
         { frage: 'Ist das Blut nur am Toilettenpapier oder mit dem Stuhl vermischt?', kapitel: 'aktuell', followUp: 'Welche Farbe hat es — hellrot oder schwarz?' },
         { frage: 'Haben Sie einen plötzlichen, sehr dringenden Stuhldrang und danach das Gefühl, nicht fertig zu sein?', kapitel: 'aktuell' },
         { frage: 'Haben Sie in letzter Zeit mit dem Rauchen aufgehört?', kapitel: 'noxen' },
         { frage: 'Haben Sie in den letzten Monaten Antibiotika, Schmerzmittel wie Ibuprofen oder Diclofenac oder Magenschutztabletten eingenommen?', kapitel: 'medikamente' },
-        { frage: 'Haben Sie Schmerzen oder Schwellungen an Gelenken, rote Knoten an den Schienbeinen, gerötete oder schmerzende Augen oder eine Gelbfärbung der Haut bemerkt?', kapitel: 'aktuell' },
+        { frage: 'Haben Sie Schmerzen oder Schwellungen an Gelenken, rote Knoten an den Schienbeinen, gerötete oder schmerzende Augen oder eine Gelbfärbung der Haut bemerkt?', kapitel: 'aktuell', sucht: ['arthralgie', 'gelenk_entzuendung', 'ausschlag', 'augenentzuendung', 'gelbfaerbung'] },
         { frage: 'Haben Sie Beschwerden am After — Knoten, Eiter, eine Fistel? Haben Sie wunde Stellen im Mund?', kapitel: 'aktuell' },
         { frage: 'Gibt es in Ihrer Familie Darmentzündungen oder Darmkrebs? Hatten Sie schon einmal eine Darmspiegelung?', kapitel: 'familie-sozial' },
       ],
@@ -48234,7 +48262,7 @@ export function seedCases(): Case[] {
       frequency: 2,
       difficulty: 2,
       patientSheet: {
-        profil: { tags: ['schmerz', 'diarrhoe', 'gewichtsverlust'] },
+        profil: { tags: ['schmerz', 'diarrhoe', 'gewichtsverlust', 'gastro'] },
         personalia: {
           name: 'Miriam Freudenberg',
           age: 43,
@@ -48718,7 +48746,7 @@ export function seedCases(): Case[] {
       frequency: 5,
       difficulty: 3,
       patientSheet: {
-        profil: { tags: ['schmerz', 'dyspnoe'] },
+        profil: { tags: ['schmerz', 'dyspnoe', 'kardio'] },
         personalia: {
           name: 'Jonas Feldmann',
           age: 28,
@@ -49196,7 +49224,7 @@ export function seedCases(): Case[] {
       frequency: 0,
       difficulty: 2,
       patientSheet: {
-        profil: { tags: ['allgemein', 'dyspnoe'] },
+        profil: { tags: ['allgemein', 'dyspnoe', 'harn'] },
         leitsymptomKategorie: 'allgemein',
         personalia: {
           name: 'Dietmar Rösch',
@@ -49336,6 +49364,8 @@ export function seedCases(): Case[] {
           'fach-nephro-vorgeschichte': 'Nein, mit den Nieren hatte ich nie etwas. Keine Steine, keine Blasenentzündung, und der Urin war beim Check-up vor zwei Jahren in Ordnung. In der Familie gibt es auch keine Nierenkrankheit — keine Zystennieren, keine Dialyse.',
           // K2 (ADR-0023) : réponses des sondes de banque que le profil exige (r3)
           'akt-atemnot-belastung': 'Schon beim ersten Stock komme ich außer Atem. In Ruhe nicht, und flach liegen kann ich auch.',
+          // K3 (revue P1-9) : la banque de la dyspnée est fach-pneumo-atemnot — même réplique que pour la question de la variante.
+          'fach-pneumo-atemnot': 'Schon beim ersten Stock komme ich außer Atem. In Ruhe nicht, und flach liegen kann ich auch.',
         },
         schwierigeReaktionen: [
           '"Das ist doch nur Wasser in den Beinen — kann man mir nicht einfach eine Wassertablette geben und ich gehe wieder?"',
@@ -49666,7 +49696,7 @@ export function seedCases(): Case[] {
       frequency: 1,
       difficulty: 3,
       patientSheet: {
-        profil: { tags: ['allgemein', 'fieber', 'dyspnoe', 'gewichtsverlust'] },
+        profil: { tags: ['allgemein', 'fieber', 'dyspnoe', 'gewichtsverlust', 'haem'] },
         leitsymptomKategorie: 'allgemein',
         personalia: {
           name: 'Birgit Steinmann',
@@ -52109,7 +52139,7 @@ export function seedCases(): Case[] {
       frequency: 0,
       difficulty: 2,
       patientSheet: {
-        profil: { tags: ['ausscheidung', 'dyspnoe'] },
+        profil: { tags: ['ausscheidung', 'dyspnoe', 'harn'] },
         leitsymptomKategorie: 'ausscheidung',
         personalia: {
           name: 'Jonas Reinhardt',
@@ -52422,7 +52452,7 @@ export function seedCases(): Case[] {
       caseSpecificQuestions: [
         { frage: 'Hatten Sie in den letzten Wochen eine Mandelentzündung, Halsschmerzen oder eine Hautinfektion — wie viele Tage liegt das genau zurück?', kapitel: 'aktuell' },
         { frage: 'Wurde Ihnen ein Antibiotikum verschrieben, und haben Sie es bis zum Ende eingenommen?', kapitel: 'medikamente' },
-        { frage: 'Haben Sie Kopfschmerzen, Sehstörungen oder Luftnot bemerkt?', kapitel: 'aktuell' },
+        { frage: 'Haben Sie Kopfschmerzen, Sehstörungen oder Luftnot bemerkt?', kapitel: 'aktuell', sucht: ['kopfschmerz', 'sehstoerung', 'atemnot'] },
         { frage: 'Haben Sie Bluthusten oder rote Punkte an den Beinen bemerkt?', kapitel: 'aktuell' },
         { frage: 'Gibt es in Ihrer Familie Blut im Urin oder eine Schwerhörigkeit, die schon in jungen Jahren aufgetreten ist?', kapitel: 'familie-sozial' },
         { frage: 'Hatten Sie in den letzten Wochen Durchfall, waren Sie beim Zahnarzt, oder haben Sie Rote Bete gegessen?', kapitel: 'aktuell', relu: true },
@@ -52601,7 +52631,7 @@ export function seedCases(): Case[] {
       frequency: 3,
       difficulty: 2,
       patientSheet: {
-        profil: { tags: ['veraenderung', 'fieber', 'hals', 'gewichtsverlust'] },
+        profil: { tags: ['veraenderung', 'fieber', 'hals', 'gewichtsverlust', 'haem'] },
         leitsymptomKategorie: 'veraenderung',
         personalia: {
           name: 'Elisabeth Länge',
@@ -53097,7 +53127,7 @@ export function seedCases(): Case[] {
       frequency: 0,
       difficulty: 2,
       patientSheet: {
-        profil: { tags: ['allgemein', 'gicht', 'gewichtsverlust'] },
+        profil: { tags: ['allgemein', 'gicht', 'gewichtsverlust', 'haem'] },
         leitsymptomKategorie: 'allgemein',
         personalia: {
           name: 'Bernd Ostermann',
@@ -54953,7 +54983,7 @@ export function seedCases(): Case[] {
       frequency: 1,
       difficulty: 2,
       patientSheet: {
-        profil: { tags: ['ausscheidung'] },
+        profil: { tags: ['ausscheidung', 'transit', 'gastro'] },
         leitsymptomKategorie: 'ausscheidung',
         personalia: {
           name: 'Walter Schwarz',
@@ -57405,7 +57435,7 @@ export function seedCases(): Case[] {
       frequency: 3,
       difficulty: 2,
       patientSheet: {
-        profil: { tags: ['schmerz', 'fieber'] },
+        profil: { tags: ['schmerz', 'fieber', 'kardio'] },
         personalia: {
           name: 'Jonas Hartmann',
           age: 34,
@@ -58374,7 +58404,7 @@ export function seedCases(): Case[] {
       frequency: 3,
       difficulty: 2,
       patientSheet: {
-        profil: { tags: ['schmerz', 'stein'] },
+        profil: { tags: ['schmerz', 'stein', 'harn'] },
         personalia: {
           name: 'Leon Bachmann',
           age: 19,
@@ -58658,7 +58688,7 @@ export function seedCases(): Case[] {
         { frage: 'Ist der Hoden geschwollen oder gerötet, und steht er höher als der andere?', kapitel: 'aktuell' },
         { frage: 'Gab es gestern beim Fußball einen Tritt, einen Ball oder einen Sturz — irgendeine Verletzung im Genitalbereich?', kapitel: 'aktuell' },
         { frage: 'Hatten Sie so einen Schmerz schon einmal, vielleicht kürzer, und ist er dann von allein wieder verschwunden?', kapitel: 'aktuell' },
-        { frage: 'Hatten Sie als Kind einen Hodenhochstand oder eine Operation an der Leiste? Sind Sie gegen Mumps geimpft?', kapitel: 'vorerkrankungen' },
+        { frage: 'Hatten Sie als Kind einen Hodenhochstand oder eine Operation an der Leiste? Sind Sie gegen Mumps geimpft?', kapitel: 'vorerkrankungen', sucht: ['impfung'] },
       ],
       examinerQuestions: [
         'Wie lautet Ihre Verdachtsdiagnose, und was hat Sie zu dieser Diagnose geführt?',
@@ -60187,7 +60217,7 @@ export function seedCases(): Case[] {
       frequency: 0,
       difficulty: 2,
       patientSheet: {
-        profil: { tags: ['allgemein', 'dyspnoe', 'gewichtsverlust'] },
+        profil: { tags: ['allgemein', 'dyspnoe', 'gewichtsverlust', 'haem'] },
         leitsymptomKategorie: 'allgemein',
         personalia: {
           name: 'Renate Hoffmeister',
@@ -61663,7 +61693,7 @@ export function seedCases(): Case[] {
       frequency: 1,
       difficulty: 2,
       patientSheet: {
-        profil: { tags: ['allgemein', 'schmerz'] },
+        profil: { tags: ['allgemein', 'schmerz', 'kardio'] },
         leitsymptomKategorie: 'allgemein',
         personalia: {
           name: 'Markus Lindner',
@@ -62002,7 +62032,7 @@ export function seedCases(): Case[] {
       caseSpecificQuestions: [
         { frage: 'Wie hoch war der Blutdruck heute beim Betriebsarzt, und kennen Sie Ihre üblichen Werte?', kapitel: 'aktuell' },
         { frage: 'Wann haben Sie Ihre Blutdrucktablette zuletzt genommen, und wie oft vergessen Sie sie in einer normalen Woche?', kapitel: 'medikamente' },
-        { frage: 'Wo sitzt der Kopfschmerz?', kapitel: 'aktuell' },
+        { frage: 'Wo sitzt der Kopfschmerz?', kapitel: 'aktuell', sucht: ['ort'] },
         { frage: 'Haben Sie Sehstörungen, Flimmern vor den Augen, eine Lähmung, ein Taubheitsgefühl oder Schwierigkeiten beim Sprechen bemerkt?', kapitel: 'aktuell' },
         { frage: 'Nehmen Sie Schmerzmittel wie Ibuprofen oder Diclofenac, ein Nasenspray, Kortison oder essen Sie viel Lakritz?', kapitel: 'medikamente' },
         { frage: 'Haben Sie anfallsartige Schweißausbrüche mit Herzrasen und Blässe, oder vertragen Sie Wärme schlecht?', kapitel: 'vegetativ', relu: true },

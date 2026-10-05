@@ -3,7 +3,7 @@ import type { Phrase } from './phrases';
 import { phraseProbes, type PhraseVariant } from './phrases';
 import { cqKapitel, cqText } from '@/lib/caseQuestions';
 import { FACH_PROBES } from './anamneseProbes';
-import { dedupeBySymptom } from './symptoms';
+import { cohere, compteursApres, profilEffectif, type CohereCtx, type CompteursApres, type Ecart } from './coherence';
 
 // ============================================================================
 // Guide d'anamnèse — Allgemeine Anamnese + Spezielle Anamnese par spécialité.
@@ -76,6 +76,12 @@ const AKTUELL_VARIANTS: Record<LeitsymptomKategorie, AktuellVariant> = {
       {
         text: 'Beginn — Seit wann haben Sie die Schmerzen? Kamen sie plötzlich oder schleichend?',
         probe: 'akt-beginn',
+        // K3 (revue P1-4) : la DATE et le MODE de début — deux répliques ; la Fach rhumato pose le mode.
+        sucht: ['beginn', 'beginn_art'],
+        parts: [
+          { sucht: ['beginn'], text: 'Seit wann haben Sie die Schmerzen?' },
+          { sucht: ['beginn_art'], text: 'Kamen sie plötzlich oder schleichend?' },
+        ],
         alts: ['Wann haben die Schmerzen begonnen?', 'Haben sich die Schmerzen langsam entwickelt oder kamen sie plötzlich?'],
       },
       {
@@ -146,7 +152,7 @@ const AKTUELL_VARIANTS: Record<LeitsymptomKategorie, AktuellVariant> = {
         // Revue K1 : « Husten Sie dabei etwas ab ? » cherche `auswurf` (unité à part, doublon vrai avec fach-pneumo-husten
         // traité par K3). Une relance conditionnelle ne déclare pas d'autre signe (INV-84) : elle perd « Falls ja: ».
         followUp: ['Husten Sie dabei etwas ab?', 'Falls Auswurf: Welche Farbe hat das?', 'Falls Auswurf: Ist Blut dabei?'],
-        followUpSucht: [['auswurf']],
+        // K3 : « Husten Sie dabei etwas ab? » précise la toux (relance gardée sous sa mère) — elle n'est plus une unité à part.
         relu: true,
       },
       { text: 'Geräusche — Hören Sie beim Atmen ein Pfeifen oder Brummen? Beim Ein- oder beim Ausatmen?', probe: 'akt-atemnot-geraeusch' },
@@ -193,7 +199,7 @@ const AKTUELL_VARIANTS: Record<LeitsymptomKategorie, AktuellVariant> = {
         text: 'Schwellungen — Sind Ihre Beine, das Gesicht oder der Bauch angeschwollen?',
         probe: 'akt-allgemein-schwellung',
         followUp: ['Hat sich die Urinmenge verändert?'],
-        followUpSucht: [['urinmenge']],
+        // K3 : précision de l'œdème (la cause rénale), relance gardée — elle suit sa mère (r2 : la Fach Kardio / Néphro l'emporte).
       },
       { text: 'Verlauf — Ist es gleichbleibend, wird es schlimmer, oder gibt es gute und schlechte Tage?', probe: 'akt-verlauf' },
       { text: 'Auslöser — Ist Ihnen ein Auslöser aufgefallen — eine Krankheit, eine Veränderung der Ernährung, Stress, ein neues Medikament?', probe: 'akt-ausloeser' },
@@ -231,7 +237,16 @@ const AKTUELL_VARIANTS: Record<LeitsymptomKategorie, AktuellVariant> = {
         label: 'Avec tact',
         followUp: ['Falls ja: Haben Sie konkrete Pläne? Gibt es jemanden, der Sie unterstützt?'],
       },
-      { text: 'Verlauf — Ist es jeden Tag gleich, oder gibt es bessere und schlechtere Tage? Ist es morgens anders als abends?', probe: 'akt-verlauf' },
+      {
+        text: 'Verlauf — Ist es jeden Tag gleich, oder gibt es bessere und schlechtere Tage? Ist es morgens anders als abends?',
+        probe: 'akt-verlauf',
+        // K3 (revue P1-3) : le cours ET le moment de la journée — deux répliques ; la Fach psy pose la seconde.
+        sucht: ['verlauf', 'tageszeit'],
+        parts: [
+          { sucht: ['verlauf'], text: 'Ist es jeden Tag gleich, oder gibt es bessere und schlechtere Tage?' },
+          { sucht: ['tageszeit'], text: 'Ist es morgens anders als abends?' },
+        ],
+      },
       { text: 'Einflussfaktoren — Gibt es etwas, das es erträglicher macht — Gesellschaft, Bewegung, Ruhe? Und was macht es schlimmer?', probe: 'akt-einfluss' },
       FRUEHER('eine solche Phase'),
       BEGLEIT,
@@ -292,7 +307,7 @@ const AKTUELL_VARIANTS: Record<LeitsymptomKategorie, AktuellVariant> = {
         text: 'Kontakt und Reise — Waren Sie in den letzten Wochen im Ausland?',
         probe: 'akt-infekt-kontakt',
         followUp: ['Hatten Sie Kontakt zu Kranken oder Tieren?', 'Haben Sie etwas Ungewöhnliches gegessen?'],
-        followUpSucht: [['kontakt'], ['essen_expo']],
+        // K3 : « Kontakt und Reise » est UNE unité d'exposition ; ses relances la précisent et la suivent (r2 : la Fach Infekt / Pneumo l'emporte).
       },
       {
         text: 'Herd — Haben Sie Husten, Halsschmerzen, Brennen beim Wasserlassen, Durchfall, einen Ausschlag oder eine Wunde bemerkt?',
@@ -323,8 +338,13 @@ const AKTUELL_VARIANTS: Record<LeitsymptomKategorie, AktuellVariant> = {
       {
         text: 'Schmerz und Blutung — Tut es weh, juckt es, oder blutet es?',
         probe: 'akt-veraend-blutung',
-        followUp: ['Haben Sie Blut im Stuhl oder im Urin bemerkt?', 'Husten Sie Blut ab?'],
-        followUpSucht: [['stuhlaussehen', 'urin_aspekt'], ['haemoptyse']],   // revue K1 C6
+        // K3 (revue clinique R3, décision de main) : les relances « Blut im Stuhl / Urin » et « Blut abhusten » sont retirées —
+        // le saignement d'une lésion n'est pas un saignement systémique ; là où elles servent, la Fach les pose. Le texte est
+        // découpé en deux parts (revue P2) : quand le saignement est déjà demandé, il reste « Tut es weh, juckt es? ».
+        parts: [
+          { sucht: ['lokalschmerz', 'juckreiz'], text: 'Tut es weh, juckt es?' },
+          { sucht: ['lokalblutung'], text: 'Blutet es?' },
+        ],
       },
       { text: 'Verlauf — Ist es dauernd da, oder kommt und geht es?', probe: 'akt-verlauf' },
       { text: 'Auslöser — Ist Ihnen ein Auslöser aufgefallen — eine Verletzung, Sonne, ein neues Medikament, eine Ernährungsumstellung?', probe: 'akt-ausloeser' },
@@ -379,12 +399,32 @@ const AKTUELL_VARIANTS: Record<LeitsymptomKategorie, AktuellVariant> = {
         text: 'Häufigkeit — Wie oft haben Sie am Tag Stuhlgang, und müssen Sie auch nachts zum Stuhlgang aufstehen?',
         probe: 'akt-ausscheid-haeufigkeit',
         followUp: ['Mehr oder weniger als sonst?'],
+        // K3 (revue P1-10) : le jour et la nuit — deux répliques ; les parts sont découpées du texte.
+        sucht: ['stuhlfrequenz', 'stuhl_nachts'],
+        parts: [
+          { sucht: ['stuhlfrequenz'], text: 'Wie oft haben Sie am Tag Stuhlgang?', followUp: ['Mehr oder weniger als sonst?'] },
+          { sucht: ['stuhl_nachts'], text: 'Müssen Sie auch nachts zum Stuhlgang aufstehen?' },
+        ],
       },
-      { text: 'Aussehen — Ist Ihnen Blut, Schleim oder eine ungewöhnliche Farbe im Stuhl aufgefallen?', probe: 'akt-ausscheid-aussehen' },
+      {
+        text: 'Aussehen — Ist Ihnen Blut, Schleim oder eine ungewöhnliche Farbe im Stuhl aufgefallen?',
+        probe: 'akt-ausscheid-aussehen',
+        // K3 (contre-revue, gastroenteritis) : l'alarme et la couleur, découpées du texte — une question du cas sur l'aspect garde la couleur.
+        sucht: ['stuhl_blut', 'stuhlaussehen'],
+        parts: [
+          { sucht: ['stuhl_blut'], text: 'Ist Ihnen Blut oder Schleim im Stuhl aufgefallen?' },
+          { sucht: ['stuhlaussehen'], text: 'Ist Ihnen eine ungewöhnliche Farbe im Stuhl aufgefallen?' },
+        ],
+      },
       {
         text: 'Wasserlassen — Wie oft müssen Sie am Tag Wasser lassen, und wie oft nachts?',
         probe: 'akt-ausscheid-harn-haeufigkeit',
         followUp: ['Mehr oder weniger als sonst?'],
+        // K3 (revue I2) : le jour et la nuit, découpés du texte — r2 ne garde que ce que personne d'autre ne demande.
+        parts: [
+          { sucht: ['miktion_frequenz'], text: 'Wie oft müssen Sie am Tag Wasser lassen?', followUp: ['Mehr oder weniger als sonst?'] },
+          { sucht: ['nykturie'], text: 'Wie oft müssen Sie nachts Wasser lassen?' },
+        ],
       },
       { text: 'Urin — Ist Ihnen Blut, Schaum oder eine ungewöhnliche Farbe im Urin aufgefallen?', probe: 'akt-ausscheid-harn-aussehen' },
       { text: 'Schlucken — Bleibt beim Schlucken nur Festes stecken, oder auch Flüssiges?', probe: 'akt-ausscheid-schlucken' },
@@ -416,7 +456,9 @@ const AKTUELL_VARIANTS: Record<LeitsymptomKategorie, AktuellVariant> = {
         text: 'Bewusstsein — Waren Sie dabei bewusstlos, oder ist Ihnen schwarz vor Augen geworden?',
         probe: 'akt-anfall-bewusstsein',
         followUp: ['Haben Sie sich dabei verletzt, etwa auf die Zunge gebissen?', 'Ist dabei Urin abgegangen?', 'Hat jemand gesehen, was passiert ist?'],
-        followUpSucht: [['anfallszeichen'], ['anfallszeichen'], ['fremdanamnese']],
+        // K3 (revue clinique P0-2) : Zungenbiss et Einnässen sont deux signes (syncope ≠ crise) — r4a les détache, et elles
+        // restent posées quand la Fach (Kardio) prend la perte de connaissance ; le témoin précise l'épisode et suit sa mère.
+        followUpSucht: [['zungenbiss'], ['einnaessen'], []],
       },
       { text: 'Verlauf — Werden die Anfälle häufiger oder länger? Sind Sie zwischen den Anfällen völlig beschwerdefrei?', probe: 'akt-verlauf' },
       { text: 'Auslöser — Gibt es einen Auslöser — Anstrengung, Aufregung, Kaffee, Alkohol, Schlafmangel, schnelles Aufstehen?', probe: 'akt-ausloeser' },
@@ -427,63 +469,6 @@ const AKTUELL_VARIANTS: Record<LeitsymptomKategorie, AktuellVariant> = {
     tip: 'Un épisode se décrit par son déroulé (début, fin, durée, fréquence) et par ce qui l’accompagne — pas par une localisation ni une échelle. Le témoin oculaire est une source : demande-le.',
   },
 };
-
-// ── Un seul endroit par trame ────────────────────────────────────────────────
-// Quand la Fachanamnese jouée porte déjà une dimension de la variante (la Fach
-// pneumo demande le Husten, la Fach psy la Stimmung et la question de
-// sécurité), la variante NE la pose PAS : la Fach est plus fine et vient trois
-// lignes plus bas. Carte explicite, relue — pas une similarité de mots.
-// Clé = sonde Fach ; valeurs = sondes de variante qu'elle rend inutiles.
-// La fièvre n'y figure pas : quand le motif EST la fièvre (variante infekt),
-// c'est « Aktuelle Beschwerden » qui la cherche en détail, et la règle « un
-// symptôme, une question » (symptoms.ts) efface ensuite la Fach et la
-// vegetative — dans tous les autres cas, la Fach la pose la première.
-export const FACH_COVERS: Record<string, string[]> = {
-  // Pneumologie
-  'fach-pneumo-husten': ['akt-atemnot-husten'], 'fach-pneumo-auswurf': ['akt-atemnot-husten'],
-  'fach-pneumo-atemnot': ['akt-atemnot-belastung'], 'fach-pneumo-orthopnoe': ['akt-atemnot-nachts'],
-  'fach-pneumo-giemen': ['akt-atemnot-geraeusch'], 'fach-pneumo-infekt': ['akt-infekt-kontakt'],
-  // Kardiologie (insuffisance cardiaque = atemnot × Kardio)
-  'fach-kardio-luft': ['akt-atemnot-belastung'], 'fach-kardio-oedeme': ['akt-atemnot-nachts', 'akt-allgemein-schwellung'],
-  'fach-kardio-herzrasen': ['akt-anfall-ablauf'], 'fach-kardio-synkope': ['akt-anfall-bewusstsein'],
-  // Psychiatrie
-  'fach-psych-stimmung': ['akt-psych-stimmung'], 'fach-psych-interesse': ['akt-psych-antrieb'], 'fach-psych-antrieb': ['akt-psych-antrieb'],
-  'fach-psych-schlaf': ['akt-psych-schlaf'], 'fach-psych-konzentration': ['akt-psych-schlaf'], 'fach-psych-tagesverlauf': ['akt-verlauf'],
-  'fach-psych-suizid': ['akt-psych-sicherheit'], 'fach-psych-ausloeser': ['akt-ausloeser'], 'fach-psych-frueher': ['akt-frueher'],
-  // Endokrinologie / Hämatologie / Onkologie / Nephrologie (fatigue, poids, soif, œdèmes, saignement)
-  'fach-endo-durst': ['akt-allgemein-gewicht'], 'fach-endo-gewicht': ['akt-allgemein-gewicht'],
-  'fach-haem-leistung': ['akt-allgemein-alltag', 'akt-allgemein-art'], 'fach-haem-blutung': ['akt-veraend-blutung'], 'fach-haem-blutverlust': ['akt-veraend-blutung'],
-  'fach-haem-lymphknoten': ['akt-veraend-was'], 'fach-haem-bsymptomatik': ['akt-allgemein-gewicht'],
-  'fach-onko-leistung': ['akt-allgemein-alltag'], 'fach-onko-bsymptomatik': ['akt-allgemein-gewicht'], 'fach-onko-knoten': ['akt-veraend-was'],
-  'fach-onko-blutung': ['akt-veraend-blutung'], 'fach-onko-appetit': ['akt-ausscheid-was'],
-  'fach-nephro-menge': ['akt-ausscheid-haeufigkeit', 'akt-ausscheid-harn-haeufigkeit', 'akt-allgemein-schwellung'], 'fach-nephro-aussehen': ['akt-ausscheid-aussehen', 'akt-ausscheid-harn-aussehen'], 'fach-nephro-oedeme': ['akt-allgemein-schwellung'],
-  // Urologie / Gastroenterologie (ausscheidung). K1 : la sonde commune « selles ET urines » est coupée en deux ;
-  // la Fach urologique / néphrologique couvre aussi la version urinaire (celle des selles reste couverte, comme avant).
-  'fach-uro-frequenz': ['akt-ausscheid-haeufigkeit', 'akt-ausscheid-harn-haeufigkeit'], 'fach-uro-drang': ['akt-ausscheid-haeufigkeit', 'akt-ausscheid-harn-haeufigkeit'],
-  'fach-uro-strahl': ['akt-ausscheid-haeufigkeit', 'akt-ausscheid-harn-haeufigkeit'], 'fach-uro-farbe': ['akt-ausscheid-aussehen', 'akt-ausscheid-harn-aussehen'],
-  'fach-gastro-stuhl': ['akt-ausscheid-aussehen', 'akt-ausscheid-haeufigkeit'], 'fach-gastro-speisen': ['akt-ausloeser'],
-  // Infektiologie
-  'fach-infekt-kontakt': ['akt-infekt-kontakt'], 'fach-infekt-reise': ['akt-infekt-kontakt'],
-  // Dermatologie
-  'fach-derma-muttermal': ['akt-veraend-entwicklung'], 'fach-derma-ausloeser': ['akt-ausloeser'], 'fach-derma-empfinden': ['akt-veraend-blutung'],
-  'fach-derma-aussehen': ['akt-veraend-was'], 'fach-derma-beginn-ort': ['akt-veraend-entwicklung'],
-  // Neurologie
-  'fach-neuro-sensibilitaet': ['akt-nerven-art'], 'fach-neuro-kraft': ['akt-nerven-alltag'], 'fach-neuro-koordination': ['akt-neuro-lage'],
-  'fach-neuro-sprache': ['akt-neuro-ausfall'], 'fach-neuro-verlauf': ['akt-verlauf'], 'fach-neuro-anfall': ['akt-anfall-bewusstsein'],
-  'fach-neuro-anfallzeichen': ['akt-anfall-bewusstsein'], 'fach-neuro-aura': ['akt-anfall-ablauf'],
-  // Irradiation (Q0) : la Fach nomme déjà les territoires ; la question neutre
-  // « irgendwohin » ne se pose pas en plus (17 cas la jouaient deux fois).
-  'fach-ortho-ausstrahlung': ['akt-ausstrahlung'], 'fach-kardio-ausstrahlung': ['akt-ausstrahlung'], 'fach-uro-flanke': ['akt-ausstrahlung'],
-  // Angiologie / Gynäkologie
-  'fach-gefaess-schwellung': ['akt-veraend-was', 'akt-veraend-entwicklung'], 'fach-gyn-blutung': ['akt-veraend-blutung', 'akt-veraend-was'], 'fach-gyn-brust': ['akt-veraend-was'],
-};
-
-/** Sondes de variante rendues inutiles par une Fachanamnese donnée. */
-export function coveredByFach(fachQuestions: Phrase[]): Set<string> {
-  const out = new Set<string>();
-  for (const q of fachQuestions) for (const p of phraseProbes(q)) for (const v of FACH_COVERS[p] ?? []) out.add(v);
-  return out;
-}
 
 /** Le chapitre « Aktuelle Beschwerden » pour une nature de motif donnée. */
 // ============================================================================
@@ -746,8 +731,14 @@ export const ALLGEMEINE_ANAMNESE: AnamneseChapter[] = [
         text: 'Was sind Sie von Beruf? Empfinden Sie Stress durch Ihre Arbeitssituation?',
         probe: 'fam-beruf',
         followUp: ['Falls in Rente: Was haben Sie früher beruflich gemacht?'],
+        // K3 (revue clinique, gastroenteritis) : le métier et le stress — deux répliques ; le stress présuppose le métier.
+        parts: [
+          { sucht: ['beruf'], text: 'Was sind Sie von Beruf?', followUp: ['Falls in Rente: Was haben Sie früher beruflich gemacht?'] },
+          { sucht: ['stress'], text: 'Empfinden Sie Stress durch Ihre Arbeitssituation?', braucht: ['beruf'] },
+        ],
       },
-      { text: 'Arbeiten Sie dabei mit besonderen Stoffen — Staub, Chemikalien, Dämpfen?', probe: 'pers-beruf' },
+      // « dabei » : au travail — la question présuppose le métier (r4b).
+      { text: 'Arbeiten Sie dabei mit besonderen Stoffen — Staub, Chemikalien, Dämpfen?', probe: 'pers-beruf', braucht: ['beruf'] },
       { text: 'Wohnen Sie allein oder mit jemandem? In einer Wohnung oder einem Haus, in welchem Stockwerk, mit Aufzug?', probe: 'fam-wohnen' },
       { text: 'Haben Sie Haustiere, um die sich jemand kümmern muss?', probe: 'fam-haustiere' },
     ],
@@ -769,7 +760,7 @@ export const ALLGEMEINE_ANAMNESE: AnamneseChapter[] = [
         text: 'Sind Sie in den Wechseljahren?',
         followUp: ['Falls ja: Haben Sie Beschwerden, etwa Hitzewallungen?', 'Gehen Sie regelmäßig zum Frauenarzt?'],
         probe: 'frau-wechseljahre',
-        followUpSucht: [[], ['vorsorge_gyn']],
+        // K3 (Q-gyn) : « Frauenarzt regelmäßig » reste la relance de la ménopause — une précision, pas une unité à détacher.
       },
     ],
     tip: 'Obligatoire chez toute patiente en âge de procréer : pense grossesse AVANT toute imagerie ou médicament potentiellement tératogène.',
@@ -935,6 +926,7 @@ export const FACHANAMNESEN: FachanamneseGuide[] = [
           'Welche Farbe hat der Stuhl — blutig, teerschwarz, sehr hell, gelblich?',
           'Welche Konsistenz — hart, fest, weich, schleimig, wässerig?',
         ],
+        followUpSucht: [['stuhlaussehen', 'stuhl_blut'], []],   // K3 (P0-1) : la couleur dit le sang ; la mère les déclare
       },
       {
         text: 'Haben Sie manchmal das Gefühl, zur Toilette zu müssen, aber es kommt eigentlich nichts?',
@@ -1144,7 +1136,7 @@ export const FACHANAMNESEN: FachanamneseGuide[] = [
         text: GYN_VORSORGE_TEXT,
         probe: 'fach-gyn-vorsorge',
         followUp: [GYN_HPV],
-        followUpSucht: [['impfung']],
+        // K3 : le vaccin HPV précise la prévention gynécologique (relance gardée) ; le statut vaccinal général (`impfung`) est ailleurs.
       },
       {
         text: 'Wurden Sie schon an der Gebärmutter, an den Eileitern oder an den Eierstöcken operiert?',
@@ -1201,7 +1193,7 @@ export const FACHANAMNESEN: FachanamneseGuide[] = [
         // Quand le cas a déjà demandé la chaleur (Uhthoff, case-multiple-sklerose),
         // il reste l'évolution par poussées.
         parts: [
-          { sucht: ['schub'], text: 'Kamen die Beschwerden schubweise und bildeten sich zwischendurch zurück?' },
+          { sucht: ['schub', 'verlauf'], text: 'Kamen die Beschwerden schubweise und bildeten sich zwischendurch zurück?' },   // K3 (P1-2) : le cours
           { sucht: ['waerme'], text: 'Werden die Beschwerden bei Wärme oder Anstrengung schlimmer?' },
         ],
       },
@@ -1294,7 +1286,8 @@ export const FACHANAMNESEN: FachanamneseGuide[] = [
       {
         text: 'Haben Sie Fieber, Augenentzündungen, Mund- oder Genitalgeschwüre, Durchfall oder eine Bindehautentzündung bemerkt?',
         probe: 'fach-rheuma-systemisch',
-        alts: ['Gibt es Begleitsymptome wie Hautausschlag, Augenentzündung oder Fieber?'],
+        // K3 (revue P2) : l'alternative « Hautausschlag, Augenentzündung oder Fieber » est retirée — la peau est la question
+        // de fach-rheuma-haut ; la garder obligeait la sonde à déclarer `ausschlag` (D1) et la laissait non réduite.
       },
       {
         text: 'Hatten Sie solche Gelenkbeschwerden schon einmal?',
@@ -1539,17 +1532,22 @@ export const FACHANAMNESEN: FachanamneseGuide[] = [
         followUpSucht: [['panikattacke']],
       },
       {
-        text: 'Denken Sie manchmal, dass das Leben nicht mehr lebenswert ist? Haben Sie Gedanken, sich etwas anzutun?',
+        // K3 (revue I3, décision de main) : le cadrage et le facteur de protection de la question de sécurité d'Aktuelle
+        // Beschwerden passent ici (texte existant, déplacé), puisque r2 garde la Fach (D4). Ordre de sécurité : idée →
+        // plans → intention (NOTFALL), puis l'automutilation, le désir avant l'acte, puis le soutien.
+        text: 'Ich frage das jeden Patienten in Ihrer Situation: Denken Sie manchmal, dass das Leben nicht mehr lebenswert ist? Haben Sie Gedanken, sich etwas anzutun?',
         probe: 'fach-psych-suizid',
         label: 'Pflichtfrage',
         alts: ['Haben Sie daran gedacht, sich das Leben zu nehmen? Haben Sie einen konkreten Plan gemacht?'],
         followUp: [
-          'Haben Sie sich selbst verletzt?',
-          'Haben Sie den Wunsch, sich zu verletzen?',
           'Haben Sie konkrete Pläne, sich das Leben zu nehmen?',
           'Falls konkrete Absicht oder Plan: NOTFALL — der Patient bleibt stationär. Rücksprache mit dem Oberarzt nach der Anamnese.',
+          'Haben Sie den Wunsch, sich zu verletzen?',
+          'Haben Sie sich selbst verletzt?',
+          'Gibt es jemanden, der Sie unterstützt?',
         ],
-        followUpSucht: [['selbstverletzung'], ['selbstverletzung']],
+        // K3 SÉCURITÉ : le désir et l'acte d'automutilation sont DEUX signes ; la mère les déclare tous (jamais perdus, RISIKO_SIGNES).
+        followUpSucht: [[], [], ['selbstverletzung_wunsch'], ['selbstverletzung'], []],
       },
       {
         text: 'Gab es belastende Ereignisse — ein Verlust, eine Trennung, Stress bei der Arbeit?',
@@ -1604,6 +1602,11 @@ export const FACHANAMNESEN: FachanamneseGuide[] = [
         alts: ['Hat jemand in Ihrer Familie oder Ihrem Umfeld ähnliche Beschwerden gehabt?'],
         followUp: ['Arbeiten Sie mit vielen Menschen? Haben Sie ungewöhnliche Lebensmittel gegessen — rohe Milch, rohes Fleisch?'],
         followUpSucht: [['kontakt', 'essen_expo']],
+        // K3 (revue clinique, gastroenteritis) : le contact et l'alimentation — deux répliques, découpées du texte.
+        parts: [
+          { sucht: ['kontakt'], text: 'Hatten Sie Kontakt zu kranken Personen oder zu Tieren?', followUp: ['Arbeiten Sie mit vielen Menschen?'] },
+          { sucht: ['essen_expo'], text: 'Haben Sie ungewöhnliche Lebensmittel gegessen — rohe Milch, rohes Fleisch?' },
+        ],
       },
       {
         text: 'Sind Ihre Impfungen auf dem neuesten Stand?',
@@ -1753,14 +1756,14 @@ function frauenQuestionsForAge(questions: Phrase[], age: number, fused = false):
       if (probe === 'frau-periode') return [retext(q, 'Wann hatten Sie Ihre letzte Regelblutung?', ['Hatten Sie seitdem noch einmal eine Blutung?'])];
       if (probe === 'frau-schwanger' || probe === 'frau-verhuetung') return [];
       if (probe === 'frau-wechseljahre') {
-        return [retext(q, 'Wie haben Sie die Wechseljahre erlebt — hatten Sie Beschwerden?', [...(fused ? [] : [GYN_HORMONE]), ...arzt], [...(fused ? [] : [['hormone']]), ...arzt.map(() => ['vorsorge_gyn'])])];
+        return [retext(q, 'Wie haben Sie die Wechseljahre erlebt — hatten Sie Beschwerden?', [...(fused ? [] : [GYN_HORMONE]), ...arzt])];   // K3 : Hormone et Frauenarzt = précisions (pas de followUpSucht), elles restent ici
       }
       return [q];
     }
     if (probe === 'frau-wechseljahre') {
       if (age < MENOPAUSE_FROM) return [];
       // La dernière règle est déjà demandée par frau-periode : pas de redite.
-      return [retext(q, 'Haben die Wechseljahre bei Ihnen schon begonnen — Hitzewallungen, unregelmäßige Blutungen?', arzt, arzt.map(() => ['vorsorge_gyn']))];
+      return [retext(q, 'Haben die Wechseljahre bei Ihnen schon begonnen — Hitzewallungen, unregelmäßige Blutungen?', arzt)];
     }
     return [q];
   });
@@ -1773,15 +1776,22 @@ function frauenTipForAge(age: number): string {
   return 'Obligatoire chez toute patiente en âge de procréer : pense grossesse AVANT toute imagerie ou médicament potentiellement tératogène.';
 }
 
+/** Index de chaque question du cas dans `caseSpecificQuestions` — table à côté, pour que la phrase (et la Fach brute, I3) ne change pas. */
+const CAS_INDEX = new WeakMap<object, number>();
+const casIndexDe = (p: Phrase): number | undefined => (typeof p === 'string' ? undefined : CAS_INDEX.get(p));
 /** Questions propres au cas, rangées par sous-chapitre (FB2-J4). */
 function caseQuestionsByKapitel(c: Case): Record<string, PhraseVariant[]> {
   const out: Record<string, PhraseVariant[]> = {};
-  for (const q of c.caseSpecificQuestions ?? []) {
+  (c.caseSpecificQuestions ?? []).forEach((q, casIndex) => {
     const k = cqKapitel(q);
     const sucht = typeof q === 'string' ? undefined : q.sucht;
     const followUp = typeof q === 'string' ? undefined : q.followUp;
-    (out[k] ??= []).push({ text: cqText(q), caseSpecific: true, ...(sucht ? { sucht } : {}), ...(followUp ? { followUp: [followUp] } : {}) });
-  }
+    // K3 : `casIndex` = identifiant des écarts (`cas:<index>`) ; `braucht` (K4, additif) est lu par r4b quand il est déclaré.
+    const braucht = typeof q === 'string' ? undefined : (q as { braucht?: string[] }).braucht;
+    const v: PhraseVariant = { text: cqText(q), caseSpecific: true, ...(sucht ? { sucht } : {}), ...(followUp ? { followUp: [followUp] } : {}), ...(braucht?.length ? { braucht } : {}) };
+    CAS_INDEX.set(v, casIndex);
+    (out[k] ??= []).push(v);
+  });
   return out;
 }
 
@@ -1798,7 +1808,7 @@ function caseQuestionsByKapitel(c: Case): Record<string, PhraseVariant[]> {
 // (`applies`) ou la reformule (`text` : chaîne, ou relances/alternatives) ;
 // le résidu propre à un cas passe par `fachSkip`.
 type Who = { geschlecht?: 'm' | 'w'; age: number; kategorie: LeitsymptomKategorie; schmerzOrt?: string; motiv?: PatientSheet['motiv'] };
-type FachPatch = string | Pick<PhraseVariant, 'text' | 'alts' | 'followUp' | 'followUpSucht'>;
+type FachPatch = string | Pick<PhraseVariant, 'text' | 'alts' | 'followUp' | 'followUpSucht' | 'sucht'>;
 const ARM = new Set(['obere', 'hws']), RUMPF = new Set(['lws', 'bws']), RACHIS = new Set(['lws', 'bws', 'hws']);
 const region = (w: Who) => w.motiv?.region;
 // « Herz » en début de mot seulement : « Schmerz » contient « herz ».
@@ -1811,7 +1821,7 @@ const FACH_RULES: Array<{ probe: string; applies?: (w: Who) => boolean; text?: (
   // Ortho : sans traumatisme, on écarte l'accident — sans le récit de chute.
   // Le casque n'est d'aucun cas (football, chute du fauteuil) : il vit dans le conseil.
   { probe: 'fach-ortho-mechanismus', text: (w) => (w.motiv && !w.motiv.trauma
-    ? { text: 'Hatten Sie in letzter Zeit einen Unfall oder einen Sturz?', alts: undefined, followUp: undefined } : undefined) },
+    ? { text: 'Hatten Sie in letzter Zeit einen Unfall oder einen Sturz?', alts: undefined, followUp: undefined, sucht: ['unfallhergang', 'sturz'] } : undefined) },   // K3 (revue P2) : la variante déclare ce qu'elle demande
   // Rachis lombaire : la question reste ouverte — c'est la réponse (au-dessus
   // ou au-dessous du genou) qui départage, pas la question qui la suggère.
   // Rachis dorsal : ouverte aussi (une question « gürtelförmig » masquait Arm, Hals, Beine).
@@ -1850,7 +1860,7 @@ const FACH_RULES: Array<{ probe: string; applies?: (w: Who) => boolean; text?: (
     ? 'Darf ich Ihnen ein paar Fragen zu Ihrer Partnerschaft stellen — das gehört zur Untersuchung dazu? Wie schützen Sie sich vor Geschlechtskrankheiten?' : undefined) },
   { probe: 'fach-gyn-kinderwunsch', applies: (w) => w.age <= FERTILE_UNTIL },
   // Vorsorge selon l'âge : HPV jusqu'à 35 ans (vaccination de la génération), mammographie dès 50 ans (dépistage).
-  { probe: 'fach-gyn-vorsorge', text: (w) => (w.age <= 35 ? { text: GYN_VORSORGE_ABSTRICH, followUp: [GYN_HPV], followUpSucht: [['impfung']] }
+  { probe: 'fach-gyn-vorsorge', text: (w) => (w.age <= 35 ? { text: GYN_VORSORGE_ABSTRICH, followUp: [GYN_HPV] }
     : w.age < 50 ? { text: GYN_VORSORGE_ABSTRICH, followUp: undefined } : { text: GYN_VORSORGE_TEXT, followUp: undefined }) },
   // Après 55 ans, le saignement depuis la dernière règle est la relance de frau-periode (rang 1) : la Blutung ne le redit pas.
   { probe: 'fach-gyn-blutung', text: (w) => (w.age > FERTILE_UNTIL ? { text: GYN_BLUTUNG_TEXT, alts: GYN_BLUTUNG_ALTS, followUp: undefined } : undefined) },
@@ -1870,8 +1880,9 @@ function adaptFach(questions: Phrase[], who: Who): Phrase[] {
 }
 
 /** La Fachanamnese du cas AVANT modulation par symptôme (sexe, âge, nature du
- *  motif, `fachSkip`, questions « fach » du cas). */
-function fachChapterRaw(c: Case): FachanamneseGuide | undefined {
+ *  motif, `fachSkip`, questions « fach » du cas). Exportée pour le gel I3 (`fachRaw.test.ts`) :
+ *  FACH_RULES est la couche d'adaptation, `cohere` (K3) ne la change pas. */
+export function fachChapterRaw(c: Case): FachanamneseGuide | undefined {
   const f = fachChapterForSimulation(c.fachanamnese ?? c.specialty);
   if (!f) return undefined;
   const s = c.patientSheet;
@@ -1955,25 +1966,59 @@ export function fachChapterForCase(c: Case): FachanamneseGuide | undefined {
 
 // ── La trame jouée, dans l'ordre de l'entretien ──────────────────────────────
 // Personalia → Aktuelle Beschwerden → Fachanamnese → Vegetative → … : c'est
-// dans CET ordre que « un symptôme, une question » s'applique (FB2-J10). Les
-// deux consommateurs (guide, focus) lisent la même trame ; mémoïsée par cas.
-const TRAME = new WeakMap<Case, { chapters: AnamneseChapter[]; fach?: FachanamneseGuide }>();
-export function playedTrame(c: Case): { chapters: AnamneseChapter[]; fach?: FachanamneseGuide } {
+// dans CET ordre que le moteur de cohérence s'applique (K3, ADR-0023 — `cohere`
+// remplace `dedupeBySymptom` et `FACH_COVERS`). FACH_RULES, aktuellSkip et fachSkip
+// sont appliqués AVANT (couche d'adaptation, I3). Les deux consommateurs (guide,
+// focus) lisent la même trame ; mémoïsée par cas. `ecarts` : ce que le moteur a
+// retiré, réduit, ajouté, déplacé ou détaché, et pourquoi (additif, §10.8).
+export interface TrameJouee { chapters: AnamneseChapter[]; fach?: FachanamneseGuide; ecarts: Ecart[] }
+const TRAME = new WeakMap<Case, TrameJouee>();
+export function playedTrame(c: Case): TrameJouee {
   const hit = TRAME.get(c);
   if (hit) return hit;
   const fachRaw = fachChapterRaw(c);
-  const general = adaptChaptersRaw(c, fachRaw);
-  const FACH_ID = '__fach__';
-  const ordered: AnamneseChapter[] = [];
-  for (const ch of general) { ordered.push(ch); if (fachRaw && ch.id === 'aktuell') ordered.push({ ...fachRaw.chapter, id: FACH_ID }); }
-  const deduped = dedupeBySymptom(ordered);
-  const fachCh = deduped.find((ch) => ch.id === FACH_ID);
+  const ordered = trameBrute(c, fachRaw);
+  const { trame, ecarts } = cohere(ordered, profilDuCas(c), c.id, ctxDuCas(c));
+  const fachCh = trame.find((ch) => ch.id === FACH_ID);
   const out = {
-    chapters: deduped.filter((ch) => ch.id !== FACH_ID),
+    chapters: trame.filter((ch) => ch.id !== FACH_ID),
     fach: fachRaw && fachCh ? { ...fachRaw, chapter: { ...fachRaw.chapter, questions: fachCh.questions } } : undefined,
+    ecarts,
   };
   TRAME.set(c, out);
   return out;
+}
+
+/** Le profil effectif et le contexte que `playedTrame` passe à `cohere` (exportés pour les tests et la porte). */
+export const profilDuCas = (c: Case) => profilEffectif({ id: c.id, kategorie: leitsymptomOf(c), sheet: c.patientSheet });
+export const ctxDuCas = (c: Case): CohereCtx => ({ antworten: c.patientSheet.antworten, banque: phraseDeBanque, casIndex: casIndexDe });
+const FACH_ID = 'fach';   // le chapitre cible `fach` du lexique (SigneKapitel)
+/** La trame BRUTE d'un cas, entrée de `cohere` : chapitres dans l'ordre de l'entretien, la Fach (id `fach`) après
+ *  « Aktuelle Beschwerden » ; FACH_RULES, aktuellSkip, fachSkip et les questions du cas déjà appliqués. */
+export function trameBrute(c: Case, fachRaw = fachChapterRaw(c)): AnamneseChapter[] {
+  const ordered: AnamneseChapter[] = [];
+  for (const ch of adaptChaptersRaw(c, fachRaw)) { ordered.push(ch); if (fachRaw && ch.id === 'aktuell') ordered.push({ ...fachRaw.chapter, id: FACH_ID }); }
+  return ordered;
+}
+
+/** La porte après montage (§10.6) : les compteurs de la trame jouée d'un cas, relus depuis la trame (`compteursApres`). */
+export function compteursApresCas(c: Case): CompteursApres & { detail: string[] } {
+  const { chapters, fach, ecarts } = playedTrame(c);
+  const trame: AnamneseChapter[] = [];
+  for (const ch of chapters) { trame.push(ch); if (fach && ch.id === 'aktuell') trame.push({ ...fach.chapter, id: 'fach' }); }
+  return compteursApres(trame, profilDuCas(c), ecarts, casIndexDe);
+}
+
+/** r3 : la question du GUIDE qui porte la sonde de banque (texte, alternatives, relances rédigés) — jamais un texte inventé. */
+let BANQUE: Map<string, Phrase> | undefined;
+function phraseDeBanque(probe: string): Phrase | undefined {
+  BANQUE ??= (() => {
+    const m = new Map<string, Phrase>();
+    const toutes = [...Object.values(AKTUELL_VARIANTS).flatMap((v) => v.questions), ...ALLGEMEINE_ANAMNESE.flatMap((ch) => ch.questions), ...FACHANAMNESEN.flatMap((f) => f.chapter.questions)];
+    for (const q of toutes) { const pr = phraseProbes(q); if (pr.length === 1 && !m.has(pr[0])) m.set(pr[0], q); }
+    return m;
+  })();
+  return BANQUE.get(probe);
 }
 
 /** Questions « fach » du cas, à ajouter à la Fachanamnese jouée. */
@@ -2005,16 +2050,10 @@ function adaptChaptersRaw(c: Case, fach: FachanamneseGuide | undefined): Anamnes
       // jamais le modèle douleur avec un mot remplacé.
       if (ch.id === 'aktuell') {
         const v = aktuellChapterFor(kategorie);
-        // Ce que la Fach jouée pose déjà (FACH_COVERS) et ce que le cas exclut
-        // (aktuellSkip) ne sont pas posés ici — un seul endroit par trame.
+        // Ce que le cas exclut (aktuellSkip) n'est pas posé. Ce que la Fach jouée pose déjà, `cohere` le retire (r2 :
+        // la Fach l'emporte, D4) ; l'exception testiculaire est la règle générique SUCHT_AUSSER (tag dérivé `hoden`).
         const skip = new Set(c.patientSheet.aktuellSkip ?? []);
-        // Exception (revue clinique C-1) : « Flanke oder Rücken… strahlen sie in die
-        // Leiste aus ? » ne dit pas où irradie une douleur du TESTICULE (« sie » n'a
-        // pas d'antécédent) : l'irradiation neutre reste, la question de flanc aussi.
-        const hoden = /hoden|skrot/i.test(c.patientSheet.schmerz?.ort ?? '');
-        const covering = fach ? fach.chapter.questions.filter((q) => !(hoden && phraseProbes(q).includes('fach-uro-flanke'))) : [];
-        const covered = coveredByFach(covering);
-        const questions = v.questions.filter((q) => !phraseProbes(q).some((pr) => skip.has(pr) || covered.has(pr)));
+        const questions = v.questions.filter((q) => !phraseProbes(q).some((pr) => skip.has(pr)));
         return withCase(v, questions);
       }
       if (ch.id === 'abschluss') { const v = abschlussChapterFor(c); return withCase(v, v.questions); }

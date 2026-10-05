@@ -69,7 +69,7 @@ describe('Scission selles / urines — « Häufigkeit » et « Aussehen »', () 
   it('chaque question se coupe en deux sondes mono-signe ; les ids historiques gardent les selles', () => {
     expect(PROBE_SUCHT['akt-ausscheid-haeufigkeit']).toEqual(['stuhlfrequenz']);
     expect(PROBE_SUCHT['akt-ausscheid-harn-haeufigkeit']).toEqual(['miktion_frequenz', 'nykturie']);
-    expect(PROBE_SUCHT['akt-ausscheid-aussehen']).toEqual(['stuhlaussehen']);
+    expect(PROBE_SUCHT['akt-ausscheid-aussehen']).toEqual(['stuhl_blut']);   // K3 (revue P0-1, décision de main) : le sang, signe d'alarme
     expect(PROBE_SUCHT['akt-ausscheid-harn-aussehen']).toEqual(['urin_aspekt']);
     expect(PROBE_BY_ID['akt-ausscheid-haeufigkeit'].frage).toMatch(/Stuhlgang/);
     expect(PROBE_BY_ID['akt-ausscheid-haeufigkeit'].frage).not.toMatch(/Wasser/);
@@ -118,11 +118,18 @@ describe('Scission selles / urines — « Häufigkeit » et « Aussehen »', () 
       for (const f of fragments) expect(r, f).toContain(f);
     });
   }
-  it('le montage ne change pas : les moitiés urinaires restent effacées comme l\'ancienne sonde commune (gel de la trame)', () => {
+  // K3 (décision 3 de main ; contrat §11.4 : FACH_COVERS est absorbé par r2) : le pont « Fach urologique → fréquence des
+  // SELLES » disparaît. Une moitié est jouée, ou retirée par r2 au profit d'une question qui cherche son signe — jamais effacée en silence.
+  it('K3 : chaque moitié (selles, urines) est jouée, ou retirée par r2 avec un écart qui nomme son gagnant', () => {
     for (const c of ausscheidung()) {
-      const probes = playedTrame(c).chapters.flatMap((ch) => ch.questions).flatMap(phraseProbes);
-      expect(probes, c.id).not.toContain('akt-ausscheid-harn-haeufigkeit');
-      expect(probes, c.id).not.toContain('akt-ausscheid-harn-aussehen');
+      const t = playedTrame(c);
+      const probes = [...t.chapters.flatMap((ch) => ch.questions), ...(t.fach?.chapter.questions ?? [])].flatMap(phraseProbes);
+      const skip = new Set(c.patientSheet.aktuellSkip ?? []);
+      for (const id of ['akt-ausscheid-haeufigkeit', 'akt-ausscheid-aussehen', 'akt-ausscheid-harn-haeufigkeit', 'akt-ausscheid-harn-aussehen']) {
+        if (skip.has(id) || probes.includes(id)) continue;
+        // r2 (son gagnant) ou r1 (hors profil : la fréquence des selles hors diarrhée / transit, revue P1-5)
+        expect(t.ecarts.some((e) => e.question === id && e.action === 'retire' && (e.regle === 2 || e.regle === 1) && !!e.cause), `${c.id} ${id}`).toBe(true);
+      }
     }
   });
 });

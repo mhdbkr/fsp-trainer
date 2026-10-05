@@ -57,9 +57,7 @@ for (const c of cases) {
   q += lines.length;
   for (let i = 0; i < lines.length; i++) for (let j = i + 1; j < lines.length; j++) {
     const a = lines[i], b = lines[j];
-    // Une Fach « approfondit » une question générale par contrat (deepens) : toléré.
-    const deep = (x, y) => x.probes.some((pp) => { const d = m.PROBE_BY_ID[pp]?.deepens; return d && y.probes.includes(d); });
-    if (deep(a, b) || deep(b, a)) continue;
+    // D3 (contrat §10.6, K3) : la tolérance `deepens` est retirée — un signe, une question (r2).
     const s = jac(a.k, b.k);
     if (s >= 0.6 && a.k.size >= 4 && b.k.size >= 4) problems.push(`${c.id} — ${a.ch} ↔ ${b.ch} (${s.toFixed(2)}) : « ${a.t.slice(0, 55)} » ≈ « ${b.t.slice(0, 55)} »`);
   }

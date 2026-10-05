@@ -443,6 +443,7 @@ la qualité :
 | **D2** | Une douleur dans le **premier** symptôme du motif ajoute Ort, Charakter, Intensität même si la nature du cas n'est pas « douleur » ; pas une douleur accessoire. | tag `schmerz` déclaré, §10.3 ; r3 |
 | **D3** | Une redite marquée `deepens` n'est plus tolérée : un signe, une question. | r2 ; `checkPlayedTrame` perd sa tolérance |
 | **D4** | Conservation : question du cas > Fachanamnese > Aktuelle Beschwerden > végétative. | rang de r2, §10.4 |
+| **D4-bis** | *(K3, décision de main, revue clinique P1-1)* Quand un signe **est** le motif **déclaré** du cas (`SIGNE_DU_MOTIF` : la fièvre d'un tableau `infekt` dont le profil porte `fieber`, la dyspnée d'un tableau `atemnot` dont le profil porte `dyspnoe` — revue R5 : pas sur la seule nature), la question d'Aktuelle Beschwerden l'emporte sur la Fach, qui se réduit à ses autres `parts` (`fach-pneumo-fieber` → « Hatten Sie dabei Schüttelfrost? »). Aucune question « Fieber » n'est plus posée après trois questions qui la présupposent. Tests : malaria, pneumonie. | rang de r2, §10.4 |
 | **D5** | Fach Infektiologie (gabarit borréliose) : le moteur la réduit d'abord, pas de scission. | r1 |
 | **D6** | Q3–Q5 et Q7 continuent en déclarant `sucht` sur ce qu'ils touchent ; Q6 et Q8 gelés jusqu'à K3, puis absorbés. | ordre des lots, §10.10 |
 | **D7** | Porte à 0 sur la trame jouée **après** montage dès K3 ; plancher (qui ne remonte jamais) sur le contenu brut jusqu'à K4. | §10.6 |
@@ -634,7 +635,10 @@ absorbé, par r2.
 - La **règle d'insertion** sert à r3 et r4a.
   - Le **chapitre cible** est `SIGNE_DEF[s].kapitel`.
   - Dans ce chapitre, on insère après la dernière question dont le premier
-    signe précède `s` dans `SIGNES`, et à défaut en tête du chapitre.
+    signe précède `s` dans `SIGNES` **ou l'égale** (décision de main, K3 : une
+    relance détachée se pose après la question de son signe, pas devant), et à
+    défaut en tête du chapitre. Le motif (`motiv`) est le premier signe de
+    `SIGNES` : il ouvre toujours son chapitre (K3).
   - **Repli (I5)** : si la cible est la Frauenanamnese fondue dans la gynéco,
     on insère dans le bloc gynéco fondu. Si le chapitre cible n'existe pas
     dans la trame (pas de Fach jouée, Frauenanamnese chez un homme), on insère
@@ -642,11 +646,29 @@ absorbé, par r2.
 
 **Ordre d'exécution, en une passe** : r1 → r4a → r2 → r3 → r4b.
 
+**Précisions de K3 (revues Opus de `508639f6`, décisions de main).**
+- Une relance hors signe est une unité à part : elle suit **sa** décision même si sa mère est
+  retirée par r1 (revue B1).
+- r3 : une banque à `parts` (jour / nuit) n'ajoute que les parts qu'aucune unité ne pose.
+- Les parts gardées d'une même question se posent en **une** question — la première — et
+  les suivantes en relances ; jamais recollées dans une même ligne (revue série 3, I4).
+- r3 lève une erreur si la sonde de banque n'a ni phrase de guide ni question (jamais un id
+  affiché comme question).
+
+**Sécurité (décision de main, K3).** Garantie opposable, testée : **tout signe
+de risque cherché par la trame brute reste cherché par au moins une question
+de la trame jouée**. `RISIKO_SIGNES` = `suizid`, `selbstverletzung` (l'acte),
+`selbstverletzung_wunsch` (l'idéation d'automutilation) — l'idéation n'est
+jamais confondue avec l'acte (signes distincts). r1 ne retire jamais une
+question de risque (ces signes ne sont jamais hors profil) ; r2 s'applique
+normalement : le gagnant D4 (la Fach psy devant Aktuelle Beschwerden) reste posé
+et porte le signe.
+
 | Règle | Décision déterministe | Écarts |
 |---|---|---|
-| **r1 — hors profil** *(inactive sans profil)* | Un signe `s` est hors profil si `s ∈ exclut_eff`, ou si `pertinence(s) ≠ 'screening'` et `pertinence(s) ∩ tags_eff = ∅`. Si tous les signes d'une unité sont hors profil, elle est retirée. Si une partie l'est, l'unité est réduite aux `parts` qui portent au moins un signe hors de l'ensemble hors profil. Sans `parts`, elle est **gardée entière** (résidu `nonReduit`). Une relance d'une autre unité suit sa propre décision. | `retire` / `reduit` / `non-reduit`, `cause: 'profil' \| 'exclut'` |
+| **r1 — hors profil** *(inactive sans profil)* | Un signe `s` est hors profil si `s ∈ exclut_eff`, ou si `pertinence(s) ≠ 'screening'` et `pertinence(s) ∩ tags_eff = ∅`. **r1 ne retire jamais une question du cas (rang 0)** (décision de main, K3) : une question du cas hors profil est gardée, avec un écart `anomalie` (erreur de source à corriger : profil ou `sucht`) ; `casRetiresParR1 = 0`. Si tous les signes d'une unité sont hors profil, elle est retirée. Si une partie l'est, l'unité est réduite aux `parts` qui portent au moins un signe hors de l'ensemble hors profil. Sans `parts`, elle est **gardée entière** (résidu `nonReduit`). Une relance d'une autre unité suit sa propre décision. | `retire` / `reduit` / `non-reduit`, `cause: 'profil' \| 'exclut'` |
 | **r4a — relances hors signe** | Une relance dont le `sucht` déclaré n'est pas inclus dans celui de sa mère est une unité à part (I1). Si elle est **inconditionnelle** (`parseFollowUp(...).kind === 'immer'`), elle est **détachée** et placée par la règle d'insertion dans le chapitre de son premier signe. Si elle est **conditionnelle**, c'est une **anomalie** : la porte la refuse. Le cas ne doit pas exister après K1 (DM2). | `detache` (`de`, `vers`) / `anomalie` |
-| **r2 — un signe, une question (D3, D4)** | Les gagnants sont calculés **en une fois** sur l'état d'après r4a. Pour chaque signe cherché par au moins deux unités, le **gagnant** est l'unité de rang minimal ; à rang égal, la première dans l'ordre de la trame. Deux **questions du cas** du même signe forment une **anomalie comptée** (`doublonsCas`) : la première gagne. Chaque perdante perd le signe : elle est retirée si elle n'en garde aucun ; sinon elle est réduite aux `parts` qui portent **au moins un** signe qu'elle garde ; sans `parts`, elle passe en `non-reduit`. Une question du cas gagnante prend la place de la première perdante du **même chapitre** placée au-dessus d'elle (`symptoms.ts:215-233`, conservé). Une entrée de `COHERENCE_ALLOWED` (r2) garde le signe sur la question nommée. | `retire` / `reduit` / `non-reduit` (`cause` = id du gagnant) ; `deplace` ; `garde-exception` ; `anomalie` |
+| **r2 — un signe, une question (D3, D4)** | Les gagnants sont calculés **en une fois** sur l'état d'après r4a. Pour chaque signe cherché par au moins deux unités, le **gagnant** est l'unité de rang minimal ; à rang égal, la première dans l'ordre de la trame. Deux **questions du cas** du même signe forment une **anomalie comptée** (`doublonsCas`) : la première gagne. Chaque perdante perd le signe : elle est retirée si elle n'en garde aucun ; sinon elle est réduite aux `parts` qui portent **au moins un** signe qu'elle garde ; sans `parts`, elle passe en `non-reduit`. Une question du cas gagnante prend la place de la première perdante **retirée** du **même chapitre** placée au-dessus d'elle (`symptoms.ts:215-233`, conservé) ; si la perdante est réduite ou non réduite, elle reste posée et la question du cas reste à sa place (K3, revue clinique R6, décision de main). Une entrée de `COHERENCE_ALLOWED` (r2) garde le signe sur la question nommée. | `retire` / `reduit` / `non-reduit` (`cause` = id du gagnant) ; `deplace` ; `garde-exception` ; `anomalie` |
 | **r3 — rien d'attendu absent** *(inactive sans profil)* | Pour chaque `s ∈ exige_eff` qu'aucune unité ne cherche, la sonde `SIGNE_DEF[s].bank` est insérée par la règle d'insertion. Si `antworten[bank]` manque, l'écart est marqué `sansReponse`, et ce marquage est **bloquant dès K3** (I6). **Jamais de texte inventé.** | `ajoute`, `cause` = tag ou `'exige'` |
 | **r4b — ordre sans présupposition** | Pour chaque question à `braucht`, dans l'ordre de la trame : si un signe de `braucht` n'est cherché que **plus bas**, la question est déplacée juste après la dernière des premières questions qui cherchent ces signes. Un signe de `braucht` cherché nulle part, ou un cycle, est une anomalie. On itère jusqu'au point fixe, en au plus *n* passes ; une question ne se déplace qu'une fois par passe. | `deplace` (`de`, `vers`, `cause` = signe) / `anomalie` |
 
@@ -704,7 +726,7 @@ montage réel des cas. Elle est **bloquante** : son job ne porte pas
 | Compteur | Définition |
 |---|---|
 | `doublons` | signes cherchés par ≥ 2 unités jouées, hors `garde-exception` et hors perdantes `non-reduit` |
-| `horsProfil` | signes hors profil encore cherchés, hors `non-reduit` et hors exceptions |
+| `horsProfil` | signes hors profil encore cherchés, hors `non-reduit`, hors exceptions et hors questions du cas gardées par r1 (écart `anomalie`, décision K3) |
 | `exigeAbsent` | `s ∈ exige_eff` cherché par aucune unité |
 | `relancesOrphelines` | anomalies r4a (relance conditionnelle hors signe) |
 | `brauchtViole` | anomalies r4b, plus toute question placée avant un de ses `braucht` |
@@ -736,8 +758,13 @@ K0. Aucun compteur ne remonte ; le correcteur met le fichier à jour dans le
 - `brut` est la dette de contenu : le moteur corrige l'affichage, ce compteur
   pousse à corriger la **source**.
 - `residu` doit atteindre **0 à la fin de K4** ; à K5, il devient bloquant à 0.
-  `casRetiresParR1` compte une question du cas retirée par r1 : c'est une
-  erreur de source (profil ou `sucht` faux).
+  `casRetiresParR1` compte une question du cas retirée par r1 : **il vaut 0 par
+  construction depuis K3** (r1 ne retire jamais une question du cas), et la
+  porte échoue s'il remonte.
+- **Où se mesure le plancher (décision de main, K3).** `brut` se mesure sur la
+  trame **jouée** (après `cohere`) : ce que l'utilisateur voit. Il baisse avec K3
+  et reste la dette de contenu que le moteur ne corrige pas (questions du cas
+  lues par leur texte, questions non réduites faute de `parts`).
 - **Hausse de mesure** : quand une déclaration remplace la lecture du texte, un
   doublon jusque-là invisible apparaît. La hausse est acceptée en revue, avec sa
   raison écrite au fixture (§3.4).

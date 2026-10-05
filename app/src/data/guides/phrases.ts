@@ -24,7 +24,7 @@ export interface PhraseVariant {
   /** Décomposition par symptôme cherché (FB2-J10) : quand une partie de la
    *  question a déjà été posée plus haut dans la trame du cas, seules les
    *  parties restantes sont affichées — texte rédigé à la main pour chacune. */
-  parts?: Array<{ sucht: string[]; text: string; followUp?: string[]; followUpSucht?: string[][] }>;
+  parts?: Array<{ sucht: string[]; text: string; followUp?: string[]; followUpSucht?: string[][]; braucht?: string[] }>;   // K3 : une part peut présupposer un signe (r4b)
   /** Symptômes que cette phrase cherche, quand la carte des sondes ne suffit
    *  pas : posé par la modulation (ce qui reste d'une question réduite) ou
    *  explicitement sur une question du cas. */
@@ -38,6 +38,10 @@ export interface PhraseVariant {
   /** K1 — discordance voulue (contrat §10.2) : le texte nomme un signe absent de `sucht` sans l'interroger
    *  (un exemple de réaction allergique). Jamais sur une énumération : la porte le refuse. */
   relu?: boolean;
+  /** K3 — signes que la question présuppose (r4b : jamais posée avant la question qui les cherche). Déclaré en K4. */
+  braucht?: string[];
+  /** K3 — relance détachée de sa mère par r4a (elle cherche un autre signe) : son identifiant `<mère>#<n>`. */
+  detacheDe?: string;
 }
 
 export type Phrase = string | PhraseVariant;
