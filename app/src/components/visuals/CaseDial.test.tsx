@@ -11,6 +11,8 @@ import type { CaseDialData } from '@/lib/dialData';
 import { CaseDial, oublieLesTraces, type CaseDialSize } from './CaseDial';
 import { etiquette } from './CaseDialText';
 
+// Le premier rendu charge motion et jsdom à froid : sous charge machine il dépassait 5 s (mesuré, 10 s à load 28).
+vi.setConfig({ testTimeout: 30_000 });
 const AUJOURDHUI = new Date(2026, 9, 5, 12).getTime();        // lundi 5 oct. 2026
 type T = CaseDialData['teile']['anamnese'];
 const t = (status: T['status'], lastScore: number | null = null, over: Partial<T> = {}): T =>
@@ -410,6 +412,21 @@ describe('D1 — l\'ouverture est visible : le cadran grandit, les arcs s\'écar
     cleanup();
     const ligne = Number((monte(ENTAME, { size: 36 }).container.querySelector('.case-dial') as HTMLElement).style.getPropertyValue('--cd-echelle'));
     expect(36 * ligne).toBeCloseTo(96, 5);
+  });
+
+  it('près du bord de l\'écran, le cadran ouvert se décale pour rester entier', () => {
+    vi.stubGlobal('innerWidth', 390);
+    const { container } = monte(ENTAME, { size: 64 });
+    const b = container.querySelector('.case-dial') as HTMLElement;
+    b.getBoundingClientRect = () => ({ left: 300, top: 100, width: 64, height: 64, right: 364, bottom: 164, x: 300, y: 100, toJSON() {} }) as DOMRect;
+    fireEvent.click(b);
+    const ox = parseFloat(b.style.getPropertyValue('--cd-ox'));
+    expect(ox).toBeLessThan(0);
+    expect(332 + ox + (96 / 120) * 80).toBeLessThanOrEqual(390 - 5.9);        // centre + décalage + rayon ouvert tient dans l'écran
+    fireEvent.click(b);
+    b.getBoundingClientRect = () => ({ left: 100, top: 100, width: 64, height: 64, right: 164, bottom: 164, x: 100, y: 100, toJSON() {} }) as DOMRect;
+    fireEvent.click(b);
+    expect(parseFloat(b.style.getPropertyValue('--cd-ox'))).toBe(0);          // au milieu de l\'écran : aucun décalage
   });
 
   it('les arcs s\'écartent d\'environ 9 unités, vers l\'extérieur', () => {

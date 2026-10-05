@@ -96,7 +96,21 @@ export function CaseDial({ data, size = 64, nom, vientDeSouder = false, action =
   const planifie = (fn: () => void, ms: number) => { efface(); timer.current = setTimeout(fn, ms); };
   useEffect(() => efface, []);
 
-  const ouvre = useCallback(() => { setAncre(bouton.current?.getBoundingClientRect() ?? null); setOuvert(true); }, []);
+  // À l'ouverture le cadran déborde de son logement : près d'un bord d'écran (carte pleine largeur sur mobile),
+  // il se décale juste assez pour rester entier. Le panneau naît ensuite du centre décalé.
+  const echelle = reduit ? 1 : echelleOuverte(size);       // sous mouvement réduit, rien ne grandit
+  const [decal, setDecal] = useState(0);
+  const ouvre = useCallback(() => {
+    const r = bouton.current?.getBoundingClientRect() ?? null;
+    setAncre(r);
+    if (r && !reduit) {
+      const R = ((size * echelle) / 120) * 80;               // le cadran ouvert, repères compris
+      const cx = r.left + r.width / 2;
+      const gauche = 6 - (cx - R), droite = window.innerWidth - 6 - (cx + R);
+      setDecal(gauche > 0 ? gauche : droite < 0 ? droite : 0);
+    } else setDecal(0);
+    setOuvert(true);
+  }, [size, echelle, reduit]);
   const ferme = useCallback(() => setOuvert(false), []);
 
   // Ouvert : Échap, clic ailleurs, défilement referment. Le focus revient au cadran.
@@ -138,7 +152,6 @@ export function CaseDial({ data, size = 64, nom, vientDeSouder = false, action =
   const maitrise = data.maitrise;
   const etats = Object.fromEntries(TEILE.map(({ key }) => [key, etatTeil(data.teile[key])])) as Record<SimTeil, EtatTeil>;
   const avecCentre = size >= 64;
-  const echelle = reduit ? 1 : echelleOuverte(size);       // sous mouvement réduit, rien ne grandit
   const avecRepere = size * echelle >= TAILLE_OUVERTE;      // un repère de moins de 11 px ne se lirait pas
   const taillePolice = (POLICE_MIN * 120) / (size * echelle);   // unités du viewBox → POLICE_MIN px de rendu à l'ouverture
   const complet = data.couverture === 3;                    // couleur pleine seulement avec les trois Teile
@@ -153,7 +166,7 @@ export function CaseDial({ data, size = 64, nom, vientDeSouder = false, action =
         data-ouvert={ouvert || undefined}
         data-pret={soude}
         data-mouvement={reduit ? 'reduit' : undefined}
-        style={{ width: Math.max(size, 44), height: Math.max(size, 44), '--cd-echelle': echelle } as React.CSSProperties}
+        style={{ width: Math.max(size, 44), height: Math.max(size, 44), '--cd-echelle': echelle, '--cd-ox': `${decal}px` } as React.CSSProperties}
         aria-label={etiquette(data, nom)}
         aria-haspopup="dialog"
         aria-expanded={ouvert}
@@ -239,7 +252,7 @@ export function CaseDial({ data, size = 64, nom, vientDeSouder = false, action =
       </button>
 
       <DetailFlottant
-        ouvert={ouvert} data={data} nom={nom} action={action} ancre={ancre} size={size} echelle={echelle} refDetail={detail} reduit={reduit}
+        ouvert={ouvert} data={data} nom={nom} action={action} ancre={ancre} decal={decal} size={size} echelle={echelle} refDetail={detail} reduit={reduit}
         onEntree={efface} onSortie={() => planifie(ferme, GRACE_MS)}
         onPerdFocus={(vers) => { if (!detail.current?.contains(vers) && vers !== bouton.current) ferme(); }}
         onTab={() => { ferme(); bouton.current?.focus(); }}      // le détail n'a qu'une cible : Tab (ou Maj+Tab) rend le focus au cadran
@@ -251,8 +264,8 @@ export function CaseDial({ data, size = 64, nom, vientDeSouder = false, action =
 const L = 288;
 
 /** Le détail naît du cadran : même origine de transformation, il grandit depuis lui. Verre plein, jamais d'ombre portée. */
-function DetailFlottant({ ouvert, data, nom, action, ancre, size, echelle, refDetail, reduit, onEntree, onSortie, onPerdFocus, onTab }: {
-  ouvert: boolean; data: CaseDialData; nom?: string; action: boolean; ancre: DOMRect | null; size: number; echelle: number;
+function DetailFlottant({ ouvert, data, nom, action, ancre, decal, size, echelle, refDetail, reduit, onEntree, onSortie, onPerdFocus, onTab }: {
+  ouvert: boolean; data: CaseDialData; nom?: string; action: boolean; ancre: DOMRect | null; decal: number; size: number; echelle: number;
   refDetail: React.RefObject<HTMLDivElement>; reduit: boolean;
   onEntree: () => void; onSortie: () => void; onPerdFocus: (vers: Node | null) => void; onTab: () => void;
 }) {
@@ -265,7 +278,7 @@ function DetailFlottant({ ouvert, data, nom, action, ancre, size, echelle, refDe
   const vh = typeof window !== 'undefined' ? window.innerHeight : 768;
   const largeur = Math.min(L, vw - 16);
   const a = ancre ?? new DOMRect(8, 8, 0, 0);
-  const cx = a.left + a.width / 2;
+  const cx = a.left + a.width / 2 + decal;
   const cy = a.top + a.height / 2;
   const rayon = ((size * echelle) / 120) * 90;               // le cadran ouvert, repères compris
   const left = Math.max(8, Math.min(cx + 56 - largeur, vw - largeur - 8));

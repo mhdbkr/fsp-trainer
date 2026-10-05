@@ -767,7 +767,7 @@ html:active-view-transition .vt-page { view-transition-name: page; }
   .cd-arc { transition: stroke-width 460ms var(--ease-out); }
   .cd-fond { transition: opacity 300ms var(--ease-out); }
   .cd-label { transition: opacity 300ms var(--ease-out) 140ms; }
-  .case-dial[data-ouvert] svg { transform: scale(var(--cd-echelle, 1.14)); }
+  .case-dial[data-ouvert] svg { transform: translateX(var(--cd-ox, 0px)) scale(var(--cd-echelle, 1.14)); }
   .case-dial[data-ouvert] .cd-fond { opacity: 1; }
   .case-dial[data-ouvert] .cd-groupe { transform: translate(var(--dx), var(--dy)); }
   .case-dial[data-ouvert] .cd-arc:not([data-etat="vierge"]):not([data-etat="non-mesure"]) { stroke-width: 9; }

@@ -169,12 +169,12 @@ const CaseCard = memo(function CaseCard({ c, cp, visite, onPreview, active }: { 
       <div className="mt-3 flex flex-wrap items-center gap-1.5">
         <FreqBadge n={c.frequency} />
       </div>
-      <div className="mt-2 flex flex-wrap items-center gap-1">
+      <div className="mb-4 mt-2 flex flex-wrap items-center gap-1">
         {c.centers.slice(0, 4).map((ct) => <CenterBadge key={ct} center={ct} />)}
         {/* Loin du cadran : trois points près de lui se lisent « 2 Teile sur 3 ». */}
         <span className="ml-auto inline-flex items-center gap-1.5 text-[11px] text-slate-400">Difficulté <DifficultyDots level={c.difficulty} /></span>
       </div>
-      <div className="mt-4 flex gap-2 border-t border-slate-100 pt-3 dark:border-slate-800">
+      <div className="mt-auto flex gap-2 border-t border-slate-100 pt-3 dark:border-slate-800">
         <Link to={lienAction(dial)} className="btn-primary flex-1 justify-center gap-1 text-center text-xs leading-tight"><Icon name="play" className="h-3 w-3 shrink-0" />{suite.label}</Link>
         <button onClick={ouvrir} className="btn-outline text-xs">Aperçu</button>
         <Link to={`/cas/${c.id}`} className="btn-ghost text-xs">Fiche</Link>
