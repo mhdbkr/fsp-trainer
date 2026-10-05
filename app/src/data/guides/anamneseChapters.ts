@@ -3,7 +3,7 @@ import type { Phrase } from './phrases';
 import { phraseProbes, type PhraseVariant } from './phrases';
 import { cqKapitel, cqText } from '@/lib/caseQuestions';
 import { FACH_PROBES } from './anamneseProbes';
-import { cohere, compteursApres, profilEffectif, type CompteursApres, type Ecart } from './coherence';
+import { cohere, compteursApres, profilEffectif, type CohereCtx, type CompteursApres, type Ecart } from './coherence';
 
 // ============================================================================
 // Guide d'anamnèse — Allgemeine Anamnese + Spezielle Anamnese par spécialité.
@@ -1918,12 +1918,8 @@ export function playedTrame(c: Case): TrameJouee {
   const hit = TRAME.get(c);
   if (hit) return hit;
   const fachRaw = fachChapterRaw(c);
-  const general = adaptChaptersRaw(c, fachRaw);
-  const FACH_ID = 'fach';   // le chapitre cible `fach` du lexique (SigneKapitel)
-  const ordered: AnamneseChapter[] = [];
-  for (const ch of general) { ordered.push(ch); if (fachRaw && ch.id === 'aktuell') ordered.push({ ...fachRaw.chapter, id: FACH_ID }); }
-  const profil = profilEffectif({ id: c.id, kategorie: leitsymptomOf(c), sheet: c.patientSheet });
-  const { trame, ecarts } = cohere(ordered, profil, c.id, { antworten: c.patientSheet.antworten, banque: phraseDeBanque, casIndex: casIndexDe });
+  const ordered = trameBrute(c, fachRaw);
+  const { trame, ecarts } = cohere(ordered, profilDuCas(c), c.id, ctxDuCas(c));
   const fachCh = trame.find((ch) => ch.id === FACH_ID);
   const out = {
     chapters: trame.filter((ch) => ch.id !== FACH_ID),
@@ -1934,12 +1930,24 @@ export function playedTrame(c: Case): TrameJouee {
   return out;
 }
 
+/** Le profil effectif et le contexte que `playedTrame` passe à `cohere` (exportés pour les tests et la porte). */
+export const profilDuCas = (c: Case) => profilEffectif({ id: c.id, kategorie: leitsymptomOf(c), sheet: c.patientSheet });
+export const ctxDuCas = (c: Case): CohereCtx => ({ antworten: c.patientSheet.antworten, banque: phraseDeBanque, casIndex: casIndexDe });
+const FACH_ID = 'fach';   // le chapitre cible `fach` du lexique (SigneKapitel)
+/** La trame BRUTE d'un cas, entrée de `cohere` : chapitres dans l'ordre de l'entretien, la Fach (id `fach`) après
+ *  « Aktuelle Beschwerden » ; FACH_RULES, aktuellSkip, fachSkip et les questions du cas déjà appliqués. */
+export function trameBrute(c: Case, fachRaw = fachChapterRaw(c)): AnamneseChapter[] {
+  const ordered: AnamneseChapter[] = [];
+  for (const ch of adaptChaptersRaw(c, fachRaw)) { ordered.push(ch); if (fachRaw && ch.id === 'aktuell') ordered.push({ ...fachRaw.chapter, id: FACH_ID }); }
+  return ordered;
+}
+
 /** La porte après montage (§10.6) : les compteurs de la trame jouée d'un cas, relus depuis la trame (`compteursApres`). */
 export function compteursApresCas(c: Case): CompteursApres & { detail: string[] } {
   const { chapters, fach, ecarts } = playedTrame(c);
   const trame: AnamneseChapter[] = [];
   for (const ch of chapters) { trame.push(ch); if (fach && ch.id === 'aktuell') trame.push({ ...fach.chapter, id: 'fach' }); }
-  return compteursApres(trame, profilEffectif({ id: c.id, kategorie: leitsymptomOf(c), sheet: c.patientSheet }), ecarts, casIndexDe);
+  return compteursApres(trame, profilDuCas(c), ecarts, casIndexDe);
 }
 
 /** r3 : la question du GUIDE qui porte la sonde de banque (texte, alternatives, relances rédigés) — jamais un texte inventé. */

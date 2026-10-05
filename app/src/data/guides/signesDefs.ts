@@ -86,8 +86,6 @@ export const DEFS = {
   gewicht: { kapitel: 'vegetativ', pertinence: S, bank: 'veg-gewicht' },
   appetit: { kapitel: 'vegetativ', pertinence: S },
   schlaf: { kapitel: 'vegetativ', pertinence: S },
-  // --- Familie ----------------------------------------------------------------
-  familie_rheuma: { kapitel: 'familie-sozial', pertinence: ['gelenk', 'arthritis'] },
 
   // ==========================================================================
   // K1 (ADR-0023) : le lexique s'étend aux 229 sondes. Liste fermée ; chaque signe
@@ -239,6 +237,8 @@ export const DEFS = {
   alkohol: { kapitel: 'noxen', pertinence: S },
   drogen: { kapitel: 'noxen', pertinence: S },
   familie_krank: { kapitel: 'familie-sozial', pertinence: S },
+  // K3 : déplacé ici (ordre de l'entretien) — la question rhumato de la famille suit la question générale (règle d'insertion, r4a).
+  familie_rheuma: { kapitel: 'familie-sozial', pertinence: ['gelenk', 'arthritis'] },
   eltern: { kapitel: 'familie-sozial', pertinence: S },
   familienstand: { kapitel: 'familie-sozial', pertinence: S },
   kinder: { kapitel: 'familie-sozial', pertinence: S },

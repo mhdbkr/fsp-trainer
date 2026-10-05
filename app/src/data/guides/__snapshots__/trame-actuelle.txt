@@ -255,7 +255,7 @@ case-gicht
   medikamente[med-regelmaessig↳4 med-blutverduenner med-otc]
   allergien[all-allergie↳1 all-unvertraeglich]
   noxen[nox-rauchen↳5 nox-alkohol↳3 nox-drogen]
-  familie-sozial[^fach-rheuma-vorgeschichte#2~familie_rheuma fam-familie↳2 fam-eltern↳2 fam-stand↳1 fam-beruf↳1 pers-beruf fam-wohnen fam-haustiere]
+  familie-sozial[fam-familie↳2 ^fach-rheuma-vorgeschichte#2~familie_rheuma fam-eltern↳2 fam-stand↳1 fam-beruf↳1 pers-beruf fam-wohnen fam-haustiere]
   abschluss[· · · · ·]
 case-multiple-sklerose
   eroeffnung[· · · ·]
@@ -638,7 +638,7 @@ case-rheumatoide-arthritis
   medikamente[med-regelmaessig↳4 med-blutverduenner med-otc]
   allergien[all-allergie↳1 all-unvertraeglich]
   noxen[nox-rauchen↳5 nox-alkohol↳3 nox-drogen]
-  familie-sozial[^fach-rheuma-vorgeschichte#2~familie_rheuma fam-familie↳2 fam-eltern↳2 fam-stand↳1 fam-beruf↳1 pers-beruf fam-wohnen fam-haustiere]
+  familie-sozial[fam-familie↳2 ^fach-rheuma-vorgeschichte#2~familie_rheuma fam-eltern↳2 fam-stand↳1 fam-beruf↳1 pers-beruf fam-wohnen fam-haustiere]
   abschluss[· · · · ·]
 case-morbus-crohn
   eroeffnung[· · · ·]
@@ -925,7 +925,7 @@ case-polymyalgia
   medikamente[med-regelmaessig↳4 med-blutverduenner med-otc cas]
   allergien[all-allergie↳1 all-unvertraeglich]
   noxen[nox-rauchen↳5 nox-alkohol↳3 nox-drogen]
-  familie-sozial[^fach-rheuma-vorgeschichte#2~familie_rheuma fam-familie↳2 fam-eltern↳2 fam-stand↳1 fam-beruf↳1 pers-beruf fam-wohnen fam-haustiere]
+  familie-sozial[fam-familie↳2 ^fach-rheuma-vorgeschichte#2~familie_rheuma fam-eltern↳2 fam-stand↳1 fam-beruf↳1 pers-beruf fam-wohnen fam-haustiere]
   frauenanamnese[frau-periode↳1 frau-wechseljahre↳2]
   abschluss[· · · · ·]
 case-pneumothorax
@@ -999,7 +999,7 @@ case-septische-arthritis
   medikamente[med-regelmaessig↳4 med-blutverduenner med-otc cas]
   allergien[all-allergie↳1 all-unvertraeglich]
   noxen[nox-rauchen↳5 nox-alkohol↳3 nox-drogen]
-  familie-sozial[^fach-rheuma-vorgeschichte#2~familie_rheuma fam-familie↳2 fam-eltern↳2 fam-stand↳1 fam-beruf↳1 pers-beruf fam-wohnen fam-haustiere]
+  familie-sozial[fam-familie↳2 ^fach-rheuma-vorgeschichte#2~familie_rheuma fam-eltern↳2 fam-stand↳1 fam-beruf↳1 pers-beruf fam-wohnen fam-haustiere]
   abschluss[· · · · ·]
 case-spinalkanalstenose
   eroeffnung[· · · ·]
@@ -1221,7 +1221,7 @@ case-reaktive-arthritis
   medikamente[med-regelmaessig↳4 med-blutverduenner med-otc cas↳1]
   allergien[all-allergie↳1 all-unvertraeglich]
   noxen[nox-rauchen↳5 nox-alkohol↳3 nox-drogen]
-  familie-sozial[^fach-rheuma-vorgeschichte#2~familie_rheuma fam-familie↳2 fam-eltern↳2 fam-stand↳1 fam-beruf↳1 pers-beruf fam-wohnen fam-haustiere cas]
+  familie-sozial[fam-familie↳2 ^fach-rheuma-vorgeschichte#2~familie_rheuma fam-eltern↳2 fam-stand↳1 fam-beruf↳1 pers-beruf fam-wohnen fam-haustiere cas]
   frauenanamnese[frau-periode↳2 frau-schwanger frau-verhuetung↳1 frau-wechseljahre↳1]
   abschluss[· · · · ·]
 case-pertussis
