@@ -17568,7 +17568,7 @@ export function seedCases(): Case[] {
       frequency: 3,
       difficulty: 3,
       patientSheet: {
-        profil: { tags: ['ausscheidung', 'gewichtsverlust'] },
+        profil: { tags: ['ausscheidung', 'stein', 'gewichtsverlust'] },
         leitsymptomKategorie: 'ausscheidung',
         personalia: {
           name: 'Ilsi Bachmann',
@@ -17912,7 +17912,7 @@ export function seedCases(): Case[] {
       caseSpecificQuestions: [
         { frage: 'Seit wann sind Ihre Augen und Ihre Haut gelb, und hat jemand aus Ihrem Umfeld das zuerst bemerkt?', kapitel: 'aktuell' },
         { frage: 'Und wie sieht Ihr Stuhlgang aus? Ist er heller geworden, vielleicht fast weiß oder lehmfarben, und lässt er sich schlecht abspülen?', kapitel: 'aktuell', relu: true },
-        { frage: 'Haben Sie Schmerzen im Oberbauch, die gürtelförmig in den Rücken ausstrahlen und sich bessern, wenn Sie sich nach vorne beugen?', kapitel: 'aktuell' },
+        { frage: 'Haben Sie Schmerzen im Oberbauch, die gürtelförmig in den Rücken ausstrahlen und sich bessern, wenn Sie sich nach vorne beugen?', kapitel: 'aktuell', sucht: ['ausstrahlung'] },
         { frage: 'Juckt Ihre Haut?', kapitel: 'aktuell', followUp: 'Falls ja: Seit wann juckt es?' },
         { frage: 'Wurde bei Ihnen in der letzten Zeit ein Diabetes neu festgestellt, oder ist ein bestehender Zucker plötzlich schlechter geworden?', kapitel: 'vorerkrankungen' },
         { frage: 'Gibt es in Ihrer Familie Bauchspeicheldrüsen-, Darm-, Brust- oder Eierstockkrebs?', kapitel: 'familie-sozial' },
@@ -43128,7 +43128,7 @@ export function seedCases(): Case[] {
       frequency: 5,
       difficulty: 3,
       patientSheet: {
-        profil: { tags: ['schmerz', 'diarrhoe', 'dyspnoe', 'gewichtsverlust'] },
+        profil: { tags: ['schmerz', 'diarrhoe', 'dyspnoe', 'stein', 'gewichtsverlust'] },
         personalia: {
           name: 'Gabi Hubertus',
           age: 48,
@@ -43507,7 +43507,7 @@ export function seedCases(): Case[] {
         { frage: 'Was hat Ihr Hausarzt damals untersucht, bevor er Ihnen gesagt hat, das sei ein Reizdarm? Wurde eine Darmspiegelung gemacht?', kapitel: 'vorerkrankungen' },
         { frage: 'Bekommen Sie während dieser Rötungsanfälle Herzrasen oder Luftnot, und pfeift es dabei beim Atmen?', kapitel: 'aktuell' },
         { frage: 'Haben Sie noch Ihre Regelblutung? Sind diese Hitzeanfälle anders als Hitzewallungen in den Wechseljahren?', kapitel: 'frauenanamnese' },
-        { frage: 'Gibt es in Ihrer Familie außer dem Darmkrebs Ihrer Schwester Drüsen- oder Hormonerkrankungen, Nierensteine, Nebenschilddrüsenoperationen oder Hirnanhangdrüsentumoren?', kapitel: 'familie-sozial' },
+        { frage: 'Gibt es in Ihrer Familie außer dem Darmkrebs Ihrer Schwester Drüsen- oder Hormonerkrankungen, Nierensteine, Nebenschilddrüsenoperationen oder Hirnanhangdrüsentumoren?', kapitel: 'familie-sozial', sucht: ['familie_endokrin', 'nierensteine'] },
       ],
       examinerQuestions: [
         'Herr Kollege, stellen Sie uns bitte die Patientin vor. Wie lautet Ihre Verdachtsdiagnose?',
@@ -53089,7 +53089,7 @@ export function seedCases(): Case[] {
       frequency: 0,
       difficulty: 2,
       patientSheet: {
-        profil: { tags: ['allgemein', 'gicht', 'gewichtsverlust'] },
+        profil: { tags: ['allgemein', 'gicht', 'stein', 'gewichtsverlust'] },
         leitsymptomKategorie: 'allgemein',
         personalia: {
           name: 'Bernd Ostermann',
@@ -53375,7 +53375,7 @@ export function seedCases(): Case[] {
       caseSpecificQuestions: [
         { frage: 'Warum hat Ihr Hausarzt Blut abgenommen — hatten Sie Beschwerden, oder war es eine Routineuntersuchung?', kapitel: 'aktuell' },
         { frage: 'Haben Sie ein Druck- oder Völlegefühl unter dem linken Rippenbogen, und werden Sie beim Essen schneller satt als früher?', kapitel: 'aktuell' },
-        { frage: 'Hatten Sie plötzlich sehr starke Schmerzen im linken Oberbauch, die in die linke Schulter ausstrahlen?', kapitel: 'aktuell' },
+        { frage: 'Hatten Sie plötzlich sehr starke Schmerzen im linken Oberbauch, die in die linke Schulter ausstrahlen?', kapitel: 'aktuell', sucht: ['ausstrahlung'] },
         { frage: 'Haben Sie Sehstörungen, Kopfschmerzen, Luftnot oder ungewöhnliche Dauererektionen bemerkt?', kapitel: 'aktuell' },
         { frage: 'Hatten Sie in letzter Zeit einen Gichtanfall oder Nierenkoliken?', kapitel: 'aktuell' },
         { frage: 'Wurden Sie früher schon einmal auf ein erhöhtes Blutbild hingewiesen?', kapitel: 'vorerkrankungen' },
