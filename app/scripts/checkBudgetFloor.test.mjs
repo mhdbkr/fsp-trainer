@@ -11,7 +11,7 @@ import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const here = dirname(fileURLToPath(import.meta.url));
-const REL = ['app/scripts/fixtures/atomicity-budget.json', 'app/scripts/fixtures/trame-symptoms-baseline.json', 'app/scripts/fixtures/fach-nature-pairs.json', 'app/scripts/fixtures/case-question-answers.json'];
+const REL = ['app/scripts/fixtures/atomicity-budget.json', 'app/scripts/fixtures/trame-symptoms-baseline.json', 'app/scripts/fixtures/fach-nature-pairs.json', 'app/scripts/fixtures/case-question-answers.json', 'app/scripts/fixtures/coherence-budget.json'];
 const base = mkdtempSync(join(tmpdir(), 'fsp-floor-'));
 after(() => rmSync(base, { recursive: true, force: true }));
 const write = (edit = (_rel, j) => j) => {
@@ -37,6 +37,32 @@ test('Q2 — le plancher des questions du cas sans réponse ne remonte pas → r
   const r = floor();
   assert.equal(r.status, 1);
   assert.match(r.stdout, /candidats/);
+});
+
+test('K0 — un compteur de cohérence brut plus haut que la base → rouge', () => {
+  write((rel, j) => (rel.includes('coherence-budget') ? { ...j, brut: { ...j.brut, doublons: j.brut.doublons - 1 } } : j));
+  const r = floor();
+  assert.equal(r.status, 1);
+  assert.match(r.stdout, /doublons/);
+});
+
+test('K0 — un compteur de résidu plus haut que la base → rouge ; un `null` (non mesurable) ne compte pas', () => {
+  write((rel, j) => (rel.includes('coherence-budget') ? { ...j, residu: { ...j.residu, questionsMuettes: j.residu.questionsMuettes - 1 } } : j));
+  assert.equal(floor().status, 1);
+  write();
+  assert.equal(floor().status, 0);
+});
+
+test('K0 — base entière, tête `null` (le compteur a cessé d\'être mesuré) → rouge', () => {
+  write((rel, j) => (rel.includes('coherence-budget') ? { ...j, residu: { ...j.residu, nonReduit: 5 } } : j));
+  const r = floor();
+  assert.equal(r.status, 1);
+  assert.match(r.stdout, /nonReduit/);
+});
+
+test('K0 — base `null`, tête entière (le compteur devient mesurable) → vert', () => {
+  write((rel, j) => (rel.includes('coherence-budget') ? { ...j, brut: { ...j.brut, doublons: null } } : j));
+  assert.equal(floor().status, 0);
 });
 
 test('une annotation relu de plus que la base → rouge', () => {
