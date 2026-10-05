@@ -139,11 +139,14 @@ describe('INV-3 / INV-11 — la progression par Teil', () => {
     ({ id: `x${Math.random()}`, at, kind: 'simulation', caseId: 'c1', teile: [teil], source: 'libre', spentMin: 10, scores: { [teil]: score }, ...o });
 
   it('table de vérité complète des quatre TeilStatus', () => {
-    const cases: [number | null, string][] = [[null, 'vierge'], [0, 'fragile'], [59, 'fragile'], [60, 'acquis'], [79, 'acquis'], [80, 'solide'], [100, 'solide']];
+    // S4-1 (§13.2) : une réussite UNIQUE ≥ 80 donne `acquis` ; `solide` demande deux réussites espacées (INV-61, tests/invariants.mesure).
+    const cases: [number | null, string][] = [[null, 'vierge'], [0, 'fragile'], [59, 'fragile'], [60, 'acquis'], [79, 'acquis'], [80, 'acquis'], [100, 'acquis']];
     for (const [score, expected] of cases) {
       const [cp] = score === null ? [undefined] : computeCaseProgress([one('anamnese', score)]);
       expect(cp?.teile.anamnese.status ?? 'vierge').toBe(expected);
     }
+    const [solide] = computeCaseProgress([one('anamnese', 80), one('anamnese', 80, { at: at + 3 * 86_400_000 })]);
+    expect(solide.teile.anamnese.status).toBe('solide');
   });
 
   it('les TROIS clés sont toujours présentes, même après un seul Teil', () => {
@@ -154,7 +157,7 @@ describe('INV-3 / INV-11 — la progression par Teil', () => {
 
   it('une Anamnese seule réussie à 90 % ne fait PAS régresser le cas (bug simScope.ts:42)', () => {
     const [cp] = computeCaseProgress([one('anamnese', 90)]);
-    expect(cp.teile.anamnese.status).toBe('solide');
+    expect(cp.teile.anamnese.status).toBe('acquis');          // S4-1 : acquis, pas solide — mais jamais un point faible
     expect(pointFaible(cp, 'anamnese')).toBe(false);
     expect(cp.overall).toBe('entame');
   });
@@ -179,17 +182,22 @@ describe('INV-3 / INV-11 — la progression par Teil', () => {
   });
 
   it('`overall` : vierge / entamé / solide', () => {
-    const all = (s: number) => computeCaseProgress([one('anamnese', s), one('dokumentation', s, { at: at + 1 }), one('fallvorstellung', s, { at: at + 2 })])[0];
-    expect(all(95).overall).toBe('solide');
+    const all = (s: number, rounds = 1) => computeCaseProgress(Array.from({ length: rounds }, (_, r) => [
+      one('anamnese', s, { at: at + r * 3 * 86_400_000 }), one('dokumentation', s, { at: at + r * 3 * 86_400_000 + 1 }), one('fallvorstellung', s, { at: at + r * 3 * 86_400_000 + 2 }),
+    ]).flat())[0];
+    expect(all(95).overall).toBe('entame');                   // S4-1 : trois réussites uniques = trois acquis
+    expect(all(95, 2).overall).toBe('solide');
     expect(all(50).overall).toBe('entame');
     expect(computeCaseProgress([]).length).toBe(0);
   });
 
   it('dette ≠ faiblesse : la dette compte les Teile vierges, la faiblesse jamais', () => {
-    const [cp] = computeCaseProgress([one('anamnese', 95)]);
+    const [cp] = computeCaseProgress([one('anamnese', 95), one('anamnese', 95, { at: at + 3 * 86_400_000 })]);
     expect(detteTeil(cp)).toBeCloseTo(2 / 3);
     expect(detteTeil(undefined)).toBe(1);                     // cas jamais rencontré
-    const solide = computeCaseProgress([one('anamnese', 95), one('dokumentation', 95, { at: at + 1 }), one('fallvorstellung', 95, { at: at + 2 })])[0];
+    const j3 = 3 * 86_400_000;
+    const solide = computeCaseProgress([one('anamnese', 95), one('dokumentation', 95, { at: at + 1 }), one('fallvorstellung', 95, { at: at + 2 }),
+      one('anamnese', 95, { at: at + j3 }), one('dokumentation', 95, { at: at + j3 + 1 }), one('fallvorstellung', 95, { at: at + j3 + 2 })])[0];
     expect(detteTeil(solide)).toBe(0);                        // dette nulle ⇒ le cas sort des candidats
   });
 });
@@ -317,7 +325,7 @@ describe('§2.3 — une simulation terminée alimente le journal LOCAL, sans att
     expect(te.id).toBe('te-sim-1');                                 // id déterministe (INV-10)
     expect(await db.training_events.get('te-sim-1')).toBeTruthy();
     const cp = (await db.case_progress.get('c1'))!;
-    expect(cp.teile.anamnese.status).toBe('solide');                // 100 % contenu, pas de grille → 80
+    expect(cp.teile.anamnese.status).toBe('acquis');                // 100 % contenu, pas de grille → 80 : une réussite unique = acquis (S4-1)
     expect(cp.teile.dokumentation.status).toBe('vierge');           // jamais mesuré ⇒ jamais un défaut
     expect(cp.teile.fallvorstellung.status).toBe('vierge');
     expect(pointFaible(cp, 'dokumentation')).toBe(false);

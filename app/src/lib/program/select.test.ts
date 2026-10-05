@@ -5,7 +5,7 @@ import { describe, it, expect } from 'vitest';
 import { seedCases } from '@/data/seedCases';
 import type { Case, CaseProgress, Specialty } from '@/db/types';
 import { blankProgress, computeCaseProgress } from '@/lib/journal';
-import { DAY_MS } from '@/lib/clock';
+import { DAY_MS, freezeAt, resetClock } from '@/lib/clock';
 import {
   fraicheur, freq, pickWithDiversity, pourquoiAujourdhui, pressionExamen,
   rankCandidates, scoreCase, urgence, type SelectContext,
@@ -174,6 +174,19 @@ describe('le « pourquoi aujourd’hui » — une ligne, lisible, jamais accusat
     const why = pourquoiAujourdhui(scoreCase(a, c), c);
     expect(why).toMatch(/jamais travaillé|jamais rencontré/i);
     expect(why).not.toMatch(/faible|point faible|retard|échec/i);
+  });
+
+  it('revue P2 : un cas déjà joué n’est jamais « jamais travaillé », même à dette pleine', () => {
+    freezeAt(NOW);
+    try {
+      // trois réussites d'hier : acquis, `solideDes` dans deux jours — la dette reste pleine, mais le cas a été joué
+      const ev = (t: 'anamnese' | 'dokumentation' | 'fallvorstellung') =>
+        ({ id: `e-${t}`, at: NOW - DAY_MS, kind: 'simulation' as const, caseId: 'a', teile: [t], source: 'libre' as const, spentMin: 10, scores: { [t]: 85 } });
+      const progress = new Map(computeCaseProgress([ev('anamnese'), ev('dokumentation'), ev('fallvorstellung')]).map((p) => [p.caseId, p]));
+      const c = ctx([a], { progress, lastPlayedAt: new Map([['a', NOW - DAY_MS]]) });
+      expect(scoreCase(a, c).parts.dette).toBe(1);
+      expect(pourquoiAujourdhui(scoreCase(a, c), c)).not.toMatch(/jamais travaillé/i);
+    } finally { resetClock(); }
   });
 
   it('tient sur une ligne', () => {

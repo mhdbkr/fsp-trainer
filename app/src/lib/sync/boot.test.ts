@@ -38,10 +38,13 @@ async function donneesDeMain() {
   await db.cases.bulkPut(corpus());
   await db.meta.put({ key: 'program', value: config });
   const solide = { id: 'sim-1', caseId: 'c0', date: Date.parse('2026-09-20T09:00:00Z'), parts: { anamnese: part(90), dokumentation: part(90), fallvorstellung: part(90) }, notes: {}, prioritizedCorrections: [], assistance: 'autonome', layer: 2, scope: 'full' } as unknown as Simulation;
+  // S4-1 : « solide » demande deux réussites ≥ 80 espacées de 3 jours — c0 en a deux.
+  const solide2 = { ...solide, id: 'sim-1b', date: Date.parse('2026-09-24T09:00:00Z') } as unknown as Simulation;
   const anamnese = { id: 'sim-2', caseId: 'c1', date: Date.parse('2026-09-21T09:00:00Z'), parts: { anamnese: part(90) }, notes: {}, prioritizedCorrections: [], assistance: 'assiste', layer: 1, scope: 'teil', teil: 'anamnese' } as unknown as Simulation;
   await db.progress_events.bulkPut([
     ev('program.configured', null, config, '2026-09-01T08:00:00Z', { received_at: '2026-09-01T08:00:01Z' }),
     ev('simulation.completed', 'c0', solide, '2026-09-20T09:40:00Z', { received_at: '2026-09-20T09:40:01Z' }),
+    ev('simulation.completed', 'c0', solide2, '2026-09-24T09:40:00Z', { received_at: '2026-09-24T09:40:01Z' }),
     ev('simulation.completed', 'c1', anamnese, '2026-09-21T09:20:00Z', { received_at: '2026-09-21T09:20:01Z' }),
   ]);
 }
@@ -57,9 +60,9 @@ describe('B-C1 — le journal se construit pour un utilisateur existant', () => 
     freezeAt('2026-10-01T08:00:00Z');
     await donneesDeMain();
     const plan = await bootJournal();
-    expect((await db.training_events.toArray()).map((t) => t.id).sort()).toEqual(['te-sim-1', 'te-sim-2']);
+    expect((await db.training_events.toArray()).map((t) => t.id).sort()).toEqual(['te-sim-1', 'te-sim-1b', 'te-sim-2']);
     expect((await db.case_progress.get('c0'))!.overall).toBe('solide');
-    expect((await db.case_progress.get('c1'))!.teile.anamnese.status).toBe('solide');
+    expect((await db.case_progress.get('c1'))!.teile.anamnese.status).toBe('acquis');
     // Le cas déjà solide ne revient pas au plan (detteTeil = 0 → hors candidats).
     expect(plan!.tasks.some((t) => t.caseId === 'c0')).toBe(false);
   });

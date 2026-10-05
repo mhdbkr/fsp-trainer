@@ -174,7 +174,7 @@ export function pourquoiAujourdhui(s: Scored, ctx: SelectContext): string {
     const [teil, p] = fragile;
     return `Ta dernière ${teilLabel(teil)} sur ce cas est restée à ${pct(p.lastScore ?? 0)} — on la reprend.`;
   }
-  if (s.parts.dette === 1 && s.parts.freq >= 0.6) {
+  if (s.parts.dette === 1 && s.parts.freq >= 0.6 && !ctx.lastPlayedAt.has(s.c.id)) {
     return `Parmi les cas les plus vus à l'examen, et jamais travaillé.`;
   }
   if (ctx.daysUntilExam !== null && ctx.daysUntilExam <= 21 && s.parts.freq >= 0.5) {

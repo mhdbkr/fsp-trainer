@@ -235,7 +235,7 @@ describe('D-C4 révisé — le mode prime : une tâche « cas complet » demande
     const r = await jouer(sim('s1', 9, { anamnese: 85 }));
     expect(r.taskId).toBeUndefined();
     expect((await db.day_plans.get('2026-10-01'))!.tasks[0].doneAt).toBeUndefined();
-    expect((await db.case_progress.get('c1'))!.teile.anamnese.status).toBe('solide');
+    expect((await db.case_progress.get('c1'))!.teile.anamnese.status).toBe('acquis');   // S4-1 : une réussite unique ≥ 80 ne suffit plus à « solide » (§13.2)
     expect(await db.training_events.get('te-s1')).toBeDefined();
   });
   it('les trois Teile le même jour, en deux parties : la seconde coche la tâche', async () => {
