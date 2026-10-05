@@ -1,6 +1,6 @@
 # Lot F — favoris → drill · rapport d'implémentation
 
-**Statut : DONE_WITH_CONCERNS** — points 1, 2, 3 livrés et branchés ; point 4 livré côté pur (`drillFavorisNote`, `queueCounts().favorites`), **branchement d'affichage hors périmètre** (voir « Ce qui reste »).
+**Statut : DONE_WITH_CONCERNS** — points 1 à 4 livrés et branchés (point 4 affiché depuis le passage « Fusion S4-2 », voir en fin de rapport). Pas de vérification navigateur : l'app exige Supabase pour se connecter.
 Branche `feat/s3-f-favoris` (worktree `doctopus-s3-f-favoris`), poussée, pas de PR.
 
 ## Hypothèses (à valider par la direction)
@@ -107,3 +107,30 @@ Chaque point : test rouge, puis code, puis mutation (le script refuse de tourner
 ### Toujours reporté
 - Libellé du point 4 dans `TaskLine`/`HomePage`, non branché (consigne).
 - Vérification navigateur : même raison qu'au premier passage (auth Supabase obligatoire, aucun serveur autorisé).
+
+---
+
+## Fusion avec S4-2 (#76) et point 4 affiché
+
+### Fusion — `f92ca4a7`
+Le conflit portait sur `lib/program/dayPlan.ts` ; `HomePage.tsx` a fusionné automatiquement, avec les deux intentions présentes (`useFavorites` + `dueCount(..., favorites)` d'un côté, `TaskList`/`lectureDuPlan` de S4-2 de l'autre). Pour résoudre, j'ai repris la version de main et rejoué le lot F dessus. Main avait sorti `modusOf` et `teilLePlusEnDette` de `dayPlan.ts` ; je ne les ai pas réintroduits.
+- **Une seule coupure.** S4-2 coupe le journal source dans `entreeDuJour` (`entree.ts`) : `avant = events.filter(occurred_at < coupure)`, avec par défaut `coupure = debutJour(date, tz)`, c'est-à-dire l'heure d'enregistrement et le fuseau du plan (m1 de S4-2). `Entree` porte désormais `favorites = projectCollections(avant).favorites`, soit le même `avant` que le journal et le SRS. `loadBuildInput` passe `e.favorites` et `buildTasks` appelle `counts(begriffe, finJour(D), favorites)`. Ma seconde coupure, `favoritesBefore` (minuit local, sans fuseau), est supprimée.
+- Avec S4-2, les dus se comptent à `finJour(D) = debutJour(D+1)`. L'échéance avancée d'un favori posé le jour D (`debutJour(D+1)` en fuseau local) tombe pile sur cette borne. La coupure n'est donc plus redondante (constat du §Fixeur sur I2-e) : **sans elle, un favori posé le jour D compterait dans le plan de D**. Le mutant MG-a (favoris pris dans tout le journal) est maintenant tué par le test d'intégration `ensureDayPlan`.
+- Test unitaire réécrit sur `entreeDuJour(...).favorites` : le favori du jour D n'entre pas, celui de la veille entre, et un retrait d'avant minuit compte.
+- Mutants MG-a (favoris non coupés), MG-b (`buildTasks` sans favoris), MG-c (`loadBuildInput` ne les passe pas) : tous tués.
+- *Limite héritée de S4-2* : « replanifier » lit tout le journal (`coupure: Infinity`, choix de S4-2). Un favori posé aujourd'hui sur un terme appris compte donc dans le plan **replanifié** du jour, puisque son échéance avancée = `finJour(D)` et que les dus se comptent `≤ finJour(D)`. Le plan figé de D, lui, n'est pas touché. Je n'ai rien changé : replanifier est une action explicite qui prend « tout ce qu'on sait ».
+
+### Point 4 — `b0cd0612`
+- **Où.** `TaskLine.tsx` monte le sous-composant `DrillFavoris` (défini hors du composant parent), seulement sur la tâche drill **à faire, du jour, pas en lecture seule**. `TaskLine` sert à l'accueil (via `TaskList`, `HomePage.tsx:133`) et au programme (`ProgramPage.tsx:189`) : le libellé apparaît dans les deux sans être dupliqué. La projection et les jours passés sont en `readOnly`, donc exclus. Le bandeau de l'accueil (`session.reason`) n'est pas touché.
+- **Quoi.** `drillFavorisNote(queueCounts(glossaire + termes perso, { newLimit: remaining, maxReviews: reviewsRemaining, relevance: { ...ctx.relevance, favorites: favoris vivants } }).favorites)`. C'est la file que le drill global servirait maintenant, avec les mêmes options que `DrillPage`. Le texte est lu à l'affichage et jamais stocké : la sélection et le budget du plan n'en dépendent pas.
+- **TDD.** RED : « dont 2 favoris de ta séance » absent (le test trouvait seulement « ✓ Fait »). Puis GREEN. Mutants P4-a (pas monté), P4-b (en lecture seule), P4-c (autre jour), P4-d (autres types de tâche), P4-e (favoris de l'instantané au lieu de la liste vivante), P4-f (affiché à 0) : tous tués.
+- *Coût* : le glossaire est lu (`useAllTerms`) seulement quand une tâche drill du jour est à faire, en plus de ce que l'accueil lit déjà. Pas de mesure faite.
+
+### Gates après fusion (code de sortie, sommet `b0cd0612` + rapport)
+- `tsc -b --noEmit` → 0
+- `vitest run --dir src --maxWorkers=2` → 0 (166 fichiers, 1 635 tests)
+- `test:c6` (`vitest run --dir tests`, Supabase mocké par `tests/helpers/mocks.ts`, sans variables d'environnement) → 0 (10 fichiers, 124 tests)
+- `check*.mjs` et `checkBudgetFloor.mjs origin/main` : voir ci-dessous
+- `check*.mjs` (le code de sortie est relevé juste après chaque `node`) : 22 scripts → 0. `checkProbeOverlap.mjs` → 1 : il est informatif et toléré par la CI (`|| true`), sans lien avec ce lot.
+- `checkBudgetFloor.mjs origin/main` → **0** (sur la branche fusionnée, plus d'écart de base) ; `node --test scripts/check*.test.mjs` → 0.
+- `git merge-tree --write-tree origin/main HEAD` → 0 (main n'a avancé que de deux commits de registre, `app/docs/reports/serie3-avancement.md`).
