@@ -1,5 +1,5 @@
 import type { Fachbegriff, Favorite } from '@/db/types';
-import { DAY_MS } from '@/lib/srs';
+import { effectiveDue, favoriteSinceMap } from '@/lib/srs';
 import { sessionFavoriteIds, sortByRelevance, type RelevanceContext } from './relevance';
 
 export interface DrillOpts {
@@ -20,25 +20,12 @@ export interface DrillOpts {
 
 const RESERVED_NEW = 3;
 
-/** Échéance effective (lot F point 2) : un terme appris mis en favori, et pas revu
- *  depuis, est dû au lendemain du favori — jamais plus tard que son échéance SRS.
- *  Calculée à la lecture : le SRS et son historique ne sont jamais réécrits. */
-export function effectiveDue(b: Fachbegriff, favorites: readonly Favorite[] = []): number {
-  if (b.srs.state === 'Neu') return b.srs.dueDate;
-  const fav = favorites.find((f) => f.termId === b.id);
-  if (!fav) return b.srs.dueDate;
-  const since = Date.parse(fav.since);
-  // Dernière revue = dueDate − interval (reviewSrs : réussite → now + interval·j ; raté → now + 60 s, interval 0).
-  if (b.srs.dueDate - b.srs.interval * DAY_MS >= since) return b.srs.dueDate;
-  const lendemain = new Date(since); lendemain.setHours(24, 0, 0, 0);
-  return Math.min(b.srs.dueDate, lendemain.getTime());
-}
-
 /** File de drill : dus (priorité pathologie > spécialité > reste, puis date) puis Neu (favoris de la séance d'abord, puis par pertinence, bornés par newLimit). Le pool borne tout — un deck n'ajoute jamais de terme. */
 export function buildDrillQueue(pool: Fachbegriff[], opts: DrillOpts = {}): Fachbegriff[] {
   const now = opts.now ?? Date.now();
   const favorites = opts.relevance?.favorites ?? [];
-  const due$ = new Map(pool.map((b) => [b.id, effectiveDue(b, favorites)]));
+  const since = favoriteSinceMap(favorites);
+  const due$ = new Map(pool.map((b) => [b.id, effectiveDue(b.srs, since.get(b.id))]));
   const priority = (b: Fachbegriff) => (opts.priorityPathology && b.pathologyTags.includes(opts.priorityPathology) ? 0 : opts.prioritySpecialty && b.specialty === opts.prioritySpecialty ? 1 : 2);
   const due = pool.filter((b) => b.srs.state !== 'Neu' && due$.get(b.id)! <= now).sort((a, b) => priority(a) - priority(b) || due$.get(a.id)! - due$.get(b.id)!);
   // Plafond de dus PRÉSENTÉS (spec F2b D6) : bornés en amont, avant la réserve aux Neu.
@@ -74,6 +61,7 @@ export function queueCounts(pool: Fachbegriff[], opts: DrillOpts = {}): { due: n
 }
 
 export function nextDueAt(pool: Fachbegriff[], now = Date.now(), favorites: readonly Favorite[] = []): number | null {
-  const future = pool.filter((b) => b.srs.state !== 'Neu').map((b) => effectiveDue(b, favorites)).filter((d) => d > now);
+  const since = favoriteSinceMap(favorites);
+  const future = pool.filter((b) => b.srs.state !== 'Neu').map((b) => effectiveDue(b.srs, since.get(b.id))).filter((d) => d > now);
   return future.length ? Math.min(...future) : null;
 }

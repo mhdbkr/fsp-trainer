@@ -15,11 +15,12 @@
 
 import { addDays, differenceInCalendarDays, format, getDay, parseISO, startOfDay } from 'date-fns';
 import type {
-  Case, CaseProgress, DayPlan, Fachbegriff, Fortschrittsmodus, Layer, ProgramConfig,
+  Case, CaseProgress, DayPlan, Fachbegriff, Favorite, Fortschrittsmodus, Layer, ProgramConfig,
   SimTeil, Specialty, TaskInstance, TrainingEvent,
 } from '@/db/types';
 import { db } from '@/db/db';
-import { newId } from '@/lib/sync/events';
+import { newId, type ProgressEvent } from '@/lib/sync/events';
+import { projectCollections } from '@/lib/collections/project';
 import { fnv1a32 } from '@/lib/collections/personalTerms';
 import { counts } from '@/lib/stats';
 import { INTENSITY_FACTOR } from '@/lib/intensity';
@@ -107,6 +108,15 @@ export interface BuildInput {
   newPerDay?: number;
   /** Budget restant, s'il n'est pas le budget plein du jour (replanifier, I3). */
   budgetMin?: number;
+  /** Favoris projetés du journal `at < startOfDay(D)` (INV-55) : l'échéance avancée
+   *  d'un favori appris (lot F) compte dans les dus du plan — jamais un favori du jour. */
+  favorites?: Favorite[];
+}
+
+/** Favoris tels qu'ils étaient à minuit de `date` : seule entrée « favoris » du plan figé (INV-55). */
+export function favoritesBefore(events: ProgressEvent[], date: string): Favorite[] {
+  const cut = startOfDay(parseISO(date)).getTime();
+  return projectCollections(events.filter((e) => Date.parse(e.occurred_at) < cut)).favorites;
 }
 
 /** Le Teil de plus forte dette DU CORPUS — celui sur lequel le candidat a le
@@ -158,7 +168,7 @@ export function buildTasks(input: BuildInput, mkId: () => string = newId): TaskI
   // 1. Le drill. Son coût est FIGÉ avec le jour : faire ses cartes ne libère
   //    plus de minutes, donc n'attire plus de nouvelles simulations
   //    (audit §2.4 — l'effet existait sans rien cocher).
-  const terms = counts(begriffe, input.now);
+  const terms = counts(begriffe, input.now, input.favorites);
   const fresh = Math.min(terms.fresh, input.newPerDay ?? NEW_PER_DAY_DEFAULT);
   const drillTotal = terms.due + fresh;
   if (drillTotal > 0 && targetMin > 0) {   // ni dû ni nouveau : pas de tâche, donc jamais la session de tête (C6-B)
@@ -285,14 +295,15 @@ export const planProgress = (plan: DayPlan | null | undefined): { done: number; 
 /** `restant` : ce que le drill servira ENCORE aujourd'hui (budget − déjà introduits) —
  *  ensureDayPlan et replanifier. La projection d'un jour futur prend le budget plein. */
 async function loadBuildInput(config: ProgramConfig, date: string, at: number, restant = true): Promise<BuildInput> {
-  const [cases, begriffe, trainingEvents, progressRows] = await Promise.all([
+  const [cases, begriffe, trainingEvents, progressRows, favEvents] = await Promise.all([
     db.cases.toArray(), db.fachbegriffe.toArray(), db.training_events.toArray(), db.case_progress.toArray(),
+    db.progress_events.where('type').anyOf(['term.favorited', 'term.unfavorited']).toArray(),
   ]);
   // Le MÊME réglage que le drill annonce (auto = budget × intensité, ou manuel).
   // Import paresseux : `drillContext` importe `@/lib/program` (cycle sinon).
   const { loadDrillContext } = await import('@/lib/collections/drillContext');
   const newPerDay = await loadDrillContext(new Date(at)).then((c) => (restant ? c.remaining : c.daily.newPerDay)).catch(() => undefined);
-  return { config, date, cases, begriffe, trainingEvents, progress: new Map(progressRows.map((p) => [p.caseId, p])), now: at, newPerDay };
+  return { config, date, cases, begriffe, trainingEvents, progress: new Map(progressRows.map((p) => [p.caseId, p])), now: at, newPerDay, favorites: favoritesBefore(favEvents, date) };
 }
 
 /** Les ids des tâches d'un plan, dérivés de sa graine (M2) : rejouables. */

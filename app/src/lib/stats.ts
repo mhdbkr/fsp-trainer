@@ -1,10 +1,10 @@
-import type { Axis, Case, CaseProgress, Fachbegriff, SimTeil, Simulation, Specialty } from '@/db/types';
+import type { Axis, Case, CaseProgress, Fachbegriff, Favorite, SimTeil, Simulation, Specialty } from '@/db/types';
 import { blankProgress } from '@/lib/journal';
 import { TEILE } from '@/lib/simScope';
 import { dayKey, now as clockNow, nowDate } from '@/lib/clock';
 import { AXES } from '@/db/types';
 import { partScore, partToAxis } from './scoring';
-import { isDue, isNew } from './srs';
+import { favoriteSinceMap, isDue, isNew } from './srs';
 import { estMesuree } from './readiness';
 
 // ============================================================================
@@ -101,20 +101,22 @@ export function specialtyScores(sims: Simulation[], cases: Case[]): { specialty:
 }
 
 /** Sépare les Fachbegriffe en dus / nouveaux / appris (spec F2a D1 : un Neu n'est jamais dû). */
-export function counts(begriffe: Fachbegriff[], now = clockNow()): { due: number; fresh: number; learned: number } {
+/** `favorites` : l'échéance avancée des favoris appris (lot F, revue I2) — les mêmes dus que le drill. */
+export function counts(begriffe: Fachbegriff[], now = clockNow(), favorites?: readonly Favorite[]): { due: number; fresh: number; learned: number } {
   let due = 0, fresh = 0, learned = 0;
+  const since = favoriteSinceMap(favorites);
   for (const b of begriffe) {
     if (isNew(b.srs)) fresh++;
     else {
       learned++;
-      if (isDue(b.srs, now)) due++;
+      if (isDue(b.srs, now, since.get(b.id))) due++;
     }
   }
   return { due, fresh, learned };
 }
 
 /** Nombre de Fachbegriffe dus aujourd'hui. */
-export const dueCount = (begriffe: Fachbegriff[], now = clockNow()): number => counts(begriffe, now).due;
+export const dueCount = (begriffe: Fachbegriff[], now = clockNow(), favorites?: readonly Favorite[]): number => counts(begriffe, now, favorites).due;
 
 /** Série de jours consécutifs TRAVAILLÉS, en partant d'aujourd'hui. Prend les
  *  clés de jour du journal (`workedDayKeys`) : une journée 100 % drill compte,

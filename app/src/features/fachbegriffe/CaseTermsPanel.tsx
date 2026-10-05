@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { useLiveQuery } from 'dexie-react-hooks';
 import { db } from '@/db/db';
-import { useFachbegriffe, useTermsInDecks } from '@/hooks/useData';
+import { useFachbegriffe, useFavorites, useTermsInDecks } from '@/hooks/useData';
 import { useUi } from '@/store/ui';
 import { termsOfCase } from '@/lib/collections/caseTerms';
 import { counts } from '@/lib/stats';
@@ -15,14 +15,14 @@ import { StarButton } from '@/components/StarButton';
 // assistance. Partagé par le runner (tiroir) et la page du cas (inline).
 interface Props { caseId: string; mode: 'drawer' | 'inline'; onClose?: () => void; onDrill: () => void }
 export function CaseTermsPanel({ caseId, mode, onClose, onDrill }: Props) {
-  const begriffe = useFachbegriffe(); const inDecks = useTermsInDecks();
+  const begriffe = useFachbegriffe(); const inDecks = useTermsInDecks(); const favorites = useFavorites();
   const theCase = useLiveQuery(() => db.cases.get(caseId), [caseId]);
   const events = useLiveQuery(() => db.progress_events.where('type').anyOf(['term.favorited', 'deck.term_added']).toArray(), []);
   const openGlossary = useUi((s) => s.openGlossary);
   const [q, setQ] = useState('');
   const terms = useMemo(() => (begriffe && theCase ? termsOfCase(caseId, begriffe, theCase, events ?? []) : []), [begriffe, theCase, events, caseId]);
   const shown = useMemo(() => { const n = q.trim().toLowerCase(); return n ? terms.filter((t) => `${t.term} ${registerLine(t)}`.toLowerCase().includes(n)) : terms; }, [terms, q]);
-  const c = counts(terms);
+  const c = counts(terms, undefined, favorites);
   // Tiroir (runner) : vrai dialogue — Échap ferme, le focus entre dans le
   // panneau à l'ouverture et revient au déclencheur (chip) à la fermeture.
   const asideRef = useRef<HTMLElement>(null);
