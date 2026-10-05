@@ -227,7 +227,7 @@ function solideDepuis(s: Scored, ctx: SelectContext): string {
 export function raisonDUnTrait(s: Scored, ctx: SelectContext): string {
   return s.parts.du
     ? `${solideDepuis(s, ctx)} : rejoue-le d'un trait, comme à l'examen.`
-    : `Pour la fin de la préparation : ce cas, d'un trait, comme à l'examen.`;
+    : `Solide, pas encore prêt : rejoue-le d'un trait, comme à l'examen.`;
 }
 
 const TEIL_LABELS: Record<string, string> = {

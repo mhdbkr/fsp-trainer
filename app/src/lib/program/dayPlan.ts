@@ -179,9 +179,8 @@ export function buildTasks(input: BuildInput, mkId: () => string = newId): TaskI
       push({
         kind: 'examen-blanc', label: best.c.name, estMin: sommeTrois, caseId: best.c.id, teile: [...TEIL_KEYS], creeA,
         specialty: best.c.specialty, layer: 3, assistance: 'autonome', ...(dansFenetre ? { dUnTrait: true as const } : {}),
-        // Une tâche d'un trait dit ce qu'elle exige (§12.3, I5).
-        reason: isTaper ? (dansFenetre ? `Répétition générale : d'un trait et sans aide.` : `Répétition générale : conditions réelles, sans aide.`)
-          : dansFenetre ? raisonDUnTrait(best, ctx) : pourquoiAujourdhui(best, ctx),
+        // D'un trait, une seule raison : le cas peut n'être ni solide ni joué (repli `ranked[0]`), on ne dit pas « Solide ».
+        reason: dansFenetre ? `Répétition générale : d'un trait et sans aide.` : isTaper ? `Répétition générale : conditions réelles, sans aide.` : pourquoiAujourdhui(best, ctx),
       });
     }
     if (modus === 'examen-blanc') return finir();

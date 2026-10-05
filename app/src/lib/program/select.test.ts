@@ -188,7 +188,7 @@ describe('le « pourquoi aujourd’hui » — une ligne, lisible, jamais accusat
     expect(raison(true, 47)).toBe("Solide il y a 47 jours : rejoue-le d'un trait, comme à l'examen.");
     expect(raison(true, 1)).toBe("Solide il y a 1 jour : rejoue-le d'un trait, comme à l'examen.");
     expect(raison(true), 'dernier jeu inconnu').toBe("Solide : rejoue-le d'un trait, comme à l'examen.");
-    expect(raison(false, 3), 'hors échéance').toBe("Pour la fin de la préparation : ce cas, d'un trait, comme à l'examen.");
+    expect(raison(false, 3), 'hors échéance').toBe("Solide, pas encore prêt : rejoue-le d'un trait, comme à l'examen.");
   });
 
   it('un cas jamais travaillé n’est jamais présenté comme un défaut', () => {
