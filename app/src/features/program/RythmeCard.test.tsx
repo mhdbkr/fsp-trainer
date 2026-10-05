@@ -42,8 +42,9 @@ afterEach(() => { act(() => root.unmount()); container.remove(); resetClock(); }
 
 describe('RythmeCard — proposé, jamais imposé (§13.5)', () => {
   it('dit la valeur et sa CONSÉQUENCE sur la projection, jamais un écart en % ; « Garder » écrit un refus synchronisé', async () => {
-    await vi.waitFor(() => expect(txt()).toMatch(/tient dans un budget de 20 min par jour/), { timeout: 10000 });
-    expect(txt()).toMatch(/À ce rythme, les 2 cas les plus fréquents seront travaillés le \d+ \S+ au lieu du \d+ \S+/);
+    await vi.waitFor(() => expect(txt()).toMatch(/Ces 7 derniers jours, tu as travaillé moins de 5 min par soir\./), { timeout: 10000 });
+    expect(txt()).toMatch(/À ce rythme, tu auras joué une fois chacun des 2 cas les plus fréquents le \d+ \S+ \(au lieu du \d+ \S+\)\./);
+    expect(txt()).not.toMatch(/après ton examen/);
     expect(txt()).not.toMatch(/%|retard|manqu|insuffisan/i);
     const avant = await db.day_plans.toArray();
     await act(async () => { btn(/^garder 120 min$/i)!.click(); });
@@ -52,6 +53,20 @@ describe('RythmeCard — proposé, jamais imposé (§13.5)', () => {
     expect(refus.map((e) => e.subject_id)).toEqual(['2026-W42']);
     expect((await db.meta.get('program'))!.value, 'refuser ne change pas le budget').toEqual(config);
     expect(await db.day_plans.toArray()).toEqual(avant);
+  });
+
+  it('« environ N min par soir » : le temps réel, arrondi à 5 min', async () => {
+    await db.training_events.bulkPut(['2026-10-06', '2026-10-07', '2026-10-08', '2026-10-09'].map((d, i) =>
+      ({ id: `te${i}`, at: new Date(`${d}T19:00:00`).getTime(), kind: 'drill', teile: [], source: 'libre', spentMin: 12 })));
+    await vi.waitFor(() => expect(txt()).toMatch(/Ces 7 derniers jours, tu as travaillé environ 10 min par soir\./), { timeout: 10000 });
+  });
+
+  it('VETO — la date projetée tombe APRÈS l’examen : la carte le dit, et « Garder » est proposé EN PREMIER', async () => {
+    await db.meta.put({ key: 'program', value: { ...config, examDate: '2026-10-14' } });
+    await vi.waitFor(() => expect(txt()).toMatch(/après ton examen du 14 oct\./), { timeout: 10000 });
+    const [premier, second] = [...container.querySelectorAll('button')];
+    expect(premier.textContent).toMatch(/^Garder/); expect(premier.className).toMatch(/btn-outline/);
+    expect(second.textContent).toMatch(/^Caler/); expect(second.className).not.toMatch(/btn-outline/);
   });
 
   it('« Caler » écrit la config complète, le budget du jour vaut la valeur, aucun jour figé ne bouge', async () => {

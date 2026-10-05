@@ -15,6 +15,7 @@ import { useCases, useProgramConfig } from '@/hooks/useData';
 import { useToday } from '@/lib/today';
 import { dayTargetMin } from '@/lib/program/dayPlan';
 import { accepterRythme, consequenceRythme, proposerRythme, refuserRythme } from '@/lib/program/rythme';
+import { RYTHME_FENETRE_JOURS } from '@/lib/program/parametres';
 import { refusRythme } from '@/lib/sync/configProjetee';
 import { useCaseProgress, useDayPlans, useTrainingEvents } from './useProgram';
 
@@ -37,16 +38,19 @@ export function RythmeCard() {
     [p, config, cases, progress, events, today],
   );
   if (!p || !config) return null;
+  const reel = Math.round(p.moyenne / 5) * 5;
+  const apres = q?.apresExamen === true;
 
   return (
     <section aria-live="polite" className="flex flex-wrap items-center justify-between gap-x-4 gap-y-1 rounded-xl border border-slate-200 px-4 py-1.5 text-sm text-slate-600 dark:border-slate-800 dark:text-slate-300">
       <p className="min-w-0 flex-1 py-1.5">
-        {/* Vrai aussi au plancher : le temps réel TIENT dans la valeur proposée, il ne l'égale pas forcément. */}
-        Ton temps des derniers jours tient dans un budget de {p.valeur} min par jour.{q && <> {q.texte}</>}
+        {/* Le temps RÉEL (moyenne des jours figés), arrondi à 5 min ; sous 5 min, on le dit tel quel. */}
+        Ces {RYTHME_FENETRE_JOURS} derniers jours, tu as travaillé {reel >= 5 ? `environ ${reel} min` : 'moins de 5 min'} par soir.{q && <> {q.texte}</>}
       </p>
       <div className="flex gap-1">
-        <button type="button" onClick={() => refuserRythme(p.semaine)} className="btn-ghost min-h-11 text-xs">Garder {dayTargetMin(config)} min</button>
-        <button type="button" onClick={() => accepterRythme(p.valeur, config)} className="btn-outline min-h-11 text-xs">Caler sur {p.valeur} min</button>
+        {/* VETO pédagogique : si caler repousse les cas fréquents après l'examen, garder le budget est la proposition principale. */}
+        <button type="button" onClick={() => refuserRythme(p.semaine)} className={`${apres ? 'btn-outline' : 'btn-ghost'} min-h-11 text-xs`}>Garder {dayTargetMin(config)} min</button>
+        <button type="button" onClick={() => accepterRythme(p.valeur, config)} className={`${apres ? 'btn-ghost' : 'btn-outline'} min-h-11 text-xs`}>Caler sur {p.valeur} min</button>
       </div>
     </section>
   );

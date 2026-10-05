@@ -89,7 +89,7 @@ function jourOu(travail: number, budget: number, today: string, config: ProgramC
  * `null` quand il n'y a plus rien à projeter. Pure.
  */
 export function consequenceRythme(i: { cases: readonly Case[]; progress: ReadonlyMap<string, CaseProgress>; config: ProgramConfig; today: string; valeur: number; events?: readonly TrainingEvent[] }):
-  { n: number; date: string; dateActuelle: string; texte: string } | null {
+  { n: number; date: string; dateActuelle: string; apresExamen: boolean; texte: string } | null {
   const freqMax = i.cases.reduce((m, c) => Math.max(m, c.frequency), 1);
   const frequents = i.cases.filter((c) => freq(c, freqMax) >= SEUIL_FREQUENT);
   const duree = dureesTeile(i.events ?? []);
@@ -100,7 +100,11 @@ export function consequenceRythme(i: { cases: readonly Case[]; progress: Readonl
   if (!date || !dateActuelle) return null;
   const n = frequents.length;
   const jour = (d: string) => format(parseISO(d), 'd MMM', { locale: fr });
-  const sujet = n === 1 ? 'le cas le plus fréquent sera travaillé' : `les ${n} cas les plus fréquents seront travaillés`;
-  const texte = `À ce rythme, ${sujet} le ${jour(date)}${date === dateActuelle ? '' : ` au lieu du ${jour(dateActuelle)}`}`;
-  return { n, date, dateActuelle, texte: texte.endsWith('.') ? texte : `${texte}.` };
+  // VETO pédagogique (revue S4-2) : une date projetée APRÈS l'examen se dit — la carte propose alors d'abord de garder le budget.
+  const exam = i.config.examDate;
+  const apresExamen = !!exam && date >= exam;
+  const quand = !apresExamen ? '' : date === exam ? ', le jour de ton examen' : `, après ton examen du ${jour(exam!)}`;
+  const sujet = n === 1 ? 'le cas le plus fréquent' : `chacun des ${n} cas les plus fréquents`;
+  const texte = `À ce rythme, tu auras joué une fois ${sujet} le ${jour(date)}${quand}${date === dateActuelle ? '' : ` (au lieu du ${jour(dateActuelle)})`}`;
+  return { n, date, dateActuelle, apresExamen, texte: texte.endsWith('.') ? texte : `${texte}.` };
 }

@@ -639,6 +639,11 @@ export const MUTATIONS = [
     pourquoi: "revue m4 : accepter écrit 0,2564 h, une valeur que le curseur de ProgramSetup ne sait pas afficher",
   },
   {
+    id: "INV-65-apres-examen", tests: 'tests/invariants.apprentissage.test.ts', file: "src/lib/program/rythme.ts",
+    from: "const apresExamen = !!exam && date >= exam;", to: "const apresExamen = false;",
+    pourquoi: "VETO pédagogique : la carte propose de caler un rythme qui repousse les cas fréquents après l'examen, sans le dire",
+  },
+  {
     id: "INV-65-hausse", tests: 'tests/invariants.apprentissage.test.ts', file: "src/lib/program/rythme.ts",
     from: "return valeur < dayTargetMin(i.config) ? { valeur, semaine, minutesSession, moyenne } : null;", to: "return { valeur, semaine, minutesSession, moyenne };",
     pourquoi: "proposition à la hausse (ou égale au budget)",
