@@ -646,6 +646,15 @@ absorbé, par r2.
 
 **Ordre d'exécution, en une passe** : r1 → r4a → r2 → r3 → r4b.
 
+**Précisions de K3 (revues Opus de `508639f6`, décisions de main).**
+- Une relance hors signe est une unité à part : elle suit **sa** décision même si sa mère est
+  retirée par r1 (revue B1).
+- r3 : une banque à `parts` (jour / nuit) n'ajoute que les parts qu'aucune unité ne pose.
+- Les parts gardées d'une même question se posent en **une** question — la première — et
+  les suivantes en relances ; jamais recollées dans une même ligne (revue série 3, I4).
+- r3 lève une erreur si la sonde de banque n'a ni phrase de guide ni question (jamais un id
+  affiché comme question).
+
 **Sécurité (décision de main, K3).** Garantie opposable, testée : **tout signe
 de risque cherché par la trame brute reste cherché par au moins une question
 de la trame jouée**. `RISIKO_SIGNES` = `suizid`, `selbstverletzung` (l'acte),
