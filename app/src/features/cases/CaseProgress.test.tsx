@@ -57,3 +57,30 @@ describe('I-4 — la page Cas dit « faite — non mesurée »', () => {
     expect(container.textContent).toMatch(/1\s*faite? — non mesurée?s?/i);
   });
 });
+
+describe('S4-4 — le cadran est le signe du cas sur la carte', () => {
+  const carte = (nom: string) => [...container.querySelectorAll('h3')].find((h) => h.textContent === nom)!.closest('.card')!;
+
+  it('une carte = un cadran, étiqueté Teil par Teil ; plus de pastilles en doublon', () => {
+    const c1 = carte('Cas c1');
+    const dial = c1.querySelector('button.case-dial') as HTMLButtonElement;
+    expect(dial).not.toBeNull();
+    expect(dial.getAttribute('data-size')).toBe('64');
+    const label = dial.getAttribute('aria-label') ?? '';
+    expect(label).toContain('Cas c1');
+    expect(label).toMatch(/Anamnese : solide, 90/);
+    expect(label).toMatch(/Dokumentation : acquis, 70/);
+    expect(label).toMatch(/Fallvorstellung : pas encore travaillé/);
+    expect(c1.querySelector('[role="img"][aria-label^="Anamnese"]')).toBeNull();   // les pastilles TeilDots ne doublonnent plus
+  });
+
+  it('un cas jamais ouvert : trois arcs neutres, aucun chiffre', () => {
+    const c2 = carte('Cas c2');
+    expect([...c2.querySelectorAll('[data-arc]')].map((a) => a.getAttribute('data-etat'))).toEqual(['vierge', 'vierge', 'vierge']);
+    expect(c2.querySelector('[data-centre]')?.textContent).toBe('—');
+  });
+
+  it('« faite — non mesurée » se lit sur le cadran', () => {
+    expect(carte('Cas c3').querySelector('[data-arc="anamnese"]')?.getAttribute('data-etat')).toBe('non-mesure');
+  });
+});

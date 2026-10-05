@@ -6,7 +6,9 @@ import type { Case, CaseProgress, Center, Specialty } from '@/db/types';
 import { CenterBadge, FreqBadge, DifficultyDots, EmptyState } from '@/components/ui';
 import { useCaseProgress } from '@/features/program/useProgram';
 import { blankProgress } from '@/lib/journal';
-import { OVERALL, ProgressBadge, TeilDots, nonMesureSeulement, progressRank } from './CaseProgressView';
+import { OVERALL, ProgressBadge, nonMesureSeulement, progressRank } from './CaseProgressView';
+import { CaseDial } from '@/components/CaseDial';
+import { dialDeCarte, useDerniereVisite, vientDeSouder } from './dialCarte';
 import { Icon, SpecialtyIcon } from '@/components/icons';
 import { CasePreviewPanel } from './CasePreviewPanel';
 
@@ -20,6 +22,7 @@ export function CasesPage() {
   const cpOf = (c: Case) => progress?.get(c.id) ?? blankProgress(c.id);
   const { openCasePreview, previewCaseId } = useUi();
   const [params, setParams] = useSearchParams();
+  const visite = useDerniereVisite();       // S4-4 : l'arc d'un Teil joué depuis se dessine une fois
 
   const [q, setQ] = useState('');
   const [center, setCenter] = useState<Center | ''>('');
@@ -131,7 +134,7 @@ export function CasesPage() {
       ) : (
         <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-3">
           {filtered.map((c) => (
-            <CaseCard key={c.id} c={c} cp={cpOf(c)} onPreview={() => openCasePreview(c.id)} active={previewCaseId === c.id} />
+            <CaseCard key={c.id} c={c} cp={cpOf(c)} visite={visite} onPreview={() => openCasePreview(c.id)} active={previewCaseId === c.id} />
           ))}
         </div>
       )}
@@ -142,7 +145,8 @@ export function CasesPage() {
   );
 }
 
-function CaseCard({ c, cp, onPreview, active }: { c: Case; cp: CaseProgress; onPreview: () => void; active: boolean }) {
+function CaseCard({ c, cp, visite, onPreview, active }: { c: Case; cp: CaseProgress; visite: number | null; onPreview: () => void; active: boolean }) {
+  const dial = dialDeCarte(cp, visite);
   return (
     <div className={`card flex flex-col p-4 transition-all hover:shadow-md ${active ? 'ring-2 ring-brand-400' : ''}`}>
       <div className="flex items-start justify-between gap-2">
@@ -155,7 +159,7 @@ function CaseCard({ c, cp, onPreview, active }: { c: Case; cp: CaseProgress; onP
             <p className="mt-0.5 text-xs text-slate-400">{c.specialty}</p>
           </span>
         </button>
-        <TeilDots cp={cp} />
+        <CaseDial data={dial} size={64} nom={c.name} vientDeSouder={vientDeSouder(dial, visite)} />
       </div>
       <div className="mt-3 flex flex-wrap items-center gap-1.5">
         <FreqBadge n={c.frequency} />
