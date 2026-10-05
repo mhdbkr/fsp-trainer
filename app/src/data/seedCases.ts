@@ -19,6 +19,7 @@ export function seedCases(): Case[] {
       frequency: 26,
       difficulty: 2,
       patientSheet: {
+        profil: { tags: ['schmerz'] },
         leitsymptomKategorie: 'schmerz',
         motiv: { trauma: false, region: 'abdomen' },
         // « in den letzten Stunden gegessen » ne convient pas à une évolution sur 3 mois ; la réponse reste dans la fiche.
@@ -277,6 +278,7 @@ export function seedCases(): Case[] {
       frequency: 11,
       difficulty: 2,
       patientSheet: {
+        profil: { tags: ['schmerz', 'dyspnoe'] },
         personalia: {
           name: 'Manfred Bauer', age: 64, geschlecht: 'm', groesseCm: 175, gewichtKg: 92,
           beruf: 'Rentner (früher Busfahrer)', hausarzt: 'Dr. Weber',
@@ -469,6 +471,7 @@ export function seedCases(): Case[] {
       frequency: 14,
       difficulty: 2,
       patientSheet: {
+        profil: { tags: ['schmerz'] },
         personalia: { name: 'Gisela Hoffmann', age: 55, geschlecht: 'w', groesseCm: 165, gewichtKg: 88, beruf: 'Verkäuferin', familienstand: 'verheiratet' },
         leitsymptome: ['Seit gestern Abend heftige Oberbauchschmerzen, gürtelförmig in den Rücken ausstrahlend'],
         begleitsymptome: ['Übelkeit, mehrfaches Erbrechen', 'aufgeblähter Bauch'],
@@ -652,6 +655,7 @@ export function seedCases(): Case[] {
       frequency: 19,
       difficulty: 3,
       patientSheet: {
+        profil: { tags: ['veraenderung'] },
         leitsymptomKategorie: 'veraenderung',
         personalia: { name: 'Werner Klein', age: 71, geschlecht: 'm', groesseCm: 172, gewichtKg: 70, beruf: 'Rentner', familienstand: 'verwitwet' },
         leitsymptome: ['Seit heute Morgen schwarzer, klebriger Stuhl und einmal kaffeesatzartiges Erbrechen'],
@@ -818,6 +822,7 @@ export function seedCases(): Case[] {
       name: 'Akute Divertikulitis', pathology: 'Divertikulitis', specialty: 'Gastroenterologie',
       centers: ['Freiburg', 'Karlsruhe', 'Stuttgart'], frequency: 11, difficulty: 1,
       patientSheet: {
+        profil: { tags: ['schmerz', 'fieber'] },
         personalia: { name: 'Ursula Maier', age: 67, geschlecht: 'w', groesseCm: 168, gewichtKg: 72, beruf: 'Rentnerin', familienstand: 'verheiratet' },
         leitsymptome: ['Seit 3 Tagen Schmerzen im linken Unterbauch'],
         begleitsymptome: ['Fieber', 'Stuhlunregelmäßigkeiten (Verstopfung)'],
@@ -993,6 +998,7 @@ export function seedCases(): Case[] {
       name: 'Akute Cholezystitis', pathology: 'Akute Cholezystitis', specialty: 'Chirurgie',
       centers: ['Reutlingen', 'Stuttgart'], frequency: 4, difficulty: 1,
       patientSheet: {
+        profil: { tags: ['schmerz', 'fieber', 'stein'] },
         personalia: { name: 'Rosa Schneider', age: 49, geschlecht: 'w', groesseCm: 166, gewichtKg: 95, beruf: 'Köchin', familienstand: 'verheiratet' },
         leitsymptome: ['Seit gestern starke Schmerzen im rechten Oberbauch nach fettigem Essen'],
         begleitsymptome: ['Übelkeit', 'Fieber', 'Ausstrahlung in die rechte Schulter'],
@@ -1164,6 +1170,7 @@ export function seedCases(): Case[] {
       name: 'Kolorektales Karzinom', pathology: 'Kolorektales Karzinom', specialty: 'Gastroenterologie',
       centers: ['Karlsruhe', 'Stuttgart', 'Freiburg'], frequency: 15, difficulty: 2,
       patientSheet: {
+        profil: { tags: ['ausscheidung', 'gewichtsverlust'] },
         leitsymptomKategorie: 'ausscheidung',
         personalia: { name: 'Heinrich Vogt', age: 68, geschlecht: 'm', beruf: 'Rentner', familienstand: 'verheiratet' },
         leitsymptome: ['Seit Wochen wechselnder Stuhlgang und Blut im Stuhl'],
@@ -1335,6 +1342,7 @@ export function seedCases(): Case[] {
       name: 'Gastroösophageale Refluxkrankheit', pathology: 'GERD (Refluxkrankheit)', specialty: 'Gastroenterologie',
       centers: ['Freiburg', 'Karlsruhe', 'Stuttgart'], frequency: 7, difficulty: 1,
       patientSheet: {
+        profil: { tags: ['schmerz', 'hals', 'husten'] },
         personalia: { name: 'Sabine Wolf', age: 42, geschlecht: 'w', groesseCm: 170, gewichtKg: 84, beruf: 'Bürokauffrau', familienstand: 'ledig' },
         leitsymptome: ['Seit Monaten Sodbrennen, besonders nach dem Essen und im Liegen'],
         begleitsymptome: ['saures Aufstoßen', 'gelegentlich Reizhusten nachts'],
@@ -1510,6 +1518,7 @@ export function seedCases(): Case[] {
       name: 'Akuter Myokardinfarkt (STEMI)', pathology: 'Myokardinfarkt', specialty: 'Kardiologie',
       centers: ['Freiburg', 'Karlsruhe', 'Reutlingen'], frequency: 7, difficulty: 3,
       patientSheet: {
+        profil: { tags: ['schmerz'] },
         personalia: { name: 'Dieter Fischer', age: 59, geschlecht: 'm', beruf: 'Bauleiter', familienstand: 'verheiratet' },
         leitsymptome: ['Seit 45 Minuten stärkste Schmerzen hinter dem Brustbein, auch in Ruhe'],
         begleitsymptome: ['Kaltschweißigkeit', 'Übelkeit', 'Todesangst', 'Ausstrahlung linker Arm/Kiefer'],
@@ -1689,6 +1698,7 @@ export function seedCases(): Case[] {
       name: 'Ösophaguskarzinom', pathology: 'Ösophaguskarzinom', specialty: 'Gastroenterologie',
       centers: ['Stuttgart', 'Karlsruhe'], frequency: 22, difficulty: 2,
       patientSheet: {
+        profil: { tags: ['ausscheidung', 'dysphagie', 'hals', 'gewichtsverlust'] },
         leitsymptomKategorie: 'ausscheidung',
         personalia: { name: 'Anna Sichel', age: 53, geschlecht: 'w', groesseCm: 168, gewichtKg: 58, beruf: 'Schneiderin', familienstand: 'verheiratet' },
         leitsymptome: ['Seit 4 Wochen zunehmende Schluckbeschwerden, erst bei fester, jetzt bei weicher Kost'],
@@ -1888,6 +1898,7 @@ export function seedCases(): Case[] {
       frequency: 6,
       difficulty: 2,
       patientSheet: {
+        profil: { tags: ['schmerz', 'hals'] },
         personalia: {
           name: 'Jobst Donalies',
           age: 38,
@@ -2213,6 +2224,7 @@ export function seedCases(): Case[] {
       frequency: 15,
       difficulty: 3,
       patientSheet: {
+        profil: { tags: ['allgemein', 'hals', 'gewichtsverlust'] },
         leitsymptomKategorie: 'allgemein',
         personalia: {
           name: 'Julian Brückner',
@@ -2544,6 +2556,7 @@ export function seedCases(): Case[] {
       frequency: 14,
       difficulty: 2,
       patientSheet: {
+        profil: { tags: ['schmerz', 'fieber'] },
         personalia: {
           name: 'Hans Müller',
           age: 41,
@@ -2881,6 +2894,7 @@ export function seedCases(): Case[] {
       frequency: 15,
       difficulty: 3,
       patientSheet: {
+        profil: { tags: ['psychisch'] },
         leitsymptomKategorie: 'psychisch',
         personalia: {
           name: 'Thomas Heidenreich',
@@ -3228,6 +3242,7 @@ export function seedCases(): Case[] {
       frequency: 17,
       difficulty: 2,
       patientSheet: {
+        profil: { tags: ['infekt', 'fieber', 'dyspnoe', 'husten'] },
         leitsymptomKategorie: 'infekt',
         personalia: {
           name: 'Bernd Mais',
