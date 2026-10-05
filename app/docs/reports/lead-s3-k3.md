@@ -1,8 +1,339 @@
 # Rapport lot K3 — le moteur de cohérence au montage
 
-> `sim-engine-engineer` · 5 oct. 2026 · branche `feat/s3-k3-cohere`. `origin/main` (S4-2 #76, puis lot F #77) est fusionné, sans conflit ; `merge-tree` contre `origin/main` @ `b76d319e` : 0.
-> Statut : **DONE_WITH_CONCERNS**. Les revues Opus de `508639f6` (mécanique et clinique, toutes deux « Needs fixes ») sont traitées par le fixeur : § 0. Les concerns sont au § 0.6 : écarts à la lettre de trois décisions, une contradiction (P2 goutte), le résidu.
-> Les § 1 à § 10 donnent l'historique jusqu'à `508639f6` ; leurs chiffres sont ceux de ce commit.
+> `sim-engine-engineer` · 5 oct. 2026 · branche `feat/s3-k3-cohere`. `origin/main` (S4-2 #76, puis lot F #77) est fusionné, sans conflit ; `merge-tree` contre `origin/main` @ `0e846533` : 0.
+> Statut : **DONE_WITH_CONCERNS**. La contre-revue de `56452456` est traitée : § 0 bis (R1 à R6, gib / itp / lymphom, P2, gastroenteritis et fibromyalgie ligne à ligne). Les concerns sont au § 0bis.4 (quatre résidus des deux cas) et au § 0bis.6 (écarts à la lettre, réponse « trop longue » non faite car hors périmètre, goutte en K4).
+> Le § 0 décrit le fixeur des revues de `508639f6`. Les § 1 à § 10 donnent l'historique jusqu'à `508639f6` ; leurs chiffres sont ceux de ces commits.
+
+## 0 bis. Contre-revue de `56452456` (décisions de main)
+
+Mêmes règles que le § 0 : test rouge d'abord, mutation prouvée, un commit par groupe. Après chaque groupe : `ajouteSansReponse = 0` et le plancher vérifiés.
+
+### 0bis.1 R1 à R6
+
+| Item | Commit | Correction | Preuve |
+|---|---|---|---|
+| **R6** | `2dd506e7` | r2 ne déplace une question du cas que si la perdante est **retirée**. Une perdante réduite ou non réduite reste posée, et la question du cas reste à sa place. Contrat §10.4 amendé. | Test rouge avant. Mutation « condition retirée » : rouge. gastroenteritis : « Was hat sich verändert » passait avant « Wie sieht Ihr Stuhl aus » |
+| **R5** | `5fae0fc9` | D4-bis se fonde sur le motif **déclaré** : la fièvre n'est le motif que si le profil porte `fieber` (nature infekt), la dyspnée que s'il porte `dyspnoe` (nature atemnot). Table `TAG_DU_MOTIF`. Contrat amendé. | Test sur allergische-rhinitis (atemnot sans `dyspnoe`) : la question neutre de la Fach pneumo revient. Mutation « nature seule » : rouge |
+| **R1** | `d8fa688c` | `stuhl_blut` est pertinent pour diarrhoe, transit, gastro, haem, onko. Tags nouveaux, déclarés sur les cas qui jouent la Fach correspondante : gastro (17 cas), haem (6), onko (4). | Il n'est plus demandé dans zystitis, bph, prostatakarzinom, glomerulonephritis, hepatitis-b |
+| **R2** | `d8fa688c` | Mon écart est refusé, la décision est appliquée : `nykturie` est pertinente pour harn, kardio et endo (tags kardio : 9 cas ; endo : 6). | Les 15 cas Kardio / Endo la gardent. Elle disparaît des 7 cas digestifs, dont gastroenteritis |
+| **R3** | `86ca7453` | La variante `akt-veraend-blutung` perd ses relances « Blut im Stuhl / Urin » et « Blut abhusten ». Là où elles servent, la Fach les pose. | mammakarzinom et les 4 cas derma ne les ont plus ; tvt perd l'hémoptysie (accepté) |
+| **R4** | `92d4d328` | vorhofflimmern : le profil `exclut { zungenbiss, einnaessen }` (« keine Synkope »). INV-80 l'autorise : ces deux signes ne sont pas de dépistage. | Ni morsure ni énurésie posées. Test rouge avant |
+
+### 0bis.2 gib, itp, lymphom — cas par cas (`86ca7453`, `aktuellSkip`)
+
+| Cas | Décision | Raison |
+|---|---|---|
+| gib | `akt-veraend-was`, `-blutung`, `-entwicklung` retirés | Une hématémèse n'est pas une lésion qui « se modifie ». Le saignement est posé par la question du cas et la Fach |
+| itp | `-blutung` retiré, `-was` gardé | Les pétéchies **sont** la Veränderung (Befund) ; le saignement est posé par la Fach haem |
+| lymphom | `-was` et `-blutung` retirés | L'adénopathie est posée par la Fach onko et par la question du cas |
+
+### 0bis.3 P2
+
+- **Préfixe de dimension** (`604e7fe4`). Une part réduite porte le libellé de dimension de sa mère : « Beginn — Seit wann haben Sie die Schmerzen? », « Schmerz und Blutung — Tut es weh, juckt es? », « Verlauf — Ist es jeden Tag gleich… ». Test rouge avant. Le socle `checkTrameSymptoms` a un constat nhl renommé par le préfixe (même question) ; le compte reste 10 / 10.
+- **« blutet es? »** (`86ca7453`). « Tut es weh, juckt es, oder blutet es? » est découpée en deux parts. Quand le saignement est déjà demandé, la douleur et le prurit restent.
+- **Syncope** (`92d4d328`). Zungenbiss et Einnässen se posent après le témoin et la durée (questions du cas n° 11 et 12). Ces deux questions déclarent `fremdanamnese` et `anfallszeichen` ; le lexique place les deux signes après `fremdanamnese`.
+- **Réponses retirées** (`92d4d328`). Les réponses ajoutées en P0-2 et que plus aucune question n'interroge sont retirées : vorhofflimmern (signes exclus) et sturz-im-alter (la Fach neuro les pose). Synkope garde la sienne.
+- **Réponse « trop longue » : non faite, à décider.** Une relance détachée n'a pas de clé propre dans `antworten` : sa réplique est dans celle de sa mère, car le simulant reçoit l'id de sonde de la mère. Donner une clé à chaque relance change le protocole des deux onglets (`fsp-patient-sync`), `rolePlay` et `features/simulation`. C'est hors de mon périmètre K3 (« tu ne touches pas `features/simulation` ») : c'est une proposition de contrat.
+- **Goutte : option (b) en K4** (§ 0bis.6).
+
+### 0bis.4 gastroenteritis et fibromyalgie présentables (`3f464400`, `16d49801`)
+
+**gastroenteritis**
+- Questions du cas déclarées :
+  - « dort gegessen » → `essen_expo`, avec `braucht ['reise']` : r4b la place après le voyage ;
+  - Beruf → `beruf` ;
+  - « Antibiotika … Krankenhaus » → `krankenhaus` : une seule question d'hospitalisation ;
+  - « Wie sieht Ihr Stuhl aus » → `stuhl`, `stuhlaussehen` (jamais `stuhl_blut`).
+- Parts découpées du texte :
+  - `fach-infekt-kontakt` : contact / alimentation ;
+  - `fam-beruf` : métier / stress. La part stress porte `braucht ['beruf']`, `pers-beruf` (« dabei ») aussi ;
+  - `akt-ausscheid-aussehen` (`16d49801`) : alarme / couleur. La couleur n'est demandée qu'une fois, par la question du cas.
+- Hors sujet retiré : `fachSkip` sur `fach-infekt-haut` et `-neuro` (gabarit borréliose) ; `aktuellSkip` sur `akt-ausscheid-was` (les questions du cas posent l'aspect des selles et des urines).
+- Moteur : une question réduite à ses parts présuppose ce que présupposent les parts gardées (`braucht` des parts). Mutation « braucht des parts ignoré » : rouge.
+- Mesure du cas : **zéro doublon, zéro hors profil, zéro présupposition violée, 0 / 6 question du cas muette** (`checkCoherence --case case-gastroenteritis`).
+
+**fibromyalgie**
+- Questions du cas déclarées : Zeichnung → `ort` (prend la place d'`akt-ort`), « seit mehr als drei Monaten » → `verlauf`, « morgens steif » → `steifigkeit` (une seule raideur matinale), « Gelenke … geschwollen » → `gelenk_entzuendung`.
+- Hors sujet retiré : `fachSkip fach-rheuma-ausloeser` (relances de la goutte). L'Auslöser d'Aktuelle Beschwerden reste.
+- Mesure du cas : doublons 0, horsProfil 0, brauchtViole 0.
+- « Passiert Ihnen das auch im Unterricht? » (n° 16) **n'est pas une présupposition** : la réponse à `akt-begleit`, juste avant, dit « mitten im Unterricht ».
+
+Trames jouées complètes, ligne à ligne (sommet ; ouverture et clôture exclues) :
+
+**case-gastroenteritis**
+
+```text
+*Persönliche Daten*
+1. Wie heißen Sie mit vollständigem Namen?
+2. Könnten Sie Ihren Vor- und Nachnamen bitte langsam buchstabieren?
+3. Wie alt sind Sie? Wann sind Sie geboren?
+4. Wie groß sind Sie und wie viel wiegen Sie derzeit?
+5. Haben Sie einen Hausarzt? Wie heißt er / sie?
+6. Nur zur Sicherheit wiederhole ich kurz Ihre Daten: Sie heißen … , sind … Jahre alt, am … geboren, … groß und wiegen … kg. Ist das korrekt notiert?
+
+*Aktuelle Beschwerden*
+7. Was führt Sie heute zu uns?
+8. Ort — Wo genau spüren Sie die Beschwerden?
+   ↳ Können Sie mir zeigen, wo genau?
+9. Beginn — Seit wann haben Sie das bemerkt? Kam es plötzlich oder hat es sich über Wochen entwickelt?
+10. Charakter — Wie fühlt sich der Schmerz an: dumpf, stechend, brennend, drückend, krampfartig, pochend?
+11. Intensität — Auf einer Skala von 1 bis 10, wobei 1 leichte und 10 unerträgliche Schmerzen bedeutet: Wie stark sind Ihre Schmerzen?
+   ↳ Falls sehr stark: „Können Sie die Schmerzen bis zum Ende unseres Gesprächs (ca. 15 Minuten) ertragen, oder soll ich Ihnen ein Schmerzmittel geben?“ (Vor jedem Schmerzmittel zuerst nach Allergien und Unverträglichkeiten gegenüber Medikamenten fragen.)
+12. Häufigkeit — Wie oft haben Sie am Tag Stuhlgang, und müssen Sie auch nachts zum Stuhlgang aufstehen?
+   ↳ Mehr oder weniger als sonst?
+13. Aussehen — Ist Ihnen Blut oder Schleim im Stuhl aufgefallen?
+14. Verlauf — Ist es dauernd so, oder gibt es Tage, an denen es normal ist? Wird es schlimmer?
+15. Auslöser — Ist Ihnen ein Auslöser aufgefallen — ein bestimmtes Essen, eine Reise, ein neues Medikament, Stress?
+16. Einflussfaktoren — Gibt es etwas, das es bessert oder verschlimmert — Essen, Trinken, Bewegung, Medikamente?
+17. Frühere Episoden — Hatten Sie solche Beschwerden schon einmal?
+   ↳ Falls ja: Waren Sie deswegen schon bei einem Arzt? Welche Diagnose wurde damals gestellt?
+18. Begleitbeschwerden — Haben Sie außerdem noch andere Beschwerden bemerkt?
+19. Wie sieht Ihr Stuhl aus — wässrig oder breiig, welche Farbe, riecht er auffällig, schwimmt er oben?
+20. Haben Sie Fieber gemessen? Hatten Sie Schüttelfrost oder Nachtschweiß?
+
+*Fachanamnese Infectiologie*
+21. Waren Sie kürzlich im Ausland? Wo, wie lange, und hatten Sie dort Beschwerden?
+22. Was haben Sie dort gegessen und getrunken? Hatten Sie Eiswürfel in den Getränken, rohen Salat, ungeschältes Obst oder Leitungswasser?
+23. Hatten Sie Kontakt zu kranken Personen oder zu Tieren?
+   ↳ Arbeiten Sie mit vielen Menschen?
+24. Sind Ihre Impfungen auf dem neuesten Stand?
+
+*Vegetative Anamnese*
+25. Haben Sie starke Schweißausbrüche?
+26. Ist Ihnen übel? Mussten Sie sich übergeben?
+   ↳ Falls ja: Können Sie das Erbrochene beschreiben? Seit wann, und wie häufig?
+27. Haben Sie Schwierigkeiten beim Wasserlassen?
+   ↳ Falls ja: Seit wann, und wie oft täglich? Können Sie das Aussehen des Urins näher beschreiben?
+28. Haben Sie in letzter Zeit Gewichtsveränderungen bemerkt?
+   ↳ Falls ja: Wie viel hat sich Ihr Gewicht verändert?
+   ↳ Falls ja: In welchem Zeitraum war das?
+29. Wie ist Ihr Appetit? Haben sich Ihre Essgewohnheiten kürzlich geändert?
+30. Ist Ihr Schlaf erholsam? Haben Sie Probleme, ein- oder durchzuschlafen?
+31. Trinken Sie genug? Wie oft müssen Sie Wasser lassen, und welche Farbe hat der Urin? Wird Ihnen beim Aufstehen schwindelig?
+
+*Vorerkrankungen & Voroperationen*
+32. Wie Sie vielleicht wissen, spielen sowohl erbliche als auch erworbene Krankheiten eine wichtige Rolle. Daher würde ich Ihnen gern einige Fragen zu Ihrer Vorgeschichte stellen — sind Sie einverstanden?
+33. Gibt es bei Ihnen vorbestehende Erkrankungen, zum Beispiel Bluthochdruck, Zuckerkrankheit oder erhöhte Blutfettwerte?
+   ↳ Falls ja: Welche, und seit wann sind sie bekannt? Werden sie behandelt?
+34. Wurden Sie schon einmal operiert?
+   ↳ Falls ja: Welche Eingriffe wurden durchgeführt, und wann? Traten dabei Komplikationen auf?
+
+*Medikamente*
+35. Nehmen Sie regelmäßig oder gelegentlich Medikamente ein?
+   ↳ Falls ja: Welche Medikamente sind das?
+   ↳ Falls ja: Seit wann nehmen Sie sie?
+   ↳ Falls ja: In welcher Dosierung?
+   ↳ Falls ja: Wie oft am Tag?
+36. Nehmen Sie Blutverdünner oder Kortison?
+37. Nehmen Sie frei verkäufliche Schmerzmittel, pflanzliche Mittel oder Nahrungsergänzung?
+38. Haben Sie in den letzten Wochen oder Monaten Antibiotika eingenommen oder waren Sie im Krankenhaus?
+
+*Allergien & Unverträglichkeiten*
+39. Sind Sie allergisch gegen bestimmte Medikamente oder Nahrungsmittel?
+   ↳ Falls ja: Beschreiben Sie bitte, wie Sie genau reagieren — an der Haut, an der Atmung, am Kreislauf?
+40. Vertragen Sie bestimmte Speisen nicht (Laktose, Gluten)?
+
+*Noxen / Genussmittel*
+41. Rauchen Sie?
+   ↳ Falls ja: Seit wann rauchen Sie?
+   ↳ Falls ja: Wie viele Zigaretten ungefähr pro Tag?
+   ↳ Falls aufgehört: Wann haben Sie aufgehört?
+   ↳ Falls aufgehört: Wie viele Jahre haben Sie geraucht?
+   ↳ Falls aufgehört: Wie viel haben Sie davor pro Tag geraucht?
+42. Trinken Sie Alkohol?
+   ↳ Falls ja: Welche Getränke bevorzugen Sie — Bier, Wein, Schnaps?
+   ↳ Falls ja: Trinken Sie täglich oder nur zu besonderen Anlässen?
+   ↳ Falls ja: Wie viel trinken Sie ungefähr pro Woche?
+43. Wie Sie wissen, ist Cannabis inzwischen legalisiert. Daher muss ich Sie aus medizinischen Gründen routinemäßig fragen: Konsumieren Sie Drogen?
+
+*Familien- & Sozialanamnese*
+44. Haben Familienmitglieder — Großeltern, Eltern, Geschwister oder Kinder — chronische Erkrankungen?
+   ↳ Falls ja: Welche Erkrankungen sind das?
+   ↳ Falls ja: Seit wann sind sie bekannt?
+45. Leben Ihre Eltern noch?
+   ↳ Falls verstorben: Woran ist Ihre Mutter / Ihr Vater gestorben? (Avec empathie : „Mein herzliches Beileid.“)
+   ↳ Falls verstorben: Wann war das?
+46. Wie ist Ihr Familienstand? Haben Sie Kinder?
+   ↳ Falls ja: Wie viele, und sind sie gesund?
+47. Wohnen Sie allein oder mit jemandem? In einer Wohnung oder einem Haus, in welchem Stockwerk, mit Aufzug?
+48. Haben Sie Haustiere, um die sich jemand kümmern muss?
+49. Was arbeiten Sie beruflich, und arbeitet jemand in Ihrem Haushalt in einer Küche, in der Gastronomie oder in einem Kindergarten?
+50. Arbeiten Sie dabei mit besonderen Stoffen — Staub, Chemikalien, Dämpfen?
+51. Empfinden Sie Stress durch Ihre Arbeitssituation?
+```
+
+**case-fibromyalgie**
+
+```text
+*Persönliche Daten*
+1. Wie heißen Sie mit vollständigem Namen?
+2. Könnten Sie Ihren Vor- und Nachnamen bitte langsam buchstabieren?
+3. Wie alt sind Sie? Wann sind Sie geboren?
+4. Wie groß sind Sie und wie viel wiegen Sie derzeit?
+5. Haben Sie einen Hausarzt? Wie heißt er / sie?
+6. Nur zur Sicherheit wiederhole ich kurz Ihre Daten: Sie heißen … , sind … Jahre alt, am … geboren, … groß und wiegen … kg. Ist das korrekt notiert?
+
+*Aktuelle Beschwerden*
+7. Was führt Sie heute zu uns?
+8. Können Sie mir bitte auf dieser Zeichnung einzeichnen, wo überall es wehtut? Ist es links und rechts gleich?
+9. Beginn — Seit wann haben Sie die Schmerzen?
+10. Charakter — Wie fühlt sich der Schmerz an: dumpf, stechend, brennend, drückend, krampfartig, pochend?
+11. Intensität — Auf einer Skala von 1 bis 10, wobei 1 leichte und 10 unerträgliche Schmerzen bedeutet: Wie stark sind Ihre Schmerzen?
+   ↳ Falls sehr stark: „Können Sie die Schmerzen bis zum Ende unseres Gesprächs (ca. 15 Minuten) ertragen, oder soll ich Ihnen ein Schmerzmittel geben?“ (Vor jedem Schmerzmittel zuerst nach Allergien und Unverträglichkeiten gegenüber Medikamenten fragen.)
+12. Haben Sie diese Schmerzen ununterbrochen seit mehr als drei Monaten, oder gibt es bei Ihnen beschwerdefreie Phasen?
+13. Auslöser — Gab es etwas Bestimmtes, das die Schmerzen ausgelöst hat? Was taten Sie, als sie begannen?
+14. Einflussfaktoren — Gibt es etwas, das die Beschwerden bessert oder verschlimmert (Essen, Bewegung, Atmung, Körperhaltung)?
+15. Begleitbeschwerden — Haben Sie außerdem noch andere Beschwerden bemerkt?
+16. Haben Sie Schwierigkeiten, sich zu konzentrieren oder auf Wörter zu kommen? Passiert Ihnen das auch im Unterricht?
+17. Wie lange sind Sie morgens steif — Minuten oder länger als eine Stunde? Bessert sich das durch Bewegung?
+18. Sind Ihre Gelenke jemals sichtbar geschwollen, gerötet oder überwärmt gewesen — oder fühlen sie sich nur dick an?
+19. Wie geht es Ihnen seelisch? Fühlen Sie sich in den letzten Wochen häufig niedergeschlagen oder freudlos?
+
+*Fachanamnese Rhumatologie*
+20. Kamen die Beschwerden plötzlich und anfallsartig, oder haben sie sich langsam über Wochen entwickelt?
+21. Haben Sie Hautveränderungen bemerkt — Schuppenflechte, Knötchen unter der Haut oder an den Ohren?
+22. Haben Sie Fieber, Augenentzündungen, Mund- oder Genitalgeschwüre, Durchfall oder eine Bindehautentzündung bemerkt?
+23. Hatten Sie solche Gelenkbeschwerden schon einmal?
+
+*Vegetative Anamnese*
+24. Treten bei Ihnen Schüttelfrost, Nachtschweiß oder starke Schweißausbrüche auf?
+25. Ist Ihnen übel? Mussten Sie sich übergeben?
+   ↳ Falls ja: Können Sie das Erbrochene beschreiben? Seit wann, und wie häufig?
+26. Haben Sie Schwierigkeiten beim Wasserlassen?
+   ↳ Falls ja: Seit wann, und wie oft täglich? Können Sie das Aussehen des Urins näher beschreiben?
+27. Haben Sie in letzter Zeit Gewichtsveränderungen bemerkt?
+   ↳ Falls ja: Wie viel hat sich Ihr Gewicht verändert?
+   ↳ Falls ja: In welchem Zeitraum war das?
+28. Wie ist Ihr Appetit? Haben sich Ihre Essgewohnheiten kürzlich geändert?
+29. Wie ist Ihr Schlaf? Fühlen Sie sich morgens erholt, wenn Sie aufgewacht sind?
+30. Sind Ihre Impfungen auf dem neuesten Stand?
+
+*Vorerkrankungen & Voroperationen*
+31. Wie Sie vielleicht wissen, spielen sowohl erbliche als auch erworbene Krankheiten eine wichtige Rolle. Daher würde ich Ihnen gern einige Fragen zu Ihrer Vorgeschichte stellen — sind Sie einverstanden?
+32. Gibt es bei Ihnen vorbestehende Erkrankungen, zum Beispiel Bluthochdruck, Zuckerkrankheit oder erhöhte Blutfettwerte?
+   ↳ Falls ja: Welche, und seit wann sind sie bekannt? Werden sie behandelt?
+33. Wurden Sie schon einmal operiert?
+   ↳ Falls ja: Welche Eingriffe wurden durchgeführt, und wann? Traten dabei Komplikationen auf?
+34. Waren Sie in letzter Zeit im Krankenhaus?
+
+*Medikamente*
+35. Nehmen Sie regelmäßig oder gelegentlich Medikamente ein?
+   ↳ Falls ja: Welche Medikamente sind das?
+   ↳ Falls ja: Seit wann nehmen Sie sie?
+   ↳ Falls ja: In welcher Dosierung?
+   ↳ Falls ja: Wie oft am Tag?
+36. Nehmen Sie Blutverdünner oder Kortison?
+37. Nehmen Sie frei verkäufliche Schmerzmittel, pflanzliche Mittel oder Nahrungsergänzung?
+38. Nehmen Sie ein Medikament gegen erhöhte Cholesterinwerte oder haben Sie in letzter Zeit ein neues Medikament begonnen?
+
+*Allergien & Unverträglichkeiten*
+39. Sind Sie allergisch gegen bestimmte Medikamente oder Nahrungsmittel?
+   ↳ Falls ja: Beschreiben Sie bitte, wie Sie genau reagieren — an der Haut, an der Atmung, am Kreislauf?
+40. Vertragen Sie bestimmte Speisen nicht (Laktose, Gluten)?
+
+*Noxen / Genussmittel*
+41. Rauchen Sie?
+   ↳ Falls ja: Seit wann rauchen Sie?
+   ↳ Falls ja: Wie viele Zigaretten ungefähr pro Tag?
+   ↳ Falls aufgehört: Wann haben Sie aufgehört?
+   ↳ Falls aufgehört: Wie viele Jahre haben Sie geraucht?
+   ↳ Falls aufgehört: Wie viel haben Sie davor pro Tag geraucht?
+42. Trinken Sie Alkohol?
+   ↳ Falls ja: Welche Getränke bevorzugen Sie — Bier, Wein, Schnaps?
+   ↳ Falls ja: Trinken Sie täglich oder nur zu besonderen Anlässen?
+   ↳ Falls ja: Wie viel trinken Sie ungefähr pro Woche?
+43. Wie Sie wissen, ist Cannabis inzwischen legalisiert. Daher muss ich Sie aus medizinischen Gründen routinemäßig fragen: Konsumieren Sie Drogen?
+
+*Familien- & Sozialanamnese*
+44. Haben Familienmitglieder — Großeltern, Eltern, Geschwister oder Kinder — chronische Erkrankungen?
+   ↳ Falls ja: Welche Erkrankungen sind das?
+   ↳ Falls ja: Seit wann sind sie bekannt?
+45. Leben Ihre Eltern noch?
+   ↳ Falls verstorben: Woran ist Ihre Mutter / Ihr Vater gestorben? (Avec empathie : „Mein herzliches Beileid.“)
+   ↳ Falls verstorben: Wann war das?
+46. Wie ist Ihr Familienstand? Haben Sie Kinder?
+   ↳ Falls ja: Wie viele, und sind sie gesund?
+47. Was sind Sie von Beruf? Empfinden Sie Stress durch Ihre Arbeitssituation?
+   ↳ Falls in Rente: Was haben Sie früher beruflich gemacht?
+48. Arbeiten Sie dabei mit besonderen Stoffen — Staub, Chemikalien, Dämpfen?
+49. Wohnen Sie allein oder mit jemandem? In einer Wohnung oder einem Haus, in welchem Stockwerk, mit Aufzug?
+50. Haben Sie Haustiere, um die sich jemand kümmern muss?
+
+*Frauenanamnese*
+51. Verläuft Ihre Monatsblutung regelmäßig?
+   ↳ Wann war Ihre letzte Regelblutung?
+   ↳ Wie viele Tage liegen zwischen dem Beginn einer Blutung und dem Beginn der nächsten?
+52. Besteht die Möglichkeit, dass Sie derzeit schwanger sind?
+53. Verwenden Sie Verhütungsmethoden?
+   ↳ Falls ja: Welche Methode verwenden Sie?
+54. Haben die Wechseljahre bei Ihnen schon begonnen — Hitzewallungen, unregelmäßige Blutungen?
+   ↳ Gehen Sie regelmäßig zum Frauenarzt?
+```
+
+Ce qui reste dans ces deux trames, à trancher par la troisième revue :
+1. **gastro n° 27 ↳ / n° 31.** La relance « Falls ja: Seit wann, und wie oft täglich? Können Sie das Aussehen des Urins näher beschreiben? » recoupe la question du cas n° 31 (« Wie oft müssen Sie Wasser lassen, und welche Farbe hat der Urin? »). La relance est **conditionnelle** : elle ne se pose que si le patient a des difficultés. Et INV-84 interdit qu'une relance conditionnelle déclare un signe. C'est la même classe que la goutte, à régler par l'option (b) en K4 : des `parts` sur `veg-ausscheidung`.
+2. **gastro n° 20 / n° 25.** « Nachtschweiß » (question du cas) et « starke Schweißausbrüche » (végétative) sont deux signes distincts (`nachtschweiss` ≠ `schwitzen`). Je les garde ; le mot « Schweiß » revient.
+3. **gastro n° 23 ↳.** « Arbeiten Sie mit vielen Menschen? » vient avant la question du métier (n° 49). C'est un oui / non, sans présupposition forte. C'est le texte existant de la relance de contact.
+4. **fibro n° 22.** « Augenentzündungen … oder eine Bindehautentzündung » se répète dans le texte même de `fach-rheuma-systemisch`. C'est un défaut de contenu (Pour contenu).
+
+### 0bis.5 Mesure, plancher, gel (sommet)
+
+| Porte après montage (130 cas) | Valeur |
+|---|---|
+| doublons, horsProfil, exigeAbsent, relancesOrphelines, brauchtViole, ajouteSansReponse | **0** |
+| casRetiresParR1 | **0** |
+
+| Plancher (`coherence-budget.json`) | `56452456` | **Sommet** |
+|---|---:|---:|
+| doublons | 218 | **203** |
+| doublonsCas | 24 | 24 |
+| horsProfil | 46 | **44** |
+| exigeAbsent | 0 | 0 |
+| brauchtViole | 20 | **19** |
+| ajouteSansReponse | 0 | 0 |
+| questionsMuettes | 803 | **794** |
+| nonReduit | 112 | **103** |
+
+`checkBudgetFloor.mjs origin/main` : 0. Socle `checkTrameSymptoms` : 10 / 10 (hausse documentée 2 → 10, deux constats lymphom résolus).
+
+| Écarts (130 cas) | Nombre |
+|---|---:|
+| r2 retire | 371, + 340 relances |
+| r2 réduit | 118, + 103 relances |
+| r2 non-réduit | 65 |
+| r2 déplace | 19 |
+| r1 retire | 35, + 23 relances |
+| r1 réduit | 100, + 371 relances |
+| r1 non-réduit | 38 |
+| r1 anomalie | 2 |
+| r3 ajoute | 45 |
+| r4a détache | 147 (5 relances distinctes : impfung, Gicht / Nierensteine, Familie Rheuma, Zungenbiss, Einnässen) |
+| r4b déplace | 3 |
+
+Le gel `trame-actuelle.txt` est régénéré à chaque groupe. `fachCovers` : 23 paires gardées, chacune avec sa raison.
+
+### 0bis.6 Écarts à la lettre, Pour K4, Pour contenu
+
+**Écarts à la lettre**
+1. **R4.** J'ai pris `exclut` plutôt qu'`aktuellSkip`, parce que `zungenbiss` et `einnaessen` ne sont pas de dépistage. Pour gib, itp et lymphom, c'est `aktuellSkip`, car `knoten`, `lokalblutung`, etc. sont de dépistage (INV-80, § 0.6).
+2. **`app/src/db/types.ts`** : `CaseQuestion` gagne `braucht?` (additif, contrat §10.2). C'est hors du périmètre de l'en-tête de rôle, mais dans le brief K3.
+3. **« Wie sieht Ihr Stuhl aus »** déclare `stuhl` en plus de `stuhlaussehen` : la question pose aussi le changement des selles. La part `stuhl` de `veg-ausscheidung` est donc retirée.
+4. **Textes découpés** (parts) : je n'ai écrit aucune phrase nouvelle. Chaque part est une coupe du texte de sa mère.
+
+**Pour K4**
+- **Goutte, option (b)** (décision de main). `fach-rheuma-ausloeser` reçoit des `parts`, sans nouvelle règle :
+  - la part `ausloeser` garde la question principale ;
+  - la part `gicht_ausloeser` (pertinence `gicht`) porte les deux lignes « Falls ein üppiges Essen: … Bier? » et « Falls ein neues Medikament: … Wassertablette? ».
+- Même voie pour `veg-ausscheidung` (gastro n° 27 ↳).
+- Les `parts` restantes : `akt-veraend-was` (P1-6c), `fach-pneumo-infekt`, `fach-infekt-haut` / `-neuro`, `fach-ortho-schwellung` (karpaltunnel). Résidu `nonReduit` : 103.
+- Questions du cas muettes : 794. Parmi les cas listés par la revue, il reste schenkelhalsfraktur, zystitis, rheumatoide-arthritis, pankreatitis, zoeliakie et uterus-myomatosus #15.
+- Le seuil de Morgensteifigkeit de fibromyalgie ; M3 ; les 10 constats de relecture de `checkTrameSymptoms`.
+- Réponse « trop longue » d'une relance détachée : une clé par relance demande une proposition de contrat sur `fsp-patient-sync`, `rolePlay` et `features/simulation` (§ 0bis.3).
+
+**Pour contenu**
+- Aucune question sur une **tentative de suicide antérieure** dans le bloc de sécurité psy (non écrit ici, sur décision de main).
+- `fach-rheuma-systemisch` : « Augenentzündungen » et « Bindehautentzündung » dans la même question.
+- colitis-ulcerosa : « Welche Farbe hat es — hellrot oder schwarz? » et « Welche Farbe hat der Stuhl — blutig, teerschwarz… » se suivent (relevé en passant, hors des deux cas de la direction).
 
 ## 0. Fixeur des revues de `508639f6` (décisions de main)
 
@@ -389,16 +720,23 @@ Elle s'est arrêtée sur `ajouteSansReponse = 8` : 8 questions du cas posaient l
 
 ## Vérifications (codes de sortie, sommet de branche)
 
-- `npx tsc -b --noEmit` : **0**. `npx vitest run --dir src --maxWorkers=2` : **0** (166 fichiers, 1 647 tests).
-- `node scripts/check*.mjs` : **tous 0**, sauf `checkProbeOverlap` (1, informatif, `|| true`). Dont `checkCoherence` 0, `checkPlayedTrame` 0, `checkTrameSymptoms` 0, `checkGuideCoverage` 0 (contrat guide ↔ fiche), `checkTermRegister --require-all` 0. `checkBudgetFloor.mjs origin/main` : **0**, avec une hausse documentée : constats de trame-symptoms, 2 → 12.
-- `node --test scripts/*.test.mjs` (12 fichiers) : **tous 0**.
-- `git merge-tree --write-tree origin/main HEAD` (`origin/main` @ `db306481`) : **0**. `evalDoctopus --dry` : **0**.
+- `npx tsc -b --noEmit` : **0**. `npx vitest run --dir src --maxWorkers=2` : **0** (170 fichiers, 1 728 tests).
+- `node scripts/check*.mjs` : **tous 0**, sauf `checkProbeOverlap` (1, informatif, `|| true` en CI). Parmi eux :
+  - `checkCoherence` 0, `checkPlayedTrame` 0, `checkTrameSymptoms` 0, `checkQuestionAtomicity` 0 ;
+  - `checkGuideCoverage` 0 : c'est le contrat guide ↔ fiche ;
+  - `checkTermRegister --require-all` 0.
+- `checkBudgetFloor.mjs origin/main` : **0**.
+- `node --test scripts/*.test.mjs` (12 fichiers, 178 tests) : **0**.
+  - Quatre ancres périmées depuis `3f464400` et `e3165f19` ont été corrigées en `3e919504`. Elles visaient gastroenteritis (maintenant déclaré) et les deux constats lymphom (résolus).
+  - Ma boucle de vérification précédente affichait le code de sortie de `basename`, pas celui du test : corrigé, chaque code de sortie est maintenant relu.
+- `git merge-tree --write-tree origin/main HEAD` (`origin/main` @ `0e846533`) : **0**. `evalDoctopus --dry` : **0**.
 
 ## Non vérifié
 
 - **Pas de vérification à deux onglets dans un navigateur.** Le worktree n'a pas de `.env`, et l'app charge le contenu par Supabase, que je n'avais pas le droit de démarrer, comme je ne devais pas toucher la prod. Ce qui la remplace :
   - côté médecin, `checkGuideCoverage` (0) sur le montage réel : toute question jouée a sa réponse ;
-  - côté simulant, le Rollenskript lit `antworten`, que K3 ne touche pas (INV-88, testé sur les 130 cas).
-- **La justesse clinique** des voies du § 3, des 10 déclarations du § 2 et des concerns du § 9 : mon jugement, à relire.
-- **Le contenu publié** : `publishContent.mjs` republiera les 10 fiches touchées au merge ; je ne l'ai pas rejoué.
+  - côté simulant, le Rollenskript lit `antworten`. K3 n'y touche que là où main l'a autorisé : P0-2 (Zungenbiss / Einnässen ; ajout gardé en synkope, retiré en vorhofflimmern et sturz-im-alter) et P1-9 (`fach-pneumo-atemnot` copiée dans 5 cas). `checkGuideCoverage` le couvre.
+  - Main fait la vérification à deux onglets après le merge (décision du § 9 bis).
+- **La justesse clinique** des voies du § 3, des déclarations des § 2 et § 0bis.4, et des résidus du § 0bis.4 : c'est mon jugement, à relire par la troisième revue clinique.
+- **Le contenu publié** : `publishContent.mjs` republiera les fiches touchées au merge ; je ne l'ai pas rejoué.
 - **`graphify update app/src`** : il n'y a pas de graphe dans ce worktree.
