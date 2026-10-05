@@ -25,7 +25,8 @@ const LABEL: Record<LaufTeil, string> = {
 export function SimulationBeendenKnopf({ lauf, onClick }: { lauf: Lauf; onClick: () => void }) {
   if (!simulationBeendbar(lauf)) return null;
   return (
-    <button onClick={onClick} className="btn-primary text-xs" title="Vers la checklist de fin">
+    // Fixeur I7 : un seul bouton principal au bilan — tant qu'il reste un Teil, « Continuer — X » l'est, et ceci est secondaire.
+    <button onClick={onClick} className={`${erlaubt(lauf, { typ: 'partieSuivante' }) ? 'btn-outline' : 'btn-primary'} text-xs`} title="Vers la checklist de fin">
       Terminer ici →
     </button>
   );

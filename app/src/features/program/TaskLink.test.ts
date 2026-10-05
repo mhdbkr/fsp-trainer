@@ -32,3 +32,15 @@ describe('S4-3 m8 — toute tâche de cas se lance par la pré-simulation, `revi
     expect(taskLink(t({ kind: 'revision' }), ['dokumentation', 'fallvorstellung'])).toBe('/simulation/c1/pre?depart=dokumentation&task=tA');
   });
 });
+
+// Fixeur S4-3, I8 (décision (d), exception de périmètre accordée) : la couche ne s'affiche plus dans le programme.
+describe('TaskAnatomy — plus de « Couche N »', () => {
+  it('l’assistance reste, la couche disparaît', async () => {
+    const { render } = await import('@testing-library/react');
+    const { createElement } = await import('react');
+    const { TaskAnatomy } = await import('./TaskLine');
+    const { container } = render(createElement(TaskAnatomy, { task: t({ layer: 3, assistance: 'autonome' }) }));
+    expect(container.textContent).toContain('autonome');
+    expect(container.textContent).not.toMatch(/couche/i);
+  });
+});

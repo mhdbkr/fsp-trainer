@@ -16,6 +16,7 @@
 //   3. `taskSubject()` devient l'IDENTITÉ : `TaskInstance.label` est désormais
 //      le seul nom du sujet. La cale de transition peut disparaître.
 // ============================================================================
+import { ARTICLE } from '@/components/visuals/CaseDialText';
 import { useEffect, useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import type { DayPlan, SimTeil, TaskInstance, TaskKind, TrainingEvent } from '@/db/types';
@@ -70,7 +71,6 @@ function ScopeTag({ teil }: { teil: NonNullable<TaskInstance['teil']> }) {
   return t ? <span className="dim-tag gap-1.5"><Icon name={t.icon} className="h-3.5 w-3.5 shrink-0" aria-hidden />{t.label}</span> : null;
 }
 
-const ARTICLE: Record<SimTeil, string> = { anamnese: "l'Anamnese", dokumentation: 'la Dokumentation', fallvorstellung: 'la Fallvorstellung' };
 
 /** « la Dokumentation et la Fallvorstellung » — ce qui reste d'un cas, dans l'ordre d'examen. */
 export const resteTexte = (teile: readonly SimTeil[]): string => {
@@ -119,7 +119,6 @@ export function lectureDuPlan(plan: DayPlan, events: readonly TrainingEvent[]): 
  *  les ré-affiche pas à côté. */
 export function TaskAnatomy({ task, reste }: { task: TaskInstance; reste?: LectureTache['reste'] }) {
   const state = [
-    task.layer !== undefined ? `Couche ${task.layer}` : null,
     task.assistance === 'assiste' ? 'assisté' : task.assistance === 'autonome' ? 'autonome' : null,
   ].filter(Boolean).join(' · ');
   return (

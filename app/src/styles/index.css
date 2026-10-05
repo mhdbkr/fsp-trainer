@@ -73,7 +73,7 @@ h1, h2, h3 {
    produisait, sous mouvement réduit, un élément invisible pendant 120–200 ms
    (fill-mode `both`) qui surgissait ensuite d'un coup — un clignotement, soit
    exactement ce que l'utilisateur a demandé d'éviter (mesuré sur
-   ModeChooser.tsx:47,50, audit §3). Les délais sont donc remis à zéro ici, et
+   l’ex-ModeChooser, retiré en S4-3, audit §3). Les délais sont donc remis à zéro ici, et
    `!important` en feuille d'auteur l'emporte aussi sur un `style=""` inline :
    aucun composant n'a besoin de se garder lui-même.
    ───────────────────────────────────────────────────────────────────────── */

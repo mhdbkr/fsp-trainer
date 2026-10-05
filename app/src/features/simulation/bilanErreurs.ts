@@ -2,7 +2,7 @@
 // candidat manque d'habitude (signal d'AVANT cette partie), ce qu'il en a fait cette fois — « cochée
 // cette fois » ou « encore manquée (n/5) ». Rien n'est stocké : tout se relit dans le journal, et le
 // signal se calcule par `erreursTransversales` (S4-2), jamais redéfini ici.
-import type { ChecklistItemId, SimTeil, TrainingEvent } from '@/db/types';
+import type { CaseProgress, ChecklistItemId, SimTeil, Simulation, TrainingEvent } from '@/db/types';
 import { erreursTransversales, libelleItem } from '@/lib/program/erreurs';
 
 export interface LigneBilan {
@@ -36,3 +36,8 @@ export function bilanErreurs(events: readonly TrainingEvent[], simId: string): L
       };
     });
 }
+
+/** Le cas vient-il d'être soudé PAR CETTE partie ? `pretAt` est l'`at` du passage qualifiant, et l'`at` d'une partie est
+ *  sa `date` (m5) : égalité stricte (fixeur M2) — `≥` animait aussi la soudure en rouvrant une partie plus ancienne. */
+export const vientDeSouder = (cp: Pick<CaseProgress, 'etat' | 'pretAt'>, sim: Pick<Simulation, 'date'>): boolean =>
+  cp.etat === 'pret' && cp.pretAt === sim.date;

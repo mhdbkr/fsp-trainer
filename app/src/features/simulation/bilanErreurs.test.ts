@@ -33,3 +33,12 @@ describe('bilanErreurs — la sortie « bilan » des erreurs transversales', () 
     expect(bilanErreurs([...passe, ev(5, 'd', []), ...ensuite], 's5')).toEqual(bilanErreurs([...passe, ev(5, 'd', [])], 's5'));
   });
 });
+
+describe('vientDeSouder (fixeur M2) — la soudure de CETTE partie, pas d’une plus ancienne', () => {
+  it('égalité stricte entre pretAt et la date de la partie', async () => {
+    const { vientDeSouder } = await import('./bilanErreurs');
+    expect(vientDeSouder({ etat: 'pret', pretAt: 5 }, { date: 5 })).toBe(true);
+    expect(vientDeSouder({ etat: 'pret', pretAt: 9 }, { date: 5 })).toBe(false);    // soudé par une partie POSTÉRIEURE
+    expect(vientDeSouder({ etat: 'solide', pretAt: 5 }, { date: 5 })).toBe(false);
+  });
+});

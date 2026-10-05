@@ -16,7 +16,7 @@ describe('ResultScreen', () => {
     const p = { done: true, durationSec: 60, checklist: [], feeling: 50, contentPct: 40, officialPct: 40 };
     render(<MemoryRouter><ResultScreen sim={{ id: 's2', caseId: 'c1', date: Date.now(), passed: false, parts: { anamnese: p, dokumentation: p }, prioritizedCorrections: [], scope: 'teil' } as never} c={{ id: 'c1', name: 'Ulcus', specialty: 'G' } as never} /></MemoryRouter>);
     expect(screen.queryByText(/Cette partie/)).toBeNull();
-    expect(screen.getByText(/Au moins une partie sous les 60%/)).toBeTruthy();
+    expect(screen.getByText('Au moins une épreuve est sous 60 % : reprends-la.')).toBeTruthy();   // fixeur I4 : « partie » = le tout
   });
 
   it('C6-A — une langue non notée n\'affiche pas « langue 0 % » ni ne pèse dans le score', () => {
@@ -42,7 +42,7 @@ describe('ResultScreen', () => {
     it('langue non notée : « Réussi sur le contenu », jamais le verdict complet', () => {
       const c = rendu(vide);
       expect(screen.getByRole('heading', { level: 1 }).textContent).toBe('Réussi sur le contenu');
-      expect(c.textContent).toContain('langue non notée');
+      expect(c.textContent).toContain('Ta langue n\'est pas notée : le verdict complet viendra quand tu auras rempli la grille de langue.');   // fixeur I10
       expect(c.textContent).not.toMatch(/Bestanden|Au-dessus du seuil Doctopus/);
     });
     it('langue notée : le verdict complet, sans « Bestanden » (EXAM_CLAIM)', () => {

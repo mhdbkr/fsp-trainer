@@ -11,6 +11,7 @@ import { termsOfCase } from '@/lib/collections/caseTerms';
 import { useTimer } from './useTimer';
 import { departDe, useLauf } from './useLauf';
 import { checklisteFuer, hatSprachgitter, naechsterTeil, wegZu } from '@/lib/lauf/automat';
+import { ARTICLE } from '@/components/visuals/CaseDialText';
 import type { Lauf, LaufTeil } from '@/lib/lauf/types';
 import { NOT_ENTERED, emptyLanguageGrid, languageGridEntered } from '@/lib/scoring';
 import { computeAmbiance } from './timeAmbiance';
@@ -35,7 +36,7 @@ import { CaseDial } from '@/components/visuals/CaseDial';
 import { dialData } from '@/lib/dialData';
 import { blankProgress } from '@/lib/journal';
 import { useCaseProgress, useTrainingEvents } from '@/features/program/useProgram';
-import { bilanErreurs } from './bilanErreurs';
+import { bilanErreurs, vientDeSouder as aSoude } from './bilanErreurs';
 
 type Part = LaufTeil;
 const FLOW: { key: SimTeil; label: string; target: number; icon: string }[] = [
@@ -218,7 +219,9 @@ export function SimulationRunner() {
         key={`${lauf.id}:${partKey}`}
         target={target}
         initialElapsed={lauf.sekundenProTeil[partKey] ?? 0}
-        running={lauf.zustand === 'laufend'}
+        // Fixeur I11 : le chrono du Teil de DÉPART attend « Lancer le chrono » — tant qu'il ne tourne pas, on peut encore
+        // « commencer par » un autre Teil. Les Teile suivants démarrent seuls, comme avant.
+        running={lauf.zustand === 'laufend' && !(lauf.teileGespielt.length === 0 && (lauf.sekundenProTeil[partKey] ?? 0) === 0)}
         onElapsed={(sec) => steuerung.tick(partKey, sec)}
       >
         {(timer) => {
@@ -308,7 +311,7 @@ export function SimulationRunner() {
                                 className={`absolute top-[19px] h-0.5 -translate-y-1/2 rounded transition-opacity duration-300 ${merged ? 'opacity-0' : 'opacity-100'} ${isDone ? 'bg-emerald-400' : 'bg-slate-200 dark:bg-slate-700'}`}
                                 style={{ left: 'calc(50% + 34px)', width: 'calc(100% - 68px)' }} />
                             )}
-                            <Etape weg={weg} label={`${lauf.zustand === 'bilanz' ? 'Continuer' : 'Commencer'} par la ${f.label}`}
+                            <Etape weg={weg} label={`${lauf.zustand === 'bilanz' ? 'Continuer' : 'Commencer'} par ${ARTICLE[f.key]}`}
                               onWeg={() => weg && steuerung.dispatch(weg)} aktiv={isActive} versteckt={merged && !isActive}>
                               <span className={`flex h-10 w-10 items-center justify-center rounded-full border-2 ${
                                 isDone ? 'border-emerald-500 bg-emerald-500 text-white'
@@ -352,11 +355,11 @@ export function SimulationRunner() {
                     {lauf.zustand === 'laufend' && (
                       <>
                         {!timer.running ? (
-                          <button onClick={timer.start} className="btn-primary text-xs"><Icon name="play" className="h-3.5 w-3.5" />{timer.elapsed ? 'Reprendre' : 'Démarrer'}</button>
+                          <button onClick={timer.start} className="btn-primary text-xs"><Icon name="play" className="h-3.5 w-3.5" />{timer.elapsed ? 'Reprendre' : 'Lancer le chrono'}</button>
                         ) : (
                           <button onClick={timer.pause} className="btn-outline text-xs">⏸ Pause</button>
                         )}
-                        <button onClick={steuerung.terminerPartie} className="btn-outline text-xs">Terminer la partie ✓</button>
+                        <button onClick={steuerung.terminerPartie} className="btn-outline text-xs">{`Finir ${ARTICLE[partKey]} ✓`}</button>
                       </>
                     )}
                     {/* Visible dans le BILAN seulement (règle 8 amendée) :
@@ -523,7 +526,7 @@ function AnamneseArea({ c, assistance, muster, bogen, setBogen, lauf, onItem, on
       <div className="flex flex-col gap-4 lg:flex-row">
         {/* Muster-Bogen : panneau latéral réductible sur le côté */}
         <SidePanel title="Muster-Bogen" icon="id" width="w-96">
-          <AnamneseBogen muster={muster} notes={bogen} onChange={setBogen} assistance={assistance} />
+          <AnamneseBogen c={c} muster={muster} notes={bogen} onChange={setBogen} assistance={assistance} />
         </SidePanel>
         {/* Guide interactif de questions par chapitre (+ Fachanamnese) */}
         <div className="min-w-0 flex-1">
@@ -574,7 +577,7 @@ function AufklaerungArea({ c }: { c: Case }) {
             {linked.map((a) => {
               const cat = CAT_META[a.category];
               return (
-                <Link key={a.id} to={`/aufklaerung?open=${a.id}`}
+                <Link key={a.id} to={`/aufklaerung?open=${a.id}`} target="_blank" rel="noreferrer"
                   className="card card-interactive group flex flex-col gap-2.5 p-4">
                   <div className="flex items-center gap-3">
                     <span className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-xl ${cat.cls}`}><Icon name={cat.icon} className="h-5 w-5" /></span>
@@ -602,7 +605,7 @@ function AufklaerungArea({ c }: { c: Case }) {
             {others.map((a) => {
               const cat = CAT_META[a.category];
               return (
-                <Link key={a.id} to={`/aufklaerung?open=${a.id}`} className="chip bg-slate-100 text-slate-700 hover:bg-brand-100 hover:text-brand-800 dark:bg-slate-800 dark:text-slate-300 dark:hover:bg-brand-900/40">
+                <Link key={a.id} to={`/aufklaerung?open=${a.id}`} target="_blank" rel="noreferrer" className="chip bg-slate-100 text-slate-700 hover:bg-brand-100 hover:text-brand-800 dark:bg-slate-800 dark:text-slate-300 dark:hover:bg-brand-900/40">
                   <Icon name={cat.icon} className="h-3.5 w-3.5 opacity-70" />{a.shortName ?? a.name}
                 </Link>
               );
@@ -623,7 +626,7 @@ export function ResultScreen({ sim, c }: { sim: Simulation; c: Case }) {
   const progress = useCaseProgress();
   const cp = progress?.get(c.id) ?? blankProgress(c.id);
   const dial = dialData(cp, { lauf: { teileGespielt: parts.map(([k]) => k) } });
-  const vientDeSouder = cp.etat === 'pret' && typeof cp.pretAt === 'number' && cp.pretAt >= sim.date;
+  const vientDeSouder = aSoude(cp, sim);
   // §13.3, sortie « bilan » : ce que cette partie a fait des items manqués d'habitude. Rien n'est stocké.
   const events = useTrainingEvents();
   const erreurs = events ? bilanErreurs(events, sim.id) : [];
@@ -639,8 +642,9 @@ export function ResultScreen({ sim, c }: { sim: Simulation; c: Case }) {
         <div className={`mx-auto flex h-16 w-16 items-center justify-center rounded-2xl ${passed ? 'bg-emerald-100 text-emerald-600 dark:bg-emerald-900/30 dark:text-emerald-300' : 'bg-amber-100 text-amber-600 dark:bg-amber-900/30 dark:text-amber-300'}`}><Icon name={passed ? 'spark' : 'flame'} className="h-8 w-8" /></div>
         <h1 className="mt-2 text-2xl font-bold">{!passed ? 'Encore un effort' : langueNonNotee ? 'Réussi sur le contenu' : 'Au-dessus du seuil Doctopus'}</h1>
         <p className="text-slate-500 dark:text-slate-400">{c.name} · score moyen {avg}%</p>
-        {passed && langueNonNotee && <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">Ta langue n'est pas notée (langue non notée) : le verdict complet viendra une fois la grille de langue renseignée.</p>}
-        <p className="mt-1 text-sm">{passed ? 'Toutes les parties tentées ≥ 60% (seuil Doctopus).' : 'Au moins une partie sous les 60% — retravaille-la.'}</p>
+        {passed && langueNonNotee && <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">Ta langue n'est pas notée : le verdict complet viendra quand tu auras rempli la grille de langue.</p>}
+        {/* « partie » désigne le tout ; chaque Teil joué est une « épreuve » (fixeur I4). */}
+        <p className="mt-1 text-sm">{passed ? 'Chaque épreuve jouée atteint 60 % (seuil Doctopus).' : 'Au moins une épreuve est sous 60 % : reprends-la.'}</p>
         <div className="mt-4 flex justify-center">
           <CaseDial data={dial} size={160} nom={c.name} vientDeSouder={vientDeSouder} />
         </div>

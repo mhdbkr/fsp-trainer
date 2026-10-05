@@ -5,6 +5,7 @@ vi.mock('@/lib/sync/queue', () => ({ syncQueue: { push: vi.fn(async () => ({})) 
 vi.mock('@/lib/supabase', () => ({ supabase: {}, callFn: vi.fn() }));
 import { db } from '@/db/db';
 import { seedCases } from '@/data/seedCases';
+import { seedAufklaerungen } from '@/data/seedAufklaerungen';
 import { SimulationRunner } from './SimulationRunner';
 
 // ============================================================================
@@ -27,8 +28,9 @@ beforeAll(() => {
 });
 beforeEach(async () => {
   localStorage.clear();
-  await Promise.all([db.meta.clear(), db.simulations.clear(), db.cases.clear(), db.training_events.clear()]);
+  await Promise.all([db.meta.clear(), db.simulations.clear(), db.cases.clear(), db.training_events.clear(), db.aufklaerungen.clear()]);
   await db.cases.put(fall);
+  await db.aufklaerungen.bulkPut(seedAufklaerungen());
 });
 afterEach(() => cleanup());
 
@@ -38,7 +40,9 @@ const ouvre = (qs = '') => render(
   </MemoryRouter>,
 );
 const actif = () => document.querySelector('[aria-current="step"]')?.textContent ?? '';
-const pret = () => screen.findByRole('button', { name: /Terminer la partie/ }, { timeout: 8000 });
+// Fixeur I4 : pendant un Teil, la sortie dit CE Teil (« Finir l'Anamnese ✓ ») ; « partie » désigne le tout.
+const pret = () => screen.findByRole('button', { name: /^Finir / }, { timeout: 20_000 });   // le runner complet, sous charge
+const finir = () => act(() => { fireEvent.click(screen.getByRole('button', { name: /^Finir / })); });
 
 describe('Runner série 4 — la partie, le cas entier', () => {
   it('?teil=dokumentation (ancien lien) : départ sur la Dokumentation, les trois Teile au fil d’étapes, pas de « Couche »', async () => {
@@ -49,24 +53,49 @@ describe('Runner série 4 — la partie, le cas entier', () => {
     expect(container.textContent).not.toMatch(/couche/i);
   });
 
-  it('fil d’étapes : avant tout Teil terminé, on peut commencer par un autre Teil', async () => {
+  it('fil d’étapes : tant que le chrono du départ n’est pas lancé, on peut commencer par un autre Teil (I11, I5)', async () => {
     ouvre();
     await pret();
     expect(actif()).toMatch(/Anamnese/);
-    expect(screen.queryByRole('button', { name: /Commencer par la Anamnese/ })).toBeNull();   // pas vers le Teil courant
+    expect(screen.getByRole('button', { name: /Finir l'Anamnese ✓/ })).toBeTruthy();
+    expect(screen.queryByRole('button', { name: /Commencer par l'Anamnese/ })).toBeNull();   // pas vers le Teil courant
     fireEvent.click(screen.getByRole('button', { name: /Commencer par la Fallvorstellung/ }));
     await waitFor(() => expect(actif()).toMatch(/Fallvorstellung/));
+  });
+
+  it('I11 : une fois « Lancer le chrono », la pastille ne quitte plus le Teil en cours', async () => {
+    ouvre();
+    await pret();
+    fireEvent.click(screen.getByRole('button', { name: /Lancer le chrono/ }));
+    await waitFor(() => expect(screen.queryByRole('button', { name: /Commencer par/ })).toBeNull(), { timeout: 4000 });
+  });
+
+  it('mécanique I1 : l’Aufklärung ouvre sa fiche SANS quitter le runner (nouvel onglet)', async () => {
+    ouvre();
+    await pret();
+    fireEvent.click(screen.getByRole('button', { name: /Aufklärung/ }));
+    const liens = await screen.findAllByRole('link', { name: /Ouvrir la trame|Gastroskopie|Koloskopie|ERCP|.+/ });
+    const versAufk = liens.filter((a) => (a.getAttribute('href') ?? '').includes('/aufklaerung?open='));
+    expect(versAufk.length).toBeGreaterThan(0);
+    for (const a of versAufk) {
+      expect(a.getAttribute('target')).toBe('_blank');
+      expect(a.getAttribute('rel')).toContain('noreferrer');
+    }
   });
 
   it('bilan : « Continuer » et « Terminer ici », une fois chacun ; « Terminer ici » mène à la checklist de fin', async () => {
     ouvre();
     await pret();
-    act(() => { fireEvent.click(screen.getByRole('button', { name: /Terminer la partie/ })); });
+    finir();
     await screen.findByRole('heading', { name: /Bilan — Anamnese/ });
     expect(screen.getAllByRole('button', { name: /^Continuer — Dokumentation/ })).toHaveLength(1);
     expect(screen.getAllByRole('button', { name: /Terminer ici/ })).toHaveLength(1);
-    // Le fil d'étapes du bilan choisit le Teil suivant (`partieSuivante(t')`) ; plus de « commencer par ».
+    // I7 : un seul bouton principal au bilan tant qu'il reste un Teil.
+    expect(screen.getByRole('button', { name: /Terminer ici/ }).className).toMatch(/btn-outline/);
+    expect(screen.getByText(/Score de l'Anamnese/)).toBeTruthy();
+    // Le fil d'étapes du bilan choisit un AUTRE Teil restant (`partieSuivante(t')`) ; pas celui de « Continuer — X » (M6).
     expect(screen.getByRole('button', { name: /Continuer par la Fallvorstellung/ })).toBeTruthy();
+    expect(screen.queryByRole('button', { name: /Continuer par la Dokumentation/ })).toBeNull();
     expect(screen.queryByRole('button', { name: /Commencer par/ })).toBeNull();
     fireEvent.click(screen.getByRole('button', { name: /Terminer ici/ }));
     await screen.findByRole('heading', { name: /Fin de la simulation/ });
@@ -77,10 +106,10 @@ describe('Runner série 4 — la partie, le cas entier', () => {
   it('bilan : le fil d’étapes choisit le Teil suivant', async () => {
     ouvre();
     await pret();
-    act(() => { fireEvent.click(screen.getByRole('button', { name: /Terminer la partie/ })); });
+    finir();
     await screen.findByRole('heading', { name: /Bilan — Anamnese/ });
     fireEvent.click(screen.getByRole('button', { name: /Continuer par la Fallvorstellung/ }));
     await waitFor(() => expect(actif()).toMatch(/Fallvorstellung/));
-    expect(screen.getByRole('button', { name: /Terminer la partie/ })).toBeTruthy();
+    expect(screen.getByRole('button', { name: /Finir la Fallvorstellung ✓/ })).toBeTruthy();
   });
 });
