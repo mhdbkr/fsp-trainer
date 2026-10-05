@@ -222,3 +222,6 @@ S4-1 peut démarrer pendant la voie B (fichiers `lib/journal`, `lib/stats` aprè
 **Suivis techniques** (absorbés quand le fichier est rouvert) : `StatusBadge` mort ; `CardFlip` dans le verre de `CardToast` ; `.input` flouté dans cartes floutées ; « tournures officielles » `SimulationSetup.tsx:119` (S4-3) ; `Hero.astro:21` (site) ; contrat `simulation-run.md` sentinelle `-1` (S4-0).
 
 > 5 oct. — direction : « merge 75, et enchaîne automatiquement jusqu'à la fin de toutes les phases ». Mode autonome : merge à CI verte, déploiement S4-2 selon la procédure §6 (migration psql → fonction → client), sans attendre de commande.
+
+> 5 oct. ~23 h — **K4 livré** (`feat/s3-k4-cas` @ `7e40d224`, depuis K3) : questions muettes 794→1, nonReduit 103→0, doublons 203→1, horsProfil 44→2, brauchtViole 19→22 (documenté) ; +262 signes (`signesDefsCas.ts`). Décisions main : anorexia n°7 reste muette (sécurité), gastro n°27/31 accepté en résidu (jamais posé). **À faire** : revues clinique + méca Opus, puis PR après merge de K3.
+> **Limite d'usage atteinte.** En vol : PR #78 (K3) en CI avec relance auto ; agent S4-3 sur `feat/s4-dun-trait` (test runner cassé avec la garde vraie) ; déploiement Pages de S4-3 en file (incident GitHub Actions). Reprise : merge #78 si vert → revues K4 → PR K4 → K5 ; vérifier S4-3 en prod puis PR « d'un trait » ; puis S4-5, S4-6, S4-7, lots Q/L.
