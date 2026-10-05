@@ -447,7 +447,7 @@ case-anaemie
 case-vorhofflimmern
   eroeffnung[· · · ·]
   personalia[pers-name pers-name pers-alter pers-groesse pers-hausarzt ·]
-  aktuell[akt-motiv akt-beginn akt-anfall-ablauf↳2 akt-verlauf akt-ausloeser akt-einfluss akt-frueher↳1 akt-begleit ^akt-anfall-bewusstsein#1~zungenbiss ^akt-anfall-bewusstsein#2~einnaessen cas cas]
+  aktuell[akt-motiv akt-beginn akt-anfall-ablauf↳2 akt-verlauf akt-ausloeser akt-einfluss akt-frueher↳1 akt-begleit cas cas]
   fach-kardio[fach-kardio-brust↳1 fach-kardio-belastung fach-kardio-atem fach-kardio-herzrasen fach-kardio-luft fach-kardio-oedeme fach-kardio-nykturie fach-kardio-synkope]
   vegetativ[veg-fieber~fieber↳3 veg-schuettelfrost~schuettelfrost,nachtschweiss↳1 veg-ausscheidung↳1 cas veg-appetit veg-schlaf ^veg-fieber#5~impfung cas]
   vorerkrankungen[· vor-erkrank↳1 vor-op↳1 vor-krankenhaus cas cas cas]
@@ -781,7 +781,7 @@ case-lagerungsschwindel
 case-synkope
   eroeffnung[· · · ·]
   personalia[pers-name pers-name pers-alter pers-groesse pers-hausarzt ·]
-  aktuell[akt-motiv akt-beginn akt-anfall-ablauf↳2 akt-verlauf akt-ausloeser akt-einfluss akt-frueher↳1 akt-begleit ^akt-anfall-bewusstsein#1~zungenbiss ^akt-anfall-bewusstsein#2~einnaessen cas cas cas cas cas]
+  aktuell[akt-motiv akt-beginn akt-anfall-ablauf↳2 akt-verlauf akt-ausloeser akt-einfluss akt-frueher↳1 akt-begleit cas cas ^akt-anfall-bewusstsein#1~zungenbiss ^akt-anfall-bewusstsein#2~einnaessen cas cas cas]
   fach-kardio[fach-kardio-brust↳1 fach-kardio-belastung fach-kardio-ausstrahlung fach-kardio-atem fach-kardio-nitro fach-kardio-herzrasen fach-kardio-luft fach-kardio-oedeme fach-kardio-nykturie fach-kardio-synkope]
   vegetativ[veg-fieber~fieber↳3 veg-schuettelfrost~schuettelfrost,nachtschweiss↳1 veg-ausscheidung↳1 veg-gewicht↳2 veg-appetit veg-schlaf ^veg-fieber#5~impfung]
   vorerkrankungen[· vor-erkrank↳1 vor-op↳1 vor-krankenhaus cas cas]

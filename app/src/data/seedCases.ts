@@ -13245,7 +13245,7 @@ export function seedCases(): Case[] {
       frequency: 8,
       difficulty: 3,
       patientSheet: {
-        profil: { tags: ['anfall', 'dyspnoe', 'kardio'] },
+        profil: { tags: ['anfall', 'dyspnoe', 'kardio'], exclut: { zungenbiss: 'keine Synkope', einnaessen: 'keine Synkope' } },
         leitsymptomKategorie: 'anfall',
         personalia: {
           name: 'Reinhard Kessler',
@@ -13345,7 +13345,7 @@ export function seedCases(): Case[] {
           'akt-beginn': 'Vor vier Tagen, in der Nacht nach unserem Vereinsfest. Ich bin aufgewacht, und das Herz raste. Seitdem hört es nicht mehr auf.',
           'akt-anfall-ablauf': 'Wie es angefangen hat, weiß ich genau: ich bin nachts aufgewacht, und das Herz ist schon losgerannt. Aufgehört hat es bisher nicht — es ist seitdem einfach durchgehend da, mal schneller, mal ruhiger. Während dem spüre ich dieses Stolpern und Rasen, und dass mir schneller die Luft ausgeht.',
           'akt-anfall-dauer': 'Das ist diesmal kein kurzer Anfall, das geht jetzt seit vier Tagen ohne Unterbrechung. So etwas Langes hatte ich noch nie — vorher wusste ich ja gar nicht, dass mit meinem Herz überhaupt was nicht stimmt, außer was der Hausarzt letztes Jahr im EKG gesehen hat.',
-          'akt-anfall-bewusstsein': 'Bewusstlos war ich nicht. Aber mehrmals, wenn ich schnell aufgestanden bin, wurde es mir kurz schwarz vor Augen. Hingefallen oder verletzt habe ich mich zum Glück nicht, auf die Zunge gebissen auch nicht, und Urin ist auch keiner abgegangen.',
+          'akt-anfall-bewusstsein': 'Bewusstlos war ich nicht. Aber mehrmals, wenn ich schnell aufgestanden bin, wurde es mir kurz schwarz vor Augen. Hingefallen oder verletzt habe ich mich zum Glück nicht.',
           'akt-verlauf': 'Es ist seit vier Tagen durchgehend da, Tag und Nacht, mal schneller, mal etwas ruhiger, aber ganz weg ist es nie. Von allein aufgehört hat es bisher nicht.',
           'akt-ausloeser': 'Am Abend davor war unser Vereinsfest. Da habe ich ordentlich gefeiert — acht, neun Bier und ein paar Schnäpse, und es wurde spät. In der Nacht ging es dann los. Gestürzt bin ich nicht, und erkältet war ich auch nicht.',
           'akt-einfluss': 'Schlimmer wird es bei jeder Anstrengung — Treppensteigen oder mit dem Hund den Berg hoch. Wenn ich mich hinsetze und ruhig bleibe, wird es etwas erträglicher, aber es hört nicht auf. Eingenommen habe ich nichts dagegen.',
@@ -28253,8 +28253,8 @@ export function seedCases(): Case[] {
         'auf-roentgen-thorax',
       ],
       caseSpecificQuestions: [
-        { frage: 'Ist Ihre Frau dabei gewesen? Dürfte ich sie kurz dazu bitten? Was genau hat sie gesehen?', kapitel: 'aktuell' },
-        { frage: 'Wie lange waren Sie nach Angabe Ihrer Frau nicht ansprechbar, und wie schnell waren Sie danach wieder ganz bei sich — sofort oder erst nach einigen Minuten?', kapitel: 'aktuell' },
+        { frage: 'Ist Ihre Frau dabei gewesen? Dürfte ich sie kurz dazu bitten? Was genau hat sie gesehen?', kapitel: 'aktuell', sucht: ['fremdanamnese'] },
+        { frage: 'Wie lange waren Sie nach Angabe Ihrer Frau nicht ansprechbar, und wie schnell waren Sie danach wieder ganz bei sich — sofort oder erst nach einigen Minuten?', kapitel: 'aktuell', sucht: ['anfallszeichen'] },
         { frage: 'Hat sich der Anfall angekündigt, oder kam er völlig ohne Vorwarnung?', kapitel: 'aktuell' },
         { frage: 'Was haben Sie in dem Moment gemacht: Sind Sie aufgestanden, haben Sie lange gestanden, oder haben Sie sich angestrengt?', kapitel: 'aktuell' },
         { frage: 'Haben Sie sich beim Sturz noch abfangen können, oder sind Sie ungebremst gefallen?', kapitel: 'aktuell' },
@@ -55593,7 +55593,7 @@ export function seedCases(): Case[] {
           'akt-beginn': 'Heute Nacht, so gegen drei. Ich bin aufgestanden, weil ich auf die Toilette musste — das muss ich nachts ja dauernd —, und im Bad ist es dann passiert.',
           'akt-anfall-ablauf': 'Na ja, \'Anfall\' ist eigentlich übertrieben — es fängt so an, dass mir beim Aufstehen schwindelig wird und es dann schwarz vor den Augen wird, richtig schwarz, für ein paar Sekunden. Aufhören tut das von selbst, wenn ich mich wieder hinsetze oder festhalte. Während es passiert, spüre ich eigentlich nur dieses Schwindelgefühl, sonst nichts, kein Herzrasen oder so.',
           'akt-anfall-dauer': 'Das dauert nur kurz, ein paar Sekunden, vielleicht bis zu einer halben Minute, dann wird es wieder normal. Wie oft — das passiert mir seit ungefähr drei Monaten, vor allem morgens und nachts, wenn ich aufstehe. Regelmäßig, würde ich sagen, aber nicht jeden Tag.',
-          'akt-anfall-bewusstsein': 'Bewusstlos war ich nicht, das weiß ich noch genau. Schwarz vor Augen schon, das war ja der Grund, warum ich gestürzt bin. Verletzt habe ich mich diesmal an der linken Hüfte, das tut jetzt richtig weh, und an der Schläfe habe ich mir eine kleine Beule geholt. Die Zunge habe ich mir nicht gebissen, und in die Hose ist auch nichts gegangen.',
+          'akt-anfall-bewusstsein': 'Bewusstlos war ich nicht, das weiß ich noch genau. Schwarz vor Augen schon, das war ja der Grund, warum ich gestürzt bin. Verletzt habe ich mich diesmal an der linken Hüfte, das tut jetzt richtig weh, und an der Schläfe habe ich mir eine kleine Beule geholt.',
           'akt-verlauf': 'Seit dem Sturz gleich geblieben. Liegen geht, bewegen nicht. Besser ist es nicht geworden, schlimmer aber auch nicht.',
           'akt-ausloeser': 'Beim Aufstehen wurde mir schwarz vor Augen, wie öfter in letzter Zeit. Im Bad bin ich auf dem Vorleger weggerutscht, auf die linke Seite, mit dem Kopf an die Wanne. Weg war ich nicht.',
           'akt-einfluss': 'Schlimmer wird es, wenn ich mich im Bett drehe, das Bein anhebe oder versuche aufzustehen — auftreten kann ich gar nicht. Besser wird es nur, wenn ich ganz still liege. Schmerzmittel habe ich seit dem Sturz keine genommen.',

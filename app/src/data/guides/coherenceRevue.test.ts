@@ -281,3 +281,20 @@ describe('R3 / P2 / gib — le bloc « Veränderung » d\'une lésion cutanée r
     expect(coeur(byId('case-itp')).aktuell.some((k) => k.startsWith('akt-veraend-was'))).toBe(true);   // les pétéchies sont la « Veränderung »
   });
 });
+
+describe('R4 / P2 syncope — Zungenbiss et Einnässen : là où il faut, après le témoin et la durée', () => {
+  const lignes = (id: string) => playedTrame(byId(id)).chapters.find((x) => x.id === 'aktuell')!.questions.map(phraseText);
+  it('R4 : vorhofflimmern (keine Synkope) exclut zungenbiss et einnaessen ; ni la morsure ni l\'énurésie ne sont posées', () => {
+    expect(byId('case-vorhofflimmern').patientSheet.profil?.exclut).toMatchObject({ zungenbiss: 'keine Synkope', einnaessen: 'keine Synkope' });
+    expect(lignes('case-vorhofflimmern').join(' ')).not.toMatch(/Zunge gebissen|Urin abgegangen/);
+  });
+  it('synkope : Zungenbiss et Einnässen se posent après la question du témoin et celle de la durée', () => {
+    const l = lignes('case-synkope');
+    const duree = l.findIndex((t) => /Wie lange waren Sie nach Angabe Ihrer Frau/.test(t));
+    expect(l.findIndex((t) => /Zunge gebissen/.test(t))).toBe(duree + 1);
+    expect(l.findIndex((t) => /Urin abgegangen/.test(t))).toBe(duree + 2);
+  });
+  it('les réponses ajoutées que plus aucune question n\'interroge sont retirées (vorhofflimmern, sturz-im-alter)', () => {
+    for (const id of ['case-vorhofflimmern', 'case-sturz-im-alter']) expect(byId(id).patientSheet.antworten?.['akt-anfall-bewusstsein'], id).not.toMatch(/Zunge/);
+  });
+});

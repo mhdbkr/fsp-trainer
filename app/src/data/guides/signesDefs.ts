@@ -128,11 +128,12 @@ export const DEFS = {
   feinmotorik: { kapitel: 'aktuell', pertinence: S },       // boutons, écriture, tenir une tasse
   anfallsablauf: { kapitel: 'aktuell', pertinence: S },
   anfallszeichen: { kapitel: 'aktuell', pertinence: S },    // l'amnésie, ce dont on se souvient avant / après la crise
+  fremdanamnese: { kapitel: 'aktuell', pertinence: S },     // quelqu'un a-t-il vu ce qui s'est passé
   // K3 (revue clinique P0-2) : la morsure de langue et l'énurésie séparent la syncope de la crise comitiale — deux signes.
   // Pertinence : un malaise (anfall) ; aussi `neurologisch`, où la Fach neuro les pose en DD (schlaganfall, tia, commotio).
+  // Déclarés APRÈS le témoin (ordre de l'entretien, règle d'insertion) : on les pose après « qui a vu, combien de temps ».
   zungenbiss: { kapitel: 'aktuell', pertinence: ['anfall', 'neurologisch'] },
   einnaessen: { kapitel: 'aktuell', pertinence: ['anfall', 'neurologisch'] },
-  fremdanamnese: { kapitel: 'aktuell', pertinence: S },     // quelqu'un a-t-il vu ce qui s'est passé
   lokalschmerz: { kapitel: 'aktuell', pertinence: S },      // « tut es weh », sur une lésion
   // --- Fachanamnese ----------------------------------------------------------
   sodbrennen: { kapitel: 'fach', pertinence: S },
