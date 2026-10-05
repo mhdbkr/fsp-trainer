@@ -191,3 +191,20 @@ describe('P1-8 à P1-12 — déclarations des questions du cas, banques', () => 
       expect(textes(id), id).not.toContain('Sind Ihre Impfungen auf dem neuesten Stand?');
   });
 });
+
+describe('P1-11 — le voyage ne se demande que dans un contexte infectieux', () => {
+  const INFECT = ['infekt', 'fieber', 'reise', 'diarrhoe', 'lyme', 'meningitis'];
+  it('pertinence de reise : tags infectieux ; fibromyalgie ne pose plus « Waren Sie kürzlich im Ausland? » isolé', () => {
+    expect(SIGNE_DEF.reise.pertinence).toEqual(INFECT);
+    const veg = playedTrame(byId('case-fibromyalgie')).chapters.find((x) => x.id === 'vegetativ')!.questions.map(phraseText);
+    expect(veg).not.toContain('Waren Sie kürzlich im Ausland?');
+  });
+  it('130 cas : hors contexte infectieux, aucune question jouée ne cherche le voyage (sauf résidu non réduit)', () => {
+    for (const c of cases.filter((x) => !profilDuCas(x).tags.some((t) => INFECT.includes(t)))) {
+      const nonReduit = new Set(playedTrame(c).ecarts.filter((e) => e.action === 'non-reduit').map((e) => e.question));
+      const q = trameJouee(c).flatMap((x) => x.questions).filter((p) => phraseSucht(p).includes('reise') && !nonReduit.has(phraseProbes(p).join('+')));
+      expect(q.map(phraseText), c.id).toEqual([]);
+    }
+    expect(coeur(byId('case-gastroenteritis')).fach).toContain('fach-infekt-reise');
+  });
+});

@@ -5,7 +5,7 @@
   "brut": {
     "doublons": 221,
     "doublonsCas": 24,
-    "horsProfil": 39,
+    "horsProfil": 46,
     "exigeAbsent": 0,
     "relancesOrphelines": 0,
     "brauchtViole": 20,
@@ -14,7 +14,7 @@
   "residu": {
     "questionsMuettes": 803,
     "sondesMuettes": 0,
-    "nonReduit": 110,
+    "nonReduit": 116,
     "casRetiresParR1": 0
   },
   "allowed": [],

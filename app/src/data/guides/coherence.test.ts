@@ -149,7 +149,7 @@ describe('INV-84 — une relance qui cherche un autre signe (r4a)', () => {
 
 describe('INV-85 — rien avant son antécédent (r4b, `braucht`)', () => {
   it('« dort gegessen » se déplace juste après la question du voyage', () => {
-    const r = run([ch('aktuell', s('akt-motiv'), cas(0, 'Was haben Sie dort gegessen?', ['essen_expo'], { braucht: ['reise'] })), ch('fach', s('fach-infekt-reise'), s('fach-infekt-impfung'))]);
+    const r = run([ch('aktuell', s('akt-motiv'), cas(0, 'Was haben Sie dort gegessen?', ['essen_expo'], { braucht: ['reise'] })), ch('fach', s('fach-infekt-reise'), s('fach-infekt-impfung'))], prof('infekt', ['infekt']));   // le voyage n'est pertinent qu'en contexte infectieux (P1-11)
     expect(vue(r.trame)).toEqual({ aktuell: ['akt-motiv'], fach: ['fach-infekt-reise', 'cas', 'fach-infekt-impfung'] });
     expect(un(r.ecarts, 'cas:0', 'deplace')).toMatchObject({ regle: 4, de: 'aktuell', vers: 'fach', cause: 'reise' });
   });
@@ -326,7 +326,7 @@ describe('case-gastroenteritis et case-fibromyalgie — la trame jouée (cœur :
     expect(k).toEqual({
       aktuell: ['akt-motiv', 'akt-ort', 'akt-beginn~beginn', 'akt-charakter', 'akt-intensitaet', 'akt-verlauf', 'akt-einfluss', 'akt-begleit', 'cas', 'cas', 'cas', 'cas', 'cas', 'cas'],
       fach: ['fach-rheuma-morgensteifigkeit', 'fach-rheuma-entzuendung', 'fach-rheuma-verlauf', 'fach-rheuma-ausloeser', 'fach-rheuma-haut', 'fach-rheuma-systemisch', 'fach-rheuma-vorgeschichte'],
-      vegetativ: ['veg-fieber~reise', 'veg-schuettelfrost', 'veg-uebelkeit', 'veg-ausscheidung~miktion', 'veg-gewicht', 'veg-appetit', 'cas', '^veg-fieber#5'],
+      vegetativ: ['veg-schuettelfrost', 'veg-uebelkeit', 'veg-ausscheidung~miktion', 'veg-gewicht', 'veg-appetit', 'cas', '^veg-fieber#5'],
     });
   });
   it('spec §3.3 « une fois annotés » (K4 simulé) : les questions du cas gagnent (Ort, Verlauf, Steifigkeit, Entzündung) ; « dort » suit le voyage', () => {

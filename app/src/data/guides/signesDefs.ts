@@ -52,7 +52,8 @@ export const DEFS = {
   stimmung: { kapitel: 'aktuell', pertinence: S },
   suizid: { kapitel: 'aktuell', pertinence: S },
   // --- Fachanamnese -----------------------------------------------------------
-  reise: { kapitel: 'fach', pertinence: S, bank: 'fach-infekt-reise' },
+  // K3 (revue P1-11) : le voyage se demande dans un contexte infectieux (fièvre, diarrhée, borréliose, méningite), pas ailleurs.
+  reise: { kapitel: 'fach', pertinence: ['infekt', 'fieber', 'reise', 'diarrhoe', 'lyme', 'meningitis'], bank: 'fach-infekt-reise' },
   kontakt: { kapitel: 'fach', pertinence: S },
   zecke: { kapitel: 'fach', pertinence: ['lyme'] },
   insektenstich: { kapitel: 'fach', pertinence: S },   // K2 (revue clinique C3) : « oder einen Insektenstich » — les piqûres de moustique du paludisme, hors du gabarit borréliose
