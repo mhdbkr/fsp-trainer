@@ -39,9 +39,16 @@ export const TASK_META: Record<TaskKind, { icon: string; badge: string; bar: str
 };
 
 /** Où mène une tâche. Une seule table, partagée par toutes les vues. */
-export function taskLink(t: TaskInstance): string {
+export function taskLink(t: TaskInstance, reste?: readonly SimTeil[]): string {
   // R-C4 : la tâche voyage avec la partie (`task=`), la sauvegarde la coche si la partie la satisfait (I-A).
-  if ((t.kind === 'simulation' || t.kind === 'examen-blanc') && t.caseId) return `/simulation/${t.caseId}/pre?${new URLSearchParams({ ...(t.teil ? { teil: t.teil } : {}), task: t.id })}`;
+  if ((t.kind === 'simulation' || t.kind === 'examen-blanc') && t.caseId) {
+    // S4-2 (revue I1) : la ligne dit « il te reste la Dokumentation » ⇒ on part de là. `reste` = ce qui reste DANS la
+    // journée (tâche entamée), sinon ce que la tâche porte. Le cas entier part du début. La tâche reste « entamée » tant
+    // que tout le reste n'est pas joué (§12.3). TRANSITOIRE : S4-3 remplacera `teil` par `?depart=`.
+    const r = t.teil ? [t.teil] : reste ?? t.teile ?? [];
+    const depart = r.length && (r[0] !== 'anamnese' || r.length === 1) ? r[0] : undefined;
+    return `/simulation/${t.caseId}/pre?${new URLSearchParams({ ...(depart ? { teil: depart } : {}), task: t.id })}`;
+  }
   if (t.kind === 'drill') return `/fachbegriffe/drill${t.caseId ? `?case=${encodeURIComponent(t.caseId)}` : t.specialty ? `?specialty=${encodeURIComponent(t.specialty)}` : ''}`;
   if (t.kind === 'fachwissen') return t.caseId ? `/cas/${t.caseId}` : '/fachwissen';
   return t.caseId ? `/cas/${t.caseId}` : '/simulation';
@@ -144,7 +151,7 @@ export function TaskLine({ task, readOnly = false, showReason = true, lecture }:
               type="button" onClick={() => markTaskDone(task)} title="Marquer faite"
               className="rounded-md px-2 py-1 text-[11px] font-medium text-emerald-700 transition-colors hover:bg-emerald-50 dark:text-emerald-300 dark:hover:bg-emerald-900/20"
             >✓ Fait</button>
-            <Link to={taskLink(task)} className="btn-primary gap-1 px-3 py-1.5 text-xs">
+            <Link to={taskLink(task, lecture?.reste?.teile)} className="btn-primary gap-1 px-3 py-1.5 text-xs">
               <Icon name="play" className="h-3 w-3" />{taskCta(task)}
             </Link>
           </div>
