@@ -38,6 +38,10 @@ export interface PhraseVariant {
   /** K1 — discordance voulue (contrat §10.2) : le texte nomme un signe absent de `sucht` sans l'interroger
    *  (un exemple de réaction allergique). Jamais sur une énumération : la porte le refuse. */
   relu?: boolean;
+  /** K3 — signes que la question présuppose (r4b : jamais posée avant la question qui les cherche). Déclaré en K4. */
+  braucht?: string[];
+  /** K3 — relance détachée de sa mère par r4a (elle cherche un autre signe) : son identifiant `<mère>#<n>`. */
+  detacheDe?: string;
 }
 
 export type Phrase = string | PhraseVariant;

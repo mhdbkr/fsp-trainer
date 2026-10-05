@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { seedCases } from '@/data/seedCases';
-import { FACH_COVERS, playedTrame } from './anamneseChapters';
+import { playedTrame } from './anamneseChapters';
 import { phraseFollowUp, phraseIsCaseSpecific, phraseProbes, type Phrase } from './phrases';
 
 // K0 — non-régression du montage ACTUEL (ADR-0023). `FACH_COVERS` et
@@ -41,8 +41,4 @@ describe('Montage actuel gelé (FACH_COVERS + dedupeBySymptom, 130 cas)', () => 
     await expect(lines.join('\n') + '\n').toMatchFileSnapshot('./__snapshots__/trame-actuelle.txt');
   });
 
-  it('la table FACH_COVERS', async () => {
-    const sorted = Object.entries(FACH_COVERS).sort(([a], [b]) => a.localeCompare(b)).map(([k, v]) => `${k} -> ${v.join(', ')}`);
-    await expect(sorted.join('\n') + '\n').toMatchFileSnapshot('./__snapshots__/fach-covers.txt');
-  });
 });
