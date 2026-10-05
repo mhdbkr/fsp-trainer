@@ -116,7 +116,8 @@ describe('INV-79 / INV-84 / INV-91 — les relances', () => {
   });
   it('mutation : une relance hors signe sans déclaration rougit (« sind Sie schon gestürzt ? » sous akt-nerven-alltag)', () => {
     expect(row('akt-nerven-alltag').p).toMatchObject({ followUpSucht: [['sturz']] });
-    const bad = suchtIncoherences(swap('akt-nerven-alltag', { followUpSucht: undefined }));
+    // K3 : la mère déclare aussi `sturz` (la relance la précise et reste sous elle) ; la mutation retire donc les DEUX déclarations.
+    const bad = suchtIncoherences({ ...swap('akt-nerven-alltag', { followUpSucht: undefined }), sucht: { ...PROBE_SUCHT, 'akt-nerven-alltag': ['feinmotorik'] } });
     expect(bad.some((m) => /akt-nerven-alltag.*relance 0 nomme \[sturz\] hors de son signe/.test(m))).toBe(true);
   });
   it('mutation : plus de followUpSucht que de followUp, ou un signe inconnu, rougit', () => {

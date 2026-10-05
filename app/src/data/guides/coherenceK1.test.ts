@@ -118,11 +118,17 @@ describe('Scission selles / urines — « Häufigkeit » et « Aussehen »', () 
       for (const f of fragments) expect(r, f).toContain(f);
     });
   }
-  it('le montage ne change pas : les moitiés urinaires restent effacées comme l\'ancienne sonde commune (gel de la trame)', () => {
+  // K3 (décision 3 de main ; contrat §11.4 : FACH_COVERS est absorbé par r2) : le pont « Fach urologique → fréquence des
+  // SELLES » disparaît. Une moitié est jouée, ou retirée par r2 au profit d'une question qui cherche son signe — jamais effacée en silence.
+  it('K3 : chaque moitié (selles, urines) est jouée, ou retirée par r2 avec un écart qui nomme son gagnant', () => {
     for (const c of ausscheidung()) {
-      const probes = playedTrame(c).chapters.flatMap((ch) => ch.questions).flatMap(phraseProbes);
-      expect(probes, c.id).not.toContain('akt-ausscheid-harn-haeufigkeit');
-      expect(probes, c.id).not.toContain('akt-ausscheid-harn-aussehen');
+      const t = playedTrame(c);
+      const probes = [...t.chapters.flatMap((ch) => ch.questions), ...(t.fach?.chapter.questions ?? [])].flatMap(phraseProbes);
+      const skip = new Set(c.patientSheet.aktuellSkip ?? []);
+      for (const id of ['akt-ausscheid-haeufigkeit', 'akt-ausscheid-aussehen', 'akt-ausscheid-harn-haeufigkeit', 'akt-ausscheid-harn-aussehen']) {
+        if (skip.has(id) || probes.includes(id)) continue;
+        expect(t.ecarts.some((e) => e.question === id && e.action === 'retire' && e.regle === 2 && !!e.cause), `${c.id} ${id}`).toBe(true);
+      }
     }
   });
 });

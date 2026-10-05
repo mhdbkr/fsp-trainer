@@ -1,8 +1,13 @@
 import { describe, expect, it } from 'vitest';
 import { ALLGEMEINE_ANAMNESE, FACHANAMNESEN, LEITSYMPTOM_KATEGORIEN, adaptChaptersForCase, aktuellChapterFor, fachChapterForCase } from './anamneseChapters';
-import { GRANULARITE_PAIRES, LEXIQUE, PROBE_SUCHT, PROFIL_EXIGE, SIGNES, SIGNE_DEF, SUCHT_MONTAGE, TEXT_RE, dedupeBySymptom, lexiqueIncoherences, symptomsInText, type LexiqueTables } from './symptoms';
+import { GRANULARITE_PAIRES, LEXIQUE, PROBE_SUCHT, PROFIL_EXIGE, SIGNES, SIGNE_DEF, TEXT_RE, lexiqueIncoherences, symptomsInText, type LexiqueTables } from './symptoms';
 import { phraseFollowUp, phraseProbes, phraseText, splitDimension } from './phrases';
 import type { Case } from '@/db/types';
+import { cohere, type ProfilEffectif } from './coherence';
+
+// K3 : `dedupeBySymptom` est remplacé par `cohere` ; ses deux tests de réduction par `parts` le rejouent (même attente).
+const sansProfil: ProfilEffectif = { declare: false, tags: ['infekt'], exige: {}, exclut: {} };
+const dedupe = (chapters: Array<{ id: string; questions: import('./phrases').Phrase[] }>) => cohere(chapters, sansProfil, 'fixture').trame;
 
 const mk = (over: Partial<Case> & { kategorie?: Case['patientSheet']['leitsymptomKategorie'] } = {}): Case =>
   ({
@@ -22,10 +27,12 @@ const texts = (c: Case) => {
 const count = (c: Case, re: RegExp) => texts(c).filter(([, t]) => re.test(t));
 
 describe('Un symptôme, une question (FB2-J10)', () => {
-  it('CAP : la fièvre est cherchée une seule fois, dans « Aktuelle Beschwerden »', () => {
+  // K3 : la fièvre est toujours cherchée UNE fois ; sous D4 la Fach l'emporte (contrat frage-atomique §11.4 : « fach-infekt-fieber
+  // l'emporte. Changement de comportement assumé »). Avant K3, FACH_COVERS la laissait à Aktuelle Beschwerden.
+  it('CAP : la fièvre est cherchée une seule fois — dans la Fach (D4, contrat §11.4)', () => {
     const hits = count(mk(), /gemessen|Fieber oder Schüttelfrost|Fieber festgestellt/);
     expect(hits).toHaveLength(1);
-    expect(hits[0][0]).toBe('aktuell');
+    expect(hits[0][0]).toBe('fach-pneumo');
   });
   it('CAP : le Schüttelfrost (déjà dans la question fièvre) ne revient pas en vegetativ — il reste le Nachtschweiß', () => {
     const veg = texts(mk()).filter(([ch]) => ch === 'vegetativ').map(([, t]) => t);
@@ -53,10 +60,10 @@ describe('Un symptôme, une question (FB2-J10)', () => {
     const c = mk({ caseSpecificQuestions: [{ frage: 'Wie viele Kilo?', kapitel: 'vegetativ', relu: true }] });
     expect(texts(c).filter(([, t]) => /Gewichtsveränderungen/.test(t))).toHaveLength(1);
   });
-  it('dedupeBySymptom : une question réduite garde les relances de la partie restante', () => {
-    const out = dedupeBySymptom([
-      { id: 'a', questions: [{ text: 'Fieber?', probe: 'akt-infekt-fieber' }] },
-      { id: 'b', questions: [{ text: 'Fieber? Ausland?', probe: 'veg-fieber', followUp: ['x', 'y'], parts: [
+  it('r2 (ex-dedupeBySymptom) : une question réduite garde les relances de la partie restante', () => {
+    const out = dedupe([
+      { id: 'aktuell', questions: [{ text: 'Fieber?', probe: 'akt-infekt-fieber' }] },
+      { id: 'vegetativ', questions: [{ text: 'Fieber? Ausland?', probe: 'veg-fieber', followUp: ['x', 'y'], parts: [
         { sucht: ['fieber'], text: 'Fieber?', followUp: ['x'] }, { sucht: ['reise'], text: 'Ausland?', followUp: ['y'] }] }] },
     ]);
     expect(out[1].questions.map(phraseText)).toEqual(['Ausland?']);
@@ -85,9 +92,9 @@ describe('parts ↔ PROBE_SUCHT (I5)', () => {
     expect(bad).toEqual([]);
   });
   it('une réduction à plusieurs parties les pose une par une, jamais recollées', () => {
-    const out = dedupeBySymptom([
-      { id: 'a', questions: [{ text: 'Schwitzen?', probe: 'fach-endo-temperatur' }] },
-      { id: 'b', questions: [{ text: 'Schüttelfrost, Nachtschweiß, Schweißausbrüche?', probe: 'veg-schuettelfrost', parts: [
+    const out = dedupe([
+      { id: 'fach', questions: [{ text: 'Schwitzen?', probe: 'fach-endo-temperatur' }] },
+      { id: 'vegetativ', questions: [{ text: 'Schüttelfrost, Nachtschweiß, Schweißausbrüche?', probe: 'veg-schuettelfrost', parts: [
         { sucht: ['schuettelfrost'], text: 'Schüttelfrost?' }, { sucht: ['nachtschweiss'], text: 'Nachts?' }, { sucht: ['schwitzen'], text: 'Schweißausbrüche?' }] }] },
     ]);
     expect(out[1].questions.map(phraseText)).toEqual(['Schüttelfrost?', 'Nachts?']);
@@ -133,14 +140,15 @@ describe('Lexique de signes — INV-77 (cohérent) et INV-78 (granularité)', ()
   it('le lexique réel est cohérent', () => {
     expect(lexiqueIncoherences()).toEqual([]);
   });
-  it('porte 216 signes : 69 de K0 (11 dimensions, 39 concepts d\u2019origine, 19 ajouts), puis ceux de K1 (137 + 9 de sa revue), puis `insektenstich` (revue K2 C3) ; un SIGNE_DEF chacun', () => {
-    expect(SIGNES).toHaveLength(216);
+  it('porte 218 signes : 69 de K0 (11 dimensions, 39 concepts d\u2019origine, 19 ajouts), puis ceux de K1 (137 + 9 de sa revue), `insektenstich` (revue K2 C3), `beginn_art` et `selbstverletzung_wunsch` (K3) ; le motif en tête (K3, règle d\u2019insertion) ; un SIGNE_DEF chacun', () => {
+    expect(SIGNES).toHaveLength(218);
     expect(Object.keys(SIGNE_DEF)).toEqual([...SIGNES]);
-    expect(SIGNES.slice(0, 11)).toEqual(['ort', 'beginn', 'charakter', 'intensitaet', 'ausstrahlung', 'verlauf', 'ausloeser', 'einfluss', 'frueher', 'begleit', 'gelenke']);
+    expect(SIGNES[0]).toBe('motiv');
+    expect(SIGNES.slice(1, 13)).toEqual(['ort', 'beginn', 'beginn_art', 'charakter', 'intensitaet', 'ausstrahlung', 'verlauf', 'ausloeser', 'einfluss', 'frueher', 'begleit', 'gelenke']);
     expect(new Set(SIGNES).size).toBe(SIGNES.length);
   });
-  it('tout signe de PROBE_SUCHT (déclaration) et de SUCHT_MONTAGE (montage jusqu\u2019à K3) est un signe du lexique', () => {
-    const inconnus = [...Object.values(PROBE_SUCHT), ...Object.values(SUCHT_MONTAGE)].flat().filter((s) => !SIGNES.includes(s as never));
+  it('tout signe de PROBE_SUCHT (déclaration, lue par le montage depuis K3) est un signe du lexique', () => {
+    const inconnus = Object.values(PROBE_SUCHT).flat().filter((s) => !SIGNES.includes(s as never));
     expect(inconnus).toEqual([]);
   });
 
