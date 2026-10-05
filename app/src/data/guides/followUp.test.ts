@@ -40,18 +40,15 @@ describe('G4 — relances conditionnelles préfixées', () => {
     ['nox-alkohol', 'Trinken Sie täglich', 'ja'],
     ['fach-gastro-uebelkeit', 'Geht es Ihnen besser', 'ja'],
     ['fach-onko-knoten', 'Tut es beim Tasten weh', 'ja'],
-    ['akt-atemnot-husten', 'Husten Sie dabei etwas ab', 'ja'],
     ['akt-atemnot-husten', 'Ist Blut dabei', 'ja'],
     ['fach-uro-frequenz', 'Wie oft müssen Sie nachts', 'ja'],
     ['fach-neuro-kopfschmerz', 'Ist Ihnen während der Schmerzen übel', 'ja'],
     ['fach-neuro-kraft', 'Lassen Sie Dinge fallen', 'ja'],
     ['fach-chir-op', 'Wann war das', 'ja'],
-    ['fach-chir-blutverduenner', 'Wichtig vor jeder Operation', 'ja'],
-    ['fach-infekt-fieber', 'Haben Sie Schüttelfrost', 'ja'],
     ['fach-kardio-brust', 'Können Sie mit einem Finger', 'ja'],
     ['akt-infekt-fieber', 'Wie hoch war es', 'ja'],
     ['akt-infekt-fieber', 'Wann ist das Fieber am höchsten', 'ja'],
-    ['akt-intensitaet', 'Vor jedem Schmerzmittel', 'skala'],
+    ['akt-intensitaet', '„Können Sie die Schmerzen bis zum Ende', 'skala'],
   ];
   for (const [probe, start, kind] of CASES) {
     it(`${probe} · « ${start}… » n'est plus inconditionnelle`, () => {
@@ -60,16 +57,22 @@ describe('G4 — relances conditionnelles préfixées', () => {
       for (const r of rs) expect(parseFollowUp(r).kind).toBe(kind);
     });
   }
+  it('« Husten Sie dabei etwas ab ? » est inconditionnelle : elle cherche `auswurf`, une relance conditionnelle ne le peut pas (INV-84, revue K1)', () => {
+    expect(relancesOf('akt-atemnot-husten', 'Husten Sie dabei etwas ab').map((r) => parseFollowUp(r).kind)).toEqual(['immer']);
+  });
+  it('fach-infekt-fieber n\'a plus de relance : Schüttelfrost / Nachtschweiß sont à veg-schuettelfrost (revue K1 I-2 c)', () => {
+    expect(relancesOf('fach-infekt-fieber', '')).toEqual([]);
+  });
   it('« Falls Auswurf » : un interrupteur « Auswurf », pas « Sie etwas abhusten »', () => {
     const r = allQuestions().filter((q) => phraseProbes(q).includes('akt-atemnot-husten')).flatMap(phraseFollowUp).find((x) => /Welche Farbe/.test(x))!;
     expect(parseFollowUp(r)).toMatchObject({ kind: 'ja', label: 'Auswurf' });
   });
-  it('« Vor jedem Schmerzmittel » rejoint la branche « sehr stark » (un seul contrôle)', () => {
+  it('la relance du Schmerzmittel est la seule branche « sehr stark » (DM2 : la question « Allergien » est devenue sa consigne)', () => {
     const q = allQuestions().find((x) => phraseProbes(x).includes('akt-intensitaet'))!;
     const g = groupFollowUps(phraseFollowUp(q));
     expect(g).toHaveLength(1);
     expect(g[0].control).toMatchObject({ kind: 'skala', threshold: 7 });
-    expect(g[0].questions).toHaveLength(2);
+    expect(g[0].questions).toHaveLength(1);
   });
   it('laissées inconditionnelles à dessein : voyage/vaccins (parts du veg-fieber) et psy automutilation (à trancher)', () => {
     expect(relancesOf('veg-fieber', 'Waren Sie kürzlich im Ausland').map((r) => parseFollowUp(r).kind)).toEqual(['immer']);
@@ -109,15 +112,6 @@ describe('Revue Q0 — m2 : le sang dépend du crachat', () => {
     const auswurf = g.find((x) => x.control.kind === 'ja' && x.control.label === 'Auswurf')!;
     expect(auswurf.questions).toEqual(['Welche Farbe hat das?', 'Ist Blut dabei?']);
     // Défaut ANTÉRIEUR, non corrigé ici : l'interrupteur « Auswurf » est visible avant « Husten = Ja ».
-  });
-});
-
-describe('Revue Q0 — m7 : héparine, Clexane', () => {
-  it('le blutverdünner demande la dernière DOSE, pas la dernière tablette', () => {
-    const rs = relancesOf('fach-chir-blutverduenner', 'Wichtig vor jeder Operation');
-    expect(rs).toHaveLength(1);
-    expect(rs[0]).toMatch(/die letzte Dosis/);
-    expect(rs[0]).not.toMatch(/Tablette/);
   });
 });
 

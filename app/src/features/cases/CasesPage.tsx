@@ -1,4 +1,4 @@
-import { useMemo, useState, useEffect } from 'react';
+import { memo, useCallback, useMemo, useState, useEffect } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
 import { useCases } from '@/hooks/useData';
 import { useUi } from '@/store/ui';
@@ -6,7 +6,10 @@ import type { Case, CaseProgress, Center, Specialty } from '@/db/types';
 import { CenterBadge, FreqBadge, DifficultyDots, EmptyState } from '@/components/ui';
 import { useCaseProgress } from '@/features/program/useProgram';
 import { blankProgress } from '@/lib/journal';
-import { OVERALL, ProgressBadge, TeilDots, nonMesureSeulement, progressRank } from './CaseProgressView';
+import { OVERALL, nonMesureSeulement, progressRank } from './CaseProgressView';
+import { CaseDial } from '@/components/visuals/CaseDial';
+import { actionSuivante, lienAction } from '@/components/visuals/CaseDialText';
+import { dialDeCarte, useDerniereVisite, vientDeSouder } from './dialCarte';
 import { Icon, SpecialtyIcon } from '@/components/icons';
 import { CasePreviewPanel } from './CasePreviewPanel';
 
@@ -20,6 +23,8 @@ export function CasesPage() {
   const cpOf = (c: Case) => progress?.get(c.id) ?? blankProgress(c.id);
   const { openCasePreview, previewCaseId } = useUi();
   const [params, setParams] = useSearchParams();
+  const visite = useDerniereVisite();
+  const apercu = useCallback((id: string) => openCasePreview(id), [openCasePreview]);     // stable : la carte mémoïsée ne se rerend pas à chaque frappe       // S4-4 : l'arc d'un Teil joué depuis se dessine une fois
 
   const [q, setQ] = useState('');
   const [center, setCenter] = useState<Center | ''>('');
@@ -74,7 +79,7 @@ export function CasesPage() {
         <div className="eyebrow">Bibliothèque</div>
         <h1 className="mt-1.5 text-2xl font-bold tracking-tightish">Cas cliniques</h1>
         <p className="text-slate-500 dark:text-slate-400">
-          <b>{total}</b> cas · <b className="text-brand-600 dark:text-brand-300">{solides}</b> solides · <b>{vierges}</b> pas encore travaillés{nonMesures > 0 && <> · <b>{nonMesures}</b> faite{nonMesures > 1 ? 's' : ''} — non mesurée{nonMesures > 1 ? 's' : ''}</>}
+          <b>{total}</b> cas · <b className="text-brand-600 dark:text-brand-300">{solides}</b> solides · <b>{vierges}</b> pas encore travaillés{nonMesures > 0 && <> · <b>{nonMesures}</b> fait{nonMesures > 1 ? 's' : ''} — non mesuré{nonMesures > 1 ? 's' : ''}</>}
         </p>
         <div className="mt-2 flex flex-wrap gap-1.5">
           {bySpecialty.map(({ sp, n }) => (
@@ -131,7 +136,7 @@ export function CasesPage() {
       ) : (
         <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-3">
           {filtered.map((c) => (
-            <CaseCard key={c.id} c={c} cp={cpOf(c)} onPreview={() => openCasePreview(c.id)} active={previewCaseId === c.id} />
+            <CaseCard key={c.id} c={c} cp={cpOf(c)} visite={visite} onPreview={apercu} active={previewCaseId === c.id} />
           ))}
         </div>
       )}
@@ -142,11 +147,15 @@ export function CasesPage() {
   );
 }
 
-function CaseCard({ c, cp, onPreview, active }: { c: Case; cp: CaseProgress; onPreview: () => void; active: boolean }) {
+// m4 : 130 cartes et une frappe dans le filtre — la carte ne se rerend que si SA donnée change.
+const CaseCard = memo(function CaseCard({ c, cp, visite, onPreview, active }: { c: Case; cp: CaseProgress; visite: number | null; onPreview: (id: string) => void; active: boolean }) {
+  const ouvrir = () => onPreview(c.id);
+  const dial = dialDeCarte(cp, visite);
+  const suite = actionSuivante(dial);        // UN bouton principal : la suite que le cadran propose
   return (
     <div className={`card flex flex-col p-4 transition-all hover:shadow-md ${active ? 'ring-2 ring-brand-400' : ''}`}>
       <div className="flex items-start justify-between gap-2">
-        <button onClick={onPreview} className="flex items-start gap-2.5 text-left">
+        <button onClick={ouvrir} className="flex items-start gap-2.5 text-left">
           <span className="mt-0.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-brand-50 text-brand-600 dark:bg-brand-900/30 dark:text-brand-300">
             <SpecialtyIcon specialty={c.specialty} className="h-5 w-5" />
           </span>
@@ -155,21 +164,21 @@ function CaseCard({ c, cp, onPreview, active }: { c: Case; cp: CaseProgress; onP
             <p className="mt-0.5 text-xs text-slate-400">{c.specialty}</p>
           </span>
         </button>
-        <TeilDots cp={cp} />
+        <CaseDial data={dial} size={64} nom={c.name} action={false} vientDeSouder={vientDeSouder(dial, visite)} />
       </div>
       <div className="mt-3 flex flex-wrap items-center gap-1.5">
         <FreqBadge n={c.frequency} />
-        <ProgressBadge cp={cp} />
-        <DifficultyDots level={c.difficulty} />
       </div>
-      <div className="mt-2 flex flex-wrap gap-1">
+      <div className="mb-4 mt-2 flex flex-wrap items-center gap-1">
         {c.centers.slice(0, 4).map((ct) => <CenterBadge key={ct} center={ct} />)}
+        {/* Loin du cadran : trois points près de lui se lisent « 2 Teile sur 3 ». */}
+        <span className="ml-auto inline-flex items-center gap-1.5 text-[11px] text-slate-400">Difficulté <DifficultyDots level={c.difficulty} /></span>
       </div>
-      <div className="mt-4 flex gap-2 border-t border-slate-100 pt-3 dark:border-slate-800">
-        <Link to={`/simulation/${c.id}/pre`} className="btn-primary flex-1 justify-center gap-1 text-xs"><Icon name="play" className="h-3 w-3" />Simuler</Link>
-        <button onClick={onPreview} className="btn-outline text-xs">Aperçu</button>
+      <div className="mt-auto flex gap-2 border-t border-slate-100 pt-3 dark:border-slate-800">
+        <Link to={lienAction(dial)} className="btn-primary flex-1 justify-center gap-1 text-center text-xs leading-tight"><Icon name="play" className="h-3 w-3 shrink-0" />{suite.label}</Link>
+        <button onClick={ouvrir} className="btn-outline text-xs">Aperçu</button>
         <Link to={`/cas/${c.id}`} className="btn-ghost text-xs">Fiche</Link>
       </div>
     </div>
   );
-}
+});

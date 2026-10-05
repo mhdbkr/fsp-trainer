@@ -22,8 +22,8 @@ fach-kardio-herzrasen -> akt-anfall-ablauf
 fach-kardio-luft -> akt-atemnot-belastung
 fach-kardio-oedeme -> akt-atemnot-nachts, akt-allgemein-schwellung
 fach-kardio-synkope -> akt-anfall-bewusstsein
-fach-nephro-aussehen -> akt-ausscheid-aussehen
-fach-nephro-menge -> akt-ausscheid-haeufigkeit, akt-allgemein-schwellung
+fach-nephro-aussehen -> akt-ausscheid-aussehen, akt-ausscheid-harn-aussehen
+fach-nephro-menge -> akt-ausscheid-haeufigkeit, akt-ausscheid-harn-haeufigkeit, akt-allgemein-schwellung
 fach-nephro-oedeme -> akt-allgemein-schwellung
 fach-neuro-anfall -> akt-anfall-bewusstsein
 fach-neuro-anfallzeichen -> akt-anfall-bewusstsein
@@ -54,8 +54,8 @@ fach-psych-schlaf -> akt-psych-schlaf
 fach-psych-stimmung -> akt-psych-stimmung
 fach-psych-suizid -> akt-psych-sicherheit
 fach-psych-tagesverlauf -> akt-verlauf
-fach-uro-drang -> akt-ausscheid-haeufigkeit
-fach-uro-farbe -> akt-ausscheid-aussehen
+fach-uro-drang -> akt-ausscheid-haeufigkeit, akt-ausscheid-harn-haeufigkeit
+fach-uro-farbe -> akt-ausscheid-aussehen, akt-ausscheid-harn-aussehen
 fach-uro-flanke -> akt-ausstrahlung
-fach-uro-frequenz -> akt-ausscheid-haeufigkeit
-fach-uro-strahl -> akt-ausscheid-haeufigkeit
+fach-uro-frequenz -> akt-ausscheid-haeufigkeit, akt-ausscheid-harn-haeufigkeit
+fach-uro-strahl -> akt-ausscheid-haeufigkeit, akt-ausscheid-harn-haeufigkeit

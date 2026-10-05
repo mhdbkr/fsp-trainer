@@ -15,7 +15,7 @@
 import { createElement, useEffect, useRef, useState, type ReactNode } from 'react';
 import { LazyMotion, MotionConfig, domMin, useReducedMotion, type Transition } from 'motion/react';
 
-export { AnimatePresence } from 'motion/react';
+export { AnimatePresence, useReducedMotion } from 'motion/react';
 export * as m from 'motion/react-m';
 
 /** Ressort court, sans rebond. */

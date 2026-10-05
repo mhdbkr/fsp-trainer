@@ -30,9 +30,6 @@ export interface AnamneseProbe {
    *  toujours un axe clinique décisif (Reithosenanästhesie, Kaffeesatz,
    *  poids ↔ appétit…). */
   deepens?: string;
-  /** Vrai doublon : la version générale est strictement plus riche, la question
-   *  Fach n'ajoute rien → le guide invite à passer. */
-  redundant?: boolean;
 }
 
 // --- Allgemeine Anamnese (tous les cas) -------------------------------------
@@ -121,16 +118,13 @@ export const FACH_PROBES: Partial<Record<Specialty, AnamneseProbe[]>> = {
     { id: 'fach-kardio-herzrasen', kapitel: 'fach', frage: 'Haben Sie Herzrasen, Herzklopfen oder Herzstolpern bemerkt?' },
     { id: 'fach-kardio-luft', kapitel: 'fach', frage: 'Bekommen Sie schwer Luft, besonders beim Treppensteigen? Wie viele Stockwerke schaffen Sie ohne Pause?' },
     { id: 'fach-kardio-oedeme', kapitel: 'fach', frage: 'Sind Ihre Beine oder Knöchel geschwollen? Mit wie vielen Kissen schlafen Sie?' },
-    { id: 'fach-kardio-nykturie', kapitel: 'fach', frage: 'Müssen Sie nachts Wasser lassen? Wie oft?', deepens: 'akt-ausscheid-haeufigkeit' },
+    { id: 'fach-kardio-nykturie', kapitel: 'fach', frage: 'Müssen Sie nachts Wasser lassen? Wie oft?', deepens: 'akt-ausscheid-harn-haeufigkeit' },
     { id: 'fach-kardio-synkope', kapitel: 'fach', frage: 'Wird es Ihnen manchmal schwarz vor Augen? Sind Sie schon einmal ohnmächtig geworden?', deepens: 'akt-anfall-bewusstsein' },
   ],
   Chirurgie: [
     { id: 'fach-chir-essen', kapitel: 'fach', frage: 'Wann haben Sie zuletzt gegessen und getrunken? Was genau?' },
-    { id: 'fach-chir-uebelkeit', kapitel: 'fach', frage: 'Ist Ihnen übel? Haben Sie sich übergeben?', deepens: 'veg-uebelkeit', redundant: true },
     { id: 'fach-chir-ileus', kapitel: 'fach', frage: 'Hatten Sie heute Stuhlgang? Gehen noch Winde ab?' },
-    { id: 'fach-chir-fieber', kapitel: 'fach', frage: 'Haben Sie Fieber?', deepens: 'veg-fieber', redundant: true },
     { id: 'fach-chir-op', kapitel: 'fach', frage: 'Wurden Sie schon einmal am Bauch operiert? Haben Sie Narben?', deepens: 'vor-op' },
-    { id: 'fach-chir-blutverduenner', kapitel: 'fach', frage: 'Nehmen Sie Blutverdünner ein?', deepens: 'med-blutverduenner', redundant: true },
     { id: 'fach-chir-gallensteine', kapitel: 'fach', frage: 'Haben Sie bekannte Gallensteine oder einen Leistenbruch?' },
   ],
   Psychiatrie: [
@@ -381,8 +375,12 @@ export const AKTUELL_VARIANT_PROBES: Record<LeitsymptomKategorie, AnamneseProbe[
   ],
   ausscheidung: [
     { id: 'akt-ausscheid-was', kapitel: 'aktuell', frage: 'Was hat sich verändert: Wasserlassen, Stuhlgang, Farbe von Haut/Augen/Urin/Stuhl?' },
-    { id: 'akt-ausscheid-haeufigkeit', kapitel: 'aktuell', frage: 'Wie oft müssen Sie am Tag auf die Toilette, und wie oft nachts?' },
-    { id: 'akt-ausscheid-aussehen', kapitel: 'aktuell', frage: 'Ist Ihnen Blut, Schleim oder eine ungewöhnliche Farbe aufgefallen?' },
+    // K1 : « Häufigkeit » et « Aussehen » cherchaient chacune les selles ET les urines (deux répliques de fiche
+    // différentes). Chaque question se coupe en deux sondes mono-signe ; les ids historiques gardent les selles.
+    { id: 'akt-ausscheid-haeufigkeit', kapitel: 'aktuell', frage: 'Wie oft haben Sie am Tag Stuhlgang, und müssen Sie auch nachts zum Stuhlgang aufstehen?' },
+    { id: 'akt-ausscheid-harn-haeufigkeit', kapitel: 'aktuell', frage: 'Wie oft müssen Sie am Tag Wasser lassen, und wie oft nachts?' },
+    { id: 'akt-ausscheid-aussehen', kapitel: 'aktuell', frage: 'Ist Ihnen Blut, Schleim oder eine ungewöhnliche Farbe im Stuhl aufgefallen?' },
+    { id: 'akt-ausscheid-harn-aussehen', kapitel: 'aktuell', frage: 'Ist Ihnen Blut, Schaum oder eine ungewöhnliche Farbe im Urin aufgefallen?' },
     // L'aspect d'une excrétion et la déglutition ne partagent ni organe ni
     // diagnostic différentiel ; et « nur Festes, oder auch Flüssiges » est la
     // question qui tranche sténose mécanique ↔ trouble moteur. Aucune autre

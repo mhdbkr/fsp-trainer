@@ -1,7 +1,7 @@
 import type { Phrase, PhraseVariant } from './phrases';
 import type { Signe } from './signes';
 import { phraseIsCaseSpecific, phraseProbes } from './phrases';
-import { PROBE_BY_ID } from './anamneseProbes';
+import { PROBE_SUCHT } from './probeSucht';
 
 // ============================================================================
 // UN SYMPTÔME, UNE QUESTION — par trame jouée (FB2-J10).
@@ -47,7 +47,13 @@ import { PROBE_BY_ID } from './anamneseProbes';
 export * from './signes';
 export type Symptom = Signe;
 
-export const PROBE_SUCHT: Record<string, Symptom[]> = {
+// ----------------------------------------------------------------------------
+// K1 : `PROBE_SUCHT` (probeSucht.ts) est LA table de déclaration — totale, au grain du lexique.
+// Le montage, lui, lit encore cette carte d'avant K1, gelée : `dedupeBySymptom` (et `parts`)
+// ne changent pas avant K3, où `cohere` lira la table de déclaration et emportera celle-ci.
+// ----------------------------------------------------------------------------
+export * from './probeSucht';
+export const SUCHT_MONTAGE: Record<string, Symptom[]> = {
   // Vegetative Anamnese — les questions générales, celles qui « répètent ».
   'veg-fieber': ['fieber', 'reise'],
   'veg-schuettelfrost': ['schuettelfrost', 'nachtschweiss', 'schwitzen'],
@@ -74,6 +80,8 @@ export const PROBE_SUCHT: Record<string, Symptom[]> = {
   'akt-atemnot-husten': ['husten'],
   'akt-ausscheid-was': ['stuhl', 'miktion'],
   'akt-ausscheid-haeufigkeit': ['stuhl', 'miktion'],
+  // K1 : la moitié « urines » de la sonde commune coupée en deux garde la carte de l'ancienne (le montage ne change pas).
+  'akt-ausscheid-harn-haeufigkeit': ['stuhl', 'miktion'], 'akt-ausscheid-harn-aussehen': ['stuhl', 'miktion'],
   'akt-veraend-blutung': ['blutung'],
   'akt-neuro-lage': ['schwindel'],
   'akt-neuro-ausfall': ['schwaeche', 'taubheit'],
@@ -89,7 +97,6 @@ export const PROBE_SUCHT: Record<string, Symptom[]> = {
   'fach-uro-miktion': ['miktion'], 'fach-uro-frequenz': ['miktion'], 'fach-uro-farbe': ['miktion'],
   'fach-infekt-fieber': ['fieber'], 'fach-infekt-reise': ['reise'], 'fach-infekt-kontakt': ['kontakt'],
   'fach-infekt-haut': ['ausschlag'],
-  'fach-chir-fieber': ['fieber'], 'fach-chir-uebelkeit': ['uebelkeit'],
   'fach-gastro-uebelkeit': ['uebelkeit'], 'fach-gastro-stuhl': ['stuhl'],
   'fach-haem-bsymptomatik': ['fieber', 'nachtschweiss', 'gewicht'],
   'fach-onko-bsymptomatik': ['fieber', 'nachtschweiss', 'gewicht'],
@@ -133,9 +140,10 @@ export const PROBE_SUCHT: Record<string, Symptom[]> = {
 // qui exige une relecture de toute question du cas citant un symptôme que
 // la trame cherche aussi, AVANT ou APRÈS elle : `sucht` (elle le remplace) ou
 // `relu` (elle l'approfondit, ou ne le cherche pas vraiment). Motifs étroits.
-const TEXT_RE: Array<[Symptom, RegExp]> = [
+export const TEXT_RE: Array<[Symptom, RegExp]> = [
   ['fieber', /\bfieber\b/i], ['schuettelfrost', /schüttelfrost/i], ['nachtschweiss', /nachtschwei/i],
-  ['reise', /\b(ausland|verreist|reise)\b/i], ['uebelkeit', /\b(übel|übergeben|erbrochen|erbrechen)\b/i],
+  ['reise', /\b(ausland|verreist|reise)\b/i], // `\b` n'existe pas devant ä ö ü (pas \w) : l'ancre est un lookbehind, sinon « übel » et « Ängste » ne sont jamais lus.
+  ['uebelkeit', /(?<![a-zäöüß])(übel(keit)?|übergeben)\b|\b(erbrochen|erbrechen)\b/i],
   ['stuhl', /\b(stuhlgang|durchfall|verstopfung)\b/i], ['miktion', /\bwasserlassen\b/i],
   ['gewicht', /\b(gewicht\w*|kilo\w*|zugenommen)\b|(?<!blut )\babgenommen\b/i], ['appetit', /\bappetit\b/i],
   // « Schlaf » le nom (pas « Schlaf- oder Beruhigungsmittel », pas « mit wie
@@ -155,7 +163,7 @@ const TEXT_RE: Array<[Symptom, RegExp]> = [
   ['sehstoerung', /\b(sehstörung\w*|doppelbild\w*)\b|verschwommen|sehverschlechterung|schlechter seh/i],
   ['krampf', /\bkrampfanf\w*|\bzuck(en|ungen)\b|\bepilep\w*/i],
   ['taubheit', /\btaubheit\w*|\bkribbeln\b|\bpelzig\w*/i],
-  ['schwaeche', /\bkraftverlust\b|\bkraftlos\w*|schwächer geworden|\blähmung\b|\bgelähmt\b/i],
+  ['schwaeche', /\bkraftverlust\b|schwächer geworden|\blähmung\b|\bgelähmt\b/i],   // K1 : « Kraftlosigkeit » (allgemein-art) est la fatigue, pas le déficit moteur focal
   ['herzrasen', /\bherz(rasen|klopfen|stolpern)\b/i],
   // « Nachtschweiß » a son propre concept — le motif ne doit pas l'attraper.
   ['schwitzen', /\bschwitz\w*|\bschweißausbr\w*/i],
@@ -166,7 +174,7 @@ const TEXT_RE: Array<[Symptom, RegExp]> = [
   ['gelbfaerbung', /\bgelbfärbung\w*|\bgelbsucht\b|\bikterus\b/i],
   ['sturz', /\bsturz\b|\bstürz\w*|\bgestürzt\b/i],
   ['stimmung', /\bstimmung\b|\bniedergeschlagen\b|\btraurig\b|innerlich leer/i],
-  ['angst', /\bangst\b|\bängste\b|\bpanikattack\w*/i],
+  ['angst', /\bangst\b|(?<![a-zäöüß])ängste\b|\bpanikattack\w*/i],
   ['suizid', /\blebenswert\b|etwas anzutun|\bsuizid\w*|selbst(mord|tötung)/i],
   ['gedaechtnis', /\bvergesslich\w*|\bgedächtnis\w*|erinnerungslück\w*/i],
 ];
@@ -179,7 +187,14 @@ export function symptomsInText(t: string): Symptom[] {
 export function phraseSymptoms(p: Phrase): Symptom[] {
   if (typeof p !== 'string' && p.sucht) return p.sucht as Symptom[];
   const probes = phraseProbes(p);
-  return [...new Set(probes.flatMap((id) => PROBE_SUCHT[id] ?? []))];
+  return [...new Set(probes.flatMap((id) => SUCHT_MONTAGE[id] ?? []))];
+}
+
+/** Les signes que la phrase DÉCLARE chercher (K1, ce que lit la porte) : son `sucht`, sinon les signes qu'elle
+ *  énumère (`enumere`), sinon ceux de ses sondes. Pas ses relances (`phraseFollowUps`). */
+export function phraseSucht(p: Phrase): Signe[] {
+  if (typeof p !== 'string' && (p.sucht || p.enumere)) return (p.sucht ?? p.enumere) as Signe[];
+  return [...new Set(phraseProbes(p).flatMap((id) => PROBE_SUCHT[id] ?? []))];
 }
 
 export interface TrameChapter { id: string; questions: Phrase[] }
@@ -197,15 +212,6 @@ export function dedupeBySymptom<T extends TrameChapter>(chapters: T[]): T[] {
     for (const s of phraseSymptoms(q)) set.add(s);
     reserved.set(ch.id, set);
   }
-  // Vrai doublon déclaré (`redundant`) : la version générale, plus riche, est
-  // dans la trame → c'est la version Fach qui s'efface, quel que soit l'ordre.
-  const present = new Set(chapters.flatMap((ch) => ch.questions.flatMap(phraseProbes)));
-  const yieldsToGeneral = (q: Phrase) => {
-    const ps = phraseProbes(q);
-    if (ps.length !== 1) return false;
-    const src = PROBE_BY_ID[ps[0]];
-    return !!src?.redundant && !!src.deepens && present.has(src.deepens);
-  };
   return chapters.map((ch) => {
     // Position où une question du cas (`sucht`) prend la place de la
     // première générale qu'elle remplace — sinon elle resterait en fin de
@@ -213,7 +219,6 @@ export function dedupeBySymptom<T extends TrameChapter>(chapters: T[]): T[] {
     const slot = new Map<Symptom, number>();
     const rows: Array<{ q: Phrase; at: number }> = [];
     ch.questions.forEach((q, i) => {
-      if (yieldsToGeneral(q)) return;
       const syms = phraseSymptoms(q);
       if (!syms.length) { rows.push({ q, at: i }); return; }
       const own = phraseIsCaseSpecific(q);
@@ -238,7 +243,7 @@ export function dedupeBySymptom<T extends TrameChapter>(chapters: T[]): T[] {
       // réplique (revue série 3, I4 — 6 cas endocriniens).
       const v = q as PhraseVariant;
       keep.forEach((pt, k) => rows.push({
-        q: { ...v, text: pt.text, alts: undefined, followUp: pt.followUp?.length ? pt.followUp : undefined, parts: undefined, sucht: pt.sucht.filter((s) => left.includes(s as Symptom)) },
+        q: { ...v, text: pt.text, alts: undefined, followUp: pt.followUp?.length ? pt.followUp : undefined, parts: undefined, followUpSucht: pt.followUpSucht?.length ? pt.followUpSucht : undefined, enumere: undefined, sucht: pt.sucht.filter((s) => left.includes(s as Symptom)) },
         at: i + k / 100,
       }));
     });

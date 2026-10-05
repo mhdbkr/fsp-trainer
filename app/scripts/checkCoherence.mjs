@@ -10,13 +10,15 @@
 // profil se PROPOSE depuis la fiche. C'est une boussole (voir coherenceMesure.mjs).
 // Ce qui exige `cohere` (K3) est rapporté « non mesurable avant K3 », pas inventé.
 //
-// Structure (bloquante dès K0 : exit 1) : le lexique est cohérent (INV-77/78).
+// Structure (bloquante dès K0 : exit 1) : le lexique est cohérent (INV-77/78) ; dès K1, les sondes déclarent leur `sucht`
+// et le texte s'accorde à la déclaration (INV-79, INV-84 — `suchtCheck.ts`).
 // Plancher : app/scripts/fixtures/coherence-budget.json — jamais à la hausse
 // (`checkBudgetFloor.mjs` le compare à la base ; ici : mesure ≤ plancher).
 //
 // Usage : node scripts/checkCoherence.mjs                  synthèse + 15 pires cas
 //         node scripts/checkCoherence.mjs --case <id>      la trame jouée du cas, chaque constat et sa raison
 //         node scripts/checkCoherence.mjs --json           compteurs + constats par cas (tests, diff entre lots)
+//         node scripts/checkCoherence.mjs --propose [--case <id>] [--json]   les signes lus dans les questions du cas non déclarées (aide K2 / K4)
 //         node scripts/checkCoherence.mjs --bless          régénère le plancher (refusé si un compteur monte)
 // Codes : 0 ok · 1 lexique incohérent ou mesure au-dessus du plancher · 2 outil/usage.
 // ============================================================================
@@ -26,7 +28,7 @@ import { fileURLToPath, pathToFileURL } from 'node:url';
 import { dirname, join } from 'node:path';
 import { tmpdir } from 'node:os';
 import { detect, trameWords } from './questionOrderDetect.mjs';
-import { COMPTEURS, DIM, RESIDU, SIG, mesurerCas, totaux } from './coherenceMesure.mjs';
+import { COMPTEURS, DIM, RESIDU, SIG, mesurerCas, proposer, totaux } from './coherenceMesure.mjs';
 
 const root = join(dirname(fileURLToPath(import.meta.url)), '..');
 const arg = (k) => { const i = process.argv.indexOf(k); return i > 0 ? process.argv[i + 1] : undefined; };
@@ -40,8 +42,9 @@ const src = (f) => JSON.stringify(join(root, 'src', f));
 writeFileSync(entry, `
   export { seedCases } from ${src('data/seedCases.ts')};
   export { playedTrame, leitsymptomOf } from ${src('data/guides/anamneseChapters.ts')};
-  export { phraseText, phraseAlts, phraseFollowUp, phraseProbes, phraseIsCaseSpecific } from ${src('data/guides/phrases.ts')};
-  export { phraseSymptoms, symptomsInText, PROBE_SUCHT, SIGNES, SIGNE_DEF, PROFIL_EXIGE, PROFIL_EXCLUT, lexiqueIncoherences } from ${src('data/guides/symptoms.ts')};
+  export { phraseText, phraseAlts, phraseFollowUp, phraseFollowUps, phraseProbes, phraseIsCaseSpecific } from ${src('data/guides/phrases.ts')};
+  export { suchtIncoherences } from ${src('data/guides/suchtCheck.ts')};
+  export { phraseSucht, symptomsInText, PROBE_SUCHT, SIGNES, SIGNE_DEF, PROFIL_EXIGE, PROFIL_EXCLUT, lexiqueIncoherences } from ${src('data/guides/symptoms.ts')};
   export { PROBE_BY_ID } from ${src('data/guides/anamneseProbes.ts')};
 `);
 const out = join(dir, 'bundle.mjs');
@@ -55,7 +58,7 @@ const m = await import(pathToFileURL(out).href);
 rmSync(dir, { recursive: true, force: true });
 
 // ── Structure : le lexique tient-il ? (INV-77, INV-78) ───────────────────────
-const structure = m.lexiqueIncoherences();
+const structure = [...m.lexiqueIncoherences(), ...m.suchtIncoherences()];   // INV-77 / INV-78 (lexique) · INV-79 / INV-84 (déclaration des sondes, K1)
 // Les motifs de lecture ne parlent que de signes du lexique.
 for (const k of [...Object.keys(DIM), ...Object.keys(SIG)]) if (!m.SIGNES.includes(k)) structure.push(`coherenceMesure.mjs lit « ${k} », qui n'est pas un signe du lexique`);
 
@@ -66,7 +69,7 @@ const rowsOf = (c) => {
   const rows = [];
   const push = (ch, p) => rows.push({
     ch, text: m.phraseText(p), probes: m.phraseProbes(p), cs: m.phraseIsCaseSpecific(p),
-    sucht: m.phraseSymptoms(p), fu: m.phraseFollowUp(p),
+    sucht: m.phraseSucht(p), fu: m.phraseFollowUp(p), fuSucht: m.phraseFollowUps(p).map((l) => l.sucht ?? []),
   });
   for (const ch of chapters) {
     for (const p of ch.questions) push(ch.id, p);
@@ -105,10 +108,30 @@ const sondesMuettes = Object.keys(m.PROBE_BY_ID).filter((id) => !(id in m.PROBE_
 const T = totaux(results, { sondesMuettes });
 
 // ── Sorties ──────────────────────────────────────────────────────────────────
-if (flag('--json')) {
+if (flag('--json') && !flag('--propose')) {
   const slim = (r) => ({ id: r.id, kat: r.kat, tags: r.profil.tags, n: r.n, dup: r.dup, imp: r.imp, miss: r.miss, ajoutSansReponse: r.ajoutSansReponse, fu: r.fu, ord: r.ord, muettes: r.muettes });
   // écrire puis sortir à la fin du flush : `process.exit` coupe un pipe à 64 Ko
   process.stdout.write(JSON.stringify({ cas: results.length, structure, ...T, parCas: results.map(slim) }) + '\n', () => process.exit(structure.length ? 1 : 0));
+  await new Promise(() => {});
+}
+
+// ── --propose : les signes lus dans le texte des questions du cas NON déclarées (aide à K2 / K4, jamais appliquée) ──
+if (flag('--propose')) {
+  const only = arg('--case');
+  const pick = only ? results.filter((x) => x.id === only || x.id === `case-${only}`) : results;
+  if (only && !pick.length) { console.error(`❌ cas inconnu : ${only}`); process.exit(2); }
+  const props = pick.flatMap((r) => r.units.filter((u) => u.cs && !u.declared).map((u) => ({ cas: r.id, ch: u.ch, rang: u.rank, question: u.text, ...proposer(u) })));
+  if (flag('--json')) process.stdout.write(JSON.stringify(props) + '\n', () => process.exit(structure.length ? 1 : 0));
+  else {
+    console.log(`PROPOSITION de \`sucht\` — ${props.length} question(s) du cas sans déclaration, ${pick.length} cas. Lecture du texte : une AIDE (précision 50-74 %), rien n'est appliqué ; le relecteur déclare.\n`);
+    for (const p of props) {
+      console.log(`${p.cas} · ${p.ch} #${p.rang} « ${p.question.length > 110 ? p.question.slice(0, 107) + '…' : p.question} »`);
+      console.log(`    sucht proposé : ${p.sucht.length ? p.sucht.join(', ') : 'aucun signe lu — à déclarer à la main'}`);
+      for (const r of p.relances) if (r.horsSigne) console.log(`    relance ${r.i} « ${r.text.slice(0, 80)} » : cherche ${r.sucht.join(', ')}${r.alerte ? ' — CONDITIONNELLE hors signe (DM2 : corriger la source)' : ' — unité à part (followUpSucht)'}`);
+    }
+    console.log(`\n${props.filter((p) => p.sucht.length).length}/${props.length} questions avec au moins un signe lu.`);
+  }
+  if (!flag('--json')) process.exit(structure.length ? 1 : 0);
   await new Promise(() => {});
 }
 
@@ -165,6 +188,7 @@ if (flag('--bless')) {
     mesureLe: process.env.COHERENCE_DATE ?? new Date().toISOString().slice(0, 10), cas: results.length,
     source: floor?.source ?? 'K0 — lecture du texte et profil PROPOSÉ ; exacts quand les déclarations remplacent la lecture (K1 sondes, K2 profils, K4 questions du cas).',
     brut: T.brut, residu: T.residu, allowed: floor?.allowed ?? [],
+    ...(floor?.hausses ? { hausses: floor.hausses } : {}),   // K1 : le regravage garde les hausses de mesure et leur raison
   };
   writeFileSync(FIXTURE, JSON.stringify(next, null, 2) + '\n');
   console.log(`\nplancher regravé : ${FIXTURE.replace(root + '/', '')}`);

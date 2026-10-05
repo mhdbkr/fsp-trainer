@@ -4,7 +4,7 @@
 // Le retour d'usage était : « des questions se répètent entre chapitres ». On ne
 // veut pas les supprimer — une question Fach ajoute presque toujours un axe
 // clinique décisif — mais elles doivent être MARQUÉES pour que le guide le
-// signale (`deepens` = approfondit, `redundant` = vrai doublon).
+// signale (`deepens` = approfondit ; DM1 a retiré `redundant`).
 //
 // Ce script échoue si une sonde Fach recouvre nettement une sonde générale
 // SANS porter l'un de ces deux marqueurs : c'est alors une répétition muette,
@@ -23,7 +23,7 @@ const probes = [...src.matchAll(/\{\s*id:\s*'([a-z0-9-]+)'[^}]*?frage:\s*'((?:[^
   .map(([, id, frage, tail]) => ({
     id,
     frage: frage.replace(/\\'/g, "'"),
-    marked: /deepens:|redundant:/.test(tail),
+    marked: /deepens:/.test(tail),
   }));
 
 const STOP = new Set(['sie','haben','ist','sind','das','der','die','und','oder','bei','ein','eine','einen','wie','was','wann','wo','seit','auch','mit','ihre','ihren','ihrem','ihr','es','nicht','sich','im','in','von','zu','den','dem','des','für','auf','schon','einmal','mal','noch','sonst','als','dass','wenn','man','wird','werden','etwas','wieder','nach','vor','über','unter','aus','an','am','zum','zur']);
@@ -57,10 +57,10 @@ for (const f of fach) {
   if (best.score >= SEUIL) muets.push({ ...f, ...best });
 }
 
-console.log(`${probes.length} sondes · ${base.length} générales · ${fach.length} Fach · ${fach.filter((f) => f.marked).length} marquées (deepens/redundant).`);
+console.log(`${probes.length} sondes · ${base.length} générales · ${fach.length} Fach · ${fach.filter((f) => f.marked).length} marquées (deepens).`);
 
 if (muets.length) {
-  console.log('\nRépétitions NON marquées — ajouter `deepens:` (approfondit) ou `redundant:` (vrai doublon) :');
+  console.log('\nRépétitions NON marquées — ajouter `deepens:` (approfondit) :');
   for (const m of muets) {
     console.log(`  ❌ ${m.id}`);
     console.log(`     recouvre « ${m.id_base} » (recouvrement ${Math.round(m.score * 100)} %)`);

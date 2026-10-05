@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { ALLGEMEINE_ANAMNESE, FACHANAMNESEN, LEITSYMPTOM_KATEGORIEN, adaptChaptersForCase, aktuellChapterFor, fachChapterForCase } from './anamneseChapters';
-import { GRANULARITE_PAIRES, LEXIQUE, PROBE_SUCHT, PROFIL_EXIGE, SIGNES, SIGNE_DEF, SUCHT_AFFINE, dedupeBySymptom, lexiqueIncoherences, type LexiqueTables } from './symptoms';
+import { GRANULARITE_PAIRES, LEXIQUE, PROBE_SUCHT, PROFIL_EXIGE, SIGNES, SIGNE_DEF, SUCHT_MONTAGE, TEXT_RE, dedupeBySymptom, lexiqueIncoherences, symptomsInText, type LexiqueTables } from './symptoms';
 import { phraseFollowUp, phraseProbes, phraseText, splitDimension } from './phrases';
 import type { Case } from '@/db/types';
 
@@ -72,14 +72,15 @@ describe('parts ↔ PROBE_SUCHT (I5)', () => {
   const catalogue = [
     ...ALLGEMEINE_ANAMNESE, ...FACHANAMNESEN.map((f) => f.chapter), ...LEITSYMPTOM_KATEGORIEN.map((k) => aktuellChapterFor(k)),
   ].flatMap((ch) => ch.questions);
-  it('l’union des `parts.sucht` d’une phrase égale la carte de sa sonde', () => {
+  it('l’union des `parts.sucht` d’une phrase couvre la carte de sa sonde, et n’en sort que vers ses relances déclarées (revue K1 m-2)', () => {
     const bad: string[] = [];
     for (const q of catalogue) {
       if (typeof q === 'string' || !q.parts) continue;
       const probe = phraseProbes(q)[0];
       const union = [...new Set(q.parts.flatMap((pt) => pt.sucht))].sort();
-      const map = [...(PROBE_SUCHT[probe] ?? [])].sort();
-      if (union.join() !== map.join()) bad.push(`${probe}: parts [${union}] ≠ carte [${map}]`);
+      const carte: readonly string[] = PROBE_SUCHT[probe] ?? [];
+      const permis = new Set([...carte, ...(q.followUpSucht ?? []).flat()]);
+      if (carte.some((x) => !union.includes(x)) || union.some((x) => !permis.has(x))) bad.push(`${probe}: parts [${union}] ≠ carte [${[...carte].sort()}] (+ relances [${[...permis].filter((x) => !carte.includes(x))}])`);
     }
     expect(bad).toEqual([]);
   });
@@ -132,13 +133,14 @@ describe('Lexique de signes — INV-77 (cohérent) et INV-78 (granularité)', ()
   it('le lexique réel est cohérent', () => {
     expect(lexiqueIncoherences()).toEqual([]);
   });
-  it('porte 69 signes : 11 dimensions, 39 concepts d\u2019origine, 19 ajouts K0 ; un SIGNE_DEF chacun', () => {
-    expect(SIGNES).toHaveLength(69);
+  it('porte 215 signes : 69 de K0 (11 dimensions, 39 concepts d\u2019origine, 19 ajouts), puis ceux de K1 (137 + 9 de sa revue) ; un SIGNE_DEF chacun', () => {
+    expect(SIGNES).toHaveLength(215);
     expect(Object.keys(SIGNE_DEF)).toEqual([...SIGNES]);
     expect(SIGNES.slice(0, 11)).toEqual(['ort', 'beginn', 'charakter', 'intensitaet', 'ausstrahlung', 'verlauf', 'ausloeser', 'einfluss', 'frueher', 'begleit', 'gelenke']);
+    expect(new Set(SIGNES).size).toBe(SIGNES.length);
   });
-  it('tout signe de PROBE_SUCHT (montage actuel) est un signe du lexique', () => {
-    const inconnus = Object.values(PROBE_SUCHT).flat().filter((s) => !SIGNES.includes(s));
+  it('tout signe de PROBE_SUCHT (déclaration) et de SUCHT_MONTAGE (montage jusqu\u2019à K3) est un signe du lexique', () => {
+    const inconnus = [...Object.values(PROBE_SUCHT), ...Object.values(SUCHT_MONTAGE)].flat().filter((s) => !SIGNES.includes(s as never));
     expect(inconnus).toEqual([]);
   });
 
@@ -147,7 +149,7 @@ describe('Lexique de signes — INV-77 (cohérent) et INV-78 (granularité)', ()
     expect(bad.some((m) => /generalisiert.*exige ET exclut|ne lui est pas pertinent/.test(m))).toBe(true);
   });
   it('INV-77 mutation : « stuhl » ajouté à la banque de stuhlfrequenz rougit', () => {
-    const bad = lexiqueIncoherences(mutated({ affine: { ...SUCHT_AFFINE, 'akt-ausscheid-haeufigkeit': ['stuhlfrequenz', 'stuhl'] } }));
+    const bad = lexiqueIncoherences(mutated({ sucht: { ...PROBE_SUCHT, 'akt-ausscheid-haeufigkeit': ['stuhlfrequenz', 'stuhl'] } }));
     expect(bad.some((m) => /akt-ausscheid-haeufigkeit.*ne cherche pas exactement/.test(m))).toBe(true);
   });
   it('INV-77 mutation : un signe exigé sans banque rougit', () => {
@@ -170,22 +172,48 @@ describe('Lexique de signes — INV-77 (cohérent) et INV-78 (granularité)', ()
 
   // D1 : une énumération cherche chaque signe qu'elle nomme. Le lexique dit la même chose que la mesure.
   it('D1 : akt-ausscheid-was (« Wasserlassen, Stuhlgang, Farbe von Haut/Augen/Urin/Stuhl ») cherche tout ce qu\u2019elle nomme', () => {
-    expect(SUCHT_AFFINE['akt-ausscheid-was']).toEqual(expect.arrayContaining(['stuhl', 'miktion', 'gelbfaerbung', 'urin_aspekt', 'stuhlaussehen']));
+    expect(PROBE_SUCHT['akt-ausscheid-was']).toEqual(expect.arrayContaining(['stuhl', 'miktion', 'gelbfaerbung', 'urin_aspekt', 'stuhlaussehen']));
   });
 
   it('D1 : fach-endo-durst (« häufiger Wasser lassen, auch nachts ») cherche aussi la nykturie', () => {
-    expect(SUCHT_AFFINE['fach-endo-durst']).toEqual(expect.arrayContaining(['durst', 'polyurie', 'nykturie']));
+    expect(PROBE_SUCHT['fach-endo-durst']).toEqual(expect.arrayContaining(['durst', 'polyurie', 'nykturie']));
   });
   it('INV-78 : les paires de discrimination ont des sucht disjoints', () => {
     expect(GRANULARITE_PAIRES.length).toBeGreaterThanOrEqual(4);
-    for (const [a, b] of GRANULARITE_PAIRES) expect(SUCHT_AFFINE[a].filter((s) => SUCHT_AFFINE[b].includes(s)), `${a} / ${b}`).toEqual([]);
+    for (const [a, b] of GRANULARITE_PAIRES) expect(PROBE_SUCHT[a].filter((s) => PROBE_SUCHT[b].includes(s)), `${a} / ${b}`).toEqual([]);
   });
   it('INV-78 mutation : stuhlfrequenz fusionné dans stuhl — les deux sondes partagent un signe', () => {
-    const bad = lexiqueIncoherences(mutated({ affine: { ...SUCHT_AFFINE, 'akt-ausscheid-haeufigkeit': ['stuhl'] } }));
+    const bad = lexiqueIncoherences(mutated({ sucht: { ...PROBE_SUCHT, 'akt-ausscheid-haeufigkeit': ['stuhl'] } }));
     expect(bad.some((m) => /INV-78.*akt-ausscheid-was.*akt-ausscheid-haeufigkeit.*stuhl/.test(m))).toBe(true);
   });
   it('INV-78 mutation : polyurie fusionnée dans miktion rougit', () => {
-    const bad = lexiqueIncoherences(mutated({ affine: { ...SUCHT_AFFINE, 'fach-endo-durst': ['durst', 'miktion'] } }));
+    const bad = lexiqueIncoherences(mutated({ sucht: { ...PROBE_SUCHT, 'fach-endo-durst': ['durst', 'miktion'] } }));
     expect(bad.some((m) => /INV-78.*fach-endo-durst.*fach-uro-miktion/.test(m))).toBe(true);
+  });
+});
+
+// K1 — `\b` n'existe pas devant une voyelle accentuée en JS (ä ö ü ne sont pas \w) : « Ist Ihnen übel ? » et
+// « Haben Sie Ängste ? » n'étaient jamais lus par la lecture partagée. Le motif doit ancrer autrement.
+describe('lecture du texte — les voyelles accentuées (défaut de K0)', () => {
+  const signes = (t: string) => symptomsInText(t);
+  it('« Ist Ihnen übel ? », « Übelkeit », « übergeben » sont lus comme `uebelkeit`', () => {
+    for (const t of ['Ist Ihnen übel?', 'Haben Sie Übelkeit?', 'Mussten Sie sich übergeben?', 'Ist Ihnen während der Schmerzen übel?']) expect(signes(t), t).toContain('uebelkeit');
+  });
+  it('« Ängste » est lu comme `angst`', () => {
+    expect(signes('Haben Sie Ängste, oder machen Sie sich viele Sorgen?')).toContain('angst');
+  });
+  it('pas de faux positif : « übelriechend », « Überweisung » ne sont pas de la nausée', () => {
+    expect(signes('Riecht der Stuhl übelriechend?')).not.toContain('uebelkeit');
+    expect(signes('Haben Sie eine Überweisung?')).not.toContain('uebelkeit');
+  });
+  it('garde : aucun motif du lexique ne place `\\b` contre une lettre accentuée', () => {
+    const bad = TEXT_RE.flatMap(([s, re]) => (/\\b\(?(?:[^|)]*\|)*[äöüÄÖÜß]|[äöüÄÖÜß]\\b/.test(re.source) ? [`${s} : ${re.source}`] : []));
+    expect(bad).toEqual([]);
+  });
+  it('mutation : l’ancien motif ne lit ni « übel » ni « Ängste » (ce que la garde attrape)', () => {
+    const ancien = /\b(übel|übergeben|erbrochen|erbrechen)\b/i;
+    expect(ancien.test('Ist Ihnen übel?')).toBe(false);
+    expect(/\bangst\b|\bängste\b/i.test('Haben Sie Ängste?')).toBe(false);
+    expect(/\\b\(?(?:[^|)]*\|)*[äöüÄÖÜß]|[äöüÄÖÜß]\\b/.test(ancien.source)).toBe(true);
   });
 });
