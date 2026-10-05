@@ -61,7 +61,8 @@ export const PROBE_SUCHT: Readonly<Record<string, Sucht>> = {
   'frau-periode': ['zyklus'], 'frau-schwanger': ['schwangerschaft'], 'frau-verhuetung': ['verhuetung'], 'frau-wechseljahre': ['wechseljahre'],
   // --- Fach Gastroenterologie ---------------------------------------------------
   'fach-gastro-uebelkeit': ['uebelkeit'], 'fach-gastro-sodbrennen': ['sodbrennen'], 'fach-gastro-voelle': ['voellegefuehl'],
-  'fach-gastro-speisen': ['speisen', 'essen_expo'], 'fach-gastro-stuhl': ['stuhl'], 'fach-gastro-tenesmen': ['tenesmen'],
+  'fach-gastro-speisen': ['speisen', 'essen_expo'], 'fach-gastro-stuhl': ['stuhl', 'stuhlaussehen'],   // K2 : « Welche Farbe (blutig, teerschwarz, hell) » = l'aspect des selles (D1)
+  'fach-gastro-tenesmen': ['tenesmen'],
   'fach-gastro-spiegelung': ['spiegelung'],
   // --- Fach Kardiologie ---------------------------------------------------------
   'fach-kardio-brust': ['brustschmerz'], 'fach-kardio-belastung': ['belastung', 'dauer'], 'fach-kardio-ausstrahlung': ['ausstrahlung'],
@@ -82,7 +83,8 @@ export const PROBE_SUCHT: Readonly<Record<string, Sucht>> = {
   'fach-pneumo-infekt': ['atemwegsinfekt', 'kontakt', 'reise'], 'fach-pneumo-noxen': ['lungennoxen'], 'fach-pneumo-allergie': ['atopie', 'asthma'],   // revue K1 C1 : ≠ all-allergie (pénicilline), que K3 ne doit pas retirer
   // --- Fach Infektiologie -------------------------------------------------------
   'fach-infekt-fieber': ['fieber'], 'fach-infekt-zecke': ['zecke'], 'fach-infekt-haut': ['ausschlag', 'erythem_ring'],
-  'fach-infekt-gelenke': ['arthralgie'], 'fach-infekt-neuro': ['kopfschmerz', 'meningismus', 'taubheit', 'fazialis'],
+  'fach-infekt-gelenke': ['arthralgie', 'gelenke'],   // K2 : « Wandern sie von Gelenk zu Gelenk ? » cherche aussi le schéma articulaire (D1)
+  'fach-infekt-neuro': ['kopfschmerz', 'meningismus', 'taubheit', 'fazialis'],
   'fach-infekt-reise': ['reise'], 'fach-infekt-kontakt': ['kontakt'], 'fach-infekt-impfung': ['impfung'],
   // --- Fach Urologie ------------------------------------------------------------
   'fach-uro-miktion': ['miktion'], 'fach-uro-frequenz': ['miktion_frequenz', 'nykturie'], 'fach-uro-drang': ['drang', 'inkontinenz'],

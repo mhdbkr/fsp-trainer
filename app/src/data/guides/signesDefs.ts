@@ -18,7 +18,8 @@ export const DEFS = {
   einfluss: { kapitel: 'aktuell', pertinence: S, bank: 'akt-einfluss' },
   frueher: { kapitel: 'aktuell', pertinence: S, bank: 'akt-frueher' },
   begleit: { kapitel: 'aktuell', pertinence: S, bank: 'akt-begleit' },
-  gelenke: { kapitel: 'fach', pertinence: ['gelenk', 'arthritis'], bank: 'fach-rheuma-gelenke' },
+  // K2 : + `lyme` — la Lyme-Arthritis (genou) se cherche par le schéma articulaire (`fach-infekt-gelenke`).
+  gelenke: { kapitel: 'fach', pertinence: ['gelenk', 'arthritis', 'lyme'], bank: 'fach-rheuma-gelenke' },
   // --- Aktuelle Beschwerden ---------------------------------------------------
   fieber: { kapitel: 'aktuell', pertinence: S, bank: 'akt-infekt-fieber' },
   atemnot: { kapitel: 'aktuell', pertinence: S, bank: 'akt-atemnot-belastung' },
@@ -48,7 +49,8 @@ export const DEFS = {
   meningismus: { kapitel: 'fach', pertinence: ['meningitis', 'lyme'] },
   fazialis: { kapitel: 'fach', pertinence: ['lyme'] },
   steifigkeit: { kapitel: 'fach', pertinence: ['steifigkeit'], bank: 'fach-rheuma-morgensteifigkeit' },
-  gelenk_entzuendung: { kapitel: 'fach', pertinence: ['gelenk', 'arthritis'], bank: 'fach-rheuma-entzuendung' },
+  // K2 : + `generalisiert` — devant une douleur diffuse, « ein Gelenk jemals geschwollen ? » écarte l'arthrite (DD de la fibromyalgie) ; « Welche Gelenke » (`gelenke`) reste hors profil.
+  gelenk_entzuendung: { kapitel: 'fach', pertinence: ['gelenk', 'arthritis', 'generalisiert'], bank: 'fach-rheuma-entzuendung' },
   gicht: { kapitel: 'fach', pertinence: ['gicht'] },
   nierensteine: { kapitel: 'fach', pertinence: ['stein', 'gicht'] },
   essen_expo: { kapitel: 'fach', pertinence: S },

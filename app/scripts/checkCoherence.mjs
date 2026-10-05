@@ -44,7 +44,7 @@ writeFileSync(entry, `
   export { playedTrame, leitsymptomOf } from ${src('data/guides/anamneseChapters.ts')};
   export { phraseText, phraseAlts, phraseFollowUp, phraseFollowUps, phraseProbes, phraseIsCaseSpecific } from ${src('data/guides/phrases.ts')};
   export { suchtIncoherences } from ${src('data/guides/suchtCheck.ts')};
-  export { phraseSucht, symptomsInText, PROBE_SUCHT, SIGNES, SIGNE_DEF, PROFIL_EXIGE, PROFIL_EXCLUT, lexiqueIncoherences } from ${src('data/guides/symptoms.ts')};
+  export { phraseSucht, symptomsInText, PROBE_SUCHT, SIGNES, SIGNE_DEF, PROFIL_EXIGE, PROFIL_EXCLUT, lexiqueIncoherences, profilIncoherences } from ${src('data/guides/symptoms.ts')};
   export { PROBE_BY_ID } from ${src('data/guides/anamneseProbes.ts')};
 `);
 const out = join(dir, 'bundle.mjs');
@@ -101,7 +101,7 @@ const results = cases.map((c) => {
   return mesurerCas({
     id: c.id, specialty: c.specialty, kategorie: m.leitsymptomOf(c), schmerz: s.schmerz, leit: s.leitsymptome, begleit: s.begleitsymptome,
     veg: s.vegetativeAnamnese, verdacht: c.medicalView?.verdachtsdiagnose, name: c.name, pathology: c.pathology,
-    ddx: (c.medicalView?.differenzialdiagnosen ?? []).map((d) => d.dd), antworten: s.antworten, rows: rowsOf(c),
+    ddx: (c.medicalView?.differenzialdiagnosen ?? []).map((d) => d.dd), antworten: s.antworten, profil: s.profil, rows: rowsOf(c),
   }, lex, qo);
 });
 const sondesMuettes = Object.keys(m.PROBE_BY_ID).filter((id) => !(id in m.PROBE_SUCHT)).length;
@@ -141,8 +141,8 @@ if (one) {
   if (!r) { console.error(`❌ cas inconnu : ${one}`); process.exit(2); }
   const p = r.profil;
   console.log(`${r.id} — nature « ${r.kat} » — ${r.n} unités jouées (ouverture, personalia et clôture exclues)`);
-  console.log(`profil PROPOSÉ (aucun profil n'est déclaré avant K2) : tags [${p.tags.join(', ')}]`);
-  console.log(`  dérivés des données du cas : [${p.derives.join(', ')}] · lus dans la fiche : [${p.propose.join(', ')}]`);
+  console.log(`profil ${p.declare ? 'DÉCLARÉ' : 'PROPOSÉ (aucun profil déclaré : INV-80 échoue)'} : tags effectifs [${p.tags.join(', ')}]`);
+  console.log(`  dérivés des données du cas : [${p.derives.join(', ')}]${p.declare ? '' : ` · lus dans la fiche : [${p.propose.join(', ')}]`}`);
   console.log(`  exige : ${[...p.exige].map(([s, t]) => `${s} (${t})`).join(', ') || '—'} · exclut : ${[...p.exclut].map(([s, t]) => `${s} (${t})`).join(', ') || '—'}\n`);
   for (const u of r.units) if (u.ch === 'aktuell' || u.ch === 'fach' || u.ch === 'vegetativ') {
     console.log(`${String(u.rank).padStart(3)} ${u.ch.padEnd(9)} ${u.probe.padEnd(30)} ${u.declared ? '' : (u.cs ? '(muette) ' : '')}[${[...u.all].join(', ')}]`);
