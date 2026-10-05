@@ -7,7 +7,7 @@
 // Une hausse de MESURE (validateur élargi) n'est permise que si le fixture la
 // DOCUMENTE dans `hausses` : { compteur, de, a, raison } avec `compteur` = la clé,
 // `de` = la valeur de la base et `a` = celle de la branche EXACTES, `raison` non
-// vide. Toute autre hausse échoue ; la revue de la PR relit chaque entrée.
+// vide, et l'entrée ABSENTE des `hausses` de la base. Toute autre hausse échoue ; la revue relit chaque entrée.
 //
 // Usage : node scripts/checkBudgetFloor.mjs [<ref>=origin/main]   (sur push : github.event.before)
 //         node scripts/checkBudgetFloor.mjs --base-dir <dir> [--head-dir <dir>]   (tests)
@@ -66,7 +66,10 @@ for (const [rel, counters] of Object.entries(FIXTURES)) {
   const base = counters(b);
   const headJson = JSON.parse(readFileSync(join(headDir, rel), 'utf8'));
   const head = counters(headJson);
-  const documentee = (k, v, h) => (headJson.hausses ?? []).some((e) => e.compteur === k && e.de === v && e.a === h && typeof e.raison === 'string' && e.raison.trim() !== '');
+  // Seule une entrée NOUVELLE (absente des `hausses` de la base) excuse : une entrée déjà mergée
+  // n'excuse pas une hausse future aux mêmes chiffres (revue K1 I-1).
+  const dejaLa = (e) => (b.hausses ?? []).some((x) => x.compteur === e.compteur && x.de === e.de && x.a === e.a);
+  const documentee = (k, v, h) => (headJson.hausses ?? []).some((e) => e.compteur === k && e.de === v && e.a === h && typeof e.raison === 'string' && e.raison.trim() !== '' && !dejaLa(e));
   for (const [k, v] of Object.entries(base)) {
     if (!Number.isInteger(v)) continue;
     const h = head[k];

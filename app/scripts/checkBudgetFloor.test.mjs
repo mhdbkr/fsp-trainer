@@ -121,7 +121,8 @@ test('ref git non résolue → exit 2, jamais vert', () => {
 // La base est abaissée de 2 sur horsProfil : la tête (la valeur réelle du fixture) « remonte » de H−2 à H.
 const H = JSON.parse(readFileSync(join(here, '..', '..', COH), 'utf8')).brut.horsProfil;
 const D = H - 2;
-const baseHorsProfil = () => write(coh((j) => ({ ...j, brut: { ...j.brut, horsProfil: D } })));
+// La base n'a pas encore les entrées de la branche (`hausses` vide) : sinon elles n'excuseraient rien (I-1).
+const baseHorsProfil = () => write(coh((j) => ({ ...j, brut: { ...j.brut, horsProfil: D }, hausses: [] })));
 
 test('hausses — une hausse non documentée → rouge, et le message dit l\'entrée attendue', () => {
   baseHorsProfil();
@@ -157,7 +158,7 @@ test('hausses — documentée, chiffres exacts, raison non vide → vert (et sig
 });
 
 test('hausses — une hausse documentée n\'excuse pas une AUTRE hausse', () => {
-  write(coh((j) => ({ ...j, brut: { ...j.brut, horsProfil: D, doublons: j.brut.doublons - 1 } })));
+  write(coh((j) => ({ ...j, brut: { ...j.brut, horsProfil: D, doublons: j.brut.doublons - 1 }, hausses: [] })));
   writeHead(coh((j) => ({ ...j, hausses: [{ compteur: 'horsProfil', de: D, a: H, raison: 'mesure plus fine' }] })));
   const r = floor('--head-dir', head);
   assert.equal(r.status, 1);
@@ -165,3 +166,14 @@ test('hausses — une hausse documentée n\'excuse pas une AUTRE hausse', () => 
 });
 
 test('hausses — le fixture réel face à lui-même reste vert', () => { write(); assert.equal(floor().status, 0); });
+
+test('hausses — une entrée DÉJÀ présente dans la base n\'excuse pas une hausse nouvelle (revue K1 I-1)', () => {
+  // La base porte déjà l'entrée (D → H) ; elle sert de plancher D, la tête remonte encore à H : la vieille
+  // entrée (mergée) ne doit pas excuser une hausse future identique.
+  const entree = { compteur: 'horsProfil', de: D, a: H, raison: 'mesure plus fine' };
+  write(coh((j) => ({ ...j, brut: { ...j.brut, horsProfil: D }, hausses: [entree] })));
+  writeHead(coh((j) => ({ ...j, hausses: [entree] })));
+  const r = floor('--head-dir', head);
+  assert.equal(r.status, 1, r.stdout);
+  assert.match(r.stdout, /horsProfil remonte/);
+});

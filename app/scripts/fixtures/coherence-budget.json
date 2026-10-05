@@ -66,14 +66,6 @@
       "de": 56,
       "a": 65,
       "raison": "La projection de exigeAbsent : une banque sans réponse par signe nouvellement absent (akt-atemnot-belastung ×8, akt-atemnot-husten ×5, fach-rheuma-gelenke ×5…, moins akt-ort ×2). 56 → 65 : le travail d'écriture de K2, auparavant masqué par la même lecture."
-    },
-    {
-      "date": "2026-10-05",
-      "lot": "K1 lecture accents",
-      "compteur": "doublons",
-      "de": 273,
-      "a": 278,
-      "raison": "Mesure, pas contenu : la lecture du lexique ne voyait ni « übel » ni « Ängste » (\\b devant une voyelle accentuée). Corrigée, elle lit la nausée et l'angoisse que les questions du cas posent : 5 doublons `uebelkeit` / `angst` qui existaient et que la lecture ne comptait pas. Face à la base (origin/main : 279) le compteur reste en baisse ; l'entrée documente la hausse face au plancher K1 précédent (273)."
     }
   ]
 }
