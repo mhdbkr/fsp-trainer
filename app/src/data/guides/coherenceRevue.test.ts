@@ -143,7 +143,7 @@ describe('P1-2 à P1-5 — dimensions et pertinence', () => {
     expect(SIGNE_DEF.stuhlfrequenz.pertinence).toEqual(['diarrhoe', 'transit']);
     expect(SIGNE_DEF.miktion_frequenz.pertinence).toEqual(['harn', 'diarrhoe']);
     for (const id of ['case-zystitis', 'case-bph', 'case-oesophaguskarzinom', 'case-hepatitis-b']) expect(akt(id), id).not.toContain('akt-ausscheid-haeufigkeit');
-    for (const id of ['case-obstipation', 'case-kolorektales-ca', 'case-gastroenteritis']) expect(akt(id), id).toContain('akt-ausscheid-haeufigkeit');
+    for (const id of ['case-obstipation', 'case-kolorektales-ca', 'case-gastroenteritis']) expect(akt(id).some((k) => k.startsWith('akt-ausscheid-haeufigkeit')), id).toBe(true);
     expect(akt('case-kolorektales-ca')).toContain('akt-ausscheid-harn-haeufigkeit~nykturie');
     // nykturie reste de dépistage : la Fach Kardio (insuffisance cardiaque) et Endo (polyurie) en ont besoin
     expect(coeur(byId('case-herzinsuffizienz')).fach).toContain('fach-kardio-nykturie');
@@ -166,5 +166,28 @@ describe('P1-6 / P1-7 — le changement remarqué (veraenderung) ne repose pas c
   it('P1-7 : uterus-myomatosus — trouble hémorragique, pas de constat cutané : ni « Befund », ni « Schmerz und Blutung »', () => {
     expect(coeur(byId('case-uterus-myomatosus')).aktuell).not.toContain('akt-veraend-was');
     expect(coeur(byId('case-uterus-myomatosus')).aktuell.some((k) => k.startsWith('akt-veraend-blutung'))).toBe(false);
+  });
+});
+
+describe('P1-8 à P1-12 — déclarations des questions du cas, banques', () => {
+  const sucht = (id: string, re: RegExp) => { const q = byId(id).caseSpecificQuestions.find((x) => typeof x !== 'string' && re.test(x.frage)); return typeof q === 'string' ? undefined : q?.sucht; };
+  const textes = (id: string) => trameJouee(byId(id)).flatMap((x) => x.questions.flatMap((p) => [phraseText(p), ...phraseFollowUps(p).map((f) => f.text)]));
+  it('P1-8 : herzinsuffizienz — « Mit wie vielen Kissen … nachts aufwachen » déclare orthopnoe et dpn', () => {
+    expect(sucht('case-herzinsuffizienz', /Kissen/)).toEqual(['orthopnoe', 'dpn']);
+  });
+  it('P1-9 : la banque de la dyspnée est fach-pneumo-atemnot ; chaque cas où r3 l\'ajoute a sa réponse', () => {
+    expect(SIGNE_DEF.atemnot.bank).toBe('fach-pneumo-atemnot');
+    for (const c of cases) for (const e of playedTrame(c).ecarts.filter((x) => x.action === 'ajoute' && x.question === 'fach-pneumo-atemnot'))
+      expect(c.patientSheet.antworten?.['fach-pneumo-atemnot'], `${c.id} ${e.raison}`).toBeTruthy();
+  });
+  it('P1-10 : la nuit des selles est un signe ; akt-ausscheid-haeufigkeit a ses parts jour / nuit ; crohn et zoeliakie la déclarent', () => {
+    expect(SIGNE_DEF.stuhl_nachts).toBeTruthy();
+    expect(sucht('case-morbus-crohn', /nachts wegen des Durchfalls/)).toEqual(['stuhl_nachts']);
+    expect(sucht('case-zoeliakie', /nachts zum Stuhlgang/)).toEqual(['stuhl_nachts']);
+    for (const id of ['case-morbus-crohn', 'case-zoeliakie']) expect(textes(id).filter((t) => /nachts .*Stuhlgang|nachts wegen des Durchfalls/.test(t)), id).toHaveLength(1);
+  });
+  it('P1-12 : la vaccination n\'est posée qu\'une fois dans les 6 cas où une question du cas la pose', () => {
+    for (const id of ['case-pneumonie', 'case-copd', 'case-itp', 'case-abszess', 'case-pertussis', 'case-hodentorsion'])
+      expect(textes(id), id).not.toContain('Sind Ihre Impfungen auf dem neuesten Stand?');
   });
 });

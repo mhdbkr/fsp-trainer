@@ -26,7 +26,8 @@ export const DEFS = {
   gelenke: { kapitel: 'fach', pertinence: ['gelenk', 'arthritis', 'lyme'], bank: 'fach-rheuma-gelenke' },
   // --- Aktuelle Beschwerden ---------------------------------------------------
   fieber: { kapitel: 'aktuell', pertinence: S, bank: 'akt-infekt-fieber' },
-  atemnot: { kapitel: 'aktuell', pertinence: S, bank: 'akt-atemnot-belastung' },
+  // K3 (revue P1-9) : la banque est la question neutre « Bekommen Sie schwer Luft? » — celle de la variante présuppose la dyspnée.
+  atemnot: { kapitel: 'aktuell', pertinence: S, bank: 'fach-pneumo-atemnot' },
   husten: { kapitel: 'aktuell', pertinence: S, bank: 'akt-atemnot-husten' },
   orthopnoe: { kapitel: 'aktuell', pertinence: S },
   kopfschmerz: { kapitel: 'aktuell', pertinence: S },
@@ -40,6 +41,7 @@ export const DEFS = {
   blutung: { kapitel: 'aktuell', pertinence: S },          // signe GROSSIER : ce que la lecture du texte trouve ; les sondes déclarent l'un des signes fins (revue K1 C5)
   // K3 (revue P1-5) : la fréquence des selles se cherche dans une diarrhée ou un trouble du transit — pas dans une plainte urinaire.
   stuhlfrequenz: { kapitel: 'aktuell', pertinence: ['diarrhoe', 'transit'], bank: 'akt-ausscheid-haeufigkeit' },
+  stuhl_nachts: { kapitel: 'aktuell', pertinence: ['diarrhoe', 'transit'] },   // K3 (revue P1-10) : se lever la nuit pour aller à selle (signe d'organicité)
   stuhlaussehen: { kapitel: 'aktuell', pertinence: S },   // l'aspect : consistance, couleur (« wässrig oder breiig »)
   // K3 (revue clinique P0-1) : le SANG dans les selles (rouge, noir, mucus sanglant) — signe d'alarme, autre réplique que l'aspect.
   // Banque : « Ist Ihnen Blut, Schleim oder eine ungewöhnliche Farbe im Stuhl aufgefallen? » (sa réplique est l'alarme).

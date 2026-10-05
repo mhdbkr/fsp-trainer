@@ -3458,7 +3458,7 @@ export function seedCases(): Case[] {
       },
       probableAufklaerungIds: [],
       caseSpecificQuestions: [
-        { frage: 'Sind Sie gegen die Grippe oder gegen Pneumokokken geimpft?', kapitel: 'vorerkrankungen' },
+        { frage: 'Sind Sie gegen die Grippe oder gegen Pneumokokken geimpft?', kapitel: 'vorerkrankungen', sucht: ['impfung'] },
         { frage: 'Wurden Sie wegen Ihrer Krebserkrankung mit einer Chemotherapie oder Bestrahlung behandelt?', kapitel: 'medikamente' },
         { frage: 'Haben Sie in den letzten Wochen ein Antibiotikum eingenommen?', kapitel: 'medikamente' },
       ],
@@ -9187,7 +9187,7 @@ export function seedCases(): Case[] {
       caseSpecificQuestions: [
         { frage: 'Husten Sie schon seit Jahren, fast jeden Morgen, oder ist der Husten neu aufgetreten?', kapitel: 'aktuell', sucht: ['husten'] },
         { frage: 'Wie oft hatten Sie im letzten Jahr eine solche Verschlechterung? Haben Sie dafür Kortisontabletten oder ein Antibiotikum bekommen, und waren Sie deswegen im Krankenhaus?', kapitel: 'vorerkrankungen' },
-        { frage: 'Sind Sie gegen Grippe und gegen Pneumokokken geimpft?', kapitel: 'vorerkrankungen' },
+        { frage: 'Sind Sie gegen Grippe und gegen Pneumokokken geimpft?', kapitel: 'vorerkrankungen', sucht: ['impfung'] },
         { frage: 'Sind Ihre Beine geschwollen? Müssen Sie nachts Wasser lassen, und mit wie vielen Kissen schlafen Sie?', kapitel: 'aktuell', sucht: ['oedeme', 'orthopnoe'] },
         { frage: 'Was heißt bei Ihnen „das Spray bei Bedarf nehmen“ — wie oft nehmen Sie es tatsächlich, und wie wenden Sie es an?', kapitel: 'medikamente' },
         { frage: 'Waren Sie beruflich Stäuben, Abgasen, Asbest oder Vögeln ausgesetzt? Wird bei Ihnen zu Hause geraucht?', kapitel: 'familie-sozial' },
@@ -11433,7 +11433,7 @@ export function seedCases(): Case[] {
         'auf-sonographie',
       ],
       caseSpecificQuestions: [
-        { frage: 'Mit wie vielen Kissen schlafen Sie, und wachen Sie nachts auf, weil Sie keine Luft bekommen?', kapitel: 'aktuell', sucht: ['orthopnoe'] },
+        { frage: 'Mit wie vielen Kissen schlafen Sie, und wachen Sie nachts auf, weil Sie keine Luft bekommen?', kapitel: 'aktuell', sucht: ['orthopnoe', 'dpn'] },
         { frage: 'Haben Sie sich gewogen?', kapitel: 'vegetativ', sucht: ['gewicht'], followUp: 'Falls ja: Wie viel haben Sie zugenommen?' },
         { frage: 'Sind beide Beine gleich stark geschwollen? Bleibt eine Delle stehen, wenn Sie mit dem Finger daraufdrücken?', kapitel: 'aktuell' },
         { frage: 'Nehmen Sie alle Ihre Tabletten so ein, wie sie verschrieben wurden — haben Sie eine davon weggelassen, zum Beispiel die Entwässerungstablette?', kapitel: 'medikamente' },
@@ -20469,6 +20469,8 @@ export function seedCases(): Case[] {
           'fach-onko-vorsorge': 'Darmspiegelung mit 60, alles in Ordnung. Zum Urologen gehe ich jedes Jahr, der Wert war immer normal. Und die Lunge wurde vor drei Monaten geröntgt, wegen der Lungenentzündung.',
           // K2 (ADR-0023) : réponses des sondes de banque que le profil exige (r3)
           'akt-atemnot-belastung': 'Bei Belastung. Nach etwa hundert Metern in der Ebene oder nach einer Treppe muss ich stehen bleiben — vor einem halben Jahr bin ich noch den Hang zum Garten hoch. Im Sitzen habe ich keine Luftnot.',
+          // K3 (revue P1-9) : la banque de la dyspnée est fach-pneumo-atemnot — même réplique que pour la question de la variante.
+          'fach-pneumo-atemnot': 'Bei Belastung. Nach etwa hundert Metern in der Ebene oder nach einer Treppe muss ich stehen bleiben — vor einem halben Jahr bin ich noch den Hang zum Garten hoch. Im Sitzen habe ich keine Luftnot.',
         },
         schwierigeReaktionen: [
           '"Habe ich Krebs? Sagen Sie es mir bitte ehrlich. Mein Vater ist daran gestorben."',
@@ -22308,7 +22310,7 @@ export function seedCases(): Case[] {
       ],
       caseSpecificQuestions: [
         { frage: 'Haben Sie Blut IM Stuhl gesehen, oder nur AM Toilettenpapier beim Abputzen? Brennt es dabei?', kapitel: 'aktuell' },
-        { frage: 'Müssen Sie auch nachts wegen des Durchfalls aufstehen?', kapitel: 'aktuell' },
+        { frage: 'Müssen Sie auch nachts wegen des Durchfalls aufstehen?', kapitel: 'aktuell', sucht: ['stuhl_nachts'] },
         { frage: 'Ist Ihr Stuhl fettig-glänzend und schwer abzuspülen?', kapitel: 'aktuell' },
         { frage: 'Waren Sie in den letzten Monaten im Ausland?', kapitel: 'vegetativ', sucht: ['reise'], relu: true, followUp: 'Falls ja: Hatten Sie dort Durchfall?' },
         { frage: 'Haben Sie in den letzten Monaten Antibiotika eingenommen?', kapitel: 'medikamente' },
@@ -28799,7 +28801,7 @@ export function seedCases(): Case[] {
         { frage: 'Ist Ihr Stuhl fettig-glänzend, schwimmt er oben, oder klebt er in der Toilette?', kapitel: 'aktuell' },
         { frage: 'Reagieren Sie eher auf Brot, Nudeln und Kuchen, oder eher auf Milch und Milchprodukte?', kapitel: 'aktuell' },
         { frage: 'Haben Sie von sich aus bereits begonnen, bestimmte Lebensmittel wegzulassen — zum Beispiel Brot oder Mehlprodukte?', kapitel: 'aktuell' },
-        { frage: 'Müssen Sie auch nachts zum Stuhlgang aufstehen?', kapitel: 'aktuell', relu: true },
+        { frage: 'Müssen Sie auch nachts zum Stuhlgang aufstehen?', kapitel: 'aktuell', relu: true, sucht: ['stuhl_nachts'] },
         { frage: 'Haben Sie stark juckende Bläschen oder Hautausschläge, besonders an Ellenbogen, Knien oder am Gesäß?', kapitel: 'aktuell' },
         { frage: 'Leiden Sie an wiederkehrenden Aphthen im Mund, an brüchigen Nägeln oder an Knochenschmerzen?', kapitel: 'aktuell' },
         { frage: 'Sind bei Ihnen Blutarmut oder Eisenmangel bekannt, und hat eine Eisentablette jemals nicht angeschlagen?', kapitel: 'vorerkrankungen' },
@@ -32056,7 +32058,7 @@ export function seedCases(): Case[] {
         { frage: 'Lassen sich die roten Punkte an den Beinen wegdrücken, wenn Sie mit dem Finger oder einem Glas darauf drücken?', kapitel: 'aktuell' },
         { frage: 'Blutet Ihr Zahnfleisch beim Zähneputzen, und hatten Sie Nasenbluten?', kapitel: 'aktuell', relu: true },
         { frage: 'Ist Ihre letzte Regelblutung stärker oder länger gewesen als sonst?', kapitel: 'frauenanamnese', followUp: 'Falls ja: Wie viele Binden oder Tampons haben Sie gebraucht?' },
-        { frage: 'Hatten Sie in den letzten Wochen einen Infekt, eine Erkältung oder eine Impfung?', kapitel: 'vorerkrankungen' },
+        { frage: 'Hatten Sie in den letzten Wochen einen Infekt, eine Erkältung oder eine Impfung?', kapitel: 'vorerkrankungen', sucht: ['vorinfekt', 'impfung'] },
         { frage: 'Haben Sie in den letzten Monaten Spritzen in den Bauch bekommen, zum Beispiel Thrombosespritzen nach einer Operation?', kapitel: 'medikamente' },
         { frage: 'Haben Sie Kopfschmerzen, Erbrechen, Sehstörungen oder Schwindel bemerkt?', kapitel: 'aktuell', relu: true },
       ],
@@ -39856,6 +39858,8 @@ export function seedCases(): Case[] {
           'fach-endo-familie-therapie': 'Meine Mutter hat Zucker, Typ 2, und nimmt Tabletten; meine Schwester hat eine Schilddrüsenunterfunktion und nimmt Hormone. Ich selbst bin deswegen nie behandelt oder kontrolliert worden — mein Blutzucker ist meines Wissens noch nie gemessen worden.',
           // K2 (ADR-0023) : réponses des sondes de banque que le profil exige (r3)
           'akt-atemnot-belastung': 'Beim Treppensteigen in den dritten Stock bin ich oben aus der Puste, das kannte ich früher nicht. Im Sitzen ist alles gut.',
+          // K3 (revue P1-9) : la banque de la dyspnée est fach-pneumo-atemnot — même réplique que pour la question de la variante.
+          'fach-pneumo-atemnot': 'Beim Treppensteigen in den dritten Stock bin ich oben aus der Puste, das kannte ich früher nicht. Im Sitzen ist alles gut.',
         },
         schwierigeReaktionen: [
           '"Was habe ich denn, Frau Doktor? Sagen Sie es mir bitte ehrlich."',
@@ -42683,6 +42687,8 @@ export function seedCases(): Case[] {
           'fach-endo-familie-therapie': 'Mein Vater hatte Zucker, er hat Tabletten genommen. Von der Schilddrüse ist in der Familie nichts bekannt. Ich selbst werde deswegen nicht behandelt — bis gestern hat mir nie jemand gesagt, dass ich Zucker habe. Nur den Blutdruck lasse ich beim Hausarzt kontrollieren.',
           // K2 (ADR-0023) : réponses des sondes de banque que le profil exige (r3)
           'akt-atemnot-belastung': 'Auf der Treppe in den dritten Stock muss ich zweimal stehen bleiben. In Ruhe oder im Liegen habe ich keine Luftnot.',
+          // K3 (revue P1-9) : la banque de la dyspnée est fach-pneumo-atemnot — même réplique que pour la question de la variante.
+          'fach-pneumo-atemnot': 'Auf der Treppe in den dritten Stock muss ich zweimal stehen bleiben. In Ruhe oder im Liegen habe ich keine Luftnot.',
         },
         frageAntworten: [
           {
@@ -43509,7 +43515,7 @@ export function seedCases(): Case[] {
       caseSpecificQuestions: [
         { frage: 'Sie sagen, Ihr Gesicht werde plötzlich rot — wie lange dauert das, wo genau breitet es sich aus, und schwitzen Sie dabei?', kapitel: 'aktuell', relu: true },
         { frage: 'Gibt es etwas, das diese Rötung regelmäßig auslöst — Alkohol, scharfes Essen, Käse, Schokolade, Aufregung oder Anstrengung?', kapitel: 'aktuell' },
-        { frage: 'Müssen Sie auch nachts wegen Durchfall aufstehen, und wie oft haben Sie insgesamt Stuhlgang am Tag?', kapitel: 'aktuell', sucht: ['stuhlfrequenz'] },
+        { frage: 'Müssen Sie auch nachts wegen Durchfall aufstehen, und wie oft haben Sie insgesamt Stuhlgang am Tag?', kapitel: 'aktuell', sucht: ['stuhl_nachts', 'stuhlfrequenz'] },
         { frage: 'Und wie war es vor diesen sechs Wochen — hatten Sie schon früher Phasen mit Durchfall und Bauchschmerzen?', kapitel: 'aktuell', relu: true },
         { frage: 'Was hat Ihr Hausarzt damals untersucht, bevor er Ihnen gesagt hat, das sei ein Reizdarm? Wurde eine Darmspiegelung gemacht?', kapitel: 'vorerkrankungen' },
         { frage: 'Bekommen Sie während dieser Rötungsanfälle Herzrasen oder Luftnot, und pfeift es dabei beim Atmen?', kapitel: 'aktuell', sucht: ['herzrasen', 'atemnot', 'giemen'] },
@@ -44033,7 +44039,7 @@ export function seedCases(): Case[] {
         { frage: 'Wie gut ist Ihr Zucker eingestellt — wann wurde zuletzt der Langzeitzucker bestimmt?', kapitel: 'vorerkrankungen' },
         { frage: 'Nehmen Sie Kortison oder Medikamente, die das Abwehrsystem unterdrücken?', kapitel: 'medikamente' },
         { frage: 'Haben Sie im Bein ein Kribbeln, ein Taubheitsgefühl oder eine Schwäche bemerkt?', kapitel: 'aktuell' },
-        { frage: 'Wann hatten Sie die letzte Tetanusimpfung?', kapitel: 'vorerkrankungen' },
+        { frage: 'Wann hatten Sie die letzte Tetanusimpfung?', kapitel: 'vorerkrankungen', sucht: ['impfung'] },
       ],
       examinerQuestions: [
         'Warum ist der Patient hier, und welche Beschwerden hat er?',
@@ -47525,7 +47531,7 @@ export function seedCases(): Case[] {
         { frage: 'Ziehen Sie am Ende des Anfalls hörbar die Luft ein, so ein Keuchen oder Juchzen?', kapitel: 'aktuell' },
         { frage: 'Müssen Sie sich nach dem Husten übergeben? Würgen Sie Schleim hoch?', kapitel: 'aktuell', relu: true },
         { frage: 'Wie geht es Ihnen zwischen den Anfällen — sind Sie dann ganz beschwerdefrei?', kapitel: 'aktuell' },
-        { frage: 'Wann wurden Sie zuletzt geimpft — steht in Ihrem Impfpass eine Keuchhusten-Impfung als Erwachsener?', kapitel: 'vorerkrankungen' },
+        { frage: 'Wann wurden Sie zuletzt geimpft — steht in Ihrem Impfpass eine Keuchhusten-Impfung als Erwachsener?', kapitel: 'vorerkrankungen', sucht: ['impfung'] },
         { frage: 'Leben Säuglinge oder Schwangere in Ihrem Haushalt oder Umfeld? Hatten Sie in den letzten Wochen Kontakt zu einem Baby?', kapitel: 'familie-sozial' },
         { frage: 'Nehmen Sie Blutdruckmedikamente, insbesondere einen ACE-Hemmer?', kapitel: 'medikamente' },
       ],
@@ -47850,6 +47856,8 @@ export function seedCases(): Case[] {
           'frau-wechseljahre': 'Seit ich 51 bin, seit drei Jahren. Anfangs hatte ich Hitzewallungen, das ist besser geworden. Hormone nehme ich keine.',
           // K2 (ADR-0023) : réponses des sondes de banque que le profil exige (r3)
           'akt-atemnot-belastung': 'Beim Treppensteigen bin ich schnell außer Atem, in Ruhe nicht.',
+          // K3 (revue P1-9) : la banque de la dyspnée est fach-pneumo-atemnot — même réplique que pour la question de la variante.
+          'fach-pneumo-atemnot': 'Beim Treppensteigen bin ich schnell außer Atem, in Ruhe nicht.',
           'fach-rheuma-gelenke': 'Nur das rechte Knie und der linke Knöchel, seit ungefähr zwei Wochen. Gewandert ist das nicht.',
           // K2 (ADR-0023) : réponses des sondes de banque que le profil exige (r3)
           'akt-ort': 'Links unten im Bauch, manchmal zieht es bis zum Schambein.',
@@ -48020,7 +48028,7 @@ export function seedCases(): Case[] {
         'auf-bluttransfusion',
       ],
       caseSpecificQuestions: [
-        { frage: 'Wie oft müssen Sie am Tag zur Toilette — und müssen Sie auch nachts aufstehen?', kapitel: 'aktuell', sucht: ['stuhlfrequenz'] },
+        { frage: 'Wie oft müssen Sie am Tag zur Toilette — und müssen Sie auch nachts aufstehen?', kapitel: 'aktuell', sucht: ['stuhlfrequenz', 'stuhl_nachts'] },
         { frage: 'Ist das Blut nur am Toilettenpapier oder mit dem Stuhl vermischt?', kapitel: 'aktuell', followUp: 'Welche Farbe hat es — hellrot oder schwarz?' },
         { frage: 'Haben Sie einen plötzlichen, sehr dringenden Stuhldrang und danach das Gefühl, nicht fertig zu sein?', kapitel: 'aktuell' },
         { frage: 'Haben Sie in letzter Zeit mit dem Rauchen aufgehört?', kapitel: 'noxen' },
@@ -49339,6 +49347,8 @@ export function seedCases(): Case[] {
           'fach-nephro-vorgeschichte': 'Nein, mit den Nieren hatte ich nie etwas. Keine Steine, keine Blasenentzündung, und der Urin war beim Check-up vor zwei Jahren in Ordnung. In der Familie gibt es auch keine Nierenkrankheit — keine Zystennieren, keine Dialyse.',
           // K2 (ADR-0023) : réponses des sondes de banque que le profil exige (r3)
           'akt-atemnot-belastung': 'Schon beim ersten Stock komme ich außer Atem. In Ruhe nicht, und flach liegen kann ich auch.',
+          // K3 (revue P1-9) : la banque de la dyspnée est fach-pneumo-atemnot — même réplique que pour la question de la variante.
+          'fach-pneumo-atemnot': 'Schon beim ersten Stock komme ich außer Atem. In Ruhe nicht, und flach liegen kann ich auch.',
         },
         schwierigeReaktionen: [
           '"Das ist doch nur Wasser in den Beinen — kann man mir nicht einfach eine Wassertablette geben und ich gehe wieder?"',
@@ -58661,7 +58671,7 @@ export function seedCases(): Case[] {
         { frage: 'Ist der Hoden geschwollen oder gerötet, und steht er höher als der andere?', kapitel: 'aktuell' },
         { frage: 'Gab es gestern beim Fußball einen Tritt, einen Ball oder einen Sturz — irgendeine Verletzung im Genitalbereich?', kapitel: 'aktuell' },
         { frage: 'Hatten Sie so einen Schmerz schon einmal, vielleicht kürzer, und ist er dann von allein wieder verschwunden?', kapitel: 'aktuell' },
-        { frage: 'Hatten Sie als Kind einen Hodenhochstand oder eine Operation an der Leiste? Sind Sie gegen Mumps geimpft?', kapitel: 'vorerkrankungen' },
+        { frage: 'Hatten Sie als Kind einen Hodenhochstand oder eine Operation an der Leiste? Sind Sie gegen Mumps geimpft?', kapitel: 'vorerkrankungen', sucht: ['impfung'] },
       ],
       examinerQuestions: [
         'Wie lautet Ihre Verdachtsdiagnose, und was hat Sie zu dieser Diagnose geführt?',

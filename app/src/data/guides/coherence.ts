@@ -254,6 +254,13 @@ export function cohere<T extends TrameChapter>(trame: readonly T[], profil: Prof
     // La banque est l'unité du signe : sa question et ses relances de PRÉCISION. Une relance qui cherche un autre
     // signe est une autre unité, que rien n'exige : elle n'est pas ajoutée (sinon la passe suivante la détacherait).
     const u = unite(guide, SIGNE_DEF[s].kapitel, 0, profil.tags);
+    // Une banque à `parts` (jour / nuit) n'ajoute que les parts que personne ne pose déjà : r3 ne crée pas de doublon.
+    const parts = variant(guide)?.parts;
+    if (parts) {
+      const deja = new Set(vivants().flatMap((v) => v.signes));
+      const keep = parts.map((_, i) => i).filter((i) => parts[i].sucht.some((x) => !deja.has(x as Signe)));
+      if (keep.length < parts.length) { u.parts = keep; u.signes = u.signes.filter((x) => !deja.has(x)); }
+    }
     if (u.enfants.length) {
       const v = variant(guide)!;
       const idx = u.rels;

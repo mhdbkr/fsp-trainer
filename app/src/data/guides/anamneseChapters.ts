@@ -402,6 +402,12 @@ const AKTUELL_VARIANTS: Record<LeitsymptomKategorie, AktuellVariant> = {
         text: 'Häufigkeit — Wie oft haben Sie am Tag Stuhlgang, und müssen Sie auch nachts zum Stuhlgang aufstehen?',
         probe: 'akt-ausscheid-haeufigkeit',
         followUp: ['Mehr oder weniger als sonst?'],
+        // K3 (revue P1-10) : le jour et la nuit — deux répliques ; les parts sont découpées du texte.
+        sucht: ['stuhlfrequenz', 'stuhl_nachts'],
+        parts: [
+          { sucht: ['stuhlfrequenz'], text: 'Wie oft haben Sie am Tag Stuhlgang?', followUp: ['Mehr oder weniger als sonst?'] },
+          { sucht: ['stuhl_nachts'], text: 'Müssen Sie auch nachts zum Stuhlgang aufstehen?' },
+        ],
       },
       { text: 'Aussehen — Ist Ihnen Blut, Schleim oder eine ungewöhnliche Farbe im Stuhl aufgefallen?', probe: 'akt-ausscheid-aussehen' },
       {

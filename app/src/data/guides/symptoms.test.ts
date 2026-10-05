@@ -140,8 +140,8 @@ describe('Lexique de signes — INV-77 (cohérent) et INV-78 (granularité)', ()
   it('le lexique réel est cohérent', () => {
     expect(lexiqueIncoherences()).toEqual([]);
   });
-  it('porte 221 signes : 69 de K0 (11 dimensions, 39 concepts d\u2019origine, 19 ajouts), puis ceux de K1 (137 + 9 de sa revue), `insektenstich` (revue K2 C3), `beginn_art`, `selbstverletzung_wunsch`, `stuhl_blut`, `zungenbiss`, `einnaessen` (K3) ; le motif en tête (K3, règle d\u2019insertion) ; un SIGNE_DEF chacun', () => {
-    expect(SIGNES).toHaveLength(221);
+  it('porte 222 signes : 69 de K0 (11 dimensions, 39 concepts d\u2019origine, 19 ajouts), puis ceux de K1 (137 + 9 de sa revue), `insektenstich` (revue K2 C3), `beginn_art`, `selbstverletzung_wunsch`, `stuhl_blut`, `zungenbiss`, `einnaessen`, `stuhl_nachts` (K3) ; le motif en tête (K3, règle d\u2019insertion) ; un SIGNE_DEF chacun', () => {
+    expect(SIGNES).toHaveLength(222);
     expect(Object.keys(SIGNE_DEF)).toEqual([...SIGNES]);
     expect(SIGNES[0]).toBe('motiv');
     expect(SIGNES.slice(1, 13)).toEqual(['ort', 'beginn', 'beginn_art', 'charakter', 'intensitaet', 'ausstrahlung', 'verlauf', 'ausloeser', 'einfluss', 'frueher', 'begleit', 'gelenke']);

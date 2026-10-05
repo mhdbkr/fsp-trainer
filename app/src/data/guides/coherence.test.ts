@@ -117,7 +117,7 @@ describe('INV-83 — rien d\'attendu absent (r3)', () => {
       expect(un(t.ecarts, 'akt-ausscheid-haeufigkeit', 'ajoute'), id).toMatchObject({ cause: 'diarrhoe' });
       expect(un(t.ecarts, 'akt-ausscheid-haeufigkeit', 'ajoute')!.sansReponse, id).toBeUndefined();
       const q = t.chapters.find((x) => x.id === 'aktuell')!.questions.find((p) => phraseProbes(p).includes('akt-ausscheid-haeufigkeit'))!;
-      expect(phraseText(q), id).toMatch(/^Häufigkeit — Wie oft haben Sie am Tag Stuhlgang/);
+      expect(phraseText(q), id).toMatch(/Wie oft haben Sie am Tag Stuhlgang/);   // entière, ou sa part du jour (P1-10)
       expect(c.patientSheet.antworten?.['akt-ausscheid-haeufigkeit'], id).toBeTruthy();
     }
   });
@@ -315,7 +315,7 @@ describe('SÉCURITÉ — aucun signe de risque n\'est perdu (r1 ne le retire jam
 describe('case-gastroenteritis et case-fibromyalgie — la trame jouée (cœur : Aktuelle Beschwerden, Fach, végétative)', () => {
   it('gastroenteritis : Schlucken et Gelenke retirés (r1), Ort / Charakter / Intensität ajoutés après le motif (r3, D2), fréquence des selles posée', () => {
     expect(coeur(byId('case-gastroenteritis'))).toEqual({
-      aktuell: ['akt-motiv', 'akt-ort', 'akt-beginn', 'akt-charakter', 'akt-intensitaet', 'cas', 'akt-ausscheid-was', 'akt-ausscheid-haeufigkeit', 'akt-ausscheid-aussehen',
+      aktuell: ['akt-motiv', 'akt-ort', 'akt-beginn', 'akt-charakter', 'akt-intensitaet', 'cas', 'akt-ausscheid-was', 'akt-ausscheid-haeufigkeit~stuhlfrequenz,stuhl_nachts', 'akt-ausscheid-aussehen',
         'akt-ausscheid-harn-haeufigkeit~nykturie', 'akt-verlauf', 'akt-ausloeser', 'akt-einfluss', 'akt-frueher', 'akt-begleit', 'cas', 'cas'],
       fach: ['fach-infekt-haut', 'fach-infekt-neuro', 'fach-infekt-reise', 'fach-infekt-kontakt', 'fach-infekt-impfung'],
       vegetativ: ['veg-schuettelfrost~schwitzen', 'veg-uebelkeit', 'veg-gewicht', 'veg-appetit', 'veg-schlaf', 'cas'],

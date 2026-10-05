@@ -40,7 +40,6 @@ const GARDEES: Record<string, Raison> = {
   'fach-haem-blutverlust -> akt-veraend-blutung': 'reduit',
   'fach-onko-blutung -> akt-veraend-blutung': 'reduit',
   'fach-onko-knoten -> akt-veraend-was': 'non-reduit',
-  'fach-kardio-oedeme -> akt-atemnot-nachts': 'non-reduit',
   'fach-neuro-kraft -> akt-nerven-alltag': 'non-reduit',
   // Signe partagé, la perdante a des `parts` : réduite à ce que la Fach ne demande pas (Appetit, Durst).
   'fach-haem-bsymptomatik -> akt-allgemein-gewicht': 'reduit',
@@ -74,10 +73,10 @@ describe('FACH_COVERS absorbé par r2 — chaque paire retirée, ou gardée pour
     }
   }
 
-  it('la table gelée a 73 paires ; 71 s\'appliquent à au moins un cas ; 27 restent posées (raison listée)', () => {
+  it('la table gelée a 73 paires ; 71 s\'appliquent à au moins un cas ; 26 restent posées (raison listée)', () => {
     expect(PAIRES).toHaveLength(73);
     expect(etat.size).toBe(71);
-    expect(Object.keys(GARDEES)).toHaveLength(27);
+    expect(Object.keys(GARDEES)).toHaveLength(26);
   });
   it('les paires gardées sont exactement celles listées', () => {
     const gardees = [...etat].filter(([, s]) => s.retiree < s.n).map(([k]) => k).sort();
