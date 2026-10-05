@@ -76,7 +76,7 @@ describe('P0-1 — le sang dans les selles (`stuhl_blut`) est un signe, exigé p
   });
   it('gastroenteritis : « Blut, Schleim » revient, avec sa réponse ; « Wie sieht Ihr Stuhl aus » ne déclare que l\'aspect', () => {
     const g = byId('case-gastroenteritis');
-    expect(coeur(g).aktuell).toContain('akt-ausscheid-aussehen');
+    expect(coeur(g).aktuell).toContain('akt-ausscheid-aussehen~stuhl_blut');
     expect(g.patientSheet.antworten?.['akt-ausscheid-aussehen']).toBeTruthy();
     const q = g.caseSpecificQuestions.find((x) => typeof x !== 'string' && /Wie sieht Ihr Stuhl aus/.test(x.frage));
     expect(typeof q !== 'string' && q?.sucht).toEqual(['stuhl', 'stuhlaussehen']);   // jamais stuhl_blut (garde-fou) ; `stuhl` : la question du cas pose le changement des selles
@@ -326,5 +326,17 @@ describe('P2 — une part réduite porte le libellé de dimension de sa mère', 
     expect(akt('case-fibromyalgie')).toContain('Beginn — Seit wann haben Sie die Schmerzen?');
     expect(akt('case-mammakarzinom')).toContain('Schmerz und Blutung — Tut es weh, juckt es?');
     expect(akt('case-depression')).toContain('Verlauf — Ist es jeden Tag gleich, oder gibt es bessere und schlechtere Tage?');
+  });
+});
+
+describe('gastroenteritis — la couleur des selles n\'est demandée qu\'une fois', () => {
+  it('la question du cas (« wässrig oder breiig, welche Farbe ») garde l\'aspect ; la banque ne garde que l\'alarme', () => {
+    const akt = playedTrame(byId('case-gastroenteritis')).chapters.find((x) => x.id === 'aktuell')!.questions.map(phraseText);
+    expect(akt).toContain('Aussehen — Ist Ihnen Blut oder Schleim im Stuhl aufgefallen?');
+    expect(akt.filter((t) => /Farbe/.test(t))).toHaveLength(1);
+  });
+  it('sans question du cas sur l\'aspect, la banque reste entière (akutes-nierenversagen)', () => {
+    const akt = playedTrame(byId('case-akutes-nierenversagen')).chapters.find((x) => x.id === 'aktuell')!.questions.map(phraseText);
+    expect(akt).toContain('Aussehen — Ist Ihnen Blut, Schleim oder eine ungewöhnliche Farbe im Stuhl aufgefallen?');
   });
 });

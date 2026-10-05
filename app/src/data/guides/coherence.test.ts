@@ -315,7 +315,7 @@ describe('SÉCURITÉ — aucun signe de risque n\'est perdu (r1 ne le retire jam
 describe('case-gastroenteritis et case-fibromyalgie — la trame jouée (cœur : Aktuelle Beschwerden, Fach, végétative)', () => {
   it('gastroenteritis : Schlucken et Gelenke retirés (r1), Ort / Charakter / Intensität ajoutés après le motif (r3, D2), fréquence des selles posée', () => {
     expect(coeur(byId('case-gastroenteritis'))).toEqual({
-      aktuell: ['akt-motiv', 'akt-ort', 'akt-beginn', 'akt-charakter', 'akt-intensitaet', 'akt-ausscheid-haeufigkeit~stuhlfrequenz,stuhl_nachts', 'akt-ausscheid-aussehen',
+      aktuell: ['akt-motiv', 'akt-ort', 'akt-beginn', 'akt-charakter', 'akt-intensitaet', 'akt-ausscheid-haeufigkeit~stuhlfrequenz,stuhl_nachts', 'akt-ausscheid-aussehen~stuhl_blut',
         'akt-verlauf', 'akt-ausloeser', 'akt-einfluss', 'akt-frueher', 'akt-begleit', 'cas', 'cas'],   // revue clinique : aktuellSkip « Was hat sich verändert »
       fach: ['fach-infekt-reise', 'cas', 'fach-infekt-kontakt~kontakt', 'fach-infekt-impfung'],   // « dort gegessen » suit le voyage (r4b) ; Lyme hors sujet (fachSkip)
       vegetativ: ['veg-schuettelfrost~schwitzen', 'veg-uebelkeit', 'veg-ausscheidung~miktion', 'veg-gewicht', 'veg-appetit', 'veg-schlaf', 'cas'],

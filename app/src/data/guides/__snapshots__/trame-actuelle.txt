@@ -893,7 +893,7 @@ case-uterus-myomatosus
 case-akutes-nierenversagen
   eroeffnung[· · · ·]
   personalia[pers-name pers-name pers-alter pers-groesse pers-hausarzt ·]
-  aktuell[akt-motiv akt-beginn akt-allgemein-art akt-allgemein-alltag↳1 akt-allgemein-tageszeit↳1 akt-allgemein-gewicht~durst akt-verlauf akt-ausloeser akt-einfluss akt-frueher↳1 akt-begleit akt-ausscheid-aussehen cas↳1 cas]
+  aktuell[akt-motiv akt-beginn akt-allgemein-art akt-allgemein-alltag↳1 akt-allgemein-tageszeit↳1 akt-allgemein-gewicht~durst akt-verlauf akt-ausloeser akt-einfluss akt-frueher↳1 akt-begleit akt-ausscheid-aussehen~stuhl_blut,stuhlaussehen cas↳1 cas]
   fach-nephro[fach-nephro-menge↳1 fach-nephro-aussehen fach-nephro-oedeme~oedeme fach-nephro-blutdruck fach-nephro-nephrotoxisch fach-nephro-uraemie fach-nephro-infekt fach-nephro-vorgeschichte]
   vegetativ[veg-fieber↳4 veg-schuettelfrost cas veg-ausscheidung↳1 veg-schlaf cas ^veg-fieber#5~impfung]
   vorerkrankungen[· vor-erkrank↳1 vor-op↳1 vor-krankenhaus cas cas]
@@ -1064,7 +1064,7 @@ case-diabetes-typ1
 case-gastroenteritis
   eroeffnung[· · · ·]
   personalia[pers-name pers-name pers-alter pers-groesse pers-hausarzt ·]
-  aktuell[akt-motiv akt-ort↳1 akt-beginn akt-charakter akt-intensitaet↳1 akt-ausscheid-haeufigkeit~stuhlfrequenz,stuhl_nachts↳1 akt-ausscheid-aussehen akt-verlauf akt-ausloeser akt-einfluss akt-frueher↳1 akt-begleit cas cas]
+  aktuell[akt-motiv akt-ort↳1 akt-beginn akt-charakter akt-intensitaet↳1 akt-ausscheid-haeufigkeit~stuhlfrequenz,stuhl_nachts↳1 akt-ausscheid-aussehen~stuhl_blut akt-verlauf akt-ausloeser akt-einfluss akt-frueher↳1 akt-begleit cas cas]
   fach-infektio[fach-infekt-reise cas fach-infekt-kontakt~kontakt↳1 fach-infekt-impfung]
   vegetativ[veg-schuettelfrost~schwitzen veg-uebelkeit↳1 veg-ausscheidung~miktion↳1 veg-gewicht↳2 veg-appetit veg-schlaf cas]
   vorerkrankungen[· vor-erkrank↳1 vor-op↳1]

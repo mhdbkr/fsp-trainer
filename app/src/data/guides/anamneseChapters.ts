@@ -406,7 +406,16 @@ const AKTUELL_VARIANTS: Record<LeitsymptomKategorie, AktuellVariant> = {
           { sucht: ['stuhl_nachts'], text: 'Müssen Sie auch nachts zum Stuhlgang aufstehen?' },
         ],
       },
-      { text: 'Aussehen — Ist Ihnen Blut, Schleim oder eine ungewöhnliche Farbe im Stuhl aufgefallen?', probe: 'akt-ausscheid-aussehen' },
+      {
+        text: 'Aussehen — Ist Ihnen Blut, Schleim oder eine ungewöhnliche Farbe im Stuhl aufgefallen?',
+        probe: 'akt-ausscheid-aussehen',
+        // K3 (contre-revue, gastroenteritis) : l'alarme et la couleur, découpées du texte — une question du cas sur l'aspect garde la couleur.
+        sucht: ['stuhl_blut', 'stuhlaussehen'],
+        parts: [
+          { sucht: ['stuhl_blut'], text: 'Ist Ihnen Blut oder Schleim im Stuhl aufgefallen?' },
+          { sucht: ['stuhlaussehen'], text: 'Ist Ihnen eine ungewöhnliche Farbe im Stuhl aufgefallen?' },
+        ],
+      },
       {
         text: 'Wasserlassen — Wie oft müssen Sie am Tag Wasser lassen, und wie oft nachts?',
         probe: 'akt-ausscheid-harn-haeufigkeit',
