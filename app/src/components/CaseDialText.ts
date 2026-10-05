@@ -82,6 +82,11 @@ export function phrasePret(d: CaseDialData): string | null {
   return `Pour souder l'anneau : rejoue le cas ${liste}.`;
 }
 
+/** Le retour planifié du cas (§13.1) : une date, dite telle quelle. */
+export function phraseReprise(d: CaseDialData): string | null {
+  return d.prochaineConsolidation ? fin(`Prochaine reprise : ${joliJour(d.prochaineConsolidation)}`) : null;
+}
+
 export interface LigneDetail {
   teil: SimTeil;
   nom: string;

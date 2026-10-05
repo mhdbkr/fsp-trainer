@@ -697,3 +697,67 @@ html:active-view-transition .vt-page { view-transition-name: page; }
    Les pages ne bougent que par translation (ressort de lib/motion) ; la
    couche GPU n'est promue que pendant l'interaction, pas au repos. */
 .deck-book:hover .deck-page, .deck-book:focus-within .deck-page { will-change: transform; }
+
+/* ── Le cadran d'un cas (`CaseDial`, S4-4) ─────────────────────────────────
+   Position = Teil, couleur = état, centre = maîtrise. Les couleurs sont des
+   variables de :root / .dark (et non de `.case-dial`) parce que le détail est
+   téléporté dans <body> : ses pastilles lisent les mêmes. Pétrole clair pour
+   « acquis », pétrole pour « solide » ; en sombre, solide est le plus lumineux.
+   Le grossissement et l'écart des arcs n'existent QUE sous
+   `prefers-reduced-motion: no-preference` : en mouvement réduit, rien ne bouge
+   et le détail s'ouvre en panneau (règle A de motionSafe.test.ts, complétée
+   ici parce que ce mouvement est structurel). Aucune ombre portée. */
+:root {
+  --cd-vierge: rgb(12 26 23 / 0.16);
+  --cd-fragile: #e8613c;
+  --cd-acquis: #6bbdb0;
+  --cd-solide: #0c6157;
+  --cd-maitrise: #158375;
+  --cd-piste: rgb(12 26 23 / 0.08);
+  --cd-encre: #0c1a17;
+  --cd-discret: #55635f;
+}
+.dark {
+  --cd-vierge: rgb(233 239 236 / 0.18);
+  --cd-fragile: #f09374;
+  --cd-acquis: #379e8f;
+  --cd-solide: #a2d7cd;
+  --cd-maitrise: #6bbdb0;
+  --cd-piste: rgb(233 239 236 / 0.08);
+  --cd-encre: #e9efec;
+  --cd-discret: #9db1ab;
+}
+.case-dial {
+  display: inline-grid; place-items: center; flex-shrink: 0; border-radius: 9999px; cursor: pointer;
+  -webkit-tap-highlight-color: transparent; user-select: none; -webkit-user-select: none; -webkit-touch-callout: none;
+  touch-action: manipulation;
+}
+.case-dial svg { display: block; overflow: visible; }
+.case-dial:focus-visible { outline: 2px solid var(--cd-solide); outline-offset: 3px; }
+.cd-num { font-family: theme('fontFamily.mono'); font-weight: 500; fill: var(--cd-encre); font-variant-numeric: tabular-nums; }
+.cd-sub { font-family: theme('fontFamily.sans'); fill: var(--cd-discret); }
+.cd-label { font-family: theme('fontFamily.mono'); fill: var(--cd-discret); opacity: 0; }
+.case-dial[data-ouvert] .cd-label { opacity: 1; }
+
+.cd-pastille { display: block; width: 10px; height: 10px; border-radius: 3px; background: var(--cd-vierge); }
+.cd-pastille[data-etat="fragile"] { background: var(--cd-fragile); }
+.cd-pastille[data-etat="acquis"] { background: var(--cd-acquis); }
+.cd-pastille[data-etat="a-confirmer"] { background: linear-gradient(var(--cd-solide), var(--cd-solide)) center / 100% 2px no-repeat, var(--cd-acquis); }
+.cd-pastille[data-etat="solide"] { background: var(--cd-solide); }
+.cd-pastille[data-etat="non-mesure"] { background: transparent; border: 1.5px dashed var(--cd-discret); }
+
+@keyframes cd-trace { from { stroke-dashoffset: 1; } to { stroke-dashoffset: 0; } }
+@keyframes cd-souder { from { stroke-dashoffset: 1; } to { stroke-dashoffset: 0; } }
+@keyframes cd-pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.045); } }
+@media (prefers-reduced-motion: no-preference) {
+  .case-dial svg { transition: transform 420ms var(--ease-out); }
+  .cd-groupe { transition: transform 420ms var(--ease-out); }
+  .cd-label { transition: opacity 260ms 120ms; }
+  .case-dial[data-ouvert] svg { transform: scale(1.14); }
+  .case-dial[data-ouvert] .cd-groupe { transform: translate(var(--dx), var(--dy)); }
+  .cd-trace { stroke-dasharray: 1; animation: cd-trace 900ms var(--ease-out) both; }
+  .cd-soude-trace {
+    stroke-dasharray: 1; transform-box: fill-box; transform-origin: center;
+    animation: cd-souder 800ms var(--ease-out) both, cd-pulse 520ms 800ms var(--ease-out) both;
+  }
+}
