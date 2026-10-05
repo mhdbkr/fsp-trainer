@@ -302,17 +302,17 @@ const P1b = preuve('P1b', "faire son drill ne libère aucun budget qui attirerai
  *  valeurs par défaut ⇒ partie réussie. */
 async function jouerTeil(caseId, teil) {
   // Parcours du runner de main (#54) : Démarrer → Terminer la partie → évaluation
-  // → Terminer la simulation → Enregistrer la simulation → bilan.
+  // → Terminer ici (S4-3, ex-« Terminer la simulation ») → Enregistrer la simulation → bilan.
   goto(`/simulation/${caseId}/pre?teil=${teil}`);
-  await until(`return bouton((t) => t.startsWith('Démarrer la simulation')) ? true : null;`, 'écran pré-simulation');
-  probe(`bouton((t) => t.startsWith('Démarrer la simulation')).click(); return await attendre(() => location.hash.includes('/run'));`);
+  await until(`return bouton((t) => t.endsWith('Démarrer')) ? true : null;`, 'écran pré-simulation');
+  probe(`bouton((t) => t.endsWith('Démarrer')).click(); return await attendre(() => location.hash.includes('/run'));`);
   await until(`return bouton((t) => t.startsWith('Terminer la partie')) ? true : null;`, 'runner');
-  probe(`bouton((t) => t.startsWith('Terminer la partie')).click(); return await attendre(() => !!bouton((t) => t.startsWith('Terminer la simulation')));`);
+  probe(`bouton((t) => t.startsWith('Terminer la partie')).click(); return await attendre(() => !!bouton((t) => t.startsWith('Terminer ici')));`);
   const pcts = probe(`
     for (const c of document.querySelectorAll('input[type=checkbox]')) if (!c.checked) c.click();
     await attendre(() => false, 300);
     const pcts = [...txt().matchAll(/(\\d+)%/g)].map((m) => +m[1]);
-    bouton((t) => t.startsWith('Terminer la simulation')).click();
+    bouton((t) => t.startsWith('Terminer ici')).click();
     await attendre(() => !!bouton((t) => t.startsWith('Enregistrer la simulation')));
     return pcts;
   `);

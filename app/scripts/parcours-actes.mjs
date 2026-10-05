@@ -148,8 +148,9 @@ export async function jouerPartie(c, i, o = {}) {
     tache = planAvant?.tasks.find((t) => t.label === ligne.label && t.doneAt === undefined) ?? null;
     await c.page.locator(ROW).nth(i).locator('a.btn-primary').click();
   }
-  await until(c.page, () => /Démarrer la simulation/.test(document.body.innerText), 'pré-simulation');
-  await btn(c.page, /Démarrer la simulation/).click();
+  // [S4-3] pré-simulation : un seul bouton « Démarrer » (simulation-run.md §10.1).
+  await until(c.page, () => /Échauffement/.test(document.body.innerText) && /Démarrer/.test(document.body.innerText), 'pré-simulation');
+  await btn(c.page, /Démarrer$/).click();
   await until(c.page, () => /Terminer la partie/.test(document.body.innerText), 'runner');
 
   const seq = [await echantillon(c)];
@@ -184,7 +185,7 @@ export async function jouerPartie(c, i, o = {}) {
       await noter();
     }
     await btn(c.page, /Terminer la partie/).click();
-    await until(c.page, () => /Terminer la simulation/.test(document.body.innerText), 'bilan');
+    await until(c.page, () => /Terminer ici/.test(document.body.innerText), 'bilan');   // [S4-3] §10.2.3
     await noter();
     const dejaAffiche = await present(c.page, /Terminer la partie/);
     await c.verifie('D7', 'la fin de partie ne ramène jamais l\'exercice qu\'on vient de terminer', () => ({ ok: !dejaAffiche, detail: dejaAffiche ? '« Terminer la partie » est de nouveau proposé dans le bilan' : 'le bilan s\'affiche, l\'exercice n\'est pas ré-ouvert' }));
@@ -198,7 +199,7 @@ export async function jouerPartie(c, i, o = {}) {
       const avantDom = await c.page.evaluate(() => [...document.querySelectorAll('main input[type=checkbox]')].filter((x) => x.checked).length);
       const avant = await echantillon(c);
       await c.page.reload();
-      await until(c.page, () => /Terminer la simulation|Terminer la partie/.test(document.body.innerText), 'reprise au bilan');
+      await until(c.page, () => /Terminer ici|Terminer la partie/.test(document.body.innerText), 'reprise au bilan');
       const apresDom = await c.page.evaluate(() => [...document.querySelectorAll('main input[type=checkbox]')].filter((x) => x.checked).length);
       const apres = await echantillon(c);
       c.rapport.fait(`Recharge l'onglet au BILAN, après avoir coché ${k}/${n} critères.`);
@@ -208,17 +209,17 @@ export async function jouerPartie(c, i, o = {}) {
       }));
       await noter();
     }
-    if (!o.unTeil && await present(c.page, /Partie suivante/)) { await btn(c.page, /Partie suivante/).click(); await sleep(500); await noter(); await until(c.page, () => /Terminer la partie/.test(document.body.innerText), 'partie suivante'); continue; }
+    if (!o.unTeil && await present(c.page, /^Continuer — /)) { await btn(c.page, /^Continuer — /).click(); await sleep(500); await noter(); await until(c.page, () => /Terminer la partie/.test(document.body.innerText), 'partie suivante'); continue; }
     break;
   }
 
-  await btn(c.page, /Terminer la simulation/).click();
+  await btn(c.page, /Terminer ici/).click();
   await until(c.page, () => /Enregistrer la simulation/.test(document.body.innerText), 'checklist de fin');
   await noter();
   if (o.retourBilan) {
     await btn(c.page, /Revenir au bilan/).click(); await sleep(500); await noter(true);
     c.rapport.fait('Hésite : « ← Revenir au bilan » depuis la checklist de fin, puis y retourne.');
-    await btn(c.page, /Terminer la simulation/).click();
+    await btn(c.page, /Terminer ici/).click();
     await until(c.page, () => /Enregistrer la simulation/.test(document.body.innerText), 'checklist de fin (2)');
     await noter();
   }
