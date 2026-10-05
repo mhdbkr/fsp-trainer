@@ -166,18 +166,24 @@ rien de cette table.
 | Lot Q-gyn | `doctopus-s3-qgyn` · `feat/s3-qgyn` | `a901861e0ac10b346` | **PR #70 mergée** (5 oct.) | **oui** |
 | Reliquat sans lot (Q2) | — | — | 24 relances de guide à deux « ? » ; 22 énoncés de `guide-anamnese-v4` ; sondes en A2 ; `CaseQuestion.followUp` en `string | string[]` (contrat §3.2) pour récupérer ~15 sous-questions abandonnées | à placer dans Q3 |
 | **Moteur de cohérence — contrat** | `doctopus-s3-coherence` · `feat/s3-coherence` | `aa3e71100abae223a` | **PR #69 mergée** (5 oct.) | **oui** |
-| Moteur de cohérence — K0 lexique + mesure | `doctopus-s3-k0` · `feat/s3-k0-lexique` | `a6c1d1e7b69d620b7` | **PR #72** ouverte (`26d0aa29`, rebasée sur Q-gyn, doublons 279) → CI → **merge sur accord** → K1 | non |
+| Moteur de cohérence — K0 lexique + mesure | `doctopus-s3-k0` · `feat/s3-k0-lexique` | `a6c1d1e7b69d620b7` | **PR #72 mergée** (5 oct.) | **oui** |
+| Moteur de cohérence — K1 annotation | `doctopus-s3-k1` · `feat/s3-k1-annotation` | `a473e9c3c6ebda4fd` | `331196b8` (décisions appliquées : hausses documentées exactes, lecture des voyelles accentuées) ; revues méca + clinique en vol (Opus) → fixeur (Opus) → PR | non |
 | Lots Q3 → Q8, Lc1 → Lc3 | — | — | §10, l'un après l'autre après Q2 | à lancer |
 | Reports vers Q1/Q2 (revues Q0) | — | — | Q1 : rheumatoide-arthritis « Schuppenflechte », karpaltunnel « Bruch », malaria « Milz », hypothyreose « Entbindungen » ; 10 irradiations avec question de cas ; osteoporose bws. Q2 : relances à 2 questions (alcool, gastro, Kopfschmerz, onko, chir-op, Fieber, Kraft, suizid, `veg-fieber`) | tracé |
 | C6 — candidat synthétique | `doctopus-s3-c6` · `feat/s3-c6-candidat` | `a92b4c2e4d2f21ebc` | **PR #65 mergée** (`4bf3473b`, 4 oct.) — premier run CI vert d'`invariants-c6` et `candidat-c6` | **oui** |
 | C6 — jugement UX | lecture seule | `a06644a85b277a992` | rendu → `c6-jugement-ux-2026-10-04.md` (7 ruptures) | **oui** |
 | Lot C6-A « chiffres honnêtes » | `doctopus-s3-c6a-chiffres` · `feat/s3-c6a-chiffres` | `a09833e671b2389b9` | **PR #66 mergée** (4 oct.) | **oui** |
 | Lot C6-B « le jour du candidat » | `doctopus-s3-c6b-jour` · `feat/s3-c6b-jour` | `ad84ab89cbdc39047` | **PR #68 mergée** (`bc5382ed`, 4 oct.) — **voie B close : série 3 fiabilité terminée** | **oui** |
-| **S4-1 — la mesure** | `doctopus-s4-1` · `feat/s4-1-mesure` | `aba008b91b1b3b76a` | **PR #71** — merge accordé ; `DATE_NOUVELLE_REGLE = 2026-10-06` posée (`0f092bf8`), re-fusionnée avec #70 → merge dès CI verte → S4-4 | non |
+| **S4-1 — la mesure** | `doctopus-s4-1` · `feat/s4-1-mesure` | `aba008b91b1b3b76a` | **PR #71 mergée** (`f99364e1`, 5 oct.) — bascule de la frise le 6 oct. | **oui** |
+| **S4-4 — le cadran** | `doctopus-s4-4-cadran` · `feat/s4-4-cadran` | `ab290bfc85b932af4` | 3 revues : direction PAS PRÊT (ouverture quasi invisible à 64 px, badge doublon, 2 boutons, jargon « souder », « 100 sur 1 Teil ») ; charte (tokens, lisibilité 96) ; méca (I1 arc jamais dessiné si progression en retard, I2 pas d'ouverture au clic lecteur d'écran, I3 visite non testée) → fixeur → PR → vérif en ligne | non |
+| Suivi hors périmètre | — | — | `checkFixedOverlays.mjs` (non suivi, travail en cours de l'autre session) signale 10 manquements dans `CasePreviewPanel.tsx`, 3 fichiers `fachbegriffe/`, `.reveal`/`.stagger` — à reprendre avec cette session quand elle commitera | tracé |
+| **S4-2 — le plan** (critique) | `doctopus-s4-2-plan` · `feat/s4-2-plan` | s4-2-plan-opus (Opus ; l'agent Sonnet `a9c1ed687e6a946f7` arrêté le 5 oct. après 8 commits) | faits : migration 18, INV-68/76, INV-51/52/54, INV-4/50/55/57/58/60/67 ; reste : INV-63/64/65, textes du plan, C6 profil libre, `programmeInvariants` → revues → PR → **déploiement prod serveur → fonction → client (accord direction au merge)** | non |
 | Critères pour S4-4 (cadran) | — | — | `solideDes` futur : « Solide si tu refais 80 ou plus à partir du … » ; passé : « Solide à ta prochaine partie à 80 ou plus » ; jamais « ≥ » ni « % » ; maîtrise jamais sans couverture : « 74 en moyenne sur 2 Teile » | à transmettre à S4-4 |
 | Diagnostic e2e programme | `doctopus-baseline` | `aaa8ca7770f3949ab` | cause : dimanche = jour off par défaut → plan vide (pas de régression) ; script corrigé, intégré à #68 ; suivi : `aria-pressed` sur les boutons de jours off (S4-5) | **oui** |
 | `main` après C6 | — | — | `test:c6` dans `package.json`, `tests` dans tsconfig ; test instable `ExternalAiSheet` corrigé (`48a36bd3`) | à faire au merge de C6 |
 | Lots L1 → L15 | — | — | §10, l'un après l'autre (mêmes fichiers) | à lancer |
+
+**Modèle des agents (direction, 5 oct.)** : selon la complexité, Opus en cas de doute ; Sonnet seulement pour des tâches claires et cadrées.
 
 ## 12. Plan d'ensemble (4 oct. 2026) — trois voies, fichiers disjoints
 

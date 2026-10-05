@@ -1,0 +1,49 @@
+{
+  "mesureLe": "2026-10-05",
+  "cas": 130,
+  "source": "K0 — lecture du texte et profil PROPOSÉ ; exacts quand les déclarations remplacent la lecture (K1 sondes, K2 profils, K4 questions du cas).",
+  "brut": {
+    "doublons": 279,
+    "doublonsCas": 24,
+    "horsProfil": 56,
+    "exigeAbsent": 58,
+    "relancesOrphelines": 0,
+    "brauchtViole": 20,
+    "ajouteSansReponse": 56
+  },
+  "residu": {
+    "questionsMuettes": 825,
+    "sondesMuettes": 148,
+    "nonReduit": null,
+    "casRetiresParR1": null
+  },
+  "allowed": [],
+  "hausses": [
+    {
+      "date": "2026-10-05",
+      "lot": "K0 m6",
+      "compteurs": {
+        "doublons": [
+          265,
+          276
+        ],
+        "doublonsCas": [
+          20,
+          24
+        ]
+      },
+      "raison": "HAUSSE DE MESURE, pas de contenu : la lecture du texte est désormais UNE seule (symptomsInText, TEXT_RE du lexique) au lieu d'une table parallèle plus fine. Elle lit des signes que la table ne lisait pas (krampf : « ein Zucken » ×5, Sehverschlechterung ×4, Rötung / Hautveränderung ×3, blutung, schwindel, miktion ×1) et ne lit plus « Urlaub » comme un voyage (reise −4) ni konzentration dans « Gedächtnis » (−1). Le lexique et la mesure disent la même chose ; 15 doublons nouveaux, 5 faux disparus."
+    },
+    {
+      "date": "2026-10-05",
+      "lot": "K0 I3 (rebase sur main après Q-gyn #70)",
+      "compteurs": {
+        "doublons": [
+          276,
+          279
+        ]
+      },
+      "raison": "Fusion Q-gyn ; retirés par la règle 2 en K3. La fusion Frauenanamnese → Gynäkologie fait jouer `frau-periode` (Blutung) avec `fach-gyn-blutung` dans case-eug, case-mammakarzinom et case-adnexitis : 3 doublons `blutung` nouveaux. Aucune autre variation de la mesure ; questionsMuettes 829 → 825 (4 questions du cas de case-uterus-myomatosus et case-adnexitis déclarent désormais `sucht`), ce qui est une baisse."
+    }
+  ]
+}
