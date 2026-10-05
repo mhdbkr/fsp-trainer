@@ -11,7 +11,7 @@ case-oesophaguskarzinom fach-gastro 7 7fe78017e4753232
 case-ulcus fach-gastro 7 7fe78017e4753232
 case-magenkarzinom fach-gastro 7 7fe78017e4753232
 case-appendizitis fach-chirurgie 4 d7cf863dd2b7d122
-case-depression fach-psy 10 b528219a28fc2516
+case-depression fach-psy 10 72b6aec0cffddbda
 case-pneumonie fach-pneumo 10 72f730a9b871c33f
 case-pyelonephritis fach-uro 9 4dfe1308724ff435
 case-pavk fach-gefaess 7 bf0b3fc057ff6fe4
@@ -46,13 +46,13 @@ case-pankreaskarzinom fach-onko 9 3e306a207decb56d
 case-zoster fach-derma 7 5dc9b2213d22b14d
 case-osteoporose fach-ortho 6 76e75e2044bdb872
 case-bph fach-uro 10 4fa3b8728eeb96e3
-case-demenz fach-psy 10 b528219a28fc2516
+case-demenz fach-psy 10 72b6aec0cffddbda
 case-bronchialkarzinom fach-onko 9 3e306a207decb56d
 case-mammakarzinom fach-gyn 15 505ef1ba801fd92d
 case-rheumatoide-arthritis fach-rheuma 8 212edb8aad825df5
 case-morbus-crohn fach-gastro 7 7fe78017e4753232
 case-karpaltunnel fach-ortho 7 a01307b11955f0d6
-case-panikstoerung fach-psy 10 b528219a28fc2516
+case-panikstoerung fach-psy 10 72b6aec0cffddbda
 case-prostatakarzinom fach-uro 10 4fa3b8728eeb96e3
 case-hepatitis-b fach-infektio 7 54d615ea0660775c
 case-parkinson fach-neuro 9 c893cd79e0895f78
@@ -66,7 +66,7 @@ case-zoeliakie fach-gastro 7 7fe78017e4753232
 case-schenkelhalsfraktur fach-ortho 8 66aba7a391aba55e
 case-ulcus-cruris fach-gefaess 7 bf0b3fc057ff6fe4
 case-leistenhernie fach-chirurgie 4 d7cf863dd2b7d122
-case-alkoholentzug fach-psy 10 b528219a28fc2516
+case-alkoholentzug fach-psy 10 72b6aec0cffddbda
 case-commotio fach-neuro 10 19d42a4103dcad26
 case-itp fach-haemato 10 9b48f3488fc2ff26
 case-uterus-myomatosus fach-gyn 12 b01550bd7a430cde
@@ -75,8 +75,8 @@ case-fibromyalgie fach-rheuma 8 212edb8aad825df5
 case-polymyalgia fach-rheuma 8 212edb8aad825df5
 case-pneumothorax fach-pneumo 10 72f730a9b871c33f
 case-schlafapnoe fach-pneumo 10 72f730a9b871c33f
-case-schizophrenie fach-psy 10 b528219a28fc2516
-case-delir fach-psy 10 b528219a28fc2516
+case-schizophrenie fach-psy 10 72b6aec0cffddbda
+case-delir fach-psy 10 72b6aec0cffddbda
 case-achalasie fach-gastro 7 7fe78017e4753232
 case-septische-arthritis fach-rheuma 8 212edb8aad825df5
 case-spinalkanalstenose fach-ortho 8 de101f47506e5922
@@ -91,7 +91,7 @@ case-coxarthrose fach-ortho 8 9239d65a4c3c7c98
 case-metabolisches-syndrom fach-endo 10 22248e5e37d487ee
 case-karzinoid fach-onko 9 3e306a207decb56d
 case-abszess fach-derma 7 5dc9b2213d22b14d
-case-anorexia-nervosa fach-psy 10 b528219a28fc2516
+case-anorexia-nervosa fach-psy 10 72b6aec0cffddbda
 case-malaria fach-infektio 8 48d35da7df6de36a
 case-endokarditis fach-kardio 8 e8937844e5700b30
 case-covid19 fach-infektio 7 54d615ea0660775c
@@ -104,8 +104,8 @@ case-myokarditis fach-kardio 10 207259712ebbd480
 case-nephrotisches-syndrom fach-nephro 8 82903f6758d55624
 case-akute-leukaemie fach-haemato 10 9b48f3488fc2ff26
 case-endometriose fach-gyn 11 7369178c679847ac
-case-ptbs fach-psy 10 b528219a28fc2516
-case-somatoforme-schmerzstoerung fach-psy 10 b528219a28fc2516
+case-ptbs fach-psy 10 72b6aec0cffddbda
+case-somatoforme-schmerzstoerung fach-psy 10 72b6aec0cffddbda
 case-hueftkopfnekrose fach-ortho 9 769b8434282b81d5
 case-glomerulonephritis fach-nephro 8 82903f6758d55624
 case-nhl fach-haemato 10 9b48f3488fc2ff26
@@ -125,6 +125,6 @@ case-basaliom fach-derma 9 d4cde246f2e08c4b
 case-psoriasis fach-derma 8 44c134986284f04c
 case-urtikaria fach-derma 8 44c134986284f04c
 case-perniziose-anaemie fach-haemato 10 9b48f3488fc2ff26
-case-opioidabhaengigkeit fach-psy 10 b528219a28fc2516
+case-opioidabhaengigkeit fach-psy 10 72b6aec0cffddbda
 case-sinusitis fach-pneumo 10 72f730a9b871c33f
 case-arterielle-hypertonie fach-kardio 8 e8937844e5700b30

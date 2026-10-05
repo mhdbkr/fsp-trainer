@@ -1,6 +1,8 @@
 import { describe, expect, it } from 'vitest';
+import { playedTrame } from './anamneseChapters';
 import { PROBE_BY_ID } from './anamneseProbes';
-import { PSY, byId, cas, ch, coeur, prof, run, s, signesJoues, un, vue } from './coherenceFixtures';
+import { phraseFollowUps, phraseProbes, phraseText } from './phrases';
+import { PSY, byId, cas, cases, ch, coeur, prof, run, s, signesJoues, un, vue } from './coherenceFixtures';
 
 // K3 — corrections des revues Opus de `508639f6` (mécanique B1, I1, M1, M4 ; clinique P0–P2). Fixtures : sondes réelles.
 
@@ -45,5 +47,19 @@ describe('M4 — r3 sans phrase de banque échoue franchement (jamais un id affi
 describe('I2 — Wasserlassen jour / nuit : les `parts` découpées du texte existant', () => {
   it('gastroenteritis : la question du cas pose la fréquence du jour ; la générale se réduit à la nuit, sans doublon', () => {
     expect(coeur(byId('case-gastroenteritis')).aktuell).toContain('akt-ausscheid-harn-haeufigkeit~nykturie');
+  });
+});
+
+describe('I3 / P2 psy — l\'ordre de sécurité sous fach-psych-suizid (10 cas psy)', () => {
+  const psy = cases.filter((c) => playedTrame(c).fach?.chapter.id === 'fach-psy');
+  it('cadrage « Ich frage das jeden Patienten », idée → plans → intention (NOTFALL), puis le désir avant l\'acte, puis le soutien', () => {
+    expect(psy).toHaveLength(10);
+    for (const c of psy) {
+      const q = playedTrame(c).fach!.chapter.questions.find((p) => phraseProbes(p).includes('fach-psych-suizid'))!;
+      expect(phraseText(q), c.id).toMatch(/^Ich frage das jeden Patienten in Ihrer Situation: Denken Sie manchmal/);
+      expect(phraseFollowUps(q).map((f) => f.text.slice(0, 32)), c.id).toEqual([
+        'Haben Sie konkrete Pläne, sich d', 'Falls konkrete Absicht oder Plan', 'Haben Sie den Wunsch, sich zu ve', 'Haben Sie sich selbst verletzt?', 'Gibt es jemanden, der Sie unters']);
+      expect(phraseFollowUps(q).map((f) => f.sucht ?? []), c.id).toEqual([[], [], ['selbstverletzung_wunsch'], ['selbstverletzung'], []]);
+    }
   });
 });

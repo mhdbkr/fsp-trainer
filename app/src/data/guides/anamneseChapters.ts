@@ -1490,18 +1490,22 @@ export const FACHANAMNESEN: FachanamneseGuide[] = [
         followUpSucht: [['panikattacke']],
       },
       {
-        text: 'Denken Sie manchmal, dass das Leben nicht mehr lebenswert ist? Haben Sie Gedanken, sich etwas anzutun?',
+        // K3 (revue I3, décision de main) : le cadrage et le facteur de protection de la question de sécurité d'Aktuelle
+        // Beschwerden passent ici (texte existant, déplacé), puisque r2 garde la Fach (D4). Ordre de sécurité : idée →
+        // plans → intention (NOTFALL), puis l'automutilation, le désir avant l'acte, puis le soutien.
+        text: 'Ich frage das jeden Patienten in Ihrer Situation: Denken Sie manchmal, dass das Leben nicht mehr lebenswert ist? Haben Sie Gedanken, sich etwas anzutun?',
         probe: 'fach-psych-suizid',
         label: 'Pflichtfrage',
         alts: ['Haben Sie daran gedacht, sich das Leben zu nehmen? Haben Sie einen konkreten Plan gemacht?'],
         followUp: [
-          'Haben Sie sich selbst verletzt?',
-          'Haben Sie den Wunsch, sich zu verletzen?',
           'Haben Sie konkrete Pläne, sich das Leben zu nehmen?',
           'Falls konkrete Absicht oder Plan: NOTFALL — der Patient bleibt stationär. Rücksprache mit dem Oberarzt nach der Anamnese.',
+          'Haben Sie den Wunsch, sich zu verletzen?',
+          'Haben Sie sich selbst verletzt?',
+          'Gibt es jemanden, der Sie unterstützt?',
         ],
-        // K3 SÉCURITÉ : l'acte et le désir d'automutilation sont DEUX signes ; la mère les déclare tous deux (jamais perdus, RISIKO_SIGNES).
-        followUpSucht: [['selbstverletzung'], ['selbstverletzung_wunsch']],
+        // K3 SÉCURITÉ : le désir et l'acte d'automutilation sont DEUX signes ; la mère les déclare tous (jamais perdus, RISIKO_SIGNES).
+        followUpSucht: [[], [], ['selbstverletzung_wunsch'], ['selbstverletzung'], []],
       },
       {
         text: 'Gab es belastende Ereignisse — ein Verlust, eine Trennung, Stress bei der Arbeit?',
