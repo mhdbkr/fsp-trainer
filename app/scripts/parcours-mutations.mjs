@@ -748,8 +748,8 @@ export const MUTATIONS = [
   },
   {
     id: 'INV-73d', tests: 'tests/invariants.partie.test.tsx', file: 'src/lib/lauf/speichern.ts',
-    from: "setMeta(LAUF_AKTIV_KEY, { ...lauf, zuletztAktiv: now() })",
-    to: "setMeta(LAUF_AKTIV_KEY, { ...lauf, unterbrochen: undefined, zuletztAktiv: now() })",
+    from: "setMeta(LAUF_AKTIV_KEY, { ...lauf, zuletztAktiv: stamp })",
+    to: "setMeta(LAUF_AKTIV_KEY, { ...lauf, unterbrochen: undefined, zuletztAktiv: stamp })",
     pourquoi: '`unterbrochen` remis à `undefined` à la persistance : une seconde reprise courte efface l’interruption',
   },
   {

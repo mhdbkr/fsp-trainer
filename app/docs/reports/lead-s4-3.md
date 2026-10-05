@@ -1,6 +1,6 @@
 # S4-3 — la partie, le cas entier · rapport du lead
 
-**Statut : DONE_WITH_CONCERNS.** Les concerns sont des points de contrat ou de périmètre à faire trancher par `main` (§3, §4). Aucun défaut ouvert connu.
+**Statut (fixeur, voir §8) : DONE_WITH_CONCERNS.** Les deux revues de `141c78b5` (mécanique « Needs fixes », direction « à corriger ») sont traitées selon les décisions de `main` ; les points restants sont listés en §8.4. Les §1–§7 ci-dessous décrivent la livraison initiale ; ce que le fixeur a changé ou tranché est en §8.
 Branche `feat/s4-3-partie`, worktree `doctopus-s4-3-partie`, base `b64ed948` (#77 sur #76). `git merge-tree` contre `origin/main` (`0e846533`, revérifié après la dernière passe) : sans conflit.
 Rien n'a été déployé. Aucun serveur Supabase n'a été démarré, aucune prod touchée. `D_UN_TRAIT_ACTIF` reste à `false` (`lib/program/parametres.ts:24`, non modifié).
 
@@ -35,7 +35,7 @@ Sources : `simulation-run.md` §10 (10.1–10.7, §7.1 INV-70 à INV-75), ADR-00
 
 - **A. `ANNONCE_MUSTER_ACTIVE` (`lib/program/parametres.ts:56`) est encore `false`.** Le Muster de ville devient « libre » dès le déploiement de S4-3 ; sans la garde, l'annonce ne le dit à personne. Le fichier est au périmètre de S4-2 (`lib/program`) et son commentaire dit « dans le commit qui les déploie, comme `D_UN_TRAIT_ACTIF` » : je ne l'ai pas touché. **Proposition** : la passer à `true` dans le commit de déploiement de S4-3, avec `D_UN_TRAIT_ACTIF`. L'annonce lit `localStorage['fsp-muster']` brut ; `store/ui` ne le réécrit qu'au premier choix, donc elle reste montrable tant que le candidat n'a pas rechoisi.
 - **B. Fichiers hors du périmètre §12.12 touchés**, tous nommés par la table du §10.6 que le brief demande d'appliquer (item 6), ou par un test existant qui exprimait l'ancien périmètre :
-  `data/guides/musterBogen.ts` (et `musterModels.ts` supprimé), `components/BogenPreview.tsx`, `components/MusterModelPicker.tsx` (supprimé), `components/ModeChooser.tsx` (supprimé, plus aucun appelant), `store/ui.ts` (type `MusterArt`, lecture `musterArt`), `features/home/HomePage.test.tsx` (une assertion : `teil=` → `depart=`, conséquence de `taskLink`), `app/tests/*` et `app/scripts/parcours-mutations.mjs` (harnais, demandé), `app/scripts/parcours-actes.mjs` et `scripts/e2e/programmeInvariants.mjs` (libellés « Démarrer » / « Continuer — » / « Terminer ici » du candidat navigateur). `db/types.ts` n'a pas été touché.
+  `data/guides/musterBogen.ts` (et `musterModels.ts` supprimé), `components/BogenPreview.tsx`, `components/MusterModelPicker.tsx` (supprimé), `components/ModeChooser.tsx` (supprimé, plus aucun appelant), `store/ui.ts` (type `MusterArt`, lecture `musterArt`), `features/program/TaskLine.tsx` (`taskLink` : `?depart=`, `revision` comprise — le lancement transitoire de S4-2, autorisé par le brief ; oubli relevé par la revue, M8), `features/home/HomePage.test.tsx` (une assertion : `teil=` → `depart=`, conséquence de `taskLink`), `app/tests/*` et `app/scripts/parcours-mutations.mjs` (harnais, demandé), `app/scripts/parcours-actes.mjs` et `scripts/e2e/programmeInvariants.mjs` (libellés « Démarrer » / « Continuer — » / « Terminer ici » du candidat navigateur). `db/types.ts` n'a pas été touché.
 - **C. `CaseDial` n'a pas de mode « détail ouvert, statique ».** En pré-simulation, le cadran 96 est monté avec `CaseDialDetail` à côté (consigne de S4-4) ; survoler le cadran ouvre en plus son détail flottant — le même texte deux fois pendant le survol. **Proposition à S4-4** : une prop qui désactive l'ouverture. Je n'ai rien écrit dans `CaseDial` (INV-59).
 - **D. La séance IA externe et `Simulation.date = début`.** Voir §4, point 1 : corrigé dans mon périmètre, mais la garde compare désormais `trace.at` (`lib/clock`) à `progress_events.occurred_at` (`queue.ts:18`, `Date.now()`). En production c'est la même horloge ; sous une horloge injectée sans `Date` simulé, elles divergent (le principe « une horloge » de C6-B). **Proposition** : que `stamp()` de `lib/sync/queue.ts` lise `lib/clock` (hors périmètre, sync).
 
@@ -92,6 +92,92 @@ C6 réécrit en citant le contrat : 500 suites aléatoires avec `springeZu` et `
 | `2a52fb8b` | « Continuer » jamais refusé en silence ; Teil interrompu toujours repris (INV-20b) |
 
 `b9999ba0` seul ne compile pas (`Lauf.muster` élargi avant les composants, qui suivent dans `22d284a1`). Chaque vérification ci-dessus porte sur le sommet.
+
+## 8. Fixeur — revues de `141c78b5` (décisions de `main`, 5 oct.)
+
+Sources : revue mécanique (Needs fixes) et revue direction et design (à corriger). Chaque point : test rouge d'abord, puis vert ; toute logique a sa mutation tuée (harnais pour `app/tests/`, mutations manuelles notées pour `src/`).
+
+### 8.1 Direction
+
+| Point | Fait | Preuve |
+|---|---|---|
+| **B1** Muster guidé raisonné | `specFuerFall` (`AnamneseBogen.tsx`) : Frauenanamnese masquée si `geschlecht !== 'w'`, visible si une note y est (INV-74) ; aide de Hauptbeschwerde = mots-clés de la variante `aktuell` du cas (`aktuellChapterFor(leitsymptomOf(c))`), repli `Seit wann · Verlauf · Begleitbeschwerden` ; Noxen `rauchen / alkohol / drogen`. Le mode focus lit le même Bogen. | `AnamneseBogen.test.tsx` : COPD sans Frauenanamnese ni Ausstrahlung (« Luftnot »…), Leberzirrhose avec Alkohol, patiente avec Frauenanamnese, note `frauen` d'un homme à sa place. Mutations manuelles tuées : filtre, note gardée (survivante d'abord, test renforcé), aide. |
+| **B2** phrase accordée | `vorstellungsSatz(c)` : « Herr Aupperle ist ein 58-jähriger Patient, der sich mit … vorgestellt hat. » | Tests homme et femme ; mutation « genre ignoré » tuée. |
+| **B3** | `ANNONCE_MUSTER_ACTIVE = true` dans cette branche ; `D_UN_TRAIT_ACTIF` reste `false`. | `annonceS4.test.ts` : gardes par défaut ⇒ `mode` et `muster` ; garde fermée ⇒ rien sur le Muster. |
+| **I1** cadran ×2 | `CaseDial ouvrable={false}` (exception accordée) : `role="img"`, ni handlers ni `DetailFlottant`. | `CaseDial.test.tsx` (survol, appui long, clavier : aucun détail) ; `PreSimulationPage.test.tsx` (aucun `.case-dial-detail` au survol). Mutation tuée. |
+| **I2** niveau | `niveau.ts` : la tâche qui prescrit l'emporte (raison dite) ; sinon conseil + l'une des 5 phrases ; 0 passage : dernier choix, sans badge. M7 : `couchePour` — couche de la tâche, sinon Assisté ⇒ 1, Autonome ⇒ max(2, conseil). | `niveau.test.ts` (chaque branche, aucune phrase avec « couche ») ; `PreSimulationPage.test.tsx` (0 passage, essai raté + couche suivant le clic, examen à blanc). Mutations tâche, 0 passage, couche tuées. |
+| **I3** | `aide = depart ?? 'komplett'`, les 4 textes de la revue. | Test RTL. |
+| **I4** | « Finir l'Anamnese ✓ », « Score de l'Anamnese », « Chaque épreuve jouée atteint 60 % (seuil Doctopus). » / « Au moins une épreuve est sous 60 % : reprends-la. » | Tests runner, `PartEvaluation.saisi`, `ResultScreen` réécrits. |
+| **I5** | `ARTICLE` exporté de `CaseDialText.ts` (avec `aufklaerung`), seule table ; `TaskLine` l'emploie. « Commencer par l'Anamnese ». | Test runner (la faute n'est plus figée). |
+| **I6** | `NotizFeld` (mode focus) : un champ `split` écrit dans ses sous-clés. | Test : une note Alkohol → `noxen.alkohol`, une seule rubrique Noxen. Mutation tuée. |
+| **I7** | « Terminer ici » en `btn-outline` tant que `partieSuivante` est permis. | Test runner ; mutation tuée. |
+| **I8** | « Couche N » retiré de `TaskLine` et `TaskLabel` (exception accordée). | `TaskLabel.test.tsx` réécrit, test `TaskAnatomy`. |
+| **I9 / M1** | L'IA toujours proposée ; texte de la revue. | `PartnerCard.test.tsx` réécrit ; mutation tuée. |
+| **I10** | « Ta langue n'est pas notée : le verdict complet viendra quand tu auras rempli la grille de langue. » | `ResultScreen.test.tsx`. |
+| **I11 / M6** | `springeZu` refusé dès que le chrono du départ a tourné ; le chrono du Teil de DÉPART attend « Lancer le chrono » (sinon il démarrait seul et la pastille n'aurait vécu qu'une seconde — voir 8.4) ; au bilan, `wegZu` ne propose pas le Teil de « Continuer — X ». §10.2 amendé. | Tests automate, runner, C6 (propriétés I11 et M6 dans les 500 suites) ; mutations `fixeur-I11`, `fixeur-M6` tuées. |
+| Mineurs | `aria-pressed` sur `ModeCard` ; « Lancer le chrono » ; pas de pastille « frei » ; « Tu joues les deux rôles. » ; partenaire mémorisé (`localStorage['fsp-partenaire']`) ; « 60 % » ; « Aucune note d'anamnèse pour l'instant. » ; Assistance dans une `card` comme Partenaire et Muster ; l'aperçu animé des Muster n'est pas restauré. | Tests RTL (partenaire, rôles, aria-pressed). |
+
+### 8.2 Mécanique
+
+| Point | Fait | Preuve |
+|---|---|---|
+| **I1** Aufklärung | Liens de la zone Aufklärung en `target="_blank" rel="noreferrer"` : le runner reste monté. Le `SidePanel` n'a pas été retenu : la fiche (`AufkCard`) n'est pas exportée de `features/aufklaerung` (hors périmètre), et la recopier dupliquerait la trame. | Test runner (liens) ; C6 : Aufklärung de 6 min runner monté ⇒ `enchaine`. Mutation « sans `_blank` » tuée. |
+| **I2** flake | `speichereAktivenLauf` date à l'appel ; `persiste()` attend le dernier état (`enchaine.test.tsx`, `invariants.partie`). `horloge.test.tsx` : le flake vient de « Copier » cliqué encore désactivé (`TeilAiLauncher.tsx:185`, `disabled={!text}`) ; correction triviale : attendre qu'il soit actif. Non reproduit en 5 passes isolées avant correction. | `enchaine.test.tsx` vert 3/3. |
+| **I3** | = B3. | |
+| **I4** | `versChecklist` refusé sans `SimTeil` joué. | Test automate ; C6 `invariants.lauf` ajusté ; mutation `fixeur-I4` tuée. |
+| **M2** | `vientDeSouder` : `pretAt === sim.date` (`bilanErreurs.ts`). | Test ; mutation tuée. |
+| **M3** | `nimmWiederAuf` ne marque rien s'il ne reste aucun Teil ; §3.1 amendé. | Test automate et C6 (pause de 20 min au bilan final) ; mutation `fixeur-M3` tuée. |
+| **M4** | Noté, pas de code (consigne) : un Lauf série 3 complet abandonné sans reprise (`gibAuf` par l'âge ou par changement de cas) peut être écrit `enchaine: true`, car `nimmWiederAuf` n'est jamais appelé sur ce chemin. Décision de contrat requise (INV-73 interdit un second chemin qui pose `unterbrochen`). | — |
+| **M5** | `TrainingEvent.enregistreA` (`occurred_at` de `simulation.completed`, relu par `applySimulationToJournal` au même événement que la reconstruction) ; `completion.ts` compte une partie enregistrée dans la tâche après `creeA` ; `deriverPlan`, `evenementsDuPlan`, `applyEventToLocalState` et `fait_avancer` suivent. `training-journal.md` §1.1, §12.3 amendés ; l'oracle d'INV-51 aussi. | `tests/invariants.reprise-lendemain.test.ts` (rouge d'abord) ; mutations `fixeur-M5-*` (4) tuées. |
+| **M8** | `TaskLine.tsx` ajouté à la liste §3B. | — |
+| **M9** | Commentaires `ModeChooser` mis à jour (`index.css:76`, `motionSafe.test.ts:17`). | — |
+
+### 8.3 Contradictions de contrat réglées
+
+- §4.1 (garde IA / `date` = début) : réglée en livraison, inchangée.
+- §4.2 (INV-23 modulo `zuletztAktiv`) : §7 « Modifiés » amendé.
+- §4.3 (Terminer ici sur la seule Aufklärung) : refusé (I4), INV-71 amendé.
+- §4.4 (Aufklärung hors du runner) : la fiche s'ouvre sans démonter le runner (méca I1), §10.4 amendé.
+- §4.5 (IA masquée en départ Dokumentation) : l'IA est toujours proposée (I9/M1), §10.1 amendé.
+- §4.6 (`noxen` nu en focus) : réglé (I6).
+- §3 A (annonce Muster) : réglé (B3). §3 C (cadran statique) : réglé (I1). §3 D (horloge de la file) : reste une proposition (8.4).
+- H1 (couche) : remplacée par la décision M7 ; H2 : remplacée par I3 et I9.
+
+### 8.4 Restant, à relire
+
+1. **I11 et le chrono du départ.** La revue supposait un chrono lancé à la main ; il démarrait seul (`SimTimer`, autoStart). Pour que « tant que le chrono n'a pas démarré » ait un sens, le chrono du **premier** Teil d'une partie (aucun Teil joué, 0 s) attend « Lancer le chrono » ; les suivants démarrent seuls comme avant. Changement de comportement à confirmer par `main` à la passe navigateur.
+2. **M5 et minuit.** Une partie commencée à 23 h 50 et enregistrée à 0 h 20 compte pour la tâche du jour de son début (comme avant) ET pour une tâche du même cas posée le lendemain avant 0 h 20. Rare (même cas deux jours de suite) ; je ne l'ai pas exclu.
+3. **M5 et `db/types.ts`.** Le champ `TrainingEvent.enregistreA` est ajouté dans `db/types.ts` (fichier de S4-1, hors des deux fichiers accordés) : sans lui, la complétion n'a aucune trace de l'instant d'enregistrement. Champ optionnel, posé seulement s'il suit `at`.
+4. **M4** : décision de contrat (8.2).
+5. **§3 D** : `stamp()` de `lib/sync/queue.ts` lit `Date.now()` ; la garde de la carte IA externe et désormais `enregistreA` le comparent à des instants de `lib/clock`. Même horloge en production ; proposition inchangée.
+6. **Mutation du flake I2** non écrite : réintroduire la date dans la file ne rougit que sous charge (non déterministe).
+7. **Fixtures de `journal.write.test.ts`** : `subject_id` des `simulation.completed` passé de `'c1'` à l'id de la partie, comme le contrat (§3.2) ; `applySimulationToJournal` y lit l'instant d'enregistrement.
+
+### 8.5 Vérification par code de sortie (sommet de code `15a46b31`)
+
+| Commande | Sortie |
+|---|---|
+| `tsc -b` | 0 |
+| `vitest run --dir src --maxWorkers=2` | 0 — 174 fichiers, 1 729 tests |
+| `npm run test:c6 -- --maxWorkers=2` | 0 — 13 fichiers, 140 tests |
+| `npm run build` | 0 |
+| `scripts/check*.mjs` (22 validateurs) | 0, sauf `checkProbeOverlap` = 1 (informatif, inchangé) ; `check*.test.mjs` (11) : 0 partout |
+| `node scripts/parcours-mutations.mjs` (complet) | 0 — baseline vert, **134/134 tuées** (8 nouvelles du fixeur). Une passe précédente avait signalé `INV-73d` INAPPLICABLE (la date à l'appel avait changé la ligne) : chaîne remise à jour, passe complète relancée. |
+| Mutations manuelles (`src/`) | 13/13 tuées après renforcement d'un test (B1a-note survivait) |
+| `git merge-tree --write-tree origin/main HEAD` | 0, aucun conflit (`origin/main` = `5d01e757`) |
+
+### 8.6 Commits du fixeur
+
+| Sha | Objet |
+|---|---|
+| `cbcc7cdc` | automate et persistance : I4, M3, I11, M6, flake I2 |
+| `8ae7cef3` | M5 : complétion par l'enregistrement |
+| `a8171493` | Muster guidé raisonné (B1), focus (I6) |
+| `38eec3e1` | `CaseDial ouvrable={false}` (I1) |
+| `809b105b` | pré-simulation : B2, I2/M7, I3, I9, mineurs, B3 |
+| `d1d8f887` | runner et programme : I4, I5, I7, I8, I10, I11, méca I1, M2, M9 |
+| `15a46b31` | mutations, candidat navigateur, contrat §10 amendé |
+| (ce commit) | mutation `INV-73d` suivie (date à l'appel) ; ce rapport |
 
 ## Non vérifié
 
