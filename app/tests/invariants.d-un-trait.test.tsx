@@ -2,9 +2,11 @@
 // Le chemin entier, de la génération au cochage :
 //   1. dans la fenêtre des 15 jours ouvrés avant l'examen, le plan PAR DÉFAUT (garde de parametres.ts) émet `dUnTrait` ;
 //   2. son lien de lancement mène à une partie ENTIÈRE (trois Teile, départ sur l'Anamnese, la tâche portée) ;
-//   3. tout ou rien (I5) : une partie partielle ne la coche pas ; une partie d'un trait la coche.
+//   3. tout ou rien (I5) : une partie partielle ne la coche pas ; une partie d'un trait la coche ;
+//   4. entamée à part, sa ligne dit « À reprendre depuis l'Anamnese » — jamais « il te reste », « d'un trait » une fois.
 import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest';
-import { configure, act, renderHook, waitFor } from '@testing-library/react';
+import { configure, act, render, renderHook, waitFor } from '@testing-library/react';
+import { MemoryRouter } from 'react-router-dom';
 
 vi.mock('@/lib/auth/session', async () => (await import('./helpers/mocks')).authMock());
 vi.mock('@/lib/sync/queue', async () => (await import('./helpers/mocks')).queueMock());
@@ -17,7 +19,7 @@ import { freezeAt } from '@/lib/clock';
 import { computeCaseProgress } from '@/lib/journal';
 import { buildTasks, type BuildInput } from '@/lib/program/dayPlan';
 import { SEUIL_FREQUENT } from '@/lib/program/parametres';
-import { taskLink } from '@/features/program/TaskLine';
+import { lectureDuPlan, TaskLine, taskLink } from '@/features/program/TaskLine';
 import { departDe, useLauf } from '@/features/simulation/useLauf';
 import type { Case, DayPlan, TaskInstance, TrainingEvent } from '@/db/types';
 import { rng } from './helpers/prop';
@@ -54,6 +56,18 @@ describe('« D’un trait », garde vraie — du plan à la tâche cochée', () 
     expect(url.pathname).toBe(`/simulation/${t.caseId}/pre`);
     expect(departDe(url.searchParams), 'une tâche d’un trait ne part pas d’un Teil isolé').toBeNull();
     expect(url.searchParams.get('task')).toBe(t.id);
+  });
+
+  it('entamée à part : la ligne dit « À reprendre depuis l’Anamnese », jamais « il te reste », « d’un trait » une seule fois', () => {
+    const t = { ...tachesDuJour().find((x) => x.dUnTrait)!, creeA: morning(JOUR, 8) };
+    const partie: TrainingEvent = { id: 'p1', at: morning(JOUR, 10), kind: 'simulation', caseId: t.caseId, teile: ['anamnese'], source: 'libre', spentMin: 15, scores: { anamnese: 70 } };
+    const plan = { date: JOUR, materializedAt: morning(JOUR, 8), mode: 'cas-complet', seed: 's', targetMin: 240, tasks: [t] } as DayPlan;
+    const { container, unmount } = render(<MemoryRouter><TaskLine task={t} lecture={lectureDuPlan(plan, [partie]).get(t.id)} /></MemoryRouter>);
+    const texte = container.textContent ?? '';
+    unmount();
+    expect(texte).toMatch(/À reprendre depuis l'Anamnese/);
+    expect(texte).not.toMatch(/il te reste/i);
+    expect(texte.split(/d'un trait/).length - 1, 'la raison le dit, une fois').toBe(1);
   });
 
   async function jouer(teileJoues: number) {

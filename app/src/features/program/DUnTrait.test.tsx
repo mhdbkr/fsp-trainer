@@ -1,6 +1,6 @@
 // S4 « d'un trait » — les textes qui annoncent la tâche (training-journal.md §12.3 I5, §13.1, §12.4.7).
-// Une tâche `dUnTrait` dit ce qu'elle exige par sa raison ; entamée à part, sa ligne dit qu'elle se rejoue entière,
-// d'un trait — jamais « il te reste … ». Garde fausse : les textes d'avant, mot pour mot.
+// Une tâche `dUnTrait` dit ce qu'elle exige par sa raison ; entamée à part, sa ligne dit qu'elle reprend depuis
+// l'Anamnese — jamais « il te reste … », sans répéter « d'un trait ». Garde fausse : les textes d'avant, mot pour mot.
 import { describe, it, expect, afterEach, beforeEach, vi } from 'vitest';
 import { render, screen, cleanup } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
@@ -20,7 +20,7 @@ import { buildTasks, type BuildInput } from '@/lib/program/dayPlan';
 import { lectureDuPlan, TaskLine, TaskList, taskLink } from './TaskLine';
 
 const D_UN_TRAIT = /d'un trait/;
-const A_REJOUER = "À rejouer d'un trait, en entier";
+const A_REJOUER = "À reprendre depuis l'Anamnese";
 const TEILE = ['anamnese', 'dokumentation', 'fallvorstellung'] as const;
 const SPECS: Specialty[] = ['Kardiologie', 'Gastroenterologie', 'Pneumologie', 'Neurologie', 'Nephrologie'];
 
@@ -36,13 +36,13 @@ const cas = (i: number, frequency: number): Case =>
   ({ id: `c${i}`, name: `Cas ${i}`, pathology: `p${i}`, specialty: SPECS[i], frequency, centers: [], linkedFachbegriffeIds: [] } as unknown as Case);
 
 /** Exam le 30 oct. : fenêtre d'un trait = les 15 derniers jours ouvrés ; dernière ligne droite = 27–29 oct. */
-function plan(date: string, dUnTraitActif?: boolean): TaskInstance[] {
+function plan(date: string, dUnTraitActif?: boolean, { modus = 'cas-complet', vierge = false } = {}): TaskInstance[] {
   const cases = [cas(0, 26), cas(1, 25), cas(2, 24), cas(3, 23)];
-  const evs = [
+  const evs = vierge ? [] : [
     mesure('x0', '2026-10-12', 'c0'), mesure('x1', '2026-10-15', 'c0'),                        // solide, PAS dû le 21
     ...[1, 2, 3].flatMap((i) => [mesure(`a${i}`, '2026-09-01', `c${i}`), mesure(`b${i}`, '2026-09-04', `c${i}`)]),  // solides, dus
   ];
-  const config = { startDate: '2026-10-05', examDate: '2026-10-30', intensity: 'mittel', hoursPerSession: 4, modus: 'cas-complet',
+  const config = { startDate: '2026-10-05', examDate: '2026-10-30', intensity: 'mittel', hoursPerSession: 4, modus,
     offDays: [0, 6], prioritySpecialties: [], selfLevel: {}, createdAt: 0 } as unknown as ProgramConfig;
   const input: BuildInput = {
     config, date, cases, progress: new Map(computeCaseProgress(evs).map((p) => [p.caseId, p])), trainingEvents: evs, begriffe: [],
@@ -58,7 +58,7 @@ describe('la raison d’une tâche d’un trait dit ce qu’elle exige', () => {
     const unTrait = tasks.filter((t) => t.dUnTrait);
     expect(unTrait.length, 'au moins le cas choisi et une consolidation').toBeGreaterThanOrEqual(2);
     for (const t of unTrait) expect(t.reason, `${t.label} : la raison ne dit pas « d'un trait »`).toMatch(D_UN_TRAIT);
-    expect(tasks.find((t) => t.caseId === 'c0')!.reason).toBe("Pour la fin de la préparation : ce cas, d'un trait, comme à l'examen.");
+    expect(tasks.find((t) => t.caseId === 'c0')!.reason).toBe("Solide, pas encore prêt : rejoue-le d'un trait, comme à l'examen.");
     expect(tasks.find((t) => t.caseId === 'c1')!.reason).toBe("Solide il y a 47 jours : rejoue-le d'un trait, comme à l'examen.");
   });
 
@@ -66,6 +66,13 @@ describe('la raison d’une tâche d’un trait dit ce qu’elle exige', () => {
     const exam = plan('2026-10-28').find((t) => t.kind === 'examen-blanc')!;
     expect(exam.dUnTrait).toBe(true);
     expect(exam.reason).toBe("Répétition générale : d'un trait et sans aide.");
+  });
+
+  it('mode examen à blanc dans la fenêtre, cas jamais joué : une seule raison, jamais « Solide » à tort', () => {
+    const exam = plan('2026-10-21', undefined, { modus: 'examen-blanc', vierge: true }).find((t) => t.kind === 'examen-blanc')!;
+    expect(exam.dUnTrait).toBe(true);
+    expect(exam.reason).toBe("Répétition générale : d'un trait et sans aide.");
+    expect(exam.reason).not.toMatch(/Solide/);
   });
 
   it('garde fausse : aucune tâche d’un trait, les raisons d’avant', () => {
@@ -102,12 +109,13 @@ describe('la ligne d’une tâche d’un trait', () => {
     expect(occurrences(/d'un trait/g), 'une seule fois sur la ligne').toBe(1);
   });
 
-  it('entamée à part (l’Anamnese seule) : « à rejouer d’un trait, en entier », jamais « il te reste »', () => {
+  it('entamée à part (l’Anamnese seule) : « À reprendre depuis l’Anamnese », jamais « il te reste »', () => {
     const lecture = lectureDuPlan(jour([tache]), [partie('e1', ['anamnese'], 10)]).get('tu')!;
     expect(lecture.reste, 'le cas entier se rejoue : rien ne « reste »').toBeUndefined();
     expect(lecture.aRejouer).toBe(true);
     dans(<TaskLine task={tache} lecture={lecture} />);
     expect(screen.getByText(A_REJOUER).className).toMatch(/dim-tag/);
+    expect(occurrences(/d'un trait/g), 'la raison le dit, le libellé ne le répète pas').toBe(1);
     expect(document.body.textContent).not.toMatch(/il te reste/i);
     expect(screen.getByText('52 min'), 'le temps du cas entier').toBeTruthy();
     expect(new URL(taskLink(tache, lecture.reste?.teile), 'http://x').searchParams.get('depart'), 'on repart du début').toBeNull();
@@ -118,6 +126,7 @@ describe('la ligne d’une tâche d’un trait', () => {
     const lecture = lectureDuPlan(jour([tache]), evs).get('tu')!;
     dans(<TaskLine task={tache} lecture={lecture} />);
     expect(screen.getByText(A_REJOUER)).toBeTruthy();
+    expect(occurrences(/d'un trait/g), 'la raison le dit, le libellé ne le répète pas').toBe(1);
   });
 
   it('une tâche ordinaire entamée garde « il te reste … »', () => {
@@ -137,7 +146,7 @@ describe('l’accueil (TaskList) : le libellé une fois', () => {
     await Promise.all([db.day_plans.clear(), db.training_events.clear()]);
   });
 
-  it('entamée à part : la liste lit le plan figé et dit « à rejouer d’un trait, en entier » une seule fois', async () => {
+  it('entamée à part : la liste lit le plan figé et dit « À reprendre depuis l’Anamnese » une seule fois', async () => {
     await db.day_plans.put(jour([tache]));
     await db.training_events.put(partie('e1', ['anamnese'], 10));
     dans(<TaskList tasks={[tache]} />);

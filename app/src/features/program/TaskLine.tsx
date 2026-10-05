@@ -82,8 +82,8 @@ export const resteTexte = (teile: readonly SimTeil[]): string => {
  *  et le rappel d'une erreur transversale (§13.3), dit avec ses chiffres. Lu dans le journal, jamais stocké. */
 export interface LectureTache { reste?: { teile: SimTeil[]; min: number }; rappel?: string; soiree?: string; aRejouer?: true }
 
-/** Une tâche d'un trait entamée à part (I5) : rien ne « reste », le cas se rejoue entier, comme l'action du cadran. */
-const A_REJOUER = "À rejouer d'un trait, en entier";
+/** Une tâche d'un trait entamée à part (I5) : rien ne « reste », le cas reprend au début. « D'un trait » est dans la raison. */
+const A_REJOUER = "À reprendre depuis l'Anamnese";
 
 export function lectureDuPlan(plan: DayPlan, events: readonly TrainingEvent[]): Map<string, LectureTache> {
   const out = new Map<string, LectureTache>();
