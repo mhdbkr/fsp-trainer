@@ -13,6 +13,8 @@ export interface RelevanceContext {
   todaySpecialty?: Specialty;
   /** `name` sert à l'écran d'accueil du drill (« Ancré sur ton cas récent »). */
   cases: (Pick<Case, 'id' | 'linkedFachbegriffeIds'> & { name?: string })[];
+  /** Dernière séance de drill terminée (journal, `lastDrillAt`) : borne « le drill suivant » (revue I3). */
+  lastDrillAt?: number;
 }
 
 /** Index terme → ids de cas qui le lient (construit une fois pour toute la file, cf. `sortByRelevance`). */
@@ -25,6 +27,17 @@ function buildCasesByTerm(cases: RelevanceContext['cases']): Map<string, string[
     }
   }
   return m;
+}
+
+/** Favoris « de la séance » : posés APRÈS la dernière séance de drill terminée — ils
+ *  entrent TOUS au drill suivant (lot F, revue I3 : un week-end off ne les perd pas).
+ *  Sans drill antérieur, repli sur les 48 h du bonus ★. */
+export function sessionFavoriteIds(ctx: Pick<RelevanceContext, 'now' | 'favorites' | 'lastDrillAt'>): Set<string> {
+  return new Set(ctx.favorites.filter((f) => {
+    const since = Date.parse(f.since);
+    if (since > ctx.now) return false;
+    return ctx.lastDrillAt !== undefined ? since > ctx.lastDrillAt : ctx.now - since < H48;
+  }).map((f) => f.termId));
 }
 
 /** Points de pertinence d'un terme NEU (spec F2a 3.3). Les dus ne passent pas par ici.

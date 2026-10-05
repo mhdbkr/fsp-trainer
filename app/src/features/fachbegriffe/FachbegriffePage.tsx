@@ -74,7 +74,7 @@ export function FachbegriffePage() {
   }, [decks, activeId]);
 
   if (!begriffe || !decks) return <div className="text-slate-400">Chargement…</div>;
-  const c = termCounts(activeDeck ? shown : begriffe);
+  const c = termCounts(activeDeck ? shown : begriffe, undefined, favorites);
   const due = c.due;
   const fresh = Math.min(c.fresh, remaining);
   const drillHref = activeId ? `/fachbegriffe/drill?deck=${activeId}` : '/fachbegriffe/drill';

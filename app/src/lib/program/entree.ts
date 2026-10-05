@@ -14,10 +14,10 @@
 // ni la base ni l'horloge.
 // ============================================================================
 
-import type { Case, CaseProgress, Fachbegriff, PersonalTerm, ProgramConfig, Srs, TrainingEvent } from '@/db/types';
+import type { Case, CaseProgress, Fachbegriff, Favorite, PersonalTerm, ProgramConfig, Srs, TrainingEvent } from '@/db/types';
 import { projectTrainingEvents } from '@/lib/journal';
 import { computeCaseProgress } from '@/lib/progression';
-import { sortEvents } from '@/lib/collections/project';
+import { projectCollections, sortEvents } from '@/lib/collections/project';
 import { freshSrs, isNew } from '@/lib/srs';
 import { newBudget, retention7d } from '@/lib/srsBudget';
 import { effectiveDaily, projectSrsSettings, type SrsSettings } from '@/lib/srsSettings';
@@ -52,6 +52,8 @@ export interface Entree {
   progress: Map<string, CaseProgress>;
   begriffe: Fachbegriff[];
   newPerDay: number;
+  /** Les favoris projetés de J_D (lot F) : la même coupure que le SRS, jamais un favori du jour D. */
+  favorites: Favorite[];
 }
 
 /** La config du jour D : la dernière valide d'AVANT le jour, sinon la première du jour D (la création du programme). */
@@ -108,5 +110,5 @@ export function entreeDuJour(p: EntreeParams): Entree {
     const settings = p.events.some((e) => e.type === 'srs.settings_changed') ? projectSrsSettings(avant as ProgressEvent[]) : (p.reglagesLocaux ?? projectSrsSettings([]));
     newPerDay = effectiveDaily(settings, { budget, intensity: config.intensity }).newPerDay;
   }
-  return { config, trainingEvents, progress, begriffe, newPerDay };
+  return { config, trainingEvents, progress, begriffe, newPerDay, favorites: projectCollections(avant as ProgressEvent[]).favorites };
 }

@@ -1,7 +1,8 @@
 // Construit le contexte de pertinence et le budget du jour depuis la base du compte.
 import { db } from '@/db/db';
 import { isDemoSimulation } from '@/lib/demoSimulation';
-import type { DayPlan, ProgramConfig, Specialty } from '@/db/types';
+import type { DayPlan, ProgramConfig, Specialty, TrainingEvent } from '@/db/types';
+import { isCocheNue } from '@/lib/journal';
 import type { RelevanceContext } from './relevance';
 import { newBudget, remainingToday, retention7d, reviewedToday } from '@/lib/srsBudget';
 import { isNew } from '@/lib/srs';
@@ -30,6 +31,14 @@ export function todayProgramContext(plan: DayPlan | undefined | null): { todayCa
   return { todayCaseIds: [...new Set(sims.map((t) => t.caseId!))], todaySpecialty: sims[0]?.specialty };
 }
 
+/** Dernière séance de drill TERMINÉE (≤ now) : un `training` drill journalisé par
+ *  DrillPage, jamais une coche nue (revue I3). `undefined` si aucune. */
+export function lastDrillAt(events: readonly TrainingEvent[], now: number): number | undefined {
+  let last: number | undefined;
+  for (const te of events) if (te.kind === 'drill' && !isCocheNue(te) && te.at <= now && (last === undefined || te.at > last)) last = te.at;
+  return last;
+}
+
 export async function loadDrillContext(now = nowDate()): Promise<DrillContext> {
   const [favorites, deckTerms, allSims, cases, begriffe, personalTerms, events, config, settings] = await Promise.all([
     db.favorites.toArray(),
@@ -42,6 +51,7 @@ export async function loadDrillContext(now = nowDate()): Promise<DrillContext> {
     db.meta.get('program').then((m) => m?.value as ProgramConfig | undefined),
     getSrsSettings(),
   ]);
+  const drills = await db.training_events.where('kind').equals('drill').toArray();
   const todayPlan = await db.day_plans.get(dayKey(now));
 
   // Une carte en attente de suppression (masquage local, F4a D10) reste 5 s
@@ -61,6 +71,7 @@ export async function loadDrillContext(now = nowDate()): Promise<DrillContext> {
     todayCaseIds,
     todaySpecialty,
     cases: cases.map((c) => ({ id: c.id, name: c.name, linkedFachbegriffeIds: c.linkedFachbegriffeIds })),
+    lastDrillAt: lastDrillAt(drills, now.getTime()),
   };
 
   const budget = newBudget({
