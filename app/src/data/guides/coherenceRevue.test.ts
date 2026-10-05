@@ -111,10 +111,10 @@ describe('P1-1 — D4-bis : le symptôme directeur du motif se pose dans Aktuell
     expect(fieber('case-malaria')).toEqual(['aktuell:akt-infekt-fieber']);
     expect(un(playedTrame(byId('case-malaria')).ecarts, 'fach-infekt-fieber', 'retire')).toMatchObject({ cause: 'akt-infekt-fieber' });
   });
-  it('pneumonie : la Fach pneumo garde « Hatten Sie dabei Schüttelfrost? » (texte existant), plus de « Haben Sie Fieber? »', () => {
+  it('pneumonie : la Fach pneumo garde « Hatten Sie Schüttelfrost? » (part, texte de la relecture de langue K4), plus de « Haben Sie Fieber? »', () => {
     expect(fieber('case-pneumonie')).toEqual(['aktuell:akt-infekt-fieber']);
     const fach = playedTrame(byId('case-pneumonie')).fach!.chapter.questions.map(phraseText);
-    expect(fach).toContain('Hatten Sie dabei Schüttelfrost?');
+    expect(fach).toContain('Hatten Sie Schüttelfrost?');
     expect(fach).not.toContain('Haben Sie Fieber oder Schüttelfrost?');
   });
   it('130 cas de nature infekt : aucune question de fièvre hors d\'Aktuelle Beschwerden (sauf une question du cas)', () => {
@@ -279,8 +279,8 @@ describe('R3 / P2 / gib — le bloc « Veränderung » d\'une lésion cutanée r
     for (const id of ['case-mammakarzinom', 'case-tvt', 'case-erysipel', 'case-basaliom', 'case-psoriasis', 'case-urtikaria'])
       expect(textes(id).filter((t) => /Blut im Stuhl|Blut im Urin|Husten Sie Blut ab/.test(t)), id).toEqual([]);
   });
-  it('P2 : « blutet es? » est une part propre — quand le saignement est déjà demandé, il reste « Tut es weh, juckt es? »', () => {
-    expect(textes('case-mammakarzinom')).toContain('Schmerz und Blutung — Tut es weh, juckt es?');
+  it('P2 : « blutet es? » est une part propre — quand le saignement est déjà demandé, il reste « Tut es weh oder juckt es? »', () => {
+    expect(textes('case-mammakarzinom')).toContain('Schmerz und Blutung — Tut es weh oder juckt es?');
     expect(textes('case-mammakarzinom')).not.toContain('Tut es weh, juckt es, oder blutet es?');
   });
   it('3e revue B2 — gib : la douleur épigastrique est demandée (exige charakter), avec une réponse fidèle à la fiche, sans « jucken »', () => {
@@ -339,10 +339,10 @@ describe('Les deux cas de la direction, présentables dès K3 — zéro doublon,
 });
 
 describe('P2 — une part réduite porte le libellé de dimension de sa mère', () => {
-  it('« Beginn — Seit wann haben Sie die Schmerzen? » (fibromyalgie) ; « Schmerz und Blutung — Tut es weh, juckt es? » (mammakarzinom)', () => {
+  it('« Beginn — Seit wann haben Sie die Schmerzen? » (fibromyalgie) ; « Schmerz und Blutung — Tut es weh oder juckt es? » (mammakarzinom)', () => {
     const akt = (id: string) => playedTrame(byId(id)).chapters.find((x) => x.id === 'aktuell')!.questions.map(phraseText);
     expect(akt('case-fibromyalgie')).toContain('Beginn — Seit wann haben Sie die Schmerzen?');
-    expect(akt('case-mammakarzinom')).toContain('Schmerz und Blutung — Tut es weh, juckt es?');
+    expect(akt('case-mammakarzinom')).toContain('Schmerz und Blutung — Tut es weh oder juckt es?');
     expect(akt('case-depression')).toContain('Verlauf — Ist es jeden Tag gleich, oder gibt es bessere und schlechtere Tage?');
   });
 });

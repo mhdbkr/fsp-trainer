@@ -43,7 +43,7 @@ const entry = join(dir, 'entry.ts');
 const src = (f) => JSON.stringify(join(root, 'src', f));
 writeFileSync(entry, `
   export { seedCases } from ${src('data/seedCases.ts')};
-  export { playedTrame, leitsymptomOf, compteursApresCas, trameBrute, profilDuCas, ctxDuCas } from ${src('data/guides/anamneseChapters.ts')};
+  export { playedTrame, leitsymptomOf, compteursApresCas, trameBrute, profilDuCas, ctxDuCas, partsOuvertureFautes } from ${src('data/guides/anamneseChapters.ts')};
   export { cohere, COHERENCE_ALLOWED } from ${src('data/guides/coherence.ts')};
   export { phraseText, phraseAlts, phraseFollowUp, phraseFollowUps, phraseProbes, phraseIsCaseSpecific } from ${src('data/guides/phrases.ts')};
   export { suchtIncoherences } from ${src('data/guides/suchtCheck.ts')};
@@ -68,6 +68,9 @@ for (const k of [...Object.keys(DIM), ...Object.keys(SIG)]) if (!m.SIGNES.includ
 
 // ── La trame jouée de chaque cas ─────────────────────────────────────────────
 const cases = m.seedCases();
+// K4 (relecture de langue) : une part qui peut devenir la question d'ouverture se dit seule (partNonAutonome) — bloquant.
+const ouverture = m.partsOuvertureFautes(cases);
+structure.push(...ouverture);
 // INV-80 (dès K2) : tout cas déclare un profil valide (signes exigés atteignables par leur banque, exclusions motivées).
 structure.push(...m.profilIncoherences(cases.map((c) => ({ id: c.id, kategorie: m.leitsymptomOf(c), sheet: c.patientSheet }))));
 const rowsOf = (c) => {
@@ -204,6 +207,7 @@ console.log('compteur'.padEnd(20), 'mesure', 'plancher', ' signification');
 for (const [k, label, source, exact] of COMPTEURS) console.log(k.padEnd(20), num(T.brut[k]).padStart(6), num(floor?.brut?.[k]).padStart(8), ` ${label}\n${' '.repeat(36)}mesure : ${source} — exacte dès ${exact}`);
 console.log('\nrésidu de contenu');
 for (const [k, label, exact] of RESIDU) console.log(k.padEnd(20), num(T.residu[k]).padStart(6), num(floor?.residu?.[k]).padStart(8), ` ${label} — à 0 dès ${exact}`);
+console.log(`\nparts en ouverture (bloquant, 0 attendu) : ${ouverture.length} non autonome(s) ou « relance seulement » posée(s) en ouverture`);
 console.log(`\ninformatif (hors plancher, K5) : doublonsMasques ${T.info.doublonsMasques} — une question du cas déclarée dont le texte nomme un signe qu'une sonde jouée cherche (node scripts/checkCoherence.mjs --case <id>)`);
 console.log(`\nrepères de la spec §2 : (a) ${T.spec.a} · (b) ${T.spec.b} · (c) ${T.spec.c} · (d) ${T.spec.d} dont ${T.spec.dDetachables} détachables sans condition · (d large, sans condition) ${T.spec.dLarge} · relances conditionnelles lues large, non comptées ${T.spec.dCondLarge} · (e) ${T.spec.e}`);
 const hist = {};

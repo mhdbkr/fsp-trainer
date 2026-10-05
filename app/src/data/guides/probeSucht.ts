@@ -112,7 +112,7 @@ export const PROBE_SUCHT: Readonly<Record<string, Sucht>> = {
   'fach-endo-durst': ['durst', 'polyurie', 'nykturie'], 'fach-endo-gewicht': ['gewicht', 'appetit'],
   'fach-endo-temperatur': ['schwitzen', 'temperaturtoleranz'], 'fach-endo-herz-nerven': ['herzrasen', 'tremor', 'unruhe', 'antrieb', 'muedigkeit'],
   'fach-endo-hals': ['halsschwellung', 'schluck', 'stimme'], 'fach-endo-augen': ['augenveraenderung', 'sehstoerung'],
-  'fach-endo-haut-haare': ['haut_haare'], 'fach-endo-unterzucker': ['hypoglykaemie'],
+  'fach-endo-haut-haare': ['haut_haare', 'wundheilung'], 'fach-endo-unterzucker': ['hypoglykaemie'],
   'fach-endo-folgeschaeden': ['taubheit', 'sehstoerung', 'nierenprobleme'], 'fach-endo-familie-therapie': ['familie_endokrin', 'endokrine_therapie'],
   // --- Fach Hämatologie ---------------------------------------------------------
   'fach-haem-leistung': ['muedigkeit', 'leistung', 'blaesse'], 'fach-haem-belastung': ['atemnot', 'herzrasen', 'schwindel'],

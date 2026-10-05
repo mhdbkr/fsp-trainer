@@ -6,7 +6,8 @@ import { phraseSucht, SIGNE_DEF } from './symptoms';
 import { DEFS_CAS } from './signesDefsCas';
 import { DEFS_BASE } from './signesDefs';
 import { RISIKO_SIGNES } from './coherence';
-import { trameBrute } from './anamneseChapters';
+import { partsOuvertureFautes, trameBrute } from './anamneseChapters';
+import { PART_RELANCE_SEULE, partNonAutonome } from './phrases';
 
 // K4 (ADR-0023, contrat frage-atomique §10.10) — les questions du cas déclarent ce qu'elles posent ; les sondes à
 // énumération reçoivent leurs `parts`. Ces tests gardent les règles nouvelles du lot ; chacun a sa mutation au rapport K4.
@@ -80,6 +81,7 @@ describe('K4 fixeur (revue I-3) — les doublons renvoyés : la sonde perdante e
     ['case-itp', 'fach-haem-blutung', 'blutungsneigung'], ['case-zoeliakie', 'fach-gastro-stuhl', 'stuhlaussehen'],
     ['case-perikarditis', 'akt-einfluss', 'einfluss'], ['case-myokarditis', 'akt-einfluss', 'einfluss'],
     ['case-somatoforme-schmerzstoerung', 'akt-einfluss', 'einfluss'],
+    ['case-sturz-im-alter', 'fach-neuro-koordination', 'sturz'],                 // contre-revue P2 : « gestürzt » une fois
   ];
   it.each(PERDANTES)('%s : %s ne pose plus « %s »', (id, probe, signe) => {
     expect(pose(id, probe, signe)).toBe(false);
@@ -106,6 +108,8 @@ describe('K4 fixeur — la revue clinique : la question perdue revient dans la t
     ['case-commotio', 'fach-neuro-koordination', /Schwindel/], ['case-commotio', 'veg-schuettelfrost', /Schweiß/],
     ['case-ileus', 'fach-chir-ileus', /heute Stuhlgang/],
     ['case-perikarditis', 'fach-kardio-atem', /Atmen/], ['case-myokarditis', 'fach-kardio-atem', /Atmen/],
+    ['case-adnexitis', 'akt-ausstrahlung', /irgendwohin/],                     // contre-revue P2 : n° 3 cherche `schulterschmerz`
+    ['case-metabolisches-syndrom', 'fach-endo-haut-haare', /Wunden/],          // contre-revue P2 : la cicatrisation (part)
   ];
   it.each(REVIENT)('%s : %s est posée', (id, probe, re) => {
     expect(texte(id, probe)).toMatch(re);
@@ -159,5 +163,21 @@ describe('K4 — les parts découpées du texte', () => {
       .map((c) => [c.id, ausloeser(c.id)] as const).filter(([, p]) => p);
     expect(ailleurs.length).toBeGreaterThan(0);
     for (const [id, p] of ailleurs) expect(tout(p), id).not.toMatch(/Bier|Wassertablette/);
+  });
+});
+
+describe('K4 — garde-fou de langue : une part qui peut devenir la question d’ouverture se dit seule', () => {
+  it('130 cas : toute part des trames brutes est autonome ; les parts « relance seulement » n’ouvrent aucune question jouée', () => {
+    expect(partsOuvertureFautes(cases)).toEqual([]);
+  });
+  it('l’heuristique refuse les ellipses de la relecture et accepte leur remplacement', () => {
+    for (const t of ['Übelkeit?', 'Beim Stuhlgang?', 'An der Farbe des Urins?', 'Eine Wunde?', 'Probleme mit der Blase?', 'Blaue Flecken?',
+      'Kamen sie plötzlich oder schleichend?', 'Wandern sie von Gelenk zu Gelenk?', 'Und nachts?', 'Dabei Fieber?']) expect(partNonAutonome(t), t).toBeDefined();
+    for (const t of ['War Ihnen dabei übel?', 'Hat sich beim Stuhlgang etwas verändert?', 'Brennt es beim Wasserlassen?', 'Seit wann haben Sie das?',
+      'Beginn — Kamen die Schmerzen plötzlich oder schleichend?', 'Wie oft haben Sie sich übergeben?']) expect(partNonAutonome(t), t).toBeUndefined();
+  });
+  it('chaque part « relance seulement » existe (pas d’entrée morte) et n’est pas autonome', () => {
+    const parts = new Set(cases.flatMap((c) => trameBrute(c).flatMap((ch) => ch.questions.flatMap((p) => (typeof p === 'string' ? [] : p.parts ?? []).map((pt) => pt.text)))));
+    for (const t of PART_RELANCE_SEULE) { expect(parts.has(t), t).toBe(true); expect(partNonAutonome(t), t).toBeDefined(); }
   });
 });

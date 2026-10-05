@@ -53897,7 +53897,7 @@ export function seedCases(): Case[] {
         { frage: 'Ich stelle diese Fragen allen Patientinnen mit solchen Beschwerden, weil sie für die Behandlung wichtig sind: Haben Sie einen neuen Partner, benutzen Sie Kondome, und hat Ihr Partner Beschwerden?', kapitel: 'familie-sozial', sucht: ['sexualanamnese'] },
         { frage: 'Hatten Sie schon einmal eine Geschlechtskrankheit oder eine Entzündung im Unterleib?', kapitel: 'vorerkrankungen', sucht: ['std_vorgeschichte'] },
         { frage: 'Ist der Schmerz vom Bauchnabel in den rechten Unterbauch gewandert?', kapitel: 'aktuell', sucht: ['schmerzwanderung'] },
-        { frage: 'Haben Sie Schmerzen im rechten Oberbauch oder in der Schulter, vor allem beim Atmen?', kapitel: 'aktuell', sucht: ['ausstrahlung'] },
+        { frage: 'Haben Sie Schmerzen im rechten Oberbauch oder in der Schulter, vor allem beim Atmen?', kapitel: 'aktuell', sucht: ['schulterschmerz'] },
       ],
       examinerQuestions: [
         'Stellen Sie uns bitte die Patientin vor. Wie lautet Ihre Verdachtsdiagnose, und warum?',
@@ -55819,7 +55819,7 @@ export function seedCases(): Case[] {
         { frage: 'Waren Sie bewusstlos, oder können Sie sich an den ganzen Sturz erinnern?', kapitel: 'aktuell', sucht: ['bewusstlos'], relu: true },
         { frage: 'Konnten Sie allein wieder aufstehen?', kapitel: 'aktuell', sucht: ['liegezeit'], followUp: 'Falls nein: Wie lange haben Sie auf dem Boden gelegen?' },
         { frage: 'Sind Sie mit dem Kopf aufgeschlagen?', kapitel: 'aktuell', sucht: ['kopfanprall'] },
-        { frage: 'Sind Sie in den letzten zwölf Monaten schon einmal gestürzt oder beinahe gestürzt — auch wenn nichts passiert ist?', kapitel: 'vorerkrankungen', sucht: ['sturz_vorgeschichte'], relu: true },
+        { frage: 'Sind Sie in den letzten zwölf Monaten schon einmal gestürzt oder beinahe gestürzt — auch wenn nichts passiert ist?', kapitel: 'vorerkrankungen', sucht: ['sturz', 'sturz_vorgeschichte'], relu: true },
         { frage: 'Wird Ihnen beim Aufstehen aus dem Bett oder vom Stuhl schwindelig oder schwarz vor den Augen?', kapitel: 'aktuell', sucht: ['orthostase'], relu: true },
         { frage: 'Welche Medikamente nehmen Sie — auch Schlaf- oder Beruhigungsmittel, Wassertabletten, Prostatamittel und rezeptfreie Schmerzmittel? Wurde in den letzten Monaten etwas neu angesetzt oder erhöht?', kapitel: 'medikamente', sucht: ['sedativa', 'diuretika', 'medikament_neu'] },
         { frage: 'Wie wohnen Sie: Treppe, Geländer, Teppiche, Badvorleger, Haustiere? Leben Sie allein, und wer könnte Ihnen helfen?', kapitel: 'familie-sozial', sucht: ['wohnsituation', 'wohnung_sturzrisiko', 'hilfe_zuhause', 'haustiere'] },

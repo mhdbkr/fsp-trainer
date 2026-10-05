@@ -153,6 +153,7 @@ export const DEFS_CAS = {
   herzrasen_frueher: { kapitel: 'aktuell', pertinence: S },         // ces palpitations, les connaît-il d'avant
   // --- K4 fixeur (revue clinique, décisions de main) -------------------------------
   todeswunsch: { kapitel: 'aktuell', pertinence: S },               // désir de mort passif (« lieber nicht mehr da sein ») — RISIKO_SIGNES, premier degré avant idées, plan, intention
+  schulterschmerz: { kapitel: 'aktuell', pertinence: S },           // douleur de l'épaule / sous les côtes à droite (Fitz-Hugh-Curtis) ≠ `ausstrahlung`, la question ouverte d'irradiation (contre-revue P2)
   haematurie: { kapitel: 'aktuell', pertinence: S },                // sang dans les urines (≠ l'aspect des urines : mousse, trouble, couleur)
   beschwerdefreies_intervall: { kapitel: 'aktuell', pertinence: S },   // entre les crises, sans aucune gêne (≠ le cours : fréquence, aggravation)
   flug: { kapitel: 'aktuell', pertinence: S },                      // le vol : quand par rapport aux troubles, combien de temps (≠ l'immobilisation en général)
