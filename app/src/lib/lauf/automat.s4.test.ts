@@ -2,7 +2,7 @@ import { describe, it, expect } from 'vitest';
 import type { ChecklistItem, PartResult, SimTeil } from '@/db/types';
 import type { Lauf } from './types';
 import {
-  REPRISE_TOLERANZ_MIN, enchainiert, erlaubt, erstelleLauf, naechsterTeil, nimmWiederAuf, tickChrono, transition,
+  REPRISE_TOLERANZ_MIN, enchainiert, erlaubt, erstelleLauf, naechsterTeil, nimmWiederAuf, tickChrono, transition, wegZu,
 } from './automat';
 
 // ============================================================================
@@ -118,6 +118,25 @@ describe('INV-72 — départ sur un autre Teil (`springeZu`), choix du suivant (
     expect(l.teileGespielt).toEqual(['dokumentation']);
     l = transition(l, { typ: 'partieSuivante' });
     expect(l.aktuellerTeil).toBe('anamnese');
+  });
+});
+
+describe('§10.2 — le fil d’étapes demande à l’automate (`wegZu`)', () => {
+  it('en partie, rien de joué : « commencer par » les autres Teile, jamais le Teil courant', () => {
+    const l = demarre();
+    expect(wegZu(l, 'anamnese')).toBeNull();
+    expect(wegZu(l, 'dokumentation')).toEqual({ typ: 'springeZu', teil: 'dokumentation' });
+  });
+  it('au bilan : « continuer par » un Teil non joué ; rien vers un Teil joué', () => {
+    const l = termine(demarre());
+    expect(wegZu(l, 'anamnese')).toBeNull();
+    expect(wegZu(l, 'fallvorstellung')).toEqual({ typ: 'partieSuivante', teil: 'fallvorstellung' });
+  });
+  it('en partie après un Teil joué, et pendant une Aufklärung : aucun saut', () => {
+    const l = transition(termine(demarre()), { typ: 'partieSuivante' });
+    expect(wegZu(l, 'fallvorstellung')).toBeNull();
+    const a = transition(demarre(), { typ: 'aufklaerungOeffnen', checkliste: AUFK });
+    expect(wegZu(a, 'dokumentation')).toBeNull();
   });
 });
 

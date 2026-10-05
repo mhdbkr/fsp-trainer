@@ -90,10 +90,11 @@ describe('C1 — la fin de partie passe par l’automate', () => {
   });
 });
 
-/** Un Lauf en vol dans `lauf.aktiv`, avec `gespielt` parties terminées. */
+/** Un Lauf en vol dans `lauf.aktiv`, avec `gespielt` parties terminées. `teil` fabrique un Lauf
+ *  SÉRIE 3 à un Teil — le seul cas où il en existe encore un : un `lauf.aktiv` d'avant la série 4. */
 async function enVol(caseId: string, teil: SimTeil | null, gespielt = 0) {
   const geplant: SimTeil[] = teil ? [teil] : ['anamnese', 'dokumentation', 'fallvorstellung'];
-  let l = erstelleLauf({ caseId, caseName: caseId, profileId: 'p1', geplanteTeile: geplant, assistance: 'assiste', layer: 1 });
+  let l = erstelleLauf({ caseId, caseName: caseId, profileId: 'p1', geplanteTeile: geplant, modus: teil ? 'teil' : 'komplett', assistance: 'assiste', layer: 1 });
   l = transition(l, { typ: 'demarrer', checkliste: geplant.flatMap((t) => checklistFor(t)) });
   for (let i = 0; i < gespielt; i++) {
     l = transition(l, { typ: 'terminerPartie', ergebnis: { done: true, durationSec: 60, checklist: [], feeling: 50, contentPct: 50, officialPct: 50 } });
@@ -103,33 +104,28 @@ async function enVol(caseId: string, teil: SimTeil | null, gespielt = 0) {
   return l;
 }
 
-describe('I2 — la reprise respecte le mode, et une partie jouée n’est jamais jetée', () => {
-  it('même cas, même mode ⇒ reprise à l’identique', async () => {
-    const alt = await enVol('c1', 'anamnese');
-    const { result } = starte(fall('c1'), 'anamnese');
+// [S4] La reprise exige le même CAS, plus le même « mode » : il n'y a plus qu'une entrée, et le départ
+// (`?depart=`, ou l'ancien `?teil=`) n'est pas un périmètre (simulation-run.md §3.1, §10.3 ; INV-70).
+// Ces tests remplacent ceux de la série 3, qui exigeaient le même mode (« Teil seul » ≠ « complète »).
+describe('I2 [S4] — la reprise exige le même cas ; une partie jouée n’est jamais jetée', () => {
+  it('même cas, quel que soit le départ demandé ⇒ reprise à l’identique', async () => {
+    const alt = await enVol('c1', null, 1);
+    const { result } = starte(fall('c1'), 'fallvorstellung');
     await waitFor(() => expect(result.current.laedt).toBe(false));
     expect(result.current.lauf?.id).toBe(alt.id);
+    expect(result.current.lauf?.teileGespielt).toEqual(['anamnese']);
   });
 
-  it('(a) Teil seul en cours, puis simulation complète du même cas ⇒ ce n’est PAS le Teil seul qui est repris', async () => {
+  it('un `lauf.aktiv` série 3 en `teil` se reprend tel quel, jusqu’à son écriture', async () => {
     const alt = await enVol('c1', 'anamnese');
     const { result } = starte(fall('c1'), null);
     await waitFor(() => expect(result.current.laedt).toBe(false));
-    expect(result.current.lauf?.id).not.toBe(alt.id);
-    expect(result.current.lauf?.modus).toBe('komplett');
-  });
-
-  it('(b) run complet avec une partie jouée, puis « Anamnese seule » ⇒ le run est ÉCRIT, pas supprimé', async () => {
-    const alt = await enVol('c1', null, 1);
-    const { result } = starte(fall('c1'), 'anamnese');
-    await waitFor(() => expect(result.current.laedt).toBe(false));
-    expect(result.current.lauf?.id).not.toBe(alt.id);
+    expect(result.current.lauf?.id).toBe(alt.id);
     expect(result.current.lauf?.modus).toBe('teil');
-    const sim = await db.simulations.get(alt.id);
-    expect(sim?.parts.anamnese?.done).toBe(true);
+    expect(result.current.lauf?.geplanteTeile).toEqual(['anamnese']);
   });
 
-  it('(c) run complet avec une partie jouée, puis un autre cas ⇒ le run est ÉCRIT', async () => {
+  it('run avec une partie jouée, puis un autre cas ⇒ le run est ÉCRIT', async () => {
     const alt = await enVol('c1', null, 1);
     const { result } = starte(fall('c2'), null);
     await waitFor(() => expect(result.current.laedt).toBe(false));
@@ -137,11 +133,38 @@ describe('I2 — la reprise respecte le mode, et une partie jouée n’est jamai
     expect(await db.simulations.get(alt.id)).toBeDefined();
   });
 
-  it('un Lauf sans partie jouée qu’on quitte pour un autre mode n’est pas écrit', async () => {
+  it('un Lauf sans partie jouée qu’on quitte pour un autre cas n’est pas écrit', async () => {
     await enVol('c1', null, 0);
-    const { result } = starte(fall('c1'), 'anamnese');
+    const { result } = starte(fall('c2'), null);
     await waitFor(() => expect(result.current.laedt).toBe(false));
     expect(await db.simulations.count()).toBe(0);
+  });
+});
+
+describe('INV-70 — entrée unique : le départ ne change que le Teil de `demarrer`', () => {
+  it('?depart=dokumentation : trois Teile planifiés, `komplett`, la partie commence par la Dokumentation', async () => {
+    const { result } = starte(fall('c2'), 'dokumentation');
+    await waitFor(() => expect(result.current.lauf?.zustand).toBe('laufend'));
+    expect(result.current.lauf?.geplanteTeile).toEqual(['anamnese', 'dokumentation', 'fallvorstellung']);
+    expect(result.current.lauf?.modus).toBe('komplett');
+    expect(result.current.lauf?.aktuellerTeil).toBe('dokumentation');
+    expect(result.current.lauf?.checkliste.some((i) => i.id.startsWith('fall-'))).toBe(true);
+  });
+
+  it('sans départ : l’Anamnese', async () => {
+    const { result } = starte(fall('c2'), null);
+    await waitFor(() => expect(result.current.lauf?.zustand).toBe('laufend'));
+    expect(result.current.lauf?.aktuellerTeil).toBe('anamnese');
+  });
+
+  it('un changement de départ ne recrée ni ne reprend le Lauf (§10.3)', async () => {
+    const h = starte(fall('c2'), 'anamnese');
+    await waitFor(() => expect(h.result.current.lauf?.zustand).toBe('laufend'));
+    const id = h.result.current.lauf!.id;
+    h.rerender({ c: fall('c2'), t: 'fallvorstellung' });
+    await act(async () => { await new Promise((r) => setTimeout(r, 30)); });
+    expect(h.result.current.lauf?.id).toBe(id);
+    expect(h.result.current.lauf?.aktuellerTeil).toBe('anamnese');
   });
 });
 
@@ -154,7 +177,9 @@ describe('I2 — quitter le runner met la partie en pause dans la barre « Repre
     await waitFor(() => expect(useSimSession.getState().snapshot?.caseId).toBe('c1'));
     unmount();
     expect(useSimSession.getState().minimized).toBe(true);
-    expect(useSimSession.getState().snapshot?.teil).toBe('anamnese');
+    // [S4] la partie porte les trois Teile : la barre n'a plus de « Teil seul » à rappeler (INV-70).
+    expect(useSimSession.getState().snapshot?.caseId).toBe('c1');
+    expect(useSimSession.getState().snapshot?.teil).toBeNull();
     starte(fall('c1'), 'anamnese');
     await waitFor(() => expect(useSimSession.getState().minimized).toBe(false));
   });
@@ -248,10 +273,10 @@ describe('mineur 7 — pas de sortie qui jette une partie jouée', () => {
 });
 
 describe('Re-revue 2 — item 1 : une partie jouée n’est jamais jetée pour un Lauf corrompu', () => {
-  it('checkliste: [null] sur un run où l’Anamnese est jouée ⇒ le run est ÉCRIT au changement de mode', async () => {
+  it('checkliste: [null] sur un run où l’Anamnese est jouée ⇒ le run est ÉCRIT au changement de cas', async () => {
     const l = await enVol('c1', null, 1);
     await db.meta.put({ key: LAUF_AKTIV_KEY, value: { ...l, checkliste: [null, ...l.checkliste] } } as never);
-    const { result } = starte(fall('c1'), 'anamnese');
+    const { result } = starte(fall('c2'), null);   // [S4] « changement de mode » n'existe plus : on change de cas
     await waitFor(() => expect(result.current.laedt).toBe(false));
     expect((await db.simulations.get(l.id))?.parts.anamnese?.done).toBe(true);
   });

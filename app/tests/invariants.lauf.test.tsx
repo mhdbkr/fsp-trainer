@@ -1,6 +1,9 @@
-// C6 — invariants de la partie (contrat simulation-run.md §7).
+// C6 — invariants de la partie (contrat simulation-run.md §7, §7.1).
 //   INV-20/21/28  l'automate du Lauf ne revient jamais à un état antérieur
 //   INV-22        une partie validée n fois produit UN enregistrement
+//   [S4] INV-70/71/72 dans les mêmes suites aléatoires : entrée unique, « Terminer ici »
+//   permis à chaque bilan, `springeZu` / `partieSuivante(t')` sous leurs gardes, aucun
+//   Teil joué deux fois (simulation-run.md §8 : « INV-20/21/28 avec springeZu »).
 // L'automate est testé en propriété sur des suites d'actions aléatoires, y
 // compris les actions interdites (elles doivent être refusées, pas ignorées
 // par hasard) ; l'écriture, sur la vraie chaîne hook → speichern → journal.
@@ -33,11 +36,12 @@ afterEach(() => resetTime());
 const MODELLE = () => [...checklistFor('anamnese'), ...checklistFor('dokumentation'), ...checklistFor('fallvorstellung'), ...checklistFor('aufklaerung')];
 
 function zufallsAktion(r: Rng): LaufAktion {
-  switch (r.int(0, 9)) {
+  switch (r.int(0, 10)) {
     case 0: return { typ: 'demarrer', teil: r.bool() ? r.pick(TEILE) : undefined, checkliste: MODELLE() };
     case 1: return { typ: 'aufklaerungOeffnen', checkliste: MODELLE() };
     case 2: case 3: return { typ: 'terminerPartie', ergebnis: partResult(r.int(0, 100), { durationSec: r.int(0, 900) }) };
-    case 4: case 5: return { typ: 'partieSuivante' };
+    case 4: case 5: return { typ: 'partieSuivante', ...(r.bool() ? { teil: r.pick(TEILE) } : {}) };
+    case 10: return { typ: 'springeZu', teil: r.pick(TEILE) };
     case 6: return { typ: 'versChecklist' };
     case 7: return r.bool() ? { typ: 'zurueckZurPartie' } : { typ: 'zurueckZumBilanz' };
     case 8: return { typ: 'arztbriefSchreiben' };
@@ -50,10 +54,15 @@ const EXCEPTIONS = new Set<LaufAktion['typ']>(['partieSuivante', 'zurueckZurPart
 
 describe('INV-20 / INV-21 / INV-28 — l’automate du Lauf ne revient jamais en arrière', () => {
   it('sur 500 suites d’actions aléatoires (permises ou non), à chaque pas', async () => {
-    const vu = { gespeichert: 0, bilanz: 0, refus: 0, partieSuivante: 0, retours: 0 };
+    const vu = { gespeichert: 0, bilanz: 0, refus: 0, partieSuivante: 0, retours: 0, springeZu: 0, terminerIci: 0 };
     await forAll(500, (r) => {
-      const plan: SimTeil[] = r.pick([TEILE, TEILE, ['anamnese'], ['dokumentation', 'fallvorstellung'], ['fallvorstellung']] as SimTeil[][]);
-      let l: Lauf = erstelleLauf({ caseId: 'c1', geplanteTeile: plan, assistance: 'autonome', layer: 2, mode: 'texte' });
+      // [S4] Un Lauf neuf n'a qu'une forme (INV-70) ; les plans à un Teil sont des `lauf.aktiv` série 3
+      // repris tels quels (§3.1), que l'automate sait encore finir.
+      const serie3: SimTeil[] | null = r.pick([null, null, null, ['anamnese'], ['dokumentation', 'fallvorstellung'], ['fallvorstellung']] as (SimTeil[] | null)[]);
+      let l: Lauf = serie3
+        ? { ...erstelleLauf({ caseId: 'c1', assistance: 'autonome', layer: 2, mode: 'texte' }), geplanteTeile: serie3, modus: 'teil' }
+        : erstelleLauf({ caseId: 'c1', assistance: 'autonome', layer: 2, mode: 'texte' });
+      if (!serie3) expect(l.geplanteTeile, 'INV-70 : un Lauf neuf ne porte pas les trois Teile').toEqual(TEILE);
       for (let pas = 0; pas < 40; pas++) {
         const avant = l;
         const a = r.bool(0.15) ? null : zufallsAktion(r);
@@ -72,6 +81,18 @@ describe('INV-20 / INV-21 / INV-28 — l’automate du Lauf ne revient jamais en
             // « Valider » ne ré-affiche jamais l'exercice qu'on vient de terminer :
             // la partie suivante est un Teil qu'on n'a PAS encore joué.
             expect(avant.teileGespielt, `partieSuivante ramène un Teil déjà joué — ${ctx}`).not.toContain(l.aktuellerTeil);
+            // INV-72 : après une Aufklärung, le Teil interrompu d'abord.
+            const interrompu = avant.teilVorAufklaerung && !avant.teileGespielt.includes(avant.teilVorAufklaerung) ? avant.teilVorAufklaerung : null;
+            if (interrompu) expect(l.aktuellerTeil, `partieSuivante saute le Teil interrompu par l'Aufklärung — ${ctx}`).toBe(interrompu);
+          }
+          if (a.typ === 'springeZu' && l !== avant) {
+            vu.springeZu++;
+            // INV-72 : depuis laufend(t0), aucun SimTeil joué, jamais pendant une Aufklärung, vers un autre Teil planifié.
+            expect(avant.zustand, ctx).toBe('laufend');
+            expect(avant.aktuellerTeil, `springeZu pendant une Aufklärung — ${ctx}`).not.toBe('aufklaerung');
+            expect(avant.teileGespielt.filter((t) => t !== 'aufklaerung'), `springeZu après un Teil terminé — ${ctx}`).toEqual([]);
+            expect(l.aktuellerTeil, ctx).not.toBe(avant.aktuellerTeil);
+            expect(avant.geplanteTeile, ctx).toContain(l.aktuellerTeil);
           }
           // INV-21 : terminer une partie en cours mène TOUJOURS au bilan.
           if (a.typ === 'terminerPartie' && avant.zustand === 'laufend' && avant.aktuellerTeil) {
@@ -86,6 +107,13 @@ describe('INV-20 / INV-21 / INV-28 — l’automate du Lauf ne revient jamais en
         }
         // Une partie jouée n’est jamais défaite.
         expect(l.teileGespielt.slice(0, avant.teileGespielt.length), `teileGespielt a reculé — ${ctx}`).toEqual(avant.teileGespielt);
+        // INV-72 : un Teil n'est jamais joué deux fois dans un Lauf.
+        expect(new Set(l.teileGespielt).size, `un Teil joué deux fois — ${ctx}`).toBe(l.teileGespielt.length);
+        // INV-71 : à chaque bilan, « Terminer ici » est permis — quel que soit le reste.
+        if (l.zustand === 'bilanz') {
+          expect(erlaubt(l, { typ: 'versChecklist' }), `« Terminer ici » refusé au bilan — ${ctx}`).toBe(true);
+          if (l.geplanteTeile.some((t) => !l.teileGespielt.includes(t))) vu.terminerIci++;
+        }
         // INV-28 : aucun chrono ne décroît.
         for (const [t, s] of Object.entries(avant.sekundenProTeil)) {
           expect(l.sekundenProTeil[t as SimTeil] ?? 0, `chrono de ${t} en recul — ${ctx}`).toBeGreaterThanOrEqual(s as number);
@@ -99,11 +127,23 @@ describe('INV-20 / INV-21 / INV-28 — l’automate du Lauf ne revient jamais en
     expect(vu.retours).toBeGreaterThan(20);
     expect(vu.refus).toBeGreaterThan(3000);
     expect(vu.gespeichert).toBeGreaterThan(50);
+    expect(vu.springeZu, 'springeZu jamais accepté : la garde n’est pas explorée').toBeGreaterThan(30);
+    expect(vu.terminerIci, 'aucun bilan avec un Teil restant').toBeGreaterThan(100);
   }, 120_000);
 
-  it('INV-21 — jouer un Teil seul, y compris le dernier, finit toujours par le bilan', () => {
+  it('INV-21 [S4] — « Teil seul » = trois Teile planifiés, un seul joué : bilan, puis « Terminer ici »', () => {
+    for (const depart of TEILE) {
+      let l = transition(erstelleLauf({ caseId: 'c1', assistance: 'autonome', layer: 2 }), { typ: 'demarrer', teil: depart, checkliste: MODELLE() });
+      l = transition(l, { typ: 'terminerPartie', ergebnis: partResult() });
+      expect(l.zustand).toBe('bilanz');
+      expect(l.aktuellerTeil).toBe(depart);
+      expect(erlaubt(l, { typ: 'versChecklist' })).toBe(true);
+    }
+  });
+
+  it('INV-21 — un Lauf série 3 à un Teil, repris : y compris le dernier, finit toujours par le bilan', () => {
     for (const plan of [['anamnese'], ['dokumentation'], ['fallvorstellung'], TEILE] as SimTeil[][]) {
-      let l = erstelleLauf({ caseId: 'c1', geplanteTeile: plan, assistance: 'autonome', layer: 2 });
+      let l = erstelleLauf({ caseId: 'c1', geplanteTeile: plan, assistance: 'autonome', layer: 2 });   // série 3 : `geplanteTeile` n'est plus passé que par le harnais
       l = transition(l, { typ: 'demarrer', checkliste: MODELLE() });
       for (let i = 0; i < plan.length; i++) {
         l = transition(l, { typ: 'terminerPartie', ergebnis: partResult() });
@@ -119,7 +159,7 @@ describe('INV-20 / INV-21 / INV-28 — l’automate du Lauf ne revient jamais en
 
 const cas = () => CORPUS[0];
 function lauf3(): Lauf {
-  let l = erstelleLauf({ caseId: cas().id, caseName: cas().name, geplanteTeile: TEILE, assistance: 'autonome', layer: 2, mode: 'texte' });
+  let l = erstelleLauf({ caseId: cas().id, caseName: cas().name, assistance: 'autonome', layer: 2, mode: 'texte' });
   l = transition(l, { typ: 'demarrer', checkliste: MODELLE() });
   for (let i = 0; i < 3; i++) {
     l = transition(l, { typ: 'terminerPartie', ergebnis: partResult(70 + i) });

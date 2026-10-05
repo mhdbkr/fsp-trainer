@@ -259,6 +259,15 @@ export function erlaubt(lauf: Lauf, aktion: LaufAktion): boolean {
   return transition(lauf, aktion) !== lauf;
 }
 
+/** [S4] Le fil d'étapes (§10.2) : l'action qui mène au Teil `teil` si l'automate
+ *  la permet — `springeZu` pendant une partie (« commencer par un autre Teil »),
+ *  `partieSuivante(teil)` au bilan (« continuer par … ») —, sinon `null`. La vue ne
+ *  décide rien : une pastille est un bouton ssi cette action existe. */
+export function wegZu(lauf: Lauf, teil: SimTeil): LaufAktion | null {
+  const a: LaufAktion = lauf.zustand === 'bilanz' ? { typ: 'partieSuivante', teil } : { typ: 'springeZu', teil };
+  return erlaubt(lauf, a) ? a : null;
+}
+
 /** Visibilité de « Terminer la simulation » dans l'en-tête (règle 8 amendée,
  *  I1) : au bilan seulement — jamais pendant une partie en cours, même quand
  *  une partie est déjà jouée. C'est la transition `versChecklist`, rien d'autre. */
