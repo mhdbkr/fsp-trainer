@@ -2,7 +2,57 @@
 
 Branche `feat/s3-q7-contenu`, base `origin/main` @ `317833db` (Q3, Q4, Q5, Q8 mergés). Commits de `114f5f05` à `a2048d44` (21), un fichier par commit, sans trailer. `origin/main` a depuis un commit de registre (`563df0b7`) : `git merge-tree` propre, aucune fusion nécessaire.
 
-**Statut : DONE_WITH_CONCERNS.** Tout est vert par code de sortie (§ 5). Les réserves (§ 7) : 64 réponses écrites et 53 questions retirées à valider en revue clinique ; une portée élargie aux composées que le détecteur ne lit pas ; le reste d'`aktuell` (hors lot) listé au § 7.
+**Statut (fixeur) : DONE_WITH_CONCERNS** — voir F, qui prime. Premier passage : DONE_WITH_CONCERNS. Tout est vert par code de sortie (§ 5). Les réserves (§ 7) : 64 réponses écrites et 53 questions retirées à valider en revue clinique ; une portée élargie aux composées que le détecteur ne lit pas ; le reste d'`aktuell` (hors lot) listé au § 7.
+
+## F. Fixeur — revues Opus de `56cd8885` (décisions de main)
+
+> Clinique : non mergeable, 1 P1. Langue : 0 bloquant, 3 importants. **Cette section prime sur la suite quand elles divergent.** Commits `d3023176` à `3a2c2ec0`, un fichier par commit, sans trailer. Statut : **DONE_WITH_CONCERNS** — un point non fait (F.3-a) et trois écarts à la lettre (F.3-b à d).
+
+### F.1 Clinique
+
+| Point | Fait |
+|---|---|
+| P1 parkinson | réponse : « Nur die MCP-Tropfen damals, drei Tage bei dem Magen-Darm-Infekt — sonst nie. Spritzen beim Nervenarzt … » |
+| P2-1 opioid | rétablie en `medikamente` : « Hatten Sie solche Beschwerden schon einmal, wenn die Tabletten ausgegangen sind? ↳ Falls ja: Waren sie nach der nächsten Tablette weg? » (`entzug`) ; réponse tirée d'`akt-frueher` — voir F.3-c |
+| P2-2 delir | rétablie en `vorerkrankungen` : « War er in den letzten Monaten schon vergesslich? ↳ Falls ja: Wie schnell hat sich das entwickelt? » (`kognition_vorher`, rétabli au lexique) ; réponse tirée d'`akt-frueher` — voir F.3-b et c |
+| P2-3 doublons | retirées : akutes-nierenversagen (Nierenwert), asthma (Hyposensibilisierung ; Schmerzmittel, question et réponse écrite), allergische-rhinitis (Neurodermitis/Asthma) ; basaliom : « Haben Sie bei der Arbeit im Freien einen Hut getragen? », sans relance |
+| P2-4 akutes-nierenversagen | `akt-ausscheid-haeufigkeit` → « Bis zu sechsmal am Tag, fünf Tage lang — viel öfter als sonst. Seit gestern ist es besser. » |
+| P2-5 somatoforme | « Was würde es für Sie bedeuten, wenn Ihr Widerspruch Erfolg hat — oder abgelehnt wird? » (`braucht: ['beruf']` : fam-beruf dit « Widerspruch läuft ») |
+| P2-6 lungenembolie | question du cas « Ist in Ihrer Familie eine Gerinnungsstörung bekannt? » (`familie_gerinnung`, signe nouveau) ; réponse : la phrase de `fam-familie` « Ob es in der Familie eine Gerinnungsstörung gibt, weiß ich nicht, das wurde nie untersucht. », coupée de la réplique et déplacée (sinon la question redemandait ce que fam-familie venait de dire) |
+| P2-7 hypothyreose | « … so etwas habe ich nie genommen. Interferon auch nicht. » (fiche : « keine Einnahme von Amiodaron, Lithium oder Interferon ») |
+| P2-8 vorhofflimmern | **non fait** — voir F.3-a |
+| schenkelhalsfraktur | `med-regelmaessig` : « Jeden Morgen eine Aspirin, hundert Milligramm — seit dem Herzinfarkt. » ; la réponse écrite de « Nehmen Sie Blutverdünner? » devient « Nur die Aspirin. Marcumar oder … » (ne redit plus la dose) |
+| epilepsie | la question « neue Medikamente / Schlaf- oder Beruhigungsmittel abgesetzt » retirée : `med-blutverduenner` (jouée) dit les deux |
+| asthma | « Gibt es in Ihrer Familie Asthma, Heuschnupfen oder Neurodermitis? » retirée (fam-familie) |
+
+Lexique : `kognition_vorher` rétabli, `familie_gerinnung` ajouté ; `nsar_intoleranz` et `familie_atopie` retirés (morts après les retraits d'asthma). Total inchangé : 481 signes, 256 des questions du cas. Note : osg-fraktur pose la même question avec `familie_thrombose` ; ici `familie_thrombose` est déjà porté par `fach-gefaess-thrombose`, joué — un signe distinct évite que `cohere` retire l'une des deux.
+
+Vérification au passage : les sondes citées comme « déjà dites » dans les commentaires des opérations Q7 ont été confrontées à la trame jouée. Seules opioid et delir citaient une sonde non jouée pour justifier un retrait (les deux cas relevés par la revue) ; abszess et endokarditis citent `akt-ausloeser`, non jouée, mais seulement comme source d'une réponse écrite.
+
+### F.2 Langue
+
+Les trois importants (alkoholentzug relance sans « Falls ja », coxarthrose Spreizhose/« ausgebildet », anorexia `med-otc`) et tous les mineurs, au texte exact de la revue, clés `frageAntworten` changées à l'identique (ileus, bph, perikarditis, pankreaskarzinom, asthma). Exception : F.3-d.
+
+### F.3 Écarts motivés
+
+- **a. P2-8 vorhofflimmern, non fait.** L'ordre voulu met le sommeil (`veg-schlaf`, sonde de banque) entre le tremblement et la fatigue. Le moteur place une question du cas à la place de la première sonde qu'elle retire, sinon en fin de chapitre : sueurs et tremblement ne peuvent pas passer avant `veg-schlaf` sans retirer une sonde. L'ordre des questions du cas est déjà poids → sueurs → tremblement → fatigue → ronflement → pauses ; seul le sommeil reste à sa place de banque, avant les sueurs. Proposition au coordinateur : une règle d'insertion par `braucht` ou par rang, hors de mon périmètre.
+- **b. delir, `vor-erkrank`** : au lieu de retirer seulement « wie gesagt, », la phrase entière « Und seit etwa einem Jahr die Vergesslichkeit — abgeklärt wurde das nie. » est coupée et « Abgeklärt wurde das nie. » passe dans la réponse écrite. Sinon `vor-erkrank`, jouée juste avant, disait d'avance ce que la question rétablie demande (le défaut que Q7 corrige).
+- **c. Réponses d'opioid et de delir réduites.** Avec le texte complet d'`akt-frueher`, deux bornes du prompt externe cédaient (`prompt.corpus.test.ts`) : opioid passait PASTE_MAX (10 119 > 10 000 ; la liste des cas au-dessus est un cliquet) et delir O3 (12 074 > 12 000). La réplique d'`akt-frueher`, non jouée, reste dans la fiche et dans le prompt : la réponse écrite la doublait. Réponses retenues, phrases de la fiche sans ajout : opioid « Zweimal, als die Tabletten am Wochenende ausgegangen waren, hatte ich das Gleiche in leichterer Form — Schwitzen, Unruhe, Durchfall. Nach der ersten Tablette war es weg. » (prompt 9 994) ; delir « (Die Tochter: Ja, seit etwa einem Jahr ist er vergesslicher, sucht Wörter und verlegt Dinge. Das kam aber ganz langsam, und er war dabei immer klar — das jetzt ist etwas völlig anderes. Abgeklärt wurde das nie.) » (prompt 11 979). Les deux marges sont faibles (6 et 21 caractères).
+- **d. anaemie, relance** : « Falls nein: Bekommen Sie nach Brot oder Nudeln Durchfall oder einen Blähbauch? » fait monter le budget d'atomicité B (55 > 54 : quatre éléments dans une relance plafonnée à deux). Retenu : « Falls nein: Bekommen Sie davon Durchfall oder einen Blähbauch? » — l'antécédent est la question elle-même (« Vertragen Sie Brot und Nudeln gut? »).
+
+### F.4 Vérifications — sommet du fixeur (avant ce commit de rapport)
+
+| Commande | Code de sortie |
+|---|---|
+| `npx tsc -b --noEmit` | 0 |
+| `npx vitest run --dir src --maxWorkers=2` (191 fichiers, 2 017 tests) | 0 |
+| `npm run test:c6` (16 fichiers, 183 tests) | 0 |
+| chaque `scripts/check*.mjs` | 0, sauf `checkProbeOverlap` 1 — informatif, 9 constats, comme `main` |
+| `checkTermRegister --require-all`, `evalDoctopus --dry` | 0, 0 |
+| `node --test scripts/*.test.mjs` (199 tests) | 0 |
+| `node scripts/checkBudgetFloor.mjs origin/main` | 0 (aucune fixture regravée : atomicité 239/7/54, réponses 60, relu 74 inchangés) |
+| `npm run build` | 0 |
+| `checkCoherence --case` sur les 12 cas touchés | 0 |
 
 ## 0. Hypothèses et écarts, dits avant tout
 
