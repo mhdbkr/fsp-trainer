@@ -12,6 +12,9 @@
 > échelle d'états, cadran) et §13 (le cerveau du programme). Les sections
 > amendées sont marquées *[S4]* ; la règle série 4 l'emporte sur le texte
 > d'origine qui la précède.
+>
+> **Amendé — S4-6 (6 oct. 2026)** · `lead-s4-6` : §14 (séances de l'Historique) et
+> la table locale `termes_cherches` au §9. Décrit ce qui est livré, sans changer les sections antérieures.
 
 ---
 
@@ -624,6 +627,7 @@ reste vert sous sa mutation ne garde rien.
 | événement `plan.done` | **retiré** de `ProgressEventType` — déclaré, jamais émis, seuls les tests le citent |
 | `db.simulations` | **conservé** : source de la dérivation §2.3 et de l'historique existant. Index ajouté : `'id, caseId, date, role, profileId, teil'`. |
 | `db.progress_events`, `db.outbox` | **inchangés** |
+| `termes_cherches` | *[S4-6]* **ajouté** (Dexie v7, `'++id, at'`, `{ at, terme }`) : un mot passé à « Expliquer ». Local, **jamais synchronisé** (ni `syncQueue`, ni `progress_events`, ni `outbox`), vidé par `wipeDatabase()`. Voir §14.3. |
 | `ProgramAdjust.doneLayers` / `.postpone` / `.extras` | **abandonnés** : remplacés par `TaskInstance.doneAt` et par `replanifier()`. `skipDrillDates` abandonné (un jour non matérialisé n'a pas de drill). |
 | `ProgramBlock` | **remplacé** par `TaskInstance`. `ProgramDay` remplacé par `DayPlan`. |
 | `ExtraTask` | **abandonné** : une tâche ajoutée à la main est une `TaskInstance` ordinaire posée par `replanifier()`. |
@@ -1437,3 +1441,70 @@ base   = Σ poids(c) ; pct = base === 0 ? null : round(100 × Σ poids(c) × cou
   Aucune formule EXAM_CLAIM.
 - **Mesure en S4-1, affichage en S4-5** (I9). Le plan ne lit ni la ville ni
   cette mesure (INV-55).
+
+---
+
+## 14. *[S4-6]* Les séances de l'Historique
+
+Source : `app/src/features/history/seances.ts`. Invariants :
+`app/tests/invariants.historique.test.ts` (INV-H1 à INV-H7).
+
+### 14.1 La séance — dérivée, jamais stockée
+
+```ts
+SEANCE_PAUSE_MIN = 30
+ordre     = (at, id)
+fin(e)    = max(e.at + e.spentMin × 1 min, e.enregistreA ?? 0)
+séance    = chaîne maximale d'exercices, dans l'ordre, où at(suivant) − fin(séance courante) ≤ SEANCE_PAUSE_MIN
+durée     = Σ spentMin            // le temps MESURÉ, jamais fin − début
+```
+
+- Les séances se recalculent depuis le journal à chaque rendu (§1.2 r. 4) ;
+  elles sont rendues de la plus récente à la plus ancienne.
+- **INV-H1** : toute entrée du journal est dans une séance, et une seule.
+- **INV-H2** : deux exercices d'une même séance sont séparés d'au plus
+  `SEANCE_PAUSE_MIN` ; deux séances, de plus.
+- **INV-H3** : la durée est la somme des minutes mesurées.
+
+### 14.2 Un cas dans la séance
+
+- **Cadran avant** = `computeCaseProgress` du journal de ce cas antérieur à la
+  séance ; **après** = le même, séance comprise (**INV-H4**). Le score affiché
+  par Teil est le dernier score **mesuré** dans la séance ; un score
+  auto-évalué n'est jamais présenté comme une mesure.
+- **« Revoir mes N oublis »** : le bilan (`bilanErreurs`) de la dernière partie
+  de la séance, restreint aux oublis encore manqués **et** toujours signalés
+  aujourd'hui par `erreursTransversales` (§13.3) sur le journal entier.
+  N = 0 ⇒ pas d'action.
+- **« Rejouer »** : le Teil le plus faible mesuré dans la séance sous
+  `PART_OK`, et toujours sous `PART_OK` aujourd'hui. Sinon, pas d'action
+  (**INV-H7** : une action périmée disparaît).
+- Les exercices sans cas (drill, fiche, Aufklärung) sont comptés dans le
+  résumé de la séance, sans ligne de cas.
+
+### 14.3 « Pendant cette séance » — favoris et mots cherchés
+
+- Fenêtre : de `début` à `fin + SEANCE_PAUSE_MIN`.
+- Un mot cherché est une entrée de `termes_cherches` (§9), écrite **seulement**
+  au clic sur « Expliquer » (`SelectionExplainer`). Ni la sélection seule, ni
+  la ★, ni les recherches qui filtrent à la frappe ne l'écrivent.
+- Il est résolu vers une carte (Fachbegriff par `lookupTerm`, ou terme
+  personnel `pt-…`) ; un mot sans carte n'est pas affiché.
+- Sont affichés : les favoris posés dans la fenêtre, puis les cartes cherchées
+  **≥ 2 fois** dans la fenêtre (**INV-H5**).
+- « Envoyer au drill » = `toggleFavorite` (`term.favorited`, déjà au protocole) :
+  aucun nouvel événement.
+
+### 14.4 La ligne de semaine
+
+- Semaine = lundi 00:00 → maintenant. Elle compte : les cas joués, les Teile
+  passés à `acquis` ou plus dans la semaine, et les Fachbegriffe révisés
+  (`srs.reviewed` distincts).
+- La tendance compare les cas joués au **même instant** de la semaine
+  précédente, jamais à la semaine entière (**INV-H6**).
+
+### 14.5 Écart constaté, non corrigé ici
+
+`DrillPage` journalise le drill à sa fin (`logTraining` sans `at`) alors que
+§1.1 définit `at` comme le début de l'exercice. La séance le tolère (la pause de
+30 min absorbe un drill), mais l'écart reste à corriger par le pôle Fondations.
