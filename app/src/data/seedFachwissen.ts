@@ -12012,7 +12012,7 @@ export function seedFachwissen(): Fachwissen[] {
         'Der Goldstandard ist die KOMPLETTE Koloskopie mit Biopsie, nicht das CT. Das CT dient dem Staging, die Endoskopie der Diagnose — und sie muss vollständig sein, weil in etwa 5 % ein synchrones Zweitkarzinom vorliegt.',
         'Rektum oder Kolon ist die entscheidende Weichenstellung: Nur das lokal fortgeschrittene Rektumkarzinom erhält eine neoadjuvante Radiochemotherapie. Beim Kolonkarzinom wird primär operiert und allenfalls adjuvant chemotherapiert — eine Bestrahlung des Kolons ist falsch.',
         'Die Höhenangabe wird ab der Anokutanlinie mit dem starren Rektoskop gemessen (bis 16 cm = Rektum); flexible Endoskope messen ungenau.',
-        'Die Screeningzahlen müssen sitzen: Vorsorgekoloskopie für Männer ab dem 50., für Frauen ab dem 55. Lebensjahr, Wiederholung nach 10 Jahren bei unauffälligem Befund; alternativ immunologischer Stuhltest (iFOBT) jährlich ab 50 beziehungsweise alle zwei Jahre ab 55 Jahren — ein positiver Test verpflichtet immer zur Koloskopie.',
+        'Die Screeningzahlen müssen sitzen: sie werden fast immer gefragt.',
         'Risikopersonen folgen einem anderen Fahrplan: erstgradig Verwandte 10 Jahre vor dem Erkrankungsalter des Indexpatienten, beim Lynch-Syndrom jährliche Koloskopie ab dem 25. Lebensjahr, bei FAP ab dem 10.–12. Lebensjahr Rektosigmoidoskopie und prophylaktische Proktokolektomie.',
         'Eine neu aufgetretene Eisenmangelanämie beim Mann oder bei der postmenopausalen Frau ist bis zum Beweis des Gegenteils ein gastrointestinaler Tumor — und es müssen BEIDE Endoskopien erfolgen, Koloskopie UND Ösophagogastroduodenoskopie.',
         'Bekannte Hämorrhoiden erklären eine Blutung jenseits des 50. Lebensjahres nicht: Sie sind so häufig, dass sie ein Karzinom nur verdecken. Ohne Koloskopie darf die Diagnose „Hämorrhoidalblutung“ nicht gestellt werden.',
@@ -12028,7 +12028,7 @@ export function seedFachwissen(): Fachwissen[] {
         },
         {
           frage: 'Wie lautet die Screening-Empfehlung für die Koloskopie in Deutschland?',
-          antwort: 'Die Vorsorgekoloskopie wird Männern ab dem 50. und Frauen ab dem 55. Lebensjahr angeboten; bei unauffälligem Befund wird sie nach zehn Jahren wiederholt. Als Alternative steht der immunologische Test auf okkultes Blut im Stuhl zur Verfügung — jährlich ab 50, ab 55 Jahren alle zwei Jahre. Ein positiver Stuhltest führt immer zur Koloskopie. Für Risikopersonen gilt ein anderes Vorgehen: erstgradig Verwandte eines Patienten werden zehn Jahre vor dessen Erkrankungsalter koloskopiert, Anlageträger eines Lynch-Syndroms jährlich ab dem 25. Lebensjahr, bei familiärer adenomatöser Polyposis beginnt die Endoskopie bereits im Kindes- und Jugendalter.',
+          antwort: 'Die Vorsorgekoloskopie wird Männern und Frauen ab dem 50. Lebensjahr angeboten (Frauen seit April 2025, zuvor ab 55); bei unauffälligem Befund wird sie nach zehn Jahren wiederholt. Als Alternative steht der immunologische Test auf okkultes Blut im Stuhl zur Verfügung — jährlich ab 50, ab 55 Jahren alle zwei Jahre. Ein positiver Stuhltest führt immer zur Koloskopie. Für Risikopersonen gilt ein anderes Vorgehen: erstgradig Verwandte eines Patienten werden zehn Jahre vor dessen Erkrankungsalter koloskopiert, Anlageträger eines Lynch-Syndroms jährlich ab dem 25. Lebensjahr, bei familiärer adenomatöser Polyposis beginnt die Endoskopie bereits im Kindes- und Jugendalter.',
         },
         {
           frage: 'Was ist das CEA und wofür setzen Sie es ein?',
