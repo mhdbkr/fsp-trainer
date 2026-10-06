@@ -281,7 +281,7 @@ export function seedCases(): Case[] {
     {
       id: 'case-angina-pectoris',
       tier: 1,
-      name: 'Stabile Angina pectoris (KHK)',
+      name: 'Angina pectoris (KHK)',
       pathology: 'Angina pectoris / KHK',
       specialty: 'Kardiologie',
       centers: ['Karlsruhe', 'Reutlingen'],
