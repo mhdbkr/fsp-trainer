@@ -1009,6 +1009,73 @@ export const MUTATIONS = [
     from: 'return { date, off: offPrevu && horsPlan.length === 0, points };', to: 'return { date, off: offPrevu, points: offPrevu ? [] : points };',
     pourquoi: 'un cas joué un jour off disparaît : la semaine ne voit que le plan',
   },
+  // ---- S4-7, l'Examen (simulation-run.md §11.8) : une mutation par invariant ----
+  {
+    id: 'INV-E1', tests: 'tests/invariants.examen.test.tsx', file: 'src/lib/examen/tirage.ts',
+    from: '    if (r < w) return c;', to: '    if (r <= w) return c;',
+    pourquoi: 'la borne du cumul glisse : à la borne exacte, le tirage rend le cas précédent',
+  },
+  {
+    id: 'INV-E2', tests: 'tests/invariants.examen.test.tsx', file: 'src/lib/examen/tirage.ts',
+    from: 'return [c.id, (poids / parPatho.get(cle(c))!) *', to: 'return [c.id, (poids) *',
+    pourquoi: 'une pathologie à trois cas pèse trois fois',
+  },
+  {
+    id: 'INV-E3', tests: 'tests/invariants.examen.test.tsx', file: 'src/lib/examen/tirage.ts',
+    from: "(estVierge(e.progress.get(c.id)) ? 2 : 1)", to: "(estVierge(e.progress.get(c.id)) ? 1 : 1)",
+    pourquoi: 'un cas jamais travaillé ne pèse plus double',
+  },
+  {
+    id: 'INV-E4', tests: 'tests/invariants.examen.test.tsx', file: 'src/store/simSession.ts',
+    from: "caseId: l.caseId, caseName: l.examen ? '' : l.caseName,", to: 'caseId: l.caseId, caseName: l.caseName,',
+    pourquoi: 'le nom du cas d’examen sort du Lauf, vers la barre « Reprendre »',
+  },
+  {
+    id: 'INV-E5', tests: 'tests/invariants.examen.test.tsx', file: 'src/lib/lauf/automat.ts',
+    from: "      if (lauf.examen) return lauf;   // [S4-7] aucun saut dans l'Examen (§11.1)\n", to: '',
+    pourquoi: 'l’examen permet de « commencer par » un autre Teil',
+  },
+  {
+    id: 'INV-E6', tests: 'tests/invariants.examen.test.tsx', file: 'src/features/examen/ExamenRunner.tsx',
+    from: '    tick(t, sec);\n    if (aufklaerungDue)', to: '    tick(t, Math.round((nowFn() - debut!) / 1000));\n    if (aufklaerungDue)',
+    pourquoi: 'un onglet gelé compte au Teil plus que sa durée',
+  },
+  {
+    id: 'INV-E7', tests: 'tests/invariants.examen.test.tsx', file: 'src/features/examen/ExamenRunner.tsx',
+    from: "import { useLauf, type LaufSteuerung } from '@/features/simulation/useLauf';",
+    to: "import { AnamneseGuide } from '@/features/simulation/AnamneseGuide';\nimport { useLauf, type LaufSteuerung } from '@/features/simulation/useLauf';",
+    pourquoi: 'le runner de l’Examen importe le guide d’anamnèse',
+  },
+  {
+    id: 'INV-E8', tests: 'tests/invariants.examen.test.tsx', file: 'src/features/examen/ExamenRunner.tsx',
+    from: 'disabled={!pret}', to: 'disabled={false}',
+    pourquoi: 'l’examen s’enregistre sans grilles de langue : il ne compte pas comme examen à blanc',
+  },
+  {
+    id: 'INV-E9', tests: 'tests/invariants.examen.test.tsx', file: 'src/features/simulation/useLauf.ts',
+    from: '    setLauf(null);\n    await gibAuf(l);', to: '    setLauf(null);\n    await gibAuf({ ...l, teileGespielt: [] });',
+    pourquoi: 'l’abandon jette les Teile déjà joués',
+  },
+  {
+    id: 'INV-E10', tests: 'tests/invariants.examen.test.tsx', file: 'src/lib/lauf/automat.ts',
+    from: '  if (lauf.unterbrochen) return lauf;', to: '  if (lauf.unterbrochen || lauf.examen) return lauf;',
+    pourquoi: 'un examen repris après une longue pause reste en conditions d’examen',
+  },
+  {
+    id: 'INV-E11', tests: 'tests/invariants.examen.test.tsx', file: 'src/features/simulation/useLauf.ts',
+    from: 'if (alt && alt.caseId === c.id && !!alt.examen === examen) {', to: 'if (alt && alt.caseId === c.id) {',
+    pourquoi: 'le runner d’entraînement reprend l’examen en cours (et l’inverse)',
+  },
+  {
+    id: 'INV-E12', tests: 'tests/invariants.examen.test.tsx', file: 'src/routes.tsx',
+    from: '{ path: \'simulation\', element: <Navigate to="/examen" replace /> },', to: '{ path: \'simulation\', element: <ExamenPage /> },',
+    pourquoi: '`/simulation` ne mène plus à `/examen` : deux adresses pour la même page',
+  },
+  {
+    id: 'INV-E13', tests: 'tests/invariants.examen.test.tsx', file: 'src/features/examen/ExamenRunner.tsx',
+    from: 'if (aufklaerungDue) aufklaerungOeffnen(); else terminerPartie();', to: 'terminerPartie();',
+    pourquoi: 'l’Aufklärung du cas disparaît de l’examen',
+  },
 ];
 
 /** Mutations jouées par le candidat NAVIGATEUR : { id: invariant attendu KO, days: jours à jouer }. */
