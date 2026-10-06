@@ -8690,7 +8690,7 @@ export function seedCases(): Case[] {
         { frage: 'Kommen Sie noch gut die Treppe hoch, oder haben Sie es schwerer, aus der Hocke wieder hochzukommen?', kapitel: 'aktuell', sucht: ['schwaeche'] },
         { frage: 'Ist Ihre Regelblutung schwächer oder unregelmäßiger geworden?', kapitel: 'frauenanamnese', sucht: ['vaginalblutung'] },
         { frage: 'Hatten Sie in den letzten Monaten eine Untersuchung mit Kontrastmittel?', kapitel: 'medikamente', sucht: ['kontrastmittel'] },
-        { frage: 'Nehmen Sie jodhaltige Medikamente ein?', kapitel: 'medikamente', sucht: ['jodzufuhr'] },
+        { frage: 'Nehmen Sie Medikamente ein, die Jod enthalten?', kapitel: 'medikamente', sucht: ['jodzufuhr'] },
         { frage: 'Nehmen Sie Schilddrüsenhormone, Abnehmpräparate oder Tabletten von Angehörigen ein?', kapitel: 'medikamente', sucht: ['schilddruesenhormone'] },
         { frage: 'Hat sich Ihr Insulinbedarf in letzter Zeit verändert?', kapitel: 'medikamente', sucht: ['insulinbedarf'] },
         { frage: 'Hatten Sie in letzter Zeit häufiger Unterzuckerungen?', kapitel: 'medikamente', sucht: ['hypoglykaemie'] },
@@ -9660,7 +9660,7 @@ export function seedCases(): Case[] {
           },
           {
             frage: 'Wie viel trinken Sie am Tag?',
-            antwort: 'Im Dienst trinke ich wenig, vielleicht einen Liter am Tag.',
+            antwort: 'Vielleicht einen Liter am Tag — im Dienst trinke ich wenig.',
             kapitel: 'familie-sozial',
           },
         ],
@@ -10160,7 +10160,7 @@ export function seedCases(): Case[] {
           'vor-op': 'Vor drei Jahren die Gebärmutterentfernung über einen Bauchschnitt, die Eierstöcke haben sie mir gelassen. Als Kind wurden mir die Mandeln herausgenommen. Meine vier Kinder habe ich alle normal entbunden, ohne Kaiserschnitt.',
           'vor-krankenhaus': 'Bei der Thrombose war ich eine Woche im Krankenhaus, bei der Gebärmutteroperation vier Tage. Sonst nie.',
           'med-regelmaessig': 'Regelmäßig nehme ich eigentlich nichts. Nur die Schmerzmittel, wenn der Kopf wehtut.',
-          'med-blutverduenner': 'Jetzt nicht mehr — seit acht Jahren nehme ich nichts mehr. Nur auf langen Reisen ziehe ich Kompressionsstrümpfe an. Kortison nehme ich auch nicht.',
+          'med-blutverduenner': 'Seit acht Jahren nicht mehr. Nur auf langen Reisen ziehe ich Kompressionsstrümpfe an. Kortison nehme ich auch nicht.',
           'med-otc': 'Ibuprofen 400 oder 600 und Paracetamol aus der Apotheke, je nachdem was da ist. Und Magnesium-Brausetabletten aus der Drogerie, aber unregelmäßig. Ein Triptan habe ich noch nie bekommen, davon habe ich nur gehört.',
           'all-allergie': 'Nein, Allergien habe ich keine. Auch nicht gegen Medikamente, Pflaster oder Kontrastmittel.',
           'all-unvertraeglich': 'Milchzucker vertrage ich nicht — nach Milch oder Sahne bekomme ich Blähungen, Bauchkrämpfe und Durchfall. Und Rotwein löst bei mir ziemlich sicher einen Anfall aus.',
@@ -10751,11 +10751,6 @@ export function seedCases(): Case[] {
         },
         frageAntworten: [
           {
-            frage: 'Vertragen Sie Schmerzmittel wie Aspirin oder Ibuprofen?',
-            antwort: 'Ibuprofen vertrage ich problemlos.',
-            kapitel: 'allergien',
-          },
-          {
             frage: 'Wie oft treiben Sie in einer normalen Woche Sport, und was genau machen Sie?',
             antwort: 'Dreimal pro Woche Rennrad, etwa 50 Kilometer, zweimal Laufen, jeweils zehn Kilometer, und einmal Schwimmen in der Halle. Ich mache das für die Gesundheit und um das Gewicht zu halten.',
             kapitel: 'familie-sozial',
@@ -10766,7 +10761,7 @@ export function seedCases(): Case[] {
             kapitel: 'aktuell',
           },
           {
-            frage: 'Haben Sie jemals ein Spray für die Lunge benutzt — auch das eines Angehörigen?',
+            frage: 'Haben Sie schon einmal ein Spray für die Lunge benutzt, auch eins von jemandem aus der Familie?',
             antwort: 'Ja, einmal im Sommer, als es ganz schlimm war. Mein Bruder hat mir zwei Hübe von seinem blauen Spray gegeben, und nach ein paar Minuten ging es mir deutlich besser. Wie das Spray heißt, weiß ich nicht.',
             kapitel: 'medikamente',
           },
@@ -10998,10 +10993,7 @@ export function seedCases(): Case[] {
         { frage: 'Sind Sie zwischen den Anfällen völlig beschwerdefrei?', kapitel: 'aktuell', sucht: ['beschwerdefreies_intervall'] },
         { frage: 'Werden die Beschwerden bei Pollen, Tierkontakt oder zu bestimmten Jahreszeiten schlimmer?', kapitel: 'aktuell', sucht: ['allergen_ausloeser'] },
         { frage: 'Beim Sport — kommt die Luftnot während der Belastung oder erst einige Minuten danach?', kapitel: 'aktuell', sucht: ['belastung'], relu: true, followUp: 'Macht es einen Unterschied, ob Sie draußen laufen oder in der Halle schwimmen?' },
-        { frage: 'Haben Sie gegen den Heuschnupfen schon einmal eine Spritzenkur gemacht, eine sogenannte Hyposensibilisierung?', kapitel: 'allergien', sucht: ['atopie'], braucht: ['frueher'] },
-        { frage: 'Gibt es in Ihrer Familie Asthma, Heuschnupfen oder Neurodermitis?', kapitel: 'familie-sozial', sucht: ['familie_atopie'] },
-        { frage: 'Haben Sie jemals ein Spray für die Lunge benutzt — auch das eines Angehörigen?', kapitel: 'medikamente', sucht: ['vorbehandlung'], followUp: 'Falls ja: Hat es geholfen?', followUps: ['Falls ja: Wie schnell hat es gewirkt?'] },
-        { frage: 'Vertragen Sie Schmerzmittel wie Aspirin oder Ibuprofen?', kapitel: 'allergien', sucht: ['nsar_intoleranz'] },
+        { frage: 'Haben Sie schon einmal ein Spray für die Lunge benutzt, auch eins von jemandem aus der Familie?', kapitel: 'medikamente', sucht: ['vorbehandlung'], followUp: 'Falls ja: Hat es geholfen?', followUps: ['Falls ja: Wie schnell hat es gewirkt?'] },
         { frage: 'Haben Sie Nasenpolypen, oder wurden Sie an den Nebenhöhlen operiert?', kapitel: 'allergien', sucht: ['nasenpolypen'] },
         { frage: 'Wie sehr schränkt es Sie im Alltag und im Sportunterricht ein?', kapitel: 'aktuell', sucht: ['leistung'], followUp: 'Wie oft mussten Sie deswegen etwas absagen?' },
       ],
@@ -13208,7 +13200,7 @@ export function seedCases(): Case[] {
         { frage: 'Sind Ihnen eingerissene Mundwinkel oder eine brennende Zunge aufgefallen?', kapitel: 'aktuell', sucht: ['zunge'] },
         { frage: 'Sind Ihre Nägel brüchig, oder haben Sie vermehrt Haarausfall?', kapitel: 'aktuell', sucht: ['haut_haare'] },
         { frage: 'Haben Sie manchmal Lust, ungewöhnliche Dinge zu essen — zum Beispiel Eiswürfel oder Erde?', kapitel: 'aktuell', sucht: ['pica'] },
-        { frage: 'Vertragen Sie Brot und Nudeln gut?', kapitel: 'vegetativ', sucht: ['unvertraeglichkeit'], relu: true, followUp: 'Falls nein: Bekommen Sie danach Durchfall oder einen Blähbauch?' },
+        { frage: 'Vertragen Sie Brot und Nudeln gut?', kapitel: 'vegetativ', sucht: ['unvertraeglichkeit'], relu: true, followUp: 'Falls nein: Bekommen Sie davon Durchfall oder einen Blähbauch?' },
       ],
       examinerQuestions: [
         'Bitte stellen Sie uns die Patientin vor. Wie lautet Ihre Verdachtsdiagnose?',
@@ -13732,14 +13724,14 @@ export function seedCases(): Case[] {
         { frage: 'Seit wann genau stolpert Ihr Herz, und ist es seitdem ununterbrochen da oder kommt und geht es?', kapitel: 'aktuell', sucht: ['beginn', 'verlauf'] },
         { frage: 'Was haben Sie an dem Abend vor Beginn der Beschwerden gegessen und getrunken?', kapitel: 'aktuell', sucht: ['alkohol_akut'], followUp: 'Falls Alkohol: Wie viel genau?' },
         { frage: 'Welches Medikament nehmen Sie wegen der Herzrhythmusstörung ein — Aspirin oder einen echten Blutverdünner wie Marcumar, Eliquis oder Xarelto?', kapitel: 'medikamente', sucht: ['antikoagulation'] },
-        { frage: 'Hatten Sie jemals eine Lähmung oder ein Taubheitsgefühl auf einer Körperseite, das nach Minuten wieder verschwunden ist?', kapitel: 'vorerkrankungen', sucht: ['tia_vorgeschichte'], followUp: 'Hatten Sie jemals eine kurze Seh- oder Sprachstörung?' },
+        { frage: 'Hatten Sie jemals für ein paar Minuten eine Lähmung oder ein Taubheitsgefühl auf einer Körperseite?', kapitel: 'vorerkrankungen', sucht: ['tia_vorgeschichte'], followUp: 'Hatten Sie jemals eine kurze Seh- oder Sprachstörung?' },
         { frage: 'Haben Sie in letzter Zeit ungewollt Gewicht verloren?', kapitel: 'vegetativ', sucht: ['gewicht'] },
         { frage: 'Schwitzen Sie mehr als früher, oder vertragen Sie Wärme schlechter?', kapitel: 'vegetativ', sucht: ['schwitzen'] },
         { frage: 'Zittern Ihre Hände?', kapitel: 'vegetativ', sucht: ['tremor'] },
         { frage: 'Sind Sie tagsüber ungewöhnlich müde?', kapitel: 'vegetativ', sucht: ['tagesschlaefrigkeit'] },
         { frage: 'Schnarchen Sie?', kapitel: 'vegetativ', sucht: ['schnarchen'] },
         { frage: 'Hat Ihre Frau beobachtet, dass Sie nachts Atempausen haben?', kapitel: 'vegetativ', sucht: ['schlafapnoe'] },
-        { frage: 'Hatten Sie jemals eine stärkere Blutung, zum Beispiel häufiges Nasenbluten, oder ein Magengeschwür?', kapitel: 'vorerkrankungen', sucht: ['blutungs_vorgeschichte'] },
+        { frage: 'Hatten Sie jemals stärkere Blutungen, zum Beispiel häufig Nasenbluten, oder ein Magengeschwür?', kapitel: 'vorerkrankungen', sucht: ['blutungs_vorgeschichte'] },
       ],
       examinerQuestions: [
         'Wie lautet Ihre Verdachtsdiagnose, und was spricht dafür?',
@@ -14106,7 +14098,7 @@ export function seedCases(): Case[] {
           },
           {
             frage: 'Wie wurde die Wundrose damals behandelt?',
-            antwort: 'Mit Antibiotika. Wegen meiner Penicillinallergie musste es ein anderes sein.',
+            antwort: 'Mit einem Antibiotikum. Wegen meiner Penicillinallergie musste es ein anderes sein.',
             kapitel: 'vorerkrankungen',
           },
         ],
@@ -14640,7 +14632,7 @@ export function seedCases(): Case[] {
         frageAntworten: [
           {
             frage: 'Nehmen Sie Amiodaron, Lithium oder Interferon ein?',
-            antwort: 'Amiodaron oder Lithium — nein, so etwas habe ich nie genommen.',
+            antwort: 'Amiodaron oder Lithium — nein, so etwas habe ich nie genommen. Interferon auch nicht.',
             kapitel: 'medikamente',
           },
         ],
@@ -16297,7 +16289,7 @@ export function seedCases(): Case[] {
           'nox-rauchen': 'Ja, ich rauche. Seit ich 20 bin, ungefähr 15 Zigaretten am Tag. Aufhören habe ich schon mehrmals versucht, es hat nie geklappt.',
           'nox-alkohol': 'Zwei, drei Flaschen Bier in der Woche. Schnaps trinke ich nicht.',
           'nox-drogen': 'Nein, Drogen nehme ich nicht, auch kein Cannabis.',
-          'fam-familie': 'Meine Mutter ist mit 71 an einer Lungenembolie gestorben — sie hatte vorher mehrmals eine Thrombose im Bein. Mein Vater ist mit 74 an einem Herzinfarkt gestorben. Meine Schwester ist 55 und gesund. Ob es in der Familie eine Gerinnungsstörung gibt, weiß ich nicht, das wurde nie untersucht.',
+          'fam-familie': 'Meine Mutter ist mit 71 an einer Lungenembolie gestorben — sie hatte vorher mehrmals eine Thrombose im Bein. Mein Vater ist mit 74 an einem Herzinfarkt gestorben. Meine Schwester ist 55 und gesund.',
           'fam-eltern': 'Beide sind verstorben. Die Mutter mit 71 an einer Lungenembolie, der Vater mit 74 an einem Herzinfarkt.',
           'fam-stand': 'Ich bin verheiratet. Wir haben zwei Kinder, der Sohn ist 30, die Tochter 27, beide wohnen nicht mehr zu Hause.',
           'fam-beruf': 'Busfahrer, seit 25 Jahren, Fernreisen. Ich sitze stundenlang am Steuer, oft ohne Pause zum Aufstehen. Im Moment bin ich wegen des Knies krankgeschrieben.',
@@ -16323,6 +16315,11 @@ export function seedCases(): Case[] {
           'fach-gefaess-vorgeschichte': 'Krampfadern hab ich an beiden Unterschenkeln, schon lange. Kompressionsstrümpfe hab ich bekommen, aber ich trag die nur selten, die sind mir zu eng und zu warm. Operiert an den Gefäßen wurde ich nie, nur am Knie.',
         },
         frageAntworten: [
+          {
+            frage: 'Ist in Ihrer Familie eine Gerinnungsstörung bekannt?',
+            antwort: 'Ob es in der Familie eine Gerinnungsstörung gibt, weiß ich nicht, das wurde nie untersucht.',
+            kapitel: 'familie-sozial',
+          },
           {
             frage: 'Nehmen Sie Blutverdünner ein?',
             antwort: 'Nein, Blutverdünner nehme ich keine.',
@@ -16516,9 +16513,10 @@ export function seedCases(): Case[] {
       ],
       fachanamnese: 'Angiologie',
       caseSpecificQuestions: [
+        { frage: 'Ist in Ihrer Familie eine Gerinnungsstörung bekannt?', kapitel: 'familie-sozial', sucht: ['familie_gerinnung'] },
         { frage: 'Wird der Schmerz beim tiefen Einatmen oder Husten stärker, oder spüren Sie eher einen Druck hinter dem Brustbein?', kapitel: 'aktuell', sucht: ['atemabhaengig'], relu: true },
         { frage: 'Waren Sie in den letzten Wochen operiert, längere Zeit bettlägerig, im Gips oder auf einer langen Reise ohne Aufstehen?', kapitel: 'vorerkrankungen', sucht: ['immobilisation'], relu: true },
-        { frage: 'Haben Sie nach der Operation Spritzen gegen Thrombose bekommen?', kapitel: 'medikamente', sucht: ['thromboseprophylaxe'], followUp: 'Falls ja: Wie lange haben Sie sie gespritzt?' },
+        { frage: 'Haben Sie nach der Operation Spritzen gegen Thrombose bekommen?', kapitel: 'medikamente', sucht: ['thromboseprophylaxe'], followUp: 'Falls ja: Wie lange haben Sie die Thrombosespritzen bekommen?' },
         { frage: 'Ist Ihnen kurz schwarz vor Augen geworden, oder sind Sie ohnmächtig geworden?', kapitel: 'aktuell', sucht: ['bewusstlos'] },
         { frage: 'Nehmen Sie Blutverdünner ein?', kapitel: 'medikamente', sucht: ['antikoagulation'] },
         { frage: 'Hatten Sie in letzter Zeit eine Blutung, eine Kopfverletzung oder einen Schlaganfall?', kapitel: 'medikamente', sucht: ['blutungs_vorgeschichte'] },
@@ -17940,7 +17938,7 @@ export function seedCases(): Case[] {
         },
         frageAntworten: [
           {
-            frage: 'Gab es in Ihrer Familie außer dem Brustkrebs Ihrer Mutter noch andere Krebserkrankungen — der Bauchspeicheldrüse, des Darms oder der Eierstöcke?',
+            frage: 'Gab es in Ihrer Familie außer dem Brustkrebs Ihrer Mutter noch andere Krebserkrankungen, zum Beispiel an der Bauchspeicheldrüse, am Darm oder an den Eierstöcken?',
             antwort: 'Nein, Bauchspeicheldrüsenkrebs, Darmkrebs oder Eierstockkrebs gab es in unserer Familie meines Wissens nicht.',
             kapitel: 'familie-sozial',
           },
@@ -18138,8 +18136,8 @@ export function seedCases(): Case[] {
         { frage: 'Haben Sie Schmerzen im Oberbauch, die gürtelförmig in den Rücken ausstrahlen und sich bessern, wenn Sie sich nach vorne beugen?', kapitel: 'aktuell', sucht: ['ausstrahlung'] },
         { frage: 'Juckt Ihre Haut?', kapitel: 'aktuell', sucht: ['pruritus'], followUp: 'Falls ja: Seit wann juckt es?' },
         { frage: 'Ist Ihr Zucker in letzter Zeit schlechter geworden?', kapitel: 'vorerkrankungen', sucht: ['diabetes_einstellung'], braucht: ['vorerkrankung'] },
-        { frage: 'Gab es in Ihrer Familie außer dem Brustkrebs Ihrer Mutter noch andere Krebserkrankungen — der Bauchspeicheldrüse, des Darms oder der Eierstöcke?', kapitel: 'familie-sozial', sucht: ['familie_krebs'], braucht: ['familie_krank'] },
-        { frage: 'Hatten Sie jemals eine Venenentzündung oder eine Thrombose?', kapitel: 'vorerkrankungen', sucht: ['thrombose_vorgeschichte'], followUp: 'Falls ja: Ist sie von einer Stelle zur anderen gewandert?' },
+        { frage: 'Gab es in Ihrer Familie außer dem Brustkrebs Ihrer Mutter noch andere Krebserkrankungen, zum Beispiel an der Bauchspeicheldrüse, am Darm oder an den Eierstöcken?', kapitel: 'familie-sozial', sucht: ['familie_krebs'], braucht: ['familie_krank'] },
+        { frage: 'Hatten Sie jemals eine Venenentzündung oder eine Thrombose?', kapitel: 'vorerkrankungen', sucht: ['thrombose_vorgeschichte'], followUp: 'Falls ja: Ist die Entzündung von einer Stelle zur anderen gewandert?' },
       ],
       examinerQuestions: [
         'Frau Kollegin, stellen Sie uns bitte die Patientin vor. Wie lautet Ihre Verdachtsdiagnose und worauf stützen Sie sie?',
@@ -19544,7 +19542,7 @@ export function seedCases(): Case[] {
         },
         frageAntworten: [
           {
-            frage: 'Nehmen Sie Nasentropfen oder Erkältungsmittel ein?',
+            frage: 'Nehmen Sie Nasentropfen oder Erkältungsmittel?',
             antwort: 'Nein, keine Nasentropfen, keine Erkältungsmittel.',
             kapitel: 'medikamente',
           },
@@ -19745,7 +19743,7 @@ export function seedCases(): Case[] {
         { frage: 'Nehmen Sie eine Wassertablette?', kapitel: 'aktuell', sucht: ['diuretika'] },
         { frage: 'Haben Sie geschwollene Beine oder bekommen Sie beim Treppensteigen schlecht Luft?', kapitel: 'aktuell', sucht: ['oedeme', 'atemnot'] },
         { frage: 'Ist es schon einmal vorgekommen, dass Sie überhaupt kein Wasser mehr lassen konnten und die Blase prall und schmerzhaft war?', kapitel: 'vorerkrankungen', sucht: ['harnverhalt'] },
-        { frage: 'Nehmen Sie Nasentropfen oder Erkältungsmittel ein?', kapitel: 'medikamente', sucht: ['anticholinergika'], followUp: 'Nehmen Sie Mittel gegen Allergie oder Beruhigungsmittel ein?' },
+        { frage: 'Nehmen Sie Nasentropfen oder Erkältungsmittel?', kapitel: 'medikamente', sucht: ['anticholinergika'], followUp: 'Nehmen Sie Allergietabletten oder Beruhigungsmittel?' },
         { frage: 'Gibt es in Ihrer Familie eine Prostataerkrankung — wurde bei Vater oder Bruder ein Prostatakrebs festgestellt?', kapitel: 'familie-sozial', sucht: ['familie_krebs'] },
         { frage: 'Ich müsste bei Ihnen eine Untersuchung des Enddarms durchführen, um die Vorsteherdrüse zu tasten. Wären Sie damit einverstanden?', kapitel: 'aktuell', sucht: ['untersuchung_einverstaendnis'] },
       ],
@@ -20928,7 +20926,7 @@ export function seedCases(): Case[] {
         { frage: 'Hatten Sie in den letzten Monaten eine Lungenentzündung?', kapitel: 'aktuell', sucht: ['atemwegsinfekt'], followUp: 'Falls ja: Wurde danach ein Kontrollröntgen gemacht?', followUps: ['Falls ja: War dabei wieder alles in Ordnung?'] },
         { frage: 'Ist Ihre Stimme heiser geworden?', kapitel: 'aktuell', sucht: ['stimme'], followUp: 'Falls ja: Seit wann ist Ihre Stimme heiser?' },
         { frage: 'Ist Ihnen morgens ein geschwollenes Gesicht, ein Engegefühl am Hals oder eine Schwellung der Arme aufgefallen?', kapitel: 'aktuell', sucht: ['obere_einflussstauung'] },
-        { frage: 'Hatten Sie beruflich jemals mit Asbest oder Eternitplatten zu tun?', kapitel: 'familie-sozial', sucht: ['lungennoxen', 'berufsstoffe'], followUp: 'Falls ja: Wie lange war das?' },
+        { frage: 'Hatten Sie beruflich jemals mit Asbest oder Eternitplatten zu tun?', kapitel: 'familie-sozial', sucht: ['lungennoxen', 'berufsstoffe'], followUp: 'Falls ja: Wie lange hatten Sie mit Asbest zu tun?' },
         { frage: 'Haben Sie neue Rücken- oder Knochenschmerzen bemerkt?', kapitel: 'aktuell', sucht: ['knochenschmerz'] },
         { frage: 'Haben Sie neue Kopfschmerzen, Sehstörungen oder einen Krampfanfall bemerkt?', kapitel: 'aktuell', sucht: ['kopfschmerz', 'sehstoerung', 'krampf'] },
       ],
@@ -25126,7 +25124,7 @@ export function seedCases(): Case[] {
         frageAntworten: [
           {
             frage: 'Haben Sie jemals Medikamente gegen Übelkeit, Schwindel oder Nervosität eingenommen, auch nur kurz?',
-            antwort: 'Nein. Spritzen beim Nervenarzt oder Beruhigungsmittel habe ich nie bekommen — bei einem Psychiater war ich nie.',
+            antwort: 'Nur die MCP-Tropfen damals, drei Tage bei dem Magen-Darm-Infekt — sonst nie. Spritzen beim Nervenarzt oder Beruhigungsmittel habe ich nie bekommen — bei einem Psychiater war ich nie.',
             kapitel: 'medikamente',
           },
           {
@@ -26422,7 +26420,7 @@ export function seedCases(): Case[] {
         { frage: 'Bekommen Sie schlecht Luft, besonders wenn Sie flach liegen?', kapitel: 'aktuell', sucht: ['atemnot', 'orthopnoe'] },
         { frage: 'Verwenden Sie zu Hause jodiertes Speisesalz, und wie oft essen Sie Seefisch?', kapitel: 'aktuell', sucht: ['jod_ernaehrung'] },
         { frage: 'Nehmen Sie Jodtabletten oder Amiodaron ein?', kapitel: 'medikamente', sucht: ['jodzufuhr'] },
-        { frage: 'Wurde bei Ihnen in den letzten Monaten eine Untersuchung mit Kontrastmittel durchgeführt?', kapitel: 'medikamente', sucht: ['kontrastmittel'] },
+        { frage: 'Hatten Sie in den letzten Monaten eine Untersuchung mit Kontrastmittel?', kapitel: 'medikamente', sucht: ['kontrastmittel'] },
         { frage: 'Wurden Sie als Kind im Hals- oder Kopfbereich bestrahlt?', kapitel: 'vorerkrankungen', sucht: ['bestrahlung_hals'] },
         { frage: 'Wurde in Ihrer Familie schon einmal ein Schilddrüsenkrebs festgestellt, und wurde deswegen jemand operiert?', kapitel: 'familie-sozial', sucht: ['familie_krebs'] },
         { frage: 'Haben Sie am Hals geschwollene Lymphknoten getastet?', kapitel: 'vegetativ', sucht: ['lymphknoten'] },
@@ -27305,8 +27303,8 @@ export function seedCases(): Case[] {
         },
         frageAntworten: [
           {
-            frage: 'Ist Ihnen jemals eine Vorwölbung am Nabel oder an einer Ihrer Narben aufgefallen?',
-            antwort: 'Nein, eine Vorwölbung habe ich nie bemerkt — auch nicht am Nabel. Von einem Nabelbruch hat mir noch nie jemand etwas gesagt.',
+            frage: 'Ist Ihnen jemals eine Beule am Nabel oder an einer Ihrer Narben aufgefallen?',
+            antwort: 'Nein, da habe ich nie eine Beule bemerkt, auch nicht am Nabel. Einen Nabelbruch hat bei mir auch noch keiner festgestellt.',
             kapitel: 'vorerkrankungen',
           },
         ],
@@ -27516,7 +27514,7 @@ export function seedCases(): Case[] {
         { frage: 'Ist Ihr Bauch aufgebläht?', kapitel: 'aktuell', sucht: ['voellegefuehl'], followUp: 'Ist Ihnen aufgefallen, dass die Kleidung enger geworden ist?' },
         { frage: 'Wie sah das Erbrochene aus?', kapitel: 'aktuell', sucht: ['erbrechen'], followUp: 'War es zuletzt grünlich, oder hat es unangenehm, fast wie Stuhl gerochen?' },
         { frage: 'Hatten Sie schon einmal einen Darmverschluss oder ähnliche Beschwerden, die von allein wieder verschwunden sind?', kapitel: 'vorerkrankungen', sucht: ['frueher'] },
-        { frage: 'Ist Ihnen jemals eine Vorwölbung am Nabel oder an einer Ihrer Narben aufgefallen?', kapitel: 'vorerkrankungen', sucht: ['hernie'], followUp: 'Falls ja: Wird sie beim Husten oder Pressen größer?' },
+        { frage: 'Ist Ihnen jemals eine Beule am Nabel oder an einer Ihrer Narben aufgefallen?', kapitel: 'vorerkrankungen', sucht: ['hernie'], followUp: 'Falls ja: Wird sie beim Husten oder Pressen größer?' },
         { frage: 'Kommt der Schmerz in Wellen mit ruhigen Pausen, oder ist er inzwischen gleichbleibend und dauerhaft geworden?', kapitel: 'aktuell', sucht: ['verlauf'] },
         { frage: 'Haben Sie Blut oder schwarzen, teerartigen Stuhl bemerkt, und hat sich der Stuhlgang in den letzten Monaten verändert?', kapitel: 'aktuell', sucht: ['stuhl_blut', 'stuhlgewohnheit'] },
         { frage: 'Gibt es in Ihrer Familie Darmkrebs oder Darmverschlüsse?', kapitel: 'familie-sozial', sucht: ['familie_krebs'] },
@@ -29483,7 +29481,7 @@ export function seedCases(): Case[] {
           'vor-erkrank': 'Oje, einiges. Blutdruck seit zwanzig Jahren, schlechte Durchblutung in den Beinen, Schilddrüse zu schwach, Bronchitis, ein Herzinfarkt vor fünfzehn Jahren, und der grüne Star.',
           'vor-op': 'An der Leiste bin ich operiert worden, ein Bruch, das ist dreißig Jahre her, in Vollnarkose, alles gut gegangen. Danach ist mir allerdings von einem Schmerzmittel schrecklich übel geworden. Sonst nichts — das Handgelenk kam nur in Gips.',
           'vor-krankenhaus': 'In letzter Zeit nicht. Das letzte Mal war ich vor fünfzehn Jahren drin, wegen der Thrombose im rechten Unterschenkel.',
-          'med-regelmaessig': 'Morgens und abends eine kleine Tablette für den Blutdruck, Ramipril zwei Komma fünf. Morgens die Schilddrüsentablette nüchtern, fünfundsiebzig. Dann die Magentablette, Esomeprazol zwanzig. Und abends Augentropfen für den grünen Star.',
+          'med-regelmaessig': 'Morgens und abends eine kleine Tablette für den Blutdruck, Ramipril zwei Komma fünf. Jeden Morgen eine Aspirin, hundert Milligramm — seit dem Herzinfarkt. Morgens die Schilddrüsentablette nüchtern, fünfundsiebzig. Dann die Magentablette, Esomeprazol zwanzig. Und abends Augentropfen für den grünen Star.',
           'med-blutverduenner': 'Nein, Kortison nehme ich keines.',
           'med-otc': 'Ab und zu eine Paracetamol, fünfhundert, wenn die Gelenke ziehen. Pflanzliches nehme ich nichts. Kalzium oder Vitamin D? Nein, das hat mir nie jemand gegeben.',
           'all-allergie': 'Ja, gegen Penizillin — davon habe ich am ganzen Körper einen juckenden Ausschlag bekommen. Und Dipidolor vertrage ich nicht, das haben sie mir damals nach der Leistenoperation aufgeschrieben.',
@@ -29514,7 +29512,7 @@ export function seedCases(): Case[] {
         frageAntworten: [
           {
             frage: 'Nehmen Sie Blutverdünner?',
-            antwort: 'Ja, ich nehme jeden Morgen eine Aspirin, hundert Milligramm — seit dem Herzinfarkt. Marcumar oder so eine neue Blutverdünnungstablette nehme ich nicht, und Spritzen auch nicht.',
+            antwort: 'Nur die Aspirin. Marcumar oder so eine neue Blutverdünnungstablette nehme ich nicht, und Spritzen auch nicht.',
             kapitel: 'medikamente',
           },
           {
@@ -30793,8 +30791,8 @@ export function seedCases(): Case[] {
         { frage: 'Wird die Beule beim Stehen, beim Husten oder beim Heben größer — und geht sie zurück, wenn Sie sich hinlegen?', kapitel: 'aktuell', sucht: ['einfluss'], relu: true },
         { frage: 'Können Sie die Schwellung mit der Hand zurückschieben?', kapitel: 'aktuell', sucht: ['reponierbarkeit'] },
         { frage: 'War die Beule irgendwann einmal hart, sehr schmerzhaft und ließ sich nicht mehr zurückdrücken?', kapitel: 'aktuell', sucht: ['inkarzeration'], followUp: 'Falls ja: Wie lange ging das?' },
-        { frage: 'Gingen bei der Episode vor drei Tagen noch Winde ab?', kapitel: 'vegetativ', sucht: ['windabgang'], braucht: ['inkarzeration'] },
-        { frage: 'War Ihr Bauch bei der Episode aufgebläht?', kapitel: 'vegetativ', sucht: ['voellegefuehl'], braucht: ['inkarzeration'] },
+        { frage: 'Gingen vor drei Tagen, als die Beule nicht mehr zurückging, noch Winde ab?', kapitel: 'vegetativ', sucht: ['windabgang'], braucht: ['inkarzeration'] },
+        { frage: 'War Ihr Bauch an dem Tag aufgebläht?', kapitel: 'vegetativ', sucht: ['voellegefuehl'], braucht: ['inkarzeration'] },
         { frage: 'Zieht der Schmerz bei Ihnen bis in den Hodensack hinunter?', kapitel: 'aktuell', sucht: ['ausstrahlung'] },
         { frage: 'Müssen Sie beim Stuhlgang oder beim Wasserlassen stark pressen?', kapitel: 'vegetativ', sucht: ['stuhl', 'miktion'], followUp: 'Wie oft haben Sie Stuhlgang?' },
         { frage: 'Wie schwer sind die Lasten, die Sie bei der Arbeit heben?', kapitel: 'familie-sozial', sucht: ['berufliche_belastung'] },
@@ -31317,11 +31315,11 @@ export function seedCases(): Case[] {
       ],
       caseSpecificQuestions: [
         { frage: 'Wann genau haben Sie zuletzt Alkohol getrunken — Tag und Uhrzeit?', kapitel: 'noxen', sucht: ['letzte_einnahme'] },
-        { frage: 'Was trinken Sie genau?', kapitel: 'noxen', sucht: ['alkohol'], followUp: 'Wie viele Gläser oder Flaschen trinken Sie am Tag?', followUps: ['Wie groß sind die Gläser?'] },
+        { frage: 'Was trinken Sie genau?', kapitel: 'noxen', sucht: ['alkohol'], followUp: 'Wie viele Gläser oder Flaschen sind das am Tag?', followUps: ['Wie groß sind die Gläser?'] },
         { frage: 'Hatten Sie schon einmal einen Krampfanfall oder eine Phase, in der Sie verwirrt waren oder Dinge gesehen haben, die nicht da waren?', kapitel: 'vorerkrankungen', sucht: ['entzug_vorgeschichte'] },
         { frage: 'Haben Sie Blut erbrochen oder schwarzen Stuhlgang bemerkt?', kapitel: 'vegetativ', sucht: ['haematemesis', 'stuhl_blut'], relu: true },
         { frage: 'Sehen Sie manchmal Doppelbilder, oder sind Sie beim Gehen unsicher geworden?', kapitel: 'aktuell', sucht: ['sehstoerung', 'gang'] },
-        { frage: 'Nehmen Sie Schlaf- oder Beruhigungsmittel?', kapitel: 'medikamente', sucht: ['sedativa'], followUp: 'Falls ja: Haben Sie ein solches Medikament vor Kurzem abgesetzt?' },
+        { frage: 'Nehmen Sie Schlaf- oder Beruhigungsmittel?', kapitel: 'medikamente', sucht: ['sedativa'], followUp: 'Haben Sie in letzter Zeit ein Schlaf- oder Beruhigungsmittel abgesetzt?' },
       ],
       examinerQuestions: [
         'Wie lautet Ihre Verdachtsdiagnose, und warum denken Sie das?',
@@ -33285,7 +33283,7 @@ export function seedCases(): Case[] {
           'fach-nephro-infekt': 'Nein, eine Halsentzündung hatte ich nicht, und eine offene oder entzündete Stelle an der Haut auch nicht. Nur den Brechdurchfall seit fünf Tagen nach dem Gasthausbesuch.',
           'fach-nephro-vorgeschichte': 'In der Familie ist keine Nierenkrankheit bekannt, keine Zystennieren, niemand an der Dialyse. Bei mir hat der Hausarzt vor einem Jahr gesagt, die Nierenwerte seien wegen dem Zucker grenzwertig — ein Wert von 1,3, glaube ich. Nierensteine hatte ich nie.',
           // K2 (ADR-0023) : réponses des sondes de banque que le profil exige (r3)
-          'akt-ausscheid-haeufigkeit': 'Bis zu sechsmal am Tag, fünf Tage lang.',
+          'akt-ausscheid-haeufigkeit': 'Bis zu sechsmal am Tag, fünf Tage lang — viel öfter als sonst. Seit gestern ist es besser.',
           'akt-ausscheid-aussehen': 'Nein. Der Durchfall war wässrig, aber Blut oder Schleim war nicht dabei, und schwarz war er auch nicht.',
         },
         frageAntworten: [
@@ -33493,7 +33491,6 @@ export function seedCases(): Case[] {
         { frage: 'Nehmen Sie Schmerzmittel ein, die Sie ohne Rezept in der Apotheke bekommen — Ibuprofen, Diclofenac oder Voltaren?', kapitel: 'medikamente', sucht: ['nsar'], followUp: 'Falls ja: Wie viele Tabletten nehmen Sie pro Tag?', followUps: ['Falls ja: Seit wann nehmen Sie sie?'] },
         { frage: 'Können Sie mir Ihre Blutdrucktablette genau beschreiben oder die Packung zeigen?', kapitel: 'medikamente', sucht: ['antihypertensiva', 'diuretika'] },
         { frage: 'Müssen Sie zur Toilette und es kommt nichts, oder verspüren Sie gar keinen Harndrang mehr?', kapitel: 'aktuell', sucht: ['harnverhalt'], followUp: 'Haben Sie ein Druckgefühl im Unterbauch?' },
-        { frage: 'Wissen Sie noch, wie hoch Ihr Nierenwert damals war?', kapitel: 'vorerkrankungen', sucht: ['nierenvorgeschichte'], braucht: ['vorerkrankung'] },
       ],
       examinerQuestions: [
         'Herr Kollege, stellen Sie uns bitte den Patienten vor. An was denken Sie?',
@@ -34457,7 +34454,7 @@ export function seedCases(): Case[] {
           },
           {
             frage: 'Nehmen Sie ein Medikament gegen erhöhte Blutfette?',
-            antwort: 'Nein, eine Tablette für die Blutfette, so ein Statin, habe ich nicht.',
+            antwort: 'Nein, eine Tablette für die Blutfette nehme ich nicht.',
             kapitel: 'medikamente',
           },
         ],
@@ -35520,12 +35517,12 @@ export function seedCases(): Case[] {
         frageAntworten: [
           {
             frage: 'Hat Ihre Frau schon einmal beobachtet, dass Sie im Schlaf eine Zeit lang nicht atmen?',
-            antwort: 'Ja. Sie sagt, zwischendurch sei es plötzlich totenstill — dann setze die Atmung eine halbe Minute aus, und danach schnappe ich nach Luft. Das macht ihr richtig Angst, deshalb schläft sie nebenan.',
+            antwort: 'Ja. Sie sagt, zwischendurch ist es plötzlich totenstill — dann setzt die Atmung eine halbe Minute aus, und danach schnappe ich nach Luft. Das macht ihr richtig Angst, deshalb schläft sie nebenan.',
             kapitel: 'aktuell',
           },
           {
             frage: 'Schnarchen Sie?',
-            antwort: 'Ja, seit Jahren — das sagt jedenfalls meine Frau, ich merke davon nichts. Sie sagt, ich schnarche laut und ganz unregelmäßig.',
+            antwort: 'Ja, seit Jahren, laut und ganz unregelmäßig — das sagt jedenfalls meine Frau, ich selbst merke davon nichts.',
             kapitel: 'aktuell',
           },
           {
@@ -36214,7 +36211,7 @@ export function seedCases(): Case[] {
         { frage: 'Sagen Ihnen die Stimmen jemals, dass Sie etwas tun sollen — auch etwas, das Ihnen oder anderen schaden könnte?', kapitel: 'aktuell', sucht: ['imperative_stimmen'] },
         { frage: 'Haben Sie das Gefühl, dass Ihre Gedanken nicht mehr ganz Ihnen gehören — dass sie Ihnen eingegeben oder mitten im Satz entzogen werden, oder dass andere sie mitlesen können?', kapitel: 'aktuell', sucht: ['ich_stoerung'] },
         { frage: 'Haben Sie den Eindruck, von außen gesteuert oder beeinflusst zu werden?', followUp: 'Falls ja: Wodurch — zum Beispiel über Funk oder über das WLAN?', kapitel: 'aktuell', sucht: ['fremdbeeinflussung'] },
-        { frage: 'Wie viel Cannabis rauchen Sie am Tag?', kapitel: 'noxen', sucht: ['drogen'], followUp: 'Seit wann rauchen Sie Cannabis?', followUps: ['Haben Sie schon einmal versucht aufzuhören?', 'Falls ja: Hat sich dabei etwas verändert?'] },
+        { frage: 'Wie viel Cannabis rauchen Sie am Tag?', kapitel: 'noxen', sucht: ['drogen'], followUp: 'Seit wann rauchen Sie Cannabis?', followUps: ['Haben Sie schon einmal versucht aufzuhören?', 'Falls ja: Wie ging es Ihnen in dieser Zeit?'] },
       ],
       examinerQuestions: [
         'Herr Kollege, stellen Sie uns bitte den Patienten vor. Wie lautet Ihre Verdachtsdiagnose?',
@@ -36538,7 +36535,7 @@ export function seedCases(): Case[] {
           'veg-gewicht': '(Die Tochter: Ja, vier Kilo in drei Wochen, von 72 auf 68. Ungewollt — er isst einfach nichts mehr.)',
           'veg-appetit': '(Die Tochter: Der Appetit ist weg, seit der Operation. Und trinken tut er fast nichts, ich schätze einen halben Liter am Tag, obwohl ich ihm ständig etwas hinstelle.)',
           'veg-schlaf': '(Die Tochter: Tag und Nacht sind vertauscht. Nachts ist er wach und läuft umher, tagsüber döst er im Sessel. Die Schlaftablette aus dem Krankenhaus nimmt er weiter, geholfen hat sie nicht — eher im Gegenteil, danach ist er noch verwirrter.)',
-          'vor-erkrank': '(Die Tochter: Hohen Blutdruck seit ungefähr fünfundzwanzig Jahren und eine Herzschwäche. Dann die Prostata, deswegen muss er nachts oft raus. Er hört schlecht und trägt sonst ein Hörgerät, und er braucht eine Brille; beide Augen sind wegen grauem Star operiert. Zucker hat er nicht, einen Schlaganfall hatte er nie, Krampfanfälle auch nicht. Und, wie gesagt, seit etwa einem Jahr die Vergesslichkeit — abgeklärt wurde das nie.)',
+          'vor-erkrank': '(Die Tochter: Hohen Blutdruck seit ungefähr fünfundzwanzig Jahren und eine Herzschwäche. Dann die Prostata, deswegen muss er nachts oft raus. Er hört schlecht und trägt sonst ein Hörgerät, und er braucht eine Brille; beide Augen sind wegen grauem Star operiert. Zucker hat er nicht, einen Schlaganfall hatte er nie, Krampfanfälle auch nicht.)',
           'vor-op': '(Die Tochter: Vor zehn Tagen die künstliche Hüfte links nach einem Sturz in der Wohnung, ein Oberschenkelhalsbruch. Vor etwa zwanzig Jahren die Gallenblase, und vor fünf und vier Jahren beide Augen wegen grauem Star.)',
           'vor-krankenhaus': '(Die Tochter: Ja, genau deswegen: sieben Tage wegen der Hüfte, entlassen vor drei Tagen. Er hatte dort einen Blasenkatheter, lag viel im Bett und war in vier Tagen in drei verschiedenen Zimmern.)',
           'med-regelmaessig': '(Die Tochter, mit Zettel: Ramipril 5, Bisoprolol 2,5, Torasemid 10, Atorvastatin 20, Pantoprazol 20, Vitamin D. Seit der OP Oxycodon morgens und abends und Lorazepam 1 zur Nacht. Seit vier Wochen noch Oxybutynin.)',
@@ -36567,6 +36564,11 @@ export function seedCases(): Case[] {
           'fach-psych-frueher': '(Die Tochter: Psychisch war er nie in Behandlung, nie beim Psychiater, nie Antidepressiva oder Beruhigungsmittel. Und so eine Verwirrtheit hatte er noch nie — auch nicht nach der Gallenblasenoperation.)',
         },
         frageAntworten: [
+          {
+            frage: 'War er in den letzten Monaten schon vergesslich?',
+            antwort: '(Die Tochter: So etwas hatte er noch nie, auch nicht nach der Gallenblasenoperation damals. Aber ehrlich gesagt: Seit etwa einem Jahr ist er vergesslicher, sucht Wörter und verlegt Dinge. Das kam aber ganz langsam, und er war dabei immer klar — das jetzt ist etwas völlig anderes. Abgeklärt wurde das nie.)',
+            kapitel: 'vorerkrankungen',
+          },
           {
             frage: 'Trägt er normalerweise eine Brille und ein Hörgerät — hat er beides jetzt bei sich im Krankenhaus?',
             antwort: '(Die Tochter: Ja, normalerweise beides. Aber das Hörgerät ist im Krankenhaus verloren gegangen, und die Brille liegt zu Hause.)',
@@ -36779,6 +36781,7 @@ export function seedCases(): Case[] {
         { frage: 'Schwankt sein Zustand im Tagesverlauf?', kapitel: 'aktuell', sucht: ['tageszeit'], relu: true, followUp: 'Gibt es Zeiten, in denen er wieder ganz klar ist?', followUps: ['Ist es abends und nachts schlimmer?'] },
         { frage: 'Sieht oder hört er manchmal Dinge, die nicht da sind?', kapitel: 'aktuell', sucht: ['halluzinationen'], followUp: 'Falls ja: Was sieht oder hört er dabei?' },
         { frage: 'Hat er Fieber, und wissen Sie, ob er Beschwerden beim Wasserlassen hat oder nur noch kleine Mengen Urin lässt?', kapitel: 'aktuell', sucht: ['fieber', 'miktion'] },
+        { frage: 'War er in den letzten Monaten schon vergesslich?', kapitel: 'vorerkrankungen', sucht: ['kognition_vorher'], followUp: 'Falls ja: Wie schnell hat sich das entwickelt?' },
         { frage: 'Trägt er normalerweise eine Brille und ein Hörgerät — hat er beides jetzt bei sich im Krankenhaus?', kapitel: 'aktuell', sucht: ['hilfsmittel'] },
       ],
       examinerQuestions: [
@@ -40886,7 +40889,7 @@ export function seedCases(): Case[] {
           },
           {
             frage: 'Wie oft müssen Sie Wasser lassen?',
-            antwort: 'Viel weniger als sonst.',
+            antwort: 'Viel seltener als sonst.',
             kapitel: 'vegetativ',
           },
         ],
@@ -42813,7 +42816,7 @@ export function seedCases(): Case[] {
         { frage: 'Wie lange ist Ihre Hüfte morgens steif — Minuten oder mehr als eine halbe Stunde?', kapitel: 'aktuell', sucht: ['steifigkeit'] },
         { frage: 'Wie hat sich Ihre Gehstrecke in den letzten sechs Monaten verändert — wie weit kamen Sie früher, wie weit heute?', kapitel: 'aktuell', sucht: ['entwicklung'] },
         { frage: 'Fällt Ihnen das Einsteigen in Ihr Auto oder in den Bagger schwer?', kapitel: 'aktuell', sucht: ['leistung'], followUp: 'Wie kommen Sie mit Treppen zurecht?' },
-        { frage: 'Hatten Sie als Kind eine Hüfterkrankung, zum Beispiel eine Spreizhose oder eine Schiene?', kapitel: 'vorerkrankungen', sucht: ['ortho_vorgeschichte'], followUp: 'Hat Ihnen jemals jemand gesagt, dass Ihre Hüftpfanne nicht richtig angelegt ist?' },
+        { frage: 'Mussten Sie als Kind wegen der Hüfte eine Spreizhose oder eine Schiene tragen?', kapitel: 'vorerkrankungen', sucht: ['ortho_vorgeschichte'], followUp: 'Hat Ihnen jemals jemand gesagt, dass Ihre Hüftpfanne nicht richtig ausgebildet ist?' },
         { frage: 'Tut Ihnen beim Gehen die Wade weh, und geht das in Ruhe nach wenigen Minuten wieder weg?', kapitel: 'aktuell', sucht: ['gehstrecke'] },
       ],
       examinerQuestions: [
@@ -44890,7 +44893,7 @@ export function seedCases(): Case[] {
           'vor-krankenhaus': 'Nur damals wegen dem Blinddarm, drei Tage. Seitdem nicht mehr.',
           'med-regelmaessig': 'Regelmäßig nehme ich eigentlich nur die Abführmittel — Laxoberal und ein pflanzliches Mittel. Sonst nichts.',
           'med-blutverduenner': 'Nein, Blutverdünner oder Kortison nehme ich nicht.',
-          'med-otc': 'Aus der Apotheke eben die Abführmittel. Schmerzmittel brauche ich fast nie. Vitamine auch nicht.',
+          'med-otc': 'Aus der Apotheke eben die Abführmittel. Schmerzmittel brauche ich fast nie, und Vitamine nehme ich auch keine.',
           'all-allergie': 'Nein, Allergien habe ich keine, weder gegen Medikamente noch gegen Lebensmittel.',
           'all-unvertraeglich': 'Nein, vertragen tue ich alles. Ich lasse nur bestimmte Sachen bewusst weg — Süßigkeiten, Brot, alles Fettige.',
           'nox-rauchen': 'Nein, ich habe nie geraucht.',
@@ -52136,7 +52139,7 @@ export function seedCases(): Case[] {
         { frage: 'Was glauben Sie selbst, woher die Schmerzen kommen?', kapitel: 'aktuell', sucht: ['krankheitskonzept'] },
         { frage: 'An wie vielen Tagen im Monat nehmen Sie Schmerzmittel?', kapitel: 'medikamente', sucht: ['schmerzmittel_frequenz'] },
         { frage: 'Wie geht es Ihnen, wenn Sie das Tilidin einmal auslassen?', kapitel: 'medikamente', sucht: ['entzug'], braucht: ['medikation'] },
-        { frage: 'Was würde es für Sie bedeuten, wenn die Rente bewilligt oder abgelehnt wird?', kapitel: 'familie-sozial', sucht: ['sozialrecht'], braucht: ['beruf'] },
+        { frage: 'Was würde es für Sie bedeuten, wenn Ihr Widerspruch Erfolg hat — oder abgelehnt wird?', kapitel: 'familie-sozial', sucht: ['sozialrecht'], braucht: ['beruf'] },
         { frage: 'Ist ein Gelenk jemals geschwollen, rot oder heiß gewesen?', kapitel: 'vorerkrankungen', sucht: ['gelenk_entzuendung'] },
         { frage: 'Haben Sie morgens eine Steifigkeit, die länger als eine halbe Stunde dauert?', kapitel: 'vorerkrankungen', sucht: ['steifigkeit'] },
         { frage: 'Wachen Sie nachts wegen der Rückenschmerzen auf, und werden sie eher durch Bewegung besser oder schlechter?', kapitel: 'aktuell', sucht: ['nachtschmerz', 'einfluss'] },
@@ -55036,8 +55039,7 @@ export function seedCases(): Case[] {
         { frage: 'Juckt es auch im Gaumen oder in den Ohren?', kapitel: 'aktuell', sucht: ['juckreiz'] },
         { frage: 'Husten Sie auch tagsüber oder nach körperlicher Anstrengung?', kapitel: 'aktuell', sucht: ['husten'] },
         { frage: 'Kribbelt oder schwillt es Ihnen im Mund nach rohem Obst, Nüssen oder Karotten?', kapitel: 'aktuell', sucht: ['nahrungsmittelallergie'] },
-        { frage: 'Welches Nasenspray benutzen Sie?', kapitel: 'medikamente', sucht: ['nasenspray'], followUp: 'Seit wann benutzen Sie das Nasenspray?', followUps: ['Wie oft am Tag nehmen Sie das Nasenspray?'] },
-        { frage: 'Hatten Sie als Kind Neurodermitis oder Asthma?', kapitel: 'allergien', sucht: ['atopie'] },
+        { frage: 'Welches Nasenspray benutzen Sie?', kapitel: 'medikamente', sucht: ['nasenspray'], followUp: 'Seit wann benutzen Sie es?', followUps: ['Wie oft am Tag sprühen Sie?'] },
       ],
       examinerQuestions: [
         'Wie äußert sich die Allergie bei diesem Patienten? Bitte beschreiben Sie das genau.',
@@ -58352,8 +58354,8 @@ export function seedCases(): Case[] {
         },
         frageAntworten: [
           {
-            frage: 'Hatten Sie jemals eine Nierenerkrankung, eine Rheumaerkrankung oder eine Tumorerkrankung?',
-            antwort: 'Nein, nichts mit den Nieren, kein Rheuma, und eine Tumorerkrankung hatte ich auch nie.',
+            frage: 'Hatten Sie jemals eine Nierenerkrankung, Rheuma oder Krebs?',
+            antwort: 'Nein, nichts mit den Nieren, kein Rheuma, und Krebs hatte ich auch nie.',
             kapitel: 'vorerkrankungen',
           },
           {
@@ -58522,7 +58524,7 @@ export function seedCases(): Case[] {
       caseSpecificQuestions: [
         { frage: 'Wird es besser, wenn Sie sich aufsetzen und nach vorne beugen, und schlimmer, wenn Sie sich flach hinlegen?', kapitel: 'aktuell', sucht: ['einfluss'] },
         { frage: 'Hatten Sie in den letzten zwei bis drei Wochen eine Erkältung, Grippe oder einen Magen-Darm-Infekt?', kapitel: 'aktuell', sucht: ['vorinfekt'] },
-        { frage: 'Hatten Sie jemals eine Nierenerkrankung, eine Rheumaerkrankung oder eine Tumorerkrankung?', kapitel: 'vorerkrankungen', sucht: ['nierenvorgeschichte', 'rheuma_vorgeschichte', 'tumor_vorgeschichte'] },
+        { frage: 'Hatten Sie jemals eine Nierenerkrankung, Rheuma oder Krebs?', kapitel: 'vorerkrankungen', sucht: ['nierenvorgeschichte', 'rheuma_vorgeschichte', 'tumor_vorgeschichte'] },
         { frage: 'Waren Sie in letzter Zeit länger im Ausland?', kapitel: 'vegetativ', sucht: ['reise'] },
         { frage: 'Hatten Sie Kontakt zu jemandem mit Tuberkulose?', kapitel: 'vegetativ', sucht: ['kontakt'] },
         { frage: 'Wie lange hat die Wirkung des Ibuprofens angehalten?', kapitel: 'medikamente', sucht: ['vorbehandlung'], braucht: ['selbstmedikation'] },
@@ -59021,7 +59023,6 @@ export function seedCases(): Case[] {
         { frage: 'Zucken Ihnen morgens manchmal die Arme, sodass Ihnen etwas aus der Hand fällt?', kapitel: 'aktuell', sucht: ['anfallsformen'], relu: true, followUp: 'Haben Sie kurze Aussetzer, in denen Sie nicht ansprechbar sind?' },
         { frage: 'Haben Sie am Wochenende auch Drogen genommen?', kapitel: 'noxen', sucht: ['drogen'] },
         { frage: 'Hatten Sie als Kind Fieberkrämpfe, eine Hirnhautentzündung oder eine Kopfverletzung mit Bewusstlosigkeit?', kapitel: 'vorerkrankungen', sucht: ['neuro_vorgeschichte'], relu: true },
-        { frage: 'Nehmen Sie neue Medikamente oder haben Sie kürzlich Schlaf- oder Beruhigungsmittel abgesetzt?', kapitel: 'medikamente', sucht: ['medikament_neu', 'sedativa'] },
       ],
       examinerQuestions: [
         'Stellen Sie uns den Patienten bitte vor. Handelt es sich um einen epileptischen Anfall oder um eine Synkope — und woran machen Sie das fest?',
@@ -59930,7 +59931,7 @@ export function seedCases(): Case[] {
       caseSpecificQuestions: [
         { frage: 'Blutet die Stelle auch von selbst, ohne Rasieren?', kapitel: 'aktuell', sucht: ['lokalblutung'], followUp: 'Bildet sich immer wieder eine Kruste, die dann aufbricht?' },
         { frage: 'Wie sieht die Stelle aus?', kapitel: 'aktuell', sucht: ['hautbefund'], followUp: 'Glänzt sie, oder sehen Sie kleine rote Äderchen darauf?', followUps: ['Hat sie in der Mitte eine Delle?', 'Ist sie braun oder schwarz?'] },
-        { frage: 'Haben Sie bei der Arbeit im Freien einen Hut oder Sonnencreme benutzt?', kapitel: 'familie-sozial', sucht: ['uv_exposition'], followUp: 'Hatten Sie als Kind oder junger Mann Sonnenbrände mit Blasen?' },
+        { frage: 'Haben Sie bei der Arbeit im Freien einen Hut getragen?', kapitel: 'familie-sozial', sucht: ['uv_exposition'] },
         { frage: 'Wurde Ihnen schon einmal etwas von der Haut entfernt oder vereist?', kapitel: 'vorerkrankungen', sucht: ['dermato_eingriff'] },
         { frage: 'Hatten Sie früher schon einmal Hautkrebs?', kapitel: 'vorerkrankungen', sucht: ['hautvorgeschichte'] },
         { frage: 'Wurden Sie jemals bestrahlt?', kapitel: 'vorerkrankungen', sucht: ['strahlenexposition'] },
@@ -60437,7 +60438,7 @@ export function seedCases(): Case[] {
         { frage: 'Hatten Sie kurz vor dem Schub eine Mandelentzündung oder Halsschmerzen?', kapitel: 'aktuell', sucht: ['vorinfekt'] },
         { frage: 'Gab es in letzter Zeit besonderen Stress oder belastende Ereignisse?', kapitel: 'familie-sozial', sucht: ['lebensbelastung'] },
         { frage: 'Wie stark schränkt die Haut Ihren Alltag ein?', kapitel: 'familie-sozial', sucht: ['leistung'] },
-        { frage: 'Wie geht es Ihnen seelisch mit der Haut?', kapitel: 'familie-sozial', sucht: ['stimmung'] },
+        { frage: 'Wie geht es Ihnen seelisch mit Ihrer Hauterkrankung?', kapitel: 'familie-sozial', sucht: ['stimmung'] },
       ],
       examinerQuestions: [
         'Wie lautet Ihre Verdachtsdiagnose, und was hat Sie dazu geführt?',
@@ -61715,6 +61716,11 @@ export function seedCases(): Case[] {
         },
         frageAntworten: [
           {
+            frage: 'Hatten Sie solche Beschwerden schon einmal, wenn die Tabletten ausgegangen sind?',
+            antwort: 'So heftig noch nie. Aber zweimal, als die Tabletten am Wochenende ausgegangen waren, hatte ich das Gleiche in leichterer Form — Schwitzen, Unruhe, Durchfall. Nach der ersten Tablette war es weg. Da habe ich gemerkt, dass das von den Tabletten kommt. (leiser) Ich habe es nur nicht wahrhaben wollen.',
+            kapitel: 'medikamente',
+          },
+          {
             frage: 'Wie hat sich die Dosis seit dem Unfall entwickelt?',
             antwort: 'Erst Tilidin, dann Oxycodon, immer mehr.',
             kapitel: 'medikamente',
@@ -61900,7 +61906,8 @@ export function seedCases(): Case[] {
         { frage: 'Haben Sie die Tabletten jemals anders eingenommen als vorgesehen — zerkaut, aufgelöst, geschnupft oder gespritzt?', kapitel: 'medikamente', sucht: ['applikationsweg'] },
         { frage: 'Trinken Sie Alkohol, wenn Sie die Tabletten nehmen?', kapitel: 'medikamente', sucht: ['alkohol_akut'] },
         { frage: 'Gab es schon einmal eine Situation, in der Sie nach den Tabletten kaum wach zu bekommen waren oder jemand einen Rettungswagen rufen wollte?', kapitel: 'medikamente', sucht: ['ueberdosis'], followUp: 'Falls ja: Haben Sie damals bewusst mehr genommen, oder ist das aus Versehen passiert?' },
-        { frage: 'Fällt es Ihnen schwer, bei der verordneten Menge zu bleiben?', kapitel: 'medikamente', sucht: ['craving'] },
+        { frage: 'Hatten Sie solche Beschwerden schon einmal, wenn die Tabletten ausgegangen sind?', kapitel: 'medikamente', sucht: ['entzug'], followUp: 'Falls ja: Waren sie nach der nächsten Tablette weg?' },
+        { frage: 'Fällt es Ihnen schwer, bei der verschriebenen Menge zu bleiben?', kapitel: 'medikamente', sucht: ['craving'] },
       ],
       examinerQuestions: [
         'Wie lautet Ihre Verdachtsdiagnose, und welche Kriterien der Abhängigkeit erfüllt dieser Patient konkret?',
@@ -62418,7 +62425,7 @@ export function seedCases(): Case[] {
         { frage: 'Seit wann genau ist die Nase zu — gab es zwischendurch eine Phase, in der es schon besser war, bevor es wieder schlimmer wurde?', kapitel: 'aktuell', sucht: ['beginn', 'verlauf'] },
         { frage: 'Welche Farbe hat der Schnupfen — klar und wässrig oder gelbgrün und zäh?', kapitel: 'aktuell', sucht: ['nasensekret'], followUp: 'Läuft er nach vorne heraus oder hinten den Hals hinunter?' },
         { frage: 'Können Sie noch normal riechen und schmecken?', kapitel: 'aktuell', sucht: ['riechen', 'geschmack'] },
-        { frage: 'Welches Nasenspray benutzen Sie?', kapitel: 'medikamente', sucht: ['nasenspray'], followUp: 'Seit wann benutzen Sie das Nasenspray?', followUps: ['Wie oft am Tag nehmen Sie das Nasenspray?'] },
+        { frage: 'Welches Nasenspray benutzen Sie?', kapitel: 'medikamente', sucht: ['nasenspray'], followUp: 'Seit wann benutzen Sie es?', followUps: ['Wie oft am Tag sprühen Sie?'] },
         { frage: 'Ist das Auge geschwollen oder gerötet, sehen Sie doppelt oder verschwommen, tut das Bewegen des Auges weh?', kapitel: 'aktuell', sucht: ['augenentzuendung', 'sehstoerung'] },
         { frage: 'Haben Sie Nackensteifigkeit, Lichtscheu, den schlimmsten Kopfschmerz Ihres Lebens, oder ist Ihnen schwindelig oder benommen?', kapitel: 'aktuell', sucht: ['meningismus', 'photophobie', 'kopfschmerz', 'schwindel', 'verwirrtheit'] },
       ],
