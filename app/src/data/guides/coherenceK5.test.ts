@@ -105,7 +105,7 @@ describe('K5 — reliquats « Pour K5 » des revues K4', () => {
 
   it('schlaganfall (revue clinique K5) : « beim Sturz » est rangée sous la Fach dans le Rollenskript du simulant', () => {
     const c = byId('case-schlaganfall');
-    const ch = buildRollenskript(c.patientSheet, c.caseSpecificQuestions).find((x) => x.lines.some((l) => /beim Sturz von der Kellertreppe/.test(l.frage)));
+    const ch = buildRollenskript(c.patientSheet, c.caseSpecificQuestions).find((x) => x.lines.some((l) => /beim Sturz von der Kellertreppe/.test(l.frage ?? '')));
     expect(ch?.id).toBe('fach');
   });
 

@@ -21,7 +21,7 @@ case-bandscheibenvorfall fach-ortho 7 3ea450e3e033d9e7
 case-gicht fach-rheuma 8 c3466f4c193dc3fb
 case-multiple-sklerose fach-neuro 10 872b2de4b51952f9
 case-reizdarm fach-gastro 7 0991845b826ff145
-case-schlaganfall fach-neuro 11 ddba010b110ec4ba
+case-schlaganfall fach-neuro 12 0db569217bf41c2f
 case-gallenkolik fach-chirurgie 4 6a8761f044135c57
 case-tvt fach-gefaess 8 c2a6b9a441362a5f
 case-diabetes fach-endo 10 7d533e14cb2bff71
