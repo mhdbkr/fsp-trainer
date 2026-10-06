@@ -55,6 +55,7 @@ export function PreSimulationPage() {
   const aide: Aide = depart ?? 'komplett';                          // la partie entière, ou le Teil de départ (fixeur I3)
   // Le cadran LIT `case_progress` (INV-59) ; un cas jamais joué a sa ligne vierge.
   const dial = dialData(progress?.get(c.id) ?? blankProgress(c.id));
+  const diagnose = vorstellungsDiagnose(c);
 
   return (
     <div className="mx-auto max-w-4xl space-y-5">
@@ -105,7 +106,7 @@ export function PreSimulationPage() {
         <div className="card p-5">
           <div className="label mb-2 flex items-center gap-1.5"><Icon name="speech" className="h-3.5 w-3.5" />Phrases de Fallvorstellung</div>
           <p className="text-sm text-slate-600 dark:text-slate-300">
-            « {vorstellungsSatz(c)} Verdachtsdiagnose: <b><AutoLink>{c.medicalView.verdachtsdiagnose}</AutoLink></b>… »
+            « {vorstellungsSatz(c)} Verdachtsdiagnose: <b><AutoLink>{diagnose.text}</AutoLink></b>{diagnose.offen ? '…' : ''} »
           </p>
           <p className="mt-2 text-sm text-slate-500">{VORSTELLUNG_HINT[aide]}</p>
         </div>
@@ -132,6 +133,40 @@ export function vorstellungsSatz(c: Pick<Case, 'patientSheet'>): string {
   const w = p.geschlecht === 'w';
   const nachname = p.name.trim().split(/\s+/).pop() ?? p.name;
   return `${w ? 'Frau' : 'Herr'} ${nachname} ist ${w ? 'eine' : 'ein'} ${p.age}-jährige${w ? '' : 'r'} Patient${w ? 'in' : ''}.`;
+}
+
+const FUNKTIONSWORT_AM_ENDE = /(?:\s+(?:der|die|das|des|dem|den|ein|eine|einer|eines|einem|und|oder|mit|von|bei|im|in|am|an|auf|zu|zur|zum|nach|durch|für|aus|vom|beim))+$/;
+/** Point qui ne finit pas une phrase : initiale, nombre, abréviation (« Z. n. », « A. cerebri », « ca. 34 », « bzw. »). */
+const ABKUERZUNG = /(?:^|[\s(])(?:[A-Za-zÄÖÜäöü]|\d+|ca|bzw|vs|Nr|St|Dr|ggf|evtl|inkl|etc)\.$/;
+/** La première phrase d'un texte : coupe au premier point suivi d'une espace et d'une majuscule, sauf après une abréviation. */
+export function ersterSatz(text: string): string {
+  const t = text.trim();
+  for (const m of t.matchAll(/\.\s+(?=[A-ZÄÖÜ])/g)) {
+    const kopf = t.slice(0, m.index! + 1);
+    if (!ABKUERZUNG.test(kopf)) return kopf;
+  }
+  return t;
+}
+/** Le diagnostic de la phrase de Fallvorstellung (revue Q3) : sa première phrase ; si la ligne entière dépasse `max`
+ *  caractères, coupée à la dernière articulation (« — », « ; », « , », « ( ») avant la borne. `offen` = la phrase est
+ *  incomplète (coupée, ou sans ponctuation finale) : le rendu ajoute « … ». */
+export function vorstellungsDiagnose(c: Pick<Case, 'patientSheet' | 'medicalView'>, max = 200): { text: string; offen: boolean } {
+  const vor = `${vorstellungsSatz(c)} Verdachtsdiagnose: `;
+  const d = ersterSatz(c.medicalView.verdachtsdiagnose);
+  if (vor.length + d.length <= max) return { text: d, offen: !/[.!?]$/.test(d) };
+  const kopf = d.slice(0, max - vor.length - 1);   // place pour « … »
+  // la dernière articulation HORS parenthèses : jamais « (Diabetes mellitus… » laissé ouvert
+  let i = -1, tiefe = 0;
+  for (let k = 0; k < kopf.length; k++) {
+    const ch = kopf[k];
+    if (ch === '(') { if (tiefe === 0 && k > 0 && kopf[k - 1] === ' ') i = k - 1; tiefe++; }
+    else if (ch === ')') tiefe = Math.max(0, tiefe - 1);
+    else if (tiefe === 0 && (ch === ',' || ch === ';' || ch === ':' || (ch === '—' && kopf[k - 1] === ' '))) i = ch === '—' ? k - 1 : k;
+  }
+  // sans articulation : au dernier mot, sans finir sur un article ou une préposition (« … und des… »)
+  const text = (i > 20 ? kopf.slice(0, i) : kopf.slice(0, kopf.lastIndexOf(' ')).replace(FUNKTIONSWORT_AM_ENDE, ''))
+    .replace(/[\s,;:(—–-]+$/, '');
+  return { text, offen: true };
 }
 
 // Le Teil de départ change ce que le bloc DIT, pas s'il existe ; sans départ, la partie entière (I3).
