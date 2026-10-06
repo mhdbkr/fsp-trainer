@@ -53,7 +53,7 @@ export function CarteCouverture({ carte, encart, progress }: { carte: Carte; enc
             <li key={s.specialite} id={`carte-${s.specialite}`} className="sm:grid sm:grid-cols-[9.5rem_minmax(0,1fr)] sm:items-center sm:gap-x-3">
               <button type="button" onClick={bascule} aria-expanded={ici} data-specialite={s.specialite}
                 aria-label={`${s.specialite} : ${s.cas.length} cas, dont ${vierges} pas encore travaillé${vierges > 1 ? 's' : ''}`}
-                className="flex min-h-11 w-full items-center text-left text-sm font-medium text-slate-700 hover:text-brand-700 dark:text-slate-200 dark:hover:text-brand-200">
+                className="flex min-h-9 w-full items-center text-left text-sm font-medium text-slate-700 sm:min-h-11 hover:text-brand-700 dark:text-slate-200 dark:hover:text-brand-200">
                 {s.specialite}
               </button>
               {ici ? (
@@ -67,7 +67,7 @@ export function CarteCouverture({ carte, encart, progress }: { carte: Carte; enc
                 </div>
               ) : (
                 // Le dessin seul : le bouton à côté dit la même chose en mots (lecteur d'écran, clavier).
-                <div aria-hidden="true" onClick={bascule} className="-mt-1 flex cursor-pointer flex-wrap gap-1 pb-1 sm:mt-0 sm:pb-0">
+                <div aria-hidden="true" onClick={bascule} className="flex cursor-pointer flex-wrap gap-[3px] pb-1.5 sm:pb-0">
                   {s.cas.map((c) => <CaseDial key={c.id} data={dial(c.id)} size={24} nom={c.name} ouvrable={false} />)}
                 </div>
               )}
