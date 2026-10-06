@@ -55,20 +55,20 @@ describe('I-1 — l\'écran change de jour', () => {
     await vi.waitFor(() => expect(container.textContent).not.toMatch(/Tâche de la veille/), { timeout: 5000 });
     expect(container.textContent).toContain(label);
   }, 20_000);
-  it('programme : le jour choisi suit aujourd\'hui s\'il valait la veille', async () => {
+  it('programme : « Aujourd\'hui » suit le jour (S4-5 : plus de jour choisi)', async () => {
     await act(async () => { root.render(<MemoryRouter><ProgramPage /></MemoryRouter>); });
-    await vi.waitFor(() => expect(container.textContent).toMatch(/jeudi 1 octobre/i), { timeout: 5000 });
+    await vi.waitFor(() => expect(container.textContent).toMatch(/Aujourd'hui · jeudi 1 oct\./i), { timeout: 5000 });
     await passerMinuit();
-    await vi.waitFor(() => expect(container.textContent).toMatch(/vendredi 2 octobre\s*Aujourd'hui/i), { timeout: 5000 });
+    await vi.waitFor(() => expect(container.textContent).toMatch(/Aujourd'hui · vendredi 2 oct\./i), { timeout: 5000 });
   }, 20_000);
   it('m-4 : minuit passé AVANT le rafraîchissement, un re-rendu ne met pas le jour affiché en lecture seule', async () => {
     await act(async () => { root.render(<MemoryRouter><ProgramPage /></MemoryRouter>); });
     await vi.waitFor(() => expect(container.querySelector('[title="Marquer faite"]')).not.toBeNull(), { timeout: 5000 });
     advance(2 * 3600_000);                                          // l'horloge passe minuit, aucun événement ne rafraîchit
-    const vue = (v: RegExp) => [...container.querySelectorAll('button')].find((b) => v.test(b.textContent ?? ''))!;
-    await act(async () => { vue(/^mois$/i).click(); });
-    await act(async () => { vue(/^semaine$/i).click(); });           // deux re-rendus
-    expect(container.textContent).toMatch(/jeudi 1 octobre\s*Aujourd'hui/i);
+    const specialite = () => container.querySelector<HTMLButtonElement>('button[aria-expanded]')!;
+    await act(async () => { specialite().click(); });
+    await act(async () => { specialite().click(); });               // deux re-rendus (la carte s'agrandit, se referme)
+    expect(container.textContent).toMatch(/Aujourd'hui · jeudi 1 oct\./i);
     expect(container.querySelector('[title="Marquer faite"]')).not.toBeNull();
   }, 20_000);
 });

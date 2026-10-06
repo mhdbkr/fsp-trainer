@@ -605,7 +605,7 @@ reste vert sous sa mutation ne garde rien.
 | **INV-63** | **Erreurs transversales** : un item signalé a été manqué dans ≥ 3 des 5 dernières **`partieAvecChecklist`** (§12.3, §13.3) de son Teil, sur ≥ 2 cas distincts. Une partie sans checklist pour ce Teil, ou portant des ids legacy `cl-N`, n'entre pas dans la fenêtre. Une tâche porte au plus un `rappel`, d'un Teil de `teileDeTache`, et **jamais** sur une tâche `dUnTrait` ni `examen-blanc`. | journaux de checklists aléatoires, dont un item manqué 3 fois sur le **même** cas et des parties d'avant INV-24 | fenêtre ignorée ; seuil « 2 cas » ignoré ; lecture de `prioritizedCorrections` ; parties legacy comptées ; `rappel` sur un examen à blanc |
 | **INV-64** | **Durées apprises** : `estMin` d'une tâche de cas = Σ `dureeTeil(t)` ; pour une tâche **`simulation`** en mode observé `teil-first`, c'est `dureeTeil` du Teil le plus probable seul. Une `revision` et un examen à blanc ont toujours Σ sur les trois Teile (§13.4, m-b). Avec moins de 3 mesures pour `t`, `dureeTeil(t) = TEIL_MIN[t]`. Toujours dans `[5, 45]`. Ni les séances `selbstbewertet` ni les durées nulles n'y entrent. | mesures aléatoires, dont une valeur aberrante de 300 min | moyenne au lieu de médiane ; repli absent ; Σ en mode `teil-first` sur une tâche `simulation` ; estimation réduite à un Teil sur une `revision` |
 | **INV-65** | **Aucun changement de budget sans geste** : `hoursPerSession` et `intensity` ne changent que par un `program.configured` né d'un geste (`ProgramSetup`, `accepterRythme`). Aucun `DayPlan` figé ne change à l'acceptation. Une proposition n'existe que si Σ `spentMin` < 0,6 × Σ `targetMin` sur ≥ 3 jours figés de la fenêtre. La valeur proposée est `< dayTargetMin` actuel et `≥ 20`. Deux `rythme.refused` consécutifs depuis le dernier `program.configured` ⇒ aucune proposition. | semaines de temps réel aléatoires ; refus sur deux appareils | budget appliqué sans geste ; proposition à la hausse ; refus non synchronisé (l'autre appareil repropose) |
-| **INV-66** | **Fréquences sourcées** : `couverturePonderee()` rend `{ pct, base, portee }` avec `0 ≤ pct ≤ 100` et `base > 0` dès que `pct` est défini. `portee = 'ville-ventilee'` ⇒ `base` = Σ des comptes ventilés de cette ville. Sinon, `portee = 'toutes-villes'` et `base` = Σ des totaux. Le texte rendu contient `base` et la portée, et passe la garde EXAM_CLAIM. | corpus avec et sans ventilation par ville, ville `Alle` | dénominateur = `centers[ville].n` (182 à Stuttgart) ; repli silencieux sans changer la phrase |
+| **INV-66** | **Fréquences sourcées** *[S4-5, décision de `main` après la revue direction]* : `couverturePonderee()` rend `{ pct, base, portee }` avec `0 ≤ pct ≤ 100` et `base > 0` dès que `pct` est défini. **`base` est le nombre de protocoles relevés par la source**, jamais une somme de fréquences : `portee = 'ville-ventilee'` ⇒ `base` = `n` de cette ville ; sinon `portee = 'toutes-villes'` et `base` = `n` (580). Une fréquence se dit **par pathologie** : deux cas qui partagent une pathologie ne l'additionnent pas. Le texte rendu contient `base` et la portée, et passe la garde EXAM_CLAIM. | corpus avec et sans ventilation par ville, ville `Alle`, cas partageant une pathologie, table réelle | dénominateur = Σ des fréquences des cas (le « 776 » de la revue) ; `n` de toute la source pour une ville ventilée ; pathologie partagée comptée deux fois ; repli silencieux sans changer la phrase |
 | **INV-67** | **Une seule fonction « reste »** : `detteTeil(c, D) = Σ poids(t, D) / 3` sur `restePlan(c, D)` (poids 1, ou `POIDS_CONSOLIDATION` pour un Teil « à confirmer » à D, §4.3 [S4-1]), et `teile` d'une tâche **`simulation`** = `restePlan(c, D)` (m-b ; une `revision` et un examen à blanc portent les trois Teile). Un Teil `acquis` (ou non solide) joué dans les `SOLIDE_ECART_JOURS` jours avant D n'est ni dans `teile` ni dans la dette. Dans la journée, `resteTache(T) = teileDeTache(T) \ teileJouesDepuis(T.creeA)`. | journaux avec des Teile acquis joués il y a 0, 1, 2, 3 et 4 jours | `detteTeil` garde `status ≠ solide` seul (`journal.ts:271-272`) ; deux définitions de « reste » |
 | **INV-68** | **Configuration synchronisée** : deux appareils qui ont reçu les mêmes `program.configured` ont le même `db.meta['program']`, à savoir le dernier payload **valide** par `occurred_at`. Un payload invalide est ignoré et ne remplace rien. `rattrapage.refused` et `rythme.refused` sont visibles sur les deux appareils. | configurations concurrentes, payload corrompu | aucune projection de `program.configured` au retour (état actuel : seul l'envoi existe, `ProgramSetup.tsx:59`) |
 | **INV-69** | **La frise passée est figée** : pour tout `at < DATE_NOUVELLE_REGLE`, `indiceAt(J, at)` applique la règle série 3 (`statusOf(lastScore)`), et le déploiement ne change aucun point passé. | journal antérieur et postérieur à la date | nouvelle règle appliquée rétroactivement à `indiceAt` |
@@ -1085,7 +1085,7 @@ dialData(cp, ctx?: { tache?: TaskInstance; avancement?: SimTeil[]; lauf?: Lauf }
   partir du jeudi 9 » (`solideDes`), ou « pour souder l'anneau : une partie
   d'un trait en Autonome » (`pretManque`). Le plafond Assisté évoqué par la
   revue n'existe pas dans la mesure (ADR-0021, contradiction 15).
-- Les quatre tailles lisent le même `CaseDialData`. `CaseDial` vit dans
+- Les tailles (24 *[S4-5, le point de la carte de couverture, non ouvrable]*, 36, 64, 96, 160) lisent le même `CaseDialData`. `CaseDial` vit dans
   `components/visuals/`, sous la règle B de `motionSafe.test.ts`.
   L'étiquette accessible se dérive de `CaseDialData` seul, et la couleur n'est
   jamais le seul signal.
@@ -1111,12 +1111,20 @@ change :
 ### 12.9 Les fréquences dans les encarts (I10)
 
 Une phrase de fréquence n'est rendue que si elle nomme sa base et sa portée,
-et passe la garde EXAM_CLAIM :
+et passe la garde EXAM_CLAIM. *[S4-5, revue direction]* Elle se dit **par
+pathologie**, sous le **nom de la source** (`frequencies.json`), et la base est
+le nombre de protocoles **relevés** (`n`, ou `n` de la ville) :
 
-- pathologie **ventilée** pour la ville cible : « revient dans 11 protocoles,
-  d'après 96 protocoles ventilés de Stuttgart » ;
-- sinon, **repli tous centres**, dit tel quel : « revient dans 9 protocoles,
-  d'après 516 protocoles, toutes villes ».
+- pathologie **ventilée** pour la ville cible : « « Vorhofflimmern » est tombé
+  dans 11 des 182 protocoles relevés à Stuttgart. » ;
+- sinon, **repli tous centres**, dit tel quel : « « Bandscheibenvorfall
+  (HWS/LWS) » est tombé dans 14 des 580 protocoles relevés, tous centres. »
+
+L'encart de la carte de couverture (S4-5) la fait précéder du blanc de la
+spécialité : « Orthopädie : aucun des 11 cas n'est encore travaillé. »,
+« Kardiologie : 3 des 9 cas ne sont pas encore travaillés. », « 1 des 9 cas
+n'est pas encore travaillé. ». Son action est d'ouvrir la spécialité dans la
+carte ; il ne propose jamais de jouer hors du plan.
 
 Sans donnée, la phrase n'est pas rendue. Source : §13.6.
 
@@ -1278,6 +1286,7 @@ S4-1 mesure ──▶ S4-4 primitive CaseDial ──▶ S4-3 partie ∥ S4-2 pla
 | `ERREUR_FENETRE` / `ERREUR_SEUIL` / `ERREUR_CAS_MIN` | `5` / `3` / `2` | 13.3 |
 | `DUREE_FENETRE` / `DUREE_MIN_MESURES` / `DUREE_BORNES` | `10` / `3` / `[5, 45]` min | 13.4 |
 | `RYTHME_FENETRE_JOURS` / `RYTHME_SEUIL` / `RYTHME_MIN_JOURS` / `BUDGET_PLANCHER_MIN` / `RYTHME_REFUS_MAX` | `7` / `0.6` / `3` / `20` / `2` | 13.5 |
+| `PROJECTION_FENETRE_JOURS` *[S4-5, proposé]* | `14` (« ton rythme des deux dernières semaines », page Programme) | 13.5 |
 
 ### 13.1 Consolidation espacée
 
@@ -1414,26 +1423,36 @@ valeur  = max(BUDGET_PLANCHER_MIN, arrondi à 5 min de Σ spentByDay(figés) / |
 ### 13.6 Couverture pondérée par la fréquence (I10)
 
 ```ts
-couverturePonderee(cases, progress, freqs, ville?: Center):
+couverturePonderee(cases, progress, freqs: Frequences, ville?: Center):
   { pct: number | null; base: number; portee: 'ville-ventilee' | 'toutes-villes'; ville: Center | null }
 
-portee = ville ∧ ∃ c : freqs[c].parVille[ville] défini ? 'ville-ventilee' : 'toutes-villes'
-poids(c) = portee === 'ville-ventilee' ? freqs[c].parVille[ville] : freqs[c].total   // undefined ⇒ hors calcul
-base   = Σ poids(c) ; pct = base === 0 ? null : round(100 × Σ poids(c) × couverture(c)/3 / base)
+Frequences = { n; parVille: Partial<Record<Center, number>>;          // protocoles RELEVÉS (source)
+               pathologies: Record<id, { nom; total: number | null; parVille }>;
+               cas: Record<CaseId, id> }                            // le cas → sa pathologie source
+
+portee   = ville ∧ n(ville) > 0 ∧ ∃ c : pathologie(c).parVille[ville] défini ? 'ville-ventilee' : 'toutes-villes'
+base     = portee === 'ville-ventilee' ? parVille[ville] : n            // [S4-5] jamais Σ des fréquences
+poids(p) = portee === 'ville-ventilee' ? p.parVille[ville] : p.total    // undefined ⇒ hors calcul
+pct      = aucune pathologie pesée ? null
+         : min(100, round(100 × Σ_p poids(p) × moyenne_{c ∈ p}(couverture(c)/3) / base))
 ```
 
-- **Source** : `apps/site/src/data/frequencies.json` (depuis `ANALYSE.md` §3),
-  `pathologies[].total` et `byCenter`. **Proposition au pôle Contenu** :
-  publier côté app une table
-  `FrequenceProtocoles { caseId; total: number | null; parVille: Partial<Record<Center, number>> }`
-  validée en CI. Sans elle, `total = Case.frequency` et `parVille = {}`.
+- *[S4-5, décision de `main` après la revue direction]* **La base est le `n`
+  de la source** (580 protocoles relevés ; 182 à Stuttgart…), pas la somme des
+  `Case.frequency` (776) : plusieurs cas partagent une pathologie (Lumbaler et
+  zervikaler Bandscheibenvorfall comptent tous deux les 14 protocoles de
+  « Bandscheibenvorfall (HWS/LWS) »). **Une pathologie pèse une fois**, avec la
+  couverture moyenne de ses cas.
+- **Source** : `apps/site/src/data/frequencies.json` (depuis `ANALYSE.md` §3).
+  *[S4-5]* Copiée dans l'app (`app/src/data/frequencesProtocoles.ts`, avec la
+  table `CAS_PATHOLOGIE` relue à la main) ; `frequencesProtocoles.test.ts`
+  vérifie qu'elle ne diverge pas de la source. Une pathologie `total: null`
+  (rare) et un cas sans pathologie source sont hors calcul.
 - **Ville** : `targetCenter` (`store/ui.ts:49`). `'Alle'` ou `'Complément'`
   ⇒ pas de ville.
-- **Texte** :
-  - avec une ville ventilée : « Les cas que tu as travaillés représentent
-    {pct} % des protocoles, d'après {base} protocoles ventilés de Stuttgart » ;
-  - en repli : « … d'après {base} protocoles, toutes villes ».
-
-  Aucune formule EXAM_CLAIM.
+- **Texte** : « Les cas que tu as travaillés représentent {pct} % des {base}
+  protocoles relevés à Stuttgart » ; en repli « … relevés, tous centres ».
+  Aucune formule EXAM_CLAIM. *[S4-5]* Cette phrase n'est **pas affichée** sur la
+  page Programme (décision de `main` : « Jusqu'à l'examen » n'a qu'une phrase).
 - **Mesure en S4-1, affichage en S4-5** (I9). Le plan ne lit ni la ville ni
   cette mesure (INV-55).

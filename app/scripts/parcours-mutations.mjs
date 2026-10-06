@@ -226,15 +226,27 @@ export const MUTATIONS = [
   },
   {
     id: "INV-66a", tests: 'tests/invariants.mesure.test.ts', file: "src/lib/program/couverturePonderee.ts",
-    from: "base += poids;",
-    to: "base += f?.total ?? 0;",
-    pourquoi: "le dénominateur est le total de protocoles, pas la base ventilée de la ville",
+    from: "const base = ventilee ? nVille! : freqs.n;",
+    to: "const base = ventilee ? freqs.n : freqs.n;",
+    pourquoi: "le dénominateur est le n de toute la source, pas celui de la ville ventilée",
   },
   {
     id: "INV-66b", tests: 'tests/invariants.mesure.test.ts', file: "src/lib/program/couverturePonderee.ts",
-    from: "return r.portee === 'ville-ventilee' ? `${tete} ventilés de ${r.ville}` : `${tete}, toutes villes`;",
-    to: "return tete;",
+    from: "const portee = (r: CouverturePonderee): string => (r.portee === 'ville-ventilee' ? ` relevés à ${r.ville}` : ' relevés, tous centres');",
+    to: "const portee = (r: CouverturePonderee): string => ' relevés';",
     pourquoi: "repli silencieux : la phrase ne dit plus ni la ville ni « toutes villes »",
+  },
+  {
+    id: "INV-66c", tests: 'tests/invariants.mesure.test.ts', file: "src/lib/program/couverturePonderee.ts",
+    from: "const travaille = [...parPatho.values()].reduce((s, p) => s + (p.poids * p.couvertures.reduce((a, b) => a + b, 0)) / p.couvertures.length, 0);",
+    to: "const travaille = [...parPatho.values()].reduce((s, p) => s + p.poids * p.couvertures.reduce((a, b) => a + b, 0), 0);",
+    pourquoi: "deux cas d’une même pathologie l’additionnent deux fois (le « 776 » de la revue direction)",
+  },
+  {
+    id: "INV-66d", tests: 'tests/invariants.mesure.test.ts', file: "src/lib/program/couverturePonderee.ts",
+    from: "const base = ventilee ? nVille! : freqs.n;",
+    to: "const base = ventilee ? nVille! : Object.values(freqs.pathologies).reduce((s, p) => s + (p.total ?? 0), 0) + 200;",
+    pourquoi: "la base redevient une somme de fréquences, plus le n de la source",
   },
   {
     id: "INV-69a", tests: 'tests/invariants.mesure.test.ts', file: "src/lib/program/trajectory.ts",
@@ -824,6 +836,63 @@ export const MUTATIONS = [
     from: "  : 'libre';                                        // Freiburg, Karlsruhe, Reutlingen, Stuttgart",
     to: "  : 'guide';",
     pourquoi: 'une ville de la série 3 est relue « guidé » au lieu de « libre » (§10.6)',
+  },
+  // --- S4-5 : la page Programme (tests/invariants.page-programme.test.ts) ---
+  {
+    id: 'S45-semaine-off', tests: 'tests/invariants.page-programme.test.ts', file: 'src/lib/program/pageProgramme.ts',
+    from: 'const offPrevu = plan ? plan.tasks.length === 0 : !isWorkingDay(d, i.config);', to: 'const offPrevu = plan ? false : !isWorkingDay(d, i.config);',
+    pourquoi: 'un jour off figé (plan sans tâche) n’est plus neutre : il se lit comme un jour vide',
+  },
+  {
+    id: 'S45-semaine-entame', tests: 'tests/invariants.page-programme.test.ts', file: 'src/lib/program/pageProgramme.ts',
+    from: "evaluerTache(t, i.events, plan!.tz).statut === 'entamee' ? 'entame' : 'prevu'", to: "'prevu'",
+    pourquoi: 'un cas entamé se lit comme un cas pas commencé (le point ne bouge pas quand une partie le fait avancer)',
+  },
+  {
+    id: 'S45-semaine-drill', tests: 'tests/invariants.page-programme.test.ts', file: 'src/lib/program/pageProgramme.ts',
+    from: 'const prevus = plan ? plan.tasks.filter((t) => estTacheDeCas(t.kind)) : [];', to: 'const prevus = plan ? plan.tasks : [];',
+    pourquoi: 'un drill devient un point : la semaine ne compte plus des cas',
+  },
+  {
+    id: 'S45-projection-soir', tests: 'tests/invariants.page-programme.test.ts', file: 'src/lib/program/pageProgramme.ts',
+    from: 'const avant = i.events.filter((e) => e.at < debutJour(i.today));', to: 'const avant = [...i.events];',
+    pourquoi: 'la projection bouge pendant la journée (elle n’est plus « recalculée chaque soir »)',
+  },
+  {
+    id: 'S45-projection-cas', tests: 'tests/invariants.page-programme.test.ts', file: 'src/lib/program/pageProgramme.ts',
+    from: 'partieJouee(e) && e.at >= debut', to: 'e.at >= debut',
+    pourquoi: 'le rythme compte le drill : une soirée de Fachbegriffe avance la date des cas',
+  },
+  {
+    id: 'S45-projection-jours', tests: 'tests/invariants.page-programme.test.ts', file: 'src/lib/program/pageProgramme.ts',
+    from: 'if (ouvres < RYTHME_MIN_JOURS) return null;', to: 'if (ouvres < 1) return null;',
+    pourquoi: 'une projection sur un ou deux jours de rythme : une phrase sans base',
+  },
+  {
+    id: 'S45-projection-apres', tests: 'tests/invariants.page-programme.test.ts', file: 'src/lib/program/pageProgramme.ts',
+    from: 'const marge = ecart > 0 ? ecart : null;', to: 'const marge = ecart;',
+    pourquoi: 'une date après l’examen se dit en « marge » négative au lieu de « après ton examen »',
+  },
+  {
+    id: 'S45-encart-poids', tests: 'tests/invariants.page-programme.test.ts', file: 'src/lib/program/pageProgramme.ts',
+    from: 'const blanc = poidsDistinct(s.cas.filter(vierge), carte.freqs, carte.mesure);', to: 'const blanc = s.cas.filter(vierge).length;',
+    pourquoi: 'l’encart compte les cas au lieu de les peser : la couverture n’est plus pondérée par la fréquence',
+  },
+  {
+    id: 'S45-encart-portee', tests: 'tests/invariants.page-programme.test.ts', file: 'src/lib/program/couverturePonderee.ts',
+    from: "return `« ${nom} » est tombé dans ${poids} des ${r.base} protocoles${portee(r)}.`;", to: "return `« ${nom} » est tombé dans ${poids} des ${r.base} protocoles.`;",
+    pourquoi: 'la fréquence de l’encart ne dit plus sa portée (§12.9)',
+  },
+  {
+    id: 'S45-encart-distinct', tests: 'tests/invariants.page-programme.test.ts', file: 'src/lib/program/pageProgramme.ts',
+    from: 'for (const c of cas) { const w = poidsDe(freqs, c.id, mesure); if (w !== undefined) vus.set(freqs.cas[c.id], w); }',
+    to: 'for (const c of cas) { const w = poidsDe(freqs, c.id, mesure); if (w !== undefined) vus.set(c.id, w); }',
+    pourquoi: 'deux cas d’une même pathologie l’additionnent dans la carte et dans l’encart',
+  },
+  {
+    id: 'S45-semaine-hors-plan', tests: 'tests/invariants.page-programme.test.ts', file: 'src/lib/program/pageProgramme.ts',
+    from: 'return { date, off: offPrevu && horsPlan.length === 0, points };', to: 'return { date, off: offPrevu, points: offPrevu ? [] : points };',
+    pourquoi: 'un cas joué un jour off disparaît : la semaine ne voit que le plan',
   },
 ];
 

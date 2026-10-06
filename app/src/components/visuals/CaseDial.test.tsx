@@ -116,8 +116,8 @@ describe('rendu de chaque état, depuis CaseDialData', () => {
     expect(tiret).toBeLessThan(0.2);
   });
 
-  it('quatre tailles, une primitive ; le chiffre central disparaît quand il ne se lirait plus', () => {
-    const tailles: CaseDialSize[] = [36, 64, 96, 160];
+  it('cinq tailles, une primitive ; le chiffre central disparaît quand il ne se lirait plus', () => {
+    const tailles: CaseDialSize[] = [24, 36, 64, 96, 160];
     for (const s of tailles) {
       const { container } = monte(ENTAME, { size: s });
       expect(container.querySelector('svg')?.getAttribute('width')).toBe(String(s));

@@ -9,7 +9,7 @@ import { TEILE } from '@/lib/simScope';
 
 // ============================================================================
 // Le cadran d'un cas (`CaseDial`, S4-4) — le signe unique d'un cas partout où il
-// apparaît. UNE primitive, quatre tailles.
+// apparaît. UNE primitive, cinq tailles (24 : le point de la carte de couverture, S4-5).
 //
 //   · POSITION = Teil (Anamnese en haut à droite, Dokumentation en bas,
 //     Fallvorstellung à gauche : toujours au même endroit) ;
@@ -35,7 +35,7 @@ import { TEILE } from '@/lib/simScope';
 // le détail s'ouvre en panneau immobile.
 // ============================================================================
 
-export type CaseDialSize = 36 | 64 | 96 | 160;
+export type CaseDialSize = 24 | 36 | 64 | 96 | 160;   // 24 : le point de la carte de couverture (S4-5), toujours non ouvrable
 
 const R_IN = 33;
 const R_OUT = 48;
@@ -155,7 +155,7 @@ export function CaseDial({ data, size = 64, nom, vientDeSouder = false, action =
   const maitrise = data.maitrise;
   const etats = Object.fromEntries(TEILE.map(({ key }) => [key, etatTeil(data.teile[key])])) as Record<SimTeil, EtatTeil>;
   const avecCentre = size >= 64;
-  const avecRepere = size * echelle >= TAILLE_OUVERTE;      // un repère de moins de 11 px ne se lirait pas
+  const avecRepere = ouvrable && size * echelle >= TAILLE_OUVERTE;   // un repère de moins de 11 px ne se lirait pas ; un signe non ouvrable ne les montre jamais
   const taillePolice = (POLICE_MIN * 120) / (size * echelle);   // unités du viewBox → POLICE_MIN px de rendu à l'ouverture
   const complet = data.couverture === 3;                    // couleur pleine seulement avec les trois Teile
 
@@ -164,7 +164,8 @@ export function CaseDial({ data, size = 64, nom, vientDeSouder = false, action =
     'data-size': size,
     'data-pret': soude,
     'data-mouvement': reduit ? 'reduit' : undefined,
-    style: { width: Math.max(size, 44), height: Math.max(size, 44), '--cd-echelle': echelle, '--cd-ox': `${decal}px` } as React.CSSProperties,
+    // 44 px : la cible tactile d'une COMMANDE. Un signe non ouvrable n'est pas une cible : il garde sa taille (carte de couverture, S4-5).
+    style: { width: ouvrable ? Math.max(size, 44) : size, height: ouvrable ? Math.max(size, 44) : size, '--cd-echelle': echelle, '--cd-ox': `${decal}px` } as React.CSSProperties,
     'aria-label': etiquette(data, nom),
   };
   const svg = (
