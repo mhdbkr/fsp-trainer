@@ -187,15 +187,18 @@ async function parcours({ browser, base, supabaseUrl }) {
   // ------------------------- le soir : vrai quelle qu'ait été la journée -------------------------
   const soir = async (n) => {
     await c.aller('/historique');
-    await until(page, () => document.body.innerText.includes('Journal d\'entraînement'), 'historique');
-    const tuiles = await page.evaluate(() => Object.fromEntries([...document.querySelectorAll('.label')]
-      .filter((l) => ['Exercices', 'Jours travaillés'].includes(l.textContent.trim())).map((l) => [l.textContent.trim(), l.nextElementSibling?.textContent.trim()])));
+    await until(page, () => document.querySelector('[data-semaine]') !== null, 'historique');
+    // S4-6 : un carnet de séances. Chaque exercice y porte son id (`data-te`, sur la ligne de son cas ou le compte de son
+    // genre) : la page doit montrer EXACTEMENT les exercices du journal, chacun une fois.
+    const rendus = await page.evaluate(() => [...document.querySelectorAll('[data-te]')].flatMap((n) => (n.getAttribute('data-te') ?? '').split(' ').filter(Boolean)));
+    const seancesVues = await page.evaluate(() => document.querySelectorAll('main article').length);
     const events = await idb(page, 'training_events');
+    const ids = events.map((e) => e.id).sort();
     await c.verifie('D5', 'tout exercice (plan ou libre) apparaît dans l\'historique et dans les stats', () => ({
-      ok: Number(tuiles['Exercices']) === grand.exercices && events.length === grand.exercices && Number(tuiles['Jours travaillés']) === grand.joursTravailles.size,
-      detail: `la candidate a fait ${grand.exercices} exercice(s) sur ${grand.joursTravailles.size} jour(s) ; l'historique affiche ${tuiles['Exercices']} / ${tuiles['Jours travaillés']} jour(s) ; le journal en stocke ${events.length}`,
+      ok: events.length === grand.exercices && rendus.length === ids.length && [...rendus].sort().every((id, k) => id === ids[k]),
+      detail: `la candidate a fait ${grand.exercices} exercice(s) ; l'historique en montre ${rendus.length} (${new Set(rendus).size} distincts) en ${seancesVues} séance(s) ; le journal en stocke ${events.length}`,
     }));
-    rapport.vu(`Historique : « ${tuiles['Exercices']} exercices · ${tuiles['Jours travaillés']} jours travaillés ».`);
+    rapport.vu(`Historique : « ${rendus.length} exercices en ${seancesVues} séance(s) ».`);
 
     // Les stats : le compte « simulations complètes · par partie » est celui de ce que la candidate a joué.
     await c.aller('/stats');

@@ -78,10 +78,89 @@ export const MUTATIONS = [
     pourquoi: 'le temps investi ignore les exercices libres',
   },
   {
-    id: 'INV-5d', tests: 'tests/invariants.journal.test.tsx', file: 'src/features/program/HistoriquePage.tsx',
-    from: '  const filtered = useMemo(() => (events ?? []).filter((e) => {\n',
-    to: "  const filtered = useMemo(() => (events ?? []).filter((e) => {\n    if (e.source === 'libre') return false;\n",
+    id: 'INV-5d', tests: 'tests/invariants.journal.test.tsx', file: 'src/features/history/HistoriquePage.tsx',
+    from: '  const carnet = useMemo(() => (events ? seances(events).map((s) => ({ s, cas: casDeSeance(s, events) })) : undefined), [events]);',
+    to: "  const carnet = useMemo(() => (events ? seances(events.filter((e) => e.source !== 'libre')).map((s) => ({ s, cas: casDeSeance(s, events) })) : undefined), [events]);",
     pourquoi: 'l’écran Historique masque les exercices hors plan',
+  },
+  // --- S4-6 : le carnet de séances (tests/invariants.historique.test.ts) ---------------------------------------------
+  {
+    id: 'INV-H2a', tests: 'tests/invariants.historique.test.ts', file: 'src/features/history/seances.ts',
+    from: 'if (cur && e.at - cur.fin <= SEANCE_PAUSE_MIN * MIN) {',
+    to: 'if (cur && e.at - cur.debut <= SEANCE_PAUSE_MIN * MIN) {',
+    pourquoi: 'la pause se mesure depuis le DÉBUT de la séance : une partie de 52 min suivie d’un drill coupe la séance en deux',
+  },
+  {
+    id: 'INV-H2b', tests: 'tests/invariants.historique.test.ts', file: 'src/features/history/seances.ts',
+    from: 'const finDe = (e: TrainingEvent) => Math.max(e.at + e.spentMin * MIN, e.enregistreA ?? 0);',
+    to: 'const finDe = (e: TrainingEvent) => e.at;',
+    pourquoi: 'la fin d’un exercice oublie sa durée : la séance finit à son dernier début',
+  },
+  {
+    id: 'INV-H3', tests: 'tests/invariants.historique.test.ts', file: 'src/features/history/seances.ts',
+    from: 'cur.minutes += e.spentMin;',
+    to: 'cur.minutes = Math.round((cur.fin - cur.debut) / MIN);',
+    pourquoi: 'la durée d’une séance devient l’écart début → fin, pauses comprises, au lieu des minutes mesurées',
+  },
+  {
+    id: 'INV-H4a', tests: 'tests/invariants.historique.test.ts', file: 'src/features/history/seances.ts',
+    from: 'const passe = journal.filter((e) => e.caseId === caseId && e.at < s.debut);',
+    to: 'const passe = journal.filter((e) => e.caseId === caseId && e.at <= s.fin);',
+    pourquoi: 'le cadran « avant » contient déjà la séance : avant = après',
+  },
+  {
+    id: 'INV-H4b', tests: 'tests/invariants.historique.test.ts', file: 'src/features/history/seances.ts',
+    from: 'apres: progres(caseId, [...passe, ...ici]),',
+    to: 'apres: progres(caseId, journal.filter((e) => e.caseId === caseId)),',
+    pourquoi: 'le cadran « après » lit les parties jouées APRÈS la séance',
+  },
+  {
+    id: 'INV-H5a', tests: 'tests/invariants.historique.test.ts', file: 'src/features/history/seances.ts',
+    from: '.filter(([id, n]) => n >= 2 &&',
+    to: '.filter(([id, n]) => n >= 1 &&',
+    pourquoi: 'un mot cherché une seule fois est proposé au drill',
+  },
+  {
+    id: 'INV-H5b', tests: 'tests/invariants.historique.test.ts', file: 'src/features/history/seances.ts',
+    from: 'const dans = (at: number) => at >= s.debut && at <= s.fin + SEANCE_PAUSE_MIN * MIN;',
+    to: 'const dans = (at: number) => at <= s.fin + SEANCE_PAUSE_MIN * MIN;',
+    pourquoi: 'les mots cherchés AVANT la séance gonflent son « cherché N fois »',
+  },
+  {
+    id: 'INV-H6a', tests: 'tests/invariants.historique.test.ts', file: 'src/features/history/seances.ts',
+    from: 'return { cas: casJoues(journal, lundi, maintenant),',
+    to: 'return { cas: casJoues(journal, 0, maintenant),',
+    pourquoi: 'la ligne de semaine compte les cas de toujours',
+  },
+  {
+    id: 'INV-H6b', tests: 'tests/invariants.historique.test.ts', file: 'src/features/history/seances.ts',
+    from: 'casSemaineDerniere: casJoues(journal, lundi - SEMAINE, maintenant - SEMAINE) };',
+    to: 'casSemaineDerniere: casJoues(journal, lundi - SEMAINE, lundi) };',
+    pourquoi: 'la tendance compare une semaine entamée à une semaine entière : elle baisse chaque début de semaine',
+  },
+  {
+    id: 'INV-H6c', tests: 'tests/invariants.historique.test.ts', file: 'src/features/history/seances.ts',
+    from: "&& RANG[avant.get(p.caseId)?.teile[t].status ?? 'vierge'] < RANG.acquis) teilesAcquis++;",
+    to: ') teilesAcquis++;',
+    pourquoi: '« Teile acquis » recompte les Teile acquis avant la semaine',
+  },
+  {
+    id: 'INV-H7a', tests: 'tests/invariants.historique.test.ts', file: 'src/features/history/seances.ts',
+    from: "bilanErreurs(journal, derniere.id.slice(3)).filter((l) => !l.cochee).length",
+    to: "bilanErreurs(journal, derniere.id.slice(3)).length",
+    pourquoi: '« Revoir mes N oublis » compte aussi les items cochés cette fois',
+  },
+  {
+    id: 'INV-H7b', tests: 'tests/invariants.historique.test.ts', file: 'src/features/history/seances.ts',
+    from: 'const faibles = TEILE.filter((t) => (scores[t] ?? 100) < PART_OK)',
+    to: 'const faibles = TEILE.filter((t) => (scores[t] ?? 100) <= PART_OK)',
+    pourquoi: '« Rejouer » est proposé à 60, le seuil Doctopus atteint',
+  },
+  {
+    id: 'INV-H7c', tests: 'tests/invariants.historique.test.ts', file: 'src/features/history/seances.ts',
+    from: 'for (const e of ici) if (e.selbstbewertet !== true) for (const t of e.teile)',
+    to: 'for (const e of ici) for (const t of e.teile)',
+    pourquoi: 'une auto-évaluation passe pour une mesure : « Rejouer » sur un score déclaré',
   },
   {
     id: 'INV-21', tests: 'tests/invariants.lauf.test.tsx', file: 'src/lib/lauf/automat.ts',
@@ -833,7 +912,7 @@ export const NAV_MUTATIONS = [
   { id: 'D2', days: 1, file: 'src/lib/program/dayPlan.ts', from: 'plan?.tasks.find((t) => t.doneAt === undefined) ?? null;', to: 'plan?.tasks[plan.tasks.length - 1] ?? null;', pourquoi: 'l’accueil propose une autre session que la première tâche du plan (Leberzirrhose)' },
   { id: 'D3', days: 2, file: 'src/lib/stats.ts', from: "if (p.status === 'fragile' && p.lastScore !== null) out.push({ c, teil: t.key, score: p.lastScore });", to: "if (p.status !== 'solide') out.push({ c, teil: t.key, score: p.lastScore ?? 0 });", pourquoi: 'les « points faibles » accusent un Teil jamais tenté' },
   { id: 'D4', days: 1, file: 'src/lib/program/select.ts', from: 'picked.length === 0 || picked[picked.length - 1] !== next;', to: 'picked.length === 0 || picked[picked.length - 1] !== next || true;', pourquoi: 'deux spécialités identiques se suivent' },
-  { id: 'D5', days: 1, file: 'src/features/program/HistoriquePage.tsx', from: '  const filtered = useMemo(() => (events ?? []).filter((e) => {\n', to: "  const filtered = useMemo(() => (events ?? []).filter((e) => {\n    if (e.kind === 'drill') return false;\n", pourquoi: 'l’historique masque un genre d’exercice' },
+  { id: 'D5', days: 1, file: 'src/features/history/HistoriquePage.tsx', from: '  const carnet = useMemo(() => (events ? seances(events).map((s) => ({ s, cas: casDeSeance(s, events) })) : undefined), [events]);', to: "  const carnet = useMemo(() => (events ? seances(events.filter((e) => e.kind !== 'drill')).map((s) => ({ s, cas: casDeSeance(s, events) })) : undefined), [events]);", pourquoi: 'l’historique masque un genre d’exercice' },
   { id: 'D5r', days: 1, file: 'src/features/stats/StatsPage.tsx', from: '{sims.filter(isFullSimulation).length} simulations complètes', to: '{sims.length} simulations complètes', pourquoi: 'les stats comptent une partie seule comme une simulation complète (simScope.ts:19-23)' },
   { id: 'D14', days: 2, file: 'src/lib/stats.ts', from: 'while (workedDays.has(dayKey(cursor))) { streak++;', to: 'while (workedDays.has(dayKey(cursor))) { streak += 2;', pourquoi: 'la série compte double' },
   { id: 'D6', days: 1, file: 'src/lib/program/dayPlan.ts', from: '  if (existing) return existing;                                  // « figé » veut dire que le premier fige\n', to: "  if (existing && existing.date === '') return existing;\n", pourquoi: 'le jour est recalculé à chaque ouverture' },
@@ -899,7 +978,8 @@ function run(cwd, tests) {
 
 function copyApp() {
   const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'c6-mut-'));
-  for (const f of ['src', 'tests', 'package.json', 'vitest.config.ts', 'tsconfig.json']) {
+  // supabase/functions/_shared : importé par src/lib (dictionary → prompts), comme dans copyAppFull.
+  for (const f of ['src', 'tests', 'package.json', 'vitest.config.ts', 'tsconfig.json', 'supabase/functions/_shared']) {
     fs.cpSync(path.join(APP, f), path.join(dir, f), { recursive: true });
   }
   fs.symlinkSync(fs.realpathSync(path.join(APP, 'node_modules')), path.join(dir, 'node_modules'));
