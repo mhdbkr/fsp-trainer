@@ -2,7 +2,7 @@
   "note": "Socle dégressif — constats connus de checkTrameSymptoms. Il ne remonte jamais.",
   "generated": "2026-10-06",
   "count": 0,
-  "relu": 83,
+  "relu": 82,
   "relu_note": "M4 (revue serie 3) : nombre d'annotations relu: true dans seedCases.ts. Chacune eteint la porte pour sa question ; le compteur ne remonte jamais (--bless refuse une hausse).",
   "findings": [],
   "relu_revue_finale": "Hausse de MESURE ecrite a la main (revue finale I-7) : relu 115 -> 118. sucht ne fait plus taire que les symptomes qu'il declare ; 4 constats masques reapparaissent. 3 sont des approfondissements annotes relu : case-diabetes-typ1 (nycturie vs veg-ausscheidung, consequence de D4), case-morbus-crohn (diarrhee A L'ETRANGER = DD infectieuse, approfondit le voyage), case-sturz-im-alter (« Sturz » nomme l'evenement, ne depiste pas les chutes). Le 4e (case-vorhofflimmern) etait un vrai doublon : sucht complete avec schwitzen.",
