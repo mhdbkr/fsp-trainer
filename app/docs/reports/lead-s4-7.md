@@ -1,6 +1,6 @@
 # S4-7 — l'Examen · rapport
 
-**Statut : DONE_WITH_CONCERNS** (§0.1 limite IA, §6).
+**Statut : DONE_WITH_CONCERNS** (§6).
 Branche `feat/s4-7-examen`, worktree `doctopus-s4-7-examen`, partie de `origin/main` `c53b46bf`. Poussée, sans PR.
 Aucun serveur Supabase, aucune prod touchée. Portage à la main depuis `feat/pruefungstag` (lue par `git show`, jamais fusionnée).
 
@@ -17,7 +17,11 @@ Ce §0 prime sur la suite, qui décrit la première livraison. `origin/main` (Q5
 | 1 | La demande du jury est une phrase résolue : `features/examen/jury.ts`, table `ACTE_AKKUSATIV` (les 23 `AufklaerungItem`, l'acte à l'accusatif avec son article), le sexe lu dans `patientSheet.personalia.geschlecht`. « Klären Sie die Patientin bitte über die geplante Operation auf. » | INV-E13 « la demande du jury, sur les 120 cas » : article présent, jamais « den Patienten » pour une patiente, jamais « Aufklärung ». Mutation **INV-E13-jury** tuée. Capture `s4-7-aufklaerung-390.png`. |
 | 2 | Dans l'Examen, plus de « Seul » : « Avec un simulant » (défaut) et « Avec ton IA ». L'IA est un partenaire : puce « IA » de l'en-tête en Anamnese et en Fallvorstellung (`TeilAiLauncher` en mode `examen`), sans trace `pending` ni texte du prompt affiché. `TeilAiLauncher` sort de `aidesInterdites.json` ; `checkExamen.test.mjs` le prouve permis, et `ExternalAiSheet` interdit. Contrat §11.3 bis. | INV-E7 « partenaire IA » et « Seul n'existe pas » ; mutation **INV-E7-ia** tuée. |
 
-**Limite signalée** : en Fallvorstellung, le prompt Oberarzt porte le diagnostic (`ai-bridge.md` §2.4, voulu par ce contrat). L'app ne l'affiche jamais, mais il est dans le texte que le candidat colle dans son IA. « Le diagnostic ne t'est pas montré » est vrai pour l'app, pas pour l'IA.
+**Texte de la carte IA (décision de `main`)** : « Elle joue le patient, puis l'examinateur. L'app ne t'affiche pas le diagnostic ; il figure dans le texte que tu colles pour l'examinateur, au début de la Fallvorstellung. » Le prompt Oberarzt porte le diagnostic (`ai-bridge.md` §2.4) ; contrat §11.3 bis aligné.
+
+**Prompt du PATIENT (Anamnese), vérifié sur les 130 cas** (sonde temporaire, `buildPromptPaket(c, 'anamnese')`) : la Verdachtsdiagnose n'y est **jamais**, ni entière ni sa tête (0 cas ; c'est aussi la règle D1, verte dans `prompt.corpus.test.ts`). Le nom du cas y paraît dans 4 cas (`case-zystitis`, `case-colitis-ulcerosa`, `case-nhl`, `case-obstipation`), mais ces noms sont des **plaintes**, dites par le patient (« Brennen beim Wasserlassen », « Knoten in der Leiste »…), pas des diagnostics. La pathologie y paraît dans 2 cas, comme savoir propre du patient, déjà validé en revue et tenu par le cliquet `PATIENT_NOMME_PATHOLOGIE` : `case-migraene` (« Sie hat vor Jahren mal gesagt, das sei Migräne »), `case-lungenembolie` (la mère « an einer Lungenembolie gestorben »). Pour le second, le mot de la pathologie est dans l'anamnèse familiale, le diagnostic du patient ne l'est pas. Aucun changement d'`ai-bridge`.
+
+**Une seule révélation à la fin** : en mode examen, le sous-titre de `ResultScreen` ne porte plus le nom du cas (« score moyen 14 % », espace insécable avant %, aussi en entraînement) ; « Le cas : … » reste la seule. Test INV-E8 : le diagnostic une fois à l'écran, sous-titre sans nom de cas.
 
 ### 0.2 Important (mécanique)
 

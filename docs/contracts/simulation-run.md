@@ -813,10 +813,11 @@ patient en Anamnese, puis l'examinateur en Fallvorstellung, par le lanceur de
 l'entraînement (`TeilAiLauncher`, `ai-bridge.md` §3.1) en mode examen — puce
 « IA » de l'en-tête dans ces deux Teile seulement, aucune trace `pending`
 (la partie est le `Lauf` d'examen, pas une séance IA externe), aucun texte du
-prompt affiché. Texte : « Elle joue le patient, puis l'examinateur. Le
-diagnostic ne t'est pas montré. » **Limite** : en mode Oberarzt, le prompt
-porte le diagnostic (`ai-bridge.md` §2.4) ; l'app ne l'affiche pas, mais il
-est dans le texte collé dans l'IA.
+prompt affiché. Texte : « Elle joue le patient, puis l'examinateur. L'app ne
+t'affiche pas le diagnostic ; il figure dans le texte que tu colles pour
+l'examinateur, au début de la Fallvorstellung. » (décision de `main`, 6 oct. :
+le texte dit la vérité). Le prompt Oberarzt porte le diagnostic
+(`ai-bridge.md` §2.4) ; le prompt patient ne le porte pas (règle D1).
 
 ### 11.4 Fin, abandon, reprise
 
@@ -831,7 +832,8 @@ est dans le texte collé dans l'IA.
   Teil joué, la partie est écrite (`examenManque ∋ 'enchaine'`) et l'accueil le
   dit : « Examen interrompu, enregistré dans l'Historique. » ; avant, rien.
 - **Écran de fin** : « Conditions d'examen remplies. » ou « Hors conditions
-  d'examen : il manque … », puis « Le cas : … » ; `ResultScreen` avec une
+  d'examen : il manque … », puis « Le cas : … », **seule** révélation (le
+  sous-titre de `ResultScreen` n'y porte pas le nom du cas : « score moyen 14 % ») ; `ResultScreen` avec une
   seule rangée d'actions (« Nouvel examen » y entre) ; cartes dans l'ordre A,
   Aufklärung, D, F. Le mot est « Examen », jamais « Examen à blanc ».
 - **Reprise** : la branche unique de `useLauf` (§3.1). Une pause ≥ 5 min pose
