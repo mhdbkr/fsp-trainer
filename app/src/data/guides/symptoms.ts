@@ -43,10 +43,9 @@ import { PROBE_SUCHT } from './probeSucht';
 //     Vegetative Anamnese dans les cas endocriniens (décision D4).
 // K0 (ADR-0023) : `Symptom` devient `Signe` — un seul lexique, déclaré dans
 // `signes.ts` (les 39 concepts ci-dessus, les 11 dimensions de plainte et les
-// signes ajoutés). L'alias reste, déprécié, jusqu'à K5. Le montage (K3) est
+// signes ajoutés). K5 : l'alias déprécié `Symptom` est retiré. Le montage (K3) est
 // `cohere`, qui lit `PROBE_SUCHT`.
 export * from './signes';
-export type Symptom = Signe;
 
 // K3 (ADR-0023) : `SUCHT_MONTAGE` (la carte gelée d'avant K1) et `dedupeBySymptom` sont supprimés ; le montage
 // est `cohere` (coherence.ts), qui lit la déclaration `PROBE_SUCHT` (probeSucht.ts).
@@ -59,7 +58,7 @@ export * from './probeSucht';
 // qui exige une relecture de toute question du cas citant un symptôme que
 // la trame cherche aussi, AVANT ou APRÈS elle : `sucht` (elle le remplace) ou
 // `relu` (elle l'approfondit, ou ne le cherche pas vraiment). Motifs étroits.
-export const TEXT_RE: Array<[Symptom, RegExp]> = [
+export const TEXT_RE: Array<[Signe, RegExp]> = [
   ['fieber', /\bfieber\b/i], ['schuettelfrost', /schüttelfrost/i], ['nachtschweiss', /nachtschwei/i],
   ['reise', /\b(ausland|verreist|reise)\b/i], // `\b` n'existe pas devant ä ö ü (pas \w) : l'ancre est un lookbehind, sinon « übel » et « Ängste » ne sont jamais lus.
   ['uebelkeit', /(?<![a-zäöüß])(übel(keit)?|übergeben)\b|\b(erbrochen|erbrechen)\b/i],
@@ -97,7 +96,7 @@ export const TEXT_RE: Array<[Symptom, RegExp]> = [
   ['suizid', /\blebenswert\b|etwas anzutun|\bsuizid\w*|selbst(mord|tötung)/i],
   ['gedaechtnis', /\bvergesslich\w*|\bgedächtnis\w*|erinnerungslück\w*/i],
 ];
-export function symptomsInText(t: string): Symptom[] {
+export function symptomsInText(t: string): Signe[] {
   return TEXT_RE.filter(([, re]) => re.test(t)).map(([s]) => s);
 }
 

@@ -1,5 +1,5 @@
 import { cqText, cqFollowUp } from '@/lib/caseQuestions';
-import type { CaseQuestion } from '@/db/types';
+import type { CaseQuestionLue } from '@/db/types';
 import type { ExaminerSheetSection } from '@/db/types';
 import { Icon } from '@/components/icons';
 
@@ -10,7 +10,7 @@ import { Icon } from '@/components/icons';
 // Enrichi au cas par cas (sections frage + réaction attendue).
 // ============================================================================
 export function ExaminerSheetView({ sheet, fallback, caseName, caseSpecificQuestions = [] }: {
-  sheet?: ExaminerSheetSection[]; fallback: string[]; caseName: string; caseSpecificQuestions?: CaseQuestion[];
+  sheet?: ExaminerSheetSection[]; fallback: string[]; caseName: string; caseSpecificQuestions?: CaseQuestionLue[];
 }) {
   const sections: ExaminerSheetSection[] = sheet ?? (fallback.length ? [{ title: 'Fragen der Prüfer', interactions: fallback.map((f) => ({ frage: f })) }] : []);
 

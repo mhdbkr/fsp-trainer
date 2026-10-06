@@ -1,4 +1,4 @@
-import type { Symptom, Profil } from '../data/guides/symptoms';
+import type { Signe, Profil } from '../data/guides/symptoms';
 // ============================================================================
 // FSP-Cockpit — Modèle de données
 // Toutes les entités sont reliées bidirectionnellement pour permettre
@@ -321,9 +321,15 @@ export type CaseQuestionKapitel =
 // inconnu n'existe pas (revue finale I-7) — tsc le refuse.
 // `followUp` (Q0) : la relance de la question, avec sa condition dans le texte
 // (« Falls ja: … ») — même règle que les relances des questions générales.
-export type CaseQuestion = string | { frage: string; kapitel: CaseQuestionKapitel; sucht?: [Symptom, ...Symptom[]]; relu?: true; followUp?: string;
+// K5 (ADR-0023, contrat frage-atomique §10.2) : `sucht` est REQUIS au type — le contenu écrit déclare ce que chaque
+// question cherche (règle d'identité §10.1). La forme chaîne disparaît du contenu écrit.
+export type CaseQuestion = { frage: string; kapitel: CaseQuestionKapitel; sucht: [Signe, ...Signe[]]; relu?: true; followUp?: string;
   /** Signes que la question présuppose (contrat frage-atomique §10.2, r4b) : jamais posée avant la question qui les cherche. Additif. */
-  braucht?: [Symptom, ...Symptom[]] };
+  braucht?: [Signe, ...Signe[]] };
+/** Ce qu'un LECTEUR peut recevoir (§10.8) : un contenu publié ancien, servi par la fonction `content`, peut encore porter
+ *  une chaîne nue ou une question sans `sucht`. Les lecteurs (montage, Rollenskript, écrans) acceptent cette forme ;
+ *  une question sans `sucht` est invisible à r2, comme avant K5. */
+export type CaseQuestionLue = string | (Omit<CaseQuestion, 'sucht'> & { sucht?: CaseQuestion['sucht'] });
 
 export interface Fachbegriff {
   id: string;

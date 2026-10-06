@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
-import type { CaseQuestion, PatientSheet } from '@/db/types';
+import type { CaseQuestionLue, PatientSheet } from '@/db/types';
 import { buildRollenskript, type RoleChapter, type RoleLine } from '@/lib/rolePlay';
 import { Icon } from '@/components/icons';
 
@@ -18,7 +18,7 @@ import { Icon } from '@/components/icons';
 const stripKein = (s: string) => s.replace(/^kein(e|en|em|er)?\s+/i, '').replace(/,\s*kein(e|en|em|er)?\s+/gi, ', ');
 
 export function RolePlayView({ sheet, caseQuestions, followChapterId, followProbeId, frauInFach }: {
-  sheet: PatientSheet; caseQuestions?: CaseQuestion[]; followChapterId?: string | null; followProbeId?: string | null;
+  sheet: PatientSheet; caseQuestions?: CaseQuestionLue[]; followChapterId?: string | null; followProbeId?: string | null;
   /** Q-gyn : la Frauenanamnese du médecin est fondue dans sa Fach gynéco. */
   frauInFach?: boolean;
 }) {

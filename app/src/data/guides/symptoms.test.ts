@@ -2,14 +2,14 @@ import { describe, expect, it } from 'vitest';
 import { ALLGEMEINE_ANAMNESE, FACHANAMNESEN, LEITSYMPTOM_KATEGORIEN, adaptChaptersForCase, aktuellChapterFor, fachChapterForCase } from './anamneseChapters';
 import { GRANULARITE_PAIRES, LEXIQUE, PROBE_SUCHT, PROFIL_EXIGE, SIGNES, SIGNE_DEF, TEXT_RE, lexiqueIncoherences, symptomsInText, type LexiqueTables } from './symptoms';
 import { phraseFollowUp, phraseProbes, phraseText, splitDimension } from './phrases';
-import type { Case } from '@/db/types';
+import type { Case, CaseQuestionLue } from '@/db/types';
 import { cohere, type ProfilEffectif } from './coherence';
 
 // K3 : `dedupeBySymptom` est remplacé par `cohere` ; ses deux tests de réduction par `parts` le rejouent (même attente).
 const sansProfil: ProfilEffectif = { declare: false, tags: ['infekt'], exige: {}, exclut: {} };
 const dedupe = (chapters: Array<{ id: string; questions: import('./phrases').Phrase[] }>) => cohere(chapters, sansProfil, 'fixture').trame;
 
-const mk = (over: Partial<Case> & { kategorie?: Case['patientSheet']['leitsymptomKategorie']; tags?: string[] } = {}): Case =>
+const mk = (over: Omit<Partial<Case>, 'caseSpecificQuestions'> & { caseSpecificQuestions?: CaseQuestionLue[]; kategorie?: Case['patientSheet']['leitsymptomKategorie']; tags?: string[] } = {}): Case =>
   ({
     specialty: over.specialty ?? 'Pneumologie',
     patientSheet: { personalia: { name: 'X', age: 60, geschlecht: 'm' }, schmerz: {}, leitsymptomKategorie: over.kategorie ?? 'infekt', ...(over.tags ? { profil: { tags: over.tags } } : {}) },

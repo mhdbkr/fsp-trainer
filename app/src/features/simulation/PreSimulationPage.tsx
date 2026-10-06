@@ -1,6 +1,6 @@
 import { cqText, cqFollowUp } from '@/lib/caseQuestions';
 import { Link, useParams, useSearchParams } from 'react-router-dom';
-import type { Case, CaseQuestion } from '@/db/types';
+import type { Case, CaseQuestionLue } from '@/db/types';
 import { CaseDial, CaseDialDetail } from '@/components/visuals/CaseDial';
 import { dialData } from '@/lib/dialData';
 import { blankProgress } from '@/lib/journal';
@@ -26,7 +26,7 @@ import { termsInOrder } from '@/lib/collections/caseTerms';
 // ============================================================================
 
 /** Les questions du cas, chacune avec sa relance (Q0) en repère discret. */
-export function CaseQuestionList({ questions }: { questions: CaseQuestion[] }) {
+export function CaseQuestionList({ questions }: { questions: CaseQuestionLue[] }) {
   return (
     <ul className="space-y-1.5 text-sm">
       {questions.map((q, i) => (
