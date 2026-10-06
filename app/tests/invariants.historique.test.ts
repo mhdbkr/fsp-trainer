@@ -5,8 +5,9 @@
 //   INV-H4  cadran avant = le journal du cas AVANT la séance ; après = le même, séance comprise
 //   INV-H5  « cherché N fois » : seuls les mots cherchés ≥ 2 fois PENDANT la séance, regroupés par carte
 //   INV-H6  la ligne de semaine ne compte que la semaine (lundi → maintenant) ; la tendance compare au même point
-//   INV-H7  « Revoir mes N oublis » = le bilan de la partie (encore manquées, toujours un signal) ; « Rejouer » = le Teil
-//           sous 60, s'il l'est encore : une action périmée ne se propose plus
+//   INV-H7  « Revoir mes N oublis » : N = les « encore manquée » que montre le bilan de la partie (la page d'arrivée),
+//           proposé tant qu'un d'eux est encore un signal ; « Rejouer » = le Teil sous 60, s'il l'est encore, et seulement
+//           dans la séance la plus récente qui l'a mesuré : une action périmée ou en double ne se propose plus
 // Tout se dérive du journal : aucun état de séance n'est stocké.
 import { describe, it, expect } from 'vitest';
 import type { Favorite, SimTeil, TermeCherche, TrainingEvent } from '@/db/types';
@@ -123,6 +124,35 @@ describe('INV-H7 — les actions d’un cas', () => {
     expect(casDeSeance(s, ensuite)[0]).toMatchObject({ oublis: null, aRejouer: null });
   });
 
+  it('N = les « encore manquée » de la page d’arrivée, même quand l’un d’eux s’est éteint depuis', () => {
+    // allergien et noxen : deux signaux, tous deux encore manqués dans la séance.
+    const journal = [
+      partie('te-a', 'c2', T0 - 5 * 24 * 60 * MIN, ['allergien', 'noxen']),
+      partie('te-b', 'c3', T0 - 4 * 24 * 60 * MIN, ['allergien', 'noxen']),
+      partie('te-c', 'c2', T0 - 3 * 24 * 60 * MIN, ['allergien', 'noxen']),
+      partie('te-s', 'c1', T0, ['allergien', 'noxen']),
+    ];
+    const s = seances(journal).find((x) => x.events.some((e) => e.id === 'te-s'))!;
+    expect(casDeSeance(s, journal)[0].oublis).toEqual({ simId: 's', n: 2 });
+    // Ensuite noxen est cochée trois fois (son signal s'éteint), allergien reste manquée : la page d'arrivée de la
+    // partie montre toujours DEUX « encore manquée » ; le lien le dit, et reste proposé.
+    const ensuite = [...journal,
+      partie('te-d', 'c2', T0 + 2 * 24 * 60 * MIN, ['allergien']), partie('te-e', 'c3', T0 + 3 * 24 * 60 * MIN, ['allergien']), partie('te-f', 'c2', T0 + 4 * 24 * 60 * MIN, ['allergien'])];
+    expect(casDeSeance(s, ensuite)[0].oublis).toEqual({ simId: 's', n: 2 });
+  });
+
+  it('« Rejouer » n’est porté que par la séance la plus récente qui a mesuré ce Teil du cas', () => {
+    const j = [
+      ev('te-1', T0, { caseId: 'c1', teile: ['anamnese', 'fallvorstellung'], scores: { anamnese: 70, fallvorstellung: 40 } }),
+      ev('te-2', T0 + 2 * 24 * 60 * MIN, { caseId: 'c1', teile: ['fallvorstellung'], scores: { fallvorstellung: 45 } }),
+      ev('te-3', T0 + 4 * 24 * 60 * MIN, { caseId: 'c1', teile: ['fallvorstellung'], scores: { fallvorstellung: 30 }, selbstbewertet: true }),
+    ];
+    const [auto, recente, ancienne] = seances(j);
+    expect(casDeSeance(ancienne, j)[0].aRejouer).toBeNull();                 // re-mesurée plus tard : pas de doublon
+    expect(casDeSeance(recente, j)[0].aRejouer).toBe('fallvorstellung');
+    expect(casDeSeance(auto, j)[0].aRejouer).toBeNull();                     // une auto-évaluation n'est pas une mesure
+  });
+
   it('aucun signal → pas d’action « Revoir »', () => {
     const journal = [partie('te-s', 'c1', T0, ['allergien'])];
     expect(casDeSeance(seances(journal)[0], journal)[0].oublis).toBeNull();
@@ -190,8 +220,8 @@ describe('INV-H6 — la ligne de semaine', () => {
       { subject_id: 'fb-3', occurred_at: new Date(lundi - J).toISOString() },
     ];
     const l = ligneSemaine(journal, revus, maintenant);
-    expect(l).toMatchObject({ cas: 3, teilesAcquis: 2, fachbegriffe: 2 });
-    expect(texteSemaine(l)).toBe('Cette semaine : 3 cas, 2 Teile acquis, 2 Fachbegriffe révisés.');
+    expect(l).toMatchObject({ cas: 3, teilesAcquis: 2, fachbegriffe: 2, seances: 2 });
+    expect(texteSemaine(l)).toBe('Cette semaine : 3 cas, 2 Teile acquis, 2 Fachbegriffe.');      // les unités de la spec
   });
 
   it('la tendance compare au même point de la semaine dernière (lundi → mardi 21 h)', () => {
@@ -203,12 +233,39 @@ describe('INV-H6 — la ligne de semaine', () => {
     ];
     const l = ligneSemaine(journal, [], maintenant);
     expect(l).toMatchObject({ cas: 1, casSemaineDerniere: 2 });
-    expect(tendanceSemaine(l)).toEqual({ sens: 'baisse', texte: '1 cas de moins qu’à ce stade la semaine dernière' });
-    expect(tendanceSemaine({ ...l, cas: 4 })).toEqual({ sens: 'hausse', texte: '2 cas de plus qu’à ce stade la semaine dernière' });
+    expect(tendanceSemaine(l)).toEqual({ sens: 'baisse', texte: '1 cas de moins que la semaine dernière à la même heure' });
+    expect(tendanceSemaine({ ...l, cas: 4 })).toEqual({ sens: 'hausse', texte: '2 cas de plus que la semaine dernière à la même heure' });
+    expect(tendanceSemaine({ ...l, cas: 2 })).toEqual({ sens: 'egal', texte: 'autant de cas que la semaine dernière à la même heure' });
     expect(tendanceSemaine({ ...l, cas: 0, casSemaineDerniere: 0 })).toBeNull();
   });
 
   it('semaine vide : une phrase, sans zéro', () => {
     expect(texteSemaine(ligneSemaine([], [], maintenant))).toBe('Cette semaine : pas encore de séance.');
+  });
+
+  it('une semaine de fiches, d’Aufklärung ou de drill n’est pas « pas encore de séance »', () => {
+    const journal = [
+      ev('f', lundi, { kind: 'fiche', teile: [], spentMin: 6 }),
+      ev('d', lundi + J, { kind: 'drill', teile: [], spentMin: 9 }),
+      ev('a', lundi + J + 10 * MIN, { kind: 'aufklaerung', teile: [], spentMin: 4 }),
+      ev('v', lundi - 3 * J, { kind: 'drill', teile: [], spentMin: 9 }),                       // semaine passée
+    ];
+    const l = ligneSemaine(journal, [], maintenant);
+    expect(l).toMatchObject({ cas: 0, seances: 2 });
+    expect(texteSemaine(l)).toBe('Cette semaine : 2 séances, sans partie jouée.');
+    expect(texteSemaine({ ...l, seances: 1 })).toBe('Cette semaine : 1 séance, sans partie jouée.');
+  });
+
+  it('la semaine dernière à la même heure, même à travers le changement d’heure', () => {
+    const tz = process.env.TZ;
+    process.env.TZ = 'Europe/Berlin';                                        // Node relit TZ : le test ne dépend pas du poste
+    try {
+    // Lundi 26 oct. 2026 : l'heure d'hiver est passée dans la nuit du 25 (Europe). Mardi 27 à 21 h ↔ mardi 20 à 21 h.
+    const lun = new Date(2026, 9, 26, 9, 0).getTime();
+    const maint = new Date(2026, 9, 27, 21, 0).getTime();
+    // 21 h 30 le mardi 20 est APRÈS la même heure : 7 × 24 h en millisecondes le compterait (22 h en heure d'été).
+    const journal = [ev('x', new Date(2026, 9, 20, 20, 30).getTime(), { caseId: 'c1' }), ev('z', new Date(2026, 9, 20, 21, 30).getTime(), { caseId: 'c3' }), ev('y', lun, { caseId: 'c2' })];
+    expect(ligneSemaine(journal, [], maint)).toMatchObject({ cas: 1, casSemaineDerniere: 1 });
+    } finally { process.env.TZ = tz; }
   });
 });
