@@ -567,6 +567,17 @@ describe('INV-E13 — l’Aufklärung du cas fait partie de l’examen, et seule
   });
 });
 
+describe('La révélation de fin, sur les 130 cas', () => {
+  it('« Le cas : » n’est jamais vide : c’est le début de la Verdachtsdiagnose, une phrase lisible', () => {
+    for (const x of seedCases()) {
+      const d = diagnosticDuCas(x);
+      const sans = d.replace(/…$/, '');
+      expect(sans.length, `${x.id} : révélation trop courte « ${d} »`).toBeGreaterThanOrEqual(5);
+      expect(x.medicalView.verdachtsdiagnose.trim().startsWith(sans), `${x.id} : « ${d} » n’est pas le début du diagnostic`).toBe(true);
+    }
+  });
+});
+
 describe('Tâche « examen à blanc » du plan', () => {
   it('`/examen?task=` joue le cas de la tâche', async () => {
     const t = { id: 'tache-1', date: '2026-10-06', kind: 'examen-blanc', label: VOLLE[2].name, caseId: VOLLE[2].id, teile: TEILE, estMin: 60, creeA: T0 } as unknown as TaskInstance;
