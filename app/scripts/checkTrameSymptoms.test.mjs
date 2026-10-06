@@ -44,13 +44,15 @@ test('socle connu → une annotation `relu` annulée rouvre la porte', { timeout
   // (hausse documentée au fixture) ; K4 déclare les questions du cas : il reste anorexia-nervosa n° 2. K5 la déclare (`erbrechen`,
   // même réplique que veg-uebelkeit) : le socle est VIDE.
   assert.deepEqual(b.findings, []);
-  // K4 : leistenhernie n° 0 nomme la toux sans la demander (`relu`) ; la n° 6 la demande — l'annotation retirée rouvre la porte.
+  // Q7 : l'ancre K4 (leistenhernie, la toux demandée par la n° 6) n'existe plus — la n° 6 redemandait ce que
+  // vor-erkrank dit (« Ich huste seit Jahren morgens »). kolorektales-ca : le calibre des selles nomme « Stuhlgang »
+  // sans le demander (`relu`) ; l'annotation retirée rouvre la porte.
   const r = sb.mutate(cases,
-    "kapitel: 'aktuell', sucht: ['einfluss'], relu: true },",
-    "kapitel: 'aktuell', sucht: ['einfluss'] },",
+    "wie ein Bleistift?', kapitel: 'aktuell', sucht: ['stuhlkaliber'], relu: true },",
+    "wie ein Bleistift?', kapitel: 'aktuell', sucht: ['stuhlkaliber'] },",
     gate);
   assert.equal(r.status, 1, 'une relecture annulée doit rouvrir la porte');
-  assert.match(r.stdout, /case-leistenhernie/);
+  assert.match(r.stdout, /case-kolorektales-ca/);
 });
 
 // Revue série 3, M4 : `relu: true` éteint `checkTrameSymptoms` pour une
@@ -110,12 +112,13 @@ test('Q0 — une relance de question du cas qui cite un symptôme déjà cherch�
   assert.match(r.stdout, /case-oesophaguskarzinom/);
 });
 
-// K4 fixeur : `braucht` n'exempte que la présupposition qu'il déclare. ANV n° 1 cite « erbrechen » (lu `uebelkeit`), présupposé
-// par `braucht: ['erbrechen']` et cherché plus haut par la Fach néphro : sans le `braucht`, la porte rougit.
+// K4 fixeur : `braucht` n'exempte que la présupposition qu'il déclare. Q7 : l'ancre K4 (ANV n° 1, « erbrechen ») n'existe plus —
+// la question ne demande plus les vomissements, que veg-uebelkeit dit. schlaganfall n° 4 cite « Sturz », présupposé par
+// `braucht: ['sturz']` et cherché plus haut par fach-neuro-koordination : sans le `braucht`, la porte rougit.
 test('K4 — un signe de `braucht` cité par la question n\'est pas un doublon ; sans lui, la porte rougit', { timeout: 300_000 }, () => {
-  const anv = "sucht: ['trinkmenge', 'stuhlfrequenz'], braucht: ['erbrechen'] },";
+  const schlaganfall = "sucht: ['kopfanprall'], braucht: ['sturz'] },";
   assert.equal(gate().status, 0);
-  const r = sb.mutate(cases, anv, "sucht: ['trinkmenge', 'stuhlfrequenz'] },", gate);
-  assert.equal(r.status, 1, 'la question cite « erbrechen », cherché par fach-nephro');
-  assert.match(r.stdout, /case-akutes-nierenversagen/);
+  const r = sb.mutate(cases, schlaganfall, "sucht: ['kopfanprall'] },", gate);
+  assert.equal(r.status, 1, 'la question cite « Sturz », cherché par fach-neuro-koordination');
+  assert.match(r.stdout, /case-schlaganfall/);
 });
