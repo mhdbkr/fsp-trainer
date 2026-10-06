@@ -205,7 +205,7 @@ jobs:
       - uses: actions/setup-node@v4
         with: { node-version: 22, cache: npm, cache-dependency-path: app/package-lock.json }
       - uses: supabase/setup-cli@v1
-        with: { version: latest }
+        with: { version: 2.117.0 }   # épinglé : « latest » interroge l'API GitHub et tombe en limite de débit
       - run: npm ci
       - run: supabase start
       # Les tests d'intégration appellent les Edge Functions : on les sert en arrière-plan.
@@ -257,7 +257,7 @@ jobs:
       - uses: actions/setup-node@v4
         with: { node-version: 22, cache: npm, cache-dependency-path: app/package-lock.json }
       - uses: supabase/setup-cli@v1
-        with: { version: latest }
+        with: { version: 2.117.0 }   # épinglé : « latest » interroge l'API GitHub et tombe en limite de débit
       - run: npm ci
       # Playwright n'est pas une dépendance du dépôt : installé pour ce job seulement.
       - run: npm i --no-save playwright-core@1.63.0 && npx playwright-core install --with-deps chromium
