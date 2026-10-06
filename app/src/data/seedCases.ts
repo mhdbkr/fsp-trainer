@@ -2134,81 +2134,70 @@ export function seedCases(): Case[] {
         persona: 'Tu es Jobst Donalies, pharmacien de 38 ans, débordé (cinq enfants, collègues en congé). Tu parles vite et donnes beaucoup de détails. Tu es surtout inquiet d\'avoir un cancer. Tu minimises le tabac (récent) et l\'alcool, et tu insistes sur le fait que le Pantoprazol ne marche plus. Tu ne fais pas spontanément le lien avec le stress.',
       },
       medicalView: {
-        verdachtsdiagnose: 'Ulcus ventriculi (am ehesten Helicobacter-pylori-assoziiert)',
-        patientWorte: { verdacht: 'Sie ein Magengeschwür haben, möglicherweise verursacht durch ein Bakterium namens Helicobacter', diagnostik: 'machen wir eine Magenspiegelung, testen auf das Bakterium und nehmen Ihnen Blut ab', therapie: 'bekommen Sie ein säurehemmendes Medikament und, falls das Bakterium nachgewiesen wird, zusätzlich eine einwöchige Antibiotika-Kur' },
+        verdachtsdiagnose: 'Ulcus ventriculi, am ehesten Helicobacter-pylori-assoziiert, mit zunehmenden Beschwerden trotz Pantoprazol 20 mg. Begünstigend wirken Rauchen, täglicher Alkohol und beruflicher Stress; keine NSAR, keine Alarmsymptome.',
+        patientWorte: { verdacht: 'Sie ein Magengeschwür haben, möglicherweise verursacht durch ein Bakterium namens Helicobacter', diagnostik: 'machen wir eine Magenspiegelung mit Gewebeproben, testen auf das Bakterium und nehmen Ihnen Blut ab', therapie: 'bekommen Sie ein stärker dosiertes säurehemmendes Medikament und, falls das Bakterium nachgewiesen wird, zusätzlich eine zehntägige Antibiotika-Kur' },
         differenzialdiagnosen: [
-          {
-            dd: 'Ulcus duodeni',
-            unterscheidung: 'Nüchtern- und Nachtschmerz mit Besserung durch Nahrungsaufnahme — hier jedoch postprandiale Verschlechterung.',
-          },
-          {
-            dd: 'Erosive Gastritis / Refluxkrankheit',
-            unterscheidung: 'Sodbrennen führend, oberflächliche Läsion ohne umschriebenen Substanzdefekt; Klärung endoskopisch.',
-          },
-          {
-            dd: 'Magenkarzinom',
-            unterscheidung: 'Alarmsymptome (Gewichtsverlust, Dysphagie, Anämie, Alter > 50) — hier fehlend, Ausschluss aber zwingend per Biopsie.',
-          },
-          {
-            dd: 'Cholezystolithiasis / Cholezystitis',
-            unterscheidung: 'kolikartiger rechtsseitiger Oberbauchschmerz nach fettem Essen mit Ausstrahlung in die Schulter.',
-          },
-          {
-            dd: 'Akute Pankreatitis',
-            unterscheidung: 'gürtelförmiger Oberbauchschmerz, erhöhte Lipase.',
-          },
-          {
-            dd: 'Kardiale Ursache (Myokardinfarkt, KHK)',
-            unterscheidung: 'belastungsabhängig, Ausstrahlung in Arm/Kiefer; per EKG und Troponin ausschließen (Hinterwandinfarkt kann sich als Epigastralgie maskieren).',
-          },
+          { dd: 'Ulcus duodeni', unterscheidung: 'Ebenfalls meist Helicobacter-bedingt, typisch sind aber Nüchtern- und Nachtschmerz, die sich durch Essen bessern. Bei ihm nehmen die Schmerzen eine Stunde nach dem Essen zu, was eher für den Magen spricht; sicher unterscheidet erst die ÖGD.' },
+          { dd: 'Erosive Gastritis / Refluxkrankheit', unterscheidung: 'Sodbrennen und saures Aufstoßen hat er auch. Der umschriebene epigastrische Schmerz nach dem Essen und das Versagen des PPI passen aber schlechter zu einer Refluxkrankheit, die meist gut auf PPI anspricht; die ÖGD zeigt Ösophagitis, Erosionen oder Ulkus.' },
+          { dd: 'Funktionelle Dyspepsie', unterscheidung: 'Häufigste Ursache solcher Beschwerden bei Jüngeren ohne Alarmsymptome, Stress passt dazu. Sie ist aber eine Ausschlussdiagnose und erst nach unauffälliger ÖGD zu stellen.' },
+          { dd: 'Magenkarzinom', unterscheidung: 'Mit 38 Jahren, ohne Gewichtsverlust, Schluckbeschwerden, Anämie oder familiäre Belastung unwahrscheinlich. Ein Ulcus ventriculi wird trotzdem immer biopsiert, und Beschwerden, die unter PPI zunehmen, sind ein Grund mehr.' },
+          { dd: 'Cholezystolithiasis / Cholezystitis', unterscheidung: 'Keine Koliken, kein rechtsseitiger Schmerz, keine Auslösung durch fettes Essen und keine Ausstrahlung in die Schulter; Sonographie.' },
+          { dd: 'Akute Pankreatitis', unterscheidung: 'Kein plötzlicher, gürtelförmiger Schmerz, keine Gallensteine, kein Alkoholexzess; die Lipase ist normal zu erwarten.' },
+          { dd: 'Kardiale Ursache (Myokardinfarkt, KHK)', unterscheidung: 'Ein Hinterwandinfarkt kann sich als Oberbauchschmerz zeigen. Bei 38 Jahren, nahrungs- statt belastungsabhängigen Beschwerden seit einem Jahr unwahrscheinlich, er raucht aber: EKG und Troponin gehören zum epigastrischen Schmerz.' },
         ],
         diagnostik: [
-          { stufe: 'Labor', text: 'Labor: Blutbild (Anämie?), Leber- und Cholestasewerte, Lipase, Troponin' },
-          { stufe: 'Labor', text: 'Nicht-invasiver Helicobacter-pylori-Nachweis: 13C-Harnstoff-Atemtest oder Stuhl-Antigen-Test (PPI zuvor ≥ 2 Wochen pausieren)' },
-          { stufe: 'Apparativ & Bildgebung', text: 'EKG zum Ausschluss eines Myokardinfarkts' },
-          { stufe: 'Apparativ & Bildgebung', text: 'Abdomensonographie (Gallenblase, Pankreas)' },
-          { stufe: 'Invasiv & Speziell', text: 'Anamnese und körperliche Untersuchung (epigastrischer Druckschmerz, digital-rektale Untersuchung auf Meläna)' },
-          { stufe: 'Invasiv & Speziell', text: 'ÖGD (Ösophago-Gastro-Duodenoskopie) mit Biopsie — Goldstandard: Lokalisation, Malignomausschluss, Urease-Schnelltest und Histologie auf H. pylori' },
+          { stufe: 'Anamnese/Klinik', text: 'Körperliche Untersuchung: epigastrischer Druckschmerz, Abwehrspannung als Perforationszeichen, Hautblässe; digital-rektale Untersuchung auf Teerstuhl' },
+          { stufe: 'Labor', text: 'Blutbild und Ferritin (okkulte Blutung), Leberwerte, Lipase, Troponin' },
+          { stufe: 'Apparativ & Bildgebung', text: '12-Kanal-EKG' },
+          { stufe: 'Apparativ & Bildgebung', text: 'Abdomen-Sonographie: Gallenblase, Pankreas' },
+          { stufe: 'Invasiv & Speziell', text: 'ÖGD mit Biopsien, die nach einem Jahr PPI ohne Diagnose überfällig ist: mehrere Biopsien aus dem Ulkusrand (Malignomausschluss), dazu aus Antrum und Korpus für Urease-Schnelltest und Histologie auf Helicobacter pylori' },
+          { stufe: 'Invasiv & Speziell', text: 'Ist der Helicobacter-Befund unter dem laufenden PPI negativ, wird er nach zwei Wochen PPI-Pause mit Atemtest oder Stuhl-Antigen wiederholt' },
         ],
         therapie: [
           {
             label: 'Ausschaltung der Ulkusnoxen (NSAR/ASS, Nikotin, Alkohol)',
             items: [
-              'Sämtliche NSAR und ASS in der Selbstmedikation meiden und die Bedarfsanalgesie auf Paracetamol beschränken — Metamizol ist bei diesem Patienten wegen der bekannten Allergie (Exanthem, Atemnot) kontraindiziert',
-              'Nikotin- und Alkoholkarenz bis zur gesicherten Abheilung, dazu Beratung zur dauerhaften Karenz',
-              'Regelmäßige kleine Mahlzeiten, Verzicht auf stark gewürzte und individuell unverträgliche Speisen, Stressreduktion',
+              'Rauchstopp mit Unterstützungsangebot: Rauchen verzögert die Abheilung und begünstigt Rezidive',
+              'Kein Alkohol bis zur Abheilung, unter Metronidazol zwingend (Antabus-Reaktion)',
+              'Bedarfsanalgesie nur mit Paracetamol',
+              'Regelmäßige kleine Mahlzeiten, Stressreduktion; bei fünf kleinen Kindern und hoher Arbeitsbelastung konkret besprechen, was sich entlasten lässt',
             ],
             akut: false,
           },
           {
             label: 'Säuresuppression und Abheilungskontrolle (PPI-Therapie)',
             items: [
-              'Pantoprazol 40 mg 1-0-0 nüchtern über 6–8 Wochen als Basistherapie des Ulcus ventriculi',
-              'Bei der ÖGD Biopsien aus dem Ulkusrand sowie aus Antrum und Korpus zur Histologie und zum Urease-Schnelltest',
-              'Kontroll-ÖGD nach 6–8 Wochen zur Abheilungskontrolle und erneuten Biopsie — beim Ulcus ventriculi zum sicheren Malignitätsausschluss obligat',
+              'Pantoprazol auf 40 mg erhöhen, morgens 30 Minuten vor dem Frühstück, für 6–8 Wochen',
+              'Kontroll-ÖGD nach 6–8 Wochen mit erneuter Biopsie: beim Ulcus ventriculi zum Nachweis der Abheilung und zum Malignomausschluss obligat',
             ],
             akut: false,
           },
           {
             label: 'Helicobacter-pylori-Eradikation mit Erfolgskontrolle',
             items: [
-              'Bei positivem Nachweis Tripeltherapie über 7–14 Tage: PPI 2 × 40 mg + Clarithromycin 2 × 500 mg + Amoxicillin 2 × 1000 mg (bei Penicillinallergie Metronidazol 2 × 400 mg statt Amoxicillin)',
-              'Ausführliche Aufklärung über die strikte Einnahmetreue und die typischen Nebenwirkungen, damit die Eradikation nicht an der Adhärenz scheitert',
-              'PPI nach Abschluss der Antibiose bis zur endoskopisch gesicherten Abheilung fortführen',
-              'Eradikationskontrolle frühestens 4 Wochen nach Therapieende mit 13C-Atemtest oder Stuhl-Antigen, nach Pausieren des PPI',
+              'Bei Nachweis Bismut-Quadrupeltherapie über 10 Tage (PPI, Bismut, Tetracyclin, Metronidazol) als Erstlinie; Clarithromycin-Tripeltherapie über 14 Tage nur bei nachgewiesener Clarithromycin-Empfindlichkeit',
+              'Einnahmetreue und Nebenwirkungen besprechen (Geschmacksstörung, Durchfall, schwarzer Stuhl unter Bismut)',
+              'PPI nach der Eradikation bis zur endoskopisch gesicherten Abheilung fortführen',
+              'Eradikationskontrolle frühestens 4 Wochen nach Therapieende mit Atemtest oder Stuhl-Antigen, PPI 2 Wochen vorher pausiert',
+              'Sind Helicobacter und NSAR beide negativ: seltene Ursachen suchen (verschwiegene Schmerzmittel, Gastrinom)',
             ],
             akut: false,
           },
           {
             label: 'Management der Ulkuskomplikationen (Blutung, Perforation, Stenose)',
             items: [
-              'Bei Hämatemesis, Teerstuhl oder Kreislaufinstabilität: stationäre Aufnahme, zwei großlumige Zugänge, Volumen, Blutgruppe und Kreuzblut, Pantoprazol 80 mg als Bolus und 8 mg/h i. v., Notfall-ÖGD',
-              'Endoskopische Blutstillung je nach Forrest-Stadium mit Adrenalininjektion in Kombination mit Clip oder Thermokoagulation',
-              'Bei plötzlichem Vernichtungsschmerz mit brettharter Abwehrspannung an eine Perforation denken: Röntgen-Abdomen beziehungsweise CT, Nahrungskarenz, Magensonde, breite Antibiose und sofortige chirurgische Vorstellung zur Übernähung und Lavage',
-              'Bei rezidivierendem Erbrechen unverdauter Speisen an eine narbige Magenausgangsstenose denken: endoskopische Ballondilatation, bei Versagen operative Versorgung',
+              'Hämatemesis, Teerstuhl oder Kreislaufinstabilität: stationäre Aufnahme, zwei großlumige Zugänge, Volumen, Kreuzblut, Pantoprazol 80 mg i. v., Notfall-ÖGD mit endoskopischer Blutstillung',
+              'Plötzlicher Vernichtungsschmerz mit brettharter Bauchdecke: Perforation, CT, Nahrungskarenz, Antibiose und sofortige chirurgische Vorstellung',
+              'Rezidivierendes Erbrechen unverdauter Speisen: narbige Magenausgangsstenose, endoskopische Ballondilatation',
             ],
             akut: true,
           },
+        ],
+        erstmassnahmen: [
+          'Kreislauf und Hämoglobin prüfen, Blutungszeichen ausschließen',
+          'Pantoprazol auf 40 mg erhöhen',
+          'ÖGD mit Biopsien zeitnah anmelden',
+          'Rauchen und Alkohol ansprechen',
         ],
         notfall: false,
       },
@@ -2230,73 +2219,33 @@ export function seedCases(): Case[] {
         'Wie behandeln Sie ein Ulcus ventriculi?',
       ],
       pruefungsfallen: [
-        'Ulcus ventriculi = postprandialer Schmerz (kurz nach dem Essen); Ulcus duodeni = Nüchtern-/Nachtschmerz mit Besserung durch Essen — nicht verwechseln.',
-        'Beim Ulcus ventriculi IMMER Biopsie und Kontroll-ÖGD zum Malignomausschluss (anders als beim Ulcus duodeni).',
-        'Keine Besserung unter PPI → an unbehandelten Helicobacter pylori denken (Eradikation nötig), nicht nur die PPI-Dosis erhöhen.',
-        'Vor H.-pylori-Atemtest bzw. Stuhltest PPI mindestens 2 Wochen pausieren, sonst falsch negativ.',
-        'Epigastrischer Schmerz kann kardial sein — Myokardinfarkt (v. a. Hinterwand) per EKG und Troponin ausschließen.',
+        'Ein PPI-Versagen nach einem Jahr Therapie ohne Diagnose ist eine Indikation zur ÖGD — nicht zur alleinigen Dosiserhöhung.',
+        'Fragen, ob vor einem Jahr ein Helicobacter-Test gemacht wurde: die Ursache des Ulkus entscheidet über die Therapie.',
+        'Ein negativer Helicobacter-Befund unter laufendem PPI beweist nichts.',
+        'Schmerzmittel: Metamizol ist wegen der Allergie (Exanthem, Atemnot) verboten, NSAR verträgt er nicht — es bleibt Paracetamol.',
       ],
       examinerSheet: [
-        {
-          title: 'Einstieg & Verdachtsdiagnose',
-          interactions: [
-            {
-              frage: 'Wie lautet Ihre Verdachtsdiagnose?',
-              reaktion: 'ein Ulcus ventriculi, am ehesten Helicobacter-pylori-assoziiert.',
-            },
-            {
-              frage: 'Warum?',
-              reaktion: 'postprandiale, drückend-brennende Epigastralgien seit einem Jahr, Sodbrennen und Völlegefühl, beruflicher Stress, Nikotin- und Alkoholkonsum und vor allem der Wirkverlust des seit einem Jahr eingenommenen Pantoprazols seit sechs bis acht Wochen.',
-            },
-          ],
-        },
-        {
-          title: 'Differenzialdiagnosen',
-          interactions: [
-            {
-              frage: 'Welche Differenzialdiagnosen?',
-              reaktion: 'Ulcus duodeni, erosive Gastritis bzw. Refluxkrankheit, Magenkarzinom, Cholezystolithiasis und Pankreatitis; kardial ein Myokardinfarkt.',
-            },
-            {
-              frage: 'Wie unterscheiden Sie Ulcus ventriculi von Ulcus duodeni?',
-              reaktion: 'beim Ulcus ventriculi Schmerz kurz nach dem Essen (Sofortschmerz), beim Ulcus duodeni Nüchtern- und Nachtschmerz mit Besserung durch Nahrungsaufnahme.',
-            },
-          ],
-        },
-        {
-          title: 'Diagnostik',
-          interactions: [
-            {
-              frage: 'Wie sichern Sie die Diagnose?',
-              reaktion: 'körperliche Untersuchung, Labor und als Goldstandard die ÖGD mit Biopsie.',
-            },
-            {
-              frage: 'Welche Laborwerte sind wichtig?',
-              reaktion: 'Blutbild wegen einer möglichen Anämie, Leber- und Cholestasewerte, Lipase zum Ausschluss einer Pankreatitis sowie Troponin und ein EKG zum Ausschluss eines Myokardinfarkts.',
-            },
-            {
-              frage: 'Wie weisen Sie Helicobacter pylori nach?',
-              reaktion: 'nicht-invasiv per 13C-Harnstoff-Atemtest oder Stuhl-Antigen-Test — PPI vorher zwei Wochen pausieren — oder invasiv per Biopsie mit Urease-Schnelltest und Histologie.',
-            },
-          ],
-        },
-        {
-          title: 'Therapie & Cave',
-          interactions: [
-            {
-              frage: 'Wie behandeln Sie?',
-              reaktion: 'Nikotin- und Alkoholkarenz, Stressreduktion und ein PPI; bei H.-pylori-Nachweis eine Eradikation mittels Tripeltherapie aus PPI plus zwei Antibiotika über sieben bis vierzehn Tage.',
-            },
-            {
-              frage: 'Warum eine Kontroll-ÖGD?',
-              reaktion: 'weil sich hinter einem Ulcus ventriculi ein Magenkarzinom verbergen kann — daher Biopsie und endoskopische Kontrolle der Abheilung.',
-            },
-            {
-              frage: 'Der Patient fragt, ob er Krebs hat — wie reagieren Sie?',
-              reaktion: 'ich erkläre ruhig, dass die Beschwerden am ehesten für ein Magengeschwür sprechen, wir mit der Magenspiegelung aber sicher ausschließen wollen, dass etwas Bösartiges dahintersteckt.',
-            },
-          ],
-        },
+        { title: 'Verdachtsdiagnose und Begründung', interactions: [
+          { frage: 'Wie lautet Ihre Verdachtsdiagnose und warum?', reaktion: 'Ein Ulcus ventriculi, am ehesten Helicobacter-pylori-assoziiert: drückend-brennende Schmerzen in der Magengegend seit einem Jahr, eine Stunde nach dem Essen schlimmer, seit vier Wochen zunehmend; Sodbrennen und Völlegefühl; Rauchen, täglich Rotwein, beruflicher Stress; das Pantoprazol hilft seit sechs bis acht Wochen nicht mehr.' },
+          { frage: 'Warum hilft das Pantoprazol nicht mehr?', reaktion: 'Wahrscheinlich, weil die Ursache nie behandelt wurde: ein Jahr PPI ohne Endoskopie und ohne Helicobacter-Test. 20 mg sind zudem eine niedrige Dosis. Ein PPI-Versagen ist eine Indikation zur ÖGD, nicht zur bloßen Dosiserhöhung.' },
+        ] },
+        { title: 'Differenzialdiagnosen', interactions: [
+          { frage: 'Welche Differenzialdiagnosen kommen in Betracht?', reaktion: 'Ulcus duodeni, Refluxkrankheit oder erosive Gastritis, funktionelle Dyspepsie (Ausschlussdiagnose), Magenkarzinom (mit 38 Jahren ohne Alarmsymptome unwahrscheinlich, aber zu biopsieren), Gallensteine, Pankreatitis und kardial ein Hinterwandinfarkt.' },
+          { frage: 'Wie unterscheiden Sie ein Ulcus ventriculi von einem Ulcus duodeni?', reaktion: 'Klinisch über den Schmerzrhythmus: Magenulkus mit Schmerz kurz nach dem Essen, Duodenalulkus mit Nüchtern- und Nachtschmerz, der sich durch Essen bessert. Sicher nur in der ÖGD.' },
+        ] },
+        { title: 'Diagnostik', interactions: [
+          { frage: 'Wie sichern Sie die Diagnose?', reaktion: 'Körperliche Untersuchung mit rektaler Untersuchung, Labor, EKG, Sonographie und als Goldstandard die ÖGD mit Biopsien aus dem Ulkusrand sowie aus Antrum und Korpus.' },
+          { frage: 'Welche Laborwerte sind wichtig?', reaktion: 'Blutbild und Ferritin wegen einer möglichen Anämie, Leberwerte, Lipase zum Ausschluss einer Pankreatitis sowie Troponin.' },
+          { frage: 'Wie weisen Sie Helicobacter pylori nach — auch unter dem laufenden PPI?', reaktion: 'Invasiv mit Urease-Schnelltest und Histologie aus der ÖGD, nicht-invasiv mit 13C-Harnstoff-Atemtest oder Stuhl-Antigen. Alle Tests werden unter PPI oft falsch negativ: ein negativer Befund wird nach zwei Wochen PPI-Pause wiederholt.' },
+        ] },
+        { title: 'Therapie', interactions: [
+          { frage: 'Wie behandeln Sie?', reaktion: 'Rauchstopp, kein Alkohol, Pantoprazol 40 mg für 6–8 Wochen. Bei Helicobacter-Nachweis Bismut-Quadrupeltherapie über 10 Tage; eine Clarithromycin-Tripeltherapie nur bei nachgewiesener Empfindlichkeit. Eradikationskontrolle nach frühestens 4 Wochen, Kontroll-ÖGD nach 6–8 Wochen.' },
+          { frage: 'Welches Schmerzmittel geben Sie ihm?', reaktion: 'Nur Paracetamol: Metamizol ist wegen der Allergie mit Exanthem und Atemnot kontraindiziert, NSAR verträgt er nicht und sie schaden dem Ulkus.' },
+        ] },
+        { title: 'Aufklärung des Patienten (2 Minuten)', interactions: [
+          { frage: 'Der Patient fragt, ob er Krebs hat — wie reagieren Sie?', reaktion: 'Ruhig erklären, dass die Beschwerden am ehesten für ein Magengeschwür sprechen; die Magenspiegelung mit Gewebeproben soll sicher ausschließen, dass etwas Bösartiges dahintersteckt.' },
+          { frage: '(als Patient) Darf ich während der Antibiotika abends mein Glas Wein trinken?', reaktion: 'Erwartet wird ein klares Nein: Eines der Antibiotika (Metronidazol) löst mit Alkohol Übelkeit, Herzrasen und Hitzegefühl aus; Alkohol verzögert zudem die Heilung des Geschwürs.' },
+        ] },
       ],
       linkedFachwissenId: 'fw-ulcus',
       linkedFachbegriffeIds: [],
