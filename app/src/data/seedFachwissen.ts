@@ -511,7 +511,7 @@ export function seedFachwissen(): Fachwissen[] {
       pathology: 'Ulcus ventriculi / Gastritis',
       specialty: 'Gastroenterologie',
       definition: 'Umschriebener Substanzdefekt der Magen- (Ulcus ventriculi) oder Zwölffingerdarmschleimhaut (Ulcus duodeni), der die Muscularis mucosae durchbricht — im Gegensatz zur oberflächlichen Erosion bei der Gastritis. Ursache ist ein Ungleichgewicht zwischen aggressiven (Säure, Pepsin, H. pylori, NSAR) und protektiven Faktoren (Schleim, Bikarbonat, Durchblutung). Diese Fiche behandelt das Ulkus OHNE aktive Blutung; die akute obere GI-Blutung ist gesondert erfasst.',
-      aetiologie: 'Zwei Hauptursachen: Infektion mit Helicobacter pylori (verantwortlich für ca. 90 % der Ulcera duodeni und ca. 70 % der Ulcera ventriculi) und Einnahme von NSAR/ASS (Hemmung der protektiven Prostaglandinsynthese). Seltener: Kortikosteroide (v. a. in Kombination mit NSAR), schwerer Stress (Stressulkus bei Intensivpatienten), Rauchen, sowie das Gastrinom (Zollinger-Ellison-Syndrom). Bei jedem Ulcus ventriculi muss zusätzlich ein Magenkarzinom ausgeschlossen werden.',
+      aetiologie: 'Zwei Hauptursachen: Infektion mit Helicobacter pylori (verantwortlich für ca. 90 % der Ulcera duodeni und ca. 70 % der Ulcera ventriculi) und Einnahme von NSAR/ASS (Hemmung der protektiven Prostaglandinsynthese). Seltener: Kortikosteroide (v. a. in Kombination mit NSAR), schwerer Stress (Stressulkus bei Intensivpatienten), Rauchen, sowie das Gastrinom (Zollinger-Ellison-Syndrom).',
       risikofaktoren: [
         'Helicobacter-pylori-Infektion',
         'NSAR- und ASS-Einnahme (oft Selbstmedikation)',
@@ -523,43 +523,15 @@ export function seedFachwissen(): Fachwissen[] {
         'Positive Ulkus- oder Magenkarzinomanamnese',
       ],
       klinik: [
-        {
-          text: 'Epigastrische, brennende oder nagende Schmerzen (Epigastralgie) als Leitsymptom',
-        },
-        {
-          text: 'Ulcus ventriculi: Sofort- bzw. postprandialer Schmerz (kurz nach dem Essen), teils mit Essensangst und Gewichtsverlust',
-        },
-        {
-          text: 'Ulcus duodeni: Nüchtern- und Nachtschmerz, Besserung durch Nahrungsaufnahme',
-        },
-        {
-          text: 'Übelkeit, Völlegefühl, Aufstoßen, Appetitlosigkeit',
-        },
-        {
-          text: 'Häufig NSAR-Einnahme oder beruflicher Stress in der Vorgeschichte (z. B. Apotheker, Schichtarbeit)',
-        },
-        {
-          text: 'Bis zu ein Drittel der Ulzera, besonders NSAR-induzierte, verläuft klinisch stumm und manifestiert sich erst durch eine Komplikation (Blutung, Perforation)',
-          atypisch: true,
-        },
-        {
-          text: 'Erstmanifestation als Meläna oder Hämatemesis ohne vorherige Schmerzen',
-          atypisch: true,
-        },
-        {
-          text: 'Bei Hinterwandinfarkt kann sich ein kardialer Schmerz als Epigastralgie \'maskieren\' — kardiale DD nicht übersehen',
-          atypisch: true,
-        },
+        { text: 'Epigastrische, brennende oder nagende Schmerzen (Epigastralgie) als Leitsymptom' },
+        { text: 'Ulcus ventriculi: Sofort- bzw. postprandialer Schmerz (kurz nach dem Essen), teils mit Essensangst und Gewichtsverlust' },
+        { text: 'Ulcus duodeni: Nüchtern- und Nachtschmerz, Besserung durch Nahrungsaufnahme' },
+        { text: 'Übelkeit, Völlegefühl, Aufstoßen, Appetitlosigkeit' },
+        { text: 'Besonders NSAR-induzierte Ulzera verlaufen oft schmerzlos und zeigen sich erst durch eine Komplikation: Meläna, Hämatemesis oder Perforation', atypisch: true },
       ],
       klassifikation: [
-        {
-          name: 'Forrest-Klassifikation',
-          inhalt: 'Endoskopische Einteilung des blutenden Ulkus: Ia spritzende / Ib sickernde aktive Blutung; IIa sichtbarer Gefäßstumpf, IIb anhaftendes Koagel, IIc Hämatinbelag; III Läsion ohne Blutungszeichen. Steuert Rezidivrisiko und Therapie.',
-        },
-        {
-          name: 'Ätiologische Einteilung (Ulkustyp)',
-          inhalt: 'Peptisches Ulkus meist H.-pylori- oder NSAR-assoziiert; Stressulkus (Curling bei Verbrennung, Cushing bei Hirnprozessen); Ulkus bei Zollinger-Ellison-Syndrom (Gastrinom).',
-        },
+        { name: 'Forrest-Klassifikation', inhalt: 'Endoskopische Einteilung des blutenden Ulkus: Ia spritzende / Ib sickernde aktive Blutung; IIa sichtbarer Gefäßstumpf, IIb anhaftendes Koagel, IIc Hämatinbelag; III Läsion ohne Blutungszeichen. Steuert Rezidivrisiko und Therapie.' },
+        { name: 'Ätiologische Einteilung (Ulkustyp)', inhalt: 'Peptisches Ulkus meist H.-pylori- oder NSAR-assoziiert; Stressulkus (Curling bei Verbrennung, Cushing bei Hirnprozessen); Ulkus bei Zollinger-Ellison-Syndrom (Gastrinom).' },
       ],
       redFlags: [
         'Akuter, heftigster Vernichtungsschmerz mit bretthartem Abdomen und Abwehrspannung → Perforation mit Peritonitis',
@@ -569,43 +541,20 @@ export function seedFachwissen(): Fachwissen[] {
         'Dysphagie, ungewollter Gewichtsverlust, Anämie, Alter > 50 mit neuen Beschwerden → Malignomverdacht (Alarmsymptome)',
       ],
       diagnostik: [
-        { stufe: 'Anamnese/Klinik', text: 'Anamnese: Schmerzcharakter und Zeitbezug zum Essen, NSAR-/ASS- und Kortisoneinnahme, Selbstmedikation, Stress, Noxen, frühere Ulzera' },
+        { stufe: 'Anamnese/Klinik', text: 'Anamnese: Schmerzcharakter und Zeitbezug zum Essen, NSAR-/ASS- und Kortisoneinnahme, Selbstmedikation, Stress, Noxen, frühere Ulzera, frühere Helicobacter-Diagnostik' },
+        { stufe: 'Anamnese/Klinik', text: 'Körperliche Untersuchung: epigastrischer Druckschmerz, Prüfung auf Abwehrspannung; digital-rektale Untersuchung auf Meläna' },
         { stufe: 'Labor', text: 'Labor: Blutbild (Anämie bei chronischem Blutverlust), ggf. Gerinnung; bei rezidivierenden/atypischen Ulzera Gastrin (Zollinger-Ellison)' },
-        { stufe: 'Labor', text: 'Nicht-invasiver H.-pylori-Nachweis: 13C-Harnstoff-Atemtest oder Stuhl-Antigen-Test (Cave: PPI ≥ 2 Wochen vorher pausieren, sonst falsch negativ)' },
-        { stufe: 'Invasiv & Speziell', text: 'Körperliche Untersuchung: epigastrischer Druckschmerz, Prüfung auf Abwehrspannung; digital-rektale Untersuchung auf Meläna' },
-        { stufe: 'Invasiv & Speziell', text: 'ÖGD (Ösophago-Gastro-Duodenoskopie) — Goldstandard: direkte Darstellung, Lokalisation und Biopsie des Ulkus' },
-        { stufe: 'Invasiv & Speziell', text: 'Biopsie: bei jedem Ulcus ventriculi obligat zum Malignitätsausschluss; zugleich Urease-Schnelltest (CLO-Test) und Histologie auf H. pylori' },
-        { stufe: 'Invasiv & Speziell', text: 'Kontroll-ÖGD des Magenulkus nach 6–8 Wochen zur Bestätigung der Abheilung und erneuter Biopsie (Karzinomausschluss)' },
+        { stufe: 'Labor', text: 'Nicht-invasiver H.-pylori-Nachweis: 13C-Harnstoff-Atemtest oder Stuhl-Antigen-Test, frühestens 2 Wochen nach Absetzen des PPI und 4 Wochen nach einer Antibiotikatherapie' },
+        { stufe: 'Invasiv & Speziell', text: 'ÖGD als Goldstandard: Lokalisation des Ulkus; bei jedem Ulcus ventriculi mehrere Biopsien aus dem Ulkusrand zum Malignitätsausschluss, dazu Biopsien aus Antrum und Korpus für Urease-Schnelltest und Histologie auf H. pylori' },
       ],
       differenzialdiagnosen: [
-        {
-          dd: 'Ulcus duodeni',
-          unterscheidung: 'Nüchtern- und Nachtschmerz mit Besserung durch Essen (statt postprandialem Sofortschmerz); fast nie maligne, daher keine Routine-Biopsie nötig.',
-        },
-        {
-          dd: 'Gastritis / funktionelle Dyspepsie (Reizmagen)',
-          unterscheidung: 'Nur oberflächliche Schleimhautreizung ohne Substanzdefekt in der ÖGD; bei funktioneller Dyspepsie endoskopisch unauffälliger Befund.',
-        },
-        {
-          dd: 'Refluxkrankheit (GERD)',
-          unterscheidung: 'Retrosternales Brennen (Pyrosis) und saures Aufstoßen, lageabhängig; Ösophagitis statt Ulkus.',
-        },
-        {
-          dd: 'Magenkarzinom',
-          unterscheidung: 'Alarmsymptome (Gewichtsverlust, Anämie, Dysphagie), höheres Alter; nur durch Biopsie sicher auszuschließen — Grund für die obligate Histologie beim Magenulkus.',
-        },
-        {
-          dd: 'Cholezystolithiasis / Cholezystitis',
-          unterscheidung: 'Rechtsseitige postprandiale Kolik nach fettem Essen, Ausstrahlung in die rechte Schulter, positives Murphy-Zeichen.',
-        },
-        {
-          dd: 'Akute Pankreatitis',
-          unterscheidung: 'Gürtelförmiger Oberbauchschmerz mit Ausstrahlung in den Rücken, Lipase-Erhöhung.',
-        },
-        {
-          dd: 'Hinterwandinfarkt / KHK',
-          unterscheidung: 'Belastungsabhängig, Ausstrahlung, Dyspnoe; per EKG und Troponin abzugrenzen — bei epigastrischem Schmerz stets mitbedenken.',
-        },
+        { dd: 'Ulcus duodeni', unterscheidung: 'Nüchtern- und Nachtschmerz mit Besserung durch Essen (statt postprandialem Sofortschmerz); fast nie maligne, daher keine Routine-Biopsie nötig.' },
+        { dd: 'Gastritis / funktionelle Dyspepsie (Reizmagen)', unterscheidung: 'Nur oberflächliche Schleimhautreizung ohne Substanzdefekt in der ÖGD; bei funktioneller Dyspepsie endoskopisch unauffälliger Befund.' },
+        { dd: 'Refluxkrankheit (GERD)', unterscheidung: 'Retrosternales Brennen (Pyrosis) und saures Aufstoßen, lageabhängig; Ösophagitis statt Ulkus.' },
+        { dd: 'Magenkarzinom', unterscheidung: 'Endoskopisch nicht sicher von einem gutartigen Ulkus zu unterscheiden; ausgeschlossen erst durch die Histologie.' },
+        { dd: 'Cholezystolithiasis / Cholezystitis', unterscheidung: 'Rechtsseitige postprandiale Kolik nach fettem Essen, Ausstrahlung in die rechte Schulter, positives Murphy-Zeichen.' },
+        { dd: 'Akute Pankreatitis', unterscheidung: 'Gürtelförmiger Oberbauchschmerz mit Ausstrahlung in den Rücken, Lipase-Erhöhung.' },
+        { dd: 'Hinterwandinfarkt / KHK', unterscheidung: 'Belastungsabhängig, Ausstrahlung, Dyspnoe; per EKG und Troponin abzugrenzen — bei epigastrischem Schmerz stets mitbedenken.' },
       ],
       therapie: [
         {
@@ -614,7 +563,7 @@ export function seedFachwissen(): Fachwissen[] {
             'Auslösende NSAR oder ASS absetzen beziehungsweise pausieren — nach Helicobacter pylori die zweithäufigste Ursache; Bedarfsanalgesie auf Paracetamol oder Metamizol umstellen',
             'Wenn ASS oder ein NSAR zwingend weitergegeben werden muss (z. B. nach Stentimplantation): dauerhafte begleitende PPI-Prophylaxe, alternativ Umstellung auf einen selektiven COX-2-Hemmer',
             'Konsequente Nikotinkarenz — Rauchen verzögert die Ulkusheilung und erhöht die Rezidivrate deutlich; Alkoholkarenz während der Abheilung',
-            'Regelmäßige kleine Mahlzeiten, Verzicht auf individuell unverträgliche Speisen, Stressreduktion; Glukokortikoide sind nur in Kombination mit NSAR relevant ulzerogen',
+            'Regelmäßige kleine Mahlzeiten, Verzicht auf individuell unverträgliche Speisen, Stressreduktion',
             'Bei Intensiv- und Beatmungspatienten Stressulkusprophylaxe mit einem PPI',
           ],
           akut: false,
@@ -625,7 +574,6 @@ export function seedFachwissen(): Fachwissen[] {
             'Protonenpumpeninhibitor als Basistherapie, z. B. Pantoprazol 40 mg 1-0-0, nüchtern etwa 30 Minuten vor dem Frühstück',
             'Therapiedauer: Ulcus duodeni in der Regel 4 Wochen, Ulcus ventriculi 6–8 Wochen',
             'H2-Rezeptorantagonisten (Famotidin) und Antazida sind dem PPI unterlegen und bleiben Reserve- beziehungsweise Symptomtherapie',
-            'Bei der Indexendoskopie immer Biopsien aus Antrum und Korpus sowie mehrere Biopsien aus dem Ulkusrand — jedes Ulcus ventriculi ist bis zum Beweis des Gegenteils malignomverdächtig',
             'Kontroll-ÖGD beim Ulcus ventriculi nach 6–8 Wochen obligat: Abheilungskontrolle und erneute Biopsie; beim unkomplizierten Ulcus duodeni ist eine Kontrollendoskopie nicht erforderlich',
           ],
           akut: false,
@@ -633,13 +581,12 @@ export function seedFachwissen(): Fachwissen[] {
         {
           label: 'Helicobacter-pylori-Eradikation mit Erfolgskontrolle',
           items: [
-            'Nachweis invasiv über Urease-Schnelltest und Histologie aus der Biopsie, nichtinvasiv über 13C-Harnstoff-Atemtest oder Stuhl-Antigen-Test — PPI 2 Wochen und Antibiotika 4 Wochen vorher pausieren, sonst falsch negativ',
-            'Französische Tripeltherapie über 7–14 Tage: PPI 2 × 40 mg + Clarithromycin 2 × 500 mg + Amoxicillin 2 × 1000 mg',
-            'Italienische Tripeltherapie über 7–14 Tage: PPI + Clarithromycin + Metronidazol 2 × 400 mg — Variante der Wahl bei Penicillinallergie',
-            'Bei hoher Clarithromycin-Resistenz, Vortherapie oder Versagen: Bismut-Quadrupeltherapie (PPI + Bismut + Tetracyclin + Metronidazol) über 10 Tage',
+            'Erstlinie: Bismut-Quadrupeltherapie über 10 Tage (PPI + Bismut + Tetracyclin + Metronidazol), weil Clarithromycin in Deutschland häufig resistent ist',
+            'Clarithromycin-Tripeltherapie (PPI + Clarithromycin + Amoxicillin oder Metronidazol) über 14 Tage nur bei nachgewiesener Clarithromycin-Empfindlichkeit',
+            'Nach Therapieversagen Resistenztestung aus Biopsien und gezielte Zweitlinientherapie',
             'Patienten über Nebenwirkungen und Adhärenz aufklären: metallischer Geschmack, Diarrhoe, Schwarzfärbung des Stuhls unter Bismut, strikte Alkoholkarenz unter Metronidazol (Antabus-Effekt)',
             'Nach der Eradikation PPI beim Ulcus ventriculi bis zur Abheilung fortführen',
-            'Eradikationskontrolle frühestens 4 Wochen nach Therapieende mittels 13C-Atemtest oder Stuhl-Antigen — die Eradikation senkt die Rezidivrate von über 60 % auf unter 5 %',
+            'Eradikationskontrolle frühestens 4 Wochen nach Therapieende, nicht-invasiv',
           ],
           akut: false,
         },
@@ -657,43 +604,20 @@ export function seedFachwissen(): Fachwissen[] {
           akut: true,
         },
       ],
-      prognose: 'Unter PPI-Therapie und erfolgreicher H.-pylori-Eradikation heilen die meisten Ulzera ab, und die Rezidivrate sinkt drastisch (von über 50 % auf unter 10 % pro Jahr). Entscheidend sind das Weglassen von NSAR und die Noxenkarenz. Prognosebestimmend sind Komplikationen (Blutung, Perforation, Stenose) und beim Ulcus ventriculi der Ausschluss eines Karzinoms.',
+      prognose: 'Unter PPI-Therapie und erfolgreicher Eradikation heilen die meisten Ulzera ab, und die Rezidivrate sinkt drastisch. Prognosebestimmend sind Komplikationen (Blutung, Perforation, Stenose) und beim Ulcus ventriculi der Ausschluss eines Karzinoms.',
       pruefungsfallen: [
-        'Jedes Ulcus ventriculi wird biopsiert UND nach 6–8 Wochen endoskopisch kontrolliert (Malignitätsausschluss) — das Ulcus duodeni dagegen nicht.',
-        'Vor dem H.-pylori-Test (Atemtest/Stuhl/Schnelltest) muss der PPI ca. 2 Wochen pausiert werden, sonst falsch-negatives Ergebnis.',
+        'Ein negativer Helicobacter-Test unter laufendem PPI beweist nichts.',
         'Aktiv nach NSAR/ASS und Selbstmedikation fragen — Patienten nennen \'Schmerzmittel\' oft nicht spontan als Medikament.',
-        'Schmerzrhythmus zur Unterscheidung nutzen: postprandialer Sofortschmerz spricht für Ulcus ventriculi, Nüchtern-/Nachtschmerz für Ulcus duodeni.',
-        'Alarmsymptome und Komplikationen (Perforation, Blutung, Stenose) nicht übersehen und den kardialen DD (Hinterwandinfarkt) mitbedenken.',
+        'Beschwerden, die trotz PPI zunehmen, sind eine Indikation zur ÖGD und zur Helicobacter-Diagnostik, nicht zur alleinigen Dosiserhöhung.',
       ],
       askedInExam: [
-        {
-          frage: 'Was ist der C13-Atemtest und wozu dient er?',
-          antwort: 'Ein nicht-invasiver Test zum Nachweis von Helicobacter pylori: Der Patient trinkt 13C-markierten Harnstoff, den die bakterielle Urease spaltet; das markierte CO2 wird in der Ausatemluft gemessen. Der PPI muss vorher pausiert werden.',
-        },
-        {
-          frage: 'Wie behandeln Sie ein Ulcus ventriculi?',
-          antwort: 'Mit einem PPI über mehrere Wochen, Absetzen der NSAR und Noxenkarenz. Bei Nachweis von H. pylori zusätzlich eine Eradikation mittels Triple-Therapie aus PPI und zwei Antibiotika.',
-        },
-        {
-          frage: 'Was ist die Triple-Therapie?',
-          antwort: 'Die H.-pylori-Eradikation mit einem PPI plus zwei Antibiotika — Clarithromycin kombiniert mit Amoxicillin oder Metronidazol — über 7 bis 14 Tage.',
-        },
-        {
-          frage: 'Welche Prädispositionsfaktoren für ein Ulkus hat der Patient?',
-          antwort: 'Typischerweise regelmäßige NSAR-Einnahme, eine H.-pylori-Infektion, Rauchen, Alkohol und beruflicher Stress.',
-        },
-        {
-          frage: 'Wie unterscheiden Sie ein Ulcus ventriculi von einem Ulcus duodeni?',
-          antwort: 'Über den Schmerzrhythmus: Das Magenulkus verursacht Sofortschmerz kurz nach dem Essen, das Duodenalulkus dagegen Nüchtern- und Nachtschmerz, der sich durch Essen bessert.',
-        },
-        {
-          frage: 'Warum führen Sie eine ÖGD durch und warum eine Biopsie?',
-          antwort: 'Die ÖGD ist der Goldstandard zur direkten Darstellung des Ulkus. Beim Magenulkus wird biopsiert, um ein Magenkarzinom auszuschließen und H. pylori nachzuweisen.',
-        },
-        {
-          frage: 'Was erwarten Sie im Blutbild und wie weisen Sie eine Blutung nach?',
-          antwort: 'Bei chronischem Blutverlust eine Anämie mit erniedrigtem Hämoglobin. Eine okkulte Blutung weist man über den Haemoccult-Test im Stuhl nach.',
-        },
+        { frage: 'Was ist der C13-Atemtest und wozu dient er?', antwort: 'Ein nicht-invasiver Test zum Nachweis von Helicobacter pylori: Der Patient trinkt 13C-markierten Harnstoff, den die bakterielle Urease spaltet; das markierte CO2 wird in der Ausatemluft gemessen.' },
+        { frage: 'Wie behandeln Sie ein Ulcus ventriculi?', antwort: 'Mit einem PPI über mehrere Wochen, Absetzen der NSAR und Noxenkarenz; bei Helicobacter-Nachweis zusätzlich eine Eradikation.' },
+        { frage: 'Welche Eradikationstherapie wählen Sie heute?', antwort: 'Meist die Bismut-Quadrupeltherapie, weil Clarithromycin hierzulande oft nicht mehr wirkt.' },
+        { frage: 'Welche Prädispositionsfaktoren für ein Ulkus kennen Sie?', antwort: 'Regelmäßige NSAR-Einnahme, eine H.-pylori-Infektion, Rauchen, Alkohol und beruflicher Stress.' },
+        { frage: 'Wie unterscheiden Sie ein Ulcus ventriculi von einem Ulcus duodeni?', antwort: 'Über den Schmerzrhythmus: Das Magenulkus verursacht Sofortschmerz kurz nach dem Essen, das Duodenalulkus dagegen Nüchtern- und Nachtschmerz, der sich durch Essen bessert.' },
+        { frage: 'Warum führen Sie eine ÖGD durch und warum eine Biopsie?', antwort: 'Sie zeigt das Ulkus direkt; die Biopsie schließt beim Magenulkus ein Karzinom aus und weist Helicobacter nach.' },
+        { frage: 'Was erwarten Sie im Blutbild und wie weisen Sie eine Blutung nach?', antwort: 'Bei chronischem Blutverlust eine Anämie mit erniedrigtem Hämoglobin. Eine okkulte Blutung weist man über den Haemoccult-Test im Stuhl nach.' },
       ],
       merksatz: 'Merke: Jedes Ulcus ventriculi muss bioptisch gesichert und nach 6–8 Wochen endoskopisch kontrolliert werden (Karzinomausschluss) — Basistherapie ist PPI plus H.-pylori-Eradikation und das Absetzen der NSAR.',
       linkedCaseIds: [
