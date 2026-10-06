@@ -46,14 +46,14 @@ export function ExamArztbrief({ text, onChange, frozen }: { text: string; onChan
 const mmss = (s: number) => `${String(Math.floor(s / 60)).padStart(2, '0')}:${String(s % 60).padStart(2, '0')}`;
 
 /** L'en-tête collant : le Teil, l'horloge murale, et la seule commande — abandonner. À 5:00 et à 1:00, l'alerte. */
-export function ExamHeader({ titre, reste, alerte, onAbandon }: {
-  titre: string; reste: number | null; alerte: number | null; onAbandon: () => void;
+export function ExamHeader({ titre, rang, reste, alerte, onAbandon }: {
+  titre: string; rang: string; reste: number | null; alerte: number | null; onAbandon: () => void;
 }) {
   return (
     <header className={`card sticky top-14 z-30 p-3 ${alerte !== null ? 'border-signal-400 bg-signal-50/90 dark:border-signal-600 dark:bg-signal-900/30' : ''}`}>
       <div className="flex items-center justify-between gap-3">
         <div className="min-w-0">
-          <div className="label">Examen · BW</div>
+          <div className="label whitespace-nowrap">Examen · {rang}</div>
           <div className="truncate text-sm font-semibold">{titre}</div>
         </div>
         <div className="flex items-center gap-2">

@@ -100,7 +100,8 @@ export function ExamenRunner({ caseId, taskId, onFin }: { caseId: string; taskId
     <div data-examen="" data-examen-phase={phase} className="mx-auto max-w-5xl space-y-3">
       {(enCours || enTransition) && (
         <ExamHeader
-          titre={`${t ? LABEL[t] : ''} · ${rang}/3${enTransition ? ' · transition' : ''}`}
+          titre={enTransition ? 'Transition' : t ? LABEL[t] : ''}
+          rang={`${rang}/3`}
           reste={enCours ? horloge.remaining : enTransition ? transition.remaining : null}
           alerte={enCours ? horloge.alert : null}
           onAbandon={() => void abandonner()}
