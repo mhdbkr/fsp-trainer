@@ -157,7 +157,7 @@ export function unitesDe(rows, lire = () => [], connu = () => true) {
       signs: decl ? new Set((r.fuSucht?.[i] ?? []).filter(connu)) : signesDe(f.replace(/^Falls [^:]{2,40}:\s*/, ''), { mother: false, ch: r.ch }, lire),
     }));
     const all = new Set([...ms, ...fus.flatMap((f) => [...f.signs])]);
-    units.push({ rank, ch: r.ch, cs: r.cs, probe: r.probes.join(',') || (r.cs ? 'CAS' : '-'), text: r.text, declared: !!r.sucht?.length, ms, fus, all });
+    units.push({ rank, ch: r.ch, cs: r.cs, probe: r.probes.join(',') || (r.cs ? 'CAS' : '-'), text: r.text, declared: !!r.sucht?.length, braucht: r.braucht ?? [], ms, fus, all });
   }
   return units;
 }
@@ -214,10 +214,11 @@ export function mesurerCas(c, lex, qo = []) {
   // (e) ordre : une anaphore sans antécédent + le détecteur Q0.
   const ord = [];
   units.forEach((u, i) => {
+    if (u.braucht.length) return;   // I4 (revue K5) : la présupposition est DÉCLARÉE — r4b l'ordonne, exact ; le texte n'a plus rien à proposer
     for (const [re, need] of ANAPHOR) {
       if (!re.test(u.text) || /[a-zäöüß] [A-ZÄÖÜ](?!ie\b|hnen\b|hr)[a-zäöüß]{2,}[^?]*\bdort\b/.test(stripLabel(u.text)) || u.ms.has(need)) continue;
       if (units.slice(0, i).some((v) => v.ms.has(need) && !/^(ist ihnen ein auslöser|auslöser)/i.test(stripLabel(v.text)))) continue;
-      ord.push({ at: `#${u.rank} ${u.ch}:${u.probe}`, why: `« ${u.text.match(re)[0]} » avant toute question sur « ${need} » (aucun \`braucht\` déclaré avant K4)` });
+      ord.push({ at: `#${u.rank} ${u.ch}:${u.probe}`, why: `« ${u.text.match(re)[0]} » avant toute question sur « ${need} », sans \`braucht\` déclaré — « ${u.text} »` });
     }
   });
   for (const h of qo) ord.push({ at: 'Q0', why: `détecteur de présupposition : ${h}` });

@@ -39,7 +39,7 @@ const lex = () => ({
     schluck: def('aktuell', ['dysphagie', 'hals'], 'akt-ausscheid-schlucken'), gelenke: def('fach', ['gelenk', 'arthritis']),
   },
 });
-const row = (ch, text, extra = {}) => ({ ch, text, probes: extra.probes ?? [], cs: !!extra.cs, sucht: extra.sucht ?? [], fu: extra.fu ?? [], fuSucht: extra.fuSucht ?? [] });
+const row = (ch, text, extra = {}) => ({ ch, text, probes: extra.probes ?? [], cs: !!extra.cs, sucht: extra.sucht ?? [], fu: extra.fu ?? [], fuSucht: extra.fuSucht ?? [], braucht: extra.braucht ?? [] });
 const cas = (rows, over = {}) => ({ id: 'case-x', specialty: 'Allgemeinmedizin', kategorie: 'infekt', leit: ['Fieber'], antworten: {}, rows, ...over });
 
 test('un signe cherché par deux unités → un doublon, avec sa raison ; une seule unité → aucun', () => {
@@ -454,10 +454,20 @@ test('INV-89 mutation : exception sans raison → exit 1, et seulement ce défau
   const o = avecExceptions([{ ...ACTIVE, raison: ' ' }], DATEE, () => json(run('--json')));
   assert.deepEqual(o.porte, ['COHERENCE_ALLOWED case-gastroenteritis|fach-infekt-fieber|fieber : raison et relecteur obligatoires']);
 });
-test('INV-89 mutation : exception sans relecteur → exit 1', () => {
+test('INV-89 mutation : exception sans relecteur → exit 1, et seulement ce défaut', () => {
   const r = avecExceptions([{ ...ACTIVE, relecteur: '' }], DATEE, () => run());
   assert.equal(r.status, 1);
-  assert.match(r.stdout, /raison et relecteur obligatoires/);
+  const o = avecExceptions([{ ...ACTIVE, relecteur: '' }], DATEE, () => json(run('--json')));
+  assert.deepEqual(o.porte, ['COHERENCE_ALLOWED case-gastroenteritis|fach-infekt-fieber|fieber : raison et relecteur obligatoires']);
+});
+test('K5 : résidu bloquant — une sonde sans entrée PROBE_SUCHT (sondesMuettes) → exit 1, la porte la compte', () => {
+  setFloor((f) => { f.residu.sondesMuettes = 9; });
+  try {
+    const o = sb.mutate('src/data/guides/probeSucht.ts', "'fach-rheuma-systemisch': ['fieber', 'augenentzuendung', 'ulzera', 'stuhl'],", '', () => ({ j: json(run('--json')), s: run().status }));
+    assert.equal(o.s, 1);
+    assert.equal(o.j.residu.sondesMuettes, 1);
+    assert.ok(o.j.porte.some((x) => /^sondesMuettes = 1 : résidu bloquant à 0/.test(x)), o.j.porte.join(' | '));
+  } finally { writeFileSync(sb.path(FIXTURE), restoreFloor); }
 });
 test('INV-89 mutation : exception non datée au fixture → exit 1, et seulement ce défaut', () => {
   const o = avecExceptions([ACTIVE], [], () => json(run('--json')));
@@ -470,11 +480,19 @@ test('INV-89 mutation : exception PÉRIMÉE (cohere ne ferait rien sans elle) �
 });
 
 // INV-89 : la porte est BLOQUANTE en CI — l'étape de cohérence ne porte pas `|| true` ; les tests de mutation tournent.
+// Revue K5 (mineur 2) : le BLOC entier de l'étape est lu (et l'en-tête du job) — `continue-on-error` neutralise aussi la porte.
 const fautesCI = (yml) => {
   const f = [];
-  const ligne = yml.split('\n').find((l) => /run: node scripts\/checkCoherence\.mjs/.test(l));
-  if (!ligne) f.push('aucune étape ne lance checkCoherence.mjs');
-  else if (/\|\|\s*true/.test(ligne)) f.push(`checkCoherence.mjs lancé avec || true : ${ligne.trim()}`);
+  const L = yml.split('\n');
+  const i = L.findIndex((l) => /run: node scripts\/checkCoherence\.mjs/.test(l));
+  if (i < 0) return ['aucune étape ne lance checkCoherence.mjs'];
+  let deb = i; while (deb > 0 && !/^\s*- (name|uses):/.test(L[deb])) deb--;
+  let fin = i + 1; while (fin < L.length && !/^\s*- (name|uses):/.test(L[fin]) && !/^\s{0,4}\S/.test(L[fin])) fin++;
+  const bloc = L.slice(deb, fin).join('\n');
+  if (/\|\|\s*true/.test(bloc)) f.push(`checkCoherence.mjs lancé avec || true`);
+  if (/continue-on-error/.test(bloc)) f.push('étape de cohérence en continue-on-error');
+  let job = deb; while (job > 0 && !/^ {2}\S/.test(L[job])) job--;
+  if (/continue-on-error/.test(L.slice(job, deb).filter((l) => /^ {4}\S/.test(l)).join('\n'))) f.push('job de la porte en continue-on-error');
   for (const t of ['checkCoherence.test.mjs', 'checkGuideDuplicates.test.mjs', 'checkBudgetFloor.test.mjs']) {
     if (!new RegExp(`^\\s*node --test scripts/${t.replaceAll('.', '\\.')}(\\s|$)`, 'm').test(yml)) f.push(`${t} absent de node --test`);
   }
@@ -484,5 +502,24 @@ test('INV-89 : quality.yml lance la porte sans `|| true` et ses tests de mutatio
   const yml = readFileSync(new URL('../../.github/workflows/quality.yml', import.meta.url), 'utf8');
   assert.deepEqual(fautesCI(yml), []);
   assert.match(fautesCI(yml.replace('run: node scripts/checkCoherence.mjs', 'run: node scripts/checkCoherence.mjs || true')).join(), /\|\| true/);
+  assert.match(fautesCI(yml.replace('run: node scripts/checkCoherence.mjs\n', 'run: node scripts/checkCoherence.mjs\n        continue-on-error: true\n')).join(), /étape de cohérence en continue-on-error/);
+  assert.match(fautesCI(yml.replace('  contrats:\n    name: Contrats de contenu\n', '  contrats:\n    name: Contrats de contenu\n    continue-on-error: true\n')).join(), /job de la porte en continue-on-error/);
   assert.match(fautesCI(yml.replace(/\n\s*node --test scripts\/checkGuideDuplicates\.test\.mjs/, '')).join(), /checkGuideDuplicates\.test\.mjs absent/);
+});
+
+test('I4 (revue K5) : le détecteur de texte ignore une question qui DÉCLARE `braucht` ; un constat cite la question', () => {
+  const dort = (extra = {}) => row('aktuell', 'Was haben Sie dort gegessen?', { cs: true, ...extra });
+  const r = mesurerCas(cas([dort()]), lex());
+  assert.equal(r.ord.length, 1);
+  assert.match(r.ord[0].why, /— « Was haben Sie dort gegessen\? »$/);
+  assert.equal(mesurerCas(cas([dort({ braucht: ['reise'] })]), lex()).ord.length, 0, 'la présupposition est déclarée : r4b l\'ordonne, exact');
+});
+
+test('I4 : sur le corpus, chaque présupposition lue cite sa question, et aucune ne vient d\'une question à `braucht`', () => {
+  const o = json(run('--json'));
+  const ord = o.parCas.flatMap((r) => r.ord);
+  assert.equal(ord.length, o.info.presuppositionsTexte);
+  for (const x of ord) assert.match(x.why, / — « .+ »$/, x.why);
+  // hypothyreose n° 7 (« nach einer Ihrer Entbindungen ») déclare `braucht: ['kinder']` : le détecteur ne la lit plus.
+  assert.ok(!ord.some((x) => /Entbindungen/.test(x.why)), 'une question à braucht n\'est plus lue');
 });

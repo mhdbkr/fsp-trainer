@@ -82,6 +82,7 @@ const rowsOf = (c) => {
   const push = (ch, p) => rows.push({
     ch, text: m.phraseText(p), probes: m.phraseProbes(p), cs: m.phraseIsCaseSpecific(p),
     sucht: m.phraseSucht(p), fu: m.phraseFollowUp(p), fuSucht: m.phraseFollowUps(p).map((l) => l.sucht ?? []),
+    braucht: typeof p === 'string' ? [] : p.braucht ?? [],
   });
   for (const ch of chapters) {
     for (const p of ch.questions) push(ch.id, p);
@@ -95,7 +96,7 @@ const walk = (c) => {
   const ans = c.patientSheet?.antworten ?? {};
   const turns = [];
   const add = (ch) => (p) => turns.push({
-    ch, own: m.phraseIsCaseSpecific(p), q: [m.phraseText(p), ...m.phraseFollowUp(p)].join(' '),
+    ch, own: m.phraseIsCaseSpecific(p), q: [m.phraseText(p), ...m.phraseFollowUp(p)].join(' '), braucht: typeof p !== 'string' && !!p.braucht?.length,
     a: m.phraseProbes(p).map((id) => ans[id]).filter(Boolean).join(' '),
     all: [m.phraseText(p), ...m.phraseAlts(p), ...m.phraseFollowUp(p)],
   });
@@ -109,7 +110,10 @@ const trame = trameWords([...walks.values()].flatMap((ts) => ts.filter((t) => !t
 const lex = { PROFIL_EXIGE: m.PROFIL_EXIGE, PROFIL_EXCLUT: m.PROFIL_EXCLUT, SIGNE_DEF: m.SIGNE_DEF, symptomsInText: m.symptomsInText, SIGNE_AFFINE: m.SIGNE_AFFINE };
 const results = cases.map((c) => {
   const s = c.patientSheet;
-  const qo = detect({ id: c.id, facts: factsOf(s), turns: walks.get(c.id) }, trame).map((h) => `${h.rule} « ${h.hit.trim()} » [${h.ch}]`);
+  // I4 (revue K5) : une question qui déclare `braucht` n'est plus lue par le détecteur (r4b l'ordonne) ; un constat cite sa question.
+  const declarees = new Set(walks.get(c.id).filter((t) => t.braucht).map((t) => t.q));
+  const qo = detect({ id: c.id, facts: factsOf(s), turns: walks.get(c.id) }, trame).filter((h) => !declarees.has(h.q))
+    .map((h) => `${h.rule} « ${h.hit.trim()} » [${h.ch}] — « ${h.q.length > 140 ? h.q.slice(0, 137) + '…' : h.q} »`);
   return mesurerCas({
     id: c.id, specialty: c.specialty, kategorie: m.leitsymptomOf(c), schmerz: s.schmerz, leit: s.leitsymptome, begleit: s.begleitsymptome,
     veg: s.vegetativeAnamnese, verdacht: c.medicalView?.verdachtsdiagnose, name: c.name, pathology: c.pathology,
