@@ -48,7 +48,6 @@ export interface CasDeSeance {
   /** Le dernier score MESURÉ de chaque Teil dans la séance. */
   scores: Partial<Record<SimTeil, number>>;
   autoEvalue: boolean;
-  horsPlan: boolean;
   /** La dernière partie de la séance et ses oublis encore manqués (son bilan, `bilanErreurs`) qui sont TOUJOURS un signal
    *  aujourd'hui (`erreursTransversales` du journal entier) : un oubli corrigé depuis ne se revoit plus. */
   oublis: { simId: string; n: number } | null;
@@ -78,7 +77,6 @@ export function casDeSeance(s: Seance, journal: readonly TrainingEvent[]): CasDe
       avant: progres(caseId, passe), apres: progres(caseId, [...passe, ...ici]),
       scores,
       autoEvalue: ici.some((e) => e.selbstbewertet === true),
-      horsPlan: ici.every((e) => e.source === 'libre'),
       oublis: derniere && n > 0 ? { simId: derniere.id.slice(3), n } : null,
       aRejouer: faibles[0] ?? null,
     };

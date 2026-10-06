@@ -62,7 +62,7 @@ export function HistoriquePage() {
         <p data-semaine="" className="mt-1 text-slate-600 dark:text-slate-300">
           {texteSemaine(semaine)}
           {tendance && (
-            <span className="ml-1.5 text-sm text-slate-500 dark:text-slate-400">
+            <span className="inline-block text-sm sm:ml-1.5 text-slate-500 dark:text-slate-400">
               <span aria-hidden className="tnum">{tendance.sens === 'hausse' ? '↑' : tendance.sens === 'baisse' ? '↓' : '='}</span> {tendance.texte}
             </span>
           )}
@@ -123,12 +123,11 @@ function LigneCas({ c, nom }: { c: CasDeSeance; nom: string }) {
           <CaseDial data={dialData(c.apres)} size={36} nom={`${nom}, après la séance`} action={false} />
         </div>
         <div className="min-w-0">
-          <Link to={`/cas/${c.caseId}`} className="block truncate text-sm font-medium hover:underline">{nom}</Link>
+          <Link to={`/cas/${c.caseId}`} className="block text-sm font-medium hover:underline">{nom}</Link>
           <div className="flex flex-wrap gap-x-2 text-xs text-slate-500 dark:text-slate-400">
             {scores.length === 0 && <span>non mesurée</span>}
             {scores.map((t) => <span key={t.key}>{t.label} <span className="font-mono tnum">{c.scores[t.key]}</span></span>)}
             {c.autoEvalue && <span title="Score déclaré par toi, pas mesuré par l'app">auto-évaluée</span>}
-            {c.horsPlan && <span>hors plan</span>}
           </div>
         </div>
       </div>
