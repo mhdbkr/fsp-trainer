@@ -12,6 +12,7 @@
 //   INV-E10 reprise après plus de 5 min : `unterbrochen`, hors conditions d'examen
 //   INV-E11 une session d'examen ne détourne jamais le runner d'entraînement
 //   INV-E12 `/simulation` mène à `/examen`, le menu dit « Examen », la partie est dans l'Historique
+//   INV-E13 un cas avec Aufklärung l'inclut (fin du créneau de l'Anamnese, sans aide), un cas sans ne l'inclut pas
 import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest';
 import { cleanup, configure, act, fireEvent, render, renderHook, screen, waitFor, within } from '@testing-library/react';
 import { MemoryRouter, Route, Routes, useLocation, useNavigate, type RouteObject } from 'react-router-dom';
@@ -52,7 +53,10 @@ const TRANSITION = EXAM_DAY_PLAN.BW.transitionSec;
 const T0 = new Date(2026, 9, 6, 9, 0).getTime();
 
 /** Trois cas COMPLETS (le Bogen lit la fiche patient) : le monde de l'Examen. */
-const VOLLE = (() => { const ids = new Set(CORPUS.slice(0, 3).map((c) => c.id)); return seedCases().filter((c) => ids.has(c.id)); })();
+/** Le dernier n'a pas d'Aufklärung (`probableAufklaerungIds` vide) : INV-E13. */
+const SANS_AUFKLAERUNG = 'case-pneumonie';
+const VOLLE = (() => { const ids = new Set([...CORPUS.slice(0, 3).map((c) => c.id), SANS_AUFKLAERUNG]); return seedCases().filter((c) => ids.has(c.id)); })();
+const AUFK = EXAM_DAY_PLAN.BW.aufklaerung.targetSec;
 const fall = () => VOLLE[0];
 
 let avance: (ms: number) => number;
@@ -176,8 +180,10 @@ describe('INV-E4 — le cas est caché avant et pendant', () => {
     const tire = (await aktiv())!.caseId;
     const leCas = VOLLE.find((x) => x.id === tire)!;
     for (const s of secretsDe(leCas)) { expect(html(), `pendant : « ${s} »`).not.toContain(s); expect(ou).not.toContain(s); }
-    // Le candidat sort : la barre « Reprendre » le dit sans le nommer, et ramène à /examen.
+    // Le candidat sort : la barre « Reprendre » le dit sans le nommer, et ramène à /examen. Sa source (le miroir de
+    // session, aussi en sessionStorage) ne porte pas non plus le nom.
     act(() => aller('/'));
+    expect(JSON.stringify(useSimSession.getState().snapshot)).not.toContain(leCas.name);
     const barre = await screen.findByRole('button', { name: /Reprendre/ });
     for (const s of secretsDe(leCas)) expect(html(), `barre : « ${s} »`).not.toContain(s);
     fireEvent.click(barre);
@@ -199,7 +205,7 @@ describe('INV-E5 — ni saut ni retour, A → D → F', () => {
     const r = rng(42);
     const actions = (l: Lauf): LaufAktion[] => [
       { typ: 'terminerPartie', ergebnis }, { typ: 'partieSuivante' }, { typ: 'partieSuivante', teil: r.pick(TEILE) },
-      { typ: 'springeZu', teil: r.pick(TEILE) }, { typ: 'zurueckZurPartie' }, { typ: 'aufklaerungOeffnen', checkliste: [] },
+      { typ: 'springeZu', teil: r.pick(TEILE) }, { typ: 'zurueckZurPartie' },
       { typ: 'versChecklist' }, ...(l.zustand === 'checkliste' ? [{ typ: 'zurueckZumBilanz' } as LaufAktion] : []),
     ];
     for (let k = 0; k < 500; k++) {
@@ -207,10 +213,11 @@ describe('INV-E5 — ni saut ni retour, A → D → F', () => {
       for (let i = 0; i < 12; i++) {
         const a = r.pick(actions(l));
         const n = transition(l, a);
-        if (a.typ === 'springeZu' || a.typ === 'zurueckZurPartie' || a.typ === 'aufklaerungOeffnen') expect(n, a.typ).toBe(l);
+        if (a.typ === 'springeZu' || a.typ === 'zurueckZurPartie') expect(n, a.typ).toBe(l);
         if (a.typ === 'partieSuivante' && a.teil && a.teil !== naechsterTeil(l)) expect(n, `partieSuivante(${a.teil})`).toBe(l);
         l = n;
-        expect(TEILE.slice(0, l.teileGespielt.length), 'ordre A → D → F').toEqual(l.teileGespielt);
+        const joues = l.teileGespielt.filter((t) => t !== 'aufklaerung');
+        expect(TEILE.slice(0, joues.length), 'ordre A → D → F').toEqual(joues);
       }
     }
   });
@@ -226,9 +233,11 @@ describe('INV-E6 — fin automatique, durée plafonnée, onglet gelé', () => {
     await attendsPhase('dokumentation');
     await waitFor(async () => expect((await aktiv())?.examen?.teilBeginn.dokumentation).toBeDefined());
     const l = (await aktiv())!;
-    expect(l.teileGespielt).toEqual(['anamnese']);
-    expect(l.sekundenProTeil.anamnese).toBe(CIBLE);
-    expect(l.sekundenProTeil.anamnese!).toBeLessThanOrEqual(CIBLE);
+    expect(l.teileGespielt.filter((t) => t !== 'aufklaerung')).toEqual(['anamnese']);
+    // Le créneau de l'Anamnese (l'Aufklärung du cas comprise, INV-E13) est rendu en entier, jamais plus.
+    const k = l.examen!.aufklaerung ? AUFK : 0;
+    expect(l.sekundenProTeil.anamnese).toBe(CIBLE - k);
+    expect((l.sekundenProTeil.anamnese ?? 0) + (l.sekundenProTeil.aufklaerung ?? 0)).toBe(CIBLE);
     expect(l.examen!.teilBeginn.dokumentation).toBe(T0 + 25 * MIN);
   });
 });
@@ -256,7 +265,7 @@ describe('INV-E7 — aucune aide montée', () => {
       const zone = document.querySelector('[data-examen]')!;
       expect([...zone.querySelectorAll('button')].map((b) => b.textContent?.trim())).toEqual(['Abandonner']);
       expect(zone.querySelectorAll('a, input[type="checkbox"], [role="dialog"]').length).toBe(0);
-      expect(zone.textContent).not.toMatch(/Fachbegriffe|Aufklärung|Guide|Mode focus|QR|\bIA\b|Kommunikation/);
+      expect(zone.textContent).not.toMatch(/Fachbegriffe|Guide|Mode focus|QR|\bIA\b|Kommunikation|Ouvrir la trame|Risiken|Probable pour ce cas/);
     };
     verifie();
     await temps(CIBLE * 1000, 'transition');
@@ -415,6 +424,54 @@ describe('INV-E12 — `/simulation` mène à l’Examen, le menu le dit, l’His
 });
 
 // La tâche « examen à blanc » du plan lance l'Examen sur SON cas, sans tirage (décision 6).
+// ============================================================================ INV-E13 — l'Aufklärung du cas
+describe('INV-E13 — l’Aufklärung du cas fait partie de l’examen, et seulement elle', () => {
+  const tache = async (caseId: string) => {
+    const t = { id: `t-${caseId}`, date: '2026-10-06', kind: 'examen-blanc', label: 'x', caseId, teile: TEILE, estMin: 60, creeA: T0 } as unknown as TaskInstance;
+    await db.day_plans.put({ date: '2026-10-06', materializedAt: T0, mode: 'examen-blanc', seed: 's', targetMin: 60, tasks: [t] } as DayPlan);
+    rendre(`/examen?task=${t.id}`);
+    await demarre();
+  };
+  it('automate : sans acte, l’examen refuse l’Aufklärung ; avec, seulement depuis l’Anamnese, et revient à l’Anamnese', () => {
+    const sans = transition(erstelleLauf({ caseId: 'x', assistance: 'autonome', layer: 3, examen: true }), { typ: 'demarrer', checkliste: [] });
+    expect(transition(sans, { typ: 'aufklaerungOeffnen', checkliste: [] })).toBe(sans);
+    const avec = transition(erstelleLauf({ caseId: 'x', assistance: 'autonome', layer: 3, examen: { aufklaerung: 'auf-gastroskopie' } }), { typ: 'demarrer', checkliste: [] });
+    const k = transition(avec, { typ: 'aufklaerungOeffnen', checkliste: [] });
+    expect(k.aktuellerTeil).toBe('aufklaerung');
+    const ergebnis = { done: true, durationSec: 60, checklist: [], feeling: -1, contentPct: 0, officialPct: 0 };
+    const retour = transition(transition(k, { typ: 'terminerPartie', ergebnis }), { typ: 'partieSuivante' });
+    expect([retour.zustand, retour.aktuellerTeil]).toEqual(['laufend', 'anamnese']);
+    const enD = transition(transition(transition(retour, { typ: 'terminerPartie', ergebnis }), { typ: 'partieSuivante' }), { typ: 'aufklaerungOeffnen', checkliste: [] });
+    expect(enD.aktuellerTeil, 'pas d’Aufklärung hors de l’Anamnese').toBe('dokumentation');
+  });
+  it('un cas avec Aufklärung : elle occupe la fin du créneau de l’Anamnese, sans aide, et elle est écrite', async () => {
+    const avec = VOLLE.find((x) => x.probableAufklaerungIds.length)!;
+    await tache(avec.id);
+    expect((await aktiv())!.examen!.aufklaerung).toBe(avec.probableAufklaerungIds[0]);
+    await temps((CIBLE - AUFK) * 1000, 'aufklaerung');
+    const zone = document.querySelector('[data-examen]')!;
+    expect([...zone.querySelectorAll('button')].map((b) => b.textContent?.trim())).toEqual(['Abandonner']);
+    expect(zone.querySelectorAll('a, input[type="checkbox"]').length).toBe(0);
+    expect(zone.textContent).toMatch(/Klären Sie den Patienten/);
+    expect(zone.textContent).not.toMatch(/Ouvrir la trame|Risiken|Probable pour ce cas|Fachbegriffe/);
+    await temps(AUFK * 1000, 'transition');
+    await waitFor(async () => expect((await aktiv())?.teileGespielt).toEqual(['aufklaerung', 'anamnese']));
+    fireEvent.click(screen.getByRole('button', { name: 'Abandonner' }));
+    await waitFor(async () => expect(await db.simulations.count()).toBe(1));
+    const sim = (await db.simulations.toArray())[0];
+    expect(sim.parts.aufklaerung?.done).toBe(true);
+    expect(sim.reihenfolge).toEqual(['anamnese']);
+  });
+  it('un cas sans Aufklärung : l’Anamnese garde son créneau entier, aucune Aufklärung', async () => {
+    await tache(SANS_AUFKLAERUNG);
+    expect((await aktiv())!.examen!.aufklaerung).toBeUndefined();
+    await temps((CIBLE - AUFK) * 1000, 'anamnese');
+    await temps(AUFK * 1000, 'transition');
+    await waitFor(async () => expect((await aktiv())?.teileGespielt).toEqual(['anamnese']));
+    expect((await aktiv())!.sekundenProTeil.anamnese).toBe(CIBLE);
+  });
+});
+
 describe('Tâche « examen à blanc » du plan', () => {
   it('`/examen?task=` joue le cas de la tâche', async () => {
     const t = { id: 'tache-1', date: '2026-10-06', kind: 'examen-blanc', label: VOLLE[2].name, caseId: VOLLE[2].id, teile: TEILE, estMin: 60, creeA: T0 } as unknown as TaskInstance;
