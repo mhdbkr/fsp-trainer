@@ -381,9 +381,10 @@ const AKTUELL_VARIANTS: Record<LeitsymptomKategorie, AktuellVariant> = {
         ],
       },
       { text: 'Verlauf — Ist es dauernd da, oder kommt und geht es?', probe: 'akt-verlauf' },
-      { text: 'Auslöser — Ist Ihnen ein Auslöser aufgefallen — eine Verletzung, Sonne, ein neues Medikament, eine Ernährungsumstellung?', probe: 'akt-ausloeser' },
+      // Q8 : « Sonne » ne se demande pas pour un nodule, une adénopathie ou un saignement (mammakarzinom) ; les répliques des cas citent la blessure et l'infection (itp, lymphom, nhl, struma). La Fach dermato demande le soleil (fach-derma-ausloeser).
+      { text: 'Auslöser — Ist Ihnen ein Auslöser aufgefallen — eine Verletzung, ein Infekt, ein neues Medikament?', probe: 'akt-ausloeser' },
       { text: 'Einflussfaktoren — Gibt es etwas, das es bessert oder verschlimmert?', probe: 'akt-einfluss' },
-      FRUEHER('so eine Veränderung'),
+      FRUEHER('so etwas'),   // Q8 : « so eine Veränderung » ne se dit pas d'un nodule, d'une plaie ni d'un saignement ; le cas qui a le mot juste le pose (gib : Blutung, mammakarzinom : Knoten)
       BEGLEIT,
     ],
     tip: 'Un changement remarqué : quoi, depuis quand, comment ça évolue, est-ce que ça saigne — puis les signes B (poids, sueurs, fièvre) dans l’anamnèse végétative. Ne demande pas « où ça fait mal » si rien ne fait mal.',
