@@ -11,7 +11,8 @@
 // Sans Supabase : `vite` reçoit une URL factice. Le corpus est semé comme le contenu publié (comme historique390.mjs) ;
 // aucune MESURE ne lit un module importé.
 //   PLAYWRIGHT_CORE=<dossier de playwright-core> node scripts/e2e/examen390.mjs [--port 5294] [--captures]
-// `--captures` : docs/reports/s4-7-examen-{390,1280}.png et s4-7-teil-{390,1280}.png. Sortie : 0 si tout tient, 1 sinon.
+// `--captures` : docs/reports/s4-7-{examen,teil}-{390,1280}.png, puis à 390 px s4-7-{aufklaerung,transition,bewertung,fin}-390.png.
+// Sortie : 0 si tout tient, 1 sinon.
 // ============================================================================
 import { spawn } from 'node:child_process';
 import { setTimeout as sleep } from 'node:timers/promises';
@@ -113,7 +114,7 @@ try {
     await page.getByRole('button', { name: 'Démarrer l’examen' }).click();
     await phase(page, 'anamnese');
     m = await mesure(page);
-    if (m.reste !== 1200 && m.reste !== 900) ko(`début : reste ${m.reste} s`);
+    if (m.reste !== 1200) ko(`début : la minuterie affiche ${m.reste} s pour le créneau entier (1200)`); else ok('Teil 1 : 20:00, le créneau entier');
     if ((await fuite(page, cas)).length) ko(`pendant : le DOM ou l’URL nomment le cas (${(await fuite(page, cas)).join(', ')})`); else ok(`pendant : ni nom, ni id, ni spécialité (${page.url().split('#')[1]})`);
     if (m.debord > 0 || m.horsEcran) ko(`${largeur} px, Teil en cours : débordement`); else ok('Teil en cours tient dans la largeur');
     if (m.petites.length) ko(`${largeur} px, Teil en cours : cibles < 44 px : ${m.petites.join(' | ')}`);
@@ -121,19 +122,25 @@ try {
     if (largeur === 1280) { await contexte.close(); continue; }
 
     // 3 — examen complet, accéléré.
-    const avecAufk = m.reste === 900;
-    if (avecAufk) {
-      await avance(page, 15 * 60_000); await phase(page, 'aufklaerung');
+    const capture = (nom) => (CAPTURES ? page.screenshot({ path: `${APP}docs/reports/s4-7-${nom}-390.png`, fullPage: false }) : null);
+    await avance(page, 15 * 60_000);
+    if ((await mesure(page)).phase === 'aufklaerung') {
       const t = await page.textContent('[data-examen]');
-      if (!/Klären Sie den Patienten/.test(t) || /Ouvrir la trame|Risiken/.test(t)) ko('Aufklärung : demande du jury absente, ou une aide est montrée'); else ok('Aufklärung du cas, à la fin du créneau, sans aide');
-      await avance(page, 5 * 60_000);
-    } else await avance(page, 20 * 60_000);
+      if (!/Klären Sie (die Patientin|den Patienten) bitte über (die|den|das) /.test(t) || /Aufklärung zur|Ouvrir la trame|Risiken/.test(t)) ko(`Aufklärung : demande du jury mal formée, ou une aide est montrée`); else ok('Aufklärung du cas à 05:00 du créneau, demande résolue, sans aide');
+      if ((await mesure(page)).reste !== 300) ko('Aufklärung : la minuterie ne montre pas le créneau (05:00)');
+      await capture('aufklaerung');
+    } else ok('cas sans Aufklärung : l’Anamnese continue');
+    await avance(page, 5 * 60_000);
     await phase(page, 'transition'); ok('transition après l’Anamnese');
+    await capture('transition');
     await avance(page, 61_000); await phase(page, 'dokumentation');
     await page.fill('textarea[data-arztbrief]', 'Sehr geehrte Frau Kollegin,');
     await avance(page, 20 * 60_000); await phase(page, 'transition');
     await avance(page, 61_000); await phase(page, 'fallvorstellung');
     await avance(page, 20 * 60_000); await phase(page, 'bewertung'); ok('Fallvorstellung finie seule : auto-évaluation');
+    m = await mesure(page);
+    if (m.debord > 0 || m.horsEcran) ko(`auto-évaluation à ${largeur} px : débordement (${m.debord} px, ${m.horsEcran} élément(s))`); else ok('auto-évaluation tient dans la largeur');
+    await capture('bewertung');
     const enregistrer = page.getByRole('button', { name: 'Enregistrer l’examen' });
     if (!(await enregistrer.isDisabled())) ko('« Enregistrer » permis sans grilles');
     const noter = async () => { for (const k of ['aussprache', 'wortschatz', 'grammatik', 'redefluss', 'kommunikation']) { const r = page.locator(`#langue-${k}`); if (await r.count()) await r.fill('4'); } };
@@ -145,7 +152,9 @@ try {
     await page.waitForSelector('[data-examen-conditions]', { timeout: 20_000 });
     const res = await page.evaluate(() => ({ cond: document.querySelector('[data-examen-conditions]').getAttribute('data-examen-conditions'), hash: location.hash, texte: document.body.textContent }));
     if (res.cond !== '') ko(`résultat : conditions manquantes « ${res.cond} »`); else ok('résultat : conditions d’examen remplies');
-    if (!res.texte.includes(cas.name)) ko('résultat : le cas n’est pas révélé'); else ok(`résultat : le cas est révélé (${res.hash})`);
+    if (!res.texte.includes(`Le cas : ${cas.name}`)) ko('résultat : le cas n’est pas révélé'); else ok(`résultat : le cas est révélé (${res.hash})`);
+    await page.evaluate(() => document.querySelector('main')?.scrollTo(0, 0));
+    await capture('fin');
     await contexte.close();
   }
 
