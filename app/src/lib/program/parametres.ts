@@ -47,6 +47,11 @@ export const SESSION_PAS_MIN = 5;
 export const SESSION_MIN_MIN = 15;
 export const SESSION_MAX_MIN = 360;
 
+// --- S4-5 « Jusqu'à l'examen » : la projection sur le rythme réel (proposition validée, § 4 · Programme) -------------
+/** « À ton rythme des deux dernières semaines » : la fenêtre du rythme, en jours calendaires finissant hier. Proposé
+ *  au tableau §13 du contrat (S4-5). Sous `RYTHME_MIN_JOURS` jours ouvrés dans la fenêtre, rien n'est projeté. */
+export const PROJECTION_FENETRE_JOURS = 14;
+
 // --- simulation-run.md §10.7 : l'annonce unique des changements rétroactifs ---
 // Chaque sujet a sa garde : l'annonce ne parle d'un changement qu'une fois LIVRÉ.
 // `teile` est livré par S4-1. `mode` passe à `true` avec S4-2 en production,

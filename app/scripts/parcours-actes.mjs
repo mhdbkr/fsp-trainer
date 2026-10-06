@@ -6,7 +6,7 @@
 // validation, le lanceur IA). `c` = le contexte posé par parcours-candidat.mjs.
 // ============================================================================
 import { setTimeout as sleep } from 'node:timers/promises';
-import { barre, hero, idb, meta, rows, texte, until } from './parcours-lib.mjs';
+import { barre, hero, idb, meta, ouvrirLigne, rows, texte, until } from './parcours-lib.mjs';
 
 const ROW = 'div.rounded-xl.border.transition-colors';
 const ORDRE = { vorbereitung: 0, laufend: 1, bilanz: 2, checkliste: 3, arztbrief: 4, gespeichert: 5 };
@@ -59,7 +59,7 @@ export async function drill(c, { cartes = 4, depuis = 'plan' } = {}) {
     await until(c.page, () => /min prévues/.test(document.body.innerText), 'plan');
     const i = (await rows(c.page)).findIndex((r) => r.label === 'Fachbegriffe' && !r.fait);
     if (i < 0) { c.rapport.fait('Pas de tâche Fachbegriffe à faire aujourd\'hui.'); return false; }
-    await c.page.locator(ROW).nth(i).locator('a.btn-primary').click();
+    await ouvrirLigne(c.page, ROW, i);
   } else await c.aller('/fachbegriffe/drill');
   await until(c.page, () => /Commencer|Rien à réviser/.test(document.body.innerText), 'écran du drill');
   if (!(await present(c.page, /Commencer/))) { c.rapport.fait('Le drill n\'a rien à proposer.'); return false; }
@@ -146,7 +146,7 @@ export async function jouerPartie(c, i, o = {}) {
     await c.aller(`/simulation/${cas.id}/pre`);
   } else {
     tache = planAvant?.tasks.find((t) => t.label === ligne.label && t.doneAt === undefined) ?? null;
-    await c.page.locator(ROW).nth(i).locator('a.btn-primary').click();
+    await ouvrirLigne(c.page, ROW, i);
   }
   // [S4-3] pré-simulation : un seul bouton « Démarrer » (simulation-run.md §10.1).
   await until(c.page, () => /Échauffement/.test(document.body.innerText) && /Démarrer/.test(document.body.innerText), 'pré-simulation');

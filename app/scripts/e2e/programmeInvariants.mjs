@@ -177,11 +177,11 @@ async function arranger() {
     // Aujourd'hui doit être un jour TRAVAILLÉ : le formulaire coche le dimanche
     // en jour off par défaut, et un jour off a un plan vide (buildTasks) — la
     // preuve passait en semaine et tombait à 0/6 chaque dimanche. On décoche le
-    // jour courant s'il est off (seul indicateur rendu : la classe du bouton).
+    // jour courant s'il est off (S4-5 : l'état se lit dans `aria-pressed`, plus dans la classe du bouton).
     probe(`
-      const jour = ['Di', 'Lu', 'Ma', 'Me', 'Je', 'Ve', 'Sa'][new Date().getDay()];
-      const b = bouton((t) => t === jour);
-      if (b && b.className.includes('bg-slate-300')) b.click();
+      const jour = ['dimanche', 'lundi', 'mardi', 'mercredi', 'jeudi', 'vendredi', 'samedi'][new Date().getDay()];
+      const b = document.querySelector('[role="group"][aria-label="Jours off"] button[aria-label="' + jour + '"]');
+      if (b && b.getAttribute('aria-pressed') === 'true') b.click();
       await attendre(() => false, 200);
       bouton((t) => t === 'Générer mon programme').click();
       return await attendre(() => !txt().includes('Aucun programme encore'));
@@ -386,16 +386,20 @@ const P3b = preuve('P3b', "une session réussie sur un seul Teil ne fait régres
   }
   exige(!carte.dial.includes(`${NOM[tache.teil]} : pas encore travaillé`), `le cadran ignore le Teil joué : ${carte.dial}`);
 
-  // Et le champ de couverture n'accuse pas les Teile jamais travaillés.
+  // Et la carte de couverture n'accuse pas les Teile jamais travaillés. S4-5 : le champ spécialités × Teile est remplacé
+  // par des cadrans ; la spécialité touchée s'agrandit, et le cadran du cas dit chaque Teil (même exigence qu'en /cas).
   goto('/programme');
   const autres = ['anamnese', 'dokumentation', 'fallvorstellung'].filter((t) => t !== tache.teil);
-  const cellules = await until(`
-    const t = [...document.querySelectorAll('button[title]')].filter((b) => b.title.includes('pas encore travaillé'));
-    return t.length ? t.map((b) => b.title) : null;
-  `, 'champ de couverture');
-  const cible = cellules.filter((t) => t.startsWith(`${tache.specialty} ×`));
-  exige(cible.length >= autres.length,
-    `champ de couverture : ${cible.length} cellule(s) « pas encore travaillé » pour ${tache.specialty}, ${autres.length} attendues`);
+  const cadran = await until(`
+    const b = document.querySelector('button[data-specialite=' + JSON.stringify(${JSON.stringify(tache.specialty)}) + ']');
+    if (!b) { [...document.querySelectorAll('button')].find((x) => /^Voir les \\d+ autres spécialités$/.test(x.textContent.trim()))?.click(); return null; }
+    if (b.getAttribute('aria-expanded') !== 'true') { b.click(); return null; }
+    const d = [...document.querySelectorAll('button[aria-haspopup="dialog"]')].map((x) => x.getAttribute('aria-label') ?? '')
+      .find((l) => l.startsWith(${JSON.stringify(`${tache.label} : `)}));
+    return d ?? null;
+  `, 'carte de couverture : le cadran du cas');
+  for (const t of autres) exige(cadran.includes(`${NOM[t]} : pas encore travaillé`), `carte de couverture : le cadran ne dit pas « ${NOM[t]} : pas encore travaillé » : ${cadran}`);
+  exige(!cadran.includes(`${NOM[tache.teil]} : pas encore travaillé`), `carte de couverture : le cadran ignore le Teil joué : ${cadran}`);
   return `${tache.caseId} : ${tache.teil}=${cp.teile[tache.teil].status}, ${autres.map((t) => `${t}=${cp.teile[t].status}`).join(', ')} ; cadran « ${carte.dial} » ; overall=${cp.overall}`;
 });
 

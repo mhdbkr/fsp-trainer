@@ -22,7 +22,7 @@ const dureeSession = (h: number): string => {
 // ============================================================================
 
 const SPECIALTIES: Specialty[] = ['Kardiologie', 'Pneumologie', 'Gastroenterologie', 'Neurologie', 'Orthopädie', 'Nephrologie', 'Endokrinologie', 'Psychiatrie', 'Infektiologie'];
-const WEEKDAYS = [{ i: 1, l: 'Lu' }, { i: 2, l: 'Ma' }, { i: 3, l: 'Me' }, { i: 4, l: 'Je' }, { i: 5, l: 'Ve' }, { i: 6, l: 'Sa' }, { i: 0, l: 'Di' }];
+const WEEKDAYS = [{ i: 1, l: 'Lu', n: 'lundi' }, { i: 2, l: 'Ma', n: 'mardi' }, { i: 3, l: 'Me', n: 'mercredi' }, { i: 4, l: 'Je', n: 'jeudi' }, { i: 5, l: 'Ve', n: 'vendredi' }, { i: 6, l: 'Sa', n: 'samedi' }, { i: 0, l: 'Di', n: 'dimanche' }];
 
 const INTENSITIES: { v: Intensity; l: string; d: string; icon: string }[] = [
   { v: 'leicht', l: 'Léger', d: 'rythme doux', icon: 'leaf' },
@@ -134,9 +134,9 @@ export function ProgramSetup({ onDone, onCancel, initial }: { onDone: () => void
 
           {/* Jours off */}
           <Field label="Jours off">
-            <div className="flex flex-wrap gap-1">
+            <div role="group" aria-label="Jours off" className="flex flex-wrap gap-1">
               {WEEKDAYS.map((d) => (
-                <button key={d.i} onClick={() => toggleOff(d.i)}
+                <button key={d.i} type="button" onClick={() => toggleOff(d.i)} aria-label={d.n} aria-pressed={offDays.includes(d.i)}
                   className={`h-8 w-9 rounded-lg text-xs font-medium transition-colors ${offDays.includes(d.i) ? 'bg-slate-300 text-slate-600 dark:bg-slate-700' : 'bg-brand-100 text-brand-700 dark:bg-brand-900/40 dark:text-brand-300'}`}>
                   {d.l}
                 </button>
