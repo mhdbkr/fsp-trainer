@@ -36566,7 +36566,7 @@ export function seedCases(): Case[] {
         frageAntworten: [
           {
             frage: 'War er in den letzten Monaten schon vergesslich?',
-            antwort: '(Die Tochter: So etwas hatte er noch nie, auch nicht nach der Gallenblasenoperation damals. Aber ehrlich gesagt: Seit etwa einem Jahr ist er vergesslicher, sucht Wörter und verlegt Dinge. Das kam aber ganz langsam, und er war dabei immer klar — das jetzt ist etwas völlig anderes. Abgeklärt wurde das nie.)',
+            antwort: '(Die Tochter: Ja, seit etwa einem Jahr ist er vergesslicher, sucht Wörter und verlegt Dinge. Das kam aber ganz langsam, und er war dabei immer klar — das jetzt ist etwas völlig anderes. Abgeklärt wurde das nie.)',
             kapitel: 'vorerkrankungen',
           },
           {
@@ -61717,7 +61717,7 @@ export function seedCases(): Case[] {
         frageAntworten: [
           {
             frage: 'Hatten Sie solche Beschwerden schon einmal, wenn die Tabletten ausgegangen sind?',
-            antwort: 'So heftig noch nie. Aber zweimal, als die Tabletten am Wochenende ausgegangen waren, hatte ich das Gleiche in leichterer Form — Schwitzen, Unruhe, Durchfall. Nach der ersten Tablette war es weg. Da habe ich gemerkt, dass das von den Tabletten kommt. (leiser) Ich habe es nur nicht wahrhaben wollen.',
+            antwort: 'Zweimal, als die Tabletten am Wochenende ausgegangen waren, hatte ich das Gleiche in leichterer Form — Schwitzen, Unruhe, Durchfall. Nach der ersten Tablette war es weg.',
             kapitel: 'medikamente',
           },
           {
