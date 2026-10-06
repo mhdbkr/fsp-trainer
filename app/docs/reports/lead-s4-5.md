@@ -6,6 +6,87 @@ Aucun serveur Supabase n'a été lancé, rien n'a été déployé.
 
 Sources : la proposition validée (`docs/superpowers/specs/2026-10-04-cas-entier-cadran.html`, « 4 · Programme »), ADR-0021, ADR-0022, `training-journal.md` §12.6, §12.7, §12.9, §13.5 et §13.6, et `DIRECTION-STYLE.md`.
 
+## 0. Fixeur — revue `direction-keeper` de `2d85868d` (prime sur les §1 à §7 ci-dessous)
+
+Corrections une par une, décisions de `main`. Commits : `bd95f860` (bloquant), `cb6c8f97` (majeurs et mineurs), `fb9f2b60`… voir `git log`. Le dernier est le garde-fou navigateur.
+
+### Bloquant : « 776 protocoles » était faux — corrigé
+- **Cause** : 776 était la somme des `Case.frequency` des 130 cas. Or plusieurs cas partagent une pathologie : Lumbaler et zervikaler Bandscheibenvorfall portent tous deux les 14 protocoles de « Bandscheibenvorfall (HWS/LWS) ». Par ailleurs, `Case.frequency` ne suit pas toujours la source (pAVK 20 contre 18, Gicht 22 contre 14, TVT 25 contre 8).
+- **Correctif dans le code** :
+  - `app/src/data/frequencesProtocoles.ts` est une copie de `apps/site/src/data/frequencies.json` : `n` = 580, les `n` par ville (Freiburg 91, Karlsruhe 169, Reutlingen 151, Stuttgart 182) et les 81 pathologies ;
+  - le même fichier contient `CAS_PATHOLOGIE`, qui relie **82 cas** à leur pathologie source. **Je l'ai relue à la main** ; la source ne compte pas les 48 autres cas, qui sont hors calcul. Cas partagés : Bandscheibenvorfall (2 cas), Diabetes mellitus (2), Schilddrüsenerkrankung (Hyper-, Hypothyreose, Struma), CED (Crohn, Colitis), malignes Lymphom (2) ;
+  - `frequencesProtocoles.test.ts` vérifie que la copie ne diverge pas de la source, et que chaque cas pointe une pathologie existante.
+- `couverturePonderee` :
+  - `base` = `n` de la source, ou `n` de la ville si elle est ventilée ;
+  - une pathologie pèse **une fois**, avec la couverture **moyenne** de ses cas. C'est mon choix (voir la question 2 de la sous-section « Hypothèses du fixeur ») ;
+  - sans aucune pathologie pesée, `pct` vaut `null`.
+- **Contrat** : §12.7 (cinq tailles), §12.9 (textes), §13.6 (formule, base, source copiée) et INV-66 réécrits, plus `PROJECTION_FENETRE_JOURS` ajouté au tableau §13.
+- **Tests** :
+  - INV-66 réécrit : base = `n` de la ville ; pathologie partagée comptée une fois ; sur la table réelle, `base ≤ 580` et `base` = `n` de la ville ; les deux Bandscheibenvorfall donnent `round(100 × 14 / 580)` et non le double ;
+  - EXAM_CLAIM et la propriété `0 ≤ pct ≤ 100` restent verts ;
+  - mutations : INV-66a (`n` de toute la source pour une ville), INV-66b (portée muette), **INV-66c** (pathologie additionnée deux fois) et **INV-66d** (base = somme des fréquences), toutes tuées.
+- **Affiché ailleurs en prod ?** Non. `couverturePonderee` n'était affichée par personne avant S4-5 : S4-1 n'en faisait que la mesure. Le cadran (S4-4) et l'accueil ne la lisent pas. Le seul chiffre de fréquence en prod est le `FreqBadge` des cartes de cas (« N apparitions dans les protocoles »), qui lit `Case.frequency` cas par cas, sans base. Il n'additionne rien, mais il montre `Case.frequency`, qui diverge de la source pour certains cas. **Non touché**, c'est du contenu : à signaler au pôle Contenu.
+
+### Majeurs
+1. **Carte** :
+   - l'encart est **au-dessus** de la carte ;
+   - seules les **6** spécialités les plus lourdes s'affichent (`VISIBLES`), puis « Voir les N autres spécialités » (bascule « Voir moins ») ;
+   - les points sont des `CaseDial` **24 px**, la nouvelle taille de `CaseDialSize`, avec son test ;
+   - **garde-fou** : `scripts/e2e/carteCouverture390.mjs`, une mesure dans le DOM sur les 130 cas réels, sans Supabase. Il sort à 0 avec 779 px pour un écran de 844 à 390 et 375 px, sans débord. Il sort à 1 sous la mutation `VISIBLES = 99` (1447 px) ;
+   - pour tenir à 375 px (852 px avant), la ligne de spécialité passe à `min-h-9` sous `sm` (36 px, la rangée de points sous elle reste cliquable) et les points sont espacés de 3 px ;
+   - test RTL structurel en plus : 6 spécialités, points de 24 px, aucun cadran ouvert ni repère quand la carte est fermée.
+2. **Une seule action « lancer »** dans Aujourd'hui :
+   - les lignes gardent « Fait » et perdent « Lancer » (`TaskList lancer={false}`) ;
+   - le titre ouvre la tâche (`a[data-cta]`) ;
+   - **la première tâche n'a pas de lien de titre**, parce que « Commencer par … » y mène déjà ;
+   - test RTL : jamais deux liens vers la même adresse, un seul `a.btn-primary` ;
+   - l'accueil est inchangé (`lancer` vaut `true` par défaut).
+3. **L'encart ne propose plus de jouer.** Le nom de la spécialité est un bouton qui l'ouvre dans la carte, en dévoilant la spécialité si elle est au-delà des 6. **`cas.demande` (« Ajouter demain ») : proposition pour Mehdi, non codée.** Ce serait un événement synchronisé (`subject_id` = jour visé) que `buildTasks(D)` lirait comme une tâche demandée, avec sa migration serveur.
+4. **« Jusqu'à l'examen » n'a plus qu'une phrase**, la projection. La phrase en pourcentage est retirée, et n'est déplacée nulle part. Sans projection, la section n'apparaît pas.
+5. **Texte de l'encart**, aligné sur le contrat §12.9 :
+   - « Psychiatrie : son seul cas n'est pas encore travaillé. « Depression » est tombé dans 30 des 580 protocoles relevés, tous centres. » ;
+   - « Gastroenterologie : 11 des 17 cas ne sont pas encore travaillés. « Ulcus / Gastritis » est tombé dans 16 des 580 protocoles relevés, tous centres. » (capturé) ;
+   - « Orthopädie : aucun des 11 cas n'est encore travaillé. » et « 1 des 9 cas n'est pas encore travaillé. » ;
+   - avec une ville : « … dans 11 des 182 protocoles relevés à Stuttgart. » (le 96 de l'exemple n'est pas le `n` de Stuttgart).
+6. **Pied d'Aujourd'hui** : « Ce plan est figé… » est supprimé. Il ne reste que « Replanifié à 14:02. », après une replanification (test).
+7. **La semaine montre le travail hors plan** : un point plein par cas joué ce jour-là hors du plan, une seule fois par cas, et l'étiquette dit « 1 cas joué hors plan ». Un jour off où l'on a joué n'est plus « off ». Oracle, test RTL et mutation `S45-semaine-hors-plan`.
+
+### Mineurs
+- Semaine : `<span className="sr-only">` à la place de l'`aria-label` du `<li>`.
+- `useUi.specialiteOuverte` retient la dernière spécialité ouverte. Elle est persistée dans `localStorage` (`fsp-programme-specialite`), comme `fsp-center`, et une spécialité retenue au-delà des 6 est dévoilée.
+- En-tête : le `select` d'avancement porte `aria-label="Avancement"` (le libellé visible reste masqué sous `sm`).
+
+### Hypothèses du fixeur (à relire)
+1. **Le nom de la pathologie est cité entre guillemets** : « « Bandscheibenvorfall (HWS/LWS) » est tombé dans 14 des 580… ». Le texte de `main` écrit « Le Bandscheibenvorfall est tombé… ». La source ne donne ni article ni genre, et « Le Leberzirrhose » ou « La Depression est tombé » seraient faux. Les guillemets se lisent « le sujet » et gardent l'accord au masculin. Ajouter un article par pathologie à la table est possible si la direction le veut.
+2. **Pathologie partagée** : son poids compte une fois, multiplié par la couverture **moyenne** de ses cas. C'est une lecture conservatrice : jouer la LWS ne couvre pas la HWS. L'autre lecture serait la couverture maximale.
+3. **Ordre des 6 spécialités** : poids des pathologies **distinctes** de la spécialité, dans la ville si elle est ventilée.
+4. La phrase « 21 cas les plus fréquents » de la projection compte toujours `freq ≥ SEUIL_FREQUENT` sur `Case.frequency`, inchangé depuis S4-2. Elle ne cite ni base ni protocoles, mais elle hérite de l'écart entre `Case.frequency` et la source, qui revient au pôle Contenu.
+5. **Tests écrits après le code dans cette passe.** Leur mordant est prouvé par les mutations : 15 dans le harnais et 5 à la main sur le RTL (`VISIBLES = 99`, « Lancer » sur les lignes, second lien, points de 36 px, mémoire locale), toutes rouges.
+
+### Vérifications du fixeur (codes de sortie, sur `fb9f2b60` + le rapport)
+
+| Vérification | Résultat |
+|---|---|
+| `tsc -b --noEmit` | 0 |
+| `vitest run --dir src --maxWorkers=2` | 0, 183 fichiers, 1907 tests |
+| `npm run test:c6 -- --maxWorkers=2` | 0, 15 fichiers, 165 tests |
+| `npm run build` | 0 |
+| les 17 validateurs bloquants, `checkTermRegister --require-all`, `checkBudgetFloor origin/main` | tous à 0 |
+| `parcours-mutations.mjs` complet | 0, baseline vert, **148/148 tuées** |
+| `scripts/e2e/carteCouverture390.mjs` | 0 : 779 px pour un écran de 844, à 390 et 375 px ; 1 sous `VISIBLES = 99` |
+| `git merge-tree --write-tree origin/main HEAD` | 0, sans conflit, contre `origin/main` `98ea2e95` |
+
+Les sondes du candidat C6 (`parcours-lib.mjs`, `parcours-actes.mjs`) ouvrent une ligne :
+- par son titre (`a[data-cta]`) ;
+- ou, pour la première tâche, par « Commencer par … » (`a[data-commencer]`, qui porte aussi `data-cta`) ;
+- ou, sur l'accueil, par son bouton.
+
+`programmeInvariants.mjs` trouve la spécialité par `data-specialite`, après « Voir les N autres » si besoin. Ces trois scripts n'ont passé que `node --check` ici : **la passe navigateur de `main` les rejoue.**
+
+Captures refaites : `s4-5-programme-390.png` et `s4-5-programme-1280.png`. Le serveur `vite` et le navigateur sont arrêtés.
+
+---
+
 ## 1. Ce que fait la page, dans l'ordre
 
 | Bloc | Ce qui est rendu | Composants réutilisés |
