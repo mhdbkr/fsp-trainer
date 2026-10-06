@@ -1400,13 +1400,13 @@ export const FACHANAMNESEN: FachanamneseGuide[] = [
         ],
       },
       {
-        text: 'Erinnern Sie sich an alles vor und nach der Episode? Haben Sie sich dabei verletzt — Zungenbiss? Ging unwillkürlich Urin ab?',
+        text: 'Erinnern Sie sich an alles, was davor und danach war? Haben Sie sich dabei verletzt — Zungenbiss? Haben Sie dabei Urin verloren?',
         probe: 'fach-neuro-anfallzeichen',
         // K4 : parts découpées du texte — r1 / r2 ne retirent que ce qu'une autre question pose déjà.
         parts: [
-          { sucht: ['anfallszeichen'], text: 'Erinnern Sie sich an alles vor und nach der Episode?' },
+          { sucht: ['anfallszeichen'], text: 'Erinnern Sie sich an alles, was davor und danach war?' },
           { sucht: ['zungenbiss'], text: 'Haben Sie sich dabei verletzt — Zungenbiss?' },
-          { sucht: ['einnaessen'], text: 'Ging unwillkürlich Urin ab?' },
+          { sucht: ['einnaessen'], text: 'Haben Sie dabei Urin verloren?' },
         ],
       },
       {
