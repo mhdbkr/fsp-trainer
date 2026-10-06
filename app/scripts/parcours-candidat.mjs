@@ -190,6 +190,10 @@ async function parcours({ browser, base, supabaseUrl }) {
     await until(page, () => document.querySelector('[data-semaine]') !== null, 'historique');
     // S4-6 : un carnet de séances. Chaque exercice y porte son id (`data-te`, sur la ligne de son cas ou le compte de son
     // genre) : la page doit montrer EXACTEMENT les exercices du journal, chacun une fois.
+    // Les séances d'avant les deux dernières semaines sont repliées : on les déplie avant de compter.
+    if (await page.evaluate(() => { const b = document.querySelector('[data-plus-anciennes]'); b?.click(); return !!b; })) {
+      await until(page, () => /Voir moins/.test(document.querySelector('[data-plus-anciennes]')?.textContent ?? ''), 'historique déplié');
+    }
     const rendus = await page.evaluate(() => [...document.querySelectorAll('[data-te]')].flatMap((n) => (n.getAttribute('data-te') ?? '').split(' ').filter(Boolean)));
     const seancesVues = await page.evaluate(() => document.querySelectorAll('main article').length);
     const events = await idb(page, 'training_events');
