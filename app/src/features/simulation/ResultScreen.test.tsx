@@ -1,5 +1,5 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
-import { render, screen } from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
 vi.mock('@/lib/sync/queue', () => ({ syncQueue: { push: vi.fn(async () => ({})) } }));
 import { ResultScreen } from './SimulationRunner';
@@ -82,6 +82,37 @@ describe('ResultScreen', () => {
       render(<MemoryRouter><ResultScreen sim={seul as never} c={{ id: 'c1', name: 'Ulcus', specialty: 'G' } as never} /></MemoryRouter>);
       expect(await screen.findByText(/cochée cette fois/)).toBeTruthy();
       expect(screen.getByText(/encore manquée \(4\/4\)/)).toBeTruthy();
+    });
+
+    it('S4-6 — `?voir=oublis` (lien « Revoir mes N oublis » de l’Historique) amène à la carte des oublis', async () => {
+      const ev = (i: number, caseId: string, manquees: string[]): TrainingEvent => ({
+        id: `te-s${i}`, at: 1_000 * i, kind: 'simulation', caseId, teile: ['anamnese'], source: 'libre', spentMin: 20,
+        laufId: `s${i}`, scores: { anamnese: 70 }, manques: { anamnese: manquees },
+      } as TrainingEvent);
+      await db.training_events.bulkPut([
+        ev(1, 'a', ['anam-allergien', 'anam-noxen']), ev(2, 'b', ['anam-allergien', 'anam-noxen']), ev(3, 'a', ['anam-allergien', 'anam-noxen']),
+        ev(9, 'c1', ['anam-allergien', 'anam-noxen']),
+      ]);
+      const vu: Element[] = [];
+      const avant = Element.prototype.scrollIntoView;
+      Element.prototype.scrollIntoView = function (this: Element) { vu.push(this); };
+      try {
+        render(<MemoryRouter initialEntries={['/simulation/c1/run?sim=s9&voir=oublis']}><ResultScreen sim={seul as never} c={{ id: 'c1', name: 'Ulcus', specialty: 'G' } as never} /></MemoryRouter>);
+        await waitFor(() => expect(vu.map((e) => e.id)).toEqual(['oublis']));
+        // Le N du lien de l'Historique (2) est ce que la carte montre : deux « encore manquée ».
+        expect(document.getElementById('oublis')!.textContent!.match(/encore manquée/g)).toHaveLength(2);
+      } finally { Element.prototype.scrollIntoView = avant; }
+    });
+
+    it('sans `voir=oublis`, l’écran ne défile pas', async () => {
+      const vu: Element[] = [];
+      const avant = Element.prototype.scrollIntoView;
+      Element.prototype.scrollIntoView = function (this: Element) { vu.push(this); };
+      try {
+        render(<MemoryRouter><ResultScreen sim={seul as never} c={{ id: 'c1', name: 'Ulcus', specialty: 'G' } as never} /></MemoryRouter>);
+        await screen.findByRole('button', { name: /^Ulcus/ });
+        expect(vu).toEqual([]);
+      } finally { Element.prototype.scrollIntoView = avant; }
     });
   });
 });
