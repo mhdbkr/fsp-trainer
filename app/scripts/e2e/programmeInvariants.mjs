@@ -177,11 +177,11 @@ async function arranger() {
     // Aujourd'hui doit être un jour TRAVAILLÉ : le formulaire coche le dimanche
     // en jour off par défaut, et un jour off a un plan vide (buildTasks) — la
     // preuve passait en semaine et tombait à 0/6 chaque dimanche. On décoche le
-    // jour courant s'il est off (seul indicateur rendu : la classe du bouton).
+    // jour courant s'il est off (S4-5 : l'état se lit dans `aria-pressed`, plus dans la classe du bouton).
     probe(`
-      const jour = ['Di', 'Lu', 'Ma', 'Me', 'Je', 'Ve', 'Sa'][new Date().getDay()];
-      const b = bouton((t) => t === jour);
-      if (b && b.className.includes('bg-slate-300')) b.click();
+      const jour = ['dimanche', 'lundi', 'mardi', 'mercredi', 'jeudi', 'vendredi', 'samedi'][new Date().getDay()];
+      const b = document.querySelector('[role="group"][aria-label="Jours off"] button[aria-label="' + jour + '"]');
+      if (b && b.getAttribute('aria-pressed') === 'true') b.click();
       await attendre(() => false, 200);
       bouton((t) => t === 'Générer mon programme').click();
       return await attendre(() => !txt().includes('Aucun programme encore'));
