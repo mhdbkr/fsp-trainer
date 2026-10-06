@@ -4,6 +4,7 @@ import { useFachbegriffe, usePersonalTerms, useTermsInDecks } from '@/hooks/useD
 import { useUi } from '@/store/ui';
 import { useCaseId } from '@/features/fachbegriffe/CaseContext';
 import { lookupTerm } from '@/lib/dictionary';
+import { noterTermeCherche } from '@/lib/termesCherches';
 import { askBrief, canAskAi, honestAiError, noAiMessage } from '@/lib/onlineAi';
 import { cleanSelection, personalTermId, PT_LIMITS } from '@/lib/collections/personalTerms';
 import { usePendingDeletions } from '@/lib/collections/pendingDeletion';
@@ -138,6 +139,8 @@ export function SelectionExplainer() {
   const explain = async () => {
     if (!anchor) return;
     const term = anchor.text;
+    // S4-6 : demander le sens d'un mot est LE geste « terme cherché » (local, jamais synchronisé ; l'Historique le lit).
+    void noterTermeCherche(term).catch((e) => console.warn('[termes cherchés]', e));
     // 1) Glossaire local (correspondance exacte ou fléchie proche, jamais floue — FB2-M3).
     const h = lookupTerm(term, begriffe);
     if (h) {

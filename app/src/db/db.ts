@@ -2,7 +2,7 @@ import Dexie, { type Table } from 'dexie';
 import type {
   Case, Fachbegriff, Fachwissen, AufklaerungItem, Guide, Simulation, Meta,
   Deck, DeckTerm, Favorite, PersonalTerm,
-  TrainingEvent, DayPlan, CaseProgress,
+  TrainingEvent, DayPlan, CaseProgress, TermeCherche,
 } from './types';
 import type { ProgressEvent, OutboxRow } from '@/lib/sync/events';
 import { getActiveUserId } from '@/lib/auth/accounts';
@@ -50,6 +50,8 @@ export class FspDatabase extends Dexie {
   day_plans!: Table<DayPlan, string>;
   /** Progression par Teil — projection de `training_events`. */
   case_progress!: Table<CaseProgress, string>;
+  /** S4-6 — les mots cherchés. LOCAL : ni `progress_events`, ni outbox, ni serveur. */
+  termes_cherches!: Table<TermeCherche, number>;
 
   constructor(name: string = dbNameFor(DB_USER_ID)) {
     super(name);
@@ -90,6 +92,8 @@ export class FspDatabase extends Dexie {
     // une courbe qui « retombe » à la première vraie partie). Fausses données,
     // jamais synchronisées (migrateLocal les écartait) : on les supprime.
     this.version(6).stores({}).upgrade((tx) => tx.table('simulations').filter((s) => isDemoSimulation(s.id)).delete());
+    // v7 — S4-6 : une table LOCALE de plus, les mots cherchés (« Expliquer »). Aucune donnée existante ne bouge.
+    this.version(7).stores({ termes_cherches: '++id, at' });
   }
 }
 
@@ -123,5 +127,6 @@ export async function wipeDatabase() {
     db.decks.clear(), db.deck_terms.clear(), db.favorites.clear(),
     db.personal_terms.clear(),
     db.training_events.clear(), db.day_plans.clear(), db.case_progress.clear(),
+    db.termes_cherches.clear(),
   ]);
 }

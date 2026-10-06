@@ -24,7 +24,7 @@ import {
 import { saveSimulation } from '@/lib/simulationSave';
 import { weakCases, streakFromDays } from '@/lib/stats';
 import { programStats } from '@/lib/program';
-import { HistoriquePage } from '@/features/program/HistoriquePage';
+import { HistoriquePage } from '@/features/history/HistoriquePage';
 import { StatsPage } from '@/features/stats/StatsPage';
 import type { TrainingEvent, TrainingKind, SimTeil } from '@/db/types';
 import { forAll, rng, type Rng } from './helpers/prop';
@@ -166,23 +166,33 @@ describe('INV-5 / INV-6 — un exercice libre apparaît dans l’historique et d
     expect(programStats(randomConfig(rng(1)), { cases: CORPUS, trainingEvents: events, progress: new Map() }).workedDays).toBe(1);
   });
 
-  it('l’écran Historique RENDU montre chaque exercice libre, de tout genre, avec son total', async () => {
+  // S4-6 : l'Historique est un carnet de séances. Chaque exercice y est porté par un `data-te` (la ligne de son cas, ou
+  // le compte de son genre dans l'en-tête de la séance) : on exige l'ensemble EXACT des ids du journal, une fois chacun
+  // — plus fort que l'ancien compte de tuile. Le nom d'un cas se lit sur la ligne de chaque partie jouée.
+  it('l’écran Historique RENDU montre chaque exercice libre, de tout genre, une fois, avec son total', async () => {
     await forAll(8, async (r) => {
       await resetWorld();
       cleanup();
       const tick = startOn('2026-10-05');
       const n = r.int(2, 6);
       const noms: string[] = [];
+      let total = 0;
       for (let k = 0; k < n; k++) {
         tick(120_000);
         const kind = r.pick<TrainingKind>(['drill', 'fiche', 'aufklaerung', 'simulation']);
         const w = await ecrireLibre(r, kind);
-        if (w.caseId) noms.push(CORPUS.find((c) => c.id === w.caseId)!.name);
+        if (kind === 'simulation') noms.push(CORPUS.find((c) => c.id === w.caseId)!.name);
+        total += w.spentMin;
       }
+      const journal = (await db.training_events.toArray()).map((e) => e.id).sort();
+      expect(journal).toHaveLength(n);
       render(<MemoryRouter><HistoriquePage /></MemoryRouter>);
-      await waitFor(() => expect(screen.getByText('Exercices').nextElementSibling!.textContent).toBe(String(n)), { timeout: 5000 });
+      const rendus = () => [...document.querySelectorAll('[data-te]')].flatMap((x) => x.getAttribute('data-te')!.split(' ')).sort();
+      await waitFor(() => expect(rendus()).toEqual(journal), { timeout: 5000 });
       for (const nom of new Set(noms)) expect(screen.getAllByText(nom).length, `« ${nom} » absent de l'historique rendu`).toBeGreaterThanOrEqual(1);
-      expect(screen.getByText('Jours travaillés').nextElementSibling!.textContent).toBe('1');
+      // Exercices à 2 min d'écart : une seule séance, dont la durée est la somme mesurée.
+      expect(document.querySelectorAll('article')).toHaveLength(1);
+      if (total > 0) expect(document.querySelector('article')!.textContent).toContain(`${total} min`);
       cleanup();
     });
   }, 120_000);

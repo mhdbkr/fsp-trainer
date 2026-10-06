@@ -26,7 +26,7 @@ import { DrillPage } from '@/features/fachbegriffe/DrillPage';
 import { StatsPage } from '@/features/stats/StatsPage';
 import { PatientScreen } from '@/features/simulation/PatientScreen';
 import { ProgramPage } from '@/features/program/ProgramPage';
-import { HistoriquePage } from '@/features/program/HistoriquePage';
+import { HistoriquePage } from '@/features/history/HistoriquePage';
 import { bootJournal, watchDayPlan } from '@/lib/sync/boot';
 import { SignInPage } from '@/features/account/SignInPage';
 import { OnboardingPage } from '@/features/account/OnboardingPage';

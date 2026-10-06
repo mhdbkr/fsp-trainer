@@ -630,6 +630,9 @@ export function ResultScreen({ sim, c }: { sim: Simulation; c: Case }) {
   // §13.3, sortie « bilan » : ce que cette partie a fait des items manqués d'habitude. Rien n'est stocké.
   const events = useTrainingEvents();
   const erreurs = events ? bilanErreurs(events, sim.id) : [];
+  // S4-6 : « Revoir mes N oublis » (Historique) arrive avec `?voir=oublis` — l'écran s'ouvre sur cette carte.
+  const voirOublis = useSearchParams()[0].get('voir') === 'oublis' && erreurs.length > 0;
+  useEffect(() => { if (voirOublis) document.getElementById('oublis')?.scrollIntoView({ block: 'start' }); }, [voirOublis]);
   const avg = parts.length ? Math.round(parts.reduce((s, [, p]) => s + partScore(p), 0) / parts.length) : 0;
   const passed = sim.passed;
   // Décision direction (4 oct.) : sans langue notée, la réussite ne porte que sur le
@@ -664,7 +667,7 @@ export function ResultScreen({ sim, c }: { sim: Simulation; c: Case }) {
       </div>
 
       {erreurs.length > 0 && (
-        <div className="card p-5">
+        <div id="oublis" className="card scroll-mt-4 p-5">
           <div className="label mb-2 flex items-center gap-1.5"><Icon name="history" className="h-3.5 w-3.5" />Ce que tu oublies souvent</div>
           <ul className="space-y-1.5 text-sm">
             {erreurs.map((e) => (
