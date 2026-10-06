@@ -857,10 +857,10 @@ export function seedFachwissen(): Fachwissen[] {
           text: 'Zunächst diffuser, viszeraler periumbilikaler/epigastrischer Schmerz, der innerhalb von Stunden in den rechten Unterbauch wandert und dort lokalisiert und stärker wird (typischer Schmerzwechsel)',
         },
         {
-          text: 'Druckschmerz über dem McBurney-Punkt (Mitte zwischen Nabel und rechter Spina iliaca anterior superior) und Lanz-Punkt',
+          text: 'Lokaler Druckschmerz im rechten Unterbauch',
         },
         {
-          text: 'Loslassschmerz (Blumberg-Zeichen), Abwehrspannung, kontralateraler Loslassschmerz',
+          text: 'Peritoneale Reizung: Loslassschmerz, umschriebene Abwehrspannung',
         },
         {
           text: 'Appetitlosigkeit (Inappetenz), Übelkeit, ggf. einmaliges Erbrechen',
@@ -876,7 +876,7 @@ export function seedFachwissen(): Fachwissen[] {
           atypisch: true,
         },
         {
-          text: 'Pelvine/retroiliakale Lage: Schmerz tief im Becken, Dysurie, Durchfall, Schmerz bei rektaler Untersuchung (Douglas-Schmerz)',
+          text: 'Pelvine/retroiliakale Lage: Schmerz tief im Becken mit Dysurie oder Durchfall, kaum Bauchdeckenbefund',
           atypisch: true,
         },
         {
@@ -887,15 +887,11 @@ export function seedFachwissen(): Fachwissen[] {
           text: 'Kleinkinder und alte Patienten: oligosymptomatisch, rasche Perforation, hohes Übersehungsrisiko',
           atypisch: true,
         },
-        {
-          text: 'Plötzliche Schmerzlinderung gefolgt von diffusem Bauchschmerz und Zustandsverschlechterung: Warnsignal der Perforation!',
-          atypisch: true,
-        },
       ],
       klassifikation: [
         {
           name: 'Appendizitiszeichen (klinische Prüfzeichen)',
-          inhalt: 'McBurney-Punkt (Druckschmerz), Lanz-Punkt; Blumberg-Zeichen (kontralateraler Loslassschmerz); Rovsing-Zeichen (Schmerz rechts beim retrograden Ausstreichen des Kolons); Psoas-Zeichen (Schmerz bei Anheben/Streckung des rechten Beins gegen Widerstand – retrozäkale Lage); Obturator-Zeichen (Schmerz bei Innenrotation der gebeugten Hüfte – pelvine Lage); Douglas-Schmerz (Druckschmerz bei rektaler Untersuchung).',
+          inhalt: 'McBurney-Punkt (Druckschmerz am Übergang vom äußeren zum mittleren Drittel der Linie zwischen rechter Spina iliaca anterior superior und Nabel), Lanz-Punkt; Blumberg-Zeichen (kontralateraler Loslassschmerz); Rovsing-Zeichen (Schmerz rechts beim retrograden Ausstreichen des Kolons); Psoas-Zeichen (retrozäkale Lage); Obturator-Zeichen (Schmerz bei Innenrotation der gebeugten Hüfte – pelvine Lage); Douglas-Schmerz (Druckschmerz bei rektaler Untersuchung).',
         },
         {
           name: 'Alvarado-Score (MANTRELS)',
@@ -925,7 +921,7 @@ export function seedFachwissen(): Fachwissen[] {
         },
         {
           dd: 'Gynäkologische Ursachen (Adnexitis, Ovarialtorsion, Extrauteringravidität, rupturierte Ovarialzyste)',
-          unterscheidung: 'Bei Frauen im gebärfähigen Alter obligat; Zyklusanamnese, β-hCG, vaginale Sonographie, gynäkologisches Konsil.',
+          unterscheidung: 'Zyklusanamnese, vaginale Sonographie, gynäkologisches Konsil.',
         },
         {
           dd: 'Urolithiasis / Ureterkolik',
@@ -955,7 +951,7 @@ export function seedFachwissen(): Fachwissen[] {
             'Stationäre Aufnahme, strikte Nahrungs- und Flüssigkeitskarenz (Patient nüchtern lassen), intravenöse Flüssigkeitssubstitution mit balancierter Vollelektrolytlösung',
             'Ausreichende Analgesie, z. B. Metamizol 1 g als Kurzinfusion — die früher gelehrte Zurückhaltung mit Analgetika ist verlassen, sie verschleiert den Untersuchungsbefund nicht',
             'Perioperative kalkulierte Antibiotikaprophylaxe als Single Shot 30–60 Minuten vor Schnitt, z. B. Cefuroxim plus Metronidazol',
-            'Labor mit Blutbild, CRP, Gerinnung, Elektrolyten, Kreatinin und Schwangerschaftstest bei Frauen im gebärfähigen Alter; Blutgruppe, Aufklärung, Anästhesievorstellung',
+            'Präoperativ Gerinnung, Elektrolyte, Kreatinin, Blutgruppe; Aufklärung, Anästhesievorstellung',
             'Bei nicht eindeutigem Befund engmaschige klinische und sonographische Verlaufskontrolle über 6–12 Stunden mit wiederholter Untersuchung und Laborkontrolle statt vorschneller Entlassung',
             'Bei Peritonitis oder Sepsiszeichen: Kreislaufstabilisierung, sofortige therapeutische Antibiose und notfallmäßige Operation',
           ],
@@ -990,7 +986,7 @@ export function seedFachwissen(): Fachwissen[] {
             'Nur bei sonographisch oder computertomographisch gesicherter unkomplizierter Appendizitis ohne Appendikolith, Perforation oder Abszess erwägbar',
             'Weitere Indikation: relevante Operations- oder Narkosekontraindikation, Ablehnung der Operation durch den Patienten',
             'Schema: intravenöse Antibiose (z. B. Cephalosporin plus Metronidazol) mit oraler Fortführung über insgesamt etwa 7–10 Tage unter stationärer Beobachtung',
-            'Grenzen klar benennen: Rezidivrate von etwa 30–40 % innerhalb eines Jahres, Risiko der verzögerten Perforation, kein histologischer Malignitätsausschluss — die Appendektomie bleibt Standard',
+            'Grenzen klar benennen: bei etwa jedem Dritten wird innerhalb eines Jahres doch appendektomiert, Risiko der verzögerten Perforation, kein histologischer Malignitätsausschluss — die Appendektomie bleibt Standard',
           ],
           akut: false,
         },
@@ -998,25 +994,22 @@ export function seedFachwissen(): Fachwissen[] {
       prognose: 'Bei rechtzeitiger Operation sehr gut mit niedriger Letalität und rascher Genesung. Prognose verschlechtert sich deutlich bei Perforation und Peritonitis (höhere Morbidität, Abszess-, Ileus- und Sepsisrisiko). Verzögerte Diagnose bei Kindern, Schwangeren und alten Patienten ist der Hauptrisikofaktor für Komplikationen.',
       pruefungsfallen: [
         'Den typischen Schmerzwechsel aktiv erfragen: erst periumbilikal/diffus, dann Wanderung in den rechten Unterbauch – das ist der klassische Hinweis, den die Prüfer hören wollen.',
-        'Bei jeder Frau im gebärfähigen Alter an Extrauteringravidität und Adnexerkrankungen denken und β-hCG nennen (häufige Rückfrage: \'Und wenn es eine Frau wäre?\').',
-        'Normale Entzündungsparameter schließen eine Appendizitis nicht aus – bei lokalisierter Frühentzündung können Leukozyten und CRP noch normal sein.',
-        'Urinstatus nicht vergessen: dient dem Ausschluss von Harnwegsinfekt und Urolithiasis, nicht der Bestätigung der Appendizitis.',
+        'Die Rückfrage \'Und wenn es eine Frau wäre?\' kommt fast immer: gynäkologische Ursachen nennen.',
         'Appendizitiszeichen (McBurney, Blumberg, Rovsing, Psoas) und den McBurney-Punkt exakt lokalisieren können – wird regelmäßig gefragt.',
         'Bei der Aufklärung den laienverständlichen Begriff \'Blinddarmentzündung\' und \'Schlüsselloch-Operation\' verwenden.',
-        'Die plötzliche Schmerzlinderung als Perforationszeichen (nicht als Besserung!) erkennen und benennen.',
       ],
       askedInExam: [
         {
           frage: 'Welche Verdachtsdiagnose haben Sie und warum?',
-          antwort: 'Eine akute Appendizitis: wegen des zunächst periumbilikalen, dann in den rechten Unterbauch gewanderten Schmerzes mit Druckschmerz über dem McBurney-Punkt, Loslassschmerz, Appetitlosigkeit, Übelkeit und subfebriler Temperatur.',
+          antwort: 'Eine akute Appendizitis: Schmerzwanderung in den rechten Unterbauch, lokaler Druck- und Loslassschmerz, Appetitlosigkeit, Übelkeit, subfebrile Temperatur.',
         },
         {
           frage: 'Welche Differenzialdiagnosen kommen in Betracht – und was, wenn es eine Frau wäre?',
-          antwort: 'Divertikulitis, Urolithiasis, Gastroenteritis und Morbus Crohn. Bei einer Frau zusätzlich Adnexitis, Ovarialtorsion und vor allem eine Extrauteringravidität, die ich mit β-hCG und gynäkologischer Untersuchung ausschließe.',
+          antwort: 'Divertikulitis, Urolithiasis, Gastroenteritis und Morbus Crohn. Bei einer Frau zusätzlich Adnexitis, Ovarialtorsion und vor allem eine Extrauteringravidität.',
         },
         {
           frage: 'Wie gehen Sie vor, um Ihren Verdacht zu bestätigen?',
-          antwort: 'Körperliche Untersuchung mit Appendizitiszeichen und rektaler Untersuchung, Labor mit Blutbild und CRP, Urinstatus, bei Frauen β-hCG, anschließend eine Abdomen-Sonographie und bei unklarem Befund ein CT.',
+          antwort: 'Körperliche Untersuchung mit Appendizitiszeichen und rektaler Untersuchung, Labor mit Blutbild und CRP, Urinstatus, anschließend eine Abdomen-Sonographie und bei unklarem Befund ein CT.',
         },
         {
           frage: 'Welche Laborwerte möchten Sie anfordern, und welche Informationen liefert ein Blutbild?',
@@ -1032,7 +1025,7 @@ export function seedFachwissen(): Fachwissen[] {
         },
         {
           frage: 'Was können Sie in der Sonographie sehen?',
-          antwort: 'Eine aufgetriebene, nicht komprimierbare Appendix über 6 mm Durchmesser mit Kokardenphänomen, gegebenenfalls einen Kotstein, freie Flüssigkeit oder einen Abszess.',
+          antwort: 'Die entzündete Appendix selbst und Komplikationen wie einen Abszess; eine unauffällige Sonographie schließt die Appendizitis aber nicht aus.',
         },
         {
           frage: 'Welche Therapie schlagen Sie vor?',
@@ -1040,7 +1033,7 @@ export function seedFachwissen(): Fachwissen[] {
         },
         {
           frage: 'Welche Appendizitiszeichen kennen Sie, zum Beispiel das Psoas-Zeichen?',
-          antwort: 'McBurney- und Lanz-Punkt, Blumberg-Zeichen (kontralateraler Loslassschmerz), Rovsing-Zeichen und das Psoas-Zeichen: Schmerz im rechten Unterbauch beim Anheben oder Strecken des rechten Beins gegen Widerstand, typisch für eine retrozäkale Lage.',
+          antwort: 'Beim Psoas-Zeichen hebt der Patient das gestreckte rechte Bein gegen Widerstand an; Schmerz im rechten Unterbauch spricht für eine retrozäkal gelegene Appendix.',
         },
         {
           frage: 'Wie kann man Fieber messen und welcher Unterschied ist relevant?',
@@ -1051,7 +1044,7 @@ export function seedFachwissen(): Fachwissen[] {
           antwort: 'Durch die Bildgebung – Sonographie und gegebenenfalls CT –, die die entzündeten Darmwandabschnitte lokalisiert; die Divertikulitis betrifft meist das linksseitige Sigma.',
         },
       ],
-      merksatz: 'Wandernder Schmerz in den rechten Unterbauch mit McBurney- und Loslassschmerz = Appendizitis; bei Frauen immer β-hCG — plötzliche Schmerzlinderung ist das Perforationszeichen.',
+      merksatz: 'Wandernder Schmerz in den rechten Unterbauch mit lokalem Druck- und Loslassschmerz ist eine Appendizitis, bis das Gegenteil bewiesen ist.',
       linkedCaseIds: [
         'case-appendizitis',
       ],
