@@ -66,7 +66,8 @@ export const R2_EXEMPTES: ReadonlySet<string> = new Set(['pers-name']);
  *  jamais hors profil ; r2 s'applique normalement (le gagnant D4 reste posé, il porte le signe). L'idéation (`suizid`,
  *  `selbstverletzung_wunsch`) n'est jamais confondue avec l'acte (`selbstverletzung`) : trois signes distincts. */
 // K4 fixeur (décision de main, D-1) : + `todeswunsch`, le désir de mort passif — premier degré de l'interrogatoire gradué.
-export const RISIKO_SIGNES: ReadonlySet<Signe> = new Set<Signe>(['suizid', 'selbstverletzung', 'selbstverletzung_wunsch', 'todeswunsch']);
+// Q3 (revue K3) : + `suizidversuch`, la tentative antérieure (relance de fach-psych-suizid).
+export const RISIKO_SIGNES: ReadonlySet<Signe> = new Set<Signe>(['suizid', 'suizidversuch', 'selbstverletzung', 'selbstverletzung_wunsch', 'todeswunsch']);
 
 export interface CohereCtx {
   antworten?: Readonly<Record<string, unknown>>;          // r3 : `sansReponse` si la banque n'a pas de réplique

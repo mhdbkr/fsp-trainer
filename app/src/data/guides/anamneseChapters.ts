@@ -1,7 +1,7 @@
 import type { Case, CaseQuestionLue, LeitsymptomKategorie, PatientSheet, Specialty } from '@/db/types';
 import type { Phrase } from './phrases';
 import { PART_RELANCE_SEULE, partNonAutonome, phraseProbes, phraseText, splitDimension, type PhraseVariant } from './phrases';
-import { cqKapitel, cqText } from '@/lib/caseQuestions';
+import { cqFollowUps, cqKapitel, cqText } from '@/lib/caseQuestions';
 import { FACH_PROBES } from './anamneseProbes';
 import { cohere, compteursApres, profilEffectif, type CohereCtx, type CompteursApres, type Ecart } from './coherence';
 
@@ -51,7 +51,7 @@ const MOTIV: Phrase = {
 const FRUEHER = (was: string): Phrase => ({
   text: `Frühere Episoden — Hatten Sie ${was} schon einmal?`,
   probe: 'akt-frueher',
-  followUp: ['Falls ja: Waren Sie deswegen schon bei einem Arzt? Welche Diagnose wurde damals gestellt?'],
+  followUp: ['Falls ja: Waren Sie deswegen schon bei einem Arzt?', 'Falls ja: Welche Diagnose wurde damals gestellt?'],
 });
 const BEGLEIT: Phrase = { text: 'Begleitbeschwerden — Haben Sie außerdem noch andere Beschwerden bemerkt?', probe: 'akt-begleit' };
 
@@ -108,7 +108,7 @@ const AKTUELL_VARIANTS: Record<LeitsymptomKategorie, AktuellVariant> = {
       {
         text: 'Verlauf — Sind die Schmerzen dauerhaft da oder treten sie anfallsartig auf?',
         probe: 'akt-verlauf',
-        followUp: ['Falls anfallsartig: Wie lange dauert eine typische Episode? Wie oft treten die Episoden auf?'],
+        followUp: ['Falls anfallsartig: Wie lange dauert eine typische Episode?', 'Falls anfallsartig: Wie oft treten die Episoden auf?'],
       },
       { text: 'Auslöser — Gab es etwas Bestimmtes, das die Schmerzen ausgelöst hat? Was taten Sie, als sie begannen?', probe: 'akt-ausloeser' },
       {
@@ -122,7 +122,7 @@ const AKTUELL_VARIANTS: Record<LeitsymptomKategorie, AktuellVariant> = {
       {
         text: 'Frühere Episoden — Hatten Sie solche Beschwerden schon einmal?',
         probe: 'akt-frueher',
-        followUp: ['Falls ja: Waren Sie deswegen schon bei einem Arzt? Welche Diagnose wurde damals gestellt?'],
+        followUp: ['Falls ja: Waren Sie deswegen schon bei einem Arzt?', 'Falls ja: Welche Diagnose wurde damals gestellt?'],
       },
       { text: 'Begleitbeschwerden — Haben Sie außerdem noch andere Beschwerden bemerkt?', probe: 'akt-begleit' },
     ],
@@ -240,7 +240,7 @@ const AKTUELL_VARIANTS: Record<LeitsymptomKategorie, AktuellVariant> = {
         text: 'Sicherheit — Ich frage das jeden Patienten in Ihrer Situation: Hatten Sie Gedanken, dass das Leben nicht mehr lebenswert ist, oder daran, sich etwas anzutun?',
         probe: 'akt-psych-sicherheit',
         label: 'Avec tact',
-        followUp: ['Falls ja: Haben Sie konkrete Pläne? Gibt es jemanden, der Sie unterstützt?'],
+        followUp: ['Falls ja: Haben Sie konkrete Pläne?', 'Falls ja: Gibt es jemanden, der Sie unterstützt?'],
       },
       {
         text: 'Verlauf — Ist es jeden Tag gleich, oder gibt es bessere und schlechtere Tage? Ist es morgens anders als abends?',
@@ -266,7 +266,7 @@ const AKTUELL_VARIANTS: Record<LeitsymptomKategorie, AktuellVariant> = {
       {
         text: 'Beginn — Wann hat es angefangen, und wie: schlagartig, von einer Minute auf die andere, oder allmählich? Was haben Sie in dem Moment gemacht?',
         probe: 'akt-beginn',
-        followUp: ['Falls schlagartig: Um welche Uhrzeit genau? Wann waren Sie zuletzt sicher beschwerdefrei?'],
+        followUp: ['Falls schlagartig: Um welche Uhrzeit genau?', 'Falls schlagartig: Wann waren Sie zuletzt sicher beschwerdefrei?'],
       },
       {
         text: 'Art des Ausfalls — Was war anders: eine Schwäche oder ein Taubheitsgefühl?',
@@ -429,7 +429,7 @@ const AKTUELL_VARIANTS: Record<LeitsymptomKategorie, AktuellVariant> = {
           { sucht: ['schwindel'], text: 'Ist Ihnen dazu schwindelig?' },
           { sucht: ['miktion'], text: 'Haben Sie Probleme mit der Blase?' },
           { sucht: ['stuhl'], text: 'Haben Sie Probleme mit dem Stuhlgang?' },
-          { sucht: ['begleit'], text: 'Haben Sie außerdem noch andere Beschwerden bemerkt?' },
+          { sucht: ['begleit'], text: 'Haben Sie außerdem Schmerzen oder andere Beschwerden bemerkt?' },   // Q3 (revue K4, G.3) : la part ouverte garde « oder Schmerzen »
         ],
       },
     ],
@@ -672,21 +672,21 @@ export const ALLGEMEINE_ANAMNESE: AnamneseChapter[] = [
       {
         text: 'Ist Ihnen übel? Mussten Sie sich übergeben?',
         probe: 'veg-uebelkeit',
-        followUp: ['Falls ja: Können Sie das Erbrochene beschreiben? Seit wann, und wie häufig?'],
+        followUp: ['Falls ja: Seit wann müssen Sie sich übergeben?', 'Falls ja: Wie oft haben Sie sich übergeben?', 'Falls ja: Wie sah das Erbrochene aus?'],
         // K4 fixeur (revue clinique P2) : la nausée et le vomissement, deux répliques — découpés du texte.
         parts: [
           { sucht: ['uebelkeit'], text: 'Ist Ihnen übel?' },
           // la relance de la sonde, découpée (règles A et A2 : une réplique, une question)
-          { sucht: ['erbrechen'], text: 'Mussten Sie sich übergeben?', followUp: ['Falls ja: Wie sah das Erbrochene aus?', 'Falls ja: Seit wann müssen Sie sich übergeben?', 'Falls ja: Wie oft haben Sie sich übergeben?'] },
+          { sucht: ['erbrechen'], text: 'Mussten Sie sich übergeben?', followUp: ['Falls ja: Seit wann müssen Sie sich übergeben?', 'Falls ja: Wie oft haben Sie sich übergeben?', 'Falls ja: Wie sah das Erbrochene aus?'] },
         ],
       },
       {
         text: 'Haben Sie Schwierigkeiten mit dem Stuhlgang oder beim Wasserlassen?',
         probe: 'veg-ausscheidung',
-        followUp: ['Falls ja: Seit wann, und wie oft täglich? Können Sie das Aussehen von Stuhl oder Urin näher beschreiben?'],
+        followUp: ['Falls ja: Seit wann?', 'Falls ja: Wie oft am Tag gehen Sie zur Toilette?', 'Falls ja: Können Sie das Aussehen von Stuhl oder Urin näher beschreiben?'],
         parts: [
-          { sucht: ['stuhl'], text: 'Haben Sie Schwierigkeiten mit dem Stuhlgang?', followUp: ['Falls ja: Seit wann, und wie oft täglich? Können Sie das Aussehen des Stuhls näher beschreiben?'] },
-          { sucht: ['miktion'], text: 'Haben Sie Schwierigkeiten beim Wasserlassen?', followUp: ['Falls ja: Seit wann, und wie oft täglich? Können Sie das Aussehen des Urins näher beschreiben?'] },
+          { sucht: ['stuhl'], text: 'Haben Sie Schwierigkeiten mit dem Stuhlgang?', followUp: ['Falls ja: Seit wann?', 'Falls ja: Wie oft haben Sie am Tag Stuhlgang?', 'Falls ja: Können Sie das Aussehen des Stuhls näher beschreiben?'] },
+          { sucht: ['miktion'], text: 'Haben Sie Schwierigkeiten beim Wasserlassen?', followUp: ['Falls ja: Seit wann?', 'Falls ja: Wie oft müssen Sie am Tag Wasser lassen?', 'Falls ja: Können Sie das Aussehen des Urins näher beschreiben?'] },
         ],
       },
       {
@@ -710,12 +710,12 @@ export const ALLGEMEINE_ANAMNESE: AnamneseChapter[] = [
       {
         text: 'Gibt es bei Ihnen vorbestehende Erkrankungen, zum Beispiel Bluthochdruck, Zuckerkrankheit oder erhöhte Blutfettwerte?',
         probe: 'vor-erkrank',
-        followUp: ['Falls ja: Welche, und seit wann sind sie bekannt? Werden sie behandelt?'],
+        followUp: ['Falls ja: Welche sind das?', 'Falls ja: Seit wann sind sie bekannt?', 'Falls ja: Werden sie behandelt?'],
       },
       {
         text: 'Wurden Sie schon einmal operiert?',
         probe: 'vor-op',
-        followUp: ['Falls ja: Welche Eingriffe wurden durchgeführt, und wann? Traten dabei Komplikationen auf?'],
+        followUp: ['Falls ja: Was wurde operiert?', 'Falls ja: Wann war das?', 'Falls ja: Gab es dabei Komplikationen?'],
       },
       { text: 'Waren Sie in letzter Zeit im Krankenhaus?', probe: 'vor-krankenhaus' },
     ],
@@ -942,13 +942,13 @@ export const FACHANAMNESEN: FachanamneseGuide[] = [
           { sucht: ['verschlucken'], text: 'Haben Sie sich in letzter Zeit öfter verschluckt?' },
         ],
         alts: ['Seit wann husten Sie? Ist der Husten trocken oder haben Sie Auswurf bemerkt?'],
-        followUp: ['Sind Sie heiser? Haben Sie sich verschluckt?'],
-        followUpSucht: [['stimme', 'verschlucken']],
+        followUp: ['Sind Sie heiser?', 'Haben Sie sich in letzter Zeit öfter verschluckt?'],
+        followUpSucht: [['stimme'], ['verschlucken']],
       },
       {
         text: 'Wie sieht der Auswurf aus — Farbe und Menge? Ist Blut beigemengt?',
         probe: 'fach-pneumo-auswurf',
-        followUp: ['Welche Konsistenz — durchsichtig, gelblich, grünlich, eitrig, dünn, schaumig? Nur Blutfäden oder richtig blutig?'],
+        followUp: ['Welche Konsistenz — durchsichtig, gelblich, grünlich, eitrig, dünn, schaumig?', 'Falls Blut: Nur Blutfäden oder richtig blutig?'],
       },
       {
         text: 'Bekommen Sie schwer Luft? In Ruhe oder bei Belastung? Wie viele Stockwerke schaffen Sie ohne Pause?',
@@ -1532,12 +1532,12 @@ export const FACHANAMNESEN: FachanamneseGuide[] = [
         probe: 'fach-rheuma-haut',
       },
       {
-        text: 'Haben Sie Fieber, Augenentzündungen, Mund- oder Genitalgeschwüre, Durchfall oder eine Bindehautentzündung bemerkt?',
+        text: 'Haben Sie Fieber, Augenentzündungen, Mund- oder Genitalgeschwüre oder Durchfall bemerkt?',
         probe: 'fach-rheuma-systemisch',
         // K4 : parts découpées du texte — r1 / r2 ne retirent que ce qu'une autre question pose déjà.
         parts: [
           { sucht: ['fieber'], text: 'Haben Sie Fieber bemerkt?' },
-          { sucht: ['augenentzuendung'], text: 'Haben Sie Augenentzündungen oder eine Bindehautentzündung bemerkt?' },
+          { sucht: ['augenentzuendung'], text: 'Haben Sie Augenentzündungen bemerkt?' },
           { sucht: ['ulzera'], text: 'Haben Sie Mund- oder Genitalgeschwüre bemerkt?' },
           { sucht: ['stuhl'], text: 'Hatten Sie Durchfall?' },
         ],
@@ -1545,7 +1545,7 @@ export const FACHANAMNESEN: FachanamneseGuide[] = [
         // de fach-rheuma-haut ; la garder obligeait la sonde à déclarer `ausschlag` (D1) et la laissait non réduite.
       },
       {
-        text: 'Hatten Sie solche Gelenkbeschwerden schon einmal?',
+        text: 'Hatten Sie solche Beschwerden schon einmal?',
         probe: 'fach-rheuma-vorgeschichte',
         // K4 : « Gichtanfall oder Nierensteine » découpée en deux relances (deux antécédents, deux unités) : une question
         // du cas sur les calculs (gicht) retire la seconde sans emporter la goutte.
@@ -1582,13 +1582,13 @@ export const FACHANAMNESEN: FachanamneseGuide[] = [
           { sucht: ['blutungsneigung'], text: 'Haben Sie Nasenbluten, Zahnfleischbluten oder kleine punktförmige Hauteinblutungen bemerkt?' },
         ],
         alts: ['Haben Sie Blutungen gehabt, eventuell auch kleinere Mengen?'],
-        followUp: ['Falls ja: Seit wann? Blutet es länger nach, etwa nach dem Zähneputzen oder einem kleinen Schnitt?'],
+        followUp: ['Falls ja: Seit wann?', 'Falls ja: Blutet es nach einem kleinen Schnitt oder beim Zähneputzen lange nach?'],
       },
       {
         text: 'Haben Sie Blut im Stuhl oder schwarzen Stuhlgang bemerkt? Ist Ihre Regelblutung stark oder verlängert?',
         probe: 'fach-haem-blutverlust',
         label: 'Blutverlustquelle',
-        followUp: ['Blut im Erbrochenen, im Auswurf oder im Urin? Welche Farbe — wie Kaffeesatz, hellrot, teerschwarz?'],
+        followUp: ['Haben Sie an anderer Stelle Blut bemerkt — im Erbrochenen, im Auswurf oder im Urin?', 'Falls ja: Welche Farbe hatte das Blut — hellrot, dunkel oder wie Kaffeesatz?'],
       },
       {
         text: 'Wie ernähren Sie sich — essen Sie Fleisch? Ernähren Sie sich vegetarisch oder vegan?',
@@ -1859,20 +1859,23 @@ export const FACHANAMNESEN: FachanamneseGuide[] = [
       {
         // K3 (revue I3, décision de main) : le cadrage et le facteur de protection de la question de sécurité d'Aktuelle
         // Beschwerden passent ici (texte existant, déplacé), puisque r2 garde la Fach (D4). Ordre de sécurité : idée →
-        // plans → intention (NOTFALL), puis l'automutilation, le désir avant l'acte, puis le soutien.
+        // plans → tentative antérieure → intention (NOTFALL), puis l'automutilation, le désir avant l'acte, puis le soutien.
         text: 'Ich frage das jeden Patienten in Ihrer Situation: Denken Sie manchmal, dass das Leben nicht mehr lebenswert ist? Haben Sie Gedanken, sich etwas anzutun?',
         probe: 'fach-psych-suizid',
         label: 'Pflichtfrage',
         alts: ['Haben Sie daran gedacht, sich das Leben zu nehmen? Haben Sie einen konkreten Plan gemacht?'],
         followUp: [
           'Haben Sie konkrete Pläne, sich das Leben zu nehmen?',
+          'Haben Sie schon einmal versucht, sich das Leben zu nehmen?',
           'Falls konkrete Absicht oder Plan: NOTFALL — der Patient bleibt stationär. Rücksprache mit dem Oberarzt nach der Anamnese.',
           'Haben Sie den Wunsch, sich zu verletzen?',
           'Haben Sie sich selbst verletzt?',
           'Gibt es jemanden, der Sie unterstützt?',
         ],
         // K3 SÉCURITÉ : le désir et l'acte d'automutilation sont DEUX signes ; la mère les déclare tous (jamais perdus, RISIKO_SIGNES).
-        followUpSucht: [[], [], ['selbstverletzung_wunsch'], ['selbstverletzung'], []],
+        // Q3 (revue K3, « pour le contenu ») : la tentative antérieure — premier facteur de risque — est un signe à elle ;
+        // revue clinique Q3 (P2) : posée avant la consigne NOTFALL, qu'elle informe.
+        followUpSucht: [[], ['suizidversuch'], [], ['selbstverletzung_wunsch'], ['selbstverletzung'], []],
       },
       {
         text: 'Gab es belastende Ereignisse — ein Verlust, eine Trennung, Stress bei der Arbeit?',
@@ -1947,8 +1950,8 @@ export const FACHANAMNESEN: FachanamneseGuide[] = [
         text: 'Hatten Sie Kontakt zu kranken Personen oder zu Tieren?',
         probe: 'fach-infekt-kontakt',
         alts: ['Hat jemand in Ihrer Familie oder Ihrem Umfeld ähnliche Beschwerden gehabt?'],
-        followUp: ['Arbeiten Sie mit vielen Menschen? Haben Sie ungewöhnliche Lebensmittel gegessen — rohe Milch, rohes Fleisch?'],
-        followUpSucht: [['kontakt', 'essen_expo']],
+        followUp: ['Arbeiten Sie mit vielen Menschen?', 'Haben Sie ungewöhnliche Lebensmittel gegessen — rohe Milch, rohes Fleisch?'],
+        followUpSucht: [['kontakt'], ['essen_expo']],
         // K3 (revue clinique, gastroenteritis) : le contact et l'alimentation — deux répliques, découpées du texte.
         parts: [
           { sucht: ['kontakt'], text: 'Hatten Sie Kontakt zu kranken Personen oder zu Tieren?', followUp: ['Arbeiten Sie mit vielen Menschen?'] },
@@ -1986,7 +1989,7 @@ export const FACHANAMNESEN: FachanamneseGuide[] = [
         text: 'Wie sieht die Stelle aus — gerötet, schuppend, mit Bläschen, Knötchen oder nässend? Hat sie sich verändert?',
         probe: 'fach-derma-aussehen',
         alts: ['Wie sieht er aus — welche Farbe? Ist er trocken oder eher nässend? Schuppend?'],
-        followUp: ['Falls Bläschen: Wie groß sind sie? Sind sie mit klarer Flüssigkeit oder mit etwas Eitrigem gefüllt?'],
+        followUp: ['Falls Bläschen: Wie groß sind sie?', 'Falls Bläschen: Sind sie mit klarer Flüssigkeit oder mit etwas Eitrigem gefüllt?'],
       },
       {
         text: 'Gab es einen Auslöser — ein neues Medikament, eine neue Creme oder ein Waschmittel, Pflanzen, Sonne oder etwas bei der Arbeit?',
@@ -2154,10 +2157,10 @@ function caseQuestionsByKapitel(c: Case): Record<string, PhraseVariant[]> {
   ((c.caseSpecificQuestions ?? []) as readonly CaseQuestionLue[]).forEach((q, casIndex) => {
     const k = cqKapitel(q);
     const sucht = typeof q === 'string' ? undefined : q.sucht;
-    const followUp = typeof q === 'string' ? undefined : q.followUp;
+    const followUp = cqFollowUps(q);
     // K3 : `casIndex` = identifiant des écarts (`cas:<index>`) ; `braucht` (K4, additif) est lu par r4b quand il est déclaré.
     const braucht = typeof q === 'string' ? undefined : q.braucht;
-    const v: PhraseVariant = { text: cqText(q), caseSpecific: true, ...(sucht ? { sucht } : {}), ...(followUp ? { followUp: [followUp] } : {}), ...(braucht?.length ? { braucht } : {}) };
+    const v: PhraseVariant = { text: cqText(q), caseSpecific: true, ...(sucht ? { sucht } : {}), ...(followUp.length ? { followUp } : {}), ...(braucht?.length ? { braucht } : {}) };
     CAS_INDEX.set(v, casIndex);
     (out[k] ??= []).push(v);
   });

@@ -294,8 +294,9 @@ describe('SÉCURITÉ — aucun signe de risque n\'est perdu (r1 ne le retire jam
       const textes = t.flatMap((x) => x.questions.flatMap((p) => [phraseText(p), ...phraseFollowUps(p).map((f) => f.text)]));
       expect(textes, c.id).toContain('Haben Sie sich selbst verletzt?');
       expect(textes, c.id).toContain('Haben Sie den Wunsch, sich zu verletzen?');
+      expect(textes, c.id).toContain('Haben Sie schon einmal versucht, sich das Leben zu nehmen?');   // Q3 : la tentative antérieure
       // K4 fixeur (D-1) : anorexia-nervosa porte en plus le désir de mort, posé par sa question du cas
-      const attendus = ['selbstverletzung', 'selbstverletzung_wunsch', 'suizid', ...(c.id === 'case-anorexia-nervosa' ? ['todeswunsch'] : [])];
+      const attendus = ['selbstverletzung', 'selbstverletzung_wunsch', 'suizid', 'suizidversuch', ...(c.id === 'case-anorexia-nervosa' ? ['todeswunsch'] : [])];
       expect(risques(t), c.id).toEqual(attendus);
       expect(t.flatMap((x) => x.questions).filter((p) => phraseSucht(p).includes('suizid')).flatMap(phraseProbes), c.id).toEqual(['fach-psych-suizid']);
       const sicherheit = playedTrame(c).ecarts.find((e) => e.question === 'akt-psych-sicherheit');
@@ -304,7 +305,7 @@ describe('SÉCURITÉ — aucun signe de risque n\'est perdu (r1 ne le retire jam
   });
   it('mutation : sans la protection r1, un profil qui exclut les signes de risque les fait perdre — la garantie rougit', () => {
     const t = [ch('aktuell', s('akt-psych-sicherheit')), ch('fach', s('fach-psych-suizid'))];
-    const p: ProfilEffectif = { ...PSY, exclut: { suizid: 'mutation', selbstverletzung: 'mutation', selbstverletzung_wunsch: 'mutation' } };
+    const p: ProfilEffectif = { ...PSY, exclut: { suizid: 'mutation', suizidversuch: 'mutation', selbstverletzung: 'mutation', selbstverletzung_wunsch: 'mutation' } };
     expect(garantie(t, run(t, p).trame)).toBe(true);   // protégé : r1 n'y touche pas ; r2 garde la Fach (D4)
     expect(vue(run(t, p).trame)).toEqual({ aktuell: [], fach: ['fach-psych-suizid'] });
     const garde = [...RISIKO_SIGNES];
