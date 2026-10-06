@@ -53,7 +53,8 @@ export function dialData(
     pretAt: cp.pretAt ?? null,
     pretManque: cp.pretManque ? [...cp.pretManque] : [],
     prochaineConsolidation: cp.prochaineConsolidation ?? null,
-    // « À rejouer d'un trait » : les trois Teile joués SÉPARÉMENT n'ont pas fait une tâche `dUnTrait` (I5).
+    // Les trois Teile joués SÉPARÉMENT n'ont pas fait une tâche `dUnTrait` (I5) : le cadran propose « Rejouer le cas
+    // d'un trait » ; la ligne de tâche dit « À reprendre depuis l'Anamnese » (la raison dit déjà « d'un trait »).
     ...(ctx.tache ? { tache: { teile: teileDeTache(ctx.tache), avancement: [...avancement], aRejouerDUnTrait: ctx.tache.dUnTrait === true && ctx.tache.doneAt === undefined && TEILE.every((t) => avancement.includes(t)) } } : {}),
     ...(ctx.lauf ? { vientDEtreJoue: TEILE.filter((t) => (ctx.lauf!.teileGespielt as readonly string[]).includes(t)) } : {}),
   };

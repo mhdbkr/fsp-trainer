@@ -747,7 +747,7 @@ restePlan(cp, D) = { t ∈ TEILE : cp.teile[t].status !== 'solide'
 
 /** DANS la journée, pour une tâche T. */
 resteTache(T) = T.dUnTrait && avancement(T) ⊇ TEILE
-                  ? [...TEILE]                                   // « à rejouer d'un trait » (I5)
+                  ? [...TEILE]                                   // « À reprendre depuis l'Anamnese » (I5)
                   : teileDeTache(T) \ avancement(T)
 
 detteTeil(c, D) = Σ_{t ∈ restePlan(cp, D)} poids(t, D) / 3       // remplace §4.3 ; poids de §4.3 [S4-1]
@@ -827,8 +827,13 @@ les tâches.
 - **`dUnTrait`, tout ou rien** (I5) :
   - une partie partielle fait avancer le cadran de la tâche, mais ne la coche
     pas ;
-  - trois Teile joués séparément laissent la tâche **ouverte** avec le libellé
-    « à rejouer d'un trait », et `resteTache` = les trois.
+  - trois Teile joués séparément laissent la tâche **ouverte**, et
+    `resteTache` = les trois ;
+  - *[S4, revue direction-keeper, 6 oct.]* entamée à part (un Teil ou plus),
+    la ligne de tâche porte le libellé « À reprendre depuis l'Anamnese »,
+    jamais « il te reste … ». « D'un trait » est dit par la raison de la tâche
+    (§13.1), une seule fois sur la ligne. L'action du cadran reste « Rejouer le
+    cas d'un trait ».
 - **Séance IA externe auto-déclarée** (`selbstbewertet`) — **décidé** : elle
   est une partie qui joue son Teil d'ancrage. Elle fait avancer la tâche de
   cas et **peut la cocher** quand elle complète ce qui restait. Elle n'entre
@@ -1287,8 +1292,14 @@ score(c) [solide non dû] = 0
 ```
 
 - La tâche est `kind: 'revision'`, avec les trois Teile et la raison
-  « Consolidation : vu il y a N jours ». Elle se coche par §12.3 et se lance
+  « Solide il y a N jours : on vérifie qu'il tient. » (« Solide : … » sans
+  dernier jeu daté, jamais « 0 jour »). Elle se coche par §12.3 et se lance
   par §12.1.
+- *[S4]* Une tâche `dUnTrait` dit ce qu'elle exige, en une phrase :
+  « Solide il y a N jours : rejoue-le d'un trait, comme à l'examen. » (dû),
+  « Solide, pas encore prêt : rejoue-le d'un trait, comme à l'examen. » (choisi
+  hors échéance, §12.4.7) ; un examen à blanc d'un trait :
+  « Répétition générale : d'un trait et sans aide. »
 - **Fenêtre « d'un trait »** (décision (a)) : les
   `FENETRE_D_UN_TRAIT_JOURS_OUVRES` derniers jours ouvrés avant l'examen,
   calculés sur la date d'examen, comme `taperDays` (INV-12). Dans cette

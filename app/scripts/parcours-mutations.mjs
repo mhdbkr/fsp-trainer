@@ -378,6 +378,12 @@ export const MUTATIONS = [
     pourquoi: "une tâche « d'un trait » est cochée par des Teile joués séparément",
   },
   {
+    id: "I5-libelle", tests: 'tests/invariants.d-un-trait.test.tsx', file: "src/features/program/TaskLine.tsx",
+    from: "{aRejouer && <span className=\"dim-tag shrink-0\">{A_REJOUER}</span>}",
+    to: "",
+    pourquoi: "une tâche « d'un trait » entamée à part ne dit plus qu'elle reprend depuis l'Anamnese",
+  },
+  {
     id: "INV-51-fuseau", tests: 'tests/invariants.completion.test.ts', file: "src/lib/program/completion.ts",
     from: "const jour = debutJour(T.date, tz);\n  return { debut: Math.max(jour, T.creeA ?? jour), fin: finJour(T.date, tz) };",
     to: "const jour = debutJour(T.date);\n  return { debut: Math.max(jour, T.creeA ?? jour), fin: finJour(T.date) };",
@@ -536,10 +542,10 @@ export const MUTATIONS = [
     pourquoi: "intervalle constant : le cas revient toutes les semaines au lieu de 7, 21, puis 45 jours",
   },
   {
-    id: "INV-60-d-un-trait", tests: 'tests/invariants.plan.test.ts', file: "src/lib/program/parametres.ts",
-    from: "export const D_UN_TRAIT_ACTIF = false;",
-    to: "export const D_UN_TRAIT_ACTIF = true;",
-    pourquoi: "`dUnTrait` émis avec la garde à `false` : une tâche qui exige un enchaînement que l'app ne sait pas encore jouer",
+    id: "INV-60-d-un-trait", tests: ['tests/invariants.plan.test.ts', 'tests/invariants.d-un-trait.test.tsx'], file: "src/lib/program/parametres.ts",
+    from: "export const D_UN_TRAIT_ACTIF = true;",
+    to: "export const D_UN_TRAIT_ACTIF = false;",
+    pourquoi: "garde recoupée après S4-3 : plus aucune tâche « d'un trait » alors que la partie sait enchaîner",
   },
   // --- S4-2, ce que le programme apprend (§13.3 à §13.5) ---
   {

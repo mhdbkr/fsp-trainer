@@ -80,7 +80,10 @@ export const resteTexte = (teile: readonly SimTeil[]): string => {
 
 /** Ce que la ligne d'une tâche dit EN PLUS de la tâche figée : ce qui reste du cas (« il te reste la Dokumentation · 10 min »)
  *  et le rappel d'une erreur transversale (§13.3), dit avec ses chiffres. Lu dans le journal, jamais stocké. */
-export interface LectureTache { reste?: { teile: SimTeil[]; min: number }; rappel?: string; soiree?: string }
+export interface LectureTache { reste?: { teile: SimTeil[]; min: number }; rappel?: string; soiree?: string; aRejouer?: true }
+
+/** Une tâche d'un trait entamée à part (I5) : rien ne « reste », le cas reprend au début. « D'un trait » est dans la raison. */
+const A_REJOUER = "À reprendre depuis l'Anamnese";
 
 export function lectureDuPlan(plan: DayPlan, events: readonly TrainingEvent[]): Map<string, LectureTache> {
   const out = new Map<string, LectureTache>();
@@ -98,8 +101,10 @@ export function lectureDuPlan(plan: DayPlan, events: readonly TrainingEvent[]): 
     const l: LectureTache = {};
     if (estTacheDeCas(t.kind) && t.teile) {                                     // un plan série 3 dit son Teil par sa pastille
       const e = evaluerTache(t, events, plan.tz);
+      // D'un trait entamée à part : ce qui a été joué ne compte pas pour elle, rien ne « reste » (I5).
       // Entamée : les minutes de ce qui reste ; sinon l'estimation figée avec la tâche.
-      if (e.reste.length > 0 && e.reste.length < 3) l.reste = { teile: e.reste, min: e.avancement.length ? e.reste.reduce((s, k) => s + durees[k], 0) : t.estMin };
+      if (t.dUnTrait && e.avancement.length > 0) l.aRejouer = true;
+      else if (e.reste.length > 0 && e.reste.length < 3) l.reste = { teile: e.reste, min: e.avancement.length ? e.reste.reduce((s, k) => s + durees[k], 0) : t.estMin };
     }
     if (premiereDeCas && t.kind !== 'examen-blanc' && t.dUnTrait !== true && cumul > plan.targetMin) {
       const teile = l.reste?.teile ?? teileDeTache(t);
@@ -109,7 +114,7 @@ export function lectureDuPlan(plan: DayPlan, events: readonly TrainingEvent[]): 
       const s = signaux.find((x) => x.item === t.rappel);
       l.rappel = s ? texteRappel(s) : `Rappel : « ${libelleItem(t.rappel) ?? t.rappel} ».`;
     }
-    if (l.reste || l.rappel || l.soiree) out.set(t.id, l);
+    if (l.reste || l.rappel || l.soiree || l.aRejouer) out.set(t.id, l);
   }
   return out;
 }
@@ -117,7 +122,7 @@ export function lectureDuPlan(plan: DayPlan, events: readonly TrainingEvent[]): 
 /** L'anatomie — sujet, portée, état, coût. Le type, la couche, l'assistance et
  *  la durée se lisent DANS LES CHAMPS : plus aucune concaténation, et la vue ne
  *  les ré-affiche pas à côté. */
-export function TaskAnatomy({ task, reste }: { task: TaskInstance; reste?: LectureTache['reste'] }) {
+export function TaskAnatomy({ task, reste, aRejouer }: { task: TaskInstance; reste?: LectureTache['reste']; aRejouer?: boolean }) {
   const state = [
     task.assistance === 'assiste' ? 'assisté' : task.assistance === 'autonome' ? 'autonome' : null,
   ].filter(Boolean).join(' · ');
@@ -126,6 +131,7 @@ export function TaskAnatomy({ task, reste }: { task: TaskInstance; reste?: Lectu
       <span className="min-w-0 flex-[1_1_100%] [overflow-wrap:anywhere] font-medium text-slate-800 dark:text-slate-100">{task.label}</span>
       {task.teil && <ScopeTag teil={task.teil} />}
       {reste && <span className="dim-tag shrink-0">Il te reste {resteTexte(reste.teile)}</span>}
+      {aRejouer && <span className="dim-tag shrink-0">{A_REJOUER}</span>}
       {state && <span className="label shrink-0">{state}</span>}
       <span className="mono-tag tnum shrink-0">{reste?.min ?? task.estMin} min</span>
     </div>
@@ -166,7 +172,7 @@ export function TaskLine({ task, readOnly = false, showReason = true, lecture }:
           <Icon name={meta.icon} className="h-5 w-5" />
         </span>
         <div className="min-w-[10rem] flex-1">
-          <TaskAnatomy task={task} reste={done ? undefined : lecture?.reste} />
+          <TaskAnatomy task={task} reste={done ? undefined : lecture?.reste} aRejouer={!done && lecture?.aRejouer} />
           {/* Le « pourquoi aujourd'hui », figé avec la tâche. */}
           {showReason && <div className="mt-0.5 text-[11px] text-slate-400">{task.reason}</div>}
           {/* Le rappel d'une erreur transversale : un fait, sans jugement (T2). */}
