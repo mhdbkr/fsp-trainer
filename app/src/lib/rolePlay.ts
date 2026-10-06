@@ -1,4 +1,4 @@
-import type { CaseQuestion, PatientSheet, RolePlayKapitel } from '@/db/types';
+import type { CaseQuestionLue, PatientSheet, RolePlayKapitel } from '@/db/types';
 import { cqFollowUp, cqKapitel, cqText } from '@/lib/caseQuestions';
 import { PROBE_BY_ID, PROBE_ORDER } from '@/data/guides/anamneseProbes';
 
@@ -88,7 +88,7 @@ function glanceFor(id: RolePlayKapitel, s: PatientSheet): string[] {
  *  la couverture suit le guide sans dérive. `frageAntworten` (ad-hoc) et
  *  `negativeFindings` sont ajoutés ensuite pour rétrocompatibilité.
  *  `frauInFach` : la Frauenanamnese du médecin est fondue dans sa Fach gynéco. */
-export function buildRollenskript(sheet: PatientSheet, caseQuestions: CaseQuestion[] = [], frauInFach = false): RoleChapter[] {
+export function buildRollenskript(sheet: PatientSheet, caseQuestions: CaseQuestionLue[] = [], frauInFach = false): RoleChapter[] {
   const byId = new Map<RolePlayKapitel, (RoleLine & { ord: number })[]>();
   for (const meta of CHAPTER_META) byId.set(meta.id, []);
 

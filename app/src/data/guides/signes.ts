@@ -47,13 +47,18 @@ export type ProfilTag = LeitsymptomKategorie
   | 'transit' | 'harn'                       // K3 (P1-5) : trouble du transit (obstipation) ; plainte urinaire ou rénale
   // K3 (revue clinique R1 / R2) : terrain d'une Fachanamnese qui pose le sang dans les selles (gastro, hémato, onco)
   // ou la nycturie (kardio : insuffisance cardiaque ; endo : polyurie) — déclarés sur les cas qui la jouent.
-  | 'gastro' | 'haem' | 'onko' | 'kardio' | 'endo';
+  | 'gastro' | 'haem' | 'onko' | 'kardio' | 'endo'
+  // K5 (revue K4, décision de main) : le motif DÉCLARÉ quand la nature ne le dit pas — le patient consulte pour un vertige,
+  // ou après une chute (lagerungsschwindel et commotio sont « neurologisch », comme tia ou schlaganfall). Lu par D4-bis (coherence.ts).
+  // Un tag n'est PAS un signe : `schwindel` / `sturz` tags et signes homonymes vivent dans deux tables ; INV-78 (granularité) ne
+  // compare que des signes, MOTIF_DECLARE fait le lien.
+  | 'schwindel' | 'sturz';
 
 export const PROFIL_TAGS: readonly ProfilTag[] = [
   'schmerz', 'atemnot', 'allgemein', 'psychisch', 'neurologisch', 'nerven', 'infekt', 'veraenderung', 'ausscheidung', 'anfall',
   'hoden', 'diarrhoe', 'reise', 'fieber', 'dyspnoe', 'husten', 'gewichtsverlust', 'dysphagie', 'hals',
   'gelenk', 'arthritis', 'steifigkeit', 'generalisiert', 'lyme', 'meningitis', 'gicht', 'stein', 'transit', 'harn',
-  'gastro', 'haem', 'onko', 'kardio', 'endo',
+  'gastro', 'haem', 'onko', 'kardio', 'endo', 'schwindel', 'sturz',
 ];
 
 export interface SigneDefBody {
@@ -78,7 +83,7 @@ export const PROFIL_EXIGE: Record<ProfilTag, Signe[]> = {
   dysphagie: ['schluck'], arthritis: ['gelenke', 'gelenk_entzuendung'],
   atemnot: [], allgemein: [], psychisch: [], neurologisch: [], nerven: [], infekt: [], veraenderung: [], ausscheidung: [], anfall: [],
   hoden: [], hals: [], gelenk: [], steifigkeit: [], generalisiert: [], lyme: [], meningitis: [], gicht: [], stein: [], transit: [], harn: [],
-  gastro: [], haem: [], onko: [], kardio: [], endo: [],
+  gastro: [], haem: [], onko: [], kardio: [], endo: [], schwindel: [], sturz: [],
 };
 
 /** Signes qu'un tag exclut (jamais un signe de dépistage). */

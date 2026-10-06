@@ -1,10 +1,10 @@
 import { describe, expect, it } from 'vitest';
 import { adaptChaptersForCase, caseQuestionsForFach, fachChapterForCase } from './anamneseChapters';
 import { phraseAlts, phraseFollowUp, phraseIsCaseSpecific, phraseProbes, phraseText } from './phrases';
-import type { Case } from '@/db/types';
+import type { Case, CaseQuestionLue } from '@/db/types';
 
 // Cas minimal : seuls les champs lus par l'adaptation comptent.
-const mk = (over: Partial<Case['patientSheet']['personalia']>, csq: Case['caseSpecificQuestions'] = []): Case =>
+const mk = (over: Partial<Case['patientSheet']['personalia']>, csq: CaseQuestionLue[] = []): Case =>   // K5 : contenu ancien toléré (chaîne nue, sans `sucht`)
   ({ patientSheet: { personalia: { name: 'X', age: 30, geschlecht: 'w', ...over }, schmerz: {} }, caseSpecificQuestions: csq } as unknown as Case);
 const frauen = (c: Case) => adaptChaptersForCase(c).find((ch) => ch.id === 'frauenanamnese');
 const probesOf = (c: Case) => frauen(c)!.questions.flatMap(phraseProbes);

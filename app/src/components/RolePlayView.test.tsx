@@ -1,7 +1,7 @@
 import { describe, it, expect } from 'vitest';
 import { render, screen, fireEvent } from '@testing-library/react';
 import { RolePlayView } from './RolePlayView';
-import type { CaseQuestion, PatientSheet } from '@/db/types';
+import type { CaseQuestionLue, PatientSheet } from '@/db/types';
 
 // Revue Q2 (m-1) : quand la réponse est ÉCRITE (frageAntworten au texte exact de la
 // question), buildRollenskript porte la relance sur cette ligne — Bubble doit la montrer.
@@ -14,7 +14,7 @@ const sheet = {
 
 describe('RolePlayView — relance d\'une question du cas', () => {
   it('la relance s\'affiche sous la réponse écrite (pas seulement sous la ligne à improviser)', () => {
-    const qs: CaseQuestion[] = [{ frage, kapitel: 'aktuell', followUp: 'Falls ja: Seit wann wissen Sie das?' }];
+    const qs: CaseQuestionLue[] = [{ frage, kapitel: 'aktuell', followUp: 'Falls ja: Seit wann wissen Sie das?' }];
     render(<RolePlayView sheet={sheet} caseQuestions={qs} />);
     fireEvent.change(screen.getByPlaceholderText(/Le candidat demande/), { target: { value: 'Blutgruppe' } });
     expect(screen.getByText('Ja, A positiv.')).toBeTruthy();

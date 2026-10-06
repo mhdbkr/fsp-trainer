@@ -3,6 +3,9 @@
 // K3 : BLOQUANTE après montage — les 6 compteurs de la trame JOUÉE (après `cohere`) valent 0,
 // `casRetiresParR1` vaut 0, `COHERENCE_ALLOWED` n'a ni entrée sans raison, ni entrée périmée, ni
 // entrée non datée au fixture. La MESURE (lecture + déclarations, sur la trame jouée) reste le plancher.
+// K5 : le RÉSIDU (questions du cas muettes, sondes muettes, questions non réduites, questions du cas retirées
+// par r1) est bloquant à 0, quel que soit le fixture. `brauchtViole` du plancher est l'exact r4b du montage ;
+// le détecteur de présupposition de TEXTE (anaphore + Q0) est informatif, hors plancher (revue K4, m-2).
 // ----------------------------------------------------------------------------
 // Mesure, sur le montage RÉEL (esbuild, pas la source) des 130 cas, ce que le
 // moteur de cohérence corrigera : signes cherchés plusieurs fois, questions
@@ -79,6 +82,7 @@ const rowsOf = (c) => {
   const push = (ch, p) => rows.push({
     ch, text: m.phraseText(p), probes: m.phraseProbes(p), cs: m.phraseIsCaseSpecific(p),
     sucht: m.phraseSucht(p), fu: m.phraseFollowUp(p), fuSucht: m.phraseFollowUps(p).map((l) => l.sucht ?? []),
+    braucht: typeof p === 'string' ? [] : p.braucht ?? [],
   });
   for (const ch of chapters) {
     for (const p of ch.questions) push(ch.id, p);
@@ -92,7 +96,7 @@ const walk = (c) => {
   const ans = c.patientSheet?.antworten ?? {};
   const turns = [];
   const add = (ch) => (p) => turns.push({
-    ch, own: m.phraseIsCaseSpecific(p), q: [m.phraseText(p), ...m.phraseFollowUp(p)].join(' '),
+    ch, own: m.phraseIsCaseSpecific(p), q: [m.phraseText(p), ...m.phraseFollowUp(p)].join(' '), braucht: typeof p !== 'string' && !!p.braucht?.length,
     a: m.phraseProbes(p).map((id) => ans[id]).filter(Boolean).join(' '),
     all: [m.phraseText(p), ...m.phraseAlts(p), ...m.phraseFollowUp(p)],
   });
@@ -106,7 +110,10 @@ const trame = trameWords([...walks.values()].flatMap((ts) => ts.filter((t) => !t
 const lex = { PROFIL_EXIGE: m.PROFIL_EXIGE, PROFIL_EXCLUT: m.PROFIL_EXCLUT, SIGNE_DEF: m.SIGNE_DEF, symptomsInText: m.symptomsInText, SIGNE_AFFINE: m.SIGNE_AFFINE };
 const results = cases.map((c) => {
   const s = c.patientSheet;
-  const qo = detect({ id: c.id, facts: factsOf(s), turns: walks.get(c.id) }, trame).map((h) => `${h.rule} « ${h.hit.trim()} » [${h.ch}]`);
+  // I4 (revue K5) : une question qui déclare `braucht` n'est plus lue par le détecteur (r4b l'ordonne) ; un constat cite sa question.
+  const declarees = new Set(walks.get(c.id).filter((t) => t.braucht).map((t) => t.q));
+  const qo = detect({ id: c.id, facts: factsOf(s), turns: walks.get(c.id) }, trame).filter((h) => !declarees.has(h.q))
+    .map((h) => `${h.rule} « ${h.hit.trim()} » [${h.ch}] — « ${h.q.length > 140 ? h.q.slice(0, 137) + '…' : h.q} »`);
   return mesurerCas({
     id: c.id, specialty: c.specialty, kategorie: m.leitsymptomOf(c), schmerz: s.schmerz, leit: s.leitsymptome, begleit: s.begleitsymptome,
     veg: s.vegetativeAnamnese, verdacht: c.medicalView?.verdachtsdiagnose, name: c.name, pathology: c.pathology,
@@ -122,9 +129,12 @@ const apres = cases.map((c) => ({ id: c.id, ...m.compteursApresCas(c), ecarts: m
 const TA = Object.fromEntries(APRES.map((k) => [k, apres.reduce((a, r) => a + r[k], 0)]));
 T.residu.nonReduit = apres.reduce((a, r) => a + r.nonReduit, 0);
 T.residu.casRetiresParR1 = apres.reduce((a, r) => a + r.casRetiresParR1, 0);
+T.brut.brauchtViole = TA.brauchtViole;   // K5 (m-2) : l'exact r4b, pas le détecteur de texte (T.info.presuppositionsTexte)
 const porte = [];
 for (const k of APRES) if (TA[k]) porte.push(`${k} = ${TA[k]} après montage : ${apres.filter((r) => r[k]).map((r) => `${r.id} (${r.detail.filter((d) => d.startsWith(k === 'doublons' ? 'doublon' : k === 'horsProfil' ? 'hors profil' : k === 'exigeAbsent' ? 'exigé' : '')).slice(0, 3).join(' ; ') || r[k]})`).slice(0, 5).join(' · ')}`);
 if (T.residu.casRetiresParR1) porte.push(`casRetiresParR1 = ${T.residu.casRetiresParR1} : r1 ne retire jamais une question du cas (§10.4)`);
+// K5 (§10.6) : le résidu est bloquant à 0 — un plancher complaisant ne l'excuse pas.
+for (const k of ['questionsMuettes', 'sondesMuettes', 'nonReduit']) if (T.residu[k]) porte.push(`${k} = ${T.residu[k]} : résidu bloquant à 0 (K5)${k === 'questionsMuettes' ? ` — ${results.filter((r) => r.muettes).map((r) => r.id).slice(0, 5).join(', ')}` : k === 'nonReduit' ? ` — ${apres.filter((r) => r.nonReduit).map((r) => r.id).slice(0, 5).join(', ')}` : ''}`);
 // COHERENCE_ALLOWED : raison et relecteur non vides ; pas d'entrée périmée ; chaque entrée datée au fixture.
 let fixtureAllowed = [];
 try { fixtureAllowed = JSON.parse(readFileSync(FIXTURE, 'utf8')).allowed ?? []; } catch { /* le plancher absent est traité plus bas */ }
@@ -186,7 +196,7 @@ if (one) {
   bloc('banques ajoutées sans réponse (projection r3)', r.ajoutSansReponse, (x) => `${x.bank}\n      RAISON : ${x.why}`);
   bloc('relances hors signe', r.fu, (x) => `${x.at}  « ${x.mother} »\n      relance : ${x.fu}\n      RAISON : ${x.why}`);
   if (r.fuCond.length) bloc('relances conditionnelles lisant un autre signe — lecture large, NON comptée', r.fuCond, (x) => `${x.at}  « ${x.mother} »\n      relance : ${x.fu}\n      RAISON : ${x.why}`);
-  bloc('ordre / présupposition', r.ord, (x) => `${x.at}\n      RAISON : ${x.why}`);
+  bloc('présuppositions lues dans le TEXTE (informatif, K5 m-2 — proposer un `braucht`)', r.ord, (x) => `${x.at}\n      RAISON : ${x.why}`);
   bloc('doublons masqués (informatif, K4 fixeur) — une question du cas nomme un signe qu\'une sonde jouée cherche', r.masques, (x) => `${x.at} « ${x.s} » ↔ ${x.autre}\n      RAISON : ${x.why}`);
   console.log(`\nquestions du cas muettes (sans \`sucht\`) : ${r.muettes}/${r.casTotal}`);
   const a = apres.find((x) => x.id === r.id);
@@ -208,7 +218,7 @@ for (const [k, label, source, exact] of COMPTEURS) console.log(k.padEnd(20), num
 console.log('\nrésidu de contenu');
 for (const [k, label, exact] of RESIDU) console.log(k.padEnd(20), num(T.residu[k]).padStart(6), num(floor?.residu?.[k]).padStart(8), ` ${label} — à 0 dès ${exact}`);
 console.log(`\nparts en ouverture (bloquant, 0 attendu) : ${ouverture.length} non autonome(s) ou « relance seulement » posée(s) en ouverture`);
-console.log(`\ninformatif (hors plancher, K5) : doublonsMasques ${T.info.doublonsMasques} — une question du cas déclarée dont le texte nomme un signe qu'une sonde jouée cherche (node scripts/checkCoherence.mjs --case <id>)`);
+console.log(`\ninformatif (hors plancher, lecture du texte) : doublonsMasques ${T.info.doublonsMasques} — une question du cas déclarée dont le texte nomme un signe qu'une sonde jouée cherche · presuppositionsTexte ${T.info.presuppositionsTexte} — anaphore + détecteur Q0 (précision ≈ 55 %), une liste pour proposer des \`braucht\` (node scripts/checkCoherence.mjs --case <id>)`);
 console.log(`\nrepères de la spec §2 : (a) ${T.spec.a} · (b) ${T.spec.b} · (c) ${T.spec.c} · (d) ${T.spec.d} dont ${T.spec.dDetachables} détachables sans condition · (d large, sans condition) ${T.spec.dLarge} · relances conditionnelles lues large, non comptées ${T.spec.dCondLarge} · (e) ${T.spec.e}`);
 const hist = {};
 for (const r of results) { const b = r.score === 0 ? '0' : r.score <= 3 ? '1-3' : r.score <= 6 ? '4-6' : r.score <= 10 ? '7-10' : '>10'; hist[b] = (hist[b] ?? 0) + 1; }

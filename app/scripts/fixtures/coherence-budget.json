@@ -1,14 +1,14 @@
 {
   "mesureLe": "2026-10-06",
   "cas": 130,
-  "source": "K4 — mesurée sur la trame JOUÉE (après cohere). Sondes, profils ET questions du cas déclarés : une question du cas déclarée se mesure par sa déclaration (comme une sonde depuis K1) ; seule une question muette se lit encore. La porte après montage (6 compteurs à 0, casRetiresParR1 = 0) est dans checkCoherence.mjs ; residu : 0 question muette (fixeur K4 : anorexia-nervosa n° 7 déclare `todeswunsch`, signe de risque), 0 non réduite.",
+  "source": "K4 — mesurée sur la trame JOUÉE (après cohere). Sondes, profils ET questions du cas déclarés : une question du cas déclarée se mesure par sa déclaration (comme une sonde depuis K1) ; seule une question muette se lit encore. La porte après montage (6 compteurs à 0, casRetiresParR1 = 0) est dans checkCoherence.mjs ; residu : 0 question muette (fixeur K4 : anorexia-nervosa n° 7 déclare `todeswunsch`, signe de risque), 0 non réduite. K5 (revue K4, m-2) : `brauchtViole` est désormais l'exact r4b du montage (anomalies + question avant un de ses `braucht`) ; le détecteur de présupposition de TEXTE (anaphore + Q0, 22 constats au regravage) est informatif, hors plancher (`info.presuppositionsTexte`). Le résidu est bloquant à 0 dans checkCoherence, quel que soit ce fixture.",
   "brut": {
     "doublons": 1,
     "doublonsCas": 0,
     "horsProfil": 2,
     "exigeAbsent": 0,
     "relancesOrphelines": 0,
-    "brauchtViole": 22,
+    "brauchtViole": 0,
     "ajouteSansReponse": 0
   },
   "residu": {

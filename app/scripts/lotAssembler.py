@@ -12,7 +12,9 @@ CASE_IDS = ['case-lumboischialgie', 'case-bauchaortenaneurysma', 'case-aortendis
 PERSONALIA = ['name','age','geschlecht','geburtsdatum','groesseCm','gewichtKg','beruf','hausarzt','familienstand','wohnsituation']
 SCHMERZ = ['ort','charakter','intensitaet','ausstrahlung','beginn','verlauf','verstaerker','linderer']
 NOXEN = ['tabak','alkohol','drogen']
-SHEET = ['personalia','leitsymptome','begleitsymptome','schmerz','vegetativeAnamnese','negativeFindings','vorerkrankungen','voroperationen','medikamente','allergien','unvertraeglichkeiten','noxen','familienanamnese','sozialanamnese','antworten','frageAntworten','schwierigeReaktionen','persona']
+SHEET = ['personalia','leitsymptome','begleitsymptome','schmerz','vegetativeAnamnese','negativeFindings','vorerkrankungen','voroperationen','medikamente','allergien','unvertraeglichkeiten','noxen','familienanamnese','sozialanamnese','antworten','frageAntworten','schwierigeReaktionen','persona',
+         # K5 (revue I1) : l'étape « cohérence » (PIPELINE.md) — sans eux, le profil déclaré disparaît à l'assemblage.
+         'profil','aktuellSkip','fachSkip','leitsymptomKategorie','motiv']
 MV = ['verdachtsdiagnose','differenzialdiagnosen','diagnostik','therapie','erstmassnahmen','notfall']
 CASE = ['id','name','pathology','specialty','centers','frequency','difficulty','patientSheet','medicalView','linkedFachwissenId','linkedFachbegriffeIds','probableAufklaerungIds','caseSpecificQuestions','examinerQuestions','pruefungsfallen','status','confidence','sourceDates','kommunikativeSituationIds','examinerSheet']
 FW = ['id','pathology','specialty','definition','aetiologie','risikofaktoren','klinik','klassifikation','redFlags','diagnostik','differenzialdiagnosen','therapie','prognose','pruefungsfallen','askedInExam','merksatz','linkedCaseIds','keyFachbegriffeIds','linkedAufklaerungIds']
