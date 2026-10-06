@@ -8,7 +8,11 @@ const t = (o: Partial<TaskInstance>): TaskInstance => ({ id: 'tA', date: '2026-1
 describe('R-C4 — taskLink porte la tâche', () => {
   it('simulation d\'un Teil, et run complet', () => {
     expect(taskLink(t({ teil: 'anamnese' }))).toBe('/simulation/c1/pre?depart=anamnese&task=tA');
-    expect(taskLink(t({ kind: 'examen-blanc' }))).toBe('/simulation/c1/pre?task=tA');
+  });
+  // [S4-7] Décision 6 : l'examen à blanc du plan se joue dans l'Examen, sur son cas, sans tirage ni id de cas dans l'URL.
+  it('examen à blanc : l’Examen, la tâche portée', () => {
+    expect(taskLink(t({ kind: 'examen-blanc' }))).toBe('/examen?task=tA');
+    expect(taskLink(t({ kind: 'examen-blanc', teile: ['anamnese', 'dokumentation', 'fallvorstellung'] }), ['fallvorstellung']), 'toujours depuis l’Anamnese').toBe('/examen?task=tA');
   });
 });
 

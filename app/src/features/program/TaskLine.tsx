@@ -46,6 +46,9 @@ export const TASK_META: Record<TaskKind, { icon: string; badge: string; bar: str
 
 /** Où mène une tâche. Une seule table, partagée par toutes les vues. */
 export function taskLink(t: TaskInstance, reste?: readonly SimTeil[]): string {
+  // [S4-7] Décision 6 : l'examen à blanc du plan se joue dans l'Examen, sur SON cas, sans tirage. Ni id de cas dans
+  // l'URL (le cas est lu dans la tâche), ni départ ailleurs que l'Anamnese (simulation-run.md §11.5).
+  if (t.kind === 'examen-blanc' && t.caseId) return `/examen?${new URLSearchParams({ task: t.id })}`;
   // R-C4 : la tâche voyage avec la partie (`task=`), la sauvegarde la coche si la partie la satisfait (I-A).
   if ((t.kind === 'simulation' || t.kind === 'examen-blanc' || t.kind === 'revision') && t.caseId) {
     // S4-2 (revue I1) : la ligne dit « il te reste la Dokumentation » ⇒ on part de là. `reste` = ce qui reste DANS la
@@ -58,7 +61,7 @@ export function taskLink(t: TaskInstance, reste?: readonly SimTeil[]): string {
   }
   if (t.kind === 'drill') return `/fachbegriffe/drill${t.caseId ? `?case=${encodeURIComponent(t.caseId)}` : t.specialty ? `?specialty=${encodeURIComponent(t.specialty)}` : ''}`;
   if (t.kind === 'fachwissen') return t.caseId ? `/cas/${t.caseId}` : '/fachwissen';
-  return t.caseId ? `/cas/${t.caseId}` : '/simulation';
+  return t.caseId ? `/cas/${t.caseId}` : '/examen';
 }
 
 export const taskCta = (t: TaskInstance): string =>

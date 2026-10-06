@@ -95,7 +95,7 @@ export function Shell() {
 // Barre de navigation supérieure : retour / avancer + accueil (sur toutes les
 // pages sauf l'accueil), pour une navigation fluide entre les pages.
 const SECTION_LABELS: Record<string, string> = {
-  programme: 'Programme', cas: 'Cas cliniques', simulation: 'Simulation', fachwissen: 'Fachwissen',
+  programme: 'Programme', cas: 'Cas cliniques', simulation: 'Simulation', examen: 'Examen', fachwissen: 'Fachwissen',
   guides: 'Guides', aufklaerung: 'Aufklärung', fachbegriffe: 'Fachbegriffe', stats: 'Stats',
 };
 function TopBar() {
