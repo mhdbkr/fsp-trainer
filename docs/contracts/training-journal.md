@@ -15,6 +15,9 @@
 >
 > **Amendé — S4-6 (6 oct. 2026)** · `lead-s4-6` : §14 (séances de l'Historique) et
 > la table locale `termes_cherches` au §9. Décrit ce qui est livré, sans changer les sections antérieures.
+>
+> **Amendé — S4-7 (6 oct. 2026)** · `lead-s4-7` : `TrainingEvent.modeExamen` (§1, §2.3), dérivé de
+> `Simulation.modeExamen` (`simulation-run.md` §11.6).
 
 ---
 
@@ -68,6 +71,7 @@ export interface TrainingEvent {
   examenManque?: ConditionExamen[]; // conditions d'examen NON remplies (§2.3) ; présent ⇔ simulation série 4 ; [] ⇔ examen
   minutesParTeil?: Partial<Record<SimTeil, number>>; // durée mesurée par Teil (§13.4)
   manques?: Partial<Record<SimTeil, ChecklistItemId[]>>; // items NON cochés par Teil joué (§13.3)
+  modeExamen?: true;           // [S4-7] partie lancée depuis l'Examen (simulation-run.md §11.6)
 }
 
 export type ConditionExamen = 'enchaine' | 'autonome' | 'ordre' | 'grille';
@@ -162,6 +166,7 @@ TrainingEvent.id      = `te-${sim.id}`        // déterministe, idempotent
         .manques      = { t: ids des items de parts[t].checklist avec checked === false } pour chaque t joué
                         dont la checklist est non vide et ne porte AUCUN id legacy `cl-N` ;
                         absent si selbstbewertet ; absent si aucun Teil ne qualifie
+  [S4-7] .modeExamen = sim.modeExamen === true ? true : absent         // l'Historique : « Examen » / « Examen interrompu »
 ```
 
 *[S4]* **Ids legacy `cl-N` et `manques`** (décision de `main`, 4 oct.,
