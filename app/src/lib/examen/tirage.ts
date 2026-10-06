@@ -1,5 +1,5 @@
 // ============================================================================
-// Le tirage du cas de l'Examen (simulation-run.md §11.5, décision 1 de `main`, à confirmer par la direction).
+// Le tirage du cas de l'Examen (simulation-run.md §11.5, décision 1, arrêtée par la direction le 6 oct.).
 // Porté de `feat/pruefungstag` (examDayPick.ts : tirage cumulatif, aléatoire injectable, relâchement) ; POIDS REFAITS :
 //   · une pathologie pèse UNE fois : son compte de protocoles TOUS CENTRES (`frequencesProtocoles.ts`), partagé entre ses
 //     cas éligibles. Raffinement optionnel (app personnelle) : la ville visée, si elle est choisie et ventilée — isolé
