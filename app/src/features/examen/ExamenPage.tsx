@@ -6,7 +6,7 @@
 // La tâche « examen à blanc » du plan (`?task=<id>`) joue SON cas, sans tirage (décision 6).
 // ============================================================================
 import { useEffect, useState } from 'react';
-import { useNavigate, useSearchParams } from 'react-router-dom';
+import { useSearchParams } from 'react-router-dom';
 import { useLiveQuery } from 'dexie-react-hooks';
 import { db } from '@/db/db';
 import { useCase, useCases } from '@/hooks/useData';
@@ -34,6 +34,7 @@ export function ExamenPage() {
   useEffect(() => { void bereinigeAltenLauf().catch(() => {}); }, []);
   const aktiv = useLiveQuery(async () => ((await db.meta.get(LAUF_AKTIV_KEY))?.value ?? null) as Lauf | null, [], undefined);
   const [lance, setLance] = useState<{ caseId: string; taskId?: string } | null>(null);
+  const [interrompu, setInterrompu] = useState(false);
 
   if (simId) return <Resultat simId={simId} onNouveau={() => setParams({}, { replace: true })} />;
   if (aktiv === undefined) return <div className="text-slate-400">Chargement…</div>;
@@ -42,13 +43,14 @@ export function ExamenPage() {
   if (runner) {
     return (
       <ExamenRunner key={runner.caseId} caseId={runner.caseId} taskId={runner.taskId}
-        onFin={(id) => { setLance(null); setParams(id ? { sim: id } : {}, { replace: true }); }} />
+        onFin={(id, ecrit) => { setLance(null); setInterrompu(!id && !!ecrit); setParams(id ? { sim: id } : {}, { replace: true }); }} />
     );
   }
-  return <Avant taskId={taskId} enPause={!!aktiv && !aktiv.examen} onStart={(caseId) => setLance({ caseId, taskId })} />;
+  return <Avant taskId={taskId} enPause={!!aktiv && !aktiv.examen} interrompu={interrompu}
+    onStart={(caseId) => { setInterrompu(false); setLance({ caseId, taskId }); }} />;
 }
 
-function Avant({ taskId, enPause, onStart }: { taskId?: string; enPause: boolean; onStart: (caseId: string) => void }) {
+function Avant({ taskId, enPause, interrompu, onStart }: { taskId?: string; enPause: boolean; interrompu: boolean; onStart: (caseId: string) => void }) {
   const cases = useCases();
   const journal = useTrainingEvents();
   const progress = useCaseProgress();
@@ -67,13 +69,13 @@ function Avant({ taskId, enPause, onStart }: { taskId?: string; enPause: boolean
   return (
     <div data-examen-page="" className="mx-auto max-w-2xl space-y-5">
       <header className="text-center">
-        <div className="eyebrow justify-center">Examen</div>
-        <h1 className="mt-1.5 text-2xl font-bold tracking-tightish">Un cas, trois Teile, sans aide</h1>
+        {interrompu && <p role="status" className="callout callout-info mx-auto mb-4 max-w-md text-left text-sm">Examen interrompu, enregistré dans l’Historique.</p>}
+        <h1 className="text-2xl font-bold tracking-tightish">Un cas, trois Teile, sans aide</h1>
         <p className="mt-1 text-slate-500 dark:text-slate-400">
-          {casDuPlan ? 'Le cas de ta tâche du jour' : 'Un cas tiré au sort, pondéré par les protocoles'}, caché jusqu’à la fin.
-          {' '}{PLAN.parts.map((p) => p.label).join(', ')} : {Math.round(PLAN.parts[0].targetSec / 60)} minutes chacun, à l’horloge, sans pause ({PLAN.label}).
+          {casDuPlan ? 'Le cas de ta tâche du jour' : 'Un cas tiré au sort'}, caché jusqu’à la fin.
+          {' '}Trois Teile de {Math.round(PLAN.parts[0].targetSec / 60)} minutes, enchaînés au chronomètre (format {PLAN.label}).
+          {' '}Le jury peut interrompre l’Anamnese pour une Aufklärung.
         </p>
-        <p className="mt-1 text-xs text-slate-400">Fallvorstellung : {PLAN.p3Note}.</p>
         <button type="button" disabled={!caseId} onClick={() => caseId && onStart(caseId)} className="btn-primary mt-4 min-h-11 gap-2 px-6">
           <Icon name="play" className="h-4 w-4" />Démarrer l’examen
         </button>
@@ -93,9 +95,8 @@ const CONDITION: Record<ConditionExamen, string> = {
   grille: 'les grilles de langue saisies',
 };
 
-/** Le résultat : le cas révélé, et ce que la partie vaut comme examen à blanc. */
+/** Le résultat : le cas révélé, et ce que la partie vaut comme examen. Une seule rangée d'actions, celle de `ResultScreen`. */
 function Resultat({ simId, onNouveau }: { simId: string; onNouveau: () => void }) {
-  const navigate = useNavigate();
   const sim = useLiveQuery(() => db.simulations.get(simId), [simId]);
   const c = useCase(sim?.caseId);
   if (sim === undefined || (sim && !c)) return <div className="text-slate-400">Chargement…</div>;
@@ -103,18 +104,17 @@ function Resultat({ simId, onNouveau }: { simId: string; onNouveau: () => void }
   const manque = conditionsManquantes(sim);
   return (
     <div className="space-y-4">
-      <div className={`callout mx-auto max-w-3xl ${manque.length ? 'callout-warn' : 'callout-tip'}`} data-examen-conditions={manque.join(' ')}>
-        <span>
-          {manque.length
-            ? `Partie enregistrée, hors conditions d’examen : il manque ${manque.map((m) => CONDITION[m]).join(', ')}.`
-            : 'Examen à blanc : conditions d’examen remplies.'}
-        </span>
+      <div className="mx-auto max-w-3xl space-y-2">
+        <div className={`callout ${manque.length ? 'callout-warn' : 'callout-tip'}`} data-examen-conditions={manque.join(' ')}>
+          <span>
+            {manque.length
+              ? `Hors conditions d’examen : il manque ${manque.map((m) => CONDITION[m]).join(', ')}.`
+              : 'Conditions d’examen remplies.'}
+          </span>
+        </div>
+        <p data-examen-cas="" className="text-center text-base">Le cas : <b>{c.name}</b></p>
       </div>
-      <ResultScreen sim={sim} c={c} />
-      <div className="flex justify-center gap-2">
-        <button type="button" onClick={onNouveau} className="btn-outline min-h-11">Nouvel examen</button>
-        <button type="button" onClick={() => navigate('/historique')} className="btn-ghost min-h-11">Historique</button>
-      </div>
+      <ResultScreen sim={sim} c={c} nouvelExamen={onNouveau} />
     </div>
   );
 }

@@ -618,9 +618,13 @@ function AufklaerungArea({ c }: { c: Case }) {
 }
 
 // --------------------------------------------------------------- Bilan final
-export function ResultScreen({ sim, c }: { sim: Simulation; c: Case }) {
+/** L'ordre de lecture des cartes : celui de l'examen, l'Aufklärung à sa place (dans le créneau de l'Anamnese). */
+const ORDRE_CARTES: Part[] = ['anamnese', 'aufklaerung', 'dokumentation', 'fallvorstellung'];
+
+/** `nouvelExamen` (S4-7) : l'écran de fin de l'Examen ajoute « Nouvel examen » à la rangée d'actions — une seule rangée. */
+export function ResultScreen({ sim, c, nouvelExamen }: { sim: Simulation; c: Case; nouvelExamen?: () => void }) {
   const openExternalAi = useUi((s) => s.openExternalAi);
-  const parts = Object.entries(sim.parts).filter(([, p]) => p?.done) as [Part, PartResult][];
+  const parts = ORDRE_CARTES.filter((k) => sim.parts[k]?.done).map((k) => [k, sim.parts[k]!] as [Part, PartResult]);
   // [S4] §10.5 : le CAS, pas un Teil isolé — son cadran, avec l'arc des Teile joués dans cette partie
   // (`vientDEtreJoue` = teileGespielt ∩ SimTeil). Le cadran LIT `case_progress` (INV-59).
   const progress = useCaseProgress();
@@ -692,7 +696,8 @@ export function ResultScreen({ sim, c }: { sim: Simulation; c: Case }) {
       )}
 
       <div className="flex flex-wrap justify-center gap-2">
-        <Link viewTransition to={`/fachbegriffe/drill?case=${c.id}`} className="btn-primary gap-1.5"><Icon name="nav-abc" className="h-4 w-4" />Drill des termes du cas →</Link>
+        {nouvelExamen && <button type="button" onClick={nouvelExamen} className="btn-primary min-h-11">Nouvel examen</button>}
+        <Link viewTransition to={`/fachbegriffe/drill?case=${c.id}`} className={`${nouvelExamen ? 'btn-outline' : 'btn-primary'} gap-1.5`}><Icon name="nav-abc" className="h-4 w-4" />Drill des termes du cas →</Link>
         <Link viewTransition to={`/cas/${c.id}`} className="btn-outline">Revoir la fiche</Link>
         <button onClick={() => openExternalAi(c.id)} className="btn-outline gap-1.5"><Icon name="spark" className="h-4 w-4" />Rejouer avec ton IA</button>
         <Link viewTransition to="/" className="btn-ghost">Accueil</Link>

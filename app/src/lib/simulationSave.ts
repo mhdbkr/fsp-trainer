@@ -45,16 +45,18 @@ export interface SaveInput {
   modeExamen?: true;
 }
 
+const LABEL: Record<Part, string> = { anamnese: 'Anamnese', dokumentation: 'Dokumentation', fallvorstellung: 'Fallvorstellung', aufklaerung: 'Aufklärung' };
+
 // Corrections prioritaires : dérivées des critères non cochés + langue faible.
 function buildCorrections(parts: Partial<Record<Part, PartResult>>): string[] {
   const out: string[] = [];
   for (const [part, res] of Object.entries(parts)) {
     if (!res?.done) continue;
     const missed = res.checklist.filter((it) => !it.checked).slice(0, 2);
-    for (const m of missed) out.push(`${part} — ${m.label}`);
+    for (const m of missed) out.push(`${LABEL[part as Part]} — ${m.label}`);
     if (res.languageGrid) {
       const weak = Object.entries(res.languageGrid).filter(([, v]) => isEntered(v) && v <= 2);
-      for (const [k] of weak) out.push(`${part} — Sprache: ${k} verbessern`);
+      for (const [k] of weak) out.push(`${LABEL[part as Part]} — Sprache: ${k} verbessern`);
     }
   }
   return out.slice(0, 6);
