@@ -275,3 +275,5 @@ S4-1 peut démarrer pendant la voie B (fichiers `lib/journal`, `lib/stats` aprè
 > Q5 + Q8 : `abdf1932` → **PR #89** → CI → merge.
 > **#89 MERGÉE — Q5 + Q8** (CI verte). S4-7 : agent interrompu par une erreur API 529 en pleine correction (travail intact non commité) → relancé.
 > S4-7 : fixeur `02a09a7c` + captures `9b678f8d` (phrase du jury accordée, partenaire simulant/IA, Aufklärung à 05:00 dans un créneau de 20:00, I1, écran de fin sans doublon, texte IA honnête sur le diagnostic). Passe navigateur main : C6 63/63, sonde `examen390` verte → **PR #90** → CI → merge.
+> S4-7 #90 : INV-E7 rendu déterministe (cause : avance d'horloge avant la datation du Teil) ; la sonde `examen390` sort « cas non révélé » en CI (tirage aléatoire) → agent sur la cause.
+> **Q7 livré** `56cd8885` : composées hors `aktuell` 107 → 0 (89 cas), 53 questions retirées (déjà dites), 64 réponses écrites sourcées, corrections (prostatakarzinom, « Blutverdünner » ×8, ASS « wegen »). Reste : ~36 composées en « und » dans `aktuell`, 3 relances « Impfungen ». → revues clinique + langue Opus.
