@@ -237,8 +237,8 @@ export const CASE_MUSTER: Record<string, CaseMuster> = {
       medikation: 'Eine regelmäßige Medikamenteneinnahme werde verneint.',
       'allergien-noxen': 'Allergien seien keine bekannt. Es bestehe ein Nikotinkonsum von 15 Packungsjahren; Alkohol werde mit ein bis zwei Bier täglich angegeben, ein Drogenkonsum werde verneint.',
       'familie-sozial': 'In der Familienanamnese habe der Vater im Alter von 70 Jahren an einem Darmkrebs gelitten. Der Patient sei verheiratet und berentet.',
-      diagnose: 'Die Anamnese deutet am ehesten auf ein kolorektales Karzinom hin. Differenzialdiagnostisch kommen Hämorrhoiden, eine chronisch-entzündliche Darmerkrankung sowie eine Divertikulitis in Betracht.',
-      'diagnostik-therapie': 'Es wurden Laboruntersuchungen (Blutbild mit Frage nach einer Anämie, CEA) abgenommen und eine Koloskopie mit Biopsie sowie ein CT von Thorax und Abdomen zum Staging angemeldet. Die weitere Therapie (onkologische Resektion, ggf. neoadjuvante bzw. adjuvante Radiochemotherapie) richtet sich nach dem histologischen Befund und dem Tumorstadium.',
+      diagnose: 'Die Anamnese deutet am ehesten auf ein kolorektales Karzinom hin; die Bleistiftstühle sprechen für einen stenosierenden Tumor im Rektum oder Sigma. Differenzialdiagnostisch kommen Hämorrhoiden, eine chronisch-entzündliche Darmerkrankung, eine Divertikulitis sowie eine ischämische Kolitis in Betracht.',
+      'diagnostik-therapie': 'Es erfolgten eine körperliche Untersuchung mit digital-rektaler Untersuchung sowie Laboruntersuchungen (Blutbild, Ferritin, Leberwerte, Kreatinin und CEA als Ausgangswert). Eine komplette Koloskopie mit Biopsie sowie ein CT von Thorax und Abdomen zum Staging wurden angemeldet, bei rektalem Sitz zusätzlich eine starre Rektoskopie und ein MRT des Beckens. Die weitere Therapie (onkologische Resektion, ggf. neoadjuvante Radiochemotherapie bzw. adjuvante Chemotherapie) wird nach Histologie und Tumorstadium in der Tumorkonferenz festgelegt.',
     },
     vorstellung: {
       'persoenliche-daten': 'Ich möchte Ihnen Herrn Heinrich Vogt vorstellen, einen 68-jährigen Patienten, der sich wegen seit Wochen bestehenden wechselnden Stuhlgangs und Blutes im Stuhl in unserer Sprechstunde vorstellte.',
@@ -252,7 +252,7 @@ export const CASE_MUSTER: Record<string, CaseMuster> = {
       familienanamnese: 'Der Vater habe im Alter von 70 Jahren an einem Darmkrebs gelitten.',
       vorerkrankungen: 'Relevante Vorerkrankungen und Voroperationen bestünden keine.',
       medikation: 'Eine regelmäßige Medikamenteneinnahme habe er verneint.',
-      'diagnostik-procedere': 'Die anamnestischen Angaben deuten am ehesten auf ein kolorektales Karzinom hin. Als Differenzialdiagnosen kommen Hämorrhoiden, eine CED und eine Divertikulitis in Betracht. Ich schlage Labor mit Blutbild und CEA, eine Koloskopie mit Biopsie und ein Staging-CT vor. Die Therapie richtet sich nach Histologie und Stadium, also Resektion und gegebenenfalls Radiochemotherapie.',
+      'diagnostik-procedere': 'Die anamnestischen Angaben deuten am ehesten auf ein kolorektales Karzinom hin, am ehesten im Rektum oder Sigma. Als Differenzialdiagnosen kommen Hämorrhoiden, eine CED und eine Divertikulitis in Betracht. Ich schlage eine rektale Untersuchung, Labor mit Blutbild, Ferritin und CEA, eine komplette Koloskopie mit Biopsie und ein Staging-CT vor, beim Rektumkarzinom zusätzlich ein MRT des Beckens. Die Therapie richtet sich nach Histologie und Stadium; seine Kinder sollten sich spätestens ab 40 bis 45 Jahren koloskopieren lassen.',
     },
   },
 
