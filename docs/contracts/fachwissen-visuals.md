@@ -115,7 +115,7 @@ obligatoire. Exemptés, car rubriques structurelles et non clinicales : `title`,
 « ja »/« nein »), `points[].at`. Un `'ergänzt'` n'est accepté que s'il figure
 dans `reviewed.ts` (§4).
 
-### 1.3 `anatomy-map` — silhouette cliquable
+### 1.3 `anatomy-map` — silhouette cliquable (déprécié, refusé par le validateur — §1.10)
 
 ```ts
 export const ANATOMY_REGIONS = [
@@ -247,24 +247,30 @@ export interface ScoreGaugeData {
 
 ```ts
 import type { FachwissenVisualSpec } from './types';
+const SYNTHESE = 'Syntheseschwäche: Hämatome und Blutungsneigung (Gerinnungsfaktoren↓, Thrombozytopenie), Ödeme durch Hypalbuminämie';
+const PORTAL = 'Portale Hypertension: Aszites mit Zunahme des Bauchumfangs, Splenomegalie, Umgehungskreisläufe (Ösophagus- und Fundusvarizen, Caput medusae)';
 export const spec: FachwissenVisualSpec = {
   fachwissenId: 'fw-leberzirrhose', version: 1,
   blocks: [{
-    id: 'anatomy-leberhautzeichen', kind: 'anatomy-map', title: 'Leberhautzeichen & Stauung',
+    id: 'syndrome-zirrhose', kind: 'syndrome-map', title: 'Leberinsuffizienz und portale Hypertension',
     anchor: 'klinik',
-    replaces: [
-      { section: 'klinik', text: 'Ikterus (Gelbfärbung), Juckreiz' },
-      { section: 'klinik', text: 'Leberhautzeichen: Spider naevi, Palmarerythem, Caput medusae' },
-    ],
-    data: { figure: 'body', hotspots: [
-      { region: 'eyes', label: 'Ikterus (Sklera)',
-        source: { section: 'klinik', text: 'Ikterus (Gelbfärbung), Juckreiz' } },
-      { region: 'chest', label: 'Spider naevi',
-        source: { section: 'klinik', text: 'Leberhautzeichen: Spider naevi, Palmarerythem, Caput medusae' } },
+    replaces: [{ section: 'klinik', text: SYNTHESE }, { section: 'klinik', text: PORTAL }],
+    data: { center: 'Leberzirrhose', spokes: [
+      { label: 'Leberinsuffizienz: Synthese', items: [
+        { text: 'Hämatome, Blutungsneigung (INR↑)', source: { section: 'klinik', text: SYNTHESE } },
+      ] },
+      { label: 'Portale Hypertension', items: [
+        { text: 'Splenomegalie mit Thrombozytopenie', source: { section: 'klinik', text: PORTAL } },
+      ] },
+      // … 3 à 6 rayons (§1.5)
     ] },
   }],
 };
 ```
+
+`anatomy-map` est **déprécié** (amendement Lc1) : le validateur refuse le kind
+(`kind déprécié: anatomy-map (<bloc>) — utiliser syndrome-map`). Le composant
+reste au registre pour qu'un client ancien rende une spec plus ancienne.
 
 ## 2. Contrat de rendu
 
@@ -477,7 +483,7 @@ question, coral pour l'issue d'urgence ; arêtes orthogonales ; hotspot = cercle
      « Text anzeigen » ; après clic, les 4 labels identiques mot pour mot à
      `therapie[].label`. Repli partiel : une entrée `klinik` non couverte reste
      dépliée hors du `<details>`.
-  6. Rendu `anchor: 'redFlags'` (`fw-leberzirrhose`) : `[data-visual="timeline"]`
+  6. Rendu `anchor: 'redFlags'` (`fw-leberzirrhose`) : `[data-visual="decision-tree"]`
      est avant la `Section` Klassifikation en colonne principale ; l'encart
      latéral Red Flags est un `<details>` fermé.
   7. Typage : `// @ts-expect-error` sur un `kind` inconnu et sur un `replaces`
@@ -495,3 +501,4 @@ question, coral pour l'issue d'urgence ; arêtes orthogonales ; hotspot = cercle
 | 2026-09-16 | arch-fachwissen-visuals | §6 : `VisualBlockFrame` nommé, `<h3>` explicite, slot `after` pour le `<details>` | demande lead (alignement sur le code, AC-16) |
 | 2026-09-16 | arch-fachwissen-visuals | §6 : `neutral`/`accent` décoratifs (couleur seule OK), `signal`/`warn` porteurs de sens (texte ou icône obligatoire) | demande lead, a11y |
 | 2026-09-16 | arch-fachwissen-visuals | `REVIEWED` → `REVIEWED_ERGAENZT` (nom implémenté dans `reviewed.ts`) | décision direction |
+| 2026-10-06 | lead-s3-lc1 (décision main) | `anatomy-map` déprécié et refusé par le validateur (aucune spec ne l'utilise ; fixture `scripts/fixtures/visuals-anatomy`) ; §1.10 : l'exemple devient la `syndrome-map` de `fw-leberzirrhose` ; §7 test 6 : `decision-tree` au lieu de `timeline` | FB3-G6 (silhouette jugée cheap), lot Lc1 |
