@@ -14,6 +14,7 @@ const fwKhk: Fachwissen = {
     { text: 'Stabile AP: reproduzierbar bei definierter Belastung' },
     { text: 'Instabile AP: neu, in Ruhe oder zunehmend → ACS!' },
   ],
+  klassifikation: [{ name: 'Formen des akuten Koronarsyndroms', inhalt: 'Instabile AP, NSTEMI, STEMI.' }],
   diagnostik: [{ stufe: 'Labor', text: 'Troponin' }],
   differenzialdiagnosen: [{ dd: 'Akuter Myokardinfarkt / ACS', unterscheidung: 'x' }],
   therapie: [
