@@ -61,6 +61,7 @@ const ADMIS: Record<string, string> = {
   'case-gastroenteritis|stuhl|akt-einfluss': 'idem : « nach dem Stuhlgang » (ce qui soulage), pas l\'aspect',
   // Q4 fixeur
   'case-metabolisches-syndrom|gewicht|akt-motiv': 'le motif dit la prise de poids sans la chiffrer ; la question demande combien (revue clinique P1-3 : elle porte `gewicht`, fach-endo-gewicht retombe sur l\'appétit)',
+  'case-polymyalgia|fieber|fach-rheuma-systemisch': 'la réplique nie une vraie fièvre (décision de main, F.7-a) ; la question du cas demande la MESURE — fébricule à 37,5–37,8 le soir',
   'case-akutes-nierenversagen|gewicht|akt-allgemein-gewicht': 'la réplique dit la perte (les bagues) sans la chiffrer ; la question demande la pesée (texte de la relecture de langue, I7)',
 };
 
