@@ -28,7 +28,7 @@ globalThis.ResizeObserver ??= class { observe() {} unobserve() {} disconnect() {
 
 import { db } from '@/db/db';
 import { seedCases } from '@/data/seedCases';
-import { freezeAt } from '@/lib/clock';
+import { freezeAt, now } from '@/lib/clock';
 import type { Case, CaseProgress, DayPlan, LanguageGrid, Simulation, TaskInstance, TrainingEvent } from '@/db/types';
 import { LANGUAGE_CRITERIA } from '@/lib/scoring';
 import { conditionsExamen } from '@/lib/examen';
@@ -100,7 +100,18 @@ async function demarre() {
   expect(document.querySelector('[data-examen-reste]')?.getAttribute('data-examen-reste')).toBe(String(CIBLE));
 }
 /** Avance l'horloge murale et laisse le runner la relire (son intervalle de 500 ms). */
-const temps = async (ms: number, p: string) => { avance(ms); await attendsPhase(p); };
+/** Avance l'horloge INJECTÉE (le vrai temps ne fait rien avancer : `lib/clock` est figée) puis attend la phase. Un Teil
+ *  qui commence n'est prêt que lorsque son début est DATÉ dans le Lauf : `stempleTeil` court dans un effet, après le rendu
+ *  qui affiche la phase. Sans cette attente, une machine lente avançait l'horloge avant la datation — le Teil commençait
+ *  20 min trop tard et ne finissait jamais (CI, PR #90 : « expected 'dokumentation' to be 'transition' »). */
+const temps = async (ms: number, p: string) => {
+  avance(ms);
+  await attendsPhase(p);
+  if (p === 'dokumentation' || p === 'fallvorstellung') {
+    const t = p;
+    await waitFor(async () => expect((await aktiv())?.examen?.teilBeginn[t], `début de ${t} daté`).toBe(now()));
+  }
+};
 async function joueLesTrois() {
   await temps(CIBLE * 1000, 'transition');
   await temps(TRANSITION * 1000, 'dokumentation');
@@ -297,7 +308,9 @@ describe('INV-E7 — aucune aide montée', () => {
     const caseId = (await aktiv())!.caseId;
     for (const s of secretsDe(VOLLE.find((x) => x.id === caseId)!)) expect(html(), `IA : « ${s} »`).not.toContain(s);
     fireEvent.click(await screen.findByRole('button', { name: 'Copier' }));
-    await new Promise((r) => setTimeout(r, 50));
+    // `record()` écrit la cible et, hors Examen, la trace `pending` dans le même `Promise.all` : on attend la cible écrite
+    // (pas un délai réel), puis on vérifie que la trace ne l'a pas été.
+    await waitFor(async () => expect(await db.meta.get('externalAi.target')).toBeDefined());
     expect(await db.meta.get('externalAi.pending'), 'pas de séance IA externe à part : la partie est l’examen').toBeUndefined();
     fireEvent.keyDown(document, { key: 'Escape' });
     await temps(CIBLE * 1000, 'transition');
