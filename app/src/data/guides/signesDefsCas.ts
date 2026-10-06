@@ -194,16 +194,15 @@ export const DEFS_CAS = {
   eug_vorgeschichte: { kapitel: 'vorerkrankungen', pertinence: S },           // grossesse extra-utérine antérieure
   brust_vorgeschichte: { kapitel: 'vorerkrankungen', pertinence: S },         // traumatisme, chirurgie, irradiation du sein
   tonsillen_vorgeschichte: { kapitel: 'vorerkrankungen', pertinence: S },     // amygdalectomie, angines de l'année
-  ohr_vorgeschichte: { kapitel: 'vorerkrankungen', pertinence: S },           // chirurgie de l'oreille, aérateurs
+  kognition_vorher: { kapitel: 'vorerkrankungen', pertinence: S },            // troubles cognitifs avant l'épisode (delir, rétabli par la revue Q7 P2-2)
+  hodenhochstand: { kapitel: 'vorerkrankungen', pertinence: S },              // cryptorchidie dans l'enfance (Q7 : « Hodenhochstand hatte ich keinen », hodentorsion)
   windpocken: { kapitel: 'vorerkrankungen', pertinence: S },                  // varicelle dans l'enfance
   manie_vorgeschichte: { kapitel: 'vorerkrankungen', pertinence: S },         // phases euphoriques, hyperactives
   entzug_vorgeschichte: { kapitel: 'vorerkrankungen', pertinence: S },        // crise convulsive, délire lors d'un sevrage
-  kognition_vorher: { kapitel: 'vorerkrankungen', pertinence: S },            // troubles cognitifs avant l'épisode
   rheuma_vorgeschichte: { kapitel: 'vorerkrankungen', pertinence: S },        // maladie rhumatismale connue
   dermato_eingriff: { kapitel: 'vorerkrankungen', pertinence: S },            // lésion cutanée déjà enlevée, cryothérapie
   splenektomie: { kapitel: 'vorerkrankungen', pertinence: S },                // rate enlevée
   asplenie_impfung: { kapitel: 'vorerkrankungen', pertinence: S },            // sans rate : pneumocoque, méningocoque, carte d'asplénie (≠ le statut vaccinal général)
-  vitiligo: { kapitel: 'vorerkrankungen', pertinence: S },                    // taches blanches
   abnehmversuche: { kapitel: 'vorerkrankungen', pertinence: S },              // tentatives de perdre du poids
   kompression: { kapitel: 'vorerkrankungen', pertinence: S },                 // bas de contention prescrits, portés
   // --- Medikamente : expositions ciblées ----------------------------------------
@@ -231,7 +230,6 @@ export const DEFS_CAS = {
   injektion: { kapitel: 'medikamente', pertinence: S },             // injection récente : où, pourquoi
   nasenspray: { kapitel: 'medikamente', pertinence: S },            // spray nasal décongestionnant : lequel, depuis quand
   malariaprophylaxe: { kapitel: 'medikamente', pertinence: S },     // chimioprophylaxie antipaludique
-  abfuehrmittel: { kapitel: 'medikamente', pertinence: S },         // laxatifs
   lakritz: { kapitel: 'medikamente', pertinence: S },               // réglisse
   adhaerenz: { kapitel: 'medikamente', pertinence: S },             // prend-il ses comprimés comme prescrits
   medikament_neu: { kapitel: 'medikamente', pertinence: S },        // médicament récemment introduit ou modifié
@@ -242,8 +240,7 @@ export const DEFS_CAS = {
   ueberdosis: { kapitel: 'medikamente', pertinence: S },            // surdosage, appel des secours
   craving: { kapitel: 'medikamente', pertinence: S },               // envie impérieuse, perte de contrôle
   // --- Allergien -----------------------------------------------------------------
-  nsar_intoleranz: { kapitel: 'allergien', pertinence: S },
-  allergie_reaktion: { kapitel: 'allergien', pertinence: S },       // la réaction à une allergie déjà nommée : quoi, quand, traitée comment (≠ `allergie`, la liste)         // intolérance à l'aspirine, aux AINS
+  allergie_reaktion: { kapitel: 'allergien', pertinence: S },       // la réaction à une allergie déjà nommée : quoi, quand, traitée comment (≠ `allergie`, la liste)
   nasenpolypen: { kapitel: 'allergien', pertinence: S },            // polypes, chirurgie des sinus
   notfallset: { kapitel: 'allergien', pertinence: S },              // stylo d'adrénaline, carte d'allergie
   // --- Noxen ---------------------------------------------------------------------
@@ -252,13 +249,11 @@ export const DEFS_CAS = {
   letzte_einnahme: { kapitel: 'noxen', pertinence: S },             // dernière prise (alcool, comprimé) : jour, heure
   entzug: { kapitel: 'noxen', pertinence: S },                      // signes de manque, tentatives d'arrêt
   rauchstopp: { kapitel: 'noxen', pertinence: S },                  // arrêt récent du tabac
-  konsumaenderung: { kapitel: 'noxen', pertinence: S },             // consommation changée depuis l'événement
-  schlafentzug: { kapitel: 'noxen', pertinence: S },                // manque de sommeil
   // --- Familien- & Sozialanamnese ------------------------------------------------
   familie_herz: { kapitel: 'familie-sozial', pertinence: S },       // infarctus précoce, mort subite, cardiomyopathie dans la famille
   familie_gefaess: { kapitel: 'familie-sozial', pertinence: S },    // anévrisme, maladie du tissu conjonctif dans la famille
   familie_darm: { kapitel: 'familie-sozial', pertinence: S },       // maladie inflammatoire de l'intestin dans la famille
-  familie_atopie: { kapitel: 'familie-sozial', pertinence: S },     // asthme, rhume des foins, eczéma dans la famille
+  familie_gerinnung: { kapitel: 'familie-sozial', pertinence: S },  // trouble de la coagulation connu dans la famille (lungenembolie, revue Q7 P2-6)
   familie_autoimmun: { kapitel: 'familie-sozial', pertinence: S },  // vitiligo, maladie cœliaque, auto-immunité dans la famille
   familie_aehnlich: { kapitel: 'familie-sozial', pertinence: S },   // la même maladie, les mêmes troubles dans la famille
   sexualkontakt: { kapitel: 'familie-sozial', pertinence: S },      // rapport récent, nouveau partenaire (déclencheur) ≠ l'entrée en matière de la Sexualanamnese, qui reste
@@ -267,8 +262,6 @@ export const DEFS_CAS = {
   berufliche_belastung: { kapitel: 'familie-sozial', pertinence: S },   // charge physique du travail (port, gestes répétés)
   lebensbelastung: { kapitel: 'familie-sozial', pertinence: S },    // ce qui pèse dans sa vie (famille, aidant, ruptures)
   sozialrecht: { kapitel: 'familie-sozial', pertinence: S },        // procédure de rente, ce qu'elle représente
-  soziale_folgen: { kapitel: 'familie-sozial', pertinence: S },     // travail, famille, amis : ce qui a changé
-  alltag_zuhause: { kapitel: 'familie-sozial', pertinence: S },     // comment il s'en sort chez lui
   hilfe_zuhause: { kapitel: 'familie-sozial', pertinence: S },      // qui l'aide, qui le surveille
   vorsorgevollmacht: { kapitel: 'familie-sozial', pertinence: S },  // niveau de dépendance, mandat, directives anticipées
   vorzustand: { kapitel: 'familie-sozial', pertinence: S },         // autonomie avant l'épisode
@@ -282,11 +275,9 @@ export const DEFS_CAS = {
   strahlenexposition: { kapitel: 'familie-sozial', pertinence: S }, // radiothérapie, exposition professionnelle aux radiations
   taetowierung: { kapitel: 'familie-sozial', pertinence: S },       // tatouage, piercing
   tauchen: { kapitel: 'familie-sozial', pertinence: S },            // plongée
-  wohnumfeld_allergene: { kapitel: 'familie-sozial', pertinence: S },   // chambre, literie, animaux à la maison
   // --- Frauenanamnese ------------------------------------------------------------
   // Q-gyn : une sonde de la Frauenanamnese n'est jamais perdue — une question du cas qui la prolonge a son signe à elle.
   schwangerschaftstest: { kapitel: 'frauenanamnese', pertinence: S },   // test de grossesse fait (après « schwanger möglich ? »)
-  hitzewallung: { kapitel: 'frauenanamnese', pertinence: S },       // ces bouffées sont-elles des bouffées de chaleur de la ménopause
   menarche: { kapitel: 'frauenanamnese', pertinence: S },           // âge des premières règles
   stillen: { kapitel: 'frauenanamnese', pertinence: S },            // allaitement
 } satisfies Record<string, SigneDefBody>;

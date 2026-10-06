@@ -323,7 +323,8 @@ describe('case-gastroenteritis et case-fibromyalgie — la trame jouée (cœur :
       aktuell: ['akt-motiv', 'akt-ort', 'akt-beginn', 'akt-charakter', 'akt-intensitaet', 'akt-ausscheid-haeufigkeit~stuhlfrequenz,stuhl_nachts', 'akt-ausscheid-aussehen~stuhl_blut',
         'akt-verlauf', 'akt-ausloeser', 'akt-einfluss', 'akt-frueher', 'akt-begleit', 'cas', 'cas', 'cas'],   // revue clinique : aktuellSkip « Was hat sich verändert » ; Q4 : Fieber / Schüttelfrost en deux questions
       fach: ['fach-infekt-reise', 'cas', 'fach-infekt-kontakt~kontakt', 'fach-infekt-impfung'],   // « dort gegessen » suit le voyage (r4b) ; Lyme hors sujet (fachSkip)
-      vegetativ: ['veg-schuettelfrost~schwitzen', 'veg-uebelkeit', 'veg-ausscheidung~miktion', 'veg-gewicht', 'veg-appetit', 'veg-schlaf', 'cas'],
+      // Q7 : la question de la déshydratation (trois « ? ») devient quatre questions — boisson, fréquence, couleur, vertige
+      vegetativ: ['veg-schuettelfrost~schwitzen', 'veg-uebelkeit', 'veg-ausscheidung~miktion', 'veg-gewicht', 'veg-appetit', 'veg-schlaf', 'cas', 'cas', 'cas', 'cas'],
     });
   });
   it('fibromyalgie : Ausstrahlung, Welche Gelenke, Gicht retirés (r1) ; Auslöser, Früher, Fieber une fois ; « Seit wann » gardé ; Impfungen en végétative', () => {

@@ -124,7 +124,10 @@ describe('K4 fixeur — la revue clinique : la question perdue revient dans la t
     expect(avant('case-tvt', 0, 'beginn')).toBe(true);
     expect(avant('case-lagerungsschwindel', 1, 'lageabhaengig')).toBe(true);
     // Q3 : la n° 7 d'hypothyreose (épuisement après une Entbindung) est retirée — akt-frueher le dit déjà.
-    expect(avant('case-akutes-nierenversagen', 1, 'erbrechen')).toBe(true);
+    // Q7 : la n° 1 d'akutes-nierenversagen ne demande plus les vomissements (dits par veg-uebelkeit) — plus de `braucht` ;
+    // leistenhernie : les signes d'iléus pendant l'épisode suivent l'incarcération.
+    expect(avant('case-leistenhernie', 3, 'inkarzeration')).toBe(true);
+    expect(avant('case-leistenhernie', 4, 'inkarzeration')).toBe(true);
   });
   it('D-1 anorexia-nervosa : interrogatoire gradué — le désir de mort (Aktuelle Beschwerden), puis idées, plan, NOTFALL (Fach psy)', () => {
     expect(RISIKO_SIGNES.has('todeswunsch')).toBe(true);
