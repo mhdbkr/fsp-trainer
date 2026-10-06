@@ -1,9 +1,10 @@
 import { describe, expect, it } from 'vitest';
 import type { Case, CaseQuestion } from '@/db/types';
 import { seedCases } from '@/data/seedCases';
-import { playedTrame } from './anamneseChapters';
+import { compteursApresCas, playedTrame } from './anamneseChapters';
 import { phraseFollowUp, phraseProbes, phraseText, type Phrase } from './phrases';
 import { phraseSucht } from './symptoms';
+import { buildRollenskript } from '@/lib/rolePlay';
 
 // K5 (ADR-0023, contrat frage-atomique §10.10) — `sucht` requis au type, contenu ancien toléré au montage (§10.8),
 // et les deux reliquats « Pour K5 » des revues K4. Chaque garde a sa mutation au rapport K5.
@@ -16,10 +17,10 @@ const joue = (c: Case): Array<[string, Phrase]> => {
     ...(fach && ch.id === 'aktuell' ? fach.chapter.questions.map((p) => ['fach', p] as [string, Phrase]) : []),
   ]);
 };
-/** Le texte posé d'une sonde (question et relances), ou undefined si elle n'est pas posée. */
+/** Le texte posé d'une sonde (ses questions — une part d'alarme en ouvre une à part — et leurs relances), ou undefined. */
 const pose = (id: string, probe: string): string | undefined => {
-  const hit = joue(byId(id)).find(([, p]) => phraseProbes(p).includes(probe));
-  return hit && [phraseText(hit[1]), ...phraseFollowUp(hit[1])].join(' ↳ ');
+  const hits = joue(byId(id)).filter(([, p]) => phraseProbes(p).includes(probe));
+  return hits.length ? hits.map(([, p]) => [phraseText(p), ...phraseFollowUp(p)].join(' ↳ ')).join(' ¶ ') : undefined;
 };
 
 describe('K5 — `CaseQuestion.sucht` requis au type', () => {
@@ -62,6 +63,18 @@ describe('K5 — reliquats « Pour K5 » des revues K4', () => {
     expect(k).toMatch(/Sind Sie schon gestürzt\?/);   // la chute reste une question pour un patient qui a le vertige
   });
 
+  it('epilepsie (revue clinique K5) : la chute est dite à l\'ouverture (« vom Stuhl gekippt ») — la coordination ne la redemande pas ; les myoclonies restent demandées', () => {
+    const k = pose('case-epilepsie', 'fach-neuro-koordination')!;
+    expect(k).not.toMatch(/gestürzt/);
+    expect(k).toMatch(/Schwindel/);
+    expect(joue(byId('case-epilepsie')).some(([, p]) => /zuck/i.test(phraseText(p)) && phraseSucht(p).includes('anfallsformen'))).toBe(true);
+  });
+
+  it('§10.4 (revue K5) : une part qui cherche un signe d\'alarme (`gang`) est posée en question autonome, jamais en relance (commotio)', () => {
+    const k = joue(byId('case-commotio')).filter(([, p]) => phraseProbes(p).includes('fach-neuro-koordination')).map(([, p]) => [phraseText(p), ...phraseFollowUp(p)]);
+    expect(k).toEqual([['Haben Sie Schwindel oder das Gefühl zu schwanken?'], ['Fühlen Sie sich beim Gehen unsicher?']]);
+  });
+
   it('Fach neuro, motif « chute » déclaré (commotio) : la coordination ne redemande pas la chute', () => {
     const k = pose('case-commotio', 'fach-neuro-koordination')!;
     expect(k).toMatch(/Schwindel/);   // revue K4 (P2) : le vertige après le choc reste demandé
@@ -78,8 +91,26 @@ describe('K5 — reliquats « Pour K5 » des revues K4', () => {
     expect(sturz).toBeGreaterThan(koord);
   });
 
+  it('I3 (revue K5) : une question du cas qui déclare le signe du motif le gagne ; akt-motiv n\'est jamais perdante et reste posée', () => {
+    const base = byId('case-lagerungsschwindel');
+    const q: CaseQuestion = { frage: 'Haben Sie Schwindel?', kapitel: 'aktuell', sucht: ['schwindel'] };
+    const c = { ...base, caseSpecificQuestions: [...base.caseSpecificQuestions, q] } as Case;
+    const { detail, ...porte } = compteursApresCas(c);
+    expect(porte, detail.join(' ; ')).toEqual({ doublons: 0, horsProfil: 0, exigeAbsent: 0, relancesOrphelines: 0, brauchtViole: 0, ajouteSansReponse: 0, nonReduit: 0, casRetiresParR1: 0 });
+    const t = joue(c);
+    expect(t.some(([, p]) => phraseProbes(p).includes('akt-motiv'))).toBe(true);
+    expect(t.filter(([, p]) => phraseSucht(p).includes('schwindel')).map(([, p]) => phraseText(p))).toEqual(['Haben Sie Schwindel?']);
+    expect(playedTrame(c).ecarts.filter((e) => e.question === 'akt-motiv')).toEqual([]);
+  });
+
+  it('schlaganfall (revue clinique K5) : « beim Sturz » est rangée sous la Fach dans le Rollenskript du simulant', () => {
+    const c = byId('case-schlaganfall');
+    const ch = buildRollenskript(c.patientSheet, c.caseSpecificQuestions).find((x) => x.lines.some((l) => /beim Sturz von der Kellertreppe/.test(l.frage)));
+    expect(ch?.id).toBe('fach');
+  });
+
   it('la règle est déclarée, pas déduite de la nature : les autres cas « neurologisch » gardent la question entière', () => {
-    for (const id of ['case-tia', 'case-multiple-sklerose', 'case-migraene', 'case-epilepsie']) {
+    for (const id of ['case-tia', 'case-multiple-sklerose', 'case-migraene']) {
       expect(pose(id, 'fach-neuro-koordination'), id).toBe('Haben Sie Schwindel, Gangunsicherheit oder das Gefühl zu schwanken? Sind Sie schon gestürzt?');
     }
   });

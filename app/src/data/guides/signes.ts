@@ -50,6 +50,8 @@ export type ProfilTag = LeitsymptomKategorie
   | 'gastro' | 'haem' | 'onko' | 'kardio' | 'endo'
   // K5 (revue K4, décision de main) : le motif DÉCLARÉ quand la nature ne le dit pas — le patient consulte pour un vertige,
   // ou après une chute (lagerungsschwindel et commotio sont « neurologisch », comme tia ou schlaganfall). Lu par D4-bis (coherence.ts).
+  // Un tag n'est PAS un signe : `schwindel` / `sturz` tags et signes homonymes vivent dans deux tables ; INV-78 (granularité) ne
+  // compare que des signes, MOTIF_DECLARE fait le lien.
   | 'schwindel' | 'sturz';
 
 export const PROFIL_TAGS: readonly ProfilTag[] = [

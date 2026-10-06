@@ -1,4 +1,4 @@
-import type { Case, LeitsymptomKategorie, PatientSheet, Specialty } from '@/db/types';
+import type { Case, CaseQuestionLue, LeitsymptomKategorie, PatientSheet, Specialty } from '@/db/types';
 import type { Phrase } from './phrases';
 import { PART_RELANCE_SEULE, partNonAutonome, phraseProbes, phraseText, splitDimension, type PhraseVariant } from './phrases';
 import { cqKapitel, cqText } from '@/lib/caseQuestions';
@@ -2150,7 +2150,8 @@ const casIndexDe = (p: Phrase): number | undefined => (typeof p === 'string' ? u
 /** Questions propres au cas, rangées par sous-chapitre (FB2-J4). */
 function caseQuestionsByKapitel(c: Case): Record<string, PhraseVariant[]> {
   const out: Record<string, PhraseVariant[]> = {};
-  (c.caseSpecificQuestions ?? []).forEach((q, casIndex) => {
+  // Le montage lit la forme TOLÉRANTE (§10.8) : un contenu publié ancien peut servir une chaîne ou une question sans `sucht`.
+  ((c.caseSpecificQuestions ?? []) as readonly CaseQuestionLue[]).forEach((q, casIndex) => {
     const k = cqKapitel(q);
     const sucht = typeof q === 'string' ? undefined : q.sucht;
     const followUp = typeof q === 'string' ? undefined : q.followUp;

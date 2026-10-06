@@ -87,6 +87,9 @@ export const TAG_DU_MOTIF: Partial<Record<ProfilTag, ProfilTag>> = { infekt: 'fi
  *  « Haben Sie Schwindel …? » n'est plus posée à qui consulte pour un vertige, ni « Sind Sie schon gestürzt? » après la chute. */
 export const MOTIF_DECLARE: Partial<Record<ProfilTag, Signe>> = { schwindel: 'schwindel', sturz: 'sturz' };
 export const SONDE_DU_MOTIF = 'akt-motiv';
+/** §10.4 (revue K5, décision de main) : les signes d'ALARME qu'une part ne demande jamais en relance — elle est posée en question
+ *  autonome (commotio : l'instabilité à la marche après un traumatisme crânien ne se glisse pas sous le vertige). Liste fermée. */
+export const PART_ALARME: ReadonlySet<Signe> = new Set<Signe>(['gang']);
 const motifsDeclares = (tags: readonly ProfilTag[]): Signe[] => tags.flatMap((t) => MOTIF_DECLARE[t] ?? []);
 
 /** Rang de conservation (D4, §10.4) : question du cas 0 · Fach 1 · aktuell 2 · vegetativ 3 · autres 4. */
@@ -101,6 +104,7 @@ interface U {
   rels: number[];                     // relances de PRÉCISION (index), qui suivent la mère
   enfants: U[];                       // relances qui cherchent un autre signe (unités à part, I1)
   relance?: { mere: U; i: number; cond: boolean; attachee: boolean };
+  motifAjoute?: Signe[];              // K5 : signes du motif déclaré ajoutés à `akt-motiv` (MOTIF_DECLARE) — jamais perdus en r2 (I3)
 }
 
 const variant = (p: Phrase): PhraseVariant | undefined => (typeof p === 'string' ? undefined : p);
@@ -108,14 +112,18 @@ const uniq = <T,>(xs: T[]): T[] => [...new Set(xs)];
 const ordreSigne = (s: Signe) => SIGNES.indexOf(s);
 
 /** Une phrase → son unité (et ses relances hors signe, unités à part). */
-function unite(p: Phrase, ch: string, k: number, tags: readonly ProfilTag[], casIndex?: (p: Phrase) => number | undefined): U {
+// `ajouteMotif` : le montage ajoute le motif déclaré à `akt-motiv` ; la relecture de la trame JOUÉE (compteursApres) lit ce
+// que la trame déclare — `poser` y a écrit le motif quand `akt-motiv` l'a gardé.
+function unite(p: Phrase, ch: string, k: number, tags: readonly ProfilTag[], casIndex?: (p: Phrase) => number | undefined, ajouteMotif = true): U {
   const v = variant(p);
   const cas = phraseIsCaseSpecific(p);
   const probes = phraseProbes(p);
   const id = v?.detacheDe ?? (cas ? `cas:${casIndex?.(p) ?? `?${ch}.${k}`}` : probes.length ? probes.join('+') : `${ch}:${k}`);
-  const decl = probes.includes(SONDE_DU_MOTIF) ? uniq([...phraseSucht(p), ...motifsDeclares(tags)]) : phraseSucht(p);
+  const motifAjoute = ajouteMotif && probes.includes(SONDE_DU_MOTIF) ? motifsDeclares(tags).filter((s) => !phraseSucht(p).includes(s)) : [];
+  const decl = uniq([...phraseSucht(p), ...motifAjoute]);
   const sauf = new Set(probes.flatMap((pr) => tags.flatMap((t) => SUCHT_AUSSER[pr]?.[t] ?? [])));
-  const u: U = { id, ch, rang: rangDe(ch, cas), cas, p, signes: decl.filter((s) => !sauf.has(s)), etat: 'garde', rels: [], enfants: [] };
+  const u: U = { id, ch, rang: rangDe(ch, cas), cas, p, signes: decl.filter((s) => !sauf.has(s)), etat: 'garde', rels: [], enfants: [],
+    ...(motifAjoute.length ? { motifAjoute } : {}) };
   if (v?.detacheDe) return u;   // relance déjà détachée (passe suivante) : une question à part entière
   phraseFollowUps(p).forEach((f, i) => {
     const sucht = (f.sucht ?? []) as Signe[];
@@ -244,6 +252,9 @@ export function cohere<T extends TrameChapter>(trame: readonly T[], profil: Prof
     const w = us.reduce((a, b) => (rang(b) < rang(a) ? b : a));
     for (const u of us) {
       if (u === w) continue;
+      // I3 (revue K5, décision de main) : un signe que le motif déclaré a AJOUTÉ à `akt-motiv` cède sans perte — la question du cas qui
+      // le déclare le garde, la question d'ouverture reste posée, entière, sans écart.
+      if (u.motifAjoute?.includes(s)) { u.signes = u.signes.filter((x) => x !== s); continue; }
       if (permis(u, s, 2)) { ecart({ regle: 2, action: 'garde-exception', question: u.id, signes: [s], cause: w.id }); continue; }
       if (u.cas && w.cas) ecart({ regle: 2, action: 'anomalie', question: u.id, signes: [s], cause: w.id });
       (pertes.get(u) ?? pertes.set(u, new Map()).get(u)!).set(s, w);
@@ -326,18 +337,24 @@ export function cohere<T extends TrameChapter>(trame: readonly T[], profil: Prof
     // Les parts gardées d'UNE question se posent en une question : la première, puis les suivantes en relances (revue P2 :
     // deux questions de transpiration à la suite) — jamais recollées dans une même ligne (revue série 3, I4).
     if (u.parts) {
-      const pts = u.parts.map((i) => v.parts![i]);
-      const fu: string[] = [], fs: string[][] = [];
-      pts.forEach((pt, k) => {
-        if (k > 0) { fu.push(pt.text); fs.push(pt.sucht.filter((s) => u.signes.includes(s as Signe))); }
-        (pt.followUp ?? []).forEach((f, j) => { fu.push(f); fs.push(pt.followUpSucht?.[j] ?? []); });
+      // §10.4 (revue K5, décision de main) : une part qui cherche un signe d'alarme ouvre sa PROPRE question, jamais une relance.
+      const groupes: Part[][] = [];
+      for (const pt of u.parts.map((i) => v.parts![i])) {
+        if (!groupes.length || pt.sucht.some((s) => PART_ALARME.has(s as Signe))) groupes.push([pt]); else groupes[groupes.length - 1].push(pt);
+      }
+      return groupes.map((pts) => {
+        const fu: string[] = [], fs: string[][] = [];
+        pts.forEach((pt, k) => {
+          if (k > 0) { fu.push(pt.text); fs.push(pt.sucht.filter((s) => u.signes.includes(s as Signe))); }
+          (pt.followUp ?? []).forEach((f, j) => { fu.push(f); fs.push(pt.followUpSucht?.[j] ?? []); });
+        });
+        const br = [...(v.braucht ?? []), ...pts.flatMap((pt) => pt.braucht ?? [])];
+        // La question posée garde le libellé de dimension de sa mère (« Beginn — … ») — revue clinique P2.
+        const dim = splitDimension(v.text).dim;
+        return { ...v, text: dim && !splitDimension(pts[0].text).dim ? `${dim} — ${pts[0].text}` : pts[0].text, alts: undefined, followUp: fu.length ? fu : undefined, parts: undefined, enumere: undefined,
+          followUpSucht: fs.some((x) => x.length) ? fs : undefined, sucht: pts.flatMap((pt) => pt.sucht).filter((s, k, a) => u.signes.includes(s as Signe) && a.indexOf(s) === k),
+          ...(br.length ? { braucht: [...new Set(br)] } : {}) };
       });
-      const br = [...(v.braucht ?? []), ...pts.flatMap((pt) => pt.braucht ?? [])];
-      // La question posée garde le libellé de dimension de sa mère (« Beginn — … ») — revue clinique P2.
-      const dim = splitDimension(v.text).dim;
-      return [{ ...v, text: dim && !splitDimension(pts[0].text).dim ? `${dim} — ${pts[0].text}` : pts[0].text, alts: undefined, followUp: fu.length ? fu : undefined, parts: undefined, enumere: undefined,
-        followUpSucht: fs.some((x) => x.length) ? fs : undefined, sucht: pts.flatMap((pt) => pt.sucht).filter((s, k, a) => u.signes.includes(s as Signe) && a.indexOf(s) === k),
-        ...(br.length ? { braucht: [...new Set(br)] } : {}) }];
     }
     // K5 : la question d'ouverture DIT ce qu'elle obtient du motif déclaré — tout lecteur de la trame jouée le voit (INV-88).
     if (phraseProbes(v).includes(SONDE_DU_MOTIF) && u.signes.some((s) => !phraseSucht(v).includes(s))) return [{ ...v, sucht: u.signes }];
@@ -360,7 +377,7 @@ export interface CompteursApres {
 /** Relit la trame JOUÉE (pas l'état interne de `cohere`) : un signe cherché par ≥ 2 unités, hors exceptions et hors questions
  *  non réduites ; un signe hors profil encore cherché, hors non réduites, exceptions et questions du cas gardées par r1 ; etc. */
 export function compteursApres(trame: readonly TrameChapter[], profil: ProfilEffectif, ecarts: readonly Ecart[], casIndex?: CohereCtx['casIndex']): CompteursApres & { detail: string[] } {
-  const units = trame.flatMap((ch) => ch.questions.map((p, k) => unite(p, ch.id, k, profil.tags, casIndex)))
+  const units = trame.flatMap((ch) => ch.questions.map((p, k) => unite(p, ch.id, k, profil.tags, casIndex, false)))
     .flatMap((u) => [u, ...u.enfants]).filter((u) => !phraseProbes(u.p).some((p) => R2_EXEMPTES.has(p)));
   const nonReduit = new Set(ecarts.filter((e) => e.action === 'non-reduit').map((e) => e.question));
   const exception = new Set(ecarts.filter((e) => e.action === 'garde-exception').flatMap((e) => e.signes.map((s) => `${e.question}|${s}`)));

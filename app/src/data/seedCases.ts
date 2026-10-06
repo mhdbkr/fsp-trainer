@@ -6925,7 +6925,7 @@ export function seedCases(): Case[] {
         { frage: 'Wissen Sie, weshalb Ihnen das Aspirin verschrieben wurde?', kapitel: 'medikamente', sucht: ['medikament_indikation'] },
         { frage: 'Ist Ihnen ein unregelmäßiger Herzschlag bekannt, zum Beispiel Vorhofflimmern?', kapitel: 'vorerkrankungen', sucht: ['herz_vorgeschichte'] },
         { frage: 'Hatten Sie schon einmal einen kurzzeitigen Sehverlust auf einem Auge?', kapitel: 'aktuell', sucht: ['amaurosis'] },
-        { frage: 'Haben Sie sich beim Sturz von der Kellertreppe den Kopf gestoßen?', kapitel: 'aktuell', sucht: ['kopfanprall'], braucht: ['sturz'] },
+        { frage: 'Haben Sie sich beim Sturz von der Kellertreppe den Kopf gestoßen?', kapitel: 'fach', sucht: ['kopfanprall'], braucht: ['sturz'] },
       ],
       examinerQuestions: [
         'Wie lautet Ihre Verdachtsdiagnose und warum?',
@@ -57917,7 +57917,7 @@ export function seedCases(): Case[] {
       frequency: 0,
       difficulty: 3,
       patientSheet: {
-        profil: { tags: ['anfall'] },
+        profil: { tags: ['anfall', 'sturz'] },   // K5 (revue clinique) : « vom Stuhl gekippt », dit à l'ouverture (D4-bis, MOTIF_DECLARE)
         leitsymptomKategorie: 'anfall',
         personalia: {
           name: 'Lukas Brenner',
