@@ -35,8 +35,8 @@ const GARDEES: Record<string, Raison> = {
   'fach-gyn-blutung -> akt-veraend-blutung': 'reduit',
   'fach-haem-blutung -> akt-veraend-blutung': 'reduit',
   'fach-haem-blutverlust -> akt-veraend-blutung': 'reduit',
-  'fach-onko-blutung -> akt-veraend-blutung': 'reduit',
-  'fach-onko-knoten -> akt-veraend-was': 'reduit',        // K4 : les parts d'akt-veraend-was
+  // Q8 : 'fach-onko-knoten -> akt-veraend-was' et 'fach-onko-blutung -> akt-veraend-blutung' ne s'appliquent plus — le seul cas
+  // (bronchialkarzinom) saute ces deux sondes de la Veränderung (aktuellSkip : une toux n'est ni une « Hautveränderung » ni « juckt es »).
   // K4 : aucun signe commun (schwaeche ≠ feinmotorik, sturz) ; « non réduite » tenait au signe `sturz` de la Fach neuro, que
   // les parts d'akt-nerven-alltag laissent désormais retirer.
   'fach-neuro-kraft -> akt-nerven-alltag': 'signe-distinct',
@@ -71,10 +71,12 @@ describe('FACH_COVERS absorbé par r2 — chaque paire retirée, ou gardée pour
     }
   }
 
-  it('la table gelée a 73 paires ; 71 s\'appliquent à au moins un cas ; 23 restent posées (raison listée)', () => {
+  // Q8 : 68 paires s'appliquent (71 avant) — bronchialkarzinom (onko-knoten, onko-blutung) et bph / prostatakarzinom (uro-farbe →
+  // ausscheid-aussehen) sautent ces sondes de variante (aktuellSkip, arbitrage des natures) ; 21 restent posées.
+  it('la table gelée a 73 paires ; 68 s\'appliquent à au moins un cas ; 21 restent posées (raison listée)', () => {
     expect(PAIRES).toHaveLength(73);
-    expect(etat.size).toBe(71);
-    expect(Object.keys(GARDEES)).toHaveLength(23);
+    expect(etat.size).toBe(68);
+    expect(Object.keys(GARDEES)).toHaveLength(21);
   });
   it('les paires gardées sont exactement celles listées', () => {
     const gardees = [...etat].filter(([, s]) => s.retiree < s.n).map(([k]) => k).sort();
