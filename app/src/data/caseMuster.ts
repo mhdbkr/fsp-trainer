@@ -151,8 +151,8 @@ export const CASE_MUSTER: Record<string, CaseMuster> = {
       medikation: 'Eine regelmäßige Medikamenteneinnahme werde verneint.',
       'allergien-noxen': 'Es bestehe eine Penicillinallergie, auf die die Patientin mit einem Hautausschlag reagiere. Sie sei Nichtraucherin, trinke selten ein Glas Wein und verneine einen Drogenkonsum.',
       'familie-sozial': 'Die Familienanamnese sei unauffällig. Die Patientin sei verheiratet, habe zwei Kinder und sei berentet.',
-      diagnose: 'Die Anamnese deutet am ehesten auf eine akute Divertikulitis des Sigmas hin. Differenzialdiagnostisch kommen ein kolorektales Karzinom, ein Reizdarmsyndrom sowie ein Harnwegsinfekt in Betracht.',
-      'diagnostik-therapie': 'Es wurden Laboruntersuchungen (CRP, Blutbild) abgenommen und eine Abdomensonographie sowie ein CT-Abdomen angemeldet; eine Koloskopie wurde erst für das beschwerdefreie Intervall geplant (nicht in der Akutphase). Therapeutisch wurden eine antibiotische Behandlung, eine Nahrungskarenz bzw. leichte Kost und eine Analgesie eingeleitet.',
+      diagnose: 'Die Anamnese deutet am ehesten auf eine akute Sigmadivertikulitis bei bekannter Divertikulose hin. Differenzialdiagnostisch kommen ein kolorektales Karzinom, ein Reizdarmsyndrom, ein Harnwegsinfekt, eine ischämische Kolitis sowie ein Ovarialprozess in Betracht.',
+      'diagnostik-therapie': 'Es wurden Laboruntersuchungen (Blutbild, CRP, Kreatinin, Urinstatus) abgenommen sowie eine Abdomensonographie und ein CT-Abdomen mit Kontrastmittel zur Einteilung nach der CDD-Klassifikation veranlasst; eine Koloskopie ist erst 4–6 Wochen nach Abklingen der Entzündung vorgesehen. Wegen des Fiebers wurde eine orale Antibiose mit Ciprofloxacin und Metronidazol eingeleitet (Amoxicillin/Clavulansäure bei Penicillinallergie kontraindiziert), dazu leichte Kost und eine Analgesie mit Metamizol.',
     },
     vorstellung: {
       'persoenliche-daten': 'Ich möchte Ihnen Frau Ursula Maier vorstellen, eine 67-jährige Patientin, die sich wegen seit drei Tagen bestehender Schmerzen im linken Unterbauch in unserer Notaufnahme vorstellte.',
@@ -167,7 +167,7 @@ export const CASE_MUSTER: Record<string, CaseMuster> = {
       vorerkrankungen: 'Bekannt sei eine Divertikulose (Koloskopie vor zwei Jahren); Voroperationen bestünden keine.',
       medikation: 'Eine regelmäßige Medikamenteneinnahme habe sie verneint.',
       frauenanamnese: 'Sie befinde sich in der Postmenopause; eine Schwangerschaft sei somit ausgeschlossen.',
-      'diagnostik-procedere': 'Die anamnestischen Angaben deuten am ehesten auf eine akute Divertikulitis hin. Als Differenzialdiagnosen kommen ein kolorektales Karzinom, ein Reizdarmsyndrom und ein Harnwegsinfekt in Betracht. Ich schlage Labor, eine Sonographie und ein CT-Abdomen vor, eine Koloskopie erst im Intervall. Therapeutisch empfehle ich Antibiotika, leichte Kost und Analgesie.',
+      'diagnostik-procedere': 'Die anamnestischen Angaben deuten am ehesten auf eine akute Sigmadivertikulitis hin. Als Differenzialdiagnosen kommen ein kolorektales Karzinom, ein Reizdarmsyndrom und ein Harnwegsinfekt in Betracht. Ich schlage Labor mit CRP und Urinstatus, eine Sonographie und ein CT-Abdomen vor, eine Koloskopie erst im Intervall. Therapeutisch empfehle ich wegen des Fiebers eine Antibiose mit Ciprofloxacin und Metronidazol — wegen der Penicillinallergie —, leichte Kost und Metamizol.',
     },
   },
 
