@@ -123,6 +123,16 @@ describe('Q3 — renvois cliniques des revues K3–K5, sur la trame jouée', () 
     }
   });
 
+  it('reliquat Q2 : les sous-questions abandonnées reviennent en relances suivantes (`followUps`), posées dans la trame', () => {
+    const relances = (id: string, frage: string) => phraseFollowUp(joue(byId(id)).find(([, p]) => phraseText(p) === frage)![1]);
+    expect(relances('case-ulcus-cruris', 'Hatten Sie schon einmal eine Thrombose in einem Bein oder eine Lungenembolie?'))
+      .toEqual(['Falls ja: Wann war das?', 'Falls ja: In welchem Bein?', 'Falls ja: Wie wurde das behandelt?']);
+    expect(relances('case-akutes-nierenversagen', 'Nehmen Sie Schmerzmittel ein, die Sie ohne Rezept in der Apotheke bekommen — Ibuprofen, Diclofenac oder Voltaren?'))
+      .toContain('Falls ja: Seit wann nehmen Sie sie?');
+    expect(relances('case-hueftkopfnekrose', 'Haben Sie in den letzten Jahren Kortison bekommen — als Tabletten, Infusionen oder Spritzen?'))
+      .toContain('Falls ja: Wie lange haben Sie es genommen?');
+  });
+
   it('« oder Schmerzen » (akt-begleit, variante nerven) : réduite, la question garde les douleurs', () => {
     const [, p] = joue(byId('case-parkinson')).find(([, x]) => phraseProbes(x).includes('akt-begleit'))!;
     expect(phraseText(p)).toMatch(/Schmerzen/);

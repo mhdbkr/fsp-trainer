@@ -30000,7 +30000,7 @@ export function seedCases(): Case[] {
       caseSpecificQuestions: [
         { frage: 'Wird der Schmerz im Bein besser, wenn Sie es hochlegen — oder eher schlimmer, wenn Sie es herunterhängen lassen?', kapitel: 'aktuell', sucht: ['lageabhaengig'] },
         { frage: 'Bekommen Sie beim Gehen Schmerzen in der Wade, die Sie zum Stehenbleiben zwingen?', kapitel: 'aktuell', sucht: ['gehstrecke'], followUp: 'Falls ja: Nach wie vielen Metern?' },
-        { frage: 'Hatten Sie schon einmal eine Thrombose in einem Bein oder eine Lungenembolie?', kapitel: 'vorerkrankungen', sucht: ['thrombose_vorgeschichte'], followUp: 'Falls ja: Wie wurde das behandelt?' },
+        { frage: 'Hatten Sie schon einmal eine Thrombose in einem Bein oder eine Lungenembolie?', kapitel: 'vorerkrankungen', sucht: ['thrombose_vorgeschichte'], followUp: 'Falls ja: Wann war das?', followUps: ['Falls ja: In welchem Bein?', 'Falls ja: Wie wurde das behandelt?'] },
         { frage: 'Schwellen Ihre Beine im Lauf des Tages an und sind sie morgens wieder schlanker?', kapitel: 'aktuell', sucht: ['oedeme'] },
         { frage: 'Wissen Sie noch, wie die Wunde entstanden ist — gab es eine Verletzung, oder ist die Haut von selbst aufgegangen?', kapitel: 'aktuell', sucht: ['ausloeser'] },
         { frage: 'Womit haben Sie die Wunde bisher behandelt, und hat sich die Haut rings um die Wunde verändert, seit Sie diese Salbe benutzen?', kapitel: 'aktuell', sucht: ['vorbehandlung'] },
@@ -33171,7 +33171,7 @@ export function seedCases(): Case[] {
         { frage: 'Wie viel Urin lassen Sie ungefähr an einem ganzen Tag — können Sie es mit einem Glas oder einer Flasche vergleichen? Und wie viel war es vorher?', kapitel: 'vegetativ', sucht: ['urinmenge'] },
         { frage: 'Wie viel haben Sie in den letzten Tagen wirklich getrunken, und wie oft mussten Sie erbrechen oder zur Toilette wegen des Durchfalls?', kapitel: 'vegetativ', sucht: ['trinkmenge', 'stuhlfrequenz'], braucht: ['erbrechen'] },
         { frage: 'Haben Sie sich in den letzten Tagen gewogen?', kapitel: 'aktuell', sucht: ['gewicht'], followUp: 'Falls ja: Wie viel haben Sie abgenommen oder zugenommen?' },
-        { frage: 'Nehmen Sie Schmerzmittel ein, die Sie ohne Rezept in der Apotheke bekommen — Ibuprofen, Diclofenac oder Voltaren?', kapitel: 'medikamente', sucht: ['nsar'], followUp: 'Falls ja: Wie viele Tabletten nehmen Sie pro Tag?' },
+        { frage: 'Nehmen Sie Schmerzmittel ein, die Sie ohne Rezept in der Apotheke bekommen — Ibuprofen, Diclofenac oder Voltaren?', kapitel: 'medikamente', sucht: ['nsar'], followUp: 'Falls ja: Wie viele Tabletten nehmen Sie pro Tag?', followUps: ['Falls ja: Seit wann nehmen Sie sie?'] },
         { frage: 'Können Sie mir Ihre Blutdrucktablette genau beschreiben oder die Packung zeigen? Ist eine Entwässerungstablette darin enthalten?', kapitel: 'medikamente', sucht: ['antihypertensiva', 'diuretika'] },
         { frage: 'Hatten Sie in den letzten Tagen oder Wochen eine Untersuchung mit Kontrastmittel, also ein Röntgen oder eine Computertomographie mit einer Spritze?', kapitel: 'vorerkrankungen', sucht: ['kontrastmittel'] },
         { frage: 'Müssen Sie zur Toilette und es kommt nichts, oder verspüren Sie gar keinen Harndrang mehr? Haben Sie ein Druckgefühl im Unterbauch?', kapitel: 'aktuell', sucht: ['harnverhalt'] },
@@ -52019,7 +52019,7 @@ export function seedCases(): Case[] {
         'auf-mrt',
       ],
       caseSpecificQuestions: [
-        { frage: 'Haben Sie in den letzten Jahren Kortison bekommen — als Tabletten, Infusionen oder Spritzen?', kapitel: 'medikamente', sucht: ['kortison'], followUp: 'Falls ja: In welcher Dosis haben Sie es bekommen?' },
+        { frage: 'Haben Sie in den letzten Jahren Kortison bekommen — als Tabletten, Infusionen oder Spritzen?', kapitel: 'medikamente', sucht: ['kortison'], followUp: 'Falls ja: In welcher Dosis haben Sie es bekommen?', followUps: ['Falls ja: Wie lange haben Sie es genommen?'] },
         { frage: 'Seit wie vielen Jahren trinken Sie schon so viel Alkohol wie derzeit?', kapitel: 'noxen', sucht: ['alkohol_dauer'], braucht: ['alkohol'] },
         { frage: 'Haben Sie den Eindruck, dass das Knie selbst das Problem ist?', kapitel: 'fach', sucht: ['projektion'] },
         { frage: 'Können Sie das rechte Bein noch nach innen drehen, Socken anziehen und die Beine überschlagen — und wie ist das links?', kapitel: 'aktuell', sucht: ['beweglichkeit'] },
