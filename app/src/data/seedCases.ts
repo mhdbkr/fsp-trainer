@@ -4014,51 +4014,41 @@ export function seedCases(): Case[] {
         persona: 'Retraité de 60 ans, ancien chauffeur de bus, tranquille et un peu fataliste. Tu banalises le tabac (« ça n\'a quand même rien à voir avec ma jambe, non ? »). Tu décris clairement le lien entre la douleur du mollet et la marche si on te questionne. Tu ne signales ton allergie à la pénicilline que si on te pose la question — ou, si on l\'a oubliée, spontanément en toute fin d\'entretien.',
       },
       medicalView: {
-        verdachtsdiagnose: 'Periphere arterielle Verschlusskrankheit (pAVK) des rechten Beins, Fontaine-Stadium IIb (am ehesten femoropoplitealer Oberschenkeltyp)',
+        verdachtsdiagnose: 'Periphere arterielle Verschlusskrankheit des rechten Beins, Fontaine-Stadium IIb (am ehesten femoropoplitealer Oberschenkeltyp). Ausdruck einer generalisierten Atherosklerose bei 45 Packungsjahren, Hypertonie und Hyperlipidämie.',
         patientWorte: { verdacht: 'ein Gefäß in Ihrem rechten Bein verengt ist und deshalb beim Gehen zu wenig Blut ankommt', diagnostik: 'tasten wir die Fußpulse, messen den Blutdruck an Arm und Bein und lassen Sie auf dem Laufband gehen', therapie: 'helfen Ihnen Nikotinverzicht, Gehtraining und gefäßschützende Medikamente, bei stärkerer Verengung auch eine Gefäßaufdehnung oder Operation' },
         differenzialdiagnosen: [
-          {
-            dd: 'Claudicatio spinalis (Spinalkanalstenose)',
-            unterscheidung: 'Schmerz lageabhängig — Besserung beim Vornüberbeugen/Sitzen, nicht schon beim bloßen Stehenbleiben; Gehstrecke variabel; Fußpulse tastbar. Bei diesem Patienten wegen des Bandscheibenvorfalls aktiv abzugrenzen.',
-          },
-          {
-            dd: 'Tiefe Venenthrombose (TVT)',
-            unterscheidung: 'akute einseitige Schwellung, Überwärmung, Rötung, Spannungsschmerz; nicht belastungsabhängig; Fußpulse erhalten.',
-          },
-          {
-            dd: 'Polyneuropathie (z. B. diabetisch)',
-            unterscheidung: 'brennende, kribbelnde Ruhe- und Nachtschmerzen, sockenförmiges Verteilungsmuster, sensibles Defizit; nicht gehstreckenabhängig.',
-          },
-          {
-            dd: 'Gonarthrose / Coxarthrose',
-            unterscheidung: 'gelenkbezogener Anlauf- und Belastungsschmerz, Bewegungseinschränkung, keine Ischämiezeichen, Fußpulse tastbar.',
-          },
+          { dd: 'Claudicatio spinalis (Spinalkanalstenose)', unterscheidung: 'Bei seinem lumbalen Bandscheibenleiden aktiv abzugrenzen: der spinale Schmerz bessert sich erst beim Vornüberbeugen oder Hinsetzen, nicht beim bloßen Stehenbleiben, die Gehstrecke wechselt, die Fußpulse sind tastbar und der ABI ist normal.' },
+          { dd: 'Tiefe Venenthrombose (TVT)', unterscheidung: 'Akute einseitige Schwellung, Überwärmung, Rötung, Spannungsschmerz auch in Ruhe; Fußpulse erhalten. Bei ihm keine Schwellung, keine Umfangsdifferenz, keine Immobilisation.' },
+          { dd: 'Polyneuropathie (z. B. diabetisch)', unterscheidung: 'Brennende, kribbelnde Ruhe- und Nachtschmerzen, sockenförmig, nicht gehstreckenabhängig. Bei ihm keine Parästhesien; ein Diabetes ist nicht bekannt, die Mutter hat aber einen — HbA1c bestimmen.' },
+          { dd: 'Gonarthrose / Coxarthrose', unterscheidung: 'Gelenkbezogener Anlauf- und Belastungsschmerz, Bewegungseinschränkung, keine Ischämiezeichen, Fußpulse tastbar. Sein Schmerz sitzt in der Wade, nicht im Gelenk.' },
+          { dd: 'Akuter arterieller Verschluss', unterscheidung: 'Plötzlicher heftiger Schmerz mit blassem, pulslosem Bein in Ruhe — ein Notfall. Seine Beschwerden haben schleichend über drei Monate begonnen und vergehen in Ruhe.' },
         ],
         diagnostik: [
-          { stufe: 'Anamnese/Klinik', text: 'Körperliche Untersuchung: Inspektion (blasse, kühle Haut, trophische Störungen), seitenvergleichende Palpation der Fußpulse (A. dorsalis pedis, A. tibialis posterior, A. poplitea, A. femoralis), Auskultation auf Strömungsgeräusche' },
-          { stufe: 'Anamnese/Klinik', text: 'Knöchel-Arm-Index (ABI) in Ruhe — zentrale nicht-invasive Untersuchung zur Bestätigung und Schweregradeinteilung' },
+          { stufe: 'Anamnese/Klinik', text: 'Körperliche Untersuchung: Inspektion (blasse, kühle Haut, trophische Störungen), seitenvergleichende Palpation der Pulse (A. femoralis, A. poplitea, A. dorsalis pedis, A. tibialis posterior), Auskultation auf Strömungsgeräusche; Blutdruck an beiden Armen' },
+          { stufe: 'Anamnese/Klinik', text: 'Knöchel-Arm-Index (ABI) in Ruhe mit dem höheren Armdruck — zentrale nicht-invasive Untersuchung zur Bestätigung und Schweregradeinteilung' },
           { stufe: 'Anamnese/Klinik', text: 'Laufbandergometrie — standardisierte Bestimmung der schmerzfreien Gehstrecke und ABI nach Belastung' },
-          { stufe: 'Labor', text: 'Labor: Blutbild, Lipidstatus (LDL/HDL/Cholesterin), HbA1c, Nierenwerte, Gerinnung' },
+          { stufe: 'Labor', text: 'Lipidstatus mit LDL, HbA1c (Mutter Diabetikerin), Kreatinin mit eGFR (Candesartan, vor Kontrastmittel), Blutbild' },
           { stufe: 'Apparativ & Bildgebung', text: 'Farbkodierte Duplexsonographie der Beinarterien — Lokalisation und Grad der Stenose' },
-          { stufe: 'Apparativ & Bildgebung', text: 'MR- oder CT-Angiographie bzw. DSA zur Interventions-/OP-Planung; bei Kontrastmittelallergie CO2-Angiographie' },
+          { stufe: 'Apparativ & Bildgebung', text: 'Generalisierte Atherosklerose suchen: Duplex der Karotiden, Ruhe-EKG, gezielte Frage nach Angina pectoris' },
+          { stufe: 'Apparativ & Bildgebung', text: 'MR- oder CT-Angiographie bzw. DSA nur zur Interventions- oder OP-Planung' },
         ],
         therapie: [
           {
             label: 'Basistherapie: Risikofaktorenkontrolle und kardiovaskuläre Sekundärprophylaxe',
             items: [
-              'Konsequente Nikotinkarenz als wichtigste Einzelmaßnahme — strukturierte Raucherentwöhnung anbieten',
-              'ASS 100 mg täglich (alternativ Clopidogrel 75 mg) dauerhaft zur Senkung des kardiovaskulären Gesamtrisikos',
-              'Statintherapie mit LDL-Zielwert unter 55 mg/dl, Blutdruckeinstellung unter 140/90 mmHg und bei Diabetes ein HbA1c um 7 %',
-              'Sorgfältige Fußpflege, tägliche Inspektion und druckfreies Schuhwerk zur Vermeidung von Ulzera',
-              'Der Patient muss verstehen, dass die pAVK ein Warnzeichen der generalisierten Atherosklerose ist — Abklärung von Herz und Halsschlagadern',
+              'Konsequente Nikotinkarenz als wichtigste Einzelmaßnahme — strukturierte Raucherentwöhnung mit Nikotinersatz anbieten',
+              'Thrombozytenaggregationshemmer dauerhaft: bei ihm Clopidogrel 75 mg sinnvoll, weil er Ibuprofen gegen die Rückenschmerzen nimmt (Ibuprofen schwächt die ASS-Wirkung ab); alternativ ASS 100 mg mit Abstand zum Ibuprofen',
+              'Simvastatin 40 mg reicht für den LDL-Zielwert unter 55 mg/dl meist nicht: Umstellung auf ein hochpotentes Statin (z. B. Atorvastatin 40–80 mg), bei Nichterreichen Ezetimib',
+              'Blutdruck unter 140/90 mmHg, bei guter Verträglichkeit unter 130/80; Candesartan beibehalten',
+              'Rückenschmerzen möglichst ohne Dauer-NSAR behandeln (Magen, Niere unter Sartan)',
+              'Sorgfältige Fußpflege, tägliche Inspektion und druckfreies Schuhwerk',
             ],
             akut: false,
           },
           {
             label: 'Strukturiertes Gehtraining — Erstlinientherapie im Stadium II',
             items: [
-              'Im Stadium IIb ist das strukturierte Gehtraining die Therapie der ersten Wahl: dreimal wöchentlich 30–60 Minuten, Gehen bis knapp unter die Schmerzgrenze, Pause, Wiederholung, über mindestens drei Monate',
-              'Anbindung an eine Gefäßsportgruppe zur besseren Adhärenz',
+              'Strukturiertes Gehtraining: dreimal wöchentlich 30–60 Minuten, Gehen bis knapp unter die Schmerzgrenze, Pause, Wiederholung, über mindestens drei Monate — am besten in einer Gefäßsportgruppe',
               'Cilostazol 2 × 100 mg als medikamentöse Option zur Verlängerung der Gehstrecke, wenn keine Herzinsuffizienz vorliegt',
               'Verlaufskontrolle über die schmerzfreie Gehstrecke und den Knöchel-Arm-Index',
             ],
@@ -4067,8 +4057,7 @@ export function seedCases(): Case[] {
           {
             label: 'Revaskularisation: Indikationsstellung nach Fontaine-Stadium und Läsionsmorphologie',
             items: [
-              'Im Stadium IIb besteht eine relative Indikation — sie wird gestellt bei hohem Leidensdruck oder wenn Gehtraining und Basistherapie nach etwa drei Monaten nicht ausreichen',
-              'Vor der Entscheidung Duplexsonographie und angiographische Darstellung der femoropoplitealen Strombahn',
+              'Im Stadium IIb relative Indikation: bei hohem Leidensdruck oder wenn Gehtraining und Basistherapie nach etwa drei Monaten nicht ausreichen',
               'Bei umschriebener Stenose oder kurzstreckigem Verschluss perkutane transluminale Angioplastie mit oder ohne Stent',
               'Bei langstreckigem Verschluss femoropoplitealer Bypass, bevorzugt mit autologer Vena saphena magna, alternativ Thrombendarteriektomie an der Femoralisgabel',
               'Auch nach erfolgreicher Revaskularisation werden Basistherapie und Gehtraining unverändert fortgeführt',
@@ -4080,15 +4069,16 @@ export function seedCases(): Case[] {
             items: [
               'Den Patienten über die Warnzeichen aufklären: plötzlicher heftiger Beinschmerz, Blässe, Kältegefühl, Gefühlsstörung oder Lähmung — sofort in die Notaufnahme',
               'Im Notfall: Bein tief lagern und watteweich polstern, Analgesie, Heparin-Bolus 5000–10000 IE intravenös, sofortige gefäßchirurgische Vorstellung',
-              'Ebenso alarmierend ist der Ruheschmerz nachts oder eine nicht heilende Wunde am Fuß — dann liegt bereits Stadium III oder IV mit dringlicher Revaskularisationsindikation vor',
-              'Amputation bleibt die absolute Ausnahme bei nicht mehr rettbarem Gewebe',
+              'Ebenso alarmierend sind Ruheschmerz nachts oder eine nicht heilende Wunde am Fuß — dann liegt Stadium III oder IV mit dringlicher Revaskularisationsindikation vor',
             ],
             akut: true,
           },
         ],
         erstmassnahmen: [
           'Fußpulse seitenvergleichend tasten und ABI bestimmen',
-          'kardiovaskuläres Gesamtrisiko erfassen (KHK, Karotisstenose als generalisierte Atherosklerose mitbedenken)',
+          'Rauchstopp ansprechen',
+          'Thrombozytenaggregationshemmer beginnen, Statin intensivieren',
+          'Gehtraining verordnen',
         ],
         notfall: false,
       },
@@ -4116,7 +4106,7 @@ export function seedCases(): Case[] {
       ],
       pruefungsfallen: [
         'ABI vergessen — der Knöchel-Arm-Index ist die zentrale nicht-invasive Untersuchung und sollte zuerst genannt werden.',
-        'Bei Diabetikern kann der ABI durch Mediasklerose falsch-hoch/normal sein (inkompressible Gefäße); dann Zehendruck bzw. TBI heranziehen.',
+        'Ein normaler ABI schließt eine pAVK bei Diabetes oder Niereninsuffizienz nicht aus (Mediasklerose, inkompressible Gefäße) — dann Zehendruck bzw. TBI heranziehen.',
         'Fußpulse nur einseitig oder gar nicht getastet — immer seitenvergleichend (A. dorsalis pedis UND A. tibialis posterior).',
         'Nikotinkarenz als wichtigste Maßnahme nicht an erster Stelle genannt.',
         'pAVK ist Marker einer generalisierten Atherosklerose — KHK und Karotisstenose aktiv mitbedenken, nicht nur das Bein behandeln.',
@@ -4132,57 +4122,28 @@ export function seedCases(): Case[] {
         '2023-04-25',
       ],
       examinerSheet: [
-        {
-          title: 'Einstieg & Klassifikation',
-          interactions: [
-            {
-              frage: 'Verdachtsdiagnose und Begründung?',
-              reaktion: 'pAVK des rechten Beins — belastungsabhängiger, reproduzierbarer Wadenschmerz nach ca. 100 m mit Besserung in Ruhe (Claudicatio intermittens), dazu zahlreiche kardiovaskuläre Risikofaktoren.',
-            },
-            {
-              frage: 'Welches Fontaine-Stadium liegt vor?',
-              reaktion: 'Stadium IIb — schmerzfreie Gehstrecke unter 200 m. (I = beschwerdefrei, IIa > 200 m, IIb < 200 m, III = Ruheschmerz, IV = Nekrose/Gangrän.) Ergänzend Rutherford-Kategorien.',
-            },
-            {
-              frage: 'Warum spricht man von der Schaufensterkrankheit?',
-              reaktion: 'Weil die Betroffenen wegen des belastungsabhängigen Schmerzes immer wieder stehen bleiben müssen — wie beim Schaufensterbummel.',
-            },
-          ],
-        },
-        {
-          title: 'Untersuchung & Diagnostik',
-          interactions: [
-            {
-              frage: 'Wo tasten Sie die Fußpulse?',
-              reaktion: 'A. dorsalis pedis am Fußrücken und A. tibialis posterior hinter dem Innenknöchel, immer im Seitenvergleich; zusätzlich A. poplitea und A. femoralis.',
-            },
-            {
-              frage: 'Was ist der ABI und wie werten Sie ihn?',
-              reaktion: 'Knöchel-Arm-Index = systolischer Knöcheldruck geteilt durch Armdruck; > 0,9 normal, 0,75–0,9 leichte, 0,5–0,75 mittelschwere, < 0,5 kritische pAVK; Werte > 1,3 sprechen für Mediasklerose (falsch hoch).',
-            },
-            {
-              frage: 'Welche Bildgebung, und was tun Sie bei Kontrastmittelallergie?',
-              reaktion: 'Zuerst farbkodierte Duplexsonographie, dann MR-/CT-Angiographie bzw. DSA zur Interventionsplanung; bei KM-Allergie CO2-Angiographie.',
-            },
-          ],
-        },
-        {
-          title: 'Differenzialdiagnosen & Therapie',
-          interactions: [
-            {
-              frage: 'Wie unterscheiden Sie pAVK und TVT klinisch?',
-              reaktion: 'TVT: akute Schwellung, Überwärmung, Rötung, Spannungsschmerz, Pulse erhalten; pAVK: blasses kühles Bein, abgeschwächte oder fehlende Pulse, belastungsabhängiger Schmerz.',
-            },
-            {
-              frage: 'Wie behandeln Sie je nach Stadium?',
-              reaktion: 'Alle Stadien: Risikofaktoren, Nikotinkarenz, TAH, Statin. Stadium II: Gehtraining, ggf. Cilostazol, bei Leidensdruck PTA/Stent. Stadium III/IV: dringliche Revaskularisation, Wundbehandlung, Analgesie.',
-            },
-            {
-              frage: 'Was ist das Leriche-Syndrom?',
-              reaktion: 'Verschluss der distalen Aorta bzw. beider Beckenarterien mit der Trias beidseitige gluteale Claudicatio, fehlende Leistenpulse und erektile Dysfunktion.',
-            },
-          ],
-        },
+        { title: 'Verdachtsdiagnose und Klassifikation', interactions: [
+          { frage: 'Verdachtsdiagnose und Begründung?', reaktion: 'pAVK des rechten Beins — belastungsabhängiger, reproduzierbarer Wadenschmerz nach ca. 100 m mit Besserung beim Stehenbleiben (Claudicatio intermittens), blasses, kühles Bein; Risikofaktoren 45 Packungsjahre, Hypertonie, Hyperlipidämie, Vater mit Schlaganfall.' },
+          { frage: 'Welches Fontaine-Stadium liegt vor?', reaktion: 'Stadium IIb — schmerzfreie Gehstrecke unter 200 m. (I = beschwerdefrei, IIa > 200 m, IIb < 200 m, III = Ruheschmerz, IV = Nekrose/Gangrän.) Ergänzend Rutherford-Kategorien.' },
+          { frage: 'Warum spricht man von der Schaufensterkrankheit?', reaktion: 'Weil die Betroffenen wegen des belastungsabhängigen Schmerzes immer wieder stehen bleiben müssen — wie beim Schaufensterbummel.' },
+        ] },
+        { title: 'Differenzialdiagnosen', interactions: [
+          { frage: 'Welche Differenzialdiagnose ist bei ihm besonders wichtig?', reaktion: 'Die Claudicatio spinalis wegen des lumbalen Bandscheibenleidens: Besserung erst beim Vornüberbeugen oder Sitzen, wechselnde Gehstrecke, tastbare Pulse, normaler ABI.' },
+          { frage: 'Wie unterscheiden Sie pAVK und TVT klinisch?', reaktion: 'TVT: akute Schwellung, Überwärmung, Rötung, Spannungsschmerz, Pulse erhalten; pAVK: blasses kühles Bein, abgeschwächte oder fehlende Pulse, belastungsabhängiger Schmerz.' },
+          { frage: 'Was ist das Leriche-Syndrom?', reaktion: 'Verschluss der distalen Aorta bzw. beider Beckenarterien mit der Trias beidseitige gluteale Claudicatio, fehlende Leistenpulse und erektile Dysfunktion.' },
+        ] },
+        { title: 'Untersuchung & Diagnostik', interactions: [
+          { frage: 'Wo tasten Sie die Fußpulse?', reaktion: 'A. dorsalis pedis am Fußrücken und A. tibialis posterior hinter dem Innenknöchel, immer im Seitenvergleich; zusätzlich A. poplitea und A. femoralis.' },
+          { frage: 'Was ist der ABI und wie werten Sie ihn?', reaktion: 'Knöchel-Arm-Index = systolischer Knöcheldruck geteilt durch den höheren Armdruck; > 0,9 normal, 0,75–0,9 leichte, 0,5–0,75 mittelschwere, < 0,5 kritische pAVK; Werte > 1,3 sprechen für Mediasklerose (falsch hoch).' },
+          { frage: 'Welche Bildgebung, und was tun Sie bei Kontrastmittelallergie?', reaktion: 'Zuerst farbkodierte Duplexsonographie, dazu Karotis-Duplex wegen der generalisierten Atherosklerose; MR-/CT-Angiographie bzw. DSA nur zur Interventionsplanung; bei KM-Allergie CO2-Angiographie oder MR-Angiographie.' },
+        ] },
+        { title: 'Therapie', interactions: [
+          { frage: 'Wie behandeln Sie je nach Stadium?', reaktion: 'Alle Stadien: Nikotinkarenz, Thrombozytenaggregationshemmer, Statin, Blutdruck. Stadium II: strukturiertes Gehtraining, ggf. Cilostazol, bei Leidensdruck PTA/Stent oder Bypass. Stadium III/IV: dringliche Revaskularisation, Wundbehandlung, Analgesie.' },
+          { frage: 'Er nimmt Simvastatin 40 mg und bei Bedarf Ibuprofen — was ändern Sie?', reaktion: 'Umstellung auf ein hochpotentes Statin für LDL unter 55 mg/dl. Als Plättchenhemmer eher Clopidogrel, weil Ibuprofen die Wirkung von ASS abschwächt; Rückenschmerzen möglichst ohne Dauer-NSAR.' },
+        ] },
+        { title: 'Aufklärung des Patienten (2 Minuten)', interactions: [
+          { frage: '(als Patient) Ich rauche seit 40 Jahren — bringt Aufhören jetzt noch etwas?', reaktion: 'Erwartet wird ein klares Ja: Der Rauchstopp ist die wirksamste Einzelmaßnahme für Gehstrecke, Bein und Herz; Hilfe anbieten (Nikotinersatz, Entwöhnungsprogramm), dazu tägliches Gehtraining erklären.' },
+        ] },
       ],
     },
     {
