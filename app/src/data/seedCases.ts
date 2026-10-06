@@ -9730,7 +9730,7 @@ export function seedCases(): Case[] {
         'auf-sonographie',
       ],
       caseSpecificQuestions: [
-        { frage: 'Wie sieht Ihr Urin aus — trüb, ungewöhnlicher Geruch?', kapitel: 'aktuell', sucht: ['urin_aspekt'], followUp: 'Falls Blut dabei war: Am Anfang, während oder am Ende des Wasserlassens?' },
+        { frage: 'Ist Ihr Urin trüb, oder riecht er ungewöhnlich?', kapitel: 'aktuell', sucht: ['urin_aspekt'], followUp: 'Falls Blut dabei ist: Sehen Sie es am Anfang, während oder am Ende des Wasserlassens?' },
         { frage: 'Haben Sie Ausfluss aus der Scheide oder Juckreiz im Intimbereich?', kapitel: 'frauenanamnese', sucht: ['fluor', 'juckreiz'] },
         { frage: 'Hatten Sie in den letzten Tagen Geschlechtsverkehr? Gibt es einen neuen Partner?', kapitel: 'familie-sozial', sucht: ['sexualkontakt'] },
         { frage: 'Hatten Sie schon öfter eine Blasenentzündung — wie oft im letzten Jahr?', kapitel: 'vorerkrankungen', sucht: ['frueher', 'harnwegsinfekt'] },
