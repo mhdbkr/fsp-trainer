@@ -38891,7 +38891,7 @@ export function seedCases(): Case[] {
       patientSheet: {
         profil: { tags: ['ausscheidung', 'schmerz', 'diarrhoe', 'gastro'] },
         leitsymptomKategorie: 'ausscheidung',
-        aktuellSkip: ['akt-ausscheid-was', 'akt-ausscheid-harn-haeufigkeit', 'akt-ausscheid-harn-aussehen'],
+        aktuellSkip: ['akt-ausscheid-was', 'akt-ausscheid-harn-aussehen'],
         personalia: {
           name: 'Peter Novak',
           age: 29,
@@ -38997,7 +38997,7 @@ export function seedCases(): Case[] {
           'akt-beginn': 'Seit ungefähr drei Jahren. Das kam ganz langsam, am Anfang nur ab und zu. Seit etwa einem halben Jahr ist es fast jeden Tag.',
           'akt-ausscheid-was': 'Verändert hat sich eigentlich der Stuhlgang, wie ich schon sagte — Durchfall nach dem Essen. Mit dem Wasserlassen ist alles normal.',
           'akt-ausscheid-haeufigkeit': 'Das kommt eben in Episoden, dann bin ich schon mal mehrmals hintereinander auf der Toilette, aber dazwischen ist tagelang gar nichts. Schlimmer geworden ist es schon, von hin und wieder zu fast jeden Tag.',
-          'akt-ausscheid-harn-haeufigkeit': 'Mit dem Wasserlassen ist alles normal, da hat sich nichts verändert.',
+          'akt-ausscheid-harn-haeufigkeit': 'So oft wie immer, da hat sich nichts verändert.',
           'akt-ausscheid-aussehen': 'Es ist breiig bis wässrig, keine besondere Farbe eigentlich. Blut oder Schleim habe ich nie gesehen. Schaumig, das kann schon sein, so genau habe ich da nicht hingeschaut.',
           'akt-ausscheid-harn-aussehen': 'Mit dem Wasserlassen ist alles normal, am Urin ist mir nichts aufgefallen.',
           'akt-ausscheid-schlucken': 'Nein, schlucken geht einwandfrei. Meine Beschwerden fangen erst später an, im Bauch, etwa eine Stunde nach der Milch.',
@@ -47997,7 +47997,7 @@ export function seedCases(): Case[] {
       patientSheet: {
         profil: { tags: ['ausscheidung', 'schmerz', 'diarrhoe', 'gelenk', 'arthritis', 'dyspnoe', 'gewichtsverlust', 'gastro'] },
         leitsymptomKategorie: 'ausscheidung',
-        aktuellSkip: ['akt-ausscheid-was', 'akt-ausscheid-harn-haeufigkeit', 'akt-ausscheid-harn-aussehen'],
+        aktuellSkip: ['akt-ausscheid-was', 'akt-ausscheid-harn-aussehen'],
         personalia: {
           name: 'Tanya Krüger',
           age: 54,
@@ -48106,7 +48106,7 @@ export function seedCases(): Case[] {
           'akt-beginn': 'Angefangen hat es vor ungefähr vier Monaten, ganz schleichend, erst nur weicher Stuhl und ein bisschen Grummeln. Seit etwa zweieinhalb Wochen ist es richtig schlimm geworden.',
           'akt-ausscheid-was': 'Verändert hat sich der Stuhlgang, das hatte ich ja erzählt — Durchfall mit Blut und Schleim. Mit dem Wasserlassen ist nichts.',
           'akt-ausscheid-haeufigkeit': 'Acht- bis zehnmal am Tag, und nachts muss ich auch noch ein- bis zweimal raus. Früher war es einmal am Tag. Der Drang kommt plötzlich, ich schaffe es kaum noch rechtzeitig.',
-          'akt-ausscheid-harn-haeufigkeit': 'Mit dem Wasserlassen ist nichts, da hat sich nichts verändert.',
+          'akt-ausscheid-harn-haeufigkeit': 'So oft wie immer, da hat sich nichts verändert.',
           'akt-ausscheid-aussehen': 'Es ist hellrotes Blut mit im Stuhl, mit Schleim vermischt, das hatte ich ja gesagt, nicht nur am Papier. Schaumig ist es nicht, aber eher flüssig bis breiig.',
           'akt-ausscheid-harn-aussehen': 'Mit dem Wasserlassen ist nichts, am Urin ist mir nichts aufgefallen.',
           'akt-ausscheid-schlucken': 'Nein, damit habe ich nichts. Essen und Trinken gehen normal — mein Problem fängt erst weiter unten an.',
