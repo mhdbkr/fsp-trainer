@@ -77,14 +77,16 @@ const ADMIS: Record<string, string> = {
   'case-perniziose-anaemie|taubheit|akt-einfluss': 'idem',
   'case-allergische-rhinitis|juckreiz|akt-motiv': 'le motif dit les yeux qui démangent ; la question demande le palais et les oreilles',
   'case-allergische-rhinitis|husten|akt-beginn': 'la réplique dit la toux nouvelle (nocturne, motif) ; la question demande la toux de jour et d\'effort',
-  'case-lyme|ausschlag|akt-beginn': 'la réplique date la rougeur ; la question demande si elle s\'étend',
-  'case-lyme|ausschlag|pers-hausarzt': 'la réplique nomme le « Ausschlag » comme motif de venue ; la question demande s\'il s\'étend',
   'case-bronchialkarzinom|husten|akt-ausloeser': 'la réplique dit que la toux persiste depuis la pneumonie ; la question demande en quoi elle diffère du Raucherhusten',
   'case-bronchialkarzinom|husten|akt-frueher': 'la réplique dit la toux de fumeur ancienne (« Husten ja, jahrelang ») ; la question demande ce qui a changé',
   'case-hyperthyreose|gewicht|akt-motiv': 'le motif dit la perte de poids sans la chiffrer ; la question (Fach) est celle que `gewicht`, signe de dépistage, fait toujours poser (même figure que metabolisches-syndrom, Q4 F.7-c) — sa réplique écrite chiffre la perte',
   'case-herzinsuffizienz|gewicht|fach-kardio-brust': 'faux positif de lecture : « wie ein Gewicht auf der Brust » est une image, pas un poids',
   'case-typhus|stuhl|akt-frueher': 'la réplique dit une diarrhée d\'un voyage passé (règle (e)) ; la question demande l\'ordre constipation / diarrhée d\'aujourd\'hui',
   'case-obstipation|stimmung|med-regelmaessig': 'la réplique nomme l\'indication d\'un médicament (« für die Stimmung ») ; la question demande l\'humeur depuis le deuil',
+  // Q5 fixeur (revue clinique P1-2) : la question de l'anneau porte aussi `ausschlag`, sinon le foyer (« Ist Ihnen ein Ausschlag
+  // aufgefallen? ») et la Fach Infekt redemanderaient la rougeur que le patient a dite.
+  'case-lyme|ausschlag|akt-beginn': 'la réplique date la rougeur (« die Rötung ist etwa zwei Tage später dazugekommen ») ; la question en demande l\'aspect en cocarde',
+  'case-lyme|ausschlag|pers-hausarzt': 'la réplique nomme le « Ausschlag » comme raison de venir ; la question en demande l\'aspect en cocarde',
   'case-sturz-im-alter|sturz|cas « Gibt es etwas, das die Hüftschmerzen bes »': '« seit dem Sturz » est la chute d\'aujourd\'hui ; la question demande les chutes antérieures',
   'case-arterielle-hypertonie|schwitzen|veg-schuettelfrost': 'la réplique nie la sueur nocturne ; la question demande les accès de sueur avec palpitations et pâleur (phéochromocytome)',
 };
@@ -124,7 +126,9 @@ describe('Q4 — une réplique jouée avant une question du cas ne dit pas déj�
 // Q5 : 442 → 367 — répliques hors motif qui annonçaient une question de banque posée plus loin (cas tier 1 d'abord : angina-pectoris,
 // gib, pneumonie, pyelonephritis, schlaganfall, diabetes, copd, migraene, nierenkolik) et cas relus par Q5. Le reste est surtout
 // structurel : le motif dit la plainte que la Fach redemande (fièvre, toux, poids), hors de portée d'un lot de contenu.
-const PLAFOND_BANQUE = 367;
+// Q5 fixeur : 367 → 369, hausse écrite à la main — deux textes imposés par la relecture de langue reprennent ce que le motif a
+// déjà dit (pneumonie « das Fieber und der Husten reichen mir » ; appendizitis « ich glaube, ich habe Fieber ») : la lecture les compte.
+const PLAFOND_BANQUE = 369;
 
 describe('Q4 fixeur — les questions de BANQUE jouées après `cohere` : même lecture', () => {
   const banque = seedCases().flatMap(constats).filter((k) => k.banque);
