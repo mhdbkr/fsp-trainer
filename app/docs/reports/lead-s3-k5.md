@@ -2,7 +2,107 @@
 
 > `sim-engine-engineer` (lot K5, dernier lot du moteur de cohérence, ADR-0023) · 6 oct. 2026 · branche `feat/s3-k5-pipeline`, worktree `doctopus-s3-k5`. Base : `origin/main` @ `ee18372b` (K3 et K4 inclus), puis fusion d'`origin/main` @ `a23b64ed` (#82 « d'un trait », zones disjointes). Contrat opposable : `docs/contracts/frage-atomique.md` §10.10, ligne K5.
 >
-> **Statut : DONE_WITH_CONCERNS.** Les cinq livrables sont faits et la porte est verte au sommet. Deux points s'écartent de la lettre du brief : le mécanisme d'anorexia (§ 4.1) et schlaganfall, que je n'ai pas traité comme une chute (§ 4.2). Je les soumets à main.
+> **Fixeur (6 oct.)** : les revues Opus de `f5cc6d7a` sont traitées au § F, en tête ; il prime sur la suite.
+>
+> **Statut initial : DONE_WITH_CONCERNS.** Les cinq livrables sont faits et la porte est verte au sommet. Deux points s'écartent de la lettre du brief : le mécanisme d'anorexia (§ 4.1) et schlaganfall, que je n'ai pas traité comme une chute (§ 4.2). Je les soumets à main.
+
+## F. Fixeur — les revues Opus de `f5cc6d7a` (décisions de main)
+
+> Revue clinique : mergeable (4 questions changent, dans les 4 cas annoncés, sans perte). Revue mécanique : Needs fixes, aucun bloquant. Cette section **prime** sur la suite quand elles divergent. Sommet : § F.7.
+
+### F.1 Mécanique
+
+| Point | Fait | Preuve (test, puis mutation rouge) |
+|---|---|---|
+| **I1** `lotAssembler.py` perdait le profil | `SHEET` + `profil`, `aktuellSkip`, `fachSkip`, `leitsymptomKategorie`, `motiv` | `scripts/lotAssembler.test.mjs` : le JSON assemblé garde les cinq champs, et un champ inventé tombe toujours. Le test est ajouté à `node --test` dans `quality.yml`. Mutation : `SHEET` sans `profil` → rouge |
+| **I2** `followUpSucht` n'existe pas sur une question du cas | retiré des consignes de `PIPELINE.md` et de `content-case-author.md` : « une relance qui cherche un autre signe devient une question du cas à part » | proposition de contrat, § F.6 |
+| **I3** `akt-motiv` perdante → `nonReduit` | option robuste : un signe ajouté par `MOTIF_DECLARE` n'est jamais perdu par `akt-motiv`. Une question du cas qui le déclare le garde ; `akt-motiv` le cède sans écart et reste posée entière (`motifAjoute`, `coherence.ts`). La relecture de la trame jouée (`compteursApres`) ne rajoute pas le motif : elle lit ce que la trame déclare | `coherenceK5.test.ts` « I3 » : lagerungsschwindel + « Haben Sie Schwindel? » (`sucht: ['schwindel']`) → porte à 0, `nonReduit` 0, `akt-motiv` posée, `schwindel` cherché une fois. Rouge avant (`nonReduit` 1) ; mutation (cession retirée) → rouge |
+| **I3** règle « déclarer le signe AFFINÉ » | `PIPELINE.md`, règle 8 | — |
+| **I4** le détecteur de texte relisait les questions à `braucht` | l'anaphore (`coherenceMesure.mjs`) et le détecteur Q0 (`checkCoherence.mjs`) ignorent une question qui déclare `braucht` ; chaque constat cite le texte de sa question | `checkCoherence.test.mjs` « I4 » (pur et corpus : hypothyreose « Entbindungen », `braucht kinder`, ne sort plus). Mutations : anaphore → rouge ; filtre Q0 → rouge. `presuppositionsTexte` 22 → **21** |
+| **I5** contrat | `frage-atomique.md` §10.0 D4-bis : `MOTIF_DECLARE` (tag de profil, motif ajouté au `sucht` d'`akt-motiv`), la règle I3, « un tag n'est pas un signe » | ce PR |
+
+### F.2 Mineurs 1 à 8
+
+1. `doublonsMasques` = **51** (§ 0 corrigé).
+2. Le test INV-89 lit le **bloc entier** de l'étape et l'en-tête du job ; il refuse `|| true` et `continue-on-error`. Mutations : `continue-on-error: true` posé sur l'étape du vrai `quality.yml` → rouge ; posé sur le job (dans le test) → rouge.
+3. Mutation `sondesMuettes` : une sonde privée de son entrée `PROBE_SUCHT` donne exit 1 et « sondesMuettes = 1 : résidu bloquant à 0 », même avec un plancher complaisant. Sans la garde, la mutation de la porte rougit le test. L'exception sans relecteur a son contrôle « seulement ce défaut ».
+4. Le montage (`caseQuestionsByKapitel`) et `PatientSheetView.tsx` lisent la forme `CaseQuestionLue`.
+5. epilepsie : traité (§ F.4).
+6. `PIPELINE.md` : `--propose` sort à 1 tant qu'une question est muette.
+7. Chaque constat du détecteur de texte cite sa question (I4).
+8. INV-78 : un tag de profil n'est pas un signe. C'est écrit dans `signes.ts`, à côté des tags, et au contrat (D4-bis).
+
+### F.3 Le tri des 21 présuppositions lues dans le TEXTE (informatif)
+
+**1 vrai positif** : anaphylaxie, « Pfeift es beim Atmen? Haben Sie Ihr Asthmaspray dabei und schon benutzt? ». La question présuppose un asthme qui n'a pas encore été dit. Il est renvoyé au lot de contenu (§ F.5).
+
+**20 faux positifs** : le détecteur lit l'article défini d'un nom que la question introduit elle-même. Ce sont :
+- erysipel « Ihren Zehen »
+- hypothyreose « Ihre Augenbrauen »
+- hepatitis-b « Ihren Impfpass »
+- parkinson « die Schrift »
+- schenkelhalsfraktur « der Dämmerung »
+- alkoholentzug « die Gläser »
+- akutes-nierenversagen « die Packung »
+- schlafapnoe « Ihre Ehefrau »
+- laktoseintoleranz « wegen der Bauchschmerzen »
+- metabolisches-syndrom « der Augenarzt » et « den Achselhöhlen »
+- abszess « die letzte Tetanusimpfung »
+- anorexia-nervosa « die Waage »
+- malaria « Sie haben keine Milz mehr »
+- anaphylaxie « das Insekt »
+- pertussis « Ihrem Impfpass »
+- nephrotisches-syndrom « Ihre Schuhe »
+- allergische-rhinitis « das Nasensekret »
+- obstipation « wegen Bauchschmerzen »
+- sturz-im-alter « dem Boden »
+
+Malaria est classé faux positif sur décision de main.
+
+### F.4 Clinique
+
+| Cas | Fait | Trame jouée / preuve |
+|---|---|---|
+| **epilepsie** | tag `sturz` (identité : l'ouverture dit « vom Stuhl gekippt ») | `akt-motiv~motiv,sturz` ; coordination : « Haben Sie Schwindel oder das Gefühl zu schwanken? », puis à part « Fühlen Sie sich beim Gehen unsicher? » (part d'alarme) ; « gestürzt » n'est plus redemandé. Les myoclonies restent demandées par la question du cas (`anfallsformen`). Le figement « question entière » d'epilepsie est retiré du test. Mutation (sans le tag) → rouge |
+| **schlaganfall** | n° 4 « beim Sturz » : `kapitel: 'fach'` (et toujours `braucht: ['sturz']`) | le Rollenskript du simulant la range sous la Fach (test). Mutation (`aktuell`) → rouge |
+| **commotio** | **appliqué**, la mécanique le permet proprement : `PART_ALARME` (`gang`, liste fermée, `coherence.ts`). Une part d'alarme ouvre sa propre question dans `poser`, au lieu d'une relance. Contrat §10.4 amendé (« Précision de K5 — la part d'alarme ») | « Haben Sie Schwindel oder das Gefühl zu schwanken? », puis à part « Fühlen Sie sich beim Gehen unsicher? ». La part d'alarme ne change que commotio et epilepsie au gel. Le guide indexe ses lignes par position, donc deux questions de la même sonde ne se confondent pas. Mutation (`PART_ALARME` vide) → rouge |
+
+Le gel `trame-actuelle.txt` est régénéré. Par rapport à `f5cc6d7a`, trois cas changent : commotio (part d'alarme), epilepsie (tag et part d'alarme) et schlaganfall (n° 4 en Fach). Le plancher est inchangé, et le socle `checkTrameSymptoms` reste à 0.
+
+### F.5 Lot de contenu — listé, non traité
+
+- **anaphylaxie** : scinder « Haben Sie Ihr Asthmaspray dabei? » (présupposition de l'asthme ; seul vrai positif du détecteur).
+- **anorexia-nervosa** : un `followUp` sur la n° 2 ; la réponse `veg-uebelkeit` est à raccourcir.
+- **schlaganfall** : la réponse `akt-einfluss`.
+- **Doublons** : hypothyreose, malaria.
+- **sturz-im-alter** : « Anfall ».
+
+### F.6 Propositions de contrat (non appliquées)
+
+- **§10.2, le trou de `followUpSucht`.** Le contrat annonce `followUps` et `followUpSucht` sur `CaseQuestion` (I9). Le type ne les a pas : une question du cas n'a qu'un `followUp: string`, qui hérite de sa mère. Il faut soit ajouter les deux champs (additifs, au type et à l'assembleur), soit écrire au contrat qu'une relance hors signe d'une question du cas devient une question du cas à part. C'est la consigne que donne aujourd'hui `PIPELINE.md`.
+- **Un tag dédié `krampfanfall → krampf`** (`MOTIF_DECLARE`), pour la crise dite à l'ouverture d'epilepsie. Non implémenté.
+
+### F.7 Vérifications au sommet — codes de sortie
+
+Sommet vérifié : `fbb15c82`, avec `origin/main` @ `3187dd4f` fusionné (registre seulement). Chaque code a été lu par `$?` juste après sa commande.
+
+| Commande | Code |
+|---|---:|
+| `npx tsc -b` | **0** |
+| `npx vitest run --dir src --maxWorkers=2` (181 fichiers, 1 893 tests) | **0** |
+| `npm run test:c6 -- --maxWorkers=2` (14 fichiers, 144 tests) | **0** |
+| `node scripts/check*.mjs` (23) | **0**, sauf `checkProbeOverlap` **1** (informatif, `\|\| true` en CI, inchangé depuis K4) |
+| `checkTermRegister.mjs --require-all` · `checkGuideCoverage.mjs` · `checkCoherence.mjs` | **0** · **0** · **0** |
+| `node --test scripts/*.test.mjs` (199 tests, dont `lotAssembler.test.mjs`) | **0** |
+| `checkBudgetFloor.mjs origin/main` | **0** |
+| `npm run build` | **0** |
+| `git merge-tree --write-tree origin/main HEAD` | **0** |
+
+Le premier passage complet, sur `bd50f14c`, sortait à 1 sur deux points :
+- `tsc` : `l.frage` est optionnel dans le test du Rollenskript ;
+- le gel `fach-raw.txt` : schlaganfall n° 4, passée en `kapitel: 'fach'`, entre dans la Fach brute (11 → 12 questions, seule empreinte qui change).
+
+Les deux sont corrigés dans `fbb15c82`, puis la batterie a été rejouée en entier.
 
 ## 0. Sommet
 
@@ -22,7 +122,7 @@ Le commit de ce rapport vient ensuite. Le plancher (`coherence-budget.json`) év
 | exigeAbsent · relancesOrphelines · ajouteSansReponse | 0 · 0 · 0 | 0 · 0 · 0 |
 | **brauchtViole** | 22 (détecteur de texte compris) | **0** (r4b exact) |
 | questionsMuettes · sondesMuettes · nonReduit · casRetiresParR1 | 0 · 0 · 0 · 0 | 0 · 0 · 0 · 0 — **bloquants** |
-| *informatif* doublonsMasques | 52 | **47** |
+| *informatif* doublonsMasques | 52 | **51** (« 47 » dans la première rédaction : mesuré avant que la trame jouée n'écrive le motif d'`akt-motiv` ; revue K5, mineur 1) |
 | *informatif* presuppositionsTexte (nouveau) | — | **22** |
 
 Les autres fixtures :
@@ -66,7 +166,7 @@ Les autres fixtures :
 - **`brauchtViole` du plancher est désormais l'exact r4b du montage.** Il compte les anomalies et toute question placée avant un de ses `braucht`. Cette valeur égale celle de la porte après montage : 0.
 - **Le détecteur de texte devient informatif, sans plancher : `info.presuppositionsTexte` = 22.** Il réunit l'anaphore « dort » et le détecteur Q0. Il reste lisible dans la synthèse et dans `--case` (bloc « présuppositions lues dans le TEXTE »), pour proposer des `braucht`.
 - **Une hausse de faux positifs ne bloque plus.** Le test ajoute un « dort » dans une question du cas de parkinson : `presuppositionsTexte` passe à 23, et l'exit reste à 0.
-- `doublonsMasques` reste informatif (47).
+- `doublonsMasques` reste informatif (51).
 
 ## 4. Les reliquats « Pour K5 »
 
@@ -108,7 +208,7 @@ Les autres fixtures :
 - **Correctif appliqué** : je ne pose pas le tag `sturz`. La question n° 4 « … beim Sturz von der Kellertreppe … » présupposait une chute qui n'avait pas encore été dite (elle était posée en Aktuelle Beschwerden, avant la Fach). Elle déclare donc `braucht: ['sturz']`, et r4b la place juste après la coordination. L'annotation `relu` de cette question n'a plus d'objet et est retirée (`relu` 85 → 84).
 - **À trancher par main** : garder ce traitement, ou réécrire l'ouverture de la fiche (texte, lot de contenu).
 
-**Candidat non traité.** epilepsie : « vom Stuhl gekippt » est dit à l'ouverture, et la coordination pose toujours « Sind Sie schon gestürzt? ». Ce cas ne figure pas dans la liste du brief : je le signale sans y toucher.
+**epilepsie** : d'abord signalé sans être traité. **Traité au fixeur** (décision de main, § F.4) : tag `sturz`.
 
 ## 5. DM3 — le pipeline des futurs cas
 
@@ -206,5 +306,5 @@ Je n'ai rien touché d'autre.
   - Côté simulant : le Rollenskript lit `antworten`, que K5 ne touche pas, et son type d'entrée devient le type tolérant (tests `rolePlay.test`, `RolePlayView.test` verts).
 - **Contenu publié** : `publishContent.mjs` n'a pas été rejoué, et aucun contenu ancien réel n'a été chargé depuis la fonction `content`. La tolérance est prouvée au montage, sur un cas réel augmenté d'une chaîne et d'une question sans `sucht`.
 - **Le jugement clinique** des trois décisions du § 4 : la déclaration `erbrechen` d'anorexia, les tags `schwindel` et `sturz`, le `braucht` de schlaganfall. Il est à faire par la relecture clinique.
-- **Les 47 `doublonsMasques` et les 22 `presuppositionsTexte`** n'ont pas été relus un à un (informatifs).
+- **Les 51 `doublonsMasques`** n'ont pas été relus un à un (informatif). Les 21 `presuppositionsTexte` sont triés au § F.3.
 - **`graphify update app/src`** : il n'y a pas de graphe dans ce worktree.
