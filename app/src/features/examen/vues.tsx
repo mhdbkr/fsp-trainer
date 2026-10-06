@@ -1,13 +1,15 @@
 // Les vues de l'Examen (simulation-run.md §11.2) — portées de `feat/pruefungstag` (examDayParts.tsx), sur le Muster guidé
 // ou libre de `main`. Aucune aide ici (scripts/checkExamen.mjs) et aucune logique de temps : le runner décide.
-import type { ReactNode } from 'react';
+import { useEffect, useRef, type ReactNode } from 'react';
 import type { BogenNotes, Case, MusterArt, MusterCity, SimTeil } from '@/db/types';
 import { AnamneseBogen } from '@/features/simulation/AnamneseBogen';
 
-/** Un `<fieldset disabled>` fige nativement champs et boutons : aucun état à propager, aucun oubli possible. */
+/** Un `<fieldset disabled>` fige nativement champs et boutons : aucun état à propager, aucun oubli possible. Figé, il le
+ *  dit : « Lecture seule ». */
 function Frozen({ frozen, children }: { frozen: boolean; children: ReactNode }) {
   return (
-    <fieldset disabled={frozen || undefined} className="min-w-0 border-0 p-0" data-frozen={frozen || undefined}>
+    <fieldset disabled={frozen || undefined} className={`min-w-0 border-0 p-0 ${frozen ? 'opacity-90' : ''}`} data-frozen={frozen || undefined}>
+      {frozen && <p className="mb-1.5 text-xs font-medium text-slate-500 dark:text-slate-400">Lecture seule</p>}
       {children}
     </fieldset>
   );
@@ -45,57 +47,56 @@ export function ExamArztbrief({ text, onChange, frozen }: { text: string; onChan
 
 const mmss = (s: number) => `${String(Math.floor(s / 60)).padStart(2, '0')}:${String(s % 60).padStart(2, '0')}`;
 
-/** L'en-tête collant : le Teil, l'horloge murale, et la seule commande — abandonner. À 5:00 et à 1:00, l'alerte. */
-export function ExamHeader({ titre, rang, reste, alerte, onAbandon }: {
-  titre: string; rang: string; reste: number | null; alerte: number | null; onAbandon: () => void;
+/** Le texte d'une alerte de la minuterie (5:00, 1:00). */
+export const texteAlerte = (alerte: number) => (alerte >= 120 ? `Plus que ${Math.round(alerte / 60)} minutes.` : 'Plus qu’une minute.');
+
+/** L'en-tête collant : « Fallvorstellung · 3/3 », la minuterie du créneau, le partenaire IA s'il y en a un, et la seule
+ *  commande — abandonner. À l'alerte, le corail tient à la minuterie et à la bordure ; le texte reste à l'encre. */
+export function ExamHeader({ titre, reste, alerte, partenaire, onAbandon }: {
+  titre: string; reste: number | null; alerte: number | null; partenaire?: ReactNode; onAbandon: () => void;
 }) {
   return (
-    <header className={`card sticky top-14 z-30 p-3 ${alerte !== null ? 'border-signal-400 bg-signal-50/90 dark:border-signal-600 dark:bg-signal-900/30' : ''}`}>
-      <div className="flex items-center justify-between gap-3">
-        <div className="min-w-0">
-          <div className="label whitespace-nowrap">Examen · {rang}</div>
-          <div className="truncate text-sm font-semibold">{titre}</div>
-        </div>
-        <div className="flex items-center gap-2">
+    <header className={`card sticky top-14 z-30 p-3 ${alerte !== null ? 'border-signal-400 dark:border-signal-600' : ''}`}>
+      <div className="flex items-center justify-between gap-2">
+        <div className="min-w-0 truncate text-sm font-semibold">{titre}</div>
+        <div className="flex shrink-0 items-center gap-1.5">
           {reste !== null && (
-            <div data-examen-reste={reste} aria-label="Temps restant"
-              className={`font-mono text-2xl font-semibold tnum ${alerte !== null ? 'text-signal-600 dark:text-signal-300' : ''}`}>{mmss(reste)}</div>
+            <div role="timer" data-examen-reste={reste} aria-label="Temps restant"
+              className={`font-mono text-xl font-semibold tnum sm:text-2xl ${alerte !== null ? 'text-signal-600 dark:text-signal-300' : ''}`}>{mmss(reste)}</div>
           )}
-          <button type="button" onClick={onAbandon} className="btn-ghost min-h-11 text-xs text-slate-500">Abandonner</button>
+          {partenaire}
+          <button type="button" onClick={onAbandon} className="btn-ghost min-h-11 px-2 text-xs text-slate-500">Abandonner</button>
         </div>
       </div>
-      {alerte !== null && (
-        <p role="status" data-examen-alerte={alerte} className="mt-2 text-sm font-semibold text-signal-700 dark:text-signal-200">
-          {alerte >= 120 ? `Plus que ${Math.round(alerte / 60)} minutes.` : 'Plus qu’une minute.'}
-        </p>
-      )}
+      {alerte !== null && <p aria-hidden data-examen-alerte={alerte} className="mt-1.5 text-sm font-semibold">{texteAlerte(alerte)}</p>}
     </header>
   );
 }
 
-/** L'Aufklärung, en conditions réelles : la demande du jury, rien d'autre — ni trame, ni risques, ni questions. */
-export function AufklaerungAuftrag({ acte }: { acte: string | null }) {
+/** L'Aufklärung, en conditions réelles : la demande du jury, rien d'autre — ni trame, ni risques, ni questions. Le focus
+ *  y va : c'est l'interruption. */
+export function AufklaerungAuftrag({ demande }: { demande: string }) {
+  const ref = useRef<HTMLDivElement>(null);
+  useEffect(() => { ref.current?.focus(); }, []);
   return (
-    <div className="card p-4">
+    <div ref={ref} tabIndex={-1} className="card p-4 outline-none focus-visible:ring-2 focus-visible:ring-brand-500">
       <div className="label">Le jury interrompt l’entretien</div>
-      <p className="mt-1 text-base font-semibold">« Klären Sie den Patienten {acte ? `über ${acte} ` : ''}auf. »</p>
+      <p className="mt-1 text-base font-semibold">« {demande} »</p>
     </div>
   );
 }
 
-const APRES: Record<SimTeil, string> = {
-  anamnese: 'Anamnese terminée : tes notes restent sous tes yeux, en lecture seule. Prépare l’Arztbrief.',
-  dokumentation: 'Dokumentation terminée. Simulant : tu deviens l’examinateur.',
-  fallvorstellung: '',
-};
-
-/** La transition entre deux Teile : elle part seule à l'échéance ; « Prêt » l'abrège. */
-export function TransitionView({ de, vers, reste, onPret }: { de: SimTeil; vers: string; reste: number; onPret: () => void }) {
+/** La transition entre deux Teile : un seul compte à rebours ; elle part seule ; « Commencer maintenant » l'abrège. */
+export function TransitionView({ de, reste, partenaire, onPret }: { de: SimTeil; reste: number; partenaire: 'simulant' | 'ia'; onPret: () => void }) {
+  const ref = useRef<HTMLButtonElement>(null);
+  useEffect(() => { ref.current?.focus(); }, []);
+  const texte = de === 'anamnese' ? 'Anamnese terminée. Tes notes te suivent, en lecture seule.'
+    : `Dokumentation terminée. ${partenaire === 'ia' ? 'Lance ton IA depuis l’en-tête : elle devient l’examinateur.' : 'Ton simulant devient l’examinateur.'}`;
   return (
     <div className="card mx-auto max-w-lg space-y-4 p-6 text-center">
-      <p className="text-base">{APRES[de]}</p>
-      <p className="text-sm text-slate-500 dark:text-slate-400">{vers} commence dans <span className="font-mono tnum">{reste} s</span>.</p>
-      <button type="button" onClick={onPret} className="btn-primary mx-auto min-h-11">Prêt</button>
+      <p className="text-base">{texte}</p>
+      <p data-examen-transition={reste} className="font-mono text-3xl font-semibold tnum">{reste} s</p>
+      <button ref={ref} type="button" onClick={onPret} className="btn-primary mx-auto min-h-11">Commencer maintenant</button>
     </div>
   );
 }

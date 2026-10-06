@@ -17,7 +17,6 @@ export interface ExamDayPlan {
   aufklaerung: { label: string; targetSec: number; source: string };
   transitionSec: number;
   alertsSec: number[];
-  p3Note: string;
 }
 
 export const EXAM_DAY_PLAN: Record<ExamLand, ExamDayPlan> = {
@@ -32,7 +31,6 @@ export const EXAM_DAY_PLAN: Record<ExamLand, ExamDayPlan> = {
     aufklaerung: { label: 'Aufklärung', targetSec: 5 * 60, source: 'NON SOURCÉ — cible du runner d’entraînement' },
     transitionSec: 60,
     alertsSec: [5 * 60, 60],
-    p3Note: '≈ 15 min d’Arzt-Arzt-Gespräch puis ≈ 5 min de Fachbegriffe (BW)',
   },
 };
 
