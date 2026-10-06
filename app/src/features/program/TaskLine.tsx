@@ -80,7 +80,7 @@ export const resteTexte = (teile: readonly SimTeil[]): string => {
 
 /** Ce que la ligne d'une tâche dit EN PLUS de la tâche figée : ce qui reste du cas (« il te reste la Dokumentation · 10 min »)
  *  et le rappel d'une erreur transversale (§13.3), dit avec ses chiffres. Lu dans le journal, jamais stocké. */
-export interface LectureTache { reste?: { teile: SimTeil[]; min: number }; rappel?: string; soiree?: string; aRejouer?: true }
+export interface LectureTache { reste?: { teile: SimTeil[]; min: number }; rappel?: string; soiree?: string; aRejouer?: true; entamee?: true }
 
 /** Une tâche d'un trait entamée à part (I5) : rien ne « reste », le cas reprend au début. « D'un trait » est dans la raison. */
 const A_REJOUER = "À reprendre depuis l'Anamnese";
@@ -105,6 +105,8 @@ export function lectureDuPlan(plan: DayPlan, events: readonly TrainingEvent[]): 
       // Entamée : les minutes de ce qui reste ; sinon l'estimation figée avec la tâche.
       if (t.dUnTrait && e.avancement.length > 0) l.aRejouer = true;
       else if (e.reste.length > 0 && e.reste.length < 3) l.reste = { teile: e.reste, min: e.avancement.length ? e.reste.reduce((s, k) => s + durees[k], 0) : t.estMin };
+      // m6 (S4-2) : entamée, la raison figée au matin (« jamais travaillé ») se lirait fausse ; la ligne dit ce qui reste.
+      if (e.avancement.length > 0 && !l.aRejouer) l.entamee = true;
     }
     if (premiereDeCas && t.kind !== 'examen-blanc' && t.dUnTrait !== true && cumul > plan.targetMin) {
       const teile = l.reste?.teile ?? teileDeTache(t);
@@ -114,7 +116,7 @@ export function lectureDuPlan(plan: DayPlan, events: readonly TrainingEvent[]): 
       const s = signaux.find((x) => x.item === t.rappel);
       l.rappel = s ? texteRappel(s) : `Rappel : « ${libelleItem(t.rappel) ?? t.rappel} ».`;
     }
-    if (l.reste || l.rappel || l.soiree || l.aRejouer) out.set(t.id, l);
+    if (l.reste || l.rappel || l.soiree || l.aRejouer || l.entamee) out.set(t.id, l);
   }
   return out;
 }
@@ -174,7 +176,7 @@ export function TaskLine({ task, readOnly = false, showReason = true, lecture }:
         <div className="min-w-[10rem] flex-1">
           <TaskAnatomy task={task} reste={done ? undefined : lecture?.reste} aRejouer={!done && lecture?.aRejouer} />
           {/* Le « pourquoi aujourd'hui », figé avec la tâche. */}
-          {showReason && <div className="mt-0.5 text-[11px] text-slate-400">{task.reason}</div>}
+          {showReason && !(lecture?.entamee && !done) && <div className="mt-0.5 text-[11px] text-slate-400">{task.reason}</div>}
           {/* Le rappel d'une erreur transversale : un fait, sans jugement (T2). */}
           {!done && lecture?.rappel && <div className="mt-0.5 text-[11px] text-slate-500 dark:text-slate-400">{lecture.rappel}</div>}
           {!done && lecture?.soiree && <div className="mt-0.5 text-[11px] text-slate-500 dark:text-slate-400">{lecture.soiree}</div>}
@@ -212,13 +214,13 @@ export function raisonCommune(tasks: TaskInstance[]): { reason: string; n: numbe
 /** Le plan du jour : le titre entier d'abord, le « pourquoi » ensuite — et une
  *  raison commune dite une seule fois, au-dessus des lignes qui la partagent. */
 export function TaskList({ tasks }: { tasks: TaskInstance[] }) {
-  const commune = raisonCommune(tasks);
   // Ce qui reste et les rappels (l'accueil monte cette liste) : lus sur le plan FIGÉ du jour (son fuseau) et le journal.
   const date = tasks[0]?.date;
   const today = useToday((s) => s.day);
   const plan = useDayPlan(date);
   const events = useTrainingEvents();
   const lecture = useMemo(() => (plan && events && date === today ? lectureDuPlan(plan, events) : new Map<string, LectureTache>()), [plan, events, date, today]);
+  const commune = raisonCommune(tasks.filter((t) => !lecture.get(t.id)?.entamee));      // m6 : une tâche entamée ne dit plus sa raison
   return (
     <div className="space-y-2">
       {commune && (
