@@ -68,7 +68,8 @@ export function SelectionExplainer() {
       const text = seldom?.toString().replace(/\s+/g, ' ').trim() ?? '';
       if (!text || text.length < 2 || text.length > 220) return;
       const node = seldom?.anchorNode?.parentElement;
-      if (node?.closest('input, textarea, [contenteditable="true"]')) return;
+      // [S4-7] Pas d'explication pendant l'Examen : aucune aide (simulation-run.md §11.2).
+      if (node?.closest('input, textarea, [contenteditable="true"], [data-examen]')) return;
       if (rootRef.current && node && rootRef.current.contains(node)) return;
       if (node?.closest('[data-keep-open]')) return;
       try {

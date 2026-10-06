@@ -35,7 +35,8 @@ export interface PartEvaluationProps {
   /** Teil suivant à jouer — `null` quand c'est la dernière partie. */
   suivant: string | null;
   onSuivant: () => void;
-  onRetour: () => void;
+  /** Absent ⇒ pas de « Revenir à la partie » (l'Examen n'a pas de retour, simulation-run.md §11.1). */
+  onRetour?: () => void;
   /** Sortie de validation propre à l'auto-évaluation HORS Lauf
    *  (`SelbstBewertung`). Le runner ne la passe pas : sa sortie de fin vit
    *  dans l'en-tête collant (« zéro doublon »). */
@@ -169,9 +170,11 @@ export function PartEvaluation({
           « Terminer la simulation → » n'est PAS ici : il vit dans l'en-tête
           collant, toujours visible (décision de main, « zéro doublon »). */}
       <div className="flex flex-wrap items-center justify-end gap-2">
-        <button onClick={onRetour} className="btn-ghost" title="Reprendre la partie là où tu l'as laissée — le chrono ne repart pas de zéro">
-          <Icon name="refresh" className="h-4 w-4" />Revenir à la partie
-        </button>
+        {onRetour && (
+          <button onClick={onRetour} className="btn-ghost" title="Reprendre la partie là où tu l'as laissée — le chrono ne repart pas de zéro">
+            <Icon name="refresh" className="h-4 w-4" />Revenir à la partie
+          </button>
+        )}
         {suivant
           ? <button onClick={onSuivant} className="btn-primary px-6">{suivantLabel(suivant)}</button>
           : null}

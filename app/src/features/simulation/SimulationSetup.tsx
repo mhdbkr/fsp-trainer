@@ -29,14 +29,14 @@ import { couchePour, niveauDeDepart } from './niveau';
 export type Aide = SimTeil | 'komplett';
 
 /** La tâche du plan lancée (`?task=`) : `undefined` tant qu'elle est lue, `null` sans tâche. */
-const useTache = (taskId?: string): TaskInstance | null | undefined => useLiveQuery(async () => {
+export const useTache = (taskId?: string): TaskInstance | null | undefined => useLiveQuery(async () => {
   if (!taskId) return null;
   const plan = await db.day_plans.filter((p) => p.tasks.some((t) => t.id === taskId)).first();
   return plan?.tasks.find((t) => t.id === taskId) ?? null;
 }, [taskId], undefined);
 
 export function SimulationSetup({ caseId, aide, taskId }: { caseId: string; aide: Aide; taskId?: string }) {
-  const { assistance, setAssistance, setLayer, muster, setMuster } = useUi();
+  const { assistance, setAssistance, setLayer } = useUi();
   const c = useCase(caseId);
   const sims = useSimulations();
   const tache = useTache(taskId);
@@ -90,19 +90,27 @@ export function SimulationSetup({ caseId, aide, taskId }: { caseId: string; aide
 
       {/* (4) Muster-Bogen : guidé ou libre. Présent dès l'Anamnese : le Bogen est le
           panneau latéral de la partie (`SimulationRunner` → `AnamneseBogen`). */}
-      <div className="card p-4">
-        <div className="label mb-2">Muster-Bogen (feuille de notes)</div>
-        <div className="grid gap-3 sm:grid-cols-2">
-          {MUSTER_CHOIX.map((m) => (
-            <PartnerChoice key={m.art} icon={m.icon} title={m.titre} desc={m.desc}
-              active={muster === m.art} onClick={() => setMuster(m.art)} />
-          ))}
-        </div>
-      </div>
+      <MusterChoix />
 
       {/* Le médecin crédité — qui s'entraîne. C'est lui qui portera la
           simulation (`Lauf.profileId`), le programme et les stats. */}
       {AUTH_MODE === 'founder' && <DoctorCard />}
+    </div>
+  );
+}
+
+/** Le choix du Muster-Bogen, guidé ou libre — la pré-simulation et l'Examen. */
+export function MusterChoix() {
+  const { muster, setMuster } = useUi();
+  return (
+    <div className="card p-4">
+      <div className="label mb-2">Muster-Bogen (feuille de notes)</div>
+      <div className="grid gap-3 sm:grid-cols-2">
+        {MUSTER_CHOIX.map((m) => (
+          <PartnerChoice key={m.art} icon={m.icon} title={m.titre} desc={m.desc}
+            active={muster === m.art} onClick={() => setMuster(m.art)} />
+        ))}
+      </div>
     </div>
   );
 }
@@ -157,9 +165,12 @@ const lirePartenaire = (): Partenaire => {
  *  (contrat `ai-bridge.md` §3.1). [S4] La partie porte les trois Teile : l'IA est
  *  toujours proposée (fixeur I9/M1), le simulant joue tous ses rôles ; le choix est
  *  mémorisé sur l'appareil. */
-export function PartnerCard({ caseId, depart }: { caseId: string; depart: SimTeil | null }) {
+export function PartnerCard({ caseId, depart, examen = false }: { caseId: string; depart: SimTeil | null; examen?: boolean }) {
   const teil = depart ?? undefined;
-  const [partenaire, setPartenaireState] = useState<Partenaire>(lirePartenaire);
+  // [S4-7] Dans l'Examen : pas d'IA (aucune aide n'y est montée), et la seconde fenêtre s'ouvre par un bouton — un `href`
+  // mettrait l'id du cas dans le DOM du candidat (simulation-run.md §11.3).
+  const [partenaireLu, setPartenaireState] = useState<Partenaire>(lirePartenaire);
+  const partenaire = examen && partenaireLu === 'ia' ? 'seul' : partenaireLu;
   const setPartenaire = (p: Partenaire) => { localStorage.setItem(PARTENAIRE_KEY, p); setPartenaireState(p); };
   const [copied, setCopied] = useState(false);
   const url = patientUrl(caseId, teil);
@@ -169,7 +180,7 @@ export function PartnerCard({ caseId, depart }: { caseId: string; depart: SimTei
   return (
     <section className="card p-4" aria-label="Avec qui tu joues">
       <div className="label mb-2">Avec qui tu joues</div>
-      <div className="grid gap-3 sm:grid-cols-3">
+      <div className={`grid gap-3 ${examen ? 'sm:grid-cols-2' : 'sm:grid-cols-3'}`}>
         <PartnerChoice
           icon="user" title="Seul" active={choix === 'seul'}
           desc="Tu joues les deux rôles."
@@ -180,11 +191,13 @@ export function PartnerCard({ caseId, depart }: { caseId: string; depart: SimTei
           desc="Il lit sa fiche de rôle sur son téléphone et suit ta partie en direct."
           onClick={() => setPartenaire('simulant')}
         />
-        <PartnerChoice
-          icon="spark" title="Avec ton IA" active={choix === 'ia'}
-          desc="ChatGPT ou Gemini, en vocal : tu la lances depuis la partie."
-          onClick={() => setPartenaire('ia')}
-        />
+        {!examen && (
+          <PartnerChoice
+            icon="spark" title="Avec ton IA" active={choix === 'ia'}
+            desc="ChatGPT ou Gemini, en vocal : tu la lances depuis la partie."
+            onClick={() => setPartenaire('ia')}
+          />
+        )}
       </div>
 
       {choix === 'ia' && (
@@ -203,7 +216,9 @@ export function PartnerCard({ caseId, depart }: { caseId: string; depart: SimTei
               Il joue le patient (anamnèse) puis le médecin examinateur (présentation).
             </p>
             <div className="mt-2 flex flex-wrap items-center justify-center gap-2 sm:justify-start">
-              <a href={localPatientUrl(caseId, teil)} target="_blank" rel="noreferrer" className="btn-outline gap-1.5 text-xs">Ouvrir en 2ᵉ fenêtre<Icon name="external" className="h-3.5 w-3.5" /></a>
+              {examen
+                ? <button type="button" onClick={() => window.open(localPatientUrl(caseId, teil), '_blank', 'noreferrer')} className="btn-outline gap-1.5 text-xs">Ouvrir en 2ᵉ fenêtre<Icon name="external" className="h-3.5 w-3.5" /></button>
+                : <a href={localPatientUrl(caseId, teil)} target="_blank" rel="noreferrer" className="btn-outline gap-1.5 text-xs">Ouvrir en 2ᵉ fenêtre<Icon name="external" className="h-3.5 w-3.5" /></a>}
               <button onClick={copyUrl} title="Copier le lien (téléphone)" aria-label="Copier le lien pour téléphone"
                 className={`btn-outline px-2.5 text-xs ${copied ? 'border-emerald-300 text-emerald-600 dark:text-emerald-400' : ''}`}>
                 <Icon name={copied ? 'check' : 'copy'} className="h-3.5 w-3.5" />

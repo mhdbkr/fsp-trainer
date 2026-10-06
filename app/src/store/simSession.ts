@@ -38,6 +38,8 @@ export interface SessionSnapshot {
   elapsed: Partial<Record<Part, number>>;
   /** Mode de la session (FB2-P) : un seul Teil, ou null = complète. Sans lui, reprendre ré-ouvrait les 3 parties. */
   teil: 'anamnese' | 'dokumentation' | 'fallvorstellung' | null;
+  /** [S4-7] Un examen : la barre le dit sans nommer le cas, et ramène à `/examen` (simulation-run.md §11.3). */
+  examen?: true;
   startedAt: number;
 }
 
@@ -118,7 +120,8 @@ export const useSimSession = create<SimSessionStore>()(persist((set, get) => ({
  *  (`useLauf`) comme pour le réveil (`hydriereAusLauf`). */
 export function snapshotAusLauf(l: Lauf): Omit<SessionSnapshot, 'startedAt'> {
   return {
-    caseId: l.caseId, caseName: l.caseName,
+    // [S4-7] Le nom d'un cas d'examen ne sort pas du Lauf (§11.3, INV-E4).
+    caseId: l.caseId, caseName: l.examen ? '' : l.caseName,
     active: (l.aktuellerTeil ?? l.geplanteTeile[0]) as Part,
     phase: l.zustand === 'laufend' ? 'play' : 'eval',
     bogen: l.bogen, arztbriefText: l.arztbriefText,
@@ -128,6 +131,7 @@ export function snapshotAusLauf(l: Lauf): Omit<SessionSnapshot, 'startedAt'> {
     aufklaerungOpen: l.aktuellerTeil === 'aufklaerung',
     elapsed: l.sekundenProTeil,
     teil: l.modus === 'teil' ? l.geplanteTeile[0] : null,
+    ...(l.examen ? { examen: true as const } : {}),
   };
 }
 
