@@ -108,11 +108,14 @@ export function ProgramPage() {
 
 // --- 1 · Aujourd'hui ---------------------------------------------------------
 
-function Aujourdhui({ date, plan, events }: { date: string; plan: DayPlan | null; events: TrainingEvent[] }) {
+export function Aujourdhui({ date, plan, events }: { date: string; plan: DayPlan | null; events: TrainingEvent[] }) {
   const [busy, setBusy] = useState(false);
   const { faites: done, total } = planProgress(plan);
   const session = sessionDuJour(plan);
-  const reste = plan && session ? lectureDuPlan(plan, events).get(session.id)?.reste : undefined;
+  // Ce qui reste, lu UNE fois sur le plan et le journal de la page, et donné à la liste (cause racine de l'échec CI m6 :
+  // la liste relisait seule, et montrait la raison figée « jamais travaillé » tant que ses requêtes n'étaient pas revenues).
+  const lecture = useMemo(() => (plan ? lectureDuPlan(plan, events) : undefined), [plan, events]);
+  const reste = session ? lecture?.get(session.id)?.reste : undefined;
 
   return (
     <section className="card p-4">
@@ -129,7 +132,7 @@ function Aujourdhui({ date, plan, events }: { date: string; plan: DayPlan | null
       ) : (
         <>
           {/* La tâche de « Commencer par … » ne porte pas un second lien vers la même adresse. */}
-          <TaskList tasks={plan.tasks} lancer={false} sansLien={session?.id} />
+          <TaskList tasks={plan.tasks} lancer={false} sansLien={session?.id} lecture={lecture} />
           {session ? (
             <Link to={taskLink(session, reste?.teile)} data-commencer={session.label} data-cta={taskCta(session)} className="btn-primary mt-3 min-h-11 w-full justify-center gap-1.5 text-sm sm:w-auto">
               <Icon name="play" className="h-3.5 w-3.5" />Commencer par {session.label}

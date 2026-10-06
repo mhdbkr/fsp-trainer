@@ -219,13 +219,16 @@ export function raisonCommune(tasks: TaskInstance[]): { reason: string; n: numbe
 /** Le plan du jour : le titre entier d'abord, le « pourquoi » ensuite — et une
  *  raison commune dite une seule fois, au-dessus des lignes qui la partagent. */
 /** `lancer = false` (Programme, S4-5) : les lignes gardent « Fait », perdent « Lancer » ; le titre ouvre la tâche. */
-export function TaskList({ tasks, lancer = true, sansLien }: { tasks: TaskInstance[]; lancer?: boolean; sansLien?: string }) {
+/** `lecture` : ce qui reste et les rappels, déjà lus par l'écran qui monte la liste (le Programme) — sans elle, la liste
+ *  relit le plan et le journal, et montre la raison figée tant que ses requêtes ne sont pas revenues. */
+export function TaskList({ tasks, lancer = true, sansLien, lecture: lue }: { tasks: TaskInstance[]; lancer?: boolean; sansLien?: string; lecture?: Map<string, LectureTache> }) {
   // Ce qui reste et les rappels (l'accueil monte cette liste) : lus sur le plan FIGÉ du jour (son fuseau) et le journal.
   const date = tasks[0]?.date;
   const today = useToday((s) => s.day);
   const plan = useDayPlan(date);
   const events = useTrainingEvents();
-  const lecture = useMemo(() => (plan && events && date === today ? lectureDuPlan(plan, events) : new Map<string, LectureTache>()), [plan, events, date, today]);
+  const relue = useMemo(() => (!lue && plan && events && date === today ? lectureDuPlan(plan, events) : new Map<string, LectureTache>()), [lue, plan, events, date, today]);
+  const lecture = lue ?? relue;
   const commune = raisonCommune(tasks.filter((t) => !lecture.get(t.id)?.entamee));      // m6 : une tâche entamée ne dit plus sa raison
   return (
     <div className="space-y-2">
