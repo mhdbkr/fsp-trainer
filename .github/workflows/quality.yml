@@ -273,6 +273,17 @@ jobs:
         run: node scripts/parcours-candidat.mjs --env-file /tmp/c6.env --out ../c6-parcours-ci.md --shots /tmp/c6-captures
         env:
           PLAYWRIGHT_CORE: ${{ github.workspace }}/app/node_modules/playwright-core
+      # Sondes 390 px (sans Supabase : `vite` sur une URL factice) — elles tournent même si le parcours a échoué.
+      - name: Historique à 390, 375 et 1280 px (S4-6)
+        if: ${{ !cancelled() }}
+        run: node scripts/e2e/historique390.mjs
+        env:
+          PLAYWRIGHT_CORE: ${{ github.workspace }}/app/node_modules/playwright-core
+      - name: Carte de couverture à 390 px (S4-5)
+        if: ${{ !cancelled() }}
+        run: node scripts/e2e/carteCouverture390.mjs
+        env:
+          PLAYWRIGHT_CORE: ${{ github.workspace }}/app/node_modules/playwright-core
       - if: always()
         uses: actions/upload-artifact@v4
         with:
