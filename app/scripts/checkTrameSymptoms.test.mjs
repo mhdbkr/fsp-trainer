@@ -41,8 +41,9 @@ const cases = 'src/data/seedCases.ts';
 test('socle connu → une annotation `relu` annulée rouvre la porte', { timeout: 300_000 }, () => {
   const b = JSON.parse(sb.read(baseline));
   // Vide après la série 3 ; la revue K1 (I-2) y inscrit deux vrais doublons de la nausée, K3 dix questions du cas muettes
-  // (hausse documentée au fixture) ; K4 déclare les questions du cas : il reste anorexia-nervosa n° 2 (reformulation, lot de contenu).
-  assert.deepEqual(b.findings.map((f) => f.split(' ')[0]), ['R|case-anorexia-nervosa']);
+  // (hausse documentée au fixture) ; K4 déclare les questions du cas : il reste anorexia-nervosa n° 2. K5 la déclare (`erbrechen`,
+  // même réplique que veg-uebelkeit) : le socle est VIDE.
+  assert.deepEqual(b.findings, []);
   // K4 : leistenhernie n° 0 nomme la toux sans la demander (`relu`) ; la n° 6 la demande — l'annotation retirée rouvre la porte.
   const r = sb.mutate(cases,
     "kapitel: 'aktuell', sucht: ['einfluss'], relu: true },",

@@ -81,6 +81,13 @@ export interface CohereCtx {
 // R5 (revue clinique, décision de main) : le signe n'est le motif que si le profil DÉCLARE la plainte (tag), pas sur la seule nature.
 export const SIGNE_DU_MOTIF: Partial<Record<ProfilTag, Signe>> = { infekt: 'fieber', atemnot: 'atemnot' };
 export const TAG_DU_MOTIF: Partial<Record<ProfilTag, ProfilTag>> = { infekt: 'fieber', atemnot: 'dyspnoe' };
+/** K5 (revue K4, décision de main) — D4-bis quand la NATURE ne dit pas le motif : un tag déclaré le dit. Le patient l'a
+ *  dit en ouvrant : `akt-motiv` le cherche (identité §10.1 — lagerungsschwindel répond « Mir ist … schwindelig », commotio
+ *  « Ich bin … gestürzt »). La question d'Aktuelle Beschwerden l'emporte, la Fach se réduit à ses autres `parts` :
+ *  « Haben Sie Schwindel …? » n'est plus posée à qui consulte pour un vertige, ni « Sind Sie schon gestürzt? » après la chute. */
+export const MOTIF_DECLARE: Partial<Record<ProfilTag, Signe>> = { schwindel: 'schwindel', sturz: 'sturz' };
+export const SONDE_DU_MOTIF = 'akt-motiv';
+const motifsDeclares = (tags: readonly ProfilTag[]): Signe[] => tags.flatMap((t) => MOTIF_DECLARE[t] ?? []);
 
 /** Rang de conservation (D4, §10.4) : question du cas 0 · Fach 1 · aktuell 2 · vegetativ 3 · autres 4. */
 export const rangDe = (ch: string, cas: boolean): number => (cas ? 0 : ch === 'fach' ? 1 : ch === 'aktuell' ? 2 : ch === 'vegetativ' ? 3 : 4);
@@ -106,7 +113,7 @@ function unite(p: Phrase, ch: string, k: number, tags: readonly ProfilTag[], cas
   const cas = phraseIsCaseSpecific(p);
   const probes = phraseProbes(p);
   const id = v?.detacheDe ?? (cas ? `cas:${casIndex?.(p) ?? `?${ch}.${k}`}` : probes.length ? probes.join('+') : `${ch}:${k}`);
-  const decl = phraseSucht(p);
+  const decl = probes.includes(SONDE_DU_MOTIF) ? uniq([...phraseSucht(p), ...motifsDeclares(tags)]) : phraseSucht(p);
   const sauf = new Set(probes.flatMap((pr) => tags.flatMap((t) => SUCHT_AUSSER[pr]?.[t] ?? [])));
   const u: U = { id, ch, rang: rangDe(ch, cas), cas, p, signes: decl.filter((s) => !sauf.has(s)), etat: 'garde', rels: [], enfants: [] };
   if (v?.detacheDe) return u;   // relance déjà détachée (passe suivante) : une question à part entière
@@ -224,12 +231,16 @@ export function cohere<T extends TrameChapter>(trame: readonly T[], profil: Prof
   // ── r2 — un signe, une question (gagnants calculés en une fois) ─────────────
   const live = vivants().filter((u) => u.signes.length && !phraseProbes(u.p).some((p) => R2_EXEMPTES.has(p)));
   const pertes = new Map<U, Map<Signe, U>>();
+  // D4-bis : pour un signe du motif, une question d'Aktuelle Beschwerden passe avant la Fach (rang 0,5) — le motif de la
+  // nature (fièvre, dyspnée, tag requis : R5) et, K5, le motif déclaré par un tag (MOTIF_DECLARE).
+  const motifs = new Set<Signe>([
+    ...(profil.nature && profil.tags.includes(TAG_DU_MOTIF[profil.nature]!) ? [SIGNE_DU_MOTIF[profil.nature]!] : []),
+    ...motifsDeclares(profil.tags),
+  ]);
   for (const s of uniq(live.flatMap((u) => u.signes))) {
     const us = live.filter((u) => u.signes.includes(s));
     if (us.length < 2) continue;
-    // D4-bis : pour le signe du motif, une question d'Aktuelle Beschwerden passe avant la Fach (rang 0,5).
-    const motif = profil.nature && profil.tags.includes(TAG_DU_MOTIF[profil.nature]!) ? SIGNE_DU_MOTIF[profil.nature] : undefined;
-    const rang = (u: U) => (s === motif && u.ch === 'aktuell' && !u.cas && !u.relance ? 0.5 : u.rang);
+    const rang = (u: U) => (motifs.has(s) && u.ch === 'aktuell' && !u.cas && !u.relance ? 0.5 : u.rang);
     const w = us.reduce((a, b) => (rang(b) < rang(a) ? b : a));
     for (const u of us) {
       if (u === w) continue;
@@ -328,6 +339,8 @@ export function cohere<T extends TrameChapter>(trame: readonly T[], profil: Prof
         followUpSucht: fs.some((x) => x.length) ? fs : undefined, sucht: pts.flatMap((pt) => pt.sucht).filter((s, k, a) => u.signes.includes(s as Signe) && a.indexOf(s) === k),
         ...(br.length ? { braucht: [...new Set(br)] } : {}) }];
     }
+    // K5 : la question d'ouverture DIT ce qu'elle obtient du motif déclaré — tout lecteur de la trame jouée le voit (INV-88).
+    if (phraseProbes(v).includes(SONDE_DU_MOTIF) && u.signes.some((s) => !phraseSucht(v).includes(s))) return [{ ...v, sucht: u.signes }];
     // Les relances hors signe parties : détachées (r4a) ou retirées pour leur propre compte (r1, r2).
     const parties = u.enfants.filter((r) => !r.relance!.attachee || r.etat === 'retire').map((r) => r.relance!.i);
     if (!parties.length) return [u.p];

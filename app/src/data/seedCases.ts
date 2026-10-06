@@ -6925,7 +6925,7 @@ export function seedCases(): Case[] {
         { frage: 'Wissen Sie, weshalb Ihnen das Aspirin verschrieben wurde?', kapitel: 'medikamente', sucht: ['medikament_indikation'] },
         { frage: 'Ist Ihnen ein unregelmäßiger Herzschlag bekannt, zum Beispiel Vorhofflimmern?', kapitel: 'vorerkrankungen', sucht: ['herz_vorgeschichte'] },
         { frage: 'Hatten Sie schon einmal einen kurzzeitigen Sehverlust auf einem Auge?', kapitel: 'aktuell', sucht: ['amaurosis'] },
-        { frage: 'Haben Sie sich beim Sturz von der Kellertreppe den Kopf gestoßen?', kapitel: 'aktuell', sucht: ['kopfanprall'], relu: true },
+        { frage: 'Haben Sie sich beim Sturz von der Kellertreppe den Kopf gestoßen?', kapitel: 'aktuell', sucht: ['kopfanprall'], braucht: ['sturz'] },
       ],
       examinerQuestions: [
         'Wie lautet Ihre Verdachtsdiagnose und warum?',
@@ -27428,7 +27428,7 @@ export function seedCases(): Case[] {
       frequency: 0,
       difficulty: 2,
       patientSheet: {
-        profil: { tags: ['neurologisch', 'hals'] },
+        profil: { tags: ['neurologisch', 'hals', 'schwindel'] },   // K5 : le motif est le vertige (D4-bis, MOTIF_DECLARE)
         fachSkip: ['fach-neuro-anfallzeichen'],
         leitsymptomKategorie: 'neurologisch',
         personalia: {
@@ -31188,7 +31188,7 @@ export function seedCases(): Case[] {
       frequency: 16,
       difficulty: 2,
       patientSheet: {
-        profil: { tags: ['neurologisch', 'schmerz'] },
+        profil: { tags: ['neurologisch', 'schmerz', 'sturz'] },   // K5 : consulte après une chute (D4-bis, MOTIF_DECLARE)
         fachSkip: ['fach-neuro-aura'],
         leitsymptomKategorie: 'neurologisch',
         personalia: {
@@ -44635,7 +44635,7 @@ export function seedCases(): Case[] {
       caseSpecificQuestions: [
         { frage: 'Wie sieht ein ganz normaler Tag bei Ihnen aus, auch was das Essen angeht?', kapitel: 'aktuell', sucht: ['essalltag'] },
         { frage: 'Gibt es Lebensmittel, die Sie bewusst weglassen?', kapitel: 'aktuell', sucht: ['diaet'], followUp: 'Falls ja: Was fällt Ihnen besonders schwer zu essen?' },
-        { frage: 'Ich frage das ganz ohne Vorwurf: Kommt es vor, dass Sie sich nach dem Essen übergeben?', kapitel: 'aktuell', sucht: ['selbstinduziertes_erbrechen'] },
+        { frage: 'Ich frage das ganz ohne Vorwurf: Kommt es vor, dass Sie sich nach dem Essen übergeben?', kapitel: 'aktuell', sucht: ['selbstinduziertes_erbrechen', 'erbrechen'] },
         { frage: 'Nehmen Sie Abführmittel, Entwässerungstabletten, Appetitzügler oder Diätmittel ein — auch pflanzliche Mittel oder etwas aus dem Internet?', kapitel: 'medikamente', sucht: ['abfuehrmittel', 'diuretika'] },
         { frage: 'Wie viel bewegen Sie sich am Tag? Wie geht es Ihnen an einem Tag, an dem Sie nicht laufen können?', kapitel: 'aktuell', sucht: ['bewegung_alltag'] },
         { frage: 'Haben Sie Angst davor, zuzunehmen?', kapitel: 'aktuell', sucht: ['gewichtsphobie'], relu: true, followUp: 'Was würde passieren, wenn die Waage zwei Kilo mehr anzeigen würde?' },
