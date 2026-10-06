@@ -31,6 +31,10 @@ const serveur = spawn(`${APP}node_modules/.bin/vite`, ['--port', String(PORT), '
   env: { ...process.env, VITE_SUPABASE_URL: 'http://127.0.0.1:9', VITE_SUPABASE_ANON_KEY: 'factice' },
 });
 
+// Le premier chargement d'un `vite` à froid (transformation du corpus, pré-regroupement des dépendances) dépasse parfois
+// les 30 s de l'événement `load` : on navigue jusqu'au DOM, avec une marge ; chaque étape attend ensuite son propre élément.
+const NAV = { waitUntil: 'domcontentloaded', timeout: 120_000 };
+
 const fautes = [];
 const ko = (m) => { fautes.push(m); console.log(`   ✗ ${m}`); };
 const ok = (m) => console.log(`   ✓ ${m}`);
@@ -43,7 +47,7 @@ async function semer(page) {
     const cases = seedCases();
     await db.cases.bulkPut(cases);
     await db.meta.put({ key: 'contentVersion', value: 1 });
-    return cases.map((c) => ({ id: c.id, name: c.name, specialty: c.specialty, patient: c.patientSheet?.personalia?.name ?? '' }));
+    return cases.map((c) => ({ id: c.id, name: c.name, specialty: c.specialty, patient: c.patientSheet?.personalia?.name ?? '', vd: c.medicalView?.verdachtsdiagnose ?? '' }));
   });
 }
 
@@ -52,10 +56,10 @@ async function ouvrir(navigateur, largeur) {
   const page = await contexte.newPage();
   page.on('dialog', (d) => d.accept());
   await page.clock.install({ time: T0 });
-  await page.goto(`${BASE}/#/`);
+  await page.goto(`${BASE}/#/`, NAV);
   const secrets = await semer(page);
-  await page.goto(`${BASE}/#/examen`);
-  await page.reload();
+  await page.goto(`${BASE}/#/examen`, NAV);
+  await page.reload(NAV);
   await page.getByRole('button', { name: 'Démarrer l’examen' }).waitFor({ timeout: 60_000 });
   await page.waitForFunction(() => !document.querySelector('button.btn-primary:disabled'), null, { timeout: 30_000 });
   return { contexte, page, secrets };
@@ -152,8 +156,14 @@ try {
     await page.waitForSelector('[data-examen-conditions]', { timeout: 20_000 });
     const res = await page.evaluate(() => ({ cond: document.querySelector('[data-examen-conditions]').getAttribute('data-examen-conditions'), hash: location.hash, texte: document.body.textContent }));
     if (res.cond !== '') ko(`résultat : conditions manquantes « ${res.cond} »`); else ok('résultat : conditions d’examen remplies');
-    const revele = await page.textContent('[data-examen-cas]');
-    if (!/^Le cas : .{5,}/.test(revele) || !res.texte.includes(cas.name)) ko('résultat : le cas n’est pas révélé'); else ok(`résultat : « ${revele.slice(0, 60)} » (${res.hash})`);
+    // L'écran révèle le DIAGNOSTIC, pas le nom du cas (§11.4) : « Le cas : » + le début de la Verdachtsdiagnose, « … » s'il
+    // est coupé. On le compare à la source semée (le cas tiré, lu par la seconde fenêtre), sans importer la fonction de l'app.
+    const revele = (await page.textContent('[data-examen-cas]')) ?? '';
+    const debut = revele.replace(/^Le cas : /, '').replace(/…$/, '');
+    const fois = res.texte.split(debut).length - 1;
+    if (!revele.startsWith('Le cas : ') || debut.length < 5 || !cas.vd.trim().startsWith(debut)) ko(`résultat (${cas.id}) : « ${revele} » n’est pas le début du diagnostic « ${cas.vd.slice(0, 80)} »`);
+    else if (fois !== 1) ko(`résultat (${cas.id}) : le diagnostic paraît ${fois} fois`);
+    else ok(`résultat (${cas.id}) : « ${revele.slice(0, 60)} », une fois (${res.hash})`);
     await page.evaluate(() => document.querySelector('main')?.scrollTo(0, 0));
     await capture('fin');
     await contexte.close();
@@ -167,7 +177,7 @@ try {
     await phase(page, 'anamnese');
     const avant = (await mesure(page)).reste;
     await avance(page, 4 * 60_000);
-    await page.reload();
+    await page.reload(NAV);
     await phase(page, 'anamnese');
     await avance(page, 1_000);
     const apres = (await mesure(page)).reste;
@@ -191,10 +201,10 @@ try {
     await phase(page, 'anamnese');
     await page.getByRole('button', { name: 'Abandonner' }).click();
     await page.getByRole('button', { name: 'Démarrer l’examen' }).waitFor({ timeout: 15_000 });
-    await page.goto(`${BASE}/#/historique`);
+    await page.goto(`${BASE}/#/historique`, NAV);
     await page.waitForSelector('main', { timeout: 15_000 }); await avance(page, 1_000);
     if (await page.getByText('Examen interrompu').count()) ko('abandon pendant l’Anamnese : quelque chose est écrit'); else ok('abandon pendant l’Anamnese : rien n’est écrit');
-    await page.goto(`${BASE}/#/examen`);
+    await page.goto(`${BASE}/#/examen`, NAV);
     await page.getByRole('button', { name: 'Démarrer l’examen' }).waitFor({ timeout: 30_000 });
     await page.waitForFunction(() => !document.querySelector('button.btn-primary:disabled'), null, { timeout: 30_000 });
     await page.getByRole('button', { name: 'Démarrer l’examen' }).click();
@@ -202,7 +212,7 @@ try {
     await avance(page, 20 * 60_000); await phase(page, 'transition');
     await page.getByRole('button', { name: 'Abandonner' }).click();
     await page.getByRole('button', { name: 'Démarrer l’examen' }).waitFor({ timeout: 15_000 });
-    await page.goto(`${BASE}/#/historique`);
+    await page.goto(`${BASE}/#/historique`, NAV);
     await page.getByText('Examen interrompu').waitFor({ timeout: 15_000 }).then(() => ok('abandon après l’Anamnese : « Examen interrompu » à l’Historique'), () => ko('abandon après l’Anamnese : absent de l’Historique'));
     await contexte.close();
   }
