@@ -67,7 +67,6 @@ export const DEFS_CAS = {
   nasensekret: { kapitel: 'aktuell', pertinence: S },               // couleur et aspect de l'écoulement nasal
   schnupfen: { kapitel: 'aktuell', pertinence: S },                 // rhume, éternuements
   riechen: { kapitel: 'aktuell', pertinence: S },                   // odorat
-  zahn: { kapitel: 'aktuell', pertinence: S },                      // dents du haut douloureuses, soin dentaire récent
   rachenbefund: { kapitel: 'aktuell', pertinence: S },              // ce qu'il a vu dans sa gorge (amygdales, dépôts)
   kieferklemme: { kapitel: 'aktuell', pertinence: S },              // ouvre-t-il la bouche, salive-t-il
   zunge: { kapitel: 'aktuell', pertinence: S },                     // langue qui brûle, lisse, rouge ; perlèche
@@ -139,7 +138,6 @@ export const DEFS_CAS = {
   dosisabhaengigkeit: { kapitel: 'aktuell', pertinence: S },        // dépend de la quantité (un peu de lait, un verre)
   nahrungsmittelallergie: { kapitel: 'aktuell', pertinence: S },    // réaction allergique à un aliment (≠ `allergie` médicamenteuse)
   zyklusbezug: { kapitel: 'aktuell', pertinence: S },               // la douleur suit-elle le cycle
-  arbeitsausfall: { kapitel: 'aktuell', pertinence: S },            // jours d'arrêt à cause des douleurs
   krankheitskonzept: { kapitel: 'aktuell', pertinence: S },         // ce qu'il pense avoir, ce qu'il attend
   vorbefunde: { kapitel: 'aktuell', pertinence: S },                // examens déjà faits et leurs résultats
   coronatest: { kapitel: 'aktuell', pertinence: S },                // comment et quand il s'est testé
