@@ -1596,7 +1596,7 @@ case-arterielle-hypertonie
   personalia[pers-name pers-name pers-alter pers-groesse pers-hausarzt ·]
   aktuell[akt-motiv akt-beginn akt-allgemein-art akt-allgemein-alltag↳1 akt-allgemein-tageszeit↳1 akt-allgemein-gewicht↳2 akt-verlauf akt-ausloeser akt-einfluss akt-frueher↳2 akt-begleit cas cas akt-charakter akt-intensitaet↳1 cas cas cas cas cas]
   fach-kardio[fach-kardio-brust↳1 fach-kardio-belastung fach-kardio-atem fach-kardio-luft fach-kardio-oedeme fach-kardio-nykturie fach-kardio-synkope]
-  vegetativ[veg-fieber~fieber↳3 veg-schuettelfrost~schuettelfrost,nachtschweiss↳1 veg-uebelkeit↳3 veg-ausscheidung↳3 veg-schlaf cas ^veg-fieber#5~impfung cas]
+  vegetativ[veg-fieber~fieber↳3 veg-schuettelfrost~schuettelfrost,nachtschweiss↳1 veg-uebelkeit↳3 veg-ausscheidung↳3 veg-schlaf cas cas ^veg-fieber#5~impfung]
   vorerkrankungen[· vor-erkrank↳3 vor-op↳3 vor-krankenhaus]
   medikamente[med-regelmaessig↳4 med-blutverduenner med-otc cas cas]
   allergien[all-allergie↳1 all-unvertraeglich]
