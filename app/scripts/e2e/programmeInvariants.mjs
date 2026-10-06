@@ -391,8 +391,8 @@ const P3b = preuve('P3b', "une session réussie sur un seul Teil ne fait régres
   goto('/programme');
   const autres = ['anamnese', 'dokumentation', 'fallvorstellung'].filter((t) => t !== tache.teil);
   const cadran = await until(`
-    const b = [...document.querySelectorAll('button[aria-expanded]')].find((x) => x.textContent.trim() === ${JSON.stringify(tache.specialty)});
-    if (!b) return null;
+    const b = document.querySelector('button[data-specialite=' + JSON.stringify(${JSON.stringify(tache.specialty)}) + ']');
+    if (!b) { [...document.querySelectorAll('button')].find((x) => /^Voir les \\d+ autres spécialités$/.test(x.textContent.trim()))?.click(); return null; }
     if (b.getAttribute('aria-expanded') !== 'true') { b.click(); return null; }
     const d = [...document.querySelectorAll('button[aria-haspopup="dialog"]')].map((x) => x.getAttribute('aria-label') ?? '')
       .find((l) => l.startsWith(${JSON.stringify(`${tache.label} : `)}));

@@ -135,12 +135,25 @@ export const meta = async (page, key) => (await idb(page, 'meta')).find((m) => m
 export const rows = (page) => page.evaluate(() => [...document.querySelectorAll('div.rounded-xl.border.transition-colors')].map((r) => ({
   label: (r.querySelector('.font-medium')?.textContent ?? '').trim(),
   fait: !r.querySelector('[title="Marquer faite"]'),
-  cta: (r.querySelector('a.btn-primary')?.textContent ?? '').trim(),
+  // S4-5 : sur le Programme, la ligne n'a plus de bouton « Lancer » — le titre (`a[data-cta]`) ouvre la tâche, et la
+  // première tâche à faire s'ouvre par « Commencer par … » (hors de la ligne). L'accueil garde son bouton.
+  cta: (r.querySelector('a[data-cta]')?.getAttribute('data-cta') ?? r.querySelector('a.btn-primary')?.textContent
+    ?? (r.querySelector('[title="Marquer faite"]') && document.querySelector('a[data-commencer]')?.getAttribute('data-commencer') === (r.querySelector('.font-medium')?.textContent ?? '').trim()
+      ? document.querySelector('a[data-commencer]').getAttribute('data-cta') : '') ?? '').trim(),
   min: Number((r.querySelector('.mono-tag')?.textContent ?? '').replace(/\D/g, '')) || 0,
   pourquoi: (r.querySelector('[title].truncate')?.getAttribute('title') ?? ''),
 })));
 
 /** « 3/7 faits · 119 min prévues » tel qu'il est RENDU. */
+/** Ouvre la tâche de la ligne `i` : son lien de titre, son bouton (accueil), ou « Commencer par … » (la première du Programme). */
+export async function ouvrirLigne(page, ROW, i) {
+  const ligne = page.locator(ROW).nth(i);
+  const label = ((await ligne.locator('.font-medium').first().textContent()) ?? '').trim();
+  const titre = ligne.locator('a[data-cta], a.btn-primary');
+  if (await titre.count()) return titre.first().click();
+  return page.locator('a[data-commencer]').filter({ hasText: `Commencer par ${label}` }).first().click();
+}
+
 export const barre = (page) => page.evaluate(() => {
   const m = document.body.innerText.match(/(\d+)\/(\d+) faits? · (\d+) min prévues/);
   return m ? { done: +m[1], total: +m[2], min: +m[3] } : null;

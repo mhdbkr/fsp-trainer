@@ -124,13 +124,16 @@ export function lectureDuPlan(plan: DayPlan, events: readonly TrainingEvent[]): 
 /** L'anatomie — sujet, portée, état, coût. Le type, la couche, l'assistance et
  *  la durée se lisent DANS LES CHAMPS : plus aucune concaténation, et la vue ne
  *  les ré-affiche pas à côté. */
-export function TaskAnatomy({ task, reste, aRejouer }: { task: TaskInstance; reste?: LectureTache['reste']; aRejouer?: boolean }) {
+export function TaskAnatomy({ task, reste, aRejouer, lien }: { task: TaskInstance; reste?: LectureTache['reste']; aRejouer?: boolean; lien?: string }) {
   const state = [
     task.assistance === 'assiste' ? 'assisté' : task.assistance === 'autonome' ? 'autonome' : null,
   ].filter(Boolean).join(' · ');
   return (
     <div className="flex min-w-0 flex-wrap items-center gap-x-3 gap-y-1.5">
-      <span className="min-w-0 flex-[1_1_100%] [overflow-wrap:anywhere] font-medium text-slate-800 dark:text-slate-100">{task.label}</span>
+      {/* S4-5 : sur le Programme, le titre OUVRE la tâche (une seule action « lancer » par écran : « Commencer par … »). */}
+      {lien
+        ? <Link to={lien} data-cta={taskCta(task)} className="min-w-0 flex-[1_1_100%] [overflow-wrap:anywhere] font-medium text-slate-800 decoration-brand-300 underline-offset-2 hover:underline dark:text-slate-100">{task.label}</Link>
+        : <span className="min-w-0 flex-[1_1_100%] [overflow-wrap:anywhere] font-medium text-slate-800 dark:text-slate-100">{task.label}</span>}
       {task.teil && <ScopeTag teil={task.teil} />}
       {reste && <span className="dim-tag shrink-0">Il te reste {resteTexte(reste.teile)}</span>}
       {aRejouer && <span className="dim-tag shrink-0">{A_REJOUER}</span>}
@@ -163,7 +166,7 @@ function DrillFavoris() {
  * Cocher écrit un événement dans le journal et pose `doneAt`. Rien d'autre ne
  * bouge : aucune tâche ne prend la place.
  */
-export function TaskLine({ task, readOnly = false, showReason = true, lecture }: { task: TaskInstance; readOnly?: boolean; showReason?: boolean; lecture?: LectureTache }) {
+export function TaskLine({ task, readOnly = false, showReason = true, lecture, lancer = true, lien = true }: { task: TaskInstance; readOnly?: boolean; showReason?: boolean; lecture?: LectureTache; lancer?: boolean; lien?: boolean }) {
   const meta = TASK_META[task.kind];
   const done = task.doneAt !== undefined;
   const today = useToday((s) => s.day);
@@ -174,7 +177,7 @@ export function TaskLine({ task, readOnly = false, showReason = true, lecture }:
           <Icon name={meta.icon} className="h-5 w-5" />
         </span>
         <div className="min-w-[10rem] flex-1">
-          <TaskAnatomy task={task} reste={done ? undefined : lecture?.reste} aRejouer={!done && lecture?.aRejouer} />
+          <TaskAnatomy task={task} reste={done ? undefined : lecture?.reste} aRejouer={!done && lecture?.aRejouer} lien={!lancer && lien && !done && !readOnly ? taskLink(task, lecture?.reste?.teile) : undefined} />
           {/* Le « pourquoi aujourd'hui », figé avec la tâche. */}
           {showReason && !(lecture?.entamee && !done) && <div className="mt-0.5 text-[11px] text-slate-400">{task.reason}</div>}
           {/* Le rappel d'une erreur transversale : un fait, sans jugement (T2). */}
@@ -192,9 +195,11 @@ export function TaskLine({ task, readOnly = false, showReason = true, lecture }:
               type="button" onClick={() => markTaskDone(task)} title="Marquer faite"
               className="rounded-md px-2 py-1 text-[11px] font-medium text-emerald-700 transition-colors hover:bg-emerald-50 dark:text-emerald-300 dark:hover:bg-emerald-900/20"
             >✓ Fait</button>
-            <Link to={taskLink(task, lecture?.reste?.teile)} className="btn-primary gap-1 px-3 py-1.5 text-xs">
-              <Icon name="play" className="h-3 w-3" />{taskCta(task)}
-            </Link>
+            {lancer && (
+              <Link to={taskLink(task, lecture?.reste?.teile)} className="btn-primary gap-1 px-3 py-1.5 text-xs">
+                <Icon name="play" className="h-3 w-3" />{taskCta(task)}
+              </Link>
+            )}
           </div>
         )}
       </div>
@@ -213,7 +218,8 @@ export function raisonCommune(tasks: TaskInstance[]): { reason: string; n: numbe
 
 /** Le plan du jour : le titre entier d'abord, le « pourquoi » ensuite — et une
  *  raison commune dite une seule fois, au-dessus des lignes qui la partagent. */
-export function TaskList({ tasks }: { tasks: TaskInstance[] }) {
+/** `lancer = false` (Programme, S4-5) : les lignes gardent « Fait », perdent « Lancer » ; le titre ouvre la tâche. */
+export function TaskList({ tasks, lancer = true, sansLien }: { tasks: TaskInstance[]; lancer?: boolean; sansLien?: string }) {
   // Ce qui reste et les rappels (l'accueil monte cette liste) : lus sur le plan FIGÉ du jour (son fuseau) et le journal.
   const date = tasks[0]?.date;
   const today = useToday((s) => s.day);
@@ -228,7 +234,7 @@ export function TaskList({ tasks }: { tasks: TaskInstance[] }) {
           <span className="label">Même raison pour les {commune.n} cas</span> · {commune.reason}
         </p>
       )}
-      {tasks.map((t) => <TaskLine key={t.id} task={t} lecture={lecture.get(t.id)} showReason={!commune || t.doneAt !== undefined || t.reason !== commune.reason} />)}
+      {tasks.map((t) => <TaskLine key={t.id} task={t} lancer={lancer} lien={t.id !== sansLien} lecture={lecture.get(t.id)} showReason={!commune || t.doneAt !== undefined || t.reason !== commune.reason} />)}
     </div>
   );
 }

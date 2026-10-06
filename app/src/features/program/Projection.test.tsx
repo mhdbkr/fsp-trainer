@@ -25,7 +25,7 @@ const cases = Array.from({ length: 12 }, (_, i) => ({
 const config = { startDate: '2026-09-01', examDate: '2026-12-01', intensity: 'mittel', hoursPerSession: 2, offDays: [0, 6], prioritySpecialties: [], selfLevel: {}, createdAt: 0 } as unknown as ProgramConfig;
 
 let container: HTMLDivElement; let root: Root;
-const jour = (re: RegExp) => [...container.querySelectorAll('li[aria-label]')].map((l) => l.getAttribute('aria-label')!).find((l) => re.test(l)) ?? '';
+const jour = (re: RegExp) => [...container.querySelectorAll('li .sr-only')].map((l) => l.textContent ?? '').find((l) => re.test(l)) ?? '';
 beforeEach(async () => {
   freezeAt(new Date(2026, 9, 1, 8, 0));                               // jeudi 1er octobre
   refreshToday();                                                   // le store « aujourd'hui » suit l'horloge figée (I-1)

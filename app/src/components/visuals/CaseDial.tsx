@@ -9,7 +9,7 @@ import { TEILE } from '@/lib/simScope';
 
 // ============================================================================
 // Le cadran d'un cas (`CaseDial`, S4-4) — le signe unique d'un cas partout où il
-// apparaît. UNE primitive, quatre tailles.
+// apparaît. UNE primitive, cinq tailles (24 : le point de la carte de couverture, S4-5).
 //
 //   · POSITION = Teil (Anamnese en haut à droite, Dokumentation en bas,
 //     Fallvorstellung à gauche : toujours au même endroit) ;
@@ -35,7 +35,7 @@ import { TEILE } from '@/lib/simScope';
 // le détail s'ouvre en panneau immobile.
 // ============================================================================
 
-export type CaseDialSize = 36 | 64 | 96 | 160;
+export type CaseDialSize = 24 | 36 | 64 | 96 | 160;   // 24 : le point de la carte de couverture (S4-5), toujours non ouvrable
 
 const R_IN = 33;
 const R_OUT = 48;

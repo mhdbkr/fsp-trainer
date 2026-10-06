@@ -21,13 +21,13 @@ import { setIntensity, setModus } from '@/lib/programAdjust';
 import { useToday } from '@/lib/today';
 import { useUi } from '@/store/ui';
 import { joursRestants } from '@/lib/program/trajectory';
-import { frequencesDeRepli, phraseCouverture } from '@/lib/program/couverturePonderee';
+import { FREQUENCES } from '@/lib/program/couverturePonderee';
 import { carteCouverture, encartCouverture, joursDeLaSemaine, projectionExamen, semaine } from '@/lib/program/pageProgramme';
 import type { DayPlan, Intensity, TrainingEvent } from '@/db/types';
 import { ProgramSetup } from './ProgramSetup';
 import { RattrapageLine } from './RattrapageLine';
 import { RythmeCard } from './RythmeCard';
-import { lectureDuPlan, TaskList, taskLink } from './TaskLine';
+import { lectureDuPlan, TaskList, taskCta, taskLink } from './TaskLine';
 import { SemaineProgramme } from './SemaineProgramme';
 import { CarteCouverture } from './CarteCouverture';
 import { Icon } from '@/components/icons';
@@ -47,10 +47,10 @@ export function ProgramPage() {
   const jours = useMemo(() => joursDeLaSemaine(today), [today]);
   const projected = useProjectedDays(jours);
   const byDate = useMemo(() => new Map((plans ?? []).map((p) => [p.date, p])), [plans]);
-  const laSemaine = useMemo(() => (config && events && projected ? semaine({ today, plans: byDate, projection: projected, events, config }) : null), [today, byDate, projected, events, config]);
+  const laSemaine = useMemo(() => (config && events && projected ? semaine({ today, plans: byDate, projection: projected, events, config, cases }) : null), [today, byDate, projected, events, config, cases]);
   // Recalculée chaque soir : la projection ne lit que le journal d'avant aujourd'hui (pageProgramme.ts).
   const projection = useMemo(() => (config && cases && events ? projectionExamen({ cases, events, config, today }) : null), [config, cases, events, today]);
-  const carte = useMemo(() => (cases && progress ? carteCouverture(cases, progress, frequencesDeRepli(cases), ville) : null), [cases, progress, ville]);
+  const carte = useMemo(() => (cases && progress ? carteCouverture(cases, progress, FREQUENCES, ville) : null), [cases, progress, ville]);
   const encart = useMemo(() => (carte && progress ? encartCouverture(carte, progress) : null), [carte, progress]);
 
   if (config === undefined || !cases || !progress || !plans || !events || plan === undefined) return <div className="text-slate-400">Chargement…</div>;
@@ -66,7 +66,6 @@ export function ProgramPage() {
 
   const end = programEnd(config);
   const jRestants = joursRestants(config);                       // I10 : la formule de la frise, pas une seconde
-  const couverture = carte && phraseCouverture(carte.mesure);
 
   return (
     <div className="min-w-0 space-y-6">
@@ -94,11 +93,10 @@ export function ProgramPage() {
 
       <div className="grid gap-6 md:grid-cols-2">
         {laSemaine && <SemaineProgramme jours={laSemaine} today={today} />}
-        {(projection || couverture) && (
+        {projection && (
           <section className="card p-4">
             <h2 className="mb-2 font-semibold">Jusqu'à l'examen</h2>
-            {projection && <p className="text-sm text-slate-700 dark:text-slate-200">{projection.texte}</p>}
-            {couverture && <p className="mt-2 text-xs text-slate-500 dark:text-slate-400">{couverture}.</p>}
+            <p className="text-sm text-slate-700 dark:text-slate-200">{projection.texte}</p>
           </section>
         )}
       </div>
@@ -130,18 +128,17 @@ function Aujourdhui({ date, plan, events }: { date: string; plan: DayPlan | null
         <p className="py-4 text-center text-sm text-slate-400">Jour off — récupère bien.</p>
       ) : (
         <>
-          <TaskList tasks={plan.tasks} />
+          {/* La tâche de « Commencer par … » ne porte pas un second lien vers la même adresse. */}
+          <TaskList tasks={plan.tasks} lancer={false} sansLien={session?.id} />
           {session ? (
-            <Link to={taskLink(session, reste?.teile)} className="btn-primary mt-3 min-h-11 w-full justify-center gap-1.5 text-sm sm:w-auto">
+            <Link to={taskLink(session, reste?.teile)} data-commencer={session.label} data-cta={taskCta(session)} className="btn-primary mt-3 min-h-11 w-full justify-center gap-1.5 text-sm sm:w-auto">
               <Icon name="play" className="h-3.5 w-3.5" />Commencer par {session.label}
             </Link>
           ) : (
             <p className="mt-3 text-center text-[13px] text-emerald-600 dark:text-emerald-300">Journée terminée. Rien d'autre n'est proposé — c'est voulu.</p>
           )}
           <div className="mt-3 flex flex-wrap items-center justify-between gap-2 border-t border-slate-100 pt-3 dark:border-slate-800">
-            <p className="text-[11px] text-slate-400">
-              Ce plan est figé. Cocher marque fait ; rien ne prend la place.{plan.replannedAt ? ` Replanifiée à ${format(new Date(plan.replannedAt), 'HH:mm')}.` : ''}
-            </p>
+            <p className="text-[11px] text-slate-400">{plan.replannedAt ? `Replanifié à ${format(new Date(plan.replannedAt), 'HH:mm')}.` : ''}</p>
             <button
               type="button" disabled={busy}
               onClick={async () => {
@@ -178,7 +175,7 @@ function ModusSwitch({ value, onChange }: { value: ModusChoix; onChange: (m: Mod
   return (
     <label className="flex items-center gap-1.5" title={current.hint}>
       <span className="label hidden sm:inline">Avancement</span>
-      <select value={value} onChange={(e) => onChange(e.target.value as ModusChoix)}
+      <select value={value} onChange={(e) => onChange(e.target.value as ModusChoix)} aria-label="Avancement"
         className="rounded-lg border border-slate-300 bg-white px-2 py-1.5 text-xs outline-none focus:border-brand-400 dark:border-slate-700 dark:bg-slate-900">
         {MODUS_META.map((m) => <option key={m.id} value={m.id}>{m.label}</option>)}
       </select>

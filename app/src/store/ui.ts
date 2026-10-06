@@ -49,6 +49,9 @@ interface UiState {
   // Contexte de préparation global.
   targetCenter: Center | 'Alle';
   setTargetCenter: (c: Center | 'Alle') => void;
+  /** S4-5 : la spécialité ouverte en dernier dans la carte de couverture (Programme), retrouvée au retour. */
+  specialiteOuverte: string | null;
+  setSpecialiteOuverte: (s: string | null) => void;
 
   // Réglages de simulation (Itération 2).
   assistance: AssistanceMode;
@@ -120,6 +123,11 @@ export const useUi = create<UiState>((set, get) => ({
 
   targetCenter: (localStorage.getItem('fsp-center') as Center | 'Alle') || 'Alle',
   setTargetCenter: (c) => { localStorage.setItem('fsp-center', c); set({ targetCenter: c }); },
+  specialiteOuverte: localStorage.getItem('fsp-programme-specialite'),
+  setSpecialiteOuverte: (s) => {
+    try { if (s) localStorage.setItem('fsp-programme-specialite', s); else localStorage.removeItem('fsp-programme-specialite'); } catch { /* stockage indisponible : la mémoire reste en session */ }
+    set({ specialiteOuverte: s });
+  },
 
   assistance: (localStorage.getItem('fsp-assistance') as AssistanceMode) || 'assiste',
   setAssistance: (a) => { localStorage.setItem('fsp-assistance', a); set({ assistance: a }); },
