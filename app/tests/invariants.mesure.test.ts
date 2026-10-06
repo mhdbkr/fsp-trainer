@@ -31,7 +31,7 @@ import { ensureDayPlan } from '@/lib/program';
 import { saveSimulation } from '@/lib/simulationSave';
 import { conditionsExamen, conditionsManquantes } from '@/lib/examen';
 import { dialData } from '@/lib/dialData';
-import { couverturePonderee, phraseCouverture } from '@/lib/program/couverturePonderee';
+import { couverturePonderee, FREQUENCES, phraseCouverture, type Frequences } from '@/lib/program/couverturePonderee';
 import { indiceAt, trajectory } from '@/lib/program/trajectory';
 import { DATE_NOUVELLE_REGLE, SOLIDE_ECART_JOURS } from '@/lib/program/parametres';
 import { emptyLanguageGrid } from '@/lib/scoring';
@@ -495,54 +495,79 @@ describe('INV-59 — le cadran lit, il ne calcule pas', () => {
 // ------------------------------------------------------------------- INV-66
 
 describe('INV-66 — la couverture pondérée nomme sa base et sa portée', () => {
+  // [S4-5, décision de main] La base = les protocoles RELEVÉS par la source (`n`, ou `n` de la ville ventilée), jamais
+  // une somme de fréquences ; une fréquence se dit par pathologie : deux cas d'une même pathologie ne l'additionnent pas.
   const cases = CORPUS.slice(0, 6);
   const prog = (couvertures: number[]) => new Map(cases.map((c, i) => [c.id, {
     caseId: c.id, overall: 'entame', couverture: couvertures[i],
     teile: Object.fromEntries(TEILE.map((t, k) => [t, { status: k < couvertures[i] ? 'acquis' : 'vierge', lastScore: k < couvertures[i] ? 70 : null, lastAt: 1, attempts: k < couvertures[i] ? 1 : 0 }])),
   } as unknown as CaseProgress]));
-  const freqs = Object.fromEntries(cases.map((c, i) => [c.id, { total: 10 + i, parVille: i < 4 ? { Stuttgart: 5 + i } : {} }])) as Record<string, { total: number | null; parVille: Partial<Record<Center, number>> }>;
+  // c0 et c1 partagent pA ; c4 n'est pas ventilé ; c5 est une pathologie rare (total null).
+  const freqs: Frequences = {
+    n: 100, parVille: { Stuttgart: 40, Freiburg: 30 },
+    pathologies: { pA: { nom: 'A', total: 10, parVille: { Stuttgart: 5 } }, pB: { nom: 'B', total: 12, parVille: { Stuttgart: 7 } }, pC: { nom: 'C', total: 13, parVille: { Stuttgart: 8 } }, pD: { nom: 'D', total: 14, parVille: {} }, pE: { nom: 'E', total: null, parVille: {} } },
+    cas: Object.fromEntries(cases.map((c, i) => [c.id, ['pA', 'pA', 'pB', 'pC', 'pD', 'pE'][i]])),
+  };
 
-  it('ville ventilée : base = Σ des comptes ventilés de CETTE ville, hors cas non ventilés', () => {
+  it('ville ventilée : base = les protocoles relevés dans CETTE ville ; une pathologie partagée pèse une fois (couverture moyenne de ses cas)', () => {
     const r = couverturePonderee(cases, prog([3, 0, 3, 0, 3, 3]), freqs, 'Stuttgart');
-    expect(r.portee).toBe('ville-ventilee');
-    expect(r.ville).toBe('Stuttgart');
-    expect(r.base).toBe(5 + 6 + 7 + 8);
-    expect(r.pct).toBe(Math.round(100 * (5 + 7) / (5 + 6 + 7 + 8)));
+    expect(r).toMatchObject({ portee: 'ville-ventilee', ville: 'Stuttgart', base: 40 });
+    expect(r.pct).toBe(Math.round(100 * (5 * 0.5 + 7) / 40));
+  });
+
+  it('deux cas d\'une même pathologie, tous deux travaillés : la pathologie compte UNE fois', () => {
+    expect(couverturePonderee(cases, prog([3, 3, 0, 0, 0, 0]), freqs).pct).toBe(10);          // 10 / 100, pas 20 / 100
   });
 
   it('chaque Teil travaillé compte pour un tiers du poids', () => {
     const r = couverturePonderee(cases, prog([1, 0, 0, 0, 0, 0]), freqs, 'Stuttgart');
-    expect(r.pct).toBe(Math.round(100 * (5 / 3) / 26));
+    expect(r.pct).toBe(Math.round(100 * (5 * (1 / 3 + 0) / 2) / 40));
   });
 
-  it('repli toutes villes (ville sans ventilation, « Alle », « Complément », sans ville) — et la phrase le dit', () => {
+  it('repli tous centres (ville sans ventilation, « Alle », « Complément », sans ville) : base = n — et la phrase le dit', () => {
     for (const ville of ['Freiburg', 'Complément', 'Alle', undefined] as const) {
       const r = couverturePonderee(cases, prog([3, 3, 0, 0, 0, 0]), freqs, ville as Center | undefined);
       expect(r.portee, String(ville)).toBe('toutes-villes');
       expect(r.ville).toBeNull();
-      expect(r.base).toBe(10 + 11 + 12 + 13 + 14 + 15);
-      expect(phraseCouverture(r)).toMatch(/toutes villes/);
+      expect(r.base).toBe(100);
+      expect(phraseCouverture(r)).toMatch(/des 100 protocoles relevés, tous centres$/);
     }
+  });
+
+  it('sur la table réelle : base ≤ n de la source (580, ou le n de la ville), jamais la somme des fréquences des cas', () => {
+    const tout = new Map(CORPUS.map((c) => [c.id, { caseId: c.id, couverture: 3, teile: Object.fromEntries(TEILE.map((t) => [t, { attempts: 1 }])) } as unknown as CaseProgress]));
+    for (const ville of ['Alle', 'Stuttgart', 'Karlsruhe', 'Freiburg', 'Reutlingen'] as const) {
+      const r = couverturePonderee(CORPUS, tout, FREQUENCES, ville);
+      expect(r.base, ville).toBeLessThanOrEqual(FREQUENCES.n);
+      if (r.ville) expect(r.base).toBe(FREQUENCES.parVille[r.ville]);
+      expect(r.pct!).toBeLessThanOrEqual(100);
+    }
+    expect(couverturePonderee(CORPUS, tout, FREQUENCES, 'Alle').base).toBe(580);
+    // Lumbaler et zervikaler Bandscheibenvorfall partagent « Bandscheibenvorfall (HWS/LWS) » (14) : 14, pas 28.
+    const deux = CORPUS.filter((c) => FREQUENCES.cas[c.id] === 'bandscheibenvorfall-hws-lws');
+    expect(deux.length).toBe(2);
+    expect(couverturePonderee(deux, tout, FREQUENCES).pct).toBe(Math.round(100 * 14 / 580));
   });
 
   it('le texte contient la base et la portée, et ne dit jamais « ce que le jury note » (EXAM_CLAIM)', () => {
     const v = phraseCouverture(couverturePonderee(cases, prog([3, 3, 0, 0, 0, 0]), freqs, 'Stuttgart'))!;
-    expect(v).toContain(String(5 + 6 + 7 + 8));
-    expect(v).toMatch(/ventilés de Stuttgart/);
+    expect(v).toMatch(/des 40 protocoles relevés à Stuttgart$/);
     for (const t of [v, phraseCouverture(couverturePonderee(cases, prog([3, 3, 0, 0, 0, 0]), freqs))!]) {
-      expect(t).toMatch(/^Les cas que tu as travaillés représentent \d+ % des protocoles, d'après \d+ protocoles/);
+      expect(t).toMatch(/^Les cas que tu as travaillés représentent \d+ % des \d+ protocoles relevés/);
       expect(t).not.toMatch(/jury|officiel|règle FSP|Bestanden|attendu|exigé/i);
     }
   });
 
   it('sans donnée : pct null, pas de phrase ; propriété 0 ≤ pct ≤ 100 et base > 0 dès que pct est défini', async () => {
-    expect(phraseCouverture(couverturePonderee(cases, prog([3, 3, 3, 3, 3, 3]), {}, 'Stuttgart'))).toBeNull();
+    expect(phraseCouverture(couverturePonderee(cases, prog([3, 3, 3, 3, 3, 3]), { ...freqs, cas: {} }, 'Stuttgart'))).toBeNull();
     let definis = 0;
     await forAll(300, (r) => {
-      const f = Object.fromEntries(cases.map((c) => [c.id, {
-        total: r.bool(0.8) ? r.int(0, 30) : null,
-        parVille: r.bool(0.5) ? { Stuttgart: r.int(0, 20), Karlsruhe: r.int(0, 20) } : {},
-      }])) as typeof freqs;
+      const ids = ['p0', 'p1', 'p2'];
+      const f: Frequences = {
+        n: r.int(1, 600), parVille: { Stuttgart: r.int(0, 200), Karlsruhe: r.int(1, 200) },
+        pathologies: Object.fromEntries(ids.map((id) => [id, { nom: id, total: r.bool(0.8) ? r.int(0, 30) : null, parVille: r.bool(0.5) ? { Stuttgart: r.int(0, 20), Karlsruhe: r.int(0, 20) } : {} }])),
+        cas: Object.fromEntries(cases.map((c) => [c.id, r.pick(ids)])),
+      };
       const res = couverturePonderee(cases, prog(cases.map(() => r.int(0, 3))), f, r.pick(['Stuttgart', 'Karlsruhe', 'Freiburg', 'Alle', undefined] as const) as Center | undefined);
       if (res.pct !== null) { definis++; expect(res.pct).toBeGreaterThanOrEqual(0); expect(res.pct).toBeLessThanOrEqual(100); expect(res.base).toBeGreaterThan(0); }
       else expect(phraseCouverture(res)).toBeNull();

@@ -226,15 +226,27 @@ export const MUTATIONS = [
   },
   {
     id: "INV-66a", tests: 'tests/invariants.mesure.test.ts', file: "src/lib/program/couverturePonderee.ts",
-    from: "base += poids;",
-    to: "base += f?.total ?? 0;",
-    pourquoi: "le dénominateur est le total de protocoles, pas la base ventilée de la ville",
+    from: "const base = ventilee ? nVille! : freqs.n;",
+    to: "const base = ventilee ? freqs.n : freqs.n;",
+    pourquoi: "le dénominateur est le n de toute la source, pas celui de la ville ventilée",
   },
   {
     id: "INV-66b", tests: 'tests/invariants.mesure.test.ts', file: "src/lib/program/couverturePonderee.ts",
-    from: "return r.portee === 'ville-ventilee' ? `${tete} ventilés de ${r.ville}` : `${tete}, toutes villes`;",
-    to: "return tete;",
+    from: "const portee = (r: CouverturePonderee): string => (r.portee === 'ville-ventilee' ? ` relevés à ${r.ville}` : ' relevés, tous centres');",
+    to: "const portee = (r: CouverturePonderee): string => ' relevés';",
     pourquoi: "repli silencieux : la phrase ne dit plus ni la ville ni « toutes villes »",
+  },
+  {
+    id: "INV-66c", tests: 'tests/invariants.mesure.test.ts', file: "src/lib/program/couverturePonderee.ts",
+    from: "const travaille = [...parPatho.values()].reduce((s, p) => s + (p.poids * p.couvertures.reduce((a, b) => a + b, 0)) / p.couvertures.length, 0);",
+    to: "const travaille = [...parPatho.values()].reduce((s, p) => s + p.poids * p.couvertures.reduce((a, b) => a + b, 0), 0);",
+    pourquoi: "deux cas d’une même pathologie l’additionnent deux fois (le « 776 » de la revue direction)",
+  },
+  {
+    id: "INV-66d", tests: 'tests/invariants.mesure.test.ts', file: "src/lib/program/couverturePonderee.ts",
+    from: "const base = ventilee ? nVille! : freqs.n;",
+    to: "const base = ventilee ? nVille! : Object.values(freqs.pathologies).reduce((s, p) => s + (p.total ?? 0), 0) + 200;",
+    pourquoi: "la base redevient une somme de fréquences, plus le n de la source",
   },
   {
     id: "INV-69a", tests: 'tests/invariants.mesure.test.ts', file: "src/lib/program/trajectory.ts",
@@ -828,17 +840,17 @@ export const MUTATIONS = [
   // --- S4-5 : la page Programme (tests/invariants.page-programme.test.ts) ---
   {
     id: 'S45-semaine-off', tests: 'tests/invariants.page-programme.test.ts', file: 'src/lib/program/pageProgramme.ts',
-    from: 'return { date, off: plan.tasks.length === 0, points };', to: 'return { date, off: false, points };',
+    from: 'const offPrevu = plan ? plan.tasks.length === 0 : !isWorkingDay(d, i.config);', to: 'const offPrevu = plan ? false : !isWorkingDay(d, i.config);',
     pourquoi: 'un jour off figé (plan sans tâche) n’est plus neutre : il se lit comme un jour vide',
   },
   {
     id: 'S45-semaine-entame', tests: 'tests/invariants.page-programme.test.ts', file: 'src/lib/program/pageProgramme.ts',
-    from: "evaluerTache(t, i.events, plan.tz).statut === 'entamee' ? 'entame' : 'prevu'", to: "'prevu'",
+    from: "evaluerTache(t, i.events, plan!.tz).statut === 'entamee' ? 'entame' : 'prevu'", to: "'prevu'",
     pourquoi: 'un cas entamé se lit comme un cas pas commencé (le point ne bouge pas quand une partie le fait avancer)',
   },
   {
     id: 'S45-semaine-drill', tests: 'tests/invariants.page-programme.test.ts', file: 'src/lib/program/pageProgramme.ts',
-    from: 'const points = plan.tasks.filter((t) => estTacheDeCas(t.kind)).map(', to: 'const points = plan.tasks.map(',
+    from: 'const prevus = plan ? plan.tasks.filter((t) => estTacheDeCas(t.kind)) : [];', to: 'const prevus = plan ? plan.tasks : [];',
     pourquoi: 'un drill devient un point : la semaine ne compte plus des cas',
   },
   {
@@ -863,13 +875,24 @@ export const MUTATIONS = [
   },
   {
     id: 'S45-encart-poids', tests: 'tests/invariants.page-programme.test.ts', file: 'src/lib/program/pageProgramme.ts',
-    from: 'const blanc = s.cas.filter(vierge).reduce((x, c) => x + poids(c), 0);', to: 'const blanc = s.cas.filter(vierge).length;',
+    from: 'const blanc = poidsDistinct(s.cas.filter(vierge), carte.freqs, carte.mesure);', to: 'const blanc = s.cas.filter(vierge).length;',
     pourquoi: 'l’encart compte les cas au lieu de les peser : la couverture n’est plus pondérée par la fréquence',
   },
   {
     id: 'S45-encart-portee', tests: 'tests/invariants.page-programme.test.ts', file: 'src/lib/program/couverturePonderee.ts',
-    from: "const portee = r.portee === 'ville-ventilee' ? ` ventilés de ${r.ville}` : ', toutes villes';", to: "const portee = '';",
+    from: "return `« ${nom} » est tombé dans ${poids} des ${r.base} protocoles${portee(r)}.`;", to: "return `« ${nom} » est tombé dans ${poids} des ${r.base} protocoles.`;",
     pourquoi: 'la fréquence de l’encart ne dit plus sa portée (§12.9)',
+  },
+  {
+    id: 'S45-encart-distinct', tests: 'tests/invariants.page-programme.test.ts', file: 'src/lib/program/pageProgramme.ts',
+    from: 'for (const c of cas) { const w = poidsDe(freqs, c.id, mesure); if (w !== undefined) vus.set(freqs.cas[c.id], w); }',
+    to: 'for (const c of cas) { const w = poidsDe(freqs, c.id, mesure); if (w !== undefined) vus.set(c.id, w); }',
+    pourquoi: 'deux cas d’une même pathologie l’additionnent dans la carte et dans l’encart',
+  },
+  {
+    id: 'S45-semaine-hors-plan', tests: 'tests/invariants.page-programme.test.ts', file: 'src/lib/program/pageProgramme.ts',
+    from: 'return { date, off: offPrevu && horsPlan.length === 0, points };', to: 'return { date, off: offPrevu, points: offPrevu ? [] : points };',
+    pourquoi: 'un cas joué un jour off disparaît : la semaine ne voit que le plan',
   },
 ];
 
