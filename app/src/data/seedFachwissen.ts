@@ -619,7 +619,7 @@ export function seedFachwissen(): Fachwissen[] {
         { frage: 'Warum führen Sie eine ÖGD durch und warum eine Biopsie?', antwort: 'Sie zeigt das Ulkus direkt; die Biopsie schließt beim Magenulkus ein Karzinom aus und weist Helicobacter nach.' },
         { frage: 'Was erwarten Sie im Blutbild und wie weisen Sie eine Blutung nach?', antwort: 'Bei chronischem Blutverlust eine Anämie mit erniedrigtem Hämoglobin. Eine okkulte Blutung weist man über den Haemoccult-Test im Stuhl nach.' },
       ],
-      merksatz: 'Merke: Jedes Ulcus ventriculi muss bioptisch gesichert und nach 6–8 Wochen endoskopisch kontrolliert werden (Karzinomausschluss) — Basistherapie ist PPI plus H.-pylori-Eradikation und das Absetzen der NSAR.',
+      merksatz: 'Jedes Ulcus ventriculi muss bioptisch gesichert und nach 6–8 Wochen endoskopisch kontrolliert werden (Karzinomausschluss) — Basistherapie ist PPI plus H.-pylori-Eradikation und das Absetzen der NSAR.',
       linkedCaseIds: [
         'case-ulcus',
       ],
@@ -632,7 +632,7 @@ export function seedFachwissen(): Fachwissen[] {
       id: 'fw-magenkarzinom',
       pathology: 'Magenkarzinom',
       specialty: 'Gastroenterologie',
-      definition: 'Maligne Neoplasie der Magenschleimhaut, in über 90 % der Fälle ein vom Drüsenepithel ausgehendes Adenokarzinom. Nach Laurén werden ein intestinaler Typ (drüsig, umschrieben, bessere Prognose) und ein diffuser Typ (infiltrativ wachsend, oft als Linitis plastica, ungünstigere Prognose) unterschieden. Häufig lange asymptomatisch, weshalb die Diagnose oft erst im fortgeschrittenen Stadium gestellt wird.',
+      definition: 'Maligne Neoplasie der Magenschleimhaut, in über 90 % der Fälle ein vom Drüsenepithel ausgehendes Adenokarzinom. Häufig lange asymptomatisch, weshalb die Diagnose oft erst im fortgeschrittenen Stadium gestellt wird.',
       aetiologie: 'Meist Folge einer chronischen Schädigung der Magenschleimhaut. Zentral ist die Correa-Kaskade: chronische Helicobacter-pylori-Infektion → chronisch-atrophische Gastritis → intestinale Metaplasie → Dysplasie → Karzinom. Weitere Auslöser sind die Epstein-Barr-Virus-Infektion sowie genetische Formen (hereditäres diffuses Magenkarzinom bei CDH1-Mutation).',
       risikofaktoren: [
         'Chronische Helicobacter-pylori-Infektion (wichtigster Risikofaktor)',
@@ -640,7 +640,7 @@ export function seedFachwissen(): Fachwissen[] {
         'Nikotinabusus',
         'Ernährung reich an Nitrosaminen, Salz und geräucherten Speisen; nitratreiche Kost',
         'Alkoholkonsum',
-        'Positive Familienanamnese (z. B. Vater an Magenkarzinom verstorben)',
+        'Positive Familienanamnese (Verwandte ersten Grades)',
         'Zustand nach Magenteilresektion (Magenstumpfkarzinom)',
         'Perniziöse Anämie / Typ-A-Gastritis, Morbus Ménétrier',
         'Adipositas, Blutgruppe A',
@@ -705,18 +705,16 @@ export function seedFachwissen(): Fachwissen[] {
         'Obere GI-Blutung: Hämatemesis oder Meläna → notfallmäßige Abklärung',
         'Tastbare epigastrische Resistenz oder derber, vergrößerter Virchow-Lymphknoten links supraklavikulär',
         'Rasch progredienter, ungewollter Gewichtsverlust mit B-Symptomatik',
-        'Neue Dyspepsie mit Alarmsymptomen ab dem 45. Lebensjahr → zeitnahe ÖGD zwingend',
         'Symptomatische Anämie bei okkultem Blutverlust (Belastungsdyspnoe, Blässe)',
       ],
       diagnostik: [
-        { stufe: 'Anamnese/Klinik', text: 'Test auf okkultes Blut im Stuhl' },
+        { stufe: 'Anamnese/Klinik', text: 'Anamnese und körperliche Untersuchung: Alarmsymptome, Gewichtsverlauf, Familienanamnese, frühere Helicobacter-Infektion; Abdomenpalpation (Resistenz), Virchow-Lymphknoten links supraklavikulär, Aszites, digital-rektale Untersuchung' },
         { stufe: 'Labor', text: 'Labor: Blutbild (Anämie), Eisen und Ferritin, Entzündungsparameter, Leberwerte; Tumormarker CA 72-4, CEA und CA 19-9 nur zur Verlaufs- und Therapiekontrolle, nicht zur Diagnosestellung' },
         { stufe: 'Apparativ & Bildgebung', text: 'Abdomen-Sonographie: Lebermetastasen, Aszites, Lymphadenopathie' },
         { stufe: 'Apparativ & Bildgebung', text: 'Endosonographie zur Beurteilung der Wandinfiltrationstiefe (T) und der regionären Lymphknoten (N)' },
         { stufe: 'Apparativ & Bildgebung', text: 'CT von Thorax und Abdomen mit Kontrastmittel zum Staging (Fernmetastasen, insbesondere pulmonal und hepatisch)' },
-        { stufe: 'Invasiv & Speziell', text: 'Anamnese und körperliche Untersuchung: Abdomenpalpation (Resistenz), Lymphknotenstatus (Virchow-Lymphknoten links supraklavikulär), digital-rektale Untersuchung' },
         { stufe: 'Invasiv & Speziell', text: 'Ösophago-Gastro-Duodenoskopie (ÖGD) mit Biopsie — Goldstandard zur Diagnosesicherung durch Histologie' },
-        { stufe: 'Invasiv & Speziell', text: 'Diagnostische Laparoskopie zum Ausschluss einer Peritonealkarzinose bei lokal fortgeschrittenem Befund' },
+        { stufe: 'Invasiv & Speziell', text: 'Diagnostische Laparoskopie zum Ausschluss einer Peritonealkarzinose bei lokal fortgeschrittenem Befund (cT3/cT4)' },
       ],
       differenzialdiagnosen: [
         {
@@ -756,9 +754,9 @@ export function seedFachwissen(): Fachwissen[] {
         {
           label: 'Systemtherapie / (neo)adjuvant',
           items: [
-            'Perioperative (neoadjuvante und adjuvante) Chemotherapie nach dem FLOT-Schema bei lokal fortgeschrittenem, resektablem Karzinom',
+            'Perioperative (neoadjuvante und adjuvante) Chemotherapie nach dem FLOT-Schema bei lokal fortgeschrittenem, resektablem Karzinom (cT3/cT4 oder Lymphknotenbefall)',
             'Palliative Chemotherapie bei metastasiertem Stadium; bei HER2-Überexpression zusätzlich Trastuzumab',
-            'Helicobacter-pylori-Eradikation (Triple-Therapie) — kurativ beim frühen MALT-Lymphom, kausal bei Risikoschleimhaut',
+            'Helicobacter-pylori-Eradikation (Erstlinie Bismut-Quadrupeltherapie) — kurativ beim frühen MALT-Lymphom, kausal bei Risikoschleimhaut; Verwandten ersten Grades einen Helicobacter-Test empfehlen',
             'Ernährungstherapie / Ernährungsberatung, Substitution (Eisen, Vitamin B12 nach Gastrektomie)',
             'Psychoonkologische Begleitung und Schmerz-/Palliativtherapie',
           ],
@@ -780,15 +778,16 @@ export function seedFachwissen(): Fachwissen[] {
           ],
         },
       ],
-      prognose: 'Stark stadienabhängig. Das auf die Mukosa begrenzte Frühkarzinom hat nach endoskopischer/chirurgischer Resektion eine sehr gute Prognose. Da in Deutschland viele Karzinome erst spät (mit Lymphknoten- oder Fernmetastasen) diagnostiziert werden, liegt die 5-Jahres-Überlebensrate insgesamt bei etwa 30 %. Der diffuse Typ nach Laurén ist prognostisch ungünstiger als der intestinale Typ.',
+      prognose: 'Stark stadienabhängig. Das auf die Mukosa begrenzte Frühkarzinom hat nach endoskopischer/chirurgischer Resektion eine sehr gute Prognose. Da in Deutschland viele Karzinome erst spät (mit Lymphknoten- oder Fernmetastasen) diagnostiziert werden, liegt die 5-Jahres-Überlebensrate insgesamt bei etwa 30 %.',
       pruefungsfallen: [
         'Direkte Patientenfrage "Habe ich Krebs?" oder "Muss ich sterben?" empathisch UND neutral beantworten: den Verdacht nicht bagatellisieren, aber keine Diagnose ohne Magenspiegelung und Gewebeprobe stellen — "Der Verdacht steht im Raum, wir klären ihn mit einer Magenspiegelung ab."',
         'Nicht zu früh beruhigen: Floskeln wie "Sie sind bei uns in guten Händen" oder "machen Sie sich keine Sorgen" werden vom Oberarzt kritisiert, wenn tatsächlich ein Tumorverdacht besteht.',
         'Tumormarker (CA 72-4, CEA, CA 19-9) NICHT als Diagnosemittel nennen — die Diagnose stellt allein die ÖGD mit Biopsie; Marker dienen der Verlaufskontrolle.',
-        'Die neu aufgetretene Abneigung gegen Fleisch aktiv erfragen und dokumentieren — sie ist ein typisches, gern geprüftes Zeichen.',
-        'Die Todesursache des Vaters (Magenkarzinom) in der Familienanamnese vollständig dokumentieren — wird häufig nachgefragt.',
-        'Bei belasteter Familienanamnese (Vater im gleichen Alter verstorben) Empathie zeigen und die Angst des Patienten aufgreifen.',
-        'Den Gewichtsverlust nicht dem vorbekannten Diabetes zuschreiben — er ist tumorbedingt (konsumierende Erkrankung).',
+        'Nach Ekel vor bestimmten Speisen fragen: Patienten nennen ihn selten von selbst, Prüfer fragen gern danach.',
+        'Bei Krebsfällen in der Familie Tumorart und Erkrankungsalter dokumentieren — wird häufig nachgefragt.',
+        'Bei belasteter Familienanamnese die Angst des Patienten aufgreifen.',
+        'Einen Gewichtsverlust bei bekanntem Diabetes nicht dem Diabetes zuschreiben — er ist Zeichen der konsumierenden Erkrankung.',
+        'Ein PPI auf Probe kann ein ulzeriertes Karzinom scheinbar abheilen lassen und die Diagnose verzögern.',
       ],
       askedInExam: [
         {
@@ -805,7 +804,7 @@ export function seedFachwissen(): Fachwissen[] {
         },
         {
           frage: 'Erklären Sie die ÖGD.',
-          antwort: 'Die Ösophago-Gastro-Duodenoskopie ist eine endoskopische Untersuchung von Speiseröhre, Magen und Zwölffingerdarm mit einem flexiblen Schlauch; sie erlaubt die Inspektion der Schleimhaut und die Entnahme von Gewebeproben.',
+          antwort: 'Eine Spiegelung von Speiseröhre, Magen und Zwölffingerdarm mit einem flexiblen Schlauch; sie erlaubt die Inspektion der Schleimhaut und die Entnahme von Gewebeproben.',
         },
         {
           frage: 'Der Patient hat einen Diabetes, ist aber untergewichtig — ist das wirklich ein Typ 2?',
@@ -832,7 +831,7 @@ export function seedFachwissen(): Fachwissen[] {
           antwort: 'Die psychoonkologische bzw. psychologische Unterstützung des Patienten, eine einfühlsame Aufklärung sowie eine begleitende Ernährungsberatung.',
         },
       ],
-      merksatz: 'Neue Dyspepsie mit Alarmsymptomen (Gewichtsverlust, Dysphagie, Anämie/Meläna) ab dem 45. Lebensjahr: ÖGD mit Biopsie — der Goldstandard zur Sicherung des Magenkarzinoms.',
+      merksatz: 'Neue Oberbauchbeschwerden mit Gewichtsverlust, Teerstuhl, Dysphagie oder Fleischabneigung verlangen eine ÖGD mit Biopsie.',
       linkedCaseIds: [
         'case-magenkarzinom',
       ],
