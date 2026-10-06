@@ -34129,7 +34129,7 @@ export function seedCases(): Case[] {
           'fach-rheuma-verlauf': 'Es hat vor sechs Wochen angefangen, innerhalb von ein paar Tagen, und ist seitdem jeden Tag da. Es wandert nicht von einem Gelenk zum anderen, und es kommt auch nicht in Schüben — es ist einfach durchgehend da und eher schlimmer geworden.',
           'fach-rheuma-ausloeser': 'Nein, gar nichts. Kein Sturz, keine Überlastung, kein Infekt vorher, keine Impfung, keine neue Tablette. Ich habe wirklich überlegt, aber mir fällt nichts ein.',
           'fach-rheuma-haut': 'Nein, Schuppenflechte habe ich nicht, keinen Ausschlag, keine Knötchen unter der Haut. Rote Augen oder trockene Augen habe ich auch nicht, und weiß werden meine Finger in der Kälte nicht.',
-          'fach-rheuma-systemisch': 'Müde bin ich sehr, und schlapp. Aber ich bin nicht traurig oder niedergeschlagen, das möchte ich betonen — mich ärgert nur, dass ich nichts mehr schaffe. Durchfall, Husten oder Blut im Stuhl habe ich nicht.',
+          'fach-rheuma-systemisch': 'Augenentzündungen oder Geschwüre im Mund hatte ich nicht, und richtiges Fieber auch nicht. Durchfall, Husten oder Blut im Stuhl habe ich nicht.',
           'fach-rheuma-vorgeschichte': 'Nein, ich hatte nie Rheuma und nie eine Gelenkentzündung. Kortison habe ich noch nie eingenommen. In der Familie ist mir nichts Rheumatisches bekannt.',
           'frau-periode': 'Die Regel habe ich schon lange nicht mehr, ich bin ja 72. Blutungen habe ich seitdem nie wieder gehabt.',
           'frau-schwanger': 'Ich hatte zwei Schwangerschaften und zwei normale Geburten, beide ohne Komplikationen. Fehlgeburten hatte ich keine.',
