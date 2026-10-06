@@ -181,7 +181,6 @@ export const DEFS_CAS = {
   schilddruese_bekannt: { kapitel: 'vorerkrankungen', pertinence: S },        // une maladie thyroïdienne est-elle connue
   schilddruesen_vorgeschichte: { kapitel: 'vorerkrankungen', pertinence: S }, // chirurgie, iode radioactif, irradiation de la thyroïde
   bestrahlung_hals: { kapitel: 'vorerkrankungen', pertinence: S },            // irradiation cervicale dans l'enfance
-  postpartum: { kapitel: 'vorerkrankungen', pertinence: S },                  // épuisement après un accouchement
   anaemie_vorgeschichte: { kapitel: 'vorerkrankungen', pertinence: S },       // anémie, carence martiale connues
   blutbild_frueher: { kapitel: 'vorerkrankungen', pertinence: S },            // numération déjà anormale
   blutungs_vorgeschichte: { kapitel: 'vorerkrankungen', pertinence: S },      // hémorragie passée (digestive, urinaire, ulcère)

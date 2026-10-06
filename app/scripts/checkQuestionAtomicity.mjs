@@ -177,7 +177,8 @@ for (const c of m.seedCases()) {
   for (const q of c.caseSpecificQuestions ?? []) {
     push(`case-questions/${c.id}`, undefined, 'caseq', m.cqText(q));
     // Q0 : la relance d'une question du cas se dit comme les autres relances (plafond 2 items, un « ? »).
-    if (typeof q !== 'string') push(`case-questions/${c.id}`, undefined, 'followUp', q.followUp);
+    // Q3 : chaque relance suivante (`followUps`) est une réplique à part, sous la même règle.
+    if (typeof q !== 'string') for (const f of [q.followUp, ...(q.followUps ?? [])]) push(`case-questions/${c.id}`, undefined, 'followUp', f);
   }
   for (const q of c.examinerQuestions ?? []) push(`oberarzt/${c.id}`, undefined, 'oberarzt', typeof q === 'string' ? q : q?.frage);
 }

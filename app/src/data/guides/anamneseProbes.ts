@@ -202,8 +202,8 @@ export const FACH_PROBES: Partial<Record<Specialty, AnamneseProbe[]>> = {
     { id: 'fach-rheuma-verlauf', kapitel: 'fach', frage: 'Kamen die Beschwerden plötzlich und anfallsartig, oder haben sie sich langsam über Wochen entwickelt?', deepens: 'akt-verlauf' },
     { id: 'fach-rheuma-ausloeser', kapitel: 'fach', frage: 'Ist Ihnen etwas aufgefallen, das die Beschwerden ausgelöst haben könnte — etwa ein Infekt, ein üppiges Essen oder ein neues Medikament?', deepens: 'akt-ausloeser' },
     { id: 'fach-rheuma-haut', kapitel: 'fach', frage: 'Haben Sie Hautveränderungen bemerkt — Schuppenflechte, Knötchen unter der Haut oder an den Ohren?' },
-    { id: 'fach-rheuma-systemisch', kapitel: 'fach', frage: 'Haben Sie Fieber, Augenentzündungen, Mund- oder Genitalgeschwüre, Durchfall oder eine Bindehautentzündung bemerkt?' },
-    { id: 'fach-rheuma-vorgeschichte', kapitel: 'fach', frage: 'Hatten Sie solche Gelenkbeschwerden schon einmal?' },
+    { id: 'fach-rheuma-systemisch', kapitel: 'fach', frage: 'Haben Sie Fieber, Augenentzündungen, Mund- oder Genitalgeschwüre oder Durchfall bemerkt?' },
+    { id: 'fach-rheuma-vorgeschichte', kapitel: 'fach', frage: 'Hatten Sie solche Beschwerden schon einmal?' },
   ],
   Neurologie: [
     { id: 'fach-neuro-sehen', kapitel: 'fach', frage: 'Haben Sie Sehstörungen bemerkt — Doppelbilder, verschwommenes Sehen, einen Schleier oder Schmerzen bei Augenbewegungen?' },

@@ -130,7 +130,7 @@ describe('Pré-simulation série 4 — une entrée, le cas entier', () => {
     await db.cases.put({ ...fall, patientSheet: { ...fall.patientSheet, personalia: { name: 'Karl Aupperle', age: 58, geschlecht: 'm' } } } as Case);
     const { container } = ouvre();
     await pret();
-    expect(container.textContent).toContain('« Herr Aupperle ist ein 58-jähriger Patient, der sich mit Ulcus ventriculi… vorgestellt hat. »');
+    expect(container.textContent).toContain('« Herr Aupperle ist ein 58-jähriger Patient. Verdachtsdiagnose: Ulcus ventriculi… »');
     expect(container.textContent).not.toMatch(/ein\/e|Patient\/in|der\/die/);
   });
 
@@ -138,7 +138,7 @@ describe('Pré-simulation série 4 — une entrée, le cas entier', () => {
     await db.cases.put({ ...fall, patientSheet: { ...fall.patientSheet, personalia: { name: 'Anna Müller', age: 26, geschlecht: 'w' } } } as Case);
     const { container } = ouvre();
     await pret();
-    expect(container.textContent).toContain('« Frau Müller ist eine 26-jährige Patientin, die sich mit Ulcus ventriculi… vorgestellt hat. »');
+    expect(container.textContent).toContain('« Frau Müller ist eine 26-jährige Patientin. Verdachtsdiagnose: Ulcus ventriculi… »');
   });
 
   it('I3 — sans départ, les textes d’aide parlent de la partie entière', async () => {

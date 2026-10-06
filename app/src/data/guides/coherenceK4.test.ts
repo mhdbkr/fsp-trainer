@@ -123,7 +123,7 @@ describe('K4 fixeur — la revue clinique : la question perdue revient dans la t
     };
     expect(avant('case-tvt', 0, 'beginn')).toBe(true);
     expect(avant('case-lagerungsschwindel', 1, 'lageabhaengig')).toBe(true);
-    expect(avant('case-hypothyreose', 7, 'kinder')).toBe(true);
+    // Q3 : la n° 7 d'hypothyreose (épuisement après une Entbindung) est retirée — akt-frueher le dit déjà.
     expect(avant('case-akutes-nierenversagen', 1, 'erbrechen')).toBe(true);
   });
   it('D-1 anorexia-nervosa : interrogatoire gradué — le désir de mort (Aktuelle Beschwerden), puis idées, plan, NOTFALL (Fach psy)', () => {

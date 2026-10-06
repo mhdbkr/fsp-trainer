@@ -54,14 +54,15 @@ describe('I2 — Wasserlassen jour / nuit : les `parts` découpées du texte exi
 
 describe('I3 / P2 psy — l\'ordre de sécurité sous fach-psych-suizid (10 cas psy)', () => {
   const psy = cases.filter((c) => playedTrame(c).fach?.chapter.id === 'fach-psy');
-  it('cadrage « Ich frage das jeden Patienten », idée → plans → intention (NOTFALL), puis le désir avant l\'acte, puis le soutien', () => {
+  it('cadrage « Ich frage das jeden Patienten », idée → plans → tentative antérieure → intention (NOTFALL), puis le désir avant l\'acte, puis le soutien', () => {
     expect(psy).toHaveLength(10);
     for (const c of psy) {
       const q = playedTrame(c).fach!.chapter.questions.find((p) => phraseProbes(p).includes('fach-psych-suizid'))!;
       expect(phraseText(q), c.id).toMatch(/^Ich frage das jeden Patienten in Ihrer Situation: Denken Sie manchmal/);
       expect(phraseFollowUps(q).map((f) => f.text.slice(0, 32)), c.id).toEqual([
-        'Haben Sie konkrete Pläne, sich d', 'Falls konkrete Absicht oder Plan', 'Haben Sie den Wunsch, sich zu ve', 'Haben Sie sich selbst verletzt?', 'Gibt es jemanden, der Sie unters']);
-      expect(phraseFollowUps(q).map((f) => f.sucht ?? []), c.id).toEqual([[], [], ['selbstverletzung_wunsch'], ['selbstverletzung'], []]);
+        'Haben Sie konkrete Pläne, sich d', 'Haben Sie schon einmal versucht,', 'Falls konkrete Absicht oder Plan', 'Haben Sie den Wunsch, sich zu ve', 'Haben Sie sich selbst verletzt?', 'Gibt es jemanden, der Sie unters']);
+      // Q3 (revue clinique P2) : la tentative antérieure suit les plans et précède la consigne NOTFALL
+      expect(phraseFollowUps(q).map((f) => f.sucht ?? []), c.id).toEqual([[], ['suizidversuch'], [], ['selbstverletzung_wunsch'], ['selbstverletzung'], []]);
     }
   });
 });
@@ -264,10 +265,10 @@ describe('R1 / R2 — le sang dans les selles et la nycturie ne se demandent que
     for (const id of ['case-zystitis', 'case-bph', 'case-prostatakarzinom', 'case-glomerulonephritis']) expect(cherche(id, 'stuhl_blut'), id).toBe(false);
     for (const id of ['case-gib', 'case-itp', 'case-lymphom', 'case-gastroenteritis']) expect(cherche(id, 'stuhl_blut'), id).toBe(true);
   });
-  it('R2 : nykturie pertinente pour kardio, endo, harn ; les 15 cas Kardio / Endo la gardent ; les cas digestifs ne la posent plus', () => {
+  it('R2 : nykturie pertinente pour kardio, endo, harn ; les 16 cas Kardio / Endo la gardent (Q3 : + copd, cœur pulmonaire) ; les cas digestifs ne la posent plus', () => {
     expect(SIGNE_DEF.nykturie.pertinence).toEqual(['harn', 'kardio', 'endo']);
     for (const c of cases.filter((x) => ['kardio', 'endo'].some((t) => profilDuCas(x).tags.includes(t as never)))) expect(cherche(c.id, 'nykturie'), c.id).toBe(true);
-    expect(cases.filter((x) => ['kardio', 'endo'].some((t) => profilDuCas(x).tags.includes(t as never)))).toHaveLength(15);
+    expect(cases.filter((x) => ['kardio', 'endo'].some((t) => profilDuCas(x).tags.includes(t as never)))).toHaveLength(16);
     for (const id of ['case-kolorektales-ca', 'case-oesophaguskarzinom', 'case-pankreaskarzinom', 'case-hepatitis-b', 'case-achalasie', 'case-obstipation', 'case-gastroenteritis'])
       expect(cherche(id, 'nykturie'), id).toBe(false);
   });
@@ -307,7 +308,7 @@ describe('R4 / P2 syncope — Zungenbiss et Einnässen : là où il faut, après
   });
   it('synkope : Zungenbiss et Einnässen se posent après la question du témoin et celle de la durée', () => {
     const l = lignes('case-synkope');
-    const duree = l.findIndex((t) => /Wie lange waren Sie nach Angabe Ihrer Frau/.test(t));
+    const duree = l.findIndex((t) => /Wie lange waren Sie nicht ansprechbar/.test(t));
     expect(l.findIndex((t) => /Zunge gebissen/.test(t))).toBe(duree + 1);
     expect(l.findIndex((t) => /Urin abgegangen/.test(t))).toBe(duree + 2);
   });
