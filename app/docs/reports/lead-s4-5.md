@@ -63,6 +63,23 @@ Corrections une par une, décisions de `main`. Commits : `bd95f860` (bloquant), 
 4. La phrase « 21 cas les plus fréquents » de la projection compte toujours `freq ≥ SEUIL_FREQUENT` sur `Case.frequency`, inchangé depuis S4-2. Elle ne cite ni base ni protocoles, mais elle hérite de l'écart entre `Case.frequency` et la source, qui revient au pôle Contenu.
 5. **Tests écrits après le code dans cette passe.** Leur mordant est prouvé par les mutations : 15 dans le harnais et 5 à la main sur le RTL (`VISIBLES = 99`, « Lancer » sur les lignes, second lien, points de 36 px, mémoire locale), toutes rouges.
 
+### Échec CI de #85 (`e53b02f2`, test m6) — cause racine corrigée (`afc64c77`)
+- **Symptôme en CI** : la ligne de k1 affichait « 52 min · Parmi les cas les plus vus à l'examen, et jamais travaillé. » au lieu de « Il te reste la Dokumentation et la Fallvorstellung · 32 min ».
+- **Ce n'était ni le contenu de Q3 (#84), ni l'heure, ni la fenêtre « d'un trait ».** Le test passe en local, avec ou sans la fusion de `origin/main` (`3935db34`), en UTC comme en heure locale.
+- **Cause** : `TaskList` relisait seule le plan (`useDayPlan(date)`) et le journal. Tant que ses requêtes n'étaient pas revenues, elle rendait les lignes sans ce qui reste, donc avec la raison figée, alors que la page avait déjà tout lu. Le test lisait le DOM juste après « Carte de couverture » : course perdue sur la machine de CI, gagnée en local. C'est un vrai défaut d'affichage, un flash de la raison périmée.
+- **Correctif** : le Programme calcule `lectureDuPlan` une fois et la donne à `TaskList` (prop `lecture`). L'accueil est inchangé.
+- **Test** : `ProgramPage.lecture.test.tsx` est déterministe, les requêtes de la liste n'y reviennent jamais. Il était **rouge avant le correctif**, avec la même sortie que la CI, et il est vert après. L'assertion m6 n'a pas été touchée.
+- **Vérifications après fusion de `origin/main` `3935db34`** :
+
+  | Vérification | Résultat |
+  |---|---|
+  | `tsc` | 0 |
+  | vitest complet, **deux fois** | 0 et 0, 186 fichiers, 1928 tests |
+  | `test:c6` | 0, 165 tests |
+  | `npm run build` | 0 |
+  | `checkUiTells` | 0 |
+  | merge-tree | 0 |
+
 ### Vérifications du fixeur (codes de sortie, sur `677dea62`)
 
 | Vérification | Résultat |
