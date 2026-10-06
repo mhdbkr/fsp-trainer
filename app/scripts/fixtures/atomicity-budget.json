@@ -3,10 +3,10 @@
   "generated": "2026-10-06",
   "reference": "Audit série 3 : A=1059 B=322 C=75 sur 15 591 énoncés, toutes classes. Ce script ne lit que la classe Q (l'oral posé par le candidat) ; ses compteurs sont donc plus bas et ne se comparent pas ligne à ligne.",
   "q11": "Décision Q11 de la direction : les questions d'Oberarzt sont EXEMPTÉES de la règle A. En examen réel un senior enchaîne ses questions — c'est fidèle, pas fautif. 471 constats A disparaissent de ce fait, et n'ont jamais été des défauts. Elles relèvent désormais de la règle D (arité > 3), qui ne vise que la salve incohérente. Deux détecteurs sémantiques d'incohérence ont été mesurés puis jetés (liaison lexicale : 407/471 faux positifs ; terme de vocabulaire orphelin : 14/15) — l'arité est le seul marqueur qui sépare la salve nommée par la direction des 470 autres.",
-  "corpus": 5030,
+  "corpus": 5035,
   "budget": {
     "A": 326,
-    "A2": 37,
+    "A2": 36,
     "B": 96,
     "C": 0,
     "D": 0,
