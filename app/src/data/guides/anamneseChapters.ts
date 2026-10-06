@@ -672,21 +672,21 @@ export const ALLGEMEINE_ANAMNESE: AnamneseChapter[] = [
       {
         text: 'Ist Ihnen übel? Mussten Sie sich übergeben?',
         probe: 'veg-uebelkeit',
-        followUp: ['Falls ja: Wie sah das Erbrochene aus?', 'Falls ja: Seit wann müssen Sie sich übergeben?', 'Falls ja: Wie oft haben Sie sich übergeben?'],
+        followUp: ['Falls ja: Seit wann müssen Sie sich übergeben?', 'Falls ja: Wie oft haben Sie sich übergeben?', 'Falls ja: Wie sah das Erbrochene aus?'],
         // K4 fixeur (revue clinique P2) : la nausée et le vomissement, deux répliques — découpés du texte.
         parts: [
           { sucht: ['uebelkeit'], text: 'Ist Ihnen übel?' },
           // la relance de la sonde, découpée (règles A et A2 : une réplique, une question)
-          { sucht: ['erbrechen'], text: 'Mussten Sie sich übergeben?', followUp: ['Falls ja: Wie sah das Erbrochene aus?', 'Falls ja: Seit wann müssen Sie sich übergeben?', 'Falls ja: Wie oft haben Sie sich übergeben?'] },
+          { sucht: ['erbrechen'], text: 'Mussten Sie sich übergeben?', followUp: ['Falls ja: Seit wann müssen Sie sich übergeben?', 'Falls ja: Wie oft haben Sie sich übergeben?', 'Falls ja: Wie sah das Erbrochene aus?'] },
         ],
       },
       {
         text: 'Haben Sie Schwierigkeiten mit dem Stuhlgang oder beim Wasserlassen?',
         probe: 'veg-ausscheidung',
-        followUp: ['Falls ja: Seit wann?', 'Falls ja: Wie oft täglich?', 'Falls ja: Können Sie das Aussehen von Stuhl oder Urin näher beschreiben?'],
+        followUp: ['Falls ja: Seit wann?', 'Falls ja: Wie oft am Tag gehen Sie zur Toilette?', 'Falls ja: Können Sie das Aussehen von Stuhl oder Urin näher beschreiben?'],
         parts: [
-          { sucht: ['stuhl'], text: 'Haben Sie Schwierigkeiten mit dem Stuhlgang?', followUp: ['Falls ja: Seit wann?', 'Falls ja: Wie oft täglich?', 'Falls ja: Können Sie das Aussehen des Stuhls näher beschreiben?'] },
-          { sucht: ['miktion'], text: 'Haben Sie Schwierigkeiten beim Wasserlassen?', followUp: ['Falls ja: Seit wann?', 'Falls ja: Wie oft täglich?', 'Falls ja: Können Sie das Aussehen des Urins näher beschreiben?'] },
+          { sucht: ['stuhl'], text: 'Haben Sie Schwierigkeiten mit dem Stuhlgang?', followUp: ['Falls ja: Seit wann?', 'Falls ja: Wie oft haben Sie am Tag Stuhlgang?', 'Falls ja: Können Sie das Aussehen des Stuhls näher beschreiben?'] },
+          { sucht: ['miktion'], text: 'Haben Sie Schwierigkeiten beim Wasserlassen?', followUp: ['Falls ja: Seit wann?', 'Falls ja: Wie oft müssen Sie am Tag Wasser lassen?', 'Falls ja: Können Sie das Aussehen des Urins näher beschreiben?'] },
         ],
       },
       {
@@ -715,7 +715,7 @@ export const ALLGEMEINE_ANAMNESE: AnamneseChapter[] = [
       {
         text: 'Wurden Sie schon einmal operiert?',
         probe: 'vor-op',
-        followUp: ['Falls ja: Welche Eingriffe wurden durchgeführt?', 'Falls ja: Wann war das?', 'Falls ja: Traten dabei Komplikationen auf?'],
+        followUp: ['Falls ja: Was wurde operiert?', 'Falls ja: Wann war das?', 'Falls ja: Gab es dabei Komplikationen?'],
       },
       { text: 'Waren Sie in letzter Zeit im Krankenhaus?', probe: 'vor-krankenhaus' },
     ],
@@ -1588,7 +1588,7 @@ export const FACHANAMNESEN: FachanamneseGuide[] = [
         text: 'Haben Sie Blut im Stuhl oder schwarzen Stuhlgang bemerkt? Ist Ihre Regelblutung stark oder verlängert?',
         probe: 'fach-haem-blutverlust',
         label: 'Blutverlustquelle',
-        followUp: ['Haben Sie an anderer Stelle Blut bemerkt — im Erbrochenen, im Auswurf oder im Urin?', 'Falls ja: Welche Farbe — wie Kaffeesatz, hellrot, teerschwarz?'],
+        followUp: ['Haben Sie an anderer Stelle Blut bemerkt — im Erbrochenen, im Auswurf oder im Urin?', 'Falls ja: Welche Farbe hatte das Blut — hellrot, dunkel oder wie Kaffeesatz?'],
       },
       {
         text: 'Wie ernähren Sie sich — essen Sie Fleisch? Ernähren Sie sich vegetarisch oder vegan?',
@@ -1859,22 +1859,23 @@ export const FACHANAMNESEN: FachanamneseGuide[] = [
       {
         // K3 (revue I3, décision de main) : le cadrage et le facteur de protection de la question de sécurité d'Aktuelle
         // Beschwerden passent ici (texte existant, déplacé), puisque r2 garde la Fach (D4). Ordre de sécurité : idée →
-        // plans → intention (NOTFALL), puis l'automutilation, le désir avant l'acte, puis le soutien.
+        // plans → tentative antérieure → intention (NOTFALL), puis l'automutilation, le désir avant l'acte, puis le soutien.
         text: 'Ich frage das jeden Patienten in Ihrer Situation: Denken Sie manchmal, dass das Leben nicht mehr lebenswert ist? Haben Sie Gedanken, sich etwas anzutun?',
         probe: 'fach-psych-suizid',
         label: 'Pflichtfrage',
         alts: ['Haben Sie daran gedacht, sich das Leben zu nehmen? Haben Sie einen konkreten Plan gemacht?'],
         followUp: [
           'Haben Sie konkrete Pläne, sich das Leben zu nehmen?',
-          'Falls konkrete Absicht oder Plan: NOTFALL — der Patient bleibt stationär. Rücksprache mit dem Oberarzt nach der Anamnese.',
           'Haben Sie schon einmal versucht, sich das Leben zu nehmen?',
+          'Falls konkrete Absicht oder Plan: NOTFALL — der Patient bleibt stationär. Rücksprache mit dem Oberarzt nach der Anamnese.',
           'Haben Sie den Wunsch, sich zu verletzen?',
           'Haben Sie sich selbst verletzt?',
           'Gibt es jemanden, der Sie unterstützt?',
         ],
         // K3 SÉCURITÉ : le désir et l'acte d'automutilation sont DEUX signes ; la mère les déclare tous (jamais perdus, RISIKO_SIGNES).
-        // Q3 (revue K3, « pour le contenu ») : la tentative antérieure — premier facteur de risque — est un signe à elle.
-        followUpSucht: [[], [], ['suizidversuch'], ['selbstverletzung_wunsch'], ['selbstverletzung'], []],
+        // Q3 (revue K3, « pour le contenu ») : la tentative antérieure — premier facteur de risque — est un signe à elle ;
+        // revue clinique Q3 (P2) : posée avant la consigne NOTFALL, qu'elle informe.
+        followUpSucht: [[], ['suizidversuch'], [], ['selbstverletzung_wunsch'], ['selbstverletzung'], []],
       },
       {
         text: 'Gab es belastende Ereignisse — ein Verlust, eine Trennung, Stress bei der Arbeit?',

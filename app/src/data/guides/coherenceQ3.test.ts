@@ -35,11 +35,11 @@ describe('Q3 — renvois cliniques des revues K3–K5, sur la trame jouée', () 
     expect(fa('case-anaphylaxie', 'Haben Sie Ihr Asthmaspray dabei?')).toMatch(/vergessen/);
   });
 
-  it('anorexia-nervosa n° 2 : « selbst herbei » et la relance de veg-uebelkeit ; la réponse veg-uebelkeit raccourcie, le vomissement passe à la n° 2', () => {
+  it('anorexia-nervosa n° 2 : « selbst auslösen » et « seit wann » (arbitrage de main) ; la réponse veg-uebelkeit raccourcie, le vomissement passe à la n° 2', () => {
     const q = cq('case-anorexia-nervosa', 'Ich frage das ganz ohne Vorwurf: Kommt es vor, dass Sie sich nach dem Essen übergeben?')!;
-    expect(cqFollowUps(q)).toEqual(['Falls ja: Führen Sie das Erbrechen selbst herbei?', 'Falls ja: Wie häufig kommt das vor?', 'Falls ja: Seit wann?', 'Falls ja: Können Sie das Erbrochene beschreiben?']);
+    expect(cqFollowUps(q)).toEqual(['Falls ja: Lösen Sie das Erbrechen manchmal selbst aus, zum Beispiel mit dem Finger?', 'Falls ja: Seit wann ist das so?']);
     const pose = joue(byId('case-anorexia-nervosa')).find(([, p]) => phraseText(p) === (q as { frage: string }).frage)!;
-    expect(phraseFollowUp(pose[1])).toHaveLength(4);
+    expect(phraseFollowUp(pose[1])).toHaveLength(2);
     expect(byId('case-anorexia-nervosa').patientSheet.antworten?.['veg-uebelkeit']).toBe('Übel ist mir nicht, nein.');
     expect(fa('case-anorexia-nervosa', (q as { frage: string }).frage)).toMatch(/Zwei- oder dreimal die Woche/);
     // la végétative ne redemande pas le vomissement
@@ -118,7 +118,12 @@ describe('Q3 — renvois cliniques des revues K3–K5, sur la trame jouée', () 
     const psy = cases.filter((c) => playedTrame(c).fach?.chapter.id === 'fach-psy');
     expect(psy).toHaveLength(10);
     for (const c of psy) {
-      expect(dit(c.id), c.id).toContain('Haben Sie schon einmal versucht, sich das Leben zu nehmen?');
+      const t = dit(c.id);
+      expect(t, c.id).toContain('Haben Sie schon einmal versucht, sich das Leben zu nehmen?');
+      // revue clinique P2 : plans → tentative → consigne NOTFALL
+      const i = (re: RegExp) => t.findIndex((x) => re.test(x));
+      expect(i(/^Haben Sie konkrete Pläne/), c.id).toBeLessThan(i(/schon einmal versucht, sich das Leben/));
+      expect(i(/schon einmal versucht, sich das Leben/), c.id).toBeLessThan(i(/NOTFALL/));
       expect(c.patientSheet.antworten?.['fach-psych-suizid'], c.id).toMatch(/versuch|nie etwas angetan/i);
     }
   });
@@ -126,11 +131,32 @@ describe('Q3 — renvois cliniques des revues K3–K5, sur la trame jouée', () 
   it('reliquat Q2 : les sous-questions abandonnées reviennent en relances suivantes (`followUps`), posées dans la trame', () => {
     const relances = (id: string, frage: string) => phraseFollowUp(joue(byId(id)).find(([, p]) => phraseText(p) === frage)![1]);
     expect(relances('case-ulcus-cruris', 'Hatten Sie schon einmal eine Thrombose in einem Bein oder eine Lungenembolie?'))
-      .toEqual(['Falls ja: Wann war das?', 'Falls ja: In welchem Bein?', 'Falls ja: Wie wurde das behandelt?']);
+      .toEqual(['Falls ja: Wann war das?', 'Falls Thrombose: In welchem Bein war das?', 'Falls ja: Wie wurde das behandelt?']);
     expect(relances('case-akutes-nierenversagen', 'Nehmen Sie Schmerzmittel ein, die Sie ohne Rezept in der Apotheke bekommen — Ibuprofen, Diclofenac oder Voltaren?'))
       .toContain('Falls ja: Seit wann nehmen Sie sie?');
     expect(relances('case-hueftkopfnekrose', 'Haben Sie in den letzten Jahren Kortison bekommen — als Tabletten, Infusionen oder Spritzen?'))
-      .toContain('Falls ja: Wie lange haben Sie es genommen?');
+      .toContain('Falls ja: Wie lange haben Sie es bekommen?');
+  });
+
+  // Revue clinique Q3, P1 : en découpant, Q3 avait fait poser des questions dont la réponse était déjà dite plus haut.
+  it('P1 — aucune réponse ne dit ce que demande une question posée après elle (copd, parkinson, anaphylaxie)', () => {
+    const repond = (id: string, probe: string) => byId(id).patientSheet.antworten?.[probe] ?? '';
+    const apres = (id: string, probe: string, frage: string) =>
+      rang(id, texte(frage)) > rang(id, sonde(probe)) && rang(id, sonde(probe)) >= 0;
+    // copd : jambes et nycturie — deux questions du cas, après akt-begleit (les oreillers sont demandés avant, à la place d'akt-atemnot-nachts)
+    for (const f of ['Sind Ihre Beine geschwollen?', 'Müssen Sie nachts zum Wasserlassen aufstehen?']) expect(apres('case-copd', 'akt-begleit', f), f).toBe(true);
+    expect(repond('case-copd', 'akt-begleit')).not.toMatch(/Beine|geschwollen|nachts|Toilette/);
+    // parkinson : écriture, marche, bras — questions du cas après akt-begleit
+    for (const f of ['Hat Ihnen jemand gesagt, dass Sie kleinschrittiger gehen, schlurfen, oder dass ein Arm beim Gehen nicht mehr mitschwingt?']) expect(apres('case-parkinson', 'akt-begleit', f), f).toBe(true);
+    expect(repond('case-parkinson', 'akt-begleit')).not.toMatch(/Schrift|schlurf|Arm/);
+    // anaphylaxie : le spray, demandé en Medikamente après akt-einfluss
+    expect(apres('case-anaphylaxie', 'akt-einfluss', 'Haben Sie Ihr Asthmaspray dabei?')).toBe(true);
+    expect(repond('case-anaphylaxie', 'akt-einfluss')).not.toMatch(/Spray|vergessen/);
+  });
+
+  it('parkinson : la chute suit la marche (`braucht: [gang]`)', () => {
+    expect(rang('case-parkinson', texte('Sind Sie schon einmal gestürzt?')))
+      .toBeGreaterThan(rang('case-parkinson', (p) => phraseSucht(p).includes('gang')));
   });
 
   it('« oder Schmerzen » (akt-begleit, variante nerven) : réduite, la question garde les douleurs', () => {

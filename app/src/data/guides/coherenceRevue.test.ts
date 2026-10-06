@@ -54,15 +54,15 @@ describe('I2 — Wasserlassen jour / nuit : les `parts` découpées du texte exi
 
 describe('I3 / P2 psy — l\'ordre de sécurité sous fach-psych-suizid (10 cas psy)', () => {
   const psy = cases.filter((c) => playedTrame(c).fach?.chapter.id === 'fach-psy');
-  it('cadrage « Ich frage das jeden Patienten », idée → plans → intention (NOTFALL), puis le désir avant l\'acte, puis le soutien', () => {
+  it('cadrage « Ich frage das jeden Patienten », idée → plans → tentative antérieure → intention (NOTFALL), puis le désir avant l\'acte, puis le soutien', () => {
     expect(psy).toHaveLength(10);
     for (const c of psy) {
       const q = playedTrame(c).fach!.chapter.questions.find((p) => phraseProbes(p).includes('fach-psych-suizid'))!;
       expect(phraseText(q), c.id).toMatch(/^Ich frage das jeden Patienten in Ihrer Situation: Denken Sie manchmal/);
       expect(phraseFollowUps(q).map((f) => f.text.slice(0, 32)), c.id).toEqual([
-        'Haben Sie konkrete Pläne, sich d', 'Falls konkrete Absicht oder Plan', 'Haben Sie schon einmal versucht,', 'Haben Sie den Wunsch, sich zu ve', 'Haben Sie sich selbst verletzt?', 'Gibt es jemanden, der Sie unters']);
-      // Q3 : la tentative antérieure suit l'intention (NOTFALL), avant l'automutilation
-      expect(phraseFollowUps(q).map((f) => f.sucht ?? []), c.id).toEqual([[], [], ['suizidversuch'], ['selbstverletzung_wunsch'], ['selbstverletzung'], []]);
+        'Haben Sie konkrete Pläne, sich d', 'Haben Sie schon einmal versucht,', 'Falls konkrete Absicht oder Plan', 'Haben Sie den Wunsch, sich zu ve', 'Haben Sie sich selbst verletzt?', 'Gibt es jemanden, der Sie unters']);
+      // Q3 (revue clinique P2) : la tentative antérieure suit les plans et précède la consigne NOTFALL
+      expect(phraseFollowUps(q).map((f) => f.sucht ?? []), c.id).toEqual([[], ['suizidversuch'], [], ['selbstverletzung_wunsch'], ['selbstverletzung'], []]);
     }
   });
 });
@@ -308,7 +308,7 @@ describe('R4 / P2 syncope — Zungenbiss et Einnässen : là où il faut, après
   });
   it('synkope : Zungenbiss et Einnässen se posent après la question du témoin et celle de la durée', () => {
     const l = lignes('case-synkope');
-    const duree = l.findIndex((t) => /Wie lange waren Sie nach Angabe Ihrer Frau/.test(t));
+    const duree = l.findIndex((t) => /Wie lange waren Sie nicht ansprechbar/.test(t));
     expect(l.findIndex((t) => /Zunge gebissen/.test(t))).toBe(duree + 1);
     expect(l.findIndex((t) => /Urin abgegangen/.test(t))).toBe(duree + 2);
   });
