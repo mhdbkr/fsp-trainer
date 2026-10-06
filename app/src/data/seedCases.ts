@@ -2416,62 +2416,61 @@ export function seedCases(): Case[] {
         persona: 'Julian Brückner, 61 ans, ancien instituteur devenu homme au foyer. Très angoissé car son père est mort d\'un cancer de l\'estomac au même âge (61 ans). Tu parles beaucoup et vite et livres presque tous tes symptômes spontanément. Tu poses beaucoup de questions (est-ce un cancer ? dois-je continuer l\'Oméprazole du voisin ? le cannabis me calmerait-il ? peur de la gastroscopie). Tu minimises un peu ton tabagisme.',
       },
       medicalView: {
-        verdachtsdiagnose: 'Magenkarzinom (Adenokarzinom des Magens)',
-        patientWorte: { verdacht: 'sich in Ihrem Magen eine Gewebeveränderung gebildet hat, die bösartig sein könnte', diagnostik: 'machen wir eine Magenspiegelung mit Gewebeprobe, nehmen Blut ab und machen einen Ultraschall vom Bauch', therapie: 'planen mehrere Fachärzte gemeinsam die Behandlung, meist mit einer Operation und ergänzender Chemotherapie vor und nach dem Eingriff' },
+        verdachtsdiagnose: 'Magenkarzinom mit chronischer oberer gastrointestinaler Blutung (Meläna) und Tumorkachexie (12 kg in vier Monaten, BMI 18,6). Risikofaktoren: 40 Packungsjahre, Vater mit 61 Jahren an einem Magenkarzinom verstorben.',
+        patientWorte: { verdacht: 'sich in Ihrem Magen eine Gewebeveränderung gebildet hat, die bösartig sein könnte', diagnostik: 'machen wir eine Magenspiegelung mit Gewebeprobe, nehmen Blut ab und machen eine Computertomographie', therapie: 'planen mehrere Fachärzte gemeinsam die Behandlung, meist mit einer Operation und ergänzender Chemotherapie vor und nach dem Eingriff' },
         differenzialdiagnosen: [
-          {
-            dd: 'Ulcus ventriculi',
-            unterscheidung: 'nüchtern-/nahrungsabhängiger Oberbauchschmerz, meist ohne progredienten Gewichtsverlust; Blutung möglich — Sicherung per ÖGD.',
-          },
-          {
-            dd: 'Ösophaguskarzinom',
-            unterscheidung: 'im Vordergrund progrediente Dysphagie (fest → flüssig), ösophagealer Sitz; hier keine Schluckbeschwerden.',
-          },
-          {
-            dd: 'Pankreas-/Gallenwegskarzinom',
-            unterscheidung: 'gürtelförmiger Rückenschmerz, schmerzloser Ikterus, Cholestase; CA 19-9 erhöht.',
-          },
-          {
-            dd: 'Funktionelle Dyspepsie / GERD',
-            unterscheidung: 'keine Alarmzeichen — kein Gewichtsverlust, keine Anämie, kein Teerstuhl; Ausschlussdiagnose.',
-          },
+          { dd: 'Ulcus ventriculi', unterscheidung: 'Kann ebenfalls bluten und Druck im Oberbauch machen. Gegen ein einfaches Ulkus sprechen der fehlende Schmerzrhythmus, die fehlende Besserung unter Omeprazol, 12 kg Gewichtsverlust und die Fleischabneigung. Jedes Magenulkus wird ohnehin biopsiert, weil ein ulzeriertes Karzinom gleich aussehen kann.' },
+          { dd: 'Ösophaguskarzinom', unterscheidung: 'Raucher mit Gewichtsverlust, aber keine Dysphagie und kein Hochwürgen von Speisen. Ein Karzinom am Mageneingang (Kardia) kann beides zeigen; die ÖGD klärt den Sitz.' },
+          { dd: 'Pankreas-/Gallenwegskarzinom', unterscheidung: 'Ebenfalls Gewichtsverlust und Oberbauchdruck, aber kein Ikterus, kein heller Stuhl, kein dunkler Urin, kein Juckreiz und kein gürtelförmiger Rückenschmerz. Ein Teerstuhl passt nicht dazu; das CT des Stagings zeigt das Pankreas mit.' },
+          { dd: 'Magenlymphom (MALT)', unterscheidung: 'Gleiche Beschwerden und gleiche Endoskopie, oft Helicobacter-assoziiert; nur die Histologie unterscheidet.' },
+          { dd: 'Funktionelle Dyspepsie / GERD', unterscheidung: 'Bei einem 61-Jährigen mit Gewichtsverlust, Teerstuhl und familiärer Belastung nicht zu stellen: Alarmsymptome verlangen zuerst eine ÖGD.' },
+          { dd: 'Kardiale Ursache (Hinterwandinfarkt)', unterscheidung: 'Diabetiker, Hypertoniker und Raucher können eine Ischämie als Oberbauchdruck spüren. Bei Dauerbeschwerden seit vier Monaten ohne Belastungsbezug unwahrscheinlich; ein EKG wird ohnehin präoperativ geschrieben.' },
         ],
         diagnostik: [
-          { stufe: 'Anamnese/Klinik', text: 'Test auf okkultes Blut im Stuhl' },
-          { stufe: 'Labor', text: 'Labor: Blutbild (Eisenmangelanämie), Ferritin, Leber-/Cholestasewerte, LDH; Tumormarker CA 72-4, CEA und CA 19-9 (Verlaufskontrolle, nicht zum Screening)' },
-          { stufe: 'Apparativ & Bildgebung', text: 'Abdomensonographie (Lebermetastasen, Aszites)' },
-          { stufe: 'Invasiv & Speziell', text: 'Körperliche Untersuchung: Abdomenpalpation (epigastrische Resistenz), Lymphknotenstatus (Virchow-Lymphknoten links supraklavikulär), digital-rektale Untersuchung (Teerstuhl)' },
-          { stufe: 'Invasiv & Speziell', text: 'ÖGD mit Biopsie (Goldstandard: Histologie, Laurén-Typ, HER2-Status, Helicobacter-pylori-Nachweis)' },
-          { stufe: 'Invasiv & Speziell', text: 'Staging: CT Thorax/Abdomen, Endosonographie (T-/N-Stadium), ggf. diagnostische Laparoskopie (Peritonealkarzinose)' },
+          { stufe: 'Anamnese/Klinik', text: 'Körperliche Untersuchung: epigastrische Resistenz, Virchow-Lymphknoten links supraklavikulär, Aszites, Lebergröße, Hautblässe; digital-rektale Untersuchung zur Bestätigung des Teerstuhls' },
+          { stufe: 'Anamnese/Klinik', text: 'Ernährungsstatus: 12 kg in vier Monaten sind fast ein Fünftel des Körpergewichts — Screening auf Mangelernährung (NRS 2002), Ernährungsteam einbinden' },
+          { stufe: 'Labor', text: 'Blutbild und Ferritin (Eisenmangelanämie durch chronische Blutung), Gerinnung, Blutgruppe und Kreuzblut' },
+          { stufe: 'Labor', text: 'Kreatinin mit eGFR vor dem Kontrastmittel-CT (Metformin, Ramipril), Elektrolyte, Albumin, Leberwerte, LDH, HbA1c' },
+          { stufe: 'Labor', text: 'CA 72-4 und CEA allenfalls als Ausgangswert für die spätere Verlaufskontrolle' },
+          { stufe: 'Apparativ & Bildgebung', text: '12-Kanal-EKG' },
+          { stufe: 'Apparativ & Bildgebung', text: 'Staging nach gesicherter Histologie: CT von Thorax und Abdomen mit Kontrastmittel (Leber- und Lungenmetastasen; bei 40 Packungsjahren wird die Lunge so mitbeurteilt), Endosonographie für T- und N-Stadium' },
+          { stufe: 'Invasiv & Speziell', text: 'ÖGD mit mehreren Biopsien: Histologie, Laurén-Typ, HER2-Status, Helicobacter pylori; eine blutende Läsion kann in derselben Sitzung behandelt werden' },
+          { stufe: 'Invasiv & Speziell', text: 'Diagnostische Laparoskopie bei lokal fortgeschrittenem Tumor (cT3/cT4) vor der Therapieentscheidung, um eine Peritonealkarzinose nicht zu übersehen' },
         ],
         therapie: [
           {
             label: 'Systemtherapie / (neo)adjuvant',
             items: [
-            'perioperative (neoadjuvante/adjuvante) Chemotherapie nach Stadium (z. B. FLOT)',
-            'bei HER2-Positivität zielgerichtete Therapie (Trastuzumab)',
-            'Helicobacter-pylori-Eradikation',
-            'Ernährungsberatung, supportive und palliative Therapie, psychoonkologische Anbindung',
+              'Therapieentscheidung in der interdisziplinären Tumorkonferenz nach Histologie und Staging',
+              'Perioperative Chemotherapie nach dem FLOT-Schema bei lokal fortgeschrittenem, resektablem Karzinom (cT3/cT4 oder Lymphknotenbefall)',
+              'Im metastasierten Stadium palliative Chemotherapie, bei HER2-Positivität zusätzlich Trastuzumab',
+              'Ernährungstherapie schon vor der Operation, weil die Mangelernährung Komplikationen und Verträglichkeit der Chemotherapie verschlechtert',
+              'Diabetes: Metformin vor dem Kontrastmittel nur bei eGFR unter 30 pausieren; bei geringer Nahrungsaufnahme Blutzucker engmaschig kontrollieren und die Therapie anpassen',
+              'Helicobacter-pylori-Eradikation bei Nachweis; den Kindern als Verwandten ersten Grades einen Helicobacter-Test empfehlen',
+              'Psychoonkologische Anbindung früh anbieten: sein Vater starb im selben Alter an derselben Krankheit; Rauchstopp',
             ],
           },
           {
             label: 'Endoskopisch / palliativ',
             items: [
-            'endoskopische Resektion (EMR/ESD) bei auf die Mukosa begrenztem Frühkarzinom',
-            'palliative Stenteinlage bzw. Gastroenterostomie bei Magenausgangsstenose; zur Ernährungssicherung Feinnadelkatheterjejunostomie — keine PEG durch den tumortragenden Magen',
+              'Endoskopische Resektion (ESD) nur beim auf die Mukosa begrenzten Frühkarzinom — bei Gewichtsverlust und Blutung wenig wahrscheinlich',
+              'Endoskopische Blutstillung bei tumorbedingter Blutung',
+              'Palliativ: Stent oder Gastroenterostomie bei Magenausgangsstenose; zur Ernährungssicherung Feinnadelkatheterjejunostomie — keine PEG durch den tumortragenden Magen',
             ],
           },
           {
             label: 'Chirurgisch (kurativ)',
             items: [
-            '(subtotale bzw. totale) Gastrektomie mit D2-Lymphadenektomie in kurativer Situation',
+              'Subtotale oder totale Gastrektomie mit D2-Lymphadenektomie in kurativer Situation',
+              'Nach totaler Gastrektomie lebenslang Vitamin B12 parenteral',
             ],
           },
         ],
         erstmassnahmen: [
-          'stationäre Aufnahme zur Abklärung',
-          'ÖGD mit Biopsie zeitnah veranlassen',
-          'bei Anämieverdacht Hämoglobin kontrollieren, ggf. Substitution',
+          'Stationäre Aufnahme zur zügigen Abklärung',
+          'Vitalparameter, Hämoglobin und Kreuzblut: der Teerstuhl zeigt eine Blutung an',
+          'Protonenpumpenhemmer i. v. bis zur ÖGD; Omeprazol vom Nachbarn und Iberogast absetzen',
+          'ÖGD mit Biopsie zeitnah',
         ],
         notfall: false,
       },
@@ -2499,79 +2498,37 @@ export function seedCases(): Case[] {
       pruefungsfallen: [
         'Auf die direkte Frage "Ist es Krebs?" neutral, aber ehrlich bleiben — nicht vorschnell beruhigen: "Ich denke auch an eine bösartige Erkrankung und möchte diese zuerst ausschließen." (ausdrücklicher Rat der Kommission)',
         'Nicht sagen "Sie sind bei uns in guten Händen, machen Sie sich keine Sorgen" — eine Tumordiagnose kann in wenigen Tagen feststehen (Hinweis des Stuttgarter Oberarztes).',
-        'Tumormarker (CA 72-4, CEA, CA 19-9) dienen der Verlaufs- und Rezidivkontrolle, NICHT dem Screening oder der Erstdiagnose.',
+        'Tumormarker sind kein Diagnosemittel: die Diagnose stellt die Biopsie.',
         'Meläna = obere GI-Blutung: aktiv nach dunklem/teerartigem Stuhl fragen und Hämatemesis abgrenzen.',
         'Noxenanamnese (v. a. Rauchen!) nicht vergessen — bei Zeitdruck wenigstens zu Beginn der Vorstellung erwähnen.',
         'Todesursache des Vaters (Magenkarzinom) unbedingt dokumentieren — deren Fehlen wurde in Stuttgart bemängelt.',
+        'Den Gewichtsverlust nicht dem Diabetes oder dem Metformin zuschreiben.',
+        'Das Omeprazol vom Nachbarn kann ein ulzeriertes Karzinom scheinbar abheilen lassen und die Diagnose verzögern — erfragen, wie lange er es schon nimmt.',
       ],
       examinerSheet: [
-        {
-          title: 'Einstieg: Verdachts- & Differenzialdiagnosen',
-          interactions: [
-            {
-              frage: 'Was ist Ihre Verdachtsdiagnose und worauf stützen Sie sich?',
-              reaktion: 'Magenkarzinom — ungewollter Gewichtsverlust von 12 kg in 4 Monaten, epigastrisches Druck-/Völlegefühl mit frühem Sättigungsgefühl, Meläna, Abneigung gegen Fleisch/Wurst, Leistungsknick sowie positive Familienanamnese (Vater mit 61 J. verstorben).',
-            },
-            {
-              frage: 'Welche Differenzialdiagnosen stellen Sie?',
-              reaktion: 'Ulcus ventriculi, Ösophaguskarzinom, Pankreas- und Gallenwegskarzinom sowie eine funktionelle Dyspepsie/GERD.',
-            },
-            {
-              frage: 'Warum steht auch ein Myokardinfarkt in der Differenzialdiagnose?',
-              reaktion: 'Ein Hinterwandinfarkt kann sich als epigastrische Beschwerden mit Übelkeit äußern; daher sollte er bei Oberbauchschmerz bedacht und mittels EKG ausgeschlossen werden.',
-            },
-            {
-              frage: 'Der Patient raucht viel — könnte er ein Bronchialkarzinom haben?',
-              reaktion: 'Grundsätzlich möglich, aber die Konstellation (Gewichtsverlust, Meläna, Völlegefühl, Fleischabneigung) spricht deutlich eher für ein Magenkarzinom; ein Bronchialkarzinom bliebe eine Zweitüberlegung.',
-            },
-          ],
-        },
-        {
-          title: 'Diagnostik, Tumormarker & Staging',
-          interactions: [
-            {
-              frage: 'Wie gehen Sie diagnostisch vor?',
-              reaktion: 'Körperliche Untersuchung inkl. Virchow-Lymphknoten und digital-rektaler Untersuchung, Labor mit Blutbild (Anämie), dann als Goldstandard eine ÖGD mit Biopsie; zum Staging CT Thorax/Abdomen, Endosonographie und ggf. Laparoskopie.',
-            },
-            {
-              frage: 'Welche Tumormarker bestimmen Sie? Was bedeutet CA 19-9?',
-              reaktion: 'Beim Magenkarzinom CA 72-4, CEA und CA 19-9 — zur Verlaufs- und Rezidivkontrolle, nicht zum Screening. CA 19-9 ist ein vor allem bei Pankreas- und Gallenwegstumoren erhöhter Marker.',
-            },
-            {
-              frage: 'Warum ein CT bzw. Röntgen des Thorax?',
-              reaktion: 'Zur Suche nach Lungen- und Lebermetastasen im Rahmen des Stagings.',
-            },
-            {
-              frage: 'Hat der Patient schon eine ÖGD gehabt oder bekannte Magenprobleme?',
-              reaktion: 'Nein, eine Magenspiegelung wurde nie durchgeführt; anamnestisch bestand früher nur gelegentliches saures Aufstoßen.',
-            },
-          ],
-        },
-        {
-          title: 'Therapie & Kommunikation',
-          interactions: [
-            {
-              frage: 'Was ist Iberogast und welche Medikamente können Sie geben?',
-              reaktion: 'Iberogast ist ein pflanzliches Kombinationspräparat (Phytotherapeutikum) bei funktioneller Dyspepsie; kausal reicht es hier nicht. Symptomatisch PPI und Antiemetika; die eigentliche Therapie richtet sich nach dem histologischen Befund.',
-            },
-            {
-              frage: 'Sollen wir den Patienten stationär aufnehmen?',
-              reaktion: 'Ja — bei Alarmsymptomen (Gewichtsverlust, Meläna, Anämieverdacht) ist eine zeitnahe stationäre Abklärung mit ÖGD sinnvoll.',
-            },
-            {
-              frage: 'Wie behandeln Sie das gesicherte Magenkarzinom?',
-              reaktion: 'Stadienabhängig: endoskopische Resektion beim Mukosakarzinom, sonst Gastrektomie mit D2-Lymphadenektomie und perioperativer Chemotherapie (FLOT); palliativ Chemotherapie, Stent bzw. Gastroenterostomie bei Stenose, Ernährung über Jejunostomie und psychoonkologische Betreuung.',
-            },
-            {
-              frage: 'Der Patient fragt direkt, ob er Krebs hat. Was antworten Sie?',
-              reaktion: 'Neutral und ehrlich bleiben: "Ihre Beschwerden nehme ich sehr ernst; ich denke auch an eine bösartige Erkrankung und möchte diese zuerst ausschließen." Keine falsche Beruhigung, keine vorschnellen Versprechen.',
-            },
-            {
-              frage: 'Was ist neben der Diagnostik noch wichtig?',
-              reaktion: 'Eine psychoonkologische bzw. psychologische Unterstützung und eine einfühlsame, schrittweise Aufklärung.',
-            },
-          ],
-        },
+        { title: 'Verdachtsdiagnose und Begründung', interactions: [
+          { frage: 'Was ist Ihre Verdachtsdiagnose und worauf stützen Sie sich?', reaktion: 'Magenkarzinom: 12 kg ungewollter Gewichtsverlust in vier Monaten, epigastrisches Druck- und Völlegefühl mit frühem Sättigungsgefühl, Teerstuhl, Abneigung gegen Fleisch und Wurst, Leistungsknick; Risikofaktoren 40 Packungsjahre und Vater mit 61 Jahren an einem Magenkarzinom verstorben.' },
+          { frage: 'Hat der Patient schon eine ÖGD gehabt oder bekannte Magenprobleme?', reaktion: 'Nein, nie eine Magenspiegelung; früher nur saures Aufstoßen. Er nimmt Iberogast vom Hausarzt und Omeprazol vom Nachbarn — beides ohne Wirkung.' },
+          { frage: 'Der Patient raucht viel — könnte er ein Bronchialkarzinom haben?', reaktion: 'Möglich, aber Teerstuhl, Völlegefühl und Fleischabneigung sprechen für den Magen. Das Staging-CT des Thorax beurteilt die Lunge ohnehin mit.' },
+        ] },
+        { title: 'Differenzialdiagnosen', interactions: [
+          { frage: 'Welche Differenzialdiagnosen stellen Sie?', reaktion: 'Blutendes Ulcus ventriculi, Ösophagus- bzw. Kardiakarzinom, Pankreas- und Gallenwegskarzinom (kein Ikterus), Magenlymphom; eine funktionelle Dyspepsie ist bei Alarmsymptomen nicht zulässig.' },
+          { frage: 'Warum steht auch ein Myokardinfarkt in der Differenzialdiagnose?', reaktion: 'Ein Hinterwandinfarkt kann sich bei Diabetikern als Oberbauchdruck mit Übelkeit zeigen; bei Diabetes, Hypertonie und Rauchen gehört ein EKG dazu, auch wenn die Dauerbeschwerden seit vier Monaten dagegen sprechen.' },
+        ] },
+        { title: 'Diagnostik und Staging', interactions: [
+          { frage: 'Wie gehen Sie diagnostisch vor?', reaktion: 'Körperliche Untersuchung mit Virchow-Lymphknoten und rektaler Untersuchung, Labor mit Blutbild, Ferritin, Kreuzblut, Nierenwerten und Albumin; dann als Goldstandard die ÖGD mit Biopsien (Histologie, Laurén, HER2, Helicobacter). Zum Staging CT Thorax/Abdomen und Endosonographie, bei cT3/cT4 diagnostische Laparoskopie.' },
+          { frage: 'Welche Tumormarker bestimmen Sie? Was bedeutet CA 19-9?', reaktion: 'CA 72-4 und CEA, allenfalls als Ausgangswert für den Verlauf — zur Diagnose taugen sie nicht. CA 19-9 ist vor allem bei Pankreas- und Gallenwegstumoren erhöht.' },
+          { frage: 'Warum ein CT bzw. Röntgen des Thorax?', reaktion: 'Zur Suche nach Lungen- und Lebermetastasen im Staging.' },
+        ] },
+        { title: 'Therapie', interactions: [
+          { frage: 'Sollen wir den Patienten stationär aufnehmen?', reaktion: 'Ja: Teerstuhl mit möglicher Anämie, schwere Mangelernährung und ein dringender Tumorverdacht — zügige Abklärung mit ÖGD, Ernährungstherapie und Kreislaufüberwachung.' },
+          { frage: 'Was ist Iberogast und welche Medikamente geben Sie?', reaktion: 'Iberogast ist ein pflanzliches Kombinationspräparat bei funktioneller Dyspepsie und hier fehl am Platz. Bis zur ÖGD ein PPI i. v.; das Omeprazol vom Nachbarn wird abgesetzt. Ramipril und Metformin laufen weiter, Metformin wird bei eGFR unter 30 vor dem Kontrastmittel pausiert.' },
+          { frage: 'Wie behandeln Sie das gesicherte Magenkarzinom?', reaktion: 'Nach Tumorkonferenz und Stadium: endoskopische Resektion nur beim Mukosakarzinom, sonst Gastrektomie mit D2-Lymphadenektomie und perioperativer FLOT-Chemotherapie; palliativ Chemotherapie, bei HER2-Positivität mit Trastuzumab, Stent oder Gastroenterostomie bei Stenose. Ernährungstherapie schon vor der Operation.' },
+        ] },
+        { title: 'Aufklärung des Patienten (2 Minuten)', interactions: [
+          { frage: 'Der Patient fragt direkt, ob er Krebs hat. Was antworten Sie?', reaktion: 'Neutral und ehrlich bleiben: „Ihre Beschwerden nehme ich sehr ernst; ich denke auch an eine bösartige Erkrankung und möchte diese zuerst ausschließen.“ Keine falsche Beruhigung, keine vorschnellen Versprechen.' },
+          { frage: 'Was ist neben der Diagnostik noch wichtig?', reaktion: 'Psychoonkologische Unterstützung — der Vater ist im selben Alter an derselben Krankheit gestorben —, eine einfühlsame, schrittweise Aufklärung und der Hinweis, dass seine Kinder sich auf Helicobacter testen lassen sollten.' },
+        ] },
       ],
       linkedFachwissenId: 'fw-magenkarzinom',
       linkedFachbegriffeIds: [],
