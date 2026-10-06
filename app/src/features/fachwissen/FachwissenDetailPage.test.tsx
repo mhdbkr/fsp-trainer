@@ -18,6 +18,7 @@ const fwKhk: Fachwissen = {
     { text: 'Stabile AP: reproduzierbar bei definierter Belastung' },
     { text: 'Instabile AP: neu, in Ruhe oder zunehmend → ACS!' },
   ],
+  klassifikation: [{ name: 'Formen des akuten Koronarsyndroms', inhalt: 'Instabile AP, NSTEMI, STEMI.' }],
   diagnostik: [{ stufe: 'Labor', text: 'Troponin' }],
   differenzialdiagnosen: [{ dd: 'Akuter Myokardinfarkt / ACS', unterscheidung: 'Troponin, EKG' }],
   therapie: [
@@ -188,8 +189,8 @@ describe('FachwissenDetailPage — visuels', () => {
     await renderPage('fw-khk');
 
     expect(container.querySelector('[data-visual="decision-tree"]')).toBeNull();
-    // `diagnostik:Labor` était le seul `replaces` du bloc decision-tree :
-    // sans lui, la section Diagnostisches Vorgehen ne doit plus être repliée.
+    // Le bloc decision-tree ne replie rien (Lc2 : il ne couvrait que le
+    // Troponin de la stufe Labor) : la section Diagnostisches Vorgehen reste dépliée.
     const diagnostikSection = Array.from(container.querySelectorAll('[data-section]')).find(
       (el) => el.getAttribute('data-section') === 'Diagnostisches Vorgehen',
     );
