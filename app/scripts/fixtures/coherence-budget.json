@@ -1,20 +1,20 @@
 {
-  "mesureLe": "2026-10-05",
+  "mesureLe": "2026-10-06",
   "cas": 130,
-  "source": "K3 — mesurée sur la trame JOUÉE (après cohere : ce que l'utilisateur voit, décision de main). Sondes et profils déclarés ; les questions du cas se lisent encore (K4). La porte après montage (6 compteurs à 0, casRetiresParR1 = 0) est dans checkCoherence.mjs ; nonReduit est le résidu du moteur (questions sans parts), à 0 en K4.",
+  "source": "K4 — mesurée sur la trame JOUÉE (après cohere). Sondes, profils ET questions du cas déclarés : une question du cas déclarée se mesure par sa déclaration (comme une sonde depuis K1) ; seule une question muette se lit encore. La porte après montage (6 compteurs à 0, casRetiresParR1 = 0) est dans checkCoherence.mjs ; residu : 0 question muette (fixeur K4 : anorexia-nervosa n° 7 déclare `todeswunsch`, signe de risque), 0 non réduite.",
   "brut": {
-    "doublons": 203,
-    "doublonsCas": 24,
-    "horsProfil": 44,
+    "doublons": 1,
+    "doublonsCas": 0,
+    "horsProfil": 2,
     "exigeAbsent": 0,
     "relancesOrphelines": 0,
-    "brauchtViole": 19,
+    "brauchtViole": 22,
     "ajouteSansReponse": 0
   },
   "residu": {
-    "questionsMuettes": 794,
+    "questionsMuettes": 0,
     "sondesMuettes": 0,
-    "nonReduit": 103,
+    "nonReduit": 0,
     "casRetiresParR1": 0
   },
   "allowed": [],
@@ -82,6 +82,14 @@
       "de": 58,
       "a": 70,
       "raison": "Le profil DÉCLARÉ remplace le profil proposé par la lecture de la fiche, dont les tags hals (57 cas), stein, meningitis, steifigkeit et gelenk sortaient trop larges (rapport K0 § 5) : +26 signes hors profil, que r1 retirera en K3 — schluck +8 (akt-ausscheid-schlucken dans bph, glomerulonephritis, obstipation ; fach-neuro-sprache dans migraene, commotio, sturz-im-alter, epilepsie ; fach-onko-appetit dans karzinoid), gelenke +6 (fach-infekt-gelenke déclare aussi le schéma articulaire : tonsillitis, otitis-media, gastroenteritis, influenza, covid19, typhus), meningismus +2 (influenza, malaria), arthralgie +2 (fach-derma-systemisch dans erysipel, urtikaria), steifigkeit +2 (fach-rheuma-morgensteifigkeit dans gicht et septische-arthritis), gicht et nierensteine +3 (fach-rheuma-vorgeschichte dans rheumatoide-arthritis ; CAS de karzinoid), ausstrahlung +2 et gelenk_entzuendung +1 (CAS de pankreaskarzinom et cml, fach-ortho-schwellung dans karpaltunnel) ; −6 levés par un tag motivé (lyme pour lymphom, hals pour bronchialkarzinom et nhl, schmerz pour leistenhernie, generalisiert pour la tuméfaction articulaire de fibromyalgie, CAS et Fach). Puis les 3 questions du cas de DD déclarent leur `sucht` ; seul case-karzinoid reçoit le tag `stein` (lithiase d’une NEM 1) : −1. Pankreaskarzinom et cml gardent leur question hors profil : décision de main (revue K2 m3), r1 ne retire jamais une question propre au cas (contrat en K3, casRetiresParR1 = 0). Revue clinique K2 : `meningismus` pertinent aussi sous `fieber` (C1 : tonsillitis, influenza, malaria, covid19, typhus gardent la raideur de nuque, −5) ; tag `gicht` sur rheumatoide-arthritis (C4 : gicht, nierensteine, −2). 58 → 70."
+    },
+    {
+      "date": "2026-10-05",
+      "lot": "K4",
+      "compteur": "brauchtViole",
+      "de": 19,
+      "a": 22,
+      "raison": "HAUSSE DE MESURE du détecteur Q0 (informatif, précision ≈ 55 %), pas de présupposition nouvelle. Le détecteur tient pour « déjà dit » un nom qui figure dans la RÉPONSE d'une question précédente. Quand r2 retire une sonde au profit de la question du cas (rang 0), la réponse de la sonde ne précède plus : cinq constats nouveaux apparaissent, dont quatre faux positifs — hepatitis-b « Ihren Impfpass » (fach-infekt-impfung retirée), parkinson « die Schrift » (« Handschrift », même phrase), alkoholentzug « die Gläser » (même phrase), nephrotisches-syndrom « Ihre Schuhe » (possessif générique), anaphylaxie « Ihr Asthmaspray » (présupposition réelle de l'asthme connu, préexistante, masquée jusqu'ici par la réponse d'akt-atemnot-husten ; renvoyée au lot de contenu). Deux constats disparaissent : malaria « nach der Rückkehr » (braucht ['reise'] déclaré, r4b place la question après le voyage) et basaliom « der Mitte ». 19 − 2 + 5 = 22. Fixeur K4 (revue clinique) : metabolisches-syndrom « den Achselhöhlen » disparaît (n° 6 cherche `haut_haare`, la question du cas l'emporte) ; hypothyreose « Ihrer Entbindungen » reste, la question n° 7 désormais placée après les enfants (braucht ['kinder'], r4b) — faux positif du détecteur, qui ne lit pas « Kinder » comme antécédent d'« Entbindungen ». 22 − 1 = 21. Dernier tour (contre-revue P2) : `fach-endo-haut-haare` reçoit ses parts (peau | cicatrisation) ; dans metabolisches-syndrom, la question du cas n° 6 retire la part peau et la cicatrisation reste posée — la réponse de la sonde ne précède plus la question du cas, et « den Achselhöhlen » (article défini d'une partie du corps, faux positif) revient. 21 + 1 = 22."
     }
   ]
 }

@@ -15,7 +15,8 @@ describe('INV-81 — un signe, une question (r2)', () => {
     expect(un(r.ecarts, 'akt-ausloeser', 'retire')).toMatchObject({ regle: 2, signes: ['ausloeser'], cause: 'fach-rheuma-ausloeser' });
   });
   it('à rang égal, la première dans l\'ordre de la trame', () => {
-    const r = run([ch('fach', s('fach-psych-ausloeser'), s('fach-rheuma-ausloeser'))]);
+    // K4 : fach-rheuma-ausloeser porte aussi la part goutte (`gicht_ausloeser`) — deux sondes mono-signe pour ce test.
+    const r = run([ch('fach', s('fach-psych-ausloeser'), s('fach-derma-ausloeser'))]);
     expect(vue(r.trame).fach).toEqual(['fach-psych-ausloeser']);
   });
   it('une question du cas gagne et prend la place de la première perdante de son chapitre', () => {
@@ -141,7 +142,8 @@ describe('INV-84 — une relance qui cherche un autre signe (r4a)', () => {
   it('130 cas : seules cinq relances sont détachées (impfung → végétative, Gicht/Nierensteine, Familie Rheuma, Zungenbiss, Einnässen)', () => {
     const det = new Set(cases.flatMap((c) => playedTrame(c).ecarts.filter((e) => e.action === 'detache').map((e) => `${e.question} → ${e.vers}`)));
     expect([...det].sort()).toEqual(['akt-anfall-bewusstsein#1 → aktuell', 'akt-anfall-bewusstsein#2 → aktuell',
-      'fach-rheuma-vorgeschichte#1 → fach', 'fach-rheuma-vorgeschichte#2 → familie-sozial', 'veg-fieber#5 → vegetativ']);
+      // K4 : « Gichtanfall oder Nierensteine » découpée en deux relances (#1 goutte, #2 calculs) ; la famille passe en #3.
+      'fach-rheuma-vorgeschichte#1 → fach', 'fach-rheuma-vorgeschichte#2 → fach', 'fach-rheuma-vorgeschichte#3 → familie-sozial', 'veg-fieber#5 → vegetativ']);
     for (const c of cases) expect(compteursApresCas(c).relancesOrphelines, c.id).toBe(0);
     expect(coeur(byId('case-rheumatoide-arthritis')).fach).toContain('^fach-rheuma-vorgeschichte#1');
   });
@@ -292,7 +294,9 @@ describe('SÉCURITÉ — aucun signe de risque n\'est perdu (r1 ne le retire jam
       const textes = t.flatMap((x) => x.questions.flatMap((p) => [phraseText(p), ...phraseFollowUps(p).map((f) => f.text)]));
       expect(textes, c.id).toContain('Haben Sie sich selbst verletzt?');
       expect(textes, c.id).toContain('Haben Sie den Wunsch, sich zu verletzen?');
-      expect(risques(t), c.id).toEqual(['selbstverletzung', 'selbstverletzung_wunsch', 'suizid']);
+      // K4 fixeur (D-1) : anorexia-nervosa porte en plus le désir de mort, posé par sa question du cas
+      const attendus = ['selbstverletzung', 'selbstverletzung_wunsch', 'suizid', ...(c.id === 'case-anorexia-nervosa' ? ['todeswunsch'] : [])];
+      expect(risques(t), c.id).toEqual(attendus);
       expect(t.flatMap((x) => x.questions).filter((p) => phraseSucht(p).includes('suizid')).flatMap(phraseProbes), c.id).toEqual(['fach-psych-suizid']);
       const sicherheit = playedTrame(c).ecarts.find((e) => e.question === 'akt-psych-sicherheit');
       if (sicherheit) expect(sicherheit, c.id).toMatchObject({ regle: 2, action: 'retire', cause: 'fach-psych-suizid' });

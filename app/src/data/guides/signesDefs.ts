@@ -1,4 +1,5 @@
 import type { SigneDefBody } from './signes';
+import { DEFS_CAS } from './signesDefsCas';
 
 // ============================================================================
 // LES DÉFINITIONS DU LEXIQUE DE SIGNES — K0 (69 signes) puis K1 (le reste des sondes).
@@ -6,7 +7,8 @@ import type { SigneDefBody } from './signes';
 // refuse un signe sans définition ou un id inconnu ; `SIGNES` suit l'ordre de déclaration.
 // ============================================================================
 const S = 'screening' as const;
-export const DEFS = {
+/** Le lexique des sondes (K0–K3, et `gicht_ausloeser`, `erbrechen` de K4). */
+export const DEFS_BASE = {
   // K3 (décision de main) : le motif ouvre l'entretien — la règle d'insertion (r3, r4a) place tout après lui.
   motiv: { kapitel: 'aktuell', pertinence: S },
   // --- les dimensions : l'ordre de l'entretien --------------------------------
@@ -61,11 +63,15 @@ export const DEFS = {
   insektenstich: { kapitel: 'fach', pertinence: S },   // K2 (revue clinique C3) : « oder einen Insektenstich » — les piqûres de moustique du paludisme, hors du gabarit borréliose
   erythem_ring: { kapitel: 'fach', pertinence: ['lyme'] },
   meningismus: { kapitel: 'fach', pertinence: ['meningitis', 'lyme', 'fieber'] },   // K2 (revue clinique C1) : + fieber — la raideur de nuque est un drapeau rouge de tout tableau fébrile
-  fazialis: { kapitel: 'fach', pertinence: ['lyme'] },
+  // K4 : + meningitis — la paralysie faciale complique aussi une otite, une méningite (question du cas d'otitis-media).
+  fazialis: { kapitel: 'fach', pertinence: ['lyme', 'meningitis'] },
   steifigkeit: { kapitel: 'fach', pertinence: ['steifigkeit'], bank: 'fach-rheuma-morgensteifigkeit' },
   // K2 : + `generalisiert` — devant une douleur diffuse, « ein Gelenk jemals geschwollen ? » écarte l'arthrite (DD de la fibromyalgie) ; « Welche Gelenke » (`gelenke`) reste hors profil.
   gelenk_entzuendung: { kapitel: 'fach', pertinence: ['gelenk', 'arthritis', 'generalisiert'], bank: 'fach-rheuma-entzuendung' },
   gicht: { kapitel: 'fach', pertinence: ['gicht'] },
+  // K4 (option (b) de la revue K3) : un repas copieux, un diurétique — le déclencheur d'une crise de goutte ; la part de
+  // fach-rheuma-ausloeser qui le demande sort du profil hors goutte (r1).
+  gicht_ausloeser: { kapitel: 'fach', pertinence: ['gicht'] },
   nierensteine: { kapitel: 'fach', pertinence: ['stein', 'gicht'] },
   essen_expo: { kapitel: 'fach', pertinence: S },
   brustschmerz: { kapitel: 'fach', pertinence: S },
@@ -90,6 +96,9 @@ export const DEFS = {
   nachtschweiss: { kapitel: 'vegetativ', pertinence: S },
   schwitzen: { kapitel: 'vegetativ', pertinence: S },
   uebelkeit: { kapitel: 'vegetativ', pertinence: S },
+  // K4 (revue clinique, P2 myokardinfarkt) : vomir n'est pas avoir la nausée — « kaltschweißig, und war Ihnen übel? » ne doit
+  // pas retirer « Mussten Sie sich übergeben? ». veg-uebelkeit et fach-gastro-uebelkeit portent les deux, en parts.
+  erbrechen: { kapitel: 'vegetativ', pertinence: S },
   stuhl: { kapitel: 'vegetativ', pertinence: S },
   miktion: { kapitel: 'vegetativ', pertinence: S },
   gewicht: { kapitel: 'vegetativ', pertinence: S, bank: 'veg-gewicht' },
@@ -265,5 +274,9 @@ export const DEFS = {
   wohnsituation: { kapitel: 'familie-sozial', pertinence: S },
   haustiere: { kapitel: 'familie-sozial', pertinence: S },
 } satisfies Record<string, SigneDefBody>;
+
+// K4 : les signes propres aux questions du cas (une réplique que nulle sonde ne pose) — `signesDefsCas.ts`. Les deux tables
+// sont disjointes (test m-1 : un id de signesDefsCas qui reprendrait un signe des sondes l'écraserait en silence).
+export const DEFS = { ...DEFS_BASE, ...DEFS_CAS } satisfies Record<string, SigneDefBody>;
 
 export type Signe = keyof typeof DEFS;

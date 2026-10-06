@@ -66,8 +66,10 @@ test('K0 — un compteur de résidu plus haut que la base → rouge ; un `null` 
 });
 
 test('K0 — base entière, tête `null` (le compteur a cessé d\'être mesuré) → rouge', () => {
+  // K4 : la tête porte nonReduit = 0 ; la tête `null` s'écrit donc à la main (avant, 103 > 5 rougissait par hasard).
   write((rel, j) => (rel.includes('coherence-budget') ? { ...j, residu: { ...j.residu, nonReduit: 5 } } : j));
-  const r = floor();
+  writeHead(coh((j) => ({ ...j, residu: { ...j.residu, nonReduit: null } })));
+  const r = floor('--head-dir', head);
   assert.equal(r.status, 1);
   assert.match(r.stdout, /nonReduit/);
 });

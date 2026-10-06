@@ -72,3 +72,31 @@ export function splitDimension(text: string): { dim?: string; body: string } {
   if (!m || NOT_DIM.test(m[1])) return { body: text };
   return { dim: m[1], body: m[2] };
 }
+
+/** Garde-fou K4 (relecture de langue, décision de main) : une `part` peut devenir la question d'ouverture quand celles
+ *  qui la précèdent sont retirées (`coherence.ts`, rendu des parts) — elle doit donc se dire SEULE. Autonome =
+ *  (1) elle s'ouvre sur un interrogatif (« Wie… », « Seit wann… ») ou sur un verbe conjugué de `PART_VERBES` ;
+ *  (2) elle ne commence pas par « und / oder / dabei / dazu… » ; (3) pas d'anaphore « sie / es » en tête.
+ *  ponytail: verbe conjugué = liste fermée des verbes d'ouverture ; une part qui s'ouvre sur un verbe nouveau échoue
+ *  et l'auteur l'ajoute ici (revu). Le « es » impersonnel après le verbe (« Brennt es… ») n'est pas distingué. */
+const PART_VERBES = new Set(('ist sind war waren hat haben hatte hatten wird werden wurde wurden kann können konnten muss müssen '
+  + 'mussten darf dürfen gibt gab geht gehen ging kommt kommen kam kamen tut tritt treten nehmen leiden fühlen bekommen '
+  + 'strahlen wandern heilen sehen brennt schwitzen wachen trinken rauchen essen leben wohnen arbeiten verwenden vertragen '
+  + 'empfinden klagt erinnern blutet juckt').split(' '));
+const PART_INTERROG = /^(wie|was|wann|wo|woher|wohin|welche[rnms]?|wer|wem|wen|warum|weshalb|wieso|wodurch|womit|wovon|wofür|wozu)$/;
+const PART_PREP = /^(an|auf|aus|bei|für|in|mit|nach|seit|über|um|unter|von|vor|zu)$/;
+const PART_LIEN = /^(und|oder|dabei|dazu|auch|sonst)$/;
+/** Les parts « relance seulement » : elles ne se disent qu'après leur mère (« Und… », « Falls …: »). Elles ne sont pas
+ *  autonomes et ne doivent JAMAIS ouvrir une question jouée (`partsOuvertureFautes`, anamneseChapters.ts). */
+export const PART_RELANCE_SEULE: ReadonlySet<string> = new Set([
+  'Und beim Gehen — sind Sie schon gestürzt?',                                              // akt-nerven-alltag, après la motricité fine
+  'Falls ein üppiges Essen: Gab es viel Fleisch oder Alkohol, besonders Bier?',             // fach-rheuma-ausloeser, part goutte
+]);
+export function partNonAutonome(text: string): string | undefined {
+  const w = splitDimension(text).body.replace(/[?!.,:;()«»„“"]/g, ' ').split(/\s+/).filter(Boolean);
+  const f = (w[0] ?? '').toLowerCase();
+  if (PART_LIEN.test(f)) return `commence par « ${w[0]} » sans référent`;
+  if (f === 'es' || f === 'sie' || w[1] === 'sie' || w[2] === 'sie') return 'anaphore « sie / es » en tête';
+  if (PART_INTERROG.test(f) || (PART_PREP.test(f) && PART_INTERROG.test((w[1] ?? '').toLowerCase()))) return undefined;
+  return PART_VERBES.has(f) ? undefined : `ne s'ouvre ni sur un verbe conjugué ni sur un interrogatif (« ${w[0] ?? ''} »)`;
+}

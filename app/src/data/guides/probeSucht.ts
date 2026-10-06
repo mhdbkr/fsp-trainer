@@ -48,7 +48,7 @@ export const PROBE_SUCHT: Readonly<Record<string, Sucht>> = {
   'akt-anfall-ablauf': ['anfallsablauf'], 'akt-anfall-dauer': ['dauer'], 'akt-anfall-bewusstsein': ['bewusstlos'],
   // --- Vegetative Anamnese ------------------------------------------------------
   'veg-fieber': ['fieber', 'reise'],   // parts : fieber / reise
-  'veg-schuettelfrost': ['schuettelfrost', 'nachtschweiss', 'schwitzen'], 'veg-uebelkeit': ['uebelkeit'],
+  'veg-schuettelfrost': ['schuettelfrost', 'nachtschweiss', 'schwitzen'], 'veg-uebelkeit': ['uebelkeit', 'erbrechen'],
   'veg-ausscheidung': ['stuhl', 'miktion'],   // la mère seule : fréquence et aspect ne sont demandés que par la relance « Falls ja » (revue K2 m2, esprit d'INV-84)
   'veg-gewicht': ['gewicht'], 'veg-appetit': ['appetit'], 'veg-schlaf': ['schlaf'],
   // --- Vorerkrankungen, Medikamente, Allergien, Noxen, Familie & Sozial ---------
@@ -61,7 +61,7 @@ export const PROBE_SUCHT: Readonly<Record<string, Sucht>> = {
   // --- Frauenanamnese -----------------------------------------------------------
   'frau-periode': ['zyklus'], 'frau-schwanger': ['schwangerschaft'], 'frau-verhuetung': ['verhuetung'], 'frau-wechseljahre': ['wechseljahre'],
   // --- Fach Gastroenterologie ---------------------------------------------------
-  'fach-gastro-uebelkeit': ['uebelkeit'], 'fach-gastro-sodbrennen': ['sodbrennen'], 'fach-gastro-voelle': ['voellegefuehl'],
+  'fach-gastro-uebelkeit': ['uebelkeit', 'erbrechen'], 'fach-gastro-sodbrennen': ['sodbrennen'], 'fach-gastro-voelle': ['voellegefuehl'],
   'fach-gastro-speisen': ['speisen', 'essen_expo'], 'fach-gastro-stuhl': ['stuhl', 'stuhlaussehen', 'stuhl_blut'],   // K2 : « Welche Farbe (blutig, teerschwarz, hell) » = l'aspect des selles (D1)
   'fach-gastro-tenesmen': ['tenesmen'],
   'fach-gastro-spiegelung': ['spiegelung'],
@@ -100,7 +100,7 @@ export const PROBE_SUCHT: Readonly<Record<string, Sucht>> = {
   'fach-ortho-schwellung': ['gelenk_entzuendung', 'haematome'], 'fach-ortho-belastung': ['belastbarkeit'], 'fach-ortho-vorgeschichte': ['ortho_vorgeschichte'],
   // --- Fach Rheumatologie -------------------------------------------------------
   'fach-rheuma-gelenke': ['gelenke'], 'fach-rheuma-morgensteifigkeit': ['steifigkeit'], 'fach-rheuma-entzuendung': ['gelenk_entzuendung'],
-  'fach-rheuma-verlauf': ['beginn_art'], 'fach-rheuma-ausloeser': ['ausloeser'], 'fach-rheuma-haut': ['ausschlag'],   // fach-rheuma-verlauf, « plötzlich und anfallsartig, oder langsam » : le MODE de début (K3), pas la date d'akt-beginn
+  'fach-rheuma-verlauf': ['beginn_art'], 'fach-rheuma-ausloeser': ['ausloeser', 'gicht_ausloeser'], 'fach-rheuma-haut': ['ausschlag'],   // fach-rheuma-verlauf, « plötzlich und anfallsartig, oder langsam » : le MODE de début (K3), pas la date d'akt-beginn
   'fach-rheuma-systemisch': ['fieber', 'augenentzuendung', 'ulzera', 'stuhl'], 'fach-rheuma-vorgeschichte': ['frueher'],   // K3 (revue P2) : systemisch sans `ausschlag`, la peau est demandée par fach-rheuma-haut
   // --- Fach Neurologie ----------------------------------------------------------
   'fach-neuro-sehen': ['sehstoerung'], 'fach-neuro-sensibilitaet': ['taubheit'], 'fach-neuro-kraft': ['schwaeche'],
@@ -112,7 +112,7 @@ export const PROBE_SUCHT: Readonly<Record<string, Sucht>> = {
   'fach-endo-durst': ['durst', 'polyurie', 'nykturie'], 'fach-endo-gewicht': ['gewicht', 'appetit'],
   'fach-endo-temperatur': ['schwitzen', 'temperaturtoleranz'], 'fach-endo-herz-nerven': ['herzrasen', 'tremor', 'unruhe', 'antrieb', 'muedigkeit'],
   'fach-endo-hals': ['halsschwellung', 'schluck', 'stimme'], 'fach-endo-augen': ['augenveraenderung', 'sehstoerung'],
-  'fach-endo-haut-haare': ['haut_haare'], 'fach-endo-unterzucker': ['hypoglykaemie'],
+  'fach-endo-haut-haare': ['haut_haare', 'wundheilung'], 'fach-endo-unterzucker': ['hypoglykaemie'],
   'fach-endo-folgeschaeden': ['taubheit', 'sehstoerung', 'nierenprobleme'], 'fach-endo-familie-therapie': ['familie_endokrin', 'endokrine_therapie'],
   // --- Fach Hämatologie ---------------------------------------------------------
   'fach-haem-leistung': ['muedigkeit', 'leistung', 'blaesse'], 'fach-haem-belastung': ['atemnot', 'herzrasen', 'schwindel'],

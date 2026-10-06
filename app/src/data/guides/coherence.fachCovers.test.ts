@@ -23,8 +23,8 @@ const GARDEES: Record<string, Raison> = {
   'fach-gefaess-schwellung -> akt-veraend-entwicklung': 'signe-distinct',
   'fach-gefaess-schwellung -> akt-veraend-was': 'signe-distinct',
   'fach-gyn-blutung -> akt-veraend-was': 'signe-distinct',
-  'fach-gyn-brust -> akt-veraend-was': 'non-reduit',
-  'fach-haem-lymphknoten -> akt-veraend-was': 'non-reduit',
+  'fach-gyn-brust -> akt-veraend-was': 'reduit',          // K4 : les parts d'akt-veraend-was (avant : non réduite)
+  'fach-haem-lymphknoten -> akt-veraend-was': 'reduit',   // K4 : idem
   'fach-kardio-herzrasen -> akt-anfall-ablauf': 'signe-distinct',
   'fach-neuro-aura -> akt-anfall-ablauf': 'signe-distinct',
   'fach-neuro-koordination -> akt-neuro-lage': 'signe-distinct',
@@ -36,8 +36,10 @@ const GARDEES: Record<string, Raison> = {
   'fach-haem-blutung -> akt-veraend-blutung': 'reduit',
   'fach-haem-blutverlust -> akt-veraend-blutung': 'reduit',
   'fach-onko-blutung -> akt-veraend-blutung': 'reduit',
-  'fach-onko-knoten -> akt-veraend-was': 'non-reduit',
-  'fach-neuro-kraft -> akt-nerven-alltag': 'non-reduit',
+  'fach-onko-knoten -> akt-veraend-was': 'reduit',        // K4 : les parts d'akt-veraend-was
+  // K4 : aucun signe commun (schwaeche ≠ feinmotorik, sturz) ; « non réduite » tenait au signe `sturz` de la Fach neuro, que
+  // les parts d'akt-nerven-alltag laissent désormais retirer.
+  'fach-neuro-kraft -> akt-nerven-alltag': 'signe-distinct',
   // Signe partagé, la perdante a des `parts` : réduite à ce que la Fach ne demande pas (Appetit, Durst).
   'fach-haem-bsymptomatik -> akt-allgemein-gewicht': 'reduit',
   // D4-bis (décision de main, revue P1-1) : le signe du motif (la dyspnée d'un tableau dyspnéique) se pose dans Aktuelle

@@ -147,9 +147,9 @@ export function unitesDe(rows, lire = () => [], connu = () => true) {
     if (ECARTE.has(r.ch)) continue;
     rank++;
     // K1 : une phrase du GUIDE (une sonde) est DÉCLARÉE (`PROBE_SUCHT`, `followUpSucht`) — la déclaration remplace la
-    // lecture du texte, une relance sans déclaration hérite du signe de sa mère. Une question du CAS se lit encore
-    // (K4), complétée de son `sucht` s'il y en a un.
-    const decl = !!r.probes?.length && !r.cs;
+    // lecture du texte, une relance sans déclaration hérite du signe de sa mère. K4 : une question du CAS déclarée se
+    // mesure de même par sa déclaration ; muette (sans `sucht`), elle se lit encore.
+    const decl = r.cs ? !!r.sucht?.length : !!r.probes?.length;
     const ms = decl ? new Set() : signesDe(r.text, { mother: true, ch: r.ch }, lire);
     for (const s of r.sucht ?? []) if (connu(s)) ms.add(s);
     const fus = (r.fu ?? []).map((f, i) => ({
@@ -222,9 +222,23 @@ export function mesurerCas(c, lex, qo = []) {
   });
   for (const h of qo) ord.push({ at: 'Q0', why: `détecteur de présupposition : ${h}` });
   const muettes = units.filter((u) => u.cs && !u.declared).length;
+  // (f) K4 fixeur (revue I-2), INFORMATIF : doublon MASQUÉ — une question du cas déclarée dont le texte nomme un signe qu'elle ne
+  // déclare pas, et qu'une SONDE jouée cherche. La règle d'identité (§10.1) porte sur la question : si elle pose ce que la sonde pose,
+  // elle doit le déclarer (r2 tranche). Lecture du texte (≈ 55–74 %) : une liste à relire, pas une porte, pas de plancher (K5).
+  const affine = lex.SIGNE_AFFINE ?? {};
+  const masques = [];
+  for (const u of units) {
+    if (!u.cs || !u.declared || !CHAPITRES_MESURES.has(u.ch)) continue;
+    const couvert = new Set([...u.ms].flatMap((x) => [x, ...(affine[x] ?? [])]));
+    for (const s of signesDe(u.text, { mother: true, ch: u.ch }, lex.symptomsInText ?? (() => []))) {
+      if (couvert.has(s) || !(s in lex.SIGNE_DEF)) continue;
+      const sonde = units.find((v) => v !== u && !v.cs && v.probe !== '-' && v.all.has(s));
+      if (sonde) masques.push({ s, at: `#${u.rank} ${u.ch}:CAS`, autre: `#${sonde.rank} ${sonde.ch}:${sonde.probe}`, why: `la question du cas nomme « ${s} » sans le déclarer ; ${sonde.probe} le cherche` });
+    }
+  }
   return {
     id: c.id, specialty: c.specialty, kat: c.kategorie, n: units.length, profil, units,
-    dup, dupCas, imp, miss, ajoutSansReponse, fu, fuCond, fuLarge, ord, muettes, casTotal: units.filter((u) => u.cs).length,
+    dup, dupCas, imp, miss, ajoutSansReponse, fu, fuCond, fuLarge, ord, muettes, masques, casTotal: units.filter((u) => u.cs).length,
     score: dup.length + imp.length + miss.length + fu.length + ord.length,
   };
 }
@@ -277,5 +291,7 @@ export function totaux(results, { sondesMuettes }) {
     a: brut.doublons, b: brut.horsProfil, c: brut.exigeAbsent,
     d: sum((r) => r.fu.length), dDetachables: sum((r) => r.fu.filter((x) => !x.cond).length), dCondLarge: sum((r) => r.fuCond.length), dLarge: sum((r) => r.fuLarge), e: brut.brauchtViole,
   };
-  return { brut, residu, spec };
+  // K4 fixeur : informatif, hors plancher (`brut` / `residu`) — `doublonsMasques` devient une porte au plus tôt en K5.
+  const info = { doublonsMasques: sum((r) => r.masques.length) };
+  return { brut, residu, spec, info };
 }

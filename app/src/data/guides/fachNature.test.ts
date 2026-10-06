@@ -2,7 +2,8 @@ import { describe, expect, it } from 'vitest';
 import { seedCases } from '@/data/seedCases';
 import { buildRollenskript } from '@/lib/rolePlay';
 import { fachChapterForCase, playedTrame } from './anamneseChapters';
-import { phraseAlts, phraseFollowUp, phraseProbes, phraseText, type Phrase } from './phrases';
+import { phraseAlts, phraseFollowUp, phraseFollowUps, phraseProbes, phraseText, type Phrase } from './phrases';
+import { phraseSucht } from './symptoms';
 import pairs from '../../../scripts/fixtures/fach-nature-pairs.json';
 
 // Série 3, lot L0 — la Fachanamnese jouée suit la NATURE du motif, pas
@@ -13,6 +14,12 @@ const byId = new Map(cases.map((c) => [c.id, c]));
 const fachQ = (id: string, probe: string): Phrase | undefined =>
   (fachChapterForCase(byId.get(`case-${id}`)!)?.chapter.questions ?? []).find((p) => phraseProbes(p).includes(probe));
 const allTexts = (q: Phrase) => [phraseText(q), ...phraseAlts(q), ...phraseFollowUp(q)];
+/** Les signes cherchés par la trame jouée du cas (une occurrence par question ou relance qui le déclare). */
+const cherches = (id: string): string[] => {
+  const { chapters, fach } = playedTrame(byId.get(`case-${id}`)!);
+  return chapters.flatMap((ch) => [...ch.questions, ...(fach && ch.id === 'aktuell' ? fach.chapter.questions : [])])
+    .flatMap((p) => [...phraseSucht(p), ...phraseFollowUps(p).flatMap((f) => f.sucht ?? [])]);
+};
 
 type Group = { probe: string; match?: string; in?: 'text' | 'all'; cases: string[]; kept?: Record<string, string> };
 
@@ -62,9 +69,16 @@ describe('Ortho : un seul membre, celui du cas', () => {
     expect(phraseFollowUp(q)).toEqual([]);
   });
   it('une chute garde ses relances (perte de connaissance, autres blessures)', () => {
-    const fu = phraseFollowUp(fachQ('schenkelhalsfraktur', 'fach-ortho-mechanismus')!).join(' ');
+    const fu = phraseFollowUp(fachQ('osg-fraktur', 'fach-ortho-mechanismus')!).join(' ');
     expect(fu).toMatch(/ohnmächtig/);
     expect(fu).toMatch(/woanders verletzt/);
+  });
+  it('K4 — schenkelhalsfraktur : le récit et la perte de connaissance sont posés par les questions du cas, la Fach garde « verletzt »', () => {
+    // revue K3 (doublons renvoyés à K4) : les questions du cas n° 0 et n° 1 cherchent `unfallhergang` et `bewusstlos` (rang 0).
+    const q = fachQ('schenkelhalsfraktur', 'fach-ortho-mechanismus')!;
+    expect(phraseText(q)).toMatch(/woanders verletzt/);
+    const signes = cherches('schenkelhalsfraktur');
+    for (const s of ['unfallhergang', 'bewusstlos', 'begleitverletzung']) expect(signes.filter((x) => x === s), s).toHaveLength(1);
   });
 });
 
@@ -82,8 +96,11 @@ describe('L’écran du simulant (Rollenskript) lit la question canonique : elle
 
 describe('Revue clinique L0', () => {
   it('la dissection garde la malperfusion du pied (« der linke Fuß fühlt sich kälter an »)', () => {
-    const q = fachQ('aortendissektion', 'fach-gefaess-wunde');
-    expect(q && phraseText(q)).toMatch(/Fuß kalt/);
+    // K4 : la question du cas n° 4 (« … oder fühlt sich ein Bein kalt an? ») cherche `durchblutung` ; elle l'emporte sur
+    // la Fach Gefäße (rang 0), qui n'est plus posée — la malperfusion reste demandée, une fois.
+    expect(cherches('aortendissektion').filter((x) => x === 'durchblutung')).toHaveLength(1);
+    const c = byId.get('case-aortendissektion')!;
+    expect(c.caseSpecificQuestions[4]).toMatchObject({ sucht: expect.arrayContaining(['durchblutung']) });
   });
   it('une seule question par réplique, même avec un seul « ? » (mécanisme, vaccination)', () => {
     const mech = fachQ('osg-fraktur', 'fach-ortho-mechanismus')!;

@@ -86,11 +86,17 @@ for (const t of THEMES) {
 // se rencontrent jamais dans une simulation, leurs recouvrements sont légitimes.
 const norm = (s) => s.toLowerCase().replace(/[^a-zäöüß ]/g, ' ').replace(/\s+/g, ' ').trim();
 const isFach = (id) => id.startsWith('fach:');
+// K4 (relecture de langue) : une même PART (`{ sucht, text }`) dans deux chapitres, qui déclare partout le même signe,
+// n'est posée qu'une fois par trame — `cohere` (r2 : un signe, une question) retire la seconde. Seule exception.
+const partSucht = new Map();
+for (const m of src.matchAll(/\{ sucht: \[([^\]]*)\], text: '((?:[^'\\]|\\.)*)'/g)) partSucht.set(m[2], [...(partSucht.get(m[2]) ?? []), m[1]]);
+const textOcc = (t) => src.split(`text: '${t}'`).length - 1;
+const partMemeSigne = (q) => { const s = partSucht.get(q); return !!s && s.length === textOcc(q) && new Set(s).size === 1; };
 const seen = new Map();
 for (const c of chapters) for (const q of c.questions) {
   const k = norm(q);
   const prev = seen.get(k);
-  const exclusive = !!prev && ((isFach(prev) && isFach(c.id)) || (isVariant(prev) && isVariant(c.id)));
+  const exclusive = !!prev && ((isFach(prev) && isFach(c.id)) || (isVariant(prev) && isVariant(c.id)) || partMemeSigne(q));
   if (prev && prev !== c.id && !exclusive) problems.push(`question répétée dans ${prev} et ${c.id} : « ${q.slice(0, 70)} »`);
   if (!prev || (!isFach(c.id) && !isVariant(c.id))) seen.set(k, c.id);
 }

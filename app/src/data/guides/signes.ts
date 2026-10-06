@@ -96,7 +96,10 @@ export const SUCHT_AUSSER: Partial<Record<ProbeId, Partial<Record<ProfilTag, Sig
 /** Granularité : un signe AFFINÉ couvre le signe plus grossier que le texte lit (« Stuhlgang » dans « Wie oft haben Sie Stuhlgang ? »
  *  est `stuhlfrequenz`, pas `stuhl`). Sert la porte (INV-79, discordance) ; l'identité reste celle de la fiche. */
 export const SIGNE_AFFINE: Partial<Record<Signe, readonly Signe[]>> = {
-  stuhlfrequenz: ['stuhl'], stuhlaussehen: ['stuhl'], stuhl_blut: ['stuhl', 'blutung', 'stuhlaussehen'], miktion_frequenz: ['miktion'], nykturie: ['miktion'], urin_aspekt: ['miktion'],
+  stuhlfrequenz: ['stuhl'], stuhlaussehen: ['stuhl'], stuhl_blut: ['stuhl', 'blutung', 'stuhlaussehen'], miktion_frequenz: ['miktion'], nykturie: ['miktion'],
+  // K4 : l'aspect des urines couvre le sang qu'on y cherche (« Falls Blut dabei war … ») ; le prurit GÉNÉRALISÉ (signe B, K3 § 8) affine la
+  // démangeaison que lit le texte ; le sang dans le sperme est un saignement.
+  urin_aspekt: ['miktion', 'blutung'], pruritus: ['juckreiz'], haematospermie: ['blutung'],
   // Revue K1 C5 : `blutung` est le signe que la LECTURE trouve ; chaque sonde déclare le saignement qu'elle cherche.
   blutungsneigung: ['blutung'], blutverlust: ['blutung'], vaginalblutung: ['blutung'], lokalblutung: ['blutung'],
   haemoptyse: ['blutung', 'husten'],   // « Blut beim Husten », « Husten Sie Blut ab ? »
@@ -104,6 +107,9 @@ export const SIGNE_AFFINE: Partial<Record<Signe, readonly Signe[]>> = {
   // La crise de panique se décrit par ses signes (« mit Luftnot, Herzrasen ») : ils la définissent, ils ne sont pas
   // demandés comme plaintes (revue K1 C4). Porte seulement : la mesure ne les compte pas comme cherchés.
   panikattacke: ['angst', 'atemnot', 'herzrasen'],
+  // K4 fixeur : vomir affine la lecture « übergeben / erbrechen » (lue `uebelkeit`) ; le désir de mort passif affine la lecture du
+  // risque suicidaire ; les crises nocturnes nomment le sommeil ; l'hématurie est un aspect des urines.
+  erbrechen: ['uebelkeit'], todeswunsch: ['suizid'], naechtliche_anfaelle: ['schlaf'], haematurie: ['urin_aspekt', 'blutung'],
 };
 
 /** Paires de discrimination (INV-78) : leurs `sucht` déclarés sont disjoints. Chaque lot qui touche le lexique en ajoute une. */

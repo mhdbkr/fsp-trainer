@@ -655,6 +655,14 @@ absorbé, par r2.
 - r3 lève une erreur si la sonde de banque n'a ni phrase de guide ni question (jamais un id
   affiché comme question).
 
+**Précision de K4 (revue mécanique I-1, décision de main) — le texte d'une `part`.** Une part
+est une **découpe** du texte de sa variante (la question, une relance ou une alternative de la
+même variante), avec au plus un **complément grammatical minimal** : un article, une flexion,
+une anaphore résolue par le nom qu'elle reprend dans la même variante — **sans aucune notion
+clinique nouvelle**. Tout autre texte est une question nouvelle : il relève du lot de contenu,
+pas d'une part. Les parts qui ne sont pas de pures sous-chaînes sont listées au rapport du lot
+qui les écrit, pour relecture de langue.
+
 **Sécurité (décision de main, K3).** Garantie opposable, testée : **tout signe
 de risque cherché par la trame brute reste cherché par au moins une question
 de la trame jouée**. `RISIKO_SIGNES` = `suizid`, `selbstverletzung` (l'acte),
