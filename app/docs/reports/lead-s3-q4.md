@@ -2,7 +2,7 @@
 
 Branche `feat/s3-q4-contenu`, base `origin/main` @ `0174bf6c`, puis fusion d'`origin/main` @ `ab235e57` (#85 S4-5 mergée) en `dcc2c3d2`. Contenu `98cb5d96` ; guide psy `b3423dc9` ; tests et gels de `cefa0f11` à `769af9eb` ; après fusion : `bf002ec3` (table unique des fréquences) et `d8c7d5e3` (ancre de mutation). **Statut : DONE_WITH_CONCERNS.** Tout est vert par code de sortie (§ 5). Les réserves sont au § 6 et dans « Non vérifié ». Une revue clinique doit suivre.
 
-Incident : le disque s'est rempli pendant la batterie (ENOSPC). Les bundles esbuild de mes scripts d'analyse restaient dans `$TMPDIR`. `main` les a supprimés, et j'ai retiré les dossiers `fsp-*` laissés par les check interrompus à 05:43. La batterie a été relancée en entier après coup (§ 5) : les 11 échecs simultanés venaient du disque, sauf `checkProbeOverlap`, qui échoue déjà sur main (§ 5).
+Incident : le disque s'est rempli pendant la batterie (ENOSPC). Les bundles esbuild de mes scripts d'analyse restaient dans `$TMPDIR`. `main` les a supprimés, et j'ai retiré les dossiers `fsp-*` laissés par les check interrompus à 05:43. La batterie a été relancée en entier après coup (§ 6) : les 11 échecs simultanés venaient du disque, sauf `checkProbeOverlap`, qui échoue déjà sur main (§ 6).
 
 ## 1. Composées d'`aktuell` — 47 traitées sur 25 cas
 
