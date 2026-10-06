@@ -27,4 +27,12 @@ describe('frequencesProtocoles — copie fidèle de la source', () => {
       expect(PATHOLOGIES[patho], `${cas} → ${patho}`).toBeDefined();
     }
   });
+
+  // S3-Q4 : le badge de fréquence (`Case.frequency`) lit cette table, il n'en tient pas une seconde.
+  it('Case.frequency = le total de la pathologie du cas, quand la source le compte', () => {
+    for (const c of seedCases()) {
+      const total = PATHOLOGIES[CAS_PATHOLOGIE[c.id]]?.total;
+      if (total != null) expect(c.frequency, c.id).toBe(total);
+    }
+  });
 });
