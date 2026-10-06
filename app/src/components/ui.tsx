@@ -2,6 +2,7 @@ import React from 'react';
 import type { Center, CaseStatus, Axis } from '@/db/types';
 import { scoreBand } from '@/lib/scoring';
 import { Icon } from './icons';
+import { FREQUENCE_PLANCHER } from '@/data/frequencesProtocoles';
 
 // ---------------------------------------------------------------- Badges & chips
 const CENTER_COLORS: Record<Center, string> = {
@@ -25,7 +26,9 @@ export function StatusBadge({ status }: { status: CaseStatus }) {
   return <span className={`chip ${STATUS_COLORS[status]}`}>{status}</span>;
 }
 
+/** S3-Q4 : aucun badge sans source — une fréquence au plancher (cas que la source ne compte pas) n'est pas affichée. */
 export function FreqBadge({ n }: { n: number }) {
+  if (n <= FREQUENCE_PLANCHER) return null;
   return (
     <span className="chip bg-brand-100 text-brand-700 dark:bg-brand-900/40 dark:text-brand-300" title={`${n} apparitions dans les protocoles`}>
       ×{n}

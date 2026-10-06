@@ -86,8 +86,8 @@ describe('Revue clinique Q0 — C-3 : le NOTFALL psy ne se déclenche pas sur un
     expect(notfall()).toHaveLength(1);
     expect(notfall()[0]).not.toMatch(/^Falls bejaht/);
   });
-  it('le parseur en fait un interrupteur lisible (« Konkrete Absicht oder Plan »), pas un « Ja » ni une note', () => {
-    expect(parseFollowUp(notfall()[0])).toMatchObject({ kind: 'ja', label: 'konkrete Absicht oder Plan' });
+  it('le parseur en fait un interrupteur lisible (« Konkrete Absicht, Plan oder Vorbereitungen »), pas un « Ja » ni une note', () => {
+    expect(parseFollowUp(notfall()[0])).toMatchObject({ kind: 'ja', label: 'konkrete Absicht, Plan oder Vorbereitungen' });
     expect(notfall()[0]).toMatch(/NOTFALL — der Patient bleibt stationär/);
   });
 });

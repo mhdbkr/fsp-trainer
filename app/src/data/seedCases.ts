@@ -1899,7 +1899,7 @@ export function seedCases(): Case[] {
         'Karlsruhe',
         'Freiburg',
       ],
-      frequency: 6,
+      frequency: 16,
       difficulty: 2,
       patientSheet: {
         profil: { tags: ['schmerz', 'hals', 'gastro'] },
@@ -2225,7 +2225,7 @@ export function seedCases(): Case[] {
         'Stuttgart',
         'Freiburg',
       ],
-      frequency: 15,
+      frequency: 12,
       difficulty: 3,
       patientSheet: {
         profil: { tags: ['allgemein', 'hals', 'gewichtsverlust', 'gastro'] },
@@ -2557,7 +2557,7 @@ export function seedCases(): Case[] {
         'Stuttgart',
         'Reutlingen',
       ],
-      frequency: 14,
+      frequency: 13,
       difficulty: 2,
       patientSheet: {
         profil: { tags: ['schmerz', 'fieber'] },
@@ -2895,7 +2895,7 @@ export function seedCases(): Case[] {
         'Reutlingen',
         'Freiburg',
       ],
-      frequency: 15,
+      frequency: 30,
       difficulty: 3,
       patientSheet: {
         profil: { tags: ['psychisch'] },
@@ -3024,7 +3024,7 @@ export function seedCases(): Case[] {
           'fach-psych-tagesverlauf': 'Morgens ist es am schlimmsten, da komme ich kaum aus dem Bett. Zum Abend hin wird es ein wenig besser.',
           'fach-psych-konzentration': 'Konzentrieren kann ich mich gar nicht mehr, und selbst kleine Entscheidungen überfordern mich völlig.',
           'fach-psych-angst': 'Ja, ich mache mir ständig Sorgen — um meine Kinder, um die Arbeit, um alles. Es kreist im Kopf, auch wenn objektiv nichts passiert ist. Richtige Panikattacken mit Luftnot oder Herzrasen hatte ich aber nicht.',
-          'fach-psych-suizid': 'Ehrlich gesagt denke ich manchmal, dass es egal wäre, ob ich morgens noch aufwache. Einen richtigen Plan, mir etwas anzutun, habe ich aber nicht, und meiner Frau und den Kindern würde ich das nicht antun. Ich würde mich melden, wenn es schlimmer wird. Versucht, mir etwas anzutun, habe ich noch nie.',
+          'fach-psych-suizid': 'Ehrlich gesagt denke ich manchmal, dass es egal wäre, ob ich morgens noch aufwache. Einen richtigen Plan, mir etwas anzutun, habe ich aber nicht, und meiner Frau und den Kindern würde ich das nicht antun. Vorbereitet habe ich nichts. Ich würde mich melden, wenn es schlimmer wird. Versucht, mir etwas anzutun, habe ich noch nie.',
           'fach-psych-ausloeser': 'Ja, meine Schwester ist vor drei Monaten an Leukämie gestorben. Wir standen uns sehr nah; seitdem bin ich wie in einem tiefen Loch.',
           'fach-psych-frueher': 'Nein, so etwas hatte ich noch nie, und ich war deswegen auch noch nie in Behandlung oder habe Medikamente dagegen genommen.',
         },
@@ -3594,7 +3594,7 @@ export function seedCases(): Case[] {
         'Karlsruhe',
         'Stuttgart',
       ],
-      frequency: 14,
+      frequency: 13,
       difficulty: 2,
       patientSheet: {
         profil: { tags: ['schmerz', 'fieber', 'stein', 'harn'] },
@@ -3949,7 +3949,7 @@ export function seedCases(): Case[] {
         'Reutlingen',
         'Freiburg',
       ],
-      frequency: 20,
+      frequency: 18,
       difficulty: 2,
       patientSheet: {
         profil: { tags: ['schmerz'] },
@@ -4278,7 +4278,7 @@ export function seedCases(): Case[] {
         'Freiburg',
         'Karlsruhe',
       ],
-      frequency: 17,
+      frequency: 16,
       difficulty: 3,
       patientSheet: {
         profil: { tags: ['infekt', 'lyme', 'fieber'] },   // 3e revue B1 : « leicht erhöhte Temperatur » est dans le motif (D4-bis)
@@ -4668,7 +4668,7 @@ export function seedCases(): Case[] {
         'Stuttgart',
         'Freiburg',
       ],
-      frequency: 12,
+      frequency: 10,
       difficulty: 2,
       patientSheet: {
         profil: { tags: ['schmerz', 'gelenk'] },
@@ -5289,7 +5289,7 @@ export function seedCases(): Case[] {
         'Freiburg',
         'Stuttgart',
       ],
-      frequency: 22,
+      frequency: 14,
       difficulty: 2,
       patientSheet: {
         profil: { tags: ['schmerz', 'gelenk', 'arthritis', 'gicht'] },
@@ -5751,7 +5751,7 @@ export function seedCases(): Case[] {
         'Reutlingen',
         'Stuttgart',
       ],
-      frequency: 9,
+      frequency: 10,
       difficulty: 3,
       patientSheet: {
         profil: { tags: ['nerven', 'hals', 'lyme'] },
@@ -6201,7 +6201,7 @@ export function seedCases(): Case[] {
         'Karlsruhe',
         'Reutlingen',
       ],
-      frequency: 7,
+      frequency: 10,
       difficulty: 3,
       patientSheet: {
         profil: { tags: ['schmerz', 'transit', 'gastro', 'gelenk'] },
@@ -6693,7 +6693,7 @@ export function seedCases(): Case[] {
         'Freiburg',
         'Stuttgart',
       ],
-      frequency: 8,
+      frequency: 1,
       difficulty: 3,
       patientSheet: {
         profil: { tags: ['neurologisch', 'hals'] },
@@ -7363,7 +7363,7 @@ export function seedCases(): Case[] {
         'Stuttgart',
         'Reutlingen',
       ],
-      frequency: 25,
+      frequency: 8,
       difficulty: 2,
       patientSheet: {
         profil: { tags: ['veraenderung', 'schmerz'] },
@@ -7737,7 +7737,7 @@ export function seedCases(): Case[] {
         'Karlsruhe',
         'Reutlingen',
       ],
-      frequency: 8,
+      frequency: 6,
       difficulty: 2,
       patientSheet: {
         profil: { tags: ['allgemein', 'gewichtsverlust', 'endo'] },
@@ -8838,7 +8838,7 @@ export function seedCases(): Case[] {
         'Stuttgart',
         'Reutlingen',
       ],
-      frequency: 6,
+      frequency: 4,
       difficulty: 3,
       patientSheet: {
         profil: { tags: ['atemnot', 'dyspnoe', 'husten', 'kardio'] },
@@ -9399,7 +9399,7 @@ export function seedCases(): Case[] {
         'Stuttgart',
         'Reutlingen',
       ],
-      frequency: 0,
+      frequency: 1,
       difficulty: 2,
       patientSheet: {
         profil: { tags: ['ausscheidung', 'schmerz', 'stein', 'harn'] },
@@ -9928,7 +9928,7 @@ export function seedCases(): Case[] {
         'Karlsruhe',
         'Stuttgart',
       ],
-      frequency: 7,
+      frequency: 6,
       difficulty: 2,
       patientSheet: {
         profil: { tags: ['schmerz'] },
@@ -10491,7 +10491,7 @@ export function seedCases(): Case[] {
         'Stuttgart',
         'Freiburg',
       ],
-      frequency: 3,
+      frequency: 6,
       difficulty: 2,
       patientSheet: {
         profil: { tags: ['atemnot', 'dyspnoe', 'husten'] },
@@ -11095,7 +11095,7 @@ export function seedCases(): Case[] {
         'Stuttgart',
         'Complément',
       ],
-      frequency: 3,
+      frequency: 1,
       difficulty: 3,
       patientSheet: {
         profil: { tags: ['atemnot', 'dyspnoe', 'husten', 'kardio'] },
@@ -11661,7 +11661,7 @@ export function seedCases(): Case[] {
         'Stuttgart',
         'Karlsruhe',
       ],
-      frequency: 13,
+      frequency: 1,
       difficulty: 3,
       patientSheet: {
         profil: { tags: ['schmerz', 'fieber', 'stein', 'harn'] },
@@ -12220,7 +12220,7 @@ export function seedCases(): Case[] {
         'Reutlingen',
         'Freiburg',
       ],
-      frequency: 3,
+      frequency: 1,
       difficulty: 2,
       patientSheet: {
         profil: { tags: ['schmerz', 'fieber', 'dysphagie', 'hals'] },
@@ -12739,7 +12739,7 @@ export function seedCases(): Case[] {
       centers: [
         'Complément',
       ],
-      frequency: 0,
+      frequency: 1,
       difficulty: 2,
       patientSheet: {
         profil: { tags: ['allgemein', 'dyspnoe', 'gewichtsverlust', 'haem'] },
@@ -13267,7 +13267,7 @@ export function seedCases(): Case[] {
         'Reutlingen',
         'Complément',
       ],
-      frequency: 8,
+      frequency: 1,
       difficulty: 3,
       patientSheet: {
         profil: { tags: ['anfall', 'dyspnoe', 'kardio'], exclut: { zungenbiss: 'keine Synkope', einnaessen: 'keine Synkope' } },
@@ -13792,7 +13792,7 @@ export function seedCases(): Case[] {
       centers: [
         'Complément',
       ],
-      frequency: 0,
+      frequency: 1,
       difficulty: 2,
       patientSheet: {
         profil: { tags: ['veraenderung', 'schmerz', 'fieber'] },
@@ -14331,7 +14331,7 @@ export function seedCases(): Case[] {
       centers: [
         'Complément',
       ],
-      frequency: 0,
+      frequency: 6,
       difficulty: 2,
       patientSheet: {
         profil: { tags: ['allgemein', 'hals', 'endo'] },
@@ -14883,7 +14883,7 @@ export function seedCases(): Case[] {
       centers: [
         'Complément',
       ],
-      frequency: 0,
+      frequency: 1,
       difficulty: 3,
       patientSheet: {
         profil: { tags: ['allgemein', 'dyspnoe', 'gewichtsverlust', 'harn'] },
@@ -15437,7 +15437,7 @@ export function seedCases(): Case[] {
         'Freiburg',
         'Stuttgart',
       ],
-      frequency: 4,
+      frequency: 1,
       difficulty: 3,
       patientSheet: {
         profil: { tags: ['veraenderung', 'fieber', 'hals', 'lyme', 'gewichtsverlust', 'onko'] },
@@ -15997,7 +15997,7 @@ export function seedCases(): Case[] {
         'Karlsruhe',
         'Freiburg',
       ],
-      frequency: 14,
+      frequency: 4,
       difficulty: 3,
       patientSheet: {
         profil: { tags: ['atemnot', 'dyspnoe', 'husten'] },
@@ -16548,7 +16548,7 @@ export function seedCases(): Case[] {
         'Karlsruhe',
         'Stuttgart',
       ],
-      frequency: 9,
+      frequency: 1,
       difficulty: 3,
       patientSheet: {
         profil: { tags: ['schmerz'] },
@@ -17079,7 +17079,7 @@ export function seedCases(): Case[] {
       centers: [
         'Complément',
       ],
-      frequency: 0,
+      frequency: 1,
       difficulty: 3,
       patientSheet: {
         profil: { tags: ['schmerz', 'fieber', 'meningitis', 'lyme'] },
@@ -17597,7 +17597,7 @@ export function seedCases(): Case[] {
       centers: [
         'Reutlingen',
       ],
-      frequency: 3,
+      frequency: 1,
       difficulty: 3,
       patientSheet: {
         profil: { tags: ['ausscheidung', 'gewichtsverlust', 'onko'] },
@@ -18146,7 +18146,7 @@ export function seedCases(): Case[] {
       centers: [
         'Complément',
       ],
-      frequency: 0,
+      frequency: 1,
       difficulty: 2,
       patientSheet: {
         profil: { tags: ['schmerz'] },
@@ -19185,7 +19185,7 @@ export function seedCases(): Case[] {
         'Freiburg',
         'Stuttgart',
       ],
-      frequency: 6,
+      frequency: 7,
       difficulty: 2,
       patientSheet: {
         profil: { tags: ['ausscheidung', 'stein', 'harn'] },
@@ -19745,7 +19745,7 @@ export function seedCases(): Case[] {
       centers: [
         'Karlsruhe',
       ],
-      frequency: 2,
+      frequency: 1,
       difficulty: 3,
       patientSheet: {
         profil: { tags: ['psychisch', 'gewichtsverlust'] },
@@ -19900,7 +19900,7 @@ export function seedCases(): Case[] {
           'fach-psych-tagesverlauf': 'Morgens geht es mir eigentlich am besten. Gegen Abend werde ich unruhig und komme durcheinander. Morgens schlechter — nein, im Gegenteil.',
           'fach-psych-konzentration': 'Bei einem Gespräch komme ich mit, ich bin ja wach und bei mir. Aber behalten kann ich es nicht. Rechnen fällt mir schwer — die Überweisungen bekomme ich nicht mehr hin, deshalb liegen die Rechnungen.',
           'fach-psych-angst': 'Ängstlich bin ich eigentlich nicht. Nur wenn ich merke, dass ich etwas nicht mehr finde oder nicht mehr weiß, dann wird mir mulmig, und ich gehe lieber nicht mehr allein aus dem Haus. Herzrasen oder Luftnot hatte ich dabei nie.',
-          'fach-psych-suizid': 'Nein. So weit war ich nie. Ich möchte niemandem zur Last fallen, aber mir etwas antun — nein, das kommt nicht in Frage. Und schuld an irgendetwas fühle ich mich auch nicht. Ich habe auch nie versucht, mir das Leben zu nehmen.',
+          'fach-psych-suizid': 'Nein. So weit war ich nie. Ich möchte niemandem zur Last fallen, aber mir etwas antun — nein, das kommt nicht in Frage. Vorbereitet habe ich nichts. Und schuld an irgendetwas fühle ich mich auch nicht. Ich habe auch nie versucht, mir das Leben zu nehmen.',
           'fach-psych-ausloeser': 'Der Tod meiner Frau vor sechs Jahren, das war der Einschnitt. Und dass die Leute um einen herum weniger werden. Sonst ist nichts passiert — kein Unfall, kein Streit, kein Umzug, kein Geldproblem.',
           'fach-psych-frueher': 'Nein, wegen der Nerven war ich nie in Behandlung. Keine Depression, keine Psychotherapie, keine Tabletten dafür. Ich war immer ein ruhiger, ordentlicher Mensch.',
         },
@@ -20343,7 +20343,7 @@ export function seedCases(): Case[] {
         'Karlsruhe',
         'Reutlingen',
       ],
-      frequency: 6,
+      frequency: 1,
       difficulty: 3,
       patientSheet: {
         profil: { tags: ['veraenderung', 'dyspnoe', 'hals', 'gewichtsverlust', 'onko'] },
@@ -20953,7 +20953,7 @@ export function seedCases(): Case[] {
       centers: [
         'Complément',
       ],
-      frequency: 0,
+      frequency: 1,
       difficulty: 3,
       patientSheet: {
         profil: { tags: ['veraenderung'] },
@@ -21275,7 +21275,7 @@ export function seedCases(): Case[] {
         { frage: 'Sind Sie an der Brust gestürzt, gestoßen, operiert oder bestrahlt worden?', kapitel: 'vorerkrankungen', sucht: ['brust_vorgeschichte'] },
         { frage: 'In welchem Alter hatten Sie Ihre erste Regel?', kapitel: 'frauenanamnese', sucht: ['menarche'] },
         { frage: 'Haben Sie schon einmal gestillt?', kapitel: 'fach', sucht: ['stillen'] },
-        { frage: 'Gibt es in Ihrer Familie Brustkrebs oder Eierstockkrebs?', kapitel: 'familie-sozial', sucht: ['familie_krebs'], followUp: 'Falls ja: In welchem Alter sind die Angehörigen erkrankt?' },
+        { frage: 'Gibt es in Ihrer Familie Brustkrebs oder Eierstockkrebs?', kapitel: 'familie-sozial', sucht: ['familie_krebs'], followUp: 'Falls ja: In welchem Alter sind die Angehörigen erkrankt?', followUps: ['Falls ja: Gab es solche Erkrankungen nur in der Familie Ihrer Mutter, oder auch in der Familie Ihres Vaters?'] },
         { frage: 'Haben Sie Knochenschmerzen oder Husten bemerkt, die neu aufgetreten sind?', kapitel: 'vegetativ', sucht: ['knochenschmerz', 'husten'] },
       ],
       examinerQuestions: [
@@ -21481,7 +21481,7 @@ export function seedCases(): Case[] {
         'Reutlingen',
         'Freiburg',
       ],
-      frequency: 8,
+      frequency: 1,
       difficulty: 2,
       patientSheet: {
         profil: { tags: ['schmerz', 'gelenk', 'arthritis', 'steifigkeit', 'gicht', 'lyme'] },
@@ -21993,7 +21993,7 @@ export function seedCases(): Case[] {
         'Reutlingen',
         'Freiburg',
       ],
-      frequency: 3,
+      frequency: 5,
       difficulty: 2,
       patientSheet: {
         profil: { tags: ['schmerz', 'diarrhoe', 'steifigkeit', 'gewichtsverlust', 'gastro'] },
@@ -22128,7 +22128,7 @@ export function seedCases(): Case[] {
           'akt-einfluss': 'Schlimmer eine halbe bis eine Stunde nach dem Essen, vor allem nach Fettigem und Milch. Besser nach der Toilette und mit Wärmflasche. Buscopan hilft etwas, Ibuprofen macht es eher schlimmer.',
           'akt-frueher': 'Nein, so etwas hatte ich noch nie. Als Kind hatte ich nie Probleme mit dem Bauch.',
           'akt-begleit': 'Der Durchfall vor allem, vier- bis sechsmal am Tag, auch nachts. Ständig müde, manchmal 37,8. Morgens tut das Kreuz weh. (leiser) Und … beim Abputzen ist manchmal etwas Blut am Papier.',
-          'veg-fieber': 'Ja, leicht. Ich habe mehrmals gemessen, meistens 37,5 bis 37,8 — richtig hohes Fieber hatte ich nie. Im Ausland war ich vor sechs Monaten, zwei Wochen Pauschalurlaub in Ägypten.',
+          'veg-fieber': 'Ja, leicht. Ich habe mehrmals gemessen, meistens 37,5 bis 37,8 — richtig hohes Fieber hatte ich nie.',
           'veg-schuettelfrost': 'Schüttelfrost nicht. Aber nachts schwitze ich manchmal so, dass ich das T-Shirt wechseln muss — nicht jede Nacht, vielleicht zweimal die Woche.',
           'veg-uebelkeit': 'Übel ist mir immer wieder, besonders wenn die Krämpfe kommen. Erbrochen habe ich nicht, weder Blut noch etwas wie Kaffeesatz.',
           'veg-ausscheidung': 'Der Stuhlgang ist das Hauptproblem: vier- bis sechsmal am Tag, breiig bis wässrig, nie schwarz. Blut nur am Papier beim Abputzen. Wasserlassen muss ich in letzter Zeit häufiger.',
@@ -22347,7 +22347,7 @@ export function seedCases(): Case[] {
         { frage: 'Haben Sie Blut IM Stuhl gesehen, oder nur AM Toilettenpapier beim Abputzen?', kapitel: 'aktuell', sucht: ['stuhl_blut'], followUp: 'Brennt es beim Stuhlgang?' },
         { frage: 'Müssen Sie auch nachts wegen des Durchfalls aufstehen?', kapitel: 'aktuell', sucht: ['stuhl_nachts'] },
         { frage: 'Ist Ihr Stuhl fettig-glänzend und schwer abzuspülen?', kapitel: 'aktuell', sucht: ['stuhlaussehen'] },
-        { frage: 'Waren Sie in den letzten Monaten im Ausland?', kapitel: 'vegetativ', sucht: ['reise'], relu: true, followUp: 'Falls ja: Hatten Sie dort Durchfall?' },
+        { frage: 'Waren Sie in den letzten Monaten im Ausland?', kapitel: 'vegetativ', sucht: ['reise'], relu: true, followUp: 'Falls ja: Wo genau waren Sie?', followUps: ['Falls ja: Wie lange waren Sie dort?', 'Falls ja: Hatten Sie dort Durchfall?'] },
         { frage: 'Haben Sie in den letzten Monaten Antibiotika eingenommen?', kapitel: 'medikamente', sucht: ['antibiotika'] },
         { frage: 'Haben Sie schmerzhafte Stellen im Mund, Hautveränderungen an den Schienbeinen, gerötete oder schmerzende Augen?', kapitel: 'aktuell', sucht: ['ulzera', 'ausschlag', 'augenentzuendung'] },
         { frage: 'Haben Sie morgens Rückenschmerzen mit Steifigkeit, die sich durch Bewegung bessern?', kapitel: 'aktuell', sucht: ['entzuendlicher_rueckenschmerz'] },
@@ -22520,7 +22520,7 @@ export function seedCases(): Case[] {
       centers: [
         'Reutlingen',
       ],
-      frequency: 8,
+      frequency: 7,
       difficulty: 2,
       patientSheet: {
         profil: { tags: ['nerven'] },
@@ -22869,7 +22869,7 @@ export function seedCases(): Case[] {
       ],
       caseSpecificQuestions: [
         { frage: 'Welche Finger genau schlafen Ihnen ein — ist der kleine Finger auch betroffen, oder bleibt er frei?', kapitel: 'aktuell', sucht: ['ort'] },
-        { frage: 'Wachen Sie nachts von den Beschwerden auf?', kapitel: 'aktuell', sucht: ['tageszeit'], followUp: 'Falls ja: Wie oft in einer Nacht?' },
+        { frage: 'Wachen Sie nachts von den Beschwerden auf?', kapitel: 'aktuell', sucht: ['tageszeit'], followUp: 'Falls ja: Wie oft in einer Nacht?', followUps: ['Falls ja: Um welche Uhrzeit wachen Sie meistens auf?'] },
         { frage: 'Welche Hand ist stärker betroffen — rechts oder links?', kapitel: 'aktuell', sucht: ['haendigkeit'], followUp: 'Welche ist Ihre Schreibhand?' },
         { frage: 'Fällt Ihnen im Vergleich beider Hände auf, dass der Muskel am Daumenballen dünner geworden ist?', kapitel: 'aktuell', sucht: ['atrophie'] },
         { frage: 'Wie viele Stunden am Tag arbeiten Sie an der Drehscheibe und kneten Sie Ton? Hat sich die Belastung in den letzten Monaten verändert?', kapitel: 'familie-sozial', sucht: ['berufliche_belastung'] },
@@ -23230,7 +23230,7 @@ export function seedCases(): Case[] {
           'fach-psych-schlaf': 'Einschlafen dauert lange, ich grüble. Und zweimal bin ich nachts mit Herzrasen und Luftnot hochgeschreckt, ohne Albtraum. Früh aufwachen tue ich nicht, das ist es nicht.',
           'fach-psych-tagesverlauf': 'Morgens ist es nicht schlimmer, im Gegenteil, da geht es mir oft ganz gut — schlimm wird es, sobald ich das Haus verlassen muss, und abends, wenn ich zur Ruhe komme und anfange nachzudenken.',
           'fach-psych-konzentration': 'Nicht mehr so gut. Ich vergesse Sachen, ich bin ständig damit beschäftigt, in mich hineinzuhorchen und meinen Puls zu fühlen. Entscheidungen fallen mir schwer.',
-          'fach-psych-suizid': '(schaut auf, erschrocken) Nein. Nein, so etwas denke ich nicht. Ich habe zwei kleine Kinder, die brauchen mich. Ich will ja gerade nicht sterben — ich habe doch bei jedem Anfall Todesangst. Ich möchte einfach wieder normal leben. Und versucht, mir das Leben zu nehmen — nein, nie.',
+          'fach-psych-suizid': '(schaut auf, erschrocken) Nein. Nein, so etwas denke ich nicht. Ich habe zwei kleine Kinder, die brauchen mich. Ich will ja gerade nicht sterben — ich habe doch bei jedem Anfall Todesangst. Ich möchte einfach wieder normal leben. Vorbereitet habe ich nichts. Und versucht, mir das Leben zu nehmen — nein, nie.',
           'fach-psych-ausloeser': 'Verloren habe ich niemanden, einen Unfall hatte ich nie. Aber es ist viel zusammengekommen, die Schwiegermutter seit einem Jahr. Der erste Anfall kam ein halbes Jahr danach.',
           'fach-psych-frueher': 'Nein, so etwas hatte ich noch nie, und in psychologischer Behandlung war ich auch nie. Medikamente für die Nerven habe ich nie genommen. (leiser) Meine Mutter allerdings, die nimmt seit Jahren Beruhigungstabletten.',
           'frau-periode': 'Ja, meine Regel ist regelmäßig, alle 28 Tage. Die letzte war vor zwei Wochen.',
@@ -23631,7 +23631,7 @@ export function seedCases(): Case[] {
         'Reutlingen',
         'Stuttgart',
       ],
-      frequency: 7,
+      frequency: 1,
       difficulty: 3,
       patientSheet: {
         profil: { tags: ['ausscheidung', 'stein', 'gewichtsverlust', 'harn'] },
@@ -24186,7 +24186,7 @@ export function seedCases(): Case[] {
       centers: [
         'Complément',
       ],
-      frequency: 0,
+      frequency: 1,
       difficulty: 2,
       patientSheet: {
         profil: { tags: ['ausscheidung', 'reise', 'gelenk', 'gewichtsverlust'] },
@@ -24699,7 +24699,7 @@ export function seedCases(): Case[] {
       centers: [
         'Complément',
       ],
-      frequency: 0,
+      frequency: 1,
       difficulty: 2,
       patientSheet: {
         profil: { tags: ['nerven', 'hals'] },
@@ -25261,7 +25261,7 @@ export function seedCases(): Case[] {
         'Stuttgart',
         'Karlsruhe',
       ],
-      frequency: 5,
+      frequency: 6,
       difficulty: 2,
       patientSheet: {
         profil: { tags: ['schmerz', 'gelenk', 'steifigkeit'] },
@@ -25826,7 +25826,7 @@ export function seedCases(): Case[] {
         'Stuttgart',
         'Complément',
       ],
-      frequency: 2,
+      frequency: 6,
       difficulty: 2,
       patientSheet: {
         profil: { tags: ['veraenderung', 'dysphagie', 'hals', 'endo'] },
@@ -26347,7 +26347,7 @@ export function seedCases(): Case[] {
       centers: [
         'Complément',
       ],
-      frequency: 0,
+      frequency: 1,
       difficulty: 2,
       patientSheet: {
         profil: { tags: ['schmerz', 'fieber', 'meningitis'] },
@@ -26871,7 +26871,7 @@ export function seedCases(): Case[] {
       centers: [
         'Complément',
       ],
-      frequency: 0,
+      frequency: 1,
       difficulty: 3,
       patientSheet: {
         profil: { tags: ['schmerz', 'transit'] },
@@ -27453,7 +27453,7 @@ export function seedCases(): Case[] {
       centers: [
         'Complément',
       ],
-      frequency: 0,
+      frequency: 1,
       difficulty: 2,
       patientSheet: {
         profil: { tags: ['neurologisch', 'hals', 'schwindel'] },   // K5 : le motif est le vertige (D4-bis, MOTIF_DECLARE)
@@ -28479,7 +28479,7 @@ export function seedCases(): Case[] {
         'Karlsruhe',
         'Freiburg',
       ],
-      frequency: 6,
+      frequency: 7,
       difficulty: 2,
       patientSheet: {
         profil: { tags: ['schmerz', 'diarrhoe', 'gewichtsverlust', 'gastro'] },
@@ -28628,11 +28628,11 @@ export function seedCases(): Case[] {
           'fach-gastro-sodbrennen': 'Nein, Sodbrennen habe ich nicht, saures Aufstoßen auch nicht. Und Schluckbeschwerden habe ich keine, das Essen bleibt nicht stecken.',
           'fach-gastro-voelle': 'Doch, das schon: Der Bauch ist ständig gebläht und gespannt, wie ein Ballon, und ich habe sehr viele Winde. Nach dem Essen fühle ich mich schnell voll.',
           'fach-gastro-speisen': 'Ja! Nach Brot ist es am schlimmsten, so nach zwei, drei Stunden. Nudeln, Kuchen, alles aus Weizenmehl. Bei Kartoffeln, Reis, Fleisch und Gemüse habe ich fast nichts. Milch macht mir nichts, Kaffee auch nicht. Auf das Bier reagiere ich, glaube ich, auch — aber das habe ich nie ernst genommen.',
-          'fach-gastro-stuhl': 'Drei- bis viermal am Tag, breiig bis wässrig, sehr voluminös, grau und fettig-glänzend. Er schwimmt oben und klebt in der Schüssel, ich bekomme ihn kaum weggespült. Der Geruch ist wirklich übel. Blut ist nicht dabei, schwarz ist er nicht, Schleim auch nicht. Und nachts muss ich nicht raus.',
+          'fach-gastro-stuhl': 'Breiig bis wässrig und sehr voluminös. Der Geruch ist wirklich übel. Blut ist nicht dabei, schwarz ist er nicht, Schleim auch nicht.',
           'fach-gastro-tenesmen': 'Nein, Schmerzen beim Stuhlgang habe ich nicht. Und dieses ständige Drücken, dass ich müsste und es kommt nichts — das kenne ich nicht.',
           'fach-gastro-spiegelung': 'Nein, gespiegelt wurde bei mir noch nie, weder oben noch unten. Bei der Gallenblasen-Operation haben sie mit der Kamera durch den Bauch geschaut, aber das ist ja etwas anderes.',
           // K2 (ADR-0023) : réponses des sondes de banque que le profil exige (r3)
-          'akt-ausscheid-haeufigkeit': 'Drei- bis viermal am Tag. Nachts muss ich deswegen nicht aufstehen.',
+          'akt-ausscheid-haeufigkeit': 'Drei- bis viermal am Tag.',
         },
         schwierigeReaktionen: [
           '„Muss ich denn hier bleiben? Ich habe einen Hof, die Kühe müssen gemolken werden.“',
@@ -28839,10 +28839,10 @@ export function seedCases(): Case[] {
       ],
       caseSpecificQuestions: [
         { frage: 'Ist Ihr Stuhl fettig-glänzend, schwimmt er oben, oder klebt er in der Toilette?', kapitel: 'aktuell', sucht: ['stuhlaussehen'] },
-        { frage: 'Reagieren Sie eher auf Brot, Nudeln und Kuchen, oder eher auf Milch und Milchprodukte?', kapitel: 'aktuell', sucht: ['speisen', 'unvertraeglichkeit'] },
+        { frage: 'Reagieren Sie auch auf Milch und Milchprodukte?', kapitel: 'aktuell', sucht: ['speisen', 'unvertraeglichkeit'] },
         { frage: 'Haben Sie von sich aus bereits begonnen, bestimmte Lebensmittel wegzulassen — zum Beispiel Brot oder Mehlprodukte?', kapitel: 'aktuell', sucht: ['diaet'] },
         { frage: 'Müssen Sie auch nachts zum Stuhlgang aufstehen?', kapitel: 'aktuell', relu: true, sucht: ['stuhl_nachts'] },
-        { frage: 'Haben Sie stark juckende Bläschen oder Hautausschläge, besonders an Ellenbogen, Knien oder am Gesäß?', kapitel: 'aktuell', sucht: ['ausschlag', 'juckreiz'] },
+        { frage: 'Haben Sie stark juckende Bläschen oder Hautausschläge bemerkt?', kapitel: 'aktuell', sucht: ['ausschlag', 'juckreiz'], followUp: 'Falls ja: An welchen Stellen — etwa an Ellenbogen oder Knien?' },
         { frage: 'Leiden Sie an wiederkehrenden Aphthen im Mund, an brüchigen Nägeln oder an Knochenschmerzen?', kapitel: 'aktuell', sucht: ['ulzera', 'haut_haare', 'knochenschmerz'] },
         { frage: 'Sind bei Ihnen Blutarmut oder Eisenmangel bekannt, und hat eine Eisentablette jemals nicht angeschlagen?', kapitel: 'vorerkrankungen', sucht: ['anaemie_vorgeschichte'] },
         { frage: 'Gibt es in Ihrer Familie Schilddrüsenerkrankungen, Typ-1-Diabetes, Darmkrebs oder eine bekannte Glutenunverträglichkeit?', kapitel: 'familie-sozial', sucht: ['familie_endokrin', 'familie_krebs', 'familie_aehnlich'] },
@@ -29062,7 +29062,7 @@ export function seedCases(): Case[] {
         'Karlsruhe',
         'Stuttgart',
       ],
-      frequency: 6,
+      frequency: 7,
       difficulty: 2,
       patientSheet: {
         profil: { tags: ['schmerz', 'gelenk', 'anfall'] },
@@ -29642,7 +29642,7 @@ export function seedCases(): Case[] {
       centers: [
         'Complément',
       ],
-      frequency: 0,
+      frequency: 1,
       difficulty: 2,
       patientSheet: {
         profil: { tags: ['veraenderung'] },
@@ -29769,7 +29769,7 @@ export function seedCases(): Case[] {
           'akt-verlauf': 'Es ist immer da, aber unterschiedlich stark. Morgens geht es, im Lauf des Tages wird das Bein immer schwerer, abends ist es am schlimmsten. Nachts im Bett merke ich fast nichts.',
           'akt-ausloeser': 'Einen richtigen Auslöser gab es nicht. Kein Sturz, kein Stoß, kein Insektenstich. Es fing einfach an einer Stelle an, wo die Haut schon lange bräunlich und dünn war.',
           'akt-einfluss': 'Schlimmer bei langem Stehen und Sitzen, und bei Wärme. Beine hochlegen hilft wirklich deutlich. Zinksalbe aus der Apotheke hat nichts gebracht, seitdem juckt es sogar drumherum.',
-          'akt-frueher': 'So eine offene Stelle hatte ich noch nie. Aber die dicken, schweren Beine habe ich schon seit Jahren, und die braune Verfärbung am Knöchel auch. Mein Hausarzt hat mir deswegen schon vor Jahren Kompressionsstrümpfe verschrieben.',
+          'akt-frueher': 'So eine offene Stelle hatte ich noch nie. Aber die dicken, schweren Beine habe ich schon seit Jahren, und die braune Verfärbung am Knöchel auch.',
           'akt-begleit': 'Beide Unterschenkel schwellen tagsüber an, rechts mehr. Die Haut an den Knöcheln ist braun, und die Wunde riecht und nässt so, dass die Kompresse jeden Tag durch ist. Nachts Wadenkrämpfe.',
           'veg-fieber': 'Nein, Fieber habe ich nicht, ich habe gemessen: 36,8. Im Ausland war ich seit Jahren nicht mehr.',
           'veg-schuettelfrost': 'Nein, Schüttelfrost hatte ich nicht, Nachtschweiß auch nicht.',
@@ -30004,7 +30004,7 @@ export function seedCases(): Case[] {
         { frage: 'Schwellen Ihre Beine im Lauf des Tages an und sind sie morgens wieder schlanker?', kapitel: 'aktuell', sucht: ['oedeme'] },
         { frage: 'Wissen Sie noch, wie die Wunde entstanden ist — gab es eine Verletzung, oder ist die Haut von selbst aufgegangen?', kapitel: 'aktuell', sucht: ['ausloeser'] },
         { frage: 'Womit haben Sie die Wunde bisher behandelt, und hat sich die Haut rings um die Wunde verändert, seit Sie diese Salbe benutzen?', kapitel: 'aktuell', sucht: ['vorbehandlung'] },
-        { frage: 'Wurden Ihnen Kompressionsstrümpfe verordnet — und tragen Sie sie regelmäßig? Falls nicht, woran liegt es?', kapitel: 'aktuell', sucht: ['kompression'] },
+        { frage: 'Wurden Ihnen Kompressionsstrümpfe verordnet?', kapitel: 'aktuell', sucht: ['kompression'], followUp: 'Falls ja: Tragen Sie sie regelmäßig?', followUps: ['Falls Sie sie nicht regelmäßig tragen: Woran liegt das?'] },
         { frage: 'Ist bei Ihnen ein Diabetes bekannt, oder haben Sie ein Kribbeln, ein Taubheitsgefühl oder eine schmerzlose Stelle an den Fußsohlen?', kapitel: 'vorerkrankungen', sucht: ['diabetes_bekannt', 'taubheit'] },
       ],
       examinerQuestions: [
@@ -30191,7 +30191,7 @@ export function seedCases(): Case[] {
       centers: [
         'Complément',
       ],
-      frequency: 0,
+      frequency: 1,
       difficulty: 2,
       patientSheet: {
         profil: { tags: ['veraenderung', 'schmerz'] },
@@ -30304,11 +30304,11 @@ export function seedCases(): Case[] {
           'akt-veraend-was': 'Aufgefallen ist mir eben diese Beule in der Leiste. Hautveränderungen oder blaue Flecken habe ich da keine, und mit Schlucken, Stuhlgang oder Gelbfärbung hat das nichts zu tun.',
           'akt-veraend-entwicklung': 'Größer geworden ist sie auf jeden Fall, von kirschgroß auf jetzt fast hühnereigroß. Die Farbe hat sich nicht verändert, nur eben die Größe.',
           'akt-veraend-blutung': 'Weh tut sie, wie gesagt, vor allem beim Heben und abends, und vor drei Tagen war es richtig schlimm. Jucken tut sie nicht, und geblutet hat da nie etwas.',
-          'akt-verlauf': 'Die Beule ist nicht immer gleich groß. Morgens, wenn ich aufstehe, ist sie fast weg. Im Laufe des Tages kommt sie heraus, abends ist sie am größten. Wenn ich mich hinlege, geht sie von allein zurück, und ich kann sie auch vorsichtig mit der Hand hineindrücken.',
+          'akt-verlauf': 'Die Beule ist nicht immer gleich groß. Morgens, wenn ich aufstehe, ist sie fast weg. Im Laufe des Tages kommt sie heraus, abends ist sie am größten.',
           'akt-ausloeser': 'Angefangen hat es, als ich auf der Arbeit eine Palette Fliesen umgeräumt habe — danach war die Beule da. Gestürzt bin ich nicht, und beim Sport verletzt habe ich mich auch nicht.',
           'akt-einfluss': 'Schlimmer wird es beim Stehen, beim Heben, beim Husten und beim Pressen auf der Toilette — dann drückt es richtig heraus. Besser wird es im Liegen, dann ist die Beule weg. Ibuprofen 400 nehme ich manchmal, das hilft aber kaum.',
           'akt-frueher': 'So etwas hatte ich noch nie. Und beim Arzt war ich deswegen bisher nicht — ich dachte immer, das gibt sich wieder.',
-          'akt-begleit': 'Vor drei Tagen, nach dem Heben, ging die Beule plötzlich nicht mehr zurück. Sie war hart, tat weh, mir wurde übel. Nach etwa einer Stunde im Liegen ist sie doch wieder reingerutscht.',
+          'akt-begleit': 'Sonst ist mir eigentlich nichts aufgefallen.',
           'veg-fieber': 'Nein, Fieber habe ich nicht, ich habe heute Morgen gemessen: 36,8. Im Ausland war ich zuletzt vor zwei Jahren, in Österreich.',
           'veg-schuettelfrost': 'Nein, Schüttelfrost habe ich keinen, und Nachtschweiß auch nicht.',
           'veg-uebelkeit': 'Im Moment ist mir nicht übel, und erbrochen habe ich nicht. Nur bei dieser Episode vor drei Tagen war mir eine Stunde lang richtig flau im Magen.',
@@ -30338,10 +30338,17 @@ export function seedCases(): Case[] {
           'fach-chir-op': 'Ja, am Bauch bin ich einmal operiert worden: der Blinddarm, mit 19, offen aufgeschnitten. Die Narbe sieht man rechts unten am Bauch. Sonst habe ich keine Narben.',
           'fach-chir-gallensteine': 'Gallensteine wurden bei mir nie festgestellt. Aber ein Leistenbruch — ja, genau deswegen bin ich hier, das ist ja diese Beule rechts. Bei meinem Vater war es dasselbe.',
           // K2 (ADR-0023) : réponses des sondes de banque que le profil exige (r3)
-          'akt-ort': 'Hier in der rechten Leiste, direkt über der Beule. Manchmal zieht es bis in den rechten Hoden hinunter.',
+          'akt-ort': 'Hier in der rechten Leiste, direkt über der Beule.',
           'akt-charakter': 'Es zieht und drückt, als ob da ein Fremdkörper drin wäre. Stechend oder krampfartig ist es nicht.',
           'akt-intensitaet': 'In Ruhe so drei bis vier von zehn, beim schweren Heben bis sechs. Vor drei Tagen war es einmal kurz eine Acht.',
         },
+        frageAntworten: [
+          {
+            frage: 'War die Beule irgendwann einmal hart, sehr schmerzhaft und ließ sich nicht mehr zurückdrücken?',
+            antwort: 'Ja, vor drei Tagen, nach dem Heben, ging die Beule plötzlich nicht mehr zurück. Sie war hart und tat weh. Nach etwa einer Stunde im Liegen ist sie doch wieder reingerutscht.',
+            kapitel: 'aktuell',
+          },
+        ],
         schwierigeReaktionen: [
           '„Muss das wirklich operiert werden? Kann man das nicht mit so einem Bruchband richten? Mein Großvater hatte auch so eins.“',
           '„Ich kann jetzt nicht ausfallen, Herr Doktor. Wenn ich vier Wochen nichts heben darf, verliere ich meine Stelle.“',
@@ -30501,7 +30508,7 @@ export function seedCases(): Case[] {
       ],
       caseSpecificQuestions: [
         { frage: 'Wird die Beule beim Stehen, beim Husten oder beim Heben größer — und geht sie zurück, wenn Sie sich hinlegen?', kapitel: 'aktuell', sucht: ['einfluss'], relu: true },
-        { frage: 'Können Sie die Schwellung mit der Hand zurückschieben? Geht das immer, oder ging es schon einmal nicht mehr?', kapitel: 'aktuell', sucht: ['reponierbarkeit'] },
+        { frage: 'Können Sie die Schwellung mit der Hand zurückschieben?', kapitel: 'aktuell', sucht: ['reponierbarkeit'] },
         { frage: 'War die Beule irgendwann einmal hart, sehr schmerzhaft und ließ sich nicht mehr zurückdrücken?', kapitel: 'aktuell', sucht: ['inkarzeration'], followUp: 'Falls ja: Wie lange ging das?' },
         { frage: 'Hatten Sie in dieser Zeit Erbrechen, Stuhlverhalt oder gingen keine Winde mehr ab? War der Bauch aufgebläht?', kapitel: 'vegetativ', sucht: ['erbrechen', 'windabgang', 'voellegefuehl'] },
         { frage: 'Zieht der Schmerz bei Ihnen bis in den Hodensack hinunter?', kapitel: 'aktuell', sucht: ['ausstrahlung'] },
@@ -30672,7 +30679,7 @@ export function seedCases(): Case[] {
         'Reutlingen',
         'Freiburg',
       ],
-      frequency: 6,
+      frequency: 4,
       difficulty: 3,
       patientSheet: {
         profil: { tags: ['psychisch', 'gastro'] },
@@ -30817,7 +30824,7 @@ export function seedCases(): Case[] {
           'fach-psych-tagesverlauf': 'Morgens ist es am schlimmsten — Zittern, Übelkeit, Unruhe, alles zusammen. Im Laufe des Tages wird es besser. Aber ehrlich gesagt weiß ich nicht, ob das an der Tageszeit liegt oder daran, dass ich dann was getrunken habe.',
           'fach-psych-konzentration': 'Ich bin fahrig. Bei der Arbeit muss ich mich an der Maschine konzentrieren, und da vergesse ich in letzter Zeit Sachen. Entscheidungen fallen mir schwer.',
           'fach-psych-angst': 'Ja, diese innere Unruhe ist wie Angst, ohne dass etwas passiert. Manchmal klopft das Herz und ich bekomme schlecht Luft, so fünf, zehn Minuten. Und ich habe Angst vor dem, was noch kommt — vor der Arbeit, vor den Kindern.',
-          'fach-psych-suizid': '(schweigt kurz) Umbringen? Nein. Aber es gab Abende, da habe ich gedacht, so hat das alles keinen Sinn mehr. Einen Plan habe ich nicht, und ich würde das auch nicht machen — wegen meiner Kinder. Versucht habe ich nie etwas.',
+          'fach-psych-suizid': '(schweigt kurz) Umbringen? Nein. Aber es gab Abende, da habe ich gedacht, so hat das alles keinen Sinn mehr. Einen Plan habe ich nicht, und ich würde das auch nicht machen — wegen meiner Kinder. Vorbereitet habe ich nichts. Versucht habe ich nie etwas.',
           'fach-psych-ausloeser': 'Die Scheidung vor drei Jahren, das war der Bruch. Danach die Wohnung allein, die Kinder nur alle zwei Wochen. Und auf der Arbeit ist der Druck größer geworden. Getrunken habe ich vorher auch, aber danach ist es entgleist.',
           'fach-psych-frueher': 'In psychiatrischer Behandlung war ich nie, Tabletten für die Psyche habe ich nie genommen. Einmal war ich nach der Scheidung bei einer Suchtberatung, ein Termin, dann bin ich nicht mehr hin. Und einen Entzug habe ich nie richtig gemacht — außer damals im Krankenhaus, ungewollt.',
         },
@@ -31224,7 +31231,7 @@ export function seedCases(): Case[] {
         'Freiburg',
         'Stuttgart',
       ],
-      frequency: 16,
+      frequency: 1,
       difficulty: 2,
       patientSheet: {
         profil: { tags: ['neurologisch', 'schmerz', 'sturz'] },   // K5 : consulte après une chute (D4-bis, MOTIF_DECLARE)
@@ -31337,13 +31344,13 @@ export function seedCases(): Case[] {
           'akt-motiv': 'Ich bin heute Nachmittag mit dem Fahrrad gestürzt. Jetzt tut mir der Kopf weh, mir ist übel — und das Schlimmste: Ich weiß nicht mehr, wie ich auf den Boden gekommen bin. Das macht mir Angst.',
           'akt-beginn': 'Seit dem Sturz, das war heute gegen halb vier, also vor ungefähr einer Stunde. Ganz plötzlich. Vorher hatte ich überhaupt nichts.',
           'akt-neuro-ausfall': 'Schwach oder taub bin ich nirgends, das nicht. Aber ich bin langsamer im Kopf, ich muss oft nachfragen und kann mich schlecht konzentrieren. Mit dem Sprechen, Sehen oder Gehen ist sonst nichts, ich laufe normal.',
-          'akt-neuro-dauer': 'Die Erinnerungslücke war so um die zehn Minuten, sagt man mir. Bewusstlos war ich wohl auch kurz, etwa eine Minute. Die Kopfschmerzen und die Übelkeit sind immer noch da, das ist noch nicht weg.',
+          'akt-neuro-dauer': 'Die Erinnerungslücke war so um die zehn Minuten, sagt man mir. Die Kopfschmerzen und die Übelkeit sind immer noch da, das ist noch nicht weg.',
           'akt-neuro-lage': 'Beim Aufstehen wird mir schwindelig und ich schwanke ein bisschen, das ist aber kein Drehschwindel, eher so ein benommenes Gefühl. Beim Hinlegen und in Ruhe ist es eigentlich am erträglichsten.',
           'akt-verlauf': 'Der Kopfschmerz ist die ganze Zeit da, seit dem Sturz gleich stark. Er ist nicht schlimmer geworden, und Pausen macht er auch nicht.',
-          'akt-ausloeser': 'Ich bin mit dem Rad heimgefahren, ein Kind lief auf die Straße, ich habe voll gebremst — das ist das Letzte, woran ich mich erinnere. Helm hatte ich auf, der ist zerbrochen. Ich soll etwa eine Minute weg gewesen sein.',
+          'akt-ausloeser': 'Ich bin mit dem Rad heimgefahren, ein Kind lief auf die Straße, ich habe voll gebremst.',
           'akt-einfluss': 'Schlimmer wird es durch Licht, Lärm, Bücken und wenn ich den Kopf schnell drehe. Besser wird es, wenn ich die Augen zumache und es ruhig und dunkel ist. Eingenommen habe ich bisher nichts.',
           'akt-frueher': 'Nein, so etwas hatte ich noch nie. Ich hatte noch nie eine Kopfverletzung und noch nie eine Gehirnerschütterung. Gelegentlich habe ich Spannungskopfschmerzen bei Stress, etwa einmal im Monat — die fühlen sich ganz anders an und gehen mit einer Paracetamol wieder weg.',
-          'akt-begleit': 'Mir ist übel, einmal habe ich mich im Rettungswagen übergeben. Beim Aufstehen ist mir schwindelig, und ich bin lichtempfindlich. Ich kann mich schlecht konzentrieren und muss ständig nachfragen. Und die linke Schulter und die linke Seite vom Brustkorb tun beim Atmen weh, da bin ich draufgefallen.',
+          'akt-begleit': 'Mir ist übel. Beim Aufstehen ist mir schwindelig, und ich bin lichtempfindlich. Ich kann mich schlecht konzentrieren und muss ständig nachfragen. Und die linke Schulter und die linke Seite vom Brustkorb tun beim Atmen weh, da bin ich draufgefallen.',
           'veg-fieber': 'Nein, Fieber habe ich nicht. Im Ausland war ich zuletzt im Sommer, in Österreich.',
           'veg-schuettelfrost': 'Nein, Schüttelfrost und Nachtschweiß habe ich nicht. Kalt geschwitzt habe ich vor dem Sturz auch nicht — das würde ich merken, ich kenne das von einer Unterzuckerung.',
           'veg-uebelkeit': 'Ja, mir ist seit dem Sturz durchgehend übel. Einmal habe ich mich übergeben, im Rettungswagen, es war nur Mageninhalt, kein Blut. Seitdem nicht mehr.',
@@ -31387,7 +31394,7 @@ export function seedCases(): Case[] {
           // K2 (ADR-0023) : réponses des sondes de banque que le profil exige (r3)
           'akt-ort': 'Eigentlich im ganzen Kopf, am meisten links oben, da, wo die Beule ist. Ein bisschen zieht es auch in den Nacken.',
           'akt-charakter': 'Dumpf und drückend, wie ein Reifen um den Kopf. Direkt an der Beule sticht es, wenn ich sie berühre.',
-          'akt-intensitaet': 'Ungefähr fünf von zehn. Seit dem Sturz gleich stark, mehr geworden ist es nicht.',
+          'akt-intensitaet': 'Ungefähr fünf von zehn.',
         },
         schwierigeReaktionen: [
           '"Kann ich nicht einfach nach Hause? Ich habe morgen früh Unterricht, die Klasse kann ich nicht hängen lassen."',
@@ -31561,14 +31568,17 @@ export function seedCases(): Case[] {
         'auf-roentgen-thorax',
       ],
       caseSpecificQuestions: [
-        { frage: 'Was ist das Letzte, woran Sie sich erinnern — und was ist das Nächste, woran Sie sich wieder erinnern?', kapitel: 'aktuell', sucht: ['anfallszeichen'] },
-        { frage: 'Waren Sie bewusstlos, und wie lange? Hat jemand den Sturz beobachtet und kann uns das sagen?', kapitel: 'aktuell', sucht: ['bewusstlos', 'fremdanamnese'], relu: true },
+        { frage: 'Was ist das Letzte, woran Sie sich erinnern?', kapitel: 'aktuell', sucht: ['anfallszeichen'], followUp: 'Was ist das Nächste, woran Sie sich wieder erinnern?' },
+        { frage: 'Waren Sie bewusstlos?', kapitel: 'aktuell', sucht: ['bewusstlos'], followUp: 'Falls ja: Wie lange?' },
+        { frage: 'Hat jemand den Sturz beobachtet und kann uns das sagen?', kapitel: 'aktuell', sucht: ['fremdanamnese'], relu: true },
         { frage: 'Haben Sie einen Helm getragen, und ist er beschädigt oder zerbrochen?', kapitel: 'aktuell', sucht: ['helm'] },
         { frage: 'Ist Ihnen vor dem Sturz schwarz vor Augen geworden, waren Sie schwindelig, haben Sie geschwitzt oder Herzrasen gehabt — sind Sie gestürzt, weil Ihnen schlecht wurde, oder wurde Ihnen schlecht, weil Sie gestürzt sind?', kapitel: 'aktuell', sucht: ['unfallhergang', 'prodromi'], relu: true },
         { frage: 'Wann haben Sie zuletzt gegessen?', kapitel: 'vorerkrankungen', sucht: ['nuechternheit'] },
         { frage: 'Was hat Ihr Zuckersensor kurz vor dem Unfall angezeigt?', kapitel: 'vorerkrankungen', sucht: ['hypoglykaemie'] },
-        { frage: 'Mussten Sie sich übergeben — einmal oder mehrfach? Wird der Kopfschmerz stärker?', kapitel: 'aktuell', sucht: ['erbrechen', 'entwicklung'], relu: true },
-        { frage: 'Läuft aus Nase oder Ohr Blut oder klare Flüssigkeit? Sehen Sie Doppelbilder?', kapitel: 'aktuell', sucht: ['liquorrhoe', 'sehstoerung'] },
+        { frage: 'Mussten Sie sich übergeben — einmal oder mehrfach?', kapitel: 'aktuell', sucht: ['erbrechen'] },
+        { frage: 'Wird der Kopfschmerz stärker?', kapitel: 'aktuell', sucht: ['entwicklung'], relu: true },
+        { frage: 'Läuft aus Nase oder Ohr Blut oder klare Flüssigkeit?', kapitel: 'aktuell', sucht: ['liquorrhoe'] },
+        { frage: 'Sehen Sie Doppelbilder?', kapitel: 'aktuell', sucht: ['sehstoerung'] },
         { frage: 'Wer ist heute Nacht bei Ihnen zu Hause und könnte Sie überwachen?', kapitel: 'familie-sozial', sucht: ['hilfe_zuhause'] },
       ],
       examinerQuestions: [
@@ -31747,7 +31757,7 @@ export function seedCases(): Case[] {
       centers: [
         'Complément',
       ],
-      frequency: 0,
+      frequency: 1,
       difficulty: 3,
       patientSheet: {
         profil: { tags: ['veraenderung', 'haem'] },
@@ -32112,7 +32122,8 @@ export function seedCases(): Case[] {
         { frage: 'Ist Ihre letzte Regelblutung stärker oder länger gewesen als sonst?', kapitel: 'frauenanamnese', sucht: ['vaginalblutung'], followUp: 'Falls ja: Wie viele Binden oder Tampons haben Sie gebraucht?' },
         { frage: 'Hatten Sie in den letzten Wochen einen Infekt, eine Erkältung oder eine Impfung?', kapitel: 'vorerkrankungen', sucht: ['vorinfekt', 'impfung'] },
         { frage: 'Haben Sie in den letzten Monaten Spritzen in den Bauch bekommen, zum Beispiel Thrombosespritzen nach einer Operation?', kapitel: 'medikamente', sucht: ['thromboseprophylaxe'] },
-        { frage: 'Haben Sie Kopfschmerzen, Erbrechen, Sehstörungen oder Schwindel bemerkt?', kapitel: 'aktuell', sucht: ['kopfschmerz', 'erbrechen', 'sehstoerung', 'schwindel'] },
+        { frage: 'Haben Sie Kopfschmerzen, oder mussten Sie sich übergeben?', kapitel: 'aktuell', sucht: ['kopfschmerz', 'erbrechen'] },
+        { frage: 'Haben Sie Sehstörungen oder Schwindel bemerkt?', kapitel: 'aktuell', sucht: ['sehstoerung', 'schwindel'] },
       ],
       examinerQuestions: [
         'Frau Kollegin, stellen Sie uns bitte die Patientin vor. Wie lautet Ihre Verdachtsdiagnose?',
@@ -32420,13 +32431,13 @@ export function seedCases(): Case[] {
           'akt-motiv': 'Frau Doktor, meine Regelblutung ist im letzten Jahr immer stärker geworden. Inzwischen blute ich neun Tage lang und so heftig, dass ich mich an den ersten Tagen kaum aus dem Haus traue. Und ich bin dauernd müde.',
           'akt-beginn': 'Angefangen hat es vor etwa einem Jahr, ganz langsam. In den letzten drei, vier Monaten ist es deutlich schlimmer geworden.',
           'akt-veraend-was': 'Aufgefallen ist mir vor allem die Blutung — die ist viel stärker und länger geworden, mit Klumpen dabei. Knoten oder Hautveränderungen habe ich nicht bemerkt, und gelb bin ich auch nicht geworden.',
-          'akt-veraend-entwicklung': 'Ja, es ist schlimmer geworden, vor allem in den letzten drei, vier Monaten. Und der Bauch ist dicker geworden, obwohl mein Gewicht gleich geblieben ist.',
+          'akt-veraend-entwicklung': 'Ja, es ist schlimmer geworden, vor allem in den letzten drei, vier Monaten.',
           'akt-veraend-blutung': 'Weh tut es während der Blutung schon, richtig krampfartig. Jucken tut da nichts. Blut im Stuhl, im Urin oder aus der Nase habe ich noch nie gehabt, nur eben die starke Regelblutung.',
           'akt-verlauf': 'Es kommt mit der Blutung, also alle 26 Tage, und ist in den ersten drei, vier Tagen am schlimmsten. Der Druck im Bauch ist eigentlich immer da. Insgesamt wird es langsam schlechter, nicht plötzlich.',
           'akt-ausloeser': 'Einen richtigen Auslöser gibt es nicht, es hängt nur mit der Blutung zusammen. Gestürzt bin ich nicht, einen Unfall hatte ich auch nicht, und etwas Neues eingenommen habe ich außer den Eisentabletten nichts.',
           'akt-einfluss': 'Schlimmer wird es, wenn ich lange stehe oder schwer hebe — bei der Arbeit also ständig. Besser wird es mit einer Wärmflasche, wenn ich mich hinlege, und mit Ibuprofen 400. Davon nehme ich in den ersten Tagen bis zu vier Tabletten. Es hilft, aber längst nicht mehr so gut wie früher.',
           'akt-frueher': 'So etwas hatte ich früher nie, meine Periode war regelmäßig und gut auszuhalten. Vor einem halben Jahr hat meine Frauenärztin im Ultraschall mehrere Myome gesehen, das größte fünf Zentimeter. Sie meinte, wir beobachten das erst einmal.',
-          'akt-begleit': 'Ja: Ich bin ständig müde, die Treppe in den dritten Stock schaffe ich kaum ohne Pause, manchmal ist mir schwindelig. Ich muss viel öfter auf die Toilette, und mein Bauch ist dicker geworden.',
+          'akt-begleit': 'Ja — mein Bauch ist dicker geworden, die Hosen kneifen, obwohl mein Gewicht gleich geblieben ist.',
           'veg-fieber': 'Nein, Fieber habe ich nicht, und Nachtschweiß auch nicht. Im Ausland war ich zuletzt vor zwei Jahren.',
           'veg-schuettelfrost': 'Nein, Schüttelfrost hatte ich nicht.',
           'veg-uebelkeit': 'Nein, übel ist mir nicht und erbrochen habe ich nicht. Nur wenn die Krämpfe sehr stark sind, wird mir kurz etwas flau.',
@@ -32655,11 +32666,13 @@ export function seedCases(): Case[] {
         'auf-mrt',
       ],
       caseSpecificQuestions: [
-        { frage: 'Wie lange dauert Ihre Blutung, und wie viele Binden oder Tampons brauchen Sie an den starken Tagen? Müssen Sie auch nachts wechseln?', kapitel: 'aktuell', sucht: ['blutungsstaerke'] },
+        { frage: 'Wie viele Binden oder Tampons brauchen Sie an den starken Tagen?', kapitel: 'aktuell', sucht: ['blutungsstaerke'], followUp: 'Müssen Sie auch nachts die Binde oder den Tampon wechseln?' },
         { frage: 'Gehen bei Ihnen dabei Blutklumpen ab — wie groß sind die etwa?', kapitel: 'aktuell', sucht: ['blutklumpen'] },
-        { frage: 'Müssen Sie häufiger Wasser lassen als früher, auch nachts? Haben Sie das Gefühl, die Blase nicht ganz zu entleeren?', kapitel: 'aktuell', sucht: ['miktion_frequenz', 'nykturie', 'restharn'] },
+        { frage: 'Müssen Sie häufiger Wasser lassen als früher, auch nachts?', kapitel: 'aktuell', sucht: ['miktion_frequenz', 'nykturie'] },
+        { frage: 'Haben Sie das Gefühl, die Blase nicht ganz zu entleeren?', kapitel: 'aktuell', sucht: ['restharn'] },
         { frage: 'Sind Sie schneller müde als früher, kommen Sie beim Treppensteigen außer Atem, ist Ihnen schwindelig?', kapitel: 'aktuell', sucht: ['muedigkeit', 'atemnot', 'schwindel'] },
-        { frage: 'Hatten Sie schon als junges Mädchen sehr starke Blutungen? Bluten Sie leicht aus der Nase oder am Zahnfleisch, bekommen Sie schnell blaue Flecken?', kapitel: 'aktuell', sucht: ['blutungsneigung', 'haematome'] },
+        { frage: 'Hatten Sie schon als junges Mädchen sehr starke Blutungen?', kapitel: 'aktuell', sucht: ['blutungsneigung'], followUp: 'Bluten Sie leicht aus der Nase oder am Zahnfleisch?' },
+        { frage: 'Bekommen Sie schnell blaue Flecken?', kapitel: 'aktuell', sucht: ['haematome'] },
       ],
       examinerQuestions: [
         'Herr Kollege, stellen Sie uns bitte die Patientin vor. Wie lautet Ihre Verdachtsdiagnose?',
@@ -32925,7 +32938,7 @@ export function seedCases(): Case[] {
         antworten: {
           'pers-name': 'Hoffmann, Werner Hoffmann. H-o-f-f-m-a-n-n.',
           'pers-alter': 'Ich bin 79 Jahre alt.',
-          'pers-groesse': '1,74 Meter. Normalerweise wiege ich 82 Kilo, heute Morgen waren es nur noch 79 — drei Kilo in fünf Tagen, meine Ringe sind mir richtig weit geworden.',
+          'pers-groesse': '1,74 Meter, und ich wiege 79 Kilo.',
           'pers-beruf': 'Mit besonderen Chemikalien hatte ich nie zu tun, Asbest war bei uns kein Thema mehr.',
           'pers-hausarzt': 'Ja, Dr. Seibold, seit vielen Jahren.',
           'akt-motiv': 'Herr Doktor, ich mache fast kein Wasser mehr. Seit vorgestern kommt praktisch nichts, vielleicht ein kleines Glas am ganzen Tag. Und ich bin so schlapp, ich schaffe gar nichts mehr. Meine Tochter hat gesagt, ich muss jetzt endlich herkommen.',
@@ -32933,7 +32946,7 @@ export function seedCases(): Case[] {
           'akt-allgemein-art': 'Kraftlosigkeit, ganz eindeutig. Schwindel habe ich auch ein bisschen, besonders beim Aufstehen.',
           'akt-allgemein-alltag': 'Ich schaffe im Moment fast nichts mehr, nicht mal in der Küche. Ich nicke im Sessel immer wieder weg, tagsüber, das ist mir früher nie passiert.',
           'akt-allgemein-tageszeit': 'Das ist die ganze Zeit da, ohne Pause, es wird eher schlechter, nicht besser. Im Liegen ist es ein bisschen erträglicher als im Stehen.',
-          'akt-allgemein-gewicht': 'Abgenommen habe ich, so drei Kilo in den letzten fünf Tagen, die Ringe sitzen schon locker. Appetit habe ich gar keinen mehr, seit drei Tagen esse ich fast nichts. Durst — komisch, eigentlich nicht, obwohl ich ja so wenig trinke.',
+          'akt-allgemein-gewicht': 'Ja, abgenommen habe ich, die Ringe sitzen schon locker. Durst — komisch, eigentlich nicht, obwohl ich ja so wenig trinke.',
           'akt-allgemein-schwellung': 'Geschwollen bin ich nirgends, weder an den Beinen noch im Gesicht. Aber beim Wasserlassen, das ist ja mein Problem — seit vorgestern kommt fast nichts mehr, vielleicht ein kleines Glas am ganzen Tag, und das Wenige ist ganz dunkel.',
           'akt-verlauf': 'Das ist die ganze Zeit da, ohne Pause, und es wird eher schlechter. Anfallsartig ist gar nichts.',
           'akt-ausloeser': 'Wir waren vor fünf Tagen zum Geburtstag meiner Tochter im Gasthaus, danach ging der Brechdurchfall los. Getrunken habe ich seitdem fast nichts, es blieb ja nichts drin. Gestürzt bin ich nicht und lange am Boden gelegen habe ich auch nicht.',
@@ -33174,7 +33187,7 @@ export function seedCases(): Case[] {
         { frage: 'Nehmen Sie Schmerzmittel ein, die Sie ohne Rezept in der Apotheke bekommen — Ibuprofen, Diclofenac oder Voltaren?', kapitel: 'medikamente', sucht: ['nsar'], followUp: 'Falls ja: Wie viele Tabletten nehmen Sie pro Tag?', followUps: ['Falls ja: Seit wann nehmen Sie sie?'] },
         { frage: 'Können Sie mir Ihre Blutdrucktablette genau beschreiben oder die Packung zeigen? Ist eine Entwässerungstablette darin enthalten?', kapitel: 'medikamente', sucht: ['antihypertensiva', 'diuretika'] },
         { frage: 'Hatten Sie in den letzten Tagen oder Wochen eine Untersuchung mit Kontrastmittel, also ein Röntgen oder eine Computertomographie mit einer Spritze?', kapitel: 'vorerkrankungen', sucht: ['kontrastmittel'] },
-        { frage: 'Müssen Sie zur Toilette und es kommt nichts, oder verspüren Sie gar keinen Harndrang mehr? Haben Sie ein Druckgefühl im Unterbauch?', kapitel: 'aktuell', sucht: ['harnverhalt'] },
+        { frage: 'Müssen Sie zur Toilette und es kommt nichts, oder verspüren Sie gar keinen Harndrang mehr?', kapitel: 'aktuell', sucht: ['harnverhalt'], followUp: 'Haben Sie ein Druckgefühl im Unterbauch?' },
         { frage: 'Wurden Ihnen früher einmal auffällige Nierenwerte mitgeteilt, und wissen Sie noch, wie hoch der Kreatininwert war?', kapitel: 'vorerkrankungen', sucht: ['nierenvorgeschichte'] },
       ],
       examinerQuestions: [
@@ -33505,9 +33518,9 @@ export function seedCases(): Case[] {
           'akt-ausstrahlung': 'Nein, ausstrahlen tut es nicht. Es ist ja sowieso schon überall, da kann nichts mehr irgendwohin ausstrahlen. (lacht kurz)',
           'akt-verlauf': 'Es ist jeden Tag da, rund um die Uhr, seit Jahren. Über die Zeit ist es langsam schlimmer geworden, und seit einer Woche ist es richtig schlimm. Morgens ist es am stärksten, nachts wache ich auch davon auf.',
           'akt-ausloeser': 'Nichts Bestimmtes. Kein Sturz, kein Unfall, ich habe nichts Schweres gehoben. Es kam einfach. Wenn ich ehrlich bin — es fing an, als mein Mann gegangen ist.',
-          'akt-einfluss': 'Schlimmer wird es bei Kälte, bei Wetterwechsel, bei Stress und wenn ich schlecht geschlafen habe. Ruhe hilft nicht — im Gegenteil, wenn ich lange sitze, werde ich ganz steif. Ein warmes Bad tut gut, und Bewegung eigentlich auch, aber ich traue mich kaum noch. Tabletten haben gar nichts gebracht.',
+          'akt-einfluss': 'Schlimmer wird es bei Kälte, bei Wetterwechsel, bei Stress und wenn ich schlecht geschlafen habe. Ruhe hilft nicht. Ein warmes Bad tut gut, und Bewegung eigentlich auch, aber ich traue mich kaum noch. Tabletten haben gar nichts gebracht.',
           'akt-frueher': 'So schlimm noch nie. Kopfschmerzen habe ich schon seit meiner Jugend, aber diese Ganzkörperschmerzen gibt es erst seit diesen zehn Jahren.',
-          'akt-begleit': 'Ja, einiges — ständig erschöpft, auch nach acht Stunden im Bett. Mir fallen Wörter nicht ein, mitten im Unterricht! Morgens eine halbe Stunde steif, die Hände kribbeln, Kopfschmerzen, und der Darm spielt verrückt.',
+          'akt-begleit': 'Ja, einiges — die Hände kribbeln, ich habe Kopfschmerzen, und der Darm spielt verrückt.',
           'veg-fieber': 'Nein, Fieber habe ich nicht, das habe ich gemessen. Und im Ausland war ich seit Jahren nicht.',
           'veg-schuettelfrost': 'Nein, Schüttelfrost nicht. Nachtschweiß auch nicht — ich wache oft auf, aber nicht schweißgebadet.',
           'veg-uebelkeit': 'Nein, übel ist mir nicht, erbrochen habe ich nicht. Nur wenn die Kopfschmerzen ganz schlimm sind, mag ich nichts essen.',
@@ -33726,14 +33739,14 @@ export function seedCases(): Case[] {
         'auf-sonographie',
       ],
       caseSpecificQuestions: [
-        { frage: 'Können Sie mir bitte auf dieser Zeichnung einzeichnen, wo überall es wehtut? Ist es links und rechts gleich?', kapitel: 'aktuell', sucht: ['ort'] },
+        { frage: 'Können Sie mir bitte auf dieser Zeichnung einzeichnen, wo überall es wehtut?', kapitel: 'aktuell', sucht: ['ort'], followUp: 'Sind die Schmerzen links und rechts gleich stark?' },
         { frage: 'Haben Sie diese Schmerzen ununterbrochen seit mehr als drei Monaten, oder gibt es bei Ihnen beschwerdefreie Phasen?', kapitel: 'aktuell', sucht: ['verlauf'] },
         { frage: 'Wie ist Ihr Schlaf? Fühlen Sie sich morgens erholt, wenn Sie aufgewacht sind?', kapitel: 'vegetativ', sucht: ['schlaf'] },
-        { frage: 'Haben Sie Schwierigkeiten, sich zu konzentrieren oder auf Wörter zu kommen? Passiert Ihnen das auch im Unterricht?', kapitel: 'aktuell', sucht: ['konzentration'] },
+        { frage: 'Haben Sie Schwierigkeiten, sich zu konzentrieren oder auf Wörter zu kommen?', kapitel: 'aktuell', sucht: ['konzentration'], followUp: 'Falls ja: Passiert Ihnen das auch im Unterricht?' },
         { frage: 'Wie lange sind Sie morgens steif — ein paar Minuten oder länger als eine halbe Stunde?', kapitel: 'aktuell', sucht: ['steifigkeit'], followUp: 'Bessert sich das durch Bewegung?' },
         { frage: 'Sind Ihre Gelenke jemals sichtbar geschwollen, gerötet oder überwärmt gewesen — oder fühlen sie sich nur dick an?', kapitel: 'aktuell', sucht: ['gelenk_entzuendung'] },
         { frage: 'Nehmen Sie ein Medikament gegen erhöhte Cholesterinwerte oder haben Sie in letzter Zeit ein neues Medikament begonnen?', kapitel: 'medikamente', sucht: ['statin', 'medikament_neu'] },
-        { frage: 'Wie geht es Ihnen seelisch? Fühlen Sie sich in den letzten Wochen häufig niedergeschlagen oder freudlos?', kapitel: 'aktuell', sucht: ['stimmung', 'interesse'] },
+        { frage: 'Wie geht es Ihnen seelisch?', kapitel: 'aktuell', sucht: ['stimmung', 'interesse'], followUp: 'Haben Sie sich in den letzten Wochen häufig niedergeschlagen oder freudlos gefühlt?' },
       ],
       examinerQuestions: [
         'Wie lautet Ihre Verdachtsdiagnose, und worauf stützen Sie sich?',
@@ -33965,7 +33978,7 @@ export function seedCases(): Case[] {
       centers: [
         'Karlsruhe',
       ],
-      frequency: 2,
+      frequency: 1,
       difficulty: 3,
       patientSheet: {
         profil: { tags: ['schmerz', 'gelenk', 'steifigkeit', 'gewichtsverlust'] },
@@ -34072,20 +34085,20 @@ export function seedCases(): Case[] {
         antworten: {
           'pers-name': 'Kienzle, Waltraud Kienzle. K-i-e-n-z-l-e.',
           'pers-alter': 'Ich bin 72 Jahre alt.',
-          'pers-groesse': 'Ich bin 1,62 m groß. Gewogen habe ich mich heute Morgen: 68 Kilo. Vor zwei Monaten waren es noch 72.',
+          'pers-groesse': 'Ich bin 1,62 m groß. Gewogen habe ich mich heute Morgen: 68 Kilo.',
           'pers-beruf': 'Mit Chemikalien oder Staub hatte ich nie zu tun.',
           'pers-hausarzt': 'Ja, mein Hausarzt ist Dr. Brandner. Er hat mich hierher geschickt.',
           'akt-motiv': 'Frau Doktor, ich komme fast nicht mehr aus dem Bett. Seit ungefähr sechs Wochen tun mir morgens die Schultern und die Hüften so weh und sind so steif, dass ich mich nicht allein anziehen kann. Meine Tochter muss mir die Bluse zuknöpfen.',
-          'akt-ort': 'Hier oben, im Nacken und in beiden Schultern, und dann noch im Po und in beiden Hüften. Es ist auf beiden Seiten gleich. Und seit ungefähr zehn Tagen habe ich zusätzlich Kopfschmerzen, hier rechts an der Schläfe. (legt die Hand an die rechte Schläfe)',
-          'akt-beginn': 'Die Schulter- und Hüftschmerzen sind vor etwa sechs Wochen losgegangen, nicht schlagartig, aber doch ziemlich schnell — innerhalb von ein paar Tagen war es da. Der Kopfschmerz kam vor ungefähr zehn Tagen dazu, ganz neu, so etwas hatte ich vorher nie.',
-          'akt-charakter': 'In den Schultern und Hüften ist es ein tiefer, ziehender Schmerz, wie ein schlimmer Muskelkater, der nicht weggeht. Der Kopfschmerz ist anders: der bohrt und brennt an der Schläfe, richtig unangenehm.',
-          'akt-intensitaet': 'Morgens 7 von 10, das ist am schlimmsten. Im Lauf des Tages wird es besser, dann so 4 von 10, aber ganz weg ist es nie. Der Kopfschmerz liegt bei 6 von 10 und ist eigentlich immer da, auch nachts.',
+          'akt-ort': 'Hier oben, im Nacken und in beiden Schultern, und dann noch im Po und in beiden Hüften. Es ist auf beiden Seiten gleich.',
+          'akt-beginn': 'Die Schulter- und Hüftschmerzen sind vor etwa sechs Wochen losgegangen, nicht schlagartig, aber doch ziemlich schnell — innerhalb von ein paar Tagen war es da.',
+          'akt-charakter': 'In den Schultern und Hüften ist es ein tiefer, ziehender Schmerz, wie ein schlimmer Muskelkater, der nicht weggeht.',
+          'akt-intensitaet': 'Morgens 7 von 10, das ist am schlimmsten. Im Lauf des Tages wird es besser, dann so 4 von 10, aber ganz weg ist es nie.',
           'akt-ausstrahlung': 'Von den Schultern zieht es in beide Oberarme, bis kurz über die Ellenbogen. Und vom Po in beide Oberschenkel, bis über die Knie. Weiter runter, in die Hände oder die Füße, geht es nicht.',
-          'akt-verlauf': 'Es ist jeden Tag da. Morgens brauche ich fast eine Stunde, bis ich einigermaßen beweglich bin. Danach geht es etwas, aber es hört nie ganz auf. Insgesamt ist es in den sechs Wochen eher schlimmer geworden.',
+          'akt-verlauf': 'Es ist jeden Tag da, und es hört nie ganz auf. Insgesamt ist es in den sechs Wochen eher schlimmer geworden.',
           'akt-ausloeser': 'Nein, ich wüsste nichts. Ich bin nicht gestürzt, ich habe nichts Schweres gehoben, ich war nicht im Ausland, und eine neue Tablette habe ich auch nicht bekommen. Es kam einfach so.',
-          'akt-einfluss': 'Schlimmer morgens und nach langem Sitzen, die Arme über den Kopf heben geht kaum. Besser mit vorsichtiger Bewegung und warmem Duschen. Ibuprofen 400 fast täglich, das hat kaum was gebracht.',
+          'akt-einfluss': 'Schlimmer morgens und nach langem Sitzen. Besser mit vorsichtiger Bewegung und warmem Duschen. Ibuprofen 400 fast täglich, das hat kaum was gebracht.',
           'akt-frueher': 'Nein, so etwas hatte ich noch nie. Ich hatte hin und wieder einen verspannten Nacken, aber das war etwas völlig anderes und ging nach ein paar Tagen weg.',
-          'akt-begleit': 'Ja, das macht mir am meisten Sorgen: Die Kopfhaut rechts tut beim Kämmen weh, beim Kauen schmerzt seit einer Woche der Kiefer. Und vorgestern war mein rechtes Auge ein paar Minuten wie hinter einem grauen Vorhang.',
+          'akt-begleit': 'Ja — ich bin ständig erschöpft und muss mich mehrmals am Tag hinlegen.',
           'veg-fieber': 'Ich habe schon mehrmals gemessen, meistens abends: 37,5, einmal 37,8. Richtiges Fieber war es nie. Im Ausland war ich nicht, und einen Zeckenstich hatte ich auch nicht.',
           'veg-schuettelfrost': 'Nein, Schüttelfrost hatte ich nicht. Nachts schwitze ich auch nicht, mein Nachthemd ist morgens trocken.',
           'veg-uebelkeit': 'Nein, übel ist mir nicht, erbrochen habe ich nicht. Auch beim Kopfschmerz nicht.',
@@ -34116,7 +34129,7 @@ export function seedCases(): Case[] {
           'fach-rheuma-verlauf': 'Es hat vor sechs Wochen angefangen, innerhalb von ein paar Tagen, und ist seitdem jeden Tag da. Es wandert nicht von einem Gelenk zum anderen, und es kommt auch nicht in Schüben — es ist einfach durchgehend da und eher schlimmer geworden.',
           'fach-rheuma-ausloeser': 'Nein, gar nichts. Kein Sturz, keine Überlastung, kein Infekt vorher, keine Impfung, keine neue Tablette. Ich habe wirklich überlegt, aber mir fällt nichts ein.',
           'fach-rheuma-haut': 'Nein, Schuppenflechte habe ich nicht, keinen Ausschlag, keine Knötchen unter der Haut. Rote Augen oder trockene Augen habe ich auch nicht, und weiß werden meine Finger in der Kälte nicht.',
-          'fach-rheuma-systemisch': 'Müde bin ich sehr, und schlapp. Abends habe ich manchmal 37,8. Abgenommen habe ich 4 Kilo, und der Appetit ist weg. Aber ich bin nicht traurig oder niedergeschlagen, das möchte ich betonen — mich ärgert nur, dass ich nichts mehr schaffe. Durchfall, Husten oder Blut im Stuhl habe ich nicht.',
+          'fach-rheuma-systemisch': 'Augenentzündungen oder Geschwüre im Mund hatte ich nicht, und richtiges Fieber auch nicht. Durchfall, Husten oder Blut im Stuhl habe ich nicht.',
           'fach-rheuma-vorgeschichte': 'Nein, ich hatte nie Rheuma und nie eine Gelenkentzündung. Kortison habe ich noch nie eingenommen. In der Familie ist mir nichts Rheumatisches bekannt.',
           'frau-periode': 'Die Regel habe ich schon lange nicht mehr, ich bin ja 72. Blutungen habe ich seitdem nie wieder gehabt.',
           'frau-schwanger': 'Ich hatte zwei Schwangerschaften und zwei normale Geburten, beide ohne Komplikationen. Fehlgeburten hatte ich keine.',
@@ -34316,11 +34329,11 @@ export function seedCases(): Case[] {
         'auf-mrt',
       ],
       caseSpecificQuestions: [
-        { frage: 'Wie lange brauchen Sie morgens, bis Sie wieder einigermaßen beweglich sind — und können Sie sich in dieser Zeit allein anziehen?', kapitel: 'aktuell', sucht: ['steifigkeit'] },
-        { frage: 'Können Sie die Arme über den Kopf heben, um sich zu kämmen oder etwas aus dem Schrank zu holen? Kommen Sie ohne Hilfe der Hände aus dem Sessel hoch?', kapitel: 'aktuell', sucht: ['schwaeche'] },
-        { frage: 'Haben Sie in letzter Zeit NEUE Kopfschmerzen bekommen, die Sie so vorher nicht kannten — und wo genau sitzen sie?', kapitel: 'aktuell', sucht: ['kopfschmerz'] },
+        { frage: 'Wie lange brauchen Sie morgens, bis Sie wieder einigermaßen beweglich sind?', kapitel: 'aktuell', sucht: ['steifigkeit'] },
+        { frage: 'Können Sie die Arme über den Kopf heben, um sich zu kämmen oder etwas aus dem Schrank zu holen?', kapitel: 'aktuell', sucht: ['schwaeche'], followUp: 'Kommen Sie ohne Hilfe der Hände aus dem Sessel hoch?' },
+        { frage: 'Haben Sie in letzter Zeit NEUE Kopfschmerzen bekommen, die Sie so vorher nicht kannten?', kapitel: 'aktuell', sucht: ['kopfschmerz'], followUp: 'Falls ja: Wo genau sitzen sie?' },
         { frage: 'Tut Ihnen die Kopfhaut weh, wenn Sie sich kämmen oder wenn Sie mit dem Kopf auf dem Kissen liegen?', kapitel: 'aktuell', sucht: ['kopfhaut'] },
-        { frage: 'Bekommen Sie beim Kauen — zum Beispiel von Brotkruste oder Fleisch — Schmerzen im Kiefer, sodass Sie eine Pause machen müssen? Und geht der Schmerz in der Pause wieder weg?', kapitel: 'aktuell', sucht: ['kieferclaudicatio'] },
+        { frage: 'Bekommen Sie beim Kauen — zum Beispiel von Brotkruste oder Fleisch — Schmerzen im Kiefer, sodass Sie eine Pause machen müssen?', kapitel: 'aktuell', sucht: ['kieferclaudicatio'], followUp: 'Falls ja: Geht der Schmerz in der Pause wieder weg?' },
         { frage: 'Hatten Sie jemals eine Sehstörung: verschwommenes Sehen, Doppelbilder oder plötzlich einen Schatten oder Vorhang vor einem Auge?', kapitel: 'aktuell', sucht: ['sehstoerung'], followUp: 'Falls ja: Wie lange hat das gedauert?' },
         { frage: 'Haben Sie ungewollt Gewicht verloren, Fieber gemessen oder nachts stark geschwitzt?', kapitel: 'vegetativ', sucht: ['gewicht', 'fieber', 'nachtschweiss'] },
         { frage: 'Nehmen Sie ein Medikament gegen erhöhte Blutfette, ein sogenanntes Statin? Und haben Sie jemals Kortison eingenommen?', kapitel: 'medikamente', sucht: ['statin', 'kortison'] },
@@ -34503,7 +34516,7 @@ export function seedCases(): Case[] {
       centers: [
         'Complément',
       ],
-      frequency: 0,
+      frequency: 1,
       difficulty: 2,
       patientSheet: {
         profil: { tags: ['schmerz', 'dyspnoe', 'husten'] },
@@ -35131,7 +35144,7 @@ export function seedCases(): Case[] {
           'pers-groesse': 'Ich bin 1,78 m groß und wiege 108 Kilo. Vor drei Monaten waren es noch 110 — zwei Kilo sind von allein runter.',
           'pers-beruf': 'Mit Staub oder Chemikalien habe ich nichts zu tun.',
           'pers-hausarzt': 'Ja, mein Hausarzt ist Dr. Brenner. Er hat mich zu Ihnen überwiesen.',
-          'akt-motiv': 'Herr Doktor, ich bin seit ungefähr drei Monaten nur noch schlapp. Ich schlafe nachts acht Stunden und bin morgens trotzdem wie gerädert. Ehrlich gesagt schickt mich meine Frau — sie sagt, mit meinem Schlaf stimmt etwas nicht.',
+          'akt-motiv': 'Herr Doktor, ich bin seit ungefähr drei Monaten nur noch schlapp. Ehrlich gesagt schickt mich meine Frau — sie sagt, mit meinem Schlaf stimmt etwas nicht.',
           'akt-beginn': 'Die Müdigkeit ist mir vor etwa drei Monaten aufgefallen, und sie wird stetig schlimmer. Das Schnarchen habe ich schon seit Jahren — das sagt jedenfalls meine Frau, ich merke davon nichts.',
           'akt-allgemein-art': 'Vor allem Müdigkeit, wie Blei in den Gliedern. Kraftlos bin ich nicht direkt, eher schläfrig — ich könnte überall einnicken. Schwindel habe ich eigentlich nicht.',
           'akt-allgemein-alltag': 'Hinlegen kann ich tagsüber im Job ja nicht, aber am Steuer fallen mir die Augen zu, vor allem nach dem Mittagessen. Ich trinke deshalb fünf, sechs Tassen Kaffee am Tag, sonst schaffe ich die Tour nicht.',
@@ -35142,7 +35155,7 @@ export function seedCases(): Case[] {
           'akt-ausloeser': 'Einen richtigen Auslöser kann ich nicht benennen. Vielleicht das Gewicht, da sind über die Jahre einige Kilo dazugekommen. Und meine Frau sagt, wenn ich abends Bier trinke, schnarche ich besonders schlimm.',
           'akt-einfluss': 'Schlimmer wird es, wenn ich auf dem Rücken liege und wenn ich abends Bier getrunken habe. Kurzfristig hilft Kaffee — ich trinke inzwischen fünf, sechs Tassen am Tag, sonst schaffe ich die Tour nicht.',
           'akt-frueher': 'So etwas hatte ich noch nie. Ich war immer der, der als Letzter müde wurde.',
-          'akt-begleit': 'Ich kann mich schlecht konzentrieren und bin gereizt, meine Frau sagt, ich sei nicht mehr derselbe. Nachts zwei- bis dreimal raus, ich schwitze, manchmal wache ich auf, als würde ich ersticken. (leiser) Und die Lust ist weg.',
+          'akt-begleit': 'Ich kann mich schlecht konzentrieren und bin gereizt, meine Frau sagt, ich sei nicht mehr derselbe. (leiser) Und die Lust ist weg.',
           'veg-fieber': 'Nein, Fieber habe ich nicht, und im Ausland war ich zuletzt vor zwei Jahren.',
           'veg-schuettelfrost': 'Schüttelfrost nicht. Aber ich schwitze nachts stark, manchmal muss ich das T-Shirt wechseln — und das ohne Fieber.',
           'veg-uebelkeit': 'Nein, übel ist mir nicht, erbrochen habe ich auch nicht.',
@@ -35169,7 +35182,7 @@ export function seedCases(): Case[] {
           'fam-haustiere': 'Nein, Haustiere haben wir keine. Vögel oder Tauben halte ich auch nicht.',
           'fach-pneumo-husten': 'Ja, ich huste, morgens beim Aufstehen — das ist der Raucherhusten, den habe ich seit Jahren. Er ist nicht schlimmer geworden, und Blut habe ich noch nie gehustet.',
           'fach-pneumo-auswurf': 'Morgens etwas weißlich-klarer Schleim, vielleicht ein Esslöffel. Nicht gelb, nicht grün, nicht blutig und nicht übelriechend.',
-          'fach-pneumo-atemnot': 'Beim schnellen Gehen bergauf komme ich außer Puste, aber das ist seit Jahren gleich. In Ruhe bekomme ich gut Luft. Nachts wache ich allerdings manchmal auf und ringe nach Luft, als würde mir jemand die Kehle zudrücken — nach ein paar Sekunden ist es vorbei.',
+          'fach-pneumo-atemnot': 'Beim schnellen Gehen bergauf komme ich außer Puste, aber das ist seit Jahren gleich. In Ruhe bekomme ich gut Luft.',
           'fach-pneumo-orthopnoe': 'Flach liegen kann ich, ich brauche keine zusätzlichen Kissen. Geschwollene Beine habe ich nicht, und wegen Luftnot muss ich nachts nicht aufstehen — nur zum Wasserlassen.',
           'fach-pneumo-schmerz': 'Nein, Schmerzen in der Brust habe ich nicht, weder beim Atmen noch beim Husten. Auch kein Druck auf der Brust beim Gehen.',
           'fach-pneumo-fieber': 'Nein, Fieber, Schüttelfrost oder eine Lungenentzündung hatte ich in letzter Zeit nicht. Nachtschweiß habe ich allerdings — aber eben ohne Fieber.',
@@ -35178,6 +35191,13 @@ export function seedCases(): Case[] {
           'fach-pneumo-noxen': 'Beruflich habe ich mit Staub, Asbest oder Chemikalien nichts zu tun, ich sitze im Fahrerhaus — nur die Abgase auf dem Hof.',
           'fach-pneumo-allergie': 'Nein, Heuschnupfen habe ich nicht, und im Frühjahr oder bei Tierkontakt wird es nicht schlechter. Asthma ist bei mir nie festgestellt worden.',
         },
+        frageAntworten: [
+          {
+            frage: 'Wachen Sie nachts manchmal mit einem Erstickungs- oder Würgegefühl auf, oder mit Herzrasen?',
+            antwort: 'Ja, manchmal wache ich nachts auf und ringe nach Luft, als würde mir jemand die Kehle zudrücken — nach ein paar Sekunden ist es vorbei.',
+            kapitel: 'aktuell',
+          },
+        ],
         schwierigeReaktionen: [
           '„Ist das Krebs, Herr Doktor? Meine Mutter ist mit 55 daran gestorben.“',
           '(auf die Frage nach dem Fahren, abwehrend) „Wieso fragen Sie das? Ich fahre seit dreißig Jahren unfallfrei.“',
@@ -35379,7 +35399,7 @@ export function seedCases(): Case[] {
         { frage: 'Hat Ihre Frau schon einmal beobachtet, dass Sie im Schlaf eine Zeit lang nicht atmen?', kapitel: 'aktuell', sucht: ['schlafapnoe'], relu: true, followUp: 'Falls ja: Wie lange dauern diese Pausen etwa?' },
         { frage: 'Wachen Sie nachts manchmal mit einem Erstickungs- oder Würgegefühl auf, oder mit Herzrasen?', kapitel: 'aktuell', sucht: ['dpn', 'herzrasen'] },
         { frage: 'Schlafen Sie tagsüber unwillkürlich ein — beim Fernsehen, beim Lesen, im Gespräch, im Wartezimmer?', kapitel: 'vegetativ', sucht: ['tagesschlaefrigkeit'], relu: true },
-        { frage: 'Sind Sie am Steuer schon einmal eingenickt? Ist Ihnen an einer Ampel oder auf der Autobahn etwas passiert, was gerade noch gut gegangen ist?', kapitel: 'aktuell', sucht: ['gefaehrdung'] },
+        { frage: 'Hatten Sie am Steuer schon einmal eine brenzlige Situation — an einer Ampel oder auf der Autobahn —, die gerade noch gut gegangen ist?', kapitel: 'aktuell', sucht: ['gefaehrdung'] },
         { frage: 'Trinken Sie abends Alkohol, und wie viel? Nehmen Sie Schlaf- oder Beruhigungsmittel?', kapitel: 'noxen', sucht: ['alkohol_akut', 'sedativa'] },
         { frage: 'Ist Ihr Blutdruck trotz der Tabletten eingestellt, und wurden zuletzt neue Medikamente ergänzt?', kapitel: 'medikamente', sucht: ['blutdruck', 'medikament_neu'] },
       ],
@@ -35519,7 +35539,7 @@ export function seedCases(): Case[] {
       centers: [
         'Complément',
       ],
-      frequency: 0,
+      frequency: 1,
       difficulty: 3,
       patientSheet: {
         profil: { tags: ['psychisch'] },
@@ -35618,7 +35638,7 @@ export function seedCases(): Case[] {
           'akt-psych-antrieb': 'Den Tag anfangen fällt mir schwer, ich habe zu fast nichts mehr Lust — deswegen bin ich auch schon lange nicht mehr in die Uni gegangen. Freude … ich weiß gar nicht mehr, wie sich das anfühlt.',
           'akt-psych-schlaf': 'Ich schlafe kaum noch, in letzter Zeit nur zwei, drei Stunden, und eher tagsüber als nachts. Konzentrieren kann ich mich schon lange nicht mehr richtig.',
           'akt-psych-sicherheit': '(schweigt lange, schaut zur Seite) … Ja, manchmal denke ich, dass es so keinen Sinn mehr hat. Aber einen Plan habe ich nicht, und wenn es wirklich so weit wäre, würde ich das jemandem sagen.',
-          'akt-verlauf': 'Es ist eigentlich dauernd da, ohne Pause. Abends und nachts wird es schlimmer, dann reden die Stimmen mehr.',
+          'akt-verlauf': 'Es ist eigentlich dauernd da, ohne Pause. Abends und nachts wird es schlimmer.',
           'akt-ausloeser': '(zögert) Nein. … Doch, im Frühjahr: zwei Prüfungen nicht bestanden, meine Freundin hat Schluss gemacht, dann musste ich zurück zu meinen Eltern. Und ich rauche viel Gras, das kommt sowieso raus.',
           'akt-einfluss': 'Besser wird es, wenn ich allein im abgedunkelten Zimmer bin und Musik höre. Schlimmer draußen, unter Leuten, und wenn das Radio läuft. Der Joint hilft eine Stunde, danach wird es eher schlimmer. Tabletten nehme ich keine, nur ab und zu Baldrian zum Schlafen.',
           'akt-frueher': 'Nein, so etwas hatte ich noch nie. Deswegen war ich auch noch nie bei einem Arzt.',
@@ -35854,10 +35874,10 @@ export function seedCases(): Case[] {
       caseSpecificQuestions: [
         { frage: 'Sie sagen, Sie werden beobachtet — können Sie mir beschreiben, wie Sie das merken?', kapitel: 'aktuell', sucht: ['verfolgungswahn'], followUp: 'Seit wann haben Sie dieses Gefühl, beobachtet zu werden?' },
         { frage: 'Haben Sie den Eindruck, dass Sendungen im Radio, im Fernsehen oder Beiträge im Internet etwas mit Ihnen persönlich zu tun haben?', kapitel: 'aktuell', sucht: ['beziehungswahn'] },
-        { frage: 'Hören Sie manchmal Stimmen, obwohl niemand im Raum ist? Sprechen sie mit Ihnen, sprechen sie über Sie, oder kommentieren sie, was Sie gerade tun?', kapitel: 'aktuell', sucht: ['halluzinationen'] },
+        { frage: 'Hören Sie manchmal Stimmen, obwohl niemand im Raum ist?', followUp: 'Falls ja: Sprechen sie mit Ihnen, sprechen sie über Sie, oder kommentieren sie, was Sie gerade tun?', kapitel: 'aktuell', sucht: ['halluzinationen'] },
         { frage: 'Sagen Ihnen die Stimmen jemals, dass Sie etwas tun sollen — auch etwas, das Ihnen oder anderen schaden könnte?', kapitel: 'aktuell', sucht: ['imperative_stimmen'] },
         { frage: 'Haben Sie das Gefühl, dass Ihre Gedanken nicht mehr ganz Ihnen gehören — dass sie Ihnen eingegeben oder mitten im Satz entzogen werden, oder dass andere sie mitlesen können?', kapitel: 'aktuell', sucht: ['ich_stoerung'] },
-        { frage: 'Haben Sie den Eindruck, von außen gesteuert oder beeinflusst zu werden, zum Beispiel über Technik, Funk oder das WLAN?', kapitel: 'aktuell', sucht: ['fremdbeeinflussung'] },
+        { frage: 'Haben Sie den Eindruck, von außen gesteuert oder beeinflusst zu werden?', followUp: 'Falls ja: Wodurch — zum Beispiel über Funk oder über das WLAN?', kapitel: 'aktuell', sucht: ['fremdbeeinflussung'] },
         { frage: 'Wie viel Cannabis rauchen Sie am Tag, seit wann, und haben Sie schon einmal versucht aufzuhören — hat sich dabei etwas verändert?', kapitel: 'noxen', sucht: ['drogen'] },
       ],
       examinerQuestions: [
@@ -36045,7 +36065,7 @@ export function seedCases(): Case[] {
         'Freiburg',
         'Reutlingen',
       ],
-      frequency: 4,
+      frequency: 1,
       difficulty: 3,
       patientSheet: {
         profil: { tags: ['neurologisch', 'fieber', 'gewichtsverlust'] },
@@ -36170,9 +36190,9 @@ export function seedCases(): Case[] {
           'akt-neuro-ausfall': 'Schwach? Nein, nein, meine Beine tragen mich noch, ich war doch immer... (verliert den Faden) (Die Tochter: Nein, eine Schwäche oder Taubheit auf einer Seite habe ich nicht gesehen, auch keine hängende Mundseite und keine Sprachstörung. Er redet nur wirres Zeug, aber die Wörter selbst kommen normal raus.)',
           'akt-neuro-dauer': '(Die Tochter: So etwas hatte er ja gar nicht, deshalb kann ich Ihnen dazu nichts sagen. Aber die Verwirrtheit selbst ist immer noch da, sie kommt und geht in Wellen, seit zwei Tagen.)',
           'akt-neuro-lage': 'Schwindel... (hält sich kurz am Bett fest) beim Aufstehen wackelt es schon manchmal, aber das kenne ich noch von der Hüfte. (Die Tochter: Ein richtiger Drehschwindel, dass sich alles dreht, ist es nicht. Er ist eher unsicher auf den Beinen wegen der Hüfte. Das ändert sich auch nicht, wenn er den Kopf dreht.)',
-          'akt-verlauf': '(Die Tochter: Das ist das Merkwürdigste: Morgens ist er oft fast normal, wir unterhalten uns ganz vernünftig. Ab dem späten Nachmittag und vor allem nachts wird er völlig durcheinander. Es kommt und geht in Wellen.)',
+          'akt-verlauf': '(Die Tochter: Es kommt und geht in Wellen.)',
           'akt-ausloeser': '(Die Tochter: Angefangen hat alles mit dem Sturz in der Wohnung und der Hüftoperation vor zehn Tagen. Im Krankenhaus hatte er einen Blasenkatheter und hat neue Medikamente bekommen, ein starkes Schmerzmittel und eine Schlaftablette. Und seit gestern hat er Fieber, ich habe 38,4 Grad gemessen.)',
-          'akt-einfluss': '(Die Tochter: Abends und nachts wird es deutlich schlimmer, im Dunkeln und wenn er allein ist. Besser wird es, wenn ich da bin, ihn beim Namen anspreche und Licht mache. Seine Brille und sein Hörgerät hat er nicht — das Hörgerät ist im Krankenhaus verloren gegangen, die Brille liegt zu Hause.)',
+          'akt-einfluss': '(Die Tochter: Schlimmer wird es im Dunkeln und wenn er allein ist. Besser wird es, wenn ich da bin, ihn beim Namen anspreche und Licht mache. Seine Brille und sein Hörgerät hat er nicht — das Hörgerät ist im Krankenhaus verloren gegangen, die Brille liegt zu Hause.)',
           'akt-frueher': '(Die Tochter: So etwas hatte er noch nie, auch nicht nach der Gallenblasenoperation damals. Aber ehrlich gesagt: Seit etwa einem Jahr ist er vergesslicher, sucht Wörter und verlegt Dinge. Das kam aber ganz langsam, und er war dabei immer klar — das jetzt ist etwas völlig anderes.)',
           'akt-begleit': '(Die Tochter: Er sieht Tiere im Zimmer, kleine Katzen, die nicht da sind, und greift nach ihnen. Er behauptet, jemand wolle ihm etwas wegnehmen. Nachts läuft er umher und zieht sich an. Und er kann sich keine Minute auf ein Gespräch konzentrieren — mitten im Satz ist er weg.)',
           'veg-fieber': '(Die Tochter: Ja, seit gestern. 38,4 Grad habe ich gemessen. Husten hat er nicht, Luftnot auch nicht.)',
@@ -36206,7 +36226,7 @@ export function seedCases(): Case[] {
           'fach-psych-tagesverlauf': '(Die Tochter: Ja, ganz deutlich: Morgens ist er am klarsten, ab dem späten Nachmittag und in der Nacht am schlimmsten. Ein Morgentief hat er nicht, es ist genau umgekehrt.)',
           'fach-psych-konzentration': '(Die Tochter: Überhaupt nicht mehr. Er verliert mitten im Satz den Faden, man muss ihn ständig neu ansprechen. Vor zwei Wochen hat er noch selbst mit der Bank telefoniert und seine Rechnungen sortiert.)',
           'fach-psych-angst': 'Da will einer an meine Sachen. (Die Tochter: Er hat Angst, dass man ihm etwas wegnimmt, und er glaubt, es seien fremde Leute in der Wohnung. Panikattacken mit Herzrasen oder Luftnot hatte er nie, auch früher nicht.)',
-          'fach-psych-suizid': 'Nein, so etwas denke ich nicht. Ich will nur nach Hause. (Die Tochter: Lebensmüde Gedanken hat er nie geäußert, nie etwas versucht, auch nicht nach dem Tod meiner Mutter. Aber ich habe Angst, dass er nachts stürzt, weil er umherläuft und die Treppe nicht sieht.)',
+          'fach-psych-suizid': 'Nein, so etwas denke ich nicht. Ich will nur nach Hause. Vorbereitet habe ich nichts. (Die Tochter: Lebensmüde Gedanken hat er nie geäußert, nie etwas versucht, auch nicht nach dem Tod meiner Mutter. Aber ich habe Angst, dass er nachts stürzt, weil er umherläuft und die Treppe nicht sieht.)',
           'fach-psych-ausloeser': '(Die Tochter: Der Sturz und die Hüftoperation vor zehn Tagen, der Krankenhausaufenthalt mit den vielen Zimmerwechseln und die neuen Medikamente. Der Tod meiner Mutter war vor zwei Jahren, das hatte er verarbeitet.)',
           'fach-psych-frueher': '(Die Tochter: Psychisch war er nie in Behandlung, nie beim Psychiater, nie Antidepressiva oder Beruhigungsmittel. Und so eine Verwirrtheit hatte er noch nie — auch nicht nach der Gallenblasenoperation.)',
         },
@@ -36408,7 +36428,7 @@ export function seedCases(): Case[] {
       caseSpecificQuestions: [
         { frage: 'Seit wann genau ist Ihr Vater so — kam das über Stunden, über Tage oder über Monate?', kapitel: 'aktuell', sucht: ['beginn', 'beginn_art'] },
         { frage: 'Wie war er vor der Operation: Hat er seinen Haushalt allein geführt, eingekauft, seine Bankgeschäfte selbst erledigt?', kapitel: 'familie-sozial', sucht: ['vorzustand'] },
-        { frage: 'Schwankt sein Zustand im Tagesverlauf? Gibt es Zeiten, in denen er wieder ganz klar ist — und ist es abends und nachts schlimmer?', kapitel: 'aktuell', sucht: ['tageszeit'], relu: true },
+        { frage: 'Schwankt sein Zustand im Tagesverlauf?', kapitel: 'aktuell', sucht: ['tageszeit'], relu: true, followUp: 'Gibt es Zeiten, in denen er wieder ganz klar ist?', followUps: ['Ist es abends und nachts schlimmer?'] },
         { frage: 'Sieht oder hört er manchmal Dinge, die nicht da sind?', kapitel: 'aktuell', sucht: ['halluzinationen'], followUp: 'Falls ja: Was sieht oder hört er dabei?' },
         { frage: 'Welche Medikamente wurden bei ihm zuletzt neu angesetzt oder abgesetzt — auch im Krankenhaus, auch Schlaf- und Beruhigungsmittel?', kapitel: 'medikamente', sucht: ['medikament_neu', 'sedativa'] },
         { frage: 'Hat er Fieber, und wissen Sie, ob er Beschwerden beim Wasserlassen hat oder nur noch kleine Mengen Urin lässt?', kapitel: 'aktuell', sucht: ['fieber', 'miktion'] },
@@ -36610,7 +36630,7 @@ export function seedCases(): Case[] {
         'Freiburg',
         'Complément',
       ],
-      frequency: 6,
+      frequency: 1,
       difficulty: 3,
       patientSheet: {
         profil: { tags: ['ausscheidung', 'dysphagie', 'hals', 'gewichtsverlust', 'gastro', 'reise'] },
@@ -36709,7 +36729,7 @@ export function seedCases(): Case[] {
         antworten: {
           'pers-name': 'Vogel, Katharina Vogel. V-o-g-e-l.',
           'pers-alter': 'Ich bin 38 Jahre alt.',
-          'pers-groesse': 'Ich bin 1,68 m groß und wiege 54 Kilo. Vor zwei Jahren waren es noch 61.',
+          'pers-groesse': 'Ich bin 1,68 m groß und wiege 54 Kilo.',
           'pers-beruf': 'Mit Chemikalien oder Stäuben habe ich beruflich nichts zu tun.',
           'pers-hausarzt': 'Ja, meine Hausärztin ist Frau Dr. Neumann.',
           'akt-motiv': 'Frau Doktor, das Essen bleibt mir im Hals stecken. Das geht schon seit ungefähr drei Jahren so, aber in den letzten Monaten ist es richtig schlimm geworden.',
@@ -36727,8 +36747,8 @@ export function seedCases(): Case[] {
           'akt-ausloeser': 'Beim Essen und beim Trinken. Wenn ich hastig esse oder aufgeregt bin, ist es schlimmer. Und kalte Getränke gehen besonders schlecht.',
           'akt-einfluss': 'Wenn ich sehr langsam esse, kleine Bissen, viel warmes Wasser nachtrinke, geht es besser. Manchmal muss ich aufstehen und mich strecken. Im Liegen schlechter. Die Magentabletten haben gar nichts gebracht.',
           'akt-frueher': 'Nein, so etwas hatte ich früher nie. Vor etwa zwei Jahren war ich deswegen schon einmal bei einer Magenspiegelung.',
-          'akt-begleit': 'Ja — nachts kommt mir Essen wieder hoch. Unverdaut, so wie ich es gegessen habe, und es schmeckt nicht sauer, eher fad. Mein Kopfkissen ist morgens oft nass. Ich huste nachts viel, und im letzten Jahr hatte ich zweimal eine Lungenentzündung. Und ich habe abgenommen.',
-          'veg-fieber': 'Nein, Fieber habe ich im Moment nicht. Bei der Lungenentzündung im letzten Herbst hatte ich Fieber, das ist aber ausgeheilt. Im Ausland war ich zuletzt vor vier Jahren in Spanien, in Südamerika war ich nie.',
+          'akt-begleit': 'Ja — hinter dem Brustbein drückt es oft, ganz eng, manchmal richtig krampfartig, und das zieht bis zwischen die Schulterblätter.',
+          'veg-fieber': 'Nein, Fieber habe ich im Moment nicht. Bei der Lungenentzündung im letzten Herbst hatte ich Fieber, das ist aber ausgeheilt. Im Ausland war ich zuletzt vor vier Jahren in Spanien.',
           'veg-schuettelfrost': 'Nein, Schüttelfrost habe ich nicht, und Nachtschweiß auch nicht.',
           'veg-uebelkeit': 'Übel ist mir eigentlich nicht. Erbrochen habe ich auch nicht richtig — es kommt von allein wieder hoch, ohne Würgen und ohne Anstrengung. Blut oder etwas Kaffeesatzartiges war nie dabei.',
           'veg-ausscheidung': 'Stuhlgang und Wasserlassen sind ganz normal. Schwarzen Stuhl oder Blut hatte ich nie.',
@@ -36927,11 +36947,12 @@ export function seedCases(): Case[] {
       caseSpecificQuestions: [
         { frage: 'Bleibt das Essen bei Ihnen nur bei fester Nahrung stecken, oder haben Sie auch bei Getränken Schwierigkeiten — bei Wasser, Suppe, kalten Getränken?', kapitel: 'aktuell', sucht: ['schluck'] },
         { frage: 'Wie hat sich die Schluckstörung bei Ihnen entwickelt — eher langsam über Jahre mit besseren und schlechteren Phasen, oder rasch über Wochen?', kapitel: 'aktuell', sucht: ['verlauf', 'beginn_art'], relu: true },
-        { frage: 'Kommt Ihnen Essen wieder hoch? Ist es unverdaut oder sauer, und passiert das eher im Liegen und nachts?', kapitel: 'aktuell', sucht: ['regurgitation'] },
-        { frage: 'Ist Ihr Kopfkissen morgens manchmal nass? Husten Sie nachts, und hatten Sie in letzter Zeit eine Lungenentzündung?', kapitel: 'aktuell', sucht: ['aspiration', 'husten'] },
+        { frage: 'Kommt Ihnen Essen wieder hoch?', kapitel: 'aktuell', sucht: ['regurgitation'], followUp: 'Falls ja: Ist es unverdaut oder sauer?', followUps: ['Falls ja: Passiert das eher im Liegen und nachts?'] },
+        { frage: 'Ist Ihr Kopfkissen morgens manchmal nass?', kapitel: 'aktuell', sucht: ['aspiration'], followUp: 'Hatten Sie in letzter Zeit eine Lungenentzündung?' },
+        { frage: 'Husten Sie nachts?', kapitel: 'aktuell', sucht: ['husten'] },
         { frage: 'Hat Ihnen schon ein Arzt etwas gegen die Beschwerden verordnet?', kapitel: 'aktuell', sucht: ['vorbehandlung'], followUp: 'Falls ja: Hat es Ihnen geholfen?' },
         { frage: 'Haben Sie Schmerzen beim Schlucken, Blut erbrochen oder schwarzen Stuhl bemerkt?', kapitel: 'aktuell', sucht: ['odynophagie', 'haematemesis', 'stuhl_blut'], relu: true },
-        { frage: 'Wie viel Gewicht haben Sie in welchem Zeitraum verloren, und ist Ihr Appetit dabei erhalten geblieben?', kapitel: 'vegetativ', sucht: ['gewicht', 'appetit'] },
+        { frage: 'Haben Sie ungewollt abgenommen?', kapitel: 'vegetativ', sucht: ['gewicht', 'appetit'], followUp: 'Falls ja: Wie viel, in welchem Zeitraum?', followUps: ['Ist Ihr Appetit dabei erhalten geblieben?'] },
         { frage: 'Waren Sie jemals in Mittel- oder Südamerika?', kapitel: 'familie-sozial', sucht: ['reise'] },
       ],
       examinerQuestions: [
@@ -37095,7 +37116,7 @@ export function seedCases(): Case[] {
         'Freiburg',
         'Complément',
       ],
-      frequency: 5,
+      frequency: 1,
       difficulty: 3,
       patientSheet: {
         profil: { tags: ['schmerz', 'gelenk', 'arthritis', 'fieber', 'gicht'] },
@@ -37660,7 +37681,7 @@ export function seedCases(): Case[] {
         'Freiburg',
         'Reutlingen',
       ],
-      frequency: 4,
+      frequency: 1,
       difficulty: 2,
       patientSheet: {
         profil: { tags: ['schmerz'] },
@@ -37775,7 +37796,7 @@ export function seedCases(): Case[] {
           'akt-charakter': 'Im Kreuz ist es ein dumpfes Ziehen. In den Beinen ist es anders: schwer, brennend, kribbelig — und vor allem kraftlos. Als hätte ich Watte statt Muskeln in den Beinen.',
           'akt-intensitaet': 'Beim Gehen 7 von 10. Im Sitzen und im Liegen habe ich gar nichts, höchstens ein leichtes Ziehen im Kreuz, so 3 von 10.',
           'akt-ausstrahlung': 'Ja, von unten aus dem Kreuz nach hinten in beide Beine, bis in die Waden. In die Zehen geht es nicht, und ich kann es auch nicht auf einen genauen Streifen begrenzen — es ist eher breitflächig.',
-          'akt-verlauf': 'Es wird langsam immer schlechter. Vor einem Jahr konnte ich noch gut 800 Meter am Stück gehen, jetzt sind es 150, vielleicht 200 Meter. Und es schwankt: an manchen Tagen komme ich weiter, an anderen muss ich schon nach hundert Metern stoppen.',
+          'akt-verlauf': 'Es wird langsam immer schlechter. Und es schwankt: an manchen Tagen komme ich weiter, an anderen muss ich schon nach hundert Metern stoppen.',
           'akt-ausloeser': 'Ausgelöst hat es nichts Bestimmtes. Kein Sturz, kein Unfall, kein Verheben. Es ist einfach nach und nach gekommen.',
           'akt-einfluss': 'Stehenbleiben allein hilft nicht, ich muss mich vorbeugen oder hinsetzen, dann ist es nach ein, zwei Minuten weg. Einkaufswagen schieben und Radfahren gehen problemlos. Schlimm ist langes aufrechtes Stehen.',
           'akt-frueher': 'So etwas hatte ich noch nie. Vor achtzehn Jahren hatte ich einen Bandscheibenvorfall, aber das war ganz anders: ein scharfer Schmerz nur im rechten Bein bis in die Ferse, und ich wurde daran operiert. Danach war fünfzehn Jahre Ruhe.',
@@ -38012,11 +38033,12 @@ export function seedCases(): Case[] {
         'auf-ct',
       ],
       caseSpecificQuestions: [
-        { frage: 'Wie weit können Sie am Stück gehen, bevor Sie eine Pause machen müssen — und wie weit war es vor einem Jahr?', kapitel: 'aktuell', sucht: ['gehstrecke'] },
+        { frage: 'Wie weit können Sie am Stück gehen, bevor Sie eine Pause machen müssen?', kapitel: 'aktuell', sucht: ['gehstrecke'], followUp: 'Und wie weit konnten Sie vor einem Jahr gehen?' },
         { frage: 'Wird es schon besser, wenn Sie einfach stehen bleiben, oder müssen Sie sich hinsetzen oder vornüberbeugen?', kapitel: 'aktuell', sucht: ['einfluss'], followUp: 'Wie lange dauert es, bis es besser wird?' },
-        { frage: 'Wie ist es, wenn Sie im Supermarkt den Einkaufswagen vor sich herschieben? Und wie geht es Ihnen beim Fahrradfahren?', kapitel: 'aktuell', sucht: ['einkaufswagenzeichen'] },
+        { frage: 'Wie ist es, wenn Sie im Supermarkt den Einkaufswagen vor sich herschieben?', kapitel: 'aktuell', sucht: ['einkaufswagenzeichen'], followUp: 'Und wie geht es Ihnen beim Fahrradfahren?' },
         { frage: 'Ist Bergaufgehen für Sie leichter oder schwerer als Bergabgehen?', kapitel: 'aktuell', sucht: ['steigung'] },
-        { frage: 'Sind Ihre Füße kalt, blass oder bläulich? Haben Sie Wunden am Fuß, die nicht heilen?', kapitel: 'aktuell', sucht: ['durchblutung', 'wundheilung'] },
+        { frage: 'Sind Ihre Füße kalt, blass oder bläulich?', kapitel: 'aktuell', sucht: ['durchblutung'] },
+        { frage: 'Haben Sie Wunden am Fuß, die nicht heilen?', kapitel: 'aktuell', sucht: ['wundheilung'] },
         { frage: 'Haben Sie nachts oder in Ruhe Schmerzen — oder nur beim Gehen?', kapitel: 'aktuell', sucht: ['ruheschmerz'] },
         { frage: 'Sie wurden am Rücken operiert: An welcher Stelle genau und in welcher Höhe war das? Wissen Sie noch, welche Beschwerden Sie damals hatten?', kapitel: 'vorerkrankungen', sucht: ['ortho_vorgeschichte'] },
       ],
@@ -38737,7 +38759,7 @@ export function seedCases(): Case[] {
         'Stuttgart',
         'Freiburg',
       ],
-      frequency: 8,
+      frequency: 7,
       difficulty: 2,
       patientSheet: {
         profil: { tags: ['ausscheidung', 'schmerz', 'diarrhoe', 'gastro'] },
@@ -38846,7 +38868,7 @@ export function seedCases(): Case[] {
           'akt-motiv': 'Herr Doktor, mein Bauch macht mir zu schaffen: aufgebläht wie ein Ballon, Krämpfe, dann Durchfall. Das geht seit Jahren, wird aber immer schlimmer.',
           'akt-beginn': 'Seit ungefähr drei Jahren. Das kam ganz langsam, am Anfang nur ab und zu. Seit etwa einem halben Jahr ist es fast jeden Tag.',
           'akt-ausscheid-was': 'Verändert hat sich eigentlich der Stuhlgang, wie ich schon sagte — Durchfall nach dem Essen. Mit dem Wasserlassen ist alles normal.',
-          'akt-ausscheid-haeufigkeit': 'Das kommt eben in Episoden, dann bin ich schon mal mehrmals hintereinander auf der Toilette, aber dazwischen ist tagelang gar nichts. Nachts ist da nichts, das passiert eigentlich immer tagsüber nach dem Essen. Schlimmer geworden ist es schon, von hin und wieder zu fast jeden Tag.',
+          'akt-ausscheid-haeufigkeit': 'Das kommt eben in Episoden, dann bin ich schon mal mehrmals hintereinander auf der Toilette, aber dazwischen ist tagelang gar nichts. Schlimmer geworden ist es schon, von hin und wieder zu fast jeden Tag.',
           'akt-ausscheid-harn-haeufigkeit': 'Mit dem Wasserlassen ist alles normal, da hat sich nichts verändert.',
           'akt-ausscheid-aussehen': 'Es ist breiig bis wässrig, keine besondere Farbe eigentlich. Blut oder Schleim habe ich nie gesehen. Schaumig, das kann schon sein, so genau habe ich da nicht hingeschaut.',
           'akt-ausscheid-harn-aussehen': 'Mit dem Wasserlassen ist alles normal, am Urin ist mir nichts aufgefallen.',
@@ -39091,9 +39113,9 @@ export function seedCases(): Case[] {
       ],
       caseSpecificQuestions: [
         { frage: 'Wie lange dauert es bei Ihnen nach dem Essen, bis die Beschwerden anfangen — Minuten oder eher ein bis zwei Stunden?', kapitel: 'aktuell', sucht: ['latenz_nach_essen'] },
-        { frage: 'Kommt es auf die Menge an? Vertragen Sie einen Schuss Milch im Kaffee, aber kein ganzes Glas Milch?', kapitel: 'aktuell', sucht: ['dosisabhaengigkeit'] },
+        { frage: 'Kommt es auf die Menge an?', kapitel: 'aktuell', sucht: ['dosisabhaengigkeit'], followUp: 'Vertragen Sie einen Schuss Milch im Kaffee, aber kein ganzes Glas Milch?' },
         { frage: 'Sind Sie beschwerdefrei, wenn Sie nüchtern sind oder mehrere Tage keine Milchprodukte essen — zum Beispiel im Urlaub?', kapitel: 'aktuell', sucht: ['einfluss'] },
-        { frage: 'Bekommen Sie nach Milch auch Hautausschlag, Juckreiz, eine Schwellung an Lippen oder Zunge oder Luftnot?', kapitel: 'aktuell', sucht: ['nahrungsmittelallergie'] },
+        { frage: 'Bekommen Sie nach Milch auch Hautausschlag oder Juckreiz?', kapitel: 'aktuell', sucht: ['nahrungsmittelallergie'], followUp: 'Schwellen Ihnen nach Milch Lippen oder Zunge an?', followUps: ['Bekommen Sie nach Milch Luftnot?'] },
         { frage: 'Wachen Sie nachts wegen der Bauchschmerzen oder wegen Stuhldrangs auf?', kapitel: 'aktuell', sucht: ['nachtschmerz', 'stuhl_nachts'] },
         { frage: 'Ist Ihr Stuhl fettglänzend, übelriechend, und schwimmt er auf dem Wasser?', kapitel: 'aktuell', sucht: ['stuhlaussehen'] },
         { frage: 'Haben Sie Blut oder Schleim im Stuhl bemerkt, oder war der Stuhl schon einmal teerschwarz?', kapitel: 'aktuell', sucht: ['stuhl_blut'] },
@@ -39285,7 +39307,7 @@ export function seedCases(): Case[] {
         'Freiburg',
         'Stuttgart',
       ],
-      frequency: 6,
+      frequency: 4,
       difficulty: 2,
       patientSheet: {
         profil: { tags: ['neurologisch', 'hals'] },
@@ -39377,7 +39399,7 @@ export function seedCases(): Case[] {
           'pers-groesse': 'Ich bin 1,76 m groß und wiege 78 Kilo. Das ist seit Jahren so.',
           'pers-beruf': 'Mit Chemikalien hatte ich außer Lacken und Beize nichts zu tun.',
           'pers-hausarzt': 'Ja, mein Hausarzt ist Dr. Bühler, der kennt mich seit dreißig Jahren.',
-          'akt-motiv': 'Meine Frau hat mich hergeschickt. Seit zwei Wochen finde ich mehrmals plötzlich die Wörter nicht mehr. Nach zwanzig Minuten ist alles wieder normal.',
+          'akt-motiv': 'Meine Frau hat mich hergeschickt. Seit zwei Wochen finde ich mehrmals plötzlich die Wörter nicht mehr.',
           'akt-beginn': 'Vor genau zwei Wochen, das war ein Samstagvormittag. Ich saß am Frühstückstisch, ganz ruhig, und auf einmal kam kein Wort mehr heraus. Es fing von einer Sekunde auf die andere an.',
           'akt-neuro-ausfall': 'Vor allem die Wörter fehlen mir dann plötzlich, ich komme nicht mehr richtig zum Sprechen. Dazu wird mein linker Arm schwach und pelzig, auch im Gesicht, und auf dem linken Auge fällt manchmal für ein paar Minuten so ein grauer Vorhang herunter. Gehen fällt mir während der Anfälle auch schwerer, ich bin dann unsicher auf den Beinen.',
           'akt-neuro-dauer': 'Jeder Anfall dauert weniger als zwanzig, höchstens dreißig Minuten, und danach ist wirklich alles wieder wie vorher, nichts bleibt zurück. Aber es kommt jetzt häufiger und die Anfälle werden auch heftiger.',
@@ -39597,11 +39619,12 @@ export function seedCases(): Case[] {
         'auf-echokardiographie',
       ],
       caseSpecificQuestions: [
-        { frage: 'Wann genau hat bei Ihnen die erste Attacke begonnen, und wie lange dauert eine einzelne Attacke — Minuten oder Stunden?', kapitel: 'aktuell', sucht: ['beginn', 'dauer'] },
+        { frage: 'Wann genau hat bei Ihnen die erste Attacke begonnen?', kapitel: 'aktuell', sucht: ['beginn'] },
+        { frage: 'Wie lange dauert eine einzelne Attacke — Minuten oder Stunden?', kapitel: 'aktuell', sucht: ['dauer'] },
         { frage: 'Waren die Beschwerden von der ersten Sekunde an am stärksten, oder haben sie sich bei Ihnen langsam über Minuten ausgebreitet?', kapitel: 'aktuell', sucht: ['beginn_art'] },
         { frage: 'Haben sich Ihre Beschwerden jedes Mal vollständig zurückgebildet, oder ist etwas zurückgeblieben?', kapitel: 'aktuell', sucht: ['rueckbildung'] },
         { frage: 'Werden die Attacken bei Ihnen häufiger oder heftiger als am Anfang?', kapitel: 'aktuell', sucht: ['entwicklung', 'episoden_haeufigkeit'] },
-        { frage: 'Hatten Sie eine Sehstörung — an einem oder an beiden Augen? War es, als ob ein Vorhang herunterfällt, und wie lange hat das gedauert?', kapitel: 'aktuell', sucht: ['sehstoerung'] },
+        { frage: 'Hatten Sie eine Sehstörung — an einem oder an beiden Augen?', kapitel: 'aktuell', sucht: ['sehstoerung'], braucht: ['dauer'], followUp: 'Falls ja: War es, als ob ein Vorhang herunterfällt?', followUps: ['Falls ja: Wie lange hat das gedauert?'] },
         { frage: 'Wissen Sie, ob bei Ihnen ein Vorhofflimmern bekannt ist, und welches Medikament Sie dagegen einnehmen?', kapitel: 'medikamente', sucht: ['herz_vorgeschichte', 'antikoagulation'] },
         { frage: 'Fahren Sie noch selbst Auto?', kapitel: 'aktuell', sucht: ['gefaehrdung'] },
       ],
@@ -39771,7 +39794,7 @@ export function seedCases(): Case[] {
         'Reutlingen',
         'Freiburg',
       ],
-      frequency: 14,
+      frequency: 6,
       difficulty: 2,
       patientSheet: {
         profil: { tags: ['allgemein', 'dyspnoe', 'gewichtsverlust', 'endo'] },
@@ -39864,7 +39887,7 @@ export function seedCases(): Case[] {
         antworten: {
           'pers-name': 'Maier, Franz Maier. M-a-i-e-r, mit a-i geschrieben.',
           'pers-alter': 'Ich bin 24 Jahre alt.',
-          'pers-groesse': 'Ich bin 1,78 m groß. Gewogen habe ich mich vorgestern: 65 Kilo. Vor drei Monaten waren es noch 70.',
+          'pers-groesse': 'Ich bin 1,78 m groß. Gewogen habe ich mich vorgestern: 65 Kilo.',
           'pers-beruf': 'Mit Staub oder Chemikalien habe ich nichts zu tun.',
           'pers-hausarzt': 'Ja, Dr. Neumann. Der hat mich hierher geschickt, weil er sich das nicht erklären konnte.',
           'akt-motiv': 'Ich bin ständig müde, Frau Doktor. Seit ungefähr drei Monaten. Ich schlafe und schlafe und bin trotzdem wie erschlagen — im Studium komme ich gar nicht mehr mit.',
@@ -39873,12 +39896,12 @@ export function seedCases(): Case[] {
           'akt-allgemein-alltag': 'Ins Studium schaffe ich es kaum noch, in den Vorlesungen kann ich mich nicht konzentrieren. Danach lege ich mich sofort hin, das mache ich sonst nie.',
           'akt-allgemein-tageszeit': 'Das ist eigentlich schon morgens da, gleich beim Aufstehen bin ich müde, obwohl ich die ganze Nacht geschlafen habe. Es bleibt den ganzen Tag ungefähr gleich.',
           'akt-allgemein-gewicht': 'Ja, ich habe fünf Kilo abgenommen in drei Monaten, obwohl ich eigentlich normal esse, eher mehr. Und ich habe wahnsinnigen Durst, fünf, sechs Liter am Tag trinke ich.',
-          'akt-allgemein-schwellung': 'Geschwollen ist bei mir nichts, keine dicken Beine, kein dickes Gesicht. Aber ich muss ständig auf die Toilette, auch nachts drei-, viermal, und es ist immer viel.',
+          'akt-allgemein-schwellung': 'Geschwollen ist bei mir nichts, keine dicken Beine, kein dickes Gesicht. Aber ich muss ständig auf die Toilette, und es ist immer viel.',
           'akt-verlauf': 'Das ist dauernd da, den ganzen Tag, nicht anfallsweise. Schon morgens beim Aufstehen bin ich müde, obwohl ich die ganze Nacht im Bett war.',
           'akt-ausloeser': 'Nein, da war nichts. Kein Infekt, keine Grippe, kein besonderer Stress. Es fing einfach an.',
           'akt-einfluss': 'Schlafen hilft nicht, das ist ja das Verrückte. Wenn ich trinke, geht es mir kurz besser, aber dann muss ich gleich wieder auf die Toilette. Medikamente habe ich dagegen keine genommen — höchstens Kaffee und mal einen Energydrink vor der Klausur, das bringt aber nichts.',
           'akt-frueher': 'Nein, so etwas hatte ich noch nie. Ich war eigentlich immer fit. Deshalb war ich ja beim Hausarzt.',
-          'akt-begleit': 'Ja, wahnsinniger Durst, fünf, sechs Liter am Tag, und nachts drei-, viermal auf die Toilette. Fünf Kilo abgenommen in drei Monaten. (leiser) Und es juckt im Schritt.',
+          'akt-begleit': 'Ja — nachts habe ich manchmal Wadenkrämpfe.',
           'veg-fieber': 'Nein, Fieber habe ich nicht, ich habe gemessen: 36,8. Im Ausland war ich zuletzt vor zwei Jahren im Urlaub in Spanien.',
           'veg-schuettelfrost': 'Nein, Schüttelfrost nicht, und Nachtschweiß auch nicht. Ich schwitze nicht mehr als früher.',
           'veg-uebelkeit': 'Nein, übel ist mir nicht, erbrochen habe ich nicht, und Bauchschmerzen habe ich auch keine.',
@@ -40111,12 +40134,13 @@ export function seedCases(): Case[] {
         'auf-sonographie',
       ],
       caseSpecificQuestions: [
-        { frage: 'Wie viel trinken Sie am Tag, und seit wann? Haben Sie immer eine Flasche dabei?', kapitel: 'aktuell', sucht: ['durst'] },
+        { frage: 'Wie viel trinken Sie am Tag?', kapitel: 'aktuell', sucht: ['durst'], followUp: 'Seit wann ist das so?', followUps: ['Haben Sie immer eine Flasche dabei?'] },
         { frage: 'Wie oft müssen Sie nachts zum Wasserlassen aufstehen — und war das früher auch schon so?', kapitel: 'aktuell', sucht: ['nykturie', 'polyurie'] },
-        { frage: 'Wie viel haben Sie in welchem Zeitraum abgenommen, und wie ist dabei Ihr Appetit — essen Sie weniger, gleich viel oder sogar mehr als früher?', kapitel: 'fach', sucht: ['gewicht', 'appetit'] },
-        { frage: 'Ist Ihnen übel, mussten Sie erbrechen, oder haben Sie Bauchschmerzen? Fällt Ihnen das Atmen schwerer als sonst?', kapitel: 'aktuell', sucht: ['uebelkeit', 'erbrechen'] },
+        { frage: 'Hat sich Ihr Gewicht in letzter Zeit verändert, ohne dass Sie es wollten?', kapitel: 'fach', sucht: ['gewicht', 'appetit'], followUp: 'Falls ja: Wie viel, in welchem Zeitraum?', followUps: ['Wie ist dabei Ihr Appetit — essen Sie weniger, gleich viel oder sogar mehr als früher?'] },
+        { frage: 'Ist Ihnen übel, mussten Sie erbrechen, oder haben Sie Bauchschmerzen?', kapitel: 'aktuell', sucht: ['uebelkeit', 'erbrechen'] },
         { frage: 'Ist Ihnen aufgefallen, dass Sie zeitweise verschwommen sehen — und geht das von selbst wieder weg?', kapitel: 'aktuell', sucht: ['sehstoerung'] },
-        { frage: 'Juckt Ihre Haut? Haben Sie Pilzinfektionen, eine Rötung im Genitalbereich oder schlecht heilende Wunden bemerkt?', kapitel: 'aktuell', sucht: ['pruritus', 'pilzinfektion', 'wundheilung'] },
+        { frage: 'Juckt Ihre Haut?', kapitel: 'aktuell', sucht: ['pruritus'] },
+        { frage: 'Haben Sie Pilzinfektionen, eine Rötung im Genitalbereich oder schlecht heilende Wunden bemerkt?', kapitel: 'aktuell', sucht: ['pilzinfektion', 'wundheilung'] },
         { frage: 'Gibt es in Ihrer Familie eine Zuckerkrankheit — und welchen Typ? Und gibt es Schilddrüsenerkrankungen, Vitiligo oder eine Zöliakie?', kapitel: 'familie-sozial', sucht: ['familie_endokrin', 'familie_autoimmun'] },
         { frage: 'Hatten Sie in den letzten Wochen einen Infekt, und nehmen Sie Kortison oder andere Medikamente ein?', kapitel: 'medikamente', sucht: ['vorinfekt', 'kortison'] },
       ],
@@ -40312,7 +40336,7 @@ export function seedCases(): Case[] {
         'Reutlingen',
         'Karlsruhe',
       ],
-      frequency: 6,
+      frequency: 7,
       difficulty: 2,
       patientSheet: {
         profil: { tags: ['ausscheidung', 'schmerz', 'diarrhoe', 'reise', 'gewichtsverlust'] },
@@ -40428,17 +40452,17 @@ export function seedCases(): Case[] {
           'akt-ausscheid-was': 'Verändert hat sich der Stuhlgang, das hatte ich ja gesagt — wässrig und übelriechend. Wasserlassen ist normal.',
           'akt-ausscheid-haeufigkeit': 'In der ersten Woche bis zu zehnmal am Tag, jetzt sind es noch drei bis fünf Mal. Nachts eigentlich nicht, das ist tagsüber. Es ist also schon weniger geworden als am Anfang, aber weg ist es nicht.',
           'akt-ausscheid-harn-haeufigkeit': 'Das Wasserlassen ist normal, da hat sich nichts verändert.',
-          'akt-ausscheid-aussehen': 'Hellgelb, wässrig, schäumt richtig und riecht streng, das hatte ich ja beschrieben. Blut oder Schleim ist da nicht drin.',
+          'akt-ausscheid-aussehen': 'Blut oder Schleim ist da nicht drin.',
           'akt-ausscheid-harn-aussehen': 'Das Wasserlassen ist normal, am Urin ist mir nichts aufgefallen.',
           'akt-ausscheid-schlucken': 'Nein, beim Schlucken ist alles normal. Ich traue mich nur kaum noch zu essen, weil ich fürchte, dass ich gleich wieder muss.',
           'akt-veraend-was': 'Aufgefallen ist mir der Stuhlgang – wässrig, hellgelb, das rieche ich schon von Weitem, und dazu eben die Krämpfe im Bauch. Blaue Flecken oder einen Knoten habe ich keine, die Haut ist normal, und gelb bin ich auch nicht geworden.',
           'akt-veraend-entwicklung': 'In der ersten Woche war es schlimmer, bis zu zehnmal am Tag, jetzt sind es drei bis fünf Mal – also eher etwas weniger geworden, aber weg ist es nicht. Die Farbe ist die ganze Zeit gleich geblieben, hellgelb und schaumig.',
           'akt-veraend-blutung': 'Weh tut mir der Bauch, das hatte ich ja gesagt, aber Blut habe ich noch keins gesehen – weder im Stuhl noch im Urin, auch nicht beim Husten oder aus der Nase. Jucken tut auch nichts.',
           'akt-verlauf': 'Es ist seit zwei Wochen jeden Tag gleich schlimm, es wird einfach nicht besser. Der Durchfall war in der ersten Woche schlimmer, bis zu zehnmal am Tag, jetzt sind es drei bis fünf Mal. Aber die Krämpfe sind unverändert.',
-          'akt-ausloeser': 'Ich glaube, es kommt vom Urlaub. Wir haben dort viel an Straßenständen gegessen, Salat und Obst, und ich hatte Eiswürfel in den Getränken. Einmal habe ich mir mit dem Leitungswasser die Zähne geputzt. Ein Unfall oder so war nicht.',
+          'akt-ausloeser': 'Ich glaube, es kommt vom Urlaub. Ein Unfall oder so war nicht.',
           'akt-einfluss': 'Schlimmer wird es immer ungefähr eine halbe Stunde nach dem Essen — besonders nach Milch, nach Kaffee und wenn es fettig war. Besser wird es sofort nach dem Stuhlgang, das ist wie eine Erlösung. Eine Wärmflasche hilft ein bisschen, und das Buscopan wirkt nur kurz.',
           'akt-frueher': 'Nein, so etwas hatte ich noch nie. Ich hatte nie Magen-Darm-Probleme, ich habe immer alles vertragen.',
-          'akt-begleit': 'Der Stuhl ist wässrig, hellgelb, riecht faulig und schäumt. Kein Blut, kein Schleim. Dauernd übel, Aufstoßen nach faulen Eiern, und ich bin völlig kaputt.',
+          'akt-begleit': 'Dauernd übel, Aufstoßen nach faulen Eiern, und ich bin völlig kaputt.',
           'veg-fieber': 'Nein, Fieber habe ich nicht. Ich habe gemessen: 37,2. Auch im Urlaub hatte ich kein Fieber.',
           'veg-schuettelfrost': 'Nein, Schüttelfrost hatte ich nicht, und nachts schwitze ich auch nicht. Ich muss nur oft raus auf die Toilette.',
           'veg-uebelkeit': 'Übel ist mir dauernd, das geht gar nicht weg. Erbrochen habe ich in der ersten Woche zwei- bis dreimal am Tag, seit einer Woche aber nicht mehr. Blut war nie dabei.',
@@ -40468,7 +40492,7 @@ export function seedCases(): Case[] {
           'fach-infekt-haut': 'Nein, einen Ausschlag habe ich nicht, auch keine roten Flecken oder Knoten an den Schienbeinen. Ein paar Mückenstiche hatte ich in Indonesien, die sind längst weg.',
           'fach-infekt-gelenke': 'Nein, die Gelenke tun mir nicht weh und geschwollen ist auch nichts. Die Augen sind auch nicht gerötet.',
           'fach-infekt-neuro': 'Nein, Kopfschmerzen habe ich keine, der Nacken ist nicht steif, und verwirrt bin ich nicht. Nur schwindelig, wenn ich zu schnell aufstehe.',
-          'fach-infekt-reise': 'Ja, drei Wochen Indonesien, Bali und Java, seit drei Wochen zurück. Viel an Straßenständen gegessen, Salat, Obst, Eiswürfel. Keine Malariatabletten.',
+          'fach-infekt-reise': 'Ja, drei Wochen Indonesien, Bali und Java, seit drei Wochen zurück. Keine Malariatabletten.',
           'fach-infekt-kontakt': 'Ja, jetzt, wo Sie fragen: Meine Frau und mein Sohn hatten in der ersten Woche nach der Rückkehr auch Durchfall, aber nur zwei Tage, dann war es vorbei. Bei mir hört es einfach nicht auf. Meine Frau arbeitet übrigens in der Küche eines Kindergartens — muss sie deswegen etwas beachten?',
           'fach-infekt-impfung': 'Ich habe einen Impfpass, die normalen Impfungen sind drin, Tetanus vor sechs Jahren. Gegen Hepatitis oder Typhus bin ich nicht geimpft, das habe ich vor der Reise leider versäumt.',
           // K2 (ADR-0023) : réponses des sondes de banque que le profil exige (r3)
@@ -40676,12 +40700,13 @@ export function seedCases(): Case[] {
         'auf-sonographie',
       ],
       caseSpecificQuestions: [
-        { frage: 'Was haben Sie dort gegessen und getrunken? Hatten Sie Eiswürfel in den Getränken, rohen Salat, ungeschältes Obst oder Leitungswasser?', kapitel: 'aktuell', sucht: ['essen_expo'], braucht: ['reise'] },
+        { frage: 'Was haben Sie dort gegessen und getrunken?', kapitel: 'aktuell', sucht: ['essen_expo'], braucht: ['reise'], followUp: 'Hatten Sie Eiswürfel in den Getränken, oder haben Sie Leitungswasser getrunken?', followUps: ['Haben Sie rohen Salat oder ungeschältes Obst gegessen?'] },
         { frage: 'Was arbeiten Sie beruflich, und arbeitet jemand in Ihrem Haushalt in einer Küche, in der Gastronomie oder in einem Kindergarten?', kapitel: 'familie-sozial', sucht: ['beruf'] },
         { frage: 'Wie sieht Ihr Stuhl aus — wässrig oder breiig, welche Farbe, riecht er auffällig, schwimmt er oben?', sucht: ['stuhl', 'stuhlaussehen'], kapitel: 'aktuell' },
         { frage: 'Trinken Sie genug? Wie oft müssen Sie Wasser lassen, und welche Farbe hat der Urin? Wird Ihnen beim Aufstehen schwindelig?', kapitel: 'vegetativ', sucht: ['miktion_frequenz', 'urin_aspekt', 'schwindel'] },
         { frage: 'Haben Sie in den letzten Wochen oder Monaten Antibiotika eingenommen oder waren Sie im Krankenhaus?', kapitel: 'medikamente', sucht: ['krankenhaus'] },
-        { frage: 'Haben Sie Fieber gemessen? Hatten Sie Schüttelfrost oder Nachtschweiß?', kapitel: 'aktuell', sucht: ['fieber', 'schuettelfrost', 'nachtschweiss'] },
+        { frage: 'Haben Sie Fieber gemessen?', kapitel: 'aktuell', sucht: ['fieber'] },
+        { frage: 'Hatten Sie Schüttelfrost oder Nachtschweiß?', kapitel: 'aktuell', sucht: ['schuettelfrost', 'nachtschweiss'] },
       ],
       examinerQuestions: [
         'Warum haben Sie einen Verdacht auf eine Gastroenteritis? Was spricht dafür und was dagegen?',
@@ -40862,7 +40887,7 @@ export function seedCases(): Case[] {
         'Stuttgart',
         'Freiburg',
       ],
-      frequency: 9,
+      frequency: 8,
       difficulty: 2,
       patientSheet: {
         profil: { tags: ['schmerz', 'gelenk', 'arthritis', 'fieber', 'lyme'] },
@@ -41222,7 +41247,8 @@ export function seedCases(): Case[] {
         { frage: 'Wandern die Schmerzen bei Ihnen von einem Gelenk zum anderen, und wird das zuerst betroffene Gelenk wieder besser, wenn das nächste anfängt?', kapitel: 'aktuell', sucht: ['gelenke'] },
         { frage: 'Ist Ihnen an der Haut etwas aufgefallen — blasse rötliche Ringe oder Flecken am Bauch oder Rücken, die nicht jucken und wieder verschwinden?', kapitel: 'aktuell', sucht: ['ausschlag', 'erythem_ring'] },
         { frage: 'Haben Sie kleine schmerzlose Knötchen unter der Haut bemerkt, zum Beispiel über den Ellenbogen, an den Knöcheln oder am Hinterkopf?', kapitel: 'aktuell', sucht: ['hautknoetchen'] },
-        { frage: 'Haben Sie Herzklopfen, Herzstolpern, Schmerzen in der Brust oder Luftnot bemerkt, auch beim Treppensteigen oder nachts im Liegen?', kapitel: 'aktuell', sucht: ['herzrasen', 'brustschmerz', 'atemnot', 'orthopnoe'] },
+        { frage: 'Haben Sie Herzklopfen, Herzstolpern oder Schmerzen in der Brust bemerkt?', kapitel: 'aktuell', sucht: ['herzrasen', 'brustschmerz'] },
+        { frage: 'Haben Sie Luftnot bemerkt, auch beim Treppensteigen oder nachts im Liegen?', kapitel: 'aktuell', sucht: ['atemnot', 'orthopnoe'] },
         { frage: 'Sind Ihnen unwillkürliche Bewegungen aufgefallen, sind Sie ungeschickter geworden, hat sich Ihre Handschrift verändert, oder haben Ihre Angehörigen eine Stimmungsveränderung bemerkt?', kapitel: 'aktuell', sucht: ['chorea', 'feinmotorik', 'stimmung'] },
       ],
       examinerQuestions: [
@@ -41835,8 +41861,8 @@ export function seedCases(): Case[] {
       ],
       caseSpecificQuestions: [
         { frage: 'Können Sie mir die genaue Uhrzeit nennen, zu der es losging, oder hat sich das über mehrere Tage aufgebaut?', kapitel: 'aktuell', sucht: ['beginn', 'beginn_art'] },
-        { frage: 'Hatten Sie zuerst Schnupfen und Niesen, oder standen Fieber und Gliederschmerzen von Anfang an im Vordergrund?', kapitel: 'aktuell', sucht: ['prodromi'], relu: true },
-        { frage: 'Sie sagen, Sie hätten sich zweimal auf Corona getestet: Wie genau haben Sie den Abstrich gemacht — nur vorne in der Nase oder tief im Rachen? An welchem Tag, und was für ein Test war das?', kapitel: 'aktuell', sucht: ['coronatest'] },
+        { frage: 'Hatten Sie zuerst Schnupfen und Niesen?', kapitel: 'aktuell', sucht: ['prodromi'] },
+        { frage: 'Sie sagen, Sie hätten sich zweimal auf Corona getestet: Wie genau haben Sie den Abstrich gemacht — nur vorne in der Nase oder tief im Rachen?', kapitel: 'aktuell', sucht: ['coronatest'], followUp: 'An welchem Tag war das?', followUps: ['Was für ein Test war das?'] },
         { frage: 'Waren Sie während Ihrer Auslandsreise in einem Malariagebiet, und haben Sie dort eine Malariaprophylaxe eingenommen — welche, und wie regelmäßig?', kapitel: 'familie-sozial', sucht: ['malariaprophylaxe'], braucht: ['reise'] },
         { frage: 'Sind Sie gegen Grippe geimpft?', kapitel: 'vorerkrankungen', sucht: ['impfung'], followUp: 'Falls nein: Was hält Sie davon ab, sich gegen Grippe impfen zu lassen?' },
         { frage: 'Bekommen Sie Luftnot, ein Engegefühl in der Brust oder pfeifende Atmung?', kapitel: 'aktuell', sucht: ['atemnot', 'giemen'], followUp: 'Falls ja: Was nehmen Sie dagegen?' },
@@ -42032,7 +42058,7 @@ export function seedCases(): Case[] {
         'Reutlingen',
         'Stuttgart',
       ],
-      frequency: 12,
+      frequency: 8,
       difficulty: 2,
       patientSheet: {
         profil: { tags: ['schmerz', 'gelenk', 'steifigkeit'] },
@@ -42597,7 +42623,7 @@ export function seedCases(): Case[] {
         'Stuttgart',
         'Karlsruhe',
       ],
-      frequency: 7,
+      frequency: 6,
       difficulty: 3,
       patientSheet: {
         profil: { tags: ['allgemein', 'dyspnoe', 'endo'] },
@@ -42696,7 +42722,7 @@ export function seedCases(): Case[] {
         antworten: {
           'pers-name': 'Kaiser, Anton Kaiser. K-a-i-s-e-r.',
           'pers-alter': 'Ich bin 53 Jahre alt.',
-          'pers-groesse': 'Ich bin 1,70 m groß und wiege 115 Kilo. (schaut zur Seite) Vor zwei Jahren waren es noch ungefähr 105.',
+          'pers-groesse': 'Ich bin 1,70 m groß und wiege 115 Kilo.',
           'pers-beruf': 'Ich habe in einer Änderungsschneiderei gearbeitet, den ganzen Tag sitzend an der Maschine — mit Staub oder Chemikalien hatte ich nichts zu tun.',
           'pers-hausarzt': 'Ja, Dr. Bergmann. Bei dem war ich gestern zum Blutabnehmen, der hat mich hierher geschickt.',
           'akt-motiv': 'Ehrlich gesagt schickt mich mein Hausarzt. Ich habe in den letzten zwei Jahren immer mehr zugenommen, ich bin ständig müde und zu nichts mehr zu gebrauchen. Und gestern kamen die Blutwerte — der Zucker sei bei knapp 150 gewesen und das Cholesterin zu hoch. Er hat irgendwas von einem Syndrom gesagt.',
@@ -42707,17 +42733,17 @@ export function seedCases(): Case[] {
           'akt-allgemein-gewicht': 'Zugenommen habe ich, ja — so zehn Kilo in den letzten zwei Jahren. Der Appetit ist eher größer geworden, und Durst habe ich auch viel, ich trinke am Tag zwei, drei Liter Cola, dazu noch Wasser.',
           'akt-allgemein-schwellung': 'Geschwollen bin ich nirgends besonders — außer dass ich insgesamt einfach dick bin. Beim Wasserlassen muss ich nachts zwei-, dreimal raus, das ist neu.',
           'akt-verlauf': 'Das ist dauernd da, jeden Tag, und es wird langsam schlimmer. Nachmittags nicke ich vor dem Fernseher ein — das ist mir früher nie passiert.',
-          'akt-ausloeser': 'Angefangen hat es mit der Kündigung. Seitdem sitze ich zu Hause, ich koche nicht mehr richtig, es gibt Pizza oder was vom Imbiss, und Cola trinke ich literweise dazu. Bewegen tue ich mich praktisch gar nicht mehr.',
+          'akt-ausloeser': 'Angefangen hat es mit der Kündigung.',
           'akt-einfluss': 'Besser wird es eigentlich nie. Schlimmer beim Treppensteigen, dritter Stock ohne Aufzug, da muss ich zweimal stehen bleiben. Genommen nur Diclofenac fürs Knie.',
           'akt-frueher': 'So schlimm noch nie. Vor zehn Jahren war ich auch schon kräftig, aber da habe ich gearbeitet und bin zurechtgekommen. Beim Arzt war ich deswegen nie — nur wegen des Blutdrucks.',
-          'akt-begleit': 'Ja: nachts zwei-, dreimal auf die Toilette, ständig Durst, viel Schwitzen. Meine Frau sagt, ich schnarche und höre zwischendurch auf zu atmen. Und ich sehe verschwommen.',
+          'akt-begleit': 'Ja: nachts zwei-, dreimal auf die Toilette, ständig Durst, viel Schwitzen. Und ich sehe verschwommen.',
           'veg-fieber': 'Nein, Fieber habe ich nicht, gemessen habe ich auch nichts. Im Ausland war ich seit Jahren nicht mehr.',
           'veg-schuettelfrost': 'Schüttelfrost nicht. Aber schwitzen — ja, viel, auch nachts; manchmal muss ich das T-Shirt wechseln. Ich dachte immer, das liegt am Gewicht.',
           'veg-uebelkeit': 'Nein, übel ist mir nicht, und erbrochen habe ich nicht.',
           'veg-ausscheidung': 'Der Stuhlgang ist ganz normal, einmal am Tag. Beim Wasserlassen muss ich viel und oft, nachts zwei- bis dreimal. Brennen tut es nicht, Blut habe ich nie gesehen.',
           'veg-gewicht': 'Zugenommen, etwa zehn Kilo in zwei Jahren — von 105 auf 115. Abgenommen habe ich nie, obwohl ich es zweimal versucht habe; hinterher war ich schwerer als vorher.',
           'veg-appetit': 'Der Appetit ist gut, zu gut. Ich habe richtige Heißhungerattacken, vor allem abends, und nachts stehe ich manchmal auf und esse noch etwas. Und Cola trinke ich zwei bis drei Liter am Tag.',
-          'veg-schlaf': 'Ich schlafe schlecht. Ich schnarche laut, wache zwischendurch auf und bin morgens wie gerädert. Tagsüber schlafe ich dann ein — einmal sogar im Auto an einer roten Ampel, das hat mich erschreckt.',
+          'veg-schlaf': 'Ich schlafe schlecht. Ich wache zwischendurch auf und bin morgens wie gerädert.',
           'vor-erkrank': 'Hohen Blutdruck habe ich seit ungefähr fünfzehn Jahren, dafür nehme ich eine Tablette; zuletzt war er 155 zu 95. Seit zwei Jahren habe ich Arthrose in beiden Knien, das hat der Orthopäde festgestellt. Zucker ist bei mir nie festgestellt worden — bis gestern.',
           'vor-op': 'Als Kind, mit acht, ist mir der Blinddarm herausgenommen worden. Sonst wurde ich nie operiert.',
           'vor-krankenhaus': 'Nein, seit dem Blinddarm nicht mehr. (zögert) Der Augenarzt hat vor einem halben Jahr gesagt, ich soll dringend zum Internisten. Bin ich nicht hingegangen.',
@@ -42736,7 +42762,7 @@ export function seedCases(): Case[] {
           'fam-wohnen': 'Ich wohne allein, in einer Zweizimmerwohnung im dritten Stock, ohne Aufzug. Die Treppe ist inzwischen ein echtes Problem für mich.',
           'fam-haustiere': 'Nein, Haustiere habe ich keine. Für einen Hund müsste ich ja jeden Tag rausgehen — vielleicht wäre das gar nicht das Schlechteste.',
           'fach-endo-durst': 'Ja, sehr. Ich habe dauernd Durst und einen trockenen Mund; ich trinke zwei bis drei Liter Cola am Tag und dazu noch Wasser. Und Wasser lassen muss ich ständig, nachts zwei- bis dreimal.',
-          'fach-endo-gewicht': 'Zugenommen, etwa zehn Kilo in zwei Jahren, ohne dass ich absichtlich etwas umgestellt hätte — außer dass ich mehr zu Hause sitze und mehr esse. Der Appetit ist eher größer geworden, mit richtigen Heißhungerattacken am Abend.',
+          'fach-endo-gewicht': 'Der Appetit ist eher größer geworden, mit richtigen Heißhungerattacken am Abend.',
           'fach-endo-temperatur': 'Ich schwitze viel, auch nachts. Frieren tue ich nicht, Kälte macht mir nichts aus. Hitze allerdings schon — im Sommer komme ich kaum die Treppe hoch.',
           'fach-endo-herz-nerven': 'Herzrasen habe ich nicht, und zittern tue ich auch nicht. Aber antriebslos und müde — das trifft es genau. Ich raffe mich zu nichts mehr auf, und traurig bin ich auch. Daran, mich umzubringen, habe ich aber nie gedacht, das nicht.',
           'fach-endo-hals': 'Nein, am Hals ist mir nichts aufgefallen — keine Schwellung, kein Engegefühl. Schlucken kann ich ganz normal, und meine Stimme ist wie immer.',
@@ -42751,6 +42777,16 @@ export function seedCases(): Case[] {
           'fach-pneumo-atemnot': 'Auf der Treppe in den dritten Stock muss ich zweimal stehen bleiben. In Ruhe oder im Liegen habe ich keine Luftnot.',
         },
         frageAntworten: [
+          {
+            frage: 'Schnarchen Sie? Hat Ihnen jemand gesagt, dass Sie im Schlaf Atempausen haben? Schlafen Sie tagsüber ungewollt ein — auch beim Autofahren?',
+            antwort: 'Ich schnarche laut, und meine frühere Frau hat gesagt, dass ich manchmal aufhöre zu atmen. Tagsüber schlafe ich ein — vor dem Fernseher, und einmal sogar im Auto an einer roten Ampel, das hat mich erschreckt.',
+            kapitel: 'vegetativ',
+          },
+          {
+            frage: 'Wie viel haben Sie in diesen zwei Jahren zugenommen?',
+            antwort: '(schaut zur Seite) Etwa zehn Kilo. Vor zwei Jahren waren es noch ungefähr 105.',
+            kapitel: 'aktuell',
+          },
           {
             frage: 'Was hat Ihnen der Augenarzt genau gesagt?',
             antwort: 'Er hat gesagt, an der Netzhaut seien Veränderungen, wie man sie bei Zucker sieht, und ich solle unbedingt zu einem Internisten. Ich bin nicht hingegangen. Ich dachte, die wollen doch nur Geld verdienen.',
@@ -42981,9 +43017,10 @@ export function seedCases(): Case[] {
         'auf-koloskopie',
       ],
       caseSpecificQuestions: [
-        { frage: 'Was essen und trinken Sie an einem ganz normalen Tag — vom Aufstehen bis zum Zubettgehen? Wie viel davon sind gezuckerte Getränke?', kapitel: 'aktuell', sucht: ['essalltag', 'zuckergetraenke'] },
-        { frage: 'Wie viele Stunden am Tag sitzen Sie, und wie viel bewegen Sie sich im Alltag? Treiben Sie Sport?', kapitel: 'aktuell', sucht: ['bewegung_alltag'] },
-        { frage: 'Wie hat sich Ihr Gewicht über die letzten Jahre entwickelt? Haben Sie schon einmal versucht abzunehmen, und was ist dabei herausgekommen?', kapitel: 'vorerkrankungen', sucht: ['gewicht', 'abnehmversuche'] },
+        { frage: 'Was essen und trinken Sie an einem ganz normalen Tag — vom Aufstehen bis zum Zubettgehen?', kapitel: 'aktuell', sucht: ['essalltag', 'zuckergetraenke'], followUp: 'Wie viel davon sind gezuckerte Getränke?' },
+        { frage: 'Wie viel haben Sie in diesen zwei Jahren zugenommen?', kapitel: 'aktuell', sucht: ['gewicht'] },
+        { frage: 'Wie viele Stunden am Tag sitzen Sie?', kapitel: 'aktuell', sucht: ['bewegung_alltag'], followUp: 'Wie viel bewegen Sie sich im Alltag?', followUps: ['Treiben Sie Sport?'] },
+        { frage: 'Haben Sie schon einmal versucht abzunehmen?', kapitel: 'vorerkrankungen', sucht: ['abnehmversuche'], followUp: 'Falls ja: Was ist dabei herausgekommen?' },
         { frage: 'Schnarchen Sie? Hat Ihnen jemand gesagt, dass Sie im Schlaf Atempausen haben? Schlafen Sie tagsüber ungewollt ein — auch beim Autofahren?', kapitel: 'vegetativ', sucht: ['schnarchen', 'schlafapnoe', 'tagesschlaefrigkeit'], relu: true },
         { frage: 'Was genau hat Ihnen Ihr Hausarzt gestern zu Ihrem Blutzucker und Ihren Blutfettwerten gesagt?', kapitel: 'vorerkrankungen', sucht: ['vorbefunde'] },
         { frage: 'Waren Sie schon einmal wegen Ihrer Augen beim Augenarzt?', kapitel: 'aktuell', sucht: ['augenkontrolle'], followUp: 'Falls ja: Was hat der Augenarzt festgestellt?' },
@@ -43314,7 +43351,7 @@ export function seedCases(): Case[] {
           'akt-ausloeser': 'Doch, da ist ein Muster, das habe ich mir selbst zusammengereimt: Rotwein, scharf gewürztes Essen, alter Käse — und wenn ich mich aufrege oder mich anstrenge. Dann wird mein Gesicht rot und der Bauch fängt an.',
           'akt-einfluss': 'Eine Wärmflasche und Hinlegen machen es ein bisschen erträglicher. Buscopan aus der Apotheke habe ich probiert, das hilft kaum. Richtig weg geht es erst von allein.',
           'akt-frueher': 'In dieser Stärke nicht. Aber wie gesagt, seit ungefähr drei Jahren habe ich immer wieder solche Phasen mit Durchfall und Bauchweh. Ich habe das nie so ernst genommen, weil ja immer gesagt wurde, das sei der Reizdarm.',
-          'akt-begleit': 'Ja: Durchfall fünf-, sechsmal am Tag, das Gesicht wird plötzlich rot, Herzrasen. Fünf Kilo abgenommen. Und manchmal pfeift es beim Atmen, wie Asthma.',
+          'akt-begleit': 'Ja: Meinem Mann sind feine rote Äderchen an meinen Wangen und auf der Nase aufgefallen.',
           'veg-fieber': 'Nein, Fieber habe ich keines. Ich habe extra gemessen: 36,8. Im Ausland war ich seit Jahren nicht mehr.',
           'veg-schuettelfrost': 'Schüttelfrost nein. Und Nachtschweiß auch nicht — das ist ja das Komische: Wenn ich diese Hitze im Gesicht habe, schwitze ich gerade NICHT. Meine Freundin in den Wechseljahren, die ist danach immer klatschnass. Ich nicht.',
           'veg-uebelkeit': 'Manchmal ist mir während der Anfälle ein bisschen übel, aber erbrochen habe ich nicht. Blut habe ich auch nie erbrochen.',
@@ -43574,7 +43611,7 @@ export function seedCases(): Case[] {
       ],
       caseSpecificQuestions: [
         { frage: 'Sie sagen, Ihr Gesicht werde plötzlich rot — wie lange dauert das, wo genau breitet es sich aus, und schwitzen Sie dabei?', kapitel: 'aktuell', sucht: ['dauer', 'schwitzen'] },
-        { frage: 'Gibt es etwas, das diese Rötung regelmäßig auslöst — Alkohol, scharfes Essen, Käse, Schokolade, Aufregung oder Anstrengung?', kapitel: 'aktuell', sucht: ['ausloeser'] },
+        { frage: 'Gibt es etwas, das diese Rötung regelmäßig auslöst?', kapitel: 'aktuell', sucht: ['ausloeser'], followUp: 'Tritt die Rötung zum Beispiel nach Alkohol oder Käse auf?' },
         { frage: 'Müssen Sie auch nachts wegen Durchfall aufstehen, und wie oft haben Sie insgesamt Stuhlgang am Tag?', kapitel: 'aktuell', sucht: ['stuhl_nachts', 'stuhlfrequenz'] },
         { frage: 'Und wie war es vor diesen sechs Wochen — hatten Sie schon früher Phasen mit Durchfall und Bauchschmerzen?', kapitel: 'aktuell', sucht: ['frueher'], relu: true },
         { frage: 'Was hat Ihr Hausarzt damals untersucht, bevor er Ihnen gesagt hat, das sei ein Reizdarm? Wurde eine Darmspiegelung gemacht?', kapitel: 'vorerkrankungen', sucht: ['vorbefunde', 'spiegelung'] },
@@ -44095,7 +44132,7 @@ export function seedCases(): Case[] {
         { frage: 'Haben Sie in den letzten Tagen eine Spritze bekommen — und wenn ja, wo genau und weswegen?', kapitel: 'medikamente', sucht: ['injektion'] },
         { frage: 'Wie viele Tage lagen zwischen der Spritze und den ersten Beschwerden?', kapitel: 'medikamente', sucht: ['latenz'], braucht: ['injektion'] },
         { frage: 'Breitet sich die Rötung von Stunde zu Stunde weiter aus, sind Blasen oder dunkle Stellen aufgetreten, oder knistert die Haut unter den Fingern?', kapitel: 'aktuell', sucht: ['nekrose_zeichen'], relu: true },
-        { frage: 'Hatten Sie schon einmal ähnliche Eiterbeulen, besonders in den Achseln, in den Leisten oder in der Pofalte?', kapitel: 'aktuell', sucht: ['frueher'] },
+        { frage: 'Hatten Sie schon einmal ähnliche Eiterbeulen?', kapitel: 'aktuell', sucht: ['frueher'], followUp: 'Falls ja: Hatten Sie solche Beulen auch schon in den Achseln oder in den Leisten?' },
         { frage: 'Wie gut ist Ihr Zucker eingestellt — wann wurde zuletzt der Langzeitzucker bestimmt?', kapitel: 'vorerkrankungen', sucht: ['diabetes_einstellung'] },
         { frage: 'Nehmen Sie Kortison oder Medikamente, die das Abwehrsystem unterdrücken?', kapitel: 'medikamente', sucht: ['kortison', 'immunsuppression'] },
         { frage: 'Haben Sie im Bein ein Kribbeln, ein Taubheitsgefühl oder eine Schwäche bemerkt?', kapitel: 'aktuell', sucht: ['taubheit', 'schwaeche'] },
@@ -44279,7 +44316,7 @@ export function seedCases(): Case[] {
         'Karlsruhe',
         'Stuttgart',
       ],
-      frequency: 7,
+      frequency: 5,
       difficulty: 3,
       patientSheet: {
         profil: { tags: ['psychisch', 'gewichtsverlust'] },
@@ -44400,7 +44437,7 @@ export function seedCases(): Case[] {
           'akt-psych-sicherheit': '(zögert, wird leiser) Nein, einen Plan oder sowas habe ich nicht, und ich würde mir nichts antun. Aber manchmal, wenn alles zu viel wird, denke ich schon, dass es einfacher wäre, morgens einfach nicht aufzuwachen. Das ist aber nicht oft, und ich würde nie etwas dafür tun.',
           'akt-verlauf': 'Es kommt nach jedem Essen und bleibt ein, zwei Stunden. Wenn ich nichts esse, habe ich es gar nicht.',
           'akt-ausloeser': 'Wenn ich mehr esse als sonst, oder etwas Warmes und Fettiges. Und wenn ich mit anderen zusammen esse, wird es schlimmer.',
-          'akt-einfluss': '(zögert lange, leiser) Es geht eigentlich erst weg, wenn … wenn ich mich übergebe. Dann ist der Druck sofort weg. Das mache ich vielleicht zwei- oder dreimal in der Woche, nach größeren Mahlzeiten. Sonst hilft nur warten oder rausgehen und mich bewegen.',
+          'akt-einfluss': '(zögert) Eigentlich hilft nur warten oder rausgehen und mich bewegen.',
           'akt-frueher': 'Nein, früher hatte ich das nie. Früher habe ich ganz normal gegessen.',
           'akt-begleit': 'Mir ist ständig kalt, auch im Sommer, und meine Haut ist sehr trocken. Die Haare fallen mehr aus als früher. Wenn ich schnell aufstehe, wird mir schwindelig und es wird kurz schwarz vor den Augen. Und die Periode habe ich seit acht Monaten nicht mehr.',
           'veg-fieber': 'Nein, Fieber habe ich nicht. Eher das Gegenteil — mir ist ständig kalt, ich sitze auch im Sommer mit Pullover da.',
@@ -44434,7 +44471,7 @@ export function seedCases(): Case[] {
           'fach-psych-tagesverlauf': 'Um fünf stehe ich auf und gehe laufen. Frühstück gibt es nicht, nur Kaffee. Mittags Salat, abends einen Joghurt oder Apfel. Abends noch Übungen im Zimmer.',
           'fach-psych-konzentration': 'Das ist schlechter geworden. Ich lese eine Seite dreimal und weiß danach nicht, was drinstand. Meine Noten sind im letzten Halbjahr abgerutscht, das ärgert mich sehr.',
           'fach-psych-angst': '(sehr leise) Ich habe Angst davor, wieder zuzunehmen. Wenn die Waage mehr anzeigt, geht es mir den ganzen Tag schlecht. Und ich finde mich am Bauch und an den Oberschenkeln immer noch zu dick — auch wenn alle etwas anderes sagen.',
-          'fach-psych-suizid': 'Nein. Sterben will ich nicht, und ich habe mir nie etwas angetan. (Pause, leiser) Manchmal denke ich schon, dass alles ziemlich sinnlos ist und dass es einfacher wäre, wenn ich morgens nicht aufwachen müsste. Aber Pläne habe ich keine, und tun würde ich mir nichts.',
+          'fach-psych-suizid': 'Sterben will ich nicht, und ich habe mir nie etwas angetan. Pläne habe ich keine, und tun würde ich mir nichts. Vorbereitet habe ich nichts.',
           'fach-psych-ausloeser': 'Angefangen hat es vor etwa einem Jahr. Im Sportunterricht hat jemand einen blöden Spruch über meine Oberschenkel gemacht. Da habe ich angefangen, auf mein Essen zu achten. Und dann kam der Druck mit dem Abitur dazu. Das Essen war irgendwie das Einzige, was ich selbst in der Hand hatte.',
           'fach-psych-frueher': 'Nein, so etwas hatte ich früher nie. Ich war nie beim Psychologen und nie in einer Klinik deswegen.',
           'frau-periode': 'Die erste Periode hatte ich mit 13, danach war sie immer regelmäßig. Jetzt habe ich seit acht Monaten keine mehr. (schulterzuckend) Ehrlich gesagt fand ich das eher praktisch.',
@@ -44443,6 +44480,11 @@ export function seedCases(): Case[] {
           'frau-wechseljahre': 'Nein, in den Wechseljahren bin ich mit 19 sicher nicht. Hitzewallungen habe ich keine — mir ist ja ständig kalt.',
         },
         frageAntworten: [
+          {
+            frage: 'Haben Sie in dieser Zeit manchmal daran gedacht, dass Sie nicht mehr leben möchten oder dass es einfacher wäre, nicht mehr da zu sein?',
+            antwort: '(Pause, leiser) Manchmal denke ich schon, dass alles ziemlich sinnlos ist und dass es einfacher wäre, wenn ich morgens nicht aufwachen müsste.',
+            kapitel: 'aktuell',
+          },
           {
             frage: 'Ich frage das ganz ohne Vorwurf: Kommt es vor, dass Sie sich nach dem Essen übergeben?',
             antwort: '(Pause) Erbrechen … ja, das schon, aber nur wegen dem Völlegefühl. Zwei- oder dreimal die Woche, nach dem Essen. Danach fühle ich mich einfach besser.',
@@ -44683,7 +44725,7 @@ export function seedCases(): Case[] {
         { frage: 'Gibt es Lebensmittel, die Sie bewusst weglassen?', kapitel: 'aktuell', sucht: ['diaet'], followUp: 'Falls ja: Was fällt Ihnen besonders schwer zu essen?' },
         { frage: 'Ich frage das ganz ohne Vorwurf: Kommt es vor, dass Sie sich nach dem Essen übergeben?', kapitel: 'aktuell', sucht: ['selbstinduziertes_erbrechen', 'erbrechen'], followUp: 'Falls ja: Lösen Sie das Erbrechen manchmal selbst aus, zum Beispiel mit dem Finger?', followUps: ['Falls ja: Seit wann ist das so?'] },
         { frage: 'Nehmen Sie Abführmittel, Entwässerungstabletten, Appetitzügler oder Diätmittel ein — auch pflanzliche Mittel oder etwas aus dem Internet?', kapitel: 'medikamente', sucht: ['abfuehrmittel', 'diuretika'] },
-        { frage: 'Wie viel bewegen Sie sich am Tag? Wie geht es Ihnen an einem Tag, an dem Sie nicht laufen können?', kapitel: 'aktuell', sucht: ['bewegung_alltag'] },
+        { frage: 'Wie viel bewegen Sie sich am Tag?', kapitel: 'aktuell', sucht: ['bewegung_alltag'], followUp: 'Wie geht es Ihnen an einem Tag, an dem Sie nicht laufen können?' },
         { frage: 'Haben Sie Angst davor, zuzunehmen?', kapitel: 'aktuell', sucht: ['gewichtsphobie'], relu: true, followUp: 'Was würde passieren, wenn die Waage zwei Kilo mehr anzeigen würde?' },
         { frage: 'Wenn Sie sich im Spiegel ansehen — was sehen Sie da?', kapitel: 'aktuell', sucht: ['koerperbild'] },
         { frage: 'Haben Sie in dieser Zeit manchmal daran gedacht, dass Sie nicht mehr leben möchten oder dass es einfacher wäre, nicht mehr da zu sein?', kapitel: 'aktuell', sucht: ['todeswunsch'] },
@@ -44880,7 +44922,7 @@ export function seedCases(): Case[] {
         'Freiburg',
         'Stuttgart',
       ],
-      frequency: 6,
+      frequency: 5,
       difficulty: 2,
       patientSheet: {
         profil: { tags: ['infekt', 'reise', 'fieber', 'gelenk'] },
@@ -44990,12 +45032,12 @@ export function seedCases(): Case[] {
           'akt-beginn': 'Vor zehn Tagen. Es kam nicht schlagartig, eher über einen Tag: erst Gliederschmerzen und ein Frösteln, abends dann das erste Mal richtig Fieber mit Schüttelfrost.',
           'akt-infekt-fieber': 'Ja, ich habe gemessen, bis 40 Grad. Am höchsten ist es abends, aber ehrlich gesagt ohne festen Rhythmus – manchmal steigt es zweimal am Tag. Schüttelfrost hatte ich am Anfang jedes Mal, wenn das Fieber kam.',
           'akt-infekt-kontakt': 'Ich war ja eineinhalb Jahre in Malawi, das hatte ich gesagt. Prophylaxe habe ich die ganze Zeit genommen, jeden Tag Tabletten – (etwas defensiv) das war nicht immer einfach, aber ich habe es gemacht. Mit dem Moskitonetz war ich, ehrlich gesagt, nicht immer so konsequent, gerade in der Regenzeit. Kontakt zu Kranken, außer etwas Durchfall bei Kollegen, hatte ich nicht, und zu Tieren auch nicht besonders.',
-          'akt-infekt-herd': 'Husten ja, trocken, ein bisschen. Halsschmerzen nicht. Beim Wasserlassen brennt nichts, aber der Urin ist eben dunkel, wie Cola, das macht mir am meisten Angst. Durchfall hatte ich einmal, vor vier Tagen. Ausschlag oder eine Wunde habe ich keine.',
+          'akt-infekt-herd': 'Husten ja, trocken, ein bisschen. Halsschmerzen nicht. Beim Wasserlassen brennt nichts. Durchfall hatte ich einmal, vor vier Tagen. Ausschlag oder eine Wunde habe ich keine.',
           'akt-verlauf': 'Das Fieber kommt und geht, aber ohne Regel. Manchmal steigt es zweimal am Tag, dann ist es wieder einen halben Tag fast normal, dann wieder 40. Einen Rhythmus kann ich nicht erkennen. Die Kopfschmerzen sind die ganze Zeit da, bei Fieber schlimmer.',
-          'akt-ausloeser': 'Einen richtigen Auslöser gab es nicht. Ich bin vor drei Wochen aus Malawi zurückgekommen, war die erste Woche noch ganz normal im Büro, und dann ging es los. Vorher war ich eineinhalb Jahre dort.',
+          'akt-ausloeser': 'Einen richtigen Auslöser gab es nicht.',
           'akt-einfluss': 'Paracetamol nimmt die Spitze für ein paar Stunden, dann ist es wieder da. Ruhe und Dunkelheit helfen etwas, Licht ist unangenehm. Bewegen macht alles schlimmer. Mit dem Essen hat es nichts zu tun — ich esse ja kaum noch.',
           'akt-frueher': 'So etwas hatte ich noch nie. In Malawi hatte ich ein paarmal Durchfall und einmal eine Blasenentzündung, aber nie so ein Fieber. Beim Arzt war ich deswegen noch nicht.',
-          'akt-begleit': 'Mir ist ständig übel, zweimal habe ich erbrochen. Vor vier Tagen hatte ich einmal wässrigen Durchfall. Ich schwitze nachts die Wäsche durch, ich habe einen trockenen Reizhusten, und wenn ich aufstehe, wird mir schwindelig. Und eben der dunkle Urin, seit zwei, drei Tagen, wie Cola.',
+          'akt-begleit': 'Mir ist ständig übel, zweimal habe ich erbrochen. Vor vier Tagen hatte ich einmal wässrigen Durchfall. Ich schwitze nachts die Wäsche durch, ich habe einen trockenen Reizhusten, und wenn ich aufstehe, wird mir schwindelig.',
           'veg-fieber': 'Ja, gemessen: zwischen 38 und 40, höchstens 40,1. Seit zehn Tagen. Und ja — ich war im Ausland, eineinhalb Jahre in Malawi, in Afrika, zurück seit drei Wochen.',
           'veg-schuettelfrost': 'Ja, Schüttelfrost immer, wenn das Fieber kommt — ich zittere am ganzen Körper, dann wird mir glühend heiß, und danach schwitze ich so, dass ich das Nachthemd wechseln muss. Jede Nacht.',
           'veg-uebelkeit': 'Ja, mir ist fast dauernd übel. Erbrochen habe ich zweimal, gestern und vorgestern, nur Mageninhalt, kein Blut.',
@@ -45033,6 +45075,13 @@ export function seedCases(): Case[] {
           'frau-verhuetung': 'Eine Kupferspirale, seit etwa fünf Jahren.',
           'frau-wechseljahre': 'Nein, noch nicht. Zum Frauenarzt gehe ich einmal im Jahr, in Malawi hat das allerdings ausgesetzt.',
         },
+        frageAntworten: [
+          {
+            frage: 'Haben Sie Atemnot, oder bluten Sie irgendwo, zum Beispiel aus Nase oder Zahnfleisch?',
+            antwort: 'Nein, Luft bekomme ich gut. Und bluten tue ich nirgends — weder aus der Nase noch am Zahnfleisch.',
+            kapitel: 'aktuell',
+          },
+        ],
         schwierigeReaktionen: [
           '"Ist das jetzt Malaria? Mein Mann hatte das auch — der war nach einer Woche wieder fit. Warum machen Sie so ein Drama?"',
           '"Muss ich wirklich hierbleiben? Meine Tochter ist allein zu Hause, mein Mann ist auf Klassenfahrt."',
@@ -45194,13 +45243,16 @@ export function seedCases(): Case[] {
       ],
       caseSpecificQuestions: [
         { frage: 'Wo genau in Malawi haben Sie gelebt — in der Stadt oder auf dem Land, und wie haben Sie gewohnt?', kapitel: 'familie-sozial', sucht: ['aufenthalt'], braucht: ['reise'] },
-        { frage: 'Wann genau sind Sie zurückgekommen, und wie viele Tage nach der Rückkehr hat das Fieber begonnen?', kapitel: 'aktuell', sucht: ['latenz'], braucht: ['reise'], relu: true },
+        { frage: 'Wie viele Tage nach der Rückkehr hat das Fieber begonnen?', kapitel: 'aktuell', sucht: ['latenz'], braucht: ['reise'], relu: true },
         { frage: 'Haben Sie eine Malariaprophylaxe eingenommen — welches Medikament, wie viel, wie lange, regelmäßig, und auch nach der Rückkehr?', kapitel: 'medikamente', sucht: ['malariaprophylaxe'], braucht: ['reise'] },
         { frage: 'Haben Sie unter einem Moskitonetz geschlafen und Mückenschutzmittel benutzt? Waren Sie abends im Freien?', kapitel: 'familie-sozial', sucht: ['mueckenschutz'] },
         { frage: 'Kommt das Fieber in einem regelmäßigen Rhythmus, zum Beispiel jeden zweiten oder dritten Tag, oder unregelmäßig?', kapitel: 'aktuell', sucht: ['verlauf'], relu: true },
-        { frage: 'Wie sieht der Urin genau aus — dunkel wie Cola oder rötlich wie Blut? Ist der Stuhl hell? Sind Ihre Augen gelb?', kapitel: 'aktuell', sucht: ['urin_aspekt', 'stuhlaussehen', 'gelbfaerbung'] },
+        { frage: 'Wie sieht der Urin genau aus — dunkel wie Cola oder rötlich wie Blut?', kapitel: 'aktuell', sucht: ['urin_aspekt'] },
+        { frage: 'Ist der Stuhl hell?', kapitel: 'aktuell', sucht: ['stuhlaussehen'] },
+        { frage: 'Sind Ihre Augen gelb?', kapitel: 'aktuell', sucht: ['gelbfaerbung'] },
         { frage: 'Sie haben keine Milz mehr — wurden Sie deswegen auch gegen Meningokokken geimpft?', kapitel: 'vorerkrankungen', sucht: ['asplenie_impfung'], followUp: 'Haben Sie einen Notfallausweis, auf dem steht, dass Sie keine Milz mehr haben?', braucht: ['vorerkrankung'] },
-        { frage: 'Haben Sie Verwirrtheit, Schläfrigkeit, Atemnot oder Blutungen bemerkt?', kapitel: 'aktuell', sucht: ['verwirrtheit', 'atemnot', 'blutungsneigung'] },
+        { frage: 'Waren Sie zwischendurch verwirrt oder ungewöhnlich schläfrig?', kapitel: 'aktuell', sucht: ['verwirrtheit'] },
+        { frage: 'Haben Sie Atemnot, oder bluten Sie irgendwo, zum Beispiel aus Nase oder Zahnfleisch?', kapitel: 'aktuell', sucht: ['atemnot', 'blutungsneigung'] },
       ],
       examinerQuestions: [
         'Wann war die Patientin in Malawi, wie lange, und seit wann ist sie zurück in Deutschland? Wann haben die Beschwerden begonnen?',
@@ -45360,7 +45412,7 @@ export function seedCases(): Case[] {
       centers: [
         'Reutlingen',
       ],
-      frequency: 5,
+      frequency: 4,
       difficulty: 3,
       patientSheet: {
         profil: { tags: ['infekt', 'fieber', 'dyspnoe', 'gewichtsverlust', 'kardio'] },
@@ -45832,7 +45884,7 @@ export function seedCases(): Case[] {
         'Stuttgart',
         'Freiburg',
       ],
-      frequency: 5,
+      frequency: 1,
       difficulty: 2,
       patientSheet: {
         profil: { tags: ['infekt', 'fieber', 'husten', 'dyspnoe'] },
@@ -46334,7 +46386,7 @@ export function seedCases(): Case[] {
       centers: [
         'Reutlingen',
       ],
-      frequency: 4,
+      frequency: 1,
       difficulty: 3,
       patientSheet: {
         profil: { tags: ['atemnot', 'dyspnoe', 'hals'] },
@@ -46783,7 +46835,7 @@ export function seedCases(): Case[] {
       centers: [
         'Freiburg',
       ],
-      frequency: 3,
+      frequency: 1,
       difficulty: 2,
       patientSheet: {
         profil: { tags: ['schmerz', 'gelenk', 'arthritis', 'steifigkeit', 'fieber', 'gicht'] },
@@ -47295,7 +47347,7 @@ export function seedCases(): Case[] {
       centers: [
         'Karlsruhe',
       ],
-      frequency: 4,
+      frequency: 1,
       difficulty: 2,
       patientSheet: {
         profil: { tags: ['atemnot', 'husten'] },
@@ -47769,7 +47821,7 @@ export function seedCases(): Case[] {
         'Stuttgart',
         'Freiburg',
       ],
-      frequency: 2,
+      frequency: 5,
       difficulty: 2,
       patientSheet: {
         profil: { tags: ['ausscheidung', 'schmerz', 'diarrhoe', 'gelenk', 'arthritis', 'dyspnoe', 'gewichtsverlust', 'gastro'] },
@@ -48317,7 +48369,7 @@ export function seedCases(): Case[] {
         'Reutlingen',
         'Stuttgart',
       ],
-      frequency: 2,
+      frequency: 1,
       difficulty: 2,
       patientSheet: {
         profil: { tags: ['schmerz', 'diarrhoe', 'gewichtsverlust', 'gastro'] },
@@ -48801,7 +48853,7 @@ export function seedCases(): Case[] {
         'Karlsruhe',
         'Stuttgart',
       ],
-      frequency: 5,
+      frequency: 1,
       difficulty: 3,
       patientSheet: {
         profil: { tags: ['schmerz', 'dyspnoe', 'kardio'] },
@@ -49279,7 +49331,7 @@ export function seedCases(): Case[] {
       centers: [
         'Complément',
       ],
-      frequency: 0,
+      frequency: 1,
       difficulty: 2,
       patientSheet: {
         profil: { tags: ['allgemein', 'dyspnoe', 'harn', 'gelenk'] },
@@ -50257,7 +50309,7 @@ export function seedCases(): Case[] {
       centers: [
         'Complément',
       ],
-      frequency: 0,
+      frequency: 1,
       difficulty: 2,
       patientSheet: {
         profil: { tags: ['schmerz'] },
@@ -50739,7 +50791,7 @@ export function seedCases(): Case[] {
         'Reutlingen',
         'Freiburg',
       ],
-      frequency: 4,
+      frequency: 1,
       difficulty: 3,
       patientSheet: {
         profil: { tags: ['schmerz'] },
@@ -50886,7 +50938,7 @@ export function seedCases(): Case[] {
           'fach-psych-tagesverlauf': 'Ein richtiges Morgentief habe ich nicht. Morgens bin ich einfach müde, und es bleibt den ganzen Tag ungefähr gleich. Schlimm sind eher die Abende, wenn es ruhig wird und die Gedanken kommen — und die Nächte.',
           'fach-psych-konzentration': 'Nein, das ist das Schlimmste bei der Arbeit. Ich vertippe mich, ich vergesse, ob ich das Wechselgeld schon rausgegeben habe. Und wenn an der Kasse etwas laut herunterfällt, zucke ich zusammen, als hätte jemand geschossen. Die Kollegen lachen schon darüber.',
           'fach-psych-angst': 'Ich bin ständig auf der Hut. Wenn jemand hupt oder ein Motorrad vorbeifährt, rast das Herz, ich zittere, und für einen Moment bin ich wieder auf der Straße. Aus heiterem Himmel kommt es nicht.',
-          'fach-psych-suizid': '(nach einer Pause, ruhig) Manchmal denke ich, es wäre einfacher gewesen, wenn ich damals nicht aufgewacht wäre. Aber ich würde mir nie etwas antun. Ich habe meinen Mann, und ich habe auch keine Pläne oder so. Ich will einfach, dass es aufhört. Ich habe auch nie versucht, mir das Leben zu nehmen.',
+          'fach-psych-suizid': '(nach einer Pause, ruhig) Manchmal denke ich, es wäre einfacher gewesen, wenn ich damals nicht aufgewacht wäre. Aber ich würde mir nie etwas antun. Ich habe meinen Mann, und ich habe auch keine Pläne oder so. Vorbereitet habe ich nichts. Ich will einfach, dass es aufhört. Ich habe auch nie versucht, mir das Leben zu nehmen.',
           'fach-psych-ausloeser': '(nach langer Pause) Der Unfall. An einer Kreuzung hat mir ein Auto die Vorfahrt genommen. Ich lag auf der Straße und dachte, das war\'s. (bricht ab) Mehr möchte ich dazu jetzt nicht sagen.',
           'fach-psych-frueher': 'Nein, so etwas hatte ich noch nie. Ich war noch nie in psychologischer Behandlung, ich habe nie Medikamente für die Psyche genommen. Vor dem Unfall war ich ein fröhlicher Mensch, sagt mein Mann.',
           'frau-periode': 'Meine Regel ist regelmäßig, alle vier Wochen. Die letzte war vor zwei Wochen.',
@@ -51227,7 +51279,7 @@ export function seedCases(): Case[] {
         'Reutlingen',
         'Freiburg',
       ],
-      frequency: 3,
+      frequency: 1,
       difficulty: 3,
       patientSheet: {
         profil: { tags: ['schmerz', 'gelenk', 'steifigkeit'] },
@@ -51370,7 +51422,7 @@ export function seedCases(): Case[] {
           'fach-psych-tagesverlauf': 'Morgens ist alles am schlimmsten, die Schmerzen und die Stimmung. Gegen Abend wird es ein bisschen erträglicher.',
           'fach-psych-konzentration': 'Ich kann mich nicht konzentrieren. Ich lese einen Absatz und weiß nicht mehr, was drinstand. Ich vergesse Termine. Ich dachte schon, es ist was im Kopf — aber das MRT vom Kopf war ja angeblich in Ordnung.',
           'fach-psych-angst': 'Panikattacken habe ich nicht. Aber ich habe Angst, dass die Ärzte etwas übersehen haben, etwas Schlimmes, und dass es dann zu spät ist. Ich lese viel darüber im Internet. Herzklopfen und Schwitzen habe ich, wenn ich mich aufrege, zum Beispiel vor Arztterminen.',
-          'fach-psych-suizid': '(lange Pause) Manchmal denke ich, so hat das Leben keinen Sinn mehr. Dass es besser wäre, wenn ich morgens nicht aufwachen würde. Aber ich würde mir nie etwas antun — das könnte ich meinem Bruder nicht antun. Pläne habe ich keine, und versucht habe ich es nie.',
+          'fach-psych-suizid': '(lange Pause) Manchmal denke ich, so hat das Leben keinen Sinn mehr. Dass es besser wäre, wenn ich morgens nicht aufwachen würde. Aber ich würde mir nie etwas antun — das könnte ich meinem Bruder nicht antun. Pläne habe ich keine. Vorbereitet habe ich nichts. Und versucht habe ich es nie.',
           'fach-psych-ausloeser': 'Wenn Sie so fragen … die Schmerzen haben angefangen, als meine Freundin weg war und der neue Chef kam. Und jetzt, seit der Absage von der Rente, ist alles schlimmer. Aber ich verstehe nicht, was das mit dem Rücken zu tun haben soll.',
           'fach-psych-frueher': 'In psychiatrischer oder psychologischer Behandlung war ich nie. Der Hausarzt hat mal von einem Psychosomatiker gesprochen, da bin ich wütend geworden. Ich bin nicht verrückt, ich habe Schmerzen. Meine Mutter ist die mit den Depressionen, nicht ich.',
         },
@@ -52194,7 +52246,7 @@ export function seedCases(): Case[] {
       centers: [
         'Complément',
       ],
-      frequency: 0,
+      frequency: 1,
       difficulty: 2,
       patientSheet: {
         profil: { tags: ['ausscheidung', 'dyspnoe', 'harn'] },
@@ -52686,7 +52738,7 @@ export function seedCases(): Case[] {
         'Freiburg',
         'Stuttgart',
       ],
-      frequency: 3,
+      frequency: 1,
       difficulty: 2,
       patientSheet: {
         profil: { tags: ['veraenderung', 'fieber', 'hals', 'gewichtsverlust', 'haem'] },
@@ -53182,7 +53234,7 @@ export function seedCases(): Case[] {
       centers: [
         'Complément',
       ],
-      frequency: 0,
+      frequency: 1,
       difficulty: 2,
       patientSheet: {
         profil: { tags: ['allgemein', 'gicht', 'gewichtsverlust', 'haem'] },
@@ -53636,7 +53688,7 @@ export function seedCases(): Case[] {
         'Karlsruhe',
         'Complément',
       ],
-      frequency: 3,
+      frequency: 1,
       difficulty: 3,
       patientSheet: {
         profil: { tags: ['schmerz', 'fieber'] },
@@ -54113,7 +54165,7 @@ export function seedCases(): Case[] {
         'Reutlingen',
         'Stuttgart',
       ],
-      frequency: 25,
+      frequency: 1,
       difficulty: 2,
       patientSheet: {
         profil: { tags: ['atemnot', 'husten'] },
@@ -54551,7 +54603,7 @@ export function seedCases(): Case[] {
         'Stuttgart',
         'Freiburg',
       ],
-      frequency: 2,
+      frequency: 1,
       difficulty: 3,
       patientSheet: {
         profil: { tags: ['infekt', 'reise', 'fieber'] },
@@ -55536,7 +55588,7 @@ export function seedCases(): Case[] {
         'Stuttgart',
         'Freiburg',
       ],
-      frequency: 8,
+      frequency: 1,
       difficulty: 3,
       patientSheet: {
         profil: { tags: ['anfall', 'schmerz', 'gewichtsverlust'] },
@@ -56035,7 +56087,7 @@ export function seedCases(): Case[] {
         'Karlsruhe',
         'Complément',
       ],
-      frequency: 3,
+      frequency: 1,
       difficulty: 2,
       patientSheet: {
         profil: { tags: ['schmerz', 'steifigkeit'] },
@@ -56527,7 +56579,7 @@ export function seedCases(): Case[] {
       centers: [
         'Complément',
       ],
-      frequency: 0,
+      frequency: 1,
       difficulty: 3,
       patientSheet: {
         profil: { tags: ['schmerz', 'stein'] },
@@ -57017,7 +57069,7 @@ export function seedCases(): Case[] {
         'Karlsruhe',
         'Complément',
       ],
-      frequency: 2,
+      frequency: 1,
       difficulty: 3,
       patientSheet: {
         profil: { tags: ['schmerz'] },
@@ -57491,7 +57543,7 @@ export function seedCases(): Case[] {
         'Karlsruhe',
         'Complément',
       ],
-      frequency: 3,
+      frequency: 1,
       difficulty: 2,
       patientSheet: {
         profil: { tags: ['schmerz', 'fieber', 'kardio'] },
@@ -57969,7 +58021,7 @@ export function seedCases(): Case[] {
       centers: [
         'Complément',
       ],
-      frequency: 0,
+      frequency: 1,
       difficulty: 3,
       patientSheet: {
         profil: { tags: ['anfall', 'sturz'] },   // K5 (revue clinique) : « vom Stuhl gekippt », dit à l'ouverture (D4-bis, MOTIF_DECLARE)
@@ -58460,7 +58512,7 @@ export function seedCases(): Case[] {
         'Stuttgart',
         'Freiburg',
       ],
-      frequency: 3,
+      frequency: 1,
       difficulty: 2,
       patientSheet: {
         profil: { tags: ['schmerz', 'stein', 'harn'] },
@@ -58895,7 +58947,7 @@ export function seedCases(): Case[] {
       centers: [
         'Complément',
       ],
-      frequency: 0,
+      frequency: 1,
       difficulty: 2,
       patientSheet: {
         profil: { tags: ['veraenderung'] },
@@ -59823,7 +59875,7 @@ export function seedCases(): Case[] {
       centers: [
         'Reutlingen',
       ],
-      frequency: 3,
+      frequency: 1,
       difficulty: 2,
       patientSheet: {
         profil: { tags: ['veraenderung', 'hals'] },
@@ -60273,7 +60325,7 @@ export function seedCases(): Case[] {
       centers: [
         'Complément',
       ],
-      frequency: 0,
+      frequency: 1,
       difficulty: 2,
       patientSheet: {
         profil: { tags: ['allgemein', 'dyspnoe', 'gewichtsverlust', 'haem'] },
@@ -60788,7 +60840,7 @@ export function seedCases(): Case[] {
       centers: [
         'Complément',
       ],
-      frequency: 0,
+      frequency: 1,
       difficulty: 3,
       patientSheet: {
         profil: { tags: ['psychisch', 'gewichtsverlust'] },
@@ -60916,7 +60968,7 @@ export function seedCases(): Case[] {
           'veg-schlaf': 'Seit zwei Nächten praktisch gar nicht. Aber auch vorher habe ich schlecht geschlafen, immer um drei Uhr wach. Deswegen nehme ich das Zopiclon von meiner Frau.',
           'vor-erkrank': 'Vor drei Jahren bin ich vom Gerüst gefallen, der erste Lendenwirbel war zertrümmert. Seitdem chronische Rückenschmerzen, erst Tilidin, dann Oxycodon, immer mehr. Und seit einem Jahr bin ich ziemlich down.',
           'vor-op': 'Ja, zweimal am Rücken: Nach dem Unfall wurde der Wirbel mit Schrauben und Stäben versteift, Th12 bis L2, zehn Tage Krankenhaus. Vor eineinhalb Jahren wurde das Metall wieder entfernt, vier Tage.',
-          'vor-krankenhaus': 'Nur die zwei Rücken-OPs. Sonst nie. Auch nach der Sache vor vier Monaten nicht — meine Frau wollte den Notarzt rufen, ich habe es nicht zugelassen.',
+          'vor-krankenhaus': 'Nur die zwei Rücken-OPs. Sonst nie.',
           'med-regelmaessig': 'Oxycodon retard 40 morgens und abends, dazu die schnellen Zehner, in Wirklichkeit drei- bis viermal am Tag. Und Macrogol. (zögert) Und Zopiclon 7,5 zum Schlafen, das ist eigentlich von meiner Frau.',
           'med-blutverduenner': 'Nein, Blutverdünner nehme ich nicht. Kortison auch nicht.',
           'med-otc': 'Ibuprofen 400 heute früh, eine Tablette. Sonst nichts. (nach kurzer Pause) Die schnellen Oxycodon habe ich mir auch vom Orthopäden und vom Bereitschaftsdienst geholt, wenn Dr. Berger zu wenig gab.',
@@ -60938,10 +60990,17 @@ export function seedCases(): Case[] {
           'fach-psych-tagesverlauf': 'Morgens ist es am schlimmsten, bis die erste Tablette wirkt. Abends nach dem Bier geht es ein bisschen. Die letzten zwei Tage ist es die ganze Zeit gleich schlimm.',
           'fach-psych-konzentration': 'Schlecht. Im Baumarkt vertue ich mich an der Kasse, ich vergesse, was Kunden mich gefragt haben. Entscheidungen — ich schiebe alles vor mir her.',
           'fach-psych-angst': 'Ja, Angst habe ich. Angst, dass die Tabletten ausgehen, Angst vor dem Entzug, Angst, dass meine Frau geht. Herzrasen habe ich jetzt gerade, aber richtige Panikattacken mit Luftnot hatte ich nicht.',
-          'fach-psych-suizid': '(lange Pause, schaut weg) Manchmal denke ich, es wäre für alle einfacher, wenn ich morgens nicht mehr aufwache. Aber ich würde mir nichts antun, ich habe zwei Kinder. Einen Plan habe ich nicht. Versucht, mir das Leben zu nehmen, habe ich nie. Vor vier Monaten hat mich meine Frau einmal kaum wach bekommen — aber das war keine Absicht.',
+          'fach-psych-suizid': '(lange Pause, schaut weg) Manchmal denke ich, es wäre für alle einfacher, wenn ich morgens nicht mehr aufwache. Aber ich würde mir nichts antun, ich habe zwei Kinder. Einen Plan habe ich nicht. Tabletten gesammelt habe ich nicht. Versucht, mir das Leben zu nehmen, habe ich nie.',
           'fach-psych-ausloeser': 'Der Unfall. Vom Dach auf den Boden, sechs Meter, und mein Beruf war weg. Dann die Schmerzen, dann die Tabletten. Und jetzt das Rezept, die Abmahnungen, die Schulden, meine Frau.',
           'fach-psych-frueher': 'So schlecht wie im letzten Jahr ging es mir noch nie. In Behandlung war ich nie, weder beim Psychiater noch beim Psychologen. Antidepressiva habe ich nie genommen. Der Hausarzt hat mal was von Psychotherapie gesagt, das habe ich abgewehrt.',
         },
+        frageAntworten: [
+          {
+            frage: 'Gab es schon einmal eine Situation, in der Sie nach den Tabletten kaum wach zu bekommen waren oder jemand einen Rettungswagen rufen wollte?',
+            antwort: '(zögert) Ja … einmal, vor vier Monaten. Da hat mich meine Frau kaum wach bekommen, aber einen Rettungswagen hat sie nicht gerufen. Absicht war das nicht.',
+            kapitel: 'medikamente',
+          },
+        ],
         schwierigeReaktionen: [
           '"Ich brauche kein Gespräch, ich brauche ein Rezept. Können Sie mir jetzt eine Tablette geben oder nicht?"',
           '"Ich bin kein Junkie. Das sind Medikamente vom Arzt, die habe ich nicht auf der Straße gekauft."',
@@ -61111,7 +61170,7 @@ export function seedCases(): Case[] {
         { frage: 'Wie viel Oxycodon nehmen Sie tatsächlich am Tag — und wie hat sich die Dosis seit dem Unfall entwickelt?', kapitel: 'medikamente', sucht: ['dosissteigerung'] },
         { frage: 'Haben Sie die Tabletten jemals anders eingenommen als vorgesehen — zerkaut, aufgelöst, geschnupft oder gespritzt?', kapitel: 'medikamente', sucht: ['applikationsweg'] },
         { frage: 'Nehmen Sie zusätzlich Schlaf- oder Beruhigungsmittel oder trinken Sie Alkohol, wenn Sie die Tabletten nehmen?', kapitel: 'medikamente', sucht: ['sedativa', 'alkohol_akut'] },
-        { frage: 'Gab es schon einmal eine Situation, in der Sie nach den Tabletten kaum wach zu bekommen waren oder jemand einen Rettungswagen rufen wollte?', kapitel: 'medikamente', sucht: ['ueberdosis'] },
+        { frage: 'Gab es schon einmal eine Situation, in der Sie nach den Tabletten kaum wach zu bekommen waren oder jemand einen Rettungswagen rufen wollte?', kapitel: 'medikamente', sucht: ['ueberdosis'], followUp: 'Falls ja: Haben Sie damals bewusst mehr genommen, oder ist das aus Versehen passiert?' },
         { frage: 'Hatten Sie diese Beschwerden schon einmal, wenn die Tabletten ausgegangen sind — und sind sie nach der nächsten Tablette verschwunden?', kapitel: 'medikamente', sucht: ['entzug'] },
         { frage: 'Denken Sie oft an die Tabletten, auch wenn Sie keine Schmerzen haben? Fällt es Ihnen schwer, bei der verordneten Menge zu bleiben?', kapitel: 'medikamente', sucht: ['craving'] },
         { frage: 'Wie hat sich Ihr Alltag verändert — Arbeit, Familie, Freunde, Hobbys? Was sagt Ihre Frau dazu?', kapitel: 'familie-sozial', sucht: ['soziale_folgen'] },
@@ -61304,7 +61363,7 @@ export function seedCases(): Case[] {
       centers: [
         'Complément',
       ],
-      frequency: 0,
+      frequency: 1,
       difficulty: 2,
       patientSheet: {
         profil: { tags: ['infekt', 'schmerz', 'fieber', 'meningitis'] },

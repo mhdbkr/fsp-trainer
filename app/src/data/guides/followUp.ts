@@ -23,7 +23,9 @@ export type FollowUpControl =
   // empilés « Ja / Nein » puis « Aufgehört / Nein », FB2-O1).
   | { kind: 'zweig'; options: string[]; branches: Record<string, string[]> };
 
-const RE = /^Falls\s+([^:]{2,40}):\s*(.+)$/s;
+// Q4 fixeur : 48 (était 40) — « konkrete Absicht, Plan oder Vorbereitungen » (42) doit rester l'interrupteur du NOTFALL,
+// pas une note inconditionnelle. Aucune autre relance du corpus n'a une condition de 41 à 48 caractères.
+const RE = /^Falls\s+([^:]{2,48}):\s*(.+)$/s;
 
 export function parseFollowUp(raw: string): FollowUpControl {
   const m = RE.exec(raw.trim());
