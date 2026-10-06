@@ -10190,7 +10190,7 @@ export function seedCases(): Case[] {
         frageAntworten: [
           {
             frage: 'An wie vielen Tagen im Monat nehmen Sie Schmerzmittel ein?',
-            antwort: 'Das ist schon so an acht bis zehn Tagen im Monat.',
+            antwort: 'So an acht bis zehn Tagen im Monat.',
             kapitel: 'medikamente',
           },
           {
@@ -13526,7 +13526,7 @@ export function seedCases(): Case[] {
         },
         frageAntworten: [
           {
-            frage: 'Welches Medikament nehmen Sie gegen die Herzrhythmusstörung ein — Aspirin oder einen echten Blutverdünner wie Marcumar, Eliquis oder Xarelto?',
+            frage: 'Welches Medikament nehmen Sie wegen der Herzrhythmusstörung ein — Aspirin oder einen echten Blutverdünner wie Marcumar, Eliquis oder Xarelto?',
             antwort: 'Aspirin 100, eine Tablette morgens. Die hat mir der Hausarzt wegen der Herzrhythmusstörung gegeben. Einen richtigen Blutverdünner, so eine Marcumar- oder Eliquis-Tablette, nehme ich nicht.',
             kapitel: 'medikamente',
           },
@@ -13731,7 +13731,7 @@ export function seedCases(): Case[] {
       caseSpecificQuestions: [
         { frage: 'Seit wann genau stolpert Ihr Herz, und ist es seitdem ununterbrochen da oder kommt und geht es?', kapitel: 'aktuell', sucht: ['beginn', 'verlauf'] },
         { frage: 'Was haben Sie an dem Abend vor Beginn der Beschwerden gegessen und getrunken?', kapitel: 'aktuell', sucht: ['alkohol_akut'], followUp: 'Falls Alkohol: Wie viel genau?' },
-        { frage: 'Welches Medikament nehmen Sie gegen die Herzrhythmusstörung ein — Aspirin oder einen echten Blutverdünner wie Marcumar, Eliquis oder Xarelto?', kapitel: 'medikamente', sucht: ['antikoagulation'] },
+        { frage: 'Welches Medikament nehmen Sie wegen der Herzrhythmusstörung ein — Aspirin oder einen echten Blutverdünner wie Marcumar, Eliquis oder Xarelto?', kapitel: 'medikamente', sucht: ['antikoagulation'] },
         { frage: 'Hatten Sie jemals eine Lähmung oder ein Taubheitsgefühl auf einer Körperseite, das nach Minuten wieder verschwunden ist?', kapitel: 'vorerkrankungen', sucht: ['tia_vorgeschichte'], followUp: 'Hatten Sie jemals eine kurze Seh- oder Sprachstörung?' },
         { frage: 'Haben Sie in letzter Zeit ungewollt Gewicht verloren?', kapitel: 'vegetativ', sucht: ['gewicht'] },
         { frage: 'Schwitzen Sie mehr als früher, oder vertragen Sie Wärme schlechter?', kapitel: 'vegetativ', sucht: ['schwitzen'] },
@@ -34058,7 +34058,7 @@ export function seedCases(): Case[] {
         { frage: 'Wie lange sind Sie morgens steif — ein paar Minuten oder länger als eine halbe Stunde?', kapitel: 'aktuell', sucht: ['steifigkeit'], followUp: 'Bessert sich das durch Bewegung?' },
         { frage: 'Sind Ihre Gelenke jemals sichtbar geschwollen, gerötet oder überwärmt gewesen — oder fühlen sie sich nur dick an?', kapitel: 'aktuell', sucht: ['gelenk_entzuendung'] },
         { frage: 'Nehmen Sie ein Medikament gegen erhöhte Cholesterinwerte?', kapitel: 'medikamente', sucht: ['statin'] },
-        { frage: 'Haben Sie in letzter Zeit ein neues Medikament begonnen?', kapitel: 'medikamente', sucht: ['medikament_neu'] },
+        { frage: 'Haben Sie in letzter Zeit mit einem neuen Medikament begonnen?', kapitel: 'medikamente', sucht: ['medikament_neu'] },
         { frage: 'Wie geht es Ihnen seelisch?', kapitel: 'aktuell', sucht: ['stimmung', 'interesse'], followUp: 'Haben Sie sich in den letzten Wochen häufig niedergeschlagen oder freudlos gefühlt?' },
       ],
       examinerQuestions: [
@@ -39815,7 +39815,7 @@ export function seedCases(): Case[] {
         },
         frageAntworten: [
           {
-            frage: 'Welches Medikament nehmen Sie gegen das Vorhofflimmern ein?',
+            frage: 'Welches Medikament nehmen Sie wegen des Vorhofflimmerns ein?',
             antwort: 'ASS 100 — das ist doch der Blutverdünner, sagt mein Hausarzt. Marcumar oder so eine neue Tablette habe ich nie bekommen.',
             kapitel: 'medikamente',
           },
@@ -39999,7 +39999,7 @@ export function seedCases(): Case[] {
         { frage: 'Haben sich Ihre Beschwerden jedes Mal vollständig zurückgebildet, oder ist etwas zurückgeblieben?', kapitel: 'aktuell', sucht: ['rueckbildung'] },
         { frage: 'Werden die Attacken bei Ihnen häufiger oder heftiger als am Anfang?', kapitel: 'aktuell', sucht: ['entwicklung', 'episoden_haeufigkeit'] },
         { frage: 'Hatten Sie eine Sehstörung — an einem oder an beiden Augen?', kapitel: 'aktuell', sucht: ['sehstoerung'], braucht: ['dauer'], followUp: 'Falls ja: War es, als ob ein Vorhang herunterfällt?', followUps: ['Falls ja: Wie lange hat das gedauert?'] },
-        { frage: 'Welches Medikament nehmen Sie gegen das Vorhofflimmern ein?', kapitel: 'medikamente', sucht: ['antikoagulation'], braucht: ['vorerkrankung'] },
+        { frage: 'Welches Medikament nehmen Sie wegen des Vorhofflimmerns ein?', kapitel: 'medikamente', sucht: ['antikoagulation'], braucht: ['vorerkrankung'] },
         { frage: 'Fahren Sie noch selbst Auto?', kapitel: 'aktuell', sucht: ['gefaehrdung'] },
       ],
       examinerQuestions: [
@@ -50664,7 +50664,7 @@ export function seedCases(): Case[] {
       caseSpecificQuestions: [
         { frage: 'Ging es Ihnen vor einem Monat noch gut?', kapitel: 'aktuell', sucht: ['beginn'] },
         { frage: 'Haben Sie ein Druck- oder Völlegefühl im linken Oberbauch bemerkt?', kapitel: 'aktuell', sucht: ['milz_druck'] },
-        { frage: 'Womit arbeiten Sie in der Werkstatt — mit Lacken, Verdünnern oder Lösungsmitteln?', kapitel: 'familie-sozial', sucht: ['berufsstoffe'], followUp: 'Falls ja: Tragen Sie dabei einen Atemschutz?' },
+        { frage: 'Womit arbeiten Sie in der Werkstatt — mit Lacken, Verdünnern oder Lösungsmitteln?', kapitel: 'familie-sozial', sucht: ['berufsstoffe'], followUp: 'Tragen Sie dabei einen Atemschutz?' },
         { frage: 'Hatten Sie jemals eine Chemotherapie oder eine Bestrahlung?', kapitel: 'vorerkrankungen', sucht: ['tumor_vorgeschichte'] },
         { frage: 'Haben Sie Kopfschmerzen oder Sehstörungen bemerkt?', kapitel: 'aktuell', sucht: ['kopfschmerz', 'sehstoerung'] },
         { frage: 'Waren Sie zwischendurch verwirrt, oder hatten Sie Taubheitsgefühle?', kapitel: 'aktuell', sucht: ['verwirrtheit', 'taubheit'] },
@@ -60884,7 +60884,7 @@ export function seedCases(): Case[] {
         { frage: 'Ist Ihnen schwindelig, haben Sie Herzrasen, oder waren Sie kurz weggetreten?', kapitel: 'aktuell', sucht: ['schwindel', 'herzrasen', 'bewusstlos'] },
         { frage: 'Haben Sie Bauchkrämpfe, Übelkeit oder Durchfall?', kapitel: 'aktuell', sucht: ['uebelkeit', 'stuhl'] },
         { frage: 'Haben Sie einen Allergiepass?', kapitel: 'medikamente', sucht: ['allergie_reaktion'], braucht: ['allergie'] },
-        { frage: 'Hatten Sie früher schon einmal Schwellungen ohne Quaddeln oder kolikartige Bauchschmerzen?', kapitel: 'vorerkrankungen', sucht: ['angiooedem'], relu: true },
+        { frage: 'Hatten Sie früher schon einmal Schwellungen ohne Quaddeln oder krampfartige Bauchschmerzen?', kapitel: 'vorerkrankungen', sucht: ['angiooedem'], relu: true },
         { frage: 'Wird es schlimmer bei Wärme, Kälte oder Druck?', kapitel: 'aktuell', sucht: ['einfluss'], followUp: 'Und beim Kratzen oder in der Sonne?' },
       ],
       examinerQuestions: [
@@ -62923,8 +62923,8 @@ export function seedCases(): Case[] {
         { frage: 'Haben Sie eine Lähmung, ein Taubheitsgefühl oder Schwierigkeiten beim Sprechen bemerkt?', kapitel: 'aktuell', sucht: ['schwaeche', 'taubheit', 'sprache'] },
         { frage: 'Benutzen Sie ein Nasenspray?', kapitel: 'medikamente', sucht: ['nasenspray'] },
         { frage: 'Essen Sie viel Lakritz?', kapitel: 'medikamente', sucht: ['lakritz'] },
-        { frage: 'Haben Sie anfallsartige Schweißausbrüche mit Herzrasen und Blässe?', kapitel: 'vegetativ', sucht: ['schwitzen', 'herzrasen', 'blaesse'], relu: true },
         { frage: 'Vertragen Sie Wärme schlecht?', kapitel: 'vegetativ', sucht: ['temperaturtoleranz'] },
+        { frage: 'Haben Sie anfallsartige Schweißausbrüche mit Herzrasen und Blässe?', kapitel: 'vegetativ', sucht: ['schwitzen', 'herzrasen', 'blaesse'], relu: true },
         { frage: 'Schnarchen Sie?', kapitel: 'aktuell', sucht: ['schnarchen'] },
         { frage: 'Hat Ihre Frau bei Ihnen nachts Atemaussetzer bemerkt?', kapitel: 'aktuell', sucht: ['schlafapnoe'] },
         { frage: 'Nicken Sie tagsüber ungewollt ein?', kapitel: 'aktuell', sucht: ['tagesschlaefrigkeit'] },
