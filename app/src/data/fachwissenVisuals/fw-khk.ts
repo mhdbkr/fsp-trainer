@@ -19,7 +19,7 @@ export const spec: FachwissenVisualSpec = {
       title: 'Stabile vs. instabile Angina pectoris',
       anchor: 'klinik',
       replaces: [],
-      merke: 'Instabile Angina, NSTEMI und STEMI sind alle ein akutes Koronarsyndrom.',
+      merke: 'Ein unauffälliges Ruhe-EKG schließt eine KHK nicht aus.',
       data: {
         root: {
           question: 'Beschwerden neu, in Ruhe oder zunehmend?',
@@ -104,7 +104,7 @@ export const spec: FachwissenVisualSpec = {
       kind: 'compare-table',
       title: 'Stabile AP · Instabile AP · Myokardinfarkt',
       anchor: 'differenzialdiagnosen',
-      replaces: [ACS, STABIL, INSTABIL],
+      replaces: [ACS, STABIL, INSTABIL, { section: 'klassifikation', name: 'Formen des akuten Koronarsyndroms' }],
       data: {
         columns: ['Stabile AP', 'Instabile AP', 'NSTEMI / STEMI'],
         rows: [
