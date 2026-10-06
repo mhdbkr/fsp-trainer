@@ -84,8 +84,11 @@ jobs:
           node --test scripts/checkCoherence.test.mjs
           node --test scripts/checkGuideDuplicates.test.mjs   # K4 (G.1) : une part répétée qui change de signe rougit
           node --test scripts/lotAssembler.test.mjs   # K5 (revue I1) : le profil survit à l'assemblage
+          node --test scripts/checkExamen.test.mjs   # S4-7 : le verrouillage de l'Examen rougit sur ses trois règles
       - name: "Doctopus — jeu de référence et grille (sans réseau)"
         run: node scripts/evalDoctopus.mjs --dry
+      - name: Verrouillage de l'Examen — aucune aide, aucune durée hors du plan, aucune relance (S4-7)
+        run: node scripts/checkExamen.mjs
       - name: Sections thérapeutiques identiques fiche ↔ cas
         run: node scripts/checkTherapieLabels.mjs
       - name: Fachwissen visuals — schéma, refs, ergänzt
@@ -282,6 +285,11 @@ jobs:
       - name: Carte de couverture à 390 px (S4-5)
         if: ${{ !cancelled() }}
         run: node scripts/e2e/carteCouverture390.mjs
+        env:
+          PLAYWRIGHT_CORE: ${{ github.workspace }}/app/node_modules/playwright-core
+      - name: Examen à 390 et 1280 px — examen complet accéléré, rechargement, onglet en arrière-plan, abandon, deux onglets (S4-7)
+        if: ${{ !cancelled() }}
+        run: node scripts/e2e/examen390.mjs
         env:
           PLAYWRIGHT_CORE: ${{ github.workspace }}/app/node_modules/playwright-core
       - if: always()
