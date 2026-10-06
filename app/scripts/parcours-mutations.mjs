@@ -825,6 +825,52 @@ export const MUTATIONS = [
     to: "  : 'guide';",
     pourquoi: 'une ville de la série 3 est relue « guidé » au lieu de « libre » (§10.6)',
   },
+  // --- S4-5 : la page Programme (tests/invariants.page-programme.test.ts) ---
+  {
+    id: 'S45-semaine-off', tests: 'tests/invariants.page-programme.test.ts', file: 'src/lib/program/pageProgramme.ts',
+    from: 'return { date, off: plan.tasks.length === 0, points };', to: 'return { date, off: false, points };',
+    pourquoi: 'un jour off figé (plan sans tâche) n’est plus neutre : il se lit comme un jour vide',
+  },
+  {
+    id: 'S45-semaine-entame', tests: 'tests/invariants.page-programme.test.ts', file: 'src/lib/program/pageProgramme.ts',
+    from: "evaluerTache(t, i.events, plan.tz).statut === 'entamee' ? 'entame' : 'prevu'", to: "'prevu'",
+    pourquoi: 'un cas entamé se lit comme un cas pas commencé (le point ne bouge pas quand une partie le fait avancer)',
+  },
+  {
+    id: 'S45-semaine-drill', tests: 'tests/invariants.page-programme.test.ts', file: 'src/lib/program/pageProgramme.ts',
+    from: 'const points = plan.tasks.filter((t) => estTacheDeCas(t.kind)).map(', to: 'const points = plan.tasks.map(',
+    pourquoi: 'un drill devient un point : la semaine ne compte plus des cas',
+  },
+  {
+    id: 'S45-projection-soir', tests: 'tests/invariants.page-programme.test.ts', file: 'src/lib/program/pageProgramme.ts',
+    from: 'const avant = i.events.filter((e) => e.at < debutJour(i.today));', to: 'const avant = [...i.events];',
+    pourquoi: 'la projection bouge pendant la journée (elle n’est plus « recalculée chaque soir »)',
+  },
+  {
+    id: 'S45-projection-cas', tests: 'tests/invariants.page-programme.test.ts', file: 'src/lib/program/pageProgramme.ts',
+    from: 'partieJouee(e) && e.at >= debut', to: 'e.at >= debut',
+    pourquoi: 'le rythme compte le drill : une soirée de Fachbegriffe avance la date des cas',
+  },
+  {
+    id: 'S45-projection-jours', tests: 'tests/invariants.page-programme.test.ts', file: 'src/lib/program/pageProgramme.ts',
+    from: 'if (ouvres < RYTHME_MIN_JOURS) return null;', to: 'if (ouvres < 1) return null;',
+    pourquoi: 'une projection sur un ou deux jours de rythme : une phrase sans base',
+  },
+  {
+    id: 'S45-projection-apres', tests: 'tests/invariants.page-programme.test.ts', file: 'src/lib/program/pageProgramme.ts',
+    from: 'const marge = ecart > 0 ? ecart : null;', to: 'const marge = ecart;',
+    pourquoi: 'une date après l’examen se dit en « marge » négative au lieu de « après ton examen »',
+  },
+  {
+    id: 'S45-encart-poids', tests: 'tests/invariants.page-programme.test.ts', file: 'src/lib/program/pageProgramme.ts',
+    from: 'const blanc = s.cas.filter(vierge).reduce((x, c) => x + poids(c), 0);', to: 'const blanc = s.cas.filter(vierge).length;',
+    pourquoi: 'l’encart compte les cas au lieu de les peser : la couverture n’est plus pondérée par la fréquence',
+  },
+  {
+    id: 'S45-encart-portee', tests: 'tests/invariants.page-programme.test.ts', file: 'src/lib/program/couverturePonderee.ts',
+    from: "const portee = r.portee === 'ville-ventilee' ? ` ventilés de ${r.ville}` : ', toutes villes';", to: "const portee = '';",
+    pourquoi: 'la fréquence de l’encart ne dit plus sa portée (§12.9)',
+  },
 ];
 
 /** Mutations jouées par le candidat NAVIGATEUR : { id: invariant attendu KO, days: jours à jouer }. */

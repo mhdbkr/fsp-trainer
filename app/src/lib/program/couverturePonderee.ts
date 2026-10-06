@@ -56,3 +56,16 @@ export function phraseCouverture(r: CouverturePonderee): string | null {
   const tete = `Les cas que tu as travaillés représentent ${r.pct} % des protocoles, d'après ${r.base} protocoles`;
   return r.portee === 'ville-ventilee' ? `${tete} ventilés de ${r.ville}` : `${tete}, toutes villes`;
 }
+
+/** §12.9 : la fréquence d'UN cas dans un encart, avec la base et la portée de la mesure ; sans donnée, pas de phrase. */
+export function phraseFrequence(nom: string, poids: number | undefined, r: CouverturePonderee): string | null {
+  if (!compte(poids) || poids === 0 || r.base === 0) return null;
+  const portee = r.portee === 'ville-ventilee' ? ` ventilés de ${r.ville}` : ', toutes villes';
+  return `${nom} revient dans ${poids} protocole${poids > 1 ? 's' : ''}, d'après ${r.base} protocoles${portee}.`;
+}
+
+/** Le poids d'un cas dans la mesure `r` : son compte ventilé dans la ville, sinon son total ; `undefined` ⇒ hors calcul. */
+export const poidsDe = (f: FrequenceProtocoles | undefined, r: Pick<CouverturePonderee, 'portee' | 'ville'>): number | undefined => {
+  const v = r.portee === 'ville-ventilee' ? f?.parVille?.[r.ville!] : f?.total;
+  return compte(v) ? v : undefined;
+};
