@@ -1028,7 +1028,7 @@ case-hws-diskusprolaps
 case-laktoseintoleranz
   eroeffnung[· · · ·]
   personalia[pers-name pers-name pers-alter pers-groesse pers-hausarzt ·]
-  aktuell[akt-motiv akt-ort↳1 akt-beginn akt-charakter akt-intensitaet↳1 akt-ausscheid-haeufigkeit~stuhlfrequenz↳1 cas cas akt-verlauf akt-ausloeser cas akt-frueher↳2 akt-begleit cas cas↳1 cas↳2 cas]
+  aktuell[akt-motiv akt-ort↳1 akt-beginn akt-charakter akt-intensitaet↳1 akt-ausscheid-haeufigkeit~stuhlfrequenz↳1 cas cas akt-ausscheid-harn-haeufigkeit~miktion_frequenz↳1 akt-verlauf akt-ausloeser cas akt-frueher↳2 akt-begleit cas cas↳1 cas↳2 cas]
   fach-gastro[fach-gastro-uebelkeit↳5 fach-gastro-sodbrennen fach-gastro-voelle fach-gastro-speisen fach-gastro-stuhl~stuhl↳1 fach-gastro-tenesmen fach-gastro-spiegelung]
   vegetativ[veg-fieber↳4 veg-schuettelfrost veg-ausscheidung~miktion↳3 veg-gewicht↳2 veg-appetit veg-schlaf ^veg-fieber#5~impfung]
   vorerkrankungen[· vor-erkrank↳3 vor-op↳3 vor-krankenhaus]
@@ -1239,7 +1239,7 @@ case-pertussis
 case-colitis-ulcerosa
   eroeffnung[· · · ·]
   personalia[pers-name pers-name pers-alter pers-groesse pers-hausarzt ·]
-  aktuell[akt-motiv akt-ort↳1 akt-beginn akt-charakter akt-intensitaet↳1 cas cas↳1 akt-verlauf akt-ausloeser akt-einfluss akt-frueher↳2 akt-begleit fach-pneumo-atemnot cas cas cas cas cas cas]
+  aktuell[akt-motiv akt-ort↳1 akt-beginn akt-charakter akt-intensitaet↳1 cas cas↳1 akt-ausscheid-harn-haeufigkeit~miktion_frequenz↳1 akt-verlauf akt-ausloeser akt-einfluss akt-frueher↳2 akt-begleit fach-pneumo-atemnot cas cas cas cas cas cas]
   fach-gastro[fach-rheuma-gelenke↳1 fach-gastro-uebelkeit↳5 fach-gastro-sodbrennen fach-gastro-voelle fach-gastro-speisen fach-gastro-stuhl~stuhl,stuhlaussehen↳3]
   vegetativ[veg-fieber↳4 veg-schuettelfrost veg-ausscheidung~miktion↳3 veg-gewicht↳2 veg-appetit veg-schlaf ^veg-fieber#5~impfung]
   vorerkrankungen[· vor-erkrank↳3 vor-op↳3 vor-krankenhaus]
