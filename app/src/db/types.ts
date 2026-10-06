@@ -362,6 +362,10 @@ export const FAVORITES_DECK_ID = 'deck-favorites';
  *  `fachbegriffe`, que la sync de contenu réécrit. */
 export interface PersonalTerm { id: string; term: string; context?: string; explanation?: string; caseId?: string; createdAt: string; srs: Srs }
 
+/** S4-6 — un mot dont l'utilisateur a demandé le sens (« Expliquer » sur une sélection). LOCAL seulement : jamais
+ *  synchronisé, jamais dans `progress_events`. L'Historique en tire « cherché N fois » pendant une séance. */
+export interface TermeCherche { id?: number; at: number; terme: string }
+
 // ----------------------------------------------------------------------------
 // Fachwissen (fiche pathologie riche)
 // ----------------------------------------------------------------------------

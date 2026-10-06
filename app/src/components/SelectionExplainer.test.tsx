@@ -332,4 +332,16 @@ describe('SelectionExplainer', () => {
     await waitFor(() => expect((screen.getByRole('textbox', { name: 'Bedeutung' }) as HTMLInputElement).value).toBe('Atemnot bei Belastung'));
     expect(screen.queryByText(/texte Expliquer/)).toBeNull();
   });
+  it('S4-6 : « Expliquer » note le mot cherché, localement ; la ★ seule ne note rien', async () => {
+    await db.termes_cherches.clear();
+    render(<><p data-testid="t">Aszites.</p><SelectionExplainer /></>);
+    selectText(screen.getByTestId('t')); pill();
+    await screen.findByRole('button', { name: /Ajouter aux favoris : Aszites/ });
+    expect(await db.termes_cherches.count()).toBe(0);                 // une sélection n'est pas une recherche
+    fireEvent.click(screen.getByRole('button', { name: 'Expliquer' }));
+    await screen.findByText(/Bauchwasser/);
+    vi.useRealTimers();
+    await waitFor(async () => expect((await db.termes_cherches.toArray()).map((r) => r.terme)).toEqual(['Aszites']));
+    expect((await db.progress_events.toArray()).length).toBe(0);      // rien vers la synchro
+  });
 });
