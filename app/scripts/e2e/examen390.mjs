@@ -152,7 +152,8 @@ try {
     await page.waitForSelector('[data-examen-conditions]', { timeout: 20_000 });
     const res = await page.evaluate(() => ({ cond: document.querySelector('[data-examen-conditions]').getAttribute('data-examen-conditions'), hash: location.hash, texte: document.body.textContent }));
     if (res.cond !== '') ko(`résultat : conditions manquantes « ${res.cond} »`); else ok('résultat : conditions d’examen remplies');
-    if (!res.texte.includes(`Le cas : ${cas.name}`)) ko('résultat : le cas n’est pas révélé'); else ok(`résultat : le cas est révélé (${res.hash})`);
+    const revele = await page.textContent('[data-examen-cas]');
+    if (!/^Le cas : .{5,}/.test(revele) || !res.texte.includes(cas.name)) ko('résultat : le cas n’est pas révélé'); else ok(`résultat : « ${revele.slice(0, 60)} » (${res.hash})`);
     await page.evaluate(() => document.querySelector('main')?.scrollTo(0, 0));
     await capture('fin');
     await contexte.close();

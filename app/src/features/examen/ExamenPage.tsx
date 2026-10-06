@@ -16,10 +16,11 @@ import { conditionsManquantes } from '@/lib/examen';
 import { tireCas } from '@/lib/examen/tirage';
 import { LAUF_AKTIV_KEY, bereinigeAltenLauf } from '@/lib/lauf/speichern';
 import type { Lauf } from '@/lib/lauf/types';
-import type { ConditionExamen } from '@/db/types';
+import type { Case, ConditionExamen } from '@/db/types';
 import { useCaseProgress, useTrainingEvents } from '@/features/program/useProgram';
 import { MusterChoix, PartnerCard, useTache } from '@/features/simulation/SimulationSetup';
 import { ResultScreen } from '@/features/simulation/SimulationRunner';
+import { vorstellungsDiagnose } from '@/features/simulation/PreSimulationPage';
 import { Icon } from '@/components/icons';
 import { EXAM_DAY_PLAN } from './plan';
 import { ExamenRunner } from './ExamenRunner';
@@ -88,6 +89,13 @@ function Avant({ taskId, enPause, interrompu, onStart }: { taskId?: string; enPa
   );
 }
 
+/** Le diagnostic révélé : la première phrase de la Verdachtsdiagnose (celle de la Fallvorstellung), sinon le nom du cas. */
+export const diagnosticDuCas = (c: Case): string => {
+  if (!c.medicalView?.verdachtsdiagnose) return c.name;
+  const d = vorstellungsDiagnose(c);
+  return `${d.text}${d.offen ? '…' : ''}`;
+};
+
 const CONDITION: Record<ConditionExamen, string> = {
   enchaine: 'les trois Teile d’un trait, sans reprise de plus de 5 minutes',
   autonome: 'en Autonome',
@@ -112,7 +120,7 @@ function Resultat({ simId, onNouveau }: { simId: string; onNouveau: () => void }
               : 'Conditions d’examen remplies.'}
           </span>
         </div>
-        <p data-examen-cas="" className="text-center text-base">Le cas : <b>{c.name}</b></p>
+        <p data-examen-cas="" className="text-center text-base">Le cas : <b>{diagnosticDuCas(c)}</b></p>
       </div>
       <ResultScreen sim={sim} c={c} nouvelExamen={onNouveau} />
     </div>

@@ -37,7 +37,7 @@ import { erstelleLauf, naechsterTeil, transition, type LaufAktion } from '@/lib/
 import { LAUF_AKTIV_KEY, ladeAktivenLauf, speichern } from '@/lib/lauf/speichern';
 import type { Lauf } from '@/lib/lauf/types';
 import { useLauf } from '@/features/simulation/useLauf';
-import { ExamenPage } from '@/features/examen/ExamenPage';
+import { ExamenPage, diagnosticDuCas } from '@/features/examen/ExamenPage';
 import { EXAM_DAY_PLAN } from '@/features/examen/plan';
 import { ACTE_AKKUSATIV, demandeDuJury } from '@/features/examen/jury';
 import { HistoriquePage } from '@/features/history/HistoriquePage';
@@ -339,7 +339,7 @@ describe('INV-E8 — l’examen complet s’écrit une fois, en conditions d’e
     expect([te?.kind, te?.examen, te?.examenManque]).toEqual(['examen-blanc', true, []]);
     expect(await aktiv()).toBeUndefined();
     // Le résultat révèle le cas.
-    await waitFor(() => expect(document.body.textContent).toContain(`Le cas : ${VOLLE.find((x) => x.id === sim.caseId)!.name}`));
+    await waitFor(() => expect(document.body.textContent).toContain(`Le cas : ${diagnosticDuCas(VOLLE.find((x) => x.id === sim.caseId)!)}`));
     expect(document.body.textContent).toContain('Conditions d’examen remplies.');
     expect(document.body.textContent).not.toMatch(/Examen à blanc/);
     expect(screen.getAllByRole('button', { name: 'Nouvel examen' })).toHaveLength(1);
