@@ -386,16 +386,20 @@ const P3b = preuve('P3b', "une session réussie sur un seul Teil ne fait régres
   }
   exige(!carte.dial.includes(`${NOM[tache.teil]} : pas encore travaillé`), `le cadran ignore le Teil joué : ${carte.dial}`);
 
-  // Et le champ de couverture n'accuse pas les Teile jamais travaillés.
+  // Et la carte de couverture n'accuse pas les Teile jamais travaillés. S4-5 : le champ spécialités × Teile est remplacé
+  // par des cadrans ; la spécialité touchée s'agrandit, et le cadran du cas dit chaque Teil (même exigence qu'en /cas).
   goto('/programme');
   const autres = ['anamnese', 'dokumentation', 'fallvorstellung'].filter((t) => t !== tache.teil);
-  const cellules = await until(`
-    const t = [...document.querySelectorAll('button[title]')].filter((b) => b.title.includes('pas encore travaillé'));
-    return t.length ? t.map((b) => b.title) : null;
-  `, 'champ de couverture');
-  const cible = cellules.filter((t) => t.startsWith(`${tache.specialty} ×`));
-  exige(cible.length >= autres.length,
-    `champ de couverture : ${cible.length} cellule(s) « pas encore travaillé » pour ${tache.specialty}, ${autres.length} attendues`);
+  const cadran = await until(`
+    const b = [...document.querySelectorAll('button[aria-expanded]')].find((x) => x.textContent.trim() === ${JSON.stringify(tache.specialty)});
+    if (!b) return null;
+    if (b.getAttribute('aria-expanded') !== 'true') { b.click(); return null; }
+    const d = [...document.querySelectorAll('button[aria-haspopup="dialog"]')].map((x) => x.getAttribute('aria-label') ?? '')
+      .find((l) => l.startsWith(${JSON.stringify(`${tache.label} : `)}));
+    return d ?? null;
+  `, 'carte de couverture : le cadran du cas');
+  for (const t of autres) exige(cadran.includes(`${NOM[t]} : pas encore travaillé`), `carte de couverture : le cadran ne dit pas « ${NOM[t]} : pas encore travaillé » : ${cadran}`);
+  exige(!cadran.includes(`${NOM[tache.teil]} : pas encore travaillé`), `carte de couverture : le cadran ignore le Teil joué : ${cadran}`);
   return `${tache.caseId} : ${tache.teil}=${cp.teile[tache.teil].status}, ${autres.map((t) => `${t}=${cp.teile[t].status}`).join(', ')} ; cadran « ${carte.dial} » ; overall=${cp.overall}`;
 });
 
