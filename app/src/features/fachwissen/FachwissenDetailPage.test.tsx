@@ -55,9 +55,19 @@ const fwLeberzirrhose: Fachwissen = {
     'Fieber und Bauchschmerz bei Aszites → spontan bakterielle Peritonitis (Punktion!)',
     'Oligurie und Kreatininanstieg → hepatorenales Syndrom',
   ],
-  diagnostik: [{ stufe: 'Labor', text: 'Transaminasen' }],
+  diagnostik: [
+    { stufe: 'Labor', text: 'Transaminasen' },
+    { stufe: 'Invasiv & Speziell', text: 'Diagnostische Aszitespunktion' },
+  ],
   differenzialdiagnosen: [{ dd: 'Herzinsuffizienz', unterscheidung: 'Echokardiographie' }],
-  therapie: [{ label: 'Kausal', items: ['Alkoholkarenz'] }],
+  therapie: [
+    { label: 'Kausal', items: ['Alkoholkarenz'] },
+    {
+      label:
+        'Prophylaxe und Therapie der Dekompensationskomplikationen (Varizen, SBP, Enzephalopathie, hepatorenales Syndrom)',
+      items: ['Lactulose'],
+    },
+  ],
   pruefungsfallen: [],
   askedInExam: [],
   linkedCaseIds: [],
@@ -127,14 +137,14 @@ describe('FachwissenDetailPage — visuels', () => {
     expect(tags.indexOf('visual:therapy-toggles')).toBeLessThan(tags.indexOf('section:Therapie'));
   });
 
-  it('fw-leberzirrhose : timeline précède Klassifikation & Scores, Red Flags est un <details> fermé', async () => {
+  it('fw-leberzirrhose : decision-tree (anchor redFlags) précède Klassifikation & Scores, Red Flags est un <details> fermé', async () => {
     await renderPage('fw-leberzirrhose');
     const all = Array.from(container.querySelectorAll('[data-visual], [data-section]'));
     const tags = all.map((el) =>
       el.hasAttribute('data-visual') ? `visual:${el.getAttribute('data-visual')}` : `section:${el.getAttribute('data-section')}`,
     );
-    expect(tags.indexOf('visual:timeline')).toBeGreaterThanOrEqual(0);
-    expect(tags.indexOf('visual:timeline')).toBeLessThan(tags.indexOf('section:Klassifikation & Scores'));
+    expect(tags.indexOf('visual:decision-tree')).toBeGreaterThanOrEqual(0);
+    expect(tags.indexOf('visual:decision-tree')).toBeLessThan(tags.indexOf('section:Klassifikation & Scores'));
 
     const redFlagsDetails = Array.from(container.querySelectorAll('details')).find((d) =>
       d.textContent?.includes('Red Flags'),
