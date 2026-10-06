@@ -1,10 +1,44 @@
 # S4-7 — l'Examen · rapport
 
-**Statut : DONE_WITH_CONCERNS** (§6).
+**Statut : DONE_WITH_CONCERNS** (§0.1 limite IA, §6).
 Branche `feat/s4-7-examen`, worktree `doctopus-s4-7-examen`, partie de `origin/main` `c53b46bf`. Poussée, sans PR.
 Aucun serveur Supabase, aucune prod touchée. Portage à la main depuis `feat/pruefungstag` (lue par `git show`, jamais fusionnée).
 
 Contrat : `docs/contracts/simulation-run.md` §11 (nouveau) ; `training-journal.md` §1 et §2.3 (`modeExamen`) ; ADR-0021, journal des décisions (6 oct.) ; `CONTEXT.md` (« Examen », « Bereitschaftsindex » abandonné).
+
+## 0. Fixeur — revues Opus de `1442bd92` (mécanique « Needs fixes », direction « à corriger », 2 bloquants)
+
+Ce §0 prime sur la suite, qui décrit la première livraison. `origin/main` (Q5, #89) fusionnée avant les vérifications (`6edff6f1`).
+
+### 0.1 Bloquants (direction)
+
+| # | Correction | Preuve |
+|---|---|---|
+| 1 | La demande du jury est une phrase résolue : `features/examen/jury.ts`, table `ACTE_AKKUSATIV` (les 23 `AufklaerungItem`, l'acte à l'accusatif avec son article), le sexe lu dans `patientSheet.personalia.geschlecht`. « Klären Sie die Patientin bitte über die geplante Operation auf. » | INV-E13 « la demande du jury, sur les 120 cas » : article présent, jamais « den Patienten » pour une patiente, jamais « Aufklärung ». Mutation **INV-E13-jury** tuée. Capture `s4-7-aufklaerung-390.png`. |
+| 2 | Dans l'Examen, plus de « Seul » : « Avec un simulant » (défaut) et « Avec ton IA ». L'IA est un partenaire : puce « IA » de l'en-tête en Anamnese et en Fallvorstellung (`TeilAiLauncher` en mode `examen`), sans trace `pending` ni texte du prompt affiché. `TeilAiLauncher` sort de `aidesInterdites.json` ; `checkExamen.test.mjs` le prouve permis, et `ExternalAiSheet` interdit. Contrat §11.3 bis. | INV-E7 « partenaire IA » et « Seul n'existe pas » ; mutation **INV-E7-ia** tuée. |
+
+**Limite signalée** : en Fallvorstellung, le prompt Oberarzt porte le diagnostic (`ai-bridge.md` §2.4, voulu par ce contrat). L'app ne l'affiche jamais, mais il est dans le texte que le candidat colle dans son IA. « Le diagnostic ne t'est pas montré » est vrai pour l'app, pas pour l'IA.
+
+### 0.2 Important (mécanique)
+
+- **I1** : à la fin de la fenêtre de l'Anamnese, si tout le créneau est passé, l'Aufklärung n'est ni ouverte ni écrite ; l'Anamnese a son créneau entier, puis `terminerPartie`. INV-E6 réécrit (`teileGespielt = ['anamnese']`, 1 200 s, pas d'Aufklärung), plus un test I1 sur un cas à Aufklärung. Mutation **INV-E6-I1** tuée. Contrat §11.1 et §11.2.
+
+### 0.3 Majeurs (direction)
+
+- Minuterie du créneau : 20:00 au départ de chaque Teil ; à 05:00, titre « Aufklärung · 1/3 » et demande du jury, sans alerte « 5 minutes ». Captures `s4-7-teil-390.png`, `s4-7-aufklaerung-390.png`.
+- Transition : en-tête « Dokumentation · 2/3 » sans minuterie, un seul compte à rebours « 60 s », textes de la direction (le simulant ou l'IA devient l'examinateur), « Commencer maintenant ». Capture `s4-7-transition-390.png`.
+- Auto-évaluation : `flex flex-wrap`, débordement mesuré à 390 px par la sonde (0). Capture `s4-7-bewertung-390.png`.
+- Fin : « Conditions d'examen remplies. » / « Hors conditions… », « Le cas : » suivi de la première phrase de la Verdachtsdiagnose, une seule rangée d'actions avec « Nouvel examen », cartes A, Aufklärung, D, F, `buildCorrections` nomme le Teil, jamais « Examen à blanc » à l'écran. Capture `s4-7-fin-390.png`.
+- Accueil : texte de la direction, sans sur-titre ni `p3Note` (champ retiré du plan). Capture `s4-7-examen-390.png`.
+- Accessibilité : `role="timer"`, région `role="status"` permanente (alertes, demande du jury), focus sur la carte du jury et sur « Commencer maintenant » (tests).
+
+### 0.4 Mineurs
+
+Gel du Bogen et de l'Arztbrief testé (`fieldset[data-frozen]` désactivé, « Lecture seule » visible) ; INV-E4 vérifie le bouton de la seconde fenêtre ; `routeDeReprise(snapshot)` partagé par la barre et `DrillPage` ; règle 2 de `checkExamen` élargie (minutes × 60, millisecondes, secondes usuelles ; les nuances Tailwind et les commentaires ne comptent pas) avec quatre cas de test — **je n'avais pas la regex proposée par la revue** : c'est la mienne, à comparer ; contrat : horloge qui recule et datation après un gel (§11.2) ; docs périmés (`simulation-run.md` E1–E13, `tirage.ts`, `external-ai.spec.md`) ; en-tête « Fallvorstellung · 3/3 » sans « Examen · » ; alerte à l'encre, corail sur la minuterie et la bordure ; « Examen interrompu, enregistré dans l'Historique. » après un abandon écrit ; `AnamneseBogen` « — à rédiger en Dokumentation. ». Checklist OPQRST : non touchée (hors lot).
+
+### 0.5 Vérifications du fixeur (codes de sortie, après fusion de `origin/main`)
+
+`tsc` 0 · vitest src 0 (2 022) · `test:c6` 0 (211, dont 28 de l'Examen) · build 0 · `check*.mjs` 24/24 à 0 (`checkProbeOverlap` compris après Q5) · `node --test` 15/15 à 0 · `parcours-mutations --only` INV-E4, E6, E6-I1, E7, E7-ia, E8, E9, E13, E13-jury : 9/9 tuées, puis INV-E8 rejouée après le dernier changement : 1/1 · sonde `examen390.mjs --captures` 0 (22 vérifications) · aucun `c6-mut-*` restant. INV-20a (point ouvert du premier rapport) n'a pas été rejouée : hors des invariants touchés.
 
 ## 1. Ce qui est livré
 
