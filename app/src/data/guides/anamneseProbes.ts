@@ -220,7 +220,7 @@ export const FACH_PROBES: Partial<Record<Specialty, AnamneseProbe[]>> = {
     // décident du diagnostic dans les trois cas neuro du corpus.
     { id: 'fach-neuro-aura', kapitel: 'fach', frage: 'Kamen die Beschwerden plötzlich wie ein Schlag, oder gab es Vorboten — Lichtblitze, Zickzacklinien, Kribbeln in den Fingern oder im Gesicht?' },
     { id: 'fach-neuro-autonom', kapitel: 'fach', frage: 'Hatten Sie dabei Begleitbeschwerden an Auge oder Nase — Tränenfluss, Nasenverstopfung, ein hängendes Augenlid?' },
-    { id: 'fach-neuro-anfallzeichen', kapitel: 'fach', frage: 'Erinnern Sie sich an alles vor und nach der Episode? Haben Sie sich dabei verletzt — Zungenbiss? Ging unwillkürlich Urin ab?' },
+    { id: 'fach-neuro-anfallzeichen', kapitel: 'fach', frage: 'Erinnern Sie sich an alles, was davor und danach war? Haben Sie sich dabei verletzt — Zungenbiss? Haben Sie dabei Urin verloren?' },
   ],
   // Un seul jeu couvre les deux grands axes endocriniens de l'examen : le
   // métabolisme glucidique (polyurie/polydipsie, hypoglycémies, complications
