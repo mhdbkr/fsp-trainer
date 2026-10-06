@@ -835,14 +835,12 @@ L'Historique lit `modeExamen` : « Examen » si la partie est en conditions
 d'examen, « Examen interrompu » sinon. Ajout technique de `lead-s4-7`, signalé
 au rapport.
 
-### 11.6 bis Décisions encore en discussion — isolées
+### 11.6 bis Partenaire et fréquence (décisions 7 et 10, confirmées le 6 oct.)
 
-- **Décision 7** (le partenaire n'est pas enregistré) : le choix vit sur
-  l'appareil (`PartnerCard`, `fsp-partenaire`). L'enregistrer = un champ de
-  `projektion`, et rien d'autre. **À confirmer par la direction.**
-- **Décision 10** (aucune limite ni message sur la fréquence des examens) :
-  `EXAMENS_PAR_SEMAINE_CONSEILLES = null` (`features/examen/reglages.ts`). Un
-  nombre affiche un message au-delà, sans bloquer. **À confirmer par la direction.**
+- **Décision 7** : le partenaire n'est pas enregistré. Le choix vit sur
+  l'appareil (`PartnerCard`, `fsp-partenaire`). L'enregistrer un jour = un champ
+  de `projektion`, et rien d'autre.
+- **Décision 10** : aucune limite ni message sur la fréquence des examens.
 
 ### 11.7 Navigation (décision 5)
 
