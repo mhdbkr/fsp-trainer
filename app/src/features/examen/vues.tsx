@@ -73,6 +73,16 @@ export function ExamHeader({ titre, reste, alerte, onAbandon }: {
   );
 }
 
+/** L'Aufklärung, en conditions réelles : la demande du jury, rien d'autre — ni trame, ni risques, ni questions. */
+export function AufklaerungAuftrag({ acte }: { acte: string | null }) {
+  return (
+    <div className="card p-4">
+      <div className="label">Le jury interrompt l’entretien</div>
+      <p className="mt-1 text-base font-semibold">« Klären Sie den Patienten {acte ? `über ${acte} ` : ''}auf. »</p>
+    </div>
+  );
+}
+
 const APRES: Record<SimTeil, string> = {
   anamnese: 'Anamnese terminée : tes notes restent sous tes yeux, en lecture seule. Prépare l’Arztbrief.',
   dokumentation: 'Dokumentation terminée. Simulant : tu deviens l’examinateur.',

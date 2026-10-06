@@ -131,7 +131,8 @@ export function useLauf(c: Case | undefined, depart: SimTeil | null, taskId?: st
         // seul repli vit dans `saveSimulation`.
         profileId: getActiveUserId() ?? undefined,
         ...(taskId ? { taskId } : {}),                         // R-C4
-        ...(examen ? { examen: true as const } : {}),          // [S4-7] Autonome, couche 3 (§11.1)
+        // [S4-7] Autonome, couche 3 ; l'Aufklärung du cas, s'il en a une, fait partie de l'examen (§11.1).
+        ...(examen ? { examen: { aufklaerung: c.probableAufklaerungIds?.[0] } } : {}),
         assistance: reglage.current.assistance,
         layer: reglage.current.layer,
         muster: reglage.current.muster,

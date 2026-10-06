@@ -73,8 +73,9 @@ export interface LaufEingabe {
   muster?: MusterArt | MusterCity;
   mode?: SimulationMode;
   taskId?: string;
-  /** [S4-7] Un examen (simulation-run.md §11.1) : Autonome et couche 3, quels que soient `assistance` et `layer`. */
-  examen?: true;
+  /** [S4-7] Un examen (simulation-run.md §11.1) : Autonome et couche 3, quels que soient `assistance` et `layer`.
+   *  `aufklaerung` : l'acte du cas, s'il en a un — l'examen l'inclut. */
+  examen?: true | { aufklaerung?: string };
 }
 
 /** Crée un `Lauf` en `vorbereitung`. L'`id` est posé ICI, une seule fois : il
@@ -110,7 +111,7 @@ export function erstelleLauf(i: LaufEingabe): Lauf {
     muster: i.muster,
     mode: i.mode ?? 'texte',
     taskId: i.taskId,
-    ...(i.examen ? { examen: { teilBeginn: {} } } : {}),
+    ...(i.examen ? { examen: { teilBeginn: {}, ...(i.examen !== true && i.examen.aufklaerung ? { aufklaerung: i.examen.aufklaerung } : {}) } } : {}),
   };
 }
 
@@ -186,7 +187,7 @@ export function setzeChecklistItem(lauf: Lauf, id: string, checked: boolean): La
 /** [S4-7] Le début d'un Teil d'examen, posé une seule fois (§11.1). Sans effet hors examen ou déjà posé. */
 export function stempleTeilBeginn(lauf: Lauf, teil: SimTeil, at: number): Lauf {
   if (!lauf.examen || typeof lauf.examen.teilBeginn[teil] === 'number') return lauf;
-  return { ...lauf, examen: { teilBeginn: { ...lauf.examen.teilBeginn, [teil]: at } } };
+  return { ...lauf, examen: { ...lauf.examen, teilBeginn: { ...lauf.examen.teilBeginn, [teil]: at } } };
 }
 
 export function setzeEntwurf(lauf: Lauf, teil: LaufTeil, patch: Partial<TeilEntwurf>): Lauf {
@@ -310,7 +311,8 @@ export function transition(lauf: Lauf, aktion: LaufAktion): Lauf {
       // PAS un changement d'état : le jury interrompt, on reste `laufend`.
       // L'ordre total porte sur `zustand`, pas sur le Teil.
       if (lauf.zustand !== 'laufend' || lauf.aktuellerTeil === 'aufklaerung') return lauf;
-      if (lauf.examen) return lauf;   // [S4-7] décision 9 : pas d'Aufklärung dans l'Examen
+      // [S4-7] Dans l'Examen, l'Aufklärung n'existe que si le cas en a une, et elle interrompt l'Anamnese (§11.1).
+      if (lauf.examen && (!lauf.examen.aufklaerung || lauf.aktuellerTeil !== 'anamnese')) return lauf;
       // UNE Aufklärung par run (M4) — comme à l'examen, et le Lauf n'a qu'une
       // place pour elle (`teile.aufklaerung`). Une seconde reprenait le chrono
       // de la première (monotone) et ses cases déjà cochées : refusée.

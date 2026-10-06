@@ -120,8 +120,10 @@ export interface Lauf {
   /** TaskInstance du plan, si le Lauf a été lancé depuis le programme. */
   taskId?: string;
   /** [S4-7] Présent ⇔ le Lauf est un EXAMEN (simulation-run.md §11). `teilBeginn[t]` = epoch ms du début de chaque Teil,
-   *  lu par la minuterie murale ; écrit comme un champ (`stempleTeilBeginn`), jamais par une transition. */
-  examen?: { teilBeginn: Partial<Record<SimTeil, number>> };
+   *  lu par la minuterie murale ; écrit comme un champ (`stempleTeilBeginn`), jamais par une transition.
+   *  `aufklaerung` = l'acte que le jury demande (id d'`AufklaerungItem`), posé à la création si le cas en a un : présent ⇔
+   *  l'Aufklärung fait partie de l'examen (direction, 6 oct.). */
+  examen?: { teilBeginn: Partial<Record<SimTeil, number>>; aufklaerung?: string };
 }
 
 /** Projection d'un `TeilLauf` vers le `PartResult` historique. La checklist du
