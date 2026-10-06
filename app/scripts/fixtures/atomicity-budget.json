@@ -3,11 +3,11 @@
   "generated": "2026-10-06",
   "reference": "Audit série 3 : A=1059 B=322 C=75 sur 15 591 énoncés, toutes classes. Ce script ne lit que la classe Q (l'oral posé par le candidat) ; ses compteurs sont donc plus bas et ne se comparent pas ligne à ligne.",
   "q11": "Décision Q11 de la direction : les questions d'Oberarzt sont EXEMPTÉES de la règle A. En examen réel un senior enchaîne ses questions — c'est fidèle, pas fautif. 471 constats A disparaissent de ce fait, et n'ont jamais été des défauts. Elles relèvent désormais de la règle D (arité > 3), qui ne vise que la salve incohérente. Deux détecteurs sémantiques d'incohérence ont été mesurés puis jetés (liaison lexicale : 407/471 faux positifs ; terme de vocabulaire orphelin : 14/15) — l'arité est le seul marqueur qui sépare la salve nommée par la direction des 470 autres.",
-  "corpus": 5090,
+  "corpus": 5125,
   "budget": {
-    "A": 295,
-    "A2": 32,
-    "B": 80,
+    "A": 239,
+    "A2": 7,
+    "B": 54,
     "C": 0,
     "D": 0,
     "D2": 453,
@@ -22,5 +22,6 @@
   "q3": "Lot Q3 (baisse, --bless) : A 423 -> 360, A2 48 -> 41, B 113 -> 105. Contenu : 53 questions composees d'aktuell decoupees (question + relance « Falls ja », ou deux questions du cas quand les signes different) ; 16 relances du guide a deux « ? » decoupees en relances atomiques (akt-frueher x10 via FRUEHER, akt-verlauf, akt-beginn schlagartig, akt-psych-sicherheit, veg-uebelkeit, veg-ausscheidung x3, vor-erkrank, vor-op, fach-pneumo-husten, fach-pneumo-auswurf, fach-haem-blutung, fach-haem-blutverlust, fach-infekt-kontakt, fach-derma-aussehen). Mesure : `CaseQuestion.followUps` (relances suivantes) est lu comme chaque relance, sous la meme regle (plafond 2 items, un « ? »).",
   "q3_fixeur": "Hausse ecrite a la main (--bless refuse toute hausse), B 105 -> 106, toujours sous origin/main (113) : osteoporose, relance « Reichte zum Beispiel schon Husten, Niesen oder Bücken? » (3 items > plafond 2 des relances). Decision de main sur les revues Q3 : « Niesen » revient (revue clinique), le texte de la relecture de langue est applique tel quel.",
   "q4": "Lot Q4 (baisse, --bless) : A 360 -> 326, A2 41 -> 37, B 106 -> 96. Contenu : 47 composees d'aktuell decoupees (zoeliakie -> malaria, ordre du fichier ; 49 restent pour Q5), plus la question de vorerkrankungen de metabolisches-syndrom (sa moitie « poids » etait deja dite). Memes deux gestes que Q3 ; une moitie deja dite par une reponse jouee plus haut est retiree, pas reposee (garde anti-doublon, reponseDoublon.test.ts).",
-  "q5": "Lot Q5 (baisse, --bless) : A 326 -> 295, A2 36 -> 32, B 96 -> 80. Contenu : les 49 composees d'aktuell restantes (endokarditis -> arterielle-hypertonie) et la relance d'osteoporose decoupees (question + relance du meme signe, ou deux questions du cas declarees), plus les composees touchees par la garde anti-doublon (obstipation, rheumatoide-arthritis, parkinson, bronchialkarzinom). Une moitie deja dite par une reponse jouee plus haut est retiree, pas reposee. Aucune composee ne reste dans les questions du cas d'aktuell."
+  "q5": "Lot Q5 (baisse, --bless) : A 326 -> 295, A2 36 -> 32, B 96 -> 80. Contenu : les 49 composees d'aktuell restantes (endokarditis -> arterielle-hypertonie) et la relance d'osteoporose decoupees (question + relance du meme signe, ou deux questions du cas declarees), plus les composees touchees par la garde anti-doublon (obstipation, rheumatoide-arthritis, parkinson, bronchialkarzinom). Une moitie deja dite par une reponse jouee plus haut est retiree, pas reposee. Aucune composee ne reste dans les questions du cas d'aktuell.",
+  "q7": "Lot Q7 (baisse, --bless) : A 295 -> 239, A2 32 -> 7, B 80 -> 54. Contenu : les questions du cas des chapitres qui suivent Aktuelle Beschwerden (vegetativ, vorerkrankungen, medikamente, allergien, noxen, familie-sozial, frauenanamnese) decoupees (question + relance du meme signe, ou deux questions du cas declarees), plus les composees que la regle A2 ne lit pas (« ..., und wurde / — wie oft »). Une moitie deja dite par une reponse jouee plus haut est retiree ; une question dont tout etait dit est retiree ; une reponse qui disait d'avance la question suivante est coupee et deplacee. Aucune composee ne reste dans les questions du cas hors aktuell (A, A2, B)."
 }
