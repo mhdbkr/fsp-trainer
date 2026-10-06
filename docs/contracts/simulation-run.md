@@ -11,6 +11,9 @@
 > d'enchaînement s'ajoute, et le Muster passe à guidé ou libre : voir §10. La
 > sentinelle « non saisi » (lot C6-A) est décrite au §1.1. Les sections
 > amendées sont marquées *[S4]*.
+>
+> **Amendé — S4-7 (6 oct. 2026)** · `lead-s4-7` · ADR-0021 (amendement S4-7).
+> L'Examen est un `Lauf` ordinaire en mode examen : voir §11.
 
 ---
 
@@ -689,3 +692,232 @@ Chaque annonce est tracée par une clé locale `db.meta['annonce.s4.<sujet>']`.
 **Décidé** (`main`, 4 oct.) : l'annonce est faite une fois **par appareil**,
 sans événement synchronisé, ce qui suffit pour deux utilisateurs. C'est la
 résolution de m9.
+
+---
+
+## 11. *[S4-7]* L'Examen
+
+> Lot S4-7 · `lead-s4-7` · 6 oct. 2026 · ADR-0021, amendement « S4-7 ».
+> Porté à la main depuis `feat/pruefungstag` (archivée, tag
+> `archive/pruefungstag-2026-09-16`) : horloge, plan, tirage, vues, garde
+> statique. **Rien** de sa session parallèle, de son évaluation, de sa migration
+> SQL ni de son indice de préparation.
+>
+> Code : `features/examen/` (page, runner, vues, plan, horloge),
+> `lib/examen/tirage.ts`, gardes de `lib/lauf/automat.ts`.
+> Invariants : `app/tests/invariants.examen.test.tsx` (INV-E1 à INV-E13).
+> Garde statique : `app/scripts/checkExamen.mjs`, branché en CI.
+
+### 11.1 Un `Lauf` ordinaire
+
+Un examen est **un `Lauf`**, pas un second moteur. Il passe par `useLauf`, par
+`transition`, par `speichern`. Il porte un champ de plus :
+
+```ts
+Lauf.examen?: {
+  teilBeginn: Partial<Record<SimTeil, number>>;   // epoch ms du début de chaque Teil, horloge murale
+  aufklaerung?: string;                           // l'acte du cas (direction, 6 oct.) ; absent ⇔ pas d'Aufklärung
+}
+```
+
+- **Autonome, couche 3**, posés par `erstelleLauf` dès que `examen` est
+  demandé, quels que soient les réglages du candidat.
+- **Ordre A → D → F** et rien d'autre. Dans un `Lauf` d'examen, l'automate
+  refuse `springeZu` et `zurueckZurPartie` ; `demarrer` part toujours de
+  `geplanteTeile[0]` ; `partieSuivante(t')` n'accepte que `naechsterTeil(lauf)`.
+- **L'Aufklärung du cas fait partie de l'examen** (direction, 6 oct. — annule
+  la décision 9 du brief). `Lauf.examen.aufklaerung` = le premier acte de
+  `Case.probableAufklaerungIds`, posé à la création ; absent si le cas n'en a
+  pas (10 cas sur 130). Elle reste **intercalée** au sens du §2.1, règle 7 :
+  `aufklaerungOeffnen` depuis `laufend(anamnese)` seulement, puis retour à
+  l'Anamnese par `partieSuivante`. Place retenue : la **fin du créneau de
+  l'Anamnese** (le jury interrompt l'entretien) — l'Anamnese dure le créneau
+  moins l'Aufklärung, l'Aufklärung la suit, la transition part de la fin du
+  créneau. Elle ne compte pas comme Teil joué (règle 7, « Terminer ici »,
+  `reihenfolge`, `conditionsExamen`). Sans aide : la demande du jury et le
+  Bogen, rien d'autre. La demande est une phrase **résolue** (`jury.ts`) :
+  l'acte à l'accusatif avec son article (table `ACTE_AKKUSATIV`, une entrée par
+  `AufklaerungItem`), « die Patientin » ou « den Patienten » selon
+  `patientSheet.personalia.geschlecht` — « Klären Sie die Patientin bitte über
+  die Koloskopie auf. » Jamais le nom de la fiche (« Allgemeine Aufklärung… »).
+- **Une Aufklärung qui n'a pas été jouée n'est pas écrite** (I1). Si, à la fin
+  de la fenêtre de l'Anamnese, tout le créneau est déjà passé (retour d'un gel
+  ou d'une absence), elle n'est pas ouverte : l'Anamnese est créditée du
+  créneau entier, puis `terminerPartie`.
+  Sans acte, l'automate refuse `aufklaerungOeffnen` et le déroulé est A → D → F.
+- `teilBeginn[t]` est **écrit comme un champ** (`stempleTeilBeginn`), à
+  l'entrée dans `laufend(t)`, une seule fois. Ce n'est pas une transition.
+- **Ni nouvel événement de sync, ni nouvelle version Dexie.** `lauf.aktiv`
+  reste la seule persistance en vol ; `simulation.completed` reste la seule
+  écriture.
+
+### 11.2 Minuterie murale, arrêt automatique, aucune aide
+
+- Une seule table de durées, sourcée : `features/examen/plan.ts`
+  (`EXAM_DAY_PLAN.BW`) — trois Teile de 20 min (`ANALYSE.md` §1,
+  protocoles de Stuttgart et de Reutlingen). La transition de 60 s et les
+  alertes à 5:00 et 1:00 sont des **choix de conception**, non sourcés comme
+  faits d'examen. **La durée de l'Aufklärung n'est pas sourcée** : la table
+  de la branche n'en a pas ; on reprend les 5 min du runner d'entraînement,
+  marquées « NON SOURCÉ » dans `plan.ts`. Aucune autre durée en dur sous `features/examen/**`
+  (`checkExamen.mjs`, règle 2).
+- Le reste = cible − (maintenant − `teilBeginn[t]`), relu à chaque
+  rendu (`useExamDayClock`) et au retour de visibilité. Un onglet gelé ne
+  gagne pas de temps.
+- **La minuterie affichée est celle du créneau** : 20:00 au départ de chaque
+  Teil, Aufklärung comprise ou non, pour ne rien laisser deviner du cas. À
+  05:00 restantes d'un créneau qui porte une Aufklärung, le titre devient
+  « Aufklärung » et la demande du jury paraît ; l'alerte « 5 minutes » n'est
+  alors pas donnée (la demande la remplace). L'alerte 1:00 reste.
+- **Horloge qui recule** (maintenant < début) : le reste vaut 0, le Teil est
+  échu — jamais de temps gagné. **Après un gel**, chaque échéance est datée
+  à son instant théorique (fin de fenêtre, fin de créneau), pas à l'instant du
+  retour ; seul le Teil qui commence au retour est daté du retour
+  (`teilBeginn[t] = maintenant`).
+- **Transition** : l'en-tête annonce le Teil suivant (« Dokumentation ·
+  2/3 »), sans minuterie ; la carte porte le seul compte à rebours (« 42 s »)
+  et « Commencer maintenant », qui reçoit le focus. Accessibilité : `role="timer"`
+  sur la minuterie, une région `role="status"` montée en permanence (alertes,
+  demande du jury), le focus sur la demande du jury quand elle paraît.
+- À l'échéance : `sekundenProTeil[t] = min(cible, écoulé)`, puis
+  `terminerPartie`. En `bilanz(t)`, s'il reste un Teil : transition de 60 s
+  comptée depuis l'échéance, puis `partieSuivante`. Après la Fallvorstellung :
+  `versChecklist`.
+- Aucun composant d'aide n'est monté : guides, Muster-Cards, mode focus,
+  Kommunikation, Fachbegriffe, fiche IA externe, checklist en jeu
+  (`checkExamen.mjs`, règle 1 ; liste unique `features/examen/aidesInterdites.json`).
+  Le **partenaire IA** n'est pas une aide (§11.3 bis) : `TeilAiLauncher` est permis. Le Bogen
+  est celui de `main` (guidé ou libre), en Autonome ; il se fige à la fin de
+  l'Anamnese. L'Arztbrief s'écrit en Dokumentation et se fige ensuite.
+- `?debugClock=<s>` décale l'horloge lue, en **dev seulement**.
+
+### 11.3 Le cas reste caché jusqu'au résultat
+
+- `/examen` ne porte **aucun id de cas** dans l'URL, avant comme pendant.
+  Le runner relit le cas depuis `lauf.aktiv`.
+- Le nom, l'id et la spécialité du cas ne sont **nulle part dans le DOM** du
+  médecin, ni dans la barre « Reprendre » (qui dit « Examen en cours » et
+  mène à `/examen`). `snapshotAusLauf` d'un `Lauf` d'examen n'a pas de nom de cas.
+- Le QR et la seconde fenêtre du simulant portent l'id (c'est leur fonction) ;
+  le lien de la seconde fenêtre est un bouton, pas un `href`.
+- Le cas est révélé au résultat (`/examen?sim=<id>`) : `ResultScreen`, son
+  `CaseDial`, et les conditions d'examen remplies ou manquantes.
+
+### 11.3 bis Le partenaire (décision de `main` après la revue direction, 6 oct.)
+
+Le cas est caché : seul, le candidat n'a pas de patient à interroger. L'Examen
+propose donc **« Avec un simulant »** et **« Avec ton IA »** ; « Seul »
+n'existe pas. Défaut : le dernier partenaire choisi s'il vaut ici, sinon le
+simulant (`partenaireExamen`). L'IA est un **partenaire** : elle joue le
+patient en Anamnese, puis l'examinateur en Fallvorstellung, par le lanceur de
+l'entraînement (`TeilAiLauncher`, `ai-bridge.md` §3.1) en mode examen — puce
+« IA » de l'en-tête dans ces deux Teile seulement, aucune trace `pending`
+(la partie est le `Lauf` d'examen, pas une séance IA externe), aucun texte du
+prompt affiché. Texte : « Elle joue le patient, puis l'examinateur. L'app ne
+t'affiche pas le diagnostic ; il figure dans le texte que tu colles pour
+l'examinateur, au début de la Fallvorstellung. » (décision de `main`, 6 oct. :
+le texte dit la vérité). Le prompt Oberarzt porte le diagnostic
+(`ai-bridge.md` §2.4) ; le prompt patient ne le porte pas (règle D1).
+
+### 11.4 Fin, abandon, reprise
+
+- **Fin** : auto-évaluation **obligatoire** des grilles de langue de
+  l'Anamnese et de la Fallvorstellung (les cinq critères), checklists des trois
+  Teile proposées ; « Enregistrer » est refusé tant qu'une des deux grilles est
+  incomplète (condition `grille` de `conditionsExamen`). La Dokumentation n'a
+  pas de grille : sa checklist est proposée, non exigée.
+- **Écriture** : celle du §3.2, idempotente. La projection ajoute
+  `Simulation.modeExamen = true` (voir 11.6).
+- **Abandon** (décision 3) : la règle de `main`, `gibAuf`. Après au moins un
+  Teil joué, la partie est écrite (`examenManque ∋ 'enchaine'`) et l'accueil le
+  dit : « Examen interrompu, enregistré dans l'Historique. » ; avant, rien.
+- **Écran de fin** : « Conditions d'examen remplies. » ou « Hors conditions
+  d'examen : il manque … », puis « Le cas : … », **seule** révélation (le
+  sous-titre de `ResultScreen` n'y porte pas le nom du cas : « score moyen 14 % ») ; `ResultScreen` avec une
+  seule rangée d'actions (« Nouvel examen » y entre) ; cartes dans l'ordre A,
+  Aufklärung, D, F. Le mot est « Examen », jamais « Examen à blanc ».
+- **Reprise** : la branche unique de `useLauf` (§3.1). Une pause ≥ 5 min pose
+  `unterbrochen` ; la partie n'est plus en conditions d'examen.
+- **Pas de détournement** : la reprise exige le même cas **et le même mode**
+  (examen ou non). Un `Lauf` d'examen rencontré par le runner d'entraînement
+  est abandonné selon §3.1, jamais repris ; l'inverse aussi.
+
+### 11.5 Tirage (décision 1)
+
+`tireCas(cases, journal, progress, maintenant, rng, ville)` —
+`lib/examen/tirage.ts`. Aléatoire injectable ; tirage cumulatif.
+
+- Exclus : les cas joués (`simulation`, `examen-blanc`) depuis moins de
+  **14 jours**. Si tous le sont, l'exclusion est levée. Un cas `prêt` n'est
+  pas exclu.
+- Poids d'une pathologie = son compte de protocoles **tous centres**
+  (`frequencesProtocoles.ts`). Il est **partagé** entre ses cas éligibles :
+  une pathologie pèse une fois. Un cas absent de la source, ou de compte nul,
+  prend `FREQUENCE_PLANCHER`.
+- **Raffinement optionnel, app personnelle seulement** : si un centre visé est
+  choisi (`targetCenter`) et ventilé par la source, son compte remplace le
+  total (portée de `couverturePonderee`). Il vit dans **une seule fonction**,
+  `raffinementVille` (`tirage.ts`) : la retirer, avec `EntreeTirage.ville`,
+  ne change rien d'autre. La prod n'aura qu'une série de cas pour tous les
+  Länder (direction, 6 oct.).
+- Un cas `vierge` (aucun `CaseProgress`, ou état `vierge`) pèse ×2.
+- Une tâche « examen à blanc » du plan lance l'Examen sur **son** cas, sans
+  tirage (`/examen?task=<id>`, décision 6).
+
+### 11.6 Contradiction relevée et tranchée par `lead-s4-7`
+
+« Seul ajout : `Lauf.examen` » et « l'abandon apparaît dans l'Historique avec
+le libellé *Examen interrompu* » ne tiennent pas ensemble : une fois écrit,
+le `Lauf` n'existe plus, et rien dans `Simulation` ne distingue un examen
+interrompu d'une partie partielle d'entraînement. Ajout minimal, **sans
+nouvel événement ni version Dexie** :
+
+```ts
+Simulation.modeExamen?: true      // posé par `projektion` si `lauf.examen` ; voyage dans le payload de `simulation.completed` (sans schéma serveur)
+TrainingEvent.modeExamen?: true   // dérivé (training-journal.md §2.3), jamais écrit par `training.logged`
+```
+
+L'Historique lit `modeExamen` : « Examen » si la partie est en conditions
+d'examen, « Examen interrompu » sinon. Ajout technique de `lead-s4-7`, signalé
+au rapport.
+
+### 11.6 bis Partenaire et fréquence (décisions 7 et 10, confirmées le 6 oct.)
+
+- **Décision 7** : le partenaire n'est pas enregistré. Le choix vit sur
+  l'appareil (`PartnerCard`, `fsp-partenaire`). L'enregistrer un jour = un champ
+  de `projektion`, et rien d'autre.
+- **Décision 10** : aucune limite ni message sur la fréquence des examens.
+
+### 11.7 Navigation (décision 5)
+
+- Menu : « Examen » (`/examen`) remplace « Simulation », à la même place.
+- `/simulation` redirige vers `/examen`. `/simulation/:caseId/pre` et
+  `/simulation/:caseId/run` restent l'entraînement, lancé depuis « Cas
+  cliniques » et le Programme. `SimulationHub` et ses « simulations récentes »
+  disparaissent : l'Historique les porte.
+
+### 11.8 Invariants
+
+| Id | Propriété | Mutation qui doit rougir |
+|---|---|---|
+| **INV-E1** | Tirage déterministe à aléatoire injecté ; bornes exactes du cumul ; `null` sans cas. | borne `<` devenue `<=` |
+| **INV-E2** | Une pathologie pèse une fois, quel que soit son nombre de cas. | poids de pathologie non partagé |
+| **INV-E3** | Un cas vierge pèse ×2 ; un cas hors source prend le plancher. | facteur vierge retiré |
+| **INV-E4** | Nom, id et spécialité du cas absents du DOM, de `location.hash` et de « Reprendre », avant et pendant. | `snapshotAusLauf` garde le nom du cas |
+| **INV-E5** | `springeZu` et `zurueckZurPartie` sans effet ; ordre A → D → F (l'Aufklärung mise à part). | garde d'examen retirée de `springeZu` |
+| **INV-E6** | Fin automatique à l'échéance, `sekundenProTeil[t] ≤ cible`, onglet gelé puis visible. | durée non plafonnée à la cible |
+| **INV-E7** | Aucun composant d'aide monté (DOM et garde statique). | import d'un guide dans le runner |
+| **INV-E8** | Une seule écriture idempotente ; `reihenfolge = [A, D, F]`, `enchaine`, Autonome, couche 3 ; journal `kind: 'examen-blanc'`, `examen: true`, `examenManque: []`. | « Enregistrer » permis sans grilles |
+| **INV-E9** | Abandon après un Teil : écrit, `examenManque ∋ 'enchaine'`, « Examen interrompu » ; avant : rien. | l'abandon jette la partie |
+| **INV-E10** | Reprise après plus de 5 min : `unterbrochen`, `conditionsExamen` faux. | `nimmWiederAuf` épargne l'examen |
+| **INV-E11** | Une session d'examen ne détourne jamais `/simulation/:caseId/run`. | reprise sans contrôle du mode |
+| **INV-E12** | `/simulation` mène à `/examen` ; le menu dit « Examen » ; la partie est visible dans l'Historique. | redirection retirée |
+| **INV-E13** | Un cas avec Aufklärung l'inclut (fin du créneau de l'Anamnese, sans aide, écrite dans `parts.aufklaerung`) ; un cas sans ne l'inclut pas, et l'automate la refuse. La demande du jury, sur les 120 cas, porte l'article et le bon genre. | l'Aufklärung n'est jamais ouverte ; « den Patienten » pour une patiente |
+| **INV-E6-I1** | Une Aufklärung dont tout le créneau est passé n'est ni ouverte ni écrite ; l'Anamnese a son créneau entier. | l'Aufklärung est ouverte au retour |
+| **INV-E7-ia** | Le partenaire IA est monté en Anamnese et Fallvorstellung, sans texte de prompt, sans trace `pending`, sans nom de cas ; « Seul » est absent. | le panneau IA propose de lire le prompt |
+
+### 11.9 Écart signalé, non corrigé
+
+Le `FLOW` du runner d'entraînement (`SimulationRunner.tsx:42-46`) garde une
+Fallvorstellung de **12 min**, contre 20 min dans la table sourcée de
+l'Examen. Décision 2 : le runner d'entraînement n'est pas touché ici.

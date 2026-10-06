@@ -41,7 +41,11 @@ export interface SaveInput {
   enchaine?: true;
   reihenfolge?: SimTeil[];
   dauerGesamtSec?: number;
+  /** [S4-7] Partie lancée depuis l'Examen (simulation-run.md §11.6). */
+  modeExamen?: true;
 }
+
+const LABEL: Record<Part, string> = { anamnese: 'Anamnese', dokumentation: 'Dokumentation', fallvorstellung: 'Fallvorstellung', aufklaerung: 'Aufklärung' };
 
 // Corrections prioritaires : dérivées des critères non cochés + langue faible.
 function buildCorrections(parts: Partial<Record<Part, PartResult>>): string[] {
@@ -49,10 +53,10 @@ function buildCorrections(parts: Partial<Record<Part, PartResult>>): string[] {
   for (const [part, res] of Object.entries(parts)) {
     if (!res?.done) continue;
     const missed = res.checklist.filter((it) => !it.checked).slice(0, 2);
-    for (const m of missed) out.push(`${part} — ${m.label}`);
+    for (const m of missed) out.push(`${LABEL[part as Part]} — ${m.label}`);
     if (res.languageGrid) {
       const weak = Object.entries(res.languageGrid).filter(([, v]) => isEntered(v) && v <= 2);
-      for (const [k] of weak) out.push(`${part} — Sprache: ${k} verbessern`);
+      for (const [k] of weak) out.push(`${LABEL[part as Part]} — Sprache: ${k} verbessern`);
     }
   }
   return out.slice(0, 6);
@@ -83,6 +87,7 @@ export async function saveSimulation(i: SaveInput): Promise<Simulation> {
     ...(i.enchaine ? { enchaine: true as const } : {}),
     ...(i.reihenfolge ? { reihenfolge: [...i.reihenfolge] } : {}),
     ...(typeof i.dauerGesamtSec === 'number' ? { dauerGesamtSec: i.dauerGesamtSec } : {}),
+    ...(i.modeExamen ? { modeExamen: true as const } : {}),
   };
   draft.passed = simulationPassed(draft);
   // D-C4 / R-C4 : la tâche est résolue AVANT l'écriture — persistée dans la

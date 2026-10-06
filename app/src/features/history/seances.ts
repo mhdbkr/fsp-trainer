@@ -55,6 +55,9 @@ export interface CasDeSeance {
   /** Le Teil le plus faible sous `PART_OK`, mesuré dans la séance et nulle part depuis : seule la séance la plus récente qui
    *  l'a mesuré propose de le rejouer (pas de lien en double), et un Teil remonté depuis ne se propose plus. */
   aRejouer: SimTeil | null;
+  /** [S4-7] La dernière partie de la séance lancée depuis l'Examen : « Examen » en conditions d'examen, « Examen
+   *  interrompu » sinon (simulation-run.md §11.6). `null` hors Examen. */
+  examen: 'complet' | 'interrompu' | null;
 }
 
 const estPartie = (e: TrainingEvent) => (e.kind === 'simulation' || e.kind === 'examen-blanc') && !!e.caseId;
@@ -69,6 +72,7 @@ export function casDeSeance(s: Seance, journal: readonly TrainingEvent[]): CasDe
     const scores: Partial<Record<SimTeil, number>> = {};
     for (const e of ici) if (e.selbstbewertet !== true) for (const t of e.teile) { const v = e.scores?.[t]; if (typeof v === 'number') scores[t] = v; }
     const derniere = [...ici].reverse().find((e) => e.id.startsWith('te-'));
+    const examen = [...ici].reverse().find((e) => e.modeExamen === true);
     const manquees = derniere ? bilanErreurs(journal, derniere.id.slice(3)).filter((l) => !l.cochee) : [];
     const aRevoir = manquees.some((l) => signaux.some((x) => x.teil === l.teil && x.item === l.item));
     const mesureDepuis = (t: SimTeil) => journal.some((e) =>
@@ -83,6 +87,7 @@ export function casDeSeance(s: Seance, journal: readonly TrainingEvent[]): CasDe
       autoEvalue: ici.some((e) => e.selbstbewertet === true),
       oublis: derniere && aRevoir ? { simId: derniere.id.slice(3), n: manquees.length } : null,
       aRejouer: faibles[0] ?? null,
+      examen: examen ? (examen.examen === true ? 'complet' : 'interrompu') : null,
     };
   });
 }

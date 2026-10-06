@@ -89,6 +89,7 @@ export function trainingEventFromSimulation(sim: Simulation, enregistreA?: numbe
     ...(serie4 ? { examenManque: manque } : {}),
     ...(Object.keys(minutesParTeil).length ? { minutesParTeil } : {}),
     ...(Object.keys(manques).length ? { manques } : {}),
+    ...(sim.modeExamen === true ? { modeExamen: true as const } : {}),   // [S4-7] §11.6
   };
 }
 

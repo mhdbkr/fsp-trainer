@@ -5,7 +5,7 @@ export const NAV: { to: string; label: string; icon: string }[] = [
   { to: '/programme', label: 'Programme', icon: 'nav-calendar' },
   { to: '/historique', label: 'Historique', icon: 'history' },
   { to: '/cas', label: 'Cas cliniques', icon: 'nav-cases' },
-  { to: '/simulation', label: 'Simulation', icon: 'nav-sim' },
+  { to: '/examen', label: 'Examen', icon: 'nav-sim' },          // [S4-7] à la place de « Simulation » (simulation-run.md §11.7)
   { to: '/fachwissen', label: 'Fachwissen', icon: 'nav-book' },
   { to: '/guides', label: 'Guides', icon: 'nav-compass' },
   { to: '/aufklaerung', label: 'Aufklärung', icon: 'nav-clipboard' },

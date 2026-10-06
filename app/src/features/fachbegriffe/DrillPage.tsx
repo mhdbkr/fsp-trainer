@@ -16,7 +16,7 @@ import { caseFavoriteIds, termsOfCase } from '@/lib/collections/caseTerms';
 import { buildDrillQueue, nextDueAt, queueCounts } from '@/lib/collections/drillQueue';
 import { loadDrillContext, type DrillContext } from '@/lib/collections/drillContext';
 import { drillMinutes, recentCaseAnchor } from '@/lib/collections/relevance';
-import { useSimSession } from '@/store/simSession';
+import { routeDeReprise, useSimSession } from '@/store/simSession';
 import { useCountUp } from '@/lib/motion';
 import { getActiveUserId } from '@/lib/auth/accounts';
 import { logTraining } from '@/lib/journal';
@@ -143,7 +143,7 @@ export function DrillPage() {
   const exitTo = () => {
     if (caseId) {
       if (simSnapshot?.caseId === caseId && simMinimized) {
-        return `/simulation/${caseId}/run${simSnapshot.teil ? `?teil=${simSnapshot.teil}` : ''}`;
+        return routeDeReprise(simSnapshot);
       }
       return `/cas/${caseId}`;
     }

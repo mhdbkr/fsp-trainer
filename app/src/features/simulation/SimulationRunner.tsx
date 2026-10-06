@@ -618,9 +618,13 @@ function AufklaerungArea({ c }: { c: Case }) {
 }
 
 // --------------------------------------------------------------- Bilan final
-export function ResultScreen({ sim, c }: { sim: Simulation; c: Case }) {
+/** L'ordre de lecture des cartes : celui de l'examen, l'Aufklärung à sa place (dans le créneau de l'Anamnese). */
+const ORDRE_CARTES: Part[] = ['anamnese', 'aufklaerung', 'dokumentation', 'fallvorstellung'];
+
+/** `nouvelExamen` (S4-7) : l'écran de fin de l'Examen ajoute « Nouvel examen » à la rangée d'actions — une seule rangée. */
+export function ResultScreen({ sim, c, nouvelExamen }: { sim: Simulation; c: Case; nouvelExamen?: () => void }) {
   const openExternalAi = useUi((s) => s.openExternalAi);
-  const parts = Object.entries(sim.parts).filter(([, p]) => p?.done) as [Part, PartResult][];
+  const parts = ORDRE_CARTES.filter((k) => sim.parts[k]?.done).map((k) => [k, sim.parts[k]!] as [Part, PartResult]);
   // [S4] §10.5 : le CAS, pas un Teil isolé — son cadran, avec l'arc des Teile joués dans cette partie
   // (`vientDEtreJoue` = teileGespielt ∩ SimTeil). Le cadran LIT `case_progress` (INV-59).
   const progress = useCaseProgress();
@@ -644,7 +648,8 @@ export function ResultScreen({ sim, c }: { sim: Simulation; c: Case }) {
       <div className={`card p-6 text-center ${passed ? 'border-emerald-300 dark:border-emerald-800' : 'border-amber-300 dark:border-amber-800'}`}>
         <div className={`mx-auto flex h-16 w-16 items-center justify-center rounded-2xl ${passed ? 'bg-emerald-100 text-emerald-600 dark:bg-emerald-900/30 dark:text-emerald-300' : 'bg-amber-100 text-amber-600 dark:bg-amber-900/30 dark:text-amber-300'}`}><Icon name={passed ? 'spark' : 'flame'} className="h-8 w-8" /></div>
         <h1 className="mt-2 text-2xl font-bold">{!passed ? 'Encore un effort' : langueNonNotee ? 'Réussi sur le contenu' : 'Au-dessus du seuil Doctopus'}</h1>
-        <p className="text-slate-500 dark:text-slate-400">{c.name} · score moyen {avg}%</p>
+        {/* En mode examen, « Le cas : … » de l'écran de l'Examen est la SEULE révélation : pas de nom de cas ici. */}
+        <p className="text-slate-500 dark:text-slate-400">{nouvelExamen ? '' : `${c.name} · `}score moyen {avg}{'\u00a0'}%</p>
         {passed && langueNonNotee && <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">Ta langue n'est pas notée : le verdict complet viendra quand tu auras rempli la grille de langue.</p>}
         {/* « partie » désigne le tout ; chaque Teil joué est une « épreuve » (fixeur I4). */}
         <p className="mt-1 text-sm">{passed ? 'Chaque épreuve jouée atteint 60 % (seuil Doctopus).' : 'Au moins une épreuve est sous 60 % : reprends-la.'}</p>
@@ -692,7 +697,8 @@ export function ResultScreen({ sim, c }: { sim: Simulation; c: Case }) {
       )}
 
       <div className="flex flex-wrap justify-center gap-2">
-        <Link viewTransition to={`/fachbegriffe/drill?case=${c.id}`} className="btn-primary gap-1.5"><Icon name="nav-abc" className="h-4 w-4" />Drill des termes du cas →</Link>
+        {nouvelExamen && <button type="button" onClick={nouvelExamen} className="btn-primary min-h-11">Nouvel examen</button>}
+        <Link viewTransition to={`/fachbegriffe/drill?case=${c.id}`} className={`${nouvelExamen ? 'btn-outline' : 'btn-primary'} gap-1.5`}><Icon name="nav-abc" className="h-4 w-4" />Drill des termes du cas →</Link>
         <Link viewTransition to={`/cas/${c.id}`} className="btn-outline">Revoir la fiche</Link>
         <button onClick={() => openExternalAi(c.id)} className="btn-outline gap-1.5"><Icon name="spark" className="h-4 w-4" />Rejouer avec ton IA</button>
         <Link viewTransition to="/" className="btn-ghost">Accueil</Link>

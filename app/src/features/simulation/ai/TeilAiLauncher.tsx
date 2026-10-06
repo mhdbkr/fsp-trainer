@@ -73,7 +73,9 @@ function Explainer({ teil }: { teil: AnkerTeil }) {
   );
 }
 
-export function TeilAiPanel({ caseId, teil, autoFocus = false }: { caseId: string; teil: AnkerTeil; autoFocus?: boolean }) {
+/** `examen` (simulation-run.md §11.3) : l'IA est un PARTENAIRE de l'Examen, pas une séance à part — aucune trace
+ *  `pending` (la partie est le Lauf d'examen), et le texte du prompt n'est jamais affiché (il porte la fiche du cas). */
+export function TeilAiPanel({ caseId, teil, autoFocus = false, examen = false }: { caseId: string; teil: AnkerTeil; autoFocus?: boolean; examen?: boolean }) {
   const c = useCase(caseId);
   const text = useMemo(() => (c ? promptText(buildPromptPaket(c, teil)) : ''), [c, teil]);
   // undefined = la mémoire n'est pas encore lue : on ne rend pas les cibles,
@@ -108,13 +110,15 @@ export function TeilAiPanel({ caseId, teil, autoFocus = false }: { caseId: strin
     saveTarget(id).catch(() => {});
   };
   const record = () => {
-    Promise.all([saveTarget(target), setPending({ caseId, targetId: target, teil, at: now() })]).catch(() => {});
+    Promise.all([saveTarget(target), ...(examen ? [] : [setPending({ caseId, targetId: target, teil, at: now() })])]).catch(() => {});
   };
   const settle = (copied: boolean, via: Outcome['via']) => {
-    const r = launchStatus({ copied, level: plan.level, via, teil, label: t.label });
+    const r0 = launchStatus({ copied, level: plan.level, via, teil, label: t.label });
+    // L'Examen ne montre pas le texte : l'échec de copie ne renvoie pas à lui.
+    const r = examen && !r0.ok ? { ok: false, text: `Copie impossible — réessaie avec « Copier », puis colle dans ${t.label}.` } : r0;
     setResult(r);
     setCopiedFlash(copied);
-    if (!r.ok) setPreview(true);
+    if (!r.ok && !examen) setPreview(true);
   };
   // Le lien s'ouvre de lui-même (geste natif, lien universel de l'app) ; la
   // copie part dans le même geste, avant que la page ne perde le focus.
@@ -199,7 +203,7 @@ export function TeilAiPanel({ caseId, teil, autoFocus = false }: { caseId: strin
         </p>
       )}
 
-      <div>
+      {!examen && <div>
         <button type="button" onClick={() => setPreview((p) => !p)} aria-expanded={preview} className="text-[12px] text-slate-500 underline-offset-2 hover:text-slate-700 hover:underline dark:text-slate-400 dark:hover:text-slate-200">
           {preview ? 'Masquer le texte' : `Voir le texte · ${sizeK} k caractères`}
         </button>
@@ -209,7 +213,7 @@ export function TeilAiPanel({ caseId, teil, autoFocus = false }: { caseId: strin
             className="animate-fade-in-fast mt-2 h-48 w-full resize-none rounded-xl border border-slate-200 bg-paper p-3 text-xs leading-relaxed text-slate-700 outline-none dark:border-ink-600 dark:bg-ink-800 dark:text-slate-200"
           />
         )}
-      </div>
+      </div>}
     </div>
   );
 }
@@ -217,7 +221,7 @@ export function TeilAiPanel({ caseId, teil, autoFocus = false }: { caseId: strin
 const GUTTER = 16;
 const MIN_PANEL = 320; // hauteur sous laquelle on préfère ouvrir au-dessus
 
-export function TeilAiLauncher({ caseId, teil }: { caseId: string; teil: AnkerTeil }) {
+export function TeilAiLauncher({ caseId, teil, examen = false }: { caseId: string; teil: AnkerTeil; examen?: boolean }) {
   const [open, setOpen] = useState(false);
   const [pos, setPos] = useState<{ left: number; width: number; maxHeight: number; top?: number; bottom?: number } | null>(null);
   const btnRef = useRef<HTMLButtonElement>(null);
@@ -276,7 +280,7 @@ export function TeilAiLauncher({ caseId, teil }: { caseId: string; teil: AnkerTe
             style={{ left: pos.left, top: pos.top, bottom: pos.bottom, width: pos.width, maxHeight: pos.maxHeight }}
             className={`glass glass-edge animate-pop fixed z-50 overflow-y-auto rounded-2xl p-4 ${pos.bottom !== undefined ? 'origin-bottom-left' : 'origin-top-left'}`}
           >
-            <TeilAiPanel caseId={caseId} teil={teil} autoFocus />
+            <TeilAiPanel caseId={caseId} teil={teil} autoFocus examen={examen} />
           </div>
         </Portal>
       )}

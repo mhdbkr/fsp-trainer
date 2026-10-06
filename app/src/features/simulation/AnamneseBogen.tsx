@@ -80,7 +80,7 @@ export function AnamneseBogen({ c, muster, notes, onChange, assistance }: {
 
       {/* Zone Bericht (rédigée à la partie Doku) — rappel visuel */}
       <div className="mt-3 rounded-lg border border-dashed border-slate-300 bg-paper/50 px-3 py-2 text-[11px] text-slate-400 dark:border-slate-700 dark:bg-ink-700/40">
-        <Icon name="pen" className="mr-1 inline-block h-3.5 w-3.5 align-[-2px]" /><b>{spec.berichtLabel}</b> — se rédige à la partie Dokumentation (jamais auto-généré).
+        <Icon name="pen" className="mr-1 inline-block h-3.5 w-3.5 align-[-2px]" /><b>{spec.berichtLabel}</b> — à rédiger en Dokumentation.
       </div>
     </div>
   );

@@ -104,6 +104,13 @@ d'explorer le code et emploient **ce** vocabulaire, pas ses synonymes.
 - **Conditions d'examen** (`conditionsExamen`) — une partie d'un trait, en
   Autonome, dans l'ordre A → D → F, avec la grille de langue saisie. C'est
   **une** définition, qui fonde à la fois l'examen à blanc et l'état `prêt`.
+- **Examen** (le mode, `/examen`) — un cas tiré au sort et caché jusqu'au
+  résultat, trois Teile de 20 min à l'horloge murale (l'Aufklärung du cas
+  comprise, à la fin de l'Anamnese), sans aide ni pause.
+  C'est un `Lauf` ordinaire (`Lauf.examen`), pas un second moteur
+  (`simulation-run.md` §11). Un examen abandonné ou repris après plus de
+  5 min est un **examen interrompu** : il compte comme partie, pas comme
+  examen à blanc.
 - **Non saisi** (`NOT_ENTERED = −1`) — un curseur (ressenti, critère de langue)
   que le candidat n'a pas touché. Le score ne porte que ce qui est saisi, et
   aucune moyenne ne lit `−1`. `0` reste une note.
@@ -191,7 +198,8 @@ d'explorer le code et emploient **ce** vocabulaire, pas ses synonymes.
 
 - **Crédits** — unité de consommation des features IA (patient vocal,
   correction d'Arztbrief). Le cœur (cas, simulations, glossaire) est illimité.
-- **Bereitschaftsindex** — indice de préparation calculé depuis l'historique.
+- **Bereitschaftsindex** — *abandonné* (ADR-0021, amendement S4-7) : l'état
+  `prêt` du cas est la seule mesure de préparation.
 - **Prüfungsakademie** — parcours animé qui explique l'examen.
 - **Avocat de l'utilisateur** — agent qui joue l'app avec des personas et
   rapporte les ruptures de symbiose (ce que la machine impose vs ce que

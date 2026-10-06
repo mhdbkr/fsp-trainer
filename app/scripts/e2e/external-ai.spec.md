@@ -119,10 +119,11 @@ Gemini » de la section précédente) :
    *Remarque annexe (pas un critère testé) : les deux grilles affichent le
    même intitulé de checklist de contenu (Anamnese) — à vérifier si voulu ou
    copié-collé, indépendamment de ce test.*
-6. `/#/simulation` (SimulationHub, section « Simulations récentes ») affiche :
-   **« 26 % · Ulcus ventriculi · IA externe · Gemini · 19/09/2026 · Complète
-   (Anamnese, Fallvorstellung) · Rejouer »** — badge conforme au libellé
-   `IA externe{ ` · ${label}`}` de `SimulationHub.tsx:56`.
+6. *[S4-7] Étape périmée* : `SimulationHub` et ses « Simulations récentes »
+   ont été supprimés (`simulation-run.md` §11.7). La séance se lit désormais
+   dans l'Historique (`/#/historique`), « partie auto-évaluée ». Relevé
+   d'origine : « 26 % · Ulcus ventriculi · IA externe · Gemini · 19/09/2026 ·
+   Complète (Anamnese, Fallvorstellung) · Rejouer ».
 7. Vérification directe en IndexedDB (`indexedDB.open` + curseur sur le store
    `simulations`, hors API `db` de l'app pour rester dans le sandbox
    `page.evaluate`) : un enregistrement avec

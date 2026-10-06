@@ -551,6 +551,8 @@ export interface Simulation {
   reihenfolge?: SimTeil[];
   /** Durée totale de la partie, Teil abandonné compris (m6). `date` = début. */
   dauerGesamtSec?: number;
+  /** [S4-7] Partie lancée depuis l'Examen (simulation-run.md §11.6) — complète ou interrompue. */
+  modeExamen?: true;
 }
 export type SimTeil = 'anamnese' | 'dokumentation' | 'fallvorstellung';
 
@@ -702,6 +704,7 @@ export interface TrainingEvent {
   examenManque?: ConditionExamen[];
   minutesParTeil?: Partial<Record<SimTeil, number>>;       // durée mesurée par Teil joué
   manques?: Partial<Record<SimTeil, ChecklistItemId[]>>;  // items NON cochés par Teil joué
+  modeExamen?: true;           // [S4-7] partie lancée depuis l'Examen (simulation-run.md §11.6)
 }
 
 /** Identifiant sémantique et stable d'un item de checklist (simulation-run.md §4). */

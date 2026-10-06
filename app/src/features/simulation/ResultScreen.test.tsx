@@ -24,7 +24,7 @@ describe('ResultScreen', () => {
     render(<MemoryRouter><ResultScreen sim={{ id: 's3', caseId: 'c1', date: Date.now(), passed: false, parts: { anamnese: p }, prioritizedCorrections: [], scope: 'teil' } as never} c={{ id: 'c1', name: 'Ulcus', specialty: 'G' } as never} /></MemoryRouter>);
     expect(screen.queryByText(/langue/)).toBeNull();
     expect(screen.getByText(/contenu 30%/)).toBeTruthy();
-    expect(screen.getByText(/score moyen 30%/)).toBeTruthy();
+    expect(screen.getByText(/score moyen 30 %/).textContent).toContain('30\u00a0%');   // espace insécable avant %
   });
 
   it('EXAM_CLAIM — le seuil de 60 % est celui de Doctopus, pas « la règle FSP »', () => {

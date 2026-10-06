@@ -73,6 +73,9 @@ export interface LaufEingabe {
   muster?: MusterArt | MusterCity;
   mode?: SimulationMode;
   taskId?: string;
+  /** [S4-7] Un examen (simulation-run.md §11.1) : Autonome et couche 3, quels que soient `assistance` et `layer`.
+   *  `aufklaerung` : l'acte du cas, s'il en a un — l'examen l'inclut. */
+  examen?: true | { aufklaerung?: string };
 }
 
 /** Crée un `Lauf` en `vorbereitung`. L'`id` est posé ICI, une seule fois : il
@@ -103,11 +106,12 @@ export function erstelleLauf(i: LaufEingabe): Lauf {
     notes: {},
     bogen: {},
     arztbriefText: '',
-    assistance: i.assistance,
-    layer: i.layer,
+    assistance: i.examen ? 'autonome' : i.assistance,
+    layer: i.examen ? 3 : i.layer,
     muster: i.muster,
     mode: i.mode ?? 'texte',
     taskId: i.taskId,
+    ...(i.examen ? { examen: { teilBeginn: {}, ...(i.examen !== true && i.examen.aufklaerung ? { aufklaerung: i.examen.aufklaerung } : {}) } } : {}),
   };
 }
 
@@ -149,6 +153,10 @@ export function nimmWiederAuf(lauf: Lauf, jetzt: number): Lauf {
   return pause >= REPRISE_TOLERANZ_MIN * 60_000 ? { ...lauf, unterbrochen: true } : lauf;
 }
 
+/** Le Teil d'un item de checklist, lu à son préfixe (§4.2). */
+export const teilDesItems = (id: string): LaufTeil | undefined =>
+  (Object.keys(PREFIX) as LaufTeil[]).find((t) => id.startsWith(PREFIX[t]));
+
 export function checklisteFuer(lauf: Lauf, teil: LaufTeil): ChecklistItem[] {
   return lauf.checkliste.filter((i) => i.id.startsWith(PREFIX[teil]));
 }
@@ -174,6 +182,12 @@ export function setzeChecklistItem(lauf: Lauf, id: string, checked: boolean): La
   const checkliste = [...lauf.checkliste];
   checkliste[i] = { ...checkliste[i], checked };
   return { ...lauf, checkliste };
+}
+
+/** [S4-7] Le début d'un Teil d'examen, posé une seule fois (§11.1). Sans effet hors examen ou déjà posé. */
+export function stempleTeilBeginn(lauf: Lauf, teil: SimTeil, at: number): Lauf {
+  if (!lauf.examen || typeof lauf.examen.teilBeginn[teil] === 'number') return lauf;
+  return { ...lauf, examen: { ...lauf.examen, teilBeginn: { ...lauf.examen.teilBeginn, [teil]: at } } };
 }
 
 export function setzeEntwurf(lauf: Lauf, teil: LaufTeil, patch: Partial<TeilEntwurf>): Lauf {
@@ -287,7 +301,8 @@ export function transition(lauf: Lauf, aktion: LaufAktion): Lauf {
       return {
         ...lauf,
         zustand: 'laufend',
-        aktuellerTeil: teil,
+        // [S4-7] Un examen part toujours du premier Teil (ordre A → D → F, §11.1).
+        aktuellerTeil: lauf.examen ? lauf.geplanteTeile[0] : teil,
         checkliste: mitCheckliste(lauf, aktion.checkliste),
       };
     }
@@ -296,6 +311,8 @@ export function transition(lauf: Lauf, aktion: LaufAktion): Lauf {
       // PAS un changement d'état : le jury interrompt, on reste `laufend`.
       // L'ordre total porte sur `zustand`, pas sur le Teil.
       if (lauf.zustand !== 'laufend' || lauf.aktuellerTeil === 'aufklaerung') return lauf;
+      // [S4-7] Dans l'Examen, l'Aufklärung n'existe que si le cas en a une, et elle interrompt l'Anamnese (§11.1).
+      if (lauf.examen && (!lauf.examen.aufklaerung || lauf.aktuellerTeil !== 'anamnese')) return lauf;
       // UNE Aufklärung par run (M4) — comme à l'examen, et le Lauf n'a qu'une
       // place pour elle (`teile.aufklaerung`). Une seconde reprenait le chrono
       // de la première (monotone) et ses cases déjà cochées : refusée.
@@ -351,6 +368,7 @@ export function transition(lauf: Lauf, aktion: LaufAktion): Lauf {
       // Aufklärung, le Teil interrompu d'abord (m6).
       const reprise = aktion.teil ?? unterbrochenerTeil ?? naechsterTeil(lauf);
       if (!reprise) return lauf;   // plus rien à jouer : seul `versChecklist` sort
+      if (lauf.examen && reprise !== naechsterTeil(lauf)) return lauf;   // [S4-7] l'examen suit A → D → F
       if (unterbrochenerTeil && reprise !== unterbrochenerTeil) return lauf;
       // Le Teil interrompu est toujours repris (règle 7 inchangée) ; tout autre doit être planifié et non joué.
       if (reprise !== unterbrochenerTeil && (!lauf.geplanteTeile.includes(reprise) || lauf.teileGespielt.includes(reprise))) return lauf;
@@ -369,6 +387,7 @@ export function transition(lauf: Lauf, aktion: LaufAktion): Lauf {
       // vers un Teil planifié autre que t0. Le chrono de t0 reste (INV-28) : il
       // ne compte pas comme joué, mais entre dans `dauerGesamtSec` (m6).
       if (lauf.zustand !== 'laufend' || !lauf.aktuellerTeil || lauf.aktuellerTeil === 'aufklaerung') return lauf;
+      if (lauf.examen) return lauf;   // [S4-7] aucun saut dans l'Examen (§11.1)
       if (lauf.teileGespielt.some((t) => t !== 'aufklaerung')) return lauf;
       // [fixeur I11, §10.2 amendé] « Commencer par » un autre Teil, c'est AVANT de commencer : une fois le chrono de
       // t0 lancé, on ne quitte plus un Teil en cours d'un clic (esprit de la règle 8).
@@ -382,6 +401,7 @@ export function transition(lauf: Lauf, aktion: LaufAktion): Lauf {
       // Le chrono reprend là où il s'était arrêté : `sekundenProTeil` n'est pas
       // touché, et `tickChrono` refuse toute valeur inférieure.
       if (lauf.zustand !== 'bilanz' || !lauf.aktuellerTeil) return lauf;
+      if (lauf.examen) return lauf;   // [S4-7] aucun retour dans l'Examen (§11.1)
       return { ...lauf, zustand: 'laufend' };
     }
 

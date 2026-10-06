@@ -177,6 +177,7 @@ function LigneCas({ c, nom, lier }: { c: CasDeSeance; nom: string; lier: boolean
             {scores.length === 0 && !c.autoEvalue && <span>partie non mesurée</span>}
             {scores.map((t) => <span key={t.key}>{t.label} <span className="font-mono tnum">{c.scores[t.key]}</span></span>)}
             {c.autoEvalue && <span title="Score déclaré par toi, pas mesuré par l'app">partie auto-évaluée</span>}
+            {c.examen && <span data-examen-ligne={c.examen}>{c.examen === 'complet' ? 'Examen' : 'Examen interrompu'}</span>}
           </div>
         </div>
       </div>

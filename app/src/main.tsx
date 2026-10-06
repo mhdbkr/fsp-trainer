@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import { RouterProvider, createHashRouter, Link } from 'react-router-dom';
+import { RouterProvider, createHashRouter } from 'react-router-dom';
 // Polices de marque auto-hébergées (offline-first) — identité typographique :
 // Bricolage Grotesque (display), IBM Plex Sans (corps), IBM Plex Mono (signature).
 import '@fontsource-variable/bricolage-grotesque/wght.css';
@@ -9,30 +9,9 @@ import '@fontsource/ibm-plex-mono/400.css';
 import '@fontsource/ibm-plex-mono/500.css';
 import '@fontsource/ibm-plex-mono/600.css';
 import './styles/index.css';
-import { Shell } from '@/components/Shell';
 import { contentLoader, FirstLoadRequired } from '@/lib/content/loader';
-import { HomePage } from '@/features/home/HomePage';
-import { CasesPage } from '@/features/cases/CasesPage';
-import { CaseDetailPage } from '@/features/cases/CaseDetailPage';
-import { SimulationHub } from '@/features/simulation/SimulationHub';
-import { SimulationRunner } from '@/features/simulation/SimulationRunner';
-import { PreSimulationPage } from '@/features/simulation/PreSimulationPage';
-import { FachwissenPage } from '@/features/fachwissen/FachwissenPage';
-import { FachwissenDetailPage } from '@/features/fachwissen/FachwissenDetailPage';
-import { GuidesPage } from '@/features/guides/GuidesPage';
-import { AufklaerungPage } from '@/features/aufklaerung/AufklaerungPage';
-import { FachbegriffePage } from '@/features/fachbegriffe/FachbegriffePage';
-import { DrillPage } from '@/features/fachbegriffe/DrillPage';
-import { StatsPage } from '@/features/stats/StatsPage';
-import { PatientScreen } from '@/features/simulation/PatientScreen';
-import { ProgramPage } from '@/features/program/ProgramPage';
-import { HistoriquePage } from '@/features/history/HistoriquePage';
+import { ROUTES } from '@/routes';
 import { bootJournal, watchDayPlan } from '@/lib/sync/boot';
-import { SignInPage } from '@/features/account/SignInPage';
-import { OnboardingPage } from '@/features/account/OnboardingPage';
-import { AuthCallback } from '@/features/account/AuthCallback';
-import { AccountPage } from '@/features/account/AccountPage';
-import { PricingPage } from '@/features/pricing/PricingPage';
 import { initSession, AUTH_MODE, useSession } from '@/lib/auth/session';
 import { loadEntitlements, watchEntitlements } from '@/lib/entitlements';
 import { startSyncLoop } from '@/lib/sync/queue';
@@ -40,48 +19,8 @@ import { FounderGate } from '@/features/auth/FounderGate';
 import { getActiveUserId, setActiveUserId, listAccounts } from '@/lib/auth/accounts';
 import { restartApp } from '@/lib/auth/restart';
 
-function MerciPage() {
-  return (
-    <div className="mx-auto max-w-xl space-y-4 py-16 text-center">
-      <h1 className="text-2xl font-bold">Merci !</h1>
-      <p>Ton accès se débloque dans quelques secondes.</p>
-      <Link to="/" className="btn-primary justify-center">Retour à l'accueil</Link>
-    </div>
-  );
-}
-
-// Hash router → fonctionne aussi bien en dev qu'en ouverture file:// (Tauri).
-const router = createHashRouter([
-  {
-    path: '/',
-    element: <Shell />,
-    children: [
-      { index: true, element: <HomePage /> },
-      { path: 'programme', element: <ProgramPage /> },
-      { path: 'cas', element: <CasesPage /> },
-      { path: 'cas/:id', element: <CaseDetailPage /> },
-      { path: 'simulation', element: <SimulationHub /> },
-      { path: 'simulation/:caseId/pre', element: <PreSimulationPage /> },
-      { path: 'simulation/:caseId/run', element: <SimulationRunner /> },
-      { path: 'fachwissen', element: <FachwissenPage /> },
-      { path: 'fachwissen/:id', element: <FachwissenDetailPage /> },
-      { path: 'guides', element: <GuidesPage /> },
-      { path: 'aufklaerung', element: <AufklaerungPage /> },
-      { path: 'fachbegriffe', element: <FachbegriffePage /> },
-      { path: 'fachbegriffe/drill', element: <DrillPage /> },
-      { path: 'stats', element: <StatsPage /> },
-      { path: 'historique', element: <HistoriquePage /> },
-      { path: 'signin', element: <SignInPage /> },
-      { path: 'onboarding', element: <OnboardingPage /> },
-      { path: 'auth/callback', element: <AuthCallback /> },
-      { path: 'pricing', element: <PricingPage /> },
-      { path: 'account', element: <AccountPage /> },
-      { path: 'merci', element: <MerciPage /> },
-    ],
-  },
-  // Route 2ᵉ écran « rôle patient » — standalone (hors Shell), responsive mobile.
-  { path: '/patient/:caseId', element: <PatientScreen /> },
-]);
+// Hash router → fonctionne aussi bien en dev qu'en ouverture file:// (Tauri). Les routes vivent dans `routes.tsx`.
+const router = createHashRouter(ROUTES);
 
 function renderFirstLoadScreen() {
   ReactDOM.createRoot(document.getElementById('root')!).render(

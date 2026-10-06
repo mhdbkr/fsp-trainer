@@ -1,5 +1,5 @@
 import { useNavigate, useLocation } from 'react-router-dom';
-import { useSimSession } from '@/store/simSession';
+import { routeDeReprise, useSimSession } from '@/store/simSession';
 import { useUi } from '@/store/ui';
 import { Icon } from '@/components/icons';
 
@@ -18,11 +18,12 @@ export function ResumeSessionBar() {
   const navigate = useNavigate();
   const { pathname } = useLocation();
 
-  const inRunner = /^\/simulation\/[^/]+\/run/.test(pathname);
+  // [S4-7] Un examen se reprend sur `/examen`, sans id de cas dans l'URL ni nom à l'écran (simulation-run.md §11.3).
+  const inRunner = /^\/simulation\/[^/]+\/run/.test(pathname) || (!!snapshot?.examen && pathname === '/examen');
   if (!snapshot || !minimized || inRunner) return null;
 
   const doneCount = Object.values(snapshot.results).filter((p) => p?.done).length;
-  const resumeSim = () => { resume(); navigate(`/simulation/${snapshot.caseId}/run${snapshot.teil ? `?teil=${snapshot.teil}` : ''}`); };
+  const resumeSim = () => { resume(); navigate(routeDeReprise(snapshot)); };
 
   // Centrage par marges auto (inset-x-0 + w-fit) : AUCUN translate-x en % →
   // la transition n'anime que l'axe Y, plus de décalage horizontal fugace.
@@ -33,7 +34,7 @@ export function ResumeSessionBar() {
       <div className="glass glass-edge flex items-center gap-3 rounded-full py-0.5 pl-3 pr-0.5">
         <span className="flex h-8 w-8 items-center justify-center rounded-full bg-amber-100 text-amber-600 dark:bg-amber-900/30 dark:text-amber-300"><Icon name="pause" className="h-4 w-4" /></span>
         <div className="min-w-0">
-          <div className="truncate text-xs font-semibold">Simulation en pause · {snapshot.caseName}</div>
+          <div className="truncate text-xs font-semibold">{snapshot.examen ? 'Examen en cours' : `Simulation en pause · ${snapshot.caseName}`}</div>
           <div className="text-[11px] text-slate-400">{/* Un Teil seul s'écrit seul, une fois — « … seule » est la tournure que
               TaskLabel a supprimée (la portée EST la marque de partialité). */}
             {snapshot.teil ? PART_LABEL[snapshot.teil] : `${PART_LABEL[snapshot.active]} · ${doneCount}/3 parties`}</div>

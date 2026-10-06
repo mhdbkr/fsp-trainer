@@ -179,6 +179,7 @@ export function projektion(lauf: Lauf, c: Case): SaveInput {
     reihenfolge: gespielteTeile,
     dauerGesamtSec: Object.values(lauf.sekundenProTeil).reduce<number>((s, v) => s + (typeof v === 'number' ? v : 0), 0),
     ...(enchainiert(lauf) ? { enchaine: true as const } : {}),
+    ...(lauf.examen ? { modeExamen: true as const } : {}),     // [S4-7] §11.6 : l'Historique nomme l'examen, même interrompu
   };
 }
 
