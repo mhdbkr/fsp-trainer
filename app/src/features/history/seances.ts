@@ -4,6 +4,7 @@ import { startOfWeek } from 'date-fns';
 import type { CaseProgress, Favorite, SimTeil, TermeCherche, TrainingEvent } from '@/db/types';
 import { PART_OK, blankProgress, computeCaseProgress } from '@/lib/journal';
 import { bilanErreurs } from '@/features/simulation/bilanErreurs';
+import { erreursTransversales } from '@/lib/program/erreurs';
 
 /** Au-delà de cette pause entre la fin d'un exercice et le début du suivant, une nouvelle séance commence. */
 export const SEANCE_PAUSE_MIN = 30;
@@ -48,9 +49,10 @@ export interface CasDeSeance {
   scores: Partial<Record<SimTeil, number>>;
   autoEvalue: boolean;
   horsPlan: boolean;
-  /** La dernière partie de la séance et ses oublis encore manqués (son bilan, `bilanErreurs`). */
+  /** La dernière partie de la séance et ses oublis encore manqués (son bilan, `bilanErreurs`) qui sont TOUJOURS un signal
+   *  aujourd'hui (`erreursTransversales` du journal entier) : un oubli corrigé depuis ne se revoit plus. */
   oublis: { simId: string; n: number } | null;
-  /** Le Teil le plus faible sous `PART_OK`, mesuré dans la séance. */
+  /** Le Teil le plus faible sous `PART_OK`, mesuré dans la séance — et toujours sous `PART_OK` aujourd'hui. */
   aRejouer: SimTeil | null;
 }
 
@@ -58,6 +60,7 @@ const estPartie = (e: TrainingEvent) => (e.kind === 'simulation' || e.kind === '
 const progres = (caseId: string, events: TrainingEvent[]) => computeCaseProgress(events)[0] ?? blankProgress(caseId);
 
 export function casDeSeance(s: Seance, journal: readonly TrainingEvent[]): CasDeSeance[] {
+  const signaux = erreursTransversales(journal);
   const parCas = new Map<string, TrainingEvent[]>();
   for (const e of s.events) if (estPartie(e)) parCas.set(e.caseId!, [...(parCas.get(e.caseId!) ?? []), e]);
   return [...parCas].map(([caseId, ici]) => {
@@ -65,8 +68,11 @@ export function casDeSeance(s: Seance, journal: readonly TrainingEvent[]): CasDe
     const scores: Partial<Record<SimTeil, number>> = {};
     for (const e of ici) if (e.selbstbewertet !== true) for (const t of e.teile) { const v = e.scores?.[t]; if (typeof v === 'number') scores[t] = v; }
     const derniere = [...ici].reverse().find((e) => e.id.startsWith('te-'));
-    const n = derniere ? bilanErreurs(journal, derniere.id.slice(3)).filter((l) => !l.cochee).length : 0;
-    const faibles = TEILE.filter((t) => (scores[t] ?? 100) < PART_OK).sort((a, b) => scores[a]! - scores[b]!);
+    const n = derniere ? bilanErreurs(journal, derniere.id.slice(3))
+      .filter((l) => !l.cochee && signaux.some((x) => x.teil === l.teil && x.item === l.item)).length : 0;
+    const aujourdhui = progres(caseId, journal.filter((e) => e.caseId === caseId)).teile;
+    const faibles = TEILE.filter((t) => (scores[t] ?? 100) < PART_OK && (aujourdhui[t].lastScore ?? 100) < PART_OK)
+      .sort((a, b) => scores[a]! - scores[b]!);
     return {
       caseId, ids: ici.map((e) => e.id),
       avant: progres(caseId, passe), apres: progres(caseId, [...passe, ...ici]),

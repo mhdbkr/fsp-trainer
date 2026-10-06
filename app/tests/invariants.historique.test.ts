@@ -5,7 +5,8 @@
 //   INV-H4  cadran avant = le journal du cas AVANT la séance ; après = le même, séance comprise
 //   INV-H5  « cherché N fois » : seuls les mots cherchés ≥ 2 fois PENDANT la séance, regroupés par carte
 //   INV-H6  la ligne de semaine ne compte que la semaine (lundi → maintenant) ; la tendance compare au même point
-//   INV-H7  « Revoir mes N oublis » = le bilan de la partie (encore manquées) ; « Rejouer » = le Teil sous 60
+//   INV-H7  « Revoir mes N oublis » = le bilan de la partie (encore manquées, toujours un signal) ; « Rejouer » = le Teil
+//           sous 60, s'il l'est encore : une action périmée ne se propose plus
 // Tout se dérive du journal : aucun état de séance n'est stocké.
 import { describe, it, expect } from 'vitest';
 import type { Favorite, SimTeil, TermeCherche, TrainingEvent } from '@/db/types';
@@ -107,6 +108,21 @@ describe('INV-H7 — les actions d’un cas', () => {
     expect(c.oublis).toEqual({ simId: 's', n: 1 });                         // noxen cochée cette fois : pas à revoir
   });
 
+  it('une action périmée disparaît : le Teil rejoué depuis au-dessus de 60, l’oubli corrigé depuis', () => {
+    const journal = [
+      partie('te-a', 'c2', T0 - 5 * 24 * 60 * MIN, ['allergien']),
+      partie('te-b', 'c3', T0 - 4 * 24 * 60 * MIN, ['allergien']),
+      partie('te-c', 'c2', T0 - 3 * 24 * 60 * MIN, ['allergien']),
+      partie('te-s', 'c1', T0, ['allergien'], 45),
+    ];
+    const s = seances(journal).find((x) => x.events.some((e) => e.id === 'te-s'))!;
+    expect(casDeSeance(s, journal)[0]).toMatchObject({ oublis: { simId: 's', n: 1 }, aRejouer: 'anamnese' });
+    // Deux jours plus tard : c1 rejoué à 75, « allergien » cochée trois fois de suite → le signal s'éteint.
+    const ensuite = [...journal,
+      partie('te-d', 'c1', T0 + 2 * 24 * 60 * MIN, [], 75), partie('te-e', 'c2', T0 + 3 * 24 * 60 * MIN, []), partie('te-f', 'c3', T0 + 4 * 24 * 60 * MIN, [])];
+    expect(casDeSeance(s, ensuite)[0]).toMatchObject({ oublis: null, aRejouer: null });
+  });
+
   it('aucun signal → pas d’action « Revoir »', () => {
     const journal = [partie('te-s', 'c1', T0, ['allergien'])];
     expect(casDeSeance(seances(journal)[0], journal)[0].oublis).toBeNull();
@@ -118,7 +134,14 @@ describe('INV-H7 — les actions d’un cas', () => {
     const j2 = [ev('te-s', T0, { caseId: 'c1', teile: ['anamnese'], scores: { anamnese: 60 } })];
     expect(casDeSeance(seances(j2)[0], j2)[0].aRejouer).toBeNull();
     const j3 = [ev('te-s', T0, { caseId: 'c1', teile: ['anamnese'], scores: { anamnese: 20 }, selbstbewertet: true })];
-    expect(casDeSeance(seances(j3)[0], j3)[0].aRejouer).toBeNull();          // une auto-évaluation n'est pas une mesure
+    const c3 = casDeSeance(seances(j3)[0], j3)[0];
+    expect(c3).toMatchObject({ aRejouer: null, autoEvalue: true });          // une auto-évaluation n'est pas une mesure
+    expect(c3.scores).toEqual({});
+    // 60 dans la séance, 50 plus tard : c'est la séance d'après qui porte « Rejouer », pas celle-ci (pas de doublon).
+    const j4 = [ev('te-s', T0, { caseId: 'c1', scores: { anamnese: 60 } }), ev('te-t', T0 + 2 * 24 * 60 * MIN, { caseId: 'c1', scores: { anamnese: 50 } })];
+    const [plusRecente, ancienne] = seances(j4);
+    expect(casDeSeance(ancienne, j4)[0].aRejouer).toBeNull();
+    expect(casDeSeance(plusRecente, j4)[0].aRejouer).toBe('anamnese');
   });
 });
 

@@ -146,14 +146,26 @@ export const MUTATIONS = [
   },
   {
     id: 'INV-H7a', tests: 'tests/invariants.historique.test.ts', file: 'src/features/history/seances.ts',
-    from: "bilanErreurs(journal, derniere.id.slice(3)).filter((l) => !l.cochee).length",
-    to: "bilanErreurs(journal, derniere.id.slice(3)).length",
+    from: '.filter((l) => !l.cochee && signaux.some(',
+    to: '.filter((l) => signaux.some(',
     pourquoi: '« Revoir mes N oublis » compte aussi les items cochés cette fois',
   },
   {
+    id: 'INV-H7d', tests: 'tests/invariants.historique.test.ts', file: 'src/features/history/seances.ts',
+    from: '!l.cochee && signaux.some((x) => x.teil === l.teil && x.item === l.item)).length',
+    to: '!l.cochee).length',
+    pourquoi: 'un oubli corrigé depuis reste « à revoir » dans les vieilles séances',
+  },
+  {
+    id: 'INV-H7e', tests: 'tests/invariants.historique.test.ts', file: 'src/features/history/seances.ts',
+    from: ' && (aujourdhui[t].lastScore ?? 100) < PART_OK)',
+    to: ')',
+    pourquoi: '« Rejouer » reste proposé sur un Teil rejoué depuis au-dessus de 60',
+  },
+  {
     id: 'INV-H7b', tests: 'tests/invariants.historique.test.ts', file: 'src/features/history/seances.ts',
-    from: 'const faibles = TEILE.filter((t) => (scores[t] ?? 100) < PART_OK)',
-    to: 'const faibles = TEILE.filter((t) => (scores[t] ?? 100) <= PART_OK)',
+    from: 'const faibles = TEILE.filter((t) => (scores[t] ?? 100) < PART_OK &&',
+    to: 'const faibles = TEILE.filter((t) => (scores[t] ?? 100) <= PART_OK &&',
     pourquoi: '« Rejouer » est proposé à 60, le seuil Doctopus atteint',
   },
   {
