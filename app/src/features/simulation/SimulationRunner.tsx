@@ -648,7 +648,8 @@ export function ResultScreen({ sim, c, nouvelExamen }: { sim: Simulation; c: Cas
       <div className={`card p-6 text-center ${passed ? 'border-emerald-300 dark:border-emerald-800' : 'border-amber-300 dark:border-amber-800'}`}>
         <div className={`mx-auto flex h-16 w-16 items-center justify-center rounded-2xl ${passed ? 'bg-emerald-100 text-emerald-600 dark:bg-emerald-900/30 dark:text-emerald-300' : 'bg-amber-100 text-amber-600 dark:bg-amber-900/30 dark:text-amber-300'}`}><Icon name={passed ? 'spark' : 'flame'} className="h-8 w-8" /></div>
         <h1 className="mt-2 text-2xl font-bold">{!passed ? 'Encore un effort' : langueNonNotee ? 'Réussi sur le contenu' : 'Au-dessus du seuil Doctopus'}</h1>
-        <p className="text-slate-500 dark:text-slate-400">{c.name} · score moyen {avg}%</p>
+        {/* En mode examen, « Le cas : … » de l'écran de l'Examen est la SEULE révélation : pas de nom de cas ici. */}
+        <p className="text-slate-500 dark:text-slate-400">{nouvelExamen ? '' : `${c.name} · `}score moyen {avg}{'\u00a0'}%</p>
         {passed && langueNonNotee && <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">Ta langue n'est pas notée : le verdict complet viendra quand tu auras rempli la grille de langue.</p>}
         {/* « partie » désigne le tout ; chaque Teil joué est une « épreuve » (fixeur I4). */}
         <p className="mt-1 text-sm">{passed ? 'Chaque épreuve jouée atteint 60 % (seuil Doctopus).' : 'Au moins une épreuve est sous 60 % : reprends-la.'}</p>

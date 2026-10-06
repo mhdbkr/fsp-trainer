@@ -340,6 +340,13 @@ describe('INV-E8 — l’examen complet s’écrit une fois, en conditions d’e
     expect(await aktiv()).toBeUndefined();
     // Le résultat révèle le cas.
     await waitFor(() => expect(document.body.textContent).toContain(`Le cas : ${diagnosticDuCas(VOLLE.find((x) => x.id === sim.caseId)!)}`));
+    // Une seule révélation : « Le cas : … ». Le sous-titre de ResultScreen ne redit pas le cas.
+    const leCas = VOLLE.find((x) => x.id === sim.caseId)!;
+    const occurrences = (t: string) => (document.body.textContent ?? '').split(t).length - 1;
+    expect(occurrences(diagnosticDuCas(leCas)), 'le diagnostic, une fois').toBe(1);
+    const sousTitre = screen.getByText(/^score moyen \d+ %$/).textContent ?? '';
+    expect(sousTitre, 'sous-titre sans nom de cas').not.toContain(leCas.name);
+    expect(sousTitre, 'espace insécable avant %').toMatch(/\d\u00a0%$/);
     expect(document.body.textContent).toContain('Conditions d’examen remplies.');
     expect(document.body.textContent).not.toMatch(/Examen à blanc/);
     expect(screen.getAllByRole('button', { name: 'Nouvel examen' })).toHaveLength(1);
