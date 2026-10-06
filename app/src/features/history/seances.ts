@@ -52,8 +52,8 @@ export interface CasDeSeance {
    *  exact que montre sa page d'arrivée. Proposé tant qu'un d'eux est TOUJOURS un signal aujourd'hui
    *  (`erreursTransversales` du journal entier) : quand tous sont corrigés, il n'y a plus rien à revoir. */
   oublis: { simId: string; n: number } | null;
-  /** Le Teil le plus faible sous `PART_OK`, mesuré dans la séance — toujours sous `PART_OK` aujourd'hui, et mesuré nulle part
-   *  depuis : seule la séance la plus récente qui l'a mesuré propose de le rejouer (pas de lien en double). */
+  /** Le Teil le plus faible sous `PART_OK`, mesuré dans la séance et nulle part depuis : seule la séance la plus récente qui
+   *  l'a mesuré propose de le rejouer (pas de lien en double), et un Teil remonté depuis ne se propose plus. */
   aRejouer: SimTeil | null;
 }
 
@@ -71,10 +71,10 @@ export function casDeSeance(s: Seance, journal: readonly TrainingEvent[]): CasDe
     const derniere = [...ici].reverse().find((e) => e.id.startsWith('te-'));
     const manquees = derniere ? bilanErreurs(journal, derniere.id.slice(3)).filter((l) => !l.cochee) : [];
     const aRevoir = manquees.some((l) => signaux.some((x) => x.teil === l.teil && x.item === l.item));
-    const aujourdhui = progres(caseId, journal.filter((e) => e.caseId === caseId)).teile;
     const mesureDepuis = (t: SimTeil) => journal.some((e) =>
       e.caseId === caseId && e.at > s.fin && e.selbstbewertet !== true && typeof e.scores?.[t] === 'number');
-    const faibles = TEILE.filter((t) => (scores[t] ?? 100) < PART_OK && (aujourdhui[t].lastScore ?? 100) < PART_OK && !mesureDepuis(t))
+    // Pas re-mesuré depuis ⇒ son dernier score d'aujourd'hui EST celui de la séance (`lastScore` ignore l'auto-évaluation).
+    const faibles = TEILE.filter((t) => (scores[t] ?? 100) < PART_OK && !mesureDepuis(t))
       .sort((a, b) => scores[a]! - scores[b]!);
     return {
       caseId, ids: ici.map((e) => e.id),
