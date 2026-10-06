@@ -205,10 +205,88 @@ Thrombozytopenie…). Le registre (`--require-all`) et les Bedeutung restent val
 - Muster et Arztbrief de référence non modifiés. Ils citent 3 DD, et la fiche en a maintenant 5 : c'est
   cohérent, le Muster est un sous-ensemble.
 
+## 8. Passe fixeur — revues Opus de `73359ffc` (clinique : 3 P1 ; direction/design : 4 majeurs)
+
+Les §§ 1.4 et 7 décrivent l'état du sommet `73359ffc`. Les deux réserves qui y figuraient ont été tranchées
+par la revue clinique, puis appliquées ici.
+
+**P1 cliniques, appliqués mot pour mot**
+- Rein : dans la fiche (surveillance), arrêter les diurétiques et donner de l'albumine 1 g/kg pendant 2 jours,
+  puis parler de SHR seulement sans amélioration. Le Fachwissen suit (« Akute Nierenschädigung und
+  hepatorenales Syndrom … »).
+- Arbre :
+  - feuille rénale « Akute Nierenschädigung — hepatorenales Syndrom? » ;
+  - PBS « Sofort, vor dem Kulturergebnis » ;
+  - HE avec glycémie, Thiamin, delirium de sevrage et hématome sous-dural (CCT), passage en soins intensifs à
+    partir du grade III ;
+  - ces trois feuilles en `warn`. L'hémorragie variqueuse garde `signal`, avec « Notfall: » déplacé dans le texte.
+- Le Merke est allégé (« Jede Dekompensation hat einen Auslöser — immer suchen. »), parce que la feuille HE
+  énumère désormais les déclencheurs.
+- Provenance (règle D8) : les gestes de la feuille HE (glycémie, Wernicke, delirium, CCT, grade III) sont
+  ajoutés à l'item HE de la thérapie du Fachwissen, que la feuille cite. Sinon l'arbre aurait porté des
+  données absentes de la fiche.
+
+**P2 cliniques et concision**
+- Valeurs : survie Child-Pugh à 1 an corrigée à 100/80/45 % ; listing « ab MELD ≥ 15 oder ab der ersten
+  Dekompensation » ; sel « etwa 5 g/Tag, nicht strenger » ; paramètres de synthèse et Child-Pugh dissociés ;
+  liste des déclencheurs de HE complétée.
+- Coupes : Baclofen, ostéoporose, l'item Child-Pugh redondant, et la ponction diagnostique dans la thérapie
+  (Fachwissen et fiche). La ponction reste en Diagnostik et dans les Erstmaßnahmen.
+- **ÖGD de dépistage — interprétation.** La consigne était ambiguë : elle demandait de retirer la ligne 158
+  (Diagnostik) et en même temps d'y garder la mention « noch während des stationären Aufenthalts ». J'ai gardé
+  l'ÖGD en Diagnostik (l. 158, avec ce complément), parce que c'est là que l'examinateur l'attend
+  (`examinerSheet`, « Welche Untersuchungen ordnen Sie an » → ÖGD) et que le Muster la cite aussi. L'item de
+  thérapie (l. 188) prend la version clinique, mais commence par « Je nach ÖGD-Befund: » au lieu de redire
+  le dépistage. Si la revue voulait l'inverse, il suffit de déplacer une phrase.
+
+**Réserves tranchées**
+- Les négatifs sont annotés « (Ikterus; gegen akute Alkoholhepatitis) », avec une nouvelle puce « keine bekannte
+  Krebserkrankung (gegen Peritonealkarzinose) ». La cohésion passe à **97,0 %** (64 liens sur 66) ;
+  `checkCoherence` et `checkProbeCoverage` restent à 0.
+- Schnaps : « 3 kleine Flaschen Schnaps (Flachmann) » dans les noxes et la réaction de l'examinateur ;
+  « 3 kleinen Flaschen Schnaps (Flachmann) » dans l'Arztbrief de référence ; « 3 kleinen Flaschen Schnaps »
+  dans le Muster (`caseMuster.ts`, Arztbrief et Vorstellung).
+- Dans la réplique `nox-alkohol`, j'ai écrit « drei kleine Flaschen Schnaps, so Flachmänner, » plutôt que
+  « (Flachmann) » : dans le corpus, une parenthèse dans une réplique est une didascalie (« (zögernd) »). C'est
+  la seule réplique du patient modifiée, sur demande de la revue.
+
+**Design**
+- Verdachtsdiagnose : « Leberzirrhose bei Alkoholabhängigkeit, dekompensiert mit Aszites und Beinödemen;
+  spontane Hämatome bei vermuteter Syntheseschwäche. » Avec la phrase d'amorce, elle fait environ 190
+  caractères, sous la borne de 200 de `vorstellungsDiagnose`, et finit par un point : elle n'est pas coupée.
+- Doublons retirés ; « ASS » utilisé partout ; « des letzten Alkoholkonsums » ; deux Prüfungsfallen
+  reformulées (ASS/NSAR ; « „Keine Benzodiazepine bei Zirrhose“ ist falsch … »).
+- Rayons de la carte renommés « Leberinsuffizienz: Synthese » et « Leberinsuffizienz: Entgiftung » ; item
+  « Sarkopenie, Gewichtsverlust durch Aszites verdeckt ».
+- **Anti-retour de la silhouette.** Plus aucune spec n'utilise `anatomy-map` : le validateur refuse donc le
+  kind avec le message `kind déprécié: anatomy-map (<bloc>) — utiliser syndrome-map`. Il n'y a pas de
+  plafond, puisque le compte est à zéro. La règle est prouvée par la fixture négative
+  `scripts/fixtures/visuals-anatomy/` (silhouette par ailleurs valide, refs exactes) et par un test vitest dans
+  `checkFachwissenVisuals.test.ts`.
+- Contrat `docs/contracts/fachwissen-visuals.md` : l'exemple du §1.10 est la `syndrome-map` ; le §1.3 est
+  marqué déprécié ; le test 6 du §7 vise `decision-tree` ; une ligne est ajoutée au tableau des amendements.
+- Contraste des feuilles `signal` (4,30:1) : non touché, comme demandé.
+
+**Vérifications de la passe fixeur (code de sortie)**
+
+| Commande | Sortie |
+|---|---|
+| `tsc -b` | 0 |
+| vitest complet | 0 (2 023 tests) |
+| `test:c6` | 0 (212 tests) |
+| `node --test`, hors `checkProbeCoverage.test.mjs` | 0 (200 tests) |
+| `checkProbeCoverage.test.mjs`, seul | 0 (4 tests) |
+| les 18 `check*`, plus `checkTermRegister --require-all` | 0 chacun |
+| `checkCoherence --case` | 0 |
+| `checkBudgetFloor origin/main` | 0 |
+| build | 0 |
+
+`caseTermLinks.json` est régénéré.
+
 ## Non vérifié
 
 - Chiffres repris de mémoire des sources ci-dessus, sans consultation en ligne pendant ce lot : survie à
-  1 an selon Child-Pugh (100/85/35 %), mortalité à 3 mois selon MELD, survie médiane selon D'Amico, survie
+  1 an selon Child-Pugh (corrigée à 100/80/45 % par la revue clinique), mortalité à 3 mois selon MELD, survie médiane selon D'Amico, survie
   à 5 ans après transplantation (70-80 %), seuils d'alcool (20/40 g), détection de l'ascite (clinique à
   partir d'environ 1 l, échographique dès 50-100 ml). La relecture clinique doit les confirmer.
 - Disponibilité actuelle de la Norfloxacine en Allemagne (Ciprofloxacine gardée comme alternative).
