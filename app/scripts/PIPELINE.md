@@ -20,6 +20,7 @@ script ne peut pas faire.**
 ③ GATE en 3 temps
    a. SCRIPTS (gratuit, instantané)  → checkProbeCoverage + checkMusterCoverage
                                        + checkCaseCoherence
+                                       + checkCoherence (l'étape « cohérence », plus bas)
    b. VÉRIF CONSOLIDÉE (1 agent medium / cas) : 4 sous-verdicts en une passe
    c. ADVERSARIAL 4-lentilles (high)  → SEULEMENT si (b) doute, ou cas à risque
                                         (notfall, comorbidité lourde, oncologie)
@@ -147,3 +148,102 @@ est possible (aucune durée > âge).
 - `checkCaseCohesion.mjs` — score de cohésion par cas + liens manquants.
 - `makeStyleSample.py` / `STYLE_SAMPLE.ts` — extrait de référence (~75 Ko) donné
   aux agents à la place des fichiers de données (~1,5 Mo), qui les faisaient caler.
+
+## Étape « cohérence » — le moteur de l'anamnèse (ADR-0023, contrat `frage-atomique.md` §10.7, DM3)
+
+Le cas n'entre que si `checkCoherence` sort à **0**. La porte relit la trame **jouée** (après `cohere`) : un signe,
+une question ; rien hors profil ; rien d'exigé d'absent ; rien avant ce qu'il présuppose. Le **résidu** est
+bloquant à 0 : une question du cas sans `sucht` ne compile plus (`CaseQuestion.sucht` est requis au type) et
+fait échouer la porte.
+
+### Ce que l'auteur déclare (dans le JSON du lot, repris par `lotAssembler.py`)
+
+- `patientSheet.profil` : `tags` (liste fermée `PROFIL_TAGS`, `signes.ts`) ; `exige` ; `exclut` (signe **non**
+  de dépistage → raison écrite). La nature et `hoden` se dérivent : ne pas les écrire.
+- Sur **chaque** question du cas : `sucht` (non vide), `braucht` si elle présuppose un fait (« dort », « nach der
+  Rückkehr », « beim Sturz », « Ihr Asthmaspray »), et `followUpSucht` si une relance cherche un autre signe.
+
+### Les commandes, dans l'ordre (vérifier le CODE DE SORTIE du script, jamais un message lu dans un pipe)
+
+```
+node scripts/checkCoherence.mjs --propose --case <id>   # une AIDE : les signes lus dans le texte (50–74 %), rien n'est écrit
+node scripts/checkCoherence.mjs --case <id>             # la trame jouée du cas, chaque écart et sa raison
+node scripts/checkCoherence.mjs                         # la porte des 130+ cas ; echo $? → 0
+node scripts/checkTrameSymptoms.mjs && node scripts/checkQuestionAtomicity.mjs && node scripts/checkGuideDuplicates.mjs
+npx tsc -b                                              # `sucht` requis, signe inconnu refusé
+npx vitest run src/data/guides/trameActuelle.test.ts -u # la trame jouée a bougé : régénérer le gel, dire pourquoi au commit
+node scripts/checkCoherence.mjs --bless                 # le plancher a BAISSÉ : le graver (une hausse est refusée)
+node scripts/checkBudgetFloor.mjs origin/main           # aucun plancher ne remonte face à main
+```
+
+Le contrat (§10.7) nomme `measureCoherence.mjs --propose` : la commande réelle est `checkCoherence.mjs --propose`.
+
+Lire, dans `--case`, les blocs informatifs **doublons masqués** et **présuppositions lues dans le TEXTE** : ce ne
+sont pas des portes (précision ≈ 55 %), ce sont des déclarations (`sucht`, `braucht`) à proposer.
+
+### Corriger la SOURCE, jamais la porte
+
+| Écart lu dans `--case` | Correction |
+|---|---|
+| `GARDÉ cas:<n> … hors profil` (anomalie r1) | le profil ou le `sucht` est faux : r1 ne retire jamais une question du cas |
+| `SANS RÉPONSE` (r3) | écrire la réponse de la sonde de banque dans `antworten` |
+| `NON RÉDUIT` | écrire les `parts` de la sonde (voir les règles des parts) |
+| `ANOMALIE … relance conditionnelle` | DM2 : la relance « Falls ja » porte sur le signe de sa mère, sinon c'est une question à part |
+| `DOUBLON DU CAS` | deux questions du cas cherchent le même signe : en retirer une, ou en déclarer une autre |
+| `brauchtViole` | le `braucht` déclaré n'est cherché nulle part plus haut, ou en cycle |
+
+### Les règles de déclaration (apprises en K2–K4, tenues par les revues)
+
+1. **Le critère est l'IDENTITÉ de la question, pas « la fiche en dit plus ».** Deux questions cherchent le même
+   signe si la fiche y répond par la même réplique (§10.1). Une question adaptée au cas (« besser, wenn Sie sich nach
+   vorne beugen ? ») est la question de la sonde (`einfluss`) : elle prend sa place (rang 0). Une autre question
+   (« Gallensteine bekannt ? » ≠ « Vorerkrankungen ? ») a son propre signe, et la sonde reste.
+2. **Avant de créer un signe**, montrer que la sonde la plus proche n'a pas déjà la réplique : lire
+   `antworten[<sonde>]` de la fiche. Si la sonde obtient déjà ce que la question demande, c'est le signe de la sonde
+   (anorexia-nervosa n° 2 : la fiche répond à `veg-uebelkeit` « Erbrechen … ja … nach dem Essen » → la question
+   déclare aussi `erbrechen`). Un signe nouveau va dans `signesDefsCas.ts`, de dépistage, sans banque, commenté par sa
+   réplique, et il doit servir (test « aucun signe mort »).
+3. **Une déclaration retire.** Le signe déclaré retire la sonde perdante et ses relances de précision : relire ce
+   que la réponse de la sonde perdante contenait (revue K4, P0 : « schaumig » perdu par nephrotisches-syndrom).
+4. **D1** : une énumération déclare chaque signe qu'elle demande ; les exemples d'un Auslöser (« — ein Essen, eine
+   Reise ») ne sont pas demandés. Un `relu` sur une énumération est refusé.
+5. **(e)** : un antécédent ou un fait familial n'est pas le symptôme du jour (`naechtliche_anfaelle` ≠ `zungenbiss`).
+6. **`relu`** marque une mention sans question (le texte nomme un signe qu'il n'interroge pas) ; jamais pour faire
+   taire une porte. Une annotation devenue sans objet (la déclaration couvre le texte) se retire.
+7. **Q-gyn** : une sonde de la Frauenanamnese n'est jamais perdue ; une question du cas qui la prolonge a son signe.
+
+### Les règles des `parts` (sondes énumératives)
+
+- Une part est une **découpe** du texte de sa variante (question, relance ou alternative de la même variante), avec
+  **au plus un complément grammatical minimal** (article, flexion, anaphore résolue par le nom qu'elle reprend), sans
+  aucune notion clinique nouvelle. Tout autre texte est une question nouvelle : il relève du lot de contenu.
+- **Une part qui peut ouvrir la question est une question autonome** : elle s'ouvre sur un interrogatif ou un verbe
+  de `PART_VERBES`, sans « und / oder / dabei », sans anaphore en tête (`partNonAutonome`, ligne bloquante de
+  `checkCoherence`). Une part qui n'est qu'une relance va dans `PART_RELANCE_SEULE`, et ne doit jamais ouvrir.
+- Les parts gardées se posent en une question, la première, puis les suivantes en relances — jamais recollées.
+
+### Sécurité psy (décision de main, K3 ; K4 D-1)
+
+- `RISIKO_SIGNES` = `suizid`, `selbstverletzung`, `selbstverletzung_wunsch`, `todeswunsch` : r1 ne les met jamais
+  hors profil, et tout signe de risque de la trame brute reste cherché par la trame jouée (test SÉCURITÉ).
+- **Une question du cas ne déclare pas `suizid`** si elle ne porte pas elle-même le plan, l'intention et le NOTFALL :
+  au rang 0, elle retirerait `fach-psych-suizid` et ses relances. Le désir de mort passif se déclare **`todeswunsch`**
+  (interrogatoire gradué : la question du cas en Aktuelle Beschwerden, puis l'idéation, le plan et le NOTFALL en Fach).
+  L'idéation n'est jamais l'acte (`selbstverletzung_wunsch` ≠ `selbstverletzung`).
+
+### Rangs et places (D4, D4-bis, R6)
+
+- **D4** : question du cas > Fach > Aktuelle Beschwerden > végétative ; à rang égal, la première dans la trame.
+- **D4-bis** : le signe qui **est** le motif se pose en Aktuelle Beschwerden, la Fach se réduit à ses autres parts.
+  Il est déclaré par un tag : `fieber` (nature `infekt`), `dyspnoe` (nature `atemnot`) ; K5 : `schwindel` (le patient
+  consulte pour un vertige) et `sturz` (il consulte après une chute) — la question d'ouverture (`akt-motiv`)
+  l'obtient, la Fach ne redemande pas « Haben Sie Schwindel …? » ni « Sind Sie schon gestürzt? ». Ne pas poser le tag
+  si la chute n'est pas dite à l'ouverture (schlaganfall : la fiche la dit à la coordination ; la question « beim
+  Sturz » déclare `braucht: ['sturz']`).
+- **R6** : une question du cas gagnante prend la place de la première perdante **retirée** du même chapitre placée
+  au-dessus d'elle ; si la perdante est seulement réduite, la question du cas reste à sa place.
+
+### Relire
+
+Le relecteur clinique lit les écarts (`--case`) de tout nouveau cas, et d'un cas sur cinq d'un lot de reprise.
+La porte ne voit pas la justesse d'une déclaration : un `sucht` faux passe (§10.11).
