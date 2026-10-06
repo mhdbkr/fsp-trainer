@@ -43,12 +43,13 @@ export function seedCases(): Case[] {
         ],
         negativeFindings: [
           'kein Fieber, kein Schüttelfrost, kein Nachtschweiß',
-          'keine Gelbfärbung von Haut oder Augen bemerkt (Ikterus)',
+          'keine Gelbfärbung von Haut oder Augen bemerkt (Ikterus; gegen akute Alkoholhepatitis)',
           'kein Erbrechen, kein Bluterbrechen',
           'kein Blut im Stuhl, kein schwarzer Stuhl',
           'keine Probleme oder Schmerzen beim Wasserlassen, Urinfarbe normal',
           'keine Verwirrtheit oder Konzentrationsstörungen',
           'keine Atemnot, kein Herzstolpern',
+          'keine bekannte Krebserkrankung (gegen Peritonealkarzinose)',
           'keine ungewollte Gewichtsabnahme (im Gegenteil Zunahme durch Wasser), kein tastbarer Knoten im rechten Oberbauch, keine plötzliche Verschlechterung der Beschwerden in den letzten Tagen, keine bekannte Hepatitis B oder C (gegen hepatozelluläres Karzinom)',
           'kein in den Rücken ausstrahlender oder gürtelförmiger Schmerz, keine ungewollte Gewichtsabnahme, kein Juckreiz am ganzen Körper, kein neu aufgetretener Diabetes mellitus (gegen Pankreaskarzinom)',
           'keine bekannte Herzerkrankung, kein Herzinfarkt in der Vorgeschichte, keine gestauten Halsvenen im Sitzen, kein Schlafen mit erhöhtem Oberkörper nötig (gegen Rechtsherzinsuffizienz)',
@@ -61,7 +62,7 @@ export function seedCases(): Case[] {
         noxen: {
           tabak: 'Nichtraucher, nie geraucht',
           drogen: 'keine, nie welche probiert',
-          alkohol: '10 Flaschen Bier + 3 Flaschen Schnaps täglich seit 20 Jahren; letzte 3 Monate wegen Schmerzen auf 3 Bier/Tag reduziert; einen Entzug oder eine Entzugsklinik hat er nie versucht, aufhören wollte er bisher nicht, nur weniger trinken wegen der Schmerzen',
+          alkohol: '10 Flaschen Bier + 3 kleine Flaschen Schnaps (Flachmann) täglich seit 20 Jahren; letzte 3 Monate wegen Schmerzen auf 3 Bier/Tag reduziert; einen Entzug oder eine Entzugsklinik hat er nie versucht, aufhören wollte er bisher nicht, nur weniger trinken wegen der Schmerzen',
         },
         familienanamnese: ['Vater und Mutter gesund gewesen', 'keine bekannten Lebererkrankungen oder Krebs in der Familie'],
         sozialanamnese: ['geschieden, lebe allein', '2 gesunde Töchter (leben bei der Ex-Frau)', 'arbeite als Maschinenarbeiter', 'keine Haustiere'],
@@ -110,7 +111,7 @@ export function seedCases(): Case[] {
           'all-unvertraeglich': 'Nein, ich vertrage eigentlich alles.',
           // Noxen
           'nox-rauchen': 'Nein, ich habe nie geraucht.',
-          'nox-alkohol': '(zögernd) Naja … früher schon einiges, so 10 Flaschen Bier und dazu drei Flaschen Schnaps am Tag, seit über 20 Jahren. Wegen der Schmerzen jetzt nur noch 3 Bier.',
+          'nox-alkohol': '(zögernd) Naja … früher schon einiges, so 10 Flaschen Bier und dazu drei kleine Flaschen Schnaps, so Flachmänner, am Tag, seit über 20 Jahren. Wegen der Schmerzen jetzt nur noch 3 Bier.',
           'nox-drogen': 'Nein, niemals.',
           // Familie & Soziales
           'fam-familie': 'Nein, in der Familie ist nichts Ernstes bekannt — keine Lebererkrankung, kein Krebs.',
@@ -136,18 +137,26 @@ export function seedCases(): Case[] {
         persona: 'Ouvrier fatigué et un peu bourru. Tu MINIMISES l\'alcool : d\'abord « je bois un peu », ne donne les vraies quantités que si on insiste. Au fond tu as peur de mourir et tu te sens seul depuis le divorce.',
       },
       medicalView: {
-        verdachtsdiagnose: 'Leberzirrhose bei Alkoholabhängigkeit (dekompensiert, mit Aszites)',
+        verdachtsdiagnose: 'Leberzirrhose bei Alkoholabhängigkeit, dekompensiert mit Aszites und Beinödemen; spontane Hämatome bei vermuteter Syntheseschwäche.',
         patientWorte: { verdacht: 'bei Ihnen die Leber schon stark vernarbt ist, am ehesten durch den langjährigen Alkoholkonsum, und dass sich Wasser im Bauch angesammelt hat', diagnostik: 'nehmen wir Ihnen Blut ab, machen einen Ultraschall vom Bauch und punktieren vorsichtig die Bauchwasseransammlung', therapie: 'müssen Sie vollständig auf Alkohol verzichten, bekommen entwässernde Medikamente, und wir untersuchen mit einer Magenspiegelung die Blutgefäße in der Speiseröhre' },
         differenzialdiagnosen: [
-          { dd: 'Hepatozelluläres Karzinom', unterscheidung: 'Fokale Läsion, AFP↑ — auf Zirrhoseboden.' },
-          { dd: 'Pankreaskarzinom', unterscheidung: 'schmerzloser Ikterus, Gewichtsverlust, Rückenschmerz.' },
-          { dd: 'Rechtsherzinsuffizienz', unterscheidung: 'gestaute Halsvenen, kardiale Anamnese.' },
+          { dd: 'Hepatozelluläres Karzinom', unterscheidung: 'Entsteht meist auf Zirrhoseboden und kann eine Dekompensation auslösen. Hier ohne Gewichtsverlust, ohne tastbaren Knoten und ohne bekannte Virushepatitis; Ausschluss durch Sonographie, Kontrastmittel-CT oder -MRT und AFP.' },
+          { dd: 'Pankreaskarzinom', unterscheidung: 'Typisch wären schmerzloser Ikterus, Gewichtsverlust, gürtelförmiger Rückenschmerz und ein neuer Diabetes — alles verneint. Der hellere Stuhl ist ohne Ikterus kein Verschlusszeichen; das CT-Abdomen beurteilt das Pankreas mit.' },
+          { dd: 'Rechtsherzinsuffizienz', unterscheidung: 'Ödeme und Aszites passen auch zu einer kardialen Stauung, doch fehlen Herzanamnese, gestaute Halsvenen und Orthopnoe. Abgrenzung durch NT-proBNP, Echokardiographie und im Punktat: SAAG bei beiden ab 1,1 g/dl, Gesamteiweiß beim kardialen Aszites ab 2,5 g/dl.' },
+          { dd: 'Peritonealkarzinose', unterscheidung: 'Maligner Aszites ohne Leberhautzeichen, meist mit Gewichtsverlust und bekanntem Primärtumor — beides fehlt hier. Im Punktat SAAG unter 1,1 g/dl und maligne Zellen in der Zytologie.' },
+          { dd: 'Akute Alkoholhepatitis', unterscheidung: 'Beim aktiven Trinker möglich, typisch wären aber rasch zunehmender Ikterus, Fieber und eine druckschmerzhafte Leber. Der Patient verneint Gelbfärbung und Fieber, die Beschwerden entwickeln sich seit drei Monaten langsam.' },
         ],
         diagnostik: [
-          { stufe: 'Labor', text: 'Kleines Blutbild, Nieren- und Leberwerte, AP, γGT, Gerinnung (Quick/INR)' },
-          { stufe: 'Apparativ & Bildgebung', text: 'Abdomen-Sonographie, CT-Abdomen' },
-          { stufe: 'Invasiv & Speziell', text: 'Aszitespunktion (SAAG, Zellzahl)' },
-          { stufe: 'Invasiv & Speziell', text: 'ÖGD (Ösophagusvarizen)' },
+          { stufe: 'Anamnese/Klinik', text: 'Ergänzende Anamnese: Zeitpunkt des letzten Alkoholkonsums und frühere Entzugszeichen (Zittern, Schwitzen, Krampfanfall), Grund der ASS-Einnahme und Wirkstoff des Blutdruckmittels, Risiken für eine Virushepatitis (Transfusionen, Tätowierungen, Drogen), Schlafumkehr als Frühzeichen einer Enzephalopathie' },
+          { stufe: 'Anamnese/Klinik', text: 'Körperliche Untersuchung: Vitalparameter, Gewicht und Bauchumfang als Ausgangswerte, Aszites (Flankendämpfung, Undulation), Beinödeme, Leberhautzeichen (Spider naevi, Palmarerythem, Caput medusae), Gynäkomastie, Ikterus der Skleren, Hämatome, Splenomegalie, Flapping tremor; Entzugszeichen nach dem CIWA-Ar-Score' },
+          { stufe: 'Labor', text: 'Syntheseparameter Quick/INR, Albumin und Cholinesterase sowie Bilirubin; Bilirubin, Albumin und INR ergeben mit Aszites und Enzephalopathie das Child-Pugh-Stadium; MELD-Score aus Bilirubin, Kreatinin und INR' },
+          { stufe: 'Labor', text: 'Blutbild (Thrombozytopenie, Makrozytose), GOT, GPT, γ-GT, AP, CDT, Kreatinin, Harnstoff, Natrium, Kalium, CRP; TSH unter L-Thyroxin' },
+          { stufe: 'Labor', text: 'Ätiologie und Differenzialdiagnosen: HBsAg, Anti-HBc, Anti-HCV, Ferritin und Transferrinsättigung, AFP (hepatozelluläres Karzinom), NT-proBNP (kardiale Ursache)' },
+          { stufe: 'Apparativ & Bildgebung', text: 'Abdomen-Sonographie mit Duplex: Leberoberfläche und -größe, Aszitesmenge, Milzgröße, Kollateralen, Pfortaderfluss und Pfortaderthrombose, Herdbefunde, Gallenwege und Pankreas' },
+          { stufe: 'Apparativ & Bildgebung', text: 'CT oder MRT des Abdomens mit Kontrastmittel zum Ausschluss eines hepatozellulären Karzinoms und eines Pankreaskarzinoms' },
+          { stufe: 'Apparativ & Bildgebung', text: 'Echokardiographie und EKG zur Abgrenzung einer kardialen Ursache von Aszites und Ödemen' },
+          { stufe: 'Invasiv & Speziell', text: 'Diagnostische Aszitespunktion bereits bei Aufnahme, auch bei erniedrigtem Quick und ohne vorherige Gabe von Gerinnungsfaktoren: Zellzahl (SBP ab 250 neutrophilen Granulozyten/µl), Gesamteiweiß, Albumin für den SAAG (ab 1,1 g/dl portale Hypertension), Kultur in Blutkulturflaschen, Zytologie' },
+          { stufe: 'Invasiv & Speziell', text: 'ÖGD zum Varizenscreening (Ösophagus- und Fundusvarizen, portal-hypertensive Gastropathie) — bei Gerinnungsstörung und ASS-Einnahme besonders dringlich, noch während des stationären Aufenthalts' },
         ],
         therapie: [
           {
@@ -155,31 +164,32 @@ export function seedCases(): Case[] {
             items: [
               'Absolute und dauerhafte Alkoholabstinenz — bei diesem Patienten die einzige ätiologische (krankheitsmodifizierende) Maßnahme und Voraussetzung für alle weiteren Schritte; die Zirrhose selbst ist irreversibel, kurativ nur die Transplantation',
               'Qualifizierter Entzug unter stationären Bedingungen, anschließend Suchtberatung, Selbsthilfegruppe und psychotherapeutische Entwöhnungsbehandlung',
+              'Entzugssyndrom erwarten, da er bis zuletzt täglich trinkt: Überwachung mit dem CIWA-Ar-Score, Thiamin vor jeder Glukosegabe, bei Entzugszeichen symptomgesteuert Lorazepam oder Oxazepam — außerhalb des Entzugs keine Benzodiazepine (Enzephalopathie)',
               'Hochkalorische, eiweißreiche Kost (1,2–1,5 g/kg KG) mit Spätmahlzeit zur Nacht; ausdrücklich keine Eiweißrestriktion',
               'Substitution von Thiamin, Folsäure und Zink, Kontrolle von Vitamin D',
-              'Verzicht auf NSAR und auf Paracetamol über 2 g täglich, keine Benzodiazepine',
+              'ASS (Aspirin-Brausetabletten) absetzen (Blutungsrisiko bei Gerinnungsstörung und möglichen Varizen, Nierenschädigung), keine NSAR; gegen die Bauchschmerzen Paracetamol bis höchstens 2 g täglich',
               'Impfstatus für Hepatitis A und B, Influenza und Pneumokokken überprüfen und vervollständigen',
             ],
           },
           {
             label: 'Aszitestherapie im Stufenschema (Kochsalzrestriktion, Diuretika, Parazentese, TIPS)',
             items: [
-              'Kochsalzarme Kost (maximal 5 g/Tag), tägliches Wiegen, Bilanzierung und Messung des Bauchumfangs',
+              'Kochsalzarme Kost (etwa 5 g/Tag, nicht strenger — Mangelernährung), tägliches Wiegen, Bilanzierung und Messung des Bauchumfangs',
               'Spironolacton 100 mg 1-0-0, bei unzureichendem Ansprechen Steigerung und Kombination mit Furosemid 40 mg; Ziel maximal 500 g Gewichtsabnahme pro Tag ohne, bis 1 kg mit peripheren Ödemen (wie hier)',
               'Engmaschige Kontrolle von Kalium, Natrium und Kreatinin unter der Diuretikatherapie',
-              'Diagnostische Aszitespunktion mit Zellzahl, Eiweiß und Kultur zum Ausschluss einer spontan bakteriellen Peritonitis',
               'Bei gespanntem Aszites zugleich therapeutische Entlastungspunktion mit Albumingabe 6–8 g pro entferntem Liter ab 5 Litern',
+              'Blutdruckmedikation überprüfen: ACE-Hemmer oder Sartane bei Aszites absetzen, Blutdruck unter der Diuretikatherapie neu einstellen',
               'Bei diuretikarefraktärem Verlauf TIPS-Anlage im Verlauf erwägen',
             ],
           },
           {
             label: 'Prophylaxe und Therapie der Dekompensationskomplikationen (Varizen, SBP, Enzephalopathie, hepatorenales Syndrom)',
             items: [
-              'ÖGD zum Varizenscreening; ab Varizen Grad II Primärprophylaxe mit Propranolol oder Carvedilol, alternativ endoskopische Gummibandligatur',
+              'Je nach ÖGD-Befund: ab Varizen Grad II (oder kleine Varizen mit Red-Colour-Signs) Primärprophylaxe bevorzugt mit Carvedilol — senkt zugleich den Blutdruck des Hypertonikers —, alternativ Propranolol oder Gummibandligatur',
               'Aufklärung über die Warnzeichen einer Varizenblutung (Bluterbrechen, Teerstuhl) mit sofortiger Wiedervorstellung',
-              'Bei Nachweis einer SBP im Punktat Ceftriaxon 2 g i. v. über 5–7 Tage plus Albumin, anschließend Dauerprophylaxe mit Norfloxacin',
-              'Bei Flapping tremor, Konzentrations- oder Schlaf-Wach-Störung an eine hepatische Enzephalopathie denken: Auslöser (Obstipation, Infekt, Elektrolytentgleisung, Diuretika) beseitigen, Lactulose bis zu 2–3 weichen Stühlen täglich, ggf. Rifaximin',
-              'Kreatinin und Urinausscheidung überwachen — Anstieg unter Diuretika weist auf ein beginnendes hepatorenales Syndrom hin',
+              'Bei Nachweis einer SBP im Punktat Ceftriaxon 2 g i. v. über 5–7 Tage plus Albumin, anschließend Dauerprophylaxe mit Norfloxacin oder Ciprofloxacin',
+              'Bei Flapping tremor, Konzentrations- oder Schlaf-Wach-Störung an eine hepatische Enzephalopathie denken: Auslöser (gastrointestinale Blutung, Infekt, Obstipation, Elektrolytentgleisung, Diuretika, Sedativa) beseitigen, Lactulose bis zu 2–3 weichen Stühlen täglich, ggf. Rifaximin',
+              'Kreatinin und Urinausscheidung überwachen — bei Kreatininanstieg Diuretika pausieren und Albumin 1 g/kg KG über 2 Tage geben; bessert sich die Nierenfunktion nicht und fehlt eine andere Ursache, liegt ein hepatorenales Syndrom vor (Terlipressin plus Albumin)',
               'Halbjährliche Sonographie zur HCC-Früherkennung',
             ],
           },
@@ -193,7 +203,7 @@ export function seedCases(): Case[] {
             ],
           },
         ],
-        erstmassnahmen: ['Stationäre Aufnahme', 'Venöser Zugang, Blutentnahme', 'Sonographie anmelden'],
+        erstmassnahmen: ['Stationäre Aufnahme', 'Venöser Zugang, Blutentnahme', 'Diagnostische Aszitespunktion (Ausschluss einer spontan bakteriellen Peritonitis)', 'Thiamin i. v. vor jeder Glukosegabe, Überwachung auf Entzugszeichen', 'ASS absetzen', 'Sonographie anmelden', 'Tägliches Wiegen, Bilanzierung, Bauchumfang messen'],
       },
       linkedFachwissenId: 'fw-leberzirrhose',
       linkedFachbegriffeIds: [],
@@ -217,7 +227,7 @@ export function seedCases(): Case[] {
           title: 'Nach der Vorstellung (Einstieg)',
           interactions: [
             { frage: 'Danke für die Vorstellung. Was ist Ihre Verdachtsdiagnose, und worauf stützen Sie sich?', reaktion: 'Leberzirrhose (alkoholtoxisch) sur les arguments — Aszite, Ödeme, Hämatome, heller Stuhl, Alkoholanamnese. Le simulant hoche la tête si les arguments sont nommés.' },
-            { frage: 'Sie sagten, der Patient trinke viel. Können Sie das quantifizieren?', reaktion: 'ca. 10 Flaschen Bier + 3 Flaschen Schnaps pro Tag seit 20 Jahren. Relance si le candidat reste vague.' },
+            { frage: 'Sie sagten, der Patient trinke viel. Können Sie das quantifizieren?', reaktion: 'ca. 10 Flaschen Bier + 3 kleine Flaschen Schnaps (Flachmann) pro Tag seit 20 Jahren. Relance si le candidat reste vague.' },
           ],
         },
         {
@@ -261,7 +271,7 @@ export function seedCases(): Case[] {
         'Sehr geehrte Frau Kollegin, sehr geehrter Herr Kollege,\n\n' +
         'wir berichten Ihnen nachfolgend über Herrn Karl Aupperle, 58 Jahre, der sich notfallmäßig in unserer Notaufnahme vorstellte.\n\n' +
         'Der Patient stellte sich mit seit drei Monaten bestehenden, langsam aufgetretenen, ständigen, diffusen Bauchschmerzen ohne Ausstrahlung vor (Intensität 5/10). Des Weiteren klagte er über eine Zunahme des Bauchumfangs, spontane Hämatome, Adynamie mit Leistungsknick, hellen Stuhl sowie Beinödeme. Die vegetative Anamnese sei auffällig mit einer Gewichtszunahme von ca. 5 kg in drei Monaten. Ikterus und Miktionsprobleme wurden verneint.\n\n' +
-        'An Vorerkrankungen leide der Patient an einer Hypothyreose sowie einer arteriellen Hypertonie seit fünf Jahren. Z. n. Nagelosteosynthese am rechten Unterschenkel vor 15 Jahren. Der Patient nehme L-Thyroxin 125 µg 1-0-0, ein Antihypertensivum sowie Aspirin ein. Allergien seien keine bekannt. Tabak- und Drogenabusus wurden verneint. Der Alkoholkonsum wurde mit ca. 10 Flaschen Bier und 3 Flaschen Schnaps täglich seit 20 Jahren bejaht. Die Familienanamnese sei unauffällig; der Patient sei geschieden, lebe allein und habe zwei gesunde Töchter.\n\n' +
+        'An Vorerkrankungen leide der Patient an einer Hypothyreose sowie einer arteriellen Hypertonie seit fünf Jahren. Z. n. Nagelosteosynthese am rechten Unterschenkel vor 15 Jahren. Der Patient nehme L-Thyroxin 125 µg 1-0-0, ein Antihypertensivum sowie Aspirin ein. Allergien seien keine bekannt. Tabak- und Drogenabusus wurden verneint. Der Alkoholkonsum wurde mit ca. 10 Flaschen Bier und 3 kleinen Flaschen Schnaps (Flachmann) täglich seit 20 Jahren bejaht. Die Familienanamnese sei unauffällig; der Patient sei geschieden, lebe allein und habe zwei gesunde Töchter.\n\n' +
         'Die Anamnese deutet am ehesten auf eine Leberzirrhose bei Alkoholabhängigkeit mit Dekompensation (Aszites) hin. Differenzialdiagnostisch kommen ein hepatozelluläres Karzinom sowie ein Pankreaskarzinom in Betracht.\n\n' +
         'Der Patient wurde stationär aufgenommen. Ein venöser Zugang wurde gelegt und Blut abgenommen (kleines BB, Nieren- und Leberwerte, AP, γGT, Gerinnung). Eine Abdomensonografie sowie ein CT-Abdomen wurden angemeldet; eine Aszitespunktion und eine ÖGD zum Ausschluss von Ösophagusvarizen wurden geplant. Eine Alkoholkarenz wurde eingeleitet und ein psychologisches Konsil angemeldet.\n\n' +
         'Für weitere Fragen stehen wir Ihnen gern zur Verfügung.\nMit freundlichen kollegialen Grüßen',
