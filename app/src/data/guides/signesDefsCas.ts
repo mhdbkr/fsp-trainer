@@ -194,6 +194,7 @@ export const DEFS_CAS = {
   eug_vorgeschichte: { kapitel: 'vorerkrankungen', pertinence: S },           // grossesse extra-utérine antérieure
   brust_vorgeschichte: { kapitel: 'vorerkrankungen', pertinence: S },         // traumatisme, chirurgie, irradiation du sein
   tonsillen_vorgeschichte: { kapitel: 'vorerkrankungen', pertinence: S },     // amygdalectomie, angines de l'année
+  kognition_vorher: { kapitel: 'vorerkrankungen', pertinence: S },            // troubles cognitifs avant l'épisode (delir, rétabli par la revue Q7 P2-2)
   hodenhochstand: { kapitel: 'vorerkrankungen', pertinence: S },              // cryptorchidie dans l'enfance (Q7 : « Hodenhochstand hatte ich keinen », hodentorsion)
   windpocken: { kapitel: 'vorerkrankungen', pertinence: S },                  // varicelle dans l'enfance
   manie_vorgeschichte: { kapitel: 'vorerkrankungen', pertinence: S },         // phases euphoriques, hyperactives
@@ -239,8 +240,7 @@ export const DEFS_CAS = {
   ueberdosis: { kapitel: 'medikamente', pertinence: S },            // surdosage, appel des secours
   craving: { kapitel: 'medikamente', pertinence: S },               // envie impérieuse, perte de contrôle
   // --- Allergien -----------------------------------------------------------------
-  nsar_intoleranz: { kapitel: 'allergien', pertinence: S },
-  allergie_reaktion: { kapitel: 'allergien', pertinence: S },       // la réaction à une allergie déjà nommée : quoi, quand, traitée comment (≠ `allergie`, la liste)         // intolérance à l'aspirine, aux AINS
+  allergie_reaktion: { kapitel: 'allergien', pertinence: S },       // la réaction à une allergie déjà nommée : quoi, quand, traitée comment (≠ `allergie`, la liste)
   nasenpolypen: { kapitel: 'allergien', pertinence: S },            // polypes, chirurgie des sinus
   notfallset: { kapitel: 'allergien', pertinence: S },              // stylo d'adrénaline, carte d'allergie
   // --- Noxen ---------------------------------------------------------------------
@@ -253,7 +253,7 @@ export const DEFS_CAS = {
   familie_herz: { kapitel: 'familie-sozial', pertinence: S },       // infarctus précoce, mort subite, cardiomyopathie dans la famille
   familie_gefaess: { kapitel: 'familie-sozial', pertinence: S },    // anévrisme, maladie du tissu conjonctif dans la famille
   familie_darm: { kapitel: 'familie-sozial', pertinence: S },       // maladie inflammatoire de l'intestin dans la famille
-  familie_atopie: { kapitel: 'familie-sozial', pertinence: S },     // asthme, rhume des foins, eczéma dans la famille
+  familie_gerinnung: { kapitel: 'familie-sozial', pertinence: S },  // trouble de la coagulation connu dans la famille (lungenembolie, revue Q7 P2-6)
   familie_autoimmun: { kapitel: 'familie-sozial', pertinence: S },  // vitiligo, maladie cœliaque, auto-immunité dans la famille
   familie_aehnlich: { kapitel: 'familie-sozial', pertinence: S },   // la même maladie, les mêmes troubles dans la famille
   sexualkontakt: { kapitel: 'familie-sozial', pertinence: S },      // rapport récent, nouveau partenaire (déclencheur) ≠ l'entrée en matière de la Sexualanamnese, qui reste
