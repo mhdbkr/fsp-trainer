@@ -1866,6 +1866,7 @@ export const FACHANAMNESEN: FachanamneseGuide[] = [
         alts: ['Haben Sie daran gedacht, sich das Leben zu nehmen? Haben Sie einen konkreten Plan gemacht?'],
         followUp: [
           'Haben Sie konkrete Pläne, sich das Leben zu nehmen?',
+          'Haben Sie schon etwas vorbereitet?',
           'Haben Sie schon einmal versucht, sich das Leben zu nehmen?',
           'Falls konkrete Absicht oder Plan: NOTFALL — der Patient bleibt stationär. Rücksprache mit dem Oberarzt nach der Anamnese.',
           'Haben Sie den Wunsch, sich zu verletzen?',
@@ -1875,7 +1876,8 @@ export const FACHANAMNESEN: FachanamneseGuide[] = [
         // K3 SÉCURITÉ : le désir et l'acte d'automutilation sont DEUX signes ; la mère les déclare tous (jamais perdus, RISIKO_SIGNES).
         // Q3 (revue K3, « pour le contenu ») : la tentative antérieure — premier facteur de risque — est un signe à elle ;
         // revue clinique Q3 (P2) : posée avant la consigne NOTFALL, qu'elle informe.
-        followUpSucht: [[], ['suizidversuch'], [], ['selbstverletzung_wunsch'], ['selbstverletzung'], []],
+        // Q4 (renvoi de main) : les préparatifs suivent les plans — même signe que la mère (plan, intention).
+        followUpSucht: [[], [], ['suizidversuch'], [], ['selbstverletzung_wunsch'], ['selbstverletzung'], []],
       },
       {
         text: 'Gab es belastende Ereignisse — ein Verlust, eine Trennung, Stress bei der Arbeit?',
