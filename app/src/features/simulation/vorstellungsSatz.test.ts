@@ -33,6 +33,13 @@ describe('Fallvorstellung — la phrase d\'ouverture, sur les 130 cas', () => {
       expect((d.text.match(/\(/g) ?? []).length, c.id).toBe((d.text.match(/\)/g) ?? []).length);   // aucune parenthèse laissée ouverte
     }
   });
+  // Lc2 (revue direction I7) : les 12 cas gratuits sont la vitrine — leur phrase ne se coupe jamais.
+  it('les cas gratuits : la phrase de Fallvorstellung tient sans « … »', () => {
+    for (const c of cases.filter((c) => c.tier === 1)) {
+      expect(vorstellungsDiagnose(c).offen, c.id).toBe(false);
+      expect(ersterSatz(c.medicalView.verdachtsdiagnose), c.id).not.toMatch(/Patient/);
+    }
+  });
   it('ersterSatz : coupe au premier point de fin de phrase, pas après « Z. », « A. », « ca. », « (31. »', () => {
     expect(ersterSatz('Ulcus ventriculi. Zweiter Satz.')).toBe('Ulcus ventriculi.');
     expect(ersterSatz('Pneumonie bei Risikoprofil (Diabetes, Z. n. Splenektomie). Weiteres.')).toBe('Pneumonie bei Risikoprofil (Diabetes, Z. n. Splenektomie).');
