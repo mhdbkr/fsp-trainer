@@ -81,15 +81,15 @@ describe('Q4 — garde anti-doublon : la réplique jouée avant ne répond plus 
 });
 
 describe('Q4 — renvois de Q3', () => {
-  it('psy : « Haben Sie schon etwas vorbereitet? » suit les plans et précède la tentative antérieure (10 cas)', () => {
+  it('psy : les préparatifs (« Haben Sie schon Vorbereitungen getroffen … ») suivent les plans et précède la tentative antérieure (10 cas)', () => {
     const psy = cases.filter((c) => playedTrame(c).fach?.chapter.id === 'fach-psy');
     expect(psy).toHaveLength(10);
     for (const c of psy) {
       const q = playedTrame(c).fach!.chapter.questions.find((p) => phraseProbes(p).includes('fach-psych-suizid'))!;
       const r = phraseFollowUp(q);
       const i = (re: RegExp) => r.findIndex((t) => re.test(t));
-      expect(i(/^Haben Sie schon etwas vorbereitet\?$/), c.id).toBe(i(/^Haben Sie konkrete Pläne/) + 1);
-      expect(i(/vorbereitet/), c.id).toBeLessThan(i(/schon einmal versucht, sich das Leben/));
+      expect(i(/^Haben Sie schon Vorbereitungen getroffen — zum Beispiel Tabletten gesammelt oder einen Abschiedsbrief geschrieben\?$/), c.id).toBe(i(/^Haben Sie konkrete Pläne/) + 1);
+      expect(i(/Vorbereitungen getroffen/), c.id).toBeLessThan(i(/schon einmal versucht, sich das Leben/));
     }
   });
 
