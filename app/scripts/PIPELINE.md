@@ -161,12 +161,15 @@ fait échouer la porte.
 - `patientSheet.profil` : `tags` (liste fermée `PROFIL_TAGS`, `signes.ts`) ; `exige` ; `exclut` (signe **non**
   de dépistage → raison écrite). La nature et `hoden` se dérivent : ne pas les écrire.
 - Sur **chaque** question du cas : `sucht` (non vide), `braucht` si elle présuppose un fait (« dort », « nach der
-  Rückkehr », « beim Sturz », « Ihr Asthmaspray »), et `followUpSucht` si une relance cherche un autre signe.
+  Rückkehr », « beim Sturz », « Ihr Asthmaspray »). Sa relance (`followUp`, une seule chaîne) est une précision du
+  même signe : **une relance qui cherche un autre signe devient une question du cas à part** (le type d'une question du
+  cas n'a pas de `followUpSucht`).
 
 ### Les commandes, dans l'ordre (vérifier le CODE DE SORTIE du script, jamais un message lu dans un pipe)
 
 ```
-node scripts/checkCoherence.mjs --propose --case <id>   # une AIDE : les signes lus dans le texte (50–74 %), rien n'est écrit
+node scripts/checkCoherence.mjs --propose --case <id>   # une AIDE : les signes lus dans le texte (50–74 %), rien n'est écrit ;
+                                                        # sort à 1 tant qu'une question du cas est muette (résidu bloquant)
 node scripts/checkCoherence.mjs --case <id>             # la trame jouée du cas, chaque écart et sa raison
 node scripts/checkCoherence.mjs                         # la porte des 130+ cas ; echo $? → 0
 node scripts/checkTrameSymptoms.mjs && node scripts/checkQuestionAtomicity.mjs && node scripts/checkGuideDuplicates.mjs
@@ -211,6 +214,10 @@ sont pas des portes (précision ≈ 55 %), ce sont des déclarations (`sucht`, `
 6. **`relu`** marque une mention sans question (le texte nomme un signe qu'il n'interroge pas) ; jamais pour faire
    taire une porte. Une annotation devenue sans objet (la déclaration couvre le texte) se retire.
 7. **Q-gyn** : une sonde de la Frauenanamnese n'est jamais perdue ; une question du cas qui la prolonge a son signe.
+8. **Déclarer le signe AFFINÉ.** Une question qui précise un signe qu'une autre question demande déjà (le motif)
+   déclare le signe fin, pas le grossier : « Ist der Schwindel zu einer Seite hin schlimmer? » → `seite_lagerung`
+   (`braucht: ['lageabhaengig']`), jamais `schwindel`. Déclarer le grossier lui ferait prendre la question générale ou
+   le motif (r2) ; `SIGNE_AFFINE` fait accepter à la porte de discordance le mot grossier que le texte contient.
 
 ### Les règles des `parts` (sondes énumératives)
 
@@ -221,6 +228,7 @@ sont pas des portes (précision ≈ 55 %), ce sont des déclarations (`sucht`, `
   de `PART_VERBES`, sans « und / oder / dabei », sans anaphore en tête (`partNonAutonome`, ligne bloquante de
   `checkCoherence`). Une part qui n'est qu'une relance va dans `PART_RELANCE_SEULE`, et ne doit jamais ouvrir.
 - Les parts gardées se posent en une question, la première, puis les suivantes en relances — jamais recollées.
+- **Une part d'alarme** (`PART_ALARME` : `gang`) ouvre sa propre question, jamais une relance (§10.4, K5).
 
 ### Sécurité psy (décision de main, K3 ; K4 D-1)
 
@@ -236,10 +244,11 @@ sont pas des portes (précision ≈ 55 %), ce sont des déclarations (`sucht`, `
 - **D4** : question du cas > Fach > Aktuelle Beschwerden > végétative ; à rang égal, la première dans la trame.
 - **D4-bis** : le signe qui **est** le motif se pose en Aktuelle Beschwerden, la Fach se réduit à ses autres parts.
   Il est déclaré par un tag : `fieber` (nature `infekt`), `dyspnoe` (nature `atemnot`) ; K5 : `schwindel` (le patient
-  consulte pour un vertige) et `sturz` (il consulte après une chute) — la question d'ouverture (`akt-motiv`)
-  l'obtient, la Fach ne redemande pas « Haben Sie Schwindel …? » ni « Sind Sie schon gestürzt? ». Ne pas poser le tag
+  consulte pour un vertige) et `sturz` (il consulte après une chute : commotio, epilepsie « vom Stuhl gekippt ») — la
+  question d'ouverture (`akt-motiv`) l'obtient, la Fach ne redemande pas « Haben Sie Schwindel …? » ni « Sind Sie schon
+  gestürzt? ». Une question du cas qui déclare ce signe le garde : `akt-motiv` le cède et reste posée (I3). Ne pas poser le tag
   si la chute n'est pas dite à l'ouverture (schlaganfall : la fiche la dit à la coordination ; la question « beim
-  Sturz » déclare `braucht: ['sturz']`).
+  Sturz » se pose en Fach, `kapitel: 'fach'`, et déclare `braucht: ['sturz']`).
 - **R6** : une question du cas gagnante prend la place de la première perdante **retirée** du même chapitre placée
   au-dessus d'elle ; si la perdante est seulement réduite, la question du cas reste à sa place.
 
