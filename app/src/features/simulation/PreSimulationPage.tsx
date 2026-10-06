@@ -105,7 +105,7 @@ export function PreSimulationPage() {
         <div className="card p-5">
           <div className="label mb-2 flex items-center gap-1.5"><Icon name="speech" className="h-3.5 w-3.5" />Phrases de Fallvorstellung</div>
           <p className="text-sm text-slate-600 dark:text-slate-300">
-            « {vorstellungsSatz(c)} <b><AutoLink>{c.medicalView.verdachtsdiagnose}</AutoLink></b>… vorgestellt hat. »
+            « {vorstellungsSatz(c)} Verdachtsdiagnose: <b><AutoLink>{c.medicalView.verdachtsdiagnose}</AutoLink></b>… »
           </p>
           <p className="mt-2 text-sm text-slate-500">{VORSTELLUNG_HINT[aide]}</p>
         </div>
@@ -124,12 +124,14 @@ export function PreSimulationPage() {
 }
 
 /** La phrase d'ouverture de la Fallvorstellung, accordée au cas (fixeur B2 : « le cas sait lequel ») :
- *  « Herr Aupperle ist ein 58-jähriger Patient, der sich mit » — la suite (diagnostic) est rendue à part. */
+ *  « Herr Aupperle ist ein 58-jähriger Patient. » — le diagnostic suit à part, « Verdachtsdiagnose: … », sans flexion :
+ *  « der sich mit {verdachtsdiagnose} » le mettait au nominatif après « mit » (« mit Stabile Angina pectoris », revue Q3),
+ *  et aucun champ du cas ne donne le motif sous forme nominale déclinable. */
 export function vorstellungsSatz(c: Pick<Case, 'patientSheet'>): string {
   const p = c.patientSheet.personalia;
   const w = p.geschlecht === 'w';
   const nachname = p.name.trim().split(/\s+/).pop() ?? p.name;
-  return `${w ? 'Frau' : 'Herr'} ${nachname} ist ${w ? 'eine' : 'ein'} ${p.age}-jährige${w ? '' : 'r'} Patient${w ? 'in' : ''}, ${w ? 'die' : 'der'} sich mit`;
+  return `${w ? 'Frau' : 'Herr'} ${nachname} ist ${w ? 'eine' : 'ein'} ${p.age}-jährige${w ? '' : 'r'} Patient${w ? 'in' : ''}.`;
 }
 
 // Le Teil de départ change ce que le bloc DIT, pas s'il existe ; sans départ, la partie entière (I3).
