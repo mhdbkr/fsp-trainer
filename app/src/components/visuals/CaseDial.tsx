@@ -164,7 +164,8 @@ export function CaseDial({ data, size = 64, nom, vientDeSouder = false, action =
     'data-size': size,
     'data-pret': soude,
     'data-mouvement': reduit ? 'reduit' : undefined,
-    style: { width: Math.max(size, 44), height: Math.max(size, 44), '--cd-echelle': echelle, '--cd-ox': `${decal}px` } as React.CSSProperties,
+    // 44 px : la cible tactile d'une COMMANDE. Un signe non ouvrable n'est pas une cible : il garde sa taille (carte de couverture, S4-5).
+    style: { width: ouvrable ? Math.max(size, 44) : size, height: ouvrable ? Math.max(size, 44) : size, '--cd-echelle': echelle, '--cd-ox': `${decal}px` } as React.CSSProperties,
     'aria-label': etiquette(data, nom),
   };
   const svg = (

@@ -26,15 +26,18 @@ const fin = (s: string) => (s.endsWith('.') ? s : `${s}.`);                // «
 export type EtatPoint = 'fait' | 'entame' | 'prevu' | 'projete';
 export interface JourSemaine { date: string; off: boolean; points: { caseId?: string; label: string; etat: EtatPoint }[] }
 
-/** Lundi → dimanche de la semaine de `today` : un point par CAS prévu. Un jour off (plan sans tâche, ou jour off du
+/** Lundi → dimanche de la semaine de `today`. */
+export const joursDeLaSemaine = (today: string): string[] =>
+  Array.from({ length: 7 }, (_, k) => iso(addDays(startOfWeek(parseISO(today), { weekStartsOn: 1 }), k)));
+
+/** La semaine de `today` : un point par CAS prévu. Un jour off (plan sans tâche, ou jour off du
  *  programme sans plan) est neutre ; un jour passé sans plan est vide, jamais « en retard ». */
 export function semaine(i: {
   today: string; plans: ReadonlyMap<string, DayPlan>; projection: ReadonlyMap<string, TaskInstance[]>;
   events: readonly TrainingEvent[]; config: Pick<ProgramConfig, 'offDays'>;
 }): JourSemaine[] {
-  const lundi = startOfWeek(parseISO(i.today), { weekStartsOn: 1 });
-  return Array.from({ length: 7 }, (_, k) => {
-    const d = addDays(lundi, k), date = iso(d);
+  return joursDeLaSemaine(i.today).map((date) => {
+    const d = parseISO(date);
     const plan = i.plans.get(date);
     if (plan) {
       const points = plan.tasks.filter((t) => estTacheDeCas(t.kind)).map((t) => ({
