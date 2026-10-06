@@ -155,7 +155,7 @@ export function CaseDial({ data, size = 64, nom, vientDeSouder = false, action =
   const maitrise = data.maitrise;
   const etats = Object.fromEntries(TEILE.map(({ key }) => [key, etatTeil(data.teile[key])])) as Record<SimTeil, EtatTeil>;
   const avecCentre = size >= 64;
-  const avecRepere = size * echelle >= TAILLE_OUVERTE;      // un repère de moins de 11 px ne se lirait pas
+  const avecRepere = ouvrable && size * echelle >= TAILLE_OUVERTE;   // un repère de moins de 11 px ne se lirait pas ; un signe non ouvrable ne les montre jamais
   const taillePolice = (POLICE_MIN * 120) / (size * echelle);   // unités du viewBox → POLICE_MIN px de rendu à l'ouverture
   const complet = data.couverture === 3;                    // couleur pleine seulement avec les trois Teile
 

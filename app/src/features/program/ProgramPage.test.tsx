@@ -121,6 +121,8 @@ describe('4 · La carte de couverture — des cadrans, sans pourcentage', () => 
     await monter();
     const s = section(/^Carte de couverture$/)!;
     expect(s.querySelectorAll('[role="img"]')).toHaveLength(6);
+    expect(s.querySelectorAll('[data-repere]'), 'un signe non ouvrable ne porte pas de repères cachés').toHaveLength(0);
+    expect((s.querySelector('[role="img"]') as HTMLElement).style.width, 'un signe n\'est pas une cible de 44 px').toBe('36px');
     expect(s.textContent).not.toMatch(/%/);
     expect(txt()).not.toMatch(/Champ de couverture/);
     const specialites = [...s.querySelectorAll('button[aria-expanded]')].map((b) => b.textContent);

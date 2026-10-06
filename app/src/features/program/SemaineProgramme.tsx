@@ -38,8 +38,8 @@ export function SemaineProgramme({ jours, today }: { jours: JourSemaine[]; today
           return (
             <li key={j.date} aria-label={etiquetteJour(j, today)}
               className={`flex min-w-0 flex-col items-center gap-1.5 rounded-xl border px-0.5 py-2 ${auj ? 'border-brand-500 dark:border-brand-400' : 'border-slate-200 dark:border-slate-800'} ${j.date < today ? 'opacity-80' : ''}`}>
-              <span aria-hidden="true" className={`text-[11px] font-medium capitalize ${auj ? 'text-brand-700 dark:text-brand-200' : 'text-slate-500 dark:text-slate-400'}`}>
-                {format(parseISO(j.date), 'EEEEEE', { locale: fr })}<span className="tnum"> {format(parseISO(j.date), 'd')}</span>
+              <span aria-hidden="true" className={`text-center text-[11px] font-medium capitalize leading-tight ${auj ? 'text-brand-700 dark:text-brand-200' : 'text-slate-500 dark:text-slate-400'}`}>
+                {format(parseISO(j.date), 'EEEEEE', { locale: fr })}<span className="block text-center tnum">{format(parseISO(j.date), 'd')}</span>
               </span>
               <span aria-hidden="true" className="flex min-h-[10px] flex-wrap justify-center gap-[3px]">
                 {j.off
