@@ -1472,15 +1472,20 @@ durée     = Σ spentMin            // le temps MESURÉ, jamais fin − début
   séance ; **après** = le même, séance comprise (**INV-H4**). Le score affiché
   par Teil est le dernier score **mesuré** dans la séance ; un score
   auto-évalué n'est jamais présenté comme une mesure.
-- **« Revoir mes N oublis »** : le bilan (`bilanErreurs`) de la dernière partie
-  de la séance, restreint aux oublis encore manqués **et** toujours signalés
-  aujourd'hui par `erreursTransversales` (§13.3) sur le journal entier.
-  N = 0 ⇒ pas d'action.
+- **« Revoir mes N oublis »** : N = les lignes « encore manquée » du bilan
+  (`bilanErreurs`) de la dernière partie de la séance, soit exactement ce que
+  montre sa page d'arrivée. Le lien porte `&voir=oublis` : l'écran de fin
+  s'ouvre sur la carte « Ce que tu oublies souvent » (`id="oublis"`). Il est
+  proposé tant qu'au moins un de ces oublis est encore signalé aujourd'hui par
+  `erreursTransversales` (§13.3) sur le journal entier ; sinon, pas d'action.
 - **« Rejouer »** : le Teil le plus faible mesuré dans la séance sous
-  `PART_OK`, et toujours sous `PART_OK` aujourd'hui. Sinon, pas d'action
-  (**INV-H7** : une action périmée disparaît).
-- Les exercices sans cas (drill, fiche, Aufklärung) sont comptés dans le
-  résumé de la séance, sans ligne de cas.
+  `PART_OK`, et **mesuré nulle part depuis** (une auto-évaluation n'est pas une
+  mesure). Seule la séance la plus récente qui l'a mesuré le propose
+  (**INV-H7** : une action périmée ou en double disparaît).
+- Les exercices sans ligne de cas sont nommés dans le résumé de la séance par
+  ce que le journal en sait : le cas lié (« fiche Leberzirrhose »), sinon leur
+  genre (« drill Fachbegriffe », « fiche Fachwissen »). Le journal ne porte ni
+  l'id de la fiche ni le deck du drill.
 
 ### 14.3 « Pendant cette séance » — favoris et mots cherchés
 
@@ -1498,12 +1503,25 @@ durée     = Σ spentMin            // le temps MESURÉ, jamais fin − début
 ### 14.4 La ligne de semaine
 
 - Semaine = lundi 00:00 → maintenant. Elle compte : les cas joués, les Teile
-  passés à `acquis` ou plus dans la semaine, et les Fachbegriffe révisés
-  (`srs.reviewed` distincts).
-- La tendance compare les cas joués au **même instant** de la semaine
-  précédente, jamais à la semaine entière (**INV-H6**).
+  passés à `acquis` ou plus dans la semaine, les Fachbegriffe révisés
+  (`srs.reviewed` distincts), et les séances. Texte : « Cette semaine : 4 cas,
+  3 Teile acquis, 12 Fachbegriffe. » ; sans partie jouée, « Cette semaine :
+  N séances, sans partie jouée. » ; sans rien, « pas encore de séance ».
+- La tendance compare les cas joués à la **même heure** la semaine précédente
+  (`subWeeks` : le changement d'heure ne décale rien), jamais à la semaine
+  entière (**INV-H6**).
+- Pas de ligne de semaine sur une page vide.
 
-### 14.5 Écart constaté, non corrigé ici
+### 14.5 Affichage du carnet
+
+- Sont dépliées les séances de cette semaine et de la précédente ; les autres
+  derrière « Voir les N séances plus anciennes » / « Voir moins ».
+- Un seul filtre, par spécialité (présent dès deux spécialités), appliqué
+  avant ce repli.
+- Jamais deux liens vers la même adresse sur la page : le nom d'un cas mène
+  au cas sur sa séance la plus récente à l'écran, il est en texte ailleurs.
+
+### 14.6 Écart constaté, non corrigé ici
 
 `DrillPage` journalise le drill à sa fin (`logTraining` sans `at`) alors que
 §1.1 définit `at` comme le début de l'exercice. La séance le tolère (la pause de
