@@ -121,7 +121,7 @@ describe('Q4 — renvois de Q3', () => {
     expect(relances('case-morbus-crohn', /im Ausland\?$/)).toEqual(['Falls ja: Wo genau waren Sie?', 'Falls ja: Wie lange waren Sie dort?', 'Falls ja: Hatten Sie dort Durchfall?']);   // langue I4
     expect(reponse('case-morbus-crohn', 'veg-fieber')).not.toMatch(/Ausland|Ägypten/);
     // Q5 (doublon relevé en Q4 § 7a) : le motif dit « ich wache jede Nacht mehrmals davon auf » — seule l'heure reste à demander.
-    expect(joue(byId('case-karpaltunnel')).some(([, p]) => cas(/^Um welche Uhrzeit wachen Sie meistens davon auf\?$/)(p))).toBe(true);
+    expect(joue(byId('case-karpaltunnel')).some(([, p]) => cas(/^Um welche Uhrzeit wachen Sie von den Beschwerden meistens auf\?$/)(p))).toBe(true);
     expect(joue(byId('case-karpaltunnel')).some(([, p]) => cas(/nachts von den Beschwerden auf/)(p))).toBe(false);
   });
 
