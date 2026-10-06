@@ -48,3 +48,17 @@ describe('Fallvorstellung — la phrase d\'ouverture, sur les 130 cas', () => {
     expect(ersterSatz('Stabile Angina pectoris')).toBe('Stabile Angina pectoris');
   });
 });
+
+// Lc3 (FB3-G7) : les dix premiers cas remis au niveau — même règle que les cas gratuits de Lc2.
+const LC3 = ['case-pankreatitis', 'case-ulcus', 'case-magenkarzinom', 'case-appendizitis', 'case-oesophaguskarzinom',
+  'case-pavk', 'case-lyme', 'case-kolorektales-ca', 'case-bandscheibenvorfall', 'case-divertikulitis'];
+describe('Fallvorstellung — les cas de Lc3', () => {
+  it('la phrase de Fallvorstellung tient sans « … »', () => {
+    for (const id of LC3) {
+      const c = cases.find((x) => x.id === id);
+      expect(c, id).toBeDefined();
+      expect(vorstellungsDiagnose(c!).offen, id).toBe(false);
+      expect(ersterSatz(c!.medicalView.verdachtsdiagnose), id).not.toMatch(/Patient/);
+    }
+  });
+});
