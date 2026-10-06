@@ -235,7 +235,7 @@ test('la mesure (--json, brut et residu) ÉGALE le plancher gravé', () => {
 test('m6 mutation : la lecture de « stuhl » (UNE seule, symptomsInText) désactivée fait baisser la mesure, et l\'égalité au plancher rougit', () => {
   // K4 : une question du cas DÉCLARÉE se mesure par sa déclaration ; seule une question muette se lit. La mutation rend donc
   // d'abord muette la question « Stuhlgang » de parkinson (n° 6 ; Q5 : découpée, l'ancre suit le texte), puis désactive la lecture de « stuhl ».
-  const PARK = "{ frage: 'Haben Sie regelmäßig Stuhlgang?', kapitel: 'vegetativ', sucht: ['stuhl'], followUp: 'Falls nein: Seit wann besteht die Verstopfung?' },";
+  const PARK = "{ frage: 'Haben Sie regelmäßig Stuhlgang?', kapitel: 'vegetativ', sucht: ['stuhl'], followUp: 'Falls nein: Seit wann haben Sie die Verstopfung?' },";
   const muette = PARK.replace(", sucht: ['stuhl']", '');
   const lu = sb.mutate('src/data/seedCases.ts', PARK, muette, () => json(run('--json')));
   const m = sb.mutate('src/data/seedCases.ts', PARK, muette, () => sb.mutate('src/data/guides/symptoms.ts', "['stuhl', /\\b(stuhlgang|durchfall|verstopfung)\\b/i]", "['stuhl', /(?!)/]", () => json(run('--json'))));
@@ -401,7 +401,7 @@ test('K5 (m-2) : le plancher `brauchtViole` est l\'exact r4b du montage ; le dé
 });
 
 test('K5 (m-2) mutation : une présupposition de TEXTE de plus (« dort ») ne bloque plus — le détecteur reste informatif', () => {
-  const PARK = "{ frage: 'Haben Sie regelmäßig Stuhlgang?', kapitel: 'vegetativ', sucht: ['stuhl'], followUp: 'Falls nein: Seit wann besteht die Verstopfung?' },";
+  const PARK = "{ frage: 'Haben Sie regelmäßig Stuhlgang?', kapitel: 'vegetativ', sucht: ['stuhl'], followUp: 'Falls nein: Seit wann haben Sie die Verstopfung?' },";
   const base = json(run('--json')).info.presuppositionsTexte;
   const r = sb.mutate('src/data/seedCases.ts', PARK, PARK.replace('Haben Sie regelmäßig', 'Haben Sie dort regelmäßig'), () => ({ j: json(run('--json')), s: run().status }));
   assert.equal(r.j.info.presuppositionsTexte, base + 1);
@@ -417,7 +417,7 @@ test('K5 (INV-85) mutation : r4b désactivé → brauchtViole > 0 après montage
 test('K5 : le résidu est BLOQUANT à 0, indépendamment du fixture — une question du cas muette → exit 1', () => {
   setFloor((f) => { f.residu.questionsMuettes = 5; });   // même un plancher complaisant ne l'excuse pas
   try {
-    const PARK = "{ frage: 'Haben Sie regelmäßig Stuhlgang?', kapitel: 'vegetativ', sucht: ['stuhl'], followUp: 'Falls nein: Seit wann besteht die Verstopfung?' },";
+    const PARK = "{ frage: 'Haben Sie regelmäßig Stuhlgang?', kapitel: 'vegetativ', sucht: ['stuhl'], followUp: 'Falls nein: Seit wann haben Sie die Verstopfung?' },";
     const r = sb.mutate('src/data/seedCases.ts', PARK, PARK.replace(", sucht: ['stuhl']", ''), () => run());
     assert.equal(r.status, 1);
     assert.match(r.stdout, /questionsMuettes = 1 : résidu bloquant à 0/);
