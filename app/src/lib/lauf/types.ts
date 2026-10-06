@@ -119,6 +119,9 @@ export interface Lauf {
   mode: SimulationMode;
   /** TaskInstance du plan, si le Lauf a été lancé depuis le programme. */
   taskId?: string;
+  /** [S4-7] Présent ⇔ le Lauf est un EXAMEN (simulation-run.md §11). `teilBeginn[t]` = epoch ms du début de chaque Teil,
+   *  lu par la minuterie murale ; écrit comme un champ (`stempleTeilBeginn`), jamais par une transition. */
+  examen?: { teilBeginn: Partial<Record<SimTeil, number>> };
 }
 
 /** Projection d'un `TeilLauf` vers le `PartResult` historique. La checklist du

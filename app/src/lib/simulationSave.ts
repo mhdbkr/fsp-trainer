@@ -41,6 +41,8 @@ export interface SaveInput {
   enchaine?: true;
   reihenfolge?: SimTeil[];
   dauerGesamtSec?: number;
+  /** [S4-7] Partie lancée depuis l'Examen (simulation-run.md §11.6). */
+  modeExamen?: true;
 }
 
 // Corrections prioritaires : dérivées des critères non cochés + langue faible.
@@ -83,6 +85,7 @@ export async function saveSimulation(i: SaveInput): Promise<Simulation> {
     ...(i.enchaine ? { enchaine: true as const } : {}),
     ...(i.reihenfolge ? { reihenfolge: [...i.reihenfolge] } : {}),
     ...(typeof i.dauerGesamtSec === 'number' ? { dauerGesamtSec: i.dauerGesamtSec } : {}),
+    ...(i.modeExamen ? { modeExamen: true as const } : {}),
   };
   draft.passed = simulationPassed(draft);
   // D-C4 / R-C4 : la tâche est résolue AVANT l'écriture — persistée dans la

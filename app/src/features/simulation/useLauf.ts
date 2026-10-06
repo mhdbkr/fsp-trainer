@@ -7,7 +7,7 @@ import { useUi } from '@/store/ui';
 import { snapshotAusLauf, useSimSession } from '@/store/simSession';
 import {
   DREI_TEILE, aktualisiereTeil, bewerte, erstelleLauf, nimmWiederAuf, setzeChecklistItem, setzeEntwurf,
-  tickChrono, transition, type LaufAktion,
+  stempleTeilBeginn, teilDesItems, tickChrono, transition, type LaufAktion,
 } from '@/lib/lauf/automat';
 import { now } from '@/lib/clock';
 import {
@@ -55,7 +55,15 @@ export interface LaufSteuerung {
   /** checkliste|arztbrief → gespeichert, puis écriture idempotente. Rend l'id
    *  de la simulation enregistrée, ou `null` si l'automate refuse. */
   beenden: () => Promise<string | null>;
+  /** [S4-7] Le début d'un Teil d'examen, posé une fois (simulation-run.md §11.1). Sans effet hors examen. */
+  stempleTeil: (teil: SimTeil, at: number) => void;
+  /** [S4-7] Abandon (décision 3) : la règle de `gibAuf` — écrit après un Teil joué, rien avant. La persistance en vol
+   *  s'arrête AVANT l'écriture : aucune ne peut recréer `lauf.aktiv` derrière elle. */
+  aufgeben: () => Promise<void>;
 }
+
+/** [S4-7] Le mode de la partie : un examen (simulation-run.md §11) ou l'entraînement. */
+export interface LaufOptionen { examen?: boolean }
 
 /** [S4] Le départ lu dans l'URL : `?depart=`, ou l'ancien `?teil=` lu de même (§10.3). Jamais un périmètre. */
 export const departDe = (p: URLSearchParams): SimTeil | null => {
@@ -65,7 +73,8 @@ export const departDe = (p: URLSearchParams): SimTeil | null => {
 
 /** `depart` (`?depart=`, ou l'ancien `?teil=`) : le Teil par lequel une partie NEUVE commence.
  *  Jamais un périmètre (INV-70) : toute partie neuve planifie les trois Teile. */
-export function useLauf(c: Case | undefined, depart: SimTeil | null, taskId?: string): LaufSteuerung {
+export function useLauf(c: Case | undefined, depart: SimTeil | null, taskId?: string, optionen?: LaufOptionen): LaufSteuerung {
+  const examen = optionen?.examen === true;
   const [lauf, setLauf] = useState<Lauf | null>(null);
   const [laedt, setLaedt] = useState(true);
   const [fehler, setFehler] = useState<string | null>(null);
@@ -104,7 +113,9 @@ export function useLauf(c: Case | undefined, depart: SimTeil | null, taskId?: st
       // quel jusqu'à son écriture (§3.1). C'est la SEULE branche de reprise —
       // barre « Reprendre », rechargement, retour sur le runner — donc le seul
       // appel de `nimmWiederAuf` (m7, INV-73).
-      if (alt && alt.caseId === c.id) {
+      // [S4-7] Le même cas ET le même mode (§11.4, INV-E11) : un examen n'est jamais repris par l'entraînement, ni
+      // l'inverse — il est abandonné selon la règle ci-dessous.
+      if (alt && alt.caseId === c.id && !!alt.examen === examen) {
         setLauf(nimmWiederAuf(alt, now()));
         setLaedt(false);
         return;
@@ -120,6 +131,7 @@ export function useLauf(c: Case | undefined, depart: SimTeil | null, taskId?: st
         // seul repli vit dans `saveSimulation`.
         profileId: getActiveUserId() ?? undefined,
         ...(taskId ? { taskId } : {}),                         // R-C4
+        ...(examen ? { examen: true as const } : {}),          // [S4-7] Autonome, couche 3 (§11.1)
         assistance: reglage.current.assistance,
         layer: reglage.current.layer,
         muster: reglage.current.muster,
@@ -175,7 +187,10 @@ export function useLauf(c: Case | undefined, depart: SimTeil | null, taskId?: st
   const setzeItem = useCallback((id: string, checked: boolean) => setLauf((l) => {
     if (!l) return l;
     const next = setzeChecklistItem(l, id, checked);
-    return l.aktuellerTeil ? aktualisiereTeil(next, l.aktuellerTeil) : next;
+    // Le Teil de l'ITEM, pas le Teil courant : à la checklist de fin de l'Examen (`aktuellerTeil` nul), cocher doit
+    // aussi mettre à jour le score du Teil concerné.
+    const t = teilDesItems(id) ?? l.aktuellerTeil;
+    return t ? aktualisiereTeil(next, t) : next;
   }), []);
 
   const tick = useCallback((t: LaufTeil, s: number) =>
@@ -217,5 +232,16 @@ export function useLauf(c: Case | undefined, depart: SimTeil | null, taskId?: st
     }
   }, [lauf, c]);
 
-  return { lauf, laedt, fehler, dispatch, terminerPartie, aufklaerungOeffnen, setzeFeld, setzeEntwurfFeld, setzeItem, tick, versChecklist, zurueckZumBilanz, arztbriefSchreiben, beenden };
+  const stempleTeil = useCallback((t: SimTeil, at: number) =>
+    setLauf((l) => (l ? stempleTeilBeginn(l, t, at) : l)), []);
+
+  const aufgeben = useCallback(async () => {
+    const l = lauf;
+    if (!l) return;
+    setLauf(null);
+    await gibAuf(l);
+    await useSimSession.getState().end();
+  }, [lauf]);
+
+  return { lauf, laedt, fehler, dispatch, terminerPartie, aufklaerungOeffnen, setzeFeld, setzeEntwurfFeld, setzeItem, tick, versChecklist, zurueckZumBilanz, arztbriefSchreiben, beenden, stempleTeil, aufgeben };
 }
