@@ -45252,8 +45252,13 @@ export function seedCases(): Case[] {
         },
         frageAntworten: [
           {
+            frage: 'Haben Sie unter einem Moskitonetz geschlafen und Mückenschutzmittel benutzt? Waren Sie abends im Freien?',
+            antwort: 'Ein Moskitonetz hatte ich nur manchmal. Mückenschutzmittel habe ich selten benutzt. Und abends war ich viel draußen.',
+            kapitel: 'familie-sozial',
+          },
+          {
             frage: 'Waren Sie in den letzten Monaten im Ausland?',
-            antwort: 'Ja, eineinhalb Jahre in Malawi, in ländlichen Dörfern am See. Seit drei Wochen bin ich zurück. Und ich bin im See geschwommen. Ein Moskitonetz hatte ich nur manchmal.',
+            antwort: 'Ja, eineinhalb Jahre in Malawi, in ländlichen Dörfern am See. Seit drei Wochen bin ich zurück. Und ich bin im See geschwommen.',
             kapitel: 'aktuell',
           },
           {
