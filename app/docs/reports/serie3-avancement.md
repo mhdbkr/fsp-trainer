@@ -273,3 +273,4 @@ S4-1 peut démarrer pendant la voie B (fichiers `lib/journal`, `lib/stats` aprè
 > Q5 : fixeur `dacd81ea` (2 P1, bloquant langue, importants, P2, mineurs) ; dernière retouche malaria (moustiquaire seulement à sa question) puis PR.
 > S4-7 revues : méca (I1 Aufklärung jamais jouée enregistrée comme faite) ; direction 2 bloquants (phrase du jury non accordée, « Seul » injouable). **Décision main : dans l'Examen, partenaire = simulant ou IA (l'IA joue le patient puis l'examinateur, diagnostic jamais montré) ; « Seul » retiré.** Minuterie 20:00 avec interruption du jury à 05:00, transition, écran de fin à une rangée d'actions, a11y. → fixeur. Hors lot : checklist OPQRST proposée pour un cas sans douleur (contenu).
 > Q5 + Q8 : `abdf1932` → **PR #89** → CI → merge.
+> **#89 MERGÉE — Q5 + Q8** (CI verte). S4-7 : agent interrompu par une erreur API 529 en pleine correction (travail intact non commité) → relancé.
