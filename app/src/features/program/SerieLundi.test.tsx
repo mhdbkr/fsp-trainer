@@ -1,6 +1,6 @@
 // C6-B m-5 — la série tombait à 0 chaque lundi : le week-end off du programme
-// n'était pas neutralisé. Un lundi après 5/5 jours ouvrés, la tuile affiche 5,
-// sur l'accueil comme sur l'historique.
+// n'était pas neutralisé. Un lundi après 5/5 jours ouvrés, la tuile affiche 5.
+// (S4-6 : l'Historique n'affiche plus la série — l'accueil la porte, seul.)
 import { describe, it, expect, vi, afterEach, beforeEach } from 'vitest';
 import { act } from 'react';
 import { createRoot, type Root } from 'react-dom/client';
@@ -17,7 +17,6 @@ import type { Case, ProgramConfig, TrainingEvent } from '@/db/types';
 import { freezeAt, resetClock } from '@/lib/clock';
 import { refreshToday } from '@/lib/today';
 import { HomePage } from '@/features/home/HomePage';
-import { HistoriquePage } from './HistoriquePage';
 
 globalThis.ResizeObserver ??= class { observe() {} unobserve() {} disconnect() {} } as unknown as typeof ResizeObserver;
 const config = { startDate: '2026-09-01', examDate: '2026-12-01', intensity: 'mittel', hoursPerSession: 2, offDays: [0, 6], prioritySpecialties: [], selfLevel: {}, createdAt: 0 } as unknown as ProgramConfig;
@@ -40,9 +39,5 @@ describe('la série du lundi', () => {
   it('accueil : « 5 jours de suite »', async () => {
     await act(async () => { root.render(<MemoryRouter><HomePage /></MemoryRouter>); });
     await vi.waitFor(() => expect(container.textContent).toMatch(/5\s*jours de suite/), { timeout: 10000 });
-  });
-  it('historique : « Série en cours 5 j »', async () => {
-    await act(async () => { root.render(<MemoryRouter><HistoriquePage /></MemoryRouter>); });
-    await vi.waitFor(() => expect(container.textContent).toMatch(/Série en cours\s*5 j/), { timeout: 10000 });
   });
 });
