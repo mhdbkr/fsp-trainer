@@ -1,8 +1,99 @@
 # Lot Q3 — composées d'`aktuell`, renvois des revues K3–K5, reliquat Q2
 
-Branche `feat/s3-q3-contenu` (base `origin/main` @ `cb15a90d`, K0–K5 mergés). Commits : `961cbec0` (type `followUps`), `9f82a403` (contenu, tests, gels, budget), `4a888438` (reliquat Q2), puis ce rapport. **Statut : DONE_WITH_CONCERNS** — tout est vert par code de sortie ; les réserves sont au § 6 et au § Non vérifié. Une revue clinique et une relecture de langue Opus suivent.
+Branche `feat/s3-q3-contenu` (base `origin/main` @ `cb15a90d`, K0–K5 mergés). Commits : `961cbec0` (type `followUps`), `9f82a403` (contenu, tests, gels, budget), `4a888438` (reliquat Q2), `ab98887d` (rapport), puis le fixeur (§ F). **Statut : DONE_WITH_CONCERNS** — tout est vert par code de sortie ; les réserves sont au § 6 et au § Non vérifié. Une revue clinique et une relecture de langue Opus suivent.
 
 Sources lues : `serie3-avancement.md` (§ 10, § 11), `audit-questions-du-cas-serie3.md`, `docs/contracts/frage-atomique.md` §1–3 et §10, `lead-s3-k3.md` (0.7, 0bis.6), `lead-s3-k4.md` (3, 5.3, G.3), `lead-s3-k5.md` (F.3, F.5), `lead-s3-q2.md`, `app/scripts/PIPELINE.md` (étape cohérence).
+
+## F. Fixeur — revues Opus de `ab98887d` (décisions de main)
+
+> Revue clinique : mergeable après 3 P1, aucun P0. Relecture de langue : 0 bloquant, 6 importants. Cette section **prime** sur la suite quand elles divergent. Après chaque groupe : porte de cohérence à 0 et borne O3 (12 000 car., `prompt.corpus.test.ts`) tenue.
+
+### F.1 Clinique P1 — Q3 avait créé des doublons (la réponse disait déjà ce que la question demande ensuite)
+
+| Cas · clé | Avant | Après (texte de main) |
+|---|---|---|
+| copd · `akt-begleit` | Ja — meine Beine sind abends dick geschwollen und haben braune Flecken, und nachts muss ich zwei- bis dreimal auf die Toilette. Außerdem habe ich abgenommen. | Ja — ich habe in letzter Zeit abgenommen, ohne es zu wollen. |
+| parkinson · `akt-begleit` | Ja, einiges. Ich bin langsamer geworden, besonders rechts. Meine Schrift wird immer kleiner, ich schlurfe, und meine Frau sagt, der rechte Arm schwingt nicht mehr mit. | Ja, ich bin insgesamt langsamer geworden, besonders rechts. |
+| anaphylaxie · `akt-einfluss` | … Ich habe noch nichts genommen – mein Asthmaspray habe ich zu Hause vergessen. | … Ich habe noch nichts genommen. |
+
+Test (`coherenceQ3.test.ts`, « P1 ») : chaque question qui demande la chose est posée **après** la sonde, et la réponse de la sonde ne la contient plus (copd : jambes, nycturie ; parkinson : écriture, marche, bras ; anaphylaxie : spray). Rouge sur le contenu de `ab98887d`.
+
+### F.2 Clinique P2
+
+- **Bloc de sécurité psy** : Gedanken → Pläne → **tentative antérieure** → NOTFALL → Wunsch → verletzt → Unterstützung ; `followUpSucht` aligné (`[[], ['suizidversuch'], [], …]`). Tests : `coherenceRevue.test.ts` (ordre des relances et de leurs signes, 10 cas) et `coherenceQ3.test.ts` (Pläne < tentative < NOTFALL dans la trame jouée, 10 cas).
+- **opioidabhaengigkeit** : « Versucht, mir das Leben zu nehmen, habe ich nie. Vor vier Monaten hat mich meine Frau einmal kaum wach bekommen — aber das war keine Absicht. »
+- **anorexia n° 2** : deux relances — « Falls ja: Lösen Sie das Erbrechen manchmal selbst aus, zum Beispiel mit dem Finger? » ↳ « Falls ja: Seit wann ist das so? ».
+- **parkinson** : « Sind Sie schon einmal gestürzt? » déclare `braucht: ['gang']`. `checkCoherence --case case-parkinson` : elle passait en 4ᵉ position d'Aktuelle Beschwerden (à la place d'`akt-nerven-alltag`), avant la question de la marche ; elle suit maintenant la question `gang` (rang 11 → 12). Test « la chute suit la marche ».
+
+### F.3 Langue — remplacements appliqués
+
+| Où | Texte |
+|---|---|
+| I1 depression | Versucht, mir etwas anzutun, habe ich noch nie. |
+| I1 demenz | Ich habe auch nie versucht, mir das Leben zu nehmen. |
+| I1 panikstoerung | Und versucht, mir das Leben zu nehmen — nein, nie. |
+| I1 schizophrenie | Versucht, mir das Leben zu nehmen, habe ich nie. |
+| I1 ptbs | Ich habe auch nie versucht, mir das Leben zu nehmen. |
+| I2 delir | (Die Tochter: Lebensmüde Gedanken hat er nie geäußert, nie etwas versucht, auch nicht nach dem Tod meiner Mutter. Aber ich habe Angst, dass er nachts stürzt, weil er umherläuft und die Treppe nicht sieht.) |
+| I4 `veg-ausscheidung` (mère, stuhl, miktion) | Falls ja: Wie oft am Tag gehen Sie zur Toilette? · Wie oft haben Sie am Tag Stuhlgang? · Wie oft müssen Sie am Tag Wasser lassen? |
+| I5 hepatitis-b | Ist Ihnen aufgefallen, dass Sie verwirrt sind, Tag und Nacht verwechseln oder dass Ihre Hände zittern? |
+| I6 malaria | Haben Sie einen Notfallausweis, auf dem steht, dass Sie keine Milz mehr haben? |
+| I6 rheumatoide-arthritis | Fühlen sich die Gelenke warm an? |
+| osteoporose | Reichte zum Beispiel schon Husten, Niesen oder Bücken? |
+| synkope | Falls ja: Dürfte ich sie kurz dazubitten? · Was hat Ihre Frau gesagt: Wie lange waren Sie nicht ansprechbar? |
+| tvt | Haben die Beschwerden während des Flugs oder erst danach angefangen? |
+| hueftkopfnekrose | Falls ja: Wie lange haben Sie es bekommen? |
+| ulcus-cruris | Falls Thrombose: In welchem Bein war das? |
+| bronchialkarzinom | Falls ja: War dabei wieder alles in Ordnung? |
+| copd | Müssen Sie nachts zum Wasserlassen aufstehen? |
+| migraene | Und seit wann haben Sie die jetzige Attacke? |
+| panikstoerung | Hat Sie ein Anfall schon einmal nachts aus dem Schlaf gerissen? |
+| mammakarzinom | Haben Sie ihn selbst ertastet? |
+| parkinson | Zittert die Hand auch, wenn Sie den Arm ausgestreckt halten oder schreiben? |
+| meningitis | Haben Sie eine Lähmung, Doppelbilder oder Probleme beim Sprechen bemerkt? |
+| demenz | Falls ja: Haben Sie schon einmal vergessen, den Herd auszuschalten, oder ist etwas angebrannt? |
+| `fach-haem-blutverlust` | Falls ja: Welche Farbe hatte das Blut — hellrot, dunkel oder wie Kaffeesatz? |
+| `veg-uebelkeit` (mère et part) | Seit wann … → Wie oft … → Wie sah das Erbrochene aus? |
+| `vor-op` | Falls ja: Was wurde operiert? · Wann war das? · Falls ja: Gab es dabei Komplikationen? |
+
+**Non appliqué — zystitis, « les 2 remplacements »** : le texte de la relecture de langue ne m'a pas été transmis (le message de main ne le cite pas, et aucun fichier de la revue Q3 n'est dans le dépôt ni le scratchpad). Je n'ai rien inventé. **NEEDS_CONTEXT** sur ce seul point : les deux textes exacts.
+
+### F.4 Phrase de Fallvorstellung (exception de périmètre : `PreSimulationPage.tsx`)
+
+Aucun champ du cas ne donne le motif sous une forme nominale allemande déclinable (`leitsymptome` sont des phrases du patient ; `motiv.region` n'existe que pour 13 cas). Option de repli de main : la phrase s'arrête au patient, le diagnostic suit sans flexion. `vorstellungsSatz` rend « Herr X ist ein N-jähriger Patient. » ; le rendu ajoute « Verdachtsdiagnose: **…**… ». Test `vorstellungsSatz.test.ts` sur les 130 cas (accord du genre, aucun « mit » ni « der/die ») ; les deux tests B2 de `PreSimulationPage.test.tsx` suivent.
+
+Cinq rendus :
+- « Herr Bauer ist ein 64-jähriger Patient. Verdachtsdiagnose: Stabile Angina pectoris bei koronarer Herzkrankheit… »
+- « Herr Klein ist ein 71-jähriger Patient. Verdachtsdiagnose: Obere GI-Blutung bei NSAR-induziertem Ulcus ventriculi… »
+- « Frau Müller ist eine 52-jährige Patientin. Verdachtsdiagnose: Tiefe Beinvenenthrombose (TVT) des rechten Beins, ausgelöst durch Immobilisation (Langstreckenflug) und Östrogeneinnahme… »
+- « Frau Springer ist eine 19-jährige Patientin. Verdachtsdiagnose: Dringender Verdacht auf eine Anorexia nervosa vom Purging-Typ (ICD-10 F50.0) bei einer 19-jährigen Schülerin: … »
+- « Frau Müller ist eine 90-jährige Patientin. Verdachtsdiagnose: Mediale Schenkelhalsfraktur rechts, klinisch disloziert … »
+
+Constat (préexistant, non traité) : certaines `verdachtsdiagnose` sont des paragraphes entiers (anorexia, schenkelhalsfraktur) ; la phrase est grammaticale, mais longue. Un champ court (titre du diagnostic) serait du contenu, hors de ce lot.
+
+### F.5 Mesure, gel
+
+- **Budget B : 105 → 106, hausse écrite à la main** (`--bless` refuse toute hausse), toujours sous `origin/main` (113) : la relance d'osteoporose « Reichte zum Beispiel schon Husten, Niesen oder Bücken? » compte 3 items pour un plafond de 2 en relance. Texte imposé (« Niesen » revient). Note `q3_fixeur` au fixture. A 360, A2 41 inchangés.
+- Porte de cohérence 0, planchers inchangés ; borne O3 tenue.
+- Gel `trame-actuelle.txt` face à `ab98887d` : 2 lignes — parkinson (la question de la chute passe après celle de la marche) et anorexia (↳4 → ↳2). Gel `fach-raw.txt` : 16 empreintes (psy ×10 : ordre des relances ; haemato ×6 : texte de la couleur du sang), aucun nombre de questions changé.
+
+### F.6 Renvoyé à Q4, Q5, Q8 (noté, rien fait)
+
+tvt « Ist Ihnen eine Blutung aufgefallen? » (à sauter) ; sturz-im-alter « Anfall » (renommer les sondes, jamais les sauter) ; gib « so eine Veränderung » ; mammakarzinom « Sonne » ; les 96 composées restantes ; les sous-questions Q2 restantes ; le doublon anorexia `akt-einfluss` ; l'intention de l'overdose d'opioïdes ; la question des préparatifs psy.
+
+### F.7 Vérifications au sommet — codes de sortie
+
+| Commande | Code |
+|---|---:|
+| `npx tsc -b` | **0** |
+| `npx vitest run --dir src --maxWorkers=2` (183 fichiers, 1 911 tests) | **0** |
+| `npm run test:c6 -- --maxWorkers=2` (144 tests) | **0** |
+| `node scripts/check*.mjs` | **0**, sauf `checkProbeOverlap` **1** (informatif, `|| true` en CI, § 8.5) |
+| `checkTermRegister --require-all` | **0** |
+| `node --test scripts/*.test.mjs` (199) | **0** |
+| `checkBudgetFloor.mjs origin/main` | **0** |
+| `npm run build` | **0** |
+| `git merge-tree --write-tree origin/main HEAD` | **0** |
 
 ## 1. Mesures avant / après
 
