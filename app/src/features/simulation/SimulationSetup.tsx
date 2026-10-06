@@ -198,7 +198,7 @@ export function PartnerCard({ caseId, depart, examen = false }: { caseId: string
         />
         <PartnerChoice
           icon="spark" title="Avec ton IA" active={choix === 'ia'}
-          desc={examen ? 'Elle joue le patient, puis l’examinateur. Le diagnostic ne t’est pas montré.' : 'ChatGPT ou Gemini, en vocal : tu la lances depuis la partie.'}
+          desc={examen ? 'Elle joue le patient, puis l’examinateur. L’app ne t’affiche pas le diagnostic ; il figure dans le texte que tu colles pour l’examinateur, au début de la Fallvorstellung.' : 'ChatGPT ou Gemini, en vocal : tu la lances depuis la partie.'}
           onClick={() => setPartenaire('ia')}
         />
       </div>
