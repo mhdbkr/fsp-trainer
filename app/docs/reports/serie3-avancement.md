@@ -286,3 +286,5 @@ S4-1 peut démarrer pendant la voie B (fichiers `lib/journal`, `lib/stats` aprè
 > Lc1 : fixeur `cdd9ef27` (SHR, arbre, chiffres, redites, Verdachtsdiagnose, Flachmann ; `anatomy-map` refusé par le validateur, contrat amendé) → **PR #92** → CI → merge. Suivi : `checkProbeCoverage.test.mjs` se bloque en lancement parallèle (`mutationSandbox.mjs`).
 > **#92 MERGÉE — Lc1 leberzirrhose** (CI verte). Lc2 (fiches des 12 cas gratuits) en cours.
 > **Lc2** livré `f512d98c` : 12 cas gratuits mesurés (coupure au lot 7) ; 7 plus pauvres remis au niveau (fiche + Fachwissen) ; 12 Verdachtsdiagnosen tiennent dans la phrase de Fallvorstellung ; erreurs corrigées (arbre `fw-khk` ACS ≠ instabile AP, troponine, diabète ≠ immunosuppression, suicidalité, bypass, éradication HP, pyélonéphrite). Reste pour un lot suivant : audit des 5 cas riches, visuels V1 des 7. → revues clinique + direction Opus.
+
+> 6 oct. — Lc2 : revue clinique Opus = 1 P0 (angina De-novo, exclure un ACS d'abord) + 4 P1 (Troponin, FA du père à 60 ans, pyélo « kompliziert », délai NMH/rachi) + P2 ; chiffres recalculés, tous justes. Fixeur relancé ; revue direction en cours.
