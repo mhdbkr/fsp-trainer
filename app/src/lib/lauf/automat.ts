@@ -297,12 +297,12 @@ export function transition(lauf: Lauf, aktion: LaufAktion): Lauf {
   switch (aktion.typ) {
     case 'demarrer': {
       if (lauf.zustand !== 'vorbereitung') return lauf;
-      // [S4-7] Un examen part toujours du premier Teil (ordre A → D → F, §11.1).
-      const teil = (lauf.examen ? undefined : aktion.teil) ?? lauf.geplanteTeile[0];
+      const teil = aktion.teil ?? lauf.geplanteTeile[0];
       return {
         ...lauf,
         zustand: 'laufend',
-        aktuellerTeil: teil,
+        // [S4-7] Un examen part toujours du premier Teil (ordre A → D → F, §11.1).
+        aktuellerTeil: lauf.examen ? lauf.geplanteTeile[0] : teil,
         checkliste: mitCheckliste(lauf, aktion.checkliste),
       };
     }
