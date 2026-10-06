@@ -56,20 +56,26 @@ Test (`coherenceQ3.test.ts`, « P1 ») : chaque question qui demande la chose es
 | `veg-uebelkeit` (mère et part) | Seit wann … → Wie oft … → Wie sah das Erbrochene aus? |
 | `vor-op` | Falls ja: Was wurde operiert? · Wann war das? · Falls ja: Gab es dabei Komplikationen? |
 
-**Non appliqué — zystitis, « les 2 remplacements »** : le texte de la relecture de langue ne m'a pas été transmis (le message de main ne le cite pas, et aucun fichier de la revue Q3 n'est dans le dépôt ni le scratchpad). Je n'ai rien inventé. **NEEDS_CONTEXT** sur ce seul point : les deux textes exacts.
+| zystitis (textes transmis ensuite par main) | Ist Ihr Urin trüb, oder riecht er ungewöhnlich? ↳ Falls Blut dabei ist: Sehen Sie es am Anfang, während oder am Ende des Wasserlassens? |
+
+`checkCaseQuestionAnswers` (informatif) : 74 → **73** candidats (la nouvelle question de zystitis retrouve ses mots dans la fiche) ; plancher regravé (`--bless`, baisse).
 
 ### F.4 Phrase de Fallvorstellung (exception de périmètre : `PreSimulationPage.tsx`)
 
-Aucun champ du cas ne donne le motif sous une forme nominale allemande déclinable (`leitsymptome` sont des phrases du patient ; `motiv.region` n'existe que pour 13 cas). Option de repli de main : la phrase s'arrête au patient, le diagnostic suit sans flexion. `vorstellungsSatz` rend « Herr X ist ein N-jähriger Patient. » ; le rendu ajoute « Verdachtsdiagnose: **…**… ». Test `vorstellungsSatz.test.ts` sur les 130 cas (accord du genre, aucun « mit » ni « der/die ») ; les deux tests B2 de `PreSimulationPage.test.tsx` suivent.
+Aucun champ du cas ne donne le motif sous une forme nominale allemande déclinable (`leitsymptome` sont des phrases du patient ; `motiv.region` n'existe que pour 13 cas). Option de repli de main : la phrase s'arrête au patient, le diagnostic suit sans flexion — « Herr X ist ein N-jähriger Patient. Verdachtsdiagnose: **…** ».
+
+**Seconde demande de main — la première phrase, 200 caractères au plus.** `ersterSatz` coupe au premier point suivi d'une espace et d'une majuscule, **sauf après une abréviation** : la coupe littérale « premier point suivi d'une espace » tombait dans 9 cas sur une abréviation (pneumonie « Z. », schlaganfall « A. cerebri », diabetes / coxarthrose « ca. », endometriose « V. a. », pertussis « (31. », nephrotisches-syndrom « bzw. »…). Pas de « … » si la phrase est complète.
+
+**Écart à la lettre, à valider** : la première phrase seule ne tient pas la borne de 200 caractères — elle la dépasse dans **107 cas sur 130** (`verdachtsdiagnose` écrites en une longue phrase). `vorstellungsDiagnose` coupe donc, au-delà de la borne, à la dernière articulation **hors parenthèses** (« , », « ; », « : », « — »), à défaut au dernier mot sans finir sur un mot-outil, et ajoute « … ». Mesure : 19 diagnostics rendus entiers, 1 réduit à sa première phrase, 110 coupés à une articulation. Une vraie solution serait un champ court (titre du diagnostic) dans le contenu.
+
+Test `vorstellungsSatz.test.ts` (130 cas) : accord du genre, aucun « mit » ; la ligne rendue fait au plus 200 caractères ; le diagnostic est un début de la `verdachtsdiagnose` ; jamais coupé après une abréviation ni sur un mot-outil ; aucune parenthèse laissée ouverte ; pas de « … » sur une phrase complète ; `ersterSatz` sur ses cas limites. Les deux tests B2 de `PreSimulationPage.test.tsx` suivent.
 
 Cinq rendus :
 - « Herr Bauer ist ein 64-jähriger Patient. Verdachtsdiagnose: Stabile Angina pectoris bei koronarer Herzkrankheit… »
-- « Herr Klein ist ein 71-jähriger Patient. Verdachtsdiagnose: Obere GI-Blutung bei NSAR-induziertem Ulcus ventriculi… »
-- « Frau Müller ist eine 52-jährige Patientin. Verdachtsdiagnose: Tiefe Beinvenenthrombose (TVT) des rechten Beins, ausgelöst durch Immobilisation (Langstreckenflug) und Östrogeneinnahme… »
-- « Frau Springer ist eine 19-jährige Patientin. Verdachtsdiagnose: Dringender Verdacht auf eine Anorexia nervosa vom Purging-Typ (ICD-10 F50.0) bei einer 19-jährigen Schülerin: … »
-- « Frau Müller ist eine 90-jährige Patientin. Verdachtsdiagnose: Mediale Schenkelhalsfraktur rechts, klinisch disloziert … »
-
-Constat (préexistant, non traité) : certaines `verdachtsdiagnose` sont des paragraphes entiers (anorexia, schenkelhalsfraktur) ; la phrase est grammaticale, mais longue. Un champ court (titre du diagnostic) serait du contenu, hors de ce lot.
+- « Herr Mais ist ein 56-jähriger Patient. Verdachtsdiagnose: Ambulant erworbene Pneumonie (CAP), am ehesten rechtsbasal, bei erhöhtem Risikoprofil… »
+- « Herr Kartmann ist ein 79-jähriger Patient. Verdachtsdiagnose: Ischämischer Schlaganfall im Versorgungsgebiet der A. cerebri media rechts, am ehesten kardioembolisch bei Vorhofflimmern… »
+- « Frau Springer ist eine 19-jährige Patientin. Verdachtsdiagnose: Dringender Verdacht auf eine Anorexia nervosa vom Purging-Typ… »
+- « Frau Müller ist eine 90-jährige Patientin. Verdachtsdiagnose: Mediale Schenkelhalsfraktur rechts, klinisch disloziert (verkürztes und außenrotiertes Bein, Steh- und Gehunfähigkeit)… »
 
 ### F.5 Mesure, gel
 
@@ -86,7 +92,7 @@ tvt « Ist Ihnen eine Blutung aufgefallen? » (à sauter) ; sturz-im-alter « An
 | Commande | Code |
 |---|---:|
 | `npx tsc -b` | **0** |
-| `npx vitest run --dir src --maxWorkers=2` (183 fichiers, 1 911 tests) | **0** |
+| `npx vitest run --dir src --maxWorkers=2` (183 fichiers, 1 913 tests) | **0** |
 | `npm run test:c6 -- --maxWorkers=2` (144 tests) | **0** |
 | `node scripts/check*.mjs` | **0**, sauf `checkProbeOverlap` **1** (informatif, `|| true` en CI, § 8.5) |
 | `checkTermRegister --require-all` | **0** |
