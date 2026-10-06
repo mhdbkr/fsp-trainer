@@ -167,6 +167,7 @@ export const DEFS_BASE = {
   impfung: { kapitel: 'vegetativ', pertinence: S },   // K3 : le statut vaccinal se cherche dans la végétative (relance de veg-fieber, détachée par r4a), pas dans la Fach du cas
   verschlucken: { kapitel: 'fach', pertinence: S },
   panikattacke: { kapitel: 'fach', pertinence: S },
+  suizidversuch: { kapitel: 'fach', pertinence: S },             // Q3 : une TENTATIVE antérieure (« schon einmal versucht ») — RISIKO_SIGNES
   selbstverletzung: { kapitel: 'fach', pertinence: S },          // l'ACTE (« Haben Sie sich selbst verletzt? »)
   selbstverletzung_wunsch: { kapitel: 'fach', pertinence: S },   // K3, SÉCURITÉ : l'IDÉATION (« … den Wunsch, sich zu verletzen? ») — autre réplique, autre signe
   stimme: { kapitel: 'fach', pertinence: S },
