@@ -245,6 +245,9 @@ function validateSpec(spec, fileId, { seedFachwissen, REVIEWED_ERGAENZT, resolve
       'score-gauge',
     ]);
     if (!KINDS.has(block.kind)) fail(`enum invalide: kind=${block.kind}`);
+    // Lot Lc1 (FB3-G6, décision main) : la silhouette est jugée « cheap » et plus aucune spec ne l'utilise —
+    // le kind est refusé, pour qu'elle ne revienne pas. Le composant reste au registre (spec plus ancienne).
+    if (block.kind === 'anatomy-map') fail(`kind déprécié: anatomy-map (${block.id}) — utiliser syndrome-map`);
     if (!ANCHORS.has(block.anchor)) fail(`enum invalide: anchor=${block.anchor}`);
     if (block.order !== undefined) {
       const set = orderByAnchor.get(block.anchor) ?? new Set();
