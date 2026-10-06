@@ -8,7 +8,7 @@ Sources : la proposition validée (`docs/superpowers/specs/2026-10-04-cas-entier
 
 ## 0. Fixeur — revue `direction-keeper` de `2d85868d` (prime sur les §1 à §7 ci-dessous)
 
-Corrections une par une, décisions de `main`. Commits : `bd95f860` (bloquant), `cb6c8f97` (majeurs et mineurs), `fb9f2b60`… voir `git log`. Le dernier est le garde-fou navigateur.
+Corrections une par une, décisions de `main`. Commits : `bd95f860` (bloquant), `cb6c8f97` (majeurs et mineurs), `677dea62` (garde-fou navigateur), `ecae90ae` (rapport).
 
 ### Bloquant : « 776 protocoles » était faux — corrigé
 - **Cause** : 776 était la somme des `Case.frequency` des 130 cas. Or plusieurs cas partagent une pathologie : Lumbaler et zervikaler Bandscheibenvorfall portent tous deux les 14 protocoles de « Bandscheibenvorfall (HWS/LWS) ». Par ailleurs, `Case.frequency` ne suit pas toujours la source (pAVK 20 contre 18, Gicht 22 contre 14, TVT 25 contre 8).
@@ -63,7 +63,7 @@ Corrections une par une, décisions de `main`. Commits : `bd95f860` (bloquant), 
 4. La phrase « 21 cas les plus fréquents » de la projection compte toujours `freq ≥ SEUIL_FREQUENT` sur `Case.frequency`, inchangé depuis S4-2. Elle ne cite ni base ni protocoles, mais elle hérite de l'écart entre `Case.frequency` et la source, qui revient au pôle Contenu.
 5. **Tests écrits après le code dans cette passe.** Leur mordant est prouvé par les mutations : 15 dans le harnais et 5 à la main sur le RTL (`VISIBLES = 99`, « Lancer » sur les lignes, second lien, points de 36 px, mémoire locale), toutes rouges.
 
-### Vérifications du fixeur (codes de sortie, sur `fb9f2b60` + le rapport)
+### Vérifications du fixeur (codes de sortie, sur `677dea62`)
 
 | Vérification | Résultat |
 |---|---|
