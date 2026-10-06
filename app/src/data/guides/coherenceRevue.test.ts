@@ -60,7 +60,7 @@ describe('I3 / P2 psy — l\'ordre de sécurité sous fach-psych-suizid (10 cas 
       const q = playedTrame(c).fach!.chapter.questions.find((p) => phraseProbes(p).includes('fach-psych-suizid'))!;
       expect(phraseText(q), c.id).toMatch(/^Ich frage das jeden Patienten in Ihrer Situation: Denken Sie manchmal/);
       expect(phraseFollowUps(q).map((f) => f.text.slice(0, 32)), c.id).toEqual([
-        'Haben Sie konkrete Pläne, sich d', 'Haben Sie schon etwas vorbereite', 'Haben Sie schon einmal versucht,', 'Falls konkrete Absicht oder Plan', 'Haben Sie den Wunsch, sich zu ve', 'Haben Sie sich selbst verletzt?', 'Gibt es jemanden, der Sie unters']);
+        'Haben Sie konkrete Pläne, sich d', 'Haben Sie schon Vorbereitungen g', 'Haben Sie schon einmal versucht,', 'Falls konkrete Absicht, Plan ode', 'Haben Sie den Wunsch, sich zu ve', 'Haben Sie sich selbst verletzt?', 'Gibt es jemanden, der Sie unters']);
       // Q3 (revue clinique P2) : la tentative antérieure suit les plans et précède la consigne NOTFALL
       expect(phraseFollowUps(q).map((f) => f.sucht ?? []), c.id).toEqual([[], [], ['suizidversuch'], [], ['selbstverletzung_wunsch'], ['selbstverletzung'], []]);
     }
