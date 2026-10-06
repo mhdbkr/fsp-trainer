@@ -42,4 +42,15 @@ describe('checkFachwissenVisuals.mjs', () => {
     expect(error?.status).toBe(1);
     expect(String(error?.stderr)).toContain('ref introuvable');
   }, VALIDATOR_TIMEOUT_MS);
+
+  it('sort en 1 avec « kind déprécié » sur une silhouette anatomy-map par ailleurs valide (lot Lc1, FB3-G6)', () => {
+    let error: (Error & { status?: number; stderr?: Buffer | string }) | undefined;
+    try {
+      run(['--dir', 'scripts/fixtures/visuals-anatomy']);
+    } catch (err) {
+      error = err as Error & { status?: number; stderr?: Buffer | string };
+    }
+    expect(error?.status).toBe(1);
+    expect(String(error?.stderr)).toContain('kind déprécié: anatomy-map');
+  }, VALIDATOR_TIMEOUT_MS);
 });
