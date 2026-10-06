@@ -6693,7 +6693,7 @@ export function seedCases(): Case[] {
         'Freiburg',
         'Stuttgart',
       ],
-      frequency: 8,
+      frequency: 1,
       difficulty: 3,
       patientSheet: {
         profil: { tags: ['neurologisch', 'hals'] },
@@ -9399,7 +9399,7 @@ export function seedCases(): Case[] {
         'Stuttgart',
         'Reutlingen',
       ],
-      frequency: 0,
+      frequency: 1,
       difficulty: 2,
       patientSheet: {
         profil: { tags: ['ausscheidung', 'schmerz', 'stein', 'harn'] },
@@ -11095,7 +11095,7 @@ export function seedCases(): Case[] {
         'Stuttgart',
         'Complément',
       ],
-      frequency: 3,
+      frequency: 1,
       difficulty: 3,
       patientSheet: {
         profil: { tags: ['atemnot', 'dyspnoe', 'husten', 'kardio'] },
@@ -11661,7 +11661,7 @@ export function seedCases(): Case[] {
         'Stuttgart',
         'Karlsruhe',
       ],
-      frequency: 13,
+      frequency: 1,
       difficulty: 3,
       patientSheet: {
         profil: { tags: ['schmerz', 'fieber', 'stein', 'harn'] },
@@ -12220,7 +12220,7 @@ export function seedCases(): Case[] {
         'Reutlingen',
         'Freiburg',
       ],
-      frequency: 3,
+      frequency: 1,
       difficulty: 2,
       patientSheet: {
         profil: { tags: ['schmerz', 'fieber', 'dysphagie', 'hals'] },
@@ -12739,7 +12739,7 @@ export function seedCases(): Case[] {
       centers: [
         'Complément',
       ],
-      frequency: 0,
+      frequency: 1,
       difficulty: 2,
       patientSheet: {
         profil: { tags: ['allgemein', 'dyspnoe', 'gewichtsverlust', 'haem'] },
@@ -13267,7 +13267,7 @@ export function seedCases(): Case[] {
         'Reutlingen',
         'Complément',
       ],
-      frequency: 8,
+      frequency: 1,
       difficulty: 3,
       patientSheet: {
         profil: { tags: ['anfall', 'dyspnoe', 'kardio'], exclut: { zungenbiss: 'keine Synkope', einnaessen: 'keine Synkope' } },
@@ -13792,7 +13792,7 @@ export function seedCases(): Case[] {
       centers: [
         'Complément',
       ],
-      frequency: 0,
+      frequency: 1,
       difficulty: 2,
       patientSheet: {
         profil: { tags: ['veraenderung', 'schmerz', 'fieber'] },
@@ -14883,7 +14883,7 @@ export function seedCases(): Case[] {
       centers: [
         'Complément',
       ],
-      frequency: 0,
+      frequency: 1,
       difficulty: 3,
       patientSheet: {
         profil: { tags: ['allgemein', 'dyspnoe', 'gewichtsverlust', 'harn'] },
@@ -15437,7 +15437,7 @@ export function seedCases(): Case[] {
         'Freiburg',
         'Stuttgart',
       ],
-      frequency: 4,
+      frequency: 1,
       difficulty: 3,
       patientSheet: {
         profil: { tags: ['veraenderung', 'fieber', 'hals', 'lyme', 'gewichtsverlust', 'onko'] },
@@ -16548,7 +16548,7 @@ export function seedCases(): Case[] {
         'Karlsruhe',
         'Stuttgart',
       ],
-      frequency: 9,
+      frequency: 1,
       difficulty: 3,
       patientSheet: {
         profil: { tags: ['schmerz'] },
@@ -17079,7 +17079,7 @@ export function seedCases(): Case[] {
       centers: [
         'Complément',
       ],
-      frequency: 0,
+      frequency: 1,
       difficulty: 3,
       patientSheet: {
         profil: { tags: ['schmerz', 'fieber', 'meningitis', 'lyme'] },
@@ -17597,7 +17597,7 @@ export function seedCases(): Case[] {
       centers: [
         'Reutlingen',
       ],
-      frequency: 3,
+      frequency: 1,
       difficulty: 3,
       patientSheet: {
         profil: { tags: ['ausscheidung', 'gewichtsverlust', 'onko'] },
@@ -18146,7 +18146,7 @@ export function seedCases(): Case[] {
       centers: [
         'Complément',
       ],
-      frequency: 0,
+      frequency: 1,
       difficulty: 2,
       patientSheet: {
         profil: { tags: ['schmerz'] },
@@ -19745,7 +19745,7 @@ export function seedCases(): Case[] {
       centers: [
         'Karlsruhe',
       ],
-      frequency: 2,
+      frequency: 1,
       difficulty: 3,
       patientSheet: {
         profil: { tags: ['psychisch', 'gewichtsverlust'] },
@@ -20343,7 +20343,7 @@ export function seedCases(): Case[] {
         'Karlsruhe',
         'Reutlingen',
       ],
-      frequency: 6,
+      frequency: 1,
       difficulty: 3,
       patientSheet: {
         profil: { tags: ['veraenderung', 'dyspnoe', 'hals', 'gewichtsverlust', 'onko'] },
@@ -20953,7 +20953,7 @@ export function seedCases(): Case[] {
       centers: [
         'Complément',
       ],
-      frequency: 0,
+      frequency: 1,
       difficulty: 3,
       patientSheet: {
         profil: { tags: ['veraenderung'] },
@@ -21481,7 +21481,7 @@ export function seedCases(): Case[] {
         'Reutlingen',
         'Freiburg',
       ],
-      frequency: 8,
+      frequency: 1,
       difficulty: 2,
       patientSheet: {
         profil: { tags: ['schmerz', 'gelenk', 'arthritis', 'steifigkeit', 'gicht', 'lyme'] },
@@ -23631,7 +23631,7 @@ export function seedCases(): Case[] {
         'Reutlingen',
         'Stuttgart',
       ],
-      frequency: 7,
+      frequency: 1,
       difficulty: 3,
       patientSheet: {
         profil: { tags: ['ausscheidung', 'stein', 'gewichtsverlust', 'harn'] },
@@ -24186,7 +24186,7 @@ export function seedCases(): Case[] {
       centers: [
         'Complément',
       ],
-      frequency: 0,
+      frequency: 1,
       difficulty: 2,
       patientSheet: {
         profil: { tags: ['ausscheidung', 'reise', 'gelenk', 'gewichtsverlust'] },
@@ -24699,7 +24699,7 @@ export function seedCases(): Case[] {
       centers: [
         'Complément',
       ],
-      frequency: 0,
+      frequency: 1,
       difficulty: 2,
       patientSheet: {
         profil: { tags: ['nerven', 'hals'] },
@@ -26347,7 +26347,7 @@ export function seedCases(): Case[] {
       centers: [
         'Complément',
       ],
-      frequency: 0,
+      frequency: 1,
       difficulty: 2,
       patientSheet: {
         profil: { tags: ['schmerz', 'fieber', 'meningitis'] },
@@ -26871,7 +26871,7 @@ export function seedCases(): Case[] {
       centers: [
         'Complément',
       ],
-      frequency: 0,
+      frequency: 1,
       difficulty: 3,
       patientSheet: {
         profil: { tags: ['schmerz', 'transit'] },
@@ -27453,7 +27453,7 @@ export function seedCases(): Case[] {
       centers: [
         'Complément',
       ],
-      frequency: 0,
+      frequency: 1,
       difficulty: 2,
       patientSheet: {
         profil: { tags: ['neurologisch', 'hals', 'schwindel'] },   // K5 : le motif est le vertige (D4-bis, MOTIF_DECLARE)
@@ -29642,7 +29642,7 @@ export function seedCases(): Case[] {
       centers: [
         'Complément',
       ],
-      frequency: 0,
+      frequency: 1,
       difficulty: 2,
       patientSheet: {
         profil: { tags: ['veraenderung'] },
@@ -30191,7 +30191,7 @@ export function seedCases(): Case[] {
       centers: [
         'Complément',
       ],
-      frequency: 0,
+      frequency: 1,
       difficulty: 2,
       patientSheet: {
         profil: { tags: ['veraenderung', 'schmerz'] },
@@ -31224,7 +31224,7 @@ export function seedCases(): Case[] {
         'Freiburg',
         'Stuttgart',
       ],
-      frequency: 16,
+      frequency: 1,
       difficulty: 2,
       patientSheet: {
         profil: { tags: ['neurologisch', 'schmerz', 'sturz'] },   // K5 : consulte après une chute (D4-bis, MOTIF_DECLARE)
@@ -31750,7 +31750,7 @@ export function seedCases(): Case[] {
       centers: [
         'Complément',
       ],
-      frequency: 0,
+      frequency: 1,
       difficulty: 3,
       patientSheet: {
         profil: { tags: ['veraenderung', 'haem'] },
@@ -33971,7 +33971,7 @@ export function seedCases(): Case[] {
       centers: [
         'Karlsruhe',
       ],
-      frequency: 2,
+      frequency: 1,
       difficulty: 3,
       patientSheet: {
         profil: { tags: ['schmerz', 'gelenk', 'steifigkeit', 'gewichtsverlust'] },
@@ -34509,7 +34509,7 @@ export function seedCases(): Case[] {
       centers: [
         'Complément',
       ],
-      frequency: 0,
+      frequency: 1,
       difficulty: 2,
       patientSheet: {
         profil: { tags: ['schmerz', 'dyspnoe', 'husten'] },
@@ -35525,7 +35525,7 @@ export function seedCases(): Case[] {
       centers: [
         'Complément',
       ],
-      frequency: 0,
+      frequency: 1,
       difficulty: 3,
       patientSheet: {
         profil: { tags: ['psychisch'] },
@@ -36051,7 +36051,7 @@ export function seedCases(): Case[] {
         'Freiburg',
         'Reutlingen',
       ],
-      frequency: 4,
+      frequency: 1,
       difficulty: 3,
       patientSheet: {
         profil: { tags: ['neurologisch', 'fieber', 'gewichtsverlust'] },
@@ -36616,7 +36616,7 @@ export function seedCases(): Case[] {
         'Freiburg',
         'Complément',
       ],
-      frequency: 6,
+      frequency: 1,
       difficulty: 3,
       patientSheet: {
         profil: { tags: ['ausscheidung', 'dysphagie', 'hals', 'gewichtsverlust', 'gastro', 'reise'] },
@@ -37102,7 +37102,7 @@ export function seedCases(): Case[] {
         'Freiburg',
         'Complément',
       ],
-      frequency: 5,
+      frequency: 1,
       difficulty: 3,
       patientSheet: {
         profil: { tags: ['schmerz', 'gelenk', 'arthritis', 'fieber', 'gicht'] },
@@ -37667,7 +37667,7 @@ export function seedCases(): Case[] {
         'Freiburg',
         'Reutlingen',
       ],
-      frequency: 4,
+      frequency: 1,
       difficulty: 2,
       patientSheet: {
         profil: { tags: ['schmerz'] },
@@ -39610,7 +39610,7 @@ export function seedCases(): Case[] {
         { frage: 'Waren die Beschwerden von der ersten Sekunde an am stärksten, oder haben sie sich bei Ihnen langsam über Minuten ausgebreitet?', kapitel: 'aktuell', sucht: ['beginn_art'] },
         { frage: 'Haben sich Ihre Beschwerden jedes Mal vollständig zurückgebildet, oder ist etwas zurückgeblieben?', kapitel: 'aktuell', sucht: ['rueckbildung'] },
         { frage: 'Werden die Attacken bei Ihnen häufiger oder heftiger als am Anfang?', kapitel: 'aktuell', sucht: ['entwicklung', 'episoden_haeufigkeit'] },
-        { frage: 'Hatten Sie eine Sehstörung — an einem oder an beiden Augen?', kapitel: 'aktuell', sucht: ['sehstoerung'], followUp: 'Falls ja: War es, als ob ein Vorhang herunterfällt?', followUps: ['Falls ja: Wie lange hat das gedauert?'] },
+        { frage: 'Hatten Sie eine Sehstörung — an einem oder an beiden Augen?', kapitel: 'aktuell', sucht: ['sehstoerung'], braucht: ['dauer'], followUp: 'Falls ja: War es, als ob ein Vorhang herunterfällt?', followUps: ['Falls ja: Wie lange hat das gedauert?'] },
         { frage: 'Wissen Sie, ob bei Ihnen ein Vorhofflimmern bekannt ist, und welches Medikament Sie dagegen einnehmen?', kapitel: 'medikamente', sucht: ['herz_vorgeschichte', 'antikoagulation'] },
         { frage: 'Fahren Sie noch selbst Auto?', kapitel: 'aktuell', sucht: ['gefaehrdung'] },
       ],
@@ -45847,7 +45847,7 @@ export function seedCases(): Case[] {
         'Stuttgart',
         'Freiburg',
       ],
-      frequency: 5,
+      frequency: 1,
       difficulty: 2,
       patientSheet: {
         profil: { tags: ['infekt', 'fieber', 'husten', 'dyspnoe'] },
@@ -46349,7 +46349,7 @@ export function seedCases(): Case[] {
       centers: [
         'Reutlingen',
       ],
-      frequency: 4,
+      frequency: 1,
       difficulty: 3,
       patientSheet: {
         profil: { tags: ['atemnot', 'dyspnoe', 'hals'] },
@@ -46798,7 +46798,7 @@ export function seedCases(): Case[] {
       centers: [
         'Freiburg',
       ],
-      frequency: 3,
+      frequency: 1,
       difficulty: 2,
       patientSheet: {
         profil: { tags: ['schmerz', 'gelenk', 'arthritis', 'steifigkeit', 'fieber', 'gicht'] },
@@ -47310,7 +47310,7 @@ export function seedCases(): Case[] {
       centers: [
         'Karlsruhe',
       ],
-      frequency: 4,
+      frequency: 1,
       difficulty: 2,
       patientSheet: {
         profil: { tags: ['atemnot', 'husten'] },
@@ -48332,7 +48332,7 @@ export function seedCases(): Case[] {
         'Reutlingen',
         'Stuttgart',
       ],
-      frequency: 2,
+      frequency: 1,
       difficulty: 2,
       patientSheet: {
         profil: { tags: ['schmerz', 'diarrhoe', 'gewichtsverlust', 'gastro'] },
@@ -48816,7 +48816,7 @@ export function seedCases(): Case[] {
         'Karlsruhe',
         'Stuttgart',
       ],
-      frequency: 5,
+      frequency: 1,
       difficulty: 3,
       patientSheet: {
         profil: { tags: ['schmerz', 'dyspnoe', 'kardio'] },
@@ -49294,7 +49294,7 @@ export function seedCases(): Case[] {
       centers: [
         'Complément',
       ],
-      frequency: 0,
+      frequency: 1,
       difficulty: 2,
       patientSheet: {
         profil: { tags: ['allgemein', 'dyspnoe', 'harn', 'gelenk'] },
@@ -50272,7 +50272,7 @@ export function seedCases(): Case[] {
       centers: [
         'Complément',
       ],
-      frequency: 0,
+      frequency: 1,
       difficulty: 2,
       patientSheet: {
         profil: { tags: ['schmerz'] },
@@ -50754,7 +50754,7 @@ export function seedCases(): Case[] {
         'Reutlingen',
         'Freiburg',
       ],
-      frequency: 4,
+      frequency: 1,
       difficulty: 3,
       patientSheet: {
         profil: { tags: ['schmerz'] },
@@ -51242,7 +51242,7 @@ export function seedCases(): Case[] {
         'Reutlingen',
         'Freiburg',
       ],
-      frequency: 3,
+      frequency: 1,
       difficulty: 3,
       patientSheet: {
         profil: { tags: ['schmerz', 'gelenk', 'steifigkeit'] },
@@ -52209,7 +52209,7 @@ export function seedCases(): Case[] {
       centers: [
         'Complément',
       ],
-      frequency: 0,
+      frequency: 1,
       difficulty: 2,
       patientSheet: {
         profil: { tags: ['ausscheidung', 'dyspnoe', 'harn'] },
@@ -52701,7 +52701,7 @@ export function seedCases(): Case[] {
         'Freiburg',
         'Stuttgart',
       ],
-      frequency: 3,
+      frequency: 1,
       difficulty: 2,
       patientSheet: {
         profil: { tags: ['veraenderung', 'fieber', 'hals', 'gewichtsverlust', 'haem'] },
@@ -53197,7 +53197,7 @@ export function seedCases(): Case[] {
       centers: [
         'Complément',
       ],
-      frequency: 0,
+      frequency: 1,
       difficulty: 2,
       patientSheet: {
         profil: { tags: ['allgemein', 'gicht', 'gewichtsverlust', 'haem'] },
@@ -53651,7 +53651,7 @@ export function seedCases(): Case[] {
         'Karlsruhe',
         'Complément',
       ],
-      frequency: 3,
+      frequency: 1,
       difficulty: 3,
       patientSheet: {
         profil: { tags: ['schmerz', 'fieber'] },
@@ -54128,7 +54128,7 @@ export function seedCases(): Case[] {
         'Reutlingen',
         'Stuttgart',
       ],
-      frequency: 25,
+      frequency: 1,
       difficulty: 2,
       patientSheet: {
         profil: { tags: ['atemnot', 'husten'] },
@@ -54566,7 +54566,7 @@ export function seedCases(): Case[] {
         'Stuttgart',
         'Freiburg',
       ],
-      frequency: 2,
+      frequency: 1,
       difficulty: 3,
       patientSheet: {
         profil: { tags: ['infekt', 'reise', 'fieber'] },
@@ -55551,7 +55551,7 @@ export function seedCases(): Case[] {
         'Stuttgart',
         'Freiburg',
       ],
-      frequency: 8,
+      frequency: 1,
       difficulty: 3,
       patientSheet: {
         profil: { tags: ['anfall', 'schmerz', 'gewichtsverlust'] },
@@ -56050,7 +56050,7 @@ export function seedCases(): Case[] {
         'Karlsruhe',
         'Complément',
       ],
-      frequency: 3,
+      frequency: 1,
       difficulty: 2,
       patientSheet: {
         profil: { tags: ['schmerz', 'steifigkeit'] },
@@ -56542,7 +56542,7 @@ export function seedCases(): Case[] {
       centers: [
         'Complément',
       ],
-      frequency: 0,
+      frequency: 1,
       difficulty: 3,
       patientSheet: {
         profil: { tags: ['schmerz', 'stein'] },
@@ -57032,7 +57032,7 @@ export function seedCases(): Case[] {
         'Karlsruhe',
         'Complément',
       ],
-      frequency: 2,
+      frequency: 1,
       difficulty: 3,
       patientSheet: {
         profil: { tags: ['schmerz'] },
@@ -57506,7 +57506,7 @@ export function seedCases(): Case[] {
         'Karlsruhe',
         'Complément',
       ],
-      frequency: 3,
+      frequency: 1,
       difficulty: 2,
       patientSheet: {
         profil: { tags: ['schmerz', 'fieber', 'kardio'] },
@@ -57984,7 +57984,7 @@ export function seedCases(): Case[] {
       centers: [
         'Complément',
       ],
-      frequency: 0,
+      frequency: 1,
       difficulty: 3,
       patientSheet: {
         profil: { tags: ['anfall', 'sturz'] },   // K5 (revue clinique) : « vom Stuhl gekippt », dit à l'ouverture (D4-bis, MOTIF_DECLARE)
@@ -58475,7 +58475,7 @@ export function seedCases(): Case[] {
         'Stuttgart',
         'Freiburg',
       ],
-      frequency: 3,
+      frequency: 1,
       difficulty: 2,
       patientSheet: {
         profil: { tags: ['schmerz', 'stein', 'harn'] },
@@ -58910,7 +58910,7 @@ export function seedCases(): Case[] {
       centers: [
         'Complément',
       ],
-      frequency: 0,
+      frequency: 1,
       difficulty: 2,
       patientSheet: {
         profil: { tags: ['veraenderung'] },
@@ -59838,7 +59838,7 @@ export function seedCases(): Case[] {
       centers: [
         'Reutlingen',
       ],
-      frequency: 3,
+      frequency: 1,
       difficulty: 2,
       patientSheet: {
         profil: { tags: ['veraenderung', 'hals'] },
@@ -60288,7 +60288,7 @@ export function seedCases(): Case[] {
       centers: [
         'Complément',
       ],
-      frequency: 0,
+      frequency: 1,
       difficulty: 2,
       patientSheet: {
         profil: { tags: ['allgemein', 'dyspnoe', 'gewichtsverlust', 'haem'] },
@@ -60803,7 +60803,7 @@ export function seedCases(): Case[] {
       centers: [
         'Complément',
       ],
-      frequency: 0,
+      frequency: 1,
       difficulty: 3,
       patientSheet: {
         profil: { tags: ['psychisch', 'gewichtsverlust'] },
@@ -61326,7 +61326,7 @@ export function seedCases(): Case[] {
       centers: [
         'Complément',
       ],
-      frequency: 0,
+      frequency: 1,
       difficulty: 2,
       patientSheet: {
         profil: { tags: ['infekt', 'schmerz', 'fieber', 'meningitis'] },
