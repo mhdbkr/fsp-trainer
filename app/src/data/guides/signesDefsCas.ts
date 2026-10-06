@@ -198,7 +198,6 @@ export const DEFS_CAS = {
   windpocken: { kapitel: 'vorerkrankungen', pertinence: S },                  // varicelle dans l'enfance
   manie_vorgeschichte: { kapitel: 'vorerkrankungen', pertinence: S },         // phases euphoriques, hyperactives
   entzug_vorgeschichte: { kapitel: 'vorerkrankungen', pertinence: S },        // crise convulsive, délire lors d'un sevrage
-  kognition_vorher: { kapitel: 'vorerkrankungen', pertinence: S },            // troubles cognitifs avant l'épisode
   rheuma_vorgeschichte: { kapitel: 'vorerkrankungen', pertinence: S },        // maladie rhumatismale connue
   dermato_eingriff: { kapitel: 'vorerkrankungen', pertinence: S },            // lésion cutanée déjà enlevée, cryothérapie
   splenektomie: { kapitel: 'vorerkrankungen', pertinence: S },                // rate enlevée
@@ -231,7 +230,6 @@ export const DEFS_CAS = {
   injektion: { kapitel: 'medikamente', pertinence: S },             // injection récente : où, pourquoi
   nasenspray: { kapitel: 'medikamente', pertinence: S },            // spray nasal décongestionnant : lequel, depuis quand
   malariaprophylaxe: { kapitel: 'medikamente', pertinence: S },     // chimioprophylaxie antipaludique
-  abfuehrmittel: { kapitel: 'medikamente', pertinence: S },         // laxatifs
   lakritz: { kapitel: 'medikamente', pertinence: S },               // réglisse
   adhaerenz: { kapitel: 'medikamente', pertinence: S },             // prend-il ses comprimés comme prescrits
   medikament_neu: { kapitel: 'medikamente', pertinence: S },        // médicament récemment introduit ou modifié
@@ -252,8 +250,6 @@ export const DEFS_CAS = {
   letzte_einnahme: { kapitel: 'noxen', pertinence: S },             // dernière prise (alcool, comprimé) : jour, heure
   entzug: { kapitel: 'noxen', pertinence: S },                      // signes de manque, tentatives d'arrêt
   rauchstopp: { kapitel: 'noxen', pertinence: S },                  // arrêt récent du tabac
-  konsumaenderung: { kapitel: 'noxen', pertinence: S },             // consommation changée depuis l'événement
-  schlafentzug: { kapitel: 'noxen', pertinence: S },                // manque de sommeil
   // --- Familien- & Sozialanamnese ------------------------------------------------
   familie_herz: { kapitel: 'familie-sozial', pertinence: S },       // infarctus précoce, mort subite, cardiomyopathie dans la famille
   familie_gefaess: { kapitel: 'familie-sozial', pertinence: S },    // anévrisme, maladie du tissu conjonctif dans la famille
