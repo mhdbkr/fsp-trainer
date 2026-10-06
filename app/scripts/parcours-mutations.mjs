@@ -1037,7 +1037,7 @@ export const MUTATIONS = [
   },
   {
     id: 'INV-E6', tests: 'tests/invariants.examen.test.tsx', file: 'src/features/examen/ExamenRunner.tsx',
-    from: '    tick(t, sec);\n    if (aufklaerungDue)', to: '    tick(t, Math.round((nowFn() - debut!) / 1000));\n    if (aufklaerungDue)',
+    from: 'tick(t, aufklaerungDue ? creneauSec : sec);', to: 'tick(t, Math.round((nowFn() - debut!) / 1000));',
     pourquoi: 'un onglet gelé compte au Teil plus que sa durée',
   },
   {
@@ -1073,8 +1073,23 @@ export const MUTATIONS = [
   },
   {
     id: 'INV-E13', tests: 'tests/invariants.examen.test.tsx', file: 'src/features/examen/ExamenRunner.tsx',
-    from: 'if (aufklaerungDue) aufklaerungOeffnen(); else terminerPartie();', to: 'terminerPartie();',
+    from: 'if (aufklaerungDue && !creneauFini) {', to: 'if (false) {',
     pourquoi: 'l’Aufklärung du cas disparaît de l’examen',
+  },
+  {
+    id: 'INV-E6-I1', tests: 'tests/invariants.examen.test.tsx', file: 'src/features/examen/ExamenRunner.tsx',
+    from: '&& !creneauFini) {', to: ') {',
+    pourquoi: 'au retour d’un gel, une Aufklärung dont tout le créneau est passé est ouverte et écrite comme jouée',
+  },
+  {
+    id: 'INV-E13-jury', tests: 'tests/invariants.examen.test.tsx', file: 'src/features/examen/jury.ts',
+    from: "${patientin ? 'die Patientin' : 'den Patienten'}", to: 'den Patienten',
+    pourquoi: 'le jury dit « den Patienten » à une patiente',
+  },
+  {
+    id: 'INV-E7-ia', tests: 'tests/invariants.examen.test.tsx', file: 'src/features/simulation/ai/TeilAiLauncher.tsx',
+    from: '{!examen && <div>', to: '{<div>',
+    pourquoi: 'le partenaire IA de l’Examen propose de lire son prompt (la fiche du cas)',
   },
 ];
 

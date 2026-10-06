@@ -39,6 +39,7 @@ import type { Lauf } from '@/lib/lauf/types';
 import { useLauf } from '@/features/simulation/useLauf';
 import { ExamenPage } from '@/features/examen/ExamenPage';
 import { EXAM_DAY_PLAN } from '@/features/examen/plan';
+import { ACTE_AKKUSATIV, demandeDuJury } from '@/features/examen/jury';
 import { HistoriquePage } from '@/features/history/HistoriquePage';
 import { ResumeSessionBar } from '@/components/ResumeSessionBar';
 import { NAV } from '@/components/nav';
@@ -95,6 +96,8 @@ async function demarre() {
   fireEvent.click(b);
   await attendsPhase('anamnese');
   await waitFor(async () => expect((await aktiv())?.examen?.teilBeginn.anamnese).toBe(T0));
+  // Le créneau entier, Aufklärung du cas comprise ou non : la minuterie ne laisse rien deviner du cas.
+  expect(document.querySelector('[data-examen-reste]')?.getAttribute('data-examen-reste')).toBe(String(CIBLE));
 }
 /** Avance l'horloge murale et laisse le runner la relire (son intervalle de 500 ms). */
 const temps = async (ms: number, p: string) => { avance(ms); await attendsPhase(p); };
@@ -175,6 +178,8 @@ describe('INV-E4 — le cas est caché avant et pendant', () => {
   it('ni nom, ni id, ni spécialité dans le DOM, l’URL ou la barre « Reprendre »', async () => {
     rendre();
     await screen.findByRole('button', { name: /Démarrer l’examen/ });
+    // « Avec un simulant » (le défaut) : la seconde fenêtre s'ouvre par un bouton, sans `href` qui porterait l'id du cas.
+    await screen.findByRole('button', { name: /Ouvrir en 2ᵉ fenêtre/ });
     for (const x of VOLLE) for (const s of secretsDe(x)) expect(html(), `avant : « ${s} »`).not.toContain(s);
     await demarre();
     const tire = (await aktiv())!.caseId;
@@ -233,11 +238,10 @@ describe('INV-E6 — fin automatique, durée plafonnée, onglet gelé', () => {
     await attendsPhase('dokumentation');
     await waitFor(async () => expect((await aktiv())?.examen?.teilBeginn.dokumentation).toBeDefined());
     const l = (await aktiv())!;
-    expect(l.teileGespielt.filter((t) => t !== 'aufklaerung')).toEqual(['anamnese']);
-    // Le créneau de l'Anamnese (l'Aufklärung du cas comprise, INV-E13) est rendu en entier, jamais plus.
-    const k = l.examen!.aufklaerung ? AUFK : 0;
-    expect(l.sekundenProTeil.anamnese).toBe(CIBLE - k);
-    expect((l.sekundenProTeil.anamnese ?? 0) + (l.sekundenProTeil.aufklaerung ?? 0)).toBe(CIBLE);
+    // I1 : une Aufklärung dont tout le créneau est passé n'est ni ouverte ni écrite ; l'Anamnese a son créneau entier.
+    expect(l.teileGespielt).toEqual(['anamnese']);
+    expect(l.sekundenProTeil.anamnese).toBe(CIBLE);
+    expect(l.sekundenProTeil.aufklaerung).toBeUndefined();
     expect(l.examen!.teilBeginn.dokumentation).toBe(T0 + 25 * MIN);
   });
 });
@@ -267,13 +271,46 @@ describe('INV-E7 — aucune aide montée', () => {
       expect(zone.querySelectorAll('a, input[type="checkbox"], [role="dialog"]').length).toBe(0);
       expect(zone.textContent).not.toMatch(/Fachbegriffe|Guide|Mode focus|QR|\bIA\b|Kommunikation|Ouvrir la trame|Risiken|Probable pour ce cas/);
     };
+    const figes = () => [...document.querySelectorAll('[data-examen] fieldset')].map((f) => f.hasAttribute('data-frozen'));
     verifie();
+    expect(figes(), 'Anamnese : le Bogen s’écrit').toEqual([false]);
     await temps(CIBLE * 1000, 'transition');
     await temps(TRANSITION * 1000, 'dokumentation');
     verifie();
+    expect(figes(), 'Dokumentation : Bogen figé, Arztbrief ouvert').toEqual([true, false]);
     await temps(CIBLE * 1000, 'transition');
     await temps(TRANSITION * 1000, 'fallvorstellung');
     verifie();
+    expect(figes(), 'Fallvorstellung : tout est figé').toEqual([true, true]);
+    expect([...document.querySelectorAll<HTMLFieldSetElement>('[data-examen] fieldset[data-frozen]')].every((f) => f.disabled), 'figé = désactivé').toBe(true);
+    expect(screen.getAllByText('Lecture seule')).toHaveLength(2);
+  });
+  it('le partenaire IA est permis, pas une aide : la puce en Anamnese et en Fallvorstellung, ni texte du prompt ni nom de cas', async () => {
+    localStorage.setItem('fsp-partenaire', 'ia');
+    rendre();
+    await demarre();
+    const zone = () => document.querySelector('[data-examen]')!;
+    expect([...zone().querySelectorAll('button')].map((b) => b.textContent?.trim())).toEqual(['IA', 'Abandonner']);
+    fireEvent.click(screen.getByRole('button', { name: 'Avec ton IA' }));
+    await screen.findByRole('dialog');
+    expect(document.body.textContent).not.toMatch(/Voir le texte/);
+    const caseId = (await aktiv())!.caseId;
+    for (const s of secretsDe(VOLLE.find((x) => x.id === caseId)!)) expect(html(), `IA : « ${s} »`).not.toContain(s);
+    fireEvent.click(await screen.findByRole('button', { name: 'Copier' }));
+    await new Promise((r) => setTimeout(r, 50));
+    expect(await db.meta.get('externalAi.pending'), 'pas de séance IA externe à part : la partie est l’examen').toBeUndefined();
+    fireEvent.keyDown(document, { key: 'Escape' });
+    await temps(CIBLE * 1000, 'transition');
+    expect(document.body.textContent).toMatch(/Lance ton IA depuis l’en-tête|Anamnese terminée/);
+    await temps(TRANSITION * 1000, 'dokumentation');
+    expect([...zone().querySelectorAll('button')].map((b) => b.textContent?.trim()), 'pas d’IA en Dokumentation').toEqual(['Abandonner']);
+  });
+  it('« Seul » n’existe pas dans l’Examen ; le défaut est le simulant', async () => {
+    rendre();
+    await screen.findByRole('button', { name: /Démarrer l’examen/ });
+    await screen.findByRole('button', { name: /Avec un simulant/ });
+    expect(screen.queryByRole('button', { name: /^Seul/ })).toBeNull();
+    expect(screen.getByRole('button', { name: /Avec un simulant/ }).getAttribute('aria-pressed')).toBe('true');
   });
 });
 
@@ -302,7 +339,11 @@ describe('INV-E8 — l’examen complet s’écrit une fois, en conditions d’e
     expect([te?.kind, te?.examen, te?.examenManque]).toEqual(['examen-blanc', true, []]);
     expect(await aktiv()).toBeUndefined();
     // Le résultat révèle le cas.
-    await waitFor(() => expect(document.body.textContent).toContain(VOLLE.find((x) => x.id === sim.caseId)!.name));
+    await waitFor(() => expect(document.body.textContent).toContain(`Le cas : ${VOLLE.find((x) => x.id === sim.caseId)!.name}`));
+    expect(document.body.textContent).toContain('Conditions d’examen remplies.');
+    expect(document.body.textContent).not.toMatch(/Examen à blanc/);
+    expect(screen.getAllByRole('button', { name: 'Nouvel examen' })).toHaveLength(1);
+    expect(screen.queryByRole('button', { name: 'Historique' })).toBeNull();
   });
 });
 
@@ -322,6 +363,7 @@ describe('INV-E9 — abandon', () => {
     await temps(CIBLE * 1000, 'transition');
     fireEvent.click(screen.getByRole('button', { name: 'Abandonner' }));
     await waitFor(async () => expect(await db.simulations.count()).toBe(1));
+    expect(await screen.findByText('Examen interrompu, enregistré dans l’Historique.')).toBeTruthy();
     const sim = (await db.simulations.toArray())[0];
     expect(sim.modeExamen).toBe(true);
     const te = await db.training_events.get(`te-${sim.id}`);
@@ -450,17 +492,50 @@ describe('INV-E13 — l’Aufklärung du cas fait partie de l’examen, et seule
     expect((await aktiv())!.examen!.aufklaerung).toBe(avec.probableAufklaerungIds[0]);
     await temps((CIBLE - AUFK) * 1000, 'aufklaerung');
     const zone = document.querySelector('[data-examen]')!;
+    // Le créneau continue (05:00), le titre devient « Aufklärung », pas d'alerte « 5 minutes » : la demande la remplace.
+    expect(zone.querySelector('[data-examen-reste]')?.getAttribute('data-examen-reste')).toBe(String(AUFK));
+    expect(zone.querySelector('header')?.textContent).toMatch(/Aufklärung · 1\/3/);
+    expect(zone.querySelector('[data-examen-alerte]')).toBeNull();
+    expect(zone.querySelector('[role="status"]')?.textContent).toMatch(/Klären Sie/);
+    await waitFor(() => expect(document.activeElement?.textContent).toMatch(/Klären Sie/));
     expect([...zone.querySelectorAll('button')].map((b) => b.textContent?.trim())).toEqual(['Abandonner']);
     expect(zone.querySelectorAll('a, input[type="checkbox"]').length).toBe(0);
     expect(zone.textContent).toMatch(/Klären Sie den Patienten/);
     expect(zone.textContent).not.toMatch(/Ouvrir la trame|Risiken|Probable pour ce cas|Fachbegriffe/);
     await temps(AUFK * 1000, 'transition');
+    // La transition : l'en-tête annonce le Teil suivant, sans minuterie ; un seul compte à rebours ; le focus sur le bouton.
+    expect(document.querySelector('[data-examen] header')?.textContent).toMatch(/Dokumentation · 2\/3/);
+    expect(document.querySelector('[data-examen-reste]')).toBeNull();
+    expect(document.body.textContent).toContain('Anamnese terminée. Tes notes te suivent, en lecture seule.');
+    await waitFor(() => expect(document.activeElement?.textContent).toBe('Commencer maintenant'));
     await waitFor(async () => expect((await aktiv())?.teileGespielt).toEqual(['aufklaerung', 'anamnese']));
     fireEvent.click(screen.getByRole('button', { name: 'Abandonner' }));
     await waitFor(async () => expect(await db.simulations.count()).toBe(1));
     const sim = (await db.simulations.toArray())[0];
     expect(sim.parts.aufklaerung?.done).toBe(true);
     expect(sim.reihenfolge).toEqual(['anamnese']);
+  });
+  it('I1 — retour après tout le créneau : l’Aufklärung n’est ni ouverte ni écrite, l’Anamnese a son créneau entier', async () => {
+    await tache(VOLLE.find((x) => x.probableAufklaerungIds.length)!.id);
+    avance(CIBLE * 1000 + 5_000);
+    act(() => { document.dispatchEvent(new Event('visibilitychange')); });
+    await attendsPhase('transition');
+    await waitFor(async () => expect((await aktiv())?.teileGespielt).toEqual(['anamnese']));
+    expect((await aktiv())!.sekundenProTeil).toEqual({ anamnese: CIBLE });
+  });
+  it('la demande du jury, sur les 120 cas : l’acte avec son article, jamais « den Patienten » pour une patiente', () => {
+    const avec = seedCases().filter((x) => x.probableAufklaerungIds?.length);
+    expect(avec.length).toBe(120);
+    for (const x of avec) {
+      const id = x.probableAufklaerungIds[0];
+      expect(ACTE_AKKUSATIV[id], `acte sans forme : ${id}`).toBeDefined();
+      const d = demandeDuJury(x, id);
+      const w = x.patientSheet.personalia.geschlecht === 'w';
+      expect(d, x.id).toMatch(w ? /^Klären Sie die Patientin bitte über (die|den|das) .+ auf\.$/ : /^Klären Sie den Patienten bitte über (die|den|das) .+ auf\.$/);
+      expect(d, x.id).not.toMatch(/Aufklärung/);
+    }
+    expect(demandeDuJury({ patientSheet: { personalia: { geschlecht: 'w' } } } as never, 'auf-koloskopie')).toBe('Klären Sie die Patientin bitte über die Koloskopie auf.');
+    expect(demandeDuJury({ patientSheet: { personalia: { geschlecht: 'm' } } } as never, 'auf-operation')).toBe('Klären Sie den Patienten bitte über die geplante Operation auf.');
   });
   it('un cas sans Aufklärung : l’Anamnese garde son créneau entier, aucune Aufklärung', async () => {
     await tache(SANS_AUFKLAERUNG);
