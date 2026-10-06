@@ -5016,67 +5016,54 @@ export function seedCases(): Case[] {
         persona: 'Homme de 52 ans, magasinier, plutôt stoïque mais inquiet de ne pas pouvoir retravailler. Tu décris clairement que la douleur a commencé en soulevant une caisse lourde et qu\'elle descend dans la jambe droite jusqu\'au gros orteil. Tu insistes sur le fait que tousser aggrave la douleur. Tu as surtout peur qu\'on doive t\'opérer. Tu ne signales tes problèmes de sommeil que si on te pose la question.',
       },
       medicalView: {
-        verdachtsdiagnose: 'Lumbaler Bandscheibenvorfall L4/L5 mit Wurzelreizsyndrom (Radikulopathie) L5 rechts',
+        verdachtsdiagnose: 'Lumbaler Bandscheibenvorfall L4/L5 mit Wurzelreizsyndrom L5 rechts. Sensibles Defizit im Dermatom L5, keine relevante Parese, kein Hinweis auf ein Cauda-equina-Syndrom.',
         patientWorte: { verdacht: 'eine Bandscheibe in Ihrem unteren Rücken auf einen Nerv drückt und dadurch die Schmerzen ins Bein auslöst', diagnostik: 'prüfe ich Kraft, Reflexe und Gefühl in Ihrem Bein und veranlasse bei Bedarf eine Kernspintomographie', therapie: 'reichen meist Schmerzmittel, Krankengymnastik und Bewegung aus, nur selten ist eine Operation notwendig' },
         differenzialdiagnosen: [
-          {
-            dd: 'Spinalkanalstenose (Claudicatio spinalis)',
-            unterscheidung: 'eher ältere Patienten; gehstreckenabhängige Beinschmerzen mit Besserung beim Vornüberbeugen/Sitzen — hier akuter Beginn nach Hebetrauma mit klarer L5-Ausstrahlung.',
-          },
-          {
-            dd: 'ISG-Syndrom (Iliosakralgelenk-Blockade)',
-            unterscheidung: 'Schmerzmaximum über dem Iliosakralgelenk, pseudoradikuläre Ausstrahlung ohne klaren Dermatombezug, unauffälliger neurologischer Status, negatives Lasègue-Zeichen.',
-          },
-          {
-            dd: 'Facettensyndrom (Spondylarthrose)',
-            unterscheidung: 'tief lumbaler, reklinations- und belastungsabhängiger Schmerz ohne radikuläre Beinausstrahlung.',
-          },
-          {
-            dd: 'Coxarthrose',
-            unterscheidung: 'Leisten- und Hüftschmerz mit Ausstrahlung ins Knie, schmerzhafte und eingeschränkte Hüftrotation — nicht dermatombezogen.',
-          },
-          {
-            dd: 'Periphere arterielle Verschlusskrankheit (pAVK)',
-            unterscheidung: 'belastungsabhängige Wadenschmerzen mit reproduzierbarer Gehstrecke und Besserung beim Stehenbleiben, abgeschwächte Fußpulse — hier bewegungs-/hustenabhängig und dermatombezogen.',
-          },
+          { dd: 'Spinalkanalstenose (Claudicatio spinalis)', unterscheidung: 'Eher ältere Patienten mit gehstreckenabhängigen Beinschmerzen, die sich beim Vornüberbeugen oder Sitzen bessern. Bei ihm akuter Beginn beim Heben, Verstärkung beim Sitzen und Husten, klarer L5-Verlauf.' },
+          { dd: 'ISG-Syndrom (Iliosakralgelenk-Blockade)', unterscheidung: 'Schmerzmaximum über dem Iliosakralgelenk, pseudoradikuläre Ausstrahlung ohne klaren Dermatombezug, Lasègue negativ. Bei ihm reicht der Schmerz bis zur Großzehe, mit Taubheit am Fußrücken.' },
+          { dd: 'Facettensyndrom (Spondylarthrose)', unterscheidung: 'Tief lumbaler, beim Zurückneigen stärkerer Schmerz, der selten über das Knie ausstrahlt und kein sensibles Defizit macht.' },
+          { dd: 'Coxarthrose', unterscheidung: 'Leisten- und Hüftschmerz mit Ausstrahlung ins Knie, schmerzhaft eingeschränkte Hüftdrehung; bei ihm keine Leistenschmerzen, Schuhe anziehen gelingt.' },
+          { dd: 'Periphere arterielle Verschlusskrankheit (pAVK)', unterscheidung: 'Raucher mit Hypertonie, aber die pAVK macht belastungsabhängige Wadenschmerzen mit fester Gehstrecke und Besserung im Stehen, keinen husten- und pressabhängigen Schmerz im Dermatom; Fußpulse tasten.' },
         ],
         diagnostik: [
-          { stufe: 'Anamnese/Klinik', text: 'Gezielte Anamnese inklusive aktivem Cauda-Screening (Blasen-/Mastdarmstörung, Reithosengefühl)' },
-          { stufe: 'Anamnese/Klinik', text: 'Klinisch-neurologische Untersuchung: Lasègue- und gekreuztes Lasègue-Zeichen, Kraftprüfung im Seitenvergleich (Zehen- und Hackengang), Reflexe (PSR, ASR), Sensibilität nach Dermatomen, Klopf-/Druckschmerz der LWS' },
-          { stufe: 'Labor', text: 'Labor (Blutbild, CRP/BSG) nur bei Verdacht auf Infektion oder Tumor' },
-          { stufe: 'Apparativ & Bildgebung', text: 'MRT der Lendenwirbelsäule als bildgebender Goldstandard (beste Darstellung von Bandscheibe, Wurzel und Spinalkanal, ohne Strahlung)' },
-          { stufe: 'Apparativ & Bildgebung', text: 'CT der LWS nur bei MRT-Kontraindikation; konventionelles Röntgen NICHT zur Darstellung der Bandscheibe (nur bei Fraktur-/Instabilitätsverdacht)' },
+          { stufe: 'Anamnese/Klinik', text: 'Cauda-Screening aktiv erfragen: Blasen- und Mastdarmstörung, Taubheit im Reithosenbereich; bei Verdacht digital-rektale Untersuchung (Sphinktertonus)' },
+          { stufe: 'Anamnese/Klinik', text: 'Neurologische Untersuchung: Lasègue und gekreuzter Lasègue, Kraft des Großzehen- und Fußhebers nach Janda, Fersengang, PSR und ASR, Sensibilität nach Dermatomen; Fußpulse; Blutdruck' },
+          { stufe: 'Labor', text: 'Kreatinin und Kalium, weil er mehrmals täglich Ibuprofen zusammen mit Ramipril nimmt; Entzündungswerte nur bei Fieber oder Tumorverdacht' },
+          { stufe: 'Apparativ & Bildgebung', text: 'MRT der LWS als Methode der Wahl: sofort bei Cauda-Zeichen oder Parese; ohne beides erst, wenn die Beschwerden unter konservativer Therapie über etwa sechs Wochen anhalten oder eine Intervention geplant wird' },
+          { stufe: 'Apparativ & Bildgebung', text: 'CT der LWS nur bei MRT-Kontraindikation' },
         ],
         therapie: [
           {
             label: 'Konservativ (Basistherapie, ~90 %)',
             items: [
-            'In rund 90 % der Fälle konservativ — die meisten Vorfälle heilen ohne Operation aus',
-            'Analgesie nach Stufenschema: NSAR (z. B. Ibuprofen/Diclofenac) mit PPI-Magenschutz, ergänzend Metamizol/Paracetamol, kurzfristig ggf. schwaches Opioid (Tilidin/Tramadol)',
-            'kurzfristig ein Muskelrelaxans bei ausgeprägter reflektorischer Verspannung',
-            'KEINE strenge Bettruhe — frühe Mobilisation, Aktivität erhalten, in der Akutphase entlastende Stufenlagerung möglich',
-            'Physiotherapie, Rückenschule und Patientenschulung (rückengerechtes Heben), Gewichtsreduktion und Nikotinkarenz',
+              'Analgesie: Ibuprofen in festen Dosen und zeitlich begrenzt, mit PPI-Magenschutz; wegen Ramipril Kreatinin und Blutdruck im Blick behalten; ergänzend Metamizol, kurzfristig ein schwaches Opioid (Tilidin oder Tramadol)',
+              'Kurzfristig ein Muskelrelaxans bei ausgeprägter reflektorischer Verspannung',
+              'KEINE strenge Bettruhe — frühe Mobilisation, Aktivität erhalten, in der Akutphase entlastende Stufenlagerung',
+              'Physiotherapie und Rückenschule mit rückengerechtem Heben, Gewichtsreduktion (BMI 28) und Rauchstopp',
+              'Arbeitsunfähigkeit für die Akutphase bescheinigen; bei jahrelangem schwerem Heben als Lagerarbeiter den Verdacht auf eine Berufskrankheit (BK 2108) prüfen',
             ],
             akut: true,
           },
           {
             label: 'Interventionell (PRT)',
             items: [
-            'ggf. CT-/bildgesteuerte periradikuläre Therapie (PRT) bei therapierefraktärem radikulärem Schmerz',
+              'Periradikuläre Therapie (CT-gesteuert) bei radikulärem Schmerz, der auf die konservative Therapie nicht anspricht',
             ],
           },
           {
             label: 'Operativ (nur bei Indikation)',
             items: [
-            'Operative Dekompression (Mikrodiskektomie/Sequesterektomie) NUR bei Cauda-equina-Syndrom (Notfall), rasch progredienter/hochgradiger Parese oder anhaltender Therapieresistenz',
+              'Mikrochirurgische Dekompression nur bei Cauda-equina-Syndrom (Notfall), rasch progredienter oder hochgradiger Parese oder anhaltendem Schmerz trotz etwa sechs Wochen konservativer Therapie',
+              'Warnzeichen erklären: neue Schwäche im Bein, Taubheit im Genitalbereich, Probleme beim Wasserlassen oder Stuhlgang — dann sofort wiederkommen',
             ],
             akut: true,
           },
         ],
         erstmassnahmen: [
-          'Suffiziente Analgesie einleiten',
-          'Cauda-equina-Syndrom aktiv ausschließen (Blase/Mastdarm, Reithose, DRU)',
-          'Neurologischen Status dokumentieren, frühe Mobilisation statt Bettruhe',
+          'Blase, Darm und Reithosenbereich abfragen',
+          'Neurologischen Status dokumentieren',
+          'Analgesie anpassen',
+          'Mobilisation statt Bettruhe',
         ],
         notfall: false,
       },
@@ -5095,61 +5082,32 @@ export function seedCases(): Case[] {
         'Welche Warnsymptome (red flags) würden Sie an eine andere Ursache denken lassen?',
       ],
       pruefungsfallen: [
-        'Immer aktiv nach dem Cauda-equina-Syndrom fragen (Blasen-/Mastdarmstörung, Reithosenanästhesie) — das Übersehen ist der schwerste Fehler und ein Notfall.',
+        'Immer aktiv nach dem Cauda-equina-Syndrom fragen — das Übersehen ist der schwerste Fehler und ein Notfall.',
         'Kein konventionelles Röntgen zur Beurteilung der Bandscheibe — Mittel der Wahl ist das MRT der LWS.',
-        'Rund 90 % werden konservativ behandelt; keine strenge Bettruhe, sondern frühe Mobilisation. OP nur bei Cauda/progredienter Parese/Therapieresistenz.',
-        'NSAR nie ohne Magenschutz (PPI) verordnen.',
+        'Nicht vorschnell die Operation nennen: rund 90 % heilen konservativ.',
         'Red flags nicht vergessen: Nachtschmerz/Gewichtsverlust/Tumoranamnese (Malignom), Fieber/Immunsuppression (Spondylodiszitis), Trauma/Osteoporose (Fraktur).',
       ],
       examinerSheet: [
-        {
-          title: 'Diagnose & betroffene Wurzel',
-          interactions: [
-            {
-              frage: 'Ihre Verdachtsdiagnose?',
-              reaktion: 'Ein lumbaler Bandscheibenvorfall L4/L5 mit Reizung der Wurzel L5 rechts — dafür sprechen der akute Beginn beim Heben, die dermatombezogene Ausstrahlung bis zur Großzehe und die Husten-/Pressabhängigkeit.',
-            },
-            {
-              frage: 'Woran erkennen Sie die Höhe L5?',
-              reaktion: 'Am Dermatom über der Außenseite des Unterschenkels, dem Fußrücken und der Großzehe, an der Fußheberschwäche als Kennmuskel und typischerweise ohne Reflexausfall.',
-            },
-          ],
-        },
-        {
-          title: 'Diagnostik',
-          interactions: [
-            {
-              frage: 'Warum MRT und kein Röntgen?',
-              reaktion: 'Das MRT stellt Bandscheibe, Nervenwurzel und Spinalkanal ohne Strahlung am besten dar; das Röntgen zeigt nur Knochen und ist zur Beurteilung der Bandscheibe ungeeignet.',
-            },
-            {
-              frage: 'Was untersuchen Sie klinisch?',
-              reaktion: 'Lasègue-Zeichen, Kraft im Seitenvergleich mit Zehen- und Hackengang, die Reflexe PSR und ASR, die Sensibilität nach Dermatomen und — bei Verdacht — die digital-rektale Untersuchung.',
-            },
-          ],
-        },
-        {
-          title: 'Cauda-Syndrom & OP-Indikation',
-          interactions: [
-            {
-              frage: 'Was ist das Cauda-equina-Syndrom?',
-              reaktion: 'Eine Kompression der Cauda equina mit Reithosenanästhesie und Blasen-/Mastdarmstörung — ein Notfall, der ein sofortiges MRT und eine notfallmäßige operative Dekompression erfordert.',
-            },
-            {
-              frage: 'Wann operieren Sie?',
-              reaktion: 'Nur bei Cauda-Syndrom, rasch progredienter oder hochgradiger Parese oder anhaltender Therapieresistenz; rund 90 % behandeln wir konservativ.',
-            },
-          ],
-        },
-        {
-          title: 'Therapie',
-          interactions: [
-            {
-              frage: 'Wie behandeln Sie diesen Patienten konkret?',
-              reaktion: 'Konservativ: Analgesie mit NSAR plus Magenschutz, bei Bedarf Metamizol, frühe Mobilisation statt Bettruhe, Physiotherapie und Rückenschule, dazu Gewichtsreduktion und Nikotinkarenz.',
-            },
-          ],
-        },
+        { title: 'Diagnose & betroffene Wurzel', interactions: [
+          { frage: 'Ihre Verdachtsdiagnose?', reaktion: 'Ein lumbaler Bandscheibenvorfall L4/L5 mit Reizung der Wurzel L5 rechts — dafür sprechen der akute Beginn beim Heben, die dermatombezogene Ausstrahlung bis zur Großzehe mit Taubheit am Fußrücken und die Husten- und Pressabhängigkeit.' },
+          { frage: 'Woran erkennen Sie die Höhe L5?', reaktion: 'Am Dermatom über der Außenseite des Unterschenkels, dem Fußrücken und der Großzehe, an der Fuß- und Großzehenheberschwäche als Kennmuskel und typischerweise ohne Reflexausfall.' },
+        ] },
+        { title: 'Differenzialdiagnosen und Red Flags', interactions: [
+          { frage: 'Welche Differenzialdiagnosen?', reaktion: 'Spinalkanalstenose, ISG-Syndrom, Facettensyndrom, Coxarthrose und bei einem Raucher die pAVK; als ernste Ursachen Wirbelfraktur, Metastasen und Spondylodiszitis.' },
+          { frage: 'Welche Warnsymptome würden Sie an eine andere Ursache denken lassen?', reaktion: 'Nachtschmerz, Gewichtsverlust oder Tumoranamnese (Metastasen), Fieber oder Immunsuppression (Spondylodiszitis), Trauma oder Osteoporose (Fraktur) — bei ihm alle verneint.' },
+        ] },
+        { title: 'Diagnostik', interactions: [
+          { frage: 'Was untersuchen Sie klinisch?', reaktion: 'Lasègue-Zeichen, Kraft im Seitenvergleich mit Zehen- und Hackengang, die Reflexe PSR und ASR, die Sensibilität nach Dermatomen und — bei Verdacht — die digital-rektale Untersuchung.' },
+          { frage: 'Warum MRT und kein Röntgen — und wann?', reaktion: 'Das MRT stellt Bandscheibe, Nervenwurzel und Spinalkanal ohne Strahlung am besten dar; das Röntgen zeigt nur Knochen. Sofort bei Cauda-Zeichen oder Parese; bei ihm ohne Parese erst, wenn die Beschwerden über etwa sechs Wochen anhalten oder eine Intervention geplant wird.' },
+        ] },
+        { title: 'Cauda-Syndrom & Therapie', interactions: [
+          { frage: 'Was ist das Cauda-equina-Syndrom?', reaktion: 'Eine Kompression der Cauda equina mit Reithosenanästhesie und Blasen-/Mastdarmstörung — ein Notfall, der ein sofortiges MRT und eine notfallmäßige operative Dekompression erfordert.' },
+          { frage: 'Wie behandeln Sie diesen Patienten konkret, und wann operieren Sie?', reaktion: 'Konservativ: Analgesie, frühe Mobilisation statt Bettruhe, Physiotherapie und Rückenschule, Gewichtsreduktion und Rauchstopp. Operiert wird nur bei Cauda-Syndrom, progredienter oder hochgradiger Parese oder anhaltendem Schmerz nach etwa sechs Wochen.' },
+          { frage: 'Er nimmt seit drei Tagen mehrmals täglich Ibuprofen und Ramipril — was beachten Sie?', reaktion: 'NSAR und ACE-Hemmer zusammen belasten die Niere und heben den Blutdruck: Kreatinin und Blutdruck kontrollieren, Ibuprofen in festen Dosen, zeitlich begrenzt und mit Magenschutz, ergänzend Metamizol.' },
+        ] },
+        { title: 'Aufklärung des Patienten (2 Minuten)', interactions: [
+          { frage: '(als Patient) Muss ich operiert werden, und wann kann ich wieder arbeiten?', reaktion: 'Erwartet wird: Meist heilt der Vorfall ohne Operation in einigen Wochen; Bewegung hilft, Bettruhe schadet. Zurück an die Arbeit stufenweise, schweres Heben erst nach Abklingen und mit Rückenschule. Sofort wiederkommen bei Beinschwäche oder Problemen mit Blase oder Darm.' },
+        ] },
       ],
       linkedFachwissenId: 'fw-bandscheibenvorfall',
       linkedFachbegriffeIds: [],
