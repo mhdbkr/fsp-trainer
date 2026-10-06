@@ -352,7 +352,7 @@ test('INV-80 mutation : la banque de « ort » dans aktuellSkip d\'un cas tagué
 
 test('I6 / INV-88 : ajouteSansReponse = 0 ; la réponse de la banque de stuhlfrequenz retirée de case-zoeliakie (r3 l\'ajoute) → porte rouge, exit 1', () => {
   assert.equal(JSON.parse(restoreFloor).brut.ajouteSansReponse, 0, 'K3 ne merge qu\'à 0 (I6)');
-  const r = sb.mutate('src/data/seedCases.ts', "          'akt-ausscheid-haeufigkeit': 'Drei- bis viermal am Tag. Nachts muss ich deswegen nicht aufstehen.',", '', () => run());
+  const r = sb.mutate('src/data/seedCases.ts', "          'akt-ausscheid-haeufigkeit': 'Drei- bis viermal am Tag.',", '', () => run());
   assert.equal(r.status, 1);
   assert.match(r.stdout, /PORTE APRÈS MONTAGE[\s\S]*ajouteSansReponse = 1 après montage : case-zoeliakie/);
 });
