@@ -432,10 +432,12 @@ describe('INV-65 — le rythme est PROPOSÉ, jamais appliqué : pas de budget ch
     expect(q.texte).not.toMatch(/%|retard|manqu|en dessous|paresse|échec|insuffisan/i);
     expect(q.apresExamen, 'examen le 18 déc. : la date tombe avant').toBe(false);
     // VETO pédagogique : la date projetée tombe APRÈS l'examen ⇒ la carte le dit.
-    const proche = cfg({ hoursPerSession: 2, examDate: '2026-10-30' });
+    // Q4 : `Case.frequency` suit la source (frequencies.json) — au rythme proposé la projection tombe le 30 oct., au rythme
+    // actuel le 16 oct. : l'examen est placé à mi-chemin (23 oct.), le rythme actuel le tient, le rythme proposé le manque.
+    const proche = cfg({ hoursPerSession: 2, examDate: '2026-10-23' });
     const r = consequenceRythme({ cases: cases.slice(0, 50), progress: new Map(), config: proche, today: AUJOURDHUI, valeur: 35 })!;
     expect(r.apresExamen).toBe(true);
-    expect(r.texte).toMatch(/^À ce rythme, tu auras joué une fois chacun des \d+ cas les plus fréquents le \d{1,2} \S+, après ton examen du 30 oct\. \(au lieu du \d{1,2} \S+\)\.$/);
+    expect(r.texte).toMatch(/^À ce rythme, tu auras joué une fois chacun des \d+ cas les plus fréquents le \d{1,2} \S+, après ton examen du 23 oct\. \(au lieu du \d{1,2} \S+\)\.$/);
     // Les cas déjà solides ne sont plus du travail : tout solide ⇒ rien à projeter, pas de phrase.
     const tout = new Map(cases.slice(0, 50).map((x) => [x.id, { caseId: x.id, teile: Object.fromEntries(TEILE.map((t) => [t, { status: 'solide', lastScore: 90, lastAt: 0, attempts: 2 }])) } as unknown as CaseProgress]));
     expect(consequenceRythme({ cases: cases.slice(0, 50), progress: tout, config: c, today: AUJOURDHUI, valeur: 35 })).toBeNull();
