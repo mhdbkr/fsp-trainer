@@ -105,7 +105,8 @@ d'explorer le code et emploient **ce** vocabulaire, pas ses synonymes.
   Autonome, dans l'ordre A → D → F, avec la grille de langue saisie. C'est
   **une** définition, qui fonde à la fois l'examen à blanc et l'état `prêt`.
 - **Examen** (le mode, `/examen`) — un cas tiré au sort et caché jusqu'au
-  résultat, trois Teile de 20 min à l'horloge murale, sans aide ni pause.
+  résultat, trois Teile de 20 min à l'horloge murale (l'Aufklärung du cas
+  comprise, à la fin de l'Anamnese), sans aide ni pause.
   C'est un `Lauf` ordinaire (`Lauf.examen`), pas un second moteur
   (`simulation-run.md` §11). Un examen abandonné ou repris après plus de
   5 min est un **examen interrompu** : il compte comme partie, pas comme

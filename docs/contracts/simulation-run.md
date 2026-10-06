@@ -714,15 +714,29 @@ Un examen est **un `Lauf`**, pas un second moteur. Il passe par `useLauf`, par
 `transition`, par `speichern`. Il porte un champ de plus :
 
 ```ts
-Lauf.examen?: { teilBeginn: Partial<Record<SimTeil, number>> }   // epoch ms du début de chaque Teil, horloge murale
+Lauf.examen?: {
+  teilBeginn: Partial<Record<SimTeil, number>>;   // epoch ms du début de chaque Teil, horloge murale
+  aufklaerung?: string;                           // l'acte du cas (direction, 6 oct.) ; absent ⇔ pas d'Aufklärung
+}
 ```
 
 - **Autonome, couche 3**, posés par `erstelleLauf` dès que `examen` est
   demandé, quels que soient les réglages du candidat.
 - **Ordre A → D → F** et rien d'autre. Dans un `Lauf` d'examen, l'automate
-  refuse `springeZu`, `zurueckZurPartie` et `aufklaerungOeffnen` (décision 9) ;
-  `demarrer` part toujours de `geplanteTeile[0]` ; `partieSuivante(t')`
-  n'accepte que `naechsterTeil(lauf)`.
+  refuse `springeZu` et `zurueckZurPartie` ; `demarrer` part toujours de
+  `geplanteTeile[0]` ; `partieSuivante(t')` n'accepte que `naechsterTeil(lauf)`.
+- **L'Aufklärung du cas fait partie de l'examen** (direction, 6 oct. — annule
+  la décision 9 du brief). `Lauf.examen.aufklaerung` = le premier acte de
+  `Case.probableAufklaerungIds`, posé à la création ; absent si le cas n'en a
+  pas (10 cas sur 130). Elle reste **intercalée** au sens du §2.1, règle 7 :
+  `aufklaerungOeffnen` depuis `laufend(anamnese)` seulement, puis retour à
+  l'Anamnese par `partieSuivante`. Place retenue : la **fin du créneau de
+  l'Anamnese** (le jury interrompt l'entretien) — l'Anamnese dure le créneau
+  moins l'Aufklärung, l'Aufklärung la suit, la transition part de la fin du
+  créneau. Elle ne compte pas comme Teil joué (règle 7, « Terminer ici »,
+  `reihenfolge`, `conditionsExamen`). Sans aide : la demande du jury
+  (« Klären Sie den Patienten über … auf. ») et le Bogen, rien d'autre.
+  Sans acte, l'automate refuse `aufklaerungOeffnen` et le déroulé est A → D → F.
 - `teilBeginn[t]` est **écrit comme un champ** (`stempleTeilBeginn`), à
   l'entrée dans `laufend(t)`, une seule fois. Ce n'est pas une transition.
 - **Ni nouvel événement de sync, ni nouvelle version Dexie.** `lauf.aktiv`
@@ -735,7 +749,9 @@ Lauf.examen?: { teilBeginn: Partial<Record<SimTeil, number>> }   // epoch ms du 
   (`EXAM_DAY_PLAN.BW`) — trois Teile de 20 min (`ANALYSE.md` §1,
   protocoles de Stuttgart et de Reutlingen). La transition de 60 s et les
   alertes à 5:00 et 1:00 sont des **choix de conception**, non sourcés comme
-  faits d'examen. Aucune autre durée en dur sous `features/examen/**`
+  faits d'examen. **La durée de l'Aufklärung n'est pas sourcée** : la table
+  de la branche n'en a pas ; on reprend les 5 min du runner d'entraînement,
+  marquées « NON SOURCÉ » dans `plan.ts`. Aucune autre durée en dur sous `features/examen/**`
   (`checkExamen.mjs`, règle 2).
 - Le reste = cible − (maintenant − `teilBeginn[t]`), relu à chaque
   rendu (`useExamDayClock`) et au retour de visibilité. Un onglet gelé ne
@@ -788,11 +804,16 @@ Lauf.examen?: { teilBeginn: Partial<Record<SimTeil, number>> }   // epoch ms du 
 - Exclus : les cas joués (`simulation`, `examen-blanc`) depuis moins de
   **14 jours**. Si tous le sont, l'exclusion est levée. Un cas `prêt` n'est
   pas exclu.
-- Poids d'une pathologie = son compte de protocoles
-  (`frequencesProtocoles.ts`), dans la ville visée si elle est ventilée,
-  sinon tous centres (même portée que `couverturePonderee`). Il est **partagé**
-  entre ses cas éligibles : une pathologie pèse une fois. Un cas absent de la
-  source, ou de compte nul, prend `FREQUENCE_PLANCHER`.
+- Poids d'une pathologie = son compte de protocoles **tous centres**
+  (`frequencesProtocoles.ts`). Il est **partagé** entre ses cas éligibles :
+  une pathologie pèse une fois. Un cas absent de la source, ou de compte nul,
+  prend `FREQUENCE_PLANCHER`.
+- **Raffinement optionnel, app personnelle seulement** : si un centre visé est
+  choisi (`targetCenter`) et ventilé par la source, son compte remplace le
+  total (portée de `couverturePonderee`). Il vit dans **une seule fonction**,
+  `raffinementVille` (`tirage.ts`) : la retirer, avec `EntreeTirage.ville`,
+  ne change rien d'autre. La prod n'aura qu'une série de cas pour tous les
+  Länder (direction, 6 oct.).
 - Un cas `vierge` (aucun `CaseProgress`, ou état `vierge`) pèse ×2.
 - Une tâche « examen à blanc » du plan lance l'Examen sur **son** cas, sans
   tirage (`/examen?task=<id>`, décision 6).
@@ -811,7 +832,17 @@ TrainingEvent.modeExamen?: true   // dérivé (training-journal.md §2.3), jamai
 ```
 
 L'Historique lit `modeExamen` : « Examen » si la partie est en conditions
-d'examen, « Examen interrompu » sinon. **À confirmer par la direction.**
+d'examen, « Examen interrompu » sinon. Ajout technique de `lead-s4-7`, signalé
+au rapport.
+
+### 11.6 bis Décisions encore en discussion — isolées
+
+- **Décision 7** (le partenaire n'est pas enregistré) : le choix vit sur
+  l'appareil (`PartnerCard`, `fsp-partenaire`). L'enregistrer = un champ de
+  `projektion`, et rien d'autre. **À confirmer par la direction.**
+- **Décision 10** (aucune limite ni message sur la fréquence des examens) :
+  `EXAMENS_PAR_SEMAINE_CONSEILLES = null` (`features/examen/reglages.ts`). Un
+  nombre affiche un message au-delà, sans bloquer. **À confirmer par la direction.**
 
 ### 11.7 Navigation (décision 5)
 
@@ -829,7 +860,7 @@ d'examen, « Examen interrompu » sinon. **À confirmer par la direction.**
 | **INV-E2** | Une pathologie pèse une fois, quel que soit son nombre de cas. | poids de pathologie non partagé |
 | **INV-E3** | Un cas vierge pèse ×2 ; un cas hors source prend le plancher. | facteur vierge retiré |
 | **INV-E4** | Nom, id et spécialité du cas absents du DOM, de `location.hash` et de « Reprendre », avant et pendant. | `snapshotAusLauf` garde le nom du cas |
-| **INV-E5** | `springeZu` et `zurueckZurPartie` sans effet ; ordre A → D → F. | garde d'examen retirée de `springeZu` |
+| **INV-E5** | `springeZu` et `zurueckZurPartie` sans effet ; ordre A → D → F (l'Aufklärung mise à part). | garde d'examen retirée de `springeZu` |
 | **INV-E6** | Fin automatique à l'échéance, `sekundenProTeil[t] ≤ cible`, onglet gelé puis visible. | durée non plafonnée à la cible |
 | **INV-E7** | Aucun composant d'aide monté (DOM et garde statique). | import d'un guide dans le runner |
 | **INV-E8** | Une seule écriture idempotente ; `reihenfolge = [A, D, F]`, `enchaine`, Autonome, couche 3 ; journal `kind: 'examen-blanc'`, `examen: true`, `examenManque: []`. | « Enregistrer » permis sans grilles |
@@ -837,6 +868,7 @@ d'examen, « Examen interrompu » sinon. **À confirmer par la direction.**
 | **INV-E10** | Reprise après plus de 5 min : `unterbrochen`, `conditionsExamen` faux. | `nimmWiederAuf` épargne l'examen |
 | **INV-E11** | Une session d'examen ne détourne jamais `/simulation/:caseId/run`. | reprise sans contrôle du mode |
 | **INV-E12** | `/simulation` mène à `/examen` ; le menu dit « Examen » ; la partie est visible dans l'Historique. | redirection retirée |
+| **INV-E13** | Un cas avec Aufklärung l'inclut (fin du créneau de l'Anamnese, sans aide, écrite dans `parts.aufklaerung`) ; un cas sans ne l'inclut pas, et l'automate la refuse. | l'Aufklärung n'est jamais ouverte |
 
 ### 11.9 Écart signalé, non corrigé
 
