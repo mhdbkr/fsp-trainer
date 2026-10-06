@@ -1,10 +1,84 @@
 # S4-6 — la page Historique en carnet de séances · rapport
 
-**Statut : DONE_WITH_CONCERNS.** Les concerns sont des hypothèses à valider par `main` (§3) et trois amendements de contrat que je propose sans les écrire (§4). Aucun défaut ouvert.
+**Statut : DONE_WITH_CONCERNS** (après fixeur, §0). Un point attend la confirmation de Mehdi : le retrait des filtres Teil et source (§0.3).
 Branche `feat/s4-6-historique`, worktree `doctopus-s4-6-historique`, partie de `origin/main` `0174bf6c`. Poussée, sans PR.
 Aucun serveur Supabase lancé, rien déployé, aucune prod touchée.
 
 Sources : la proposition validée (`docs/superpowers/specs/2026-10-04-cas-entier-cadran.html`, « 5 · Historique »), `training-journal.md` §1.2 (r. 4 : tout dérive du journal), §12.7, §13.3, ADR-0021, ADR-0022, `DIRECTION-STYLE.md`, et la revue direction de S4-5 (`lead-s4-5.md` §0, lue sur `origin/feat/s4-5-programme`).
+
+## 0. Fixeur — revue `direction-keeper` sur `66c5bb29` (« à corriger », 3 bloquants)
+
+Ce §0 prime sur les §1 à 6, qui décrivent la première livraison. Commits `f9324779` → `206cde36`, sans trailer.
+
+### 0.1 Bloquants
+
+| # | Défaut | Correction | Preuve |
+|---|---|---|---|
+| 1 | 65 séances = 12 950 px à 390 px | Cette semaine et la précédente sont dépliées, le reste derrière « Voir les N séances plus anciennes », avec la bascule « Voir moins » (`data-plus-anciennes`). | Test RTL « cette semaine et la précédente… ». Sonde : 68 séances, **1 600 px** repliées à 390 px (borne `HAUTEUR_MAX_390 = 2400`), 7 510 px dépliées. Avec la pagination retirée, la sonde sort à 1 : « la page fait 7510 px pour 2400 au plus ». |
+| 2 | Une semaine de fiches ou de drill affichait « pas encore de séance » | `LigneSemaine.seances`, avec le texte de repli de `main`. | INV-H6 « une semaine de fiches… » (RED → GREEN). Mutation **INV-H6e** tuée. |
+| 3 | « Rejouer la Fallvorstellung » en double | `!mesureDepuis(t)` : seule la séance la plus récente qui a **mesuré** ce Teil le propose. Le nom du cas n'est un lien que sur sa séance la plus récente à l'écran, en texte ailleurs. | Test RTL « TOUTE la page : jamais deux liens vers la même adresse » (après dépliage) ; la sonde vérifie aussi l'unicité des `href` de `main`, replié et déplié. Mutations **INV-H7e** et **INV-H7g** tuées. Mutation manuelle « nom lié partout » : le test rougit. |
+
+**Écart au prédicat de `main`, à valider** : `main` a écrit `e.teile.includes(t)`. J'ai pris `e.selbstbewertet !== true && typeof e.scores?.[t] === 'number'`, pour coller à « mesuré » : avec `includes`, une auto-évaluation postérieure retirerait « Rejouer » de toutes les séances. Mutation INV-H7g tuée, et test « une auto-évaluation n'est pas une mesure ». La condition « encore sous 60 aujourd'hui » devient redondante, puisque `lastScore` ignore l'auto-évaluation (`progression.ts:117`) : je l'ai supprimée (`913351bf`).
+
+### 0.2 Majeurs
+
+- **« Revoir mes N oublis »**
+  - Le lien porte `&voir=oublis`. `ResultScreen` donne `id="oublis"` à la carte et la fait défiler (`scrollIntoView`), seulement avec ce paramètre. C'est l'exception de périmètre accordée dans `features/simulation`.
+  - **N = exactement** les lignes « encore manquée » de la carte : `bilanErreurs(...).filter(!cochee).length`. Le lien reste proposé tant qu'au moins un de ces oublis est encore un signal.
+  - Test : INV-H7 « N = … même quand l'un d'eux s'est éteint depuis » ; mutation **INV-H7f** tuée ; tests `ResultScreen` (défile vers `#oublis` avec le paramètre, pas sans).
+  - Navigateur à 390 px : avec le paramètre, la carte est entière (534 → 680 px, écran 844), `main` défilé en butée (416/416 px), et elle montre 2 « encore manquée » pour « Revoir mes 2 oublis ». Le témoin sans le paramètre : carte à 950 → 1 096 px, hors écran, aucun défilement.
+- **« Envoyer au drill »** : une ☆ en fin de puce, `title="Envoyer au drill"`, sans `aria-label`. Nom accessible : « Ikterus · cherché 2 fois, envoyer au drill ». Le texte sr-only est placé avant la ☆ pour éviter « fois , envoyer ». Au toucher, la puce devient « Ikterus ★ ».
+- **Filtre** : un seul, par spécialité (`<select aria-label="Spécialité">`, style `field-line`), présent dès deux spécialités. Il s'applique **avant** le repli. Tests RTL : le filtre avec la pagination, et l'absence de filtre avec une seule spécialité. Mutation manuelle « repli avant le filtre » : le test rougit.
+- **Unités** : « Cette semaine : 3 cas, 2 Teile acquis, 2 Fachbegriffe. », comme la spec (« 12 Fachbegriffe »).
+
+### 0.3 À confirmer par Mehdi
+
+- **Retrait des filtres Teil et source** (FB3-D6) : décision de `main`. Le Teil n'est plus visible depuis la décision 1, et il n'y a pas de filtre par source.
+
+### 0.4 Mineurs
+
+- Tendance : « 3 cas de plus que la semaine dernière à la même heure » et « autant de cas que la semaine dernière à la même heure », calculés avec `subWeeks`. Le test du changement d'heure fixe `TZ=Europe/Berlin` dans le test : il est rouge avec 7 × 24 h, et la mutation **INV-H6d** est tuée.
+- « partie non mesurée », « partie auto-évaluée » (une seule des deux mentions à la fois).
+- Page vide : pas de ligne de semaine.
+- **Drill et fiche nommés** par ce que le journal en sait : « drill Fachbegriffe », « 2 drills Fachbegriffe », « fiche Leberzirrhose » (le cas lié), sinon « fiche Fachwissen ». Je ne les ai **pas retirés** : C6 INV-5 exige que tout exercice du journal soit rendu, chacun une fois. Le journal ne porte ni l'id de la fiche ni le deck du drill. Les nommer mieux demanderait un champ de plus dans `training.logged`, donc un changement de contrat que je ne propose pas sans demande.
+- Le cadran « après » est `ouvrable={false}` : aucun bouton dans une ligne de cas (test).
+- Thème sombre : puces `dark:bg-ink-700` (favori) et `dark:border-ink-600` (à envoyer) ; séparateurs `ink-700`. **Non capturé**.
+- ★ en `aria-hidden`, suivie de `<span class="sr-only">en favori</span>`.
+- **CI** : `historique390.mjs` et `carteCouverture390.mjs` sont deux étapes du job « Candidat synthétique C6 », après le parcours, avec `if: !cancelled()` (`9814074e`). `carteCouverture390.mjs` n'existe que sur `main` (S4-5). La CI d'une PR tourne sur le commit de fusion, qui le contient (vérifié dans l'arbre `merge-tree`). Le job reste `continue-on-error`.
+- **D5** (`parcours-candidat.mjs`) déplie les séances anciennes avant de compter (`118425ba`).
+
+### 0.5 TDD — RED puis GREEN
+
+| Test | RED | GREEN |
+|---|---|---|
+| `tests/invariants.historique.test.ts` : semaine (séances, unités, même heure), N d'oublis, Rejouer sans doublon | exit 1, 5 échecs sur 18 | exit 0, 18/18 |
+| idem, changement d'heure | passait d'abord à tort (événement à 20 h 30) ; resserré à 21 h 30 → exit 1 | exit 0, en local et sous `TZ=UTC` |
+| `ResultScreen.test.tsx` : `?voir=oublis` | exit 1, 1 échec sur 11 | exit 0, 11/11 |
+| `HistoriquePage.test.tsx` | exit 1, 9 échecs sur 13 | exit 0, 13/13 |
+| sonde `historique390.mjs` : arrivée sur les oublis | exit 1 : vrai `#oublis` jamais rendu, la sonde ne semait pas `db.simulations` ; puis un faux négatif (elle mesurait `window.scrollY`, alors que `main` défile) | exit 0 avec témoin |
+
+### 0.6 Vérifications (codes de sortie, sur `206cde36`)
+
+| Vérification | Résultat |
+|---|---|
+| `tsc -b --noEmit` | 0 |
+| `vitest run --dir src --maxWorkers=2` | 0, 185 fichiers, **1932** tests |
+| `npm run test:c6` | 0, 15 fichiers, **162** tests |
+| `npm run build` | 0 |
+| les 33 commandes de validation de `quality.yml` (`check*.mjs`, `node --test`, `evalDoctopus --dry`, `checkBudgetFloor origin/main`) | toutes à 0 |
+| `parcours-mutations.mjs` (une passe, sans `--keep`) | 0, baseline vert, **154/154 tuées** (+ INV-H6d, H6e, H7f, H7g) ; aucun `c6-mut-*` avant ni après |
+| `scripts/e2e/historique390.mjs` | 0 à 390, 375 et 1 280 px, replié et déplié : débord 0, 68/68 exercices, aucune cible sous 44 px, aucun `href` en double |
+| `git merge-tree --write-tree origin/main HEAD` | 0, contre `8ba97c41` (S4-5 inclus), arbre `4e31df9a`. Fichiers touchés des deux côtés : `parcours-mutations.mjs` et `training-journal.md`, fusionnés sans conflit (un seul §14). Plus aucune référence à `program/HistoriquePage`. |
+| `quality.yml` | YAML relu par Ruby : les deux étapes sont dans `candidat-c6` |
+
+Captures (`--captures`, état replié) : `s4-6-historique-390.png`, `s4-6-historique-1280.png`. Comme `main` défile et non le document, `fullPage` ne capture que le premier écran.
+
+### 0.7 Non vérifié (fixeur)
+
+- **D5 en navigateur** : le code est adapté, mais pas rejoué. Il faut un Supabase local ; la passe de `main` (63/63) a tourné sur `66c5bb29`, avant ce changement.
+- **Les deux étapes CI** : jamais exécutées sur un runner.
+- **Thème sombre** : aucune capture.
+- **`tsc` et `test:c6` sur l'arbre fusionné** avec `origin/main` : pas lancés, faute de checkout (consigne).
 
 ## 1. Ce que fait la page
 
