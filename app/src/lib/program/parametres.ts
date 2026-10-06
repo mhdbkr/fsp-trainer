@@ -20,8 +20,8 @@ export const CONSOLIDATION_JOURS = [7, 21, 45] as const;   // plafond : le derni
 export const POIDS_CONSOLIDATION = 1 / 3;
 export const SEUIL_FREQUENT = 0.5;                          // de `freq`
 export const FENETRE_D_UN_TRAIT_JOURS_OUVRES = 15;          // décision (a) de la direction
-/** `false` jusqu'à ce que S4-3 soit en production : aucune tâche `dUnTrait` n'est générée avant. */
-export const D_UN_TRAIT_ACTIF = false;
+/** Vrai depuis le déploiement de S4-3 (§12.12) : la partie sait enchaîner les trois Teile, la tâche « d'un trait » peut être générée. */
+export const D_UN_TRAIT_ACTIF = true;
 
 // --- §13.3 Erreurs transversales (S4-2) ------------------------------------
 export const ERREUR_FENETRE = 5;

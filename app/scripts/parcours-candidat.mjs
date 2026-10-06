@@ -176,8 +176,9 @@ async function parcours({ browser, base, supabaseUrl }) {
     await c.aller('/programme');
     await until(page, () => /min prévues/.test(document.body.innerText), 'plan');
     const rs = await rows(page);
-    // « Une AUTRE » : pas la tâche qu'elle vient d'entamer (la ligne dit « Il te reste ») — celle-là, elle la finira.
-    const entamees = await page.evaluate(() => [...document.querySelectorAll('div.rounded-xl.border.transition-colors')].map((r) => /Il te reste/.test(r.textContent ?? '')));
+    // « Une AUTRE » : pas la tâche qu'elle vient d'entamer (la ligne dit « Il te reste », ou « À reprendre depuis » pour
+    // une tâche d'un trait) — celle-là, elle la finira.
+    const entamees = await page.evaluate(() => [...document.querySelectorAll('div.rounded-xl.border.transition-colors')].map((r) => /Il te reste|À reprendre depuis/.test(r.textContent ?? '')));
     const i = rs.findIndex((r, k) => !r.fait && r.label !== 'Fachbegriffe' && !entamees[k]);
     if (i < 0) return;
     await cocher(c, i);
