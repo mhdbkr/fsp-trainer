@@ -111,7 +111,15 @@ Le reste est fait de coupes ou de textes exacts de `main`.
 
 ### F.7 À trancher par `main`
 
-**a. polymyalgia (P2) — non appliqué, deux décisions contradictoires.**
+**a. polymyalgia (P2) — TRANCHÉ par `main`, appliqué.**
+- `akt-begleit` garde la fatigue.
+- `fach-rheuma-systemisch` devient « Augenentzündungen oder Geschwüre im Mund hatte ich nicht, und richtiges Fieber auch nicht. Durchfall, Husten oder Blut im Stuhl habe ich nicht. ». La première phrase est le texte de `main`, cohérent avec la fiche (« kein rotes oder schmerzendes Auge » ; fébricule, « Richtiges Fieber war es nie »). La seconde est la phrase de négatifs qui y figurait déjà. La fatigue est retirée.
+- Le constat `polymyalgia|fieber|fach-rheuma-systemisch` est admis (`ADMIS`, avec sa raison) : la réplique nie une vraie fièvre, la question du cas demande la mesure.
+- La réplique est épinglée dans `coherenceQ4`.
+
+L'analyse d'origine suit, pour mémoire.
+
+*Analyse d'origine (avant la décision) : deux décisions contradictoires.*
 
 La décision dit à la fois :
 - « `akt-begleit` commence par « Nein, Augenentzündungen oder Geschwüre hatte ich nicht. » » ;
@@ -128,12 +136,12 @@ Il ne reste donc à `akt-begleit` que la fatigue, ou un « nichts » qui serait 
 
 Dans les deux cas, « Richtiges Fieber hatte ich nicht » est dit avant la question du cas « Fieber gemessen » : ce sera un constat à admettre.
 
-**b. Langue I8 (gastroenteritis `akt-ausscheid-aussehen`) — non appliqué.**
+**b. Langue I8 (gastroenteritis `akt-ausscheid-aussehen`) — non appliqué ; accepté par `main`.**
 - À cette question (#17), rien n'a encore dit la couleur : le motif ne la donne pas. C'est la question du cas #23 « Wie sieht Ihr Stuhl aus — … welche Farbe … » qui la demande ensuite.
 - « Hellgelb, wie gesagt » recréerait le doublon que Q4 avait retiré, épinglé par `coherenceQ4`, et le « wie gesagt » serait faux.
 - La réplique reste donc : « Blut oder Schleim ist da nicht drin. »
 
-**c. P1-3 — le moyen, pas le résultat.** J'ai mesuré les deux moyens proposés.
+**c. P1-3 — le moyen, pas le résultat. — accepté par `main`.** J'ai mesuré les deux moyens proposés.
 - `fachSkip: ['fach-endo-gewicht']` : `gewicht` passe simplement à `akt-allgemein-gewicht`, qui pose le poids avec l'appétit et la soif, et laisse un résidu (`nonReduit 1`).
 - `veg-gewicht` ne peut pas être sauté : seuls `aktuellSkip` et `fachSkip` existent.
 - `gewicht` est un signe de dépistage, avec la banque `veg-gewicht`. Il ne peut pas être exclu (INV-80), donc une unité le posera toujours.
@@ -145,9 +153,9 @@ Ce qui est fait :
 
 Le seul constat restant est admis : le motif dit « immer mehr zugenommen » sans chiffre, et la question demande combien.
 
-**d. leistenhernie `akt-begleit`.** Toute la liste `begleitsymptome` est redemandée par les questions du cas : toux chronique, constipation, troubles prostatiques, incarcération. La réplique dit donc « Sonst ist mir eigentlich nichts aufgefallen. ». C'est plausible chez un patient qui ne relie pas sa toux de fumeur à sa hernie, mais c'est un texte nouveau, à valider cliniquement.
+**d. leistenhernie `akt-begleit`. — accepté par `main`.** Toute la liste `begleitsymptome` est redemandée par les questions du cas : toux chronique, constipation, troubles prostatiques, incarcération. La réplique dit donc « Sonst ist mir eigentlich nichts aufgefallen. ». C'est plausible chez un patient qui ne relie pas sa toux de fumeur à sa hernie, mais c'est un texte nouveau, à valider cliniquement.
 
-**e. Hors de mon périmètre.**
+**e. Hors de mon périmètre. — accepté par `main`.**
 - `followUp.ts` (plafond de la condition porté de 40 à 48) ;
 - `frequencesProtocoles.ts` (la constante) ;
 - `components/ui.tsx` (exception accordée) ;
