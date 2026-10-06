@@ -2696,42 +2696,33 @@ export function seedCases(): Case[] {
         persona: 'Büroangestellter de 41 ans, coopérant et un peu inquiet. Tu as mal en bas à droite depuis hier soir, ça empire, tu ne peux pas t\'allonger à plat. Tu n\'as pas vomi, pas de diarrhée. Tu n\'as pas mesuré ta fièvre mais tu te sens chaud. N\'oublie pas ta cicatrice de hernie inguinale d\'enfant si on te demande des opérations.',
       },
       medicalView: {
-        verdachtsdiagnose: 'Akute Appendizitis',
+        verdachtsdiagnose: 'Akute Appendizitis ohne typische Schmerzwanderung, mit peritonealer Reizung im rechten Unterbauch. Schmerz im Flachliegen und bei Erschütterung, kein Hinweis auf Perforation; Ibuprofen bei Bedarf kann Schmerz und Fieber abschwächen.',
         patientWorte: { verdacht: 'es sich um eine Entzündung des Blinddarms handelt, die die Schmerzen in Ihrem rechten Unterbauch erklärt', diagnostik: 'nehmen wir Ihnen Blut ab, machen einen Urintest und einen Ultraschall vom Bauch', therapie: 'müsste der Blinddarm noch heute operativ entfernt werden, das ist ein Routineeingriff mit guter Heilungsaussicht' },
         differenzialdiagnosen: [
-          {
-            dd: 'Gastroenteritis',
-            unterscheidung: 'diffuse, kolikartige Bauchschmerzen mit Durchfall und Erbrechen im Vordergrund; kein umschriebener Druck- und Loslassschmerz über dem McBurney-Punkt.',
-          },
-          {
-            dd: 'Nephro-/Ureterolithiasis rechts',
-            unterscheidung: 'kolikartiger, wellenförmiger Flankenschmerz mit Ausstrahlung in die Leiste, Dysurie oder Hämaturie; auffälliger Urinbefund.',
-          },
-          {
-            dd: 'Inkarzerierte Leistenhernie rechts',
-            unterscheidung: 'tastbare, druckschmerzhafte Vorwölbung in der Leiste (hier Z. n. Hernien-OP im Kindesalter), ggf. mit Ileussymptomatik.',
-          },
-          {
-            dd: 'Terminale Ileitis bei Morbus Crohn',
-            unterscheidung: 'chronisch-rezidivierender Verlauf mit Durchfällen, Gewichtsverlust und extraintestinalen Zeichen statt akutem Beginn.',
-          },
+          { dd: 'Gastroenteritis', unterscheidung: 'Diffuse, kolikartige Bauchschmerzen mit Durchfall und Erbrechen im Vordergrund. Er hat weder Durchfall noch Erbrechen, der Schmerz ist umschrieben und bewegungsabhängig.' },
+          { dd: 'Nephro-/Ureterolithiasis rechts', unterscheidung: 'Kolikartiger, wellenförmiger Flankenschmerz mit Ausstrahlung in die Leiste, unruhiger Patient. Er liegt dagegen ruhig mit angezogenen Knien, und der Schmerz strahlt nicht aus; der Urinstatus klärt.' },
+          { dd: 'Inkarzerierte Leistenhernie rechts', unterscheidung: 'Nach einer Leistenhernien-Operation rechts im Kindesalter ist ein Rezidiv möglich: tastbare, druckschmerzhafte, nicht reponible Vorwölbung an der Narbe, oft mit Ileuszeichen.' },
+          { dd: 'Gedeckt perforiertes Ulcus duodeni', unterscheidung: 'Bei Sodbrennen und Ibuprofen ist ein Ulkus möglich; ausgetretenes Sekret kann entlang des rechten Kolons in den Unterbauch laufen. Typisch wären jedoch ein schlagartiger Beginn im Oberbauch und freie Luft im Röntgen oder CT.' },
+          { dd: 'Zäkumdivertikulitis', unterscheidung: 'Mit 41 Jahren möglich und klinisch kaum zu unterscheiden; die Bildgebung zeigt entzündete Divertikel bei normaler Appendix.' },
+          { dd: 'Terminale Ileitis bei Morbus Crohn', unterscheidung: 'Chronisch-rezidivierender Verlauf mit Durchfällen, Gewichtsverlust und extraintestinalen Zeichen; hier akuter Erstbeginn ohne Durchfall.' },
         ],
         diagnostik: [
-          { stufe: 'Anamnese/Klinik', text: 'Vitalparameter und rektoaxilläre Temperaturmessung (Differenz > 1 °C)' },
-          { stufe: 'Labor', text: 'Labor: Blutbild (Leukozytose, Linksverschiebung), CRP; Urinstatus zum Ausschluss eines Harnwegsinfekts oder Steins; bei Frauen zusätzlich β-HCG' },
-          { stufe: 'Apparativ & Bildgebung', text: 'Abdomensonographie (nicht komprimierbare, aufgetriebene Appendix, Kokarde, freie Flüssigkeit)' },
-          { stufe: 'Apparativ & Bildgebung', text: 'CT-Abdomen bei unklarem sonographischem Befund' },
-          { stufe: 'Anamnese/Klinik', text: 'Körperliche Untersuchung mit Appendizitiszeichen (McBurney- und Lanz-Punkt, Blumberg-, Rovsing- und Psoas-Zeichen) sowie digital-rektaler Untersuchung (Douglas-Schmerz)' },
-          { stufe: 'Invasiv & Speziell', text: 'Diagnostische Laparoskopie (invasiv, zugleich therapeutisch)' },
+          { stufe: 'Anamnese/Klinik', text: 'Vitalparameter mit Temperatur (rektal und axillär): er hat Hitzegefühl und Nachtschweiß, aber nicht gemessen' },
+          { stufe: 'Anamnese/Klinik', text: 'Körperliche Untersuchung: Druck- und Loslassschmerz im rechten Unterbauch, Appendizitiszeichen (McBurney, Lanz, Blumberg, Rovsing, Psoas), Abwehrspannung; die rechte Leiste mit der alten Narbe inspizieren und tasten; digital-rektale Untersuchung' },
+          { stufe: 'Labor', text: 'Blutbild (Leukozytose, Linksverschiebung), CRP, Elektrolyte, Kreatinin, Gerinnung, Blutgruppe' },
+          { stufe: 'Labor', text: 'Urinstatus zum Ausschluss eines Harnwegsinfekts oder Steins' },
+          { stufe: 'Apparativ & Bildgebung', text: 'Abdomensonographie: nicht komprimierbare, aufgetriebene Appendix, Kokarde, freie Flüssigkeit, Abszess' },
+          { stufe: 'Apparativ & Bildgebung', text: 'CT-Abdomen, wenn die Sonographie unklar bleibt (bei einem BMI von 28 nicht selten) oder eine Perforation vermutet wird' },
+          { stufe: 'Invasiv & Speziell', text: 'Diagnostische Laparoskopie bei weiter unklarem Befund, zugleich therapeutisch' },
         ],
         therapie: [
           {
             label: 'Sofortmaßnahmen und präoperative Vorbereitung',
             items: [
-              'Stationäre Aufnahme mit engmaschiger Überwachung, strikte Nahrungskarenz — der Patient bleibt nüchtern',
+              'Stationäre Aufnahme mit engmaschiger Überwachung, Nahrungskarenz',
               'Intravenöser Zugang und Flüssigkeitssubstitution mit balancierter Vollelektrolytlösung',
-              'Analgesie mit Metamizol als Kurzinfusion',
-              'Präoperatives Labor, Gerinnung, Blutgruppe, Anästhesievorstellung und chirurgische Aufklärung; perioperative Antibiotikaprophylaxe mit Cefuroxim plus Metronidazol als Single Shot vor Schnitt',
+              'Analgesie mit Metamizol als Kurzinfusion; ausreichende Schmerztherapie verschleiert den Befund nicht',
+              'Anästhesievorstellung und chirurgische Aufklärung; perioperative Antibiotikaprophylaxe mit Cefuroxim plus Metronidazol als Single Shot vor Schnitt',
             ],
             akut: true,
           },
@@ -2739,7 +2730,7 @@ export function seedCases(): Case[] {
             label: 'Appendektomie als Standardtherapie (laparoskopisch versus offen)',
             items: [
               'Zeitnahe laparoskopische Appendektomie als Verfahren der Wahl — dem Patienten als „Schlüsselloch-Operation“ erklärt',
-              'Umstieg auf die offene Appendektomie über Wechselschnitt bei perforierter Appendizitis, ausgedehnter Peritonitis oder unklaren intraoperativen Verhältnissen',
+              'Umstieg auf die offene Appendektomie bei ausgedehnter Peritonitis oder unklaren intraoperativen Verhältnissen',
               'Bei Perforation zusätzlich intraabdominelle Lavage und postoperativ therapeutische Antibiose über mehrere Tage',
               'Histologische Aufarbeitung des Präparates; postoperativ frühe Mobilisation, rascher Kostaufbau und Thromboseprophylaxe',
             ],
@@ -2748,8 +2739,8 @@ export function seedCases(): Case[] {
           {
             label: 'Sonderfall perityphlitischer Abszess und Konglomerattumor',
             items: [
-              'Zeigt sich in der Bildgebung ein abgekapselter perityphlitischer Abszess: sonographisch oder CT-gesteuerte perkutane Drainage unter intravenöser Antibiose statt sofortiger Operation',
-              'Intervall-Appendektomie nach etwa 6–8 Wochen nach Abklingen der Entzündung',
+              'Zeigt die Bildgebung einen abgekapselten perityphlitischen Abszess: sonographisch oder CT-gesteuerte Drainage unter intravenöser Antibiose statt sofortiger Operation',
+              'Intervall-Appendektomie nach etwa 6–8 Wochen; mit 41 Jahren vorher Koloskopie, weil sich hinter einem Abszess ein perforiertes Kolonkarzinom verbergen kann',
               'Bei septischem Verlauf oder zunehmender Peritonitis sofortige operative Sanierung',
             ],
             akut: false,
@@ -2758,18 +2749,16 @@ export function seedCases(): Case[] {
             label: 'Rein antibiotische Therapie — enge Indikation und Grenzen',
             items: [
               'Nur zu erwägen, wenn die Bildgebung eine unkomplizierte Appendizitis ohne Perforation, Abszess oder Appendikolith zeigt, oder wenn eine Operation nicht möglich ist',
-              'Bei diesem Patienten ist die Appendektomie klar vorzuziehen — Rezidivrate von etwa 30–40 % im ersten Jahr und fehlender histologischer Befund',
-              'Wird konservativ behandelt, dann nur stationär mit engmaschiger klinischer und laborchemischer Kontrolle',
+              'Für diesen gesunden 41-Jährigen ist die Appendektomie vorzuziehen: unter Antibiotika wird bei etwa jedem Dritten innerhalb eines Jahres doch operiert, und ab 40 Jahren ist die Histologie wegen seltener Appendixtumoren wertvoll',
             ],
             akut: false,
           },
         ],
         erstmassnahmen: [
-          'Patient nüchtern lassen (OP-Vorbereitung)',
-          'Venöser Zugang und Volumengabe',
-          'Blutabnahme inkl. Gerinnung und OP-Vorbereitung',
+          'Nüchtern lassen',
+          'Venöser Zugang, Blutentnahme, Volumengabe',
           'Analgesie',
-          'zügige chirurgische Vorstellung',
+          'Zügige chirurgische Vorstellung',
         ],
         notfall: true,
       },
@@ -2797,11 +2786,10 @@ export function seedCases(): Case[] {
       ],
       pruefungsfallen: [
         'Cave: Der Schmerz ist hier nicht klassisch vom Nabel nach rechts unten gewandert — eine fehlende Schmerzwanderung schließt eine Appendizitis nicht aus.',
-        'Cave: Eine fehlende Leukozytose schließt eine Appendizitis nicht aus (lokalisierte Entzündung).',
-        'Cave: Patient nüchtern lassen — keine orale Nahrung oder Flüssigkeit vor der möglichen Operation.',
+        'Cave: Eine fehlende Leukozytose ist kein Gegenbeweis (lokalisierte Entzündung).',
         'Cave: Plötzliche Schmerzlinderung mit anschließend diffusem Bauchschmerz und Abwehrspannung ist ein Warnsignal der Perforation.',
-        'Cave: Die kindliche Leistenhernie rechts als Differenzialdiagnose (inkarzerierte Hernie) aktiv ausschließen.',
-        'Cave: Bei einer Frau immer β-HCG bestimmen und gynäkologische Differenzialdiagnosen (Extrauteringravidität, Ovarialtorsion) bedenken.',
+        'Cave: Nach der letzten Ibuprofen-Einnahme fragen — sie kann Fieber und Schmerz dämpfen und den Befund verharmlosen.',
+        'Cave: Die Rückfrage „Und wenn es eine Frau wäre?“ kommt fast immer: β-HCG, Extrauteringravidität, Ovarialtorsion, Adnexitis.',
       ],
       status: 'À faire',
       confidence: 0,
@@ -2809,74 +2797,29 @@ export function seedCases(): Case[] {
         '2024-10-30',
       ],
       examinerSheet: [
-        {
-          title: 'Einstieg & Anamnese-Zusammenfassung',
-          interactions: [
-            {
-              frage: 'Erzählen Sie kurz, wen Sie gesehen haben und welche Beschwerden er hat.',
-              reaktion: '41-jähriger Patient mit seit gestern Abend plötzlich aufgetretenen, stechenden Schmerzen im rechten Unterbauch (7–8/10) ohne Ausstrahlung, zunehmend über Nacht, mit Übelkeit, Hitzegefühl, Nachtschweiß und Appetitlosigkeit; kein Erbrechen, kein Durchfall.',
-            },
-            {
-              frage: 'Was fällt Ihnen an der Schmerzcharakteristik auf?',
-              reaktion: 'Verschlimmerung im Flachliegen, Besserung beim Vornüberbeugen und Anziehen der Knie — passend zu peritonealer Reizung im rechten Unterbauch.',
-            },
-          ],
-        },
-        {
-          title: 'Verdachtsdiagnose & Differenzialdiagnosen',
-          interactions: [
-            {
-              frage: 'Welche Verdachtsdiagnose haben Sie? Warum?',
-              reaktion: 'Akute Appendizitis — umschriebener rechter Unterbauchschmerz, Übelkeit, Inappetenz, subfebriles Hitzegefühl, Schmerzverstärkung im Liegen.',
-            },
-            {
-              frage: 'Welche Differenzialdiagnosen?',
-              reaktion: 'Gastroenteritis, Nephro-/Ureterolithiasis rechts, inkarzerierte Leistenhernie rechts (Z. n. Hernien-OP), Morbus Crohn; bei einer Frau zusätzlich Extrauteringravidität und Ovarialtorsion.',
-            },
-          ],
-        },
-        {
-          title: 'Diagnostik',
-          interactions: [
-            {
-              frage: 'Wie gehen Sie vor, um Ihren Verdacht zu bestätigen?',
-              reaktion: 'Körperliche Untersuchung mit Appendizitiszeichen und DRU, Vitalparameter mit rektoaxillärer Temperaturdifferenz, Labor (BB, CRP), Urinstatus und Abdomensonographie, bei unklarem Befund CT.',
-            },
-            {
-              frage: 'Welche Informationen liefert ein Blutbild?',
-              reaktion: 'Leukozytenzahl (Leukozytose mit Linksverschiebung als Entzündungszeichen), Erythrozyten (Anämie/Blutung) und Thrombozyten.',
-            },
-            {
-              frage: 'Würden Sie den Urin untersuchen? Warum?',
-              reaktion: 'Ja — zum Ausschluss eines Harnwegsinfekts oder einer Urolithiasis als Differenzialdiagnose; bei pelviner Appendixlage kann der Urin ebenfalls leicht auffällig sein.',
-            },
-            {
-              frage: 'Falls die Entzündungsparameter nicht erhöht sind — was könnte der Grund sein?',
-              reaktion: 'Ein frühes Stadium oder eine noch lokalisierte Entzündung; die Diagnose bleibt klinisch und wird nicht allein durch normwertige Laborparameter ausgeschlossen.',
-            },
-            {
-              frage: 'Was kann man in der Sonografie sehen?',
-              reaktion: 'Eine aufgetriebene, nicht komprimierbare Appendix (Kokarde/Target-Zeichen), Wandverdickung, freie Flüssigkeit sowie ggf. einen Kotstein.',
-            },
-          ],
-        },
-        {
-          title: 'Therapie & Aufklärung',
-          interactions: [
-            {
-              frage: 'Welche Therapie schlagen Sie vor?',
-              reaktion: 'Nüchtern lassen, i.v.-Flüssigkeit, Analgesie und perioperative Antibiose, stationäre Aufnahme; als kausale Therapie die laparoskopische Appendektomie.',
-            },
-            {
-              frage: 'Klären Sie den Patienten über die laparoskopische Appendektomie auf.',
-              reaktion: 'Über drei kleine Bauchschnitte („Schlüssellochoperation“) wird der entzündete Wurmfortsatz in Vollnarkose entfernt; kurze Erholung, Risiken wie Blutung, Infektion, Verletzung von Nachbarorganen und selten Umstieg auf eine offene Operation.',
-            },
-            {
-              frage: 'Warum ist eine zeitnahe Operation wichtig?',
-              reaktion: 'Um eine Perforation mit Peritonitis und Sepsis zu vermeiden — die Appendizitis ist eine dringliche OP-Indikation.',
-            },
-          ],
-        },
+        { title: 'Einstieg & Anamnese-Zusammenfassung', interactions: [
+          { frage: 'Erzählen Sie kurz, wen Sie gesehen haben und welche Beschwerden er hat.', reaktion: '41-jähriger Patient mit seit gestern Abend plötzlich aufgetretenen, stechenden Schmerzen im rechten Unterbauch (7–8/10) ohne Ausstrahlung, zunehmend über Nacht, mit Übelkeit, Hitzegefühl, Nachtschweiß und Appetitlosigkeit; kein Erbrechen, kein Durchfall.' },
+          { frage: 'Was fällt Ihnen an der Schmerzcharakteristik auf?', reaktion: 'Verschlimmerung im Flachliegen und bei Erschütterung, Besserung beim Vornüberbeugen und Anziehen der Knie — passend zu peritonealer Reizung im rechten Unterbauch. Eine Schmerzwanderung fehlt, das schließt die Appendizitis nicht aus.' },
+        ] },
+        { title: 'Verdachtsdiagnose & Differenzialdiagnosen', interactions: [
+          { frage: 'Welche Verdachtsdiagnose haben Sie? Warum?', reaktion: 'Akute Appendizitis — umschriebener rechter Unterbauchschmerz, Übelkeit, Inappetenz, Hitzegefühl, Schmerzverstärkung im Liegen und bei Erschütterung.' },
+          { frage: 'Welche Differenzialdiagnosen?', reaktion: 'Gastroenteritis, Harnleiterstein rechts, inkarzerierte Leistenhernie rechts (Z. n. Hernien-OP), gedeckt perforiertes Ulkus (Sodbrennen, Ibuprofen), Zäkumdivertikulitis, Morbus Crohn; bei einer Frau zusätzlich Extrauteringravidität und Ovarialtorsion.' },
+        ] },
+        { title: 'Diagnostik', interactions: [
+          { frage: 'Wie gehen Sie vor, um Ihren Verdacht zu bestätigen?', reaktion: 'Körperliche Untersuchung mit Appendizitiszeichen, Leiste und rektaler Untersuchung, Vitalparameter mit Temperatur, Labor (Blutbild, CRP), Urinstatus und Abdomensonographie, bei unklarem Befund CT.' },
+          { frage: 'Welche Informationen liefert ein Blutbild?', reaktion: 'Leukozytenzahl (Leukozytose mit Linksverschiebung als Entzündungszeichen), Erythrozyten (Anämie/Blutung) und Thrombozyten.' },
+          { frage: 'Würden Sie den Urin untersuchen? Warum?', reaktion: 'Ja — zum Ausschluss eines Harnwegsinfekts oder einer Urolithiasis als Differenzialdiagnose; bei pelviner Appendixlage kann der Urin ebenfalls leicht auffällig sein.' },
+          { frage: 'Falls die Entzündungsparameter nicht erhöht sind — was könnte der Grund sein?', reaktion: 'Ein frühes Stadium oder eine noch lokalisierte Entzündung; auch Ibuprofen kann die Entzündungszeichen abschwächen. Die Diagnose bleibt klinisch.' },
+          { frage: 'Was kann man in der Sonografie sehen?', reaktion: 'Eine aufgetriebene, nicht komprimierbare Appendix (Kokarde/Target-Zeichen), Wandverdickung, freie Flüssigkeit sowie ggf. einen Kotstein oder Abszess.' },
+        ] },
+        { title: 'Therapie', interactions: [
+          { frage: 'Welche Therapie schlagen Sie vor?', reaktion: 'Stationäre Aufnahme, nüchtern lassen, i.v.-Flüssigkeit, Analgesie und perioperative Antibiotikaprophylaxe; als kausale Therapie die laparoskopische Appendektomie.' },
+          { frage: 'Kann man auch nur mit Antibiotika behandeln?', reaktion: 'Bei unkomplizierter Appendizitis ohne Kotstein möglich, aber etwa jeder Dritte wird innerhalb eines Jahres doch operiert. Bei diesem gesunden 41-Jährigen ist die Operation vorzuziehen, auch wegen der Histologie.' },
+          { frage: 'Warum ist eine zeitnahe Operation wichtig?', reaktion: 'Um eine Perforation mit Peritonitis und Sepsis zu vermeiden — die Appendizitis ist eine dringliche OP-Indikation.' },
+        ] },
+        { title: 'Aufklärung des Patienten (2 Minuten)', interactions: [
+          { frage: 'Klären Sie den Patienten über die laparoskopische Appendektomie auf.', reaktion: 'Über drei kleine Bauchschnitte („Schlüssellochoperation“) wird der entzündete Wurmfortsatz in Vollnarkose entfernt; kurze Erholung, Risiken wie Blutung, Infektion, Verletzung von Nachbarorganen und selten Umstieg auf eine offene Operation.' },
+        ] },
       ],
     },
     {
