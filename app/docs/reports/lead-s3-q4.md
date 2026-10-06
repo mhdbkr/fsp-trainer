@@ -1,6 +1,159 @@
 # Lot Q4 — composées d'`aktuell` (zoeliakie → malaria), garde anti-doublon, renvois, FreqBadge
 
-Branche `feat/s3-q4-contenu`, base `origin/main` @ `0174bf6c`, puis fusion d'`origin/main` @ `ab235e57` (#85 S4-5 mergée) en `dcc2c3d2`. Contenu `98cb5d96` ; guide psy `b3423dc9` ; tests et gels de `cefa0f11` à `769af9eb` ; après fusion : `bf002ec3` (table unique des fréquences) et `d8c7d5e3` (ancre de mutation). **Statut : DONE_WITH_CONCERNS.** Tout est vert par code de sortie (§ 5). Les réserves sont au § 6 et dans « Non vérifié ». Une revue clinique doit suivre.
+Branche `feat/s3-q4-contenu`, base `origin/main` @ `0174bf6c`, puis fusion d'`origin/main` @ `ab235e57` (#85 S4-5 mergée) en `dcc2c3d2`. Contenu `98cb5d96` ; guide psy `b3423dc9` ; tests et gels de `cefa0f11` à `769af9eb` ; après fusion : `bf002ec3` (table unique des fréquences) et `d8c7d5e3` (ancre de mutation). Fixeur après les revues Opus : section F, qui **prime**. **Statut : DONE_WITH_CONCERNS** (F.7). Le premier passage (§ 1 à § 7) reste tel qu'il a été revu.
+
+## F. Fixeur — revues Opus de `a9c7b82c` (décisions de main)
+
+> Revue clinique : « pas encore mergeable », 5 P1, aucun P0. Relecture de langue : « accepté sous réserve », 9 importants. Les décisions de `main` sont appliquées dans les commits `c60cb755` à `9f6a6cf1`. **Cette section prime sur la suite quand elles divergent.**
+>
+> **Statut : DONE_WITH_CONCERNS.** Tout est vert par code de sortie (F.6). Trois points ne sont pas appliqués tels quels, faute de pouvoir l'être sans contradiction. Ils sont renvoyés à `main` en F.7 : polymyalgia, la relance I8, et la manière d'appliquer P1-3.
+
+### F.1 Clinique P1
+
+| P1 | Fait | Épinglé par |
+|---|---|---|
+| P1-1 diabetes-typ1 | « Hat sich Ihr Gewicht in letzter Zeit verändert, ohne dass Sie es wollten? », avec deux relances : « Falls ja: Wie viel, in welchem Zeitraum? » puis « Wie ist dabei Ihr Appetit — … als früher? » | `coherenceQ4` P1-1/P1-2 |
+| P1-2 achalasie | « Haben Sie ungewollt abgenommen? », avec deux relances : « Falls ja: Wie viel, in welchem Zeitraum? » puis « Ist Ihr Appetit dabei erhalten geblieben? » | idem |
+| P1-3 metabolisches-syndrom | `fach-endo-gewicht` est de nouveau réduite à `[appetit]`, et sa réplique ne dit plus que l'appétit. Le moyen employé est décrit en F.7-c. | `coherenceQ4` P1-3, contrôle de `reponseDoublon` |
+| P1-4 uterus-myomatosus | `akt-veraend-entwicklung` est coupée. `akt-begleit` reprend le texte exact de `main`. | `coherenceQ4` P1-4 |
+| P1-5 NOTFALL | « Falls konkrete Absicht, Plan oder Vorbereitungen: NOTFALL — der Patient bleibt stationär. … » | `followUp.test` C-3, `coherenceRevue` |
+| Garde | `reponseDoublon.test.ts` couvre aussi les questions de BANQUE jouées après `cohere` (voir ci-dessous) | — |
+
+**Forme des relances (P1-1, P1-2).** `main` a écrit `followUps: [a, b]`. Le contrat `frage-atomique.md` § 10.2 (I9, forme unique) impose que la PREMIÈRE relance reste dans `followUp`, parce qu'un client ancien lit `followUp.trim()`. Le contenu porte donc `followUp: a, followUps: [b]`. Les questions du cas n'ont pas de `followUpSucht` : la relance sur l'appétit hérite du `sucht` de sa mère, `['gewicht', 'appetit']`, ce qui reste juste.
+
+**NOTFALL — changement du parseur (hors de mon périmètre, à valider).** La condition « konkrete Absicht, Plan oder Vorbereitungen » fait 42 caractères. La regex de `parseFollowUp` (`followUp.ts`) plafonnait la condition à 40 : le NOTFALL serait devenu une note **inconditionnelle**, au lieu d'un interrupteur. C'est une régression de sécurité. J'ai porté le plafond à 48. J'ai vérifié sur le corpus qu'aucune autre relance n'a une condition de 41 à 48 caractères ; la seule chaîne de 41 caractères est un texte de thérapie, que ce parseur ne lit pas. Le test `followUp.test` C-3 est rouge à 40.
+
+**Garde étendue (`reponseDoublon.test.ts`).**
+- La lecture porte désormais aussi sur les questions de banque gardées par `cohere`, avec le `sucht` de ce qu'elles posent encore : `fach-endo-gewicht~appetit` ne compte que pour l'appétit.
+- Elle lit aussi les répliques des questions du cas (`frageAntworten`).
+- Mesure sur les questions de banque : 447 constats sur les 130 cas au moment de la revue, dont 92 sur les cas Q4. Ils sont presque tous antérieurs à Q4 (par exemple, une réplique d'`aktuell` dit la nausée et la végétative la redemande), donc trop nombreux pour une liste écrite. D'où trois garde-fous :
+  - **un cliquet** : le relevé des cas Q4 est figé dans `__snapshots__/doublon-banque-q4.txt` (87 lignes). Une banque qui revient y ajoute une ligne et fait échouer le test ;
+  - **un plafond de 442** sur les 130 cas ;
+  - **un contrôle** : si l'on retire la question du poids, `fach-endo-gewicht` revient et le relevé le voit (`gewicht|akt-motiv`).
+- Questions du cas : le plafond porte maintenant sur les constats **non admis**. Il vaut 81, plus serré que les 87 précédents. Deux constats sont admis, chacun avec sa raison :
+  - metabolisches-syndrom, `gewicht` après le motif (voir F.7-c) ;
+  - akutes-nierenversagen, `gewicht` après `akt-allgemein-gewicht`. C'est le texte I7 de la relecture de langue : la réplique dit la perte (les bagues), la question demande la pesée.
+- Contrôle rouge : avec le `seedCases.ts` de `a9c7b82c`, 21 tests de `coherenceQ4` et de `reponseDoublon` échouent.
+
+### F.2 Clinique P2
+
+- **tia** : la question de la vue déclare `braucht: ['dauer']`. La trame jouée est maintenant : début, durée, vue (`checkCoherence --case case-tia`, porte à 0).
+- **Réponse sur les préparatifs, placée entre le plan et la tentative.** Texte exact : « Vorbereitet habe ich nichts. »
+  - cas concernés : depression, demenz, panikstoerung, alkoholentzug, delir, anorexia, ptbs, somatoforme ;
+  - somatoforme : « Pläne habe ich keine. Vorbereitet habe ich nichts. Und versucht habe ich es nie. » ;
+  - opioid : « Tabletten gesammelt habe ich nicht. » ;
+  - schizophrenie : avait déjà sa réponse.
+- **opioid** : la relance I2 est appliquée, et la réplique écrite reprend le texte exact (« … aber einen Rettungswagen hat sie nicht gerufen. Absicht war das nicht. »). J'ai aussi coupé dans `vor-krankenhaus` la phrase « Auch nach der Sache vor vier Monaten nicht — meine Frau wollte den Notarzt rufen, ich habe es nicht zugelassen. ». Elle racontait l'overdose avant la question #44, qui la demande. Sans cette coupe, le texte patient faisait 10 021 caractères et dépassait `PASTE_MAX` (10 000), ce qui faisait échouer `prompt.corpus.test`.
+- **zoeliakie** : `fach-gastro-stuhl` devient « Breiig bis wässrig und sehr voluminös. Der Geruch ist wirklich übel. Blut ist nicht dabei, schwarz ist er nicht, Schleim auch nicht. ». La fréquence, l'aspect et la nuit étaient déjà demandés avant.
+- **Doublons préexistants des cas relus, tous traités** :
+
+| Cas · clé | Avant (extrait) | Après |
+|---|---|---|
+| leistenhernie · `akt-ort` | … Manchmal zieht es bis in den rechten Hoden hinunter. | coupé (la question du cas demande l'irradiation vers le scrotum) |
+| leistenhernie · `akt-verlauf` | … Wenn ich mich hinlege, geht sie von allein zurück. | coupé (la question du cas #21 le demande) |
+| leistenhernie · `akt-begleit` | l'épisode d'incarcération | « Sonst ist mir eigentlich nichts aufgefallen. ». L'épisode est **déplacé** dans `frageAntworten`, en réponse à « War die Beule irgendwann einmal hart … ». |
+| schlafapnoe · `akt-begleit` | … Nachts zwei- bis dreimal raus, ich schwitze, manchmal wache ich auf, als würde ich ersticken. … | coupé : la nycturie, la sueur et l'étouffement sont tous redemandés plus loin |
+| schlafapnoe · `fach-pneumo-atemnot` | … Nachts wache ich allerdings manchmal auf und ringe nach Luft … | coupé. Le texte est **déplacé** dans `frageAntworten`, en réponse à « Wachen Sie nachts … Erstickungs- oder Würgegefühl … ». |
+| metabolisches-syndrom · `veg-schlaf` | … Ich schnarche laut … im Auto an einer roten Ampel … | « Ich schlafe schlecht. Ich wache zwischendurch auf und bin morgens wie gerädert. ». Le reste est **déplacé** dans la réponse à la question du cas sur le ronflement. |
+| karzinoid · `akt-begleit` | Das Gesicht wird plötzlich rot. Und fünf Kilo habe ich abgenommen. | « Ja: Meinem Mann sind feine rote Äderchen an meinen Wangen und auf der Nase aufgefallen. » (`begleitsymptome[5]`, que rien d'autre ne demande) |
+| anorexia · `fach-psych-suizid` | … (Pause, leiser) Manchmal denke ich schon, … nicht aufwachen müsste. … | « Sterben will ich nicht, und ich habe mir nie etwas angetan. Pläne habe ich keine, und tun würde ich mir nichts. Vorbereitet habe ich nichts. ». Le désir de mort passif est **déplacé** dans la réponse à la question du cas `todeswunsch`, posée avant. Le « Nein. » initial est retiré : il aurait contredit cette réponse. |
+
+- **malaria**, voyage tardif : renvoyé à Q8, comme décidé.
+
+### F.3 Langue
+
+- Appliqués au texte exact : I1, I2, I3, I4 (5 relances), I5, I6, I7, et tous les mineurs (opioid, achalasie, uterus, laktoseintoleranz, fibromyalgie ×2, spinalkanalstenose, gastroenteritis, malaria ×2, itp).
+- Le `:32118` du message de `main` est la question de **itp**, pas d'akutes-nierenversagen. Elle est appliquée.
+- **I8 n'est pas appliqué** (F.7-b).
+- malaria `:45218` : la nouvelle question cite le saignement des gencives, que la fiche ne mentionnait pas. `checkCaseQuestionAnswers` passait alors à 74, au-dessus de son plancher de 73. J'ai ajouté une réponse `frageAntworten` : « Nein, Luft bekomme ich gut. Und bluten tue ich nirgends — weder aus der Nase noch am Zahnfleisch. ». Elle s'appuie sur deux lignes de la fiche : « keine Atemnot » et « keine Blutungen, keine blauen Flecken ».
+
+### F.4 Fréquences (décision de main)
+
+- `FREQUENCE_PLANCHER = 1` dans `frequencesProtocoles.ts` (avec la table, à valider).
+- Les 72 cas non sourcés sont au plancher : 48 sont absents de la source, 24 ont une pathologie à `total: null`. 63 valeurs ont changé, les 9 autres valaient déjà 1.
+- `FreqBadge` (`components/ui.tsx`, exception accordée) se masque quand `n <= FREQUENCE_PLANCHER`. Les cinq endroits qui l'appellent ne changent pas.
+- Tests dans `frequencesProtocoles.test.ts` :
+  - `Case.frequency` vaut le total sourcé, ou le plancher ;
+  - le plancher est au moins 1 et strictement sous le plus petit total sourcé (4) ;
+  - après tri, aucun cas non sourcé n'est devant un cas sourcé ;
+  - aucun badge n'apparaît sans source. Ce dernier test est rouge sans la garde : `case-schlaganfall: expected '×1' to be ''`.
+- **Programme (S4-2, S4-5, C6)** : 25 fichiers et 213 tests de `features/program` et `lib/program`, plus C6 (165 tests), passent tous, **sans toucher à aucune fixture**. INV-65 ne bouge pas : la sonde temporaire mesure toujours 30 oct. contre 16 oct. La couverture pondérée lit la source directement, elle n'est pas affectée.
+
+### F.5 Réponses patient écrites ou déplacées par le fixeur
+
+Le reste est fait de coupes ou de textes exacts de `main`.
+
+| Où | Texte | Source |
+|---|---|---|
+| metabolisches · question du cas « Wie viel haben Sie in diesen zwei Jahren zugenommen? » | (schaut zur Seite) Etwa zehn Kilo. Vor zwei Jahren waren es noch ungefähr 105. | déplacé depuis `pers-groesse` |
+| metabolisches · question du cas sur le ronflement | Ich schnarche laut, und meine frühere Frau hat gesagt, dass ich manchmal aufhöre zu atmen. Tagsüber schlafe ich ein — vor dem Fernseher, und einmal sogar im Auto an einer roten Ampel, das hat mich erschreckt. | `veg-schlaf` (déplacé) et `begleitsymptome` (« … von der früheren Ehefrau beobachteten Atempausen … vor dem Fernseher … roten Ampel ») |
+| metabolisches · `fach-endo-gewicht` | Der Appetit ist eher größer geworden, mit richtigen Heißhungerattacken am Abend. | coupe |
+| leistenhernie · `akt-begleit` | Sonst ist mir eigentlich nichts aufgefallen. | **nouveau**, voir F.7-d |
+| leistenhernie, schlafapnoe, anorexia · `frageAntworten` | (textes déplacés, voir F.2) | répliques d'origine |
+| karzinoid · `akt-begleit` | Ja: Meinem Mann sind feine rote Äderchen an meinen Wangen und auf der Nase aufgefallen. | `begleitsymptome[5]` |
+| malaria · `frageAntworten` | Nein, Luft bekomme ich gut. Und bluten tue ich nirgends — weder aus der Nase noch am Zahnfleisch. | fiche, négatifs |
+
+### F.6 Vérifications (HEAD `9f6a6cf1`, avant le commit du rapport)
+
+| Vérification | Résultat |
+|---|---|
+| `tsc -b` | exit 0 |
+| `vitest run --dir src` | exit 0 — 188 fichiers, 1 986 tests |
+| `npm run test:c6` | exit 0 — 15 fichiers, 165 tests |
+| `node --test scripts/*.test.mjs` | 198/199 dans la batterie. L'échec est un sous-processus `checkProbeCoverage.mjs` resté bloqué 29 minutes (0 % de CPU, aucun enfant) dans une copie `fsp-mut-*`, que j'ai tué. Relancé seul, `checkProbeCoverage.test.mjs` passe : exit 0, 4/4. |
+| `npm run build` | exit 0 |
+| `checkBudgetFloor.mjs origin/main` (@ `1bfffcd1`) | exit 0 |
+| `git merge-tree --write-tree origin/main HEAD` | exit 0. origin/main n'a que 4 commits de registre en plus. |
+| 21 `check*.mjs`, plus `checkTermRegister --require-all` et `evalDoctopus --dry` | exit 0, sauf `checkProbeOverlap`, qui reste à 9 comme sur main (informatif en CI) |
+| `checkCoherence` (la porte) | exit 0 |
+| `checkCaseQuestionAnswers` | 73, au plancher |
+| Atomicité | A2 passe de 37 à 36 (`--bless`) |
+
+### F.7 À trancher par `main`
+
+**a. polymyalgia (P2) — non appliqué, deux décisions contradictoires.**
+
+La décision dit à la fois :
+- « `akt-begleit` commence par « Nein, Augenentzündungen oder Geschwüre hatte ich nicht. » » ;
+- « la fatigue est retirée de cette réplique ; elle reste dite par `fach-rheuma-systemisch` ».
+
+Or :
+- c'est `fach-rheuma-systemisch` (#31) qui pose la question des inflammations oculaires et des ulcères, sans y répondre, et qui redit la fatigue ;
+- `akt-begleit` (#19) ne pose pas cette question ;
+- tous les autres signes de `begleitsymptome` (céphalée, cuir chevelu, mâchoire, vue, fébricule, poids) sont demandés plus loin par des questions du cas.
+
+Il ne reste donc à `akt-begleit` que la fatigue, ou un « nichts » qui serait faux. Deux options :
+- **A.** `fach-rheuma-systemisch` reçoit « Nein, Augenentzündungen oder Geschwüre hatte ich nicht. Richtiges Fieber hatte ich nicht. … » sans la fatigue, et `akt-begleit` garde la fatigue ;
+- **B.** la même chose, mais la fatigue reste dans `fach-rheuma-systemisch`, et `akt-begleit` dit un négatif.
+
+Dans les deux cas, « Richtiges Fieber hatte ich nicht » est dit avant la question du cas « Fieber gemessen » : ce sera un constat à admettre.
+
+**b. Langue I8 (gastroenteritis `akt-ausscheid-aussehen`) — non appliqué.**
+- À cette question (#17), rien n'a encore dit la couleur : le motif ne la donne pas. C'est la question du cas #23 « Wie sieht Ihr Stuhl aus — … welche Farbe … » qui la demande ensuite.
+- « Hellgelb, wie gesagt » recréerait le doublon que Q4 avait retiré, épinglé par `coherenceQ4`, et le « wie gesagt » serait faux.
+- La réplique reste donc : « Blut oder Schleim ist da nicht drin. »
+
+**c. P1-3 — le moyen, pas le résultat.** J'ai mesuré les deux moyens proposés.
+- `fachSkip: ['fach-endo-gewicht']` : `gewicht` passe simplement à `akt-allgemein-gewicht`, qui pose le poids avec l'appétit et la soif, et laisse un résidu (`nonReduit 1`).
+- `veg-gewicht` ne peut pas être sauté : seuls `aktuellSkip` et `fachSkip` existent.
+- `gewicht` est un signe de dépistage, avec la banque `veg-gewicht`. Il ne peut pas être exclu (INV-80), donc une unité le posera toujours.
+- `pers-groesse` disait déjà « Vor zwei Jahren waren es noch ungefähr 105 » : n'importe quelle question de poids était donc un doublon.
+
+Ce qui est fait :
+- cette phrase passe de `pers-groesse` à la réponse d'une question du cas qui **demande** le poids : « Wie viel haben Sie in diesen zwei Jahren zugenommen? », avec `sucht: ['gewicht']`. Aucun `sucht` ne porte donc un signe que sa question ne demande pas ;
+- `fach-endo-gewicht` retombe sur sa part « appétit » par r2.
+
+Le seul constat restant est admis : le motif dit « immer mehr zugenommen » sans chiffre, et la question demande combien.
+
+**d. leistenhernie `akt-begleit`.** Toute la liste `begleitsymptome` est redemandée par les questions du cas : toux chronique, constipation, troubles prostatiques, incarcération. La réplique dit donc « Sonst ist mir eigentlich nichts aufgefallen. ». C'est plausible chez un patient qui ne relie pas sa toux de fumeur à sa hernie, mais c'est un texte nouveau, à valider cliniquement.
+
+**e. Hors de mon périmètre.**
+- `followUp.ts` (plafond de la condition porté de 40 à 48) ;
+- `frequencesProtocoles.ts` (la constante) ;
+- `components/ui.tsx` (exception accordée) ;
+- `followUp.test.ts`, `coherenceRevue.test.ts`, `frequencesProtocoles.test.ts`, `prompt.corpus.test.ts` (non modifié : c'est le contenu d'opioid qui a été coupé).
+
+**f. Environnement.** Un processus `node --test` lancé il y a plus de 12 heures (PID 6407, `fsp-mut-lZM39o`) est bloqué de la même façon que le mien. Il n'est pas à moi, je ne l'ai pas tué.
 
 Incident : le disque s'est rempli pendant la batterie (ENOSPC). Les bundles esbuild de mes scripts d'analyse restaient dans `$TMPDIR`. `main` les a supprimés, et j'ai retiré les dossiers `fsp-*` laissés par les check interrompus à 05:43. La batterie a été relancée en entier après coup (§ 6) : les 11 échecs simultanés venaient du disque, sauf `checkProbeOverlap`, qui échoue déjà sur main (§ 6).
 
@@ -117,7 +270,7 @@ Non touchés :
 - 48 cas sans pathologie dans la source ;
 - 24 cas dont la pathologie a un total `null` (pathologies rares, que la source ne compte pas).
 
-Ces 72 cas gardent leur valeur actuelle, qui ne vient pas de la source. C'est à trancher par `main` (§ 6).
+Ces 72 cas gardaient leur valeur actuelle, qui ne vient pas de la source. **Tranché par `main` : ils sont au plancher, et leur badge est masqué (F.4).**
 
 **INV-65** (`tests/invariants.apprentissage.test.ts`, exception de périmètre accordée par `main`) : les fréquences alignées déplacent la projection. Valeurs mesurées par une sonde temporaire, retirée depuis :
 - au rythme proposé, la projection tombe le **30 oct.** ;
@@ -153,7 +306,7 @@ L'examen du scénario « veto pédagogique », fixé jusqu'ici au 30 oct., tomba
 
 ### Réserves
 
-1. **72 cas sans fréquence sourcée** (§ 5). Le badge affiche pour eux une valeur que la source ne contient pas. À trancher par `main` : soit masquer le badge, soit garder la valeur héritée.
+1. ~~**72 cas sans fréquence sourcée**~~ — tranché (F.4).
 2. **Justesse clinique des `sucht`** : la porte ne la voit pas. Elle relève de la relecture clinique.
 3. **Q8 non traité**, faute de temps après l'incident disque.
 
@@ -274,3 +427,7 @@ Format : cas · signe · sonde jouée avant → question du cas qui le redemande
 - Les parcours navigateur (`parcours-candidat`, `parcours-mutations`, `e2e/programmeInvariants`, `carteCouverture390`) n'ont pas été lancés. Ils demandent un serveur, et la marge disque est mince. Or les fréquences changent l'ordre des cas et le plan du jour lu par la page Programme de #85 : c'est à vérifier en CI.
 - La justesse clinique des déclarations `sucht` et des coupes : revue clinique à faire.
 - Le registre de la série (`serie3-avancement.md`) n'a pas été mis à jour : il est tenu par `main`.
+- Fixeur :
+  - le masquage du badge n'est vérifié que par le rendu de test (testing-library), pas dans un navigateur. Les parcours navigateur n'ont pas été lancés ;
+  - le libellé de 42 caractères de l'interrupteur NOTFALL n'a pas été vu à l'écran ;
+  - la justesse clinique des textes déplacés et du négatif de leistenhernie (F.7-d) reste à revoir.
