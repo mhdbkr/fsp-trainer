@@ -300,10 +300,10 @@ export function seedCases(): Case[] {
         vegetativeAnamnese: ['gelegentlich Schwitzen bei den Anfällen', 'Kurzatmigkeit beim Treppensteigen'],
         negativeFindings: [
           'kein Schmerz in Ruhe, keine Beschwerden nachts',
-          'keine Bewusstlosigkeit, kein Herzstolpern',
+          'keine Bewusstlosigkeit, kein Herzstolpern (keine Belastungssynkope; gegen Aortenklappenstenose)',
           'kein Fieber, kein Husten, kein Auswurf',
           'keine geschwollenen Beine, keine Wadenschmerzen',
-          'kein Zusammenhang mit dem Atmen oder mit dem Essen',
+          'kein Zusammenhang mit dem Atmen oder mit dem Essen (gegen muskuloskelettalen Thoraxschmerz)',
           'kein Gewichtsverlust, kein Nachtschweiß',
           'kein Anhalten der Beschwerden über 20 Minuten, keine Ruhebeschwerden und keine nächtlichen Anfälle, keine Zunahme von Häufigkeit oder Intensität in den letzten Tagen, keine Vernichtungsangst, keine Kaltschweißigkeit in Ruhe (gegen akutes Koronarsyndrom)',
           'kein brennender Schmerz hinter dem Brustbein, kein saures Aufstoßen, keine Beschwerden im Liegen oder direkt nach dem Essen, keine Schluckbeschwerden (gegen Refluxkrankheit)',
@@ -382,10 +382,10 @@ export function seedCases(): Case[] {
         persona: 'Retraité placide qui relativise ses symptômes (« ce n\'est rien, ça passe au repos »). Tu banalises le tabac. Tu t\'inquiètes surtout à l\'idée d\'une opération. Décris la douleur clairement si on te la fait préciser.',
       },
       medicalView: {
-        verdachtsdiagnose: 'Stabile Angina pectoris bei koronarer Herzkrankheit, etwa CCS-Klasse II. Ausgeprägtes Risikoprofil: aktiver Raucher mit 30 Packungsjahren, Diabetes mellitus Typ 2, arterielle Hypertonie, Hypercholesterinämie, Adipositas Grad I (BMI 30).',
+        verdachtsdiagnose: 'Belastungsabhängige Angina pectoris bei Verdacht auf KHK, neu und zunehmend: bis zum Ausschluss eines ACS als instabil zu werten. Belastungsschwelle etwa CCS-Klasse II. Ausgeprägtes Risikoprofil: aktiver Raucher mit 30 Packungsjahren, Diabetes mellitus Typ 2, arterielle Hypertonie, Hypercholesterinämie, Adipositas Grad I (BMI 30).',
         patientWorte: { verdacht: 'es sich um eine Verengung der Herzkranzgefäße handelt, die bei Belastung zu wenig Durchblutung des Herzens erlaubt', diagnostik: 'schreiben wir eine Herzstromkurve, machen einen Belastungstest und bei Bedarf eine Herzkatheteruntersuchung', therapie: 'bekommen Sie Medikamente, die das Herz entlasten, und möglicherweise wird ein verengtes Gefäß mit einem kleinen Ballon oder Stent geweitet' },
         differenzialdiagnosen: [
-          { dd: 'Instabile Angina pectoris beziehungsweise akutes Koronarsyndrom', unterscheidung: 'Muss zuerst ausgeschlossen werden: Ruheschmerz, Beschwerden über 20 Minuten oder Zunahme in den letzten Tagen. Der Patient verneint alles drei; die Beschwerden sind seit Wochen gleich und belastungsgebunden. Trotzdem EKG und bei kürzlichem Anfall hs-Troponin.' },
+          { dd: 'Akutes Koronarsyndrom mit Myokardinfarkt (NSTEMI/STEMI)', unterscheidung: 'Muss zuerst ausgeschlossen werden. Ruhe- und Dauerschmerz über 20 Minuten verneint der Patient; die Beschwerden sind aber erst seit einigen Wochen da und zuletzt häufiger geworden — eine De-novo- und Crescendo-Angina. Deshalb sofort 12-Kanal-EKG und hs-Troponin (0/1-h-Algorithmus); erst bei unauffälligen Befunden und stabiler Belastungsschwelle weitere Abklärung als chronisches Koronarsyndrom.' },
           { dd: 'Aortenklappenstenose', unterscheidung: 'Belastungsangina und Belastungsdyspnoe sind auch ihre Leitsymptome, später Synkopen. Hinweis ist ein raues Systolikum mit Fortleitung in die Karotiden; Klärung durch die Echokardiographie. Wichtig, weil eine hochgradige Stenose Nitrate und Belastungstests einschränkt.' },
           { dd: 'Gastroösophageale Refluxkrankheit', unterscheidung: 'Brennender, nahrungs- und lageabhängiger Schmerz mit saurem Aufstoßen. Der Patient verneint Brennen, Aufstoßen und Beschwerden nach dem Essen oder im Liegen.' },
           { dd: 'Lungenembolie', unterscheidung: 'Plötzliche Ruhedyspnoe, atemabhängiger Schmerz, Tachykardie, Risikofaktoren für eine Thrombose. Hier wochenlang reproduzierbare Belastungsbeschwerden, keine Immobilisation, keine Beinschwellung.' },
@@ -394,12 +394,12 @@ export function seedCases(): Case[] {
         ],
         diagnostik: [
           { stufe: 'Anamnese/Klinik', text: 'Schmerzanamnese mit Schweregrad: Beschwerden beim Treppensteigen in den zweiten Stock, also bei mehr als einer Etage, entsprechen etwa CCS-Klasse II; Häufigkeit, Dauer, Ansprechen auf Ruhe' },
-          { stufe: 'Anamnese/Klinik', text: 'Risikofaktoren vollständig erfassen: 30 Packungsjahre, Diabetes, Hypertonie, Hypercholesterinämie, BMI 30 (92 kg bei 175 cm); Vater mit 60 Jahren Herzinfarkt — Grenzfall: als positive Familienanamnese gilt streng ein männlicher Verwandter ersten Grades unter 55 Jahren; im Gespräch trotzdem nennen' },
+          { stufe: 'Anamnese/Klinik', text: 'Familienanamnese präzisieren: Vater mit 60 Jahren Herzinfarkt — keine positive Familienanamnese, denn als positiv gilt ein männlicher Verwandter ersten Grades unter 55 Jahren; im Gespräch trotzdem erwähnen' },
           { stufe: 'Anamnese/Klinik', text: 'Körperliche Untersuchung: Blutdruck an beiden Armen, Herzauskultation (Systolikum bei Aortenstenose), Zeichen der Herzinsuffizienz, Pulsstatus der Beine und Strömungsgeräusche über Karotiden und Femoralarterien' },
-          { stufe: 'Labor', text: 'hs-Troponin, wenn der letzte Anfall weniger als 24 Stunden zurückliegt oder die Beschwerden zunehmen; Blutbild (Anämie als Auslöser), Kreatinin mit eGFR (Metformin, Kontrastmittel), Lipidprofil mit LDL-Cholesterin, HbA1c; TSH bei klinischem Verdacht' },
+          { stufe: 'Labor', text: 'hs-Troponin im 0/1-h-Algorithmus, weil die Angina neu und zunehmend ist; Blutbild (Anämie als Auslöser), Kreatinin mit eGFR (Metformin, Kontrastmittel), Lipidprofil mit LDL-Cholesterin, HbA1c; TSH bei klinischem Verdacht' },
           { stufe: 'Apparativ & Bildgebung', text: 'Ruhe-EKG: oft unauffällig, gesucht werden Q-Zacken nach stummem Infarkt, ST-Veränderungen, Linksherzhypertrophie und Rhythmusstörungen' },
           { stufe: 'Apparativ & Bildgebung', text: 'Transthorakale Echokardiographie: linksventrikuläre Pumpfunktion, regionale Wandbewegungsstörungen, Aortenklappe' },
-          { stufe: 'Apparativ & Bildgebung', text: 'Bei typischer Angina und vielen Risikofaktoren hohe klinische Wahrscheinlichkeit: bildgebende Ischämiediagnostik mit Stressechokardiographie oder Stress-MRT. Das Belastungs-EKG nur, wenn keine Bildgebung verfügbar ist' },
+          { stufe: 'Apparativ & Bildgebung', text: 'Nach Ausschluss eines akuten Koronarsyndroms, bei typischer Angina und vielen Risikofaktoren hohe klinische Wahrscheinlichkeit: bildgebende Ischämiediagnostik mit Stressechokardiographie oder Stress-MRT. Das Belastungs-EKG nur, wenn keine Bildgebung verfügbar ist' },
           { stufe: 'Invasiv & Speziell', text: 'Koronarangiographie mit FFR oder iFR bei großem Ischämieareal, bei Beschwerden trotz optimaler medikamentöser Therapie oder bei sehr hoher klinischer Wahrscheinlichkeit; Aufklärung über Kontrastmittel und Punktionsstelle' },
         ],
         therapie: [
@@ -417,7 +417,7 @@ export function seedCases(): Case[] {
             label: 'Prognoseverbessernde Basistherapie (Risikofaktoren, Thrombozytenaggregationshemmung, Statin)',
             items: [
               'ASS 100 mg 1-0-0 dauerhaft',
-              'Atorvastatin von 20 auf 40–80 mg steigern: LDL-Ziel unter 55 mg/dl und mindestens 50 % Senkung; Lipidstatus, Transaminasen und CK nach 6–8 Wochen, bei Nichterreichen Ezetimib',
+              'Atorvastatin von 20 auf 40–80 mg steigern: LDL-Ziel unter 55 mg/dl und mindestens 50 % Senkung; Lipidstatus und Transaminasen nach 6–8 Wochen, CK nur bei Muskelbeschwerden; bei Nichterreichen Ezetimib',
               'Ramipril fortführen, Blutdruckziel unter 130/80 mmHg',
               'Diabetes: Metformin fortführen und wegen der KHK einen SGLT2-Hemmer oder GLP-1-Rezeptoragonisten mit belegtem kardiovaskulärem Nutzen ergänzen, unabhängig vom HbA1c',
               'Rauchstopp als wirksamste Einzelmaßnahme, mit Nikotinersatz oder Vareniclin und Entwöhnungsprogramm',
@@ -436,9 +436,9 @@ export function seedCases(): Case[] {
             label: 'Revaskularisation: PCI oder Bypass — Indikation und Verfahrenswahl',
             items: [
               'Indikation nach Koronarangiographie: relevante Stenose mit Ischämienachweis oder Beschwerden trotz optimaler Therapie',
-              'Bei Ein- oder Zweigefäßerkrankung PCI mit medikamentenbeschichtetem Stent, möglichst in gleicher Sitzung; danach ASS plus Clopidogrel 75 mg über 6 Monate, dann ASS allein — Therapietreue wegen der Stentthrombose ausdrücklich erklären',
-              'Bei Hauptstammstenose oder Mehrgefäßerkrankung mit Diabetes mellitus Entscheidung im Herzteam, meist aortokoronare Bypass-Operation',
-              'Vor dem Kontrastmittel Kreatinin prüfen; Metformin nur bei eGFR unter 30 ml/min oder akuter Nierenschädigung pausieren',
+              'Bei Eingefäßerkrankung PCI mit medikamentenbeschichtetem Stent, möglichst in gleicher Sitzung; danach ASS plus Clopidogrel 75 mg über 6 Monate, dann ASS allein — Therapietreue wegen der Stentthrombose ausdrücklich erklären',
+              'Bei Hauptstammstenose oder Mehrgefäßerkrankung — bei diesem Diabetiker — Entscheidung im Herzteam, meist aortokoronare Bypass-Operation',
+              'Vor dem Kontrastmittel Kreatinin prüfen; Metformin nach ESUR nur bei eGFR unter 30 ml/min oder akuter Nierenschädigung pausieren; die Fachinformation sieht eine Pause bis 48 Stunden nach Kontrastmittel vor — Hausstandard beachten',
               'Danach Anschlussheilbehandlung; die Basistherapie läuft unverändert weiter',
             ],
           },
@@ -447,7 +447,7 @@ export function seedCases(): Case[] {
           '12-Kanal-EKG innerhalb von 10 Minuten, auch wenn der Patient gerade beschwerdefrei ist',
           'Vitalparameter mit Blutdruck an beiden Armen',
           'Blutentnahme mit hs-Troponin, Blutbild, Kreatinin, Lipiden und HbA1c',
-          'Bei Ruheschmerz, Zunahme der Beschwerden oder EKG-Veränderungen: Vorgehen wie beim akuten Koronarsyndrom',
+          'Bis zum Ausschluss eines akuten Koronarsyndroms Monitorüberwachung; bei Ruheschmerz, EKG-Veränderungen oder Troponinanstieg Vorgehen wie beim akuten Koronarsyndrom',
           'Nitrospray verordnen und den Gebrauch erklären; ASS 100 mg beginnen',
         ],
       },
@@ -458,7 +458,7 @@ export function seedCases(): Case[] {
         { frage: 'Treten die Beschwerden auch bei Aufregung oder seelischer Belastung auf, unabhängig von körperlicher Anstrengung?', kapitel: 'aktuell', sucht: ['stress_ausloeser'] },
         { frage: 'Wie oft in der Woche treten die Schmerzen ungefähr auf, und sind es in letzter Zeit mehr geworden?', kapitel: 'aktuell', sucht: ['episoden_haeufigkeit', 'entwicklung'] },
         { frage: 'Wurde bei Ihnen schon einmal ein Herzkatheter gemacht?', kapitel: 'vorerkrankungen', sucht: ['herz_vorgeschichte'], followUp: 'Falls ja: Wurde dabei ein Stent gesetzt?' },
-        { frage: 'Gab es in Ihrer Familie einen Herzinfarkt vor dem 60. Lebensjahr, zum Beispiel bei Ihren Eltern oder Geschwistern?', kapitel: 'familie-sozial', sucht: ['familie_herz'] },
+        { frage: 'Gab es in Ihrer Familie einen Herzinfarkt in jüngerem Alter — beim Vater oder Bruder vor 55, bei der Mutter oder Schwester vor 65 Jahren?', kapitel: 'familie-sozial', sucht: ['familie_herz'] },
       ],
       examinerQuestions: [
         'Nennen Sie die kardiovaskulären Risikofaktoren.',
@@ -467,15 +467,15 @@ export function seedCases(): Case[] {
       ],
       examinerSheet: [
         { title: 'Einstieg & Risikofaktoren', interactions: [
-          { frage: 'Verdachtsdiagnose und Begründung?', reaktion: 'stabile Angina pectoris bei KHK — belastungsabhängiger retrosternaler Druck mit Ausstrahlung, in Ruhe rückläufig.' },
-          { frage: 'Nennen Sie die kardiovaskulären Risikofaktoren des Patienten.', reaktion: 'Rauchen (30 py), Diabetes mellitus Typ 2, arterielle Hypertonie, Hypercholesterinämie, positive Familienanamnese (Vater Myokardinfarkt).' },
+          { frage: 'Verdachtsdiagnose und Begründung?', reaktion: 'belastungsabhängige Angina pectoris bei Verdacht auf KHK — retrosternaler Druck mit Ausstrahlung, in Ruhe rückläufig; da neu seit Wochen und zunehmend, bis zum Ausschluss eines akuten Koronarsyndroms als instabile Angina zu werten.' },
+          { frage: 'Nennen Sie die kardiovaskulären Risikofaktoren des Patienten.', reaktion: 'Rauchen (30 py), Diabetes mellitus Typ 2, arterielle Hypertonie, Hypercholesterinämie, Adipositas Grad I. Der Herzinfarkt des Vaters mit 60 Jahren ist erwähnenswert, erfüllt aber die Definition einer positiven Familienanamnese (männlicher Verwandter ersten Grades unter 55 Jahren) nicht.' },
         ] },
         { title: 'Differenzialdiagnosen', interactions: [
-          { frage: 'Wie grenzen Sie eine instabile AP / ein ACS ab?', reaktion: 'instabile AP/ACS = Ruheschmerz > 20 min, zunehmend, Troponin↑, EKG-Veränderungen — hier belastungsabhängig und reversibel.' },
+          { frage: 'Wie grenzen Sie eine instabile AP / ein ACS ab?', reaktion: 'Instabile AP: Ruheschmerz, Beschwerden über 20 Minuten, Crescendo- oder De-novo-Angina, Troponin normal; beim NSTEMI ist das Troponin erhöht. Hier belastungsabhängig und in Ruhe rückläufig, aber neu und zunehmend — deshalb EKG und hs-Troponin.' },
           { frage: 'Nicht-kardiale Differenzialdiagnosen?', reaktion: 'Reflux (nahrungsabhängig, PPI-Ansprechen), Lungenembolie (atemabhängig, D-Dimere), muskuloskelettal.' },
         ] },
         { title: 'Diagnostik & Therapie', interactions: [
-          { frage: 'Welche Diagnostik in welcher Reihenfolge?', reaktion: 'Ruhe-EKG + Troponin (ACS ausschließen), Labor (Lipide, HbA1c), dann Belastungs-EKG/Stressecho, ggf. Koronarangiographie.' },
+          { frage: 'Welche Diagnostik in welcher Reihenfolge?', reaktion: 'Ruhe-EKG + Troponin (ACS ausschließen), Labor (Lipide, HbA1c), dann Echokardiographie und bildgebende Ischämiediagnostik (Stressechokardiographie oder Stress-MRT), ggf. Koronarangiographie.' },
           { frage: 'Wie behandeln Sie die stabile AP?', reaktion: 'ASS + Statin + Betablocker, Nitro bei Bedarf, Risikofaktoren-Management/Nikotinkarenz; bei relevanter Stenose PTCA + Stent.' },
         ] },
       ],
@@ -688,6 +688,7 @@ export function seedCases(): Case[] {
         vegetativeAnamnese: ['Schwindel beim Aufstehen', 'Schwäche, Blässe', 'Appetit vermindert seit Wochen'],
         negativeFindings: [
           'kein hellrotes Bluterbrechen (nur kaffeesatzartig)',
+          'keine Eisen-, Wismut- oder Kohlepräparate (gegen Pseudomeläna)',
           'kein Fieber',
           'keine bekannte Lebererkrankung, keine Gelbsucht',
           'keine Brustschmerzen, keine Atemnot',
@@ -773,7 +774,7 @@ export function seedCases(): Case[] {
         persona: 'Veuf âgé, affaibli et pâle : voix basse, tu te dis étourdi. Tu ne fais pas le lien de toi-même avec l\'Ibuprofène que tu prends pour les genoux — dis-le seulement si on te demande tes médicaments/antidouleurs.',
       },
       medicalView: {
-        verdachtsdiagnose: 'Obere gastrointestinale Blutung bei NSAR-induziertem Ulcus ventriculi, mit orthostatischem Schwindel. Auslöser: Ibuprofen 600 mg mehrmals täglich zusätzlich zu ASS 100 mg; Kreislauf noch kompensiert, aber Volumenmangel wahrscheinlich.',
+        verdachtsdiagnose: 'Obere gastrointestinale Blutung bei NSAR-induziertem Ulcus ventriculi mit Volumenmangel (orthostatischer Schwindel). Auslöser: Ibuprofen 600 mg mehrmals täglich zusätzlich zu ASS 100 mg; Kreislauf noch kompensiert.',
         patientWorte: { verdacht: 'ein Magengeschwür blutet, möglicherweise ausgelöst durch die schmerzstillenden Tabletten, die Sie eingenommen haben', diagnostik: 'überwachen wir Ihren Kreislauf, nehmen Blut ab und machen umgehend eine Magenspiegelung', therapie: 'wird die Blutungsquelle noch während der Spiegelung gestillt, und Sie bekommen Infusionen sowie ein Medikament gegen die Magensäure' },
         differenzialdiagnosen: [
           { dd: 'Blutendes Ulcus duodeni', unterscheidung: 'Gleiche Ursachen (NSAR, Helicobacter pylori) und gleiche Blutungszeichen; typisch ist jedoch der Nüchtern- und Nachtschmerz, der nach dem Essen nachlässt. Hier wird das Brennen kurz nach dem Essen schlimmer, was eher für ein Magenulkus spricht. Die Unterscheidung trifft erst die ÖGD.' },
@@ -787,7 +788,7 @@ export function seedCases(): Case[] {
           { stufe: 'Anamnese/Klinik', text: 'Vitalparameter mit Puls, Blutdruck und Schockindex (Puls geteilt durch systolischen Blutdruck, über 1 Hinweis auf Schock); kein Schellong-Test: der Schwindel beim Aufstehen ist bereits ein Volumenmangelzeichen, der Patient bleibt liegen' },
           { stufe: 'Anamnese/Klinik', text: 'Gezielte Medikamentenanamnese: Dosis und Dauer von Ibuprofen, Grund für ASS (Herzinfarkt, Stent oder Schlaganfall in der Vorgeschichte?), Antikoagulanzien, Kortison, SSRI, Eisenpräparate; Alkoholmenge in Gramm (zwei Flaschen Bier à 0,5 l täglich entsprechen etwa 40 g)' },
           { stufe: 'Anamnese/Klinik', text: 'Körperliche Untersuchung: Hautblässe, Rekapillarisierungszeit, epigastrischer Druckschmerz, Abwehrspannung als Perforationszeichen, Leberhautzeichen, Aszites; digital-rektale Untersuchung zur Bestätigung des Teerstuhls' },
-          { stufe: 'Anamnese/Klinik', text: 'Glasgow-Blatchford-Score vor der Endoskopie: Harnstoff, Hämoglobin, systolischer Blutdruck, Puls, Meläna, Synkope, Leber- und Herzerkrankung. Bei Meläna mit Schwindel ist eine ambulante Behandlung ausgeschlossen' },
+          { stufe: 'Anamnese/Klinik', text: 'Glasgow-Blatchford-Score vor der Endoskopie: Harnstoff, Hämoglobin, systolischer Blutdruck, Puls, Meläna, Synkope, Leber- und Herzerkrankung. Unabhängig vom Score ist bei Meläna, Hämatemesis, orthostatischem Schwindel und 71 Jahren keine ambulante Behandlung vertretbar' },
           { stufe: 'Labor', text: 'Blutbild, Gerinnung (Quick/INR, PTT), Blutgruppe mit Kreuzblut für zwei Erythrozytenkonzentrate, Harnstoff und Kreatinin (ein überproportional erhöhter Harnstoff spricht für eine obere Blutung), Elektrolyte, Leberwerte, Laktat; Hb-Kontrolle nach 4–6 Stunden, weil der erste Wert den Verlust unterschätzt' },
           { stufe: 'Apparativ & Bildgebung', text: '12-Kanal-EKG: Anämie und Volumenmangel können bei einem 71-Jährigen eine Myokardischämie auslösen' },
           { stufe: 'Invasiv & Speziell', text: 'ÖGD innerhalb von 24 Stunden nach Kreislaufstabilisierung: Blutungsquelle, Forrest-Stadium, Urease-Schnelltest und Biopsien aus Antrum und Korpus auf Helicobacter pylori sowie aus dem Ulkusrand zum Malignomausschluss' },
@@ -798,7 +799,7 @@ export function seedCases(): Case[] {
             label: 'Hämodynamische Stabilisierung und Notfallmaßnahmen vor der Endoskopie',
             akut: true,
             items: [
-              'Monitorüberwachung, zwei großlumige Zugänge, Volumen mit balancierter kristalloider Lösung nach Kreislauf',
+              'Monitorüberwachung, zwei großlumige Zugänge, Volumen kreislaufadaptiert mit balancierter Vollelektrolytlösung',
               'Erythrozytenkonzentrate restriktiv: ab Hb unter 7 g/dl, bei kardiovaskulärer Vorerkrankung ab unter 8 g/dl',
               'Pantoprazol 80 mg i. v. als Bolus vor der Endoskopie',
               'Ibuprofen sofort und dauerhaft absetzen; ASS pausieren; Ramipril pausieren, solange ein Volumenmangel besteht (Gefahr des akuten Nierenversagens)',
@@ -816,7 +817,7 @@ export function seedCases(): Case[] {
             ],
           },
           {
-            label: 'Ulkustherapie und Sekundärprophylaxe (PPI, Helicobacter-Eradikation, Umgang mit NSAR und Antikoagulation)',
+            label: 'Ulkustherapie und Sekundärprophylaxe (PPI, Helicobacter-Eradikation, Umgang mit NSAR, ASS und Antikoagulanzien)',
             items: [
               'Nach endoskopischer Blutstillung hochdosiert PPI über 72 Stunden, dann Pantoprazol 40 mg oral zweimal täglich bis Tag 14, anschließend einmal täglich bis zur Kontrollendoskopie',
               'Bei Helicobacter-Nachweis Eradikation, Erfolgskontrolle frühestens 4 Wochen nach Therapieende',
@@ -3097,7 +3098,7 @@ export function seedCases(): Case[] {
         persona: 'Tu es Thomas Heidenreich, 55 ans, serrurier, en arrêt maladie. Tu parles lentement, à voix basse, avec de longues pauses ; ton affect est éteint. Tu minimises tes idées suicidaires et tu ne les évoques que si le médecin pose la question directement et avec tact — alors tu réponds honnêtement (souhaits passifs de mort, sans projet). Tu attribues ton état à la mort de ta sœur et tu penses parfois que c\'est « peut-être la thyroïde ». Tu minimises l\'alcool du soir.',
       },
       medicalView: {
-        verdachtsdiagnose: 'Mittelgradige bis schwere depressive Episode (ICD-10 F32) mit somatischem Syndrom, Erstmanifestation nach dem Tod der Schwester. Passive Todeswünsche ohne Plan bei hohem Risikoprofil: Mann, Vater durch Suizid verstorben, steigender Alkoholkonsum, Oxazepam zunehmend.',
+        verdachtsdiagnose: 'Schwere depressive Episode ohne psychotische Symptome, passive Todeswünsche ohne konkreten Plan. Erstmanifestation nach dem Tod der Schwester (ICD-10 F32.2); hohes Suizidrisikoprofil: Mann, Vater durch Suizid verstorben, steigender Alkoholkonsum, zunehmende Oxazepam-Einnahme.',
         patientWorte: { verdacht: 'bei Ihnen eine ausgeprägte depressive Episode vorliegt, ausgelöst durch den schweren Verlust Ihrer Schwester', diagnostik: 'führe ich ein ausführliches Gespräch mit Ihnen, prüfe Ihre Blutwerte und schließe körperliche Ursachen aus', therapie: 'helfen Ihnen eine Gesprächstherapie und, wenn nötig, ein stimmungsaufhellendes Medikament, und wir begleiten Sie in dieser Zeit engmaschig' },
         differenzialdiagnosen: [
           { dd: 'Anpassungsstörung / Trauerreaktion', unterscheidung: 'Der zeitliche Bezug zum Tod der Schwester passt. Dagegen sprechen die fehlende Aufhellbarkeit durch Zuspruch, die durchgängige Anhedonie auch gegenüber der Familie, Wertlosigkeitsgefühle und Todeswünsche: das geht über eine normale Trauer hinaus.' },
@@ -3112,7 +3113,7 @@ export function seedCases(): Case[] {
           { stufe: 'Anamnese/Klinik', text: 'Suizidalität direkt erfragen und dokumentieren: passiver Todeswunsch, kein Plan, keine Vorbereitungen, kein früherer Versuch, Absprachefähigkeit. Risikofaktoren gewichten: Mann über 50, Suizid des Vaters, zunehmender Alkohol, Rückzug, Hoffnungslosigkeit, Benzodiazepine zu Hause' },
           { stufe: 'Anamnese/Klinik', text: 'Schweregrad nach ICD-10 (drei Hauptsymptome, mindestens vier Zusatzsymptome) und PHQ-9; Fremdanamnese der Ehefrau mit seinem Einverständnis' },
           { stufe: 'Anamnese/Klinik', text: 'Alkohol in Gramm (etwa 40–60 g täglich) und AUDIT-C, Oxazepam-Menge pro Woche, Entzugszeichen' },
-          { stufe: 'Anamnese/Klinik', text: 'Körperliche und orientierende neurologische Untersuchung; BMI etwa 25 (66 kg bei 163 cm), Blutdruck unter Ramipril und HCT' },
+          { stufe: 'Anamnese/Klinik', text: 'Körperliche und orientierende neurologische Untersuchung, Blutdruck unter Ramipril und HCT' },
           { stufe: 'Labor', text: 'TSH, Blutbild, Vitamin B12 und Folsäure, Natrium und Kalium (Ausgangswert vor SSRI unter Thiazid), Kreatinin, Leberwerte mit GGT, MCV und CDT als Alkoholmarker, Blutzucker' },
           { stufe: 'Apparativ & Bildgebung', text: 'EKG mit QTc vor dem Antidepressivum' },
           { stufe: 'Apparativ & Bildgebung', text: 'Zerebrale Bildgebung nur bei neurologischen Auffälligkeiten oder atypischem Verlauf' },
@@ -3149,7 +3150,7 @@ export function seedCases(): Case[] {
         erstmassnahmen: [
           'Aktive, direkte und einfühlsame Einschätzung der Suizidalität (Gedanken, Plan, Absicht, Vorbereitungen, Absprachefähigkeit)',
           'Bei akuter Suizidalität: Patienten nicht allein lassen, sofortiges psychiatrisches Konsil, ggf. stationäre Aufnahme, notfalls Unterbringung nach Landesrecht',
-          'Im vorliegenden Fall: passive Todeswünsche ohne Plan, glaubhaft absprachefähig → dringliches psychiatrisches Konsil und engmaschige, kurzfristige Wiedervorstellung, keine Zwangsmaßnahme erforderlich',
+          'Im vorliegenden Fall: passive Todeswünsche ohne Plan, glaubhaft absprachefähig → dringliches psychiatrisches Konsil, eine freiwillige stationäre Aufnahme aktiv anbieten, sonst engmaschige, kurzfristige Wiedervorstellung; keine Zwangsmaßnahme erforderlich',
           'Krisenplan mitgeben, Ehefrau einbeziehen, Oxazepam-Vorrat begrenzen',
         ],
         notfall: false,
@@ -3337,7 +3338,7 @@ export function seedCases(): Case[] {
         negativeFindings: [
           'kein Bluthusten (keine Hämoptysen)',
           'keine Übelkeit, kein Erbrechen',
-          'kein Gewichtsverlust',
+          'kein Gewichtsverlust (gegen Tumorleiden mit poststenotischer Pneumonie)',
           'keine einseitige Beinschwellung, keine Wadenschmerzen (gegen tiefe Beinvenenthrombose/Lungenembolie)',
           'kein Pfeifen oder Giemen beim Atmen',
           'keine Beinödeme, keine Orthopnoe (gegen Herzinsuffizienz)',
@@ -3459,7 +3460,7 @@ export function seedCases(): Case[] {
           {
             label: 'Allgemeinmaßnahmen',
             items: [
-              'Stationäre Aufnahme: Ruhedyspnoe und Fieber bis 40 °C, Diabetes; bei Sepsis oder respiratorischer Insuffizienz Intensivstation',
+              'Stationäre Aufnahme wegen Ruhedyspnoe und Fieber bis 40 °C, auch bei CRB-65 von 0; bei Sepsis oder respiratorischer Insuffizienz Intensivstation',
               'Sauerstoff bei SpO2 unter 92 % mit Ziel 92–96 %, Flüssigkeit i. v. bei Exsikkose, Frühmobilisation, Thromboseprophylaxe',
               'Paracetamol gegen Fieber und Schmerz; NSAR und ASS unter ACE-Hemmer und Diuretikum bei Exsikkose meiden; Codein-Tropfen absetzen, weil sie den produktiven Husten dämpfen',
               'Metformin pausieren und Blutzucker nach Schema mit Insulin führen; Lisinopril und Hydrochlorothiazid pausieren, solange Exsikkose, Hypotonie oder Nierenfunktionsverschlechterung bestehen',
@@ -3516,7 +3517,7 @@ export function seedCases(): Case[] {
         'Welche Erreger verursachen eine Pneumonie?',
       ],
       pruefungsfallen: [
-        'Cave Penicillinallergie: kein Penicillin/Aminopenicillin — stationär kalkuliert ein respiratorisches Fluorchinolon (Levofloxacin/Moxifloxacin); ein Makrolid allein genügt nur ambulant bei leichter CAP. Cephalosporine nur bei gesicherter Verträglichkeit (Kreuzallergie beachten).',
+        'Cave Penicillinallergie: kein Penicillin/Aminopenicillin — stationär kalkuliert ein respiratorisches Fluorchinolon (Levofloxacin/Moxifloxacin); ein Makrolid allein genügt nur ambulant bei leichter CAP. Cephalosporine je nach Art und Schwere der früheren Reaktion.',
         'Behandlungsort mit dem CURB-65-Score begründen; das Risikoprofil (Diabetes mellitus, Z. n. Zytostatikatherapie) senkt die Schwelle zur stationären Aufnahme zusätzlich — nicht ambulant führen.',
         'CURB-65/CRB-65 aktiv nennen und den Behandlungsort damit begründen.',
         'Lungenembolie nicht übersehen (atemabhängiger Schmerz + Dyspnoe) — bei Verdacht D-Dimere und CT-Angiographie.',
@@ -3592,7 +3593,7 @@ export function seedCases(): Case[] {
             },
             {
               frage: 'Welche Therapie und welches Antibiotikum bei Penicillinallergie?',
-              reaktion: 'allgemeine Maßnahmen und eine kalkulierte Antibiose; wegen der Penicillinallergie stationär ein respiratorisches Fluorchinolon wie Levofloxacin — ein Makrolid allein wäre nur ambulant bei leichter CAP ausreichend; Cephalosporine nur bei gesicherter Verträglichkeit.',
+              reaktion: 'allgemeine Maßnahmen und eine kalkulierte Antibiose; wegen der Penicillinallergie stationär ein respiratorisches Fluorchinolon wie Levofloxacin — ein Makrolid allein wäre nur ambulant bei leichter CAP ausreichend; Cephalosporine je nach Art und Schwere der früheren Reaktion.',
             },
             {
               frage: 'Was tun Sie vor der ersten Antibiotikagabe?',
@@ -3794,12 +3795,12 @@ export function seedCases(): Case[] {
         diagnostik: [
           { stufe: 'Anamnese/Klinik', text: 'Vitalparameter mit Temperatur, Blutdruck, Puls, Atemfrequenz und Bewusstsein für den qSOFA; neu aufgetretene Verwirrtheit erfragen — bei Älteren oft das erste Sepsiszeichen' },
           { stufe: 'Anamnese/Klinik', text: 'Wurde die Blasenentzündung vor zwei Wochen antibiotisch behandelt, und womit? Vorbehandlung erhöht das Risiko resistenter Erreger' },
-          { stufe: 'Anamnese/Klinik', text: 'Körperliche Untersuchung: Klopfschmerz im rechten Nierenlager, Abdomen mit Murphy-Zeichen, Lunge (basale Pneumonie), Hydratationszustand; BMI etwa 25 (76 kg bei 174 cm)' },
+          { stufe: 'Anamnese/Klinik', text: 'Körperliche Untersuchung: Klopfschmerz im rechten Nierenlager, Abdomen mit Murphy-Zeichen, Lunge (basale Pneumonie), Hydratationszustand' },
           { stufe: 'Labor', text: 'Mittelstrahlurin für Urinstix und Sediment (Leukozyten, Nitrit, Leukozytenzylinder) und Urinkultur mit Antibiogramm — vor der ersten Antibiotikagabe' },
           { stufe: 'Labor', text: 'Zwei Paar Blutkulturen bei Fieber mit Schüttelfrost' },
           { stufe: 'Labor', text: 'Blutbild, CRP, Procalcitonin, Kreatinin und Harnstoff, Elektrolyte, Laktat, Blutzucker und HbA1c. Der HbA1c entscheidet mit, ob die Infektion als kompliziert gilt: nach S3-Leitlinie nur bei instabiler Stoffwechsellage' },
           { stufe: 'Apparativ & Bildgebung', text: 'Sonographie der Nieren und ableitenden Harnwege noch am Aufnahmetag: Harnstau, Abszess, Konkremente, Restharn' },
-          { stufe: 'Apparativ & Bildgebung', text: 'CT mit Kontrastmittel nur bei Komplikationsverdacht oder fehlender Besserung nach 72 Stunden: Abszess, emphysematöse Pyelonephritis — vorher Metformin pausiert' },
+          { stufe: 'Apparativ & Bildgebung', text: 'CT mit Kontrastmittel nur bei Komplikationsverdacht oder fehlender Besserung nach 72 Stunden: Abszess, emphysematöse Pyelonephritis — Metformin vorher pausieren' },
         ],
         therapie: [
           {
@@ -3864,7 +3865,7 @@ export function seedCases(): Case[] {
         'Pyelonephritis vs. Zystitis: Fieber, Schüttelfrost, einseitiger Flankenschmerz und ein klopfschmerzhaftes Nierenlager sprechen für den oberen Harntrakt — eine reine Zystitis macht kein Fieber.',
         'Novalgin-(Metamizol-)Allergie beachten: zur Analgesie und Antipyrese Paracetamol wählen, kein Metamizol.',
         'Urinkultur (Mittelstrahlurin) und Blutkulturen IMMER vor der ersten Antibiotikagabe abnehmen.',
-        'Diabetes mellitus macht die Pyelonephritis zur komplizierten Form: stationäre Aufnahme, i.v.-Antibiose, längere Therapiedauer und erhöhtes Urosepsis-Risiko.',
+        'Diabetes mellitus mit instabiler Stoffwechsellage macht die Pyelonephritis zur komplizierten Form — ein gut eingestellter Diabetes allein nicht (S3-Leitlinie). Die stationäre Aufnahme richtet sich nach Erbrechen, Sepsiszeichen, Alter und Versorgung.',
         'Häufigster Erreger ist Escherichia coli (aszendierende Infektion aus der eigenen Darmflora).',
         'Fieberhafter Harnstau im Ultraschall = urologischer Notfall → sofortige Harnableitung (DJ-Katheter oder Nephrostomie).',
         'Zustand nach Appendektomie schließt eine Appendizitis als Differenzialdiagnose aus — trotzdem gezielt danach fragen.',
@@ -3881,7 +3882,7 @@ export function seedCases(): Case[] {
           interactions: [
             {
               frage: 'Was hat die Patientin?',
-              reaktion: 'am ehesten eine akute Pyelonephritis rechts bei bekanntem Diabetes mellitus, also eine komplizierte Harnwegsinfektion des oberen Harntrakts.',
+              reaktion: 'am ehesten eine akute Pyelonephritis rechts bei Diabetes mellitus. Ob sie als kompliziert gilt, hängt von der Stoffwechsellage ab (HbA1c); stationär behandle ich sie wegen Erbrechen, hohem Fieber, Alter und fehlender Versorgung zu Hause ohnehin.',
             },
             {
               frage: 'Warum eine Pyelonephritis und nicht eine Zystitis?',
@@ -3920,7 +3921,7 @@ export function seedCases(): Case[] {
           interactions: [
             {
               frage: 'Welche Antibiotika geben Sie?',
-              reaktion: 'kalkuliert intravenös ein Cephalosporin der dritten Generation wie Ceftriaxon oder ein Fluorchinolon wie Ciprofloxacin, anschließend Anpassung nach Antibiogramm.',
+              reaktion: 'kalkuliert intravenös ein Cephalosporin der dritten Generation wie Ceftriaxon; Fluorchinolone bei Älteren nur nachrangig; anschließend Anpassung nach Antibiogramm.',
             },
             {
               frage: 'Und wenn es ihr trotz Antibiose schlechter geht?',
@@ -3945,7 +3946,7 @@ export function seedCases(): Case[] {
             },
             {
               frage: 'Welche Rolle spielt der Diabetes mellitus?',
-              reaktion: 'er macht die Infektion zur komplizierten Form mit höherem Risiko für Komplikationen; deshalb stationäre Aufnahme, i.v.-Antibiose und engmaschige Blutzuckerkontrolle.',
+              reaktion: 'Ein instabil eingestellter Diabetes macht die Infektion zur komplizierten Form; ein stabiler Diabetes allein nicht. Er erhöht aber das Risiko für Urosepsis und emphysematöse Pyelonephritis und verlangt Blutzuckerkontrollen und eine Metformin-Pause.',
             },
             {
               frage: 'Schicken Sie die Patientin mit einem Rezept nach Hause?',
@@ -4879,8 +4880,8 @@ export function seedCases(): Case[] {
             items: [
               'Bei der hier wahrscheinlichen Weber-B-Fraktur mit Instabilität oder Dislokation: offene Reposition und interne Fixation mit Zugschraube und Drittelrohrplatte am Außenknöchel, bei Beteiligung des Innenknöchels zusätzlich Zugschrauben',
               'Bei Syndesmoseninstabilität, insbesondere bei Weber C oder Maisonneuve-Fraktur, Stellschraube oder Syndesmosennaht',
-              'Operationszeitpunkt entweder sofort vor Einsetzen der Schwellung oder nach Abschwellen in etwa fünf bis zehn Tagen',
-              'Perioperatives Gerinnungsmanagement: Rivaroxaban pausieren, ohne therapeutisches Bridging; bei normaler Nierenfunktion reichen für die Operation in Allgemeinanästhesie meist 48 Stunden, für eine Spinalanästhesie 72 Stunden. In dieser Zeit und bis zum Wiederbeginn nur prophylaktisch dosiertes niedermolekulares Heparin, Wiederbeginn nach Rücksprache mit dem Operateur',
+              'Operationszeitpunkt entweder sofort vor Einsetzen der Schwellung oder nach Abschwellen in etwa fünf bis zehn Tagen. Hier ist das Primärfenster verstrichen: Operation nach Abschwellen, Rivaroxaban 48 bzw. 72 Stunden vorher pausieren',
+              'Perioperatives Gerinnungsmanagement: Rivaroxaban pausieren, ohne therapeutisches Bridging; bei normaler Nierenfunktion reichen für die Operation in Allgemeinanästhesie meist 48 Stunden, für eine Spinalanästhesie 72 Stunden. In dieser Zeit und bis zum Wiederbeginn nur prophylaktisch dosiertes niedermolekulares Heparin. Die letzte prophylaktische NMH-Gabe muss mindestens 12 Stunden vor der Spinalanästhesie beziehungsweise der Operation liegen; postoperativ frühestens 4 Stunden nach Entfernung bzw. 6–12 Stunden nach der Operation wieder beginnen. Wiederbeginn des Rivaroxaban nach Rücksprache mit dem Operateur',
             ],
             akut: false,
           },
@@ -6736,7 +6737,7 @@ export function seedCases(): Case[] {
         ],
         negativeFindings: [
           'kein Bewusstseinsverlust, keine Amnesie',
-          'kein Kopftrauma beim Sturz (nur die Knie verletzt)',
+          'kein Kopftrauma beim Sturz (nur die Knie verletzt; gegen subdurales Hämatom)',
           'keine Kopfschmerzen, keine Lichtempfindlichkeit',
           'kein Krampfanfall',
           'keine Übelkeit, kein Erbrechen',
@@ -6856,7 +6857,7 @@ export function seedCases(): Case[] {
         patientWorte: { verdacht: 'Sie einen Schlaganfall erlitten haben, weil ein Blutgerinnsel die Durchblutung in einem Teil Ihres Gehirns gestört hat', diagnostik: 'machen wir sofort eine Computertomographie vom Kopf, ein Herz-EKG und einen Ultraschall der Halsschlagadern', therapie: 'müsste das Gerinnsel möglichst schnell mit Medikamenten aufgelöst oder mit einem Katheter entfernt werden, deshalb handeln wir jetzt zügig' },
         differenzialdiagnosen: [
           { dd: 'Intrazerebrale Blutung', unterscheidung: 'Klinisch nicht vom Infarkt zu unterscheiden, auch ohne Kopfschmerz — nur per cCT abgrenzbar; zwingender Blutungsausschluss vor jeder Lyse.' },
-          { dd: 'Subdurales Hämatom nach dem Treppensturz', unterscheidung: 'Bei einem 79-Jährigen unter ASS kann auch ein Sturz ohne erinnerten Kopfanprall ein Hämatom mit Halbseitensymptomatik verursachen, oft mit Verzögerung. Der Patient verneint einen Kopfanprall; das native cCT klärt es und ist vor einer Lyse ohnehin Pflicht.' },
+          { dd: 'Subdurales Hämatom nach dem Treppensturz', unterscheidung: 'Bei einem 79-Jährigen unter ASS kann auch ein Sturz ohne erinnerten Kopfanprall ein Hämatom mit Halbseitensymptomatik verursachen, oft mit Verzögerung. Der Patient verneint einen Kopfanprall; das native cCT klärt es.' },
           { dd: 'Transitorische ischämische Attacke (TIA)', unterscheidung: 'Die Attacken der letzten zwei Wochen waren TIAs: vollständige Rückbildung nach etwa 20 Minuten. Das jetzige Defizit bildet sich nicht mehr zurück, daher Hirninfarkt.' },
           { dd: 'Hypoglykämie', unterscheidung: 'Kann jedes fokale Defizit imitieren. Unter Metformin allein selten, der Patient verneint Schwitzen, Zittern und Heißhunger — trotzdem Blutzucker als erste Messung.' },
           { dd: 'Epileptischer Anfall mit Todd-Parese', unterscheidung: 'Postiktale Parese nach einem Anfall, Rückbildung über Stunden. Hier kein Krampfanfall und keine Bewusstseinsstörung.' },
@@ -6865,7 +6866,7 @@ export function seedCases(): Case[] {
         ],
         diagnostik: [
           { stufe: 'Anamnese/Klinik', text: 'Zeitfenster: Uhrzeit der letzten vollständigen Beschwerdefreiheit erfragen, auch bei der Ehefrau. Nach einer TIA mit vollständiger Rückbildung beginnt die Uhr neu; ohne Rückbildung zählt der Beginn der ersten Attacke' },
-          { stufe: 'Anamnese/Klinik', text: 'Vitalparameter mit Blutdruck (vor einer Lyse unter 185/110 mmHg), unregelmäßigem Puls, Temperatur und Sättigung' },
+          { stufe: 'Anamnese/Klinik', text: 'Vitalparameter mit Blutdruck, unregelmäßigem Puls, Temperatur und Sättigung' },
           { stufe: 'Anamnese/Klinik', text: 'Neurologische Untersuchung mit NIHSS: zentrale Fazialisparese links mit ausgesparter Stirn, Armparese, Dysarthrie, Aphasie, Gesichtsfeld, Neglect, Sensibilität; Kopf auf Prellmarken und Knie nach dem Sturz untersuchen; Schluckscreening vor jeder oralen Gabe' },
           { stufe: 'Labor', text: 'Blutzucker sofort am Bett; Blutbild mit Thrombozyten, INR und aPTT, Elektrolyte, Kreatinin, Leberwerte, CRP, Troponin, HbA1c, Lipide. Ohne Antikoagulation in der Anamnese wartet die Lyse nicht auf die Gerinnungswerte' },
           { stufe: 'Apparativ & Bildgebung', text: 'Sofort natives cCT mit CT-Angiographie: Blutung oder Hämatom ausschließen, großen Gefäßverschluss für die Thrombektomie suchen. Die CT-Angiographie wird nicht wegen ausstehender Nierenwerte verschoben' },
@@ -6912,7 +6913,7 @@ export function seedCases(): Case[] {
           'Blutzucker sofort messen',
           'Letzte vollständige Beschwerdefreiheit mit Uhrzeit festhalten',
           'Stroke-Team und Neuroradiologie alarmieren, sofort natives cCT mit CT-Angiographie',
-          'EKG und Notfalllabor mit Gerinnung; die Lyse wartet nicht auf die Gerinnung, wenn keine Antikoagulation eingenommen wird',
+          'EKG und Notfalllabor mit Gerinnung',
           'Nichts essen und trinken bis zum Schluckscreening',
         ],
         notfall: true,
@@ -6980,7 +6981,7 @@ export function seedCases(): Case[] {
             },
             {
               frage: 'Wie suchen Sie die Emboliequelle?',
-              reaktion: 'mit EKG und Langzeit-EKG auf Vorhofflimmern, einer Duplexsonographie der Halsgefäße und einer Echokardiographie, ggf. transösophageal mit Bubble-Test.',
+              reaktion: 'mit EKG und Langzeit-EKG auf Vorhofflimmern, einer Duplexsonographie der Halsgefäße und einer transthorakalen Echokardiographie; die Suche nach einem offenen Foramen ovale hat bei bekanntem Vorhofflimmern mit 79 Jahren keine Konsequenz.',
             },
           ],
         },
@@ -9631,7 +9632,7 @@ export function seedCases(): Case[] {
         persona: 'Tu es Lena Hartmann, 26 ans, éducatrice en crèche, en couple depuis trois mois. Tu es agacée et gênée plus qu\'inquiète : ça brûle, tu cours aux toilettes toutes les vingt minutes et tu as mal dormi deux nuits. Tu parles vite, tu insistes sur la brûlure et l\'urgence mictionnelle, et tu répètes que tu n\'as PAS de fièvre (« ich habe gemessen, 37,1 »). Tu es réticente aux antibiotiques et tu demandes si la pilule reste efficace. Tu ne mentionnes les rapports sexuels fréquents, le nouveau partenaire et le maillot de bain mouillé que si on te questionne sur un facteur déclenchant, et tu évoques la petite trace de sang en fin de miction seulement si on te demande la couleur des urines.',
       },
       medicalView: {
-        verdachtsdiagnose: 'Akute unkomplizierte Zystitis (untere Harnwegsinfektion) bei einer nicht schwangeren, sexuell aktiven Patientin. Kein Hinweis auf eine Beteiligung des oberen Harntrakts.',
+        verdachtsdiagnose: 'Akute unkomplizierte Zystitis (untere Harnwegsinfektion) ohne Hinweis auf eine Beteiligung des oberen Harntrakts. Die Patientin ist nicht schwanger und sexuell aktiv.',
         patientWorte: { verdacht: 'eine Blasenentzündung Ihre Beschwerden beim Wasserlassen verursacht', diagnostik: 'untersuchen wir eine Urinprobe von Ihnen mit einem Teststreifen und machen zur Sicherheit einen Schwangerschaftstest', therapie: 'bekommen Sie ein Antibiotikum für wenige Tage, und die Beschwerden sollten dann rasch abklingen' },
         differenzialdiagnosen: [
           {
@@ -10169,7 +10170,7 @@ export function seedCases(): Case[] {
         persona: 'Femme de 39 ans, agent immobilier indépendante, divorcée, quatre enfants : tu parles vite, dans le désordre, tu sautes d\'un sujet à l\'autre et tu livres spontanément beaucoup d\'informations sans qu\'on te les demande (le médecin doit te recadrer et prioriser). Tu tiens ta tête, tu grimaces à la lumière, tu demandes qu\'on baisse le store. Le vrai moteur, c\'est la PEUR : ta mère est morte d\'une tumeur cérébrale à 60 ans et tu l\'as soignée à la maison ; tu reviens sans cesse sur « Habe ich einen Tumor? », « Werde ich auch sterben? ». Si le médecin répond par la formule creuse « Machen Sie sich keine Sorgen », tu la refuses ouvertement. Tu ne te contentes pas d\'un « c\'est seulement une migraine » et tu demandes pourquoi on ne fait pas d\'IRM. Tu demandes aussi si tu dois rester à l\'hôpital, parce que tes quatre enfants sont seuls. Tu ne mentionnes la thrombose, l\'hystérectomie, le café du week-end et le rythme de prise des antalgiques QUE si on te pose la question.',
       },
       medicalView: {
-        verdachtsdiagnose: 'Migräne mit visueller Aura (ICHD-3 1.2), aktuell prolongierte Attacke am dritten Tag mit Erbrechen. Seit etwa fünfzehn Jahren bekannte, bisher nie prophylaktisch behandelte Migräne; die Selbstmedikation hat versagt. Auslöserkonstellation: beruflicher Stress mit anschließendem Stressabfall, Schlafmangel, ausgelassene Mahlzeiten, Rotwein und wechselnder Koffeinkonsum. Der neurologische Untersuchungsbefund ist erwartungsgemäß unauffällig, Red Flags bestehen nicht.',
+        verdachtsdiagnose: 'Migräne mit visueller Aura, aktuell prolongierte Attacke am dritten Tag mit Erbrechen. ICHD-3 1.2; seit etwa fünfzehn Jahren bekannte, bisher nie prophylaktisch behandelte Migräne; die Selbstmedikation hat versagt. Auslöserkonstellation: beruflicher Stress mit anschließendem Stressabfall, Schlafmangel, ausgelassene Mahlzeiten, Rotwein und wechselnder Koffeinkonsum. Der neurologische Untersuchungsbefund ist erwartungsgemäß unauffällig, Red Flags bestehen nicht.',
         patientWorte: { verdacht: 'eine Migräneattacke mit einer sogenannten Aura Ihre Kopfschmerzen und die Sehstörung verursacht', diagnostik: 'untersuchen wir Ihr Nervensystem gründlich und nehmen Ihnen Blut ab, um andere Ursachen auszuschließen', therapie: 'bekommen Sie ein Medikament gegen die Übelkeit und ein starkes Schmerzmittel über die Vene, damit die Attacke rasch nachlässt' },
         differenzialdiagnosen: [
           {
