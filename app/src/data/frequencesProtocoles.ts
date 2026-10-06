@@ -10,6 +10,11 @@ import type { Center } from '@/db/types';
 export interface PathologieProtocoles { nom: string; total: number | null; parVille: Partial<Record<Center, number>> }
 
 export const PROTOCOLES_N = 580;
+
+/** S3-Q4 (décision de `main`) : la fréquence d'un cas que la source ne compte pas (absent de `CAS_PATHOLOGIE`, ou
+ *  pathologie à `total: null`). Strictement sous le plus petit total sourcé, au moins 1 : le cas se classe en dernier et
+ *  le plan le traite comme rare. Son `FreqBadge` est masqué — aucun badge sans source (`frequencesProtocoles.test.ts`). */
+export const FREQUENCE_PLANCHER = 1;
 export const PROTOCOLES_PAR_VILLE: Partial<Record<Center, number>> = { Freiburg: 91, Karlsruhe: 169, Reutlingen: 151, Stuttgart: 182 };
 
 export const PATHOLOGIES: Record<string, PathologieProtocoles> = {
