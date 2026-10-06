@@ -194,7 +194,7 @@ export const DEFS_CAS = {
   eug_vorgeschichte: { kapitel: 'vorerkrankungen', pertinence: S },           // grossesse extra-utérine antérieure
   brust_vorgeschichte: { kapitel: 'vorerkrankungen', pertinence: S },         // traumatisme, chirurgie, irradiation du sein
   tonsillen_vorgeschichte: { kapitel: 'vorerkrankungen', pertinence: S },     // amygdalectomie, angines de l'année
-  ohr_vorgeschichte: { kapitel: 'vorerkrankungen', pertinence: S },           // chirurgie de l'oreille, aérateurs
+  hodenhochstand: { kapitel: 'vorerkrankungen', pertinence: S },              // cryptorchidie dans l'enfance (Q7 : « Hodenhochstand hatte ich keinen », hodentorsion)
   windpocken: { kapitel: 'vorerkrankungen', pertinence: S },                  // varicelle dans l'enfance
   manie_vorgeschichte: { kapitel: 'vorerkrankungen', pertinence: S },         // phases euphoriques, hyperactives
   entzug_vorgeschichte: { kapitel: 'vorerkrankungen', pertinence: S },        // crise convulsive, délire lors d'un sevrage
