@@ -301,7 +301,8 @@ test('--propose : la proposition lit les questions du cas non déclarées, n\'é
   // K4 : tout est déclaré sauf le résidu justifié ; la question n° 0 de schenkelhalsfraktur est rendue muette pour la proposition.
   const SHF = "kapitel: 'aktuell', sucht: ['unfallhergang', 'schwindel'], relu: true },";
   const r = sb.mutate('src/data/seedCases.ts', SHF, "kapitel: 'aktuell' },", () => run('--propose', '--case', 'schenkelhalsfraktur'));
-  assert.equal(r.status, 0, r.stderr);
+  // K5 : une question muette fait échouer la porte (résidu bloquant à 0) — la proposition est écrite quand même.
+  assert.equal(r.status, 1, r.stderr);
   assert.match(r.stdout, /PROPOSITION de `sucht`/);
   assert.match(r.stdout, /sucht proposé : schwindel, bewusstlos, sturz/);
   assert.match(r.stdout, /rien n'est appliqué/);
@@ -379,4 +380,109 @@ test('COHERENCE_ALLOWED : une entrée sans raison, non datée au fixture et pér
   assert.match(r.stdout, /COHERENCE_ALLOWED case-gastroenteritis\|akt-motiv\|motiv : raison et relecteur obligatoires/);
   assert.match(r.stdout, /absente du fixture/);
   assert.match(r.stdout, /périmée/);
+});
+
+// ── K5 : la porte complète (INV-89), le résidu bloquant, le détecteur de texte informatif (m-2) ─────────────
+test('K5 (m-2) : `brauchtViole` du plancher ne compte plus le détecteur de texte — il est informatif, hors plancher', () => {
+  const dort = row('aktuell', 'Was haben Sie dort gegessen?', { cs: true });
+  const r = mesurerCas(cas([dort]), lex(), ['NP « Ihre Augenbrauen » [aktuell]']);
+  assert.equal(r.ord.length, 2, 'le détecteur voit toujours : anaphore + Q0');
+  const T = totaux([r], { sondesMuettes: 0 });
+  assert.equal(T.brut.brauchtViole, null, 'exact seulement sur le montage (r4b) : checkCoherence le remplit');
+  assert.equal(T.info.presuppositionsTexte, 2);
+});
+
+test('K5 (m-2) : le plancher `brauchtViole` est l\'exact r4b du montage ; le détecteur de texte se lit en informatif', () => {
+  const o = json(run('--json'));
+  assert.equal(o.brut.brauchtViole, o.apres.brauchtViole);
+  assert.equal(o.brut.brauchtViole, 0);
+  assert.ok(o.info.presuppositionsTexte > 0, 'les constats du détecteur Q0 restent lisibles');
+  assert.ok(Number.isInteger(o.info.doublonsMasques), 'doublonsMasques reste informatif');
+});
+
+test('K5 (m-2) mutation : une présupposition de TEXTE de plus (« dort ») ne bloque plus — le détecteur reste informatif', () => {
+  const PARK = "{ frage: 'Haben Sie regelmäßig Stuhlgang, und seit wann besteht die Verstopfung?', kapitel: 'vegetativ', sucht: ['stuhl'] },";
+  const base = json(run('--json')).info.presuppositionsTexte;
+  const r = sb.mutate('src/data/seedCases.ts', PARK, PARK.replace('Haben Sie regelmäßig', 'Haben Sie dort regelmäßig'), () => ({ j: json(run('--json')), s: run().status }));
+  assert.equal(r.j.info.presuppositionsTexte, base + 1);
+  assert.equal(r.s, 0, 'une hausse de faux positifs du détecteur ne bloque pas');
+});
+
+test('K5 (INV-85) mutation : r4b désactivé → brauchtViole > 0 après montage → exit 1', () => {
+  const r = sb.mutate('src/data/guides/coherence.ts', 'for (let pass = 0; pass < n; pass++) {', 'for (let pass = 0; pass < 0; pass++) {', () => run());
+  assert.equal(r.status, 1);
+  assert.match(r.stdout, /brauchtViole = \d+ après montage/);
+});
+
+test('K5 : le résidu est BLOQUANT à 0, indépendamment du fixture — une question du cas muette → exit 1', () => {
+  setFloor((f) => { f.residu.questionsMuettes = 5; });   // même un plancher complaisant ne l'excuse pas
+  try {
+    const PARK = "{ frage: 'Haben Sie regelmäßig Stuhlgang, und seit wann besteht die Verstopfung?', kapitel: 'vegetativ', sucht: ['stuhl'] },";
+    const r = sb.mutate('src/data/seedCases.ts', PARK, PARK.replace(", sucht: ['stuhl']", ''), () => run());
+    assert.equal(r.status, 1);
+    assert.match(r.stdout, /questionsMuettes = 1 : résidu bloquant à 0/);
+  } finally { writeFileSync(sb.path(FIXTURE), restoreFloor); }
+});
+
+test('K5 : résidu bloquant — une sonde réduite sans `parts` (nonReduit) → exit 1, même avec un plancher complaisant', () => {
+  setFloor((f) => { f.residu.nonReduit = 99; });
+  try {
+    const PARTS = "          { sucht: ['schwindel'], text: 'Haben Sie Schwindel oder das Gefühl zu schwanken?' },\n          { sucht: ['gang'], text: 'Fühlen Sie sich beim Gehen unsicher?' },\n          { sucht: ['sturz'], text: 'Sind Sie schon gestürzt?' },\n";
+    const r = sb.mutate('src/data/guides/anamneseChapters.ts', PARTS, '', () => run());
+    assert.equal(r.status, 1);
+    assert.match(r.stdout, /nonReduit = \d+ : résidu bloquant à 0/);
+  } finally { writeFileSync(sb.path(FIXTURE), restoreFloor); }
+});
+
+// INV-89 : chaque défaut d'une exception rougit SEUL ; une exception valide passe la porte.
+const ALLOWED_VIDE = 'export const COHERENCE_ALLOWED: ReadonlyArray<CoherenceException> = [];';
+const avecExceptions = (entries, dates, fn) => {
+  setFloor((f) => { f.allowed = dates; });
+  try {
+    return sb.mutate('src/data/guides/coherence.ts', ALLOWED_VIDE, `export const COHERENCE_ALLOWED: ReadonlyArray<CoherenceException> = ${JSON.stringify(entries)};`, fn);
+  } finally { writeFileSync(sb.path(FIXTURE), restoreFloor); }
+};
+const ACTIVE = { caseId: 'case-gastroenteritis', question: 'fach-infekt-fieber', signe: 'fieber', regle: 2, raison: 'test K5', relecteur: 'test' };
+const DATEE = [{ id: 'case-gastroenteritis|fach-infekt-fieber|fieber', date: '2026-10-06', raison: 'test K5' }];
+
+test('INV-89 témoin : une exception valide (raison, relecteur, datée, active) → la porte ne dit rien', () => {
+  const o = avecExceptions([ACTIVE], DATEE, () => json(run('--json')));
+  assert.deepEqual(o.porte, []);
+  assert.deepEqual(o.structure, []);
+});
+test('INV-89 mutation : exception sans raison → exit 1, et seulement ce défaut', () => {
+  const o = avecExceptions([{ ...ACTIVE, raison: ' ' }], DATEE, () => json(run('--json')));
+  assert.deepEqual(o.porte, ['COHERENCE_ALLOWED case-gastroenteritis|fach-infekt-fieber|fieber : raison et relecteur obligatoires']);
+});
+test('INV-89 mutation : exception sans relecteur → exit 1', () => {
+  const r = avecExceptions([{ ...ACTIVE, relecteur: '' }], DATEE, () => run());
+  assert.equal(r.status, 1);
+  assert.match(r.stdout, /raison et relecteur obligatoires/);
+});
+test('INV-89 mutation : exception non datée au fixture → exit 1, et seulement ce défaut', () => {
+  const o = avecExceptions([ACTIVE], [], () => json(run('--json')));
+  assert.deepEqual(o.porte, ['COHERENCE_ALLOWED case-gastroenteritis|fach-infekt-fieber|fieber : absente du fixture (allowed : id, date, raison)']);
+});
+test('INV-89 mutation : exception PÉRIMÉE (cohere ne ferait rien sans elle) → exit 1, et seulement ce défaut', () => {
+  const perimee = { ...ACTIVE, question: 'akt-motiv', signe: 'motiv' };
+  const o = avecExceptions([perimee], [{ id: 'case-gastroenteritis|akt-motiv|motiv', date: '2026-10-06', raison: 'test K5' }], () => json(run('--json')));
+  assert.deepEqual(o.porte, ['COHERENCE_ALLOWED case-gastroenteritis|akt-motiv|motiv : périmée (cohere ne ferait rien sans elle)']);
+});
+
+// INV-89 : la porte est BLOQUANTE en CI — l'étape de cohérence ne porte pas `|| true` ; les tests de mutation tournent.
+const fautesCI = (yml) => {
+  const f = [];
+  const ligne = yml.split('\n').find((l) => /run: node scripts\/checkCoherence\.mjs/.test(l));
+  if (!ligne) f.push('aucune étape ne lance checkCoherence.mjs');
+  else if (/\|\|\s*true/.test(ligne)) f.push(`checkCoherence.mjs lancé avec || true : ${ligne.trim()}`);
+  for (const t of ['checkCoherence.test.mjs', 'checkGuideDuplicates.test.mjs', 'checkBudgetFloor.test.mjs']) {
+    if (!new RegExp(`^\\s*node --test scripts/${t.replaceAll('.', '\\.')}(\\s|$)`, 'm').test(yml)) f.push(`${t} absent de node --test`);
+  }
+  return f;
+};
+test('INV-89 : quality.yml lance la porte sans `|| true` et ses tests de mutation ; mutation `|| true` → rouge', () => {
+  const yml = readFileSync(new URL('../../.github/workflows/quality.yml', import.meta.url), 'utf8');
+  assert.deepEqual(fautesCI(yml), []);
+  assert.match(fautesCI(yml.replace('run: node scripts/checkCoherence.mjs', 'run: node scripts/checkCoherence.mjs || true')).join(), /\|\| true/);
+  assert.match(fautesCI(yml.replace(/\n\s*node --test scripts\/checkGuideDuplicates\.test\.mjs/, '')).join(), /checkGuideDuplicates\.test\.mjs absent/);
 });

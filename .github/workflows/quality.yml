@@ -82,6 +82,7 @@ jobs:
           node --test scripts/checkQuestionOrder.test.mjs
           node --test scripts/checkCaseQuestionAnswers.test.mjs
           node --test scripts/checkCoherence.test.mjs
+          node --test scripts/checkGuideDuplicates.test.mjs   # K4 (G.1) : une part répétée qui change de signe rougit
       - name: "Doctopus — jeu de référence et grille (sans réseau)"
         run: node scripts/evalDoctopus.mjs --dry
       - name: Sections thérapeutiques identiques fiche ↔ cas
@@ -116,6 +117,7 @@ jobs:
       - name: Réponse des questions du cas — la fiche répond-elle ? (informatif ; plancher dans checkBudgetFloor + test)
         run: node scripts/checkCaseQuestionAnswers.mjs || true
       # K3 (ADR-0023, contrat frage-atomique §10.6) : la porte du moteur de cohérence est BLOQUANTE, sans `|| true`.
+      # K5 (INV-89) : le résidu est bloquant à 0 ; checkCoherence.test.mjs rougit si cette étape reçoit `|| true`.
       # Après montage (cohere) : doublons, horsProfil, exigeAbsent, relancesOrphelines, brauchtViole,
       # ajouteSansReponse = 0 et casRetiresParR1 = 0 ; structure (INV-77 à 80, 84) ; COHERENCE_ALLOWED valide ;
       # mesure ≤ plancher coherence-budget.json (qui ne remonte jamais : checkBudgetFloor).

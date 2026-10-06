@@ -264,7 +264,9 @@ export const COMPTEURS = [
   ['horsProfil', 'signes hors profil encore cherchés', 'profil DÉCLARÉ (K2) ; sans profil, proposé depuis la fiche', 'K2 (profil déclaré)'],
   ['exigeAbsent', 'signes exigés par le profil, cherchés par personne', 'profil DÉCLARÉ (K2) ; sans profil, proposé depuis la fiche', 'K2 (profil déclaré)'],
   ['relancesOrphelines', 'relances CONDITIONNELLES hors signe (anomalies r4a)', 'lecture stricte : famille / antécédent nommé (la lecture large est du bruit)', 'K1 (sondes) / K5 (cas)'],
-  ['brauchtViole', 'questions placées avant le fait qu\'elles présupposent', 'anaphore + détecteur Q0 (précision ≈ 55 %)', 'K4 (`braucht` déclaré)'],
+  // K5 (revue K4, m-2) : l'exact r4b du montage (anomalies + question avant un de ses `braucht`). Le détecteur de TEXTE (anaphore + Q0,
+  // précision ≈ 55 %) ne compte plus au plancher : une bonne déclaration le faisait monter. Il reste lisible, informatif (`info`).
+  ['brauchtViole', 'questions placées avant le fait qu\'elles présupposent', '`braucht` déclaré, relu sur le montage (r4b)', 'K4 (`braucht` déclaré)'],
   ['ajouteSansReponse', 'banques que r3 ajouterait sans réponse dans la fiche', 'projection : exigeAbsent × antworten[banque]', 'K3 (mesuré sur le montage)'],
 ];
 export const RESIDU = [
@@ -283,15 +285,15 @@ export function totaux(results, { sondesMuettes }) {
     horsProfil: sum((r) => r.imp.length),
     exigeAbsent: sum((r) => r.miss.length),
     relancesOrphelines: sum((r) => r.fu.filter((x) => x.cond).length),
-    brauchtViole: sum((r) => r.ord.length),
+    brauchtViole: null,   // K5 (m-2) : exact sur le montage seulement — checkCoherence le remplit (compteursApres, r4b)
     ajouteSansReponse: sum((r) => r.ajoutSansReponse.length),
   };
   const residu = { questionsMuettes: sum((r) => r.muettes), sondesMuettes, nonReduit: null, casRetiresParR1: null };
   const spec = {
     a: brut.doublons, b: brut.horsProfil, c: brut.exigeAbsent,
-    d: sum((r) => r.fu.length), dDetachables: sum((r) => r.fu.filter((x) => !x.cond).length), dCondLarge: sum((r) => r.fuCond.length), dLarge: sum((r) => r.fuLarge), e: brut.brauchtViole,
+    d: sum((r) => r.fu.length), dDetachables: sum((r) => r.fu.filter((x) => !x.cond).length), dCondLarge: sum((r) => r.fuCond.length), dLarge: sum((r) => r.fuLarge), e: sum((r) => r.ord.length),
   };
-  // K4 fixeur : informatif, hors plancher (`brut` / `residu`) — `doublonsMasques` devient une porte au plus tôt en K5.
-  const info = { doublonsMasques: sum((r) => r.masques.length) };
+  // Informatifs, hors plancher (`brut` / `residu`) : lectures du TEXTE, à relire, jamais une porte (K4 fixeur ; K5, m-2).
+  const info = { doublonsMasques: sum((r) => r.masques.length), presuppositionsTexte: sum((r) => r.ord.length) };
   return { brut, residu, spec, info };
 }
