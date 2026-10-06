@@ -42,7 +42,7 @@ export const spec: FachwissenVisualSpec = {
         center: 'Leberzirrhose',
         spokes: [
           {
-            label: 'Syntheseschwäche',
+            label: 'Leberinsuffizienz: Synthese',
             items: [
               { text: 'Hämatome, Blutungsneigung (INR↑)', source: { section: 'klinik', text: K.synthese } },
               { text: 'Ödeme durch Albuminmangel', source: { section: 'klinik', text: K.synthese } },
@@ -57,7 +57,7 @@ export const spec: FachwissenVisualSpec = {
             ],
           },
           {
-            label: 'Entgiftungsstörung',
+            label: 'Leberinsuffizienz: Entgiftung',
             items: [
               { text: 'Ikterus, Juckreiz', source: { section: 'klinik', text: K.ikterus } },
               { text: 'Enzephalopathie: Schlafumkehr, Asterixis', source: { section: 'klinik', text: K.he } },
@@ -69,7 +69,7 @@ export const spec: FachwissenVisualSpec = {
             label: 'Allgemein',
             items: [
               { text: 'Müdigkeit, Leistungsknick, Inappetenz', source: { section: 'klinik', text: K.allgemein } },
-              { text: 'Muskelschwund, durch Wasser verdeckt', source: { section: 'klinik', text: K.allgemein } },
+              { text: 'Sarkopenie, Gewichtsverlust durch Aszites verdeckt', source: { section: 'klinik', text: K.allgemein } },
             ],
           },
         ],
@@ -104,7 +104,7 @@ export const spec: FachwissenVisualSpec = {
       kind: 'decision-tree',
       title: 'Dekompensation: vom Leitzeichen zur Komplikation',
       anchor: 'redFlags',
-      merke: 'Jede Dekompensation hat einen Auslöser — Blutung, Infekt, Alkohol, Medikamente: immer suchen.',
+      merke: 'Jede Dekompensation hat einen Auslöser — immer suchen.',
       replaces: Object.values(RF).map((text) => ({ section: 'redFlags' as const, text })),
       data: {
         root: {
@@ -114,8 +114,8 @@ export const spec: FachwissenVisualSpec = {
             {
               label: 'Hämatemesis, Meläna',
               child: {
-                answer: 'Ösophagusvarizenblutung — Notfall',
-                text: 'Kreislauf stabilisieren, Terlipressin, Ceftriaxon, Ligatur in der ÖGD innerhalb von 12 Stunden.',
+                answer: 'Ösophagusvarizenblutung',
+                text: 'Notfall: Kreislauf stabilisieren, Terlipressin, Ceftriaxon, Ligatur in der ÖGD innerhalb von 12 Stunden.',
                 source: { section: 'redFlags', text: RF.varizen },
                 tone: 'signal',
               },
@@ -123,15 +123,16 @@ export const spec: FachwissenVisualSpec = {
             {
               label: 'Fieber, Bauchschmerz bei Aszites',
               child: {
-                question: 'Punktat: ab 250 neutrophile Granulozyten/µl?',
+                question: 'Punktat: ≥ 250 neutrophile Granulozyten/µl?',
                 source: { section: 'diagnostik', stufe: 'Invasiv & Speziell' },
                 branches: [
                   {
                     label: 'ja',
                     child: {
                       answer: 'Spontan bakterielle Peritonitis',
-                      text: 'Cephalosporin der 3. Generation plus Albumin an Tag 1 und 3, danach Sekundärprophylaxe.',
+                      text: 'Sofort, vor dem Kulturergebnis: Cephalosporin der 3. Generation plus Albumin an Tag 1 und 3, danach Sekundärprophylaxe.',
                       source: { section: 'redFlags', text: RF.sbp },
+                      tone: 'warn',
                     },
                   },
                   {
@@ -149,16 +150,18 @@ export const spec: FachwissenVisualSpec = {
               label: 'Verwirrtheit, Asterixis',
               child: {
                 answer: 'Hepatische Enzephalopathie',
-                text: 'Auslöser beseitigen (Blutung, Infekt, Obstipation, Elektrolyte, Sedativa), Lactulose, ggf. Rifaximin.',
+                text: 'Blutzucker messen, Thiamin i. v., Entzugsdelir und — bei Sturz oder Herdzeichen — subdurales Hämatom (CCT) ausschließen; Auslöser beseitigen (Blutung, Infekt mit diagnostischer Punktion, Obstipation, Elektrolyte, Sedativa), Lactulose, ggf. Rifaximin; ab Grad III Intensivstation (Aspirationsschutz).',
                 source: { section: 'redFlags', text: RF.he },
+                tone: 'warn',
               },
             },
             {
               label: 'Oligurie, Kreatininanstieg',
               child: {
-                answer: 'Hepatorenales Syndrom',
-                text: 'Diuretika und Nephrotoxine absetzen, Terlipressin plus Albumin.',
+                answer: 'Akute Nierenschädigung — hepatorenales Syndrom?',
+                text: 'Diuretika und Nephrotoxine absetzen, Albumin über 2 Tage; ohne Besserung und ohne andere Ursache Terlipressin plus Albumin.',
                 source: { section: 'redFlags', text: RF.hrs },
+                tone: 'warn',
               },
             },
           ],
