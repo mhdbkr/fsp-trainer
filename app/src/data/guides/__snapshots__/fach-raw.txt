@@ -21,7 +21,7 @@ case-bandscheibenvorfall fach-ortho 7 3ea450e3e033d9e7
 case-gicht fach-rheuma 8 7801154ef1320b56
 case-multiple-sklerose fach-neuro 10 872b2de4b51952f9
 case-reizdarm fach-gastro 7 0991845b826ff145
-case-schlaganfall fach-neuro 12 0db569217bf41c2f
+case-schlaganfall fach-neuro 12 d6c8818152f4f2da
 case-gallenkolik fach-chirurgie 4 6a8761f044135c57
 case-tvt fach-gefaess 8 c2a6b9a441362a5f
 case-diabetes fach-endo 10 7d533e14cb2bff71
@@ -67,7 +67,7 @@ case-schenkelhalsfraktur fach-ortho 8 2e6138dd97116920
 case-ulcus-cruris fach-gefaess 7 65e179ced8a54db8
 case-leistenhernie fach-chirurgie 4 6a8761f044135c57
 case-alkoholentzug fach-psy 10 9e57bf0bd33e63a6
-case-commotio fach-neuro 10 90af8ad3ddf5dccb
+case-commotio fach-neuro 10 6d8bf301015ab570
 case-itp fach-haemato 10 e4a03f60a442908b
 case-uterus-myomatosus fach-gyn 12 ba8805b244b46055
 case-akutes-nierenversagen fach-nephro 8 a6438371e3a00071
@@ -82,7 +82,7 @@ case-septische-arthritis fach-rheuma 8 7801154ef1320b56
 case-spinalkanalstenose fach-ortho 8 e15768789283310f
 case-hws-diskusprolaps fach-ortho 7 ff3f3aa36bc758fe
 case-laktoseintoleranz fach-gastro 7 0991845b826ff145
-case-tia fach-neuro 11 ddba010b110ec4ba
+case-tia fach-neuro 11 beaf33e3aaadcd7a
 case-diabetes-typ1 fach-endo 11 765c560272b4b5ca
 case-gastroenteritis fach-infektio 5 1b839d67cb114d17
 case-rheumatisches-fieber fach-infektio 8 2dbe2e34fdc47ada
@@ -114,12 +114,12 @@ case-adnexitis fach-gyn 12 0855a090a25319ba
 case-allergische-rhinitis fach-pneumo 10 73bf386a0e3625a1
 case-typhus fach-infektio 8 2dbe2e34fdc47ada
 case-obstipation fach-gastro 7 0991845b826ff145
-case-sturz-im-alter fach-neuro 11 ddba010b110ec4ba
+case-sturz-im-alter fach-neuro 11 beaf33e3aaadcd7a
 case-lumboischialgie fach-ortho 7 3ea450e3e033d9e7
 case-bauchaortenaneurysma fach-gefaess 5 c575cff3be390bfc
 case-aortendissektion fach-gefaess 5 c575cff3be390bfc
 case-perikarditis fach-kardio 10 207259712ebbd480
-case-epilepsie fach-neuro 11 ddba010b110ec4ba
+case-epilepsie fach-neuro 11 beaf33e3aaadcd7a
 case-hodentorsion fach-uro 10 f2b93129173e99ca
 case-basaliom fach-derma 9 6ba7a3e046a99502
 case-psoriasis fach-derma 8 208a390437a0a511

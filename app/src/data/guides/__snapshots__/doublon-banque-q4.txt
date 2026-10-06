@@ -35,12 +35,10 @@ case-schlafapnoe · nachtschweiss · fach-pneumo-fieber → veg-schuettelfrost
 case-schlafapnoe · miktion · fach-pneumo-orthopnoe → veg-ausscheidung
 case-schizophrenie · gewicht · akt-begleit → veg-gewicht
 case-delir · gewicht · pers-groesse → veg-gewicht
-case-achalasie · stuhl · akt-ausscheid-was → fach-gastro-stuhl
 case-spinalkanalstenose · sturz · akt-ausloeser → fach-ortho-mechanismus
 case-spinalkanalstenose · taubheit · akt-begleit → fach-ortho-sensomotorik
 case-laktoseintoleranz · uebelkeit · akt-begleit → fach-gastro-uebelkeit
 case-laktoseintoleranz · stuhl · akt-motiv → fach-gastro-stuhl
-case-laktoseintoleranz · stuhl · akt-ausscheid-was → fach-gastro-stuhl
 case-laktoseintoleranz · stuhl · fach-gastro-uebelkeit → fach-gastro-stuhl
 case-laktoseintoleranz · gewicht · pers-groesse → veg-gewicht
 case-tia · schwindel · akt-begleit → fach-neuro-koordination
