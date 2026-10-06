@@ -116,6 +116,11 @@ export const useSimSession = create<SimSessionStore>()(persist((set, get) => ({
   },
 }));
 
+/** Où reprendre une session en pause — la barre « Reprendre » et la sortie du drill. [S4-7] Un examen se reprend sur
+ *  `/examen`, sans id de cas dans l'URL (simulation-run.md §11.3). */
+export const routeDeReprise = (s: Pick<SessionSnapshot, 'caseId' | 'teil' | 'examen'>): string =>
+  s.examen ? '/examen' : `/simulation/${s.caseId}/run${s.teil ? `?teil=${s.teil}` : ''}`;
+
 /** Le miroir d'affichage d'un `Lauf` — une seule projection, pour le runner
  *  (`useLauf`) comme pour le réveil (`hydriereAusLauf`). */
 export function snapshotAusLauf(l: Lauf): Omit<SessionSnapshot, 'startedAt'> {

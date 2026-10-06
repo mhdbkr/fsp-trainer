@@ -1,5 +1,5 @@
 import { useNavigate, useLocation } from 'react-router-dom';
-import { useSimSession } from '@/store/simSession';
+import { routeDeReprise, useSimSession } from '@/store/simSession';
 import { useUi } from '@/store/ui';
 import { Icon } from '@/components/icons';
 
@@ -23,7 +23,7 @@ export function ResumeSessionBar() {
   if (!snapshot || !minimized || inRunner) return null;
 
   const doneCount = Object.values(snapshot.results).filter((p) => p?.done).length;
-  const resumeSim = () => { resume(); navigate(snapshot.examen ? '/examen' : `/simulation/${snapshot.caseId}/run${snapshot.teil ? `?teil=${snapshot.teil}` : ''}`); };
+  const resumeSim = () => { resume(); navigate(routeDeReprise(snapshot)); };
 
   // Centrage par marges auto (inset-x-0 + w-fit) : AUCUN translate-x en % →
   // la transition n'anime que l'axe Y, plus de décalage horizontal fugace.
