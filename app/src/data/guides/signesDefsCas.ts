@@ -202,7 +202,6 @@ export const DEFS_CAS = {
   dermato_eingriff: { kapitel: 'vorerkrankungen', pertinence: S },            // lésion cutanée déjà enlevée, cryothérapie
   splenektomie: { kapitel: 'vorerkrankungen', pertinence: S },                // rate enlevée
   asplenie_impfung: { kapitel: 'vorerkrankungen', pertinence: S },            // sans rate : pneumocoque, méningocoque, carte d'asplénie (≠ le statut vaccinal général)
-  vitiligo: { kapitel: 'vorerkrankungen', pertinence: S },                    // taches blanches
   abnehmversuche: { kapitel: 'vorerkrankungen', pertinence: S },              // tentatives de perdre du poids
   kompression: { kapitel: 'vorerkrankungen', pertinence: S },                 // bas de contention prescrits, portés
   // --- Medikamente : expositions ciblées ----------------------------------------
@@ -263,8 +262,6 @@ export const DEFS_CAS = {
   berufliche_belastung: { kapitel: 'familie-sozial', pertinence: S },   // charge physique du travail (port, gestes répétés)
   lebensbelastung: { kapitel: 'familie-sozial', pertinence: S },    // ce qui pèse dans sa vie (famille, aidant, ruptures)
   sozialrecht: { kapitel: 'familie-sozial', pertinence: S },        // procédure de rente, ce qu'elle représente
-  soziale_folgen: { kapitel: 'familie-sozial', pertinence: S },     // travail, famille, amis : ce qui a changé
-  alltag_zuhause: { kapitel: 'familie-sozial', pertinence: S },     // comment il s'en sort chez lui
   hilfe_zuhause: { kapitel: 'familie-sozial', pertinence: S },      // qui l'aide, qui le surveille
   vorsorgevollmacht: { kapitel: 'familie-sozial', pertinence: S },  // niveau de dépendance, mandat, directives anticipées
   vorzustand: { kapitel: 'familie-sozial', pertinence: S },         // autonomie avant l'épisode
@@ -278,11 +275,9 @@ export const DEFS_CAS = {
   strahlenexposition: { kapitel: 'familie-sozial', pertinence: S }, // radiothérapie, exposition professionnelle aux radiations
   taetowierung: { kapitel: 'familie-sozial', pertinence: S },       // tatouage, piercing
   tauchen: { kapitel: 'familie-sozial', pertinence: S },            // plongée
-  wohnumfeld_allergene: { kapitel: 'familie-sozial', pertinence: S },   // chambre, literie, animaux à la maison
   // --- Frauenanamnese ------------------------------------------------------------
   // Q-gyn : une sonde de la Frauenanamnese n'est jamais perdue — une question du cas qui la prolonge a son signe à elle.
   schwangerschaftstest: { kapitel: 'frauenanamnese', pertinence: S },   // test de grossesse fait (après « schwanger möglich ? »)
-  hitzewallung: { kapitel: 'frauenanamnese', pertinence: S },       // ces bouffées sont-elles des bouffées de chaleur de la ménopause
   menarche: { kapitel: 'frauenanamnese', pertinence: S },           // âge des premières règles
   stillen: { kapitel: 'frauenanamnese', pertinence: S },            // allaitement
 } satisfies Record<string, SigneDefBody>;
