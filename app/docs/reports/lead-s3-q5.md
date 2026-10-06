@@ -42,7 +42,7 @@ Branche `feat/s3-q5-contenu`, base `origin/main` @ `4624d4d3` (Q3 et Q4 mergés)
 
 ### F.4 Ce qui reste à signaler
 
-- **malaria** : « Ein Moskitonetz hatte ich nur manchmal. » est maintenant dit avant la question du cas « Haben Sie unter einem Moskitonetz geschlafen …? » (familie-sozial). La garde ne le voit pas (signe propre au cas). C'est le texte demandé ; si `main` préfère, la phrase revient à la seule question du cas.
+- **malaria (décision de main après le fixeur)** : « Ein Moskitonetz hatte ich nur manchmal. » est retiré de la réponse du voyage et devient la réponse écrite de la question du cas « Haben Sie unter einem Moskitonetz geschlafen und Mückenschutzmittel benutzt? Waren Sie abends im Freien? » : « Ein Moskitonetz hatte ich nur manchmal. Mückenschutzmittel habe ich selten benutzt. Und abends war ich viel draußen. » (`sozialanamnese` : « Moskitonetz nur unregelmäßig benutzt, Repellent selten », « viel im Freien »). Plus de pré-réponse ; la garde « banque » reste à 369 (mesuré), le plafond est inchangé.
 - **Garde « banque »** : 367 → **369**, hausse écrite à la main dans `reponseDoublon.test.ts` — deux textes imposés reprennent ce que le motif a dit (pneumonie « das Fieber und der Husten reichen mir », appendizitis « ich glaube, ich habe Fieber »). Diff mesuré constat par constat contre `61edf409` : ces deux lignes seulement.
 
 ### F.5 Vérifications — sommet du fixeur (avant ce commit de rapport)
