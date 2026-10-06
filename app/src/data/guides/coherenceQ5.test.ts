@@ -77,6 +77,9 @@ describe('Q8 — natures de motif', () => {
   it('sturz-im-alter : aucune question jouée ne parle d\'« Anfall » ; les sondes renommées gardent leur signe et leur place', () => {
     const id = 'case-sturz-im-alter';
     expect(textes(id).filter((t) => /Anf[aä]ll/.test(t) && !/Krampfanfall/.test(t))).toEqual([]);
+    // Fixeur (langue, bloquant) : aucune réplique jouée ne cite plus « Anfall ».
+    const repliques = Object.values(byId(id).patientSheet.antworten ?? {}).concat((byId(id).patientSheet.frageAntworten ?? []).map((f) => f.antwort));
+    expect(repliques.filter((r) => /Anfall/.test(r))).toEqual([]);
     for (const probe of ['akt-anfall-ablauf', 'akt-anfall-dauer', 'akt-einfluss', 'akt-frueher']) expect(rang(id, sonde(probe)), probe).toBe(-1);
     const ablauf = rang(id, cas(/^Erzählen Sie mir bitte ganz genau/));
     const dauer = rang(id, cas(/^Wie lange dauert so ein Schwindel/));
@@ -93,8 +96,8 @@ describe('Q8 — natures de motif', () => {
     expect(textes('case-tvt').filter((t) => /Blutung aufgefallen/.test(t))).toEqual([]);
   });
 
-  it('gib : « Hatten Sie so eine Blutung schon einmal? » ; mammakarzinom : « so einen Knoten »', () => {
-    expect(textes('case-gib')).toContain('Hatten Sie so eine Blutung schon einmal?');
+  it('gib : « Hatten Sie so etwas schon einmal — schwarzen Stuhl oder dieses braune Erbrechen? » (langue, fixeur) ; mammakarzinom : « so einen Knoten »', () => {
+    expect(textes('case-gib')).toContain('Hatten Sie so etwas schon einmal — schwarzen Stuhl oder dieses braune Erbrechen?');
     expect(textes('case-mammakarzinom')).toContain('Hatten Sie so einen Knoten schon einmal?');
     expect(cases.flatMap((c) => textes(c.id)).filter((t) => /so eine Veränderung schon einmal/.test(t))).toEqual([]);
   });
