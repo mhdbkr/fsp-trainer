@@ -78,6 +78,9 @@ describe('Historique — carnet de séances', () => {
     expect([...cadrans].map((c) => c.getAttribute('data-size'))).toEqual(['36', '36']);
     expect(cadrans[0].getAttribute('aria-label')).toMatch(/avant la séance/);
     expect(cadrans[1].getAttribute('aria-label')).toMatch(/après la séance/);
+    // Le cas n'avait jamais été joué : le cadran d'avant ne porte aucun score, celui d'après porte le 72 de la séance.
+    expect(cadrans[0].getAttribute('aria-label')).not.toMatch(/72/);
+    expect(cadrans[1].getAttribute('aria-label')).toMatch(/72/);
     expect(ligne.textContent).toMatch(/Anamnese\s*72/);
     expect(within(ligne).getByRole('link', { name: 'Rejouer la Fallvorstellung' }).getAttribute('href')).toBe('/simulation/c1/pre?depart=fallvorstellung');
     // Pankreatitis à 88 : rien à rejouer, aucune action inventée.
