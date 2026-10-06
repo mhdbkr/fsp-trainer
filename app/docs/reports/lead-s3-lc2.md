@@ -320,3 +320,174 @@ audités (§ 8).
   `fsp-language-reviewer`.
 - Le prompt Oberarzt (Q-8, `PASTE_MAX`) n'a pas été mesuré cas par cas. Il ne lit que la Verdachtsdiagnose et
   les noms des DD de `medicalView` ; `prompt.corpus.test.ts` est vert.
+
+## 11. Passe fixeur clinique (revue Opus de `f512d98c`)
+
+Les arbitrages du coordinateur ont tranché les points ouverts du § 6. Tous les correctifs ont été appliqués
+avec le texte de la revue, sauf mention contraire.
+
+**P0, angina.** Le patient décrit une angine qui n'existe que depuis quelques semaines et qui devient plus
+fréquente (`akt-frueher`) : c'est une angine de novo et crescendo. Un ACS doit donc être exclu en premier.
+- La DD a été réécrite : ECG à 12 dérivations et hs-troponine selon l'algorithme 0/1 h ; le patient n'est
+  traité comme un syndrome coronarien chronique qu'une fois ces résultats normaux.
+- La Verdachtsdiagnose a été réalignée, puis reprise par la passe direction (§ 12).
+
+**P1, appliqués tels quels.**
+- angina, examinerSheet : l'angor instable est donné avec une troponine normale, le NSTEMI avec une
+  troponine élevée.
+- angina, antécédent familial : le père, infarctus à 60 ans, ne compte plus comme antécédent positif, ni
+  dans l'examinerSheet ni dans la fiche.
+- angina, question du cas : seuils 55 / 65 ans (formulation finale au § 12, test).
+- pyélonéphrite, alignés sur le Fachwissen : examinerSheet (deux réactions), Prüfungsfalle du cas, Muster
+  `caseMuster.ts` (« bei unbekannter Stoffwechsellage potenziell kompliziert »). Un diabète stable ne suffit
+  pas à rendre l'infection compliquée.
+- osg-fraktur : dernière dose de NMH au moins 12 h avant la rachianesthésie ou l'opération ; reprise
+  4 h après le retrait, ou 6–12 h après l'opération.
+- angina, revascularisation :
+  - fiche : PCI en cas d'atteinte monotronculaire ; en cas d'atteinte pluritronculaire chez ce diabétique,
+    décision en Herzteam ;
+  - Fachwissen (thérapie et question d'examen) : « Zweigefäßerkrankung ohne Diabetes ».
+
+**P2, tous appliqués.**
+- angina :
+  - Metformin : règle ESUR, en rappelant que la Fachinformation prévoit une pause jusqu'à 48 h et qu'il
+    faut suivre le standard de la maison ;
+  - CK seulement en cas de douleurs musculaires ;
+  - le Belastungs-EKG est remplacé par l'imagerie d'ischémie dans l'examinerSheet et dans les deux
+    sections du Muster.
+- gib : la phrase sur la prise en charge ambulatoire n'est plus rattachée au score de Glasgow-Blatchford.
+- schlaganfall, examinerSheet : ETT seule, et la recherche d'un FOP est donnée comme sans conséquence chez
+  ce patient.
+- pneumonie, Prüfungsfalle et examinerSheet : « Cephalosporine je nach Art und Schwere der früheren Reaktion ».
+- pyelonephritis : la fluoroquinolone passe au second rang (examinerSheet et Merksatz du Fachwissen).
+- depression :
+  - F32.2 (ICD-10) ;
+  - « eine freiwillige stationäre Aufnahme aktiv anbieten » dans les Erstmaßnahmen.
+- osg-fraktur : la fenêtre de l'opération primaire est passée pour ce patient.
+
+**Cohésion.** Les `negativeFindings` listés par la revue ont été annotés. Aucune réplique du patient n'a été
+modifiée.
+
+| Cas | Annotation | Particularité |
+|---|---|---|
+| schlaganfall | subdurales Hämatom | — |
+| angina | Aortenklappenstenose | — |
+| angina | muskuloskelettal | — |
+| pneumonie | Tumorleiden mit poststenotischer Pneumonie | — |
+| gib | Pseudomeläna | nouvelle puce, compatible avec les réponses sur les médicaments |
+
+- Les DD endoscopiques de la gib et la DD angine microvasculaire/vasospastique restent sans négatif, comme
+  arbitré.
+- Liens manquants : **271 → 266**, pour 263 sur `main` ; les 3 qui restent sont ces DD acceptées.
+
+## 12. Passe fixeur direction (revue Opus de `f512d98c`)
+
+Les items I2, I3, I4, I6, I7 et M1 à M9 ont été appliqués. I5 a pris le texte de la revue clinique (§ 11).
+
+**Angina (arbitrage).** « Stabile » et « neu seit Wochen und zunehmend » ne peuvent pas coexister.
+- Nouvelle Verdachtsdiagnose : « Belastungsabhängige Angina pectoris bei Verdacht auf KHK, neu und
+  zunehmend: bis zum Ausschluss eines ACS als instabil zu werten. »
+  - Le texte proposé par le coordinateur faisait 215 caractères dans la phrase de Fallvorstellung ; la
+    version abrégée (ACS, « instabil ») en fait 188.
+- DD : « Akutes Koronarsyndrom mit Myokardinfarkt (NSTEMI/STEMI) ». Elle applique au patient la consigne
+  d'exclure d'abord un ACS, sans redire que l'angor instable est un ACS.
+- Alignés sur la nouvelle VD :
+  - la réaction de l'examinerSheet « Verdachtsdiagnose und Begründung? » ;
+  - le Muster (Arztbrief et Vorstellung) ;
+  - la hs-troponine de la Diagnostik (0/1 h) ;
+  - l'imagerie d'ischémie, prévue après exclusion de l'ACS ;
+  - l'Erstmaßnahme : surveillance sous monitoring jusqu'à l'exclusion.
+- **Non modifié, à trancher** : le nom du cas reste « Stabile Angina pectoris (KHK) » (`seedCases.ts`,
+  `name`). Je n'ai pas vérifié tous les usages de ce nom. La renommer est un choix produit.
+
+**I1, dépression.** Le texte de la direction a été repris : la première phrase dit « Schwere depressive
+Episode ohne psychotische Symptome, passive Todeswünsche ohne konkreten Plan. », et F32.2 passe dans la
+deuxième phrase. Remesuré par la règle de `vorstellungsDiagnose` : 161 caractères, `offen = false`.
+
+**I2, fw-gib : Terlipressin + antibiotique cité une seule fois** (thérapie et question d'examen).
+- Retirés : la phrase de la DD varices, la Prüfungsfalle, et la fin du Merksatz.
+
+**I3, fw-khk : « l'angor instable est un ACS » dit une fois dans la Definition et une fois sur le chemin de
+l'arbre** (feuille « Ebenfalls ein ACS »).
+- Merke de l'arbre : « Ein unauffälliges Ruhe-EKG schließt eine KHK nicht aus. » La Prüfungsfalle identique
+  est retirée pour ne pas créer une nouvelle redite.
+- Le tableau replie la Klassifikation « Formen des akuten Koronarsyndroms ».
+- La Prüfungsfalle « Instabile AP ist ein ACS » devient « Erstangina und Crescendo-Angina nicht als stabil
+  abtun… ».
+- Les fixtures `fw-khk` de `useVisualSpec.test.tsx` et `FachwissenDetailPage.test.tsx` portent la nouvelle
+  référence.
+
+**I4, schlaganfall.** Les seuils 185/110, la règle « Lyse wartet nicht » et « cCT vor Lyse ohnehin Pflicht »
+ne figurent plus qu'une fois dans la fiche.
+
+**I6, zystitis.** « Patientin » ne figure plus dans la phrase prononcée.
+
+**I7.** Nouveau test `vorstellungsSatz.test.ts` : « les cas gratuits : la phrase de Fallvorstellung tient
+sans « … » ». Il impose `offen === false` et l'absence de « Patient » dans la première phrase. Il est vert ;
+il a d'abord échoué sur la version de 215 caractères de l'angina.
+
+**M1-M9.**
+- M1, gib : le diagnostic est désormais « … mit Volumenmangel (orthostatischer Schwindel) ».
+- M2, migraene : le code ICHD-3 quitte la phrase prononcée.
+- M3 : l'IMC est retiré des fiches depression et pyelonephritis.
+- M4 : déjà réglé par la passe clinique.
+- M5, gib : « Vollelektrolytlösung » partout.
+- M6 : le libellé de thérapie de la gib devient « … Umgang mit NSAR, ASS und Antikoagulanzien », identique
+  dans la fiche et dans le Fachwissen (`checkTherapieLabels` 0).
+- M7, pyelonephritis : « Metformin vorher pausieren ».
+- M8, angina : réconcilié avec la P1 clinique. La ligne « Familienanamnese präzisieren » dit « keine
+  positive Familienanamnese … im Gespräch trotzdem erwähnen », et non « Grenzfall » ; la liste de facteurs
+  de risque répétée est retirée.
+- M9, pneumonie : l'hospitalisation n'est plus justifiée par le diabète.
+
+**Question du cas angina.**
+- Le libellé proposé par la revue clinique (« bei Männern vor 55, bei Frauen vor 65 Jahren ») faisait monter
+  `checkCaseQuestionAnswers` à 61 candidats pour un plancher de 60 : le mot « Männern » est absent de la
+  fiche. Le test node correspondant passait donc au rouge.
+- Libellé retenu : « … beim Vater oder Bruder vor 55, bei der Mutter oder Schwester vor 65 Jahren? ». Même
+  définition, compteur revenu à 60.
+
+**Redites internes, recomptées.** Méthode : phrases de la fiche Fachwissen (toutes rubriques, questions
+d'examen comprises), mots de 4 lettres et plus. Une paire compte quand le recouvrement atteint 0,7 du plus
+court des deux ensembles. Ce seuil reproduit le niveau d'avant le lot mesuré par la revue (3 et 1). Mes
+comptes pour `f512d98c` (6 et 11) sont plus bas que les 39 et 15 de la revue, dont la méthode n'est pas
+connue : celle-ci comptait probablement aussi le texte des visuels.
+
+| Page | Avant le lot | `f512d98c` | Après la passe |
+|---|---|---|---|
+| fw-gib | 3 | 6 | **2** |
+| fw-khk | 1 | 11 | **4** |
+
+- Pour y arriver, j'ai retiré les questions d'examen qui recopiaient le corps de la fiche : Forrest,
+  Glasgow-Blatchford, CCS, LDL, contre-indications du Nitro, PCI ou Bypass.
+- J'ai aussi retiré les Prüfungsfallen qui recopiaient la thérapie ou la Diagnostik : Belastungs-EKG,
+  Verapamil. L'item risque « Positive Familienanamnese » est raccourci, et la définition chiffrée reste dans
+  sa Prüfungsfalle.
+- Sur les 4 paires de fw-khk, 2 existaient avant le lot (facteurs de risque, stabile/instabile dans les
+  questions d'examen).
+
+**Phrases de Fallvorstellung après les deux passes** (caractères, toutes sans « … ») : angina 188 · gib 175 ·
+depression 161 · pneumonie 149 · pyelonephritis 166 · osg 147 · schlaganfall 178 · diabetes 143 · copd 173 ·
+zystitis 177 · migraene 151 · nierenkolik 171.
+
+**Vérifications des deux passes (code de sortie)**
+
+| Commande | Sortie |
+|---|---|
+| `tsc -b` | 0 |
+| vitest complet | 0 (193 fichiers, 2 024 tests) |
+| `test:c6` | 0 (212 tests) |
+| `node --test`, hors `checkProbeCoverage.test.mjs` | 0 (200 tests) |
+| `checkProbeCoverage.test.mjs`, seul | 0 |
+| les 18 `check*` de la CI, plus `checkTermRegister --require-all` | 0 chacun |
+| `checkCoherence --case`, 12 cas gratuits | 0 × 12 |
+| `checkBudgetFloor.mjs origin/main` | 0 |
+| build | 0 |
+
+`caseTermLinks.json` a été régénéré.
+
+**Restent ouverts**
+- B1 de la direction : rien n'est en ligne tant que la PR n'est pas ouverte, fusionnée et publiée. Le brief
+  dit « pas de PR » à ce stade.
+- Le nom du cas angina.
+- Le rendu de `fw-khk` en mode sombre et au clavier.
