@@ -76,7 +76,7 @@ case-cholezystitis
 case-kolorektales-ca
   eroeffnung[· · · ·]
   personalia[pers-name pers-name pers-alter pers-groesse pers-hausarzt ·]
-  aktuell[akt-motiv akt-beginn akt-ausscheid-haeufigkeit~stuhlfrequenz,stuhl_nachts↳1 akt-verlauf akt-ausloeser akt-einfluss akt-frueher↳2 akt-begleit cas cas]
+  aktuell[akt-motiv akt-beginn akt-ausscheid-haeufigkeit~stuhlfrequenz,stuhl_nachts↳1 akt-verlauf akt-ausloeser akt-einfluss akt-frueher↳2 akt-begleit cas cas cas]
   fach-gastro[fach-gastro-uebelkeit↳5 fach-gastro-sodbrennen fach-gastro-voelle fach-gastro-speisen fach-gastro-stuhl↳2 fach-gastro-tenesmen fach-gastro-spiegelung]
   vegetativ[veg-fieber~fieber↳3 veg-schuettelfrost veg-ausscheidung~miktion↳3 veg-gewicht↳2 veg-appetit veg-schlaf ^veg-fieber#5~impfung]
   vorerkrankungen[· vor-erkrank↳3 vor-op↳3 vor-krankenhaus]
@@ -113,7 +113,7 @@ case-myokardinfarkt
 case-oesophaguskarzinom
   eroeffnung[· · · ·]
   personalia[pers-name pers-name pers-alter pers-groesse pers-hausarzt ·]
-  aktuell[akt-motiv akt-beginn cas akt-verlauf akt-ausloeser akt-einfluss akt-frueher↳2 akt-begleit cas cas cas]
+  aktuell[akt-motiv akt-beginn cas akt-verlauf akt-ausloeser akt-einfluss akt-frueher↳2 akt-begleit cas cas cas cas]
   fach-gastro[fach-gastro-uebelkeit↳5 fach-gastro-sodbrennen fach-gastro-voelle fach-gastro-speisen fach-gastro-stuhl↳2 fach-gastro-tenesmen fach-gastro-spiegelung]
   vegetativ[veg-fieber~fieber↳3 veg-schuettelfrost veg-ausscheidung~miktion↳3 veg-gewicht↳2 veg-appetit veg-schlaf ^veg-fieber#5~impfung]
   vorerkrankungen[· vor-erkrank↳3 vor-op↳3 vor-krankenhaus]
@@ -211,7 +211,7 @@ case-pavk
 case-lyme
   eroeffnung[· · · ·]
   personalia[pers-name pers-name pers-alter pers-groesse pers-hausarzt ·]
-  aktuell[akt-motiv akt-beginn akt-infekt-fieber↳2 akt-verlauf akt-infekt-herd~husten,halsschmerzen,miktion,stuhl,wunde↳4 akt-ausloeser akt-einfluss akt-frueher↳2 akt-begleit cas cas cas cas]
+  aktuell[akt-motiv akt-beginn akt-infekt-fieber↳2 akt-verlauf akt-infekt-herd~husten,halsschmerzen,miktion,stuhl,wunde↳4 akt-ausloeser akt-einfluss akt-frueher↳2 akt-begleit cas cas cas]
   fach-infektio[fach-infekt-zecke fach-infekt-gelenke fach-infekt-neuro fach-infekt-reise fach-infekt-kontakt↳2 fach-infekt-impfung]
   vegetativ[veg-schuettelfrost veg-uebelkeit↳3 veg-gewicht↳2 veg-appetit veg-schlaf]
   vorerkrankungen[· vor-erkrank↳3 vor-op↳3 vor-krankenhaus]
@@ -310,7 +310,7 @@ case-gallenkolik
 case-tvt
   eroeffnung[· · · ·]
   personalia[pers-name pers-name pers-alter pers-groesse pers-hausarzt ·]
-  aktuell[akt-motiv akt-ort↳1 cas akt-charakter akt-intensitaet↳1 akt-veraend-entwicklung↳1 akt-verlauf akt-einfluss akt-frueher↳2 akt-begleit cas↳1 cas cas]
+  aktuell[akt-motiv akt-ort↳1 cas akt-charakter akt-intensitaet↳1 akt-veraend-entwicklung↳1 akt-verlauf akt-einfluss akt-frueher↳2 akt-begleit cas↳1 cas cas cas]
   fach-gefaess[fach-gefaess-gehstrecke fach-gefaess-ruheschmerz fach-gefaess-schwellung↳1 fach-gefaess-immobilisation fach-gefaess-hormone fach-gefaess-wunde fach-gefaess-vorgeschichte]
   vegetativ[veg-fieber~fieber↳3 veg-schuettelfrost veg-uebelkeit↳3 veg-ausscheidung↳3 veg-gewicht↳2 veg-appetit veg-schlaf ^veg-fieber#5~impfung]
   vorerkrankungen[· vor-erkrank↳3 vor-op↳3 vor-krankenhaus cas cas]
@@ -1412,7 +1412,7 @@ case-allergische-rhinitis
 case-typhus
   eroeffnung[· · · ·]
   personalia[pers-name pers-name pers-alter pers-groesse pers-hausarzt ·]
-  aktuell[akt-motiv akt-beginn akt-infekt-fieber↳2 cas akt-infekt-herd~husten,halsschmerzen,miktion,wunde↳3 akt-ausloeser akt-einfluss akt-frueher↳2 akt-begleit cas↳1 cas↳1 cas cas]
+  aktuell[akt-motiv akt-beginn akt-infekt-fieber↳2 cas akt-infekt-herd~husten,halsschmerzen,miktion,wunde↳3 akt-ausloeser akt-einfluss akt-frueher↳2 akt-begleit cas↳1 cas↳1 cas]
   fach-infektio[fach-infekt-zecke~insektenstich fach-infekt-neuro~kopfschmerz,meningismus,taubheit↳2 fach-infekt-reise cas fach-infekt-kontakt~kontakt↳1]
   vegetativ[veg-schuettelfrost veg-uebelkeit↳3 veg-gewicht↳2 veg-appetit veg-schlaf]
   vorerkrankungen[· vor-erkrank↳3 vor-op↳3 vor-krankenhaus cas]
@@ -1582,7 +1582,7 @@ case-opioidabhaengigkeit
 case-sinusitis
   eroeffnung[· · · ·]
   personalia[pers-name pers-name pers-alter pers-groesse pers-hausarzt ·]
-  aktuell[akt-motiv akt-ort↳1 cas akt-charakter akt-intensitaet↳1 akt-infekt-fieber↳2 akt-infekt-herd~halsschmerzen,miktion,stuhl,ausschlag,wunde↳4 akt-ausloeser akt-einfluss akt-frueher↳2 akt-begleit cas cas↳1 cas cas cas]
+  aktuell[akt-motiv akt-ort↳1 cas akt-charakter akt-intensitaet↳1 akt-infekt-fieber↳2 akt-infekt-herd~halsschmerzen,miktion,stuhl,ausschlag,wunde↳4 akt-ausloeser akt-einfluss akt-frueher↳2 akt-begleit cas↳1 cas cas cas]
   fach-pneumo[fach-pneumo-husten↳2 fach-pneumo-auswurf↳2 fach-pneumo-atemnot fach-pneumo-orthopnoe fach-pneumo-schmerz fach-pneumo-fieber~schuettelfrost fach-pneumo-giemen fach-pneumo-infekt fach-pneumo-noxen fach-pneumo-allergie]
   vegetativ[veg-schuettelfrost~nachtschweiss,schwitzen↳1 veg-uebelkeit↳3 veg-gewicht↳2 veg-appetit veg-schlaf ^veg-fieber#5~impfung]
   vorerkrankungen[· vor-erkrank↳3 vor-op↳3 vor-krankenhaus]
