@@ -1435,10 +1435,10 @@ export function seedFachwissen(): Fachwissen[] {
       id: 'fw-pavk',
       pathology: 'Periphere arterielle Verschlusskrankheit (pAVK)',
       specialty: 'Kardiologie',
-      definition: 'Chronische, meist atherosklerotisch bedingte Stenosierung oder Verschluss der extremitätenversorgenden Arterien (überwiegend der unteren Extremität), die zu einer belastungsabhängigen Minderdurchblutung (Ischämie) führt. Leitsymptom ist die Claudicatio intermittens („Schaufensterkrankheit“): ein belastungsabhängiger, krampfartiger Muskelschmerz (typisch in der Wade), der den Patienten zum Stehenbleiben zwingt und sich in Ruhe innerhalb weniger Minuten bessert. Der volkstümliche Name rührt daher, dass die Betroffenen wie beim Schaufensterbummeln immer wieder stehen bleiben müssen, um den Schmerz abklingen zu lassen. Die pAVK ist Ausdruck einer generalisierten Atherosklerose und damit ein Marker für ein hohes kardiovaskuläres Gesamtrisiko (KHK, Karotisstenose).',
-      aetiologie: 'In über 90 % der Fälle Folge einer Atherosklerose (arteriosklerotische Plaques mit Lumeneinengung). Die Lokalisation bestimmt die Symptomhöhe: Beckentyp (aortoiliakal, ca. 35 %) verursacht Gluteal-/Oberschenkelschmerz, der Oberschenkeltyp (femoropopliteal, ca. 50 %, häufigster Typ) Wadenschmerz, der Unterschenkeltyp (kruropedal, ca. 15 %, gehäuft bei Diabetikern) Fußschmerz. Seltene, nicht-atherosklerotische Ursachen: Thrombangiitis obliterans (Morbus Winiwarter-Buerger, junge Raucher), Vaskulitiden, Entrapment-Syndrom der A. poplitea, fibromuskuläre Dysplasie sowie kardiale/arterielle Embolien (dann eher akuter Verschluss). Ein kompletter Verschluss der distalen Aorta bzw. beider Beckenarterien wird als Leriche-Syndrom bezeichnet (Trias: Claudicatio beidseits/gluteal, fehlende Leistenpulse, erektile Dysfunktion).',
+      definition: 'Chronische, meist atherosklerotisch bedingte Stenosierung oder Verschluss der extremitätenversorgenden Arterien (überwiegend der unteren Extremität), die zu einer belastungsabhängigen Minderdurchblutung (Ischämie) führt. Leitsymptom ist die Claudicatio intermittens („Schaufensterkrankheit“): ein belastungsabhängiger, krampfartiger Muskelschmerz (typisch in der Wade), der den Patienten zum Stehenbleiben zwingt und sich in Ruhe innerhalb weniger Minuten bessert. Die pAVK ist Ausdruck einer generalisierten Atherosklerose und damit ein Marker für ein hohes kardiovaskuläres Gesamtrisiko (KHK, Karotisstenose).',
+      aetiologie: 'In über 90 % der Fälle Folge einer Atherosklerose (arteriosklerotische Plaques mit Lumeneinengung). Die Lokalisation bestimmt die Symptomhöhe: Beckentyp (aortoiliakal, ca. 35 %) verursacht Gluteal-/Oberschenkelschmerz, der Oberschenkeltyp (femoropopliteal, ca. 50 %, häufigster Typ) Wadenschmerz, der Unterschenkeltyp (kruropedal, ca. 15 %, gehäuft bei Diabetikern) Fußschmerz. Seltene, nicht-atherosklerotische Ursachen: Thrombangiitis obliterans (Morbus Winiwarter-Buerger, junge Raucher), Vaskulitiden, Entrapment-Syndrom der A. poplitea, fibromuskuläre Dysplasie sowie kardiale/arterielle Embolien (dann eher akuter Verschluss).',
       risikofaktoren: [
-        'Nikotinabusus — der wichtigste und stärkste Risikofaktor (im Fall 45 Packyears)',
+        'Nikotinabusus — der wichtigste und stärkste Risikofaktor',
         'Diabetes mellitus (fördert v. a. den distalen Unterschenkeltyp und Mediasklerose)',
         'Arterielle Hypertonie',
         'Hyperlipidämie / Hypercholesterinämie (LDL↑)',
@@ -1462,7 +1462,7 @@ export function seedFachwissen(): Fachwissen[] {
           text: 'Trophische Störungen bei fortgeschrittenem Befund: Haarverlust, brüchige Nägel, glänzend-atrophe Haut, verzögerte Wundheilung',
         },
         {
-          text: 'Ruheschmerz — typischerweise nachts im Liegen, Besserung durch Tieflagerung des Beins (Herabhängen aus dem Bett) — signalisiert kritische Ischämie (ab Stadium III)',
+          text: 'Ruheschmerz — typischerweise nachts im Liegen, Besserung durch Tieflagerung des Beins (Herabhängen aus dem Bett)',
           atypisch: true,
         },
         {
@@ -1471,10 +1471,6 @@ export function seedFachwissen(): Fachwissen[] {
         },
         {
           text: 'Beim Diabetiker durch begleitende Polyneuropathie oft schmerzarm/stumm — die Ischämie wird erst über ein Ulkus oder eine Gangrän auffällig (Cave: verschleppte Diagnose)',
-          atypisch: true,
-        },
-        {
-          text: 'Erektile Dysfunktion in Kombination mit gluteal-beidseitiger Claudicatio und fehlenden Leistenpulsen → Leriche-Syndrom (aortoiliakaler Verschluss)',
           atypisch: true,
         },
       ],
@@ -1504,7 +1500,7 @@ export function seedFachwissen(): Fachwissen[] {
         { stufe: 'Anamnese/Klinik', text: 'Körperliche Untersuchung: Inspektion (Blässe, trophische Störungen, Ulzera), Seitenvergleich der Hauttemperatur, systematisches Pulsstatus-Tasten (A. femoralis, A. poplitea, A. dorsalis pedis, A. tibialis posterior) und Auskultation auf Stenosegeräusche' },
         { stufe: 'Anamnese/Klinik', text: 'Ratschow-Lagerungsprobe und standardisierte Gehstreckenmessung auf dem Laufband (Bestätigung und Objektivierung des Stadiums)' },
         { stufe: 'Labor', text: 'Labor: Lipidstatus (LDL/HDL/Cholesterin), HbA1c/Nüchternglukose, Nierenwerte (Kreatinin/eGFR vor KM), Blutbild, CRP' },
-        { stufe: 'Apparativ & Bildgebung', text: 'Knöchel-Arm-Index (ABI, Doppler): zentrale, einfache Basisuntersuchung — Quotient aus systolischem Knöchel- und Armdruck; < 0,9 beweist eine pAVK, < 0,5 zeigt eine kritische Ischämie an' },
+        { stufe: 'Apparativ & Bildgebung', text: 'Knöchel-Arm-Index (ABI) mit der Doppler-Stiftsonde: die zentrale, einfache Basisuntersuchung' },
         { stufe: 'Apparativ & Bildgebung', text: 'Farbkodierte Duplexsonographie: erste bildgebende, nicht-invasive Methode zur Lokalisation und Graduierung der Stenosen/Verschlüsse' },
         { stufe: 'Apparativ & Bildgebung', text: 'MR-Angiographie (MRA) — nicht-invasive Gefäßdarstellung zur OP-/Interventionsplanung, ohne Röntgenstrahlung' },
         { stufe: 'Apparativ & Bildgebung', text: 'CT-Angiographie (CTA) mit jodhaltigem Kontrastmittel zur Gefäßdarstellung (Cave: Niereninsuffizienz, KM-Allergie)' },
@@ -1529,7 +1525,7 @@ export function seedFachwissen(): Fachwissen[] {
         },
         {
           dd: 'Akuter arterieller Verschluss (Embolie/Thrombose)',
-          unterscheidung: 'Plötzlicher Beginn mit den 6 P (Schmerz, Blässe, Pulslosigkeit, Parästhesie, Paralyse, Schock); Notfall — im Gegensatz zur langsam progredienten chronischen pAVK.',
+          unterscheidung: 'Plötzlicher Beginn in Ruhe; Notfall — im Gegensatz zur langsam progredienten chronischen pAVK.',
         },
         {
           dd: 'Thrombangiitis obliterans (M. Winiwarter-Buerger)',
@@ -1546,7 +1542,7 @@ export function seedFachwissen(): Fachwissen[] {
             'Blutdruckeinstellung auf Werte unter 140/90 mmHg, bevorzugt mit ACE-Hemmer oder Sartan; Betablocker sind bei pAVK entgegen einer alten Lehrmeinung nicht kontraindiziert',
             'Optimierung des Diabetes mellitus mit einem HbA1c-Zielwert um 7 %',
             'Tägliche Fußinspektion, professionelle Fußpflege, gut sitzendes und druckstellenfreies Schuhwerk, keine Barfußgänge, keine Wärmflaschen — besonders wichtig beim Diabetiker mit Polyneuropathie',
-            'Aufklärung: die pAVK ist ein Marker der generalisierten Atherosklerose; die Prognose bestimmt nicht das Bein, sondern das kardiovaskuläre Ereignis — daher Mitbeurteilung von KHK und Karotiden',
+            'KHK und Karotiden mitbeurteilen',
           ],
           akut: false,
         },
@@ -1578,7 +1574,7 @@ export function seedFachwissen(): Fachwissen[] {
         {
           label: 'Akuter Extremitätenverschluss und kritische Ischämie — Notfallvorgehen',
           items: [
-            'Akuter Verschluss: die 6 P nach Pratt — pain, paleness, pulselessness, paresthesia, paralysis, prostration; das Zeitfenster bis zur irreversiblen Muskelschädigung beträgt etwa sechs Stunden',
+            'Akuter Verschluss: das Zeitfenster bis zur irreversiblen Muskelschädigung beträgt etwa sechs Stunden',
             'Sofortmaßnahmen: Extremität tief lagern und watteweich polstern, Wärmeerhalt, keine Wärmeapplikation, Analgesie mit einem Opioid, Heparin-Bolus 5000–10000 IE intravenös, sofortige gefäßchirurgische beziehungsweise angiologische Vorstellung',
             'Revaskularisation je nach Befund: Fogarty-Katheterembolektomie bei embolischem Verschluss, lokale Katheterlyse oder Aspirationsthrombektomie bei thrombotischem Verschluss; embolische Genese abklären (Vorhofflimmern, Aneurysma)',
             'Kritische Ischämie (Stadium III und IV): stationäre Aufnahme, dringliche Revaskularisation, konsequente Analgesie, stadiengerechtes Wundmanagement, gezielte Antibiose nur bei Infektion',
@@ -1588,13 +1584,11 @@ export function seedFachwissen(): Fachwissen[] {
           akut: true,
         },
       ],
-      prognose: 'Die pAVK ist Ausdruck einer generalisierten Atherosklerose: prognosebestimmend ist nicht das Bein, sondern das hohe kardiovaskuläre Gesamtrisiko — die meisten Patienten versterben an Herzinfarkt oder Schlaganfall. Die lokale Prognose ist im Stadium II unter konsequenter Risikofaktorenkontrolle und Gehtraining günstig; nur eine Minderheit schreitet zur kritischen Ischämie fort. Entscheidend für die Extremitätenprognose sind absoluter Nikotinverzicht und die Diabeteseinstellung. Im Stadium IV (kritische Ischämie) drohen ohne Revaskularisation Amputation und eine deutlich erhöhte Letalität.',
+      prognose: 'Die pAVK ist Ausdruck einer generalisierten Atherosklerose: prognosebestimmend ist nicht das Bein, sondern das hohe kardiovaskuläre Gesamtrisiko — die meisten Patienten versterben an Herzinfarkt oder Schlaganfall. Die lokale Prognose ist im Stadium II unter konsequenter Risikofaktorenkontrolle und Gehtraining günstig; nur eine Minderheit schreitet zur kritischen Ischämie fort. Entscheidend für die Extremitätenprognose sind absoluter Nikotinverzicht und die Diabeteseinstellung. Bei Nekrosen drohen ohne Revaskularisation Amputation und eine deutlich erhöhte Letalität.',
       pruefungsfallen: [
         'Umgangssprache parat haben: pAVK = „Schaufensterkrankheit“; auf die häufige Prüferfrage „Warum heißt sie so?“ die Erklärung mit dem erzwungenen Stehenbleiben (wie beim Schaufensterbummel) liefern.',
-        'Der ABI (Knöchel-Arm-Index) ist DIE zentrale, nicht-invasive Basisuntersuchung — nie vergessen; bei Diabetikern/Niereninsuffizienz kann er durch Mediasklerose falsch-hoch (> 1,3) und damit falsch-negativ sein.',
-        'Nikotin als führenden Risikofaktor nennen und beim Patienten aktiv das Rauchen erfragen und ansprechen (wichtigste therapeutische Maßnahme).',
+        'Ein normaler ABI schließt bei Diabetes oder Niereninsuffizienz eine pAVK nicht aus (inkompressible Gefäße) — dann den Zehendruck messen.',
         'Fußpulse systematisch und benannt tasten (A. dorsalis pedis und A. tibialis posterior) — die Prüfer fragen konkret, WO man tastet.',
-        'Claudicatio spinalis von Claudicatio intermittens abgrenzen: Besserung durch Vornüberbeugen/Hinsetzen (spinal) vs. durch bloßes Stehenbleiben (arteriell).',
         'Bei KM-Allergie eine Alternative zur konventionellen Angiographie parat haben: CO2-Angiographie oder strahlenfreie MR-Angiographie.',
         'Die Therapie stadiengerecht (Fontaine I–IV) darstellen können und die Revaskularisationsindikation kennen: relativ ab IIb, absolut ab Stadium III/IV.',
         'Beim Diabetiker an den schmerzarmen/stummen Verlauf durch Polyneuropathie denken — die pAVK wird sonst erst über ein Ulkus entdeckt.',
@@ -1606,7 +1600,7 @@ export function seedFachwissen(): Fachwissen[] {
         },
         {
           frage: 'Was ist die wichtigste Untersuchung bei der pAVK?',
-          antwort: 'Der Knöchel-Arm-Index (ABI): das Verhältnis aus systolischem Knöchel- und Armdruck. Ein Wert unter 0,9 sichert die pAVK, unter 0,5 zeigt eine kritische Ischämie an. Ergänzend die farbkodierte Duplexsonographie.',
+          antwort: 'Der Knöchel-Arm-Index: systolischer Knöcheldruck geteilt durch den höheren Armdruck, krankhaft unter 0,9. Ergänzend die farbkodierte Duplexsonographie.',
         },
         {
           frage: 'Wo genau tasten Sie die Fußpulse?',
