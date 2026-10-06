@@ -23,6 +23,7 @@ import { ResultScreen } from '@/features/simulation/SimulationRunner';
 import { Icon } from '@/components/icons';
 import { EXAM_DAY_PLAN } from './plan';
 import { ExamenRunner } from './ExamenRunner';
+import { EXAMENS_PAR_SEMAINE_CONSEILLES } from './reglages';
 
 const PLAN = EXAM_DAY_PLAN.BW;
 
@@ -63,6 +64,9 @@ function Avant({ taskId, enPause, onStart }: { taskId?: string; enPause: boolean
   }, [tire, tache, casDuPlan, cases, journal, progress, ville]);
   const caseId = casDuPlan ?? tire;
   const vide = !!cases && cases.length === 0;
+  // Décision 10 (en discussion) : `null` ⇒ ni limite ni message.
+  const semaine = EXAMENS_PAR_SEMAINE_CONSEILLES === null ? 0
+    : new Set((journal ?? []).filter((e) => e.modeExamen && now() - e.at < 7 * 86_400_000).map((e) => e.id)).size;
 
   return (
     <div className="mx-auto max-w-2xl space-y-5">
@@ -78,6 +82,9 @@ function Avant({ taskId, enPause, onStart }: { taskId?: string; enPause: boolean
           <Icon name="play" className="h-4 w-4" />Démarrer l’examen
         </button>
         {vide && <p className="mt-2 text-sm text-slate-500">Aucun cas disponible.</p>}
+        {EXAMENS_PAR_SEMAINE_CONSEILLES !== null && semaine >= EXAMENS_PAR_SEMAINE_CONSEILLES && (
+          <p className="mt-2 text-sm text-slate-500">Déjà {semaine} examens ces sept derniers jours.</p>
+        )}
         {enPause && <p className="callout callout-info mx-auto mt-3 max-w-md text-left text-xs">Une simulation est en pause : démarrer l’examen l’enregistre telle quelle.</p>}
       </header>
       {caseId && <PartnerCard caseId={caseId} depart={null} examen />}
