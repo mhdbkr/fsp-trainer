@@ -2,7 +2,63 @@
 
 Branche `feat/s3-q5-contenu`, base `origin/main` @ `4624d4d3` (Q3 et Q4 mergés). Commits de `8ec32183` à `b9933833`, un fichier par commit, sans trailer. `origin/main` n'a depuis que 4 commits de registre (`serie3-avancement.md`) : `merge-tree` à 0, aucune fusion nécessaire.
 
-**Statut : DONE_WITH_CONCERNS** — tout est vert par code de sortie (§ 7). Les réserves sont au § 8 : un écart à la lettre du brief (tvt), trois textes patient nouveaux à valider, et la garde « banque » qui reste haute pour des raisons structurelles. Une revue clinique et une relecture de langue suivent.
+**Statut (fixeur) : DONE** — voir F, qui prime. Premier passage : DONE_WITH_CONCERNS, tout vert par code de sortie (§ 7). Les réserves sont au § 8 : un écart à la lettre du brief (tvt), trois textes patient nouveaux à valider, et la garde « banque » qui reste haute pour des raisons structurelles. Une revue clinique et une relecture de langue suivent.
+
+## F. Fixeur — revues Opus de `61edf409` (décisions de main)
+
+> Clinique : mergeable après 2 P1. Langue : 1 bloquant, 6 importants. Décisions de `main` : tvt (saut entier de « Befund ») accepté ; les constats « banque » relèvent d'un futur lot de guide. **Cette section prime sur la suite quand elles divergent.** Statut : **DONE**, avec quatre écarts motivés (F.3).
+
+### F.1 Clinique
+
+| Point | Fait |
+|---|---|
+| P1-1 myokardinfarkt | `akt-begleit` → « Mir ist ganz elend, ich kann es gar nicht richtig beschreiben. » |
+| P1-2 lyme | « Wird die Rötung größer? » retirée ; `akt-verlauf` → « Das grippige Gefühl ist gleichbleibend. » ; `frageAntworten` de la question Zielscheibe → « Ja, außen ist sie rot und in der Mitte heller. » ; les deux anciens `ADMIS` retirés — voir F.3-b |
+| P2 angina-pectoris | `veg-schuettelfrost` → « Nein, kein Schüttelfrost, kein Nachtschweiß. Nur bei den Anfällen schwitze ich manchmal. » |
+| P2 sturz-im-alter | `frageAntworten` : Kopf → « Ja, mit der linken Schläfe an den Wannenrand — da ist eine kleine Beule. » ; bewusstlos → « Nein, weg war ich nicht, ich weiß alles noch — ich habe mich mit dem rechten Arm abgestützt. » |
+| P2 pertussis | « Zwischendurch huste ich fast gar nicht. » coupée de la description de l'accès, DÉPLACÉE en `frageAntworten` de « Wie geht es Ihnen zwischen den Anfällen … » |
+| P2 malaria | réponse du voyage + « Ein Moskitonetz hatte ich nur manchmal. » (voir F.4) |
+| P2 kolorektales-ca, oesophaguskarzinom | question du cas « Ist Ihnen eine Gelbfärbung der Haut oder der Augen aufgefallen? » (`gelbfaerbung`), réponse « Nein. » |
+| P2 tvt | question du cas « Haben Sie sich am Bein gestoßen oder beim Sport etwas gezerrt? » (`unfallhergang`) ; réponse « Nein, gestoßen habe ich mich nicht, und beim Sport habe ich mir auch nichts gezerrt. » — NEG « kein vorangegangenes Trauma, kein Sturz, keine Sportverletzung am Bein » |
+| Doublon itp | « Hatten Sie auch Nasenbluten? » (akt-beginn et akt-einfluss disent le Zahnfleischbluten) ; réponse écrite « Ja, letzte Woche zweimal. » (`begleitsymptome[1]`) |
+| Doublon sinusitis | « Wird der Druck im Gesicht schlimmer, wenn Sie sich bücken … » RETIRÉE (akt-intensitaet et akt-einfluss le disent) |
+| Doublon bronchialkarzinom | « Heiser seit drei Wochen, » coupé d'`akt-begleit` ; DÉPLACÉ en `frageAntworten` de « Ist Ihre Stimme heiser geworden? » (« Ja, seit drei Wochen. Meine Frau sagt, ich klinge am Telefon fremd. » — `begleitsymptome`) |
+| Doublon typhus | « Fühlen Sie sich benommen oder verwirrt … » RETIRÉE (le motif dit « ganz weggetreten », fach-infekt-neuro la description) |
+| Doublon malaria | « Malariaprophylaxe habe ich nicht genommen. » coupé de `med-regelmaessig` (la question du cas sur la prophylaxie suit) |
+| Rapport | **11 cas** reçoivent un `aktuellSkip` (le § 5.3 disait 13 par erreur) : tvt, mammakarzinom, bronchialkarzinom, kolorektales-ca, oesophaguskarzinom, achalasie, laktoseintoleranz, colitis-ulcerosa, obstipation, bph, prostatakarzinom |
+
+### F.2 Langue
+
+- **Bloquant** : sturz-im-alter `akt-anfall-ablauf` au texte exact ; aucune réplique de sturz-im-alter (`antworten`, `frageAntworten`) ne cite plus « Anfall » (épinglé dans `coherenceQ5`).
+- **Importants**, au texte exact : la relance de la fin du malaise (sturz) ; la relance « Falls nein » de l'aura (epilepsie) ; gib (question, clé `frageAntworten`, réponse) ; `followUps: ['Reichte schon das Bücken?']` (osteoporose) ; les cinq `akt-begleit` (myokardinfarkt : texte du P1-1 ; mammakarzinom : voir F.3-a) ; la réponse du nœud inguinal (nhl).
+- **Mineurs** : tous, au texte exact, y compris `fach-neuro-anfallzeichen` (texte, parts et catalogue `anamneseProbes.ts` : « Erinnern Sie sich an alles, was davor und danach war? », « Haben Sie dabei Urin verloren? »).
+
+### F.3 Écarts motivés
+
+- **a. mammakarzinom, `akt-begleit`** : la version clinique (« … doch, in der Achsel habe ich etwas getastet ») faisait de la question du cas suivante (« Haben Sie Knoten in der Achselhöhle … getastet? ») un doublon. J'ai pris la version de langue, comme prévu : « Nein, sonst nichts. Ich fühle mich eigentlich ganz gesund — deshalb erschreckt mich dieser Knoten ja so. »
+- **b. lyme, `ADMIS`** : une fois « Wird die Rötung größer? » retirée, plus aucune question du cas ne portait `ausschlag` ; la part « Ist Ihnen ein Ausschlag aufgefallen? » d'akt-infekt-herd et la Fach Infekt (« Haben Sie eine Hautveränderung oder Rötung bemerkt? ») revenaient — deux doublons du motif (mesuré). La question de l'anneau déclare donc `['erythem_ring', 'ausschlag']` (elle demande l'aspect de la rougeur ; son `relu` devient sans objet). Ses deux constats (`pers-hausarzt` « wegen des Ausschlags », `akt-beginn` « die Rötung … dazugekommen ») sont admis avec leur **vraie** raison : la réplique nomme la rougeur, la question en demande l'aspect en cocarde. Les anciennes raisons sont retirées.
+- **c. nhl** : « Wann und wie ist Ihnen der Knoten aufgefallen? » fait monter A2 (deux interrogatifs coordonnés, budget 32 → 33) et le motif dit déjà « seit zwei Wochen ». La question reste « Wie ist Ihnen der Knoten aufgefallen? » ; la réponse est le texte de langue (« Vor zwei Wochen, beim Duschen — da war er auf einmal da. … »).
+- **d. gib** : la question cite « Erbrechen » (lu `uebelkeit`, demandé plus bas par fach-gastro-uebelkeit) : `relu: true`. Pour ne pas dépasser le socle `relu`, l'annotation devenue sans objet de la question des chutes de sturz-im-alter (elle déclare `sturz`) est retirée ; le socle descend à 82 (`--bless`).
+
+### F.4 Ce qui reste à signaler
+
+- **malaria** : « Ein Moskitonetz hatte ich nur manchmal. » est maintenant dit avant la question du cas « Haben Sie unter einem Moskitonetz geschlafen …? » (familie-sozial). La garde ne le voit pas (signe propre au cas). C'est le texte demandé ; si `main` préfère, la phrase revient à la seule question du cas.
+- **Garde « banque »** : 367 → **369**, hausse écrite à la main dans `reponseDoublon.test.ts` — deux textes imposés reprennent ce que le motif a dit (pneumonie « das Fieber und der Husten reichen mir », appendizitis « ich glaube, ich habe Fieber »). Diff mesuré constat par constat contre `61edf409` : ces deux lignes seulement.
+
+### F.5 Vérifications — sommet du fixeur (avant ce commit de rapport)
+
+| Commande | Code |
+|---|---:|
+| `npx tsc -b` | 0 |
+| `npx vitest run --dir src --maxWorkers=2` | 0 — 191 fichiers, 2 017 tests |
+| `npm run test:c6` | 0 — 183 tests |
+| 21 `check*.mjs` + `checkTermRegister --require-all` + `evalDoctopus --dry` | 0, sauf `checkProbeOverlap` 1 (9, comme `main`) |
+| `node --test scripts/*.test.mjs` | 0 — 199/199 (ancres de mutation parkinson et lyme alignées) |
+| `checkBudgetFloor.mjs origin/main` (@ `e2c6b3ff`) | 0 |
+| `npm run build` | 0 |
+| `git merge-tree --write-tree origin/main HEAD` | 0 |
+
+Compteurs : atomicité A / A2 / B 295 / 32 / 80 (inchangés) ; `checkCaseQuestionAnswers` 70 ; `relu` 82 ; garde, questions du cas : 0 non admis ; banque 369.
 
 ## 0. Hypothèses et écarts, dits avant tout
 
