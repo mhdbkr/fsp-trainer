@@ -152,12 +152,15 @@ export function StartButton({ caseId, depart, taskId }: { caseId: string; depart
   );
 }
 
-type Partenaire = 'seul' | 'simulant' | 'ia';
+export type Partenaire = 'seul' | 'simulant' | 'ia';
 const PARTENAIRE_KEY = 'fsp-partenaire';
 const lirePartenaire = (): Partenaire => {
   const v = localStorage.getItem(PARTENAIRE_KEY);
   return v === 'simulant' || v === 'ia' ? v : 'seul';
 };
+/** [S4-7] Le partenaire de l'Examen : le cas est caché, « Seul » n'y a pas de patient à interroger. Le dernier choix s'il
+ *  vaut dans l'Examen, sinon le simulant (simulation-run.md §11.3). Choix de l'appareil, jamais enregistré (décision 7). */
+export const partenaireExamen = (): 'simulant' | 'ia' => (lirePartenaire() === 'ia' ? 'ia' : 'simulant');
 
 /** « Avec qui tu joues » — UN seul cadre. Choisir un partenaire SÉLECTIONNE,
  *  il ne lance rien : le départ est le `StartButton` de l'en-tête. L'IA externe
@@ -169,8 +172,8 @@ export function PartnerCard({ caseId, depart, examen = false }: { caseId: string
   const teil = depart ?? undefined;
   // [S4-7] Dans l'Examen : pas d'IA (aucune aide n'y est montée), et la seconde fenêtre s'ouvre par un bouton — un `href`
   // mettrait l'id du cas dans le DOM du candidat (simulation-run.md §11.3).
-  const [partenaireLu, setPartenaireState] = useState<Partenaire>(lirePartenaire);
-  const partenaire = examen && partenaireLu === 'ia' ? 'seul' : partenaireLu;
+  const [partenaireLu, setPartenaireState] = useState<Partenaire>(() => (examen ? partenaireExamen() : lirePartenaire()));
+  const partenaire = partenaireLu;
   const setPartenaire = (p: Partenaire) => { localStorage.setItem(PARTENAIRE_KEY, p); setPartenaireState(p); };
   const [copied, setCopied] = useState(false);
   const url = patientUrl(caseId, teil);
@@ -181,26 +184,31 @@ export function PartnerCard({ caseId, depart, examen = false }: { caseId: string
     <section className="card p-4" aria-label="Avec qui tu joues">
       <div className="label mb-2">Avec qui tu joues</div>
       <div className={`grid gap-3 ${examen ? 'sm:grid-cols-2' : 'sm:grid-cols-3'}`}>
-        <PartnerChoice
-          icon="user" title="Seul" active={choix === 'seul'}
-          desc="Tu joues les deux rôles."
-          onClick={() => setPartenaire('seul')}
-        />
+        {!examen && (
+          <PartnerChoice
+            icon="user" title="Seul" active={choix === 'seul'}
+            desc="Tu joues les deux rôles."
+            onClick={() => setPartenaire('seul')}
+          />
+        )}
         <PartnerChoice
           icon="mask" title="Avec un simulant" active={choix === 'simulant'}
           desc="Il lit sa fiche de rôle sur son téléphone et suit ta partie en direct."
           onClick={() => setPartenaire('simulant')}
         />
-        {!examen && (
-          <PartnerChoice
-            icon="spark" title="Avec ton IA" active={choix === 'ia'}
-            desc="ChatGPT ou Gemini, en vocal : tu la lances depuis la partie."
-            onClick={() => setPartenaire('ia')}
-          />
-        )}
+        <PartnerChoice
+          icon="spark" title="Avec ton IA" active={choix === 'ia'}
+          desc={examen ? 'Elle joue le patient, puis l’examinateur. Le diagnostic ne t’est pas montré.' : 'ChatGPT ou Gemini, en vocal : tu la lances depuis la partie.'}
+          onClick={() => setPartenaire('ia')}
+        />
       </div>
 
-      {choix === 'ia' && (
+      {choix === 'ia' && examen && (
+        <p className="mt-3 text-xs text-slate-500 dark:text-slate-400">
+          Dans l’examen, la puce « IA » de l’en-tête la lance en Anamnese, puis en Fallvorstellung.
+        </p>
+      )}
+      {choix === 'ia' && !examen && (
         <p className="mt-3 text-xs text-slate-500 dark:text-slate-400">
           Dans la partie, la puce « IA » de l’en-tête prépare le prompt du patient en Anamnese, de l’Oberarzt en Fallvorstellung.
         </p>
@@ -217,10 +225,10 @@ export function PartnerCard({ caseId, depart, examen = false }: { caseId: string
             </p>
             <div className="mt-2 flex flex-wrap items-center justify-center gap-2 sm:justify-start">
               {examen
-                ? <button type="button" onClick={() => window.open(localPatientUrl(caseId, teil), '_blank', 'noreferrer')} className="btn-outline gap-1.5 text-xs">Ouvrir en 2ᵉ fenêtre<Icon name="external" className="h-3.5 w-3.5" /></button>
-                : <a href={localPatientUrl(caseId, teil)} target="_blank" rel="noreferrer" className="btn-outline gap-1.5 text-xs">Ouvrir en 2ᵉ fenêtre<Icon name="external" className="h-3.5 w-3.5" /></a>}
+                ? <button type="button" onClick={() => window.open(localPatientUrl(caseId, teil), '_blank', 'noreferrer')} className="btn-outline min-h-11 gap-1.5 text-xs">Ouvrir en 2ᵉ fenêtre<Icon name="external" className="h-3.5 w-3.5" /></button>
+                : <a href={localPatientUrl(caseId, teil)} target="_blank" rel="noreferrer" className="btn-outline min-h-11 gap-1.5 text-xs">Ouvrir en 2ᵉ fenêtre<Icon name="external" className="h-3.5 w-3.5" /></a>}
               <button onClick={copyUrl} title="Copier le lien (téléphone)" aria-label="Copier le lien pour téléphone"
-                className={`btn-outline px-2.5 text-xs ${copied ? 'border-emerald-300 text-emerald-600 dark:text-emerald-400' : ''}`}>
+                className={`btn-outline min-h-11 min-w-11 px-2.5 text-xs ${copied ? 'border-emerald-300 text-emerald-600 dark:text-emerald-400' : ''}`}>
                 <Icon name={copied ? 'check' : 'copy'} className="h-3.5 w-3.5" />
               </button>
             </div>

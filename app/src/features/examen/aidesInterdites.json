@@ -10,7 +10,6 @@
   "PatientSheetView",
   "AutoLink",
   "CaseTermsPanel",
-  "TeilAiLauncher",
   "ExternalAiSheet",
   "lib/checklists",
   "useTimer"
