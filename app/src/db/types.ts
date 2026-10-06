@@ -323,7 +323,9 @@ export type CaseQuestionKapitel =
 // (« Falls ja: … ») — même règle que les relances des questions générales.
 // K5 (ADR-0023, contrat frage-atomique §10.2) : `sucht` est REQUIS au type — le contenu écrit déclare ce que chaque
 // question cherche (règle d'identité §10.1). La forme chaîne disparaît du contenu écrit.
-export type CaseQuestion = { frage: string; kapitel: CaseQuestionKapitel; sucht: [Signe, ...Signe[]]; relu?: true; followUp?: string;
+// `followUps` (Q3, contrat frage-atomique §10.2 I9) : les relances SUIVANTES, chacune une question ; `followUp` reste la
+// première et reste une chaîne (un client ancien fait `followUp.trim()`). Précisions du même signe : elles héritent de `sucht`.
+export type CaseQuestion = { frage: string; kapitel: CaseQuestionKapitel; sucht: [Signe, ...Signe[]]; relu?: true; followUp?: string; followUps?: string[];
   /** Signes que la question présuppose (contrat frage-atomique §10.2, r4b) : jamais posée avant la question qui les cherche. Additif. */
   braucht?: [Signe, ...Signe[]] };
 /** Ce qu'un LECTEUR peut recevoir (§10.8) : un contenu publié ancien, servi par la fonction `content`, peut encore porter
