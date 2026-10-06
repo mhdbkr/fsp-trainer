@@ -180,6 +180,13 @@ describe('Q4 fixeur — revue clinique de a9c7b82c', () => {
     expect(rang(id, cas(/nachts zum Stuhlgang/))).toBeLessThan(rang(id, sonde('fach-gastro-stuhl')));
   });
 
+  it('P2 polymyalgia (F.7-a) : akt-begleit garde la fatigue ; fach-rheuma-systemisch répond à sa question par les négatifs, sans la redire', () => {
+    const id = 'case-polymyalgia';
+    expect(reponse(id, 'akt-begleit')).toMatch(/erschöpft/);
+    expect(reponse(id, 'fach-rheuma-systemisch')).toBe('Augenentzündungen oder Geschwüre im Mund hatte ich nicht, und richtiges Fieber auch nicht. Durchfall, Husten oder Blut im Stuhl habe ich nicht.');
+    expect(reponse(id, 'fach-rheuma-systemisch')).not.toMatch(/[Mm]üde|schlapp|erschöpft/);
+  });
+
   it('P2 tia : la question de la durée suit immédiatement celle du début', () => {
     const id = 'case-tia';
     expect(rang(id, cas(/Wie lange dauert eine einzelne Attacke/))).toBe(rang(id, cas(/die erste Attacke begonnen/)) + 1);
