@@ -25,7 +25,6 @@ export const DEFS_CAS = {
   schmerzwanderung: { kapitel: 'aktuell', pertinence: S },          // la douleur s'est déplacée (ombilic → fosse iliaque droite)
   erschuetterung: { kapitel: 'aktuell', pertinence: S },            // douleur aux secousses (marcher, sauter, route cahoteuse)
   pressschmerz: { kapitel: 'aktuell', pertinence: S },              // douleur à la toux, à l'éternuement, à la poussée
-  anlaufschmerz: { kapitel: 'aktuell', pertinence: S },             // douleur des premiers pas, qui cède en marchant
   nachtschmerz: { kapitel: 'aktuell', pertinence: S },              // la douleur réveille la nuit (hors appareil locomoteur)
   defaekation_besserung: { kapitel: 'aktuell', pertinence: S },     // la douleur cède après la selle
   steigung: { kapitel: 'aktuell', pertinence: S },                  // en montée ou en descente

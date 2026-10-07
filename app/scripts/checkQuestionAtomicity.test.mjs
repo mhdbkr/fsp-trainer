@@ -257,3 +257,42 @@ test('Q2 I-1 — « …, und seit wie vielen Tagen ? » / « …, und in welchem
     assert.match(r.stdout, /règle A2/, fu);
   }
 });
+
+// --- Q9 : deux questions coordonnées par « und » sous UN « ? » (règle A3) ----
+// Les composées d'aktuell que Q3–Q7 ont découpées à la main, sans porte : A (« ? ») et
+// A2 (deux interrogatifs) ne les lisaient pas. Textes réels du corpus (avant Q9), lus
+// comme relances (`followUps`) d'une question du cas — une seule passe de la porte.
+const A3_POS = [
+  'Wie oft in der Woche treten die Schmerzen ungefähr auf, und sind es in letzter Zeit mehr geworden?', // angina-pectoris n° 1
+  'Waren Sie dabei kaltschweißig, und war Ihnen übel?',                                                 // myokardinfarkt
+  'Schwellen Ihre Beine im Lauf des Tages an und sind sie morgens wieder schlanker?',                   // ulcus-cruris (sans virgule)
+  'Wie oft müssen Sie nachts zum Wasserlassen aufstehen — und war das früher auch schon so?',          // diabetes-typ1 (tiret)
+  'Hatten Sie Schmerzen, bevor der Ausschlag zu sehen war, und wie lange?',                             // zoster (« und » + interrogatif)
+  'Riechen und schmecken Sie normal, obwohl die Nase frei ist?',                                        // covid19 (deux verbes, deux signes)
+  'Haben Sie Fieber und Schüttelfrost?',                                                                // le cas d'école du brief
+];
+// Groupes indivisibles et faux amis : un symptôme uni, une alternative, deux verbes d'une même
+// action, une W-question à complément double, une énumération en « oder » (dépistage).
+const A3_NEG = [
+  'Haben Sie Übelkeit und Erbrechen?',
+  'Ist bei Ihnen der Blutdruck ein ständiges Auf und Ab?',
+  'Können Sie mit dem rechten Bein noch auftreten und gehen, oder gar nicht mehr?',
+  'Was essen und trinken Sie an einem ganz normalen Tag?',
+  'Wissen Sie Ihre Blutgruppe und Ihren Rhesusfaktor?',
+  'Ist die Schwellung eher weich und teigig oder hart und knotig?',
+  'Haben Sie Fieber oder Schüttelfrost?',
+  'Verwechseln Sie manchmal Tag und Nacht?',
+];
+const withFollowUps = (texts, fn) => sb.mutate(CASES, SCHLUCKEN, SCHLUCKEN.replace(' }', `, followUps: [${texts.map((t) => `'${t}'`).join(', ')}] }`), fn);
+
+test('Q9 — A3 lit les composées en « und » des cas réels, et laisse les groupes indivisibles', T, () => {
+  const out = withFollowUps([...A3_POS, ...A3_NEG], () => gate('--rule', 'A3', '--report')).stdout;
+  for (const t of A3_POS) assert.ok(out.includes(`« ${t} »`), `A3 doit lire : ${t}`);
+  for (const t of A3_NEG) assert.ok(!out.includes(`« ${t} »`), `faux positif A3 : ${t}`);
+});
+
+test('Q9 — une composée en « und » ajoutée fait remonter A3 → rouge', T, () => {
+  const r = withFollowUps(['Haben Sie Fieber und Schüttelfrost?'], gate);
+  assert.equal(r.status, 1);
+  assert.match(r.stdout, /règle A3/);
+});
