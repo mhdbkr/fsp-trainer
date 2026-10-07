@@ -4,6 +4,64 @@ Branche `feat/s3-q9-und`, base `origin/main` @ `4a417c14`. Commits de `ef47fde4`
 
 **Statut : DONE_WITH_CONCERNS** — tout est vert au code de sortie (§ 6). Les réserves (§ 8) : 8 réponses écrites et 15 questions retirées à valider en revue clinique ; l'ordre des noxen d'alkoholentzug demande une règle d'insertion (proposée, non faite) ; 17 composées A3 restent dans la banque (lot « sondes ») ; quelques répétitions antérieures vues au passage, listées et non traitées.
 
+## F. Passe fixeur des revues (clinique, langue) — décisions du coordinateur
+
+> Clinique : acceptable sous une P1. Langue : 0 faute de langue, des relances non autonomes. **Cette section prime sur la suite quand elles divergent.** Commits `25df27b0` à ce rapport (6 + 1), un fichier par commit, sans trailer. Statut de la passe : **DONE** — tout appliqué, deux formulations ajustées pour tenir une porte (F.4).
+
+### F.1 Ce que dit le moteur (vérifié avant d'arbitrer)
+
+- **Une relance n'a pas de réponse écrite propre.** `buildRollenskript` (`src/lib/rolePlay.ts`) range la réponse écrite au texte exact de la question et y accroche la relance en `nachfrage` ; une entrée `frageAntworten` au texte d'une relance serait une ligne à part, non reliée. D'où l'arbitrage « si non » : la réponse reste entière, la relance redondante est supprimée — delir (« Falls ja: Hat er das jetzt hier … bei sich? »), hodentorsion (« Steht er höher als der andere? » : le Hochstand, 1 point TWIST, reste dit par la réponse), gastroenteritis (« Welche Farbe … », « Riecht er … » ; « Schwimmt der Stuhl in der Toilette oben? » reste, la réponse ne le dit pas). La relance de delir 36371 tombe donc avec elle.
+- **nhl, `fach-haem-bsymptomatik` RÉDUIT** : les `parts` ne découpent que la QUESTION (Fieber / Gewicht posées, la part Nachtschweiß cédée) ; la RÉPLIQUE est `antworten['fach-haem-bsymptomatik']`, une chaîne jouée entière (« Das Schwitzen nachts … Nachthemd wechseln … Juckreiz habe ich keinen »). Donc retirées : les questions du cas sur la sueur nocturne et le prurit (la sonde reprend sa part `nachtschweiss`), et la réponse écrite déplacée de veg-schlaf (sans question). veg-schlaf reste coupée : la sueur est dite par la sonde.
+- **vorhofflimmern** : la phrase coupée d'`akt-anfall-ablauf` (« Aufgehört hat es bisher nicht — es ist seitdem einfach durchgehend da, mal schneller, mal ruhiger. ») devient la réponse écrite de la question sur la continuité — aucun texte nouveau, la question a sa réponse.
+- **gallenkolik** : la question retire `fach-chir-gallensteine` (« Ja, Gallensteine sind … seit etwa drei Jahren bekannt ») ; réponse écrite « Seit etwa drei Jahren. » (fiche : « Gallensteine seit ca. 3 Jahren bekannt »).
+
+### F.2 Clinique
+
+| Point | Fait |
+|---|---|
+| P1-1 meningitis | « Ist Ihnen klare, wässrige Flüssigkeit aus der Nase oder aus dem Ohr gelaufen? » (`liquorrhoe`), après « Haben Sie erbrochen? » ; réponse : « Aus der Nase nicht. Aus dem Ohr kommt nur das Gelbliche, nichts Klares, Wässriges. » |
+| P2-1 angina-pectoris | « Inzwischen eigentlich jedes Mal, wenn ich die Treppe hochgehe — … » |
+| P2-2 sinusitis | « Das Essen schmeckt ganz fade, seit ich kaum noch etwas rieche. » (et, langue : « Ich rieche seit drei Tagen fast nichts mehr. ») |
+| P2-3 prostatakarzinom | « Gab es in Ihrer Familie auch Eierstockkrebs? » (`familie_krebs`, braucht `familie_krank`) ; « Nein, Eierstockkrebs gab es bei uns nicht. » |
+| P2-4 karzinoid, colitis-ulcerosa | « Müssen Sie auch nachts zum Stuhlgang aufstehen? » (arbitrage) |
+| P2-5 vorhofflimmern | F.1 |
+| P2-6 delir, hodentorsion, gastroenteritis | F.1 |
+| P2-7 nhl | F.1 |
+
+### F.3 Langue
+
+- **A** (relances « Falls ja » autonomes) : appendizitis, tonsillitis, commotio, uterus-myomatosus, diabetes-typ1, coxarthrose, ptbs, hodentorsion, psoriasis, zoeliakie (« Haben Eisentabletten bei Ihnen schon einmal nicht geholfen? »), meningitis (« schwallartig ») ; delir : relance supprimée (F.1).
+- **B** : covid19 « Ging es Ihnen zwischendurch schon einmal besser? ↳ Falls ja: An welchem Tag der Erkrankung war das? » (réponse écrite : « Ja, am fünften und sechsten Tag, da war das Fieber weg. ») ; ulcus-cruris « Sind Ihre Beine morgens schlanker als abends? ».
+- **C** : karzinoid et colitis (arbitrage, P2-4) ; otitis-media 26531 en trois : « Ist Ihnen schwindelig? » / « Mussten Sie erbrechen? » / « Sind Sie beim Gehen unsicher? ».
+- **D** : F.1.
+- **Mineurs**, au texte de la revue : otitis-media « hinter dem Ohr », leistenhernie « die Beule », hueftkopfnekrose « mit dem linken Bein », reaktive-arthritis, commotio « vor dem Sturz », diabetes-typ1 « Mussten Sie früher auch schon nachts so oft aufstehen? », vorhofflimmern « das Herzstolpern », colitis-ulcerosa « dass der Darm nicht ganz leer ist », karzinoid « Sie haben gesagt, dass Ihr Gesicht plötzlich rot wird — … », tonsillitis « die bei Druck wehtun », myokardinfarkt « Hatten Sie dabei kalten Schweiß? ». Sans changement, comme la revue le propose : hueftkopfnekrose (trois gestes), delir 36369.
+
+### F.4 Écarts motivés
+
+- **a. karzinoid** : « Schwitzen Sie während dieser Rötungsanfälle? » faisait un doublon de trame avec la question suivante (`checkPlayedTrame`, similarité 0,75 avec « Bekommen Sie während dieser Rötungsanfälle Herzrasen oder Luftnot? ») → « Schwitzen Sie bei diesen Anfällen? ».
+- **b. « nachts zum Stuhlgang » et « nach dem Stuhlgang »** nommaient `stuhl`, cherché plus bas (`checkTrameSymptoms`, 3 constats). Plutôt qu'un `relu` (une mention sans question : faux ici), `SIGNE_AFFINE` reçoit `stuhl_nachts: ['stuhl']` et `tenesmen: ['stuhl']` (`signes.ts`) : la selle nocturne et le ténesme précisent la selle, comme `stuhlfrequenz`.
+- **c. vorhofflimmern** « das Herzstolpern » nomme `herzrasen` sans le chercher (la Fach le cherche) → `relu: true`, vrai ici. Total `relu` inchangé (73) : la question de nhl retirée en portait un.
+
+### F.5 Tests et vérifications
+
+`coherenceRevue.test.ts` (gastroenteritis : la couleur est dans la réponse écrite, plus de relance « Farbe »), `coherenceQ4.test.ts` (karzinoid), ancre M4 de `checkTrameSymptoms.test.mjs`, gel `trame-actuelle.txt`. Fixtures : rien à regraver (A3 17, candidats 59, relu 73, cohérence inchangés).
+
+| Commande (sommet `0217d6b4`) | Code de sortie |
+|---|---|
+| `npx tsc -b` | 0 |
+| `npm test` (2 024 tests) | 0 |
+| `npm run test:c6` (212 tests) | 0 |
+| chaque `scripts/check*.mjs` de la CI (27) | 0, sauf `checkProbeOverlap` 1 (informatif, 9 constats, comme `main`) |
+| `checkCoherence --case`, les 50 cas du lot | 0 ×50 |
+| `node --test` hors `checkProbeCoverage` (221) ; `checkProbeCoverage.test.mjs` seul | 0 ; 0 |
+| `node scripts/checkBudgetFloor.mjs origin/main` | 0 |
+| `npm run build` ; `npm run content:link` | 0 ; 0, aucun fichier modifié |
+| `git merge-tree` contre `origin/main` ; contre `origin/feat/s3-concision` | 0 ; 0 |
+
+Correction du § 6 : l'« échec non reproduit » d'akute-leukaemie venait de ma boucle (zsh ne découpe pas une variable non citée : le premier passage a lancé un seul `--case` avec les 50 noms). Relancée avec la liste écrite : 0 ×50, avant et après cette passe.
+
+**bandscheibenvorfall n° 0** : #100 (concision) n'est pas mergée sur `origin/main` à l'heure de cette passe — pas de fusion, la question reste au § 7.4.
+
 ## 0. Hypothèses et écarts, dits avant tout
 
 1. **Méthode de Q7**, inchangée : écriture directe dans `seedCases.ts` par opérations scriptées (ancien texte exact → nouveau, une ancre absente ou multiple arrête tout), une opération commentée de sa raison et de sa source. Mesure sur la trame JOUÉE (`playedTrame`).
@@ -99,7 +157,7 @@ Le moteur (`coherence.ts`, `inserer`) pose la relance détachée « Impfungen »
 | `npm run test:c6` (17 fichiers, 212 tests) | 0 |
 | chaque `scripts/check*.mjs` de la CI (27) | 0, sauf `checkProbeOverlap` 1 — informatif (`|| true`), 9 constats, comme `main` |
 | `checkTermRegister --require-all`, `evalDoctopus --dry` | 0, 0 |
-| `node scripts/checkCoherence.mjs --case <id>` sur les 50 cas touchés | 0 ×50 (un premier passage a sorti 1 sur akute-leukaemie, non reproduit : 0 au second et seul) |
+| `node scripts/checkCoherence.mjs --case <id>` sur les 50 cas touchés | 0 ×50 (voir F.5 : le « 1 » d'un premier passage était un artefact de boucle) |
 | `node --test scripts/*.test.mjs` hors `checkProbeCoverage` (221 tests) | 0 |
 | `node --test scripts/checkProbeCoverage.test.mjs`, seul (4 tests) | 0 |
 | `node scripts/checkBudgetFloor.mjs origin/main` | 0 |
