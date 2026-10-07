@@ -52,9 +52,12 @@ describe('Fallvorstellung — la phrase d\'ouverture, sur les 130 cas', () => {
 // Lc3 (FB3-G7) : les dix premiers cas remis au niveau — même règle que les cas gratuits de Lc2.
 const LC3 = ['case-pankreatitis', 'case-ulcus', 'case-magenkarzinom', 'case-appendizitis', 'case-oesophaguskarzinom',
   'case-pavk', 'case-lyme', 'case-kolorektales-ca', 'case-bandscheibenvorfall', 'case-divertikulitis'];
-describe('Fallvorstellung — les cas de Lc3', () => {
+// Lc4 (FB3-G7) : les sept derniers cas pauvres, même règle.
+const LC4 = ['case-multiple-sklerose', 'case-reizdarm', 'case-gallenkolik', 'case-tvt', 'case-gerd',
+  'case-myokardinfarkt', 'case-cholezystitis'];
+describe('Fallvorstellung — les cas de Lc3 et Lc4', () => {
   it('la phrase de Fallvorstellung tient sans « … »', () => {
-    for (const id of LC3) {
+    for (const id of [...LC3, ...LC4]) {
       const c = cases.find((x) => x.id === id);
       expect(c, id).toBeDefined();
       expect(vorstellungsDiagnose(c!).offen, id).toBe(false);
