@@ -66,6 +66,7 @@ test('règle 3 : l’impératif complet en « . », la question complète et la 
     'Nennen Sie die kardiovaskulären Risikofaktoren.',
     'Wie äußert sich ein Alkoholdelir bei diesem Patienten?',
     'Ist das Colon irritabile eine psychosomatische Krankheit?',
+    'Warum hält der Durchfall seit acht Monaten unverändert in gleicher Schwere an?',
     'Was ist der Knöchel-Arm-Index (ABI) und wie interpretieren Sie ihn?',
     'Erklären Sie der Patientin nun Diagnose und Therapie — und beantworten Sie ihre Frage „Kann ich nach Hause?“',
   ]) assert.equal(defautQuestion(f), undefined, f);

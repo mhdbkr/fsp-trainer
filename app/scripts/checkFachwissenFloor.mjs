@@ -49,7 +49,7 @@ const FORMES_FINIES = [
   'spielt|spielen|befindet|befinden|bekommt|bekommen|nimmt|nähme|liefert|entscheidet|sichert|sichern|bestätigt|beweist|genügt|heilt|bessern|behandelt',
   'benutzt|verhält|bremst|taugt|metastasiert|überträgt|funktioniert|ändert|trägt|korrelieren|äußert|raucht|trinkt|schreibt|findet|beginnen|schließt',
   'definieren|erfüllt|verbessern|verbessert|dient|dienen|wirkt|passiert|folgt|tun|tut|sagt|zählt|betrifft|ergibt|bringt|lässt|bestimmt|stellt|enthält',
-  'erklärt|beeinflusst|senkt|erhöht|treten|kennzeichnet|fällt|klingt|hängt|hängen',
+  'erklärt|beeinflusst|senkt|erhöht|treten|kennzeichnet|fällt|klingt|hängt|hängen|hält|halten',
 ].join('|');
 const VERBE_FINI = new RegExp(`(?<!\\p{L})(${FORMES_FINIES})(?!\\p{L})`, 'iu');
 
