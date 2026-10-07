@@ -880,7 +880,7 @@ export function seedCases(): Case[] {
         { frage: 'Hatten Sie so etwas schon einmal — schwarzen Stuhl oder dieses braune Erbrechen?', kapitel: 'aktuell', sucht: ['frueher'], relu: true, followUp: 'Falls ja: Waren Sie deswegen schon bei einem Arzt?', followUps: ['Falls ja: Welche Diagnose wurde damals gestellt?'] },
         { frage: 'Wird Ihnen schwindelig, vor allem wenn Sie aufstehen?', kapitel: 'aktuell', sucht: ['orthostase'] },
       ],
-      examinerQuestions: ['Was versteht man unter einer Meläna?', 'Was sind die häufigsten Ursachen einer oberen GI-Blutung?', 'Wie gehen Sie beim kreislaufinstabilen Patienten vor?'],
+      examinerQuestions: ['Was versteht man unter einer Meläna?', 'Was sind die häufigsten Ursachen einer Blutung aus dem oberen Gastrointestinaltrakt?', 'Wie gehen Sie beim kreislaufinstabilen Patienten vor?'],
       examinerSheet: [
         { title: 'Einstieg & Verdachtsdiagnose', interactions: [
           { frage: 'Was versteht man unter einer Meläna?', reaktion: 'schwarzer, teerartiger, übelriechender Stuhl durch verdautes Blut — Zeichen einer oberen GI-Blutung.' },
@@ -2105,7 +2105,7 @@ export function seedCases(): Case[] {
         { frage: 'Haben Sie Schmerzen beim Schlucken?', kapitel: 'aktuell', sucht: ['odynophagie'], relu: true },
         { frage: 'Kommt es vor, dass unverdaute Nahrung wieder hochkommt?', kapitel: 'aktuell', sucht: ['regurgitation'] },
       ],
-      examinerQuestions: ['Welche Risikofaktoren des Ösophaguskarzinoms kennen Sie?', 'Wie unterscheiden sich Adeno- und Plattenepithelkarzinom?', 'Welche palliativen Optionen gibt es?'],
+      examinerQuestions: ['Welche Risikofaktoren für das Ösophaguskarzinom kennen Sie?', 'Wie unterscheiden sich Adeno- und Plattenepithelkarzinom?', 'Welche palliativen Optionen gibt es?'],
       examinerSheet: [
         { title: 'Verdachtsdiagnose und Begründung', interactions: [
           { frage: 'Wie lautet Ihre Verdachtsdiagnose, und welche Alarmzeichen sehen Sie?', reaktion: 'Ösophaguskarzinom — seit vier Wochen rasch progrediente Dysphagie (fest → weich → nur noch Flüssiges), Schmerzen beim Schlucken, 15 kg Gewichtsverlust in einem Jahr, Heiserkeit, Noxen (30 Packungsjahre, täglich Wein und Schnaps), langjähriger Reflux.' },
@@ -2650,7 +2650,7 @@ export function seedCases(): Case[] {
       examinerQuestions: [
         'Was ist Ihre Verdachtsdiagnose, und welche Differenzialdiagnosen stellen Sie?',
         'Welche Tumormarker bestimmen Sie beim Magenkarzinom? Was bedeutet CA 19-9?',
-        'Warum veranlassen Sie ein CT bzw. ein Röntgen des Thorax, und welche Metastasen suchen Sie?',
+        'Warum veranlassen Sie ein CT oder ein Röntgen des Thorax, und welche Metastasen suchen Sie?',
         'Warum steht auch ein Myokardinfarkt in der Differenzialdiagnose?',
         'Hat der Patient schon einmal eine ÖGD gehabt? Sind Magenprobleme bekannt?',
         'Der Hausarzt hat Iberogast verordnet. Was ist das?',
@@ -2682,7 +2682,7 @@ export function seedCases(): Case[] {
         { title: 'Diagnostik und Staging', interactions: [
           { frage: 'Wie gehen Sie diagnostisch vor?', reaktion: 'Körperliche Untersuchung mit Virchow-Lymphknoten und rektaler Untersuchung, Labor mit Blutbild, Ferritin, Kreuzblut, Nierenwerten und Albumin; dann als Goldstandard die ÖGD mit Biopsien (Histologie, Laurén, HER2, Helicobacter). Zum Staging CT Thorax/Abdomen und Endosonographie, bei cT3/cT4 diagnostische Laparoskopie.' },
           { frage: 'Welche Tumormarker bestimmen Sie? Was bedeutet CA 19-9?', reaktion: 'CA 72-4 und CEA, allenfalls als Ausgangswert für den Verlauf — zur Diagnose taugen sie nicht. CA 19-9 ist vor allem bei Pankreas- und Gallenwegstumoren erhöht.' },
-          { frage: 'Warum veranlassen Sie ein CT bzw. ein Röntgen des Thorax?', reaktion: 'Zur Suche nach Lungen- und Lebermetastasen im Staging.' },
+          { frage: 'Warum veranlassen Sie ein CT oder ein Röntgen des Thorax?', reaktion: 'Zur Suche nach Lungen- und Lebermetastasen im Staging.' },
         ] },
         { title: 'Therapie', interactions: [
           { frage: 'Sollen wir den Patienten stationär aufnehmen?', reaktion: 'Ja: Teerstuhl mit möglicher Anämie, schwere Mangelernährung und ein dringender Tumorverdacht — zügige Abklärung mit ÖGD, Ernährungstherapie und Kreislaufüberwachung.' },
@@ -3636,7 +3636,7 @@ export function seedCases(): Case[] {
               reaktion: 'ja — die Entscheidung stütze ich auf den CURB-65-Score, und das Risikoprofil (Diabetes, Z. n. Zytostatikatherapie) senkt die Schwelle zusätzlich; bei Instabilität ggf. intensivmedizinisch.',
             },
             {
-              frage: 'Wie behandeln Sie, und welches Antibiotikum geben Sie bei Penicillinallergie?',
+              frage: 'Wie behandeln Sie den Patienten, und welches Antibiotikum geben Sie ihm bei seiner Penicillinallergie?',
               reaktion: 'allgemeine Maßnahmen und eine kalkulierte Antibiose; wegen der Penicillinallergie stationär ein respiratorisches Fluorchinolon wie Levofloxacin — ein Makrolid allein wäre nur ambulant bei leichter CAP ausreichend; Cephalosporine je nach Art und Schwere der früheren Reaktion.',
             },
             {
@@ -5231,7 +5231,7 @@ export function seedCases(): Case[] {
         ] },
         { title: 'Diagnostik', interactions: [
           { frage: 'Was untersuchen Sie klinisch?', reaktion: 'Lasègue-Zeichen, Kraft im Seitenvergleich mit Zehen- und Hackengang, die Reflexe PSR und ASR, die Sensibilität nach Dermatomen und — bei Verdacht — die digital-rektale Untersuchung.' },
-          { frage: 'Warum veranlassen Sie ein MRT und kein Röntgen, und wann?', reaktion: 'Das MRT stellt Bandscheibe, Nervenwurzel und Spinalkanal ohne Strahlung am besten dar; das Röntgen zeigt nur Knochen. Sofort bei Cauda-Zeichen oder Parese; bei ihm ohne Parese erst, wenn die Beschwerden über etwa sechs Wochen anhalten oder eine Intervention geplant wird.' },
+          { frage: 'Warum veranlassen Sie ein MRT und kein Röntgen, und wann ist es indiziert?', reaktion: 'Das MRT stellt Bandscheibe, Nervenwurzel und Spinalkanal ohne Strahlung am besten dar; das Röntgen zeigt nur Knochen. Sofort bei Cauda-Zeichen oder Parese; bei ihm ohne Parese erst, wenn die Beschwerden über etwa sechs Wochen anhalten oder eine Intervention geplant wird.' },
         ] },
         { title: 'Cauda-Syndrom & Therapie', interactions: [
           { frage: 'Was ist das Cauda-equina-Syndrom?', reaktion: 'Eine Kompression der Cauda equina mit Reithosenanästhesie und Blasen- und Mastdarmstörung — ein Notfall, der ein sofortiges MRT und eine notfallmäßige operative Dekompression erfordert.' },
@@ -11794,7 +11794,7 @@ export function seedCases(): Case[] {
               reaktion: 'Erwartet: praktisch nur, wenn eine Strahlenexposition vermieden werden muss — vor allem in der Schwangerschaft, wenn die Sonographie nicht ausreicht — oder wenn Sonographie und CT die Obstruktionsursache nicht klären und Weichteile beurteilt werden müssen. Für den Steinnachweis ist die MRT dem CT unterlegen.',
             },
             {
-              frage: 'Warum veranlassen Sie ein CT, und mit oder ohne Kontrastmittel?',
+              frage: 'Warum veranlassen Sie ein CT, und machen Sie es mit oder ohne Kontrastmittel?',
               reaktion: 'Erwartet: natives Low-Dose-CT OHNE Kontrastmittel. Begründung: es erfasst alle Steine einschließlich der röntgennegativen Harnsäuresteine, zeigt Größe, Lage und Dichte sowie den Stauungsgrad und schließt Appendizitis, Divertikulitis und Aortenaneurysma aus. Wer Kontrastmittel nennt, muss mit der Rückfrage nach Nierenfunktion und Metformin rechnen.',
             },
             {
@@ -15644,7 +15644,7 @@ export function seedCases(): Case[] {
               reaktion: 'Erwartet wird die in Freiburg verlangte Sequenz: Der entzündliche Knoten ist druckschmerzhaft, weich bis prall-elastisch, überwärmt, gerötet, gut verschieblich und bildet sich innerhalb von Wochen zurück. Der maligne Knoten ist schmerzlos, derb bis steinhart, nicht überwärmt, gegenüber Haut UND Unterlage fixiert und wächst kontinuierlich. Man prüft ausdrücklich die Verschieblichkeit gegen die Haut und gegen den tiefen Untergrund sowie die Hauttemperatur.',
             },
             {
-              frage: 'Wie unterscheiden Sie die beiden laborchemisch?',
+              frage: 'Wie unterscheiden Sie einen entzündlichen von einem malignen Lymphknoten laborchemisch?',
               reaktion: 'Erwartet wird: über das Blutbild mit Differenzialblutbild und die Entzündungsparameter. Beim bakteriellen Infekt Leukozytose mit Neutrophilie und hohes CRP; beim Hodgkin-Lymphom eher Lymphopenie, Eosinophilie, Anämie der chronischen Erkrankung, eine stark erhöhte BSG und eine erhöhte LDH bei nur mäßigem CRP. Dazu die Serologien für EBV, CMV, Toxoplasmose, HIV und Hepatitis sowie ein Interferon-Gamma-Release-Assay.',
             },
           ],
@@ -23358,7 +23358,7 @@ export function seedCases(): Case[] {
               reaktion: 'Die PTBS setzt ein Trauma voraus, und die Angst ist an Trigger gebunden, begleitet von Intrusionen, Flashbacks, Albträumen und Übererregbarkeit. Frau Hartmann berichtet kein Trauma, kein Wiedererleben und keine Albträume; ihre Attacken kommen unerwartet, teils sogar aus dem Schlaf heraus, und im Vordergrund steht die Erwartungsangst.',
             },
             {
-              frage: 'Wie grenzen Sie die Patientin gegenüber einer generalisierten Angststörung ab?',
+              frage: 'Wie grenzen Sie die Panikstörung gegen eine generalisierte Angststörung ab?',
               reaktion: 'Bei der generalisierten Angststörung besteht eine anhaltende, frei flottierende Dauersorge über Monate ohne abgrenzbare Attacken. Frau Hartmann ist zwischen den Anfällen beschwerdefrei; ihre Sorge richtet sich ausschließlich auf den nächsten Anfall.',
             },
           ],
@@ -31572,7 +31572,7 @@ export function seedCases(): Case[] {
               reaktion: 'Erwartet wird die Gegenfrage des Kandidaten an sich selbst: Ist sie gestürzt, weil sie bewusstlos wurde, oder wurde sie bewusstlos, weil sie gestürzt ist? Für den mechanischen Sturz sprechen der von einer Zeugin bestätigte Anlass — ein Kind mit Ball, Vollbremsung — und das Fehlen jeglicher Prodromi. Wegen des Typ-1-Diabetes mit Insulinpumpe, der geringen Nahrungsaufnahme mittags und eines Sensorwerts von 79 mg/dl kurz vor dem Unfall müssen Blutzucker, Sensor- und Pumpendaten sowie ein EKG dennoch ausgewertet werden.',
             },
             {
-              frage: 'Warum denken Sie nicht an einen Tumor?',
+              frage: 'Was spricht gegen einen Tumor?',
               reaktion: 'Gegen eine Raumforderung sprechen der schlagartige Beginn exakt mit dem Trauma, das Fehlen einer Vorgeschichte mit langsam zunehmenden, morgendlich betonten Kopfschmerzen, das Fehlen von Wesensänderung, Krampfanfall, Stauungspapille und fokalen Defiziten. Ein Tumor würde ohnehin im CT auffallen.',
             },
             {
@@ -47726,7 +47726,7 @@ export function seedCases(): Case[] {
             label: 'Antibiotische Therapie mit klarem Ziel',
             items: [
               'Azithromycin 500 mg am Tag 1, dann 250 mg am Tag 2–5 (insgesamt 5 Tage) — Alternativen Clarithromycin 2 × 500 mg über 7 Tage oder Erythromycin über 14 Tage; bei Makrolid-Unverträglichkeit Cotrimoxazol 2 × 960 mg über 14 Tage',
-              'Sofortiger Beginn bei klinischem Verdacht, ohne das PCR- oder Serologieergebnis abzuwarten — bei sechs Wochen Husten ist die Indikation wegen des Kontakts zu einer Schwangeren und einem Säugling ausdrücklich noch gegeben (bis 6 Wochen nach Hustenbeginn bei Kontakt zu Risikopersonen)',
+              'Sofortiger Beginn bei klinischem Verdacht, ohne das PCR- oder Serologieergebnis abzuwarten. Behandelt wird, solange Erreger ausgeschieden werden: bis 3 Wochen nach Beginn des Stadium convulsivum, bei Säuglingen und Schwangeren selbst bis 6 Wochen nach Hustenbeginn. Seine Anfälle begannen vor gut vier Wochen, eine Ausscheidung ist also nur noch wenig wahrscheinlich; wegen der Schwangeren kurz vor der Entbindung und der Nichte im Säuglingsalter wird er trotzdem behandelt, vorrangig werden aber Ehefrau und Nichte untersucht und erhalten die Chemoprophylaxie',
               'Dem Patienten EHRLICH erklären: Das Antibiotikum wird seinen Husten kaum verkürzen — die Schäden am Flimmerepithel sind gesetzt —, aber es beendet die Ansteckungsfähigkeit innerhalb von 5 Tagen. „Wir behandeln Sie, um Ihre Frau und die kleine Nichte zu schützen“',
               'Ibuprofen wegen der Rippe kann fortgeführt werden; Azithromycin ohne relevante Interaktion mit Cetirizin oder Ibuprofen; Cave Dextromethorphan absetzen (keine Wirkung, Übelkeit)',
             ],
@@ -50312,7 +50312,7 @@ export function seedCases(): Case[] {
         'Welche Untersuchung sichert die Diagnose, ab welchem Blastenanteil, und wo punktieren Sie?',
         'Wie unterscheiden Sie eine AML von einer ALL — klinisch und im Labor?',
         'Die Patientin hat 38,6 °C Fieber mit Schüttelfrost. Was tun Sie in der ersten Stunde, und in welcher Reihenfolge?',
-        'Welches Antibiotikum wählen Sie bei dieser Patientin, und warum nicht Piperacillin/Tazobactam?',
+        'Welches Antibiotikum wählen Sie bei dieser Patientin, und warum nicht Piperacillin mit Tazobactam?',
         'Welche vier Notfälle drohen bei der akuten Leukämie, und wie erkennen Sie sie?',
         'Warum ist die akute Promyelozytenleukämie ein eigener Notfall, und womit behandeln Sie sie sofort?',
         'Was ist das Tumorlysesyndrom, welche Laborwerte verändern sich, und wie beugen Sie vor?',
@@ -50372,7 +50372,7 @@ export function seedCases(): Case[] {
               reaktion: 'Vitalparameter und Sepsis-Screening, Isolation, zwei Zugänge, Blutbild mit Differenzialblutbild, Gerinnung, LDH, Harnsäure, Elektrolyte, Kreatinin, CRP, Procalcitonin, Blutgruppe; mindestens zwei Blutkulturpaare, Urinkultur und Rachenabstrich — und dann innerhalb von 60 Minuten die empirische Breitspektrumantibiose, ohne auf das Differenzialblutbild zu warten. Fieber in der Neutropenie ist ein Notfall mit hoher Sterblichkeit bei Verzögerung.',
             },
             {
-              frage: 'Welches Antibiotikum geben Sie, und warum nicht Piperacillin/Tazobactam?',
+              frage: 'Welches Antibiotikum geben Sie, und warum nicht Piperacillin mit Tazobactam?',
               reaktion: 'Standard wäre Piperacillin/Tazobactam 3 × 4,5 g i.v.; die Patientin hat aber eine Penicillinallergie mit generalisiertem Exanthem. Daher Meropenem 3 × 1 g i.v. — bei nicht anaphylaktischer Penicillinreaktion ist die Kreuzreaktivität mit Carbapenemen sehr gering — oder Cefepim. Bei Kathetersepsis oder Hautinfektion zusätzlich Vancomycin; bei Fieberpersistenz über 72–96 Stunden Antimykotikum und CT-Thorax.',
             },
             {
@@ -54310,7 +54310,7 @@ export function seedCases(): Case[] {
               reaktion: 'Vitalparameter mit rektaler Temperatur; Abdomen mit Druckschmerz, Abwehrspannung, Loslassschmerz, McBurney, Nierenlager, rechter Oberbauch; gynäkologische Untersuchung: Spekulum (eitriger Zervikalfluor, gerötete Portio), bimanuelle Palpation mit dem entscheidenden Portioschiebeschmerz, Adnexdruckschmerz beidseits, Resistenz als Abszesshinweis.',
             },
             {
-              frage: 'Welche Laborparameter bestimmen Sie, und welche Abstriche nehmen Sie ab?',
+              frage: 'Welche Laborparameter bestimmen Sie, und welche Abstriche entnehmen Sie?',
               reaktion: 'Schwangerschaftstest zuerst. Blutbild mit Leukozytose, CRP, BSG, Kreatinin, Leberwerte, Blutkulturen bei hohem Fieber, Urinstatus und -kultur. Abstriche aus Zervix und Urethra: PCR auf Chlamydien und Gonokokken, Kultur mit Antibiogramm, Nativpräparat (Leukozyten, Clue Cells, Trichomonaden). Mit Einverständnis HIV, Syphilis, Hepatitis B.',
             },
             {
