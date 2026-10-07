@@ -122,7 +122,7 @@ const DIT_RE: Array<[Signe, RegExp, { passe?: true; nuit?: false; complet?: true
   ['erbrechen', /\berbroch\w*|\berbrech\w*|(?<![a-zäöüß])übergeb\w*/i],
   ['stuhl', /durchfall|\bverstopf\w*/i],
   // une VARIATION du poids, jamais un chiffre seul (« wiege 70 Kilo »), jamais « Kilometer », jamais « wie ein Gewicht »
-  ['gewicht', new RegExp(`${KILO}\\w*\\b[^.!?;,—–]{0,40}\\b(?:ab|zu)genommen\\b|(?:ab|zu)genommen\\b[^.!?;]{0,20}${KILO}|${KILO}\\w*\\s+(?:verloren|weniger|mehr)\\b|\\bwaren es (?:noch |früher )?\\d|\\bvon \\d+ auf \\d+\\b|\\bgewicht\\w* (?:\\w+ ){0,3}?(?:gleich|stabil)\\b`, 'i'), { passe: true, complet: true }],
+  ['gewicht', new RegExp(`${KILO}\\w*\\b[^.!?;,—–]{0,40}\\b(?:ab|zu)genommen\\b|(?:ab|zu)genommen\\b[^.!?;]{0,20}${KILO}|${KILO}\\w*\\s+(?:verloren|weniger|mehr)\\b|\\bwaren es (?:noch |früher )?\\d{2,3}\\b(?![,.]\\d)(?!\\s*(?:grad|°|mal))|\\bvon \\d+ auf \\d+\\s+kilo|\\bgewicht\\w* (?:\\w+ ){0,3}?(?:gleich|stabil)\\b`, 'i'), { passe: true, complet: true }],
   ['gewicht', /\b(?:ab|zu)genommen habe ich\b|\b(?:ich habe|habe ich) (?:\w+ ){0,5}?(?:ab|zu)genommen\b|\bgewicht\w* (?:\w+ ){0,3}?(?:verloren|abgenommen|zugenommen)\b|\bgewichts(?:verlust|zunahme)\b/i, { passe: true }],
   ['appetit', /\bappetit\b/i],
   ['durst', /\bdurst\w*/i],
