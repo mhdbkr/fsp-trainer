@@ -326,8 +326,13 @@ describe('Les deux cas de la direction, présentables dès K3 — zéro doublon,
     expect(i(/dort gegessen/)).toBe(i(/fach-infekt-reise/) + 1);
     expect(o.filter((l) => /Krankenhaus/.test(l))).toHaveLength(1);
     expect(o.filter((l) => /beruflich|von Beruf/.test(l))).toHaveLength(1);
-    expect(i(/dabei mit besonderen Stoffen/)).toBeGreaterThan(i(/Was arbeiten Sie beruflich/));
-    expect(i(/Stress durch Ihre Arbeitssituation/)).toBeGreaterThan(i(/Was arbeiten Sie beruflich/));
+    // L1 : l'ancre « Was arbeiten Sie beruflich » n'existait plus (i = -1 : la garde passait à vide). Le métier est la question
+    // de fam-beruf ; l'exposition le suit ; le stress est SA relance (une réplique, une question).
+    const beruf = i(/^familie-sozial:fam-beruf\|Was sind Sie von Beruf\?$/);
+    expect(beruf).toBeGreaterThan(-1);
+    expect(i(/bei der Arbeit mit Staub/)).toBeGreaterThan(beruf);
+    const berufQ = trameJouee(byId('case-gastroenteritis')).flatMap((x) => x.questions).find((p) => phraseProbes(p).includes('fam-beruf'))!;
+    expect(phraseFollowUps(berufQ).map((f) => f.text)).toContain('Empfinden Sie Stress durch Ihre Arbeitssituation?');
     for (const re of [/fach-infekt-haut/, /fach-infekt-neuro/, /akt-ausscheid-was/, /ungewöhnliche Lebensmittel/]) expect(i(re), String(re)).toBe(-1);
     expect(compteursApresCas(byId('case-gastroenteritis'))).toMatchObject({ doublons: 0, horsProfil: 0, brauchtViole: 0, nonReduit: 0 });
   });
