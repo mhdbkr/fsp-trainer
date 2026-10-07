@@ -307,6 +307,11 @@ jobs:
         run: node scripts/e2e/casDetail390.mjs
         env:
           PLAYWRIGHT_CORE: ${{ github.workspace }}/app/node_modules/playwright-core
+      - name: Fachwissen à 390 px — aucun titre en débord, aucun défilement horizontal (134 fiches et la liste)
+        if: ${{ !cancelled() }}
+        run: node scripts/e2e/fachwissen390.mjs
+        env:
+          PLAYWRIGHT_CORE: ${{ github.workspace }}/app/node_modules/playwright-core
       - if: always()
         uses: actions/upload-artifact@v4
         with:
