@@ -60,7 +60,7 @@ Branche `feat/s3-q9-und`, base `origin/main` @ `4a417c14`. Commits de `ef47fde4`
 
 Correction du § 6 : l'« échec non reproduit » d'akute-leukaemie venait de ma boucle (zsh ne découpe pas une variable non citée : le premier passage a lancé un seul `--case` avec les 50 noms). Relancée avec la liste écrite : 0 ×50, avant et après cette passe.
 
-**bandscheibenvorfall n° 0** : #100 (concision) n'est pas mergée sur `origin/main` à l'heure de cette passe — pas de fusion, la question reste au § 7.4.
+**Fusion de `origin/main` après #100** (`2b9296ad`, concision) : merge sans conflit, sans rebase ni force. **bandscheibenvorfall n° 0**, relue sur la fiche de #100 (délai de l'opération, PPI, Durchgangsarzt : rien ne touche l'anamnèse motrice) : « Ist ein Bein schwächer geworden — schaffen Sie es noch, auf den Zehenspitzen oder auf den Fersen zu stehen? » → « Ist Ihr rechtes Bein schwächer geworden? » ↳ « Können Sie noch auf den Zehenspitzen stehen? » ↳ « Können Sie noch auf den Fersen stehen? » (`schwaeche` ; deux tests, deux relances, sans « Falls ja » : à poser quoi qu'il réponde). `fach-ortho-sensomotorik`, réduite à sa part Taubheit mais dont la réplique est jouée entière, disait d'avance la force → « Richtig schwach ist das Bein … nicht, ich kann noch auftreten » déplacée en réponse écrite (« Nein, richtig schwach ist das Bein nicht, ich kann noch auftreten. ») ; la réplique garde le Kribbeln. Zehen- et Fersenstand : fiche, « kann auf Zehen und Fersen stehen ». Routine complète relancée après la fusion : tout à 0 (`checkProbeOverlap` 1, informatif) ; `checkCoherence --case` 0 ×51 ; `npm test` et `test:c6` ont eu 3 et 1 échecs d'interface sous une charge machine de ~35 (délais dépassés, fichiers sans lien avec le contenu), à 0 relancés seuls puis en entier.
 
 ## 0. Hypothèses et écarts, dits avant tout
 
@@ -173,7 +173,7 @@ Non lancé : la passe navigateur C6 (`parcours-candidat.mjs`). Supabase local to
 1. **A3 dans la banque (17)** — lot « sondes » : akt-ausscheid-haeufigkeit (« …, und müssen Sie auch nachts … »), fach-ortho-ausstrahlung (« — und wenn ja, bis wohin? », et ses trois adaptations de trame), fach-endo-durst, fach-derma-vorbehandlung, fach-nephro-blutdruck, fach-onko-familie, fam-stand (relance), fach-gefaess-schwellung (relance).
 2. **Règle R6-bis** (§ 4) : décision du coordinateur.
 3. **Répétitions antérieures vues, non traitées** (pas des composées) : zoster n° 0 et n° 2 (« Seit wann … Bläschen » après akt-motiv et akt-beginn ; « auf die andere Seite » après akt-ausstrahlung) ; pneumothorax n° 0 et n° 1 (« schlagartig », « gehustet » après akt-beginn) ; ileus n° 4 (« in Wellen » après akt-charakter) ; karzinoid « Und wie war es vor diesen sechs Wochen » (après akt-beginn) ; pankreaskarzinom « Wie sieht Ihr Stuhlgang aus » (après akt-ausscheid-was) ; pavk n° 2 (« bergauf », dit par la réponse de la Gehstrecke) ; vorhofflimmern akt-anfall-ablauf redit le début (banque-banque) ; pneumothorax akt-intensitaet / akt-einfluss redisent la dépendance respiratoire que la question pose juste avant.
-4. bandscheibenvorfall n° 0, après le merge de la concision.
+4. ~~bandscheibenvorfall n° 0~~ : fait après la fusion (F.5).
 
 ## 8. Réserves
 
