@@ -468,19 +468,19 @@ export function seedCases(): Case[] {
       examinerQuestions: [
         'Nennen Sie die kardiovaskulären Risikofaktoren.',
         'Wie unterscheiden Sie stabile von instabiler AP?',
-        'Welche Diagnostik in welcher Reihenfolge?',
+        'Welche Diagnostik veranlassen Sie, und in welcher Reihenfolge?',
       ],
       examinerSheet: [
         { title: 'Einstieg & Risikofaktoren', interactions: [
-          { frage: 'Verdachtsdiagnose und Begründung?', reaktion: 'belastungsabhängige Angina pectoris bei Verdacht auf KHK — retrosternaler Druck mit Ausstrahlung, in Ruhe rückläufig; da neu seit Wochen und zunehmend, bis zum Ausschluss eines akuten Koronarsyndroms als instabile Angina zu werten.' },
+          { frage: 'Wie lautet Ihre Verdachtsdiagnose, und wie begründen Sie sie?', reaktion: 'belastungsabhängige Angina pectoris bei Verdacht auf KHK — retrosternaler Druck mit Ausstrahlung, in Ruhe rückläufig; da neu seit Wochen und zunehmend, bis zum Ausschluss eines akuten Koronarsyndroms als instabile Angina zu werten.' },
           { frage: 'Nennen Sie die kardiovaskulären Risikofaktoren des Patienten.', reaktion: 'Rauchen (30 py), Diabetes mellitus Typ 2, arterielle Hypertonie, Hypercholesterinämie, Adipositas Grad I. Der Herzinfarkt des Vaters mit 60 Jahren ist erwähnenswert, erfüllt aber die Definition einer positiven Familienanamnese (männlicher Verwandter ersten Grades unter 55 Jahren) nicht.' },
         ] },
         { title: 'Differenzialdiagnosen', interactions: [
           { frage: 'Wie grenzen Sie eine instabile AP / ein ACS ab?', reaktion: 'Instabile AP: Ruheschmerz, Beschwerden über 20 Minuten, Crescendo- oder De-novo-Angina, Troponin normal; beim NSTEMI ist das Troponin erhöht. Hier belastungsabhängig und in Ruhe rückläufig, aber neu und zunehmend — deshalb EKG und hs-Troponin.' },
-          { frage: 'Nicht-kardiale Differenzialdiagnosen?', reaktion: 'Reflux (nahrungsabhängig, PPI-Ansprechen), Lungenembolie (atemabhängig, D-Dimere), muskuloskelettal.' },
+          { frage: 'Welche nicht-kardialen Differenzialdiagnosen kommen in Betracht?', reaktion: 'Reflux (nahrungsabhängig, PPI-Ansprechen), Lungenembolie (atemabhängig, D-Dimere), muskuloskelettal.' },
         ] },
         { title: 'Diagnostik & Therapie', interactions: [
-          { frage: 'Welche Diagnostik in welcher Reihenfolge?', reaktion: 'Ruhe-EKG + Troponin (ACS ausschließen), Labor (Lipide, HbA1c), dann Echokardiographie und bildgebende Ischämiediagnostik (Stressechokardiographie oder Stress-MRT), ggf. Koronarangiographie.' },
+          { frage: 'Welche Diagnostik veranlassen Sie, und in welcher Reihenfolge?', reaktion: 'Ruhe-EKG + Troponin (ACS ausschließen), Labor (Lipide, HbA1c), dann Echokardiographie und bildgebende Ischämiediagnostik (Stressechokardiographie oder Stress-MRT), ggf. Koronarangiographie.' },
           { frage: 'Wie behandeln Sie die stabile AP?', reaktion: 'ASS + Statin + Betablocker, Nitro bei Bedarf, Risikofaktoren-Management/Nikotinkarenz; bei relevanter Stenose PTCA + Stent.' },
         ] },
       ],
@@ -663,7 +663,7 @@ export function seedCases(): Case[] {
         { frage: 'Kam der Schmerz innerhalb weniger Stunden nach einer fettreichen Mahlzeit oder nach Alkohol?', kapitel: 'aktuell', sucht: ['speisen'] },
         { frage: 'Ist bei Ihnen bekannt, dass Sie Gallensteine haben?', kapitel: 'vorerkrankungen', sucht: ['gallensteine'] },
       ],
-      examinerQuestions: ['Zwei häufigste Ursachen?', 'Wichtigster Laborwert?', 'Wie behandeln Sie die biliäre Genese?'],
+      examinerQuestions: ['Was sind die zwei häufigsten Ursachen einer akuten Pankreatitis?', 'Welcher Laborwert ist für die Diagnose am wichtigsten?', 'Wie behandeln Sie die biliäre Genese?'],
       examinerSheet: [
         { title: 'Verdachtsdiagnose und Begründung', interactions: [
           { frage: 'Was ist Ihre Verdachtsdiagnose und worauf stützen Sie sich?', reaktion: 'Akute biliäre Pankreatitis: gürtelförmiger Oberbauchschmerz in den Rücken nach fettigem Essen, Linderung durch Vornüberbeugen, Übelkeit und Erbrechen, bekannte Gallensteine. Dunkler Urin und heller Stuhl sprechen für einen Stein im Gallengang.' },
@@ -880,14 +880,14 @@ export function seedCases(): Case[] {
         { frage: 'Hatten Sie so etwas schon einmal — schwarzen Stuhl oder dieses braune Erbrechen?', kapitel: 'aktuell', sucht: ['frueher'], relu: true, followUp: 'Falls ja: Waren Sie deswegen schon bei einem Arzt?', followUps: ['Falls ja: Welche Diagnose wurde damals gestellt?'] },
         { frage: 'Wird Ihnen schwindelig, vor allem wenn Sie aufstehen?', kapitel: 'aktuell', sucht: ['orthostase'] },
       ],
-      examinerQuestions: ['Was ist Meläna?', 'Häufigste Ursachen?', 'Vorgehen beim kreislaufinstabilen Patienten?'],
+      examinerQuestions: ['Was versteht man unter einer Meläna?', 'Was sind die häufigsten Ursachen einer Blutung aus dem oberen Gastrointestinaltrakt?', 'Wie gehen Sie beim kreislaufinstabilen Patienten vor?'],
       examinerSheet: [
         { title: 'Einstieg & Verdachtsdiagnose', interactions: [
-          { frage: 'Was ist Meläna?', reaktion: 'schwarzer, teerartiger, übelriechender Stuhl durch verdautes Blut — Zeichen einer oberen GI-Blutung.' },
-          { frage: 'Verdachtsdiagnose und häufigste Ursachen?', reaktion: 'obere GI-Blutung, hier NSAR/ASS-induziertes Ulcus ventriculi; DD Ösophagusvarizen, Mallory-Weiss, Magenkarzinom.' },
+          { frage: 'Was versteht man unter einer Meläna?', reaktion: 'schwarzer, teerartiger, übelriechender Stuhl durch verdautes Blut — Zeichen einer oberen GI-Blutung.' },
+          { frage: 'Wie lautet Ihre Verdachtsdiagnose, und was sind die häufigsten Ursachen?', reaktion: 'obere GI-Blutung, hier NSAR/ASS-induziertes Ulcus ventriculi; DD Ösophagusvarizen, Mallory-Weiss, Magenkarzinom.' },
         ] },
         { title: 'Notfallmanagement', interactions: [
-          { frage: 'Vorgehen beim kreislaufinstabilen Patienten?', reaktion: 'zwei großlumige Zugänge, Volumen, Blutgruppe + Kreuzblut, ggf. Transfusion, PPI hochdosiert i.v., OA informieren — Stabilisierung ZUERST.' },
+          { frage: 'Wie gehen Sie beim kreislaufinstabilen Patienten vor?', reaktion: 'zwei großlumige Zugänge, Volumen, Blutgruppe + Kreuzblut, ggf. Transfusion, PPI hochdosiert i.v., OA informieren — Stabilisierung ZUERST.' },
           { frage: 'Welche entscheidende Untersuchung leiten Sie ein?', reaktion: 'Notfall-ÖGD zur Lokalisation und endoskopischen Blutstillung (Clip, Adrenalin).' },
         ] },
       ],
@@ -1062,22 +1062,22 @@ export function seedCases(): Case[] {
         { frage: 'Hatten Sie schon einmal eine ähnliche Entzündung der Divertikel oder wurden deswegen behandelt?', kapitel: 'vorerkrankungen', sucht: ['frueher'] },
         { frage: 'Haben Sie beim Wasserlassen Luft oder Stuhlbeimengungen im Urin bemerkt?', kapitel: 'aktuell', sucht: ['miktion'] },
       ],
-      examinerQuestions: ['Warum keine Koloskopie im akuten Schub?', 'Wann operieren Sie die Patientin?'],
+      examinerQuestions: ['Warum machen Sie im akuten Schub keine Koloskopie?', 'Wann operieren Sie die Patientin?'],
       examinerSheet: [
         { title: 'Verdachtsdiagnose und Begründung', interactions: [
           { frage: 'Was ist Ihre Verdachtsdiagnose?', reaktion: 'Akute Sigmadivertikulitis — seit drei Tagen Schmerzen im linken Unterbauch, Fieber bis 38,5 °C, Obstipation, bekannte Divertikulose.' },
           { frage: 'Wie teilen Sie die Divertikulitis ein?', reaktion: 'Nach der CDD-Klassifikation: Typ 1 unkompliziert, Typ 2 kompliziert mit Abszess oder Perforation, Typ 3 chronisch-rezidivierend; entscheidend ist der CT-Befund.' },
         ] },
         { title: 'Differenzialdiagnosen', interactions: [
-          { frage: 'Welche Differenzialdiagnosen?', reaktion: 'Kolorektales Karzinom (Ausschluss durch die Intervallkoloskopie), Reizdarmsyndrom, Harnwegsinfekt, ischämische Kolitis und bei einer Frau gynäkologische Ursachen, postmenopausal vor allem ein Ovarialprozess.' },
+          { frage: 'Welche Differenzialdiagnosen kommen in Betracht?', reaktion: 'Kolorektales Karzinom (Ausschluss durch die Intervallkoloskopie), Reizdarmsyndrom, Harnwegsinfekt, ischämische Kolitis und bei einer Frau gynäkologische Ursachen, postmenopausal vor allem ein Ovarialprozess.' },
         ] },
         { title: 'Diagnostik & Cave', interactions: [
           { frage: 'Welche Diagnostik veranlassen Sie?', reaktion: 'Körperliche und digital-rektale Untersuchung, Labor mit Blutbild, CRP, Kreatinin und Urinstatus, Sonographie und CT-Abdomen mit Kontrastmittel zur Einteilung.' },
-          { frage: 'Warum keine Koloskopie im akuten Schub?', reaktion: 'Perforationsgefahr — Koloskopie erst nach Abheilung, in der Regel nach 6–8 Wochen; akut Labor und CT-Abdomen.' },
+          { frage: 'Warum machen Sie im akuten Schub keine Koloskopie?', reaktion: 'Perforationsgefahr — Koloskopie erst nach Abheilung, in der Regel nach 6–8 Wochen; akut Labor und CT-Abdomen.' },
         ] },
         { title: 'Therapie', interactions: [
           { frage: 'Wie behandeln Sie diese Patientin?', reaktion: 'Bei Fieber mit 67 Jahren eher stationär; leichte Kost, Metamizol, und wegen Fieber und allergischer Disposition eine Antibiose, aufgrund der Penicillinallergie mit einem Cephalosporin plus Metronidazol statt Amoxicillin mit Clavulansäure, Ciprofloxacin nur als Reserve. Kontrolle nach 48–72 Stunden.' },
-          { frage: 'Wann operieren Sie?', reaktion: 'Notfallmäßig bei freier Perforation mit Peritonitis; elektiv im entzündungsfreien Intervall bei Stenose, Fistel, nach Abszess oder bei Immunsuppression — individuell, nicht nach der Zahl der Schübe; Verfahren: laparoskopische Sigmaresektion.' },
+          { frage: 'Wann operieren Sie die Patientin?', reaktion: 'Notfallmäßig bei freier Perforation mit Peritonitis; elektiv im entzündungsfreien Intervall bei Stenose, Fistel, nach Abszess oder bei Immunsuppression — individuell, nicht nach der Zahl der Schübe; Verfahren: laparoskopische Sigmaresektion.' },
         ] },
         { title: 'Aufklärung der Patientin (2 Minuten)', interactions: [
           { frage: '(als Patientin) Darf ich jetzt keine Körner und Nüsse mehr essen?', reaktion: 'Doch: das alte Verbot ist überholt. Im Schub leichte Kost, danach ballaststoffreich essen und viel trinken; das senkt das Rückfallrisiko.' },
@@ -1277,7 +1277,7 @@ export function seedCases(): Case[] {
         {
           title: 'Therapie',
           interactions: [
-            { frage: 'Wann operieren Sie?', reaktion: 'Laparoskopisch innerhalb von 24 Stunden nach Aufnahme, noch im selben Aufenthalt; vorher Infusion, Analgesie und Antibiose.' },
+            { frage: 'Wann operieren Sie die Patientin?', reaktion: 'Laparoskopisch innerhalb von 24 Stunden nach Aufnahme, noch im selben Aufenthalt; vorher Infusion, Analgesie und Antibiose.' },
             { frage: 'Braucht sie ein Antibiotikum?', reaktion: 'Ja, wegen Fieber und Schüttelfrost, nach Abnahme der Blutkulturen, zum Beispiel Ceftriaxon und Metronidazol; bei unkompliziertem Verlauf nach der Operation rasch beenden.' },
             { frage: 'Was beachten Sie wegen der Pille?', reaktion: 'Pille, Adipositas und Operation erhöhen zusammen das Thromboserisiko: Heparin-Prophylaxe und frühe Mobilisation; das weitere Vorgehen mit der Pille stimme ich mit der Gynäkologie ab.' },
           ],
@@ -1465,11 +1465,11 @@ export function seedCases(): Case[] {
         { frage: 'Gab es außer Ihrem Vater noch jemanden in Ihrer Familie mit Darmkrebs oder Darmpolypen?', kapitel: 'familie-sozial', sucht: ['familie_krebs'], braucht: ['familie_krank'] },
         { frage: 'Fühlen Sie sich in letzter Zeit besonders müde oder abgeschlagen?', kapitel: 'aktuell', sucht: ['muedigkeit'] },
       ],
-      examinerQuestions: ['Screening-Empfehlung Koloskopie?', 'Was ist CEA?', 'Wie stagen Sie?'],
+      examinerQuestions: ['Was empfehlen Sie zur Vorsorgekoloskopie?', 'Was ist CEA, und wozu bestimmen Sie es?', 'Wie führen Sie das Staging durch?'],
       examinerSheet: [
         { title: 'Verdachtsdiagnose und Warnzeichen', interactions: [
-          { frage: 'Verdachtsdiagnose und Warnzeichen?', reaktion: 'Kolorektales Karzinom — Blut im Stuhl, geänderte Stuhlgewohnheiten mit Bleistiftstühlen (eher distaler, stenosierender Tumor), 6 kg ungewollter Gewichtsverlust, Müdigkeit als Hinweis auf eine Anämie; Vater mit 70 an Darmkrebs erkrankt, nie eine Koloskopie.' },
-          { frage: 'Was ist CEA?', reaktion: 'Carcinoembryonales Antigen — Tumormarker; nicht zum Screening oder zur Diagnose, aber als Ausgangswert und zur Verlaufs- und Rezidivkontrolle.' },
+          { frage: 'Wie lautet Ihre Verdachtsdiagnose, und welche Warnzeichen hat der Patient?', reaktion: 'Kolorektales Karzinom — Blut im Stuhl, geänderte Stuhlgewohnheiten mit Bleistiftstühlen (eher distaler, stenosierender Tumor), 6 kg ungewollter Gewichtsverlust, Müdigkeit als Hinweis auf eine Anämie; Vater mit 70 an Darmkrebs erkrankt, nie eine Koloskopie.' },
+          { frage: 'Was ist CEA, und wozu bestimmen Sie es?', reaktion: 'Carcinoembryonales Antigen — Tumormarker; nicht zum Screening oder zur Diagnose, aber als Ausgangswert und zur Verlaufs- und Rezidivkontrolle.' },
         ] },
         { title: 'Differenzialdiagnosen', interactions: [
           { frage: 'Welche Differenzialdiagnosen kommen in Betracht?', reaktion: 'Hämorrhoiden (erklären weder Gewichtsverlust noch Bleistiftstühle), chronisch-entzündliche Darmerkrankung (mit 68 selten), Divertikulitis oder Divertikelblutung, ischämische Kolitis, Analfissur oder Analkarzinom.' },
@@ -1479,8 +1479,8 @@ export function seedCases(): Case[] {
           { frage: 'Wie stagen Sie den Tumor?', reaktion: 'Komplette Koloskopie mit Biopsie, CT-Thorax/Abdomen; beim Rektumkarzinom starre Rektoskopie zur Höhenbestimmung und MRT des Beckens; TNM- und UICC-Klassifikation.' },
         ] },
         { title: 'Therapie und Vorsorge', interactions: [
-          { frage: 'Wie behandeln Sie?', reaktion: 'Nach Tumorkonferenz: Kolonkarzinom primär operieren, bei Lymphknotenbefall adjuvante Chemotherapie; lokal fortgeschrittenes Rektumkarzinom zuerst neoadjuvante Radiochemotherapie, dann Rektumresektion mit totaler mesorektaler Exzision.' },
-          { frage: 'Screening-Empfehlung Koloskopie?', reaktion: 'Vorsorgekoloskopie für Männer und Frauen ab 50 (Frauen seit April 2025, zuvor ab 55), Wiederholung nach 10 Jahren, alternativ iFOBT. Erstgradig Verwandte 10 Jahre vor dem Erkrankungsalter des Indexpatienten, spätestens im Alter von 40 bis 45 Jahren — das betrifft jetzt seine Kinder und Geschwister.' },
+          { frage: 'Wie behandeln Sie den Patienten?', reaktion: 'Nach Tumorkonferenz: Kolonkarzinom primär operieren, bei Lymphknotenbefall adjuvante Chemotherapie; lokal fortgeschrittenes Rektumkarzinom zuerst neoadjuvante Radiochemotherapie, dann Rektumresektion mit totaler mesorektaler Exzision.' },
+          { frage: 'Was empfehlen Sie zur Vorsorgekoloskopie?', reaktion: 'Vorsorgekoloskopie für Männer und Frauen ab 50 (Frauen seit April 2025, zuvor ab 55), Wiederholung nach 10 Jahren, alternativ iFOBT. Erstgradig Verwandte 10 Jahre vor dem Erkrankungsalter des Indexpatienten, spätestens im Alter von 40 bis 45 Jahren — das betrifft jetzt seine Kinder und Geschwister.' },
         ] },
         { title: 'Aufklärung des Patienten (2 Minuten)', interactions: [
           { frage: '(als Patient) Brauche ich einen künstlichen Darmausgang?', reaktion: 'Ehrlich, ohne Versprechen: Das hängt von der Lage des Tumors ab. Im Dickdarm meist nicht; im Enddarm oft nur vorübergehend zum Schutz der Naht. Ein dauerhafter Ausgang ist nur nötig, wenn der Schließmuskel betroffen ist.' },
@@ -1686,7 +1686,7 @@ export function seedCases(): Case[] {
         {
           title: 'Therapie',
           interactions: [
-            { frage: 'Wie behandeln Sie?', reaktion: 'Gewichtsabnahme, Rauchstopp, Kopfende hochstellen, keine späten Mahlzeiten; dazu ein PPI in Standarddosis morgens vor dem Frühstück über vier bis acht Wochen, danach reduzieren oder bei Bedarf.' },
+            { frage: 'Wie behandeln Sie die Patientin?', reaktion: 'Gewichtsabnahme, Rauchstopp, Kopfende hochstellen, keine späten Mahlzeiten; dazu ein PPI in Standarddosis morgens vor dem Frühstück über vier bis acht Wochen, danach reduzieren oder bei Bedarf.' },
             { frage: 'Wann denken Sie an eine Operation?', reaktion: 'Nur bei objektiv gesichertem Reflux, wenn PPI trotz richtiger Einnahme nicht helfen oder nicht vertragen werden; vorher ÖGD, pH-Impedanz-Messung und Manometrie.' },
           ],
         },
@@ -2105,22 +2105,22 @@ export function seedCases(): Case[] {
         { frage: 'Haben Sie Schmerzen beim Schlucken?', kapitel: 'aktuell', sucht: ['odynophagie'], relu: true },
         { frage: 'Kommt es vor, dass unverdaute Nahrung wieder hochkommt?', kapitel: 'aktuell', sucht: ['regurgitation'] },
       ],
-      examinerQuestions: ['Risikofaktoren des Ösophaguskarzinoms?', 'Adeno- vs. Plattenepithelkarzinom?', 'Palliative Optionen?'],
+      examinerQuestions: ['Welche Risikofaktoren für das Ösophaguskarzinom kennen Sie?', 'Wie unterscheiden sich Adeno- und Plattenepithelkarzinom?', 'Welche palliativen Optionen gibt es?'],
       examinerSheet: [
         { title: 'Verdachtsdiagnose und Begründung', interactions: [
-          { frage: 'Verdachtsdiagnose und Alarmkonstellation?', reaktion: 'Ösophaguskarzinom — seit vier Wochen rasch progrediente Dysphagie (fest → weich → nur noch Flüssiges), Schmerzen beim Schlucken, 15 kg Gewichtsverlust in einem Jahr, Heiserkeit, Noxen (30 Packungsjahre, täglich Wein und Schnaps), langjähriger Reflux.' },
-          { frage: 'Adeno- vs. Plattenepithelkarzinom?', reaktion: 'Das Adenokarzinom sitzt meist im distalen Ösophagus und entsteht auf dem Boden eines Barrett-Ösophagus bei Reflux; das Plattenepithelkarzinom liegt eher im oberen und mittleren Drittel, Risikofaktoren sind Rauchen und Alkohol. Bei ihr ist beides möglich — die Histologie entscheidet und bestimmt die neoadjuvante Therapie.' },
+          { frage: 'Wie lautet Ihre Verdachtsdiagnose, und welche Alarmzeichen sehen Sie?', reaktion: 'Ösophaguskarzinom — seit vier Wochen rasch progrediente Dysphagie (fest → weich → nur noch Flüssiges), Schmerzen beim Schlucken, 15 kg Gewichtsverlust in einem Jahr, Heiserkeit, Noxen (30 Packungsjahre, täglich Wein und Schnaps), langjähriger Reflux.' },
+          { frage: 'Wie unterscheiden sich Adeno- und Plattenepithelkarzinom?', reaktion: 'Das Adenokarzinom sitzt meist im distalen Ösophagus und entsteht auf dem Boden eines Barrett-Ösophagus bei Reflux; das Plattenepithelkarzinom liegt eher im oberen und mittleren Drittel, Risikofaktoren sind Rauchen und Alkohol. Bei ihr ist beides möglich — die Histologie entscheidet und bestimmt die neoadjuvante Therapie.' },
           { frage: 'Was bedeutet die Heiserkeit?', reaktion: 'Verdacht auf eine Rekurrensparese durch Tumorinfiltration oder Lymphknoten; Laryngoskopie vor jeder Therapieentscheidung, weil sie über die Resektabilität mitentscheidet.' },
         ] },
         { title: 'Differenzialdiagnosen', interactions: [
           { frage: 'Welche Differenzialdiagnosen kommen in Betracht?', reaktion: 'Achalasie (langsamer Verlauf, Jüngere; Vorsicht: Pseudoachalasie durch einen Tumor), peptische Stenose bei Reflux, Ösophagitis, Kardiakarzinom, und bei 30 Packungsjahren ein Bronchialkarzinom mit Kompression von außen und Rekurrensparese.' },
         ] },
         { title: 'Diagnostik und Staging', interactions: [
-          { frage: 'Diagnostik und Staging?', reaktion: 'ÖGD mit Biopsie zuerst; dann Endosonographie, CT Hals/Thorax/Abdomen, bei kurativer Absicht PET-CT, HNO-Laryngoskopie, gegebenenfalls Bronchoskopie und Laparoskopie; Labor mit Blutbild, Albumin und Elektrolyten; Lungenfunktion und Echokardiographie für die Operabilität.' },
+          { frage: 'Wie gehen Sie bei Diagnostik und Staging vor?', reaktion: 'ÖGD mit Biopsie zuerst; dann Endosonographie, CT Hals/Thorax/Abdomen, bei kurativer Absicht PET-CT, HNO-Laryngoskopie, gegebenenfalls Bronchoskopie und Laparoskopie; Labor mit Blutbild, Albumin und Elektrolyten; Lungenfunktion und Echokardiographie für die Operabilität.' },
         ] },
         { title: 'Therapie', interactions: [
           { frage: 'Wie behandeln Sie in kurativer Absicht?', reaktion: 'Plattenepithelkarzinom: neoadjuvante Radiochemotherapie nach CROSS, dann Ösophagektomie; Adenokarzinom: perioperative Chemotherapie nach FLOT und Ösophagektomie mit Magenhochzug. Vorher Ernährungstherapie und Prähabilitation, Alkoholentzug unter Thiamin.' },
-          { frage: 'Welche palliativen Optionen?', reaktion: 'Stent zur Passage, Ernährungssicherung über Trinknahrung, gegebenenfalls Feinnadelkatheterjejunostomie — keine PEG, solange der Magen für einen Hochzug gebraucht wird; palliative Radiochemotherapie/Systemtherapie.' },
+          { frage: 'Welche palliativen Optionen gibt es?', reaktion: 'Stent zur Passage, Ernährungssicherung über Trinknahrung, gegebenenfalls Feinnadelkatheterjejunostomie — keine PEG, solange der Magen für einen Hochzug gebraucht wird; palliative Radiochemotherapie/Systemtherapie.' },
           { frage: 'Warum geben Sie Thiamin vor der ersten Glukoseinfusion?', reaktion: 'Wegen des täglichen Alkoholkonsums und der Mangelernährung droht sonst eine Wernicke-Enzephalopathie.' },
         ] },
         { title: 'Aufklärung der Patientin (2 Minuten)', interactions: [
@@ -2398,7 +2398,7 @@ export function seedCases(): Case[] {
           { frage: 'Wie weisen Sie Helicobacter pylori nach — auch unter dem laufenden PPI?', reaktion: 'Invasiv mit Urease-Schnelltest und Histologie aus der ÖGD, nicht-invasiv mit 13C-Harnstoff-Atemtest oder Stuhl-Antigen. Alle Tests werden unter PPI oft falsch negativ: ein negativer Befund wird mit einer Serologie oder nach Abheilung und zwei Wochen PPI-Pause überprüft.' },
         ] },
         { title: 'Therapie', interactions: [
-          { frage: 'Wie behandeln Sie?', reaktion: 'Rauchstopp, kein Alkohol, Pantoprazol 40 mg für 6–8 Wochen. Bei Helicobacter-Nachweis Bismut-Quadrupeltherapie über 10 Tage; eine Clarithromycin-Tripeltherapie nur bei nachgewiesener Empfindlichkeit. Eradikationskontrolle nach frühestens 4 Wochen, Kontroll-ÖGD nach 6–8 Wochen.' },
+          { frage: 'Wie behandeln Sie den Patienten?', reaktion: 'Rauchstopp, kein Alkohol, Pantoprazol 40 mg für 6–8 Wochen. Bei Helicobacter-Nachweis Bismut-Quadrupeltherapie über 10 Tage; eine Clarithromycin-Tripeltherapie nur bei nachgewiesener Empfindlichkeit. Eradikationskontrolle nach frühestens 4 Wochen, Kontroll-ÖGD nach 6–8 Wochen.' },
           { frage: 'Welches Schmerzmittel geben Sie ihm?', reaktion: 'Nur Paracetamol: Metamizol ist wegen der Allergie mit Exanthem und Atemnot kontraindiziert, NSAR verträgt er nicht und sie schaden dem Ulkus.' },
         ] },
         { title: 'Aufklärung des Patienten (2 Minuten)', interactions: [
@@ -2648,15 +2648,15 @@ export function seedCases(): Case[] {
         { frage: 'Ist bei Ihnen eine chronische Magenschleimhautentzündung oder eine Helicobacter-Infektion bekannt?', kapitel: 'vorerkrankungen', sucht: ['magen_vorgeschichte'] },
       ],
       examinerQuestions: [
-        'Was ist Ihre Verdachtsdiagnose und welche Differenzialdiagnosen stellen Sie (z. B. Gallenwegs-, Gallenblasen-, Pankreaskarzinom, Ulcus ventriculi)?',
+        'Was ist Ihre Verdachtsdiagnose, und welche Differenzialdiagnosen stellen Sie?',
         'Welche Tumormarker bestimmen Sie beim Magenkarzinom? Was bedeutet CA 19-9?',
-        'Warum ein CT bzw. Röntgen-Thorax — welche Metastasen suchen Sie (Lungen-, Lebermetastasen)?',
+        'Warum veranlassen Sie ein CT oder ein Röntgen des Thorax, und welche Metastasen suchen Sie?',
         'Warum steht auch ein Myokardinfarkt in der Differenzialdiagnose?',
         'Hat der Patient schon einmal eine ÖGD gehabt? Sind Magenprobleme bekannt?',
-        'Was ist Iberogast (vom Hausarzt verordnet)?',
+        'Der Hausarzt hat Iberogast verordnet. Was ist das?',
         'Welche Medikamente können wir dem Patienten geben, und sollen wir ihn stationär aufnehmen?',
         'Der Patient raucht viel — könnte er auch ein Bronchialkarzinom haben?',
-        'Was ist neben der Diagnostik noch wichtig (psychoonkologische Unterstützung)?',
+        'Was ist für den Patienten neben der Diagnostik noch wichtig?',
         'Was antworten Sie, wenn der Patient direkt fragt, ob er Krebs hat oder ob er sterben muss?',
       ],
       pruefungsfallen: [
@@ -2682,7 +2682,7 @@ export function seedCases(): Case[] {
         { title: 'Diagnostik und Staging', interactions: [
           { frage: 'Wie gehen Sie diagnostisch vor?', reaktion: 'Körperliche Untersuchung mit Virchow-Lymphknoten und rektaler Untersuchung, Labor mit Blutbild, Ferritin, Kreuzblut, Nierenwerten und Albumin; dann als Goldstandard die ÖGD mit Biopsien (Histologie, Laurén, HER2, Helicobacter). Zum Staging CT Thorax/Abdomen und Endosonographie, bei cT3/cT4 diagnostische Laparoskopie.' },
           { frage: 'Welche Tumormarker bestimmen Sie? Was bedeutet CA 19-9?', reaktion: 'CA 72-4 und CEA, allenfalls als Ausgangswert für den Verlauf — zur Diagnose taugen sie nicht. CA 19-9 ist vor allem bei Pankreas- und Gallenwegstumoren erhöht.' },
-          { frage: 'Warum ein CT bzw. Röntgen des Thorax?', reaktion: 'Zur Suche nach Lungen- und Lebermetastasen im Staging.' },
+          { frage: 'Warum veranlassen Sie ein CT oder ein Röntgen des Thorax?', reaktion: 'Zur Suche nach Lungen- und Lebermetastasen im Staging.' },
         ] },
         { title: 'Therapie', interactions: [
           { frage: 'Sollen wir den Patienten stationär aufnehmen?', reaktion: 'Ja: Teerstuhl mit möglicher Anämie, schwere Mangelernährung und ein dringender Tumorverdacht — zügige Abklärung mit ÖGD, Ernährungstherapie und Kreislaufüberwachung.' },
@@ -2942,12 +2942,12 @@ export function seedCases(): Case[] {
         'Erzählen Sie, wen Sie gesehen haben und welche Beschwerden er hat.',
         'Welche Verdachtsdiagnose haben Sie? Warum? Welche Differenzialdiagnosen kommen infrage?',
         'Wie gehen Sie vor, um Ihren Verdacht zu bestätigen?',
-        'Welche Laborwerte möchten Sie anfordern? Welche Informationen liefert ein Blutbild (Leukozyten, Erythrozyten, Thrombozyten)?',
+        'Welche Laborwerte möchten Sie anfordern? Welche Informationen liefert ein Blutbild?',
         'Würden Sie den Urin untersuchen? Warum?',
         'Falls die Entzündungsparameter nicht erhöht sind — was könnte der Grund sein?',
         'Was würden Sie noch tun? Was kann man in der Sonografie sehen?',
         'Welche Therapie schlagen Sie vor?',
-        'Klären Sie den Patienten über eine laparoskopische Appendektomie auf (Stichwort: Schlüssellochoperation).',
+        'Klären Sie den Patienten über eine laparoskopische Appendektomie auf.',
       ],
       pruefungsfallen: [
         'Cave: Der Schmerz ist hier nicht klassisch vom Nabel nach rechts unten gewandert — eine fehlende Schmerzwanderung schließt eine Appendizitis nicht aus.',
@@ -2968,7 +2968,7 @@ export function seedCases(): Case[] {
         ] },
         { title: 'Verdachtsdiagnose & Differenzialdiagnosen', interactions: [
           { frage: 'Welche Verdachtsdiagnose haben Sie? Warum?', reaktion: 'Akute Appendizitis — umschriebener rechter Unterbauchschmerz, Übelkeit, Inappetenz, Hitzegefühl, Schmerzverstärkung im Liegen und bei Erschütterung.' },
-          { frage: 'Welche Differenzialdiagnosen?', reaktion: 'Gastroenteritis, Harnleiterstein rechts, inkarzerierte Leistenhernie rechts, da ein Zustand nach Leistenhernien-Operation besteht, gedeckt perforiertes Ulkus (Sodbrennen, Ibuprofen), Zäkumdivertikulitis, Morbus Crohn; bei einer Frau zusätzlich Extrauteringravidität und Ovarialtorsion.' },
+          { frage: 'Welche Differenzialdiagnosen kommen in Betracht?', reaktion: 'Gastroenteritis, Harnleiterstein rechts, inkarzerierte Leistenhernie rechts, da ein Zustand nach Leistenhernien-Operation besteht, gedeckt perforiertes Ulkus (Sodbrennen, Ibuprofen), Zäkumdivertikulitis, Morbus Crohn; bei einer Frau zusätzlich Extrauteringravidität und Ovarialtorsion.' },
         ] },
         { title: 'Diagnostik', interactions: [
           { frage: 'Wie gehen Sie vor, um Ihren Verdacht zu bestätigen?', reaktion: 'Körperliche Untersuchung mit Appendizitiszeichen, Leiste und rektaler Untersuchung, Vitalparameter mit Temperatur, Labor (Blutbild, CRP), Urinstatus und Abdomensonographie, bei unklarem Befund CT.' },
@@ -3217,8 +3217,8 @@ export function seedCases(): Case[] {
         'Wie schätzen Sie die Suizidalität ein und wie gehen Sie damit um?',
         'Wann behandeln Sie ambulant, wann ist eine stationäre Aufnahme nötig?',
         'Welche medikamentöse Therapie schlagen Sie vor? Welche Antidepressiva-Gruppen kennen Sie?',
-        'Worauf müssen Sie achten, bevor Sie ein Antidepressivum verordnen (bipolare Störung, EKG/QTc)?',
-        'Welches standardisierte Screening-Instrument verwenden Sie? (PHQ-9)',
+        'Worauf müssen Sie achten, bevor Sie ein Antidepressivum verordnen?',
+        'Welches standardisierte Screening-Instrument verwenden Sie?',
       ],
       pruefungsfallen: [
         'Suizidalität MUSS aktiv und direkt angesprochen werden — wer nicht danach fragt, riskiert das Nichtbestehen. Das direkte Ansprechen erhöht das Risiko nicht, sondern entlastet.',
@@ -3548,7 +3548,7 @@ export function seedCases(): Case[] {
         'Welche Risikofaktoren für eine Pneumonie hat der Patient?',
         'Welcher Typ von Pneumonie liegt vor und warum?',
         'Was ist bei diesem Patienten besonders?',
-        'Was erwarten Sie bei der körperlichen Untersuchung (Inspektion, Palpation, Perkussion, Auskultation)?',
+        'Was erwarten Sie bei der körperlichen Untersuchung?',
         'Was erwarten Sie im Labor?',
         'Ist der HbA1c wichtig? Warum?',
         'Was ist HCT, und besteht ein Zusammenhang zwischen HCT und der Pneumonie?',
@@ -3636,7 +3636,7 @@ export function seedCases(): Case[] {
               reaktion: 'ja — die Entscheidung stütze ich auf den CURB-65-Score, und das Risikoprofil (Diabetes, Z. n. Zytostatikatherapie) senkt die Schwelle zusätzlich; bei Instabilität ggf. intensivmedizinisch.',
             },
             {
-              frage: 'Welche Therapie und welches Antibiotikum bei Penicillinallergie?',
+              frage: 'Wie behandeln Sie den Patienten, und welches Antibiotikum geben Sie ihm bei seiner Penicillinallergie?',
               reaktion: 'allgemeine Maßnahmen und eine kalkulierte Antibiose; wegen der Penicillinallergie stationär ein respiratorisches Fluorchinolon wie Levofloxacin — ein Makrolid allein wäre nur ambulant bei leichter CAP ausreichend; Cephalosporine je nach Art und Schwere der früheren Reaktion.',
             },
             {
@@ -3895,13 +3895,13 @@ export function seedCases(): Case[] {
       ],
       examinerQuestions: [
         'Was hat die Patientin? Wie lautet Ihre Verdachtsdiagnose?',
-        'Warum eine Pyelonephritis und nicht eine Zystitis?',
+        'Warum denken Sie an eine Pyelonephritis und nicht an eine Zystitis?',
         'Welche Differenzialdiagnosen kommen in Betracht?',
         'Welche Diagnostik ordnen Sie an? Welche Urinprobe brauchen Sie?',
         'Welcher Erreger ist am häufigsten verantwortlich?',
         'Welche Antibiotika geben Sie? Was, wenn es der Patientin trotz Antibiose schlechter geht?',
         'Welche Analgetika geben Sie — Achtung bei der Novalginallergie?',
-        'Welche Spasmolytika?',
+        'Welche Spasmolytika setzen Sie ein?',
         'Welche Komplikationen fürchten Sie? Erklären Sie bitte die Urosepsis.',
         'Welche Rolle spielt der Diabetes mellitus? Muss die Patientin stationär aufgenommen werden?',
         'Schicken Sie die Patientin mit einem Rezept nach Hause?',
@@ -3930,7 +3930,7 @@ export function seedCases(): Case[] {
               reaktion: 'am ehesten eine akute Pyelonephritis rechts bei Diabetes mellitus. Ob sie als kompliziert gilt, hängt von der Stoffwechsellage ab (HbA1c); stationär behandle ich sie wegen Erbrechen, hohem Fieber, Alter und fehlender Versorgung zu Hause ohnehin.',
             },
             {
-              frage: 'Warum eine Pyelonephritis und nicht eine Zystitis?',
+              frage: 'Warum denken Sie an eine Pyelonephritis und nicht an eine Zystitis?',
               reaktion: 'weil zusätzlich zu Dysurie und Pollakisurie hohes Fieber mit Schüttelfrost, ein einseitiger Flankenschmerz und ein klopfschmerzhaftes Nierenlager bestehen — eine reine Blasenentzündung verläuft ohne Fieber und ohne Flankenschmerz.',
             },
           ],
@@ -3973,11 +3973,11 @@ export function seedCases(): Case[] {
               reaktion: 'dann eskaliere ich auf ein Breitspektrum-Antibiotikum wie Piperacillin/Tazobactam und schließe per Sonographie einen Harnstau oder Abszess aus.',
             },
             {
-              frage: 'Welches Analgetikum — Achtung Novalginallergie?',
+              frage: 'Welches Analgetikum geben Sie bei ihrer Novalginallergie?',
               reaktion: 'Paracetamol; Metamizol ist wegen der Allergie kontraindiziert.',
             },
             {
-              frage: 'Welches Spasmolytikum?',
+              frage: 'Welches Spasmolytikum setzen Sie ein?',
               reaktion: 'Butylscopolamin (Buscopan).',
             },
           ],
@@ -4272,7 +4272,7 @@ export function seedCases(): Case[] {
       ],
       examinerSheet: [
         { title: 'Verdachtsdiagnose und Klassifikation', interactions: [
-          { frage: 'Verdachtsdiagnose und Begründung?', reaktion: 'pAVK des rechten Beins — belastungsabhängiger, reproduzierbarer Wadenschmerz nach etwa 100 Metern mit Besserung beim Stehenbleiben (Claudicatio intermittens), blasses, kühles Bein; Risikofaktoren 45 Packungsjahre, Hypertonie, Hyperlipidämie, Vater mit Schlaganfall.' },
+          { frage: 'Wie lautet Ihre Verdachtsdiagnose, und wie begründen Sie sie?', reaktion: 'pAVK des rechten Beins — belastungsabhängiger, reproduzierbarer Wadenschmerz nach etwa 100 Metern mit Besserung beim Stehenbleiben (Claudicatio intermittens), blasses, kühles Bein; Risikofaktoren 45 Packungsjahre, Hypertonie, Hyperlipidämie, Vater mit Schlaganfall.' },
           { frage: 'Welches Fontaine-Stadium liegt vor?', reaktion: 'Stadium IIb — schmerzfreie Gehstrecke unter 200 m. Stadium I ist beschwerdefrei, IIa bedeutet eine schmerzfreie Gehstrecke über 200 Meter, IIb unter 200 Meter, Stadium III Ruheschmerz und Stadium IV Nekrose oder Gangrän. Ergänzend gibt es die Einteilung nach Rutherford.' },
           { frage: 'Warum spricht man von der Schaufensterkrankheit?', reaktion: 'Weil die Betroffenen wegen des belastungsabhängigen Schmerzes immer wieder stehen bleiben müssen — wie beim Schaufensterbummel.' },
         ] },
@@ -4573,7 +4573,7 @@ export function seedCases(): Case[] {
               reaktion: 'am ehesten eine Lyme-Borreliose im Stadium I mit einem Erythema migrans am rechten Oberschenkel, aufgetreten nach einem Wanderurlaub in einem Waldgebiet.',
             },
             {
-              frage: 'Warum Lyme-Borreliose?',
+              frage: 'Warum denken Sie an eine Lyme-Borreliose?',
               reaktion: 'wegen der sich langsam ausbreitenden, ringförmigen Rötung mit rotem Rand und hellerer Mitte, dem begleitenden grippalen Bild und der Exposition in einem Endemiegebiet; die Inkubationszeit von einigen Tagen bis Wochen passt.',
             },
             {
@@ -5222,16 +5222,16 @@ export function seedCases(): Case[] {
       ],
       examinerSheet: [
         { title: 'Diagnose & betroffene Wurzel', interactions: [
-          { frage: 'Ihre Verdachtsdiagnose?', reaktion: 'Ein lumbaler Bandscheibenvorfall L4/L5 mit Reizung der Wurzel L5 rechts — dafür sprechen der akute Beginn beim Heben, die dermatombezogene Ausstrahlung bis zur Großzehe mit Taubheit am Fußrücken und die Husten- und Pressabhängigkeit.' },
+          { frage: 'Wie lautet Ihre Verdachtsdiagnose?', reaktion: 'Ein lumbaler Bandscheibenvorfall L4/L5 mit Reizung der Wurzel L5 rechts — dafür sprechen der akute Beginn beim Heben, die dermatombezogene Ausstrahlung bis zur Großzehe mit Taubheit am Fußrücken und die Husten- und Pressabhängigkeit.' },
           { frage: 'Woran erkennen Sie die Höhe L5?', reaktion: 'Am Dermatom über der Außenseite des Unterschenkels, dem Fußrücken und der Großzehe, an der Fuß- und Großzehenheberschwäche als Kennmuskel und typischerweise ohne Reflexausfall.' },
         ] },
         { title: 'Differenzialdiagnosen und Red Flags', interactions: [
-          { frage: 'Welche Differenzialdiagnosen?', reaktion: 'Spinalkanalstenose, ISG-Syndrom, Facettensyndrom, Coxarthrose und bei einem Raucher die pAVK; als ernste Ursachen Wirbelfraktur, Metastasen und Spondylodiszitis.' },
+          { frage: 'Welche Differenzialdiagnosen kommen in Betracht?', reaktion: 'Spinalkanalstenose, ISG-Syndrom, Facettensyndrom, Coxarthrose und bei einem Raucher die pAVK; als ernste Ursachen Wirbelfraktur, Metastasen und Spondylodiszitis.' },
           { frage: 'Welche Warnsymptome würden Sie an eine andere Ursache denken lassen?', reaktion: 'Nachtschmerz, Gewichtsverlust oder Tumoranamnese (Metastasen), Fieber oder Immunsuppression (Spondylodiszitis), Trauma oder Osteoporose (Fraktur) — bei ihm alle verneint.' },
         ] },
         { title: 'Diagnostik', interactions: [
           { frage: 'Was untersuchen Sie klinisch?', reaktion: 'Lasègue-Zeichen, Kraft im Seitenvergleich mit Zehen- und Hackengang, die Reflexe PSR und ASR, die Sensibilität nach Dermatomen und — bei Verdacht — die digital-rektale Untersuchung.' },
-          { frage: 'Warum MRT und kein Röntgen — und wann?', reaktion: 'Das MRT stellt Bandscheibe, Nervenwurzel und Spinalkanal ohne Strahlung am besten dar; das Röntgen zeigt nur Knochen. Sofort bei Cauda-Zeichen oder Parese; bei ihm ohne Parese erst, wenn die Beschwerden über etwa sechs Wochen anhalten oder eine Intervention geplant wird.' },
+          { frage: 'Warum veranlassen Sie ein MRT und kein Röntgen, und wann ist es indiziert?', reaktion: 'Das MRT stellt Bandscheibe, Nervenwurzel und Spinalkanal ohne Strahlung am besten dar; das Röntgen zeigt nur Knochen. Sofort bei Cauda-Zeichen oder Parese; bei ihm ohne Parese erst, wenn die Beschwerden über etwa sechs Wochen anhalten oder eine Intervention geplant wird.' },
         ] },
         { title: 'Cauda-Syndrom & Therapie', interactions: [
           { frage: 'Was ist das Cauda-equina-Syndrom?', reaktion: 'Eine Kompression der Cauda equina mit Reithosenanästhesie und Blasen- und Mastdarmstörung — ein Notfall, der ein sofortiges MRT und eine notfallmäßige operative Dekompression erfordert.' },
@@ -5661,7 +5661,7 @@ export function seedCases(): Case[] {
               reaktion: 'Ruhigstellung, Hochlagerung und Kühlung, dazu NSAR in ausreichender Dosis unter Magenschutz, alternativ Colchicin 1 mg initial und 0,5 mg nach einer Stunde, und — gleichwertig oder bei Kontraindikationen bevorzugt — Kortikosteroide, zum Beispiel Prednisolon 30 bis 35 mg über drei bis fünf Tage oder intraartikulär nach Ausschluss einer Infektion. Dazu reichlich Flüssigkeit und Alkoholkarenz.',
             },
             {
-              frage: 'Und die Dauertherapie?',
+              frage: 'Wie sieht die Dauertherapie aus?',
               reaktion: 'Zwei bis vier Wochen nach dem Anfall Beginn einer harnsäuresenkenden Therapie mit dem Urikostatikum Allopurinol, einschleichend ab 100 mg bis meist 300 mg täglich, Zielwert unter 6 mg/dl; alternativ Febuxostat oder das Urikosurikum Benzbromaron. In den ersten drei bis sechs Monaten begleitend eine Anfallsprophylaxe mit niedrig dosiertem Colchicin. Dazu purinarme Kost, Alkoholreduktion, Gewichtsreduktion, Trinkmenge über zwei Liter und Umstellung des Thiaziddiuretikums, zum Beispiel auf Losartan.',
             },
             {
@@ -5958,7 +5958,7 @@ export function seedCases(): Case[] {
         { frage: 'Wurden Sie von einer Zecke gestochen, oder hatten Sie einen ringförmigen Hautausschlag?', kapitel: 'aktuell', sucht: ['zecke', 'erythem_ring'] },
       ],
       examinerQuestions: [
-        'Wie lautet Ihre Verdachtsdiagnose und welche Differenzialdiagnosen kommen in Betracht? (Spinalkanalstenose, Bandscheibenvorfall, Polyneuropathie, pAVK, Wirbelsäulenfraktur, Migräne, Hypothyreose, Vitamin-B12-Mangel)',
+        'Wie lautet Ihre Verdachtsdiagnose, und welche Differenzialdiagnosen kommen in Betracht?',
         'Warum sprechen Sie von einer Parese und nicht von einer Plegie?',
         'Wie unterscheiden Sie eine Hypästhesie von einer Parästhesie?',
         'In welchen Verlaufsformen kann eine Multiple Sklerose verlaufen?',
@@ -6332,7 +6332,7 @@ export function seedCases(): Case[] {
             { frage: 'Welche Differenzialdiagnosen kommen in Betracht?', reaktion: 'Eine chronisch-entzündliche Darmerkrankung, eine Zöliakie, eine Laktose- oder Fruktoseintoleranz, ein kolorektales Karzinom, eine Divertikelkrankheit, eine chronische Infektion wie eine Giardiasis, eine Schilddrüsenfunktionsstörung und bei einer Frau nach den Wechseljahren mit neuen Blähungen immer auch ein Ovarialprozess.' },
             { frage: 'Was spricht gegen eine chronisch-entzündliche Darmerkrankung?', reaktion: 'Das Fehlen von Blut im Stuhl, von Fieber und von B-Symptomatik, der stabile Gewichtsverlauf, das Fehlen nächtlicher Beschwerden und extraintestinaler Manifestationen sowie ein zu erwartendes normales CRP und ein negatives fäkales Calprotectin.' },
             { frage: 'Wie schließen Sie eine Zöliakie aus?', reaktion: 'Serologisch mit der Transglutaminase-IgA zusammen mit dem Gesamt-IgA — sonst ist der Test bei IgA-Mangel falsch negativ — und bei positivem Befund mit Duodenalbiopsien im Rahmen einer ÖGD unter glutenhaltiger Kost.' },
-            { frage: 'Und eine Laktoseintoleranz?', reaktion: 'Über den H2-Atemtest mit Laktose, alternativ über eine befristete Karenz mit anschließender Provokation.' },
+            { frage: 'Wie schließen Sie eine Laktoseintoleranz aus?', reaktion: 'Über den H2-Atemtest mit Laktose, alternativ über eine befristete Karenz mit anschließender Provokation.' },
             { frage: 'Warum müssen Sie bei dieser Patientin ein Karzinom ausschließen?', reaktion: 'Weil sie 52 Jahre alt ist und die Beschwerden neu aufgetreten sind — eine Erstmanifestation jenseits des 50. Lebensjahres ist per se ein Alarmzeichen und erfordert die Koloskopie.' },
           ],
         },
@@ -6343,7 +6343,7 @@ export function seedCases(): Case[] {
             { frage: 'Welche Laborbefunde erwarten Sie?', reaktion: 'Unauffällige Befunde: normales Blutbild ohne Anämie, normale Entzündungsparameter, normales TSH, negative Zöliakie-Serologie und ein negatives Calprotectin — gerade diese Normalität stützt die Diagnose.' },
             { frage: 'Hatte die Patientin Blut im Stuhl? Hat sie Fieber? Wie ist der Appetit?', reaktion: 'Blut im Stuhl und Fieber wurden verneint, der Appetit ist erhalten und das Gewicht seit Jahren stabil. (Falls nicht erfragt: „Das werde ich bei der körperlichen Untersuchung nachholen.“)' },
             { frage: 'Warum veranlassen Sie einen Test auf okkultes Blut im Stuhl? Erklären Sie bitte das Verfahren.', reaktion: 'Der immunologische Stuhltest weist nicht sichtbares menschliches Blut nach und ist ein Vorsorgetest für Menschen ohne Beschwerden: eine Stuhlprobe im Röhrchen, ohne Diät; ein positiver Test führt zur Koloskopie. Bei ihr ändert er nichts, weil sie wegen der neuen Beschwerden ohnehin koloskopiert wird, und ein negativer Test würde kein Karzinom ausschließen.' },
-            { frage: 'Warum eine digital-rektale Untersuchung?', reaktion: 'Um Hämorrhoiden, Fissuren, Resistenzen und Blut am Fingerling zu erfassen — sie gehört bei jeder chronischen Stuhlveränderung zum Untersuchungsstandard.' },
+            { frage: 'Warum führen Sie eine digital-rektale Untersuchung durch?', reaktion: 'Um Hämorrhoiden, Fissuren, Resistenzen und Blut am Fingerling zu erfassen — sie gehört bei jeder chronischen Stuhlveränderung zum Untersuchungsstandard.' },
           ],
         },
         {
@@ -6639,7 +6639,7 @@ export function seedCases(): Case[] {
               reaktion: 'ein ischämischer Schlaganfall im Mediastromgebiet rechts, am ehesten kardioembolisch bei Vorhofflimmern — die vorausgegangenen Attacken betrafen wechselnde Stromgebiete (Amaurosis fugax links und Wortfindungsstörungen: linkes Karotisstromgebiet; linksseitige Hemisymptomatik: rechtes), was die kardiale Emboliequelle stützt.',
             },
             {
-              frage: 'Warum?',
+              frage: 'Was spricht für diese Diagnose?',
               reaktion: 'akut aufgetretenes, jetzt persistierendes linksseitiges Defizit mit Armschwäche, zentraler Fazialisparese und Dysarthrie, dem seit zwei Wochen zunehmende, jeweils rund zwanzigminütige Attacken (Crescendo-TIA) vorausgingen, bei bekanntem Vorhofflimmern und weiteren vaskulären Risikofaktoren.',
             },
           ],
@@ -6691,7 +6691,7 @@ export function seedCases(): Case[] {
               reaktion: 'im Zeitfenster eine intravenöse Thrombolyse mit rtPA bis 4,5 Stunden, bei großem Gefäßverschluss eine mechanische Thrombektomie, alles auf der Stroke Unit.',
             },
             {
-              frage: 'Welche Sekundärprophylaxe bei diesem Patienten?',
+              frage: 'Welche Sekundärprophylaxe wählen Sie bei diesem Patienten?',
               reaktion: 'bei Vorhofflimmern eine orale Antikoagulation mit einem DOAK oder Marcumar — das bisher eingenommene ASS 100 ist hier unzureichend — dazu Statin und Einstellung von Blutdruck und Diabetes.',
             },
             {
@@ -6972,7 +6972,7 @@ export function seedCases(): Case[] {
           title: 'Therapie',
           interactions: [
             { frage: 'Welches Medikament haben Sie verabreicht und warum?', reaktion: 'Metamizol und Butylscopolamin über die Vene, gegen Schmerz und Krampf der glatten Muskulatur. Eigentlich sind NSAR erste Wahl, aber er hat heute früh schon zwei Ibuprofen genommen und nimmt Ramipril. Bei starken Schmerzen Pethidin oder Buprenorphin.' },
-            { frage: 'Wann operieren Sie?', reaktion: 'Symptomatische Steine werden laparoskopisch entfernt, bei ihm zeitnah und geplant. Wird daraus eine Cholezystitis, innerhalb von 24 Stunden nach Aufnahme.' },
+            { frage: 'Wann operieren Sie den Patienten?', reaktion: 'Symptomatische Steine werden laparoskopisch entfernt, bei ihm zeitnah und geplant. Wird daraus eine Cholezystitis, innerhalb von 24 Stunden nach Aufnahme.' },
           ],
         },
         {
@@ -9388,7 +9388,7 @@ export function seedCases(): Case[] {
       ],
       examinerQuestions: [
         'Was hat die Patientin? Wie lautet Ihre Verdachtsdiagnose?',
-        'Warum eine Zystitis und nicht eine Pyelonephritis?',
+        'Warum denken Sie an eine Zystitis und nicht an eine Pyelonephritis?',
         'Was bedeutet der Begriff „Zystitis“? Erklären Sie ihn so, dass die Patientin ihn versteht.',
         'Welche Differenzialdiagnosen kommen bei einer jungen, sexuell aktiven Frau in Betracht?',
         'Wie diagnostizieren Sie einen Harnwegsinfekt, und wie erfolgt die Probenentnahme?',
@@ -9397,7 +9397,7 @@ export function seedCases(): Case[] {
         'Welcher Erreger ist am häufigsten verantwortlich?',
         'Wann ist eine Harnwegsinfektion kompliziert?',
         'Welches Antibiotikum geben Sie, in welcher Dosis und wie lange?',
-        'Warum kein Ciprofloxacin?',
+        'Warum geben Sie kein Ciprofloxacin?',
         'Die Patientin ist gegen Penicillin allergisch — was bedeutet das für Ihre Auswahl?',
         'Kann man eine Zystitis auch ohne Antibiotikum behandeln?',
         'Was tun Sie, wenn es der Patientin nach drei Tagen nicht besser geht?',
@@ -9430,7 +9430,7 @@ export function seedCases(): Case[] {
               reaktion: 'am ehesten eine akute unkomplizierte Zystitis, also eine Harnwegsinfektion des unteren Harntrakts bei einer 26-jährigen, nicht schwangeren, sexuell aktiven Patientin.',
             },
             {
-              frage: 'Warum eine Zystitis und nicht eine Pyelonephritis?',
+              frage: 'Warum denken Sie an eine Zystitis und nicht an eine Pyelonephritis?',
               reaktion: 'weil ausschließlich Symptome der unteren Harnwege bestehen — Brennen beim Wasserlassen, Pollakisurie, imperativer Harndrang und suprapubischer Druck —, während Fieber, Schüttelfrost, Flankenschmerz, ein klopfschmerzhaftes Nierenlager und eine Beeinträchtigung des Allgemeinzustands ausdrücklich fehlen; die Patientin hat selbst 37,1 °C gemessen.',
             },
             {
@@ -9497,7 +9497,7 @@ export function seedCases(): Case[] {
               reaktion: 'Fosfomycin-Trometamol 3 g oral als Einmalgabe zur Nacht, alternativ Nitrofurantoin retard 100 mg zweimal täglich über fünf Tage.',
             },
             {
-              frage: 'Warum kein Ciprofloxacin?',
+              frage: 'Warum geben Sie kein Ciprofloxacin?',
               reaktion: 'weil Fluorchinolone bei der unkomplizierten Zystitis keine Erstlinie sind: Kollateralschaden an der Standortflora, Resistenzentwicklung und schwerwiegende Nebenwirkungen wie Tendinopathien, Aortenaneurysmen und ZNS-Störungen.',
             },
             {
@@ -9978,7 +9978,7 @@ export function seedCases(): Case[] {
         'Welche Differenzialdiagnosen kommen in Betracht — und wie können wir sie ausschließen?',
         'Was machen wir bei der neurologischen Untersuchung, und welchen Befund erwarten Sie?',
         'Wie können wir eine Meningitis ausschließen?',
-        'Und wie eine Borreliose? Wie eine FSME?',
+        'Wie schließen Sie eine Borreliose und eine FSME aus?',
         'Was kann ich im Labor finden?',
         'Wir könnten ein EEG machen — was würden Sie bei einer Migräne darin finden?',
         'Welche Therapie wäre die beste?',
@@ -10049,7 +10049,7 @@ export function seedCases(): Case[] {
               reaktion: 'Erwartet: Fieber messen, Meningismus prüfen (Nackensteifigkeit, Brudzinski, Kernig), Entzündungsparameter — und bei begründetem Verdacht die Lumbalpunktion mit Zellzahl, Eiweiß, Glukose, Laktat und Kultur. Hier fehlen Fieber und Meningismus vollständig.',
             },
             {
-              frage: 'Und wie eine Borreliose? Wie eine FSME?',
+              frage: 'Wie schließen Sie eine Borreliose und eine FSME aus?',
               reaktion: 'Borreliose: Anamnese nach Zeckenstich und Erythema migrans, Borrelien-Serologie im Serum, bei Neuroborreliose Liquor mit lymphozytärer Pleozytose und intrathekaler Antikörperbildung. FSME: Zeckenstich in einem Endemiegebiet, zweigipfliger Verlauf, Impfstatus, FSME-IgM und -IgG in Serum und Liquor. Die Patientin verneint jeden Zeckenstich.',
             },
             {
@@ -11290,7 +11290,7 @@ export function seedCases(): Case[] {
               reaktion: 'Erst nach mindestens drei Monaten vollständiger, auftitrierter Vierfachtherapie mit erneuter Echokardiographie. Ein ICD bei einer LVEF von 35 % oder weniger, bei ischämischer Genese besonders gut belegt; eine CRT bei einer LVEF von 35 % oder weniger mit Linksschenkelblock und einer QRS-Dauer von mindestens 130 bis 150 ms — wobei bei permanentem Vorhofflimmern der Nutzen geringer ist als im Sinusrhythmus.',
             },
             {
-              frage: 'Welche Therapie gegen das Vorhofflimmern? Warum Apixaban und nicht Marcumar?',
+              frage: 'Wie behandeln Sie das Vorhofflimmern, und warum wählen Sie Apixaban statt Marcumar?',
               reaktion: 'Frequenzkontrolle mit dem Betablocker, gegebenenfalls Digitalis, und Antikoagulation zur Schlaganfallprophylaxe, da der CHA2DS2-VASc-Score durch Alter, Hypertonie, Diabetes, Herzinsuffizienz und Gefässerkrankung deutlich erhöht ist. Direkte orale Antikoagulanzien wie Apixaban werden heute gegenüber Vitamin-K-Antagonisten bevorzugt: kein INR-Monitoring, weniger Interaktionen und ein geringeres Risiko für Hirnblutungen. Bei mechanischer Herzklappe oder hochgradiger Mitralklappenstenose bliebe es bei Marcumar.',
             },
           ],
@@ -11794,7 +11794,7 @@ export function seedCases(): Case[] {
               reaktion: 'Erwartet: praktisch nur, wenn eine Strahlenexposition vermieden werden muss — vor allem in der Schwangerschaft, wenn die Sonographie nicht ausreicht — oder wenn Sonographie und CT die Obstruktionsursache nicht klären und Weichteile beurteilt werden müssen. Für den Steinnachweis ist die MRT dem CT unterlegen.',
             },
             {
-              frage: 'Warum ein CT? Und mit oder ohne Kontrastmittel?',
+              frage: 'Warum veranlassen Sie ein CT, und machen Sie es mit oder ohne Kontrastmittel?',
               reaktion: 'Erwartet: natives Low-Dose-CT OHNE Kontrastmittel. Begründung: es erfasst alle Steine einschließlich der röntgennegativen Harnsäuresteine, zeigt Größe, Lage und Dichte sowie den Stauungsgrad und schließt Appendizitis, Divertikulitis und Aortenaneurysma aus. Wer Kontrastmittel nennt, muss mit der Rückfrage nach Nierenfunktion und Metformin rechnen.',
             },
             {
@@ -11819,7 +11819,7 @@ export function seedCases(): Case[] {
               reaktion: 'Erwartet: Blut abnehmen — Blutbild und vor allem BLUTKULTUREN, dazu die Urinkultur, und zwar vor der ersten Antibiotikagabe.',
             },
             {
-              frage: 'Welche Analgetika? Welche Spasmolytika?',
+              frage: 'Welche Analgetika und welche Spasmolytika setzen Sie ein?',
               reaktion: 'Erwartet: Metamizol 1 g als Kurzinfusion oder ein nichtsteroidales Antirheumatikum wie Diclofenac als Mittel der ersten Wahl, weil sie über die Prostaglandinhemmung zusätzlich Ödem und Nierenbeckendruck senken; Butylscopolamin als Spasmolytikum ergänzend; bei unzureichender Wirkung ein Opioid wie Piritramid. Bei diesem Patienten Zurückhaltung mit nichtsteroidalen Antirheumatika, bis das Kreatinin vorliegt.',
             },
             {
@@ -11827,7 +11827,7 @@ export function seedCases(): Case[] {
               reaktion: 'Erwartet: sofortiges Ausweichen auf ein nichtsteroidales Antirheumatikum (Diclofenac, Indometacin) bei guter Nierenfunktion oder auf ein Opioid; Butylscopolamin ergänzend. Kein Metamizol, auch nicht in anderer Darreichungsform. (In Reutlingen war die Novalgin-Allergie der zentrale Prüfpunkt.)',
             },
             {
-              frage: 'Welches Antibiotikum, und wie lange?',
+              frage: 'Welches Antibiotikum geben Sie, und wie lange?',
               reaktion: 'Erwartet: kalkulierte intravenöse Antibiose innerhalb einer Stunde nach Abnahme der Kulturen, zum Beispiel Ceftriaxon 2 g täglich oder Piperacillin/Tazobactam je nach lokaler Resistenzlage, anschließend Deeskalation nach Antibiogramm; Gesamtdauer sieben bis vierzehn Tage.',
             },
             {
@@ -12359,7 +12359,7 @@ export function seedCases(): Case[] {
               reaktion: 'Nicht zur Akutdiagnostik — er steigt erst nach ein bis drei Wochen und belegt nur einen stattgehabten Streptokokkenkontakt. Er ist sinnvoll, wenn zwei bis drei Wochen später der Verdacht auf ein rheumatisches Fieber oder eine Poststreptokokken-Glomerulonephritis besteht.',
             },
             {
-              frage: 'Warum ein Röntgen-Thorax bei einer Halsentzündung?',
+              frage: 'Warum veranlassen Sie bei einer Halsentzündung ein Röntgen-Thorax?',
               reaktion: 'Weil der Patient seit fünf Tagen hustet, Fieber bis 39,1 °C hat und beidseitige, hustenabhängige Thoraxschmerzen angibt. Damit muss eine Pneumonie ausgeschlossen werden; genau so wurde es im Originalprotokoll dokumentiert.',
             },
           ],
@@ -15644,7 +15644,7 @@ export function seedCases(): Case[] {
               reaktion: 'Erwartet wird die in Freiburg verlangte Sequenz: Der entzündliche Knoten ist druckschmerzhaft, weich bis prall-elastisch, überwärmt, gerötet, gut verschieblich und bildet sich innerhalb von Wochen zurück. Der maligne Knoten ist schmerzlos, derb bis steinhart, nicht überwärmt, gegenüber Haut UND Unterlage fixiert und wächst kontinuierlich. Man prüft ausdrücklich die Verschieblichkeit gegen die Haut und gegen den tiefen Untergrund sowie die Hauttemperatur.',
             },
             {
-              frage: 'Und laborchemisch?',
+              frage: 'Wie unterscheiden Sie einen entzündlichen von einem malignen Lymphknoten laborchemisch?',
               reaktion: 'Erwartet wird: über das Blutbild mit Differenzialblutbild und die Entzündungsparameter. Beim bakteriellen Infekt Leukozytose mit Neutrophilie und hohes CRP; beim Hodgkin-Lymphom eher Lymphopenie, Eosinophilie, Anämie der chronischen Erkrankung, eine stark erhöhte BSG und eine erhöhte LDH bei nur mäßigem CRP. Dazu die Serologien für EBV, CMV, Toxoplasmose, HIV und Hepatitis sowie ein Interferon-Gamma-Release-Assay.',
             },
           ],
@@ -22802,15 +22802,15 @@ export function seedCases(): Case[] {
               reaktion: 'Erwartet wird eine geordnete Aufzählung: Inspektion beider Hände im Seitenvergleich mit Blick auf die Thenaratrophie, Flaschenzeichen, Sensibilitätsprüfung im Medianusgebiet mit Zweipunktdiskrimination und Stereognosie einschließlich des Kleinfingers, Kraftprüfung der Daumenabduktion und -opposition, anschließend die Provokationstests Phalen, Hoffmann-Tinel und Durkan. Ergänzend Halswirbelsäule, Schulter, Ellenbogen und neurologischer Status.',
             },
             {
-              frage: 'Welche Tests genau?',
+              frage: 'Welche klinischen Tests führen Sie genau durch?',
               reaktion: 'Phalen-Test: maximale Beugung im Handgelenk über 60 Sekunden löst die Parästhesien aus. Hoffmann-Tinel-Zeichen: Beklopfen des Karpaltunnels erzeugt einschießende Missempfindungen in die Finger. Durkan-Karpalkompressionstest: 30 Sekunden Daumendruck über dem Retinaculum flexorum. Die Kommission reagierte in Reutlingen ausdrücklich positiv auf die namentliche Nennung von Phalen und Hoffmann-Tinel.',
             },
             {
-              frage: 'Was noch?',
+              frage: 'Was veranlassen Sie darüber hinaus?',
               reaktion: 'Die Elektroneurographie des Nervus medianus im Seitenvergleich: verlängerte distale motorische Latenz über 4,2 ms und verminderte sensible Nervenleitgeschwindigkeit über dem Karpaltunnelsegment. Bei der sichtbaren Thenaratrophie zusätzlich eine Elektromyographie des Musculus abductor pollicis brevis. Dazu eine hochauflösende Nervensonographie mit vergrößerter Querschnittsfläche des Nervs.',
             },
             {
-              frage: 'Und welches Labor?',
+              frage: 'Welche Laborwerte bestimmen Sie?',
               reaktion: 'Blutbild, CRP und BSG sowie gezielt Nüchternblutzucker, HbA1c und TSH, außerdem Kreatinin und Elektrolyte. Bei Verdacht auf eine rheumatische Genese Rheumafaktor und Anti-CCP-Antikörper.',
             },
             {
@@ -23358,7 +23358,7 @@ export function seedCases(): Case[] {
               reaktion: 'Die PTBS setzt ein Trauma voraus, und die Angst ist an Trigger gebunden, begleitet von Intrusionen, Flashbacks, Albträumen und Übererregbarkeit. Frau Hartmann berichtet kein Trauma, kein Wiedererleben und keine Albträume; ihre Attacken kommen unerwartet, teils sogar aus dem Schlaf heraus, und im Vordergrund steht die Erwartungsangst.',
             },
             {
-              frage: 'Und gegenüber einer generalisierten Angststörung?',
+              frage: 'Wie grenzen Sie die Panikstörung gegen eine generalisierte Angststörung ab?',
               reaktion: 'Bei der generalisierten Angststörung besteht eine anhaltende, frei flottierende Dauersorge über Monate ohne abgrenzbare Attacken. Frau Hartmann ist zwischen den Anfällen beschwerdefrei; ihre Sorge richtet sich ausschließlich auf den nächsten Anfall.',
             },
           ],
@@ -24421,7 +24421,7 @@ export function seedCases(): Case[] {
               reaktion: 'Erwartet wird die Rechnung: drei bis vier Tabletten à 500 mg sind 1,5 bis 2 g täglich, die Tageshöchstdosis liegt bei 4 g — eine Intoxikation liegt nicht vor, und die Beschwerden begannen vor der Einnahme. Relevanter sind die seit zwei Monaten eingenommenen Grüntee-Extrakt-Kapseln als bekanntes Hepatotoxin; beides wird abgesetzt, die Serologie entscheidet.',
             },
             {
-              frage: 'Und eine alkoholische Hepatitis?',
+              frage: 'Kommt auch eine alkoholische Hepatitis in Betracht?',
               reaktion: 'Erwartet wird die Quantifizierung: zwei bis drei Bier nur am Wochenende, also etwa 60 g Alkohol pro Woche und damit rund 9 g pro Tag, weit unter der Risikoschwelle von 24 g täglich für Männer. Im Labor spräche bei Alkohol die GOT über der GPT mit De-Ritis-Quotient über 2, hier wird die GPT deutlich höher erwartet.',
             },
           ],
@@ -29485,7 +29485,7 @@ export function seedCases(): Case[] {
               reaktion: 'Erwartet wird Alltagssprache: Röntgen als kurze Aufnahme mit geringer Strahlenbelastung, um den Bruch und seinen Verlauf zu sehen, zwei Aufnahmerichtungen, kein Kontrastmittel, dauert wenige Minuten. CT des Kopfes als Schichtaufnahme, um eine Blutung auszuschließen, weil ein Aufschlagen des Kopfes nicht sicher auszuschließen ist und sie blutverdünnende Tabletten nimmt; ebenfalls Röntgenstrahlen, kein Kontrastmittel nötig, sie muss nur einige Minuten ruhig liegen. Rückversicherungsfragen stellen.',
             },
             {
-              frage: 'Und die Aufklärung über die Hüftoperation?',
+              frage: 'Klären Sie die Patientin bitte auch über die Hüftoperation auf.',
               reaktion: 'Erwartet wird: Erklärung, dass der Oberschenkelhals gebrochen ist und ein künstliches Hüftgelenk beziehungsweise ein Ersatz des Gelenkkopfes eingesetzt wird; Ablauf mit Narkosegespräch, Nüchternheit, Operationsdauer, Wundverschluss; Betäubungsverfahren (Rückenmarksnahe Betäubung oder Vollnarkose); allgemeine Risiken wie Blutung, Bluterguss, Transfusion, Infektion, Thrombose und Embolie, Nerven- und Gefäßverletzung, Wundheilungsstörung; spezifische Risiken wie Auskugeln des künstlichen Gelenks, Beinlängendifferenz, Lockerung im Verlauf, periprothetische Fraktur; und der Nutzen: rasche Schmerzfreiheit und Mobilisation am ersten Tag. Abschluss mit Bedenkzeit, Rückfragen und Einbeziehung der Tochter.',
             },
           ],
@@ -29982,7 +29982,7 @@ export function seedCases(): Case[] {
               reaktion: 'Nein, derzeit nicht. Ein Abstrich ist nur bei klinischen Infektzeichen indiziert. Nähme ich ihn ohne Klinik ab, fände ich Keime der Besiedelung und würde zu einer unnötigen Antibiose verleitet. Falls doch Infektzeichen auftreten, entnehme ich eine tiefe Gewebeprobe nach Wundreinigung, nicht einen oberflächlichen Wattetupfer.',
             },
             {
-              frage: 'Wann biopsieren Sie?',
+              frage: 'Wann entnehmen Sie eine Biopsie?',
               reaktion: 'Bei atypischem Aspekt, aufgeworfenem oder unterminiertem Rand, ungewöhnlicher Lokalisation oder wenn die Wunde nach drei Monaten leitliniengerechter Therapie keine Heilungstendenz zeigt. Ziel ist der Ausschluss eines Ulkuskarzinoms, einer Vaskulitis oder eines Pyoderma gangraenosum; entnommen wird spindelförmig vom Rand mit Anteil gesunder Haut.',
             },
           ],
@@ -30401,7 +30401,7 @@ export function seedCases(): Case[] {
         'Worüber müssen Sie den Patienten vor der Operation aufklären?',
         'Warum hat gerade dieser Patient eine Hernie entwickelt? Nennen Sie seine Risikofaktoren.',
         'Wie lange darf der Patient nach der Operation nicht schwer heben — und was bedeutet das für seinen Beruf?',
-        'Wie wurde die Hernie behandelt? (Frage an einen Patienten mit Leistenhernie in der Vorgeschichte — Stuttgart, 15.05.2023)',
+        'Wie wurde die frühere Leistenhernie des Patienten behandelt?',
         'Wie sagen Sie auf Deutsch: Hernia inguinalis, Hernia umbilicalis, Hernie, Bruchpforte, Bruchsack?',
       ],
       pruefungsfallen: [
@@ -31572,7 +31572,7 @@ export function seedCases(): Case[] {
               reaktion: 'Erwartet wird die Gegenfrage des Kandidaten an sich selbst: Ist sie gestürzt, weil sie bewusstlos wurde, oder wurde sie bewusstlos, weil sie gestürzt ist? Für den mechanischen Sturz sprechen der von einer Zeugin bestätigte Anlass — ein Kind mit Ball, Vollbremsung — und das Fehlen jeglicher Prodromi. Wegen des Typ-1-Diabetes mit Insulinpumpe, der geringen Nahrungsaufnahme mittags und eines Sensorwerts von 79 mg/dl kurz vor dem Unfall müssen Blutzucker, Sensor- und Pumpendaten sowie ein EKG dennoch ausgewertet werden.',
             },
             {
-              frage: 'Warum kein Tumor?',
+              frage: 'Was spricht gegen einen Tumor?',
               reaktion: 'Gegen eine Raumforderung sprechen der schlagartige Beginn exakt mit dem Trauma, das Fehlen einer Vorgeschichte mit langsam zunehmenden, morgendlich betonten Kopfschmerzen, das Fehlen von Wesensänderung, Krampfanfall, Stauungspapille und fokalen Defiziten. Ein Tumor würde ohnehin im CT auffallen.',
             },
             {
@@ -32087,7 +32087,7 @@ export function seedCases(): Case[] {
               reaktion: 'Am Blutungstyp. Petechiale, flächige Haut- und Schleimhautblutungen mit sofortiger Nachblutung sprechen für einen thrombozytären Defekt. Große Muskel-, Weichteil- und Gelenkblutungen mit verzögerter Nachblutung sprechen für einen plasmatischen Gerinnungsdefekt, also für eine Hämophilie. Die Hämophilie ist zudem X-chromosomal-rezessiv und beträfe fast nur Männer.',
             },
             {
-              frage: 'Und das von-Willebrand-Syndrom?',
+              frage: 'Wie grenzen Sie das von-Willebrand-Syndrom ab?',
               reaktion: 'Es passt zum Blutungsmuster mit Nasenbluten und Menorrhagie, ginge aber mit einer normalen Thrombozytenzahl einher und wäre lebenslang vorhanden. Hier gab es weder nach der Weisheitszahnentfernung noch nach der Appendektomie oder der Geburt eine Nachblutung, und die Familienanamnese ist leer. Klärung über von-Willebrand-Faktor, Faktor VIII und aPTT.',
             },
           ],
@@ -32112,7 +32112,7 @@ export function seedCases(): Case[] {
               reaktion: 'Bei der ITP sind Quick-Wert, aPTT und Fibrinogen normal, da nur die Thrombozytenzahl vermindert ist. Pathologische Werte mit erniedrigtem Quick, verlängerter aPTT, niedrigem Fibrinogen und erhöhten D-Dimeren sprächen für eine Verbrauchskoagulopathie; ein isoliert erniedrigter Quick-Wert mit niedrigem Albumin für eine Lebersynthesestörung.',
             },
             {
-              frage: 'Wozu die Sonographie des Abdomens?',
+              frage: 'Wozu dient die Sonographie des Abdomens?',
               reaktion: 'Vor allem zur Beurteilung der Milzgröße. Eine Splenomegalie spricht GEGEN eine primäre ITP und lenkt auf einen Hypersplenismus bei Leberzirrhose, ein Lymphom oder eine Leukämie. Zusätzlich beurteilt man Leber und abdominelle Lymphknoten.',
             },
             {
@@ -32687,7 +32687,7 @@ export function seedCases(): Case[] {
               reaktion: 'Ob das Cavum uteri durch ein submuköses Myom deformiert ist. Bei deformiertem Cavum ist das Levonorgestrel-Intrauterinsystem ungeeignet, wirkt schlechter und wird häufig ausgestoßen. Deshalb erst Vaginalsonographie beziehungsweise Hydrosonographie oder Hysteroskopie, dann die Entscheidung.',
             },
             {
-              frage: 'Wozu dienen GnRH-Analoga?',
+              frage: 'Wozu dienen GnRH-Analoga bei Myomen?',
               reaktion: 'Ausschließlich zur befristeten präoperativen Verkleinerung des Myoms und zur Anhebung des Hämoglobins vor einem Eingriff, über maximal drei bis sechs Monate. Sie versetzen die Patientin in einen hypoöstrogenen Zustand mit Hitzewallungen und Knochendichteverlust und sind deshalb keine Dauertherapie; nach dem Absetzen wachsen die Myome wieder.',
             },
             {
@@ -34342,7 +34342,7 @@ export function seedCases(): Case[] {
               reaktion: 'Bei der Polymyalgia rheumatica ist die Kraft bei geduldiger Prüfung ERHALTEN und es besteht keine Muskelatrophie — der Patient kommt vor Schmerz nicht hoch, nicht vor Schwäche. Die Kreatinkinase ist normal. Bei der Myositis besteht eine echte proximale Parese, die CK ist deutlich erhöht, das EMG pathologisch und die Muskelbiopsie beweisend.',
             },
             {
-              frage: 'Und gegen eine Fibromyalgie?',
+              frage: 'Wie grenzen Sie die Erkrankung gegen eine Fibromyalgie ab?',
               reaktion: 'Bei der Fibromyalgie sind Blutsenkung und CRP NORMAL, es fehlen B-Symptomatik und Gewichtsverlust, die Patientinnen sind meist deutlich jünger, die Schmerzen sind generalisiert an definierten Druckpunkten, und Kortison wirkt nicht. Hier haben wir eine 72-jährige Patientin mit Gewichtsverlust, subfebrilen Temperaturen und zu erwartender stark erhöhter Blutsenkung.',
             },
             {
@@ -38073,7 +38073,7 @@ export function seedCases(): Case[] {
               reaktion: 'Über den Schmerzcharakter und die Untersuchung: Der Bandscheibenvorfall macht einen scharfen, einschießenden, streng in EIN Dermatom bis in Zehen oder Fußsohle ziehenden Schmerz, meist einseitig, akut und oft nach Verhebetrauma, verstärkt durch Husten, Niesen und Pressen, mit POSITIVEM Lasègue-Zeichen und segmentalem Reflex- und Kraftausfall. Die Stenose macht beidseitige, pseudoradikuläre, breitflächige Beschwerden ohne Hustenschmerz, mit meist negativem Lasègue-Zeichen — und vor allem mit der typischen Haltungs- und Gehstreckenabhängigkeit.',
             },
             {
-              frage: 'Und die Polyneuropathie?',
+              frage: 'Wie grenzen Sie die Polyneuropathie ab?',
               reaktion: 'Die Polyneuropathie macht strumpfförmige, symmetrische, distal betonte Missempfindungen, die BELASTUNGSUNABHÄNGIG sind und nachts in Ruhe zunehmen, mit abgeschwächtem Achillessehnenreflex und vermindertem Vibrationsempfinden. Unser Patient hat die Missempfindungen ausschließlich beim Gehen und ist nachts völlig beschwerdefrei. Abklärung mit HbA1c, Vitamin B12 und Elektroneurographie.',
             },
           ],
@@ -38546,7 +38546,7 @@ export function seedCases(): Case[] {
         'Wo befindet sich der Bandscheibenvorfall — welches Segment und welche Wurzel sind betroffen, und woran machen Sie das fest?',
         'Welche Wurzelsyndrome der Halswirbelsäule kennen Sie? Nennen Sie Dermatom, Kennmuskel und Reflex für C6, C7 und C8.',
         'Was sind die Differenzialdiagnosen, und warum sind sie bei diesem Patienten unwahrscheinlich?',
-        'Woran müssen Sie bei Schmerzen mit Ausstrahlung in den Arm unbedingt auch denken? (Angina pectoris, koronare Herzkrankheit)',
+        'Woran müssen Sie bei Schmerzen mit Ausstrahlung in den Arm unbedingt auch denken?',
         'Welche Untersuchungen führen Sie durch? Welche klinischen Tests kennen Sie?',
         'Erklären Sie das Spurling-Zeichen und das Lhermitte-Zeichen.',
         'Warum ist das MRT besser als das CT? Was erwarten Sie im MRT zu finden?',
@@ -42034,7 +42034,7 @@ export function seedCases(): Case[] {
               reaktion: 'Die Pneumokokkenimpfung an erster Stelle, dazu Haemophilus influenzae Typ b bei Kindern, Pertussis, Masern und Varizellen (beide können durch Pneumonien kompliziert werden), die Herpes-zoster-Impfung sowie neuerdings die RSV-Impfung für ältere Menschen und Risikopatienten.',
             },
             {
-              frage: 'Besteht eine Meldepflicht?',
+              frage: 'Besteht für die Influenza eine Meldepflicht?',
               reaktion: 'Ja: Der direkte Nachweis von Influenzaviren ist nach § 7 Infektionsschutzgesetz namentlich meldepflichtig — gemeldet wird durch das Labor an das Gesundheitsamt. Bei der zoonotischen Influenza besteht darüber hinaus nach § 6 eine namentliche Arztmeldepflicht bereits bei Verdacht, Erkrankung und Tod.',
             },
             {
@@ -43154,7 +43154,7 @@ export function seedCases(): Case[] {
               reaktion: 'Erwartet wird: klinisch sprechen die fehlende Kälteintoleranz — der Patient schwitzt im Gegenteil vermehrt —, der regelmäßige Stuhlgang, das Fehlen von Haarausfall, trockener Haut und Heiserkeit dagegen. Sicher ausgeschlossen wird sie über das TSH, gegebenenfalls ergänzt um freies T4.',
             },
             {
-              frage: 'Und das Cushing-Syndrom?',
+              frage: 'Wie schließen Sie ein Cushing-Syndrom aus?',
               reaktion: 'Erwartet wird: Es fehlen Vollmondgesicht, Stiernacken, breite rot-livide Striae, Hämatomneigung und vor allem die proximale Muskelschwäche. Der Patient nimmt keine Glukokortikoide. Ausschluss über den 1-mg-Dexamethason-Hemmtest, alternativ freies Cortisol im 24-Stunden-Urin oder Mitternachts-Speichelcortisol.',
             },
             {
@@ -46427,7 +46427,7 @@ export function seedCases(): Case[] {
               reaktion: 'Pneumonie und ARDS, bakterielle Superinfektion, Lungenembolie und tiefe Beinvenenthrombose, Myokarditis und Perikarditis, Rhythmusstörungen, akutes Nierenversagen, Sepsis, neurologische Manifestationen (Enzephalopathie, Schlaganfall, Delir) und das Post-COVID-Syndrom.',
             },
             {
-              frage: 'Ist COVID-19 meldepflichtig?',
+              frage: 'Ist eine COVID-19-Erkrankung meldepflichtig?',
               reaktion: 'Ja, namentlich nach dem Infektionsschutzgesetz: der Arzt meldet Verdacht, Erkrankung und Tod nach § 6, das Labor den Erregernachweis nach § 7 an das Gesundheitsamt, innerhalb von 24 Stunden.',
             },
             {
@@ -46818,7 +46818,7 @@ export function seedCases(): Case[] {
         'Was hören Sie bei der Auskultation?',
         'Was geben Sie bei einem Bronchospasmus?',
         'Welche Maßnahme ist die wichtigste, und in welcher Dosis und auf welchem Weg geben Sie Adrenalin?',
-        'Warum nicht zuerst Kortison und ein Antihistaminikum?',
+        'Warum geben Sie nicht zuerst Kortison und ein Antihistaminikum?',
         'Wie lagern Sie die Patientin?',
         'Welche Differenzialdiagnosen kommen in Betracht?',
         'Welche Laboruntersuchung sichert die Diagnose im Nachhinein, und wann nehmen Sie sie ab?',
@@ -47726,7 +47726,7 @@ export function seedCases(): Case[] {
             label: 'Antibiotische Therapie mit klarem Ziel',
             items: [
               'Azithromycin 500 mg am Tag 1, dann 250 mg am Tag 2–5 (insgesamt 5 Tage) — Alternativen Clarithromycin 2 × 500 mg über 7 Tage oder Erythromycin über 14 Tage; bei Makrolid-Unverträglichkeit Cotrimoxazol 2 × 960 mg über 14 Tage',
-              'Sofortiger Beginn bei klinischem Verdacht, ohne das PCR- oder Serologieergebnis abzuwarten — bei sechs Wochen Husten ist die Indikation wegen des Kontakts zu einer Schwangeren und einem Säugling ausdrücklich noch gegeben (bis 6 Wochen nach Hustenbeginn bei Kontakt zu Risikopersonen)',
+              'Sofortiger Beginn bei klinischem Verdacht, ohne das PCR- oder Serologieergebnis abzuwarten. Behandelt wird, solange Erreger ausgeschieden werden: bis 3 Wochen nach Beginn des Stadium convulsivum, bei Säuglingen und Schwangeren selbst bis 6 Wochen nach Hustenbeginn. Seine Anfälle begannen vor gut vier Wochen, eine Ausscheidung ist also nur noch wenig wahrscheinlich; wegen der Schwangeren kurz vor der Entbindung und der Nichte im Säuglingsalter wird er trotzdem behandelt, vorrangig werden aber Ehefrau und Nichte untersucht und erhalten die Chemoprophylaxie',
               'Dem Patienten EHRLICH erklären: Das Antibiotikum wird seinen Husten kaum verkürzen — die Schäden am Flimmerepithel sind gesetzt —, aber es beendet die Ansteckungsfähigkeit innerhalb von 5 Tagen. „Wir behandeln Sie, um Ihre Frau und die kleine Nichte zu schützen“',
               'Ibuprofen wegen der Rippe kann fortgeführt werden; Azithromycin ohne relevante Interaktion mit Cetirizin oder Ibuprofen; Cave Dextromethorphan absetzen (keine Wirkung, Übelkeit)',
             ],
@@ -48923,7 +48923,7 @@ export function seedCases(): Case[] {
               reaktion: 'Elastase-1 im Stuhl: unter 200 µg/g pathologisch, unter 100 µg/g schwer. Die Steatorrhoe erscheint erst, wenn über 90 % der exokrinen Funktion verloren sind — sie ist ein Spätzeichen.',
             },
             {
-              frage: 'Welche Bildgebung, in welcher Reihenfolge? Wozu die ERCP?',
+              frage: 'Welche Bildgebung veranlassen Sie in welcher Reihenfolge, und wozu dient die ERCP?',
               reaktion: 'Sonographie als erster Schritt (Verkalkungen, Gangerweiterung, Pseudozysten, Leber, Gallenwege), dann CT mit Kontrastmittel (Verkalkungen nahezu beweisend, Karzinomausschluss), MRT mit MRCP für das Gangsystem, Endosonographie als sensitivste Methode mit Punktionsmöglichkeit. Die ERCP ist keine Diagnostik mehr, sondern nur noch Therapie — Stent, Steinextraktion, Papillotomie.',
             },
             {
@@ -49356,7 +49356,7 @@ export function seedCases(): Case[] {
         'Warum nehmen Sie den Patienten stationär auf?',
         'Wie lange darf er keinen Sport treiben, und wann geben Sie ihn wieder frei?',
         'Welche Komplikationen fürchten Sie?',
-        'Die wichtigste Komplikation beim rheumatischen Fieber?',
+        'Was ist die wichtigste Komplikation beim rheumatischen Fieber?',
         'Der Patient ist Sportlehrer und will nächste Woche wieder unterrichten. Klären Sie ihn über die Diagnose und das Sportverbot auf.',
       ],
       pruefungsfallen: [
@@ -49464,7 +49464,7 @@ export function seedCases(): Case[] {
               reaktion: 'Maligne Arrhythmien und plötzlicher Herztod, AV-Block, akute Herzinsuffizienz bis zum kardiogenen Schock, Ventrikelthromben, Perikarderguss mit Tamponade und langfristig die dilatative Kardiomyopathie bei etwa 20 bis 30 Prozent der Patienten mit eingeschränkter Pumpfunktion. Beim leichten Verlauf mit erhaltener Pumpfunktion ist die Prognose gut mit Ausheilung innerhalb von Wochen bis Monaten.',
             },
             {
-              frage: 'Die wichtigste Komplikation beim rheumatischen Fieber?',
+              frage: 'Was ist die wichtigste Komplikation beim rheumatischen Fieber?',
               reaktion: 'Die Karditis, als Pankarditis mit Myokarditis, Endokarditis und Perikarditis. Bleibende Schäden entstehen an den Klappen, vor allem die Mitralstenose. Diagnostik über Antistreptolysin-Titer, CRP, BSG, EKG mit PQ-Verlängerung und Echokardiographie; Prophylaxe mit Penicillin.',
             },
           ],
@@ -49917,11 +49917,11 @@ export function seedCases(): Case[] {
               reaktion: 'ACE-Hemmer und Sartane senken den intraglomerulären Druck über die Dilatation des Vas efferens und damit die Proteinurie um 30–50 % — sie sind bei jedem nephrotischen Syndrom indiziert, auch bei normalem Blutdruck. Ramipril einschleichend, Kontrolle von Kreatinin und Kalium nach ein bis zwei Wochen. Amlodipin hat keine antiproteinurische Wirkung und fördert Ödeme — es wird reduziert oder durch den ACE-Hemmer ersetzt.',
             },
             {
-              frage: 'Wann antikoagulieren Sie?',
+              frage: 'Wann antikoagulieren Sie den Patienten?',
               reaktion: 'Prophylaktisch bei Albumin unter etwa 20–25 g/l plus Risikofaktoren — hier wahrscheinlich gegeben: membranöse GN, hohe Proteinurie, Immobilität —, mit niedermolekularem Heparin, später ggf. Vitamin-K-Antagonist bis zur Remission; therapeutisch bei nachgewiesener Thrombose oder Lungenembolie über mindestens 6–12 Monate. Cave: Heparin wirkt bei Antithrombin-III-Mangel schwächer.',
             },
             {
-              frage: 'Und die kausale Therapie?',
+              frage: 'Wie sieht die kausale Therapie aus?',
               reaktion: 'Sie richtet sich nach der Biopsie: bei membranöser GN zunächst 6 Monate konservativ mit RAAS-Blockade wegen möglicher Spontanremission, bei hohem Risiko Rituximab oder Cyclophosphamid plus Glukokortikoide; bei Minimal-Change Prednisolon 1 mg/kg; bei FSGS Glukokortikoide und Calcineurininhibitoren; bei sekundären Formen die Grunderkrankung behandeln — hier in jedem Fall Ibuprofen absetzen.',
             },
             {
@@ -50312,7 +50312,7 @@ export function seedCases(): Case[] {
         'Welche Untersuchung sichert die Diagnose, ab welchem Blastenanteil, und wo punktieren Sie?',
         'Wie unterscheiden Sie eine AML von einer ALL — klinisch und im Labor?',
         'Die Patientin hat 38,6 °C Fieber mit Schüttelfrost. Was tun Sie in der ersten Stunde, und in welcher Reihenfolge?',
-        'Welches Antibiotikum wählen Sie bei dieser Patientin, und warum nicht Piperacillin/Tazobactam?',
+        'Welches Antibiotikum wählen Sie bei dieser Patientin, und warum nicht Piperacillin mit Tazobactam?',
         'Welche vier Notfälle drohen bei der akuten Leukämie, und wie erkennen Sie sie?',
         'Warum ist die akute Promyelozytenleukämie ein eigener Notfall, und womit behandeln Sie sie sofort?',
         'Was ist das Tumorlysesyndrom, welche Laborwerte verändern sich, und wie beugen Sie vor?',
@@ -50372,7 +50372,7 @@ export function seedCases(): Case[] {
               reaktion: 'Vitalparameter und Sepsis-Screening, Isolation, zwei Zugänge, Blutbild mit Differenzialblutbild, Gerinnung, LDH, Harnsäure, Elektrolyte, Kreatinin, CRP, Procalcitonin, Blutgruppe; mindestens zwei Blutkulturpaare, Urinkultur und Rachenabstrich — und dann innerhalb von 60 Minuten die empirische Breitspektrumantibiose, ohne auf das Differenzialblutbild zu warten. Fieber in der Neutropenie ist ein Notfall mit hoher Sterblichkeit bei Verzögerung.',
             },
             {
-              frage: 'Welches Antibiotikum? Und warum nicht Piperacillin/Tazobactam?',
+              frage: 'Welches Antibiotikum geben Sie, und warum nicht Piperacillin mit Tazobactam?',
               reaktion: 'Standard wäre Piperacillin/Tazobactam 3 × 4,5 g i.v.; die Patientin hat aber eine Penicillinallergie mit generalisiertem Exanthem. Daher Meropenem 3 × 1 g i.v. — bei nicht anaphylaktischer Penicillinreaktion ist die Kreuzreaktivität mit Carbapenemen sehr gering — oder Cefepim. Bei Kathetersepsis oder Hautinfektion zusätzlich Vancomycin; bei Fieberpersistenz über 72–96 Stunden Antimykotikum und CT-Thorax.',
             },
             {
@@ -51291,8 +51291,8 @@ export function seedCases(): Case[] {
       ],
       examinerQuestions: [
         'Wie lautet Ihre Verdachtsdiagnose, und warum PTBS?',
-        'Welche Untersuchungen führen Sie bei dieser Patientin durch? — Und? (neurologische Untersuchung)',
-        'Haben Sie andere Differenzialdiagnosen? — Und? (Panikattacke, Depression, Hypothyreose/Hyperthyreose, Anämie)',
+        'Welche Untersuchungen führen Sie bei dieser Patientin durch?',
+        'Welche weiteren Differenzialdiagnosen kommen in Betracht?',
         'Haben Sie an einen Hirntumor gedacht? Was machen Sie bei diesem Verdacht?',
         'Worin unterscheidet sich die PTBS von einer Panikattacke?',
         'Wie haben Sie das Gespräch über den Unfall eröffnet? Was tun Sie, wenn die Patientin nicht darüber sprechen möchte?',
@@ -51780,7 +51780,7 @@ export function seedCases(): Case[] {
       ],
       examinerQuestions: [
         'Stellen Sie uns bitte den Patienten vor. Wie lautet Ihre Verdachtsdiagnose, und was spricht dafür?',
-        'Ist das Psychosomatik?',
+        'Halten Sie die Beschwerden für psychosomatisch?',
         'Manche Kollegen haben den Fall als Depression bezeichnet — wie sehen Sie das?',
         'Haben Sie an einen Hirntumor gedacht? Welche organischen Ursachen müssen Sie ausschließen?',
         'Welche Schilddrüsenwerte bestimmen Sie?',
@@ -51822,7 +51822,7 @@ export function seedCases(): Case[] {
               reaktion: 'Erwartet wird: 32-jähriger Patient mit seit fünf Jahren bestehenden multilokulären Schmerzen (LWS, Nacken/Kopf, beide Knie, Muskulatur), NRS 7/10, ohne erklärenden Befund nach 13 Fachärzten und mehrfacher Bildgebung; Beginn im zeitlichen Zusammenhang mit Trennung und Mobbing, Arbeitsplatzverlust, laufendes Rentenverfahren, Opioid- und NSAR-Dauergebrauch; depressive Begleitsymptomatik mit Schlafstörung, Anhedonie, Antriebsminderung, Gewichtsverlust und passiven Todeswünschen. Verdachtsdiagnose: anhaltende somatoforme Schmerzstörung mit komorbider mittelgradiger depressiver Episode.',
             },
             {
-              frage: 'Ist das Psychosomatik?',
+              frage: 'Halten Sie die Beschwerden für psychosomatisch?',
               reaktion: 'Ja, am ehesten — mit Begründung: Zeitzusammenhang des Beginns mit psychosozialer Belastung, unauffällige umfangreiche Abklärung, depressive Begleitsymptome, familiäres Modell (depressive Mutter, schmerzkranker Vater in Frührente). Zugleich betonen, dass der Schmerz echt ist und im Nervensystem entsteht, und dass ein Basislabor die somatische Abklärung abschließt.',
             },
             {
@@ -52359,7 +52359,7 @@ export function seedCases(): Case[] {
               reaktion: 'In 50 bis 80 % der Fälle, oft zeitversetzt und zunächst beschwerdefrei. Dieser Patient berichtet bereits ein leichtes Ziehen links. Eine früh erkannte Nekrose der Gegenseite kann noch gelenkerhaltend behandelt werden.',
             },
             {
-              frage: 'Wozu das CT?',
+              frage: 'Wozu veranlassen Sie das CT?',
               reaktion: 'Zur genauen Beurteilung einer subchondralen Fraktur und des Einbruchs — der Schmerzsprung in der letzten Woche ist verdächtig — und zur Stadienzuordnung IIIA/IIIB sowie zur Planung einer gelenkerhaltenden Operation.',
             },
             {
@@ -53401,7 +53401,7 @@ export function seedCases(): Case[] {
               reaktion: 'Abhängig von Entität, Stadium und Patientin. Indolente Lymphome: im frühen Stadium Strahlentherapie, sonst Watch and Wait und erst bei Therapiebedürftigkeit Rituximab oder Obinutuzumab plus Bendamustin oder CHOP mit Rituximab-Erhaltung. Aggressive Lymphome: rasch R-CHOP über sechs Zyklen, im frühen Stadium vier Zyklen plus zwei Rituximab, ggf. Strahlentherapie, Tumorlyseprophylaxe, supportive Therapie; im Rezidiv Hochdosistherapie mit autologer Stammzelltransplantation, CAR-T-Zellen oder bispezifische Antikörper. Dazu Nachsorge und Betreuung der Spätfolgen.',
             },
             {
-              frage: 'Was bedeutet R-CHOP?',
+              frage: 'Wofür steht das Schema R-CHOP?',
               reaktion: 'Rituximab — ein Anti-CD20-Antikörper —, Cyclophosphamid, Doxorubicin (Hydroxydaunorubicin), Vincristin (Oncovin) und Prednison, alle 21 Tage. Vor Doxorubicin ist eine Echokardiographie, vor Rituximab eine Hepatitis-B-Serologie nötig; unter Prednison braucht die Patientin wegen der Ulkusanamnese einen Magenschutz.',
             },
             {
@@ -54310,7 +54310,7 @@ export function seedCases(): Case[] {
               reaktion: 'Vitalparameter mit rektaler Temperatur; Abdomen mit Druckschmerz, Abwehrspannung, Loslassschmerz, McBurney, Nierenlager, rechter Oberbauch; gynäkologische Untersuchung: Spekulum (eitriger Zervikalfluor, gerötete Portio), bimanuelle Palpation mit dem entscheidenden Portioschiebeschmerz, Adnexdruckschmerz beidseits, Resistenz als Abszesshinweis.',
             },
             {
-              frage: 'Labor — welche Parameter? Und welche Abstriche?',
+              frage: 'Welche Laborparameter bestimmen Sie, und welche Abstriche entnehmen Sie?',
               reaktion: 'Schwangerschaftstest zuerst. Blutbild mit Leukozytose, CRP, BSG, Kreatinin, Leberwerte, Blutkulturen bei hohem Fieber, Urinstatus und -kultur. Abstriche aus Zervix und Urethra: PCR auf Chlamydien und Gonokokken, Kultur mit Antibiogramm, Nativpräparat (Leukozyten, Clue Cells, Trichomonaden). Mit Einverständnis HIV, Syphilis, Hepatitis B.',
             },
             {
@@ -54347,7 +54347,7 @@ export function seedCases(): Case[] {
               reaktion: 'Eine Perihepatitis durch Ausbreitung der Chlamydien oder Gonokokken entlang des Peritoneums zur Leberkapsel — rechtsseitige, atemabhängige Oberbauchschmerzen, die als Cholezystitis verkannt werden; laparoskopisch „Geigensaiten“-Adhäsionen. Behandlung wie die Adnexitis.',
             },
             {
-              frage: 'Und die Nachsorge?',
+              frage: 'Wie sieht die Nachsorge aus?',
               reaktion: 'Kontrolle nach 48 bis 72 Stunden, Therapie über volle 14 Tage, Test of cure bei Gonokokken, Re-Screening nach drei bis sechs Monaten, jährliches Chlamydienscreening bis 25 als Kassenleistung, Kondomberatung, Hepatitis-B-Impfstatus, frühe Vorstellung bei jeder späteren Schwangerschaft, Abklärung der Tubendurchgängigkeit bei späterem unerfülltem Kinderwunsch, Raucherentwöhnung.',
             },
           ],
@@ -55243,7 +55243,7 @@ export function seedCases(): Case[] {
               reaktion: 'Eine Leukopenie oder normale Leukozytenzahl mit Eosinopenie bis Aneosinophilie trotz schwerer bakterieller Infektion; dazu mäßige Thrombozytopenie, Anämie, erhöhte Transaminasen, Hyponatriämie.',
             },
             {
-              frage: 'Warum die Blutkulturen vor dem Antibiotikum?',
+              frage: 'Warum nehmen Sie die Blutkulturen vor dem Antibiotikum ab?',
               reaktion: 'Weil die Trefferquote in der ersten Woche 60 bis 80 Prozent beträgt und unter Antibiose drastisch sinkt; ohne Isolat kein Antibiogramm, und die Resistenzlage bestimmt die Therapie.',
             },
           ],
@@ -55252,11 +55252,11 @@ export function seedCases(): Case[] {
           title: 'Therapie und Komplikationen',
           interactions: [
             {
-              frage: 'Wie behandeln Sie?',
+              frage: 'Wie behandeln Sie den Patienten?',
               reaktion: 'Stationäre Aufnahme mit Kontaktisolierung, nach Kulturabnahme Ceftriaxon 2 g intravenös täglich, alternativ Azithromycin oral beim unkomplizierten Verlauf, Ciprofloxacin nur bei nachgewiesener Empfindlichkeit, Carbapenem bei extensiver Resistenz; Dauer 10 bis 14 Tage, Anpassung nach Antibiogramm. Flüssigkeit, Elektrolyte, Fiebersenkung, Überwachung von Puls, Bewusstsein und Abdomen.',
             },
             {
-              frage: 'Warum nicht gleich Ciprofloxacin?',
+              frage: 'Warum geben Sie nicht gleich Ciprofloxacin?',
               reaktion: 'Wegen der verbreiteten Fluorchinolonresistenz in Südasien und zunehmend in Afrika; aus Pakistan sind extensiv resistente Stämme bekannt, die auch Ceftriaxon nicht mehr ansprechen — dann Azithromycin oder Meropenem.',
             },
             {
@@ -56793,7 +56793,7 @@ export function seedCases(): Case[] {
               reaktion: 'Erstens Aufklärung und Aktivierung: gute Prognose erklären, Alltagsaktivität beibehalten, keine Bettruhe, kurze Krankschreibung mit Rückkehrziel, rückengerechtes Heben. Zweitens zeitlich begrenzte Medikation: Ibuprofen 3 × 400 bis 600 mg mit Pantoprazol wegen des Refluxes, maximal zwei Wochen; Metamizol als Alternative; kurz ein Muskelrelaxans bei Hartspann; keine Opioide, kein Kortison, keine Injektion. Drittens aktive Verfahren: Krankengymnastik mit Kräftigung der Rumpfmuskulatur, Wärme, manuelle Therapie als Ergänzung. Viertens Wiedervorstellung in ein bis zwei Wochen.',
             },
             {
-              frage: 'Warum kein Paracetamol, und warum keine Opioide?',
+              frage: 'Warum geben Sie kein Paracetamol und keine Opioide?',
               reaktion: 'Paracetamol war beim Kreuzschmerz in Studien nicht wirksamer als Placebo und wird von der Nationalen VersorgungsLeitlinie nicht mehr empfohlen. Opioide haben beim akuten unspezifischen Kreuzschmerz keinen Platz: kein Nutzen gegenüber NSAR, Sedierung, Abhängigkeitsrisiko und Förderung der Passivität — beim chronischen Verlauf allenfalls zeitlich begrenzt im multimodalen Konzept.',
             },
             {
@@ -57715,7 +57715,7 @@ export function seedCases(): Case[] {
         'Schließt ein unauffälliges EKG oder ein normales Röntgenbild die Dissektion aus? Wozu dient das D-Dimer?',
         'Der Patient hat zu Hause Aspirin bekommen. Was bedeutet das für Sie — und was dürfen Sie jetzt auf keinen Fall geben?',
         'Wie behandeln Sie den Patienten in der Notaufnahme? Welche Zielwerte für Blutdruck und Herzfrequenz streben Sie an?',
-        'Warum kein Vasodilatator ohne Betablocker?',
+        'Warum geben Sie keinen Vasodilatator ohne Betablocker?',
         'Warum ist das linke Bein kalt? Was bedeutet das für die Prognose?',
         'Wie wird der Typ A operiert, und wie wird der Typ B behandelt?',
         'Warum haben Sie nach neurologischen Ausfällen gefragt?',
@@ -57805,7 +57805,7 @@ export function seedCases(): Case[] {
               reaktion: 'Monitoring, invasive Druckmessung, zwei Zugänge, Morphin titriert; Esmolol oder Labetalol i.v. auf systolisch 100–120 mmHg und Herzfrequenz um 60/min; bei Bedarf Urapidil oder Nitroprussid zusätzlich; Blutkonserven; sofortige Verlegung in die Herzchirurgie. Der Prüfer hakt nach, wenn der Betablocker fehlt oder Nitro als Erstmaßnahme genannt wird.',
             },
             {
-              frage: 'Warum kein Vasodilatator ohne Betablocker?',
+              frage: 'Warum geben Sie keinen Vasodilatator ohne Betablocker?',
               reaktion: 'Reflextachykardie: Frequenz und Druckanstiegsgeschwindigkeit (dP/dt) bestimmen die Scherkräfte auf die Aortenwand; ein Vasodilatator allein steigert beides und treibt die Dissektion weiter. Erst Frequenz senken, dann Druck nachjustieren.',
             },
             {
@@ -58277,7 +58277,7 @@ export function seedCases(): Case[] {
               reaktion: 'Ibuprofen 600 mg dreimal täglich unter Magenschutz mit Pantoprazol über ein bis zwei Wochen, dann Ausschleichen nach dem CRP — und obligat Colchicin 0,5 mg zweimal täglich über drei Monate, weil es die Rezidivrate halbiert. Dazu körperliche Schonung, Sportverbot und Krankschreibung.',
             },
             {
-              frage: 'Warum kein Kortison?',
+              frage: 'Warum geben Sie kein Kortison?',
               reaktion: 'Glukokortikoide begünstigen bei der viralen Perikarditis Rezidive und eine Chronifizierung. Sie sind nur zweite Wahl bei Kontraindikationen gegen NSAR, Autoimmungenese, Schwangerschaft oder Niereninsuffizienz — dann niedrig dosiert, langsam ausschleichend und mit Colchicin.',
             },
             {
@@ -58680,7 +58680,7 @@ export function seedCases(): Case[] {
         'Was bedeuten die morgendlichen Zuckungen und die nächtlichen Zungenbisse für Ihre Diagnose?',
         'Welche Differenzialdiagnosen kommen in Betracht, und welche dürfen Sie nicht übersehen?',
         'Welche Laborwerte bestimmen Sie sofort? Was sagen Ihnen Prolaktin, Laktat und CK?',
-        'Warum ein EKG bei einem Krampfanfall?',
+        'Warum schreiben Sie bei einem Krampfanfall ein EKG?',
         'Welche Bildgebung, und warum CT und MRT? Brauchen Sie eine Lumbalpunktion?',
         'Wann machen Sie das EEG, und schließt ein normales EEG eine Epilepsie aus? Was erwarten Sie bei diesem Patienten im EEG?',
         'Was tun Sie, wenn der Patient auf Station erneut krampft — und was auf keinen Fall?',
@@ -58762,7 +58762,7 @@ export function seedCases(): Case[] {
               reaktion: 'Blutzucker, Natrium, Kalium, Kalzium, Magnesium, Blutbild, CRP, Kreatinin, Leberwerte mit Gamma-GT, Gerinnung, Blutgasanalyse, CK, Laktat, Prolaktin, Alkoholspiegel und Drogenscreening. Laktat ist unmittelbar nach dem Anfall erhöht und normalisiert sich in ein bis zwei Stunden; Prolaktin steigt nach 10 bis 20 Minuten und ist nur innerhalb der ersten Stunde verwertbar — bei Synkope und psychogenem Anfall normal; CK steigt erst nach 24 bis 48 Stunden und zeigt eine Rhabdomyolyse. Alle drei sind Hinweise, keine Beweise.',
             },
             {
-              frage: 'Warum ein EKG bei einem Krampfanfall?',
+              frage: 'Warum schreiben Sie bei einem Krampfanfall ein EKG?',
               reaktion: 'Weil eine kardiale Synkope durch eine Rhythmusstörung — Long-QT-Syndrom, Brugada-Syndrom, AV-Block, Präexzitation — eine konvulsive Synkope mit Zuckungen auslösen kann und unbehandelt zum plötzlichen Herztod führt. Das EKG ist bei jeder ersten Bewusstlosigkeit obligat.',
             },
             {
@@ -59252,7 +59252,7 @@ export function seedCases(): Case[] {
               reaktion: 'Nur als Überbrückung, wenn nicht sofort operiert werden kann: Aufdrehen nach lateral wie beim Öffnen eines Buches, Erfolg = schlagartige Schmerzlinderung. Hier ist der OP sofort verfügbar, deshalb kein Versuch; auch nach erfolgreicher Detorsion wird operiert und fixiert.',
             },
             {
-              frage: 'Welche Spätfolgen und welche Nachsorge?',
+              frage: 'Welche Spätfolgen drohen, und wie sieht die Nachsorge aus?',
               reaktion: 'Hodenatrophie auch nach erfolgreicher Detorsion — sonographische Volumenkontrolle nach drei bis sechs Monaten; verminderte Spermienqualität und Antikörper gegen Spermien — Spermiogramm bei Kinderwunsch; Schonung und Sportverzicht über vier Wochen, Wundkontrolle; sofortige Vorstellung bei erneutem Hodenschmerz.',
             },
           ],
@@ -59601,7 +59601,7 @@ export function seedCases(): Case[] {
         'Wie behandeln Sie diesen Patienten? Welchen Sicherheitsabstand wählen Sie, und was bedeutet mikrographisch kontrollierte Chirurgie?',
         'Der Patient möchte lieber eine Salbe als eine Operation — welche nicht operativen Verfahren gibt es, und warum kommen sie hier nicht in Frage?',
         'Der Patient nimmt ASS 100 wegen einer Carotisstenose — setzen Sie es vor der Operation ab?',
-        'Was tun Sie, wenn der Tumor im Schnittrand liegt (R1)?',
+        'Was tun Sie, wenn der Tumor bis in den Schnittrand reicht?',
         'Wann kommen Hedgehog-Inhibitoren zum Einsatz, und welche Nebenwirkungen haben sie?',
         'Wie sieht die Nachsorge aus, und warum kontrollieren Sie nicht nur die Narbe?',
         'Was raten Sie dem Patienten zum Sonnenschutz und zur Selbstuntersuchung?',
@@ -60156,7 +60156,7 @@ export function seedCases(): Case[] {
               reaktion: 'Gicht — Mutter mit Gicht, Alkohol, Hyperurikämie bei Psoriasis, aber kein perakuter Verlauf und keine Podagra; reaktive Arthritis — kein vorangegangener Infekt, keine Konjunktivitis oder Urethritis; aktivierte Arthrose — Morgensteifigkeit wäre kurz; septische Arthritis bei akutem Einzelgelenk mit Fieber — hier afebril; axiale Spondyloarthritis — kein Rückenschmerz, dennoch ISG untersuchen.',
             },
             {
-              frage: 'Und für die Haut?',
+              frage: 'Welche Differenzialdiagnosen bedenken Sie für die Haut?',
               reaktion: 'Seborrhoisches Ekzem der Kopfhaut (feine fettige Schuppung), nummuläres Ekzem und sein bekanntes Nickel-Kontaktekzem (unscharf, nässend, kontaktbezogen), Tinea corporis (randbetont, Pilznachweis), Pityriasis rosea bzw. Guttata-Form (Primärmedaillon, Angina), Lichen ruber (polygonale Papeln), Mycosis fungoides bei therapierefraktärem Verlauf; am Nagel die Onychomykose, die per Pilzkultur ausgeschlossen wird.',
             },
           ],
@@ -60641,7 +60641,7 @@ export function seedCases(): Case[] {
               reaktion: 'Steigerung des nichtsedierenden Antihistaminikums bis auf das Vierfache der zugelassenen Dosis, hier Cetirizin bis 40 mg täglich — der leitliniengerechte Schritt vor jeder Eskalation. Kortison nur als kurzer Stoß über drei, maximal zehn Tage, ohne Ausschleichen — keine Dauertherapie wegen Nebenwirkungen und Rebound. Sedierende Antihistaminika der ersten Generation sind für die Weiterbehandlung nicht geeignet.',
             },
             {
-              frage: 'Stationär oder nach Hause?',
+              frage: 'Nehmen Sie die Patientin stationär auf, oder kann sie nach Hause?',
               reaktion: 'Nach Hause — nach zwei bis vier Stunden Beobachtung, sofern das Angioödem nicht zunimmt und Atmung, Stimme und Kreislauf stabil bleiben. Stationär bei Zungen-, Rachen- oder Kehlkopfbeteiligung, bei jeder Anaphylaxie ab Grad II wegen des biphasischen Verlaufs für mindestens sechs bis 24 Stunden, oder wenn die Patientin allein wäre und weit entfernt wohnte.',
             },
             {
