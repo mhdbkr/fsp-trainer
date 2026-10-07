@@ -90,11 +90,12 @@ export function CaseDetailPage() {
                 <div className="min-w-0">
                   <div className="mb-1 text-[10px] font-semibold text-brand-500 dark:text-brand-300">Verdachtsdiagnose · Diagnostic suspecté</div>
                   {/* 3b : la première phrase en titre, la suite en corps de texte — cinq phrases en text-xl gras faisaient un mur. */}
-                  <p className="font-display text-xl font-bold leading-tight text-brand-800 dark:text-brand-200"><AutoLink>{vd.titel}</AutoLink></p>
-                  {vd.rest && <p className="mt-2 text-sm leading-relaxed text-slate-700 dark:text-slate-300"><AutoLink>{vd.rest}</AutoLink></p>}
+                  <p lang="de" className="font-display text-xl font-bold leading-tight text-brand-800 hyphens-auto [overflow-wrap:anywhere] dark:text-brand-200"><AutoLink>{vd.titel}</AutoLink></p>
                 </div>
                 <span className={`grid h-11 w-11 shrink-0 place-items-center rounded-xl text-white shadow-sm ${SEC.verdacht.badge}`}><Icon name="target" className="h-6 w-6" /></span>
               </div>
+              {/* La suite, pleine largeur de la carte (sous l'icône) : à 390 px, la colonne du titre ne fait que ~200 px. */}
+              {vd.rest && <p className="mt-2 text-sm leading-relaxed text-slate-700 dark:text-slate-300"><AutoLink>{vd.rest}</AutoLink></p>}
               {c.medicalView.notfall && (
                 <span className="mt-3 inline-flex items-center gap-1.5 rounded-full bg-rose-500 px-3 py-1 text-xs font-bold text-white shadow-sm">
                   <Icon name="alert" className="h-3.5 w-3.5" />Notfall
