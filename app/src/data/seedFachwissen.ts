@@ -281,38 +281,55 @@ export function seedFachwissen(): Fachwissen[] {
       pathology: 'Akute Pankreatitis',
       specialty: 'Gastroenterologie',
       definition:
-        'Akute Entzündung der Bauchspeicheldrüse mit Selbstverdauung des Organs durch aktivierte Enzyme. Verlauf von mild (ödematös) bis schwer (nekrotisierend).',
-      aetiologie: 'Häufigste Ursachen: Gallensteine (biliär) und Alkohol (~80 %). Weitere: Hypertriglyzeridämie, Hyperkalzämie, Medikamente, post-ERCP, idiopathisch.',
-      risikofaktoren: ['Cholelithiasis', 'Alkoholkonsum', 'Hypertriglyzeridämie', 'Zustand nach ERCP'],
+        'Akute Entzündung der Bauchspeicheldrüse durch vorzeitige Aktivierung der Verdauungsenzyme im Organ (Selbstverdauung). Die Diagnose gilt als gesichert, wenn zwei von drei Kriterien erfüllt sind: typischer Oberbauchschmerz, Lipase über dem Dreifachen der Norm, typischer Befund in der Bildgebung. Meist interstitiell-ödematös, in 5–10 % nekrotisierend.',
+      aetiologie: 'Gallensteine (biliär) und Alkohol machen zusammen etwa 70–80 % aus. Seltener: Hypertriglyzeridämie (meist über 1 000 mg/dl), Hyperkalzämie, Medikamente, Zustand nach ERCP, Trauma, Pankreastumoren; ein Teil bleibt idiopathisch.',
+      risikofaktoren: ['Cholelithiasis', 'Alkoholkonsum, Rauchen', 'Hypertriglyzeridämie', 'Zustand nach ERCP', 'Für einen schweren Verlauf: Alter über 60 Jahre, Adipositas, Begleiterkrankungen'],
       klinik: [
-        { text: 'Akuter, heftiger Oberbauchschmauch, gürtelförmig in den Rücken ausstrahlend' },
+        { text: 'Akuter, heftiger, bohrender Oberbauchschmerz, gürtelförmig in den Rücken ausstrahlend, oft nach fettreichem Essen oder Alkohol; Linderung durch Vornüberbeugen' },
         { text: 'Übelkeit, Erbrechen' },
-        { text: 'Meteorismus, "Gummibauch" (elastische Abwehrspannung)' },
+        { text: 'Meteorismus, „Gummibauch“ (elastische Abwehrspannung), paralytischer Begleitileus' },
         { text: 'Fieber, Tachykardie' },
-        { text: 'Schwere Verläufe: Kreislaufschock, Nierenversagen (SIRS)', atypisch: true },
-        { text: 'Grey-Turner-/Cullen-Zeichen bei hämorrhagischer Nekrose', atypisch: true },
+        { text: 'Ikterus, dunkler Urin und heller Stuhl bei begleitender Choledocholithiasis' },
+        { text: 'Schwere Verläufe: Kreislaufschock, Nierenversagen, respiratorische Insuffizienz (SIRS, Organversagen)', atypisch: true },
+        { text: 'Grey-Turner-Zeichen (Flanken) und Cullen-Zeichen (Nabel) bei hämorrhagisch-nekrotisierendem Verlauf', atypisch: true },
+      ],
+      klassifikation: [
+        { name: 'Revidierte Atlanta-Klassifikation (2012)', inhalt: 'Mild: kein Organversagen, keine lokalen Komplikationen. Mittelschwer: vorübergehendes Organversagen (unter 48 Stunden) oder lokale beziehungsweise systemische Komplikationen. Schwer: Organversagen, das länger als 48 Stunden anhält.' },
+        { name: 'Lokale Komplikationen', inhalt: 'In den ersten 4 Wochen akute peripankreatische Flüssigkeitsansammlung oder akute nekrotische Ansammlung; danach Pseudozyste oder abgekapselte Nekrose (walled-off necrosis).' },
+        { name: 'Frühe Warnzeichen eines schweren Verlaufs', inhalt: 'SIRS über 48 Stunden, Hämatokrit über 44 % bei Aufnahme, steigender Harnstoff in den ersten 24–48 Stunden, CRP über 150 mg/l nach 48 Stunden.' },
+      ],
+      redFlags: [
+        'Fieber, Schüttelfrost und Ikterus (Charcot-Trias): Cholangitis',
+        'Hypotonie, Oligurie oder Abfall der Sauerstoffsättigung: Organversagen, Intensivstation',
+        'Erneutes Fieber oder Verschlechterung nach der ersten Woche: infizierte Nekrose',
       ],
       diagnostik: [
-        { stufe: 'Labor', text: 'Labor: Lipase (>3-fach), Amylase, CRP, Kalzium, Triglyzeride, Leberwerte' },
-        { stufe: 'Apparativ & Bildgebung', text: 'Abdomen-Sonographie: Gallensteine, Pankreasödem, freie Flüssigkeit' },
-        { stufe: 'Apparativ & Bildgebung', text: 'CT-Abdomen mit KM (Nekrosenachweis, ab 72 h aussagekräftig)' },
-        { stufe: 'Invasiv & Speziell', text: 'ERCP bei biliärer Genese mit Cholestase/Cholangitis (therapeutisch)' },
+        { stufe: 'Anamnese/Klinik', text: 'Anamnese: bekannte Gallensteine, Alkoholmenge in Gramm, neue Medikamente, frühere Schübe, kürzliche ERCP; Untersuchung: Gummibauch, Darmgeräusche, Ikterus, Flankenhämatome' },
+        { stufe: 'Anamnese/Klinik', text: 'Vitalparameter mit Atemfrequenz, Sauerstoffsättigung, Temperatur und stündlicher Urinausscheidung, um ein Organversagen früh zu erkennen' },
+        { stufe: 'Labor', text: 'Lipase als Leitenzym; die Amylase zusätzlich zu bestimmen bringt keinen Gewinn' },
+        { stufe: 'Labor', text: 'Blutbild mit Hämatokrit, CRP, Harnstoff, Kreatinin, Elektrolyte mit Kalzium, Blutzucker, LDH, Blutgasanalyse mit Laktat' },
+        { stufe: 'Labor', text: 'Bilirubin, alkalische Phosphatase, γ-GT und GPT (über 150 U/l spricht für die biliäre Genese); Triglyzeride und Kalzium zur Ursachensuche' },
+        { stufe: 'Apparativ & Bildgebung', text: 'Abdomen-Sonographie bei Aufnahme: Gallenblasensteine, Weite des Gallengangs, Pankreasödem, freie Flüssigkeit; das Pankreas ist durch Darmgas oft schlecht einsehbar' },
+        { stufe: 'Apparativ & Bildgebung', text: 'Kontrastmittel-CT nicht routinemäßig bei Aufnahme: sofort nur bei diagnostischer Unsicherheit, zur Nekrosesuche frühestens 72–96 Stunden nach Symptombeginn, weil Nekrosen vorher unterschätzt werden' },
+        { stufe: 'Invasiv & Speziell', text: 'Endosonographie oder MRCP bei mittlerer Wahrscheinlichkeit eines Gallengangssteins, bevor eine ERCP geplant wird' },
       ],
       differenzialdiagnosen: [
-        { dd: 'Perforiertes Ulkus', unterscheidung: 'Brettharter Bauch, freie Luft im Röntgen/CT.' },
-        { dd: 'Akute Cholezystitis', unterscheidung: 'Rechtsseitiger Oberbauchschmerz, Murphy-Zeichen positiv.' },
-        { dd: 'Myokardinfarkt (Hinterwand)', unterscheidung: 'EKG-Veränderungen, Troponin↑.' },
-        { dd: 'Mesenterialischämie', unterscheidung: 'Schmerz > Befund, Laktat↑, Vorhofflimmern.' },
+        { dd: 'Perforiertes Ulkus', unterscheidung: 'Schlagartiger Schmerz, brettharter Bauch, freie Luft im CT; NSAR- oder Ulkusanamnese.' },
+        { dd: 'Akute Cholezystitis', unterscheidung: 'Rechtsseitiger Oberbauchschmerz, Murphy-Zeichen positiv, Fieber; Lipase normal oder nur leicht erhöht, verdickte Gallenblasenwand in der Sonographie.' },
+        { dd: 'Cholangitis bei Choledocholithiasis', unterscheidung: 'Fieber mit Schüttelfrost, Ikterus und rechtsseitiger Oberbauchschmerz, Bilirubin und Cholestaseparameter erhöht, tritt oft zusammen mit der biliären Form auf.' },
+        { dd: 'Myokardinfarkt (Hinterwand)', unterscheidung: 'EKG-Veränderungen, Troponinanstieg; Oberbauchschmerz mit Erbrechen besonders bei Frauen, Älteren und Diabetikern.' },
+        { dd: 'Mesenterialischämie', unterscheidung: 'Schmerz stärker als der Tastbefund, Vorhofflimmern oder Gefäßleiden, Laktat erhöht; CT-Angiographie.' },
+        { dd: 'Rupturiertes Bauchaortenaneurysma', unterscheidung: 'Bauch- und Rückenschmerz mit Schock, pulsierende Raumforderung, meist ältere Raucher; Sonographie, CT.' },
       ],
       therapie: [
         {
           label: 'Basistherapie der ersten 48 Stunden (Volumen, Analgesie, Ernährung, Monitoring)',
           akut: true,
           items: [
-            'Frühe zielgerichtete Volumentherapie mit balancierter Vollelektrolytlösung (Ringer-Laktat) 5–10 ml/kg KG/h, gesteuert nach Urinausscheidung (Ziel über 0,5 ml/kg/h), Hämatokrit, Harnstoff und Kreislaufparametern — eine Überwässerung ist ebenso schädlich wie eine Untertherapie',
+            'Moderate, zielgerichtete Volumentherapie mit Ringer-Laktat: bei Volumenmangel Bolus von 10 ml/kg KG, danach etwa 1,5 ml/kg KG/h; Steuerung nach Herzfrequenz, Urinausscheidung (Ziel über 0,5 ml/kg KG/h), Hämatokrit und Harnstoff — eine aggressive Volumengabe bringt keinen Vorteil und führt häufiger zur Überwässerung',
             'Ausreichende Analgesie: Metamizol 4 × 1 g i. v., bei stärkeren Schmerzen Opioide (Piritramid, Buprenorphin, Pethidin)',
             'Frühe enterale Ernährung innerhalb von 24–48 Stunden nach Toleranz, oral oder über eine nasojejunale Sonde — Nahrungskarenz und routinemäßige parenterale Ernährung sind verlassen',
-            'Engmaschiges Monitoring und Schweregradeinschätzung nach der revidierten Atlanta-Klassifikation und den SIRS-Kriterien: Vitalparameter, Bilanz, Blutbild, CRP im Verlauf, Kalzium, Blutzucker, Kreatinin, LDH, Blutgasanalyse und Laktat; bei Organversagen Intensivüberwachung',
+            'Engmaschige Überwachung in den ersten 48 Stunden (Vitalparameter, Bilanz, Hämatokrit, Harnstoff, Kreatinin); bei Organversagen Intensivstation',
             'Begleitmaßnahmen: Thromboseprophylaxe mit niedermolekularem Heparin, Protonenpumpenhemmer, Ausgleich von Elektrolytstörungen (Hypokalzämie) und Insulin bei Hyperglykämie',
             'Keine prophylaktische Antibiotikagabe bei der sterilen (auch nekrotisierenden) Pankreatitis',
           ],
@@ -320,20 +337,19 @@ export function seedFachwissen(): Fachwissen[] {
         {
           label: 'Kausale Therapie der biliären Genese: Cholezystektomie, ERCP nur bei Cholangitis oder Gallengangsobstruktion',
           items: [
-            'Notfall-ERCP mit Papillotomie und Steinextraktion innerhalb von 24 Stunden bei biliärer Pankreatitis mit begleitender Cholangitis oder persistierender Gallengangsobstruktion (steigendes Bilirubin, Gangaufstau in der Sonographie)',
+            'ERCP mit Papillotomie und Steinextraktion innerhalb von 24 Stunden bei begleitender Cholangitis; bei persistierender Gallengangsobstruktion ohne Cholangitis (steigendes Bilirubin, Gangaufstau) elektiv, nachdem Endosonographie oder MRCP den Stein bestätigt haben',
             'Ohne Cholangitis und ohne Obstruktion besteht KEINE ERCP-Indikation — der Eingriff kann selbst eine Post-ERCP-Pankreatitis auslösen (Prophylaxe: Indometacin rektal, Pankreasgangstent)',
-            'Bei unklarem Befund zuvor Endosonographie oder MRCP zur Darstellung der Konkremente',
-            'Laparoskopische Cholezystektomie bei milder biliärer Pankreatitis noch im selben stationären Aufenthalt — sonst erleiden bis zu 30 % der Patienten innerhalb weniger Wochen ein Rezidiv',
+            'Laparoskopische Cholezystektomie bei milder biliärer Pankreatitis noch im selben stationären Aufenthalt: wer erst im Intervall operiert wird, erleidet deutlich häufiger erneute gallenbedingte Komplikationen (PONCHO-Studie: 17 % gegenüber 5 %)',
             'Bei nekrotisierendem Verlauf Cholezystektomie erst nach Abklingen der Entzündung beziehungsweise Konsolidierung der Nekrosen, in der Regel nach etwa 6 Wochen; bei Operationsunfähigkeit ersatzweise endoskopische Papillotomie',
           ],
         },
         {
           label: 'Komplikationsmanagement bei nekrotisierendem Verlauf (Step-up-Konzept)',
           items: [
-            'Kontrastmittel-CT des Abdomens frühestens 72–96 Stunden nach Symptombeginn zur Nekrosedarstellung (früher werden Nekrosen unterschätzt); Verlaufs-CT bei klinischer Verschlechterung',
+            'Verlaufs-CT bei klinischer Verschlechterung',
             'Antibiotika (z. B. Carbapenem oder Ciprofloxacin plus Metronidazol) nur bei nachgewiesener oder hochwahrscheinlich infizierter Nekrose, bei Cholangitis oder extrapankreatischer Infektion; Erregersicherung durch Feinnadelpunktion möglich',
             'Step-up-Konzept bei infizierter Nekrose: zunächst perkutane oder endosonographisch gesteuerte transgastrale Drainage, erst bei Versagen minimalinvasive endoskopische beziehungsweise videoassistierte retroperitoneale Nekrosektomie',
-            'Offene Nekrosektomie nur als Ultima Ratio; Eingriffe so spät wie möglich, idealerweise nach 4 Wochen bei abgekapselter Nekrose (walled-off necrosis)',
+            'Offene Nekrosektomie nur als Ultima Ratio; Eingriffe so spät wie möglich, idealerweise nach 4 Wochen bei abgekapselter Nekrose',
             'Pseudozysten werden nur bei Symptomen, Infektion, Blutung oder Kompression behandelt, dann bevorzugt endoskopisch transgastral drainiert',
             'Weitere Komplikationen im Blick behalten: Milzvenenthrombose, Pseudoaneurysma der A. lienalis, Ileus, ARDS und Multiorganversagen',
           ],
@@ -349,17 +365,18 @@ export function seedFachwissen(): Fachwissen[] {
           ],
         },
       ],
-      prognose: 'Milde Form meist folgenlos ausheilend; schwere nekrotisierende Form mit hoher Letalität. Schweregrad-Scores: Ranson, APACHE II.',
+      prognose: 'Die milde Form heilt meist folgenlos aus. Gefährlich sind der schwere Verlauf und die infizierte Nekrose: sie bestimmen die Letalität.',
       pruefungsfallen: [
-        'Lipase ist spezifischer als Amylase — Höhe korreliert NICHT mit Schweregrad.',
-        'Biliäre vs. alkoholische Genese unbedingt trennen (Therapie unterscheidet sich).',
-        'Nach Gallensteinen und Alkohol gezielt fragen.',
+        'Die Höhe der Lipase sagt nichts über den Schweregrad.',
+        'Biliäre und alkoholische Genese unbedingt trennen: nur die biliäre braucht die Cholezystektomie, nur die alkoholische die Suchtbehandlung.',
+        'Den Schweregrad sieht man bei Aufnahme nicht: jede akute Pankreatitis in den ersten 48 Stunden so überwachen, als könnte sie schwer werden.',
       ],
       askedInExam: [
         { frage: 'Was sind die zwei häufigsten Ursachen der akuten Pankreatitis?', antwort: 'Gallensteine (biliär) und Alkohol.' },
-        { frage: 'Welcher Laborwert ist am wichtigsten?', antwort: 'Die Lipase (mindestens dreifach über der Norm); spezifischer als die Amylase.' },
+        { frage: 'Welcher Laborwert ist am wichtigsten?', antwort: 'Die Lipase.' },
         { frage: 'Wie sieht der Schmerz typischerweise aus?', antwort: 'Heftiger Oberbauchschmerz mit gürtelförmiger Ausstrahlung in den Rücken, oft nach fettigem Essen.' },
-        { frage: 'Wie behandeln Sie eine biliäre Pankreatitis?', antwort: 'Volumentherapie, Analgesie und früher Kostaufbau; bei Obstruktion oder Cholangitis ERCP mit Papillotomie; Cholezystektomie bei mildem Verlauf noch im selben Aufenthalt, bei nekrotisierendem Verlauf im Intervall.' },
+        { frage: 'Wie behandeln Sie eine biliäre Pankreatitis?', antwort: 'Volumentherapie, Analgesie und früher Kostaufbau; eine ERCP nur bei Cholangitis oder bestätigtem Gangstein; die Cholezystektomie bei mildem Verlauf noch im selben Aufenthalt.' },
+        { frage: 'Wie teilen Sie den Schweregrad ein?', antwort: 'Nach der revidierten Atlanta-Klassifikation; entscheidend ist, ob ein Organversagen auftritt und wie lange es anhält.' },
       ],
       linkedCaseIds: [],
       keyFachbegriffeIds: [],
@@ -494,7 +511,7 @@ export function seedFachwissen(): Fachwissen[] {
       pathology: 'Ulcus ventriculi / Gastritis',
       specialty: 'Gastroenterologie',
       definition: 'Umschriebener Substanzdefekt der Magen- (Ulcus ventriculi) oder Zwölffingerdarmschleimhaut (Ulcus duodeni), der die Muscularis mucosae durchbricht — im Gegensatz zur oberflächlichen Erosion bei der Gastritis. Ursache ist ein Ungleichgewicht zwischen aggressiven (Säure, Pepsin, H. pylori, NSAR) und protektiven Faktoren (Schleim, Bikarbonat, Durchblutung). Diese Fiche behandelt das Ulkus OHNE aktive Blutung; die akute obere GI-Blutung ist gesondert erfasst.',
-      aetiologie: 'Zwei Hauptursachen: Infektion mit Helicobacter pylori (verantwortlich für ca. 90 % der Ulcera duodeni und ca. 70 % der Ulcera ventriculi) und Einnahme von NSAR/ASS (Hemmung der protektiven Prostaglandinsynthese). Seltener: Kortikosteroide (v. a. in Kombination mit NSAR), schwerer Stress (Stressulkus bei Intensivpatienten), Rauchen, sowie das Gastrinom (Zollinger-Ellison-Syndrom). Bei jedem Ulcus ventriculi muss zusätzlich ein Magenkarzinom ausgeschlossen werden.',
+      aetiologie: 'Zwei Hauptursachen: Infektion mit Helicobacter pylori (verantwortlich für ca. 90 % der Ulcera duodeni und ca. 70 % der Ulcera ventriculi) und Einnahme von NSAR/ASS (Hemmung der protektiven Prostaglandinsynthese). Seltener: Kortikosteroide (v. a. in Kombination mit NSAR), schwerer Stress (Stressulkus bei Intensivpatienten), Rauchen sowie das Gastrinom (Zollinger-Ellison-Syndrom).',
       risikofaktoren: [
         'Helicobacter-pylori-Infektion',
         'NSAR- und ASS-Einnahme (oft Selbstmedikation)',
@@ -506,43 +523,15 @@ export function seedFachwissen(): Fachwissen[] {
         'Positive Ulkus- oder Magenkarzinomanamnese',
       ],
       klinik: [
-        {
-          text: 'Epigastrische, brennende oder nagende Schmerzen (Epigastralgie) als Leitsymptom',
-        },
-        {
-          text: 'Ulcus ventriculi: Sofort- bzw. postprandialer Schmerz (kurz nach dem Essen), teils mit Essensangst und Gewichtsverlust',
-        },
-        {
-          text: 'Ulcus duodeni: Nüchtern- und Nachtschmerz, Besserung durch Nahrungsaufnahme',
-        },
-        {
-          text: 'Übelkeit, Völlegefühl, Aufstoßen, Appetitlosigkeit',
-        },
-        {
-          text: 'Häufig NSAR-Einnahme oder beruflicher Stress in der Vorgeschichte (z. B. Apotheker, Schichtarbeit)',
-        },
-        {
-          text: 'Bis zu ein Drittel der Ulzera, besonders NSAR-induzierte, verläuft klinisch stumm und manifestiert sich erst durch eine Komplikation (Blutung, Perforation)',
-          atypisch: true,
-        },
-        {
-          text: 'Erstmanifestation als Meläna oder Hämatemesis ohne vorherige Schmerzen',
-          atypisch: true,
-        },
-        {
-          text: 'Bei Hinterwandinfarkt kann sich ein kardialer Schmerz als Epigastralgie \'maskieren\' — kardiale DD nicht übersehen',
-          atypisch: true,
-        },
+        { text: 'Epigastrische, brennende oder nagende Schmerzen (Epigastralgie) als Leitsymptom' },
+        { text: 'Ulcus ventriculi: Sofort- bzw. postprandialer Schmerz (kurz nach dem Essen), teils mit Essensangst und Gewichtsverlust' },
+        { text: 'Ulcus duodeni: Nüchtern- und Nachtschmerz, Besserung durch Nahrungsaufnahme' },
+        { text: 'Übelkeit, Völlegefühl, Aufstoßen, Appetitlosigkeit' },
+        { text: 'Besonders NSAR-induzierte Ulzera verlaufen oft schmerzlos und zeigen sich erst durch eine Komplikation: Meläna, Hämatemesis oder Perforation', atypisch: true },
       ],
       klassifikation: [
-        {
-          name: 'Forrest-Klassifikation',
-          inhalt: 'Endoskopische Einteilung des blutenden Ulkus: Ia spritzende / Ib sickernde aktive Blutung; IIa sichtbarer Gefäßstumpf, IIb anhaftendes Koagel, IIc Hämatinbelag; III Läsion ohne Blutungszeichen. Steuert Rezidivrisiko und Therapie.',
-        },
-        {
-          name: 'Ätiologische Einteilung (Ulkustyp)',
-          inhalt: 'Peptisches Ulkus meist H.-pylori- oder NSAR-assoziiert; Stressulkus (Curling bei Verbrennung, Cushing bei Hirnprozessen); Ulkus bei Zollinger-Ellison-Syndrom (Gastrinom).',
-        },
+        { name: 'Forrest-Klassifikation', inhalt: 'Endoskopische Einteilung des blutenden Ulkus: Ia spritzende / Ib sickernde aktive Blutung; IIa sichtbarer Gefäßstumpf, IIb anhaftendes Koagel, IIc Hämatinbelag; III Läsion ohne Blutungszeichen. Steuert Rezidivrisiko und Therapie.' },
+        { name: 'Ätiologische Einteilung (Ulkustyp)', inhalt: 'Peptisches Ulkus meist H.-pylori- oder NSAR-assoziiert; Stressulkus (Curling bei Verbrennung, Cushing bei Hirnprozessen); Ulkus bei Zollinger-Ellison-Syndrom (Gastrinom).' },
       ],
       redFlags: [
         'Akuter, heftigster Vernichtungsschmerz mit bretthartem Abdomen und Abwehrspannung → Perforation mit Peritonitis',
@@ -552,43 +541,20 @@ export function seedFachwissen(): Fachwissen[] {
         'Dysphagie, ungewollter Gewichtsverlust, Anämie, Alter > 50 mit neuen Beschwerden → Malignomverdacht (Alarmsymptome)',
       ],
       diagnostik: [
-        { stufe: 'Anamnese/Klinik', text: 'Anamnese: Schmerzcharakter und Zeitbezug zum Essen, NSAR-/ASS- und Kortisoneinnahme, Selbstmedikation, Stress, Noxen, frühere Ulzera' },
+        { stufe: 'Anamnese/Klinik', text: 'Anamnese: Schmerzcharakter und Zeitbezug zum Essen, NSAR-/ASS- und Kortisoneinnahme, Selbstmedikation, Stress, Noxen, frühere Ulzera, frühere Helicobacter-Diagnostik' },
+        { stufe: 'Anamnese/Klinik', text: 'Körperliche Untersuchung: epigastrischer Druckschmerz, Prüfung auf Abwehrspannung; digital-rektale Untersuchung auf Meläna' },
         { stufe: 'Labor', text: 'Labor: Blutbild (Anämie bei chronischem Blutverlust), ggf. Gerinnung; bei rezidivierenden/atypischen Ulzera Gastrin (Zollinger-Ellison)' },
-        { stufe: 'Labor', text: 'Nicht-invasiver H.-pylori-Nachweis: 13C-Harnstoff-Atemtest oder Stuhl-Antigen-Test (Cave: PPI ≥ 2 Wochen vorher pausieren, sonst falsch negativ)' },
-        { stufe: 'Invasiv & Speziell', text: 'Körperliche Untersuchung: epigastrischer Druckschmerz, Prüfung auf Abwehrspannung; digital-rektale Untersuchung auf Meläna' },
-        { stufe: 'Invasiv & Speziell', text: 'ÖGD (Ösophago-Gastro-Duodenoskopie) — Goldstandard: direkte Darstellung, Lokalisation und Biopsie des Ulkus' },
-        { stufe: 'Invasiv & Speziell', text: 'Biopsie: bei jedem Ulcus ventriculi obligat zum Malignitätsausschluss; zugleich Urease-Schnelltest (CLO-Test) und Histologie auf H. pylori' },
-        { stufe: 'Invasiv & Speziell', text: 'Kontroll-ÖGD des Magenulkus nach 6–8 Wochen zur Bestätigung der Abheilung und erneuter Biopsie (Karzinomausschluss)' },
+        { stufe: 'Labor', text: 'Nicht-invasiver H.-pylori-Nachweis: 13C-Harnstoff-Atemtest oder Stuhl-Antigen-Test, frühestens 2 Wochen nach Absetzen des PPI und 4 Wochen nach einer Antibiotikatherapie' },
+        { stufe: 'Invasiv & Speziell', text: 'ÖGD als Goldstandard: Lokalisation des Ulkus; bei jedem Ulcus ventriculi mehrere Biopsien aus dem Ulkusrand zum Malignitätsausschluss, dazu Biopsien aus Antrum und Korpus für Urease-Schnelltest und Histologie auf H. pylori' },
       ],
       differenzialdiagnosen: [
-        {
-          dd: 'Ulcus duodeni',
-          unterscheidung: 'Nüchtern- und Nachtschmerz mit Besserung durch Essen (statt postprandialem Sofortschmerz); fast nie maligne, daher keine Routine-Biopsie nötig.',
-        },
-        {
-          dd: 'Gastritis / funktionelle Dyspepsie (Reizmagen)',
-          unterscheidung: 'Nur oberflächliche Schleimhautreizung ohne Substanzdefekt in der ÖGD; bei funktioneller Dyspepsie endoskopisch unauffälliger Befund.',
-        },
-        {
-          dd: 'Refluxkrankheit (GERD)',
-          unterscheidung: 'Retrosternales Brennen (Pyrosis) und saures Aufstoßen, lageabhängig; Ösophagitis statt Ulkus.',
-        },
-        {
-          dd: 'Magenkarzinom',
-          unterscheidung: 'Alarmsymptome (Gewichtsverlust, Anämie, Dysphagie), höheres Alter; nur durch Biopsie sicher auszuschließen — Grund für die obligate Histologie beim Magenulkus.',
-        },
-        {
-          dd: 'Cholezystolithiasis / Cholezystitis',
-          unterscheidung: 'Rechtsseitige postprandiale Kolik nach fettem Essen, Ausstrahlung in die rechte Schulter, positives Murphy-Zeichen.',
-        },
-        {
-          dd: 'Akute Pankreatitis',
-          unterscheidung: 'Gürtelförmiger Oberbauchschmerz mit Ausstrahlung in den Rücken, Lipase-Erhöhung.',
-        },
-        {
-          dd: 'Hinterwandinfarkt / KHK',
-          unterscheidung: 'Belastungsabhängig, Ausstrahlung, Dyspnoe; per EKG und Troponin abzugrenzen — bei epigastrischem Schmerz stets mitbedenken.',
-        },
+        { dd: 'Ulcus duodeni', unterscheidung: 'Nüchtern- und Nachtschmerz mit Besserung durch Essen (statt postprandialem Sofortschmerz); fast nie maligne, daher keine Routine-Biopsie nötig.' },
+        { dd: 'Gastritis / funktionelle Dyspepsie (Reizmagen)', unterscheidung: 'Nur oberflächliche Schleimhautreizung ohne Substanzdefekt in der ÖGD; bei funktioneller Dyspepsie endoskopisch unauffälliger Befund.' },
+        { dd: 'Refluxkrankheit (GERD)', unterscheidung: 'Retrosternales Brennen (Pyrosis) und saures Aufstoßen, lageabhängig; Ösophagitis statt Ulkus.' },
+        { dd: 'Magenkarzinom', unterscheidung: 'Endoskopisch nicht sicher von einem gutartigen Ulkus zu unterscheiden; ausgeschlossen erst durch die Histologie.' },
+        { dd: 'Cholezystolithiasis / Cholezystitis', unterscheidung: 'Rechtsseitige postprandiale Kolik nach fettem Essen, Ausstrahlung in die rechte Schulter, positives Murphy-Zeichen.' },
+        { dd: 'Akute Pankreatitis', unterscheidung: 'Gürtelförmiger Oberbauchschmerz mit Ausstrahlung in den Rücken, Lipase-Erhöhung.' },
+        { dd: 'Hinterwandinfarkt / KHK', unterscheidung: 'Belastungsabhängig, Ausstrahlung, Dyspnoe; per EKG und Troponin abzugrenzen — bei epigastrischem Schmerz stets mitbedenken.' },
       ],
       therapie: [
         {
@@ -597,7 +563,7 @@ export function seedFachwissen(): Fachwissen[] {
             'Auslösende NSAR oder ASS absetzen beziehungsweise pausieren — nach Helicobacter pylori die zweithäufigste Ursache; Bedarfsanalgesie auf Paracetamol oder Metamizol umstellen',
             'Wenn ASS oder ein NSAR zwingend weitergegeben werden muss (z. B. nach Stentimplantation): dauerhafte begleitende PPI-Prophylaxe, alternativ Umstellung auf einen selektiven COX-2-Hemmer',
             'Konsequente Nikotinkarenz — Rauchen verzögert die Ulkusheilung und erhöht die Rezidivrate deutlich; Alkoholkarenz während der Abheilung',
-            'Regelmäßige kleine Mahlzeiten, Verzicht auf individuell unverträgliche Speisen, Stressreduktion; Glukokortikoide sind nur in Kombination mit NSAR relevant ulzerogen',
+            'Regelmäßige kleine Mahlzeiten, Verzicht auf individuell unverträgliche Speisen, Stressreduktion',
             'Bei Intensiv- und Beatmungspatienten Stressulkusprophylaxe mit einem PPI',
           ],
           akut: false,
@@ -608,7 +574,6 @@ export function seedFachwissen(): Fachwissen[] {
             'Protonenpumpeninhibitor als Basistherapie, z. B. Pantoprazol 40 mg 1-0-0, nüchtern etwa 30 Minuten vor dem Frühstück',
             'Therapiedauer: Ulcus duodeni in der Regel 4 Wochen, Ulcus ventriculi 6–8 Wochen',
             'H2-Rezeptorantagonisten (Famotidin) und Antazida sind dem PPI unterlegen und bleiben Reserve- beziehungsweise Symptomtherapie',
-            'Bei der Indexendoskopie immer Biopsien aus Antrum und Korpus sowie mehrere Biopsien aus dem Ulkusrand — jedes Ulcus ventriculi ist bis zum Beweis des Gegenteils malignomverdächtig',
             'Kontroll-ÖGD beim Ulcus ventriculi nach 6–8 Wochen obligat: Abheilungskontrolle und erneute Biopsie; beim unkomplizierten Ulcus duodeni ist eine Kontrollendoskopie nicht erforderlich',
           ],
           akut: false,
@@ -616,13 +581,12 @@ export function seedFachwissen(): Fachwissen[] {
         {
           label: 'Helicobacter-pylori-Eradikation mit Erfolgskontrolle',
           items: [
-            'Nachweis invasiv über Urease-Schnelltest und Histologie aus der Biopsie, nichtinvasiv über 13C-Harnstoff-Atemtest oder Stuhl-Antigen-Test — PPI 2 Wochen und Antibiotika 4 Wochen vorher pausieren, sonst falsch negativ',
-            'Französische Tripeltherapie über 7–14 Tage: PPI 2 × 40 mg + Clarithromycin 2 × 500 mg + Amoxicillin 2 × 1000 mg',
-            'Italienische Tripeltherapie über 7–14 Tage: PPI + Clarithromycin + Metronidazol 2 × 400 mg — Variante der Wahl bei Penicillinallergie',
-            'Bei hoher Clarithromycin-Resistenz, Vortherapie oder Versagen: Bismut-Quadrupeltherapie (PPI + Bismut + Tetracyclin + Metronidazol) über 10 Tage',
+            'Erstlinie: Bismut-Quadrupeltherapie über 10 Tage (PPI + Bismut + Tetracyclin + Metronidazol), weil Helicobacter pylori in Deutschland häufig gegen Clarithromycin resistent ist',
+            'Clarithromycin-Tripeltherapie (PPI + Clarithromycin + Amoxicillin oder Metronidazol) über 14 Tage nur bei nachgewiesener Clarithromycin-Empfindlichkeit',
+            'Nach Therapieversagen Resistenztestung aus Biopsien und gezielte Zweitlinientherapie',
             'Patienten über Nebenwirkungen und Adhärenz aufklären: metallischer Geschmack, Diarrhoe, Schwarzfärbung des Stuhls unter Bismut, strikte Alkoholkarenz unter Metronidazol (Antabus-Effekt)',
             'Nach der Eradikation PPI beim Ulcus ventriculi bis zur Abheilung fortführen',
-            'Eradikationskontrolle frühestens 4 Wochen nach Therapieende mittels 13C-Atemtest oder Stuhl-Antigen — die Eradikation senkt die Rezidivrate von über 60 % auf unter 5 %',
+            'Eradikationskontrolle frühestens 4 Wochen nach Therapieende, nicht-invasiv',
           ],
           akut: false,
         },
@@ -640,45 +604,22 @@ export function seedFachwissen(): Fachwissen[] {
           akut: true,
         },
       ],
-      prognose: 'Unter PPI-Therapie und erfolgreicher H.-pylori-Eradikation heilen die meisten Ulzera ab, und die Rezidivrate sinkt drastisch (von über 50 % auf unter 10 % pro Jahr). Entscheidend sind das Weglassen von NSAR und die Noxenkarenz. Prognosebestimmend sind Komplikationen (Blutung, Perforation, Stenose) und beim Ulcus ventriculi der Ausschluss eines Karzinoms.',
+      prognose: 'Unter PPI-Therapie und erfolgreicher Eradikation heilen die meisten Ulzera ab, und die Rezidivrate sinkt drastisch. Prognosebestimmend sind Komplikationen (Blutung, Perforation, Stenose) und beim Ulcus ventriculi der Ausschluss eines Karzinoms.',
       pruefungsfallen: [
-        'Jedes Ulcus ventriculi wird biopsiert UND nach 6–8 Wochen endoskopisch kontrolliert (Malignitätsausschluss) — das Ulcus duodeni dagegen nicht.',
-        'Vor dem H.-pylori-Test (Atemtest/Stuhl/Schnelltest) muss der PPI ca. 2 Wochen pausiert werden, sonst falsch-negatives Ergebnis.',
+        'Ein negativer Helicobacter-Test unter laufendem PPI beweist nichts.',
         'Aktiv nach NSAR/ASS und Selbstmedikation fragen — Patienten nennen \'Schmerzmittel\' oft nicht spontan als Medikament.',
-        'Schmerzrhythmus zur Unterscheidung nutzen: postprandialer Sofortschmerz spricht für Ulcus ventriculi, Nüchtern-/Nachtschmerz für Ulcus duodeni.',
-        'Alarmsymptome und Komplikationen (Perforation, Blutung, Stenose) nicht übersehen und den kardialen DD (Hinterwandinfarkt) mitbedenken.',
+        'Beschwerden, die trotz PPI zunehmen, sind eine Indikation zur ÖGD und zur Helicobacter-Diagnostik, nicht zur alleinigen Dosiserhöhung.',
       ],
       askedInExam: [
-        {
-          frage: 'Was ist der C13-Atemtest und wozu dient er?',
-          antwort: 'Ein nicht-invasiver Test zum Nachweis von Helicobacter pylori: Der Patient trinkt 13C-markierten Harnstoff, den die bakterielle Urease spaltet; das markierte CO2 wird in der Ausatemluft gemessen. Der PPI muss vorher pausiert werden.',
-        },
-        {
-          frage: 'Wie behandeln Sie ein Ulcus ventriculi?',
-          antwort: 'Mit einem PPI über mehrere Wochen, Absetzen der NSAR und Noxenkarenz. Bei Nachweis von H. pylori zusätzlich eine Eradikation mittels Triple-Therapie aus PPI und zwei Antibiotika.',
-        },
-        {
-          frage: 'Was ist die Triple-Therapie?',
-          antwort: 'Die H.-pylori-Eradikation mit einem PPI plus zwei Antibiotika — Clarithromycin kombiniert mit Amoxicillin oder Metronidazol — über 7 bis 14 Tage.',
-        },
-        {
-          frage: 'Welche Prädispositionsfaktoren für ein Ulkus hat der Patient?',
-          antwort: 'Typischerweise regelmäßige NSAR-Einnahme, eine H.-pylori-Infektion, Rauchen, Alkohol und beruflicher Stress.',
-        },
-        {
-          frage: 'Wie unterscheiden Sie ein Ulcus ventriculi von einem Ulcus duodeni?',
-          antwort: 'Über den Schmerzrhythmus: Das Magenulkus verursacht Sofortschmerz kurz nach dem Essen, das Duodenalulkus dagegen Nüchtern- und Nachtschmerz, der sich durch Essen bessert.',
-        },
-        {
-          frage: 'Warum führen Sie eine ÖGD durch und warum eine Biopsie?',
-          antwort: 'Die ÖGD ist der Goldstandard zur direkten Darstellung des Ulkus. Beim Magenulkus wird biopsiert, um ein Magenkarzinom auszuschließen und H. pylori nachzuweisen.',
-        },
-        {
-          frage: 'Was erwarten Sie im Blutbild und wie weisen Sie eine Blutung nach?',
-          antwort: 'Bei chronischem Blutverlust eine Anämie mit erniedrigtem Hämoglobin. Eine okkulte Blutung weist man über den Haemoccult-Test im Stuhl nach.',
-        },
+        { frage: 'Was ist der 13C-Atemtest und wozu dient er?', antwort: 'Ein nicht-invasiver Test zum Nachweis von Helicobacter pylori: Der Patient trinkt 13C-markierten Harnstoff, den die bakterielle Urease spaltet; das markierte CO2 wird in der Ausatemluft gemessen.' },
+        { frage: 'Wie behandeln Sie ein Ulcus ventriculi?', antwort: 'Mit einem PPI über mehrere Wochen, Absetzen der NSAR und Noxenkarenz; bei Helicobacter-Nachweis zusätzlich eine Eradikation.' },
+        { frage: 'Welche Eradikationstherapie wählen Sie heute?', antwort: 'Meist die Bismut-Quadrupeltherapie, weil Clarithromycin hierzulande oft nicht mehr wirkt.' },
+        { frage: 'Welche Prädispositionsfaktoren für ein Ulkus kennen Sie?', antwort: 'Regelmäßige NSAR-Einnahme, eine H.-pylori-Infektion, Rauchen, Alkohol und beruflicher Stress.' },
+        { frage: 'Wie unterscheiden Sie ein Ulcus ventriculi von einem Ulcus duodeni?', antwort: 'Über den Schmerzrhythmus: Das Magenulkus verursacht Sofortschmerz kurz nach dem Essen, das Duodenalulkus dagegen Nüchtern- und Nachtschmerz, der sich durch Essen bessert.' },
+        { frage: 'Warum führen Sie eine ÖGD durch und warum eine Biopsie?', antwort: 'Sie zeigt das Ulkus direkt; die Biopsie schließt beim Magenulkus ein Karzinom aus und weist Helicobacter nach.' },
+        { frage: 'Was erwarten Sie im Blutbild und wie weisen Sie eine Blutung nach?', antwort: 'Bei chronischem Blutverlust eine Anämie mit erniedrigtem Hämoglobin. Eine okkulte Blutung weist man über den Haemoccult-Test im Stuhl nach.' },
       ],
-      merksatz: 'Merke: Jedes Ulcus ventriculi muss bioptisch gesichert und nach 6–8 Wochen endoskopisch kontrolliert werden (Karzinomausschluss) — Basistherapie ist PPI plus H.-pylori-Eradikation und das Absetzen der NSAR.',
+      merksatz: 'Jedes Ulcus ventriculi muss bioptisch gesichert und nach 6–8 Wochen endoskopisch kontrolliert werden (Karzinomausschluss) — Basistherapie ist PPI plus H.-pylori-Eradikation und das Absetzen der NSAR.',
       linkedCaseIds: [
         'case-ulcus',
       ],
@@ -691,7 +632,7 @@ export function seedFachwissen(): Fachwissen[] {
       id: 'fw-magenkarzinom',
       pathology: 'Magenkarzinom',
       specialty: 'Gastroenterologie',
-      definition: 'Maligne Neoplasie der Magenschleimhaut, in über 90 % der Fälle ein vom Drüsenepithel ausgehendes Adenokarzinom. Nach Laurén werden ein intestinaler Typ (drüsig, umschrieben, bessere Prognose) und ein diffuser Typ (infiltrativ wachsend, oft als Linitis plastica, ungünstigere Prognose) unterschieden. Häufig lange asymptomatisch, weshalb die Diagnose oft erst im fortgeschrittenen Stadium gestellt wird.',
+      definition: 'Maligne Neoplasie der Magenschleimhaut, in über 90 % der Fälle ein vom Drüsenepithel ausgehendes Adenokarzinom. Häufig lange asymptomatisch, weshalb die Diagnose oft erst im fortgeschrittenen Stadium gestellt wird.',
       aetiologie: 'Meist Folge einer chronischen Schädigung der Magenschleimhaut. Zentral ist die Correa-Kaskade: chronische Helicobacter-pylori-Infektion → chronisch-atrophische Gastritis → intestinale Metaplasie → Dysplasie → Karzinom. Weitere Auslöser sind die Epstein-Barr-Virus-Infektion sowie genetische Formen (hereditäres diffuses Magenkarzinom bei CDH1-Mutation).',
       risikofaktoren: [
         'Chronische Helicobacter-pylori-Infektion (wichtigster Risikofaktor)',
@@ -699,7 +640,7 @@ export function seedFachwissen(): Fachwissen[] {
         'Nikotinabusus',
         'Ernährung reich an Nitrosaminen, Salz und geräucherten Speisen; nitratreiche Kost',
         'Alkoholkonsum',
-        'Positive Familienanamnese (z. B. Vater an Magenkarzinom verstorben)',
+        'Positive Familienanamnese (Verwandte ersten Grades)',
         'Zustand nach Magenteilresektion (Magenstumpfkarzinom)',
         'Perniziöse Anämie / Typ-A-Gastritis, Morbus Ménétrier',
         'Adipositas, Blutgruppe A',
@@ -764,18 +705,16 @@ export function seedFachwissen(): Fachwissen[] {
         'Obere GI-Blutung: Hämatemesis oder Meläna → notfallmäßige Abklärung',
         'Tastbare epigastrische Resistenz oder derber, vergrößerter Virchow-Lymphknoten links supraklavikulär',
         'Rasch progredienter, ungewollter Gewichtsverlust mit B-Symptomatik',
-        'Neue Dyspepsie mit Alarmsymptomen ab dem 45. Lebensjahr → zeitnahe ÖGD zwingend',
         'Symptomatische Anämie bei okkultem Blutverlust (Belastungsdyspnoe, Blässe)',
       ],
       diagnostik: [
-        { stufe: 'Anamnese/Klinik', text: 'Test auf okkultes Blut im Stuhl' },
+        { stufe: 'Anamnese/Klinik', text: 'Anamnese und körperliche Untersuchung: Alarmsymptome, Gewichtsverlauf, Familienanamnese, frühere Helicobacter-Infektion; Abdomenpalpation (Resistenz), Virchow-Lymphknoten links supraklavikulär, Aszites, digital-rektale Untersuchung' },
         { stufe: 'Labor', text: 'Labor: Blutbild (Anämie), Eisen und Ferritin, Entzündungsparameter, Leberwerte; Tumormarker CA 72-4, CEA und CA 19-9 nur zur Verlaufs- und Therapiekontrolle, nicht zur Diagnosestellung' },
         { stufe: 'Apparativ & Bildgebung', text: 'Abdomen-Sonographie: Lebermetastasen, Aszites, Lymphadenopathie' },
         { stufe: 'Apparativ & Bildgebung', text: 'Endosonographie zur Beurteilung der Wandinfiltrationstiefe (T) und der regionären Lymphknoten (N)' },
         { stufe: 'Apparativ & Bildgebung', text: 'CT von Thorax und Abdomen mit Kontrastmittel zum Staging (Fernmetastasen, insbesondere pulmonal und hepatisch)' },
-        { stufe: 'Invasiv & Speziell', text: 'Anamnese und körperliche Untersuchung: Abdomenpalpation (Resistenz), Lymphknotenstatus (Virchow-Lymphknoten links supraklavikulär), digital-rektale Untersuchung' },
         { stufe: 'Invasiv & Speziell', text: 'Ösophago-Gastro-Duodenoskopie (ÖGD) mit Biopsie — Goldstandard zur Diagnosesicherung durch Histologie' },
-        { stufe: 'Invasiv & Speziell', text: 'Diagnostische Laparoskopie zum Ausschluss einer Peritonealkarzinose bei lokal fortgeschrittenem Befund' },
+        { stufe: 'Invasiv & Speziell', text: 'Diagnostische Laparoskopie zum Ausschluss einer Peritonealkarzinose bei lokal fortgeschrittenem Befund (cT3/cT4)' },
       ],
       differenzialdiagnosen: [
         {
@@ -815,11 +754,8 @@ export function seedFachwissen(): Fachwissen[] {
         {
           label: 'Systemtherapie / (neo)adjuvant',
           items: [
-            'Perioperative (neoadjuvante und adjuvante) Chemotherapie nach dem FLOT-Schema bei lokal fortgeschrittenem, resektablem Karzinom',
+            'Perioperative (neoadjuvante und adjuvante) Chemotherapie nach dem FLOT-Schema bei lokal fortgeschrittenem, resektablem Karzinom (cT3/cT4 oder Lymphknotenbefall)',
             'Palliative Chemotherapie bei metastasiertem Stadium; bei HER2-Überexpression zusätzlich Trastuzumab',
-            'Helicobacter-pylori-Eradikation (Triple-Therapie) — kurativ beim frühen MALT-Lymphom, kausal bei Risikoschleimhaut',
-            'Ernährungstherapie / Ernährungsberatung, Substitution (Eisen, Vitamin B12 nach Gastrektomie)',
-            'Psychoonkologische Begleitung und Schmerz-/Palliativtherapie',
           ],
         },
         {
@@ -838,16 +774,25 @@ export function seedFachwissen(): Fachwissen[] {
             'Palliative Verfahren (Gastroenterostomie/Bypass) bei nicht resektabler Stenose',
           ],
         },
+        {
+          label: 'Supportive Therapie und Begleitmaßnahmen',
+          items: [
+            'Helicobacter-pylori-Eradikation (Erstlinie Bismut-Quadrupeltherapie) — kurativ beim frühen MALT-Lymphom, kausal bei Risikoschleimhaut; Verwandten ersten Grades einen Helicobacter-Test empfehlen',
+            'Ernährungstherapie / Ernährungsberatung, Substitution (Eisen, Vitamin B12 nach Gastrektomie)',
+            'Psychoonkologische Begleitung und Schmerz-/Palliativtherapie',
+          ],
+        },
       ],
-      prognose: 'Stark stadienabhängig. Das auf die Mukosa begrenzte Frühkarzinom hat nach endoskopischer/chirurgischer Resektion eine sehr gute Prognose. Da in Deutschland viele Karzinome erst spät (mit Lymphknoten- oder Fernmetastasen) diagnostiziert werden, liegt die 5-Jahres-Überlebensrate insgesamt bei etwa 30 %. Der diffuse Typ nach Laurén ist prognostisch ungünstiger als der intestinale Typ.',
+      prognose: 'Stark stadienabhängig. Das auf die Mukosa begrenzte Frühkarzinom hat nach endoskopischer/chirurgischer Resektion eine sehr gute Prognose. Da in Deutschland viele Karzinome erst spät (mit Lymphknoten- oder Fernmetastasen) diagnostiziert werden, liegt die 5-Jahres-Überlebensrate insgesamt bei etwa 30 %.',
       pruefungsfallen: [
         'Direkte Patientenfrage "Habe ich Krebs?" oder "Muss ich sterben?" empathisch UND neutral beantworten: den Verdacht nicht bagatellisieren, aber keine Diagnose ohne Magenspiegelung und Gewebeprobe stellen — "Der Verdacht steht im Raum, wir klären ihn mit einer Magenspiegelung ab."',
         'Nicht zu früh beruhigen: Floskeln wie "Sie sind bei uns in guten Händen" oder "machen Sie sich keine Sorgen" werden vom Oberarzt kritisiert, wenn tatsächlich ein Tumorverdacht besteht.',
         'Tumormarker (CA 72-4, CEA, CA 19-9) NICHT als Diagnosemittel nennen — die Diagnose stellt allein die ÖGD mit Biopsie; Marker dienen der Verlaufskontrolle.',
-        'Die neu aufgetretene Abneigung gegen Fleisch aktiv erfragen und dokumentieren — sie ist ein typisches, gern geprüftes Zeichen.',
-        'Die Todesursache des Vaters (Magenkarzinom) in der Familienanamnese vollständig dokumentieren — wird häufig nachgefragt.',
-        'Bei belasteter Familienanamnese (Vater im gleichen Alter verstorben) Empathie zeigen und die Angst des Patienten aufgreifen.',
-        'Den Gewichtsverlust nicht dem vorbekannten Diabetes zuschreiben — er ist tumorbedingt (konsumierende Erkrankung).',
+        'Nach Ekel vor bestimmten Speisen fragen: Patienten nennen ihn selten von selbst, Prüfer fragen gern danach.',
+        'Bei Krebsfällen in der Familie Tumorart und Erkrankungsalter dokumentieren — wird häufig nachgefragt.',
+        'Bei belasteter Familienanamnese die Angst des Patienten aufgreifen.',
+        'Einen Gewichtsverlust bei bekanntem Diabetes nicht dem Diabetes zuschreiben — er ist Zeichen der konsumierenden Erkrankung.',
+        'Ein PPI auf Probe kann ein ulzeriertes Karzinom scheinbar abheilen lassen und die Diagnose verzögern.',
       ],
       askedInExam: [
         {
@@ -864,7 +809,7 @@ export function seedFachwissen(): Fachwissen[] {
         },
         {
           frage: 'Erklären Sie die ÖGD.',
-          antwort: 'Die Ösophago-Gastro-Duodenoskopie ist eine endoskopische Untersuchung von Speiseröhre, Magen und Zwölffingerdarm mit einem flexiblen Schlauch; sie erlaubt die Inspektion der Schleimhaut und die Entnahme von Gewebeproben.',
+          antwort: 'Eine Spiegelung von Speiseröhre, Magen und Zwölffingerdarm mit einem flexiblen Endoskop; sie erlaubt die Inspektion der Schleimhaut und die Entnahme von Gewebeproben.',
         },
         {
           frage: 'Der Patient hat einen Diabetes, ist aber untergewichtig — ist das wirklich ein Typ 2?',
@@ -891,7 +836,7 @@ export function seedFachwissen(): Fachwissen[] {
           antwort: 'Die psychoonkologische bzw. psychologische Unterstützung des Patienten, eine einfühlsame Aufklärung sowie eine begleitende Ernährungsberatung.',
         },
       ],
-      merksatz: 'Neue Dyspepsie mit Alarmsymptomen (Gewichtsverlust, Dysphagie, Anämie/Meläna) ab dem 45. Lebensjahr: ÖGD mit Biopsie — der Goldstandard zur Sicherung des Magenkarzinoms.',
+      merksatz: 'Neue Oberbauchbeschwerden mit Gewichtsverlust, Teerstuhl, Dysphagie oder Fleischabneigung verlangen eine ÖGD mit Biopsie.',
       linkedCaseIds: [
         'case-magenkarzinom',
       ],
@@ -917,10 +862,10 @@ export function seedFachwissen(): Fachwissen[] {
           text: 'Zunächst diffuser, viszeraler periumbilikaler/epigastrischer Schmerz, der innerhalb von Stunden in den rechten Unterbauch wandert und dort lokalisiert und stärker wird (typischer Schmerzwechsel)',
         },
         {
-          text: 'Druckschmerz über dem McBurney-Punkt (Mitte zwischen Nabel und rechter Spina iliaca anterior superior) und Lanz-Punkt',
+          text: 'Lokaler Druckschmerz im rechten Unterbauch',
         },
         {
-          text: 'Loslassschmerz (Blumberg-Zeichen), Abwehrspannung, kontralateraler Loslassschmerz',
+          text: 'Peritoneale Reizung: Loslassschmerz, umschriebene Abwehrspannung',
         },
         {
           text: 'Appetitlosigkeit (Inappetenz), Übelkeit, ggf. einmaliges Erbrechen',
@@ -936,7 +881,7 @@ export function seedFachwissen(): Fachwissen[] {
           atypisch: true,
         },
         {
-          text: 'Pelvine/retroiliakale Lage: Schmerz tief im Becken, Dysurie, Durchfall, Schmerz bei rektaler Untersuchung (Douglas-Schmerz)',
+          text: 'Pelvine/retroileale Lage: Schmerz tief im Becken mit Dysurie oder Durchfall, kaum Bauchdeckenbefund',
           atypisch: true,
         },
         {
@@ -947,15 +892,11 @@ export function seedFachwissen(): Fachwissen[] {
           text: 'Kleinkinder und alte Patienten: oligosymptomatisch, rasche Perforation, hohes Übersehungsrisiko',
           atypisch: true,
         },
-        {
-          text: 'Plötzliche Schmerzlinderung gefolgt von diffusem Bauchschmerz und Zustandsverschlechterung: Warnsignal der Perforation!',
-          atypisch: true,
-        },
       ],
       klassifikation: [
         {
           name: 'Appendizitiszeichen (klinische Prüfzeichen)',
-          inhalt: 'McBurney-Punkt (Druckschmerz), Lanz-Punkt; Blumberg-Zeichen (kontralateraler Loslassschmerz); Rovsing-Zeichen (Schmerz rechts beim retrograden Ausstreichen des Kolons); Psoas-Zeichen (Schmerz bei Anheben/Streckung des rechten Beins gegen Widerstand – retrozäkale Lage); Obturator-Zeichen (Schmerz bei Innenrotation der gebeugten Hüfte – pelvine Lage); Douglas-Schmerz (Druckschmerz bei rektaler Untersuchung).',
+          inhalt: 'McBurney-Punkt (Druckschmerz am Übergang vom äußeren zum mittleren Drittel der Linie zwischen rechter Spina iliaca anterior superior und Nabel), Lanz-Punkt; Blumberg-Zeichen (kontralateraler Loslassschmerz); Rovsing-Zeichen (Schmerz rechts beim retrograden Ausstreichen des Kolons); Psoas-Zeichen (retrozäkale Lage); Obturator-Zeichen (Schmerz bei Innenrotation der gebeugten Hüfte – pelvine Lage); Douglas-Schmerz (Druckschmerz bei rektaler Untersuchung).',
         },
         {
           name: 'Alvarado-Score (MANTRELS)',
@@ -985,7 +926,7 @@ export function seedFachwissen(): Fachwissen[] {
         },
         {
           dd: 'Gynäkologische Ursachen (Adnexitis, Ovarialtorsion, Extrauteringravidität, rupturierte Ovarialzyste)',
-          unterscheidung: 'Bei Frauen im gebärfähigen Alter obligat; Zyklusanamnese, β-hCG, vaginale Sonographie, gynäkologisches Konsil.',
+          unterscheidung: 'Zyklusanamnese, vaginale Sonographie, gynäkologisches Konsil.',
         },
         {
           dd: 'Urolithiasis / Ureterkolik',
@@ -1015,7 +956,7 @@ export function seedFachwissen(): Fachwissen[] {
             'Stationäre Aufnahme, strikte Nahrungs- und Flüssigkeitskarenz (Patient nüchtern lassen), intravenöse Flüssigkeitssubstitution mit balancierter Vollelektrolytlösung',
             'Ausreichende Analgesie, z. B. Metamizol 1 g als Kurzinfusion — die früher gelehrte Zurückhaltung mit Analgetika ist verlassen, sie verschleiert den Untersuchungsbefund nicht',
             'Perioperative kalkulierte Antibiotikaprophylaxe als Single Shot 30–60 Minuten vor Schnitt, z. B. Cefuroxim plus Metronidazol',
-            'Labor mit Blutbild, CRP, Gerinnung, Elektrolyten, Kreatinin und Schwangerschaftstest bei Frauen im gebärfähigen Alter; Blutgruppe, Aufklärung, Anästhesievorstellung',
+            'Präoperativ Gerinnung, Elektrolyte, Kreatinin, Blutgruppe; Aufklärung, Anästhesievorstellung',
             'Bei nicht eindeutigem Befund engmaschige klinische und sonographische Verlaufskontrolle über 6–12 Stunden mit wiederholter Untersuchung und Laborkontrolle statt vorschneller Entlassung',
             'Bei Peritonitis oder Sepsiszeichen: Kreislaufstabilisierung, sofortige therapeutische Antibiose und notfallmäßige Operation',
           ],
@@ -1050,7 +991,7 @@ export function seedFachwissen(): Fachwissen[] {
             'Nur bei sonographisch oder computertomographisch gesicherter unkomplizierter Appendizitis ohne Appendikolith, Perforation oder Abszess erwägbar',
             'Weitere Indikation: relevante Operations- oder Narkosekontraindikation, Ablehnung der Operation durch den Patienten',
             'Schema: intravenöse Antibiose (z. B. Cephalosporin plus Metronidazol) mit oraler Fortführung über insgesamt etwa 7–10 Tage unter stationärer Beobachtung',
-            'Grenzen klar benennen: Rezidivrate von etwa 30–40 % innerhalb eines Jahres, Risiko der verzögerten Perforation, kein histologischer Malignitätsausschluss — die Appendektomie bleibt Standard',
+            'Grenzen klar benennen: bei etwa jedem Dritten wird innerhalb eines Jahres doch appendektomiert, Risiko der verzögerten Perforation, kein histologischer Malignitätsausschluss — die Appendektomie bleibt Standard',
           ],
           akut: false,
         },
@@ -1058,25 +999,22 @@ export function seedFachwissen(): Fachwissen[] {
       prognose: 'Bei rechtzeitiger Operation sehr gut mit niedriger Letalität und rascher Genesung. Prognose verschlechtert sich deutlich bei Perforation und Peritonitis (höhere Morbidität, Abszess-, Ileus- und Sepsisrisiko). Verzögerte Diagnose bei Kindern, Schwangeren und alten Patienten ist der Hauptrisikofaktor für Komplikationen.',
       pruefungsfallen: [
         'Den typischen Schmerzwechsel aktiv erfragen: erst periumbilikal/diffus, dann Wanderung in den rechten Unterbauch – das ist der klassische Hinweis, den die Prüfer hören wollen.',
-        'Bei jeder Frau im gebärfähigen Alter an Extrauteringravidität und Adnexerkrankungen denken und β-hCG nennen (häufige Rückfrage: \'Und wenn es eine Frau wäre?\').',
-        'Normale Entzündungsparameter schließen eine Appendizitis nicht aus – bei lokalisierter Frühentzündung können Leukozyten und CRP noch normal sein.',
-        'Urinstatus nicht vergessen: dient dem Ausschluss von Harnwegsinfekt und Urolithiasis, nicht der Bestätigung der Appendizitis.',
+        'Auf die Rückfrage „Und wenn es eine Frau wäre?“ vorbereitet sein: gynäkologische Ursachen nennen.',
         'Appendizitiszeichen (McBurney, Blumberg, Rovsing, Psoas) und den McBurney-Punkt exakt lokalisieren können – wird regelmäßig gefragt.',
         'Bei der Aufklärung den laienverständlichen Begriff \'Blinddarmentzündung\' und \'Schlüsselloch-Operation\' verwenden.',
-        'Die plötzliche Schmerzlinderung als Perforationszeichen (nicht als Besserung!) erkennen und benennen.',
       ],
       askedInExam: [
         {
           frage: 'Welche Verdachtsdiagnose haben Sie und warum?',
-          antwort: 'Eine akute Appendizitis: wegen des zunächst periumbilikalen, dann in den rechten Unterbauch gewanderten Schmerzes mit Druckschmerz über dem McBurney-Punkt, Loslassschmerz, Appetitlosigkeit, Übelkeit und subfebriler Temperatur.',
+          antwort: 'Eine akute Appendizitis: Schmerzwanderung in den rechten Unterbauch, lokaler Druck- und Loslassschmerz, Appetitlosigkeit, Übelkeit, subfebrile Temperatur.',
         },
         {
           frage: 'Welche Differenzialdiagnosen kommen in Betracht – und was, wenn es eine Frau wäre?',
-          antwort: 'Divertikulitis, Urolithiasis, Gastroenteritis und Morbus Crohn. Bei einer Frau zusätzlich Adnexitis, Ovarialtorsion und vor allem eine Extrauteringravidität, die ich mit β-hCG und gynäkologischer Untersuchung ausschließe.',
+          antwort: 'Divertikulitis, Urolithiasis, Gastroenteritis und Morbus Crohn. Bei einer Frau zusätzlich Adnexitis, Ovarialtorsion und vor allem eine Extrauteringravidität.',
         },
         {
           frage: 'Wie gehen Sie vor, um Ihren Verdacht zu bestätigen?',
-          antwort: 'Körperliche Untersuchung mit Appendizitiszeichen und rektaler Untersuchung, Labor mit Blutbild und CRP, Urinstatus, bei Frauen β-hCG, anschließend eine Abdomen-Sonographie und bei unklarem Befund ein CT.',
+          antwort: 'Körperliche Untersuchung mit Appendizitiszeichen und rektaler Untersuchung, Labor mit Blutbild und CRP, Urinstatus, anschließend eine Abdomen-Sonographie und bei unklarem Befund ein CT.',
         },
         {
           frage: 'Welche Laborwerte möchten Sie anfordern, und welche Informationen liefert ein Blutbild?',
@@ -1092,15 +1030,15 @@ export function seedFachwissen(): Fachwissen[] {
         },
         {
           frage: 'Was können Sie in der Sonographie sehen?',
-          antwort: 'Eine aufgetriebene, nicht komprimierbare Appendix über 6 mm Durchmesser mit Kokardenphänomen, gegebenenfalls einen Kotstein, freie Flüssigkeit oder einen Abszess.',
+          antwort: 'Die entzündete Appendix selbst und Komplikationen wie einen Abszess; eine unauffällige Sonographie schließt die Appendizitis aber nicht aus.',
         },
         {
           frage: 'Welche Therapie schlagen Sie vor?',
-          antwort: 'Die operative Entfernung, in der Regel als laparoskopische Appendektomie, unter perioperativer Antibiotikaprophylaxe; bei Perforation offene Operation mit Lavage und therapeutischer Antibiose.',
+          antwort: 'Die operative Entfernung, in der Regel als laparoskopische Appendektomie, unter perioperativer Antibiotikaprophylaxe; bei Perforation ebenfalls meist laparoskopisch mit ausgiebiger Lavage (offen bei ausgedehnter Peritonitis) und therapeutischer Antibiose.',
         },
         {
           frage: 'Welche Appendizitiszeichen kennen Sie, zum Beispiel das Psoas-Zeichen?',
-          antwort: 'McBurney- und Lanz-Punkt, Blumberg-Zeichen (kontralateraler Loslassschmerz), Rovsing-Zeichen und das Psoas-Zeichen: Schmerz im rechten Unterbauch beim Anheben oder Strecken des rechten Beins gegen Widerstand, typisch für eine retrozäkale Lage.',
+          antwort: 'Beim Psoas-Zeichen hebt der Patient das gestreckte rechte Bein gegen Widerstand an; Schmerz im rechten Unterbauch spricht für eine retrozäkal gelegene Appendix.',
         },
         {
           frage: 'Wie kann man Fieber messen und welcher Unterschied ist relevant?',
@@ -1111,7 +1049,7 @@ export function seedFachwissen(): Fachwissen[] {
           antwort: 'Durch die Bildgebung – Sonographie und gegebenenfalls CT –, die die entzündeten Darmwandabschnitte lokalisiert; die Divertikulitis betrifft meist das linksseitige Sigma.',
         },
       ],
-      merksatz: 'Wandernder Schmerz in den rechten Unterbauch mit McBurney- und Loslassschmerz = Appendizitis; bei Frauen immer β-hCG — plötzliche Schmerzlinderung ist das Perforationszeichen.',
+      merksatz: 'Wandernder Schmerz in den rechten Unterbauch mit lokalem Druck- und Loslassschmerz ist eine Appendizitis, bis das Gegenteil bewiesen ist.',
       linkedCaseIds: [
         'case-appendizitis',
       ],
@@ -1502,10 +1440,10 @@ export function seedFachwissen(): Fachwissen[] {
       id: 'fw-pavk',
       pathology: 'Periphere arterielle Verschlusskrankheit (pAVK)',
       specialty: 'Kardiologie',
-      definition: 'Chronische, meist atherosklerotisch bedingte Stenosierung oder Verschluss der extremitätenversorgenden Arterien (überwiegend der unteren Extremität), die zu einer belastungsabhängigen Minderdurchblutung (Ischämie) führt. Leitsymptom ist die Claudicatio intermittens („Schaufensterkrankheit“): ein belastungsabhängiger, krampfartiger Muskelschmerz (typisch in der Wade), der den Patienten zum Stehenbleiben zwingt und sich in Ruhe innerhalb weniger Minuten bessert. Der volkstümliche Name rührt daher, dass die Betroffenen wie beim Schaufensterbummeln immer wieder stehen bleiben müssen, um den Schmerz abklingen zu lassen. Die pAVK ist Ausdruck einer generalisierten Atherosklerose und damit ein Marker für ein hohes kardiovaskuläres Gesamtrisiko (KHK, Karotisstenose).',
-      aetiologie: 'In über 90 % der Fälle Folge einer Atherosklerose (arteriosklerotische Plaques mit Lumeneinengung). Die Lokalisation bestimmt die Symptomhöhe: Beckentyp (aortoiliakal, ca. 35 %) verursacht Gluteal-/Oberschenkelschmerz, der Oberschenkeltyp (femoropopliteal, ca. 50 %, häufigster Typ) Wadenschmerz, der Unterschenkeltyp (kruropedal, ca. 15 %, gehäuft bei Diabetikern) Fußschmerz. Seltene, nicht-atherosklerotische Ursachen: Thrombangiitis obliterans (Morbus Winiwarter-Buerger, junge Raucher), Vaskulitiden, Entrapment-Syndrom der A. poplitea, fibromuskuläre Dysplasie sowie kardiale/arterielle Embolien (dann eher akuter Verschluss). Ein kompletter Verschluss der distalen Aorta bzw. beider Beckenarterien wird als Leriche-Syndrom bezeichnet (Trias: Claudicatio beidseits/gluteal, fehlende Leistenpulse, erektile Dysfunktion).',
+      definition: 'Chronische, meist atherosklerotisch bedingte Stenosierung oder Verschluss der extremitätenversorgenden Arterien (überwiegend der unteren Extremität), die zu einer belastungsabhängigen Minderdurchblutung (Ischämie) führt. Leitsymptom ist die Claudicatio intermittens („Schaufensterkrankheit“): ein belastungsabhängiger, krampfartiger Muskelschmerz (typisch in der Wade), der den Patienten zum Stehenbleiben zwingt und sich in Ruhe innerhalb weniger Minuten bessert. Die pAVK ist Ausdruck einer generalisierten Atherosklerose und damit ein Marker für ein hohes kardiovaskuläres Gesamtrisiko (KHK, Karotisstenose).',
+      aetiologie: 'In über 90 % der Fälle Folge einer Atherosklerose (arteriosklerotische Plaques mit Lumeneinengung). Die Lokalisation bestimmt die Symptomhöhe: Beckentyp (aortoiliakal, ca. 35 %) verursacht Gluteal-/Oberschenkelschmerz, der Oberschenkeltyp (femoropopliteal, ca. 50 %, häufigster Typ) Wadenschmerz, der Unterschenkeltyp (kruropedal, ca. 15 %, gehäuft bei Diabetikern) Fußschmerz. Seltene, nicht-atherosklerotische Ursachen: Thrombangiitis obliterans (Morbus Winiwarter-Buerger, junge Raucher), Vaskulitiden, Entrapment-Syndrom der A. poplitea, fibromuskuläre Dysplasie sowie kardiale/arterielle Embolien (dann eher akuter Verschluss).',
       risikofaktoren: [
-        'Nikotinabusus — der wichtigste und stärkste Risikofaktor (im Fall 45 Packyears)',
+        'Nikotinabusus — der wichtigste und stärkste Risikofaktor',
         'Diabetes mellitus (fördert v. a. den distalen Unterschenkeltyp und Mediasklerose)',
         'Arterielle Hypertonie',
         'Hyperlipidämie / Hypercholesterinämie (LDL↑)',
@@ -1529,7 +1467,7 @@ export function seedFachwissen(): Fachwissen[] {
           text: 'Trophische Störungen bei fortgeschrittenem Befund: Haarverlust, brüchige Nägel, glänzend-atrophe Haut, verzögerte Wundheilung',
         },
         {
-          text: 'Ruheschmerz — typischerweise nachts im Liegen, Besserung durch Tieflagerung des Beins (Herabhängen aus dem Bett) — signalisiert kritische Ischämie (ab Stadium III)',
+          text: 'Ruheschmerz — typischerweise nachts im Liegen, Besserung durch Tieflagerung des Beins (Herabhängen aus dem Bett)',
           atypisch: true,
         },
         {
@@ -1538,10 +1476,6 @@ export function seedFachwissen(): Fachwissen[] {
         },
         {
           text: 'Beim Diabetiker durch begleitende Polyneuropathie oft schmerzarm/stumm — die Ischämie wird erst über ein Ulkus oder eine Gangrän auffällig (Cave: verschleppte Diagnose)',
-          atypisch: true,
-        },
-        {
-          text: 'Erektile Dysfunktion in Kombination mit gluteal-beidseitiger Claudicatio und fehlenden Leistenpulsen → Leriche-Syndrom (aortoiliakaler Verschluss)',
           atypisch: true,
         },
       ],
@@ -1571,7 +1505,7 @@ export function seedFachwissen(): Fachwissen[] {
         { stufe: 'Anamnese/Klinik', text: 'Körperliche Untersuchung: Inspektion (Blässe, trophische Störungen, Ulzera), Seitenvergleich der Hauttemperatur, systematisches Pulsstatus-Tasten (A. femoralis, A. poplitea, A. dorsalis pedis, A. tibialis posterior) und Auskultation auf Stenosegeräusche' },
         { stufe: 'Anamnese/Klinik', text: 'Ratschow-Lagerungsprobe und standardisierte Gehstreckenmessung auf dem Laufband (Bestätigung und Objektivierung des Stadiums)' },
         { stufe: 'Labor', text: 'Labor: Lipidstatus (LDL/HDL/Cholesterin), HbA1c/Nüchternglukose, Nierenwerte (Kreatinin/eGFR vor KM), Blutbild, CRP' },
-        { stufe: 'Apparativ & Bildgebung', text: 'Knöchel-Arm-Index (ABI, Doppler): zentrale, einfache Basisuntersuchung — Quotient aus systolischem Knöchel- und Armdruck; < 0,9 beweist eine pAVK, < 0,5 zeigt eine kritische Ischämie an' },
+        { stufe: 'Apparativ & Bildgebung', text: 'Knöchel-Arm-Index (ABI) mit der Doppler-Stiftsonde: die zentrale, einfache Basisuntersuchung' },
         { stufe: 'Apparativ & Bildgebung', text: 'Farbkodierte Duplexsonographie: erste bildgebende, nicht-invasive Methode zur Lokalisation und Graduierung der Stenosen/Verschlüsse' },
         { stufe: 'Apparativ & Bildgebung', text: 'MR-Angiographie (MRA) — nicht-invasive Gefäßdarstellung zur OP-/Interventionsplanung, ohne Röntgenstrahlung' },
         { stufe: 'Apparativ & Bildgebung', text: 'CT-Angiographie (CTA) mit jodhaltigem Kontrastmittel zur Gefäßdarstellung (Cave: Niereninsuffizienz, KM-Allergie)' },
@@ -1596,7 +1530,7 @@ export function seedFachwissen(): Fachwissen[] {
         },
         {
           dd: 'Akuter arterieller Verschluss (Embolie/Thrombose)',
-          unterscheidung: 'Plötzlicher Beginn mit den 6 P (Schmerz, Blässe, Pulslosigkeit, Parästhesie, Paralyse, Schock); Notfall — im Gegensatz zur langsam progredienten chronischen pAVK.',
+          unterscheidung: 'Plötzlicher Beginn in Ruhe; Notfall — im Gegensatz zur langsam progredienten chronischen pAVK.',
         },
         {
           dd: 'Thrombangiitis obliterans (M. Winiwarter-Buerger)',
@@ -1613,7 +1547,7 @@ export function seedFachwissen(): Fachwissen[] {
             'Blutdruckeinstellung auf Werte unter 140/90 mmHg, bevorzugt mit ACE-Hemmer oder Sartan; Betablocker sind bei pAVK entgegen einer alten Lehrmeinung nicht kontraindiziert',
             'Optimierung des Diabetes mellitus mit einem HbA1c-Zielwert um 7 %',
             'Tägliche Fußinspektion, professionelle Fußpflege, gut sitzendes und druckstellenfreies Schuhwerk, keine Barfußgänge, keine Wärmflaschen — besonders wichtig beim Diabetiker mit Polyneuropathie',
-            'Aufklärung: die pAVK ist ein Marker der generalisierten Atherosklerose; die Prognose bestimmt nicht das Bein, sondern das kardiovaskuläre Ereignis — daher Mitbeurteilung von KHK und Karotiden',
+            'KHK und Karotiden mitbeurteilen',
           ],
           akut: false,
         },
@@ -1645,7 +1579,7 @@ export function seedFachwissen(): Fachwissen[] {
         {
           label: 'Akuter Extremitätenverschluss und kritische Ischämie — Notfallvorgehen',
           items: [
-            'Akuter Verschluss: die 6 P nach Pratt — pain, paleness, pulselessness, paresthesia, paralysis, prostration; das Zeitfenster bis zur irreversiblen Muskelschädigung beträgt etwa sechs Stunden',
+            'Akuter Verschluss: das Zeitfenster bis zur irreversiblen Muskelschädigung beträgt etwa sechs Stunden',
             'Sofortmaßnahmen: Extremität tief lagern und watteweich polstern, Wärmeerhalt, keine Wärmeapplikation, Analgesie mit einem Opioid, Heparin-Bolus 5000–10000 IE intravenös, sofortige gefäßchirurgische beziehungsweise angiologische Vorstellung',
             'Revaskularisation je nach Befund: Fogarty-Katheterembolektomie bei embolischem Verschluss, lokale Katheterlyse oder Aspirationsthrombektomie bei thrombotischem Verschluss; embolische Genese abklären (Vorhofflimmern, Aneurysma)',
             'Kritische Ischämie (Stadium III und IV): stationäre Aufnahme, dringliche Revaskularisation, konsequente Analgesie, stadiengerechtes Wundmanagement, gezielte Antibiose nur bei Infektion',
@@ -1655,13 +1589,11 @@ export function seedFachwissen(): Fachwissen[] {
           akut: true,
         },
       ],
-      prognose: 'Die pAVK ist Ausdruck einer generalisierten Atherosklerose: prognosebestimmend ist nicht das Bein, sondern das hohe kardiovaskuläre Gesamtrisiko — die meisten Patienten versterben an Herzinfarkt oder Schlaganfall. Die lokale Prognose ist im Stadium II unter konsequenter Risikofaktorenkontrolle und Gehtraining günstig; nur eine Minderheit schreitet zur kritischen Ischämie fort. Entscheidend für die Extremitätenprognose sind absoluter Nikotinverzicht und die Diabeteseinstellung. Im Stadium IV (kritische Ischämie) drohen ohne Revaskularisation Amputation und eine deutlich erhöhte Letalität.',
+      prognose: 'Die pAVK ist Ausdruck einer generalisierten Atherosklerose: prognosebestimmend ist nicht das Bein, sondern das hohe kardiovaskuläre Gesamtrisiko — die meisten Patienten versterben an Herzinfarkt oder Schlaganfall. Die lokale Prognose ist im Stadium II unter konsequenter Risikofaktorenkontrolle und Gehtraining günstig; nur eine Minderheit schreitet zur kritischen Ischämie fort. Entscheidend für die Extremitätenprognose sind absoluter Nikotinverzicht und die Diabeteseinstellung. Bei Nekrosen drohen ohne Revaskularisation Amputation und eine deutlich erhöhte Letalität.',
       pruefungsfallen: [
         'Umgangssprache parat haben: pAVK = „Schaufensterkrankheit“; auf die häufige Prüferfrage „Warum heißt sie so?“ die Erklärung mit dem erzwungenen Stehenbleiben (wie beim Schaufensterbummel) liefern.',
-        'Der ABI (Knöchel-Arm-Index) ist DIE zentrale, nicht-invasive Basisuntersuchung — nie vergessen; bei Diabetikern/Niereninsuffizienz kann er durch Mediasklerose falsch-hoch (> 1,3) und damit falsch-negativ sein.',
-        'Nikotin als führenden Risikofaktor nennen und beim Patienten aktiv das Rauchen erfragen und ansprechen (wichtigste therapeutische Maßnahme).',
+        'Ein normaler ABI schließt bei Diabetes oder Niereninsuffizienz eine pAVK nicht aus (inkompressible Gefäße) — dann den Zehendruck messen.',
         'Fußpulse systematisch und benannt tasten (A. dorsalis pedis und A. tibialis posterior) — die Prüfer fragen konkret, WO man tastet.',
-        'Claudicatio spinalis von Claudicatio intermittens abgrenzen: Besserung durch Vornüberbeugen/Hinsetzen (spinal) vs. durch bloßes Stehenbleiben (arteriell).',
         'Bei KM-Allergie eine Alternative zur konventionellen Angiographie parat haben: CO2-Angiographie oder strahlenfreie MR-Angiographie.',
         'Die Therapie stadiengerecht (Fontaine I–IV) darstellen können und die Revaskularisationsindikation kennen: relativ ab IIb, absolut ab Stadium III/IV.',
         'Beim Diabetiker an den schmerzarmen/stummen Verlauf durch Polyneuropathie denken — die pAVK wird sonst erst über ein Ulkus entdeckt.',
@@ -1673,7 +1605,7 @@ export function seedFachwissen(): Fachwissen[] {
         },
         {
           frage: 'Was ist die wichtigste Untersuchung bei der pAVK?',
-          antwort: 'Der Knöchel-Arm-Index (ABI): das Verhältnis aus systolischem Knöchel- und Armdruck. Ein Wert unter 0,9 sichert die pAVK, unter 0,5 zeigt eine kritische Ischämie an. Ergänzend die farbkodierte Duplexsonographie.',
+          antwort: 'Der Knöchel-Arm-Index: systolischer Knöcheldruck geteilt durch den höheren Armdruck, krankhaft unter 0,9. Ergänzend die farbkodierte Duplexsonographie.',
         },
         {
           frage: 'Wo genau tasten Sie die Fußpulse?',
@@ -1708,7 +1640,7 @@ export function seedFachwissen(): Fachwissen[] {
           antwort: 'Ein chronischer Verschluss der distalen Aorta bzw. beider Beckenarterien mit der Trias aus beidseitiger (gluteal-/oberschenkelbetonter) Claudicatio, fehlenden Leistenpulsen und erektiler Dysfunktion.',
         },
       ],
-      merksatz: 'Claudicatio + kühles, pulsloses Bein = pAVK, ABI < 0,9 sichert die Diagnose. Basis: Rauchstopp und Gehtraining — und immer ASS und Statin, denn die pAVK warnt vor Herzinfarkt und Schlaganfall.',
+      merksatz: 'Claudicatio + kühles, pulsloses Bein = pAVK, ABI < 0,9 sichert die Diagnose. Basis: Rauchstopp und Gehtraining — und immer einen Plättchenhemmer (ASS oder Clopidogrel) und ein Statin, denn die pAVK warnt vor Herzinfarkt und Schlaganfall.',
       linkedCaseIds: [
         'case-pavk',
       ],
@@ -1719,48 +1651,47 @@ export function seedFachwissen(): Fachwissen[] {
       id: 'fw-lyme',
       pathology: 'Lyme-Borreliose',
       specialty: 'Infektiologie',
-      definition: 'Lyme-Borreliose (Lyme-Krankheit): durch Zecken übertragene bakterielle Multisystemerkrankung, verursacht durch Spirochäten des Komplexes Borrelia burgdorferi sensu lato. Sie ist die häufigste durch Zecken übertragene Infektionskrankheit in Europa und verläuft klassisch in drei Stadien (früh-lokalisiert, früh-disseminiert, spät-chronisch) mit charakteristischer Haut-, Nerven-, Herz- und Gelenkbeteiligung. Leitbefund des Frühstadiums ist das Erythema migrans (Wanderröte). Abzugrenzen ist die Frühsommer-Meningoenzephalitis (FSME), die durch dieselbe Zecke, aber durch ein Virus übertragen wird.',
-      aetiologie: 'Erreger sind gramnegative, schraubenförmige Spirochäten des Komplexes Borrelia burgdorferi sensu lato (in Europa v. a. Borrelia afzelii — eher Hautmanifestationen, Borrelia garinii — eher Neuroborreliose, sowie Borrelia burgdorferi sensu stricto). Überträger (Vektor) ist der Gemeine Holzbock (Ixodes ricinus), eine Schildzecke; Reservoir sind Nagetiere, Vögel und Wild. Die Übertragung erfolgt über den Speichel der Zecke beim Blutsaugen — das Übertragungsrisiko steigt mit der Saugdauer und ist bei einer Anhaftung über 24 Stunden deutlich erhöht. Wichtig für die Prüfung: Der Zeckenstich selbst ist harmlos; gefährlich ist erst die Übertragung des Erregers. Eine Mensch-zu-Mensch-Übertragung findet nicht statt.',
+      definition: 'Lyme-Borreliose (Lyme-Krankheit): durch Zecken übertragene bakterielle Multisystemerkrankung, verursacht durch Spirochäten des Komplexes Borrelia burgdorferi sensu lato. Sie ist die häufigste durch Zecken übertragene Infektionskrankheit in Europa und verläuft klassisch in drei Stadien (früh-lokalisiert, früh-disseminiert, spät-chronisch) mit charakteristischer Haut-, Nerven-, Herz- und Gelenkbeteiligung. Leitbefund des Frühstadiums ist das Erythema migrans (Wanderröte).',
+      aetiologie: 'Erreger sind gramnegative, schraubenförmige Spirochäten des Komplexes Borrelia burgdorferi sensu lato (in Europa v. a. Borrelia afzelii — eher Hautmanifestationen, Borrelia garinii — eher Neuroborreliose, sowie Borrelia burgdorferi sensu stricto). Überträger (Vektor) ist der Gemeine Holzbock (Ixodes ricinus), eine Schildzecke; Reservoir sind Nagetiere, Vögel und Wild. Die Übertragung erfolgt über den Speichel der Zecke beim Blutsaugen — das Übertragungsrisiko steigt mit der Saugdauer und ist bei einer Anhaftung über 24 Stunden deutlich erhöht.',
       risikofaktoren: [
         'Aufenthalt in Endemiegebieten (Wälder, Wiesen, hohes Gras, Unterholz) — z. B. Wandern, Waldarbeit, Gartenarbeit, Camping',
         'Warme Jahreszeit (Frühjahr bis Herbst), in der die Zecken aktiv sind',
-        'Lange Saugdauer der Zecke (Übertragungsrisiko steigt deutlich ab > 24 h Anhaftung)',
         'Verzögerte oder unsachgemäße Zeckenentfernung (Quetschen der Zecke)',
         'Berufliche Exposition (Förster, Landwirte, Gärtner, Waldarbeiter)',
         'Fehlende Schutzmaßnahmen (keine bedeckende Kleidung, keine Repellents, kein Absuchen der Haut)',
       ],
       klinik: [
         {
-          text: 'Stadium I (früh-lokalisiert, Tage bis Wochen nach Stich): Erythema migrans (Wanderröte) — eine sich zentrifugal ausbreitende, randbetonte Rötung mit zentraler Abblassung (\'Schießscheiben\'-/Kokardenform), meist > 5 cm, rundlich-anulär, kaum schmerzhaft, gelegentlich juckend, im Verlauf größer werdend; typischerweise an der Stichstelle (Bein, Oberschenkel, Rumpf)',
+          text: 'Erythema migrans (Wanderröte) — eine sich zentrifugal ausbreitende, randbetonte Rötung mit zentraler Abblassung (\'Schießscheiben\'-/Kokardenform), meist > 5 cm, rundlich-anulär, kaum schmerzhaft, gelegentlich juckend, im Verlauf größer werdend; typischerweise an der Stichstelle (Bein, Oberschenkel, Rumpf)',
         },
         {
-          text: 'Stadium I: begleitendes grippeähnliches Allgemeinbild — Fieber, Kopf- und Gliederschmerzen, Abgeschlagenheit (Fatigue), Myalgien, Arthralgien, regionale Lymphadenopathie',
+          text: 'Begleitendes grippeähnliches Allgemeinbild — Fieber, Kopf- und Gliederschmerzen, Abgeschlagenheit (Fatigue), Myalgien, Arthralgien, regionale Lymphadenopathie',
         },
         {
           text: 'Borrelien-Lymphozytom (Lymphadenosis cutis benigna): livider Knoten bevorzugt an Ohrläppchen, Mamille oder Skrotum — seltene Frühmanifestation, v. a. bei B. afzelii',
           atypisch: true,
         },
         {
-          text: 'Stadium II (früh-disseminiert, Wochen bis Monate): Neuroborreliose als häufigste Organmanifestation — Bannwarth-Syndrom (schmerzhafte Meningoradikulitis mit nächtlich betonten radikulären Schmerzen), Hirnnervenausfälle, v. a. ein- oder beidseitige periphere Fazialisparese, sowie lymphozytäre Meningitis',
+          text: 'Neuroborreliose als häufigste Organmanifestation — Bannwarth-Syndrom (schmerzhafte Meningoradikulitis mit nächtlich betonten radikulären Schmerzen), Hirnnervenausfälle, v. a. ein- oder beidseitige periphere Fazialisparese, sowie lymphozytäre Meningitis',
           atypisch: true,
         },
         {
-          text: 'Stadium II: Lyme-Karditis — AV-Block wechselnden Grades, Myokarditis, mit Palpitationen, Schwindel oder Synkope; multiple sekundäre Erythemata migrantia',
+          text: 'Lyme-Karditis — AV-Block wechselnden Grades, Myokarditis, mit Palpitationen, Schwindel oder Synkope; multiple sekundäre Erythemata migrantia',
           atypisch: true,
         },
         {
-          text: 'Stadium III (spät-chronisch, Monate bis Jahre): Lyme-Arthritis — meist mono- oder oligoartikuläre, schubweise rezidivierende Arthritis großer Gelenke, bevorzugt des Kniegelenks (Gonarthritis) mit Erguss',
+          text: 'Lyme-Arthritis — meist mono- oder oligoartikuläre, schubweise rezidivierende Arthritis großer Gelenke, bevorzugt des Kniegelenks (Gonarthritis) mit Erguss',
           atypisch: true,
         },
         {
-          text: 'Stadium III: Acrodermatitis chronica atrophicans (Morbus Herxheimer) — livide, teigige Schwellung und später zigarettenpapierartige Hautatrophie an den Streckseiten der Extremitäten, v. a. bei B. afzelii',
+          text: 'Acrodermatitis chronica atrophicans (Morbus Herxheimer) — livide, teigige Schwellung und später zigarettenpapierartige Hautatrophie an den Streckseiten der Extremitäten, v. a. bei B. afzelii',
           atypisch: true,
         },
       ],
       klassifikation: [
         {
           name: 'Stadieneinteilung der Lyme-Borreliose',
-          inhalt: 'Stadium I (früh-lokalisiert): Erythema migrans ± Allgemeinsymptome, Tage bis Wochen nach Stich. Stadium II (früh-disseminiert): hämatogene Streuung mit Neuroborreliose (Bannwarth-Syndrom, Fazialisparese, Meningitis), Karditis (AV-Block), multiplen Erythemen; Wochen bis Monate. Stadium III (spät/chronisch): Lyme-Arthritis (v. a. Knie) und Acrodermatitis chronica atrophicans; Monate bis Jahre. Häufige Prüferfrage: Stadium benennen und die passende Manifestation zuordnen.',
+          inhalt: 'Stadium I (früh-lokalisiert): Erythema migrans ± Allgemeinsymptome, Tage bis Wochen nach Stich. Stadium II (früh-disseminiert): hämatogene Streuung mit Neuroborreliose (Bannwarth-Syndrom, Fazialisparese, Meningitis), Karditis (AV-Block), multiplen Erythemen; Wochen bis Monate. Stadium III (spät/chronisch): Lyme-Arthritis (v. a. Knie) und Acrodermatitis chronica atrophicans; Monate bis Jahre.',
         },
         {
           name: 'Zweistufen-Serodiagnostik (Stufendiagnostik)',
@@ -1775,10 +1706,10 @@ export function seedFachwissen(): Fachwissen[] {
         'Hohes Fieber mit Meningismus zur Abgrenzung einer FSME oder bakteriellen Meningitis',
       ],
       diagnostik: [
-        { stufe: 'Anamnese/Klinik', text: 'Anamnese: Zeckenstich oder Zeckenexposition (Waldaufenthalt, Wanderung, Endemiegebiet), Zeitverlauf, Aussehen und Wandern der Hautrötung, neurologische Begleitsymptome (Paresen, Parästhesien, radikuläre Schmerzen) — Cave: an einen Zeckenstich erinnern sich viele Patienten nicht' },
+        { stufe: 'Anamnese/Klinik', text: 'Anamnese: Zeckenstich oder Zeckenexposition (Waldaufenthalt, Wanderung, Endemiegebiet), Zeitverlauf, Aussehen und Wandern der Hautrötung, neurologische Begleitsymptome (Paresen, Parästhesien, radikuläre Schmerzen)' },
         { stufe: 'Anamnese/Klinik', text: 'Körperliche Untersuchung inklusive orientierender neurologischer Untersuchung (Hirnnerven, v. a. N. facialis; Meningismuszeichen) und Gelenkstatus' },
         { stufe: 'Apparativ & Bildgebung', text: 'EKG bei Verdacht auf Lyme-Karditis (AV-Block, Reizleitungsstörung)' },
-        { stufe: 'Labor', text: 'Klinische Inspektion der Haut: Erythema migrans ist eine Blickdiagnose. Im Stadium I ist bei typischem Erythema migrans KEINE Serologie erforderlich — die Therapie erfolgt allein klinisch (Antikörper sind früh oft noch negativ, die Serokonversion dauert Wochen)' },
+        { stufe: 'Anamnese/Klinik', text: 'Klinische Inspektion der Haut: Erythema migrans ist eine Blickdiagnose. Im Stadium I ist bei typischem Erythema migrans KEINE Serologie erforderlich — die Therapie erfolgt allein klinisch (Antikörper sind früh oft noch negativ, die Serokonversion dauert Wochen)' },
         { stufe: 'Labor', text: 'Labor: Entzündungsparameter (BSG, CRP, Blutbild) — bei isoliertem Erythema migrans meist normal oder nur gering erhöht; dienen v. a. der Abgrenzung eines Erysipels' },
         { stufe: 'Labor', text: 'Zweistufen-Serologie ab Stadium II/III oder bei unklarem Bild: ELISA als Suchtest (IgM/IgG), bei Reaktivität Bestätigung mit Immunoblot (Western-Blot). Cave: eine \'Seronarbe\' (persistierende IgG-Antikörper nach durchgemachter Infektion) und die fehlende Eignung des Titers zur Therapie- oder Verlaufskontrolle' },
         { stufe: 'Invasiv & Speziell', text: 'Lumbalpunktion (Liquordiagnostik) bei Verdacht auf Neuroborreliose: lymphozytäre Pleozytose, Eiweißerhöhung (Schrankenstörung) und Nachweis einer intrathekalen Borrelien-Antikörpersynthese (Liquor-Serum-Index); ergänzend CXCL13' },
@@ -1787,7 +1718,7 @@ export function seedFachwissen(): Fachwissen[] {
       differenzialdiagnosen: [
         {
           dd: 'FSME (Frühsommer-Meningoenzephalitis)',
-          unterscheidung: 'Wird durch DIESELBE Zecke, aber durch ein VIRUS (Flavivirus) übertragen; kein Erythema migrans; meningoenzephalitisches Bild; NICHT antibiotisch behandelbar (nur symptomatisch), aber durch Impfung vermeidbar. Merksatz: FSME = viral + Impfung, Lyme = bakteriell + Antibiotikum.',
+          unterscheidung: 'Wird durch dieselbe Zecke, aber durch ein Virus (Flavivirus) übertragen; kein Erythema migrans; meningoenzephalitisches Bild; nicht antibiotisch behandelbar (nur symptomatisch), aber durch Impfung vermeidbar.',
         },
         {
           dd: 'Erysipel (Wundrose)',
@@ -1814,40 +1745,34 @@ export function seedFachwissen(): Fachwissen[] {
         {
           label: 'Antibiotische Therapie (Erstlinie)',
           items: [
-            'Stadium I (Erythema migrans) und leichte Frühmanifestationen: Doxycyclin 2 x 100 mg/d p.o. für 10–21 Tage (üblich 14 Tage). Wirkprinzip: Hemmung der bakteriellen Proteinsynthese (Bindung an die 30S-Untereinheit des Ribosoms), bakteriostatisch. Nebenwirkungen: Photosensibilisierung (Sonnenschutz!), gastrointestinale Beschwerden.',
-            'Kontraindikationen von Doxycyclin — Schwangerschaft/Stillzeit und Kinder unter 9 Jahren (Zahnverfärbung, Einlagerung in Knochen): dann Amoxicillin p.o. (alternativ Cefuroximaxetil) für 14 Tage.',
-            'Neuroborreliose und Lyme-Karditis: Ceftriaxon 2 g/d i.v. für 14–21 Tage (Alternativen: Cefotaxim oder Penicillin G i.v.). Ceftriaxon ist die intravenöse Alternative zu Doxycyclin, nach der Prüfer häufig fragen.',
-            'Lyme-Arthritis (Spätstadium): Doxycyclin p.o. über 28 Tage oder Ceftriaxon i.v.',
+            'Stadium I (Erythema migrans) und leichte Frühmanifestationen: Doxycyclin 2 × 100 mg/d p. o. — solitäres Erythema migrans ohne Allgemeinsymptome 10–14 Tage; mit grippeartigen Allgemeinsymptomen oder multiplen Erythemen (disseminierte Frühmanifestation) 14–21 Tage. Wirkprinzip: Hemmung der bakteriellen Proteinsynthese (Bindung an die 30S-Untereinheit des Ribosoms), bakteriostatisch. Nebenwirkungen: Photosensibilisierung (Sonnenschutz!), gastrointestinale Beschwerden.',
+            'Lyme-Arthritis: Doxycyclin p. o. über 28 Tage oder Ceftriaxon i. v.',
             'Symptomatisch: Analgetika und Antipyretika (z. B. Ibuprofen/Paracetamol) gegen Schmerzen und Fieber.',
             'Keine Isolation erforderlich, da keine Übertragung von Mensch zu Mensch. Nach reinem Zeckenstich ohne Symptome KEINE routinemäßige Antibiotikaprophylaxe — nur Beobachtung der Stichstelle (Rötung? → Wiedervorstellung).',
-            'Prävention: Schutzkleidung, Repellents, Absuchen der Haut, frühzeitige mechanische Zeckenentfernung mit Pinzette hautnah ohne Quetschen. WICHTIG: Es gibt KEINE Impfung gegen die Lyme-Borreliose; die FSME-Impfung schützt NICHT gegen Borreliose.',
+            'Prävention: Schutzkleidung, Repellents, Absuchen der Haut, frühzeitige mechanische Zeckenentfernung mit Pinzette hautnah ohne Quetschen.',
           ],
         },
         {
           label: 'Alternativen (KI / Schwangerschaft)',
           items: [
-            'Temporärer Herzschrittmacher bei höhergradigem, symptomatischem AV-Block im Rahmen der Lyme-Karditis, bis die Reizleitungsstörung unter Antibiose reversibel ist.',
-            'Diagnostische/entlastende Gelenkpunktion bei ausgeprägtem Erguss der Lyme-Arthritis.',
+            'Kontraindikationen von Doxycyclin — Schwangerschaft/Stillzeit und Kinder unter 9 Jahren (Zahnverfärbung, Einlagerung in Knochen): dann Amoxicillin p. o. (alternativ Cefuroximaxetil) über dieselbe Dauer wie Doxycyclin.',
           ],
         },
         {
           label: 'Neuroborreliose / schwerer Verlauf',
           items: [
+            'Neuroborreliose und Lyme-Karditis: Ceftriaxon 2 g/d i. v. für 14–21 Tage (Alternativen: Cefotaxim oder Penicillin G i. v.). Ceftriaxon ist die intravenöse Alternative zu Doxycyclin, nach der Prüfer häufig fragen.',
+            'Temporärer Herzschrittmacher bei höhergradigem, symptomatischem AV-Block im Rahmen der Lyme-Karditis, bis sich die Reizleitungsstörung unter Antibiose zurückgebildet hat.',
+            'Diagnostische/entlastende Gelenkpunktion bei ausgeprägtem Erguss der Lyme-Arthritis.',
             'Eine operative Therapie ist in aller Regel nicht erforderlich; in seltenen therapierefraktären Fällen einer chronischen Lyme-Arthritis kann eine (arthroskopische) Synovektomie erwogen werden.',
           ],
         },
       ],
-      prognose: 'Bei rechtzeitiger antibiotischer Therapie ist die Prognose sehr gut. Das Erythema migrans heilt unter Therapie folgenlos ab. Auch die Neuroborreliose hat eine gute Prognose; die Fazialisparese bildet sich in den meisten Fällen über Wochen bis Monate weitgehend zurück. Unbehandelt drohen die Progression in Stadium II und III mit Neuroborreliose, Karditis und chronischer Lyme-Arthritis. Ein sogenanntes Post-Lyme-Syndrom (persistierende unspezifische Beschwerden) ist selten; eine dauerhafte oder wiederholte Antibiotikatherapie ist dabei nicht indiziert. Eine \'chronische Borreliose\' als Rechtfertigung für Langzeitantibiose ist nicht belegt.',
+      prognose: 'Bei rechtzeitiger antibiotischer Therapie ist die Prognose sehr gut. Das Erythema migrans heilt unter Therapie folgenlos ab. Auch die Neuroborreliose hat eine gute Prognose; die Fazialisparese bildet sich in den meisten Fällen über Wochen bis Monate weitgehend zurück. Unbehandelt droht die Progression in die Stadien II und III mit Neuroborreliose, Karditis und chronischer Lyme-Arthritis. Ein sogenanntes Post-Lyme-Syndrom (persistierende unspezifische Beschwerden) ist selten; eine dauerhafte oder wiederholte Antibiotikatherapie ist dabei nicht indiziert.',
       pruefungsfallen: [
-        'Das Erythema migrans ist eine Blickdiagnose: Im Stadium I wird KLINISCH therapiert, eine Serologie ist NICHT nötig (Antikörper früh oft noch negativ — Serokonversion dauert Wochen).',
-        'FSME vs. Lyme sicher unterscheiden können: gleiche Zecke, aber FSME = Virus (nur symptomatisch, Impfung schützt), Lyme = Bakterium (Antibiotikum, keine Impfung).',
-        'Serologie immer als Zweistufentest erklären: erst ELISA (Suchtest), dann Immunoblot/Western-Blot (Bestätigung) — nie den Blot allein oder den Titer als Verlaufskontrolle nutzen (Seronarbe!).',
-        'Doxycyclin ist kontraindiziert in Schwangerschaft/Stillzeit und bei Kindern < 9 Jahren → dann Amoxicillin; bei Neuroborreliose/Karditis Ceftriaxon i.v.',
-        'Bei Fazialisparese, Meningismus oder radikulären Schmerzen an die Neuroborreliose denken und die Lumbalpunktion nennen (lymphozytäre Pleozytose, intrathekale Antikörpersynthese).',
-        'Der Zeckenstich selbst ist harmlos — gefährlich ist die Übertragung des Erregers; nach reinem Stich ohne Symptome keine Routine-Antibiotikaprophylaxe.',
-        'Keine Isolation nötig (keine Mensch-zu-Mensch-Übertragung) — häufige Fangfrage zur stationären Aufnahme.',
-        'Die FSME-Impfung schützt NICHT vor der Borreliose; gegen die Borreliose gibt es keine Impfung.',
-        'Bei einer Rötung am Bein die Differenzialdiagnosen Erysipel, TVT, pAVK und diabetischer Fuß aktiv nennen, nicht nur die Borreliose.',
+        'Ein fehlender Zeckenstich in der Anamnese schließt eine Borreliose nicht aus — die meisten Stiche bleiben unbemerkt.',
+        'Die FSME-Impfung schützt NICHT vor der Borreliose.',
+        'Eine „chronische Borreliose“ rechtfertigt keine Langzeitantibiose.',
       ],
       askedInExam: [
         {
@@ -1880,7 +1805,7 @@ export function seedFachwissen(): Fachwissen[] {
         },
         {
           frage: 'Welche Therapie schlagen Sie vor, und wie wirkt das Antibiotikum?',
-          antwort: 'Im Stadium I Doxycyclin 2 x 100 mg täglich über etwa 14 Tage. Doxycyclin hemmt die bakterielle Proteinsynthese an der 30S-Untereinheit des Ribosoms und wirkt bakteriostatisch; als Nebenwirkung ist die Photosensibilisierung zu beachten.',
+          antwort: 'Im Stadium I Doxycyclin 2 × 100 mg täglich, beim solitären Erythema migrans 10–14 Tage, mit grippeartigen Allgemeinsymptomen 14–21 Tage. Doxycyclin hemmt die bakterielle Proteinsynthese an der 30S-Untereinheit des Ribosoms und wirkt bakteriostatisch; als Nebenwirkung ist die Photosensibilisierung zu beachten.',
         },
         {
           frage: 'Gibt es eine Alternative zu Doxycyclin?',
@@ -1899,7 +1824,7 @@ export function seedFachwissen(): Fachwissen[] {
           antwort: 'Ich entferne die Zecke mechanisch mit einer Pinzette hautnah, ohne sie zu quetschen. Nach einem reinen Zeckenstich ohne Symptome gebe ich keine routinemäßige Antibiotikaprophylaxe, sondern beobachte die Stichstelle — bei Auftreten einer Rötung soll sich die Patientin wieder vorstellen.',
         },
       ],
-      merksatz: 'Erythema migrans ist eine Blickdiagnose: Stadium I ohne Serologie mit Doxycyclin; Neuroborreliose = Lumbalpunktion + Ceftriaxon i.v. Serologie immer zweistufig: ELISA, dann Immunoblot.',
+      merksatz: 'Wanderröte nach Waldaufenthalt: sofort Doxycyclin, ohne auf Antikörper zu warten.',
       linkedCaseIds: [
         'case-lyme',
       ],
@@ -2229,7 +2154,7 @@ export function seedFachwissen(): Fachwissen[] {
           antwort: 'Auf das Lasègue-Zeichen, die Kraftgrade im Seitenvergleich mit Zehen- und Hackengang, die Muskeleigenreflexe PSR und ASR, die Sensibilität nach Dermatomen sowie bei Cauda-Verdacht auf Sphinktertonus und perianale Sensibilität.',
         },
       ],
-      merksatz: 'Merke: Die Diagnose sichert das MRT (nicht das Röntgen), und rund 90 % heilen konservativ — aber Reithosenanästhesie mit Blasen-/Mastdarmstörung bedeutet Cauda-equina-Syndrom und damit einen neurochirurgischen Notfall.',
+      merksatz: 'Die Diagnose sichert das MRT (nicht das Röntgen), und rund 90 % heilen konservativ — aber Reithosenanästhesie mit Blasen-/Mastdarmstörung bedeutet Cauda-equina-Syndrom und damit einen neurochirurgischen Notfall.',
       linkedCaseIds: [
         'case-bandscheibenvorfall',
       ],
@@ -12092,7 +12017,7 @@ export function seedFachwissen(): Fachwissen[] {
         'Der Goldstandard ist die KOMPLETTE Koloskopie mit Biopsie, nicht das CT. Das CT dient dem Staging, die Endoskopie der Diagnose — und sie muss vollständig sein, weil in etwa 5 % ein synchrones Zweitkarzinom vorliegt.',
         'Rektum oder Kolon ist die entscheidende Weichenstellung: Nur das lokal fortgeschrittene Rektumkarzinom erhält eine neoadjuvante Radiochemotherapie. Beim Kolonkarzinom wird primär operiert und allenfalls adjuvant chemotherapiert — eine Bestrahlung des Kolons ist falsch.',
         'Die Höhenangabe wird ab der Anokutanlinie mit dem starren Rektoskop gemessen (bis 16 cm = Rektum); flexible Endoskope messen ungenau.',
-        'Die Screeningzahlen müssen sitzen: Vorsorgekoloskopie für Männer ab dem 50., für Frauen ab dem 55. Lebensjahr, Wiederholung nach 10 Jahren bei unauffälligem Befund; alternativ immunologischer Stuhltest (iFOBT) jährlich ab 50 beziehungsweise alle zwei Jahre ab 55 Jahren — ein positiver Test verpflichtet immer zur Koloskopie.',
+        'Die Screeningzahlen müssen sitzen: sie werden fast immer gefragt.',
         'Risikopersonen folgen einem anderen Fahrplan: erstgradig Verwandte 10 Jahre vor dem Erkrankungsalter des Indexpatienten, beim Lynch-Syndrom jährliche Koloskopie ab dem 25. Lebensjahr, bei FAP ab dem 10.–12. Lebensjahr Rektosigmoidoskopie und prophylaktische Proktokolektomie.',
         'Eine neu aufgetretene Eisenmangelanämie beim Mann oder bei der postmenopausalen Frau ist bis zum Beweis des Gegenteils ein gastrointestinaler Tumor — und es müssen BEIDE Endoskopien erfolgen, Koloskopie UND Ösophagogastroduodenoskopie.',
         'Bekannte Hämorrhoiden erklären eine Blutung jenseits des 50. Lebensjahres nicht: Sie sind so häufig, dass sie ein Karzinom nur verdecken. Ohne Koloskopie darf die Diagnose „Hämorrhoidalblutung“ nicht gestellt werden.',
@@ -12108,14 +12033,14 @@ export function seedFachwissen(): Fachwissen[] {
         },
         {
           frage: 'Wie lautet die Screening-Empfehlung für die Koloskopie in Deutschland?',
-          antwort: 'Die Vorsorgekoloskopie wird Männern ab dem 50. und Frauen ab dem 55. Lebensjahr angeboten; bei unauffälligem Befund wird sie nach zehn Jahren wiederholt. Als Alternative steht der immunologische Test auf okkultes Blut im Stuhl zur Verfügung — jährlich ab 50, ab 55 Jahren alle zwei Jahre. Ein positiver Stuhltest führt immer zur Koloskopie. Für Risikopersonen gilt ein anderes Vorgehen: erstgradig Verwandte eines Patienten werden zehn Jahre vor dessen Erkrankungsalter koloskopiert, Anlageträger eines Lynch-Syndroms jährlich ab dem 25. Lebensjahr, bei familiärer adenomatöser Polyposis beginnt die Endoskopie bereits im Kindes- und Jugendalter.',
+          antwort: 'Die Vorsorgekoloskopie wird Männern und Frauen ab dem 50. Lebensjahr angeboten (Frauen seit April 2025, zuvor ab 55); bei unauffälligem Befund wird sie nach zehn Jahren wiederholt. Als Alternative steht der immunologische Test auf okkultes Blut im Stuhl zur Verfügung — seit April 2025 für Frauen und Männer ab 50 alle zwei Jahre (zuvor 50–54 jährlich). Ein positiver Stuhltest führt immer zur Koloskopie. Für Risikopersonen gilt ein anderes Vorgehen: erstgradig Verwandte eines Patienten werden zehn Jahre vor dessen Erkrankungsalter koloskopiert, Anlageträger eines Lynch-Syndroms jährlich ab dem 25. Lebensjahr, bei familiärer adenomatöser Polyposis beginnt die Endoskopie bereits im Kindes- und Jugendalter.',
         },
         {
           frage: 'Was ist das CEA und wofür setzen Sie es ein?',
           antwort: 'CEA ist das carcinoembryonale Antigen, ein Tumormarker, den wir vor der Operation als Ausgangswert bestimmen und danach im Verlauf kontrollieren. Es ist ausdrücklich kein Screening- und kein Diagnosemarker: Ein normales CEA schließt ein Karzinom nicht aus, und erhöhte Werte finden sich auch bei Leberzirrhose, Pankreatitis, chronisch entzündlichen Darmerkrankungen und bei Rauchern. Ein präoperativ erhöhter Wert sollte nach der Resektion abfallen; ein erneuter Anstieg in der Nachsorge ist verdächtig auf ein Rezidiv oder auf Metastasen und löst eine gezielte Bildgebung aus.',
         },
         {
-          frage: 'Wie stagen Sie diesen Patienten?',
+          frage: 'Wie gehen Sie beim Staging eines kolorektalen Karzinoms vor?',
           antwort: 'Zunächst die komplette Koloskopie mit Biopsie zur Histologie und zur genauen Höhenlokalisation, mit Tuschemarkierung und Suche nach einem Zweitkarzinom. Zum Ausschluss von Fernmetastasen ein CT von Thorax und Abdomen mit Kontrastmittel, ergänzt durch die Abdomensonographie. Liegt der Tumor im Rektum, kommen die starre Rektoskopie zur Höhenmessung, ein MRT des kleinen Beckens zur Beurteilung von T-Kategorie, Lymphknoten und mesorektaler Faszie sowie bei Frühstadien die rektale Endosonographie hinzu. Im Labor Blutbild, Leber- und Nierenwerte sowie das CEA als Ausgangswert. Anschließend Klassifikation nach TNM und UICC und Vorstellung im Tumorboard.',
         },
         {
@@ -13664,8 +13589,8 @@ export function seedFachwissen(): Fachwissen[] {
           antwort: 'Ich habe den dringenden Verdacht auf ein Ösophaguskarzinom. Dafür sprechen die seit vier Wochen rasch progrediente mechanische Dysphagie — zunächst für feste, jetzt für weiche Kost —, der ungewollte Gewichtsverlust von 15 Kilogramm im letzten Jahr, die Inappetenz, die Regurgitation unverdauter Speisereste und die neu aufgetretene Heiserkeit. Dazu kommen die klassischen Risikofaktoren: etwa 30 Packungsjahre, täglicher Alkoholkonsum und eine langjährige Refluxkrankheit. Die Kombination aus progredienter Dysphagie, Gewichtsverlust und Noxen ist eine Alarmkonstellation.',
         },
         {
-          frage: 'Welche Risikofaktoren des Ösophaguskarzinoms kennen Sie, und welche liegen bei dieser Patientin vor?',
-          antwort: 'Für das Plattenepithelkarzinom vor allem Rauchen und Alkohol, die sich gegenseitig verstärken, außerdem sehr heiße Getränke, Nitrosamine, Betelnuss, eine frühere Verätzung, eine langjährige Achalasie, das Plummer-Vinson-Syndrom und eine Bestrahlung des Mediastinums. Für das Adenokarzinom die Refluxkrankheit mit Barrett-Ösophagus, Adipositas und Hiatushernie. Bei dieser Patientin liegen beide Risikoprofile gleichzeitig vor: 30 Packungsjahre und täglicher Wein- und Schnapskonsum einerseits, eine jahrelange Refluxkrankheit andererseits. Welcher Typ vorliegt, entscheidet deshalb allein die Histologie.',
+          frage: 'Welche Risikofaktoren des Ösophaguskarzinoms kennen Sie?',
+          antwort: 'Für das Plattenepithelkarzinom vor allem Rauchen und Alkohol, die sich gegenseitig verstärken, außerdem sehr heiße Getränke, Nitrosamine, Betelnuss, eine frühere Verätzung, eine langjährige Achalasie, das Plummer-Vinson-Syndrom und eine Bestrahlung des Mediastinums. Für das Adenokarzinom die Refluxkrankheit mit Barrett-Ösophagus, Adipositas und Hiatushernie.',
         },
         {
           frage: 'Was unterscheidet das Adenokarzinom vom Plattenepithelkarzinom?',
@@ -13729,7 +13654,7 @@ export function seedFachwissen(): Fachwissen[] {
         },
         {
           frage: 'Wie erklären Sie der Patientin die geplante Untersuchung und Ihren Verdacht?',
-          antwort: 'Ich würde ihr in einfachen Worten sagen: „Frau Sichel, Ihre Beschwerden beim Schlucken und die starke Gewichtsabnahme müssen wir dringend abklären. Dafür machen wir eine Magenspiegelung — dabei schauen wir mit einem dünnen, biegsamen Schlauch in die Speiseröhre und entnehmen kleine Gewebeproben. Wir haben den Verdacht auf eine Veränderung der Speiseröhrenschleimhaut; ob sie gutartig oder bösartig ist, kann uns erst die Gewebeuntersuchung sagen. Ich verspreche Ihnen, dass wir Sie schnell abklären und dass wir jedes Ergebnis in Ruhe mit Ihnen besprechen.“ Die Diagnose Krebs stelle ich nicht in den Raum, bevor die Histologie vorliegt, nehme ihre Angst aber ernst und biete psychoonkologische Unterstützung an.',
+          antwort: 'Ich würde ihr in einfachen Worten sagen: „Ihre Beschwerden beim Schlucken und die starke Gewichtsabnahme müssen wir dringend abklären. Dafür machen wir eine Magenspiegelung — dabei schauen wir mit einem dünnen, biegsamen Schlauch in die Speiseröhre und entnehmen kleine Gewebeproben. Wir haben den Verdacht auf eine Veränderung der Speiseröhrenschleimhaut; ob sie gutartig oder bösartig ist, kann uns erst die Gewebeuntersuchung sagen. Ich verspreche Ihnen, dass wir Sie schnell abklären und dass wir jedes Ergebnis in Ruhe mit Ihnen besprechen.“ Die Diagnose Krebs stelle ich nicht in den Raum, bevor die Histologie vorliegt, nehme ihre Angst aber ernst und biete psychoonkologische Unterstützung an.',
         },
       ],
       merksatz: 'Progrediente Dysphagie fest → flüssig plus Gewichtsverlust = Ösophaguskarzinom bis zum Beweis des Gegenteils — sofort ÖGD MIT BIOPSIE, kein Breischluck, keine blinde Bougierung.',
