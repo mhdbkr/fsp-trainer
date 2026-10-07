@@ -2,7 +2,7 @@ import { PROBE_BY_ID } from './anamneseProbes';
 import { parseFollowUp } from './followUp';
 import { partNonAutonome, phraseFollowUps, phraseIsCaseSpecific, phraseProbes, splitDimension, type Phrase, type PhraseVariant } from './phrases';
 import { PROFIL_EXCLUT, PROFIL_EXIGE, SIGNES, SIGNE_DEF, SUCHT_AUSSER, tagsEffectifs, type ProfilCas, type ProfilTag, type Signe } from './signes';
-import { ditsDe, phraseSucht } from './symptoms';
+import { lireReponse, phraseSucht } from './symptoms';
 
 // ============================================================================
 // LE MOTEUR DE COHÉRENCE — lot K3 (ADR-0023, contrat `frage-atomique.md` §10.4).
@@ -109,8 +109,11 @@ const HORS_ENTRETIEN: ReadonlySet<string> = new Set(['eroeffnung', 'personalia',
 const RENVOI = /\b(?:es|dabei|dann|davon|dort|dazu|beide)\b|\bdas\s*\?$/i;
 /** r5 : une question qui demande, outre la présence, une PRÉCISION (combien, depuis quand, où) reste posée quand seule la présence
  *  est dite (« ich habe abgenommen » ne répond pas à « — wie viel in welcher Zeit? »). */
-const PRECISION = /\b(?:wie viele?|wie oft|wie lange|wie hoch|seit wann|wo genau|in welche[mr]? zeit\w*|welche[rnms]?)\b/i;
-const promouvable = (t: string): boolean => !partNonAutonome(t) && t.split(/\s+/).length >= 4 && !RENVOI.test(t);
+// revue clinique : + « gemessen » (P1-1 : la mesure n'est pas la présence) et le Wäschewechsel du symptôme B (P2-2 : « so stark, dass … »)
+const PRECISION = /\b(?:wie viele?|wie oft|wie lange|wie hoch|seit wann|wo genau|in welche[mr]? zeit\w*|welche[rnms]?|gemessen|so stark, dass)\b/i;
+/** r5 : ce qu'on sait d'un signe dit — sa réplique porteuse, s'il est dit complet (absence, chiffre), si son début est dit (« seit … »). */
+interface Dit { par: U; complet: boolean; seit: boolean }
+export const promouvable = (t: string): boolean => !partNonAutonome(t) && t.split(/\s+/).length >= 4 && !RENVOI.test(t);
 const motifsDeclares = (tags: readonly ProfilTag[]): Signe[] => tags.flatMap((t) => MOTIF_DECLARE[t] ?? []);
 
 /** Rang de conservation (D4, §10.4) : question du cas 0 · Fach 1 · aktuell 2 · vegetativ 3 · autres 4. */
@@ -235,12 +238,18 @@ export function cohere<T extends TrameChapter>(trame: readonly T[], profil: Prof
   };
 
   /** r5 : l'unité `u` ne redemande pas les signes `deja`, dits plus haut (voir r5). */
-  const direDeja = (u: U, deja: Signe[], dits: Map<Signe, { par: U; complet: boolean }>) => {
+  const direDeja = (u: U, deja: Signe[], dits: Map<Signe, Dit>) => {
     const v = variant(u.p)!;
     const cause = uniq(deja.map((s) => dits.get(s)!.par.id)).join(', ');
-    const ouvre = (textes: string[], signes: Signe[]): Part | undefined => {
-      if (signes.every((s) => dits.get(s)!.complet)) return undefined;          // l'absence (ou le chiffre) répond aussi aux précisions
-      const qs = textes.map(parseFollowUp).filter((c) => !(c.kind === 'ja' && /^n(ein|icht)/i.test(c.label))).map((c) => ('question' in c ? c.question : ''));
+    /** Les précisions qui restent à poser sous des signes dits : `null` = rien (absence, chiffre, début déjà dit) ; `undefined` = aucune
+     *  ne se pose seule (la question reste entière) ; sinon la première qui se pose seule ouvre, les autres la suivent. */
+    const ouvre = (textes: string[], signes: Signe[]): Part | null | undefined => {
+      const presents = signes.filter((s) => !dits.get(s)!.complet);
+      if (!presents.length) return null;                                          // l'absence (ou le chiffre) répond aussi aux précisions
+      const seit = presents.every((s) => dits.get(s)!.seit);                     // revue clinique P2-4 : « seit drei Tagen … Husten »
+      const qs = textes.map(parseFollowUp).filter((c) => !(c.kind === 'ja' && /^n(ein|icht)/i.test(c.label))).map((c) => ('question' in c ? c.question : ''))
+        .filter((q) => !(seit && /^seit wann\b/i.test(q)));
+      if (!qs.length) return null;
       // la première relance qui se dit seule ouvre ; les autres la suivent (« Seit wann? » se dit après « Wie oft …? », pas seul)
       const k = qs.findIndex(promouvable);
       const fu = qs.filter((_, j) => j !== k);
@@ -254,7 +263,8 @@ export function cohere<T extends TrameChapter>(trame: readonly T[], profil: Prof
         // une partie dite, sans parts : seules sortent les relances qui DÉCLARENT un signe dit (« Brennt es beim Wasserlassen? ») ;
         // la question reste, entière sinon
         const fus = phraseFollowUps(v);
-        const sortent = u.rels.filter((i) => fus[i].sucht?.length && fus[i].sucht!.every((s) => deja.includes(s as Signe)));
+        const sortent = u.rels.filter((i) => fus[i].sucht?.length && fus[i].sucht!.every((s) => deja.includes(s as Signe))
+          && !(PRECISION.test(fus[i].text) && !fus[i].sucht!.every((s) => dits.get(s as Signe)!.complet)));   // une précision demandée reste
         const perdus = deja.filter((s) => sortent.some((i) => fus[i].sucht!.includes(s)) && !u.rels.some((i) => !sortent.includes(i) && fus[i].sucht?.includes(s)));
         if (!perdus.length || u.signes.every((s) => perdus.includes(s))) return;
         u.relRetirees = sortent; u.rels = u.rels.filter((i) => !sortent.includes(i)); u.signes = u.signes.filter((s) => !perdus.includes(s));
@@ -262,9 +272,9 @@ export function cohere<T extends TrameChapter>(trame: readonly T[], profil: Prof
         for (const i of sortent) ecart({ ...base, signes: perdus, action: 'retire', question: `${u.id}#${i + 1}`, mere: u.id });
         return;
       }
-      const promu = ouvre(u.rels.map((i) => phraseFollowUps(v)[i].text), deja.filter((s) => !dits.get(s)!.complet));
-      const precis = !deja.every((s) => dits.get(s)!.complet) && (u.rels.length > 0 || PRECISION.test(v.text));
-      if (!promu && precis) return;                                                // des précisions à poser, qui ne s'ouvrent pas seules
+      if (PRECISION.test(v.text) && !deja.every((s) => dits.get(s)!.complet)) return;   // le texte demande une précision : posée
+      const promu = u.rels.length ? ouvre(u.rels.map((i) => phraseFollowUps(v)[i].text), deja) : null;
+      if (promu === undefined) return;                                             // des précisions à poser, qui ne s'ouvrent pas seules
       if (!promu) { u.etat = 'retire'; ecart({ ...base, action: 'retire', question: u.id }); suivent(u, { ...base, action: 'retire' }); porter(deja); return; }
       u.promues = new Map([[-1, promu]]); u.signes = [];
       ecart({ ...base, action: 'reduit', question: u.id }); suivent(u, { ...base, action: 'reduit' }); porter(deja);
@@ -275,10 +285,10 @@ export function cohere<T extends TrameChapter>(trame: readonly T[], profil: Prof
     const keep = cur.filter((i) => {
       const sig = v.parts![i].sucht.filter((s) => u.signes.includes(s as Signe)) as Signe[];
       if (!sig.length || !sig.every((s) => deja.includes(s))) return true;        // la part cherche encore un signe non dit
-      if (!v.parts![i].followUp?.length) return !sig.every((s) => dits.get(s)!.complet) && PRECISION.test(v.parts![i].text);
-      const promu = ouvre(v.parts![i].followUp!, sig.filter((s) => !dits.get(s)!.complet));
-      if (promu) { promues.set(i, promu); return true; }
-      return sig.every((s) => dits.get(s)!.complet) ? false : true;               // précisions qui ne s'ouvrent pas seules : la part reste
+      if (PRECISION.test(v.parts![i].text) && !sig.every((s) => dits.get(s)!.complet)) return true;   // le texte demande une précision
+      const promu = v.parts![i].followUp?.length ? ouvre(v.parts![i].followUp!, sig) : null;
+      if (promu) promues.set(i, promu);
+      return promu !== null;                                                       // rien à préciser : la part sort ; sinon ouverte ou entière
     });
     const signes = uniq(keep.flatMap((i) => (promues.get(i) ?? v.parts![i]).sucht.filter((s) => u.signes.includes(s as Signe)) as Signe[]));
     const perdus = deja.filter((s) => !signes.includes(s));
@@ -419,7 +429,7 @@ export function cohere<T extends TrameChapter>(trame: readonly T[], profil: Prof
   // (`obtient`) : il reste cherché une fois (r2, r3 et la porte inchangés). Jamais une question du cas (lot de contenu), un signe de
   // risque (RISIKO_SIGNES) ni une sonde de dimension (SONDE_DIMENSION).
   if (ctx.reponse) {
-    const dits = new Map<Signe, { par: U; complet: boolean }>();
+    const dits = new Map<Signe, Dit>();
     for (const u of flat()) {
       // un signe EXIGÉ par le profil ne se porte pas par une question hors de l'entretien clinique (personalia : « wie viel wiegen
       // Sie? ») — la porte et sa mesure ne l'y comptent pas ; la question de banque reste alors posée
@@ -433,11 +443,11 @@ export function cohere<T extends TrameChapter>(trame: readonly T[], profil: Prof
       // « dabei » renvoie à la plainte d'Aktuelle Beschwerden ; ailleurs, au sujet de la question (« Übel ist mir dabei nicht » : pendant
       // les maux de tête) — il ne vaut que là.
       const dabei = phraseProbes(u.p).some((p) => p.startsWith('akt-'));
-      for (const [s, complet] of ditsDe(ctx.reponse(u.p) ?? '', dabei)) {
+      for (const [s, { complet, seit }] of lireReponse(ctx.reponse(u.p) ?? '', dabei)) {
         const d = dits.get(s);
         // le porteur : la première réplique de l'entretien clinique qui l'a dit (à défaut, celle des Personalia) ; complet si l'une le dit
-        if (!d) dits.set(s, { par: u, complet });
-        else dits.set(s, { par: HORS_ENTRETIEN.has(d.par.ch) && !HORS_ENTRETIEN.has(u.ch) ? u : d.par, complet: d.complet || complet });
+        if (!d) dits.set(s, { par: u, complet, seit });
+        else dits.set(s, { par: HORS_ENTRETIEN.has(d.par.ch) && !HORS_ENTRETIEN.has(u.ch) ? u : d.par, complet: d.complet || complet, seit: d.seit || seit });
       }
     }
   }
