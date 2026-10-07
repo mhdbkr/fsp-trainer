@@ -104,6 +104,18 @@ export function checkCase(c, referenz = REFERENZDATUM) {
   const brief = parseBrief(c.musterSaetze?.arztbrief?.einleitung);
   if (!brief.length) issues.push('arztbrief.einleitung sans « geboren am JJ.MM.AAAA »');
   for (const d of brief) if (d.roh || iso(d) !== soll) issues.push(`arztbrief.einleitung : « ${d.roh || iso(d)} » ≠ ${pe.geburtsdatum}`);
+
+  // Le cas se joue à REFERENZDATUM : une date de consultation figée (souvent
+  // celle du protocole d'examen source) vieillit l'âge de la fiche. Seule la
+  // date de naissance est admise dans les Muster. (Les dates de protocole de
+  // `pruefungsfallen` et de l'examinerSheet sont légitimes et non contrôlées.)
+  for (const sec of ['arztbrief', 'vorstellung']) {
+    for (const [k, v] of Object.entries(c.musterSaetze?.[sec] || {})) {
+      for (const r of String(v).matchAll(/\b\d{1,2}\.\s?\d{1,2}\.\s?(?:19|20)\d\d\b/g)) {
+        if (!/geboren am $/.test(String(v).slice(0, r.index))) issues.push(`${sec}.${k} : date calendaire « ${r[0]} » (seule la date de naissance est admise)`);
+      }
+    }
+  }
   return issues;
 }
 
