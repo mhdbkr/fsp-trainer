@@ -330,3 +330,98 @@ celui des revues, sauf pour les arbitrages du coordinateur ci-dessous.
 - La première phrase de chaque VD tient en 69 à 130 caractères : aucune ligne de Fallvorstellung coupée.
 - Note : le dossier de travail du lot (scripts hors dépôt) avait disparu entre les deux passes ; les outils de remplacement
   et de mesure ont été réécrits pour cette passe, à la même méthode.
+
+## 10. Passe fixeur direction (sommet revu `4bb2fff7`)
+
+La revue a jugé les sections justes, mais les questions d'examen coupées trop court. Les sections ne bougent pas : seules
+des questions ciblées sont ajoutées. Les textes allemands de la revue ont été relus avant d'être appliqués (§ 10.3).
+
+### 10.1 Contenu
+
+- **B1** :
+  - fw-myokardinfarkt : « Ist ein erhöhtes Troponin gleichbedeutend mit einem Herzinfarkt? » et l'explication de
+    l'infarctus et du cathéter au patient ;
+  - fw-gerd : l'explication au patient, sans ÖGD d'emblée ;
+  - fw-cholezystitis : « Wann operieren Sie? » (doublon de la Thérapie) remplacé par l'explication de l'opération, et la
+    troisième Charcot des pièges remplacée par le test de grossesse.
+- **I1** : explication au patient pour fw-divertikulitis, avec la coloscopie « vier bis sechs Wochen später » alignée sur
+  la fiche ; annonce du diagnostic pour fw-kolorektales-ca ; spiegelung et suspicion pour fw-oesophaguskarzinom.
+- **I2** : la DD Cholangitis de fw-gallenkolik ne redit plus la Charcot.
+- **I3** : DD appliquées à la patiente. Reizdarm : Zöliakie, Laktose/Fruktose, Divertikelkrankheit, infektiöse Ursachen.
+  MS : NMOSD. Chaque fait cité vient du `patientSheet`.
+- **I4** : le Cave de la SEP dit « „Doppelbilder“ beim Fragen erklären: „Sehen Sie einen Gegenstand manchmal doppelt?“ »
+  (elle n'a pas de diplopie).
+- **I5** : examinerQuestions en phrases complètes pour myokardinfarkt, gerd, cholezystitis et divertikulitis. Trois
+  formulations de la revue ont été allongées pour passer la nouvelle garde (4 mots et « ? ») :
+  - « Nennen Sie die Alarmsymptome. » → « Welche Alarmsymptome kennen Sie? » ;
+  - « Wann operieren Sie? » → « Wann operieren Sie die Patientin? » (cholezystitis et divertikulitis, deux patientes).
+- **M1** : deux DD de la SEP en phrase complète. **M2** : « Keine notfallmäßige Aufnahme nötig » retiré des
+  Erstmaßnahmen. **M3** : VD de reizdarm sans double deux-points ; le texte de la revue rallongeait la ligne de
+  Fallvorstellung à 204 caractères (test de garde rouge), d'où « mit Bauchschmerzen seit sechs Monaten, die … ».
+  **M4** : « retrosternalem Ruheschmerz » dans la VD de myokardinfarkt seulement. **M5** : Muster de gerd sans
+  pléonasme. **M6** : rien.
+- **Plancher**, deux questions ajoutées au-delà des textes de la revue :
+  - fw-myokardinfarkt était à 5 après B1, d'où « Wie gehen Sie bei einem akuten Koronarsyndrom ohne ST-Hebung vor? »
+    (0/1-Stunden-Algorithmus, sofortige ou 24-Stunden-Angiographie selon le risque, GRACE au-dessus de 140, ESC 2023) ;
+  - fw-cholezystitis était à 5, d'où « Welche Komplikationen drohen bei einer akuten Cholezystitis? » ;
+  - fw-gallenkolik et fw-tvt n'avaient pas d'explication au patient : une chacun.
+
+| Fachwissen | askedInExam avant → après | Explication au patient | Écrans DOM (repos / ouvert) | Redites |
+|---|---|---|---|---|
+| oesophaguskarzinom | 6 → 7 | oui | 10,5 / 11,8 | 0 |
+| kolorektales-ca | 6 → 7 | oui | 10,8 / 10,8 | 0 |
+| divertikulitis | 5 → 6 | oui | 9,7 / 9,7 | 0 |
+| gerd | 5 → 6 | oui | 8,3 / 8,3 | 0 |
+| myokardinfarkt | 3 → 6 | oui | 9,1 / 9,1 | 0 |
+| cholezystitis | 5 → 6 | oui | 7,8 / 7,8 | 0 |
+| gallenkolik | 7 → 8 | oui | 9,7 / 10,0 | 0 |
+| tvt | 5 → 6 | oui | 9,8 / 9,8 | 0 |
+
+Redites des fiches et des Prüfungsfallen : 0 sur les 7 cas.
+
+### 10.2 Gardes CI (I6)
+
+- **`scripts/checkFachwissenFloor.mjs`**, ajouté dans `quality.yml`, à côté de l'étape de checkAllergyConflicts ;
+  son test est lancé dans le bloc `node --test`. Seule mon étape a été ajoutée au `quality.yml` du worktree, sans
+  toucher aux lignes non commitées du dépôt principal.
+  - **Strict, au moins 5 `askedInExam`** : sur le corpus mesuré, aucun Fachwissen n'est en dessous une fois Lc4
+    corrigé ; le seul était fw-myokardinfarkt (3). La règle peut donc être stricte, sans budget.
+  - **Budget de l'explication au patient** : regex `/erklären Sie|in einfachen Worten|ohne Fachbegriffe|teilen Sie .* mit/`,
+    insensible à la casse pour reconnaître « Erklären Sie … ». **47** Fachwissen sur 134 n'en ont pas (budget 47).
+  - **Budget des `examinerQuestions` mal formées** (sans « ? » final, ou de moins de 4 mots) : **199** questions sur
+    2 086, dans 107 cas (budget 199).
+  - Fixture `scripts/fixtures/fachwissen-floor-budget.json`, ajouté aux fixtures de `checkBudgetFloor.mjs` : il ne peut
+    pas remonter face à la base.
+- **`scripts/checkFachwissenFloor.test.mjs`** (`node --test`, 4 tests) : chaque règle rougit, le sain passe, le corpus
+  sort à 0.
+- **`vorstellungsSatz.test.ts`** sur les 130 cas : **99 cas échouent**. Leur phrase de Fallvorstellung se termine par
+  « … ». Les listes Lc2, Lc3 et Lc4 sont gardées ; l'extension au corpus sera un lot à part. Cas concernés :
+  gicht, hyperthyreose, asthma, herzinsuffizienz, tonsillitis, anaemie, vorhofflimmern, erysipel, hypothyreose, niereninsuffizienz, lymphom, lungenembolie, eug, meningitis, pankreaskarzinom, zoster, osteoporose, bph, demenz, bronchialkarzinom, mammakarzinom, rheumatoide-arthritis, morbus-crohn, karpaltunnel, panikstoerung, prostatakarzinom, hepatitis-b, parkinson, gonarthrose, struma, otitis-media, ileus, lagerungsschwindel, synkope, zoeliakie, schenkelhalsfraktur, ulcus-cruris, leistenhernie, alkoholentzug, commotio, itp, uterus-myomatosus, akutes-nierenversagen, fibromyalgie, polymyalgia, pneumothorax, schlafapnoe, schizophrenie, delir, achalasie, septische-arthritis, spinalkanalstenose, hws-diskusprolaps, tia, diabetes-typ1, gastroenteritis, rheumatisches-fieber, influenza, coxarthrose, metabolisches-syndrom, karzinoid, abszess, anorexia-nervosa, malaria, endokarditis, covid19, anaphylaxie, reaktive-arthritis, pertussis, colitis-ulcerosa, chronische-pankreatitis, myokarditis, nephrotisches-syndrom, akute-leukaemie, endometriose, ptbs, somatoforme-schmerzstoerung, hueftkopfnekrose, glomerulonephritis, nhl, cml, adnexitis, allergische-rhinitis, typhus, obstipation, sturz-im-alter, lumboischialgie, bauchaortenaneurysma, aortendissektion, perikarditis, epilepsie, hodentorsion, basaliom, psoriasis, urtikaria, perniziose-anaemie, opioidabhaengigkeit, sinusitis, arterielle-hypertonie.
+
+### 10.3 Relecture des textes de la revue avant application
+
+- Explication de l'infarctus : « Arterie » → « Schlagader ».
+- Explication de la divertikulitis : « einige Wochen später » → « vier bis sechs Wochen später ».
+- Les autres explications ne contiennent aucun Fachbegriff. Les annonces du kolorektales-ca et de l'oesophaguskarzinom
+  gardent le Fachbegriff dans la consigne au jury, hors guillemets.
+
+### 10.4 Vérifications (code de sortie)
+
+| Commande | Sortie |
+|---|---|
+| `npx tsc -b` | 0 |
+| `npm test -- --maxWorkers=2` | 0 (193 fichiers, 2 025 tests) |
+| `npm run test:c6 -- --maxWorkers=2` | 0 (212 tests) |
+| `node --test` sans checkProbeCoverage, puis checkProbeCoverage seul | 0 (204), 0 (4) |
+| les 19 `check*` de la CI, dont `checkFachwissenFloor` ; `checkTermRegister --require-all` ; `evalDoctopus --dry` | 0 chacun |
+| `checkCoherence --case`, 10 cas | 0 × 10 |
+| `checkBudgetFloor.mjs origin/main` (`adcc4b04`) | 0 (nouveau fixture : rien à comparer) |
+| `npm run build` | 0 |
+| `git merge-tree --write-tree origin/main HEAD` | 0 |
+| `npm run content:link` | 0, `caseTermLinks.json` inchangé |
+
+Cohésion : 277 liens manquants, inchangé.
+
+**Non vérifié** : les textes ajoutés par cette passe n'ont été relus ni par la revue clinique ni par la revue langue ;
+ce delta est annoncé pour une relecture par le coordinateur. Je n'ai pas lancé le YAML de `quality.yml` sur un runner ;
+la modification reprend la forme des étapes voisines.
