@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import type { ChecklistItem, LanguageGrid, PartResult } from '@/db/types';
+import type { ChecklistItem, LanguageGrid, LeitsymptomKategorie, PartResult } from '@/db/types';
 import { Icon } from '@/components/icons';
 import { checklistFor } from '@/lib/checklists';
 import { LANGUAGE_CRITERIA, NOT_ENTERED, checklistPct, emptyLanguageGrid, isEntered, languageGridEntered, languagePct, partScore, scoreBasis, scoreBasisLabel, PASS_THRESHOLD } from '@/lib/scoring';
@@ -223,11 +223,11 @@ function label(p: Part) {
  *  simulation avec une IA externe (`PendingExternalSimCard`). Il n'y a pas de
  *  `Lauf` derrière, donc l'état vit ici — c'est le seul cas où c'est légitime,
  *  et il est nommé. Le composant de bilan, lui, reste sans état. */
-export function SelbstBewertung({ part, durationSec, suivant, onSave, onCancel }: {
-  part: Part; durationSec: number; suivant: string | null;
+export function SelbstBewertung({ part, durationSec, suivant, kategorie, onSave, onCancel }: {
+  part: Part; durationSec: number; suivant: string | null; kategorie?: LeitsymptomKategorie;
   onSave: (r: PartResult) => void; onCancel: () => void;
 }) {
-  const [checklist, setChecklist] = useState<ChecklistItem[]>(() => checklistFor(part));
+  const [checklist, setChecklist] = useState<ChecklistItem[]>(() => checklistFor(part, kategorie));
   const [grid, setGrid] = useState<LanguageGrid>(emptyLanguageGrid);
   const [feeling, setFeeling] = useState(NOT_ENTERED);
   const hasLang = part !== 'dokumentation';
