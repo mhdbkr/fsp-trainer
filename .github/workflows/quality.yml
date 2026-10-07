@@ -292,6 +292,11 @@ jobs:
         run: node scripts/e2e/examen390.mjs
         env:
           PLAYWRIGHT_CORE: ${{ github.workspace }}/app/node_modules/playwright-core
+      - name: Pages de cas à 390 px — aucun défilement horizontal, termes tronqués dans leur ligne (130 cas)
+        if: ${{ !cancelled() }}
+        run: node scripts/e2e/casDetail390.mjs
+        env:
+          PLAYWRIGHT_CORE: ${{ github.workspace }}/app/node_modules/playwright-core
       - if: always()
         uses: actions/upload-artifact@v4
         with:
