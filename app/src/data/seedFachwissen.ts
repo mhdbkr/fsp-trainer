@@ -3344,16 +3344,16 @@ export function seedFachwissen(): Fachwissen[] {
         'Bei jeder Kolik nach Ikterus, dunklem Urin und hellem Stuhl fragen und die Lipase bestimmen.',
         '„Morphin ist verboten“ ist überholt: die S3-Leitlinie nennt Opioide wie Pethidin oder Buprenorphin für starke Schmerzen.',
         'Asymptomatische Gallensteine werden in der Regel nicht operiert.',
-        'Rechtsseitiger Oberbauchschmerz kann ein Hinterwandinfarkt sein: EKG.',
+        'Rechtsseitiger Oberbauchschmerz kann Ausdruck eines Hinterwandinfarkts sein: EKG.',
       ],
       askedInExam: [
         { frage: 'Was bedeutet es, wenn ein Wort auf -itis endet?', antwort: 'Es bezeichnet eine Entzündung; Cholezystitis ist die Entzündung der Gallenblase, Cholezystolithiasis bezeichnet nur die Steine.' },
         { frage: 'Welches Medikament geben Sie bei einer Gallenkolik?', antwort: 'Ein NSAR wie Diclofenac als erste Wahl, dazu Butylscopolamin gegen den Krampf; sind NSAR ungeeignet, Metamizol. Bei starken Schmerzen ein Opioid.' },
         { frage: 'Kann man die Steine im Ultraschall sehen?', antwort: 'Ja, echoreich mit dorsalem Schallschatten; die Sonographie ist die Methode der Wahl.' },
         { frage: 'Welche Tumormarker bestimmen Sie zum Ausschluss eines Malignoms?', antwort: 'Keine zur Diagnose: CA 19-9 steigt auch bei Cholestase, AFP dient der Überwachung einer Zirrhose. Ein Tumor wird bildgebend und histologisch abgeklärt.' },
-        { frage: 'Ist das hepatozelluläre Karzinom eine Erbkrankheit?', antwort: 'Nein; Hauptrisikofaktoren sind Zirrhose, Hepatitis B und C, Alkohol und Fettleber.' },
+        { frage: 'Ist das hepatozelluläre Karzinom eine Erbkrankheit?', antwort: 'Nein; Hauptrisikofaktoren sind Zirrhose, Hepatitis B und C, Alkohol und Fettleber; erbliche Ursachen wie die Hämochromatose führen über eine Zirrhose dazu.' },
         { frage: 'Wie entsteht eine Pankreatitis durch Gallensteine?', antwort: 'Ein Stein verlegt die Papille am gemeinsamen Endabschnitt von Gallen- und Pankreasgang; der Rückstau aktiviert die Pankreasenzyme.' },
-        { frage: 'Was machen Sie, wenn im Ultraschall kein Stein zu sehen ist, die Klinik aber typisch ist?', antwort: 'Endosonographie, weil kleine Steine und Sludge sonographisch entgehen können.' },
+        { frage: 'Was machen Sie, wenn im Ultraschall kein Stein zu sehen ist, die Klinik aber typisch ist?', antwort: 'Endosonographie, weil kleine Steine und Sludge in der Sonographie übersehen werden können.' },
       ],
       merksatz: 'Kolik mit schmerzfreien Intervallen, kein Fieber: Analgesie, Spasmolyse, Ultraschall — und bei Beschwerden die Gallenblase laparoskopisch entfernen.',
       linkedCaseIds: [
@@ -3422,9 +3422,9 @@ export function seedFachwissen(): Fachwissen[] {
       ],
       diagnostik: [
         { stufe: 'Anamnese/Klinik', text: 'Auslöser erfragen (Immobilisation, Reise, Operation, Östrogene, Malignom, Familie) und aktiv nach Zeichen einer Lungenembolie fragen' },
-        { stufe: 'Anamnese/Klinik', text: 'Umfangdifferenz im Seitenvergleich, Fußpulse, Vitalparameter' },
+        { stufe: 'Anamnese/Klinik', text: 'Umfangsdifferenz im Seitenvergleich, Fußpulse, Vitalparameter' },
         { stufe: 'Anamnese/Klinik', text: 'Wells-Score für die Vortestwahrscheinlichkeit' },
-        { stufe: 'Labor', text: 'D-Dimer nur bei niedriger Wahrscheinlichkeit: negativ schließt er die Thrombose aus, positiv beweist er nichts' },
+        { stufe: 'Labor', text: 'D-Dimer nur bei niedriger Wahrscheinlichkeit: negativ schließt es die Thrombose aus, positiv beweist es nichts' },
         { stufe: 'Labor', text: 'Blutbild, Kreatinin und Gerinnung vor der Antikoagulation' },
         { stufe: 'Apparativ & Bildgebung', text: 'Kompressionssonographie: fehlende Komprimierbarkeit der Vene beweist die Thrombose' },
         { stufe: 'Apparativ & Bildgebung', text: 'CT-Angiographie des Thorax bei Verdacht auf Lungenembolie' },
@@ -3462,7 +3462,7 @@ export function seedFachwissen(): Fachwissen[] {
           label: 'Antikoagulation',
           akut: true,
           items: [
-            'Bei hoher klinischer Wahrscheinlichkeit sofort antikoagulieren, noch vor der Bildgebung',
+            'Ist der Ultraschall nicht zeitnah verfügbar, bei hoher klinischer Wahrscheinlichkeit vorläufig therapeutisch antikoagulieren (S2k 2023)',
             'DOAK als erste Wahl (Apixaban, Rivaroxaban, Edoxaban, Dabigatran), alternativ niedermolekulares Heparin; Vitamin-K-Antagonisten nur, wenn DOAK ungeeignet sind',
             'Vorher Nierenfunktion und Blutungsrisiko prüfen',
             'Dauer: mindestens drei Monate bei Auslösung durch einen vorübergehenden Faktor; bei unprovozierter oder wiederholter Thrombose verlängert, bei aktivem Malignom langfristig',
@@ -11308,7 +11308,7 @@ export function seedFachwissen(): Fachwissen[] {
         { dd: 'Harnwegsinfekt oder Urolithiasis', unterscheidung: 'Dysurie, Flankenschmerz, Klopfschmerz des Nierenlagers, auffälliger Urinstatus; bei Divertikulitis ist der Urin trotz Dysurie meist steril.' },
         { dd: 'Ischämische Kolitis', unterscheidung: 'Gefäßpatienten, plötzlicher Schmerz und danach blutige Diarrhoe, Laktat erhöht.' },
         { dd: 'Gynäkologische Ursache (Adnexitis, Ovarialtorsion, Extrauteringravidität)', unterscheidung: 'β-HCG und gynäkologische Untersuchung mit transvaginaler Sonographie.' },
-        { dd: 'Appendizitis', unterscheidung: 'Schmerzwanderung in den rechten Unterbauch, jüngere Patienten; bei rechts reichendem Sigma nur mit Schnittbildgebung unterscheidbar.' },
+        { dd: 'Appendizitis', unterscheidung: 'Schmerzwanderung in den rechten Unterbauch, jüngere Patienten; bei nach rechts reichendem Sigma nur mit Schnittbildgebung unterscheidbar.' },
         { dd: 'Symptomatisches Bauchaortenaneurysma', unterscheidung: 'Älterer Raucher, Schmerz in den Rücken, pulsierender Tumor, Kreislaufinstabilität; Sonographie in Minuten.' },
       ],
       therapie: [
@@ -11416,7 +11416,7 @@ export function seedFachwissen(): Fachwissen[] {
         { stufe: 'Invasiv & Speziell', text: 'Bei Eisenmangelanämie ohne Befund im Kolon zusätzlich ÖGD' },
       ],
       differenzialdiagnosen: [
-        { dd: 'Hämorrhoiden', unterscheidung: 'Hellrotes, aufgelagertes Blut ohne Anämie und ohne Gewichtsverlust; erklären eine Blutung jenseits von 50 Jahren erst nach der Koloskopie.' },
+        { dd: 'Hämorrhoiden', unterscheidung: 'Hellrotes, aufgelagertes Blut ohne Anämie und ohne Gewichtsverlust; nach dem 50. Lebensjahr gelten sie erst nach einer Koloskopie als Blutungsursache.' },
         { dd: 'Divertikulitis', unterscheidung: 'Akuter Schmerz im linken Unterbauch mit Fieber und Entzündungswerten; nach dem Abklingen Koloskopie, weil ein stenosierendes Karzinom ähnlich aussehen kann.' },
         { dd: 'Chronisch-entzündliche Darmerkrankung', unterscheidung: 'Jüngere Patienten, schubförmig blutig-schleimige Durchfälle über Jahre; Endoskopie und Histologie.' },
         { dd: 'Ischämische Kolitis', unterscheidung: 'Ältere Gefäßpatienten, plötzlicher Schmerz und danach blutige Diarrhoe, meist an der linken Flexur.' },
@@ -11445,7 +11445,7 @@ export function seedFachwissen(): Fachwissen[] {
         {
           label: 'Systemtherapie: neoadjuvant beim Rektum-, adjuvant beim Kolonkarzinom, palliativ im Stadium IV',
           items: [
-            'Lokal fortgeschrittenes Rektumkarzinom (cT3/T4 oder N+ im MRT): neoadjuvante Radiochemotherapie mit 5-FU oder Capecitabin, Kurzzeitbestrahlung oder totale neoadjuvante Therapie',
+            'Im mittleren und unteren Drittel lokal fortgeschrittenes Rektumkarzinom (cT3/T4 oder N+ im MRT): neoadjuvante Radiochemotherapie mit 5-FU oder Capecitabin, Kurzzeitbestrahlung oder totale neoadjuvante Therapie; das obere Drittel wird wie ein Kolonkarzinom primär operiert',
             'Kolonkarzinom: keine Bestrahlung; adjuvant FOLFOX oder CAPOX im Stadium III, im Stadium II nur bei Risikofaktoren',
             'Stadium IV: Chemotherapie nach Molekularpathologie, EGFR-Antikörper nur bei RAS-Wildtyp und linksseitigem Tumor, bei MSI-hoch Checkpoint-Inhibitoren',
             'Resektable Leber- oder Lungenmetastasen werden kurativ operiert, bei Bedarf nach Konversionschemotherapie',
@@ -11474,7 +11474,7 @@ export function seedFachwissen(): Fachwissen[] {
         { frage: 'Was ist das CEA, und wofür setzen Sie es ein?', antwort: 'Ein Tumormarker, kein Diagnosemarker: auch bei Rauchern, Zirrhose oder Colitis erhöht. Vor der Operation als Ausgangswert, danach zur Nachsorge; ein erneuter Anstieg führt zur Bildgebung.' },
         { frage: 'Warum wird ein Rektumkarzinom vorbestrahlt, ein Kolonkarzinom nicht?', antwort: 'Das Rektum liegt fixiert im engen Becken: hohes Lokalrezidivrisiko, gut bestrahlbar. Das Kolon ist beweglich und liegt neben strahlenempfindlichem Dünndarm, es wird operiert und bei Bedarf adjuvant behandelt.' },
         { frage: 'Was bedeutet TME?', antwort: 'Totale mesorektale Exzision: Entfernung des Rektums mit dem mesorektalen Fettgewebe in seiner intakten Faszie, in dem die Lymphknoten liegen. Sie hat die Lokalrezidivrate deutlich gesenkt.' },
-        { frage: 'Wann denken Sie an ein Lynch-Syndrom?', antwort: 'Bei Erkrankung vor 50 Jahren, rechtsseitigem Tumor, mehreren Tumoren und Endometrium-, Magen- oder Ovarialkarzinomen in der Familie (Amsterdam- und Bethesda-Kriterien). Dann Immunhistochemie am Tumor und genetische Beratung.' },
+        { frage: 'Wann denken Sie an ein Lynch-Syndrom?', antwort: 'Bei Erkrankung vor dem 50. Lebensjahr, rechtsseitigem Tumor, mehreren Tumoren und Endometrium-, Magen- oder Ovarialkarzinomen in der Familie (Amsterdam- und Bethesda-Kriterien). Dann Immunhistochemie am Tumor und genetische Beratung.' },
         { frage: 'Der Patient hat Lebermetastasen. Ist die Situation palliativ?', antwort: 'Nicht zwingend. Begrenzte, resektable Metastasen werden kurativ angegangen, gegebenenfalls nach Konversionschemotherapie; erst die nicht resektable Metastasierung ist palliativ.' },
       ],
       merksatz: 'Blut, neue Stuhlgewohnheiten, Gewicht verloren, über 50: Finger, komplette Koloskopie, dann Staging — und klären, ob Rektum oder Kolon.',
@@ -11491,7 +11491,7 @@ export function seedFachwissen(): Fachwissen[] {
       risikofaktoren: [
         'Adipositas, axiale Hiatushernie',
         'Rauchen, Alkohol, späte und fettreiche Mahlzeiten, Kaffee',
-        'Medikamente, die den Sphinkter senken (Nitrate, Kalziumantagonisten, Theophyllin) oder die Schleimhaut schädigen (NSAR, Bisphosphonate)',
+        'Medikamente, die den Sphinkterdruck senken (Nitrate, Kalziumantagonisten, Theophyllin) oder die Schleimhaut schädigen (NSAR, Bisphosphonate)',
         'Schwangerschaft',
       ],
       klinik: [
@@ -11503,7 +11503,7 @@ export function seedFachwissen(): Fachwissen[] {
         { text: 'Schwere Ösophagitis oder Barrett-Ösophagus mit wenig Beschwerden', atypisch: true },
       ],
       klassifikation: [
-        { name: 'Los-Angeles-Klassifikation', inhalt: 'A: Läsionen unter 5 mm; B: über 5 mm, nicht über Faltenkämme hinweg; C: konfluierend, weniger als 75 % der Zirkumferenz; D: mindestens 75 %.' },
+        { name: 'Los-Angeles-Klassifikation', inhalt: 'A: Läsionen bis 5 mm; B: über 5 mm, nicht über Faltenkämme hinweg; C: konfluierend, weniger als 75 % der Zirkumferenz; D: mindestens 75 %.' },
         { name: 'Erosive und nicht-erosive Refluxkrankheit', inhalt: 'Die Mehrheit hat eine normale Schleimhaut; die Stärke der Beschwerden sagt nichts über den endoskopischen Befund.' },
       ],
       redFlags: [
@@ -11514,19 +11514,19 @@ export function seedFachwissen(): Fachwissen[] {
         'Tumoren des Magen-Darm-Trakts in der Familie',
       ],
       diagnostik: [
-        { stufe: 'Anamnese/Klinik', text: 'Typische Beschwerden ohne Alarmsymptome erlauben die klinische Diagnose und eine Behandlung ohne vorherige Spiegelung' },
+        { stufe: 'Anamnese/Klinik', text: 'Typische Beschwerden ohne Alarmsymptome erlauben die klinische Diagnose und eine Behandlung ohne vorherige Endoskopie' },
         { stufe: 'Anamnese/Klinik', text: 'Medikamente, Rauchen, Alkohol, Essgewohnheiten, Gewicht' },
         { stufe: 'Apparativ & Bildgebung', text: 'EKG bei retrosternalem Schmerz und kardiovaskulären Risikofaktoren; Troponin bei akutem Brustschmerz' },
         { stufe: 'Invasiv & Speziell', text: 'ÖGD mit Biopsien bei Alarmsymptomen, nach erfolgloser PPI-Therapie über acht Wochen und bei jahrelangen Beschwerden (Barrett-Suche)' },
-        { stufe: 'Invasiv & Speziell', text: '24-Stunden-pH-Impedanz-Messung zum objektiven Nachweis des Refluxes, wenn die Spiegelung unauffällig ist, und vor jeder Operation' },
+        { stufe: 'Invasiv & Speziell', text: '24-Stunden-pH-Impedanz-Messung zum objektiven Nachweis des Refluxes, wenn die Endoskopie unauffällig ist, und vor jeder Operation' },
         { stufe: 'Invasiv & Speziell', text: 'Hochauflösende Manometrie vor einer Fundoplikatio, um eine Achalasie auszuschließen' },
       ],
       differenzialdiagnosen: [
         { dd: 'Angina pectoris', unterscheidung: 'Belastungsabhängiger Druck mit Ausstrahlung in Arm oder Kiefer, Besserung in Ruhe; EKG, bei akutem Schmerz Troponin.' },
         { dd: 'Ulcus ventriculi oder duodeni', unterscheidung: 'Epigastrischer Schmerz, beim Duodenalulkus nüchtern und nachts; oft NSAR oder Helicobacter pylori.' },
         { dd: 'Eosinophile Ösophagitis', unterscheidung: 'Jüngere Atopiker mit Dysphagie und Bolusimpaktation; Diagnose durch Biopsien.' },
-        { dd: 'Ösophaguskarzinom', unterscheidung: 'Progrediente Dysphagie, Gewichtsverlust, Anämie; Spiegelung mit Biopsie.' },
-        { dd: 'Funktionelles Sodbrennen', unterscheidung: 'Normale Spiegelung und normale Säureexposition in der pH-Metrie; spricht auf PPI kaum an.' },
+        { dd: 'Ösophaguskarzinom', unterscheidung: 'Progrediente Dysphagie, Gewichtsverlust, Anämie; ÖGD mit Biopsie.' },
+        { dd: 'Funktionelles Sodbrennen', unterscheidung: 'Normale Endoskopie und normale Säureexposition in der pH-Metrie; spricht auf PPI kaum an.' },
       ],
       therapie: [
         {
@@ -11550,7 +11550,7 @@ export function seedFachwissen(): Fachwissen[] {
           label: 'Vorgehen bei Therapieversagen und Langzeitüberwachung des Barrett-Ösophagus',
           items: [
             'Bei Versagen zuerst Einnahme, Adhärenz und Auslöser prüfen, dann ÖGD mit Biopsien und pH-Impedanz-Messung',
-            'Funktionelles Sodbrennen oder hypersensitiver Ösophagus sprechen auf PPI nicht an',
+            'Funktionelles Sodbrennen oder hypersensitiver Ösophagus spricht auf PPI nicht an',
             'Barrett-Ösophagus: dauerhafter PPI und endoskopische Überwachung mit Biopsien; Dysplasien endoskopisch resezieren und abladieren',
           ],
         },
@@ -11564,16 +11564,16 @@ export function seedFachwissen(): Fachwissen[] {
       ],
       prognose: 'Gutartig, aber oft chronisch wiederkehrend; unter PPI werden die meisten Patienten beschwerdefrei, nach dem Absetzen kehren die Beschwerden häufig zurück. Wichtigste Spätfolge ist der Barrett-Ösophagus.',
       pruefungsfallen: [
-        'Nicht jedes Sodbrennen braucht eine Spiegelung.',
+        'Nicht jedes Sodbrennen braucht eine Endoskopie.',
         'Das Ansprechen auf einen PPI beweist die Diagnose nicht (S2k-Leitlinie 2023).',
         'Das Alter allein ist kein Alarmsymptom der S2k-Leitlinie.',
-        'Den objektiven Refluxnachweis liefert die pH-Impedanz-Messung, nicht die Spiegelung.',
+        'Den objektiven Refluxnachweis liefert die pH-Impedanz-Messung, nicht die Endoskopie.',
       ],
       askedInExam: [
         { frage: 'Wie lautet Ihre Verdachtsdiagnose, und was spricht dafür?', antwort: 'Refluxkrankheit: Sodbrennen, saures Aufstoßen, schlimmer im Liegen und nach üppigem Essen, besser im Sitzen und nach Antazida; dazu Risikofaktoren wie Übergewicht und Rauchen.' },
         { frage: 'Warum denken Sie bei retrosternalem Brennen auch an das Herz?', antwort: 'Weil eine Angina pectoris ähnlich beginnen kann und gefährlich ist. Ich frage nach Belastungsabhängigkeit und Ausstrahlung und schreibe ein EKG.' },
         { frage: 'Warum muss der PPI vor dem Frühstück eingenommen werden?', antwort: 'Er hemmt nur aktivierte Protonenpumpen; das Essen aktiviert sie. Eine falsche Einnahme ist die häufigste Ursache eines scheinbaren Versagens.' },
-        { frage: 'Die Spiegelung ist unauffällig. Hat der Patient keinen Reflux?', antwort: 'Doch, die nicht-erosive Form ist häufiger als die erosive; den Nachweis erbringt eine Messung der Säureexposition über 24 Stunden.' },
+        { frage: 'Die Endoskopie ist unauffällig. Hat der Patient keinen Reflux?', antwort: 'Doch, die nicht-erosive Form ist häufiger als die erosive; den Nachweis erbringt eine Messung der Säureexposition über 24 Stunden.' },
         { frage: 'Was ist ein Barrett-Ösophagus?', antwort: 'Ersatz des Plattenepithels im distalen Ösophagus durch intestinales Zylinderepithel als Folge chronischen Refluxes, Vorstufe des Adenokarzinoms; deshalb endoskopische Überwachung.' },
       ],
       merksatz: 'Typisches Sodbrennen ohne Warnzeichen: Lebensstil und PPI vor dem Frühstück; gespiegelt wird bei Warnzeichen oder Versagen.',
@@ -11629,8 +11629,8 @@ export function seedFachwissen(): Fachwissen[] {
           akut: true,
           items: [
             'Stationäre Aufnahme, Nahrungskarenz, Infusion, Analgesie',
-            'Antibiose gegen gramnegative Erreger und Anaerobier (zum Beispiel Ceftriaxon plus Metronidazol); unverzüglich bei Sepsis, Cholangitis, Abszess oder Perforation',
-            'Bei leichtem Verlauf Antibiose nach der Cholezystektomie innerhalb von 24 Stunden beenden',
+            'Antibiose gegen gramnegative Erreger und Anaerobier (zum Beispiel Ceftriaxon plus Metronidazol): unverzüglich bei Sepsis, Cholangitis, Abszess oder Perforation (S3); bei unkomplizierter Form üblich, der Nutzen ist aber nicht belegt',
+            'Bei leichtem oder mittelschwerem Verlauf (Tokyo Grad I–II) Antibiose nach der Cholezystektomie innerhalb von 24 Stunden beenden',
             'Thromboseprophylaxe',
           ],
         },
@@ -11838,7 +11838,7 @@ export function seedFachwissen(): Fachwissen[] {
           label: 'Therapieentscheidung nach Staging im interdisziplinären Tumorboard',
           items: [
             'Entscheidung nach Infiltrationstiefe, Lymphknoten, Fernmetastasen, Histologie und Operabilität, erst nach vollständigem Staging',
-            'T1a N0: endoskopische Resektion; cT1b–T2 N0: Operation; cT3–T4a oder N+: multimodal; T4b oder M1: palliativ',
+            'T1a N0: endoskopische Resektion; cT1b N0: Operation; cT2 N0: Operation oder multimodal nach Tumorboard; cT3–T4a oder N+: multimodal; T4b oder M1: palliativ',
             'Zervikales Plattenepithelkarzinom: definitive Radiochemotherapie, weil eine Resektion die Laryngektomie verlangen würde',
           ],
         },
@@ -11846,7 +11846,7 @@ export function seedFachwissen(): Fachwissen[] {
           label: 'Kurative Therapie im Frühstadium: endoskopische Resektion (T1a, N0)',
           items: [
             'Mukosaresektion oder Submukosadissektion, wenn keine Lymph- oder Veneninvasion, Grading G1 oder G2 und eine R0-Resektion vorliegen',
-            'Submukosainvasion, L1, V1, G3 oder positiver tiefer Rand im Resektat: Ösophagektomie',
+            'Tiefe Submukosainvasion (beim Adenokarzinom über sm1), L1, V1, G3 oder positiver tiefer Rand: Ösophagektomie',
             'Danach Ablation des restlichen Barrett-Epithels, PPI-Dauertherapie und endoskopische Kontrollen',
           ],
         },
