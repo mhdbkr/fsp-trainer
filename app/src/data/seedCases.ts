@@ -43342,7 +43342,7 @@ export function seedCases(): Case[] {
         ],
         antworten: {
           'pers-name': 'Hubertus, Gabi Hubertus. H-u-b-e-r-t-u-s. Den Vornamen bitte mit i am Ende: G-a-b-i.',
-          'pers-alter': 'Achtundvierzig. — Ach, Sie wollten das Alter, nicht das Geburtsdatum? Achtundvierzig Jahre, ja. Geboren am 1. Dezember 1977.',
+          'pers-alter': 'Achtundvierzig. — Ach so, das Geburtsdatum wollen Sie auch? Geboren am 1. Dezember 1977.',
           'pers-groesse': '1,78 m. Und 78 Kilo — vor sechs Wochen waren es noch 83, ich wiege mich jeden Freitag, deswegen weiß ich das so genau.',
           'pers-beruf': 'Mit Holzstaub oder Chemikalien habe ich nichts zu tun, ich sitze vorne im Büro.',
           'pers-hausarzt': 'Ja, Dr. Brenner, bei dem bin ich seit Jahren. Der sagt jedes Mal, ich hätte einen Reizdarm.',
@@ -61300,7 +61300,7 @@ export function seedCases(): Case[] {
           'akt-motiv': '(unruhig, wippt mit dem Bein) Mir geht es richtig schlecht seit gestern Abend. Ich schwitze, mir ist übel, alles tut weh. Meine Schmerztabletten sind alle — ich brauche eigentlich nur ein neues Rezept.',
           'akt-beginn': 'Gestern Abend, so gegen acht. Erst nur Unruhe und Gähnen, in der Nacht dann alles andere.',
           'akt-psych-stimmung': '(reibt sich die Arme) Beschissen, ehrlich gesagt. Gereizt bin ich, und irgendwie niedergeschlagen, schon länger, nicht erst seit heute. Besser ist es eigentlich nur kurz, wenn ich unter der heißen Dusche stehe oder wenn ich an die Tablette denke, die ich nehmen könnte — aber das hält ja nicht lange an.',
-          'akt-psych-antrieb': 'Ja, aufstehen fällt mir schon lange schwer, nicht nur heute. Und Freude, ehrlich, an nicht mehr viel. Früher bin ich gern angeln gegangen, das mache ich schon seit Monaten nicht mehr.',
+          'akt-psych-antrieb': 'Ja, aufstehen fällt mir schon lange schwer. Und Freude, ehrlich, an nicht mehr viel. Früher bin ich gern angeln gegangen, das mache ich schon seit Monaten nicht mehr.',
           'akt-psych-schlaf': 'Schlafen tue ich schlecht, seit zwei Nächten fast gar nicht, aber auch davor schon unruhig, ich nehme deswegen Zopiclon. Konzentrieren kann ich mich auch schlecht, im Moment denke ich sowieso nur an die Tabletten, an sonst was kann ich kaum denken.',
           'akt-psych-sicherheit': '(schaut auf den Boden, zögert) ...Nein, umbringen würde ich mich nicht, ich hab auch keinen Plan oder so. Aber ganz ehrlich, es gab schon Momente in letzter Zeit, wo ich dachte, es wäre einfacher, einfach nicht mehr aufzuwachen. Das macht mir selbst Angst, wenn ich es so sage.',
           'akt-verlauf': 'Seit gestern Abend jede Stunde schlimmer. Heute Nacht war es am schlimmsten, ich bin nur zwischen Bett, Dusche und Toilette gependelt. Eine Pause gab es nicht.',
