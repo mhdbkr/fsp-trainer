@@ -33,6 +33,10 @@ test('la réplique se lit en chiffres comme en toutes lettres', () => {
   assert.deepEqual(parseReplik('geboren am vierzehnten März neunzehnhundertneunundsiebzig'), [{ t: 14, m: 3, j: 1979 }]);
   assert.deepEqual(parseReplik('Geboren am einunddreißigsten Mai zweitausend.'), [{ t: 31, m: 5, j: 2000 }]);
   assert.deepEqual(parseReplik('Ich bin 61 Jahre alt.'), []);
+  // revue langue S3 : « Geboren bin ich am … » et l'année abrégée d'une personne âgée
+  assert.deepEqual(parseReplik('Geboren bin ich am 17. Januar 1994.'), [{ t: 17, m: 1, j: 1994 }]);
+  assert.deepEqual(parseReplik('Geboren am elften Juni sechsunddreißig.'), [{ t: 11, m: 6, j: 1936 }], 'année abrégée → la plus récente non postérieure à REFERENZDATUM');
+  assert.deepEqual(parseReplik('geboren am 3. Mai zwanzig'), [{ t: 3, m: 5, j: 2020 }]);
 });
 
 test('le sain passe', () => assert.deepEqual(checkCase(sain), []));
@@ -64,6 +68,15 @@ test('aucune date calendaire dans les Muster (Arztbrief, Vorstellung) hors date 
   assert.equal(checkCase(avecDate('arztbrief', 'diagnostik', 'Blutbild vom 3.9.2026')).length, 1);
   assert.equal(checkCase(avecDate('vorstellung', 'persoenliche-daten', 'der sich am 07.11.2024 vorgestellt hat')).length, 1);
   assert.deepEqual(checkCase(avecDate('arztbrief', 'diagnostik', 'Kontrolle in 3 Monaten, Hb 11.4 g/dl')), []);
+});
+
+test('pas d’« Aufnahmetag » dans une einleitung ambulatoire (Sprechstunde, Ambulanz), sauf admission listée', () => {
+  const avec = (e, id = 'case-x') => ({ ...sain, id, musterSaetze: { arztbrief: { einleitung: e } } });
+  assert.deepEqual(checkCase(avec('Herrn X, geboren am 01.03.1965, der sich am Aufnahmetag in unserer Ambulanz vorstellte')), ['arztbrief.einleitung : « am Aufnahmetag » pour une consultation en Sprechstunde/Ambulanz (→ « am heutigen Tag »)']);
+  assert.deepEqual(checkCase(avec('Herrn X, geboren am 01.03.1965, der sich am heutigen Tag in unserer Sprechstunde vorstellte')), []);
+  assert.deepEqual(checkCase(avec('Herrn X, geboren am 01.03.1965, der sich am Aufnahmetag in unserer Notaufnahme vorstellte')), []);
+  assert.deepEqual(checkCase(avec('Herrn X, geboren am 01.03.1965, der sich am Aufnahmetag in unserer Ambulanz vorstellte', 'case-itp')), []);
+  assert.equal(checkCase(avec('Herrn X, geboren am 01.03.1965, der sich am heutigen Tage vorstellte')).length, 1, '« am heutigen Tage » → « am heutigen Tag »');
 });
 
 test('le corpus passe (code de sortie 0)', () => {
