@@ -50,6 +50,10 @@ jobs:
         run: node scripts/checkGuideDuplicates.mjs
       - name: Tells d'interface (capitales, mono en libellé, classes cassées, ambre sur contrôles)
         run: node scripts/checkUiTells.mjs
+      - name: "Couches fixes ancrées à l'écran (Portal, wrapper de page sans transform résiduel)"
+        run: |
+          node scripts/checkFixedOverlays.mjs
+          node --test scripts/checkFixedOverlays.test.mjs
       - name: Questions propres au cas — un chapitre, une information, dite au patient, sans doublon
         run: node scripts/checkCaseQuestionChapters.mjs
       - name: patientWorte — la clôture en langage patient (130 cas)

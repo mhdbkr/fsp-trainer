@@ -551,13 +551,17 @@ h1, h2, h3 {
   }
 }
 
-/* NOTE ARCHITECTURE : `.reveal` anime `transform`, ce qui fait de son porteur
-   un containing block pour ses descendants `position: fixed`. Le wrapper de
-   page de Shell.tsx ne la porte PLUS (s3-primitives T5) : la cause première de
-   cette dette est levée. Mais `.reveal` reste utilisée dans une douzaine
-   d'écrans, donc la règle tient partout où elle est posée — tout overlay plein
-   écran rendu DANS une page (modale QR, Mode focus, modale Programme…) passe
-   par <Portal> (components/Portal.tsx), jamais un `fixed` nu. */
+/* NOTE ARCHITECTURE : un ancêtre porteur de `transform` (même identité),
+   `filter`, `backdrop-filter` (le verre), `contain` ou `will-change` devient le
+   containing block de ses descendants `position: fixed` : le panneau se cale
+   alors sur la PAGE (haut de page, hauteur de page, pas de défilement propre)
+   au lieu de l'écran. Deux verrous :
+   1. `.reveal` / `.stagger` en remplissage `backwards` et non `both` : `both`
+      gardait `transform: matrix(1,0,0,1,0,0)` sur le wrapper de page pour
+      toujours (mesuré, série 3 : aperçu de cas ouvert à −590 px) ;
+   2. tout `fixed` passe par <Portal> (components/Portal.tsx) → <body>.
+   Les deux sont gardés par scripts/checkFixedOverlays.mjs (CI). Le wrapper de
+   page de Shell.tsx ne porte plus `.reveal` (s3-primitives T5). */
 @keyframes reveal-up { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
 /* Sortie : on quitte vers le HAUT, l'entrant arrive du bas — le flux est
    continu, il ne fait pas d'aller-retour. Léger retrait d'échelle : l'objet
@@ -622,7 +626,7 @@ html:active-view-transition .vt-page { view-transition-name: page; }
   .tnum { font-variant-numeric: tabular-nums; }
 
   /* Révélation douce à l'arrivée (respecte prefers-reduced-motion via la règle globale). */
-  .reveal { animation: reveal-up 0.25s var(--ease-out) both; }
+  .reveal { animation: reveal-up 0.25s var(--ease-out) backwards; }
 
   /* ── État de SORTIE (s3-primitives T6) ──────────────────────────────────
      Le défaut le plus répandu de l'app : « animation d'entrée seule + retrait
@@ -639,7 +643,7 @@ html:active-view-transition .vt-page { view-transition-name: page; }
      aucun clignotement, aucun retard. */
   .swap-out { animation: swap-out 0.18s var(--ease-out) both; pointer-events: none; }
   .swap-in { animation: reveal-up 0.22s var(--ease-out) both; }
-  .stagger > * { animation: reveal-up 0.3s var(--ease-out) both; }
+  .stagger > * { animation: reveal-up 0.3s var(--ease-out) backwards; }
   .stagger > *:nth-child(1) { animation-delay: 0.02s; }
   .stagger > *:nth-child(2) { animation-delay: 0.06s; }
   .stagger > *:nth-child(3) { animation-delay: 0.10s; }

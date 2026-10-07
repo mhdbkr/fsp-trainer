@@ -3,6 +3,7 @@ import type { DeckQuery, Specialty, Srs, Center } from '@/db/types';
 import { createDeck } from '@/lib/collections';
 import { useAllTerms } from '@/hooks/useData';
 import { trapFocus } from '@/lib/trapFocus';
+import { Portal } from '@/components/Portal';
 
 interface Props { initialQuery?: DeckQuery; onClose: (createdId?: string) => void }
 const STATES: Srs['state'][] = ['Neu', 'Gelernt', 'Zu wiederholen'];
@@ -37,7 +38,7 @@ export function DeckSheet({ initialQuery, onClose }: Props) {
   };
 
   return (
-    <>
+    <Portal>
       <div className="fixed inset-0 z-[65] bg-slate-900/20" onClick={() => onClose()} />
       <form ref={formRef} onKeyDown={(e) => trapFocus(e, formRef.current)} onSubmit={submit} role="dialog" aria-modal="true" aria-label="Nouveau deck" className="glass-full fixed inset-x-0 bottom-0 z-[70] mx-auto flex max-w-md flex-col gap-4 rounded-t-2xl px-5 pb-5 pt-4 sm:inset-auto sm:left-1/2 sm:top-1/3 sm:w-full sm:-translate-x-1/2 sm:rounded-2xl">
         <h2 className="sheet-title">Nouveau deck</h2>
@@ -57,6 +58,6 @@ export function DeckSheet({ initialQuery, onClose }: Props) {
         {error && <p role="alert" className="text-xs text-rose-600 dark:text-rose-400">{error}</p>}
         <div className="-mx-5 flex justify-end gap-2 border-t border-slate-900/[0.06] px-5 pt-4 dark:border-white/10"><button type="button" onClick={() => onClose()} className="btn-outline min-h-11">Annuler</button><button type="submit" className="btn-primary min-h-11">Créer</button></div>
       </form>
-    </>
+    </Portal>
   );
 }

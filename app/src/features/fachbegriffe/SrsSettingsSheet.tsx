@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { getSrsSettings, setSrsSettings, SRS_LIMITS, type SrsSettings } from '@/lib/srsSettings';
 import { loadDrillContext } from '@/lib/collections/drillContext';
+import { Portal } from '@/components/Portal';
 
 // Réglages quotidiens façon Anki (spec F2b 3.7). Une seule feuille, utilisée
 // par la page Fachbegriffe (modale) et par « Ajuster » du programme (inline).
@@ -59,5 +60,5 @@ export function SrsSettingsSheet({ onClose, inline = false }: { onClose: () => v
     </div>
   );
   if (inline) return <div className="card p-4">{form}</div>;
-  return (<><div className="fixed inset-0 z-40 bg-slate-900/20" onClick={onClose} /><div role="dialog" aria-modal="true" aria-label="Répétitions" className="glass fixed inset-x-0 bottom-0 z-50 mx-auto max-w-md rounded-t-2xl p-4 sm:inset-auto sm:left-1/2 sm:top-1/3 sm:-translate-x-1/2 sm:rounded-2xl">{form}</div></>);
+  return (<Portal><div className="fixed inset-0 z-40 bg-slate-900/20" onClick={onClose} /><div role="dialog" aria-modal="true" aria-label="Répétitions" className="glass fixed inset-x-0 bottom-0 z-50 mx-auto max-w-md rounded-t-2xl p-4 sm:inset-auto sm:left-1/2 sm:top-1/3 sm:-translate-x-1/2 sm:rounded-2xl">{form}</div></Portal>);
 }
