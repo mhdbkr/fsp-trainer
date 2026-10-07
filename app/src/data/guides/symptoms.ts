@@ -100,6 +100,80 @@ export function symptomsInText(t: string): Signe[] {
   return TEXT_RE.filter(([, re]) => re.test(t)).map(([s]) => s);
 }
 
+// ── Ce qu'une RÉPLIQUE du patient a déjà dit (lot Banque, FB3-A2 ; r5 de `cohere`) ─────────────────────────────
+// Une lecture À PART de TEXT_RE (qui sert la porte et la mesure) : elle décide qu'une question de banque ne se pose plus,
+// donc la précision prime sur le rappel. Un signe est dit quand la réplique en dit la PRÉSENCE ou l'ABSENCE (« keinen
+// Durchfall » répond à « Hatten Sie Durchfall? »). Ne valent pas réponse : un facteur (« beim Husten »), un épisode passé
+// dans la même phrase (« vor drei Wochen … Corona, Fieber » — règle (e) de l'identité), une image (« wie ein Gewicht »),
+// le poids du jour (seule une VARIATION dit `gewicht`), une impression (« mir ist warm » n'est pas « Fieber »).
+// ponytail : des motifs fermés par signe, sans analyse de la phrase ; un signe absent de la table n'est jamais « dit »
+// (schlaf, krampf, blutung, reise, angst : trop de sens voisins). Ajouter un motif = un test de lecture dans coherenceBanque.test.ts.
+const PHRASE_FIN = /[.!?;…]+/;
+const PASSE = /\bvor\s+(?:\w+\s+){0,2}(?:wochen?|monat(?:en)?|jahr(?:en)?)\b|\bdamals\b|\bals kind\b|\bfrüher\b|\bging (?:wieder )?weg\b/i;
+const NACHTS = /\bnachts\b/i;
+/** Un nombre de kilos (« 4 Kilo », « vier Kilo », pas « Kilometer ») : le chiffre d'une variation du poids. */
+const KILO = String.raw`\b(?:\d+(?:[,.]\d+)?|ein|zwei|drei|vier|fünf|sechs|sieben|acht|neun|zehn|elf|zwölf|fünfzehn|zwanzig)\s+kilo(?!m)`;
+const DIT_RE: Array<[Signe, RegExp, { passe?: true; nuit?: false; complet?: true }?]> = [
+  ['fieber', /\bfieber/i],
+  ['schuettelfrost', /schüttelfrost|\bgeschüttelt\b/i],
+  ['nachtschweiss', /nachtschwei|\bnachts\b[^,]{0,30}(?:schwitz|klatschnass|durchgeschwitzt)|schwitze\w*\s+(?:\w+\s+){0,2}nachts/i],
+  ['schwitzen', /\bschwitz\w*|schweißausbr\w*/i, { nuit: false }],
+  ['uebelkeit', /(?<![a-zäöüß])übel(?:keit)?(?![a-zäöüß])|\bmir ist (?:\w+ )?schlecht\b/i],
+  ['erbrechen', /\berbroch\w*|\berbrech\w*|(?<![a-zäöüß])übergeb\w*/i],
+  ['stuhl', /durchfall|\bverstopf\w*/i],
+  // une VARIATION du poids, jamais un chiffre seul (« wiege 70 Kilo »), jamais « Kilometer », jamais « wie ein Gewicht »
+  ['gewicht', new RegExp(`${KILO}\\w*\\b[^.!?;,—–]{0,40}\\b(?:ab|zu)genommen\\b|(?:ab|zu)genommen\\b[^.!?;]{0,20}${KILO}|${KILO}\\w*\\s+(?:verloren|weniger|mehr)\\b|\\bwaren es (?:noch |früher )?\\d|\\bvon \\d+ auf \\d+\\b|\\bgewicht\\w* (?:\\w+ ){0,3}?(?:gleich|stabil)\\b`, 'i'), { passe: true, complet: true }],
+  ['gewicht', /\b(?:ab|zu)genommen habe ich\b|\b(?:ich habe|habe ich) (?:\w+ ){0,5}?(?:ab|zu)genommen\b|\bgewicht\w* (?:\w+ ){0,3}?(?:verloren|abgenommen|zugenommen)\b|\bgewichts(?:verlust|zunahme)\b/i, { passe: true }],
+  ['appetit', /\bappetit\b/i],
+  ['durst', /\bdurst\w*/i],
+  ['husten', /(?<!\bbeim (?:\w+ )?|\bbei |\bvom |\bzum )\bhusten\b/i],
+  ['kopfschmerz', /\bkopfschmerz\w*|\bkopfweh\b|\bkopf tut (?:mir )?weh\b|\btut mir der kopf weh\b/i],
+  ['schwindel', /\bschwindel\w*/i],
+  ['sturz', /\b(?:sturz|(?<!\b(?:fast|beinahe) )gestürzt|hingefallen)\b/i],   // « fast gestürzt » n'est pas une chute
+  ['unfallhergang', /\bkein(?:en)? unfall\b|\bunfall hatte ich (?:auch )?(?:nicht|keinen)\b/i],
+  ['taubheit', /\btaubheit\w*|\bkribbel\w*|\bpelzig\w*/i],
+  ['schwaeche', /\bschwächer geworden\b|\bkraftverlust\b|\blähmung\b|\bgelähmt\b/i],
+  ['juckreiz', /(?<![a-zäöüß])juck/i],
+  ['ausschlag', /\bausschlag\w*|\bquaddel\w*|\bhautveränderung\w*/i],
+  ['atemnot', /\b(?:atemnot|luftnot|kurzatmig\w*)\b|\bschwer luft\b|\bkaum luft\b|\baußer puste\b|\bdie luft weg\b|\bkeine luft\b/i],
+  ['brustschmerz', /\bbrustschmerz\w*|\bengegefühl in der brust\b|\bschmerz\w* in der brust\b|\bbrust schnürt\b/i],
+  ['herzrasen', /\bherz(?:rasen|klopfen|stolpern)\b|\bherz (?:rast|klopft)\b/i],
+  ['bewusstlos', /\bbewusstlos\w*|\bohnmächtig\b|\bohnmacht\b|\bsynkope\b/i],   // « schwarz vor Augen » est une présyncope (ADMIS Q5)
+  // la brûlure, ou un changement (ou son absence) dit « beim Wasserlassen » ; pas « nachts zum Wasserlassen », pas « nicht Wasserlassen »
+  ['miktion', /(?:brenn|stech|sticht|schmerz)[^.!?;]{0,30}wasserlassen|wasserlassen[^.!?;]{0,40}(?:brenn|sticht|schmerz|verändert|aufgefallen|wie immer|normal)/i],
+  ['orthopnoe', /\bkissen\b/i],
+  ['sehstoerung', /\bsehstörung\w*|\bdoppel(?:bild\w*|t sehe)|\bverschwommen\b/i],
+  ['schluck', /\bschluckbeschwerden\b|\bschlucken (?:ist|fällt|geht) (?:\w+ )?(?:schwer|schwierig)|\bkaum (?:noch )?schlucken\b/i],
+  ['stimmung', /\bniedergeschlagen\b|\btraurig\b|\binnerlich leer\b/i],
+];
+// L'ABSENCE (« keinen Durchfall », « wie immer ») et le CHIFFRE d'une variation du poids répondent aussi aux précisions : le signe est
+// dit « complet ». La présence seule (« ich habe abgenommen ») laisse les précisions à poser (r5 les ouvre). La polarité se lit dans
+// la proposition du motif (virgule, tiret, « und ich … ») : « Mir ist übel, erbrochen habe ich nicht ».
+const PROPOSITION = /,|—|–|\s(?:und|aber|doch|sondern)\s+(?=(?:ich|mir|mich|es|das|der|die|seit|jetzt|dann)\b)/gi;
+const NEGATION = /\b(?:kein\w*|nicht|nie|niemals|nichts|weder|ohne|nein)\b|\bwie immer\b|\bnormal\b|\bunauffällig\b/i;
+/** Les signes qu'une réplique du patient DIT, phrase par phrase : signe → `true` si l'absence (ou le chiffre) répond aussi aux
+ *  précisions, `false` si seule la présence est dite. Une présence l'emporte sur une absence dans la même réplique.
+ *  `dabei = false` : une proposition « … dabei … » (pendant ce dont parle la question) ne dit rien du signe en général. */
+export function ditsDe(reponse: string, dabei = true): Map<Signe, boolean> {
+  const out = new Map<Signe, boolean>();
+  for (const ph of reponse.split(PHRASE_FIN)) {
+    const passe = PASSE.test(ph), nuit = NACHTS.test(ph);
+    const coupes = [0, ...[...ph.matchAll(PROPOSITION)].map((m) => m.index! + m[0].length), ph.length + 1];
+    const ici = new Map<Signe, boolean>();   // dans une phrase, un motif « complet » l'emporte (« fünf Kilo abgenommen »)
+    for (const [s, re, o] of DIT_RE) {
+      const m = re.exec(ph);
+      if (!m || (passe && !o?.passe) || (nuit && o?.nuit === false)) continue;
+      const k = coupes.findIndex((c) => c > m.index) - 1;
+      const prop = ph.slice(coupes[k], coupes[k + 1]);
+      if (!dabei && /\bdabei\b/i.test(prop)) continue;
+      ici.set(s, !!ici.get(s) || !!o?.complet || NEGATION.test(prop));
+    }
+    for (const [s, complet] of ici) out.set(s, (out.get(s) ?? true) && complet);
+  }
+  return out;
+}
+export const signesDits = (reponse: string): Signe[] => [...ditsDe(reponse).keys()];
+
 /** Les signes que la phrase DÉCLARE chercher (K1, ce que lit la porte) : son `sucht`, sinon les signes qu'elle
  *  énumère (`enumere`), sinon ceux de ses sondes. Pas ses relances (`phraseFollowUps`). */
 export function phraseSucht(p: Phrase): Signe[] {
