@@ -1,15 +1,17 @@
 import { describe, expect, it } from 'vitest';
 import type { Case } from '@/db/types';
-import { ctxDuCas, playedTrame, profilDuCas, trameBrute } from './anamneseChapters';
-import { cohere } from './coherence';
+import { ALLGEMEINE_ANAMNESE, FACHANAMNESEN, LEITSYMPTOM_KATEGORIEN, aktuellChapterFor, ctxDuCas, playedTrame, profilDuCas, trameBrute } from './anamneseChapters';
+import { cohere, promouvable } from './coherence';
 import { byId, cases, ch, run, s, signesJoues, trameJouee, un, vue } from './coherenceFixtures';
-import { phraseFollowUp, phraseIsCaseSpecific, phraseProbes, phraseText, type Phrase } from './phrases';
+import { parseFollowUp } from './followUp';
+import { phraseFollowUp, phraseFollowUps, phraseIsCaseSpecific, phraseProbes, phraseText, type Phrase } from './phrases';
 import { ditsDe, phraseSucht, signesDits } from './symptoms';
 
 // Lot Banque (série 3, FB3-A2 « redemander = ne pas écouter ») — r5 du moteur : une question de BANQUE ne redemande pas ce
 // qu'une réplique jouée avant elle a déjà dit. Tous les signes dits → retirée ; une partie → réduite à ses `parts` ; aucune
 // part ne porte le reste → gardée telle quelle (jamais un texte recoupé, jamais un « non réduit » de plus).
 
+const PLAFOND_RELANCES_NON_AUTONOMES = 50;
 const joue = (c: Case): Phrase[] => trameJouee(c).flatMap((x) => x.questions);
 const textes = (id: string) => joue(byId(id)).flatMap((p) => [phraseText(p), ...phraseFollowUp(p)]);
 const deSonde = (id: string, probe: string) => joue(byId(id)).filter((p) => !phraseIsCaseSpecific(p) && phraseProbes(p).includes(probe));
@@ -20,8 +22,9 @@ describe('r5 — les trois exemples de la direction', () => {
     expect(t.filter((x) => /Leiden Sie an Übelkeit|Müssen Sie sich übergeben\?|Ist Ihnen übel\?|Mussten Sie sich übergeben\?/.test(x))).toEqual([]);
     // la présence est dite, pas l'aspect : les relances rédigées s'ouvrent sans leur condition (« Falls Sie sich übergeben haben: »)
     const q = deSonde('case-pankreatitis', 'fach-gastro-uebelkeit');
-    expect(q.map(phraseText)).toEqual(['Wie lange nach dem Essen ist Ihnen übel?']);
-    expect(phraseFollowUp(q[0])).toContain('Wie sah das Erbrochene aus — wie Kaffeesatz, mit Blut?');
+    // revue clinique P2-5 : dans un abdomen aigu qui vomit, la question d'alarme ouvre (avant le délai postprandial)
+    expect(q.map(phraseText)).toEqual(['Wie sah das Erbrochene aus — wie Kaffeesatz, mit Blut?']);
+    expect(phraseFollowUp(q[0])).toContain('Wie lange nach dem Essen ist Ihnen übel?');
     expect(un(playedTrame(byId('case-pankreatitis')).ecarts, 'fach-gastro-uebelkeit', 'reduit')).toMatchObject({ regle: 5, cause: 'akt-begleit', signes: ['uebelkeit', 'erbrechen'] });
   });
 
@@ -83,9 +86,9 @@ describe('r5 — précision : un signe cité dans un autre sens ne vaut pas rép
     // schizophrenie : « Und ich habe abgenommen » → plus « Gewichtsveränderungen? », mais « Wie viel …? » et « In welchem Zeitraum …? »
     expect(deSonde('case-schizophrenie', 'veg-gewicht').map((p) => [phraseText(p), ...phraseFollowUp(p)]))
       .toEqual([['Wie viel hat sich Ihr Gewicht verändert?', 'In welchem Zeitraum war das?']]);
-    // pneumonie : « einen schlimmen Husten » → « Seit wann husten Sie? », puis trocken / Auswurf ; anaemie : « Luftnot » à l'effort →
+    // asthma : « … jetzt fast jeden zweiten Tag, auch nachts mit Husten » → « Seit wann husten Sie? », puis trocken / Auswurf ; anaemie : « Luftnot » à l'effort →
     // « Ab welcher Belastung …? »
-    expect(deSonde('case-pneumonie', 'fach-pneumo-husten').map(phraseText)).toEqual(['Seit wann husten Sie?']);
+    expect(deSonde('case-asthma', 'fach-pneumo-husten').map(phraseText)).toEqual(['Seit wann husten Sie?']);
     expect(deSonde('case-anaemie', 'fach-haem-belastung').map(phraseText)[0]).toMatch(/^Ab welcher Belastung/);
     // lymphom : « ich habe abgenommen » ne répond pas à « — wie viel in welcher Zeit? » (définition des symptômes B)
     expect(textes('case-lymphom')).toContain('Haben Sie ungewollt Gewicht verloren — wie viel in welcher Zeit?');
@@ -190,5 +193,83 @@ describe('r5 — les 130 cas', () => {
       for (const sg of signesJoues(sans)) if (!avec.has(sg)) fautes.push(`${c.id} : « ${sg} »`);
     }
     expect(fautes).toEqual([]);
+  });
+});
+
+// Passe fixeur de la revue clinique (7 oct. 2026) : 2 P1, 6 P2 corrigés dans le moteur ou la banque — rapport lead-s3-banque.md.
+describe('r5 — passe fixeur de la revue clinique', () => {
+  it('P1-1 appendizitis : une fièvre supposée n\'est pas dite ; la question de la mesure reste posée', () => {
+    expect(signesDits('Mir ist heiß, ich glaube, ich habe Fieber.')).not.toContain('fieber');
+    expect(signesDits('Ich habe wohl Fieber.')).not.toContain('fieber');
+    expect(signesDits('Ich fühle mich fiebrig.')).not.toContain('fieber');
+    expect(textes('case-appendizitis')).toContain('Haben Sie Ihre Körpertemperatur in letzter Zeit gemessen? Haben Sie Fieber festgestellt?');
+    // la mesure n'est pas la présence : « Ich habe Fieber » (cholezystitis) laisse posée la question « gemessen? »
+    expect(textes('case-cholezystitis')).toContain('Haben Sie Ihre Körpertemperatur in letzter Zeit gemessen? Haben Sie Fieber festgestellt?');
+  });
+
+  it('P1-2 tia : « vorher » situe dans le passé — « Gestürzt … habe ich mich vorher nicht » ne dit pas les chutes des attaques', () => {
+    expect(signesDits('Gestürzt oder gestoßen habe ich mich vorher nicht.')).not.toContain('sturz');
+    expect(signesDits('Davor war ich nie gestürzt.')).not.toContain('sturz');
+    expect(textes('case-tia')).toContain('Sind Sie schon gestürzt?');
+  });
+
+  it('P2-1 nhl : une didascalie conditionnelle « (Wenn … gefragt …) » n\'est pas dite tant qu\'on n\'a pas demandé', () => {
+    expect(signesDits('Ich wiege 62 Kilo. (Wenn nach dem früheren Gewicht gefragt wird:) Vor einem Monat waren es noch 65.')).not.toContain('gewicht');
+    expect(signesDits('Ich wiege 61 Kilo. (auf Nachfrage) Vorher waren es noch 68 Kilo.')).not.toContain('gewicht');
+    // nhl : le motif dit « abgenommen » sans chiffre — la quantification (critère B) est demandée
+    expect(textes('case-nhl')).toContain('Wie viele Kilo haben Sie abgenommen?');
+  });
+
+  it('P2-2 lymphom, bronchialkarzinom : le Wäschewechsel du symptôme B reste demandé', () => {
+    for (const id of ['case-lymphom', 'case-bronchialkarzinom']) {
+      expect(textes(id), id).toContain('Schwitzen Sie nachts so stark, dass Sie die Wäsche wechseln müssen?');
+    }
+  });
+
+  it('P2-3 nierenkolik : la fièvre dite au motif ouvre sa hauteur et son début', () => {
+    expect(textes('case-nierenkolik')).toContain('Wie hoch war das Fieber, und seit wann?');
+  });
+
+  it('P2-4 pneumonie : « seit drei Tagen … Husten » dit déjà le début — « Seit wann husten Sie? » ne se pose pas', () => {
+    expect(textes('case-pneumonie')).not.toContain('Seit wann husten Sie?');
+    expect(deSonde('case-pneumonie', 'fach-pneumo-husten').map(phraseText)).toEqual(['Ist der Husten trocken oder mit Auswurf?']);
+  });
+
+  it('P2-5 hodentorsion : « ich hab mich übergeben » — « Wie oft » avant « Seit wann »', () => {
+    expect(deSonde('case-hodentorsion', 'veg-uebelkeit').map(phraseText)).toEqual(['Wie oft haben Sie sich übergeben?']);
+  });
+
+  it('P2-6 aortendissektion : « Schlecht war mir » dit la nausée', () => {
+    expect(signesDits('Schlecht war mir, erbrochen nicht.')).toContain('uebelkeit');
+    expect(deSonde('case-aortendissektion', 'veg-uebelkeit')).toEqual([]);
+  });
+
+  it('langue : la question ouverte nomme ce qu\'elle localise', () => {
+    expect(textes('case-zystitis')).toContain('Wo genau spüren Sie das Brennen — vorne in der Harnröhre oder eher tief im Unterbauch?');
+  });
+
+  it('règle des auteurs (§10.4) : toute question ouverte par r5 se pose seule ; la banque n\'ajoute pas de relance de précision qui ne le peut pas', () => {
+    // a) dans les 130 trames jouées, chaque question réduite par r5 s'ouvre sur un texte qui se pose seul
+    const fautes: string[] = [];
+    for (const c of cases) {
+      const r5 = new Set(playedTrame(c).ecarts.filter((e) => /déjà dit par/.test(e.raison) && !e.question.includes('#')).map((e) => e.question));
+      for (const p of joue(c)) if (!phraseIsCaseSpecific(p) && r5.has(phraseProbes(p).join('+'))) {
+        const brute = trameBrute(c).flatMap((x) => x.questions).find((q) => phraseProbes(q).join('+') === phraseProbes(p).join('+'));
+        const ouverte = brute && phraseText(brute) !== phraseText(p) && !(typeof brute !== 'string' && brute.parts?.some((pt) => phraseText(p).endsWith(pt.text)));
+        if (ouverte && !promouvable(phraseText(p))) fautes.push(`${c.id} : « ${phraseText(p)} »`);
+      }
+    }
+    expect(fautes).toEqual([]);
+    // b) cliquet : les relances de précision de la banque (sous une part ou une question mono-signe) qui ne se posent pas seules.
+    // Elles ne sont pas fautives (la question reste alors entière) ; leur nombre ne remonte pas. Mesuré au lot Banque : 50.
+    const bank: Phrase[] = [...LEITSYMPTOM_KATEGORIEN.flatMap((k) => aktuellChapterFor(k).questions), ...ALLGEMEINE_ANAMNESE.flatMap((x) => x.questions), ...FACHANAMNESEN.flatMap((f) => f.chapter.questions)];
+    const corps = (f: string) => { const k = parseFollowUp(f); return 'question' in k ? k.question : f; };
+    const non = new Set<string>();
+    for (const p of bank) {
+      if (typeof p === 'string' || phraseIsCaseSpecific(p) || !phraseProbes(p).length) continue;
+      for (const pt of p.parts ?? []) for (const f of pt.followUp ?? []) if (!promouvable(corps(f))) non.add(`${phraseProbes(p)[0]}|${f}`);
+      if (!p.parts && phraseSucht(p).length === 1) for (const f of phraseFollowUps(p)) if (!f.sucht?.length && !promouvable(corps(f.text))) non.add(`${phraseProbes(p)[0]}|${f.text}`);
+    }
+    expect(non.size).toBeLessThanOrEqual(PLAFOND_RELANCES_NON_AUTONOMES);
   });
 });
