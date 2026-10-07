@@ -72,7 +72,7 @@ function Avant({ taskId, enPause, interrompu, onStart }: { taskId?: string; enPa
       <header className="text-center">
         {interrompu && <p role="status" className="callout callout-info mx-auto mb-4 max-w-md text-left text-sm">Examen interrompu, enregistré dans l’Historique.</p>}
         <h1 className="text-2xl font-bold tracking-tightish">Un cas, trois Teile, sans aide</h1>
-        <p className="mt-1 text-slate-500 dark:text-slate-400">
+        <p className="mt-1 text-slate-600 dark:text-slate-400">
           {casDuPlan ? 'Le cas de ta tâche du jour' : 'Un cas tiré au sort'}, caché jusqu’à la fin.
           {' '}Trois Teile de {Math.round(PLAN.parts[0].targetSec / 60)} minutes, enchaînés au chronomètre (format {PLAN.label}).
           {' '}Le jury peut interrompre l’Anamnese pour une Aufklärung.
@@ -80,7 +80,7 @@ function Avant({ taskId, enPause, interrompu, onStart }: { taskId?: string; enPa
         <button type="button" disabled={!caseId} onClick={() => caseId && onStart(caseId)} className="btn-primary mt-4 min-h-11 gap-2 px-6">
           <Icon name="play" className="h-4 w-4" />Démarrer l’examen
         </button>
-        {vide && <p className="mt-2 text-sm text-slate-500">Aucun cas disponible.</p>}
+        {vide && <p className="mt-2 text-sm text-slate-600 dark:text-slate-400">Aucun cas disponible.</p>}
         {enPause && <p className="callout callout-info mx-auto mt-3 max-w-md text-left text-xs">Une simulation est en pause : démarrer l’examen l’enregistre telle quelle.</p>}
       </header>
       {caseId && <PartnerCard caseId={caseId} depart={null} examen />}
