@@ -630,10 +630,10 @@ case-mammakarzinom
   abschluss[· · · · ·]
 case-rheumatoide-arthritis
   eroeffnung[· · · ·]
-  personalia[pers-name pers-name pers-alter pers-groesse pers-hausarzt ·]
+  personalia[pers-name pers-name pers-alter pers-groesse~koerpermasse,gewicht pers-hausarzt ·]
   aktuell[akt-motiv akt-ort↳1 akt-beginn~beginn akt-charakter akt-intensitaet↳1 akt-ausstrahlung↳1 akt-verlauf↳2 cas↳1 akt-begleit cas cas↳1 cas cas]
   fach-rheuma[fach-rheuma-gelenke↳1 fach-rheuma-morgensteifigkeit↳1 fach-rheuma-verlauf fach-rheuma-ausloeser~ausloeser,gicht_ausloeser,stuhl↳2 fach-rheuma-haut fach-rheuma-systemisch~fieber,augenentzuendung,ulzera↳2 fach-rheuma-vorgeschichte ^fach-rheuma-vorgeschichte#1~gicht ^fach-rheuma-vorgeschichte#2~nierensteine]
-  vegetativ[veg-fieber~reise,gewicht veg-schuettelfrost veg-uebelkeit↳3 veg-ausscheidung~miktion↳3 veg-appetit veg-schlaf cas ^veg-fieber#5~impfung]
+  vegetativ[veg-fieber~reise veg-schuettelfrost veg-uebelkeit↳3 veg-ausscheidung~miktion↳3 veg-appetit veg-schlaf cas ^veg-fieber#5~impfung]
   vorerkrankungen[· vor-erkrank↳3 vor-op↳3 vor-krankenhaus cas]
   medikamente[med-regelmaessig↳4 med-blutverduenner med-otc]
   allergien[all-allergie↳1 all-unvertraeglich]
