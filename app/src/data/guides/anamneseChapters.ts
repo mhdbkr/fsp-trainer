@@ -1241,7 +1241,7 @@ export const FACHANAMNESEN: FachanamneseGuide[] = [
         label: 'Alarmzeichen',
         // lot Banque : parts découpées du texte — r5 ne redemande pas la fièvre que le motif a dite (pyelonephritis)
         // revue clinique P2-3 : la fièvre dite au motif ouvre sa hauteur et son début (nierenkolik, pyelonephritis, septische-arthritis)
-        parts: [{ sucht: ['fieber'], text: 'Haben Sie Fieber?', followUp: ['Falls ja: Wie hoch war das Fieber, und seit wann?'] }, { sucht: ['schuettelfrost'], text: 'Hatten Sie Schüttelfrost?' }],
+        parts: [{ sucht: ['fieber'], text: 'Haben Sie Fieber?', followUp: ['Falls ja: Wie hoch war das Fieber?', 'Falls ja: Seit wann haben Sie Fieber?'] }, { sucht: ['schuettelfrost'], text: 'Hatten Sie Schüttelfrost?' }],
       },
       {
         text: 'Darf ich Ihnen ein paar Fragen zu Ihrer Partnerschaft stellen — das gehört zur Untersuchung dazu? Wie verhüten Sie, und wie schützen Sie sich vor Geschlechtskrankheiten?',
