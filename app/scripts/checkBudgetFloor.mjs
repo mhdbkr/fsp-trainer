@@ -36,6 +36,9 @@ const FIXTURES = {
   'app/scripts/fixtures/trame-symptoms-baseline.json': (j) => ({ constats: j.findings?.length, relu: j.relu }),
   // Lc4 (revue direction I6) : Fachwissen sans explication au patient, examinerQuestions mal formées.
   'app/scripts/fixtures/fachwissen-floor-budget.json': (j) => ({ ...j.budget }),
+  // Série 3, 1d : constats de cohésion par catégorie ; la liste motivée des DD sans
+  // négatif possible ne grossit pas non plus sans hausse documentée.
+  'app/scripts/fixtures/case-cohesion-budget.json': (j) => ({ ...j.budget, ddSansNegatif: Object.values(j.ddSansNegatif ?? {}).reduce((n, d) => n + Object.keys(d).length, 0) }),
   // Lot L0 : chaque paire (cas × sonde) est une clé — une paire retirée de la
   // liste est une clé disparue ; `kept` (paires conservées) ne remonte pas.
   'app/scripts/fixtures/fach-nature-pairs.json': (j) => {
