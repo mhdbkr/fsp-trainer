@@ -20,8 +20,7 @@
    "Gynäkologische Ursache (Ovarialtumor, Adnexitis)": "imagerie — après la ménopause, un processus ovarien ne s'exclut qu'au scanner ou à l'échographie vaginale"
   },
   "case-kolorektales-ca": {
-   "Chronisch-entzündliche Darmerkrankung": "histologie — une MICI tardive ne s'écarte qu'à la coloscopie avec biopsies",
-   "Analfissur oder Analkarzinom": "examen — fissure ou carcinome anal se voient au toucher rectal et à la proctoscopie"
+   "Chronisch-entzündliche Darmerkrankung": "histologie — une MICI tardive ne s'écarte qu'à la coloscopie avec biopsies"
   },
   "case-oesophaguskarzinom": {
    "Adenokarzinom des ösophagogastralen Übergangs (Kardia)": "histologie — siège et type du carcinome du cardia relèvent de la ÖGD avec biopsies",
@@ -56,7 +55,8 @@
    "Pseudogicht (CPPD-Arthropathie)": "imagerie — chondrocalcinose à la radiographie, cristaux à la ponction articulaire"
   },
   "case-struma": {
-   "Mediane Halszyste (Ductus-thyreoglossus-Zyste)": "examen — mobilité à la protrusion de la langue et échographie"
+   "Mediane Halszyste (Ductus-thyreoglossus-Zyste)": "examen — mobilité à la protrusion de la langue et échographie",
+   "Zervikale Lymphknotenschwellung": "examen — un ganglion est latéral et non mobile à la déglutition, le nodule de la patiente suit la déglutition ; palpation et échographie"
   },
   "case-lagerungsschwindel": {
    "Vestibularisparoxysmie (neurovaskuläre Kompression des VIII. Hirnnervs)": "tableau — la provocation par le positionnement (Leitsymptom) et l'IRM séparent la paroxysmie vestibulaire"
@@ -97,7 +97,7 @@
    "Schizotype (F21) und schizoide Persönlichkeitsstörung": "tableau — la rupture nette avec le fonctionnement antérieur (positif) écarte le trouble de la personnalité"
   },
   "case-delir": {
-   "Harnverhalt und Obstipation": "examen — rétention et fécalome se cherchent au résidu post-mictionnel échographique et à la palpation",
+   "Harnverhalt und Obstipation": "comorbidité — rétention urinaire et constipation avérées (positifs) sous oxybutynine et oxycodone ; résidu post-mictionnel et palpation",
    "Metabolische Enzephalopathie (Hypoglykämie, Hyponatriämie, Urämie, Hyperkalzämie)": "biologie — glycémie, électrolytes, créatinine et calcémie"
   },
   "case-achalasie": {
@@ -130,7 +130,8 @@
    "Hypogonadismus des Mannes": "biologie — testostérone totale matinale, LH et FSH, après interrogatoire ciblé"
   },
   "case-karzinoid": {
-   "Asthma bronchiale": "tableau — l'asthme n'explique ni flush, ni diarrhée, ni amaigrissement ; pléthysmographie"
+   "Asthma bronchiale": "tableau — l'asthme n'explique ni flush, ni diarrhée, ni amaigrissement ; pléthysmographie",
+   "Zöliakie": "biologie — anticorps anti-transglutaminase IgA et biopsies duodénales ; l'absence de flush et d'accès oriente déjà"
   },
   "case-abszess": {
    "Noch nicht eingeschmolzene Phlegmone bzw. Zellulitis": "examen — fluctuation et échographie séparent abcès collecté et phlegmon"
