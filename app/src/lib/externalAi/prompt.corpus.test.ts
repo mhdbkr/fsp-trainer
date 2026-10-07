@@ -22,7 +22,9 @@ const PATIENT_NOMME_PATHOLOGIE = ['case-lungenembolie', 'case-migraene'];
 // Cliquet : les cas où un proche répond pour le patient (« (Die Tochter: … »),
 // annoncé dans l'amorce. Liste exacte, pour que le test ne passe jamais à vide.
 const BEGLEITUNG_FAELLE = ['case-delir'];
-const OVER_PASTE_MAX = ['case-delir', 'case-karpaltunnel', 'case-metabolisches-syndrom', 'case-pankreaskarzinom', 'case-ulcus-cruris'];
+// S3 Âges : case-opioidabhaengigkeit y entre (10 016 signes) par la date de
+// naissance ajoutée à `pers-alter` — 16 signes de trop, à reprendre par le Contenu.
+const OVER_PASTE_MAX = ['case-delir', 'case-karpaltunnel', 'case-metabolisches-syndrom', 'case-opioidabhaengigkeit', 'case-pankreaskarzinom', 'case-ulcus-cruris'];
 const TEILE: AnkerTeil[] = ['anamnese', 'fallvorstellung'];
 
 // A4 : aucune demande d'évaluation dans l'amorce.
