@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import type { Case, SimTeil } from '@/db/types';
 import { checklistFor } from '@/lib/checklists';
+import { leitsymptomOf } from '@/data/guides/anamneseChapters';
 import { isTeil } from '@/lib/simScope';
 import { getActiveUserId } from '@/lib/auth/accounts';
 import { useUi } from '@/store/ui';
@@ -138,7 +139,7 @@ export function useLauf(c: Case | undefined, depart: SimTeil | null, taskId?: st
         muster: reglage.current.muster,
       });
       if (annule) return;
-      setLauf(transition(frisch, { typ: 'demarrer', teil: departRef.current ?? undefined, checkliste: DREI_TEILE.flatMap(MODELL) }));
+      setLauf(transition(frisch, { typ: 'demarrer', teil: departRef.current ?? undefined, checkliste: DREI_TEILE.flatMap((t) => checklistFor(t, leitsymptomOf(c))) }));   // 2b : la nature du motif
       setLaedt(false);
     })();
     return () => { annule = true; };
