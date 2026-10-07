@@ -58,6 +58,14 @@ test('l’exception de réplique ne dispense ni du champ ni de l’Arztbrief', (
   assert.deepEqual(checkCase(c), ['arztbrief.einleitung sans « geboren am JJ.MM.AAAA »']);
 });
 
+test('aucune date calendaire dans les Muster (Arztbrief, Vorstellung) hors date de naissance', () => {
+  const avecDate = (sec, k, v) => ({ ...sain, musterSaetze: { arztbrief: { ...sain.musterSaetze.arztbrief }, vorstellung: {}, [sec]: { ...(sec === 'arztbrief' ? sain.musterSaetze.arztbrief : {}), [k]: v } } });
+  assert.deepEqual(checkCase(avecDate('arztbrief', 'einleitung', 'Herrn X, geboren am 01.03.1965, der sich am 15.06.2021 vorstellte')), ['arztbrief.einleitung : date calendaire « 15.06.2021 » (seule la date de naissance est admise)']);
+  assert.equal(checkCase(avecDate('arztbrief', 'diagnostik', 'Blutbild vom 3.9.2026')).length, 1);
+  assert.equal(checkCase(avecDate('vorstellung', 'persoenliche-daten', 'der sich am 07.11.2024 vorgestellt hat')).length, 1);
+  assert.deepEqual(checkCase(avecDate('arztbrief', 'diagnostik', 'Kontrolle in 3 Monaten, Hb 11.4 g/dl')), []);
+});
+
 test('le corpus passe (code de sortie 0)', () => {
   const r = spawnSync(process.execPath, [fileURLToPath(new URL('./checkGeburtsdatum.mjs', import.meta.url))], { encoding: 'utf8' });
   assert.equal(r.status, 0, r.stdout.split('\n').slice(-3).join('\n') + r.stderr);
