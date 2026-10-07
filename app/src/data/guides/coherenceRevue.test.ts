@@ -350,11 +350,13 @@ describe('P2 — une part réduite porte le libellé de dimension de sa mère', 
 });
 
 describe('gastroenteritis — la couleur des selles n\'est demandée qu\'une fois', () => {
-  it('la question du cas (« wässrig oder breiig ? » ↳ « Welche Farbe … ? », Q9) garde l\'aspect ; la banque ne garde que l\'alarme', () => {
+  it('la question du cas (« Wie sieht Ihr Stuhl aus — wässrig oder breiig? ») garde l\'aspect, couleur comprise (sa réponse écrite) ; la banque ne garde que l\'alarme', () => {
     const qs = playedTrame(byId('case-gastroenteritis')).chapters.find((x) => x.id === 'aktuell')!.questions;
     const akt = qs.flatMap((p) => [phraseText(p), ...phraseFollowUps(p).map((f) => f.text)]);
     expect(akt).toContain('Aussehen — Ist Ihnen Blut oder Schleim im Stuhl aufgefallen?');
-    expect(akt.filter((t) => /Farbe/.test(t))).toHaveLength(1);
+    // Revue Q9 (P2-6) : une relance n'a pas de réponse écrite propre ; la réponse de la question dit la couleur → plus de relance « Farbe ».
+    expect(akt.filter((t) => /Farbe/.test(t))).toHaveLength(0);
+    expect(byId('case-gastroenteritis').patientSheet.frageAntworten?.find((f) => /wässrig oder breiig/.test(f.frage))?.antwort).toMatch(/hellgelb/);
   });
   it('sans question du cas sur l\'aspect, la banque reste entière (akutes-nierenversagen)', () => {
     const akt = playedTrame(byId('case-akutes-nierenversagen')).chapters.find((x) => x.id === 'aktuell')!.questions.map(phraseText);
