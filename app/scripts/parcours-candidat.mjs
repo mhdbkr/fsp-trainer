@@ -83,7 +83,7 @@ async function main() {
   rapport.write(OUT);
   const tous = rapport.tousLesChecks();
   // Faux vert : un parcours qui n'a rien joué ou n'a pas évalué ce qu'il prétend garder ne prouve rien (sortie 2 = harnais en défaut).
-  const attendus = { D7: 1, D8: 1, D15: 2, ...(NB_JOURS >= 2 ? { D17: 1 } : {}), ...(NB_JOURS >= 6 ? { D13: 1 } : {}), ...(NB_JOURS >= 3 ? { D10: 1 } : {}), ...(NB_JOURS >= 7 ? { D9: 1 } : {}) };
+  const attendus = { D7: 1, D8: 1, D15: 2, D18: 1, ...(NB_JOURS >= 2 ? { D17: 1 } : {}), ...(NB_JOURS >= 6 ? { D13: 1 } : {}), ...(NB_JOURS >= 3 ? { D10: 1 } : {}), ...(NB_JOURS >= 7 ? { D9: 1 } : {}) };
   const manquants = Object.entries(attendus).filter(([id, n]) => tous.filter((x) => x.id === id).length < n).map(([id]) => id);
   if (NB_JOURS >= 14 && rapport.jouees < 10) manquants.push(`parties jouées (${rapport.jouees} < 10)`);
   if (manquants.length) { console.error(`HARNAIS EN DÉFAUT : vérification(s) jamais évaluée(s) — ${manquants.join(', ')} : faux vert écarté.`); process.exit(2); }

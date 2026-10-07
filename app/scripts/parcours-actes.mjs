@@ -110,6 +110,36 @@ async function lanceurIA(c) {
   return trace;
 }
 
+/**
+ * D18 — l'en-tête du runner se POSE quel que soit le défilement du <main>, bande d'hystérésis (40–90 px) comprise.
+ * Régression gardée (CI du 7 oct., jour 7) : l'en-tête perd ~94 px en fusionnant, l'ancrage de défilement retirait
+ * autant au scrollTop, qui repassait sous 40 px → défusion → boucle sans fin ; « Finir » n'était jamais stable.
+ * Mesuré une fois par parcours, sur la première partie assez longue pour atteindre la bande.
+ */
+async function enTeteStable(c) {
+  const r = await c.page.evaluate(async () => {
+    const m = document.querySelector('main');
+    const b = [...document.querySelectorAll('main button')].find((x) => /^Finir /.test(x.textContent.trim()));
+    if (!m || !b || m.scrollHeight - m.clientHeight < 400) return null;
+    const frame = () => new Promise((ok) => requestAnimationFrame(ok));
+    const fautes = [];
+    for (const y of [95, 110, 130, 200]) {
+      m.scrollTo({ top: 0 }); await new Promise((ok) => setTimeout(ok, 700));
+      m.scrollTo({ top: y }); await new Promise((ok) => setTimeout(ok, 1200));   // > 440 ms de transition
+      const tops = new Set(), ys = new Set();
+      for (let k = 0; k < 20; k++) { await frame(); tops.add(Math.round(b.getBoundingClientRect().top)); ys.add(Math.round(m.scrollTop)); }
+      if (tops.size > 1 || ys.size > 1) fautes.push(`défilé à ${y} px : ${tops.size} positions de « Finir », scrollTop ${[...ys].slice(0, 4).join('/')}`);
+    }
+    m.scrollTo({ top: 0 }); await new Promise((ok) => setTimeout(ok, 700));
+    return fautes;
+  });
+  if (!r) return;
+  c.enTeteMesure = true;
+  await c.verifie('D18', 'l\'en-tête du runner se pose quel que soit le défilement : « Finir » est toujours cliquable', () => ({
+    ok: !r.length, detail: r.join(' ; ') || 'stable à 95, 110, 130 et 200 px',
+  }));
+}
+
 const tickBoxes = (c, p) => c.page.evaluate((q) => {
   const cb = [...document.querySelectorAll('main input[type=checkbox]')];
   const k = Math.round(cb.length * q);
@@ -154,6 +184,7 @@ export async function jouerPartie(c, i, o = {}) {
   await until(c.page, () => /Finir l/.test(document.body.innerText), 'runner');
   // [S4-3 fixeur I11] Le chrono du Teil de départ attend « Lancer le chrono » (les suivants démarrent seuls).
   if (await present(c.page, /Lancer le chrono/)) await btn(c.page, /Lancer le chrono/).click();
+  if (!c.enTeteMesure) await enTeteStable(c);
 
   const seq = [await echantillon(c)];
   const retours = new Set();                                  // régressions DEMANDÉES par la candidate (gestes nommés)
