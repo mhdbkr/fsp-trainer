@@ -52,7 +52,7 @@ export function CasePreviewPanel() {
             <span className={`absolute inset-y-0 left-0 w-1 ${SEC.verdacht.edge}`} />
             <SectionHead sec="verdacht" className="mb-2" />
             {/* 3b : la première phrase en titre, la suite en corps de texte. */}
-            <p className="font-display text-base font-bold leading-snug text-brand-800 dark:text-brand-200"><AutoLink>{vd.titel}</AutoLink></p>
+            <p lang="de" className="font-display text-base font-bold leading-snug text-brand-800 hyphens-auto [overflow-wrap:anywhere] dark:text-brand-200"><AutoLink>{vd.titel}</AutoLink></p>
             {vd.rest && <p className="mt-1.5 text-sm leading-relaxed text-slate-700 dark:text-slate-300"><AutoLink>{vd.rest}</AutoLink></p>}
             {c.medicalView.notfall && <span className="mt-2 inline-flex items-center gap-1 rounded-full bg-rose-500 px-2.5 py-0.5 text-[11px] font-bold text-white"><Icon name="alert" className="h-3 w-3" />Notfall</span>}
           </section>
