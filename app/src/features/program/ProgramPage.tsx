@@ -72,7 +72,7 @@ export function ProgramPage() {
       <header className="flex flex-wrap items-start justify-between gap-3">
         <div>
           <h1 className="text-2xl font-bold">Programme</h1>
-          <p className="text-slate-500 dark:text-slate-400">
+          <p className="text-slate-600 dark:text-slate-400">
             {config.examDate ? `Examen le ${format(end, 'd MMM yyyy', { locale: fr })}` : `${config.weeks} semaines`}
             {jRestants !== null && <> · <b className="text-brand-600 dark:text-brand-300">J-{jRestants}</b></>}
           </p>
@@ -177,7 +177,7 @@ function ModusSwitch({ value, onChange }: { value: ModusChoix; onChange: (m: Mod
   const current = MODUS_META.find((m) => m.id === value)!;
   return (
     <label className="flex items-center gap-1.5" title={current.hint}>
-      <span className="label hidden sm:inline">Avancement</span>
+      <span className="label hidden text-slate-600 sm:inline dark:text-slate-400">Avancement</span>
       <select value={value} onChange={(e) => onChange(e.target.value as ModusChoix)} aria-label="Avancement"
         className="rounded-lg border border-slate-300 bg-white px-2 py-1.5 text-xs outline-none focus:border-brand-400 dark:border-slate-700 dark:bg-slate-900">
         {MODUS_META.map((m) => <option key={m.id} value={m.id}>{m.label}</option>)}
