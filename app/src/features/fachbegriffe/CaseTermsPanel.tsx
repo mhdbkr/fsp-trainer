@@ -53,7 +53,7 @@ export function CaseTermsPanel({ caseId, mode, onClose, onDrill }: Props) {
       <ul className="flex-1 divide-y divide-slate-100 overflow-y-auto dark:divide-slate-800">
         {shown.map((t) => { const tone = SRS_TONE[t.srs.state]; return (
           <li key={t.id} className="flex min-h-11 items-center gap-2 px-2">
-            <button type="button" onClick={() => openGlossary(t)} className="flex min-w-0 flex-1 flex-col items-start px-2 text-left"><span className="truncate font-semibold text-brand-700 dark:text-brand-300">{t.term}</span><span className="truncate text-xs text-slate-500">{registerLine(t)}</span></button>
+            <button type="button" onClick={() => openGlossary(t)} className="flex min-w-0 flex-1 flex-col items-start px-2 text-left"><span className="max-w-full truncate font-semibold text-brand-700 dark:text-brand-300">{t.term}</span><span className="max-w-full truncate text-xs text-slate-500">{registerLine(t)}</span></button>
             <span role="img" aria-label={t.srs.state} className={`chip shrink-0 ${tone.chip}`}>{t.srs.state === 'Zu wiederholen' ? '↻' : t.srs.state[0]}</span>
             <StarButton term={t} filled={inDecks?.has(t.id)} caseId={caseId} />
           </li>); })}
