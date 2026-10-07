@@ -12039,6 +12039,7 @@ export function seedCases(): Case[] {
           'akt-ausscheid-schlucken': 'Stecken bleibt nichts, es tut nur furchtbar weh. Festes Essen kriege ich kaum runter, Trinken geht in kleinen Schlucken, kalt am besten. Meinen Speichel kann ich schlucken.',
         },
         frageAntworten: [
+          { frage: 'Haben Sie selbst in den Rachen geschaut?', antwort: 'Ja, im Spiegel: Die Mandeln sind rot und geschwollen, und da sind weiße Stippchen drauf.', kapitel: 'aktuell' },
           {
             frage: 'Haben Sie zusätzlich zu den Halsschmerzen Husten, Schnupfen oder Heiserkeit?',
             antwort: 'Schnupfen und einen trockenen Husten, ja. Und meine Frau sagt, ich rede wie mit einer heißen Kartoffel im Mund.',
@@ -12220,10 +12221,10 @@ export function seedCases(): Case[] {
       ],
       caseSpecificQuestions: [
         { frage: 'Haben Sie zusätzlich zu den Halsschmerzen Husten, Schnupfen oder Heiserkeit?', kapitel: 'aktuell', sucht: ['husten', 'schnupfen', 'stimme'] },
-        { frage: 'Haben Sie selbst in den Rachen geschaut — sind die Mandeln gerötet, geschwollen, sehen Sie weiße Punkte oder Beläge?', kapitel: 'aktuell', sucht: ['rachenbefund'] },
+        { frage: 'Haben Sie selbst in den Rachen geschaut?', kapitel: 'aktuell', sucht: ['rachenbefund'], followUp: 'Falls ja: Was haben Sie gesehen?' },
         { frage: 'Sind die Schmerzen auf beiden Seiten gleich stark, oder ist eine Seite schlimmer geworden?', kapitel: 'aktuell', sucht: ['ort'] },
         { frage: 'Können Sie den Mund normal weit öffnen, oder geht das nicht mehr richtig auf?', kapitel: 'aktuell', sucht: ['kieferklemme'], followUp: 'Läuft Ihnen der Speichel aus dem Mund?' },
-        { frage: 'Haben Sie tastbare, druckschmerzhafte Knoten am Hals bemerkt — und auch in den Achseln oder Leisten?', kapitel: 'aktuell', sucht: ['lymphknoten'] },
+        { frage: 'Haben Sie tastbare, druckschmerzhafte Knoten am Hals bemerkt?', kapitel: 'aktuell', sucht: ['lymphknoten'], followUp: 'Haben Sie auch in den Achseln oder Leisten Knoten bemerkt?' },
         { frage: 'Wie oft hatten Sie in den letzten zwölf Monaten eine Mandelentzündung?', kapitel: 'vorerkrankungen', sucht: ['tonsillen_vorgeschichte'] },
         { frage: 'Nehmen Sie ein Schmerzmittel wie Metamizol, ein Schilddrüsenmedikament oder ein Medikament für die Psyche ein?', kapitel: 'medikamente', sucht: ['agranulozytose_risiko'] },
       ],
@@ -17157,9 +17158,9 @@ export function seedCases(): Case[] {
         'auf-ct',
       ],
       caseSpecificQuestions: [
-        { frage: 'Können Sie das Kinn auf die Brust legen?', kapitel: 'aktuell', sucht: ['meningismus'], followUp: 'Können Sie den Kopf zur Seite drehen und in den Nacken legen?' },
+        { frage: 'Können Sie das Kinn auf die Brust legen?', kapitel: 'aktuell', sucht: ['meningismus'], followUp: 'Können Sie den Kopf zur Seite drehen?', followUps: ['Können Sie den Kopf in den Nacken legen?'] },
         { frage: 'Stört Sie helles Licht oder Lärm mehr als sonst?', kapitel: 'aktuell', sucht: ['photophobie'] },
-        { frage: 'Haben Sie erbrochen — kam das Erbrechen im Schwall, ohne dass Ihnen vorher übel war?', kapitel: 'aktuell', sucht: ['erbrechen', 'uebelkeit'] },
+        { frage: 'Haben Sie erbrochen?', kapitel: 'aktuell', sucht: ['erbrechen', 'uebelkeit'], followUp: 'Falls ja: Kam das Erbrechen im Schwall, ohne dass Ihnen vorher übel war?' },
         { frage: 'Haben Sie kleine rote Punkte oder blaue Flecken auf der Haut bemerkt, die sich nicht wegdrücken lassen?', kapitel: 'aktuell', sucht: ['petechien'] },
         { frage: 'Hatten Sie einen Krampfanfall?', kapitel: 'aktuell', sucht: ['krampf'] },
         { frage: 'Haben Sie eine Lähmung, Doppelbilder oder Probleme beim Sprechen bemerkt?', kapitel: 'aktuell', sucht: ['schwaeche', 'sehstoerung', 'sprache'] },
@@ -17698,7 +17699,6 @@ export function seedCases(): Case[] {
       ],
       caseSpecificQuestions: [
         { frage: 'Wie sieht Ihr Stuhlgang aus — ist er heller geworden, vielleicht fast weiß oder lehmfarben?', kapitel: 'aktuell', sucht: ['stuhlaussehen'], followUp: 'Lässt er sich schlecht abspülen?' },
-        { frage: 'Haben Sie Schmerzen im Oberbauch, die gürtelförmig in den Rücken ausstrahlen und sich bessern, wenn Sie sich nach vorne beugen?', kapitel: 'aktuell', sucht: ['ausstrahlung'] },
         { frage: 'Juckt Ihre Haut?', kapitel: 'aktuell', sucht: ['pruritus'], followUp: 'Falls ja: Seit wann juckt es?' },
         { frage: 'Ist Ihr Zucker in letzter Zeit schlechter geworden?', kapitel: 'vorerkrankungen', sucht: ['diabetes_einstellung'], braucht: ['vorerkrankung'] },
         { frage: 'Gab es in Ihrer Familie außer dem Brustkrebs Ihrer Mutter noch andere Krebserkrankungen, zum Beispiel an der Bauchspeicheldrüse, am Darm oder an den Eierstöcken?', kapitel: 'familie-sozial', sucht: ['familie_krebs'], braucht: ['familie_krank'] },
@@ -26872,6 +26872,7 @@ export function seedCases(): Case[] {
           'fach-chir-gallensteine': 'Gallensteine hatte ich früher, deswegen ist die Gallenblase ja heraus. Von einem Leistenbruch hat mir noch nie jemand etwas gesagt.',
         },
         frageAntworten: [
+          { frage: 'Hat sich Ihre Verdauung in den letzten Monaten verändert?', antwort: 'Nein, in den letzten Monaten war da nichts anders — bis gestern war alles normal.', kapitel: 'aktuell' },
           {
             frage: 'Ist Ihnen jemals eine Beule am Nabel oder an einer Ihrer Narben aufgefallen?',
             antwort: 'Nein, da habe ich nie eine Beule bemerkt, auch nicht am Nabel. Einen Nabelbruch hat bei mir auch noch keiner festgestellt.',
@@ -31434,7 +31435,7 @@ export function seedCases(): Case[] {
         { frage: 'Waren Sie bewusstlos?', kapitel: 'aktuell', sucht: ['bewusstlos'], followUp: 'Falls ja: Wie lange?' },
         { frage: 'Hat jemand den Sturz beobachtet?', kapitel: 'aktuell', sucht: ['fremdanamnese'], relu: true },
         { frage: 'Haben Sie einen Helm getragen?', kapitel: 'aktuell', sucht: ['helm'], followUp: 'Falls ja: Ist er beschädigt oder zerbrochen?' },
-        { frage: 'Ist Ihnen vor dem Sturz schwarz vor Augen geworden, waren Sie schwindelig, haben Sie geschwitzt oder Herzrasen gehabt — sind Sie gestürzt, weil Ihnen schlecht wurde, oder wurde Ihnen schlecht, weil Sie gestürzt sind?', kapitel: 'aktuell', sucht: ['unfallhergang', 'prodromi'], relu: true },
+        { frage: 'Ist Ihnen vor dem Sturz schwarz vor Augen geworden, oder waren Sie schwindelig?', kapitel: 'aktuell', sucht: ['prodromi'], relu: true, followUp: 'Haben Sie vorher geschwitzt oder Herzrasen gehabt?' },
         { frage: 'Wann haben Sie zuletzt gegessen?', kapitel: 'vorerkrankungen', sucht: ['nuechternheit'] },
         { frage: 'Was hat Ihr Zuckersensor kurz vor dem Unfall angezeigt?', kapitel: 'vorerkrankungen', sucht: ['hypoglykaemie'] },
         { frage: 'Mussten Sie sich übergeben — einmal oder mehrfach?', kapitel: 'aktuell', sucht: ['erbrechen'] },
@@ -32541,7 +32542,7 @@ export function seedCases(): Case[] {
       ],
       caseSpecificQuestions: [
         { frage: 'Wie viele Binden oder Tampons brauchen Sie an den starken Tagen?', kapitel: 'aktuell', sucht: ['blutungsstaerke'], followUp: 'Müssen Sie auch nachts die Binde oder den Tampon wechseln?' },
-        { frage: 'Gehen bei Ihnen dabei Blutklumpen ab — wie groß sind die etwa?', kapitel: 'aktuell', sucht: ['blutklumpen'] },
+        { frage: 'Gehen bei Ihnen dabei Blutklumpen ab?', kapitel: 'aktuell', sucht: ['blutklumpen'], followUp: 'Falls ja: Wie groß sind die etwa?' },
         { frage: 'Müssen Sie häufiger Wasser lassen als früher, auch nachts?', kapitel: 'aktuell', sucht: ['miktion_frequenz', 'nykturie'] },
         { frage: 'Haben Sie das Gefühl, die Blase nicht ganz zu entleeren?', kapitel: 'aktuell', sucht: ['restharn'] },
         { frage: 'Sind Sie schneller müde als früher, kommen Sie beim Treppensteigen außer Atem, ist Ihnen schwindelig?', kapitel: 'aktuell', sucht: ['muedigkeit', 'atemnot', 'schwindel'] },
@@ -40471,7 +40472,7 @@ export function seedCases(): Case[] {
         },
         frageAntworten: [
           {
-            frage: 'Wie sieht Ihr Stuhl aus — wässrig oder breiig, welche Farbe, riecht er auffällig, schwimmt er oben?',
+            frage: 'Wie sieht Ihr Stuhl aus — wässrig oder breiig?',
             antwort: 'Wässrig bis breiig, hellgelb. Er riecht sehr unangenehm und ist schaumig.',
             kapitel: 'aktuell',
           },
@@ -40687,7 +40688,7 @@ export function seedCases(): Case[] {
       ],
       caseSpecificQuestions: [
         { frage: 'Was haben Sie dort gegessen und getrunken?', kapitel: 'aktuell', sucht: ['essen_expo'], braucht: ['reise'], followUp: 'Hatten Sie Eiswürfel in den Getränken, oder haben Sie Leitungswasser getrunken?', followUps: ['Haben Sie rohen Salat oder ungeschältes Obst gegessen?'] },
-        { frage: 'Wie sieht Ihr Stuhl aus — wässrig oder breiig, welche Farbe, riecht er auffällig, schwimmt er oben?', sucht: ['stuhl', 'stuhlaussehen'], kapitel: 'aktuell' },
+        { frage: 'Wie sieht Ihr Stuhl aus — wässrig oder breiig?', sucht: ['stuhl', 'stuhlaussehen'], kapitel: 'aktuell', followUp: 'Welche Farbe hat der Stuhl?', followUps: ['Riecht er auffällig?', 'Schwimmt er oben?'] },
         { frage: 'Trinken Sie genug?', kapitel: 'vegetativ', sucht: ['trinkmenge'] },
         { frage: 'Wie oft müssen Sie Wasser lassen?', kapitel: 'vegetativ', sucht: ['miktion_frequenz'] },
         { frage: 'Welche Farbe hat Ihr Urin?', kapitel: 'vegetativ', sucht: ['urin_aspekt'] },
@@ -42410,7 +42411,6 @@ export function seedCases(): Case[] {
       ],
       caseSpecificQuestions: [
         { frage: 'Wie lange ist Ihre Hüfte morgens steif — Minuten oder mehr als eine halbe Stunde?', kapitel: 'aktuell', sucht: ['steifigkeit'] },
-        { frage: 'Wie hat sich Ihre Gehstrecke in den letzten sechs Monaten verändert — wie weit kamen Sie früher, wie weit heute?', kapitel: 'aktuell', sucht: ['entwicklung'] },
         { frage: 'Fällt Ihnen das Einsteigen in Ihr Auto oder in den Bagger schwer?', kapitel: 'aktuell', sucht: ['leistung'], followUp: 'Wie kommen Sie mit Treppen zurecht?' },
         { frage: 'Mussten Sie als Kind wegen der Hüfte eine Spreizhose oder eine Schiene tragen?', kapitel: 'vorerkrankungen', sucht: ['ortho_vorgeschichte'], followUp: 'Hat Ihnen jemals jemand gesagt, dass Ihre Hüftpfanne nicht richtig ausgebildet ist?' },
         { frage: 'Tut Ihnen beim Gehen die Wade weh?', kapitel: 'aktuell', sucht: ['gehstrecke'], followUp: 'Falls ja: Geht das in Ruhe nach wenigen Minuten wieder weg?' },
@@ -46108,6 +46108,9 @@ export function seedCases(): Case[] {
           // K2 (ADR-0023) : réponses des sondes de banque que le profil exige (r3)
           'akt-atemnot-belastung': 'Seit gestern bei jeder Anstrengung, schon auf der Treppe ins Schlafzimmer — dann rast das Herz, und die Brust wird eng. Im Sitzen bekomme ich Luft.',
         },
+        frageAntworten: [
+          { frage: 'An welchem Krankheitstag ging es Ihnen zwischendurch besser?', antwort: 'Am fünften und sechsten Tag, da war das Fieber weg.', kapitel: 'aktuell' },
+        ],
         schwierigeReaktionen: [
           '"Ist das jetzt Corona? Aber mein Test war doch negativ."',
           '"Ich bekomme doch eigentlich noch gut Luft — wieso wollen Sie mich dabehalten?"',
@@ -46267,7 +46270,7 @@ export function seedCases(): Case[] {
         'auf-ct',
       ],
       caseSpecificQuestions: [
-        { frage: 'Ging es Ihnen zwischendurch schon einmal besser, bevor es wieder schlimmer wurde — an welchem Krankheitstag war das?', kapitel: 'aktuell', sucht: ['verlauf'] },
+        { frage: 'An welchem Krankheitstag ging es Ihnen zwischendurch besser?', kapitel: 'aktuell', sucht: ['verlauf'] },
         { frage: 'Wie oft sind Sie gegen Corona geimpft worden?', kapitel: 'vorerkrankungen', sucht: ['impfung'], followUp: 'Wann war die letzte Impfung?' },
         { frage: 'Bekommen Sie beim Treppensteigen oder beim Sprechen schlechter Luft als sonst?', kapitel: 'aktuell', sucht: ['atemnot'] },
         { frage: 'Haben Sie Schmerzen in der Brust beim Atmen oder ein geschwollenes, schmerzendes Bein?', kapitel: 'aktuell', sucht: ['atemabhaengig', 'beinschwellung'] },
@@ -47265,7 +47268,7 @@ export function seedCases(): Case[] {
       caseSpecificQuestions: [
         { frage: 'Hatten Sie in den letzten Wochen einen Infekt — Halsschmerzen, Durchfall, Blasenentzündung?', kapitel: 'aktuell', sucht: ['vorinfekt'], relu: true },
         { frage: 'Haben Sie in letzter Zeit ein Antibiotikum eingenommen?', kapitel: 'medikamente', sucht: ['antibiotika'], followUp: 'Falls ja: Wofür haben Sie es bekommen?' },
-        { frage: 'Wie viele Tage lagen zwischen dem Abklingen der Halsentzündung und den ersten Gelenkbeschwerden — waren Sie dazwischen ganz gesund?', kapitel: 'aktuell', sucht: ['latenz'], braucht: ['vorinfekt'] },
+        { frage: 'Wie viele Tage lagen zwischen dem Abklingen der Halsentzündung und den ersten Gelenkbeschwerden?', kapitel: 'aktuell', sucht: ['latenz'], braucht: ['vorinfekt'], followUp: 'Waren Sie dazwischen ganz gesund?' },
         { frage: 'Ich muss Ihnen jetzt einige persönliche Fragen stellen, die für die Ursache wichtig sind: Haben Sie einen festen Partner, gab es einen Partnerwechsel, Ausfluss oder Beschwerden im Intimbereich?', kapitel: 'familie-sozial', sucht: ['sexualanamnese'] },
         { frage: 'Sind Ihre Augen gerötet, schmerzhaft oder lichtempfindlich?', kapitel: 'aktuell', sucht: ['augenentzuendung'] },
         { frage: 'Haben Sie Herzstolpern, Luftnot oder Schmerzen in der Brust bemerkt?', kapitel: 'aktuell', sucht: ['herzrasen', 'atemnot', 'brustschmerz'] },
@@ -48269,7 +48272,7 @@ export function seedCases(): Case[] {
         { frage: 'Wie oft müssen Sie am Tag zur Toilette?', kapitel: 'aktuell', sucht: ['stuhlfrequenz'] },
         { frage: 'Müssen Sie auch nachts zur Toilette?', kapitel: 'aktuell', sucht: ['stuhl_nachts'] },
         { frage: 'Ist das Blut nur am Toilettenpapier oder mit dem Stuhl vermischt?', kapitel: 'aktuell', sucht: ['stuhl_blut'], followUp: 'Welche Farbe hat es — hellrot oder schwarz?' },
-        { frage: 'Haben Sie einen plötzlichen, sehr dringenden Stuhldrang und danach das Gefühl, nicht fertig zu sein?', kapitel: 'aktuell', sucht: ['tenesmen'] },
+        { frage: 'Haben Sie einen plötzlichen, sehr dringenden Stuhldrang?', kapitel: 'aktuell', sucht: ['tenesmen'], followUp: 'Haben Sie nach der Toilette das Gefühl, nicht fertig zu sein?' },
         { frage: 'Haben Sie in letzter Zeit mit dem Rauchen aufgehört?', kapitel: 'noxen', sucht: ['rauchstopp'], braucht: ['rauchen'] },
         { frage: 'Haben Sie in den letzten Monaten Antibiotika, Schmerzmittel wie Ibuprofen oder Diclofenac oder Magenschutztabletten eingenommen?', kapitel: 'medikamente', sucht: ['antibiotika', 'nsar', 'magenschutz'] },
         { frage: 'Haben Sie Schmerzen oder Schwellungen an Gelenken bemerkt?', kapitel: 'aktuell', sucht: ['arthralgie', 'gelenk_entzuendung'] },
@@ -49320,7 +49323,7 @@ export function seedCases(): Case[] {
       caseSpecificQuestions: [
         { frage: 'Hatten Sie in den letzten Wochen einen Infekt — eine Erkältung, eine Grippe, einen Magen-Darm-Infekt oder Corona?', kapitel: 'aktuell', sucht: ['vorinfekt'], relu: true, followUp: 'Falls ja: Wie viele Tage nach dem Infekt haben die Brustschmerzen angefangen?' },
         { frage: 'Haben Sie während oder kurz nach dem Infekt wieder Sport getrieben?', kapitel: 'aktuell', sucht: ['sport'], followUp: 'Falls ja: Wann sind Sie ins Training zurückgekehrt?' },
-        { frage: 'Wird der Schmerz im Liegen stärker und beim Sitzen und Vorbeugen besser?', kapitel: 'aktuell', sucht: ['einfluss'] },
+        { frage: 'Wird der Schmerz besser, wenn Sie sich aufsetzen und nach vorne beugen?', kapitel: 'aktuell', sucht: ['einfluss'] },
         { frage: 'Wie äußert sich das Herzstolpern genau?', kapitel: 'aktuell', sucht: ['herzrasen'], followUp: 'Ist es ein Aussetzer mit einem kräftigen Schlag danach, oder ein anhaltendes Herzrasen?', followUps: ['Kommt es auch in Ruhe?'] },
         { frage: 'Was ist gestern beim Training genau passiert?', kapitel: 'aktuell', sucht: ['bewusstlos'], followUp: 'Waren Sie bewusstlos?' },
         { frage: 'Ich frage das jeden Patienten mit Herzbeschwerden: Nehmen Sie Kokain, Amphetamine oder Anabolika?', kapitel: 'noxen', sucht: ['drogen'] },
@@ -52735,7 +52738,8 @@ export function seedCases(): Case[] {
         'auf-roentgen-thorax',
       ],
       caseSpecificQuestions: [
-        { frage: 'Hatten Sie in den letzten Wochen eine Mandelentzündung, Halsschmerzen oder eine Hautinfektion — wie viele Tage liegt das genau zurück?', kapitel: 'aktuell', sucht: ['vorinfekt', 'latenz'] },
+        { frage: 'Hatten Sie in den letzten Wochen eine Mandelentzündung, Halsschmerzen oder eine Hautinfektion?', kapitel: 'aktuell', sucht: ['vorinfekt'] },
+        { frage: 'Wie viele Tage liegt diese Infektion genau zurück?', kapitel: 'aktuell', sucht: ['latenz'], braucht: ['vorinfekt'] },
         { frage: 'Haben Sie Sehstörungen oder Luftnot bemerkt?', kapitel: 'aktuell', sucht: ['sehstoerung', 'atemnot'] },
         { frage: 'Haben Sie Bluthusten oder rote Punkte an den Beinen bemerkt?', kapitel: 'aktuell', sucht: ['haemoptyse', 'petechien'] },
         { frage: 'Gibt es in Ihrer Familie Blut im Urin oder eine Schwerhörigkeit, die schon in jungen Jahren aufgetreten ist?', kapitel: 'familie-sozial', sucht: ['familie_niere'] },
@@ -58153,7 +58157,7 @@ export function seedCases(): Case[] {
         'auf-mrt',
       ],
       caseSpecificQuestions: [
-        { frage: 'Wird es besser, wenn Sie sich aufsetzen und nach vorne beugen, und schlimmer, wenn Sie sich flach hinlegen?', kapitel: 'aktuell', sucht: ['einfluss'] },
+        { frage: 'Wird es besser, wenn Sie sich aufsetzen und nach vorne beugen?', kapitel: 'aktuell', sucht: ['einfluss'] },
         { frage: 'Hatten Sie in den letzten zwei bis drei Wochen eine Erkältung, Grippe oder einen Magen-Darm-Infekt?', kapitel: 'aktuell', sucht: ['vorinfekt'] },
         { frage: 'Hatten Sie jemals eine Nierenerkrankung, Rheuma oder Krebs?', kapitel: 'vorerkrankungen', sucht: ['nierenvorgeschichte', 'rheuma_vorgeschichte', 'tumor_vorgeschichte'] },
         { frage: 'Waren Sie in letzter Zeit länger im Ausland?', kapitel: 'vegetativ', sucht: ['reise'] },
@@ -61894,6 +61898,7 @@ export function seedCases(): Case[] {
           'akt-intensitaet': 'So sechs von zehn. Wenn ich mich bücke, bis acht.',
         },
         frageAntworten: [
+          { frage: 'Können Sie noch normal schmecken?', antwort: 'Das Essen schmeckt ganz fade, seit ich nichts mehr rieche.', kapitel: 'aktuell' },
           {
             frage: 'Welches Nasenspray benutzen Sie?',
             antwort: 'Ach ja, das Nasenspray — so ein abschwellendes aus der Apotheke, seit zehn Tagen, drei-, viermal am Tag. Ohne das geht die Nase gar nicht mehr auf. Das zählt doch nicht als Medikament, oder?',
@@ -61905,8 +61910,8 @@ export function seedCases(): Case[] {
             kapitel: 'aktuell',
           },
           {
-            frage: 'Können Sie noch normal riechen und schmecken?',
-            antwort: 'Das Riechen ist seit drei Tagen fast weg. Das Essen schmeckt deshalb ganz fade.',
+            frage: 'Können Sie noch normal riechen?',
+            antwort: 'Das Riechen ist seit drei Tagen fast weg.',
             kapitel: 'aktuell',
           },
         ],
@@ -62061,9 +62066,11 @@ export function seedCases(): Case[] {
         'auf-mrt',
       ],
       caseSpecificQuestions: [
-        { frage: 'Seit wann genau ist die Nase zu — gab es zwischendurch eine Phase, in der es schon besser war, bevor es wieder schlimmer wurde?', kapitel: 'aktuell', sucht: ['beginn', 'verlauf'] },
+        { frage: 'Seit wann genau ist die Nase zu?', kapitel: 'aktuell', sucht: ['beginn'] },
+        { frage: 'Gab es zwischendurch eine Phase, in der es schon besser war, bevor es wieder schlimmer wurde?', kapitel: 'aktuell', sucht: ['verlauf'] },
         { frage: 'Welche Farbe hat der Schnupfen — klar und wässrig oder gelbgrün und zäh?', kapitel: 'aktuell', sucht: ['nasensekret'], followUp: 'Läuft er nach vorne heraus oder hinten den Hals hinunter?' },
-        { frage: 'Können Sie noch normal riechen und schmecken?', kapitel: 'aktuell', sucht: ['riechen', 'geschmack'] },
+        { frage: 'Können Sie noch normal riechen?', kapitel: 'aktuell', sucht: ['riechen'] },
+        { frage: 'Können Sie noch normal schmecken?', kapitel: 'aktuell', sucht: ['geschmack'] },
         { frage: 'Welches Nasenspray benutzen Sie?', kapitel: 'medikamente', sucht: ['nasenspray'], followUp: 'Seit wann benutzen Sie es?', followUps: ['Wie oft am Tag sprühen Sie?'] },
         { frage: 'Ist das Auge geschwollen oder gerötet, sehen Sie doppelt oder verschwommen, tut das Bewegen des Auges weh?', kapitel: 'aktuell', sucht: ['augenentzuendung', 'sehstoerung'] },
         { frage: 'Haben Sie Nackensteifigkeit, Lichtscheu, den schlimmsten Kopfschmerz Ihres Lebens, oder ist Ihnen schwindelig oder benommen?', kapitel: 'aktuell', sucht: ['meningismus', 'photophobie', 'kopfschmerz', 'schwindel', 'verwirrtheit'] },
