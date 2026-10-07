@@ -129,9 +129,11 @@ export function FachwissenDetailPage() {
 
   return (
     <div className="space-y-5">
-      <header>
+      {/* Titre et spécialité en allemand dans une interface française : `lang="de"` pour la césure
+          (« Thrombozytenaggregationshemmung »), `break-words` en secours si le moteur n'a pas le dictionnaire. */}
+      <header lang="de">
         <div className="eyebrow">{fw.specialty}</div>
-        <h1 className="mt-2 font-display text-3xl font-bold tracking-tightish">{fw.pathology}</h1>
+        <h1 className="mt-2 hyphens-auto break-words font-display text-3xl font-bold tracking-tightish">{fw.pathology}</h1>
       </header>
 
       {/* Merksatz — aide-mémoire d'une ligne (rappel flash) */}
@@ -142,7 +144,7 @@ export function FachwissenDetailPage() {
         </div>
       )}
 
-      <div className="grid gap-4 lg:grid-cols-3">
+      <div className="grid grid-cols-1 gap-4 lg:grid-cols-3">
         <div className="stagger space-y-4 lg:col-span-2">
           <Section title="Definition" icon="nav-book"><p className="prose-fsp"><AutoLink>{fw.definition}</AutoLink></p></Section>
 
