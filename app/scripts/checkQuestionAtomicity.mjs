@@ -16,6 +16,10 @@
 //                   le second introduit par « und / oder » : la réponse du
 //                   simulant ne porte que sur le dernier. Disjoint de A (A2
 //                   ne lit que les énoncés à UN « ? »), non appliqué à l'Oberarzt.
+//   A3 « und »    — un SEUL « ? », deux questions coordonnées par « und » sans
+//                   second interrogatif : « …, und war Ihnen übel? », « Haben Sie
+//                   Fieber und Schüttelfrost? » (lot Q9). Disjointe de A et A2 ;
+//                   groupes indivisibles exclus (A3_UNIS), non appliquée à l'Oberarzt.
 //   2 énumération — une question à un « ? » n'énumère pas plus de 3 items
 //                   cliniques distincts ; un followUp est plafonné à 2.
 //   3 alternative — pas d'alternative BINAIRE dépendante du cas
@@ -87,7 +91,7 @@
 //
 // Usage : node scripts/checkQuestionAtomicity.mjs [--report]      (la porte)
 //         node scripts/checkQuestionAtomicity.mjs --bless          (baisse le budget)
-//         node scripts/checkQuestionAtomicity.mjs --rule A|B|C|D|D2|D3|E [--report]
+//         node scripts/checkQuestionAtomicity.mjs --rule A|A2|A3|B|C|D|D2|D3|E [--report]
 //         node scripts/checkQuestionAtomicity.mjs --corpus
 // `--rule` et `--corpus` sont des LOUPES : elles sortent à 0 quel que soit le
 // budget. Jamais en CI — la porte, c'est l'appel sans option.
@@ -251,6 +255,87 @@ function wCoord(text) {
   return RE_W1.test(head.slice(0, w2.index)) ? w2[0].trim() : null;
 }
 
+// RÈGLE A3 — deux questions coordonnées par « und » sous un seul « ? » (lot Q9).
+// « Waren Sie dabei kaltschweißig, und war Ihnen übel? » : le simulant répond « ja »
+// et le candidat ne sait pas à quoi. A ne compte que les « ? », A2 que deux
+// interrogatifs ; A3 lit le reste et en reste disjointe (un seul « ? », pas A2).
+// Il faut une question avant le « und » : la phrase (ou ce qui suit un tiret ou un
+// deux-points) s'ouvre sur un verbe conjugué (V1) ou un interrogatif. Deux formes :
+//   (1) PROPOSITION — après « , und » ou « — und », une seconde question s'ouvre :
+//       verbe conjugué suivi d'un mot (« , und war Ihnen übel »), interrogatif
+//       (« , und wie lange »), ou « und wenn/falls ja » (la relance collée dans la
+//       question). Après un « und » NU, seulement dans une question fermée et avec
+//       un sujet après le verbe (« an und sind sie morgens … », « Riechen und
+//       schmecken Sie … ») : « Was essen und trinken Sie » est une W-question à verbe
+//       double, « verschwindet sie und kommt woanders wieder » une seule alternative.
+//   (2) NOMINALE — une question fermée coordonne deux noms par « und » : « Haben Sie
+//       Fieber und Schüttelfrost? » — « ja » ne dit pas lequel. Pas visées : une
+//       question qui contient « oder » (dépistage : « ja » = au moins un), une paire
+//       qui suit une préposition (« von Bewegung und Belastung abhängig », « mit
+//       Herzrasen und Blässe » : elle qualifie, elle n'est pas demandée), et les
+//       GROUPES INDIVISIBLES (A3_UNIS) : un seul fait sous deux mots, chacun avec sa raison.
+// Le tiret SEUL (« Wie stark blutet es — wie viele Binden …? ») n'est pas lu : c'est
+// le plus souvent la même question rendue concrète ou ses réponses possibles ; ces
+// cas sont triés à la main (rapport lead-s3-q9.md, § 3).
+// ponytail : listes fermées (verbes, groupes unis) calibrées sur le corpus Q9 ; un verbe
+// nouveau en tête de seconde question passe inaperçu — l'ajouter à A3_V1. Non lus : la
+// coordination de deux relatives (« die ausstrahlen und sich bessern »), l'ellipse
+// (« besser, wenn …, und schlimmer, wenn … »), le « und » nu sans sujet (« Durst und
+// müssen viel Wasser lassen »).
+const A3_V1 = new Set(('ist sind war waren wird werden wurde wurden hat haben hatte hatten kann können konnte konnten muss müssen '
+  + 'musste mussten darf dürfen soll sollen will wollen gibt gab geht gehen ging kommt kommen kam kamen tut tun tritt treten '
+  + 'steht stehen sieht sehen bleibt bleiben weiß wissen nimmt nehmen schwitzen schwitzt schwimmt pfeift schlafen schläft wachen '
+  + 'wacht riechen riecht schmecken schmeckt hören hört spüren spürt merken merkt bemerken fühlen fühlt leiden leidet bekommen '
+  + 'bekam brennt juckt blutet strahlt strahlen wandert wandern schwellen schwillt verschwindet lässt lassen trinken trinkt essen '
+  + 'isst rauchen raucht reagieren reagiert passen passt verändert verändern schränkt beginnen beginnt begann trägt tragen').split(' '));
+// Groupes indivisibles : clé = « a und b » en minuscules. Chacun est UN fait, pas deux questions.
+const A3_UNIS = {
+  'übelkeit und erbrechen': 'un symptôme uni : la nausée qui va au vomissement, une seule réplique de fiche',
+  'auf und ab': 'locution (« ein ständiges Auf und Ab ») : la fluctuation, un seul fait',
+  'tag und nacht': 'locution (« Tag und Nacht verwechseln ») : l\'inversion du rythme, un seul fait',
+  'blutgruppe und rhesusfaktor': 'un seul renseignement : la carte de groupe sanguin porte les deux',
+  'milch und milchprodukte': 'une seule catégorie alimentaire',
+  'augen und haut': 'un seul signe : l\'ictère (« Augen und Haut gelb »)',
+  'schuhe und ringe': 'deux exemples d\'un seul signe : l\'œdème (« Passen Ihre Schuhe und Ringe noch? »)',
+  'schnupfen und niesen': 'un seul tableau : le prodrome rhinitique',
+};
+const A3_PREFIX = /^(?:(?:falls|wenn)\s+(?:ja|nein)\s*:\s*|und\s+)/i;
+// Sans drapeau « i » : la majuscule qui suit « wie » marque le comparatif (« wie Kaffeesatz ») ; la tête de phrase est abaissée.
+const A3_WRE = new RegExp(`^${PREP}(?:wie\\b(?!\\s+[A-ZÄÖÜ])|${WORD.replace('wie|', '')}\\b)`);
+const A3_W = { test: (s) => A3_WRE.test(s.charAt(0).toLowerCase() + s.slice(1)) };
+const firstWord = (s) => (s.match(/^\p{L}+/u) ?? [''])[0].toLowerCase();
+// Une question s'ouvre en tête, ou après un tiret / deux-points (« Ihre Rückenschmerzen: Kamen sie … »).
+const A3_OPENS = (s) => s.split(/\s*[—–:]\s*/).some((seg) => A3_V1.has(firstWord(seg)) || A3_W.test(seg));
+const A3_SUBJ = /^(?:Sie|er|sie|es|man|das|dies|jemand|sich|uns|Ihnen|Ihr\w*|der|die|den|dem|ein\w*|[A-ZÄÖÜ]\p{L}+)$/u;
+const A3_NOUN = /(?<![\p{L}-])([A-ZÄÖÜ]\p{L}{2,})\s+und\s+(?:(?:der|die|das|den|dem|ein\w*|Ihr\w*|kein\w*)\s+)?([A-ZÄÖÜ]\p{L}{2,})(?![\p{L}-])/gu;
+const A3_NOT_NOUN = new Set(['Sie', 'Ihr', 'Ihre', 'Ihnen', 'Ihren', 'Ihrem', 'Ihrer', 'Falls', 'Und']);
+const A3_PREP_AVANT = /\b(?:mit|ohne|von|vom|bei|beim|nach|im|in|zwischen|aus|an|am|auf|für|gegen|über|unter|vor|zum|zur)\s+(?:\p{L}+\s+){0,2}$/iu;
+function undCoord(text) {
+  if (countQ(text) !== 1 || wCoord(text)) return null;
+  const head = m.splitDimension(text).body.split(/[?？]/)[0].trim().replace(A3_PREFIX, '');
+  const closed = A3_V1.has(firstWord(head));
+  // (1) proposition
+  for (const mm of head.matchAll(/(,\s*und|\s[—–]\s*und|\sund)\s+(\p{L}+)(?:\s+(\p{L}+))?/gu)) {
+    const [all, sep, w, next] = mm;
+    if (!A3_OPENS(head.slice(0, mm.index))) continue;
+    const rest = head.slice(mm.index + mm[0].indexOf(w, sep.length));
+    if (/^(?:wenn|falls)\s+ja\b/i.test(rest)) return all.trim();
+    const verb = A3_V1.has(w.toLowerCase()) && /^\p{Ll}/u.test(w) && !!next;
+    if (/[,—–]/.test(sep)) { if (verb || A3_W.test(rest)) return all.trim(); continue; }
+    // « und » nu : question fermée, verbe + sujet ; « kommt und geht » est une locution (l'intermittence).
+    if (closed && verb && A3_SUBJ.test(next) && !/\bkomm\w*(?:\s+es)?\s*$/i.test(head.slice(0, mm.index))) return all.trim();
+  }
+  // (2) nominale : question fermée, sans « oder »
+  if (!closed || /\boder\b/.test(head)) return null;
+  for (const mm of head.matchAll(A3_NOUN)) {
+    const [all, a, b] = mm;
+    if (A3_NOT_NOUN.has(a) || A3_NOT_NOUN.has(b) || A3_UNIS[`${a} und ${b}`.toLowerCase()]) continue;
+    if (A3_PREP_AVANT.test(head.slice(0, mm.index))) continue;
+    return all.trim();
+  }
+  return null;
+}
+
 // RÈGLE B — énumération. Algorithme de l'audit §2 : retrait du préfixe
 // d'étiquette (`Begleitbeschwerden — `), troncature au premier « ? », découpe
 // sur `, / und / oder / bzw. / sowie`, conservation des segments de ≤ 6 mots
@@ -310,7 +395,7 @@ function altIssue(text) {
 // sans rapport (décision Q11, et la mesure ci-dessus).
 const SALVE_MAX = 3;
 
-const findings = { A: [], A2: [], B: [], C: [], D: [], D2: [], D3: [], E: [] };
+const findings = { A: [], A2: [], A3: [], B: [], C: [], D: [], D2: [], D3: [], E: [] };
 for (const id of Object.keys(ALLOWED_COMPOSED)) findings.E.push({ where: 'ALLOWED_COMPOSED', id, text: ALLOWED_COMPOSED[id] });
 for (const r of rows) {
   const exempt = r.id && ALLOWED_COMPOSED[r.id];
@@ -318,6 +403,7 @@ for (const r of rows) {
   const n = countQ(r.text, ober);
   if (n >= 2 && !exempt && !ober) findings.A.push(r);
   if (n === 1 && !exempt && !ober) { const w = wCoord(r.text); if (w) findings.A2.push({ ...r, w }); }
+  if (n === 1 && !exempt && !ober) { const u = undCoord(r.text); if (u) findings.A3.push({ ...r, w: u }); }
   if (ober && n > SALVE_MAX) findings.D.push({ ...r, n });
   if (ober && n === 2) findings.D2.push({ ...r, n });
   if (ober && n === 3) findings.D3.push({ ...r, n });
@@ -329,7 +415,7 @@ for (const r of rows) {
   const why = altIssue(r.text); if (why) findings.C.push({ ...r, why });
 }
 
-const KEYS = ['A', 'A2', 'B', 'C', 'D', 'D2', 'D3', 'E'];
+const KEYS = ['A', 'A2', 'A3', 'B', 'C', 'D', 'D2', 'D3', 'E'];
 const counts = Object.fromEntries(KEYS.map((k) => [k, findings[k].length]));
 const total = KEYS.reduce((t, k) => t + counts[k], 0);
 
@@ -368,12 +454,12 @@ if (bless) {
   process.exit(0);
 }
 
-const LABEL = { A: 'plus d\'un « ? » dans une réplique', A2: 'deux interrogatifs coordonnés sous un seul « ? »', B: 'énumération au-delà du plafond', C: 'alternative dépendante du cas', D: 'salve d\'examinateur incohérente (> 3 interrogations)', D2: 'salve d\'examinateur à 2 interrogations', D3: 'salve d\'examinateur à 3 interrogations', E: 'exemption nominative ALLOWED_COMPOSED (Q12 : la liste ne grossit pas sans décision)' };
+const LABEL = { A: 'plus d\'un « ? » dans une réplique', A2: 'deux interrogatifs coordonnés sous un seul « ? »', A3: 'deux questions coordonnées par « und » sous un seul « ? »', B: 'énumération au-delà du plafond', C: 'alternative dépendante du cas', D: 'salve d\'examinateur incohérente (> 3 interrogations)', D2: 'salve d\'examinateur à 2 interrogations', D3: 'salve d\'examinateur à 3 interrogations', E: 'exemption nominative ALLOWED_COMPOSED (Q12 : la liste ne grossit pas sans décision)' };
 const show = (k) => {
   const list = findings[k];
   const head = report ? list : list.slice(0, 15);
   for (const r of head) {
-    const extra = k === 'B' ? ` [${r.items} items > ${r.cap}]` : k === 'C' ? ` [${r.why}]` : k === 'A2' ? ` [« ${r.w} »]` : k.startsWith('D') ? ` [${r.n} interrogations]` : k === 'E' ? '' : ` [${countQ(r.text)} « ? »]`;
+    const extra = k === 'B' ? ` [${r.items} items > ${r.cap}]` : k === 'C' ? ` [${r.why}]` : k === 'A2' || k === 'A3' ? ` [« ${r.w} »]` : k.startsWith('D') ? ` [${r.n} interrogations]` : k === 'E' ? '' : ` [${countQ(r.text)} « ? »]`;
     console.log(`  ✗ ${r.where}${r.id ? ` (${r.id})` : ''}${extra}\n      « ${r.text.slice(0, 150)} »`);
   }
   if (!report && list.length > head.length) console.log(`  … ${list.length - head.length} de plus (--report)`);
