@@ -44,12 +44,18 @@ jobs:
         run: node scripts/checkMusterCoverage.mjs
       - name: Cohérence chiffrée des cas
         run: node scripts/checkCaseCoherence.mjs
+      - name: Date de naissance = âge au REFERENZDATUM, identique champ / réplique / Arztbrief
+        run: node scripts/checkGeburtsdatum.mjs
       - name: Contrat guide ↔ fiche patient
         run: node scripts/checkGuideCoverage.mjs
       - name: Doublons du guide d'anamnèse (thème, question, toggle synonyme)
         run: node scripts/checkGuideDuplicates.mjs
       - name: Tells d'interface (capitales, mono en libellé, classes cassées, ambre sur contrôles)
         run: node scripts/checkUiTells.mjs
+      - name: "Couches fixes ancrées à l'écran (Portal, wrapper de page sans transform résiduel)"
+        run: |
+          node scripts/checkFixedOverlays.mjs
+          node --test scripts/checkFixedOverlays.test.mjs
       - name: Questions propres au cas — un chapitre, une information, dite au patient, sans doublon
         run: node scripts/checkCaseQuestionChapters.mjs
       - name: patientWorte — la clôture en langage patient (130 cas)
@@ -86,6 +92,7 @@ jobs:
           node --test scripts/lotAssembler.test.mjs   # K5 (revue I1) : le profil survit à l'assemblage
           node --test scripts/checkExamen.test.mjs   # S4-7 : le verrouillage de l'Examen rougit sur ses trois règles
           node --test scripts/checkFachwissenFloor.test.mjs   # Lc4 (I6) : le plancher Fachwissen rougit sur ses trois règles
+          node --test scripts/checkGeburtsdatum.test.mjs   # S3 Âges : chaque écart de date de naissance rougit
       - name: "Doctopus — jeu de référence et grille (sans réseau)"
         run: node scripts/evalDoctopus.mjs --dry
       - name: Verrouillage de l'Examen — aucune aide, aucune durée hors du plan, aucune relance (S4-7)

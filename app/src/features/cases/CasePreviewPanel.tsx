@@ -6,6 +6,7 @@ import { Icon } from '@/components/icons';
 import { CenterBadge, FreqBadge } from '@/components/ui';
 import { SEC, SectionHead } from './medSections';
 import { termsInOrder } from '@/lib/collections/caseTerms';
+import { Portal } from '@/components/Portal';
 
 // Aperçu latéral d'un cas SANS quitter la liste (interconnexion + horizontalité).
 export function CasePreviewPanel() {
@@ -21,7 +22,7 @@ export function CasePreviewPanel() {
   const terms = termsInOrder(c.linkedFachbegriffeIds, begriffe ?? []).slice(0, 8);
 
   return (
-    <>
+    <Portal>
       <div className="fixed inset-0 z-40 bg-slate-900/20 backdrop-blur-[1px]" onClick={close} />
       <aside className="fixed right-0 top-0 z-50 flex h-full w-full max-w-md animate-slide-in flex-col border-l border-slate-200 bg-white shadow-2xl dark:border-slate-800 dark:bg-slate-900">
         <div className="flex items-start justify-between border-b border-slate-100 p-4 dark:border-slate-800">
@@ -87,7 +88,7 @@ export function CasePreviewPanel() {
           <Link to={`/cas/${c.id}`} onClick={close} className="btn-outline justify-center">Fiche complète</Link>
         </div>
       </aside>
-    </>
+    </Portal>
   );
 }
 

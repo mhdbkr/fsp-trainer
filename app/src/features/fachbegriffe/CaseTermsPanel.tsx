@@ -9,6 +9,7 @@ import { SRS_TONE } from '@/lib/srsTone';
 import { Icon } from '@/components/icons';
 import { registerLine } from '@/components/TermRegister';
 import { StarButton } from '@/components/StarButton';
+import { Portal } from '@/components/Portal';
 
 // Termes du cas (liés ∪ marqués pendant ce cas), ordre publié : diagnostic →
 // spécifiques → contextuels. Référence LIBRE (F2a D6) : n'écrit ni résultat ni
@@ -64,8 +65,8 @@ export function CaseTermsPanel({ caseId, mode, onClose, onDrill }: Props) {
   // Page du cas : section masquée tant que le cas n'a aucun terme (comme l'ancien bloc).
   if (mode === 'inline' && terms.length === 0 && !q.trim()) return null;
   if (mode === 'inline') return <div className="card flex max-h-[60vh] flex-col p-0">{body}</div>;
-  return (<>
+  return (<Portal>
     <div className="fixed inset-0 z-40 bg-slate-900/20" onClick={onClose} />
     <aside ref={asideRef} role="dialog" aria-modal="true" aria-label="Fachbegriffe du cas" tabIndex={-1} className="glass glass-edge fixed right-0 top-0 z-50 flex h-full w-full max-w-sm animate-slide-in flex-col outline-none">{body}</aside>
-  </>);
+  </Portal>);
 }
