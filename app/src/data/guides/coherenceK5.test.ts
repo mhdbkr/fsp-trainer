@@ -72,12 +72,13 @@ describe('K5 — reliquats « Pour K5 » des revues K4', () => {
 
   it('§10.4 (revue K5) : une part qui cherche un signe d\'alarme (`gang`) est posée en question autonome, jamais en relance (commotio)', () => {
     const k = joue(byId('case-commotio')).filter(([, p]) => phraseProbes(p).includes('fach-neuro-koordination')).map(([, p]) => [phraseText(p), ...phraseFollowUp(p)]);
-    expect(k).toEqual([['Haben Sie Schwindel oder das Gefühl zu schwanken?'], ['Fühlen Sie sich beim Gehen unsicher?']]);
+    // lot Banque (r5) : le vertige est dit (« Beim Aufstehen wird mir schwindelig ») — reste la marche, en question autonome
+    expect(k).toEqual([['Fühlen Sie sich beim Gehen unsicher?']]);
   });
 
   it('Fach neuro, motif « chute » déclaré (commotio) : la coordination ne redemande pas la chute', () => {
     const k = pose('case-commotio', 'fach-neuro-koordination')!;
-    expect(k).toMatch(/Schwindel/);   // revue K4 (P2) : le vertige après le choc reste demandé
+    expect(k).not.toMatch(/Schwindel/);   // revue K4 (P2) : le vertige après le choc est demandé… mais le patient l'a dit (akt-neuro-lage) — r5
     expect(k).toMatch(/beim Gehen unsicher/);
     expect(joue(byId('case-commotio')).some(([, p]) => /Sind Sie schon gestürzt/.test([phraseText(p), ...phraseFollowUp(p)].join(' ')))).toBe(false);
   });
@@ -111,7 +112,10 @@ describe('K5 — reliquats « Pour K5 » des revues K4', () => {
 
   it('la règle est déclarée, pas déduite de la nature : les autres cas « neurologisch » gardent la question entière', () => {
     for (const id of ['case-tia', 'case-multiple-sklerose', 'case-migraene']) {
-      expect(pose(id, 'fach-neuro-koordination'), id).toBe('Haben Sie Schwindel, Gangunsicherheit oder das Gefühl zu schwanken? Sind Sie schon gestürzt?');
+      // aucune réduction par le motif (r2, D4-bis) : seul r5 réduit, quand la fiche a dit le vertige ou la chute (lot Banque)
+      expect(playedTrame(byId(id)).ecarts.filter((e) => e.question === 'fach-neuro-koordination' && e.regle !== 5 && !/déjà dit par/.test(e.raison)), id).toEqual([]);
     }
+    expect(pose('case-migraene', 'fach-neuro-koordination')).toBe('Haben Sie Schwindel, Gangunsicherheit oder das Gefühl zu schwanken? Sind Sie schon gestürzt?');
+    expect(pose('case-tia', 'fach-neuro-koordination')).toBe('Fühlen Sie sich beim Gehen unsicher?');   // « Ja: Schwindel » ; « Gestürzt … habe ich mich vorher nicht »
   });
 });
