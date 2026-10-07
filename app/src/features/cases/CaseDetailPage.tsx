@@ -79,7 +79,7 @@ export function CaseDetailPage() {
             : <ExaminerSheetView sheet={c.examinerSheet} fallback={c.examinerQuestions} caseName={c.name} caseSpecificQuestions={c.caseSpecificQuestions} />}
         </div>
       ) : (
-        <div className="grid gap-4 lg:grid-cols-3">
+        <div className="grid grid-cols-1 gap-4 lg:grid-cols-3">
           <div className="space-y-4 lg:col-span-2">
             {/* Verdachtsdiagnose — carte héro : la conclusion, mise en avant */}
             <div className="card relative overflow-hidden bg-gradient-to-br from-brand-50 to-transparent p-5 pl-6 dark:from-brand-900/20">
