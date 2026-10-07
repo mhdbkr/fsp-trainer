@@ -61,7 +61,7 @@ export function AufklaerungPage() {
       <header>
         <div className="eyebrow">Consentement éclairé</div>
         <h1 className="mt-1.5 text-2xl font-bold tracking-tightish">Aufklärung</h1>
-        <p className="text-slate-500 dark:text-slate-400">Le jury peut te demander d’expliquer un acte à tout moment. Maîtrise le <b>parcours en 7 étapes</b> — il est le même pour tous les actes.</p>
+        <p className="text-slate-600 dark:text-slate-400">Le jury peut te demander d’expliquer un acte à tout moment. Maîtrise le <b>parcours en 7 étapes</b> — il est le même pour tous les actes.</p>
       </header>
 
       {/* Flow universel en 7 étapes — explorateur pédagogique interactif */}
