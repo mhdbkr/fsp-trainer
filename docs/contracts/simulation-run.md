@@ -14,6 +14,11 @@
 >
 > **Amendé — S4-7 (6 oct. 2026)** · `lead-s4-7` · ADR-0021 (amendement S4-7).
 > L'Examen est un `Lauf` ordinaire en mode examen : voir §11.
+>
+> **Amendé — S3-2b (7 oct. 2026)** · `platform-architect` · sans ADR (le
+> libellé est réversible, et l'id comme le schéma restent inchangés). Le libellé
+> de `anam-aktuell-opqrst` suit la nature du motif et reste figé dans le
+> `Lauf` : voir §4.3.
 
 ---
 
@@ -350,6 +355,18 @@ absent (ces Teile n'ont pas la trame d'anamnèse pour référentiel). Les libell
 et l'ordre de `checklists.ts:17-83` sont repris **inchangés** ; seuls les ids
 changent.
 
+*[S3-2b, 7 oct. 2026]* **Invariants du modèle** : les ids, les coefficients
+(`axisWeight`), les `kapitel` et l'ordre. **Une exception de libellé** : celui de
+`anam-aktuell-opqrst` dépend de la nature du motif du cas, `leitsymptomOf(c)`
+(table `AKTUELL_LABEL`, `checklists.ts:113`, via `checklistFor(teil, kategorie)`).
+« Schmerzanalyse (OPQRST) » est réservé à `schmerz`. Sans cas, ou si le cas n'a
+pas de fiche patient, le libellé neutre du modèle s'applique (rappels
+transversaux, `libelleItem`). L'id garde « opqrst » parce qu'il est stable
+(§4.2 règle 1). Le libellé est **figé** à la création : dans `Lauf.checkliste` à
+`demarrer` (§4.2 règle 5), et dans le `PartResult` pour la voie IA externe. Rien
+ne le recalcule à la reprise ni à la lecture, donc une partie déjà créée garde
+son libellé d'origine. Le rapprochement se fait par id, jamais par libellé.
+
 ### 4.4 Compatibilité avec l'existant
 
 Lecture des `Simulation` déjà enregistrées : un `ChecklistItem.id` qui
@@ -458,6 +475,7 @@ export function istVollstaendig(lauf: Lauf): boolean {
 | `app/src/lib/lauf/speichern.test.ts` | INV-22, INV-26 (fake-indexeddb, double appel) |
 | `app/src/lib/lauf/wiederaufnahme.test.ts` | INV-23 (sérialisation aller-retour sur `Lauf` généré) |
 | `app/src/lib/checklists.stable.test.ts` | INV-27 + mapping legacy total |
+| *[S3-2b]* `app/src/lib/checklists.leitsymptom.test.ts` (existe sur la branche) | §4.3 : pour toute nature et sans cas, ids, coefficient ×2, `kapitel` et ordre inchangés ; OPQRST réservé à `schmerz`. *À ajouter dans `speichern.test.ts`* : un `Lauf` stocké avec un libellé différent du modèle est restauré avec ce libellé, sans le recalculer |
 | `app/src/lib/lauf/checklistBridge.test.ts` | INV-24 |
 | `app/src/lib/simScope.test.ts` | INV-25 + non-régression du mis-classement `scope:'full'` à une partie |
 | *[C6-A]* `app/src/lib/scoring.saisi.test.ts` (existe sur la branche) + `app/tests/invariants.sentinelle.test.ts` | INV-29 : parcours de tous les lecteurs de `feeling`/`languageGrid` sur un journal à valeurs `−1` |

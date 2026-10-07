@@ -39,6 +39,21 @@ beforeEach(async () => {
   localStorage.clear();
 });
 
+describe('2b — la checklist de la partie suit la nature du motif du cas', () => {
+  it('cas sans douleur : l’item Aktuelle Beschwerden ne demande pas de Schmerzanalyse ; cas douloureux : OPQRST', async () => {
+    const psy = { ...fall('c1'), patientSheet: { ...fall('c1').patientSheet, leitsymptomKategorie: 'psychisch' } } as Case;
+    const a = starte(psy);
+    await waitFor(() => expect(a.result.current.lauf?.zustand).toBe('laufend'));
+    expect(a.result.current.lauf!.checkliste.find((i) => i.id === 'anam-aktuell-opqrst')!.label).not.toMatch(/Schmerz|OPQRST/);
+    a.unmount();
+    await db.meta.clear();
+    const douleur = { ...fall('c2'), patientSheet: { ...fall('c2').patientSheet, schmerz: { lokalisation: 'Thorax' } } } as unknown as Case;
+    const b = starte(douleur);
+    await waitFor(() => expect(b.result.current.lauf?.caseId).toBe('c2'));
+    expect(b.result.current.lauf!.checkliste.find((i) => i.id === 'anam-aktuell-opqrst')!.label).toMatch(/Schmerzanalyse \(OPQRST\)/);
+  });
+});
+
 describe('C1 — la fin de partie passe par l’automate', () => {
   it('beenden() pendant `laufend` est refusé : rien n’est écrit, la partie continue (sonde du relecteur)', async () => {
     const { result } = starte(fall());

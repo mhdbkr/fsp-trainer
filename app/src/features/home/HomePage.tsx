@@ -131,7 +131,8 @@ export function HomePage() {
                 <h3 className="font-semibold">Le plan du jour</h3>
                 <Link to="/programme" className="text-xs text-brand-600 hover:underline dark:text-brand-300">Programme →</Link>
               </div>
-              <TaskList tasks={plan.tasks} />
+              {/* 2a : une seule action par tâche — le héros lance la session ; les autres lignes s'ouvrent par leur titre (S4-5). */}
+              <TaskList tasks={plan.tasks} lancer={false} sansLien={session?.id} />
             </section>
           )}
 

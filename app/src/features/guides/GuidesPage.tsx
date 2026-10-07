@@ -59,7 +59,7 @@ export function GuidesPage() {
       <header>
         <div className="eyebrow">Méthode</div>
         <h1 className="mt-1.5 text-2xl font-bold tracking-tightish">Guides & templates</h1>
-        <p className="text-slate-500 dark:text-slate-400">Le contenu linguistique complet de l'examen — mêmes formulations que le mode simulation.</p>
+        <p className="text-slate-600 dark:text-slate-400">Le contenu linguistique complet de l'examen — mêmes formulations que le mode simulation.</p>
       </header>
 
       {/* Onglets de catégorie */}
@@ -88,7 +88,7 @@ export function GuidesPage() {
             <div key={ch.id}>
               {ch.id === 'aktuell' && (
                 <div className="mb-2 flex flex-wrap items-center gap-1.5">
-                  <span className="label mr-1">Nature du motif</span>
+                  <span className="label mr-1 text-slate-600 dark:text-slate-400">Nature du motif</span>
                   {LEITSYMPTOM_KATEGORIEN.map((k) => (
                     <button key={k} type="button" onClick={() => setKat(k)} aria-pressed={kat === k}
                       className={`rounded-full px-2.5 py-1 text-[11.5px] font-medium transition-colors ${kat === k ? 'bg-brand-600 text-white' : 'bg-slate-100 text-slate-600 hover:bg-slate-200 dark:bg-ink-700 dark:text-slate-300 dark:hover:bg-ink-600'}`}>

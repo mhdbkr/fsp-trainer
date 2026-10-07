@@ -29,7 +29,7 @@ export function AccountPage() {
   const out = async () => { await signOut(); restartApp(); };
   return (
     <div className="mx-auto max-w-xl space-y-6 py-8">
-      <div><div className="label">Compte</div><h1 className="text-2xl font-bold">{user?.email}</h1></div>
+      <div><div className="label text-slate-600 dark:text-slate-400">Compte</div><h1 className="text-2xl font-bold">{user?.email}</h1></div>
       {AUTH_MODE === 'public' && (
         <div className="card space-y-3 p-5">
           <div className="flex items-center justify-between"><span>Plan</span><b className="capitalize">{plan}</b></div>

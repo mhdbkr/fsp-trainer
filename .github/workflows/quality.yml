@@ -120,10 +120,16 @@ jobs:
       - name: Tests du validateur Bedeutung
         run: node --test scripts/checkBedeutung.test.mjs
 
-      # Informatifs : ils signalent des faiblesses de contenu (DD non
-      # neutralisées, recouvrements de sondes) sans bloquer la livraison.
-      - name: Cohésion clinique (informatif)
-        run: node scripts/checkCaseCohesion.mjs || true
+      # Série 3, 1d : la cohésion est BLOQUANTE en budget — chaque catégorie de constat
+      # (DD non neutralisée, Arztbrief, sondes courtes…) ≤ fixtures/case-cohesion-budget.json,
+      # liste motivée des DD sans négatif possible valide ; plafonds protégés par checkBudgetFloor.
+      - name: Cohésion clinique — budget par catégorie (bloquant)
+        run: node scripts/checkCaseCohesion.mjs
+      - name: Tests du détecteur de cohésion
+        run: node --test scripts/checkCaseCohesion.test.mjs
+
+      # Informatifs : ils signalent des faiblesses de contenu (recouvrements de
+      # sondes, ordre des questions) sans bloquer la livraison.
       - name: Recouvrement des sondes (informatif)
         run: node scripts/checkProbeOverlap.mjs || true
       - name: Ordre des questions — présupposition non satisfaite (informatif)

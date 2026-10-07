@@ -7,7 +7,7 @@ import type { SketchNotes } from '@/db/types';
 // ============================================================================
 
 const FIELDS: { key: keyof SketchNotes; label: string; placeholder: string; group: 'anamnese' | 'assessment' }[] = [
-  { key: 'aktuell', label: 'Aktuelle Beschwerden', placeholder: 'Leitsymptom, Schmerzanalyse (OPQRST)…', group: 'anamnese' },
+  { key: 'aktuell', label: 'Aktuelle Beschwerden', placeholder: 'Leitsymptom, Beginn, Verlauf, Begleitbeschwerden…', group: 'anamnese' },
   { key: 'vegetativ', label: 'Vegetative Anamnese', placeholder: 'Fieber, Gewicht, Appetit, Stuhl/Miktion, Schlaf…', group: 'anamnese' },
   { key: 'vorerkrankungen', label: 'Vorerkrankungen / OP', placeholder: 'chron. Erkrankungen, Z. n. …', group: 'anamnese' },
   { key: 'medikamente', label: 'Medikamente', placeholder: 'Name mg 0-0-0…', group: 'anamnese' },

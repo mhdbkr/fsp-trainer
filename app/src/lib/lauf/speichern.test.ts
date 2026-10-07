@@ -1,7 +1,7 @@
 import { describe, it, expect, beforeEach, vi } from 'vitest';
 import { db } from '@/db/db';
 import { checklistFor } from '@/lib/checklists';
-import { erstelleLauf, transition, setzeChecklistItem, tickChrono } from './automat';
+import { erstelleLauf, nimmWiederAuf, transition, setzeChecklistItem, tickChrono } from './automat';
 import {
   speichern, projektion, ladeAktivenLauf, speichereAktivenLauf, verwerfeAktivenLauf,
   bereinigeAltenLauf, restauriere, gibAuf, LAUF_AKTIV_KEY, LAUF_MAX_ALTER_MS,
@@ -210,6 +210,19 @@ describe('INV-23 — un Lauf sérialisé puis restauré est structurellement ég
     await speichern(l, c);
     expect(await db.meta.get(LAUF_AKTIV_KEY)).toBeUndefined();
     expect(await ladeAktivenLauf()).toBeNull();
+  });
+
+  // S3-2b (simulation-run.md §4.3) : le libellé de `anam-aktuell-opqrst` est FIGÉ à `demarrer`. Une partie créée avant
+  // le changement (ou sur un cas douloureux) garde « Schmerzanalyse (OPQRST) » à la reprise : rien ne le recalcule
+  // depuis `checklistFor()`, dont le libellé sans cas est désormais neutre.
+  it('un Lauf stocké avec « …Schmerzanalyse (OPQRST) » est restauré avec ce libellé, sans recalcul', async () => {
+    const OPQRST = 'Aktuelle Beschwerden mit Schmerzanalyse (OPQRST)';
+    const fige = alleModelle().map((i) => (i.id === 'anam-aktuell-opqrst' ? { ...i, label: OPQRST } : i));
+    expect(checklistFor('anamnese').find((i) => i.id === 'anam-aktuell-opqrst')!.label).not.toBe(OPQRST);   // le modèle diffère
+    await speichereAktivenLauf(transition(neuerLauf(), { typ: 'demarrer', checkliste: fige }));
+    const wieder = await bereinigeAltenLauf();                   // le chemin de reprise du runner (useLauf)
+    const item = nimmWiederAuf(wieder!, Date.now()).checkliste.find((i) => i.id === 'anam-aktuell-opqrst')!;
+    expect(item).toMatchObject({ label: OPQRST, axisWeight: 2, checked: false });
   });
 
   it('restauriere complète un Lauf incomplet et traduit les ids legacy', () => {

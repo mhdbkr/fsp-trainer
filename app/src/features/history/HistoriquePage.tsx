@@ -80,7 +80,7 @@ export function HistoriquePage() {
           <p data-semaine="" className="mt-1 text-slate-600 dark:text-slate-300">
             {texteSemaine(semaine)}
             {tendance && (
-              <span className="inline-block text-sm sm:ml-1.5 text-slate-500 dark:text-slate-400">
+              <span className="inline-block text-sm sm:ml-1.5 text-slate-600 dark:text-slate-400">
                 <span aria-hidden className="tnum">{tendance.sens === 'hausse' ? '↑' : tendance.sens === 'baisse' ? '↓' : '='}</span> {tendance.texte}
               </span>
             )}

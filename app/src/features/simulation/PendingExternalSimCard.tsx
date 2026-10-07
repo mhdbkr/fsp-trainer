@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { db } from '@/db/db';
 import { readPending, setPending, AI_TARGETS } from '@/lib/externalAi/targets';
 import { SelbstBewertung } from './PartEvaluation';
+import { leitsymptomOf } from '@/data/guides/anamneseChapters';
 import { saveSimulation } from '@/lib/simulationSave';
 import type { Case, PartResult, Simulation } from '@/db/types';
 import { now } from '@/lib/clock';
@@ -104,6 +105,7 @@ export function PendingExternalSimCard({ onlyCaseId }: { onlyCaseId?: string } =
     return (
       <SelbstBewertung
         part={step}
+        kategorie={c.patientSheet ? leitsymptomOf(c) : undefined}
         durationSec={step === 'anamnese' ? anamneseSec : fallvorstellungSec}
         suivant={step === 'anamnese' && !p.teil ? 'Fallvorstellung' : null}
         onCancel={() => setStep('idle')}

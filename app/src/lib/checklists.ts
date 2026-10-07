@@ -1,4 +1,4 @@
-import type { ChecklistItem } from '@/db/types';
+import type { ChecklistItem, LeitsymptomKategorie } from '@/db/types';
 
 // ============================================================================
 // Checklists de fin de partie — dérivées des attentes FSP réelles
@@ -46,12 +46,14 @@ export const CHECKLIST_PREFIX: Record<ChecklistTeil, string> = {
 const ANAMNESE: readonly ChecklistModelItem[] = [
   { id: 'anam-eroeffnung', label: 'Gesprächseröffnung + Einverständnis eingeholt', checked: false, kapitel: 'eroeffnung' },
   { id: 'anam-personalia', label: 'Personalia vollständig (Name, Alter, Größe, Gewicht, Beruf)', checked: false, kapitel: 'personalia' },
-  { id: 'anam-aktuell-opqrst', label: 'Aktuelle Beschwerden mit Schmerzanalyse (OPQRST)', checked: false, axisWeight: 2, kapitel: 'aktuell' },
+  // Libellé NEUTRE hors cas (rappels transversaux, validateurs) ; une partie le lit sur la nature du motif (AKTUELL_LABEL).
+  // L'id garde « opqrst » : il est stable (§4.2 règle 1), le libellé ne l'est pas.
+  { id: 'anam-aktuell-opqrst', label: 'Aktuelle Beschwerden mit strukturierter Symptomanalyse (Beginn, Verlauf, Auslöser, Begleitbeschwerden)', checked: false, axisWeight: 2, kapitel: 'aktuell' },
   { id: 'anam-vegetativ', label: 'Vegetative Anamnese abgefragt', checked: false, kapitel: 'vegetativ' },
   { id: 'anam-vorerkrankungen', label: 'Vorerkrankungen / Voroperationen', checked: false, kapitel: 'vorerkrankungen' },
   { id: 'anam-medikamente', label: 'Medikamente (mit Dosierung)', checked: false, kapitel: 'medikamente' },
   { id: 'anam-allergien', label: 'Allergien inkl. Medikamentenallergien', checked: false, kapitel: 'allergien' },
-  { id: 'anam-noxen', label: 'Noxen: Tabak (py), Alkohol (Konsum), Drogen', checked: false, kapitel: 'noxen' },
+  { id: 'anam-noxen', label: 'Noxen: Tabak (Packungsjahre), Alkohol (Menge), Drogen', checked: false, kapitel: 'noxen' },
   { id: 'anam-familie-sozial', label: 'Familien- + Sozialanamnese', checked: false, kapitel: 'familie-sozial' },
   // Sans `kapitel` : ce sont des qualités de conduite d'entretien, pas des
   // chapitres de la trame. Le pont est explicite, jamais déduit (§4.2 règle 3).
@@ -106,9 +108,25 @@ const MODELLE: Record<ChecklistTeil, readonly ChecklistModelItem[]> = {
   fallvorstellung: FALLVORSTELLUNG, aufklaerung: AUFKLAERUNG,
 };
 
-/** La liste MODÈLE d'un Teil — copie fraîche, jamais la constante. */
-export function checklistFor(part: ChecklistTeil): ChecklistModelItem[] {
-  return MODELLE[part].map((i) => ({ ...i }));
+/** Série 3, 2b : l'item « Aktuelle Beschwerden » dit l'analyse que CE motif appelle — les dimensions de la déclinaison
+ *  du guide (`AKTUELL_VARIANTS`, FB2-J1). La Schmerzanalyse (OPQRST) n'est demandée qu'à un cas douloureux. */
+const AKTUELL_LABEL: Record<LeitsymptomKategorie, string> = {
+  schmerz: 'Aktuelle Beschwerden mit Schmerzanalyse (OPQRST)',
+  atemnot: 'Aktuelle Beschwerden mit Analyse der Luftnot (Belastung oder Ruhe, Orthopnoe, Husten, Auswurf)',
+  allgemein: 'Aktuelle Beschwerden mit Analyse der Allgemeinsymptome (Art, Einschränkung im Alltag, Tageszeit, Verlauf)',
+  psychisch: 'Aktuelle Beschwerden mit psychiatrischer Exploration (Stimmung, Antrieb, Schlaf, Suizidalität)',
+  neurologisch: 'Aktuelle Beschwerden mit neurologischer Symptomanalyse (genaue Uhrzeit des Beginns, Art, Seite, Dauer, Rückbildung)',
+  nerven: 'Aktuelle Beschwerden mit Analyse der chronischen neurologischen Symptomatik (Art, Verteilung, Verlauf, Feinmotorik, Gehfähigkeit)',
+  infekt: 'Aktuelle Beschwerden mit Fieberanalyse (Höhe, Verlauf, Infektfokus, Reise- und Kontaktanamnese)',
+  veraenderung: 'Aktuelle Beschwerden mit Analyse der Veränderung (Art, Zeitpunkt der Entdeckung, Größenentwicklung, Juckreiz, Blutung)',
+  ausscheidung: 'Aktuelle Beschwerden mit Analyse von Miktion, Stuhlgang oder Schlucken (Häufigkeit, Aussehen, Blutbeimengung, Gelbfärbung)',
+  anfall: 'Aktuelle Beschwerden mit Analyse der Episoden (Auslöser, Dauer, Häufigkeit, Bewusstseinsverlust)',
+};
+
+/** La liste MODÈLE d'un Teil — copie fraîche, jamais la constante. `kategorie` (nature du motif du cas, `leitsymptomOf`)
+ *  ne change que le LIBELLÉ de l'item « Aktuelle Beschwerden » : id, coefficient et `kapitel` restent ceux du modèle. */
+export function checklistFor(part: ChecklistTeil, kategorie?: LeitsymptomKategorie): ChecklistModelItem[] {
+  return MODELLE[part].map((i) => (kategorie && i.id === 'anam-aktuell-opqrst' ? { ...i, label: AKTUELL_LABEL[kategorie] } : { ...i }));
 }
 
 export function anamneseChecklist() { return checklistFor('anamnese'); }
@@ -118,7 +136,7 @@ export function aufklaerungChecklist() { return checklistFor('aufklaerung'); }
 
 /** Tous les items modèles, tous Teile confondus — pour les validateurs. */
 export function alleChecklistItems(): ChecklistModelItem[] {
-  return (Object.keys(MODELLE) as ChecklistTeil[]).flatMap(checklistFor);
+  return (Object.keys(MODELLE) as ChecklistTeil[]).flatMap((t) => checklistFor(t));
 }
 
 /** L'item de checklist qui correspond à un chapitre de la trame d'anamnèse.
