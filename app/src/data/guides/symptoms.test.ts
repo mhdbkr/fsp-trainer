@@ -128,10 +128,11 @@ describe('Dimension en tête de question (FB2-J11)', () => {
 });
 
 describe('Familienstand (FB2-J12)', () => {
-  it('« Haben Sie Kinder ? » puis la relance ja/nein « wie viele, gesund »', () => {
+  // L1 : une réplique, une question — « Kinder » devient la relance toujours posée, suivie de sa précision ja/nein.
+  it('« Wie ist Ihr Familienstand? » puis « Haben Sie auch Kinder? » et la relance ja/nein « gesund »', () => {
     const q = adaptChaptersForCase(mk()).find((ch) => ch.id === 'familie-sozial')!.questions.find((x) => phraseProbes(x).includes('fam-stand'))!;
-    expect(phraseText(q)).toBe('Wie ist Ihr Familienstand? Haben Sie Kinder?');
-    expect(phraseFollowUp(q)).toEqual(['Falls ja: Wie viele, und sind sie gesund?']);
+    expect(phraseText(q)).toBe('Wie ist Ihr Familienstand?');
+    expect(phraseFollowUp(q)).toEqual(['Haben Sie auch Kinder?', 'Falls ja: Sind Ihre Kinder gesund?']);
   });
 });
 
