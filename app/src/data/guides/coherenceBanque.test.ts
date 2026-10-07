@@ -11,7 +11,7 @@ import { ditsDe, phraseSucht, signesDits } from './symptoms';
 // qu'une réplique jouée avant elle a déjà dit. Tous les signes dits → retirée ; une partie → réduite à ses `parts` ; aucune
 // part ne porte le reste → gardée telle quelle (jamais un texte recoupé, jamais un « non réduit » de plus).
 
-const PLAFOND_RELANCES_NON_AUTONOMES = 50;
+const PLAFOND_RELANCES_NON_AUTONOMES = 37;   // lot Banque 50 → L1 (tronc commun) 37 : les 13 relances du tronc se posent seules
 const joue = (c: Case): Phrase[] => trameJouee(c).flatMap((x) => x.questions);
 const textes = (id: string) => joue(byId(id)).flatMap((p) => [phraseText(p), ...phraseFollowUp(p)]);
 const deSonde = (id: string, probe: string) => joue(byId(id)).filter((p) => !phraseIsCaseSpecific(p) && phraseProbes(p).includes(probe));
@@ -85,7 +85,7 @@ describe('r5 — précision : un signe cité dans un autre sens ne vaut pas rép
   it('la présence dite sans précision : les précisions restent posées (relances ouvertes, ou question qui les demande)', () => {
     // schizophrenie : « Und ich habe abgenommen » → plus « Gewichtsveränderungen? », mais « Wie viel …? » et « In welchem Zeitraum …? »
     expect(deSonde('case-schizophrenie', 'veg-gewicht').map((p) => [phraseText(p), ...phraseFollowUp(p)]))
-      .toEqual([['Wie viel hat sich Ihr Gewicht verändert?', 'In welchem Zeitraum war das?']]);
+      .toEqual([['Wie viel hat sich Ihr Gewicht verändert?', 'In welchem Zeitraum hat sich Ihr Gewicht verändert?']]);
     // asthma : « … jetzt fast jeden zweiten Tag, auch nachts mit Husten » → « Seit wann husten Sie? », puis trocken / Auswurf ; anaemie : « Luftnot » à l'effort →
     // « Ab welcher Belastung …? »
     expect(deSonde('case-asthma', 'fach-pneumo-husten').map(phraseText)).toEqual(['Seit wann husten Sie?']);
@@ -114,7 +114,7 @@ describe('r5 — précision : un signe cité dans un autre sens ne vaut pas rép
     // multiple-sklerose : « Übel wird mir dabei nicht » (pendant les céphalées de tension) — la nausée reste demandée
     expect(signesDits('Ab und zu habe ich Spannungskopfschmerzen. Übel wird mir dabei nicht.')).toContain('uebelkeit');
     expect([...ditsDe('Übel wird mir dabei nicht.', false).keys()]).toEqual([]);
-    expect(deSonde('case-multiple-sklerose', 'veg-uebelkeit').map(phraseText)).toEqual(['Ist Ihnen übel? Mussten Sie sich übergeben?']);
+    expect(deSonde('case-multiple-sklerose', 'veg-uebelkeit').map(phraseText)).toEqual(['Ist Ihnen übel?']);
   });
 
   it('une question qui demande une DIMENSION du signe (mesure, effort, localisation) reste posée', () => {
@@ -202,9 +202,9 @@ describe('r5 — passe fixeur de la revue clinique', () => {
     expect(signesDits('Mir ist heiß, ich glaube, ich habe Fieber.')).not.toContain('fieber');
     expect(signesDits('Ich habe wohl Fieber.')).not.toContain('fieber');
     expect(signesDits('Ich fühle mich fiebrig.')).not.toContain('fieber');
-    expect(textes('case-appendizitis')).toContain('Haben Sie Ihre Körpertemperatur in letzter Zeit gemessen? Haben Sie Fieber festgestellt?');
+    expect(textes('case-appendizitis')).toContain('Haben Sie in letzter Zeit Fieber gemessen?');
     // la mesure n'est pas la présence : « Ich habe Fieber » (cholezystitis) laisse posée la question « gemessen? »
-    expect(textes('case-cholezystitis')).toContain('Haben Sie Ihre Körpertemperatur in letzter Zeit gemessen? Haben Sie Fieber festgestellt?');
+    expect(textes('case-cholezystitis')).toContain('Haben Sie in letzter Zeit Fieber gemessen?');
   });
 
   it('P1-2 tia : « vorher » situe dans le passé — « Gestürzt … habe ich mich vorher nicht » ne dit pas les chutes des attaques', () => {
@@ -262,7 +262,7 @@ describe('r5 — passe fixeur de la revue clinique', () => {
     }
     expect(fautes).toEqual([]);
     // b) cliquet : les relances de précision de la banque (sous une part ou une question mono-signe) qui ne se posent pas seules.
-    // Elles ne sont pas fautives (la question reste alors entière) ; leur nombre ne remonte pas. Mesuré au lot Banque : 50.
+    // Elles ne sont pas fautives (la question reste alors entière) ; leur nombre ne remonte pas. Mesuré au lot Banque : 50 ; L1 : 37.
     const bank: Phrase[] = [...LEITSYMPTOM_KATEGORIEN.flatMap((k) => aktuellChapterFor(k).questions), ...ALLGEMEINE_ANAMNESE.flatMap((x) => x.questions), ...FACHANAMNESEN.flatMap((f) => f.chapter.questions)];
     const corps = (f: string) => { const k = parseFollowUp(f); return 'question' in k ? k.question : f; };
     const non = new Set<string>();
@@ -272,5 +272,18 @@ describe('r5 — passe fixeur de la revue clinique', () => {
       if (!p.parts && phraseSucht(p).length === 1) for (const f of phraseFollowUps(p)) if (!f.sucht?.length && !promouvable(corps(f.text))) non.add(`${phraseProbes(p)[0]}|${f.text}`);
     }
     expect(non.size).toBeLessThanOrEqual(PLAFOND_RELANCES_NON_AUTONOMES);
+  });
+
+  it('L1 — tronc commun : chaque relance se pose seule (au moins quatre mots, sans renvoi), quel que soit le nombre de signes', () => {
+    // Plus large que le cliquet (b) : toutes les relances des chapitres du tronc commun, sous la question ou sous une part, même
+    // quand la question cherche plusieurs signes. Le lot L1 les a toutes réécrites ; la garde empêche le retour de « Seit wann? ».
+    const TRONC = new Set(['personalia', 'vegetativ', 'vorerkrankungen', 'medikamente', 'allergien', 'noxen', 'familie-sozial']);
+    const corps = (f: string) => { const k = parseFollowUp(f); return 'question' in k ? k.question : f; };
+    const fautes: string[] = [];
+    for (const x of ALLGEMEINE_ANAMNESE) if (TRONC.has(x.id)) for (const p of x.questions) {
+      if (typeof p === 'string') continue;
+      for (const f of [...phraseFollowUp(p), ...(p.parts ?? []).flatMap((pt) => pt.followUp ?? [])]) if (!promouvable(corps(f))) fautes.push(`${x.id} : « ${f} »`);
+    }
+    expect(fautes).toEqual([]);
   });
 });
