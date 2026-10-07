@@ -23547,7 +23547,7 @@ export function seedCases(): Case[] {
         ],
         antworten: {
           'pers-name': 'Kastner, Hermann Kastner. K-a-s-t-n-e-r.',
-          'pers-alter': 'Ich bin 73 Jahre alt, geboren am zwölften März 1953.',
+          'pers-alter': 'Ich bin 73 Jahre alt, geboren am 12. März 1953.',
           'pers-groesse': 'Ich bin 1,78 m groß und wiege 82 Kilo. Früher waren es 87 — ich habe in den letzten vier Monaten fünf Kilo abgenommen, ohne etwas dafür zu tun.',
           'pers-beruf': 'Im Metallbetrieb, ja: Kühlschmierstoffe, Öl und Metallstaub, mein Leben lang. Absaugung gab es erst in den letzten Jahren.',
           'pers-hausarzt': 'Ja, mein Hausarzt ist Dr. Neumann, zu dem gehe ich seit Jahren.',
