@@ -174,8 +174,9 @@ describe('P1-6 / P1-7 — le changement remarqué (veraenderung) ne repose pas c
 describe('P1-8 à P1-12 — déclarations des questions du cas, banques', () => {
   const sucht = (id: string, re: RegExp) => { const q = byId(id).caseSpecificQuestions.find((x) => typeof x !== 'string' && re.test(x.frage)); return typeof q === 'string' ? undefined : q?.sucht; };
   const textes = (id: string) => trameJouee(byId(id)).flatMap((x) => x.questions.flatMap((p) => [phraseText(p), ...phraseFollowUps(p).map((f) => f.text)]));
-  it('P1-8 : herzinsuffizienz — « Mit wie vielen Kissen … nachts aufwachen » déclare orthopnoe et dpn', () => {
-    expect(sucht('case-herzinsuffizienz', /Kissen/)).toEqual(['orthopnoe', 'dpn']);
+  it('P1-8 : herzinsuffizienz — « Mit wie vielen Kissen » déclare orthopnoe, « nachts aufwachen » dpn (Q9 : deux questions)', () => {
+    expect(sucht('case-herzinsuffizienz', /Kissen/)).toEqual(['orthopnoe']);
+    expect(sucht('case-herzinsuffizienz', /nachts auf, weil Sie keine Luft/)).toEqual(['dpn']);
   });
   it('P1-9 : la banque de la dyspnée est fach-pneumo-atemnot ; chaque cas où r3 l\'ajoute a sa réponse', () => {
     expect(SIGNE_DEF.atemnot.bank).toBe('fach-pneumo-atemnot');
@@ -349,8 +350,9 @@ describe('P2 — une part réduite porte le libellé de dimension de sa mère', 
 });
 
 describe('gastroenteritis — la couleur des selles n\'est demandée qu\'une fois', () => {
-  it('la question du cas (« wässrig oder breiig, welche Farbe ») garde l\'aspect ; la banque ne garde que l\'alarme', () => {
-    const akt = playedTrame(byId('case-gastroenteritis')).chapters.find((x) => x.id === 'aktuell')!.questions.map(phraseText);
+  it('la question du cas (« wässrig oder breiig ? » ↳ « Welche Farbe … ? », Q9) garde l\'aspect ; la banque ne garde que l\'alarme', () => {
+    const qs = playedTrame(byId('case-gastroenteritis')).chapters.find((x) => x.id === 'aktuell')!.questions;
+    const akt = qs.flatMap((p) => [phraseText(p), ...phraseFollowUps(p).map((f) => f.text)]);
     expect(akt).toContain('Aussehen — Ist Ihnen Blut oder Schleim im Stuhl aufgefallen?');
     expect(akt.filter((t) => /Farbe/.test(t))).toHaveLength(1);
   });
