@@ -164,3 +164,74 @@ Les trois cas sont inchangés : SEP 1 lien manquant, Reizdarm 0, Bandscheibenvor
 - La S2k MS 2023 et la S3 Reizdarm 2021 n'ont pas pu être lues en texte intégral (PDF AWMF en 404, Thieme protégé) :
   les points retenus viennent de sources secondaires citées au § 4.
 - Je n'ai pas lancé `quality.yml` sur un runner.
+
+## 8. Passe fixeur des revues (sommet revu `118bc5ff`)
+
+Les remplacements ont été faits par script, chacun unique dans le bloc de son Fachwissen. Dans `seedCases.ts`, ils sont
+limités aux lignes autorisées par le coordinateur (5160, 5164, 5177, 5226, 5227).
+
+**Clinique : P1-1 à P1-3, P2-1 à P2-6**
+- **P1-1, cas bandscheibenvorfall** : le délai de l'OP élective est aligné sur la DGN.
+  - l. 5177 : « radikulärem Schmerz trotz sechs bis zwölf Wochen konservativer Therapie bei passendem MRT-Befund » ;
+  - l. 5226 : « radikulärem Schmerz, der trotz sechs bis zwölf Wochen konservativer Therapie anhält ».
+- **P1-2 et I7, réponse du Reizdarm** : à la première personne. Le seul signe d'alerte est le début après 50 ans ; Blut,
+  Gewichtsverlust, Fieber et les plaintes nocturnes sont nommés absents. La question devient « Wie lautet Ihre
+  Verdachtsdiagnose, und was schließen Sie vorher aus? ». Elle ne dit plus « Ausschlussdiagnose », et la réponse dit
+  que le diagnostic est posé positivement selon Rom IV, après des exclusions ciblées.
+- **P1-3 et I2, explication au patient du Reizdarm** : le texte de l'arbitrage, qui commence par « Die Untersuchungen
+  haben gezeigt: … » et dit « gutartig ». La question devient « Wie erklären Sie der Patientin nach der Abklärung die
+  Diagnose in einfachen Worten? ». Elle se place donc après la coloscopie, ce qui rend la réassurance cohérente. La
+  prudence du cas (« sieht es nicht nach … aus ») reste dans la fiche, avant la coloscopie.
+- **P2-1, cas** : PPI seulement en cas de risque digestif (l. 5160 et 5227).
+- **P2-2** : le seuil « Kraftgrad unter 3 » est ajouté à la ligne Operativ.
+- **P2-3** : la réponse et le cas (l. 5164) parlent de la présentation au Durchgangsarzt, au lieu d'« Unfallmeldung » et
+  d'« Unfallanzeige ».
+- **P2-4** : Ofatumumab est ajouté en catégorie 3, avec « primär progrediente MS: Ocrelizumab ».
+- **P2-5** : Rifaximin est marqué « (off label) ».
+- **P2-6** : le texte de l'arbitrage : « Stress kann sie auslösen und verstärken, ist aber nicht die alleinige Ursache,
+  und die Beschwerden sind real. »
+
+**Langue : I1 à I11 et tous les Mineurs**
+- **I1** : « … sich Ihr Intimbereich taub anfühlt, kommen Sie bitte sofort in die Notaufnahme. »
+- **I3** : « Den Bandscheibenvorfall zeigt das MRT … die meisten Vorfälle heilen konservativ aus. » Le Fallstrick
+  « Nicht vorschnell operieren » est supprimé : c'était la solution de la revue contre la redite.
+- **I4 à I6 et I8** : les textes de la revue sont repris (Janda à l'oral, VD de la SEP, Optikusneuritis,
+  Zöliakie/Laktose avec Duodenalbiopsien).
+- **I5** : la phrase « Das sind Herde an verschiedenen Orten zu verschiedenen Zeiten » redisait le merksatz (mesuré). Elle
+  devient « Damit ist eine Dissemination in Ort und Zeit gegeben », la formulation de la fiche.
+- **I9 et I10** : textes de la revue (« erst die Stufenbiopsie sichert die Diagnose », « Darmgerichtete Hypnosetherapie »).
+- **I11, redites de la SEP** : le merksatz est gardé, le Fallstrick « Ohne die Frage nach früheren … » est supprimé, et
+  le Fallstrick Uhthoff est réduit au texte de la revue. Il reste 8 questions, dont l'explication au patient.
+- **Mineurs** : les 25 lignes du tableau de la revue, sauf la l. 2607, remplacée par l'arbitrage P2-6.
+- **Fallstrick 2600 du Reizdarm** : supprimé, comme arbitré (doublon du merksatz).
+
+**Mesures DOM après la passe** (même méthode qu'au § 1)
+
+| Fachwissen | Écrans (repos / ouvert) | Redites | Questions | Débordement |
+|---|---|---|---|---|
+| multiple-sklerose | 9,4 / 11,1 | 1 (carte « Cas liés », comme au § 1) | 8 | 0 |
+| reizdarm | 10,5 / 10,5 | 0 | 7 | 0 |
+| bandscheibenvorfall | 9,1 / 9,1 | 0 | 7 | 0 |
+
+Chacun garde une question d'explication au patient. `checkFachwissenFloor` : 45 sans explication (budget 45).
+
+**Vérifications (code de sortie)**
+
+| Commande | Sortie |
+|---|---|
+| `npx tsc -b` | 0 |
+| `npm test -- --maxWorkers=2` | 0 (2 025 tests) |
+| `npm run test:c6 -- --maxWorkers=2` | 0 (212 tests) |
+| `node --test` sans checkProbeCoverage, puis checkProbeCoverage seul | 0 (219), 0 (4) |
+| les 25 `check*` de la CI, `checkTermRegister --require-all`, `evalDoctopus --dry` | 0 chacun, sauf `checkProbeOverlap` : 1 (`\|\| true` en CI, inchangé) |
+| `checkBudgetFloor.mjs origin/main` | 0 |
+| `npm run build` | 0 |
+| `git merge-tree --write-tree origin/main HEAD` (VD déjà fusionnée ; `origin/feat/s3-q9-und` n'existe pas encore) | 0 |
+| `git merge-tree --write-tree origin/feat/s3-vd HEAD` | 0 |
+| `npm run content:link` | 0, `caseTermLinks.json` inchangé |
+
+Cohésion : 263 liens manquants, inchangé ; bandscheibenvorfall à 100 %.
+
+**Non vérifié** : les textes de cette passe n'ont pas été relus de nouveau. Le Muster et les patientWorte du cas
+bandscheibenvorfall n'ont pas été vérifiés sur le PPI et le Durchgangsarzt, parce que le périmètre autorisé dans
+`seedCases.ts` se limite aux cinq lignes ; `checkCoherence` et `checkCaseCoherence` sont verts.
