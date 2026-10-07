@@ -224,3 +224,109 @@ gallenkolik 11 → 24.
   - catégories de la S2k MS.
 - Je suis le seul à avoir relu la langue (C1, registre) ; il n'y a pas eu de passe `fsp-language-reviewer`.
 - Rendu des pages de cas (fiche, ES) non mesuré dans le navigateur ; seules les pages Fachwissen l'ont été.
+
+## 9. Passe fixeur clinique + langue (sommet revu `93f32ad1`)
+
+109 remplacements scriptés, chacun unique dans le bloc de son cas, de son Fachwissen ou de son Muster. Le texte retenu est
+celui des revues, sauf pour les arbitrages du coordinateur ci-dessous.
+
+**Clinique : P1-1 à P1-6, tous les P2, négatifs de reizdarm**
+- **P1-1, reizdarm** : la DD Schilddrüse ne dit plus « sie hat davon nichts » alors qu'elle est constipée ; la
+  Unterfunktion peut expliquer la constipation, la Überfunktion est verneint, le TSH tranche.
+- **P1-2 et P1-3, reizdarm** : l'ES n'a plus d'iFOBT. La recherche d'agents pathogènes dans les selles, Lamblien compris,
+  fait partie de la Basisdiagnostik (S3 2021) dans la fiche, l'ES et les deux Muster. Le H2-Atemtest n'est fait que si le
+  journal montre un lien avec le lait.
+- **P1-4, multiple-sklerose** : les patientWorte ne promettent plus la cortisone (« entscheiden wir nach dem MRT, ob … »).
+- **P1-5, multiple-sklerose** : « Erstdiagnose einer schubförmigen Multiplen Sklerose » remplace « Erstmanifestation »,
+  et la réponse dit que la progression sur trois mois est inhabituelle.
+- **P1-6, fw-oesophaguskarzinom** : cT2 N0 = opération ou traitement multimodal selon le Tumorboard. Le libellé de
+  thérapie est inchangé.
+- **P2** :
+  - tvt :
+    - anticoagulation provisoire si l'échographie n'est pas disponible rapidement (fiche et FW) ;
+    - Apixaban sans adaptation rénale (GFR ≥ 15) ;
+    - Hormonspirale (fiche et ES) ;
+    - fin de la réplique `fach-gefaess-gehstrecke` : « beim Gehen etwas mehr ».
+  - gallenkolik :
+    - justification du Metamizol : deux Ibuprofen pris il y a quelques heures, et les AINS réduisent le risque de
+      cholécystite ;
+    - hémochromatose comme cause héréditaire (ES et FW).
+  - cholezystitis :
+    - arrêt de l'antibiothérapie dans les 24 h pour les grades Tokyo I et II (fiche et FW) ;
+    - cholangite et sepsis distingués ;
+    - antibiothérapie du FW alignée sur la S3.
+  - gerd : Los Angeles A « bis 5 mm ».
+  - myokardinfarkt :
+    - question familiale « Mann vor 55, Frau vor 60 » ;
+    - hypercholestérolémie familiale « besonders bei LDL über 190 mg/dl ».
+  - multiple-sklerose :
+    - Methylprednisolon 500–1000 mg selon le Schub clinique, l'IRM étant co-décisionnelle dans cette situation unclare ;
+    - la DD « funktionelle Störung » retirée de l'ES au profit de la spinale Raumforderung.
+  - reizdarm :
+    - Rom IV : deux critères sur trois ;
+    - ÖGD avec Duodenalbiopsien pour le diagnostic positif ;
+    - « Schilddrüsenfunktionsstörung » à la place de « Hyperthyreose » dans l'ES ;
+    - CED : « CRP und Calprotectin stehen aus ».
+  - FW raccourcis :
+    - oesophagus : sm1 pour l'adénocarcinome ;
+    - kolorektales-ca : le tiers supérieur du rectum se traite comme un côlon.
+- **Négatifs de reizdarm** :
+  - annotés : Giardiasis, Clostridioides-difficile-Infektion, chronisch-entzündliche Darmerkrankung (deux constats) ;
+  - parenthèse fausse corrigée : « (gegen funktionelle Dyspepsie als Ursache der Bauchschmerzen) ».
+
+**Langue : les 6 Important et tous les Mineurs**
+- **Muster MS et Reizdarm** : texte de la revue langue, avec les décisions cliniques reportées.
+  - MS : la cortisone est décidée après l'IRM.
+  - Reizdarm : Erreger einschließlich Lamblien, Gastroskopie mit Duodenalbiopsien, pas d'iFOBT.
+- **Les autres Important** :
+  - Fallvorstellung de gallenkolik : « intravenös, weil der Patient … eingenommen hat » ;
+  - patientWorte diagnostik de gerd : « schreiben wir zur Sicherheit eine Herzstromkurve; … » ;
+  - VD de la SEP : Sensibilitätsstörung, Parese, Retrobulbärneuritis, Dissemination in Ort und Zeit ;
+  - ES de gallenkolik : « Heute müssen wir erst … ausschließen ».
+- **Parenthèses dans les réponses de l'ES** : les trois reformulations proposées (cholezystitis, gerd, tvt).
+- **Mineurs** :
+  - Beta-HCG, Milligramm, Milligramm pro Deziliter à l'oral ;
+  - « Ulkus » partout dans gerd et cholezystitis, DD comprise ; l'annotation « (gegen Ulcus) » des négatifs est passée à
+    « (gegen Ulkus) » pour garder la DD neutralisée ;
+  - « ÖGD » et « Endoskopie » côté médecin ; les merksätze gardent « Spiegelung » ;
+  - Konjunktiv dans le Muster de gallenkolik ;
+  - accords, prépositions et « das D-Dimer » ;
+  - « Umfangsdifferenz », « vor dem 50. Lebensjahr » ;
+  - patientWorte de gallenkolik : « verstopft », et l'antalgique n'est plus conditionné.
+- **Harmonisation des ES de Reizdarm et SEP** :
+  - 14 débuts de réponse en majuscule, 2 paires de guillemets ASCII en guillemets allemands ;
+  - « warm und kalt », « ANA und ENA », « Aquaporin-4- und MOG-Antikörper », « NMOSD oder die MOG-Antikörper-Erkrankung » ;
+  - virgule dans « Abführlösung, bis der Stuhl klar ist », « gutartigen und gut behandelbaren ».
+
+**Arbitrage gerd et pilule : premier cas.** La patiente mentionne la pilule (`frau-verhuetung` : « Ich nehme die Pille. ») :
+- « orales Kontrazeptivum (Pille) » est ajouté à `medikamente` ;
+- la Basistherapie dit « Als Raucherin über 35 mit kombinierter Pille: Verhütung mit der Frauenärztin überdenken » ;
+- les deux Muster `medikation` citent l'oral Kontrazeptivum, pour la cohésion avec l'Arztbrief ;
+- aucune réplique n'est inventée.
+
+**Non touché**, comme arbitré : les âges incohérents avec la date de naissance (lot Âges).
+
+**Vérifications après la passe (code de sortie)**
+
+| Commande | Sortie |
+|---|---|
+| `npx tsc -b` | 0 |
+| `npm test -- --maxWorkers=2` | 0 (193 fichiers, 2 025 tests) |
+| `npm run test:c6 -- --maxWorkers=2` | 0 (212 tests) |
+| `node --test` sans checkProbeCoverage, puis checkProbeCoverage seul | 0 (200), 0 (4) |
+| les 18 `check*` de la CI, `checkTermRegister --require-all`, `evalDoctopus --dry` | 0 chacun |
+| `checkCoherence --case`, 10 cas | 0 × 10 |
+| `checkBudgetFloor.mjs origin/main` (`8690fc4d`) | 0 |
+| `npm run build` | 0 |
+| `git merge-tree --write-tree origin/main HEAD` | 0 |
+| `npm run content:link` | 0 (reizdarm 16 → 17, multiple-sklerose 11 → 12 termes) |
+
+- **Mesures DOM après la passe** (écrans au repos / ouvert, redites) :
+  - B : oesophaguskarzinom 10,4 / 11,5, kolorektales-ca 10,5 / 10,5, divertikulitis 9,4 / 9,4 ;
+  - A : gallenkolik 9,5 / 9,7, tvt 9,5 / 9,5, gerd 8,0 / 8,0, myokardinfarkt 8,1 / 8,1, cholezystitis 7,2 / 7,4 ;
+  - 0 redite partout.
+- Redites fiche + PF : 0 sur les 7 cas.
+- Cohésion : 277 liens manquants, inchangé.
+- La première phrase de chaque VD tient en 69 à 130 caractères : aucune ligne de Fallvorstellung coupée.
+- Note : le dossier de travail du lot (scripts hors dépôt) avait disparu entre les deux passes ; les outils de remplacement
+  et de mesure ont été réécrits pour cette passe, à la même méthode.
