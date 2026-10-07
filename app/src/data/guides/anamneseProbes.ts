@@ -17,6 +17,7 @@ import type { LeitsymptomKategorie, RolePlayKapitel, Specialty } from '@/db/type
 //
 // `frage` = formulation patient de la question (repère affiché au simulant).
 // L'ordre des sondes = l'ordre de l'entretien (il pilote l'affichage).
+// L1 (tronc commun) : `frage` est UNE question — la question mère du guide ; les précisions sont ses relances.
 // ============================================================================
 
 export interface AnamneseProbe {
@@ -35,9 +36,9 @@ export interface AnamneseProbe {
 // --- Allgemeine Anamnese (tous les cas) -------------------------------------
 export const BASE_PROBES: AnamneseProbe[] = [
   // Persönliche Daten
-  { id: 'pers-name', kapitel: 'personalia', frage: 'Wie heißen Sie mit vollständigem Namen? Können Sie ihn buchstabieren?' },
-  { id: 'pers-alter', kapitel: 'personalia', frage: 'Wie alt sind Sie? Wann sind Sie geboren?' },
-  { id: 'pers-groesse', kapitel: 'personalia', frage: 'Wie groß sind Sie und wie viel wiegen Sie?' },
+  { id: 'pers-name', kapitel: 'personalia', frage: 'Wie heißen Sie mit vollständigem Namen?' },
+  { id: 'pers-alter', kapitel: 'personalia', frage: 'Wie alt sind Sie?' },
+  { id: 'pers-groesse', kapitel: 'personalia', frage: 'Wie groß sind Sie?' },
   { id: 'pers-hausarzt', kapitel: 'personalia', frage: 'Haben Sie einen Hausarzt?' },
 
   // Aktuelle Beschwerden (OPQRST)
@@ -50,41 +51,41 @@ export const BASE_PROBES: AnamneseProbe[] = [
   { id: 'akt-begleit', kapitel: 'aktuell', frage: 'Haben Sie außerdem noch andere Beschwerden bemerkt?' },
 
   // Vegetative Anamnese
-  { id: 'veg-fieber', kapitel: 'vegetativ', frage: 'Haben Sie Fieber gemessen? Seit wann, wie hoch? Waren Sie kürzlich im Ausland?' },
+  { id: 'veg-fieber', kapitel: 'vegetativ', frage: 'Haben Sie in letzter Zeit Fieber gemessen?' },
   { id: 'veg-schuettelfrost', kapitel: 'vegetativ', frage: 'Haben Sie Schüttelfrost, Nachtschweiß oder starke Schweißausbrüche?' },
-  { id: 'veg-uebelkeit', kapitel: 'vegetativ', frage: 'Ist Ihnen übel? Mussten Sie sich übergeben? Wie sah es aus, seit wann, wie häufig?' },
-  { id: 'veg-ausscheidung', kapitel: 'vegetativ', frage: 'Haben Sie Probleme mit dem Stuhlgang oder beim Wasserlassen? Aussehen, wie oft?' },
-  { id: 'veg-gewicht', kapitel: 'vegetativ', frage: 'Haben Sie Gewichtsveränderungen bemerkt? Wie viele Kilo, in welchem Zeitraum?' },
-  { id: 'veg-appetit', kapitel: 'vegetativ', frage: 'Wie ist Ihr Appetit? Haben sich Ihre Essgewohnheiten geändert?' },
-  { id: 'veg-schlaf', kapitel: 'vegetativ', frage: 'Ist Ihr Schlaf erholsam? Haben Sie Ein- oder Durchschlafstörungen?' },
+  { id: 'veg-uebelkeit', kapitel: 'vegetativ', frage: 'Ist Ihnen übel?' },
+  { id: 'veg-ausscheidung', kapitel: 'vegetativ', frage: 'Haben Sie Schwierigkeiten mit dem Stuhlgang oder beim Wasserlassen?' },
+  { id: 'veg-gewicht', kapitel: 'vegetativ', frage: 'Haben Sie in letzter Zeit Gewichtsveränderungen bemerkt?' },
+  { id: 'veg-appetit', kapitel: 'vegetativ', frage: 'Wie ist Ihr Appetit in letzter Zeit?' },
+  { id: 'veg-schlaf', kapitel: 'vegetativ', frage: 'Ist Ihr Schlaf erholsam?' },
 
   // Vorerkrankungen & Voroperationen
-  { id: 'vor-erkrank', kapitel: 'vorerkrankungen', frage: 'Haben Sie Vorerkrankungen (Bluthochdruck, Zuckerkrankheit, erhöhte Blutfette)? Seit wann, behandelt?' },
-  { id: 'vor-op', kapitel: 'vorerkrankungen', frage: 'Wurden Sie schon einmal operiert? Welche Eingriffe, wann, Komplikationen?' },
+  { id: 'vor-erkrank', kapitel: 'vorerkrankungen', frage: 'Haben Sie Vorerkrankungen, zum Beispiel Bluthochdruck oder Zuckerkrankheit?' },
+  { id: 'vor-op', kapitel: 'vorerkrankungen', frage: 'Wurden Sie schon einmal operiert?' },
   { id: 'vor-krankenhaus', kapitel: 'vorerkrankungen', frage: 'Waren Sie in letzter Zeit im Krankenhaus?' },
 
   // Medikamente
-  { id: 'med-regelmaessig', kapitel: 'medikamente', frage: 'Nehmen Sie regelmäßig oder gelegentlich Medikamente? Welche, seit wann, Dosierung?' },
+  { id: 'med-regelmaessig', kapitel: 'medikamente', frage: 'Nehmen Sie regelmäßig oder gelegentlich Medikamente ein?' },
   { id: 'med-blutverduenner', kapitel: 'medikamente', frage: 'Nehmen Sie Blutverdünner oder Kortison?' },
   { id: 'med-otc', kapitel: 'medikamente', frage: 'Nehmen Sie frei verkäufliche Schmerzmittel, pflanzliche Mittel oder Nahrungsergänzung?' },
 
   // Allergien & Unverträglichkeiten
-  { id: 'all-allergie', kapitel: 'allergien', frage: 'Sind Sie allergisch gegen Medikamente oder Nahrungsmittel? Wie reagieren Sie?' },
-  { id: 'all-unvertraeglich', kapitel: 'allergien', frage: 'Vertragen Sie bestimmte Speisen nicht (Laktose, Gluten)?' },
+  { id: 'all-allergie', kapitel: 'allergien', frage: 'Sind Sie allergisch gegen bestimmte Medikamente oder Nahrungsmittel?' },
+  { id: 'all-unvertraeglich', kapitel: 'allergien', frage: 'Vertragen Sie bestimmte Nahrungsmittel nicht, zum Beispiel Milch oder Brot?' },
 
   // Noxen / Genussmittel
-  { id: 'nox-rauchen', kapitel: 'noxen', frage: 'Rauchen Sie? Seit wann und wie viel? (Oder: wann aufgehört?)' },
-  { id: 'nox-alkohol', kapitel: 'noxen', frage: 'Trinken Sie Alkohol? Was, wie oft und wie viel?' },
+  { id: 'nox-rauchen', kapitel: 'noxen', frage: 'Rauchen Sie?' },
+  { id: 'nox-alkohol', kapitel: 'noxen', frage: 'Trinken Sie Alkohol?' },
   { id: 'nox-drogen', kapitel: 'noxen', frage: 'Konsumieren Sie Drogen, zum Beispiel Cannabis?' },
 
   // Familien- & Sozialanamnese
-  { id: 'fam-familie', kapitel: 'familie-sozial', frage: 'Gibt es in Ihrer Familie chronische Erkrankungen? Welche, seit wann?' },
-  { id: 'fam-eltern', kapitel: 'familie-sozial', frage: 'Leben Ihre Eltern noch? (Falls verstorben: woran und wann?)' },
-  { id: 'fam-stand', kapitel: 'familie-sozial', frage: 'Wie ist Ihr Familienstand? Haben Sie Kinder — wie viele, und sind sie gesund?' },
-  { id: 'fam-beruf', kapitel: 'familie-sozial', frage: 'Was sind Sie von Beruf? Haben Sie Stress bei der Arbeit? (Oder: in Rente?)' },
+  { id: 'fam-familie', kapitel: 'familie-sozial', frage: 'Gibt es in Ihrer Familie chronische Erkrankungen?' },
+  { id: 'fam-eltern', kapitel: 'familie-sozial', frage: 'Leben Ihre Eltern noch?' },
+  { id: 'fam-stand', kapitel: 'familie-sozial', frage: 'Wie ist Ihr Familienstand?' },
+  { id: 'fam-beruf', kapitel: 'familie-sozial', frage: 'Was sind Sie von Beruf?' },
   // id historique conservé (130 fiches y répondent) ; la sonde a rejoint la Sozialanamnese, juste après le métier (FB2-J2).
-  { id: 'pers-beruf', kapitel: 'familie-sozial', frage: 'Arbeiten Sie dabei mit besonderen Stoffen — Staub, Chemikalien, Dämpfen?' },
-  { id: 'fam-wohnen', kapitel: 'familie-sozial', frage: 'Wohnen Sie allein oder mit jemandem? Wohnung oder Haus, welches Stockwerk, mit Aufzug?' },
+  { id: 'pers-beruf', kapitel: 'familie-sozial', frage: 'Kommen Sie bei der Arbeit mit Staub, Chemikalien oder Dämpfen in Kontakt?' },
+  { id: 'fam-wohnen', kapitel: 'familie-sozial', frage: 'Wohnen Sie allein oder mit jemandem zusammen?' },
   { id: 'fam-haustiere', kapitel: 'familie-sozial', frage: 'Haben Sie Haustiere, um die sich jemand kümmern muss?' },
 ];
 
