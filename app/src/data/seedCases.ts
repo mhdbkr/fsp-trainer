@@ -5136,13 +5136,16 @@ export function seedCases(): Case[] {
           'fach-ortho-mechanismus': 'Nein, kein Unfall — es ist passiert, als ich bei der Arbeit eine schwere Kiste gehoben habe, gebückt und dabei verdreht. Da hat es sofort ins Kreuz und ins Bein geschossen.',
           'fach-ortho-bewegung': 'Die Schmerzen sind ganz klar von der Bewegung abhängig. Beim Sitzen, Bücken und Gehen wird es schlimmer, im Liegen etwas besser; in völliger Ruhe habe ich weniger.',
           'fach-ortho-ausstrahlung': 'Ja, es strahlt vom Kreuz über das Gesäß und die Außenseite des Oberschenkels und Unterschenkels bis in die Großzehe rechts aus.',
-          'fach-ortho-sensomotorik': 'Am rechten Fußrücken und an der Großzehe habe ich ein Kribbeln und ein Taubheitsgefühl. Richtig schwach ist das Bein aber nicht, ich kann noch auftreten und auf den Zehen stehen.',
+          'fach-ortho-sensomotorik': 'Am rechten Fußrücken und an der Großzehe habe ich ein Kribbeln und ein Taubheitsgefühl.',
           'fach-ortho-durchblutung': 'Nein, der Fuß ist normal warm und hat die normale Farbe. Kalt, blass oder bläulich ist er nicht — es ist nur dieses Kribbeln.',
           'fach-ortho-cauda': 'Nein, mit dem Wasserlassen und dem Stuhlgang habe ich keine Probleme, und taub im Intim- oder Gesäßbereich bin ich nicht.',
           'fach-ortho-schwellung': 'Nein, geschwollen oder gerötet ist nichts, auch kein Bluterguss. Es ist der Schmerz und das Kribbeln.',
           'fach-ortho-belastung': 'Gehen und Stehen gehen nur kurz, dann wird es zu stark. Am besten ist flaches Liegen. Husten und Niesen treiben mir den Schmerz richtig ins Bein.',
           'fach-ortho-vorgeschichte': 'Vor zwei Jahren hatte ich einmal einen Hexenschuss im Kreuz, aber ohne Ausstrahlung ins Bein. Operiert oder geröntgt wurde der Rücken noch nie.',
         },
+        frageAntworten: [
+          { frage: 'Ist Ihr rechtes Bein schwächer geworden?', antwort: 'Nein, richtig schwach ist das Bein nicht, ich kann noch auftreten.', kapitel: 'aktuell' },
+        ],
         persona: 'Homme de 52 ans, magasinier, plutôt stoïque mais inquiet de ne pas pouvoir retravailler. Tu décris clairement que la douleur a commencé en soulevant une caisse lourde et qu\'elle descend dans la jambe droite jusqu\'au gros orteil. Tu insistes sur le fait que tousser aggrave la douleur. Tu as surtout peur qu\'on doive t\'opérer. Tu ne signales tes problèmes de sommeil que si on te pose la question.',
       },
       medicalView: {
@@ -5201,7 +5204,7 @@ export function seedCases(): Case[] {
         'auf-mrt',
       ],
       caseSpecificQuestions: [
-        { frage: 'Ist ein Bein schwächer geworden — schaffen Sie es noch, auf den Zehenspitzen oder auf den Fersen zu stehen?', kapitel: 'aktuell', sucht: ['schwaeche'] },
+        { frage: 'Ist Ihr rechtes Bein schwächer geworden?', kapitel: 'aktuell', sucht: ['schwaeche'], followUp: 'Können Sie noch auf den Zehenspitzen stehen?', followUps: ['Können Sie noch auf den Fersen stehen?'] },
         { frage: 'Werden die Schmerzen beim Husten, Niesen oder Pressen stärker?', kapitel: 'aktuell', sucht: ['pressschmerz'], followUp: 'Falls ja: Schießen sie dann ins Bein?' },
       ],
       examinerQuestions: [
