@@ -115,6 +115,9 @@ export const SIGNE_AFFINE: Partial<Record<Signe, readonly Signe[]>> = {
   // K4 fixeur : vomir affine la lecture « übergeben / erbrechen » (lue `uebelkeit`) ; le désir de mort passif affine la lecture du
   // risque suicidaire ; les crises nocturnes nomment le sommeil ; l'hématurie est un aspect des urines.
   erbrechen: ['uebelkeit'], todeswunsch: ['suizid'], naechtliche_anfaelle: ['schlaf'], haematurie: ['urin_aspekt', 'blutung'],
+  // Q9 (revues) : la selle de la nuit et le ténesme précisent la selle (« Müssen Sie auch nachts zum Stuhlgang aufstehen? »,
+  // « Stuhldrang »), comme stuhlfrequenz.
+  stuhl_nachts: ['stuhl'], tenesmen: ['stuhl'],
 };
 
 /** Paires de discrimination (INV-78) : leurs `sucht` déclarés sont disjoints. Chaque lot qui touche le lexique en ajoute une. */
