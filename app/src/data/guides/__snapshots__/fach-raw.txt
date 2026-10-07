@@ -13,7 +13,7 @@ case-magenkarzinom fach-gastro 7 d688b9cacb4ac635
 case-appendizitis fach-chirurgie 4 6a8761f044135c57
 case-depression fach-psy 10 9e57bf0bd33e63a6
 case-pneumonie fach-pneumo 10 00b8c8ddf52b4f5a
-case-pyelonephritis fach-uro 9 478d5df05b3463c1
+case-pyelonephritis fach-uro 9 37a816fd22b776bd
 case-pavk fach-gefaess 7 65e179ced8a54db8
 case-lyme fach-infektio 8 2dbe2e34fdc47ada
 case-osg-fraktur fach-ortho 8 2e6138dd97116920
@@ -27,11 +27,11 @@ case-tvt fach-gefaess 8 c2a6b9a441362a5f
 case-diabetes fach-endo 10 7d533e14cb2bff71
 case-hyperthyreose fach-endo 11 14ed79015ead5923
 case-copd fach-pneumo 10 00b8c8ddf52b4f5a
-case-zystitis fach-uro 9 478d5df05b3463c1
+case-zystitis fach-uro 9 37a816fd22b776bd
 case-migraene fach-neuro 11 0df41310b4543598
 case-asthma fach-pneumo 10 00b8c8ddf52b4f5a
 case-herzinsuffizienz fach-kardio 9 cfee9bda50961bbd
-case-nierenkolik fach-uro 10 ab3706732e031b84
+case-nierenkolik fach-uro 10 56556d9da0a308df
 case-tonsillitis fach-infektio 7 5ec1dc7165e03d73
 case-anaemie fach-haemato 10 e4a03f60a442908b
 case-vorhofflimmern fach-kardio 8 e8937844e5700b30
@@ -45,7 +45,7 @@ case-meningitis fach-infektio 8 2dbe2e34fdc47ada
 case-pankreaskarzinom fach-onko 9 357fc32d94e66f67
 case-zoster fach-derma 7 3319efb30ffebe71
 case-osteoporose fach-ortho 6 5aac3e8bc4478934
-case-bph fach-uro 10 ab3706732e031b84
+case-bph fach-uro 10 56556d9da0a308df
 case-demenz fach-psy 10 9e57bf0bd33e63a6
 case-bronchialkarzinom fach-onko 9 357fc32d94e66f67
 case-mammakarzinom fach-gyn 15 90aa910e7af01b48
@@ -53,7 +53,7 @@ case-rheumatoide-arthritis fach-rheuma 8 7801154ef1320b56
 case-morbus-crohn fach-gastro 7 d688b9cacb4ac635
 case-karpaltunnel fach-ortho 7 4ab206b4a92f7f93
 case-panikstoerung fach-psy 10 9e57bf0bd33e63a6
-case-prostatakarzinom fach-uro 10 ab3706732e031b84
+case-prostatakarzinom fach-uro 10 56556d9da0a308df
 case-hepatitis-b fach-infektio 7 5ec1dc7165e03d73
 case-parkinson fach-neuro 9 09c7cd5e456c7812
 case-gonarthrose fach-ortho 8 7039e84ff7865d2e
@@ -120,7 +120,7 @@ case-bauchaortenaneurysma fach-gefaess 5 c575cff3be390bfc
 case-aortendissektion fach-gefaess 5 c575cff3be390bfc
 case-perikarditis fach-kardio 10 207259712ebbd480
 case-epilepsie fach-neuro 11 beaf33e3aaadcd7a
-case-hodentorsion fach-uro 10 1558e309e17b3891
+case-hodentorsion fach-uro 10 9b54391f1f9df2f1
 case-basaliom fach-derma 9 6ba7a3e046a99502
 case-psoriasis fach-derma 8 208a390437a0a511
 case-urtikaria fach-derma 8 208a390437a0a511
