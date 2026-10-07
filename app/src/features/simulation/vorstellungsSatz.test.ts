@@ -33,12 +33,20 @@ describe('Fallvorstellung — la phrase d\'ouverture, sur les 130 cas', () => {
       expect((d.text.match(/\(/g) ?? []).length, c.id).toBe((d.text.match(/\)/g) ?? []).length);   // aucune parenthèse laissée ouverte
     }
   });
-  // Lc2 (revue direction I7) : les 12 cas gratuits sont la vitrine — leur phrase ne se coupe jamais.
-  it('les cas gratuits : la phrase de Fallvorstellung tient sans « … »', () => {
-    for (const c of cases.filter((c) => c.tier === 1)) {
-      expect(vorstellungsDiagnose(c).offen, c.id).toBe(false);
-      expect(ersterSatz(c.medicalView.verdachtsdiagnose), c.id).not.toMatch(/Patient/);
-    }
+  // Lc2 à Lc4 (FB3-G7), puis le lot VD : sur les 130 cas, la phrase prononcée tient entière et se dit à voix haute —
+  // ni « … », ni « Patient(in) » redit après l'amorce, ni code de classification (ICD, ICHD, F32.2), ni abréviation
+  // écrite, ni symbole.
+  it('la phrase de Fallvorstellung tient entière et se dit à voix haute', () => {
+    const fautes = cases.flatMap((c) => {
+      const d = ersterSatz(c.medicalView.verdachtsdiagnose);
+      return [
+        vorstellungsDiagnose(c).offen && 'coupée',
+        /Patient/.test(d) && 'Patient',
+        /\b(?:ICD|ICHD|DSM)\b|\b[A-Z]\d{2}\.\d|\bF\d{2}\b/.test(d) && 'code',
+        /Z\. ?n\.|i\. ?v\.|bzw\.|z\. ?B\.|ggf\.|evtl\.|[=<>]/.test(d) && 'abréviation ou symbole',
+      ].filter(Boolean).map((f) => `${c.id} : ${f}`);
+    });
+    expect(fautes).toEqual([]);
   });
   it('ersterSatz : coupe au premier point de fin de phrase, pas après « Z. », « A. », « ca. », « (31. »', () => {
     expect(ersterSatz('Ulcus ventriculi. Zweiter Satz.')).toBe('Ulcus ventriculi.');
@@ -46,22 +54,5 @@ describe('Fallvorstellung — la phrase d\'ouverture, sur les 130 cas', () => {
     expect(ersterSatz('Schlaganfall im Gebiet der A. cerebri media links. Rest.')).toBe('Schlaganfall im Gebiet der A. cerebri media links.');
     expect(ersterSatz('Adipositas (BMI ca. 34). Rest.')).toBe('Adipositas (BMI ca. 34).');
     expect(ersterSatz('Stabile Angina pectoris')).toBe('Stabile Angina pectoris');
-  });
-});
-
-// Lc3 (FB3-G7) : les dix premiers cas remis au niveau — même règle que les cas gratuits de Lc2.
-const LC3 = ['case-pankreatitis', 'case-ulcus', 'case-magenkarzinom', 'case-appendizitis', 'case-oesophaguskarzinom',
-  'case-pavk', 'case-lyme', 'case-kolorektales-ca', 'case-bandscheibenvorfall', 'case-divertikulitis'];
-// Lc4 (FB3-G7) : les sept derniers cas pauvres, même règle.
-const LC4 = ['case-multiple-sklerose', 'case-reizdarm', 'case-gallenkolik', 'case-tvt', 'case-gerd',
-  'case-myokardinfarkt', 'case-cholezystitis'];
-describe('Fallvorstellung — les cas de Lc3 et Lc4', () => {
-  it('la phrase de Fallvorstellung tient sans « … »', () => {
-    for (const id of [...LC3, ...LC4]) {
-      const c = cases.find((x) => x.id === id);
-      expect(c, id).toBeDefined();
-      expect(vorstellungsDiagnose(c!).offen, id).toBe(false);
-      expect(ersterSatz(c!.medicalView.verdachtsdiagnose), id).not.toMatch(/Patient/);
-    }
   });
 });
