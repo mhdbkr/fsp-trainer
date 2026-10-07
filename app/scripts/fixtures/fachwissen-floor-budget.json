@@ -1,9 +1,9 @@
 {
   "note": "checkFachwissenFloor.mjs (Lc4, revue direction I6 ; lot S3 « Fachwissen au plancher ») : budgets dégressifs — Fachwissen sans question d'explication au patient (EXPLICATIONS), examinerQuestions mal formées (DEFAUTS : réponse donnée, télégraphique, ponctuation), questions d'examinerSheet télégraphiques. Ne remonte jamais (checkBudgetFloor.mjs).",
   "budget": {
-    "sansExplication": 31,
-    "questionsMalFormees": 38,
-    "sheetMalFormees": 83
+    "sansExplication": 0,
+    "questionsMalFormees": 0,
+    "sheetMalFormees": 0
   },
   "hausses": []
 }
