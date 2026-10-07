@@ -17,7 +17,7 @@ export function FachwissenPage() {
       <header>
         <div className="eyebrow">Référence</div>
         <h1 className="mt-1.5 text-2xl font-bold tracking-tightish">Fachwissen</h1>
-        <p className="text-slate-500 dark:text-slate-400">Fiches pathologie riches : Definition, Klinik, Diagnostik, DD, Therapie, pièges & questions d'examen.</p>
+        <p className="text-slate-600 dark:text-slate-400">Fiches pathologie riches : Definition, Klinik, Diagnostik, DD, Therapie, pièges & questions d'examen.</p>
       </header>
 
       <input value={q} onChange={(e) => setQ(e.target.value)} placeholder="Rechercher une pathologie…" className="input max-w-md" />
