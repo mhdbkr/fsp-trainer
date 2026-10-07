@@ -104,7 +104,7 @@ Dates attribuées (âge → date) : leberzirrhose 58 → 01.05.1968 · angina-pe
 
 `checkProbeOverlap` est informatif en CI (`|| true`). Il rapporte 9 recouvrements entre sondes `fach-*`, qui sont hors de ce lot : aucune sonde n'a été touchée.
 
-## Points à trancher
+## Points à trancher (première passe — tranchés, voir « Passe 2 »)
 
 1. **Dates de consultation passées dans l'Arztbrief (23 cas).** L'`einleitung` de 23 cas date la consultation d'une session d'examen (2021–2025), par exemple « vorstellte am 15.06.2021 » pour nierenkolik.
    - Avec REFERENZDATUM, l'âge de la fiche est l'âge d'aujourd'hui, pas celui de cette date. Exemple : nierenkolik avait 74 ans le 15.06.2021.
@@ -116,3 +116,56 @@ Dates attribuées (âge → date) : leberzirrhose 58 → 01.05.1968 · angina-pe
    - Deux options : accepter, ou faire raccourcir une autre de ses répliques par le pôle Contenu. Cette seconde voie est interdite à ce lot.
 3. **case-karzinoid** : la réplique comique « Ach, Sie wollten das Alter, nicht das Geburtsdatum? » est maintenant suivie de « Geboren am 1. Dezember 1977. ». La relecture langue doit dire si l'enchaînement reste naturel.
 4. **Amas « 12.03 / 14.03 »** dans les dates existantes : 13 cas sur 26 tombent le 12 ou le 14 mars. Ils ont été conservés, comme le brief le demandait. Il faudra les varier si la direction le souhaite.
+
+## Passe 2 — arbitrages du coordinateur appliqués
+
+Les trois points ont été tranchés. delir, demenz et l'amas de mars sont validés tels quels.
+
+### 1. Plus aucune date de consultation dans les Muster
+
+- **Mesure.** Le premier décompte, « 23 cas », ne retenait que les dates qui contredisaient l'âge. Le nouveau contrôle trouve **28 dates dans 26 cas** :
+  - 26 dans les `arztbrief.einleitung` ;
+  - 1 dans la Vorstellung de `case-diabetes-typ1` (`persoenliche-daten`) ;
+  - 1 deuxième date dans l'`einleitung` de `case-cml` (« eines am 03.09.2026 erhobenen Blutbildes »).
+  - anaemie, endometriose et cml portaient des dates de 2026, pourtant cohérentes avec l'âge. Elles sont retirées aussi.
+  - Aucune autre forme de date n'a été trouvée dans les Muster, ni « 15. Juni 2021 » ni « 03.09. ».
+- **Remplacement.** La phrase garde sa grammaire ; seule la date change :
+  - « am Aufnahmetag » pour une admission (Notaufnahme, notfallmäßig, Klinik), en 11 endroits : nierenkolik, pankreaskarzinom, panikstoerung, tia, diabetes-typ1, gastroenteritis, rheumatisches-fieber, metabolisches-syndrom, endokarditis, epilepsie, hodentorsion (« am Aufnahmetag um 7:30 Uhr ») ;
+  - « am heutigen Tag » pour une consultation ambulatoire (Ambulanz, Sprechstunde), en 15 endroits : tonsillitis, anaemie, lymphom, uterus-myomatosus, fibromyalgie, schlafapnoe, spinalkanalstenose, laktoseintoleranz, anorexia-nervosa, colitis-ulcerosa, endometriose, hueftkopfnekrose, nhl, cml, psoriasis ;
+  - « heute » dans la Vorstellung orale de diabetes-typ1 : « der sich heute auf Überweisung seines Hausarztes … vorgestellt hat » ;
+  - pour cml, la date de la prise de sang devient relative : « wegen eines vor einer Woche erhobenen auffälligen Blutbildes ». Les deux dates d'origine étaient séparées de 7 jours.
+- **Garde.** Nouvelle règle dans `checkGeburtsdatum.mjs` : dans les Muster `arztbrief` et `vorstellung`, aucune date au format jj.mm.aaaa, sauf celle qui suit « geboren am ».
+  - Le test est passé au RED (26 cas, 28 dates), puis au GREEN. `checkGeburtsdatum.test.mjs` compte maintenant 11 tests.
+- **Vérifié sans rien modifier.**
+  - **examinerSheet** : 5 dates, toutes des dates de protocole d'examen (lymphom ; karzinoid ×4 : « Diese Frage wurde in Freiburg am 18.03.2025 … gestellt »). Ce ne sont pas des dates de consultation, elles sont légitimes, au même titre que `pruefungsfallen`.
+  - Aucune date de consultation dans les autres Muster de Vorstellung.
+
+### 2. opioidabhaengigkeit : sans exception
+
+- Le cas est retiré de `OVER_PASTE_MAX`. `prompt.corpus.test.ts` est revenu **identique à main**.
+- **Réplique raccourcie** : `akt-psych-antrieb`, sur 17 signes.
+  - Avant : « Ja, aufstehen fällt mir schon lange schwer, ~~nicht nur heute~~. Und Freude, ehrlich, an nicht mehr viel. … »
+  - Après : « Ja, aufstehen fällt mir schon lange schwer. Und Freude, ehrlich, an nicht mehr viel. … »
+  - « nicht nur heute » répétait « schon lange ». Aucun fait clinique n'est perdu, et la voix est conservée (« ehrlich », l'anecdote de la pêche).
+- Le prompt patient du cas mesure **9 999 signes**, sous le seuil PASTE_MAX de 10 000. Il ne reste qu'un signe de marge.
+
+### 3. case-karzinoid
+
+- Avant : « Achtundvierzig. — Ach, Sie wollten das Alter, nicht das Geburtsdatum? Achtundvierzig Jahre, ja. Geboren am 1. Dezember 1977. »
+- Après : « Achtundvierzig. — Ach so, das Geburtsdatum wollen Sie auch? Geboren am 1. Dezember 1977. »
+- Le ton d'origine est gardé : l'âge vient d'abord, seul, puis la patiente se rattrape. L'âge est toujours dit en lettres.
+
+### Codes de sortie (passe 2)
+
+| commande | exit |
+|---|---|
+| `npx tsc -b` | 0 |
+| `npm test` (2 025 tests) | 0 |
+| `npm run test:c6` | 0 |
+| les 26 `node scripts/check*.mjs` de la CI | 0, sauf `checkProbeOverlap` (1) : informatif (`\|\| true`), même 9 recouvrements `fach-*` qu'en passe 1, hors périmètre |
+| les 16 `node --test` de la CI, dont `checkGeburtsdatum.test.mjs` (11/11) | 0 |
+| `node --test scripts/checkProbeCoverage.test.mjs` (lancé seul) | 0 |
+| `node scripts/checkBudgetFloor.mjs origin/main` | 0 |
+| `npm run build` | 0 |
+| `npm run content:link` | 0 (aucun fichier modifié) |
+| `git merge-tree` contre origin/main et contre feat/s3-vd | 0 |
