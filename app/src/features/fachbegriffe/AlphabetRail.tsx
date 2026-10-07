@@ -41,7 +41,7 @@ export function AlphabetRail({ available, onJump }: { available: Set<string>; on
           <button key={l} type="button" aria-label={l} aria-disabled={!on}
             onMouseMove={() => setHot(i)} onFocus={() => setHot(i)} onBlur={() => setHot(null)} onClick={() => onLetterClick(l, on)}
             style={{ transform: scaleFor(i), transition: rm ? undefined : 'transform 120ms ease-out' }}
-            className={`grid h-4 w-8 place-items-center rounded leading-none ${on ? (hot === i ? 'text-brand-600 dark:text-brand-300' : 'text-slate-500 dark:text-slate-400') : 'text-slate-300 dark:text-slate-700'}`}>
+            className={`grid h-4 w-8 place-items-center rounded leading-none ${on ? (hot === i ? 'text-brand-600 dark:text-brand-300' : 'text-slate-600 dark:text-slate-400') : 'text-slate-300 dark:text-slate-700'}`}>
             {l}
           </button>
         );
