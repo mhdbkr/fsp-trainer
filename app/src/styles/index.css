@@ -620,6 +620,15 @@ html:active-view-transition .vt-page { view-transition-name: page; }
   ::view-transition-new(*) { animation: none !important; }
 }
 
+/* En-tête du runner qui fusionne au défilement (SimulationRunner) : il perd
+   ~94 px EN FLUX en fusionnant. L'ancrage de défilement compensait en retirant
+   autant au scrollTop du <main> — qui repassait sous le seuil de défusion
+   (40 px) dès qu'on s'arrêtait entre ~90 et ~135 px : fusion, défusion, sans
+   fin, et « Finir » n'était jamais stable (CI C6, 7 oct.). Sans ancrage, le
+   scrollTop ne dépend plus que du geste : l'hystérésis 40/90 tient. Garde :
+   D18 du parcours C6. */
+main:has([data-entete-fusion]) { overflow-anchor: none; }
+
 @layer utilities {
   .font-display { font-family: theme('fontFamily.display'); }
   .font-mono { font-family: theme('fontFamily.mono'); }

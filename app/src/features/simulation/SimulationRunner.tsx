@@ -242,7 +242,7 @@ export function SimulationRunner() {
                   Le chrono et les commandes sont des nœuds UNIQUES en position
                   absolue : leur `top` change d'un coup, et c'est le FLIP qui
                   joue le trajet en translation pure (compositeur). */}
-              <div ref={headerRef}
+              <div ref={headerRef} data-entete-fusion
                 className={`sticky top-14 z-30 relative flex flex-col transition-[gap] duration-[440ms] ease-fluid ${merged ? 'gap-0' : 'gap-2.5'}`}>
 
                 {/* Surface UNIQUE de l'état fusionné — supprime toute jointure */}
