@@ -85,6 +85,7 @@ jobs:
           node --test scripts/checkGuideDuplicates.test.mjs   # K4 (G.1) : une part répétée qui change de signe rougit
           node --test scripts/lotAssembler.test.mjs   # K5 (revue I1) : le profil survit à l'assemblage
           node --test scripts/checkExamen.test.mjs   # S4-7 : le verrouillage de l'Examen rougit sur ses trois règles
+          node --test scripts/checkFachwissenFloor.test.mjs   # Lc4 (I6) : le plancher Fachwissen rougit sur ses trois règles
       - name: "Doctopus — jeu de référence et grille (sans réseau)"
         run: node scripts/evalDoctopus.mjs --dry
       - name: Verrouillage de l'Examen — aucune aide, aucune durée hors du plan, aucune relance (S4-7)
@@ -95,6 +96,8 @@ jobs:
         run: node scripts/checkFachwissenVisuals.mjs
       - name: Conflits allergie ↔ thérapie
         run: node scripts/checkAllergyConflicts.mjs
+      - name: Plancher Fachwissen — ≥ 5 questions d'examen, explication au patient et examinerQuestions en budget (Lc4)
+        run: node scripts/checkFachwissenFloor.mjs
       - name: Liaison cas ↔ Fachbegriffe — ≥ 8 termes par cas, ≤ 10 termes > 20 %, diagnostic lié, aucun mot d'examen, JSON à jour
         run: node scripts/checkCaseTermLinks.mjs
       - name: Tests du script de liaison (node:test)
