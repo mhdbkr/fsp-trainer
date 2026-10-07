@@ -135,7 +135,9 @@ describe('Q4 — une réplique jouée avant une question du cas ne dit pas déj�
 // `lead-s3-banque.md`) : 58 lectures par mots-clés que la lecture du moteur (`ditsDe`) ne tient pas pour dites (facteur, image,
 // poids du jour, autre signe de la même famille, « dabei », passé) ; 41 sondes de dimension (SONDE_DIMENSION) ; 9 poids exigés dits
 // aux seules Personalia ; 8 questions sans parts pour ce qui reste ; 5 répliques de questions du cas ; 1 antécédent.
-const PLAFOND_BANQUE = 122;
+// Passe fixeur de la revue clinique : 122 → 131, hausse écrite à la main, voulue — 8 « gemessen? » de veg-fieber gardés quand la
+// fièvre n'est dite que présente (P1-1 : la mesure n'est pas la présence) ; 1 chute de tia (P1-2 : « vorher » est le passé).
+const PLAFOND_BANQUE = 131;
 
 describe('Q4 fixeur — les questions de BANQUE jouées après `cohere` : même lecture', () => {
   const banque = seedCases().flatMap(constats).filter((k) => k.banque);
