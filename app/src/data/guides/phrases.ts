@@ -86,7 +86,7 @@ const PART_VERBES = new Set(('ist sind war waren hat haben hatte hatten wird wer
   + 'mussten darf dürfen gibt gab geht gehen ging kommt kommen kam kamen tut tritt treten nehmen leiden fühlen bekommen '
   + 'strahlen wandern heilen sehen brennt schwitzen wachen trinken rauchen essen leben wohnen arbeiten verwenden vertragen '
   + 'empfinden klagt erinnern blutet juckt lassen bleiben wechseln').split(' '));   // lot Banque : + lassen, bleiben, wechseln (relances ouvertes par r5)
-const PART_INTERROG = /^(wie|was|wann|wo|woher|wohin|welche[rnms]?|wer|wem|wen|warum|weshalb|wieso|wodurch|womit|wovon|wofür|wozu)$/;
+const PART_INTERROG = /^(wie|was|wann|wo|woher|wohin|woran|welche[rnms]?|wer|wem|wen|warum|weshalb|wieso|wodurch|womit|wovon|wofür|wozu)$/;   // L1 : + woran (« Woran ist … gestorben? »)
 const PART_PREP = /^(ab|an|auf|aus|bei|für|in|mit|nach|seit|über|um|unter|von|vor|zu)$/;   // lot Banque : + ab (« Ab welcher Belastung …? »)
 const PART_LIEN = /^(und|oder|dabei|dazu|auch|sonst)$/;
 /** Les parts « relance seulement » : elles ne se disent qu'après leur mère (« Und… », « Falls …: »). Elles ne sont pas
