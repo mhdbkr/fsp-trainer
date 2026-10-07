@@ -116,6 +116,7 @@ describe('K5 — reliquats « Pour K5 » des revues K4', () => {
       expect(playedTrame(byId(id)).ecarts.filter((e) => e.question === 'fach-neuro-koordination' && e.regle !== 5 && !/déjà dit par/.test(e.raison)), id).toEqual([]);
     }
     expect(pose('case-migraene', 'fach-neuro-koordination')).toBe('Haben Sie Schwindel, Gangunsicherheit oder das Gefühl zu schwanken? Sind Sie schon gestürzt?');
-    expect(pose('case-tia', 'fach-neuro-koordination')).toBe('Fühlen Sie sich beim Gehen unsicher?');   // « Ja: Schwindel » ; « Gestürzt … habe ich mich vorher nicht »
+    // « Ja: Schwindel » ; « Gestürzt … habe ich mich vorher nicht » dit le passé (revue clinique P1-2) : la chute reste demandée
+    expect(pose('case-tia', 'fach-neuro-koordination')).toBe('Fühlen Sie sich beim Gehen unsicher? ↳ Sind Sie schon gestürzt?');
   });
 });
