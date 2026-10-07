@@ -5,7 +5,9 @@
 // la largeur min-content de son contenu, dont les lignes tronquées (`truncate`, nowrap) des Fachbegriffe du cas ;
 // `main.scrollWidth` montait à 440–483 px pour 326 px visibles. Et chaque ligne tronquée tient dans son bouton
 // (`max-w-full` : dans un flex colonne `items-start`, un span nowrap prend sa largeur max-content et ne tronque pas).
-// Mesuré dans le DOM de l'app.
+// La liste `/#/cas` aussi : aucun débord de `main`, aucune carte dont un descendant dépasse. Défaut corrigé : même
+// piste `auto` sous `sm`, et un titre allemand sans césure (« Wortfindungsstörungen ») poussait le cadran hors de la
+// carte. Mesuré dans le DOM de l'app.
 //
 // Sans Supabase : `vite` reçoit une URL factice (aucun réseau), cas et Fachbegriffe sont écrits dans l'IndexedDB de
 // la session, liés comme le fait la publication (`caseTermLinks.json`), puis l'app démarre sur ce cache.
@@ -64,6 +66,24 @@ try {
     if (m.lignes) fautes.push(`${id} : ${m.lignes} ligne(s) de terme débordent de leur bouton (troncature inopérante)`);
   }
   console.log(`390 px : ${mesures} pages de cas mesurées, ${fautes.length} faute(s)`);
+
+  // Liste des cas : toutes les cartes rendues (une par cas), cadrans fermés.
+  await page.goto(`${BASE}/#/cas`);
+  await page.waitForFunction((n) => document.querySelectorAll('main .card .case-dial').length >= n, ids.length, { timeout: 30_000 })
+    .catch(() => fautes.push(`/cas : moins de ${ids.length} cartes rendues`));
+  await sleep(500);
+  const liste = await page.evaluate(() => {
+    const main = document.querySelector('main');
+    const cartes = [...main.querySelectorAll('.card')].filter((carte) => carte.querySelector('.case-dial'));
+    const hors = cartes.filter((carte) => {
+      const c = carte.getBoundingClientRect();
+      return [...carte.querySelectorAll('*')].some((e) => { const r = e.getBoundingClientRect(); return r.width > 0 && (r.right > c.right + 0.5 || r.left < c.left - 0.5); });
+    }).map((carte) => carte.querySelector('h3')?.textContent);
+    return { sw: main.scrollWidth, cw: main.clientWidth, cartes: cartes.length, hors };
+  });
+  console.log(`390 px : /cas, ${liste.cartes} cartes, main ${liste.sw}/${liste.cw}, ${liste.hors.length} carte(s) débordée(s)`);
+  if (liste.sw > liste.cw) fautes.push(`/cas : main.scrollWidth ${liste.sw} > clientWidth ${liste.cw}`);
+  if (liste.hors.length) fautes.push(`/cas : ${liste.hors.length} carte(s) dont un descendant dépasse (${liste.hors.slice(0, 5).join(' · ')})`);
 } catch (e) {
   fautes.push(String(e?.message ?? e));
 } finally {
