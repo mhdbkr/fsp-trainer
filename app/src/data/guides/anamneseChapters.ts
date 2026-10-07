@@ -623,15 +623,17 @@ export const ALLGEMEINE_ANAMNESE: AnamneseChapter[] = [
         probe: 'pers-name',
         alts: ['Um Sie korrekt anzusprechen: Buchstabieren Sie das bitte langsam.'],
       },
-      { text: 'Wie alt sind Sie? Wann sind Sie geboren?', probe: 'pers-alter' },
-      { text: 'Wie groß sind Sie und wie viel wiegen Sie derzeit?', probe: 'pers-groesse' },
-      { text: 'Haben Sie einen Hausarzt? Wie heißt er / sie?', probe: 'pers-hausarzt' },
+      // L1 (tronc commun) : une réplique, une question — la seconde question devient une relance de précision,
+      // toujours posée et autonome (elle se dit seule, sans « das » ni « er / sie »).
+      { text: 'Wie alt sind Sie?', probe: 'pers-alter', followUp: ['Wann sind Sie geboren?'] },
+      { text: 'Wie groß sind Sie?', probe: 'pers-groesse', followUp: ['Wie viel wiegen Sie derzeit?'] },
+      { text: 'Haben Sie einen Hausarzt?', probe: 'pers-hausarzt', followUp: ['Falls ja: Wie heißt Ihr Hausarzt?'] },
       // Récapitulation : pas de sonde — elle ne pose rien de nouveau. Lui
       // attacher les trois sondes en faisait une « question progressive » avec
       // un bouton « Nächster Teil » qui ne faisait que répéter ce qui venait
       // d'être posé (FB2-J6).
       {
-        text: 'Nur zur Sicherheit wiederhole ich kurz Ihre Daten: Sie heißen … , sind … Jahre alt, am … geboren, … groß und wiegen … kg. Ist das korrekt notiert?',
+        text: 'Nur zur Sicherheit wiederhole ich kurz Ihre Daten: Sie heißen … , sind … Jahre alt, am … geboren, … groß und wiegen … Kilo. Ist das korrekt notiert?',
         label: 'Technique pro',
       },
     ],
@@ -643,12 +645,13 @@ export const ALLGEMEINE_ANAMNESE: AnamneseChapter[] = [
     icon: 'pulse', keywords: ['Fieber', 'Schüttelfrost', 'Nachtschweiß', 'Gewicht', 'Appetit', 'Stuhlgang', 'Wasserlassen'],
     questions: [
       {
-        text: 'Haben Sie Ihre Körpertemperatur in letzter Zeit gemessen? Haben Sie Fieber festgestellt?',
+        // L1 : une question (la mesure, que r5 lit comme précision : `PRECISION` « gemessen ») ; plus d'abréviation écrite.
+        text: 'Haben Sie in letzter Zeit Fieber gemessen?',
         probe: 'veg-fieber',
         followUp: [
-          'Falls Fieber: Seit wann haben Sie Fieber?',
+          'Falls ja: Seit wann haben Sie Fieber?',
           'Falls ja: Wie hoch war die Temperatur?',
-          'Falls ja: Wo haben Sie gemessen (z. B. im Mund)?',
+          'Falls ja: Wo haben Sie die Temperatur gemessen, zum Beispiel im Mund?',
           'Waren Sie kürzlich im Ausland?',
           'Sind Ihre Impfungen auf dem neuesten Stand?',
         ],
@@ -656,7 +659,7 @@ export const ALLGEMEINE_ANAMNESE: AnamneseChapter[] = [
         // (Aktuelle Beschwerden, Fach), il ne reste que le voyage ; si c'est
         // le voyage qui l'a été, il reste la fièvre.
         parts: [
-          { sucht: ['fieber'], text: 'Haben Sie Ihre Körpertemperatur in letzter Zeit gemessen? Haben Sie Fieber festgestellt?', followUp: ['Falls Fieber: Seit wann haben Sie Fieber?', 'Falls ja: Wie hoch war die Temperatur?', 'Falls ja: Wo haben Sie gemessen (z. B. im Mund)?'] },
+          { sucht: ['fieber'], text: 'Haben Sie in letzter Zeit Fieber gemessen?', followUp: ['Falls ja: Seit wann haben Sie Fieber?', 'Falls ja: Wie hoch war die Temperatur?', 'Falls ja: Wo haben Sie die Temperatur gemessen, zum Beispiel im Mund?'] },
           { sucht: ['reise'], text: 'Waren Sie kürzlich im Ausland?' },
         ],
         followUpSucht: [[], [], [], ['reise'], ['impfung']],
@@ -671,10 +674,12 @@ export const ALLGEMEINE_ANAMNESE: AnamneseChapter[] = [
         ],
       },
       {
-        text: 'Ist Ihnen übel? Mussten Sie sich übergeben?',
+        text: 'Ist Ihnen übel?',
         probe: 'veg-uebelkeit',
         // Lot Banque (revue clinique P2-5) : « Wie oft » avant « Seit wann » (un patient qui s'est übergeben une fois), l'aspect avant le délai
-        followUp: ['Falls ja: Wie oft haben Sie sich übergeben?', 'Falls ja: Wie sah das Erbrochene aus?', 'Falls ja: Seit wann müssen Sie sich übergeben?'],
+        // L1 : le vomissement, seconde question de la réplique, devient une relance toujours posée ; le « Falls ja » qui suit s'y rapporte
+        // (groupFollowUps : les relances inconditionnelles d'abord, puis l'interrupteur « ja »).
+        followUp: ['Mussten Sie sich übergeben?', 'Falls ja: Wie oft haben Sie sich übergeben?', 'Falls ja: Wie sah das Erbrochene aus?', 'Falls ja: Seit wann müssen Sie sich übergeben?'],
         // K4 fixeur (revue clinique P2) : la nausée et le vomissement, deux répliques — découpés du texte.
         parts: [
           { sucht: ['uebelkeit'], text: 'Ist Ihnen übel?' },
@@ -685,19 +690,22 @@ export const ALLGEMEINE_ANAMNESE: AnamneseChapter[] = [
       {
         text: 'Haben Sie Schwierigkeiten mit dem Stuhlgang oder beim Wasserlassen?',
         probe: 'veg-ausscheidung',
-        followUp: ['Falls ja: Seit wann?', 'Falls ja: Wie oft am Tag gehen Sie zur Toilette?', 'Falls ja: Können Sie das Aussehen von Stuhl oder Urin näher beschreiben?'],
+        // L1 : « Seit wann? » ne se disait pas seul (r5 l'ouvrait en relance orpheline) ; il nomme son objet et passe en dernier,
+        // comme pour veg-uebelkeit (« Wie oft » ouvre quand r5 promeut).
+        followUp: ['Falls ja: Wie oft am Tag gehen Sie zur Toilette?', 'Falls ja: Können Sie das Aussehen von Stuhl oder Urin näher beschreiben?', 'Falls ja: Seit wann bestehen die Schwierigkeiten beim Stuhlgang oder Wasserlassen?'],
         parts: [
-          { sucht: ['stuhl'], text: 'Haben Sie Schwierigkeiten mit dem Stuhlgang?', followUp: ['Falls ja: Seit wann?', 'Falls ja: Wie oft haben Sie am Tag Stuhlgang?', 'Falls ja: Können Sie das Aussehen des Stuhls näher beschreiben?'] },
-          { sucht: ['miktion'], text: 'Haben Sie Schwierigkeiten beim Wasserlassen?', followUp: ['Falls ja: Seit wann?', 'Falls ja: Wie oft müssen Sie am Tag Wasser lassen?', 'Falls ja: Können Sie das Aussehen des Urins näher beschreiben?'] },
+          { sucht: ['stuhl'], text: 'Haben Sie Schwierigkeiten mit dem Stuhlgang?', followUp: ['Falls ja: Wie oft haben Sie am Tag Stuhlgang?', 'Falls ja: Können Sie das Aussehen des Stuhls näher beschreiben?', 'Falls ja: Seit wann haben Sie Schwierigkeiten mit dem Stuhlgang?'] },
+          { sucht: ['miktion'], text: 'Haben Sie Schwierigkeiten beim Wasserlassen?', followUp: ['Falls ja: Wie oft müssen Sie am Tag Wasser lassen?', 'Falls ja: Können Sie das Aussehen des Urins näher beschreiben?', 'Falls ja: Seit wann haben Sie Schwierigkeiten beim Wasserlassen?'] },
         ],
       },
       {
         text: 'Haben Sie in letzter Zeit Gewichtsveränderungen bemerkt?',
         probe: 'veg-gewicht',
-        followUp: ['Falls ja: Wie viel hat sich Ihr Gewicht verändert?', 'Falls ja: In welchem Zeitraum war das?'],
+        followUp: ['Falls ja: Wie viel hat sich Ihr Gewicht verändert?', 'Falls ja: In welchem Zeitraum hat sich Ihr Gewicht verändert?'],
       },
-      { text: 'Wie ist Ihr Appetit? Haben sich Ihre Essgewohnheiten kürzlich geändert?', probe: 'veg-appetit' },
-      { text: 'Ist Ihr Schlaf erholsam? Haben Sie Probleme, ein- oder durchzuschlafen?', probe: 'veg-schlaf' },
+      // L1 : « in letzter Zeit » — la part d'appétit de fach-endo-gewicht dit déjà « Wie ist Ihr Appetit? » (checkGuideDuplicates, règle 2).
+      { text: 'Wie ist Ihr Appetit in letzter Zeit?', probe: 'veg-appetit', followUp: ['Haben sich Ihre Essgewohnheiten verändert?'] },
+      { text: 'Ist Ihr Schlaf erholsam?', probe: 'veg-schlaf', followUp: ['Haben Sie Probleme, ein- oder durchzuschlafen?'] },
     ],
     tip: 'Une perte de poids involontaire, des sueurs nocturnes et de la fièvre forment ensemble un signal d\'alarme (« B-Symptomatik ») à ne jamais manquer. Merke : « Haben Sie gemessen? » (jamais « gemesst »).',
   },
@@ -710,14 +718,15 @@ export const ALLGEMEINE_ANAMNESE: AnamneseChapter[] = [
         label: 'Transition',
       },
       {
-        text: 'Gibt es bei Ihnen vorbestehende Erkrankungen, zum Beispiel Bluthochdruck, Zuckerkrankheit oder erhöhte Blutfettwerte?',
+        // L1 : trois items au plus (règle B) — les deux exemples que le tip nomme ; chaque relance nomme son objet.
+        text: 'Haben Sie Vorerkrankungen, zum Beispiel Bluthochdruck oder Zuckerkrankheit?',
         probe: 'vor-erkrank',
-        followUp: ['Falls ja: Welche sind das?', 'Falls ja: Seit wann sind sie bekannt?', 'Falls ja: Werden sie behandelt?'],
+        followUp: ['Falls ja: Welche Vorerkrankungen haben Sie?', 'Falls ja: Seit wann sind Ihre Vorerkrankungen bekannt?', 'Falls ja: Werden Ihre Vorerkrankungen behandelt?'],
       },
       {
         text: 'Wurden Sie schon einmal operiert?',
         probe: 'vor-op',
-        followUp: ['Falls ja: Was wurde operiert?', 'Falls ja: Wann war das?', 'Falls ja: Gab es dabei Komplikationen?'],
+        followUp: ['Falls ja: Was wurde bei Ihnen operiert?', 'Falls ja: Wann wurden Sie operiert?', 'Falls ja: Hatten Sie Komplikationen bei der Operation?'],
       },
       { text: 'Waren Sie in letzter Zeit im Krankenhaus?', probe: 'vor-krankenhaus' },
     ],
@@ -730,7 +739,7 @@ export const ALLGEMEINE_ANAMNESE: AnamneseChapter[] = [
       {
         text: 'Nehmen Sie regelmäßig oder gelegentlich Medikamente ein?',
         probe: 'med-regelmaessig',
-        followUp: ['Falls ja: Welche Medikamente sind das?', 'Falls ja: Seit wann nehmen Sie sie?', 'Falls ja: In welcher Dosierung?', 'Falls ja: Wie oft am Tag?'],
+        followUp: ['Falls ja: Welche Medikamente nehmen Sie?', 'Falls ja: Seit wann nehmen Sie Ihre Medikamente?', 'Falls ja: In welcher Dosis nehmen Sie Ihre Medikamente?', 'Falls ja: Wie oft am Tag nehmen Sie Ihre Medikamente?'],
       },
       { text: 'Nehmen Sie Blutverdünner oder Kortison?', probe: 'med-blutverduenner',
         // K4 : parts découpées du texte — r1 / r2 ne retirent que ce qu'une autre question pose déjà.
@@ -752,9 +761,10 @@ export const ALLGEMEINE_ANAMNESE: AnamneseChapter[] = [
         probe: 'all-allergie',
         // Revue K1 I-3 : la relance décrit la RÉACTION allergique, elle ne demande ni la dyspnée ni l'éruption
         // actuelles ; elle ne les nomme plus (une énumération ne se couvre pas par `relu`).
-        followUp: ['Falls ja: Beschreiben Sie bitte, wie Sie genau reagieren — an der Haut, an der Atmung, am Kreislauf?'],
+        // L1 : une question (l'énumération Haut / Atmung / Kreislauf dépassait le plafond de deux items d'une relance).
+        followUp: ['Falls ja: Wie äußert sich Ihre Allergie?'],
       },
-      { text: 'Vertragen Sie bestimmte Speisen nicht (Laktose, Gluten)?', probe: 'all-unvertraeglich' },
+      { text: 'Vertragen Sie bestimmte Nahrungsmittel nicht, zum Beispiel Milch oder Brot?', probe: 'all-unvertraeglich' },
     ],
     tip: 'N\'oublie jamais l\'allergie médicamenteuse : elle conditionne toute prescription — y compris l\'antalgique que tu proposes en début d\'entretien.',
   },
@@ -767,10 +777,10 @@ export const ALLGEMEINE_ANAMNESE: AnamneseChapter[] = [
         probe: 'nox-rauchen',
         followUp: [
           'Falls ja: Seit wann rauchen Sie?',
-          'Falls ja: Wie viele Zigaretten ungefähr pro Tag?',
-          'Falls aufgehört: Wann haben Sie aufgehört?',
+          'Falls ja: Wie viele Zigaretten rauchen Sie ungefähr pro Tag?',
+          'Falls aufgehört: Wann haben Sie mit dem Rauchen aufgehört?',
           'Falls aufgehört: Wie viele Jahre haben Sie geraucht?',
-          'Falls aufgehört: Wie viel haben Sie davor pro Tag geraucht?',
+          'Falls aufgehört: Wie viele Zigaretten haben Sie früher pro Tag geraucht?',
         ],
       },
       {
@@ -795,40 +805,49 @@ export const ALLGEMEINE_ANAMNESE: AnamneseChapter[] = [
     icon: 'family', keywords: ['Familie', 'Beruf', 'Stockwerk', 'Aufzug'],
     questions: [
       {
-        text: 'Haben Familienmitglieder — Großeltern, Eltern, Geschwister oder Kinder — chronische Erkrankungen?',
+        // L1 : l'énumération des parents (règle B) devient la relance « Wer … ? » ; « Seit wann sind sie bekannt? » sort :
+        // les répliques disent qui et quoi (souvent l'âge), presque jamais depuis quand.
+        text: 'Gibt es in Ihrer Familie chronische Erkrankungen?',
         probe: 'fam-familie',
-        followUp: ['Falls ja: Welche Erkrankungen sind das?', 'Falls ja: Seit wann sind sie bekannt?'],
+        followUp: ['Falls ja: Welche Erkrankungen kommen in Ihrer Familie vor?', 'Falls ja: Wer in Ihrer Familie ist betroffen?'],
       },
       {
         text: 'Leben Ihre Eltern noch?',
         probe: 'fam-eltern',
-        followUp: ['Falls verstorben: Woran ist Ihre Mutter / Ihr Vater gestorben? (Avec empathie : „Mein herzliches Beileid.“)', 'Falls verstorben: Wann war das?'],
+        // L1 : plus de note en français ni de « / » dans la relance (l'empathie, « Mein herzliches Beileid. », passe au tip du
+        // chapitre) ; « Wann war das? » nomme son objet.
+        followUp: ['Falls verstorben: Woran ist Ihre Mutter oder Ihr Vater gestorben?', 'Falls verstorben: Wann ist Ihre Mutter oder Ihr Vater gestorben?'],
       },
       {
-        text: 'Wie ist Ihr Familienstand? Haben Sie Kinder?',
+        // L1 : trois questions en une réplique → la question, puis « Kinder » en relance toujours posée et sa précision.
+        // « Wie viele » sort : les répliques donnent le nombre d'elles-mêmes, et, écrit en clair (« Wie viele Kinder haben Sie? »),
+        // il redemande la parité que la Fach gynéco vient de poser (5 cas : gynFusion.test.ts, « gestité / parité »).
+        text: 'Wie ist Ihr Familienstand?',
         probe: 'fam-stand',
-        followUp: ['Falls ja: Wie viele, und sind sie gesund?'],
+        followUp: ['Haben Sie auch Kinder?', 'Falls ja: Sind Ihre Kinder gesund?'],
       },
       // Le métier est demandé ICI et une seule fois par trame (FB2-J2) : il
       // l'était aussi dans Persönliche Daten, et une troisième fois dans la
       // Fachanamnese pneumo. L'exposition professionnelle suit, en question
       // séparée, parce que c'est une autre information.
       {
-        text: 'Was sind Sie von Beruf? Empfinden Sie Stress durch Ihre Arbeitssituation?',
+        text: 'Was sind Sie von Beruf?',
         probe: 'fam-beruf',
-        followUp: ['Falls in Rente: Was haben Sie früher beruflich gemacht?'],
+        // L1 : le stress, seconde question de la réplique, devient une relance toujours posée (c'est aussi la part `stress`).
+        followUp: ['Empfinden Sie Stress durch Ihre Arbeitssituation?', 'Falls in Rente: Was haben Sie früher beruflich gemacht?'],
         // K3 (revue clinique, gastroenteritis) : le métier et le stress — deux répliques ; le stress présuppose le métier.
         parts: [
           { sucht: ['beruf'], text: 'Was sind Sie von Beruf?', followUp: ['Falls in Rente: Was haben Sie früher beruflich gemacht?'] },
           { sucht: ['stress'], text: 'Empfinden Sie Stress durch Ihre Arbeitssituation?', braucht: ['beruf'] },
         ],
       },
-      // « dabei » : au travail — la question présuppose le métier (r4b).
-      { text: 'Arbeiten Sie dabei mit besonderen Stoffen — Staub, Chemikalien, Dämpfen?', probe: 'pers-beruf', braucht: ['beruf'] },
-      { text: 'Wohnen Sie allein oder mit jemandem? In einer Wohnung oder einem Haus, in welchem Stockwerk, mit Aufzug?', probe: 'fam-wohnen' },
+      // « bei der Arbeit » : la question présuppose le métier (r4b). L1 : elle nomme son objet (plus de « dabei »).
+      { text: 'Kommen Sie bei der Arbeit mit Staub, Chemikalien oder Dämpfen in Kontakt?', probe: 'pers-beruf', braucht: ['beruf'] },
+      // L1 : quatre questions en une réplique → la question, puis trois relances toujours posées, chacune seule.
+      { text: 'Wohnen Sie allein oder mit jemandem zusammen?', probe: 'fam-wohnen', followUp: ['Leben Sie in einer Wohnung oder in einem Haus?', 'In welchem Stockwerk wohnen Sie?', 'Hat Ihr Haus einen Aufzug?'] },
       { text: 'Haben Sie Haustiere, um die sich jemand kümmern muss?', probe: 'fam-haustiere' },
     ],
-    tip: 'Le logement (étage, ascenseur) et l\'entourage comptent pour la sortie et l\'autonomie. En cas de deuil récent, marque un temps d\'empathie avant de continuer.',
+    tip: 'Le logement (étage, ascenseur) et l\'entourage comptent pour la sortie et l\'autonomie. En cas de deuil, marque un temps d\'empathie avant de continuer (« Mein herzliches Beileid. »).',
   },
   {
     id: 'frauenanamnese', title: 'Frauenanamnese', subtitle: 'Seulement si patiente', optional: true,
