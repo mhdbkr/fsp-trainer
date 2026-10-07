@@ -71,11 +71,11 @@ const RETIRES: Array<[string, string, RegExp, RegExp]> = [
   ['case-malaria', 'akt-infekt-herd', /Cola/, /Wie sieht der Urin genau aus/],
   // Q4 fixeur (revue clinique de a9c7b82c, doublons préexistants des cas relus)
   ['case-leistenhernie', 'akt-ort', /Hoden/, /bis in den Hodensack/],
-  ['case-leistenhernie', 'akt-verlauf', /hinlege/, /wenn Sie sich hinlegen/],
+  ['case-leistenhernie', 'akt-verlauf', /hinlege/, /beim Stehen, beim Husten oder beim Heben größer/],   // Q9 : « wenn Sie sich hinlegen » est sa relance
   ['case-leistenhernie', 'akt-begleit', /hart|nicht mehr zurück/, /ließ sich nicht mehr zurückdrücken/],
   ['case-schlafapnoe', 'akt-begleit', /ersticken|schwitze/, /Erstickungs- oder Würgegefühl/],
   ['case-metabolisches-syndrom', 'pers-groesse', /105|Vor zwei Jahren/, /in diesen zwei Jahren zugenommen/],
-  ['case-karzinoid', 'akt-begleit', /Gesicht wird|Kilo/, /Ihr Gesicht werde plötzlich rot/],
+  ['case-karzinoid', 'akt-begleit', /Gesicht wird|Kilo/, /dass Ihr Gesicht plötzlich rot wird/],   // revue de langue Q9 : sans Konjunktiv I
 ];
 
 describe('Q4 — garde anti-doublon : la réplique jouée avant ne répond plus à la question du cas', () => {
