@@ -169,3 +169,61 @@ Les trois points ont été tranchés. delir, demenz et l'amas de mars sont valid
 | `npm run build` | 0 |
 | `npm run content:link` | 0 (aucun fichier modifié) |
 | `git merge-tree` contre origin/main et contre feat/s3-vd | 0 |
+
+## Passe 3 — correctifs de la revue langue
+
+La revue langue n'a relevé aucune faute bloquante. Tous ses correctifs et suggestions sont appliqués.
+
+### Mineurs
+
+- **Weidel** (somatoforme-schmerzstoerung, `pers-alter`) : la date passe après l'écho. La réplique devient « Ich bin 32. Zweiunddreißig, und ich fühle mich wie sechzig. Geboren bin ich am 17. Januar 1994. »
+- **Kaiser** (metabolisches-syndrom) : le bilan est ambulatoire (ambulante Polygraphie, aucune admission). L'`einleitung` passe donc à « am heutigen Tag ».
+- **opioidabhaengigkeit `akt-psych-antrieb`** : « das Aufstehen » remplace « aufstehen ».
+  - Cela ajoute 4 signes et aurait fait passer le prompt à 10 003. Pour compenser, le « schon » de remplissage de la même réplique est retiré : « das mache ich ~~schon~~ seit Monaten nicht mehr ». Aucun fait clinique n'est perdu, et la tournure « schon lange » du début reste en place.
+  - Le prompt patient mesure **9 997 signes**, sous le seuil de 10 000.
+
+### Suggestions
+
+- **karzinoid** : la réplique devient « Achtundvierzig. — Ach so, das Geburtsdatum wollen Sie auch noch? Geboren am 1. Dezember 1977. »
+- **Lisele Müller, 90 ans** (schenkelhalsfraktur) : la réplique devient « Ich bin neunzig. Neunzig Jahre, ja. Geboren am elften Juni sechsunddreißig. »
+- **nierenkolik** : la date s'écrit désormais tout en lettres, comme lymphom : « geboren am zwölften März neunzehnhundertsiebenundvierzig ». Pour ce patient de 79 ans, c'est la forme orale la plus naturelle.
+  - *Reste* : `case-prostatakarzinom` porte le même mélange (« zwölften März 1953 »). Cette réplique est antérieure au lot et n'a pas été touchée ; elle est à harmoniser si tu le souhaites.
+
+### « am Aufnahmetag » en ambulatoire, un défaut antérieur au lot
+
+J'ai lu chaque `einleitung` en même temps que le `diagnostik-therapie` de son cas, pour savoir s'il prévoit une admission.
+
+- **Passent à « am heutigen Tag » (19)**, parce que la consultation en Ambulanz ou en Sprechstunde n'aboutit à aucune admission :
+  - angina-pectoris, depression, pavk, reizdarm, hyperthyreose, bronchialkarzinom, morbus-crohn, karpaltunnel, otitis-media, zoeliakie, leistenhernie, achalasie, hws-diskusprolaps, coxarthrose, ptbs, perniziose-anaemie ;
+  - multiple-sklerose, diabetes et migraene, dont le texte écarte l'admission : « Eine stationäre Aufnahme war nicht erforderlich », et « nach Hause entlassen » pour migraene.
+  - S'y ajoute **metabolisches-syndrom**, vu plus haut (« in unserer Klinik »), soit 20 au total.
+  - **Conséquence pour perniziose-anaemie** : `diagnostik-therapie` disait « noch am Aufnahmetag eine parenterale Substitution ». Cela devient « noch am Vorstellungstag », pour rester cohérent avec la nouvelle `einleitung`.
+- **Gardent « am Aufnahmetag »** :
+  - **itp** : admission depuis l'Ambulanz (« die stationäre Aufnahme sowie eine Erstlinientherapie », 11 000 plaquettes/µl avec saignements des muqueuses). Le cas est listé dans `AUFNAHME_AUS_AMBULANZ` ;
+  - **rheumatisches-fieber** : admission (« in unserer Klinik », « stationäre Aufnahme mit Bettruhe »).
+- **« am heutigen Tage » → « am heutigen Tag »** (8) : erysipel, hypothyreose, zoster, rheumatoide-arthritis, prostatakarzinom, hepatitis-b, commotio, karzinoid.
+
+### Garde
+
+Le test a d'abord été commité au RED, puis la garde (27 cas en écart), avant les correctifs qui la font passer au GREEN. `checkGeburtsdatum.test.mjs` compte maintenant 12 tests.
+
+- La réplique accepte « Geboren bin ich am … ».
+- Elle lit aussi l'année abrégée en lettres (« sechsunddreißig »). L'année retenue est la plus récente qui ne dépasse pas REFERENZDATUM.
+- **Nouvelle règle** : une `einleitung` qui mentionne Sprechstunde ou Ambulanz ne doit pas contenir « Aufnahmetag », sauf si le cas figure dans la liste motivée `AUFNAHME_AUS_AMBULANZ` (aujourd'hui `case-itp`).
+- **Nouvelle règle** : « am heutigen Tage » est interdit.
+- **Limite** : la règle Aufnahmetag ne détecte pas une `einleitung` qui dit seulement « in unserer Klinik » sans préciser Ambulanz ou Sprechstunde. C'était le cas de Kaiser, corrigé à la main.
+
+### Codes de sortie (passe 3)
+
+| commande | exit |
+|---|---|
+| `npx tsc -b` | 0 |
+| `npm test` (2 025 tests) | 0 |
+| `npm run test:c6` | 0 |
+| les 26 `node scripts/check*.mjs` de la CI | 0, sauf `checkProbeOverlap` (1) : informatif, mêmes 9 recouvrements `fach-*` |
+| les 16 `node --test` de la CI, dont `checkGeburtsdatum.test.mjs` (12/12) | 0 |
+| `node --test scripts/checkProbeCoverage.test.mjs` (lancé seul) | 0 |
+| `node scripts/checkBudgetFloor.mjs origin/main` | 0 |
+| `npm run build` | 0 |
+| `npm run content:link` | 0 (aucun fichier modifié) |
+| `git merge-tree` contre origin/main et contre feat/s3-vd | 0 |
