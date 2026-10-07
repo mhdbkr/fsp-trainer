@@ -59,6 +59,8 @@ describe('r5 — précision : un signe cité dans un autre sens ne vaut pas rép
     expect(signesDits('Früher bin ich fünf Kilometer gelaufen.')).not.toContain('gewicht');
     expect(signesDits('Ich bin 1,78 m groß und wiege 70 Kilo.')).not.toContain('gewicht');
     expect(signesDits('Vor zwei Monaten waren es noch 72 Kilo.')).toContain('gewicht');
+    expect(signesDits('Ich habe mehrmals gemessen, da waren es 37,4 oder 37,5 Grad.')).not.toContain('gewicht');   // une température
+    expect(signesDits('Ich wiege 78 Kilo — vor dem Infekt waren es 80.')).toContain('gewicht');
     expect(signesDits('Ich habe fünf Kilo abgenommen.')).toContain('gewicht');
     expect(signesDits('Nach dem Stuhlgang lassen die Schmerzen nach.')).not.toContain('stuhl');
     expect(signesDits('Mir ist heiß, ich fühle mich warm.')).not.toContain('fieber');
