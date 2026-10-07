@@ -1,6 +1,6 @@
 import type { Case, CaseQuestionLue, LeitsymptomKategorie, PatientSheet, Specialty } from '@/db/types';
 import type { Phrase } from './phrases';
-import { PART_RELANCE_SEULE, partNonAutonome, phraseProbes, phraseText, splitDimension, type PhraseVariant } from './phrases';
+import { PART_RELANCE_SEULE, partNonAutonome, phraseIsCaseSpecific, phraseProbes, phraseText, splitDimension, type PhraseVariant } from './phrases';
 import { cqFollowUps, cqKapitel, cqText } from '@/lib/caseQuestions';
 import { FACH_PROBES } from './anamneseProbes';
 import { cohere, compteursApres, profilEffectif, type CohereCtx, type CompteursApres, type Ecart } from './coherence';
@@ -937,7 +937,7 @@ export const FACHANAMNESEN: FachanamneseGuide[] = [
         probe: 'fach-pneumo-husten',
         // K4 : parts découpées du texte — r1 / r2 ne retirent que ce qu'une autre question pose déjà.
         parts: [
-          { sucht: ['husten'], text: 'Haben Sie Husten?', followUp: ['Seit wann?'] },
+          { sucht: ['husten'], text: 'Haben Sie Husten?', followUp: ['Seit wann husten Sie?'] },   // lot Banque : la relance se dit seule (r5 l'ouvre quand le patient a dit la toux)
           { sucht: ['auswurf'], text: 'Ist der Husten trocken oder mit Auswurf?' },
           { sucht: ['stimme'], text: 'Sind Sie heiser?' },
           { sucht: ['verschlucken'], text: 'Haben Sie sich in letzter Zeit öfter verschluckt?' },
@@ -1049,7 +1049,7 @@ export const FACHANAMNESEN: FachanamneseGuide[] = [
         probe: 'fach-gastro-stuhl',
         // K4 : parts découpées du texte — r1 / r2 ne retirent que ce qu'une autre question pose déjà.
         parts: [
-          { sucht: ['stuhl'], text: 'Haben Sie Durchfall oder Verstopfung?', followUp: ['Wechseln sich beide ab?'] },
+          { sucht: ['stuhl'], text: 'Haben Sie Durchfall oder Verstopfung?', followUp: ['Wechseln sich Durchfall und Verstopfung ab?'] },   // lot Banque : la relance se dit seule (r5 l'ouvre quand le patient a dit la diarrhée)
           { sucht: ['stuhl_blut'], text: 'Ist der Stuhl blutig oder teerschwarz?' },
           { sucht: ['stuhlaussehen'], text: 'Welche Farbe hat der Stuhl — sehr hell, gelblich?', followUp: ['Welche Konsistenz — hart, fest, weich, schleimig, wässerig?'] },
         ],
@@ -1236,6 +1236,8 @@ export const FACHANAMNESEN: FachanamneseGuide[] = [
         text: 'Haben Sie Fieber oder Schüttelfrost?',
         probe: 'fach-uro-fieber',
         label: 'Alarmzeichen',
+        // lot Banque : parts découpées du texte — r5 ne redemande pas la fièvre que le motif a dite (pyelonephritis)
+        parts: [{ sucht: ['fieber'], text: 'Haben Sie Fieber?' }, { sucht: ['schuettelfrost'], text: 'Hatten Sie Schüttelfrost?' }],
       },
       {
         text: 'Darf ich Ihnen ein paar Fragen zu Ihrer Partnerschaft stellen — das gehört zur Untersuchung dazu? Wie verhüten Sie, und wie schützen Sie sich vor Geschlechtskrankheiten?',
@@ -2378,7 +2380,14 @@ export function playedTrame(c: Case): TrameJouee {
 
 /** Le profil effectif et le contexte que `playedTrame` passe à `cohere` (exportés pour les tests et la porte). */
 export const profilDuCas = (c: Case) => profilEffectif({ id: c.id, kategorie: leitsymptomOf(c), sheet: c.patientSheet });
-export const ctxDuCas = (c: Case): CohereCtx => ({ antworten: c.patientSheet.antworten, banque: phraseDeBanque, casIndex: casIndexDe });
+export const ctxDuCas = (c: Case): CohereCtx => ({ antworten: c.patientSheet.antworten, banque: phraseDeBanque, casIndex: casIndexDe, reponse: (p) => reponseDe(c, p) });
+/** r5 : la réplique de la fiche à une question jouée — celle de ses sondes (`antworten`), ou la réponse écrite d'une question du cas
+ *  (`frageAntworten`, au texte exact). La même que joue le patient simulé, le simulant et l'amorce IA : une seule source. */
+function reponseDe(c: Case, p: Phrase): string | undefined {
+  const s = c.patientSheet;
+  if (phraseIsCaseSpecific(p)) return s.frageAntworten?.find((f) => f.frage === phraseText(p))?.antwort;
+  return phraseProbes(p).map((id) => s.antworten?.[id]).filter(Boolean).join(' ') || undefined;
+}
 const FACH_ID = 'fach';   // le chapitre cible `fach` du lexique (SigneKapitel)
 /** La trame BRUTE d'un cas, entrée de `cohere` : chapitres dans l'ordre de l'entretien, la Fach (id `fach`) après
  *  « Aktuelle Beschwerden » ; FACH_RULES, aktuellSkip, fachSkip et les questions du cas déjà appliqués. */
