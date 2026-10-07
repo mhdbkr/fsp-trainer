@@ -1311,6 +1311,7 @@ export function seedCases(): Case[] {
           'kein Erbrechen',
           'keine starken Bauchschmerzen (nur gelegentliches Ziehen)',
           'keine bekannten Hämorrhoiden',
+          'keine Schmerzen beim Stuhlgang (gegen Analfissur)',
           'nie eine Darmspiegelung gehabt',
           'kein plötzlicher Beginn (Beschwerden schleichend über Wochen), keine umschriebenen Schmerzen im linken Unterbauch, kein Druckschmerz oder harter Bauch, keine Schmerzattacken (gegen Divertikulitis und ischämische Kolitis)',
         ],
@@ -1336,7 +1337,7 @@ export function seedCases(): Case[] {
           'akt-ausscheid-schlucken': 'Nein, beim Schlucken habe ich überhaupt keine Probleme, das geht alles ganz normal runter.',
           'akt-veraend-was': 'Also... es ist eigentlich mein Stuhlgang. Der ist unregelmäßig geworden, mal dünn, mal wie ein Bleistift, und ich habe ein paarmal Blut gesehen. Das ist mir schon unangenehm, das zu erzählen.',
           'akt-veraend-entwicklung': 'Ja, es ist eher mehr geworden mit der Zeit. Am Anfang war es nur hin und wieder, jetzt ist der Stuhlgang fast ständig komisch und das Blut kommt öfter.',
-          'akt-veraend-blutung': 'Wehtun tut es eigentlich nicht, nur das leichte Ziehen, das ich schon erzählt habe. Aber es blutet, ja — im Stuhl, mal hellrot, mal dunkler. Sonst blute ich nirgends, kein Husten, keine Nase.',
+          'akt-veraend-blutung': 'Wehtun tut es eigentlich nicht, auch nicht beim Stuhlgang, nur das leichte Ziehen, das ich schon erzählt habe. Aber es blutet, ja — im Stuhl, mal hellrot, mal dunkler. Sonst blute ich nirgends, kein Husten, keine Nase.',
           'akt-verlauf': 'Das Ziehen kommt und geht; der unregelmäßige Stuhlgang ist die ganze Zeit da.',
           'akt-ausloeser': 'Einen Auslöser wüsste ich nicht.',
           'akt-einfluss': 'Ich merke keinen klaren Zusammenhang mit Essen oder Bewegung.',
@@ -21880,7 +21881,7 @@ export function seedCases(): Case[] {
           'keine Augenrötung, kein Augenschmerz, keine Lichtscheu und keine Sehverschlechterung (gegen Uveitis und Episkleritis)',
           'kein Ikterus, kein Juckreiz, kein dunkler Urin und kein entfärbter Stuhl (gegen eine primär sklerosierende Cholangitis)',
           'keine Schuppenflechte, keine sonstigen Hautveränderungen ausser den abgeheilten Knoten am Schienbein',
-          'kein Kontakt zu an Tuberkulose Erkrankten, kein Aufenthalt in einem Hochprävalenzland ausser der Pauschalreise, keine bekannte Tuberkulose (gegen Darmtuberkulose)',
+          'kein Kontakt zu an Tuberkulose Erkrankten, kein Aufenthalt in einem Hochprävalenzland außer der Pauschalreise, keine bekannte Tuberkulose (gegen Darmtuberkulose)',
           'keine Antibiotikaeinnahme in den letzten Monaten (gegen eine Clostridioides-difficile-Kolitis)',
           'kein Herzrasen, kein Zittern, keine Wärmeintoleranz (gegen eine Hyperthyreose)',
           'keine Bauchoperationen, insbesondere keine Appendektomie',
@@ -25701,7 +25702,7 @@ export function seedCases(): Case[] {
         negativeFindings: [
           'keine Heiserkeit, keine Stimmveränderung, kein Verlust der Singstimme (gegen eine Rekurrensparese und damit gegen ein infiltrierendes Karzinom)',
           'kein rasches Wachstum innerhalb von Wochen, keine Schmerzen und keine Druckschmerzhaftigkeit am Hals (gegen Karzinom, Einblutung und Thyreoiditis)',
-          'keine tastbaren Lymphknoten am Hals, keine Schwellung in den Achseln oder Leisten (gegen zervikale Lymphknotenschwellung bei Lymphom oder Metastasen)',
+          'keine tastbaren Lymphknoten am Hals, keine Schwellung in den Achseln oder Leisten (gegen ein Lymphom oder eine lymphogene Metastasierung)',
           'kein Stridor, keine Luftnot in Ruhe oder unter Belastung, keine gestauten Halsvenen und keine Gesichtsschwellung (gegen eine obere Einflussstauung und eine relevante Trachealstenose)',
           'kein Infekt der oberen Atemwege in den letzten Wochen, kein Fieber (gegen eine Thyreoiditis de Quervain)',
           'kein Herzrasen, kein Herzstolpern, kein Zittern der Hände, keine innere Unruhe, kein vermehrtes Schwitzen, keine Wärmeintoleranz, kein Durchfall, kein ungewollter Gewichtsverlust (gegen eine Hyperthyreose oder funktionelle Autonomie)',
@@ -43315,11 +43316,11 @@ export function seedCases(): Case[] {
           'kein Zittern der Hände, keine Wärmeintoleranz zwischen den Attacken, keine Augenbeschwerden, kein Kloßgefühl am Hals — gegen eine Hyperthyreose',
           'keine juckenden Quaddeln, kein Nesselausschlag, keine bräunlichen Hautflecken, keine Schwellung von Lippen oder Zunge — gegen Mastozytose und Anaphylaxie',
           'keine Beinödeme, keine gestauten Halsvenen, keine Belastungsdyspnoe beim Treppensteigen, kein bekanntes Herzgeräusch — bislang kein Hinweis auf ein Hedinger-Syndrom',
-          'kein Zusammenhang der Durchfälle mit Milch, Brot oder Obst; Laktose- und Fruktosetest beim Hausarzt waren unauffällig — gegen Nahrungsmittelintoleranzen und eine Zöliakie',
+          'kein Zusammenhang der Durchfälle mit Milch, Brot oder Obst; Laktose- und Fruktosetest beim Hausarzt waren unauffällig — gegen Nahrungsmittelintoleranzen',
           'keine Auslandsreise, kein Kontakt zu Durchfallerkrankten, keine Antibiotikaeinnahme in den letzten Monaten — gegen eine infektiöse Gastroenteritis',
           'keine Gelenkschmerzen, keine Augenentzündung, keine Analfissuren oder Fisteln, keine Aphthen — gegen eine chronisch-entzündliche Darmerkrankung',
           'keine Angst- oder Panikgefühle vor Beginn der Attacken, kein Kribbeln in Händen und Mund, keine Hyperventilation — gegen eine Panikstörung',
-          'keine Nierensteine, keine Knochenbrüche, kein Milchfluss aus der Brust, keine Sehstörungen und keine endokrinen Tumoren in der Familie — gegen eine multiple endokrine Neoplasie Typ 1 und ein familiäres medulläres Schilddrüsenkarzinom',
+          'keine Nierensteine, keine Knochenbrüche, kein Milchfluss aus der Brust, keine Sehstörungen und keine endokrinen Tumoren in der Familie, kein Knoten am Hals getastet — gegen eine multiple endokrine Neoplasie Typ 1 und ein medulläres Schilddrüsenkarzinom',
         ],
         vorerkrankungen: [
           'seit etwa drei Jahren vom Hausarzt angenommenes Reizdarmsyndrom — die Diagnose wurde ohne Koloskopie gestellt',
@@ -46537,7 +46538,7 @@ export function seedCases(): Case[] {
           'keine Beinschwellung, keine lange Reise, keine Operation in letzter Zeit (gegen Lungenembolie)',
           'kein Diabetes, keine Insulin- oder Zuckertabletten (gegen Hypoglykämie)',
           'keine Betablocker, keine ACE-Hemmer, keine Blutdrucktabletten',
-          'kein Verzehr von Fisch, Meeresfrüchten oder Nüssen heute, kein Alkohol, kein Schmerzmittel heute (gegen Scombroid-Vergiftung und Histaminintoleranz)',
+          'kein Verzehr von Fisch, Meeresfrüchten, Käse oder Nüssen heute, kein Alkohol, kein Schmerzmittel heute (gegen Scombroid-Vergiftung und Histaminintoleranz)',
           'keine früheren Schwellungen ohne Juckreiz, keine Angioödeme in der Familie (gegen hereditäres Angioödem)',
           'vorher nie eine Reaktion dieser Art nach einem Insektenstich, aber vor drei Jahren eine über Tage anhaltende starke Schwellung des Handrückens nach Wespenstich',
         ],
@@ -48552,7 +48553,7 @@ export function seedCases(): Case[] {
         ],
         negativeFindings: [
           'kein Fieber, kein Schüttelfrost, kein Nachtschweiß (gegen Cholangitis, infizierte Pseudozyste, Lymphom)',
-          'keine Gelbfärbung der Haut oder Augen, kein dunkler Urin, kein Juckreiz (gegen Choledochusstenose, Pankreaskarzinom, Cholangitis)',
+          'keine Gelbfärbung der Haut oder Augen, kein dunkler Urin, kein Juckreiz (gegen Choledochusstenose, Pankreaskarzinom und Cholangitis)',
           'kein Blut im Stuhl, kein Teerstuhl, kein Bluterbrechen (gegen Ulkusblutung, Varizen, Magenkarzinom)',
           'kein Sodbrennen mehr unter Omeprazol, keine Schluckbeschwerden (gegen GERD, Ösophaguskarzinom)',
           'keine Abneigung gegen Fleisch, kein Appetitverlust an sich (gegen Magenkarzinom)',
@@ -49540,7 +49541,7 @@ export function seedCases(): Case[] {
           'kein Fieber, kein Schüttelfrost, kein Nachtschweiß (gegen Infektion, Peritonitis, Lymphom)',
           'keine Halsentzündung, keine Hautinfektion und kein Magen-Darm-Infekt in den letzten Wochen (gegen postinfektiöse Glomerulonephritis, IgA-Nephropathie)',
           'kein Blut im Urin, kein dunkler oder cola-farbener Urin, kein Brennen beim Wasserlassen (gegen nephritisches Syndrom, Harnwegsinfekt)',
-          'keine Orthopnoe, keine nächtliche Luftnot, keine Angina pectoris, kein Herzstolpern (gegen Linksherz-, Rechtsherz- oder Globalinsuffizienz)',
+          'keine Orthopnoe, keine nächtliche Luftnot, keine Angina pectoris, kein Herzstolpern (gegen Linksherz- und Globalinsuffizienz)',
           'keine Gelbfärbung der Haut oder Augen, kein Juckreiz, kein Alkoholabusus, keine bekannte Lebererkrankung (gegen Leberzirrhose)',
           'kein Flankenschmerz, keine einseitige Beinschwellung, kein Wadenschmerz (gegen Nierenvenen- und Beinvenenthrombose)',
           'keine Gelenkschmerzen, kein Hautausschlag, keine Lichtempfindlichkeit, kein Haarausfall (gegen systemischen Lupus erythematodes)',
@@ -50024,7 +50025,7 @@ export function seedCases(): Case[] {
         negativeFindings: [
           'keine Übelkeit, kein Erbrechen',
           'kein Blut im Stuhl, kein Teerstuhl, kein Blut im Urin (gegen gastrointestinale oder urologische Blutungsquelle)',
-          'keine tastbaren Lymphknotenschwellungen bemerkt (Hals, Achseln, Leisten) — aber nicht gezielt gesucht (gegen ein malignes Lymphom)',
+          'keine tastbaren Lymphknotenschwellungen bemerkt (Hals, Achseln, Leisten; gegen ein malignes Lymphom) — aber nicht gezielt gesucht',
           'keine Auslandsreise, kein Zeckenstich, kein Tierbiss',
           'keine Gelenkschwellungen, kein Hautausschlag, keine Lichtempfindlichkeit (gegen Kollagenose)',
           'kein Trauma, kein Sturz als Erklärung der Hämatome',
@@ -51026,7 +51027,7 @@ export function seedCases(): Case[] {
           'keine unerwarteten Angstanfälle aus heiterem Himmel, keine Angst vor dem nächsten Anfall an sich — die Anfälle sind an Hupen, Motorengeräusche und die Kreuzung gebunden (gegen Panikstörung)',
           'keine Stimmen, keine Bilder, die andere nicht sehen; bei Flashbacks weiß sie, dass es eine Erinnerung ist (gegen Psychose)',
           'keine Zwangsgedanken oder Zwangshandlungen, kein Kontrollzwang',
-          'kein Morgentief, kein morgendliches Früherwachen (gegen eine depressive Episode als Hauptdiagnose)',
+          'kein Morgentief, kein Früherwachen (gegen ein somatisches Syndrom; die depressive Symptomatik bleibt als Komorbidität zu werten)',
           'keine aktiven Suizidgedanken, keine Pläne, keine Vorbereitungen, kein früherer Suizidversuch; keine Selbstverletzung',
           'keine frühere psychische Erkrankung, keine frühere Psychotherapie, keine früheren Traumata',
           'keine Benzodiazepine, keine Schlafmittel, keine Drogen außer einmaligem Cannabiskonsum mit 19 Jahren',
@@ -52491,7 +52492,7 @@ export function seedCases(): Case[] {
         negativeFindings: [
           'kein Brennen beim Wasserlassen, kein häufiger Harndrang, keine Blutkoagel, kein hellrotes Blut, kein kolikartiger Flankenschmerz (gegen Harnwegsinfekt und Nephrolithiasis)',
           'keine Hautinfektion, keine Pusteln, keine Wunde in den letzten Wochen (gegen Impetigo-assoziierte Form)',
-          'kein Hautausschlag, keine roten Punkte oder Flecken an den Beinen, keine Gelenkschmerzen oder -schwellungen, keine Schmetterlingsrötung im Gesicht (gegen Purpura Schönlein-Henoch, Lupusnephritis, Vaskulitis)',
+          'kein Hautausschlag, keine roten Punkte oder Flecken an den Beinen, keine Gelenkschmerzen oder -schwellungen, keine Schmetterlingsrötung im Gesicht (gegen Purpura Schönlein-Henoch, Lupusnephritis und Vaskulitis)',
           'kein Bluthusten, kein Nasenbluten, keine chronische Nebenhöhlenentzündung, keine Hörminderung, kein Kribbeln oder Taubheitsgefühl (gegen Goodpasture-Syndrom, ANCA-Vaskulitis, Alport-Syndrom)',
           'keine Sehstörungen, keine Verwirrtheit, kein Krampfanfall, keine Luftnot in Ruhe, kein nächtliches Aufwachen mit Atemnot (gegen hypertensive Enzephalopathie und Lungenödem)',
           'kein Durchfall, kein blutiger Stuhl in den letzten Wochen (gegen hämolytisch-urämisches Syndrom)',
@@ -53958,7 +53959,7 @@ export function seedCases(): Case[] {
         ],
         negativeFindings: [
           'kein Erbrechen, kein Durchfall, keine Verstopfung, kein Blut im Stuhl (gegen Gastroenteritis, Appendizitis mit Erbrechen, chronisch-entzündliche Darmerkrankung)',
-          'keine Schmerzwanderung vom Nabel in den rechten Unterbauch, kein einseitiger Schmerz (gegen Appendizitis, Ovarialtorsion, Mittelschmerz)',
+          'keine Schmerzwanderung vom Nabel in den rechten Unterbauch, kein einseitiger Schmerz (gegen Appendizitis, Ovarialtorsion und Mittelschmerz)',
           'kein plötzlicher, vernichtender Schmerz, kein Kollaps, kein Schwindel (gegen Ovarialtorsion, Zystenruptur, rupturierte Extrauteringravidität)',
           'kein Flankenschmerz, kein Klopfschmerz über den Nieren, kein Blut im Urin, kein häufiger Harndrang (gegen Pyelonephritis, Nierenkolik, Zystitis)',
           'keine Schmerzen im rechten Oberbauch, keine atemabhängigen Schmerzen (gegen Fitz-Hugh-Curtis-Syndrom, Cholezystitis)',
@@ -54884,7 +54885,8 @@ export function seedCases(): Case[] {
         negativeFindings: [
           'kein Erbrechen, keine Übelkeit (gegen Gastroenteritis)',
           'kein Blut oder Schleim im Stuhl (gegen Shigellose, Amöbenruhr, EHEC)',
-          'kein Hautausschlag bemerkt, kein Ikterus, kein Zeckenbiss, keine Wunde (gegen Rickettsiose, Hepatitis, Denguefieber)',
+          'kein Hautausschlag bemerkt, kein Ikterus, kein Zeckenbiss, keine Wunde (gegen Rickettsiose und Hepatitis)',
+          'kein schlagartiger Fieberbeginn, das Fieber stieg von Tag zu Tag (gegen Denguefieber)',
           'keine Gelenkschwellung, keine Nackensteifigkeit, keine Lähmung, kein Krampfanfall',
           'keine Atemnot, kein Auswurf, kein Brustschmerz (gegen Pneumonie)',
           'keine Süßwasserkontakte, kein Kontakt zu rohem Fleisch oder Rohmilch (gegen Leptospirose, Brucellose)',
@@ -55386,7 +55388,7 @@ export function seedCases(): Case[] {
           'keine nächtlichen Bauchschmerzen, die aus dem Schlaf wecken; keine Koliken',
           'kein Fieber, kein Schüttelfrost, kein Nachtschweiß (gegen Divertikulitis, Tumor)',
           'keine Übelkeit, kein Erbrechen, Winde gehen ab (gegen Ileus)',
-          'keine Schmerzen beim Stuhlgang, kein Brennen oder Stechen am After (gegen Analfissur), kein tastbarer Knoten am After',
+          'beim Pressen etwas schmerzhaft, sonst keine Schmerzen beim Stuhlgang, kein Brennen oder Stechen am After (gegen Analfissur), kein tastbarer Knoten am After',
           'kein Darmkrebs, keine Polypen, keine chronisch-entzündliche Darmerkrankung in der Familie bekannt',
           'keine bekannte Schilddrüsenerkrankung, keine Kälteempfindlichkeit, keine Gewichtszunahme, kein Haarausfall (gegen Hypothyreose)',
           'kein Diabetes mellitus bekannt, kein vermehrter Durst, kein vermehrtes Wasserlassen (gegen Diabetes, Hyperkalzämie)',
@@ -55394,7 +55396,7 @@ export function seedCases(): Case[] {
           'keine Opioide, keine Eisentabletten, keine Kalziumpräparate',
           'keine Taubheit im Gesäßbereich, keine Blasenstörung, keine Beinschwäche (gegen Cauda-Syndrom)',
           'noch nie eine Darmspiegelung oder Magenspiegelung gehabt',
-          'keine manuelle Nachhilfe beim Stuhlgang nötig (gegen Beckenbodendyssynergie)',
+          'keine manuelle Unterstützung der Stuhlentleerung nötig (gegen Beckenbodendyssynergie)',
         ],
         vorerkrankungen: [
           'arterielle Hypertonie seit etwa zehn Jahren',
@@ -55518,7 +55520,7 @@ export function seedCases(): Case[] {
           },
           {
             dd: 'Hämorrhoidalblutung / Analfissur',
-            unterscheidung: 'Hellrotes Blut am Papier nach starkem Pressen, kein Schmerz beim Stuhlgang (gegen Fissur). Inspektion, rektale Untersuchung und Proktoskopie — die Blutung darf beim 73-Jährigen jedoch NIE ungeprüft den Hämorrhoiden zugeschrieben werden.',
+            unterscheidung: 'Hellrotes Blut am Papier nach starkem Pressen, beim Pressen nur leicht schmerzhaft, kein Brennen oder Stechen (gegen Fissur). Inspektion, rektale Untersuchung und Proktoskopie — die Blutung darf beim 73-Jährigen jedoch NIE ungeprüft den Hämorrhoiden zugeschrieben werden.',
           },
           {
             dd: 'Reizdarmsyndrom vom Obstipationstyp',
@@ -58406,7 +58408,7 @@ export function seedCases(): Case[] {
           'Neurodermitis im Kindesalter, heute nur noch trockene Haut',
           'distale Radiusfraktur links mit 14 Jahren beim Skateboarden, konservativ mit Gips behandelt',
           'Heuschnupfen (Gräserpollen) im Frühjahr',
-          'seit der Schulzeit morgens nach kurzen Nächten kurze Zuckungen beider Arme mit Fallenlassen der Zahnbürste oder Kaffeetasse, im letzten Jahr häufiger — bislang als „Wackeligkeit vom Wenigschlafen“ abgetan',
+          'seit der Jugend morgens nach kurzen Nächten kurze Zuckungen beider Arme mit Fallenlassen der Zahnbürste oder Kaffeetasse, im letzten Jahr häufiger — bislang als „Wackeligkeit vom Wenigschlafen“ abgetan',
           'zweimal in den letzten Monaten morgens mit schmerzhafter, angebissener Zunge und Muskelkater aufgewacht, einmal davon war das Bett nass — auf den Alkohol vom Vorabend geschoben, kein Arztbesuch',
         ],
         voroperationen: [
@@ -58509,7 +58511,7 @@ export function seedCases(): Case[] {
           },
           {
             frage: 'Zucken Ihnen morgens manchmal die Arme, sodass Ihnen etwas aus der Hand fällt?',
-            antwort: 'Ja, beide Arme zucken kurz, blitzartig, und mir fällt was aus der Hand. Das kenne ich eigentlich seit der Schulzeit, da war es selten; im letzten Jahr ist es bestimmt zehnmal passiert, immer morgens, immer nach wenig Schlaf.',
+            antwort: 'Ja, beide Arme zucken kurz, blitzartig, und mir fällt was aus der Hand. Das kenne ich eigentlich schon seit der Jugend, da war es aber selten. Im letzten Jahr ist es bestimmt zehnmal passiert, immer morgens, immer nach wenig Schlaf.',
             kapitel: 'aktuell',
           },
         ],
@@ -58524,12 +58526,12 @@ export function seedCases(): Case[] {
         persona: 'Tu es Lukas Brenner, 27 ans, électricien, sportif, sympathique et un peu gêné d\'être là : tu ne te souviens de RIEN de la crise et tu répètes que c\'est ta copine Lena, assise dans la salle d\'attente, qui a tout vu — tu proposes spontanément au médecin de l\'interroger. Tu as mal à la langue (morsure à gauche), des courbatures, un mal de tête modéré, et tu es fatigué. Tu es surtout inquiet pour ton permis et ton travail (camionnette de la boîte, échelles, nacelle) : dès que le médecin parle d\'interdiction de conduire, tu deviens tendu et tu négocies. Tu attribues tout au manque de sommeil et aux six bières de samedi ; tu veux entendre que ce n\'était « qu\'une fois ». Point clé : tu ne mentionnes les secousses matinales des bras (brosse à dents, tasse qui tombe) et les deux réveils avec langue mordue / lit mouillé QUE si le médecin te demande explicitement des événements antérieurs, des tremblements ou des morsures au réveil — et tu les racontes en te justifiant (« ich dachte, das kommt vom Alkohol »). Tu minimises légèrement l\'alcool au début (« zwei, drei Bier ») avant d\'admettre que les fêtes arrosées reviennent régulièrement. Si le médecin explique calmement, sans te juger, tu coopères pleinement et tu poses des questions concrètes sur les médicaments et la conduite.',
       },
       medicalView: {
-        verdachtsdiagnose: 'Erster beobachteter generalisierter tonisch-klonischer Anfall, am ehesten bei juveniler myoklonischer Epilepsie. Ausgelöst wurde er durch Schlafentzug und Alkoholexzess. Für eine genetische generalisierte Epilepsie dieses Typs sprechen anamnestische Hinweise auf frühere unerkannte Anfälle (morgendliche Myoklonien beider Arme seit der Schulzeit, zuletzt häufiger, zwei nächtliche Ereignisse mit Zungenbiss, Muskelkater und Einnässen) und die positive Familienanamnese. Differenzialdiagnose: akut symptomatischer (provozierter) Anfall.',
+        verdachtsdiagnose: 'Erster beobachteter generalisierter tonisch-klonischer Anfall, am ehesten bei juveniler myoklonischer Epilepsie. Ausgelöst wurde er durch Schlafentzug und Alkoholexzess. Für eine genetische generalisierte Epilepsie dieses Typs sprechen anamnestische Hinweise auf frühere unerkannte Anfälle (seit der Jugend bestehende, zuletzt gehäufte morgendliche Myoklonien beider Arme; zwei nächtliche Ereignisse mit Zungenbiss, Muskelkater und Einnässen) und die positive Familienanamnese. Differenzialdiagnose: akut symptomatischer (provozierter) Anfall.',
         patientWorte: { verdacht: 'es sich um einen epileptischen Anfall handelt, möglicherweise im Rahmen einer angeborenen Form der Epilepsie', diagnostik: 'machen wir eine Blutuntersuchung, messen die elektrische Aktivität Ihres Gehirns und machen ein Bild von Ihrem Kopf', therapie: 'müssten Sie ausreichend schlafen, auf Alkohol verzichten und eventuell dauerhaft ein Medikament gegen Anfälle einnehmen' },
         differenzialdiagnosen: [
           {
             dd: 'Akut symptomatischer (provozierter) Anfall durch Schlafentzug und Alkohol',
-            unterscheidung: 'Schlafentzug und Alkoholexzess sind hier eindeutig als Auslöser vorhanden — allein wäre das Ereignis ein provozierter Anfall ohne Dauertherapie. Aber: Die morgendlichen Myoklonien seit der Schulzeit, die zwei nächtlichen Ereignisse mit Zungenbiss und Einnässen und der Cousin mit Epilepsie sprechen dafür, dass die Auslöser lediglich die Anfallsschwelle einer bestehenden Epilepsie gesenkt haben. Kein Entzugskrampf: kein täglicher Konsum, kein Tremor, kein Schwitzen, Anfall etwa 30 Stunden nach dem letzten Konsum ohne Entzugssymptome.',
+            unterscheidung: 'Schlafentzug und Alkoholexzess sind hier eindeutig als Auslöser vorhanden — allein wäre das Ereignis ein provozierter Anfall ohne Dauertherapie. Aber: Die morgendlichen Myoklonien seit der Jugend, die zwei nächtlichen Ereignisse mit Zungenbiss und Einnässen und der Cousin mit Epilepsie sprechen dafür, dass die Auslöser lediglich die Anfallsschwelle einer bestehenden Epilepsie gesenkt haben. Kein Entzugskrampf: kein täglicher Konsum, kein Tremor, kein Schwitzen, Anfall etwa 30 Stunden nach dem letzten Konsum ohne Entzugssymptome.',
           },
           {
             dd: 'Synkope (vasovagal, kardial)',
@@ -58575,7 +58577,7 @@ export function seedCases(): Case[] {
           },
           {
             stufe: 'Anamnese/Klinik',
-            text: 'Frühere unerkannte Anfälle: seit der Schulzeit morgendliche bilaterale Myoklonien der Arme nach kurzen Nächten, im letzten Jahr etwa zehnmal (Zahnbürste, Kaffeetasse fallen), zweimal Erwachen mit Zungenbiss und Muskelkater, einmal nasses Bett — damit ist der heutige Anfall mutmaßlich nicht der erste; Fieberkrampf mit zwei Jahren, Cousin mit Epilepsie, normale Geburt und Entwicklung, kein Schädel-Hirn-Trauma, keine Meningitis',
+            text: 'Frühere unerkannte Anfälle: seit der Jugend morgendliche bilaterale Myoklonien der Arme nach kurzen Nächten (Zahnbürste, Kaffeetasse fallen), im letzten Jahr etwa zehnmal; zweimal Erwachen mit Zungenbiss und Muskelkater, einmal nasses Bett — damit ist der heutige Anfall mutmaßlich nicht der erste; Fieberkrampf mit zwei Jahren, Cousin mit Epilepsie, normale Geburt und Entwicklung, kein Schädel-Hirn-Trauma, keine Meningitis',
           },
           {
             stufe: 'Anamnese/Klinik',
@@ -58624,7 +58626,7 @@ export function seedCases(): Case[] {
           {
             label: 'Entscheidung über eine Dauertherapie und Wahl des Antiepileptikums',
             items: [
-              'Die Kernfrage des Falls: Isoliert betrachtet ist der heutige Anfall provoziert (Schlafentzug, Alkohol) und würde nicht dauerhaft behandelt. Die morgendlichen Myoklonien seit der Schulzeit und die zwei nächtlichen Ereignisse mit Zungenbiss und Einnässen sprechen jedoch für bereits mehrere unprovozierte Anfälle — damit ist nach der ILAE-Definition eine Epilepsie wahrscheinlich, und bei epileptiformem EEG (Polyspike-Wave-Komplexe) besteht die Indikation zur Dauertherapie bereits jetzt',
+              'Die Kernfrage des Falls: Isoliert betrachtet ist der heutige Anfall provoziert (Schlafentzug, Alkohol) und würde nicht dauerhaft behandelt. Die morgendlichen Myoklonien seit der Jugend und die zwei nächtlichen Ereignisse mit Zungenbiss und Einnässen sprechen jedoch für bereits mehrere unprovozierte Anfälle — damit ist nach der ILAE-Definition eine Epilepsie wahrscheinlich, und bei epileptiformem EEG (Polyspike-Wave-Komplexe) besteht die Indikation zur Dauertherapie bereits jetzt',
               'Entscheidung gemeinsam mit dem Patienten nach dem EEG und im Rahmen einer neurologischen Vorstellung; bei unauffälligem EEG Wiederholung als Schlafentzugs-EEG, bevor über Abwarten oder Therapie entschieden wird — die beruflichen Umstände (Firmenwagen, Höhenarbeit) sprechen zusätzlich für einen frühen Therapiebeginn',
               'Mittel der Wahl bei juveniler myoklonischer Epilepsie beim MANN: Valproat (sehr wirksam gegen Myoklonien, Absencen und generalisierte tonisch-klonische Anfälle), einschleichend bis etwa 1 000–1 500 mg täglich, unter Kontrolle von Blutbild, Leberwerten und Lipase; Aufklärung über Gewichtszunahme, Tremor, Haarausfall, Thrombopenie — bei einer Frau im gebärfähigen Alter wäre stattdessen Levetiracetam erste Wahl',
               'Alternative bei Unverträglichkeit oder Wunsch: Levetiracetam 2 × 500–1 500 mg (Cave Reizbarkeit, Depression), Lamotrigin (langsam über 6–8 Wochen einschleichen wegen Hautausschlag; kann Myoklonien verstärken); KEIN Carbamazepin, Oxcarbazepin oder Phenytoin — sie verschlechtern Myoklonien und Absencen bei generalisierten Epilepsien',
@@ -58738,7 +58740,7 @@ export function seedCases(): Case[] {
             },
             {
               frage: 'Ist das ein provozierter Anfall? Warum haben Sie nach Schlaf und Alkohol gefragt?',
-              reaktion: 'Schlafentzug und Alkoholexzess sind die häufigsten Provokationsfaktoren beim jungen Erwachsenen und hier vorhanden — isoliert betrachtet ein akut symptomatischer Anfall ohne Dauertherapie. Aber die Anamnese zeigt seit der Schulzeit morgendliche Myoklonien beider Arme und zwei nächtliche Ereignisse mit Zungenbiss und Einnässen: Die Auslöser haben mutmaßlich die Anfallsschwelle einer bestehenden genetischen generalisierten Epilepsie gesenkt. Ein Entzugskrampf ist unwahrscheinlich: kein täglicher Konsum, keine Entzugszeichen.',
+              reaktion: 'Schlafentzug und Alkoholexzess sind die häufigsten Provokationsfaktoren beim jungen Erwachsenen und hier vorhanden — isoliert betrachtet ein akut symptomatischer Anfall ohne Dauertherapie. Aber die Anamnese zeigt seit der Jugend morgendliche Myoklonien beider Arme und zwei nächtliche Ereignisse mit Zungenbiss und Einnässen: Die Auslöser haben mutmaßlich die Anfallsschwelle einer bestehenden genetischen generalisierten Epilepsie gesenkt. Ein Entzugskrampf ist unwahrscheinlich: kein täglicher Konsum, keine Entzugszeichen.',
             },
           ],
         },
@@ -60746,10 +60748,10 @@ export function seedCases(): Case[] {
         negativeFindings: [
           'kein Fieber, kein Schüttelfrost, kein Nachtschweiß (gegen Infekt, Lymphom, B-Symptomatik)',
           'keine Blutungsneigung: kein Nasenbluten, kein Zahnfleischbluten, keine blauen Flecken, kein Teerstuhl, kein Blut im Stuhl oder Urin, keine gynäkologische Blutung seit der Menopause (gegen Blutungsanämie und Eisenmangel)',
-          'keine vegane oder vegetarische Ernährung — isst regelmäßig Fleisch, Eier und Milchprodukte (gegen ernährungsbedingten B12- oder Folsäuremangel)',
+          'keine vegane oder vegetarische Ernährung — isst regelmäßig Fleisch, Eier und Milchprodukte (gegen einen ernährungsbedingten Vitamin-B12-Mangel)',
           'keine Magen- oder Darmoperation, kein Morbus Crohn, keine Zöliakie bekannt (gegen chirurgisch-intestinale Malabsorption)',
           'kein Diabetes mellitus, kein Metformin (gegen diabetische Polyneuropathie und Metformin-Mangel)',
-          'kein Lachgas, keine Drogen, kein relevanter Alkoholkonsum (gegen toxische Ursachen)',
+          'kein Lachgas, keine Drogen, kein relevanter Alkoholkonsum (gegen toxische Ursachen und einen alkoholbedingten Folsäuremangel)',
           'keine geschwollenen Lymphknoten, keine Knochenschmerzen, keine gehäuften Infekte (gegen Lymphom, Myelom, Leukämie)',
           'keine Beinschwäche, keine Blasen- oder Mastdarmstörung, kein Rückenschmerz (gegen Rückenmarkskompression, Cauda-Syndrom)',
           'keine Sehstörungen, keine Doppelbilder, keine Schübe in der Vorgeschichte (gegen Multiple Sklerose)',
@@ -61819,7 +61821,7 @@ export function seedCases(): Case[] {
           'keine bekannte Immunschwäche, kein Diabetes, keine Kortisoneinnahme (gegen invasive Pilzsinusitis)',
           'keine Ohrenschmerzen, kein Ohrenlaufen, keine Hörminderung außer dem Druckgefühl (gegen Otitis media)',
           'keine Auslandsreise, kein Kontakt zu Erkrankten außer einem Enkelkind mit Schnupfen vor zwei Wochen',
-          'kein Schläfenschmerz, kein Kauschmerz der Kaumuskulatur (nur Aufbissschmerz der Zähne), keine Schulter- oder Beckengürtelschmerzen (gegen Riesenzellarteriitis)',
+          'kein Schläfenschmerz, keine Kauclaudicatio (nur Aufbissschmerz der Zähne), keine Schulter- oder Beckengürtelschmerzen (gegen Riesenzellarteriitis)',
         ],
         vorerkrankungen: [
           'Gicht (Arthritis urica) seit etwa sechs Jahren, letzter Anfall im rechten Großzehengrundgelenk vor zwei Jahren, seither unter Allopurinol anfallsfrei',
@@ -61975,7 +61977,7 @@ export function seedCases(): Case[] {
           },
           {
             dd: 'Riesenzellarteriitis',
-            unterscheidung: 'Patient über 50 mit neuem Kopfschmerz — grundsätzlich zu bedenken; jedoch kein Schläfenschmerz, keine verdickte Arteria temporalis, kein Kauschmerz der Kaumuskulatur, keine Sehstörung, keine Polymyalgie-Symptome; bei Zweifel BSG.',
+            unterscheidung: 'Patient über 50 mit neuem Kopfschmerz — grundsätzlich zu bedenken; jedoch kein Schläfenschmerz, keine verdickte Arteria temporalis, keine Kauclaudicatio, keine Sehstörung, keine Polymyalgie-Symptome; bei Zweifel BSG.',
           },
           {
             dd: 'Orbitale oder intrakranielle Komplikation (Orbitaphlegmone, Meningitis, Hirnabszess, Sinus-cavernosus-Thrombose)',
