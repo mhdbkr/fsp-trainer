@@ -156,3 +156,79 @@ Les branches fw-plancher, banque et ui-petits ne sont pas poussées : merge-tree
 2. **11 manques réels** contre environ 25 attendus : je n'ai pas complété la liste par des négatifs inventés.
 3. **Arztbrief, sondes courtes, pièges** (90 constats) : ce sont des faux positifs du détecteur, gelés au budget. Affiner le détecteur (négation, document entier, réponse brève légitime) relève d'un lot à part.
 4. `extractCohesionGaps.mjs`, l'outil d'extraction, garde l'ancienne tokenisation et n'est pas en CI.
+
+## Passe fixeur des revues (clinique et langue)
+
+### Fusion de `origin/main`
+
+`origin/main` a été fusionnée dans la branche par un merge, sans rebase ni force. Elle apportait #100, #101 et #102 (Q9).
+- La fusion s'est faite sans conflit.
+- Aucun `--bless` n'a été nécessaire : aucun budget ne remonte.
+- `checkCaseQuestionAnswers` donne 59 candidats pour un plancher de 59.
+
+### Revue clinique
+
+**P1**
+- **P1-1, typhus.** L'éruption ne sert plus d'argument contre la dengue, puisque le cas a des roséoles.
+  - L'annotation devient « (gegen Rickettsiose und Hepatitis) », selon l'arbitrage.
+  - Nouveau négatif : « kein schlagartiger Fieberbeginn, das Fieber stieg von Tag zu Tag (gegen Denguefieber) ». Il s'appuie sur le Leitsymptom.
+- **P1-2, perniziöse.**
+  - Le régime n'écarte plus qu'une carence en B12 : « (gegen einen ernährungsbedingten Vitamin-B12-Mangel) ».
+  - La carence en folates passe sur le négatif alcool : « (gegen toxische Ursachen und einen alkoholbedingten Folsäuremangel) ».
+- **P1-3, karzinoid.** L'annotation revient à « — gegen Nahrungsmittelintoleranzen ». La Zöliakie entre dans `ddSansNegatif` en catégorie `biologie`.
+- **P1-4 et P2-1, Merke de fw-antikoagulation**, fusionnés en un seul texte : « … perioperatives Bridging nur bei hohem Thromboembolierisiko … Bei schwerer Blutung: absetzen, Antidot geben, bei Magen-Darm-Blutung endoskopieren. »
+
+**P2**
+- **P2-2, Merke fw-tia** : « bei symptomatischer hochgradiger Karotisstenose ».
+- **P2-3, ptbs**, selon l'arbitrage : « kein Morgentief, kein Früherwachen (gegen ein somatisches Syndrom; die depressive Symptomatik bleibt als Komorbidität zu werten) ».
+- **P2-4, nephrotisches-syndrom** : « (gegen Linksherz- und Globalinsuffizienz) ».
+- **P2-5, akute-leukaemie** : l'annotation est gardée sous la forme de la revue langue (point 2). La DD se tranche bien au status ganglionnaire ; le négatif dit lui-même qu'il est faible.
+- **P2-6, karzinoid** : ajout de « kein Knoten am Hals getastet ». La réplique `fach-onko-knoten` l'appuie (« Nicht am Hals »). La mention « familiäres » disparaît, puisque l'absence de nodule couvre aussi la forme sporadique.
+- **P2-7, anaphylaxie** : ajout de « Käse » au négatif alimentaire. L'Arztbrief l'appuie : « vorher nichts gegessen ».
+- **P2-8, épilepsie** : « seit der Jugend » dans les 9 mentions (7 dans le cas, 2 dans le Muster), avec les formes de la revue langue (points 3 à 6).
+- **P2-9, obstipation** : le négatif est aligné sur la réplique : « beim Pressen etwas schmerzhaft, sonst keine Schmerzen beim Stuhlgang … ». La DD « Hämorrhoidalblutung / Analfissur », qui disait « kein Schmerz beim Stuhlgang », est harmonisée en « beim Pressen nur leicht schmerzhaft, kein Brennen oder Stechen ».
+
+**Échantillon `ddSansNegatif`**
+- **kolorektales-ca, « Analfissur ».** La sonde de la trame `akt-veraend-blutung` (« Tut es weh, juckt es, oder blutet es? ») pose déjà la question. La réplique devient « Wehtun tut es eigentlich nicht, auch nicht beim Stuhlgang, nur das leichte Ziehen … ». Le négatif « keine Schmerzen beim Stuhlgang (gegen Analfissur) » est ajouté et l'entrée est retirée de la liste.
+- **metabolisches-syndrom, « Hypogonadismus ».** Aucune sonde du cas ne pose la question : la Fach du cas est l'endocrinologie, et seule la sonde urologique `fach-uro-funktion` demande l'érection. L'entrée reste dans la liste. **Manque de contenu, lot à part.**
+- **delir, « Harnverhalt und Obstipation »** : passe en catégorie `comorbidité`.
+
+### Revue langue
+
+- **Important (struma)** : « (gegen ein Lymphom oder eine lymphogene Metastasierung) ». Une conséquence : la DD « Zervikale Lymphknotenschwellung » n'est plus nommée. Elle entre dans `ddSansNegatif` en catégorie `examen`, puisque la mobilité à la déglutition et la palpation tranchent.
+- **Mineurs**
+  - 2 : leucémie, voir plus haut.
+  - 3 à 6 : épilepsie, avec « seit der Jugend ».
+  - 7 : ptbs, couvert par l'arbitrage.
+  - 8 : « keine Kauclaudicatio », dans le négatif et dans la DD de sinusitis.
+  - 9 : « keine manuelle Unterstützung der Stuhlentleerung nötig ».
+  - 10 : « außer ».
+  - 11 : perniziöse, couvert par l'arbitrage.
+  - 12 : listes coordonnées par « und » (chronische-pankreatitis, adnexitis, glomerulonephritis). Typhus est couvert par l'arbitrage.
+
+### Effectifs
+
+| Mesure | Valeur |
+|---|---|
+| DD non neutralisées | 0 |
+| `ddSansNegatif` | 111 (110 + Zöliakie + Lymphknotenschwellung − Analfissur) |
+| Autres catégories | inchangées : 44 / 19 / 5 / 16 / 6 |
+
+### Codes de sortie de la passe
+
+| Commande | Exit |
+|---|---|
+| `npx tsc -b` | 0 |
+| `npm test` (2024 tests) | 0 |
+| `npm run test:c6` (212 tests) | 0 |
+| `npm run build` | 0 |
+| `npm run content:link` | 0, sans diff |
+| 27 `check*.mjs` de la CI, dont `checkCaseCohesion` (bloquant), `checkGeburtsdatum` et `checkBudgetFloor origin/main` | 0 |
+| `checkProbeOverlap` (informatif) | 1, sortie identique à `origin/main` |
+| `node --test` (228 tests) | 0 |
+| `checkProbeCoverage.test.mjs`, lancé seul | 0 |
+| `checkCoherence --case` sur les 18 cas retouchés | 0 × 18 |
+| `git merge-tree` contre `origin/main` | propre |
+| `git merge-tree` contre `origin/feat/s3-fw-plancher-r` | 1 conflit, dans `app/scripts/fixtures/atomicity-budget.json` |
+
+Le conflit sur `atomicity-budget.json` existe **déjà entre `origin/main` et fw-plancher-r**. Cette branche ne touche pas ce fichier, et `seedCases` et `seedFachwissen` fusionnent sans conflit.
