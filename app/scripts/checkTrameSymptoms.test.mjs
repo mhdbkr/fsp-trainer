@@ -60,8 +60,8 @@ test('socle connu → une annotation `relu` annulée rouvre la porte', { timeout
 // silence : leur nombre est un compteur du socle, qui ne remonte jamais.
 test('M4 — une annotation `relu` de plus fait échouer la porte', { timeout: 300_000 }, () => {
   const r = sb.mutate(cases,
-    "{ frage: 'Gehen bei Ihnen dabei Blutklumpen ab?', kapitel: 'aktuell', sucht: ['blutklumpen'], followUp: 'Falls ja: Wie groß sind die etwa?' },",
-    "{ frage: 'Gehen bei Ihnen dabei Blutklumpen ab?', kapitel: 'aktuell', sucht: ['blutklumpen'], relu: true, followUp: 'Falls ja: Wie groß sind die etwa?' },",
+    "{ frage: 'Gehen bei Ihnen dabei Blutklumpen ab?', kapitel: 'aktuell', sucht: ['blutklumpen'], followUp: 'Falls ja: Wie groß sind die Blutklumpen etwa?' },",
+    "{ frage: 'Gehen bei Ihnen dabei Blutklumpen ab?', kapitel: 'aktuell', sucht: ['blutklumpen'], relu: true, followUp: 'Falls ja: Wie groß sind die Blutklumpen etwa?' },",
     gate);
   assert.equal(r.status, 1);
   assert.match(r.stdout, /relu/);
@@ -71,8 +71,8 @@ test('M4 — `--bless` refuse de graver une annotation `relu` de plus', { timeou
   const before = sb.read(baseline);
   sb.mutate(baseline, '"count"', '"count"', () => {
     const r = sb.mutate(cases,
-      "{ frage: 'Gehen bei Ihnen dabei Blutklumpen ab?', kapitel: 'aktuell', sucht: ['blutklumpen'], followUp: 'Falls ja: Wie groß sind die etwa?' },",
-      "{ frage: 'Gehen bei Ihnen dabei Blutklumpen ab?', kapitel: 'aktuell', sucht: ['blutklumpen'], relu: true, followUp: 'Falls ja: Wie groß sind die etwa?' },",
+      "{ frage: 'Gehen bei Ihnen dabei Blutklumpen ab?', kapitel: 'aktuell', sucht: ['blutklumpen'], followUp: 'Falls ja: Wie groß sind die Blutklumpen etwa?' },",
+      "{ frage: 'Gehen bei Ihnen dabei Blutklumpen ab?', kapitel: 'aktuell', sucht: ['blutklumpen'], relu: true, followUp: 'Falls ja: Wie groß sind die Blutklumpen etwa?' },",
       () => sb.run('checkTrameSymptoms.mjs', '--bless'));
     assert.equal(r.status, 1);
     assert.equal(sb.read(baseline), before);
