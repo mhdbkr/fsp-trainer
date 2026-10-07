@@ -104,7 +104,7 @@ export function PartEvaluation({
             {checklist.map((it) => (
               <li key={it.id}>
                 <label className="flex cursor-pointer items-start gap-2 rounded-lg px-2 py-1 hover:bg-slate-50 dark:hover:bg-slate-800">
-                  <input type="checkbox" checked={it.checked} onChange={() => onToggle(it.id, !it.checked)} className="mt-0.5 h-4 w-4 accent-brand-600" />
+                  <input type="checkbox" checked={it.checked} onChange={() => onToggle(it.id, !it.checked)} className="mt-0.5 h-4 w-4 shrink-0 accent-brand-600" />
                   <span className={`text-sm ${it.checked ? 'text-slate-700 dark:text-slate-200' : 'text-slate-500'}`}>
                     {it.label}{(it.axisWeight ?? 1) > 1 && <span className="ml-1 text-[10px] font-bold text-brand-400">×{it.axisWeight}</span>}
                   </span>
