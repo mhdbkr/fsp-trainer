@@ -44,3 +44,21 @@ describe('S4-2 I2 — le héros de l’accueil', () => {
     expect(heros.querySelector('a')!.getAttribute('href')).toContain('depart=dokumentation');   // [S4-3] §10.3 : `?depart=`
   });
 });
+
+// Série 3, point 2a : une seule action par tâche. Le héros lance la session ; sa ligne dans le plan ne la relance pas, et
+// les AUTRES tâches s'ouvrent par leur titre (comme au Programme, S4-5).
+describe('2a — une seule action par tâche sur l’accueil', () => {
+  it('le plan du jour ne répète pas « Lancer » ; une autre tâche s’ouvre par son titre', async () => {
+    await db.cases.put({ id: 'c2', name: 'Asthma', pathology: 'p', specialty: 'Pneumologie', frequency: 5, centers: [], linkedFachbegriffeIds: [] } as unknown as Case);
+    const plan = (await db.day_plans.get('2026-10-12'))!;
+    const autre: TaskInstance = { ...plan.tasks[0], id: 't2', caseId: 'c2', label: 'Asthma', reason: 'r2' };
+    await db.day_plans.put({ ...plan, tasks: [...plan.tasks, autre] });
+    await act(async () => { root.render(<MemoryRouter><HomePage /></MemoryRouter>); });
+    await vi.waitFor(() => expect(container.textContent).toMatch(/Le plan du jour/), { timeout: 10000 });
+    const liste = [...container.querySelectorAll('section')].find((s) => s.querySelector('h3')?.textContent === 'Le plan du jour')!;
+    expect([...liste.querySelectorAll('a')].filter((a) => /Lancer/.test(a.textContent ?? ''))).toHaveLength(0);
+    const liens = [...liste.querySelectorAll('a[data-cta]')];
+    expect(liens.map((a) => a.textContent)).toEqual(['Asthma']);                 // la session (Pneumonie) : pas de lien, le héros la lance
+    expect(liens[0].getAttribute('href')).toContain('/simulation/c2/');
+  });
+});
