@@ -7,6 +7,8 @@ import { MemoryRouter } from 'react-router-dom';
 import { db } from '@/db/db';
 import { freshSrs } from '@/lib/srs';
 import { loadDrillContext } from '@/lib/collections/drillContext';
+import { freezeAt, resetClock } from '@/lib/clock';
+import { workedDayKeys } from '@/lib/journal';
 import { DrillPage } from './DrillPage';
 
 vi.mock('@/lib/collections/drillContext', () => ({ loadDrillContext: vi.fn() }));
@@ -63,5 +65,23 @@ describe('R-C3 — le drill dans le journal', () => {
     v.unmount();
     await new Promise((r) => setTimeout(r, 200));
     expect(await drills()).toHaveLength(0);
+  }, 40_000);
+  // Série 3, 2d : `at` = DÉBUT de l'exercice (db/types.ts, TrainingEvent.at). Journalisé sans `at`, le drill prenait
+  // l'heure de FIN : commencé à 23 h 50, fini à 0 h 10, il comptait pour le lendemain.
+  it('commencé à 23 h 50, fini à 0 h 10 : `at` = le début, la séance compte pour la veille', async () => {
+    const debut = new Date(2026, 9, 11, 23, 50).getTime();
+    freezeAt(debut);
+    try {
+      const v = render(<MemoryRouter initialEntries={['/fachbegriffe/drill']}><DrillPage /></MemoryRouter>);
+      fireEvent.click(await screen.findByRole('button', { name: /commencer/i }, { timeout: 10_000 }));
+      await noter();
+      freezeAt(new Date(2026, 9, 12, 0, 10));
+      v.unmount();
+      await waitFor(async () => expect(await db.training_events.count()).toBe(1), { timeout: 12_000 });
+      const [ev] = await db.training_events.toArray();
+      expect(ev.at).toBe(debut);
+      expect(ev.spentMin).toBe(20);
+      expect([...workedDayKeys([ev])]).toEqual(['2026-10-11']);
+    } finally { resetClock(); }
   }, 40_000);
 });
