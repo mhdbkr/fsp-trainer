@@ -585,7 +585,7 @@ export function seedCases(): Case[] {
       },
       medicalView: {
         verdachtsdiagnose: 'Akute biliäre Pankreatitis bei bekannter Cholezystolithiasis, mit Cholestasezeichen (dunkler Urin, heller Stuhl). Verdacht auf Choledocholithiasis und paralytischen Begleitileus.',
-        patientWorte: { verdacht: 'sich Ihre Bauchspeicheldrüse entzündet hat, am ehesten weil ein Gallenstein den Ausführungsgang verstopft', diagnostik: 'nehmen wir Ihnen Blut ab und machen einen Ultraschall vom Bauch', therapie: 'bekommen Sie über die Vene Flüssigkeit und Schmerzmittel, ein verstopfter Gallengang wird mit einer Spiegelung frei gemacht, und die Gallenblase wird noch während dieses Aufenthalts entfernt' },
+        patientWorte: { verdacht: 'sich Ihre Bauchspeicheldrüse entzündet hat, wahrscheinlich weil ein Gallenstein den Abfluss verstopft', diagnostik: 'nehmen wir Ihnen Blut ab und machen einen Ultraschall vom Bauch', therapie: 'bekommen Sie über die Vene Flüssigkeit und Schmerzmittel, ein verstopfter Gallengang wird mit einer Spiegelung frei gemacht, und die Gallenblase wird noch während dieses Aufenthalts entfernt' },
         differenzialdiagnosen: [
           { dd: 'Akute Cholangitis bei Choledocholithiasis', unterscheidung: 'Dunkler Urin und heller Stuhl sprechen für einen Stein im Gallengang. Kommen Fieber, Schüttelfrost und Ikterus hinzu (Charcot-Trias), ist es eine Cholangitis. Die Patientin fühlt sich warm, hat aber kein Fieber gemessen — Temperatur und Bilirubin im Verlauf kontrollieren.' },
           { dd: 'Akute Cholezystitis', unterscheidung: 'Bei bekannten Gallensteinen naheliegend und auch gleichzeitig möglich. Hier liegt das Schmerzmaximum aber in der Magengrube und strahlt gürtelförmig in den Rücken aus, das Murphy-Zeichen ist negativ. Eine Lipase über dem Dreifachen der Norm spricht für die Pankreatitis, eine verdickte Gallenblasenwand im Ultraschall für die Cholezystitis.' },
@@ -670,7 +670,7 @@ export function seedCases(): Case[] {
           { frage: 'Woran erkennen Sie eine Cholangitis, und was folgt daraus?', reaktion: 'Charcot-Trias: Fieber mit Schüttelfrost, Ikterus, rechtsseitiger Oberbauchschmerz. Dann ERCP mit Papillotomie innerhalb von 24 Stunden und Antibiotika.' },
         ] },
         { title: 'Diagnostik', interactions: [
-          { frage: 'Welcher ist der wichtigste Laborwert? Sagt seine Höhe etwas über den Schweregrad?', reaktion: 'Die Lipase; ihre Höhe sagt nichts über den Schweregrad. Dazu Blutbild mit Hämatokrit, CRP, Harnstoff, Kreatinin, Kalzium, Blutzucker, Leberwerte mit Bilirubin; eine GPT über 150 U/l spricht für die biliäre Genese.' },
+          { frage: 'Was ist der wichtigste Laborwert? Sagt seine Höhe etwas über den Schweregrad?', reaktion: 'Die Lipase; ihre Höhe sagt nichts über den Schweregrad. Dazu Blutbild mit Hämatokrit, CRP, Harnstoff, Kreatinin, Kalzium, Blutzucker, Leberwerte mit Bilirubin; eine GPT über 150 U/l spricht für die biliäre Genese.' },
           { frage: 'Machen Sie sofort ein CT?', reaktion: 'Nein. Bei Aufnahme reicht die Sonographie (Steine, Gallengangsweite). Ein Kontrastmittel-CT nur bei unklarer Diagnose oder ohne Besserung nach 72–96 Stunden, weil Nekrosen vorher unterschätzt werden. Vorher Schwangerschaft ausschließen.' },
           { frage: 'Wie schätzen Sie den Schweregrad ein?', reaktion: 'Nach der revidierten Atlanta-Klassifikation: mild ohne Organversagen, mittelschwer bei Organversagen unter 48 Stunden oder lokalen Komplikationen, schwer bei Organversagen über 48 Stunden. Früh warnen SIRS, Hämatokrit über 44 %, steigender Harnstoff; die Adipositas der Patientin erhöht das Risiko.' },
         ] },
@@ -679,12 +679,12 @@ export function seedCases(): Case[] {
           { frage: 'Wie behandeln Sie die biliäre Genese, und wann entfernen Sie die Gallenblase?', reaktion: 'ERCP nur bei Cholangitis (innerhalb von 24 Stunden) oder bei einem durch Endosonographie oder MRCP bestätigten Gangstein. Cholezystektomie bei mildem Verlauf noch im selben Aufenthalt, bei nekrotisierendem Verlauf im Intervall nach etwa 6 Wochen.' },
         ] },
         { title: 'Aufklärung der Patientin (2 Minuten)', interactions: [
-          { frage: 'Erklären Sie der Patientin bitte die Diagnose und das weitere Vorgehen.', reaktion: 'Erwartet wird Alltagssprache: „Ihre Bauchspeicheldrüse ist entzündet, wahrscheinlich weil ein Gallenstein den gemeinsamen Ausgang verlegt hat.“ Infusionen und Schmerzmittel ankündigen, Essen, sobald es geht, Spiegelung nur bei einem Stein im Gallengang, Entfernung der Gallenblase noch in diesem Aufenthalt, damit es nicht wiederkommt.' },
-          { frage: '(als Patientin) Muss ich wirklich operiert werden? Ich habe die Steine doch schon zwei Jahre.', reaktion: 'Erwartet wird eine klare Antwort: Bisher machten die Steine keine Probleme, jetzt haben sie eine gefährliche Entzündung ausgelöst; ohne Entfernung der Gallenblase kommt es oft innerhalb weniger Wochen erneut dazu. Der Eingriff erfolgt minimalinvasiv (Schlüsselloch).' },
+          { frage: 'Erklären Sie der Patientin bitte die Diagnose und das weitere Vorgehen.', reaktion: 'Erwartet wird Alltagssprache: „Ihre Bauchspeicheldrüse ist entzündet, wahrscheinlich weil ein Gallenstein den Abfluss verstopft hat.“ Infusionen und Schmerzmittel ankündigen, Essen, sobald es geht, Spiegelung nur bei einem Stein im Gallengang, Entfernung der Gallenblase noch in diesem Aufenthalt, damit es nicht wiederkommt.' },
+          { frage: '(als Patientin) Muss ich wirklich operiert werden? Ich habe die Steine doch schon zwei Jahre.', reaktion: 'Erwartet wird eine klare Antwort: Bisher machten die Steine keine Probleme, jetzt haben sie eine gefährliche Entzündung ausgelöst; ohne Entfernung der Gallenblase kommt es oft innerhalb weniger Wochen erneut dazu. Wir operieren mit der Schlüssellochtechnik, also über kleine Schnitte.' },
         ] },
       ],
       pruefungsfallen: [
-        'Nach der Farbe von Urin und Stuhl fragen: die Patientin nennt sie nicht von sich aus, und erst sie machen aus der Pankreatitis eine biliäre mit Gangstein.',
+        'Nach der Farbe von Urin und Stuhl fragen: die Patientin nennt sie nicht von sich aus, und erst diese Angaben lenken den Verdacht auf eine biliäre Pankreatitis mit Gangstein.',
         '„Selten ein Glas Wein“ in Gläsern pro Woche präzisieren: Alkohol ist die zweite Hauptursache und muss ausdrücklich ausgeschlossen werden.',
         'Den Schweregrad nicht an der Lipase festmachen: über ihn entscheiden Organversagen und dessen Dauer.',
         'Vor der Patientin „Bauchspeicheldrüse“, „Gallengang“ und „Spiegelung“ sagen, nicht „Pankreas“ und „ERCP“.',
@@ -905,7 +905,7 @@ export function seedCases(): Case[] {
         schmerz: { ort: 'linker Unterbauch (Fossa iliaca links)', charakter: 'dumpf, drückend', intensitaet: 6, beginn: 'vor 3 Tagen' },
         vegetativeAnamnese: ['Fieber bis 38,5 °C', 'Obstipation (Verstopfung)', 'Appetit vermindert'],
         negativeFindings: [
-          'kein Blut im Stuhl',
+          'kein Blut im Stuhl (gegen ischämische Kolitis)',
           'kein Erbrechen',
           'kein Gewichtsverlust',
           'keine Schmerzen oder Brennen beim Wasserlassen',
@@ -997,7 +997,7 @@ export function seedCases(): Case[] {
         diagnostik: [
           { stufe: 'Anamnese/Klinik', text: 'Körperliche Untersuchung: Druckschmerz und Abwehrspannung im linken Unterbauch, tastbare Walze, Peritonismus; digital-rektale Untersuchung; Temperatur, Puls, Blutdruck' },
           { stufe: 'Anamnese/Klinik', text: 'Nach Luft oder Stuhl im Urin fragen (kolovesikale Fistel)' },
-          { stufe: 'Labor', text: 'Blutbild, CRP, Kreatinin, Elektrolyte, Urinstatus; Blutkulturen bei Fieber über 38,5 °C oder Sepsisverdacht' },
+          { stufe: 'Labor', text: 'Blutbild, CRP, Kreatinin, Elektrolyte, Urinstatus; Blutkulturen bei Fieber ab 38,5 °C (bei ihr gegeben) oder Sepsisverdacht' },
           { stufe: 'Apparativ & Bildgebung', text: 'Abdomen-Sonographie als erster Schritt (verdickte Darmwand, Abszess)' },
           { stufe: 'Apparativ & Bildgebung', text: 'CT-Abdomen mit Kontrastmittel zur Einteilung nach CDD (Abszess, gedeckte oder freie Perforation)' },
           { stufe: 'Invasiv & Speziell', text: 'Keine Koloskopie im akuten Schub (Perforationsgefahr)' },
@@ -1017,7 +1017,7 @@ export function seedCases(): Case[] {
             label: 'Konservative Therapie der unkomplizierten Divertikulitis (CDD Typ 1)',
             items: [
               'Leichte, ballaststoffarme Kost, solange die Beschwerden bestehen; Nahrungskarenz mit Infusion nur bei Übelkeit oder Erbrechen',
-              'Antibiose bei ihr angezeigt (Fieber, allergische Disposition): Ciprofloxacin 2 × 500 mg plus Metronidazol 3 × 400 mg oral über 7–10 Tage; Amoxicillin/Clavulansäure scheidet wegen der Penicillinallergie aus — vor dem Fluorchinolon nach Sehnenbeschwerden und Aortenaneurysma fragen',
+              'Antibiose bei ihr angezeigt (Fieber, allergische Disposition): stationär Ceftriaxon 1 × 2 g i. v. plus Metronidazol 3 × 500 mg, Oralisierung auf Cefuroximaxetil 2 × 500 mg plus Metronidazol 3 × 400 mg, insgesamt 7–10 Tage — bei einem Hautausschlag auf Penicillin ist ein Cephalosporin vertretbar, Amoxicillin/Clavulansäure scheidet aus; Ciprofloxacin nur, wenn auch Cephalosporine ausscheiden, nach Frage nach Sehnenbeschwerden und Aortenaneurysma',
               'Analgesie mit Metamizol, alternativ Paracetamol; keine NSAR und möglichst keine Opioide (Perforationsrisiko, Obstipation)',
               'Nach Abklingen ballaststoffreiche Ernährung mit reichlich Flüssigkeit und Bewegung; Nüsse und Körner müssen nicht gemieden werden',
               'Warnzeichen erklären: zunehmender Schmerz, hohes Fieber, Erbrechen, keine Besserung nach zwei bis drei Tagen — dann sofort wiederkommen',
@@ -1067,12 +1067,12 @@ export function seedCases(): Case[] {
           { frage: 'Welche Differenzialdiagnosen?', reaktion: 'Kolorektales Karzinom (Ausschluss durch die Intervallkoloskopie), Reizdarmsyndrom, Harnwegsinfekt, ischämische Kolitis und bei einer Frau gynäkologische Ursachen, postmenopausal vor allem ein Ovarialprozess.' },
         ] },
         { title: 'Diagnostik & Cave', interactions: [
-          { frage: 'Welche Diagnostik veranlassen Sie?', reaktion: 'Untersuchung mit rektaler Untersuchung, Labor mit Blutbild, CRP, Kreatinin und Urinstatus, Sonographie und CT-Abdomen mit Kontrastmittel zur Einteilung.' },
+          { frage: 'Welche Diagnostik veranlassen Sie?', reaktion: 'Körperliche und digital-rektale Untersuchung, Labor mit Blutbild, CRP, Kreatinin und Urinstatus, Sonographie und CT-Abdomen mit Kontrastmittel zur Einteilung.' },
           { frage: 'Warum keine Koloskopie im akuten Schub?', reaktion: 'Perforationsgefahr — Koloskopie erst 4–6 Wochen nach Abklingen; akut Labor und CT-Abdomen.' },
         ] },
         { title: 'Therapie', interactions: [
-          { frage: 'Wie behandeln Sie diese Patientin?', reaktion: 'Bei Fieber mit 67 Jahren eher stationär; leichte Kost, Metamizol, und wegen Fieber und allergischer Disposition eine Antibiose — wegen der Penicillinallergie Ciprofloxacin plus Metronidazol statt Amoxicillin/Clavulansäure. Kontrolle nach 48–72 Stunden.' },
-          { frage: 'Wann operieren Sie?', reaktion: 'Notfallmäßig bei freier Perforation/Peritonitis; elektiv im entzündungsfreien Intervall bei Stenose, Fistel, nach Abszess oder bei Immunsuppression — individuell, nicht nach der Zahl der Schübe; Verfahren: laparoskopische Sigmaresektion.' },
+          { frage: 'Wie behandeln Sie diese Patientin?', reaktion: 'Bei Fieber mit 67 Jahren eher stationär; leichte Kost, Metamizol, und wegen Fieber und allergischer Disposition eine Antibiose, aufgrund der Penicillinallergie mit einem Cephalosporin plus Metronidazol statt Amoxicillin mit Clavulansäure, Ciprofloxacin nur als Reserve. Kontrolle nach 48–72 Stunden.' },
+          { frage: 'Wann operieren Sie?', reaktion: 'Notfallmäßig bei freier Perforation mit Peritonitis; elektiv im entzündungsfreien Intervall bei Stenose, Fistel, nach Abszess oder bei Immunsuppression — individuell, nicht nach der Zahl der Schübe; Verfahren: laparoskopische Sigmaresektion.' },
         ] },
         { title: 'Aufklärung der Patientin (2 Minuten)', interactions: [
           { frage: '(als Patientin) Darf ich jetzt keine Körner und Nüsse mehr essen?', reaktion: 'Doch: das alte Verbot ist überholt. Im Schub leichte Kost, danach ballaststoffreich essen und viel trinken; das senkt das Rückfallrisiko.' },
@@ -1275,7 +1275,7 @@ export function seedCases(): Case[] {
           'keine starken Bauchschmerzen (nur gelegentliches Ziehen)',
           'keine bekannten Hämorrhoiden',
           'nie eine Darmspiegelung gehabt',
-          'kein plötzlicher Beginn (Beschwerden schleichend über Wochen), keine umschriebenen Schmerzen im linken Unterbauch, kein Druckschmerz oder harter Bauch, keine Schmerzattacken (gegen Divertikulitis)',
+          'kein plötzlicher Beginn (Beschwerden schleichend über Wochen), keine umschriebenen Schmerzen im linken Unterbauch, kein Druckschmerz oder harter Bauch, keine Schmerzattacken (gegen Divertikulitis und ischämische Kolitis)',
         ],
         vorerkrankungen: ['keine relevanten'], voroperationen: ['keine'],
         medikamente: ['keine'], allergien: ['keine bekannt'],
@@ -1358,8 +1358,8 @@ export function seedCases(): Case[] {
         verdachtsdiagnose: 'Kolorektales Karzinom mit Blut im Stuhl, Bleistiftstühlen und 6 kg Gewichtsverlust. Die Bleistiftstühle sprechen für einen stenosierenden Tumor im Rektum oder Sigma; Risikofaktoren: Vater mit 70 Jahren an Darmkrebs erkrankt, 15 Packungsjahre, täglich Alkohol, nie eine Vorsorgekoloskopie.',
         patientWorte: { verdacht: 'sich in Ihrem Dickdarm eine Gewebeveränderung gebildet hat, die bösartig sein könnte', diagnostik: 'tasten wir den Enddarm ab, nehmen Ihnen Blut ab und machen eine Darmspiegelung mit Gewebeprobe sowie eine Computertomographie', therapie: 'besprechen wir die Behandlung im Team aus mehreren Fachärzten, meist mit einer Operation und manchmal zusätzlich einer Chemotherapie' },
         differenzialdiagnosen: [
-          { dd: 'Hämorrhoiden', unterscheidung: 'Häufigste Ursache von frischem Blut auf dem Stuhl. Bei ihm sind keine Hämorrhoiden bekannt, und sie erklären weder Gewichtsverlust noch Bleistiftstühle oder Müdigkeit; selbst gefundene Hämorrhoiden ersparen ihm die komplette Koloskopie nicht.' },
-          { dd: 'CED', unterscheidung: 'Erstmanifestation mit 68 Jahren selten; typisch sind blutig-schleimige Durchfälle in Schüben. Die Koloskopie mit Histologie klärt.' },
+          { dd: 'Hämorrhoiden', unterscheidung: 'Häufigste Ursache von frischem Blut auf dem Stuhl. Bei ihm sind keine Hämorrhoiden bekannt, und sie erklären weder Gewichtsverlust noch Bleistiftstühle oder Müdigkeit; auch nachgewiesene Hämorrhoiden ersparen ihm die komplette Koloskopie nicht.' },
+          { dd: 'Chronisch-entzündliche Darmerkrankung', unterscheidung: 'Erstmanifestation mit 68 Jahren selten; typisch sind blutig-schleimige Durchfälle in Schüben. Die Koloskopie mit Histologie klärt.' },
           { dd: 'Divertikulitis', unterscheidung: 'Akuter Schmerz im linken Unterbauch mit Fieber fehlt hier. Eine Divertikelblutung ist schmerzlos und reichlich, macht aber keine Bleistiftstühle; eine Sigmastenose nach Divertikulitis kann ein Karzinom vortäuschen.' },
           { dd: 'Ischämische Kolitis', unterscheidung: 'Älterer Raucher, aber typisch ist ein akuter krampfartiger Bauchschmerz mit blutigem Durchfall, kein schleichender Verlauf über Wochen.' },
           { dd: 'Analfissur oder Analkarzinom', unterscheidung: 'Schmerzen bei der Defäkation beziehungsweise ein tastbarer Befund am Anus; die rektale Untersuchung und die Proktoskopie klären.' },
@@ -1406,9 +1406,9 @@ export function seedCases(): Case[] {
           {
             label: 'Strukturierte Nachsorge, Rehabilitation und Prävention in der Familie',
             items: [
-              'Konnte die Koloskopie den Tumor wegen einer Stenose nicht passieren, wird sie innerhalb von 3–6 Monaten nach der Operation komplettiert',
+              'Konnte das Koloskop die Stenose nicht passieren, wird die Koloskopie innerhalb von 3–6 Monaten nach der Operation komplettiert',
               'Nachsorge über fünf Jahre: klinische Untersuchung und CEA in den ersten zwei Jahren halbjährlich, Bildgebung und Kontrollkoloskopie nach einem Jahr',
-              'Seine Kinder und Geschwister sind erstgradig Verwandte: Koloskopie zehn Jahre vor seinem Erkrankungsalter, spätestens aber ab 40–45 Jahren',
+              'Seine Kinder und Geschwister sind erstgradig Verwandte: Koloskopie zehn Jahre vor seinem Erkrankungsalter, spätestens im Alter von 40 bis 45 Jahren',
               'Mismatch-Reparatur-Proteine bzw. MSI am Tumorgewebe bestimmen (therapierelevant); ein Lynch-Syndrom ist bei Erkrankung mit 68 und 70 Jahren wenig wahrscheinlich',
               'Rauchstopp und Alkoholreduktion, körperliche Aktivität; Anschlussheilbehandlung und psychoonkologische Begleitung',
             ],
@@ -1436,7 +1436,7 @@ export function seedCases(): Case[] {
           { frage: 'Was ist CEA?', reaktion: 'Carcinoembryonales Antigen — Tumormarker; nicht zum Screening oder zur Diagnose, aber als Ausgangswert und zur Verlaufs- und Rezidivkontrolle.' },
         ] },
         { title: 'Differenzialdiagnosen', interactions: [
-          { frage: 'Welche Differenzialdiagnosen kommen in Betracht?', reaktion: 'Hämorrhoiden (erklären weder Gewichtsverlust noch Bleistiftstühle), CED (mit 68 selten), Divertikulitis oder Divertikelblutung, ischämische Kolitis, Analfissur oder Analkarzinom.' },
+          { frage: 'Welche Differenzialdiagnosen kommen in Betracht?', reaktion: 'Hämorrhoiden (erklären weder Gewichtsverlust noch Bleistiftstühle), chronisch-entzündliche Darmerkrankung (mit 68 selten), Divertikulitis oder Divertikelblutung, ischämische Kolitis, Analfissur oder Analkarzinom.' },
         ] },
         { title: 'Diagnostik und Staging', interactions: [
           { frage: 'Was untersuchen Sie zuerst?', reaktion: 'Die digital-rektale Untersuchung — ein Teil der Rektumkarzinome ist tastbar; dazu Abdomen und Lymphknoten. Labor mit Blutbild, Ferritin und CEA.' },
@@ -1444,7 +1444,7 @@ export function seedCases(): Case[] {
         ] },
         { title: 'Therapie und Vorsorge', interactions: [
           { frage: 'Wie behandeln Sie?', reaktion: 'Nach Tumorkonferenz: Kolonkarzinom primär operieren, bei Lymphknotenbefall adjuvante Chemotherapie; lokal fortgeschrittenes Rektumkarzinom zuerst neoadjuvante Radiochemotherapie, dann Rektumresektion mit totaler mesorektaler Exzision.' },
-          { frage: 'Screening-Empfehlung Koloskopie?', reaktion: 'Vorsorgekoloskopie für Männer und Frauen ab 50 (Frauen seit April 2025, zuvor ab 55), Wiederholung nach 10 Jahren, alternativ iFOBT. Erstgradig Verwandte 10 Jahre vor dem Erkrankungsalter des Indexpatienten, spätestens ab 40–45 Jahren — das betrifft jetzt seine Kinder und Geschwister.' },
+          { frage: 'Screening-Empfehlung Koloskopie?', reaktion: 'Vorsorgekoloskopie für Männer und Frauen ab 50 (Frauen seit April 2025, zuvor ab 55), Wiederholung nach 10 Jahren, alternativ iFOBT. Erstgradig Verwandte 10 Jahre vor dem Erkrankungsalter des Indexpatienten, spätestens im Alter von 40 bis 45 Jahren — das betrifft jetzt seine Kinder und Geschwister.' },
         ] },
         { title: 'Aufklärung des Patienten (2 Minuten)', interactions: [
           { frage: '(als Patient) Brauche ich einen künstlichen Darmausgang?', reaktion: 'Ehrlich, ohne Versprechen: Das hängt von der Lage des Tumors ab. Im Dickdarm meist nicht; im Enddarm oft nur vorübergehend zum Schutz der Naht. Ein dauerhafter Ausgang ist nur nötig, wenn der Schließmuskel betroffen ist.' },
@@ -1920,11 +1920,11 @@ export function seedCases(): Case[] {
         persona: 'Couturière amaigrie et anxieuse, voix faible. Tu décris la gêne à avaler qui empire (solides puis mous) et les 15 kg perdus. Tu es fumeuse et tu bois — tu le dis si on te le demande, un peu honteuse.',
       },
       medicalView: {
-        verdachtsdiagnose: 'Ösophaguskarzinom mit rasch progredienter Dysphagie bis auf Flüssigkeiten, 15 kg Gewichtsverlust und Heiserkeit. Histologie offen: Plattenepithelkarzinom (30 Packungsjahre, täglich Wein und Schnaps) oder Adenokarzinom auf Barrett-Boden (langjähriger Reflux); die Heiserkeit lässt eine Rekurrensbeteiligung befürchten.',
+        verdachtsdiagnose: 'Ösophaguskarzinom mit rasch progredienter Dysphagie (nur noch Flüssiges passiert), 15 kg Gewichtsverlust und Heiserkeit. Histologie offen: Plattenepithelkarzinom (30 Packungsjahre, täglich Wein und Schnaps) oder Adenokarzinom auf Barrett-Boden (langjähriger Reflux); die Heiserkeit lässt eine Rekurrensbeteiligung befürchten.',
         patientWorte: { verdacht: 'sich in Ihrer Speiseröhre eine Gewebeveränderung gebildet hat, die bösartig sein könnte', diagnostik: 'machen wir eine Magenspiegelung mit Gewebeprobe sowie eine Ultraschall- und Computertomographie-Untersuchung zur genauen Einordnung', therapie: 'entscheidet ein Team aus mehreren Fachärzten über die beste Behandlung, meist eine Kombination aus Operation, Bestrahlung und Chemotherapie' },
         differenzialdiagnosen: [
           { dd: 'Achalasie', unterscheidung: 'Typisch ist eine über Jahre langsam zunehmende Dysphagie, oft für Festes und Flüssiges zugleich, bei Jüngeren und ohne starken Gewichtsverlust. Hier vier Wochen, von fest zu flüssig, mit 15 kg Verlust; ein Tumor am Mageneingang kann eine Achalasie vortäuschen (Pseudoachalasie).' },
-          { dd: 'Peptische Stenose', unterscheidung: 'Langjähriger Reflux und nur gelegentlicher PPI passen dazu. Eine peptische Stenose schreitet aber langsam fort und erklärt weder den raschen Gewichtsverlust noch die Heiserkeit; auch jede Stenose wird biopsiert.' },
+          { dd: 'Peptische Stenose', unterscheidung: 'Langjähriger Reflux und nur gelegentliche PPI-Einnahme passen dazu. Eine peptische Stenose schreitet aber langsam fort und erklärt weder den raschen Gewichtsverlust noch die Heiserkeit; auch jede Stenose wird biopsiert.' },
           { dd: 'Ösophagitis', unterscheidung: 'Erklärt Schmerzen beim Schlucken, aber keine Passagestörung bis auf Flüssigkeiten; keine Soorbeläge im Mund, keine Immunsuppression.' },
           { dd: 'Adenokarzinom des ösophagogastralen Übergangs (Kardia)', unterscheidung: 'Bei langjährigem Reflux naheliegend; Einteilung nach Siewert, die ÖGD klärt Höhe und Ausdehnung, die Therapie folgt dann teils dem Magenkarzinom.' },
           { dd: 'Bronchialkarzinom mit mediastinaler Kompression', unterscheidung: '30 Packungsjahre, Heiserkeit und Gewichtsverlust passen auch zu einem Lungentumor mit Rekurrensparese, der die Speiseröhre von außen einengt. Die ÖGD zeigt dann eine intakte Schleimhaut, das CT den Tumor.' },
@@ -1986,7 +1986,7 @@ export function seedCases(): Case[] {
               'Alkohol- und Nikotinkarenz mit Suchtberatung, wertfrei angeboten — beides verschlechtert Therapieansprechen und Komplikationsrate und erhöht das Risiko eines Zweitkarzinoms im Kopf-Hals-Bereich',
               'Prähabilitation vor einer Ösophagektomie: Atemtraining, Physiotherapie, Zahnsanierung, Korrektur der Anämie; Logopädie bei Heiserkeit und Schluckstörung',
               'Nachsorge nach kurativer Therapie alle 3–6 Monate in den ersten zwei Jahren; nach Magenhochzug Vitamin B12, Eisen und fettlösliche Vitamine',
-              'Psychoonkologische Begleitung von Beginn an — sie äußert offen Angst vor Krebs; Sozialdienst zu Arbeitsunfähigkeit als Schneiderin und Rehabilitation',
+              'Psychoonkologische Begleitung von Beginn an — sie äußert offen Angst vor Krebs; Sozialdienst zur Klärung der Arbeitsunfähigkeit als Schneiderin und Rehabilitation',
             ],
           },
         ],
@@ -2011,18 +2011,18 @@ export function seedCases(): Case[] {
       examinerSheet: [
         { title: 'Verdachtsdiagnose und Begründung', interactions: [
           { frage: 'Verdachtsdiagnose und Alarmkonstellation?', reaktion: 'Ösophaguskarzinom — seit vier Wochen rasch progrediente Dysphagie (fest → weich → nur noch Flüssiges), Schmerzen beim Schlucken, 15 kg Gewichtsverlust in einem Jahr, Heiserkeit, Noxen (30 Packungsjahre, täglich Wein und Schnaps), langjähriger Reflux.' },
-          { frage: 'Adeno- vs. Plattenepithelkarzinom?', reaktion: 'Adeno = distaler Ösophagus, Barrett/Reflux; Plattenepithel = proximal/mittig, Risiko Rauchen + Alkohol. Bei ihr ist beides möglich — die Histologie entscheidet und bestimmt die neoadjuvante Therapie.' },
+          { frage: 'Adeno- vs. Plattenepithelkarzinom?', reaktion: 'Das Adenokarzinom sitzt meist im distalen Ösophagus und entsteht auf dem Boden eines Barrett-Ösophagus bei Reflux; das Plattenepithelkarzinom liegt eher im oberen und mittleren Drittel, Risikofaktoren sind Rauchen und Alkohol. Bei ihr ist beides möglich — die Histologie entscheidet und bestimmt die neoadjuvante Therapie.' },
           { frage: 'Was bedeutet die Heiserkeit?', reaktion: 'Verdacht auf eine Rekurrensparese durch Tumorinfiltration oder Lymphknoten; Laryngoskopie vor jeder Therapieentscheidung, weil sie über die Resektabilität mitentscheidet.' },
         ] },
         { title: 'Differenzialdiagnosen', interactions: [
-          { frage: 'Welche Differenzialdiagnosen kommen in Betracht?', reaktion: 'Achalasie (langsamer Verlauf, Jüngere; Cave Pseudoachalasie durch Tumor), peptische Stenose bei Reflux, Ösophagitis, Kardiakarzinom, und bei 30 Packungsjahren ein Bronchialkarzinom mit Kompression von außen und Rekurrensparese.' },
+          { frage: 'Welche Differenzialdiagnosen kommen in Betracht?', reaktion: 'Achalasie (langsamer Verlauf, Jüngere; Vorsicht: Pseudoachalasie durch einen Tumor), peptische Stenose bei Reflux, Ösophagitis, Kardiakarzinom, und bei 30 Packungsjahren ein Bronchialkarzinom mit Kompression von außen und Rekurrensparese.' },
         ] },
         { title: 'Diagnostik und Staging', interactions: [
-          { frage: 'Diagnostik und Staging?', reaktion: 'ÖGD mit Biopsie zuerst; dann Endosonographie, CT Hals/Thorax/Abdomen, bei kurativer Absicht PET-CT, HNO-Laryngoskopie, ggf. Bronchoskopie und Laparoskopie; Labor mit Blutbild, Albumin und Elektrolyten; Lungenfunktion und Echokardiographie für die Operabilität.' },
+          { frage: 'Diagnostik und Staging?', reaktion: 'ÖGD mit Biopsie zuerst; dann Endosonographie, CT Hals/Thorax/Abdomen, bei kurativer Absicht PET-CT, HNO-Laryngoskopie, gegebenenfalls Bronchoskopie und Laparoskopie; Labor mit Blutbild, Albumin und Elektrolyten; Lungenfunktion und Echokardiographie für die Operabilität.' },
         ] },
         { title: 'Therapie', interactions: [
           { frage: 'Wie behandeln Sie in kurativer Absicht?', reaktion: 'Plattenepithelkarzinom: neoadjuvante Radiochemotherapie nach CROSS, dann Ösophagektomie; Adenokarzinom: perioperative Chemotherapie nach FLOT und Ösophagektomie mit Magenhochzug. Vorher Ernährungstherapie und Prähabilitation, Alkoholentzug unter Thiamin.' },
-          { frage: 'Welche palliativen Optionen?', reaktion: 'Stent zur Passage, Ernährungssicherung über Trinknahrung, ggf. Feinnadelkatheterjejunostomie — keine PEG, solange der Magen für einen Hochzug gebraucht wird; palliative Radiochemotherapie/Systemtherapie.' },
+          { frage: 'Welche palliativen Optionen?', reaktion: 'Stent zur Passage, Ernährungssicherung über Trinknahrung, gegebenenfalls Feinnadelkatheterjejunostomie — keine PEG, solange der Magen für einen Hochzug gebraucht wird; palliative Radiochemotherapie/Systemtherapie.' },
           { frage: 'Warum geben Sie Thiamin vor der ersten Glukoseinfusion?', reaktion: 'Wegen des täglichen Alkoholkonsums und der Mangelernährung droht sonst eine Wernicke-Enzephalopathie.' },
         ] },
         { title: 'Aufklärung der Patientin (2 Minuten)', interactions: [
@@ -2203,7 +2203,7 @@ export function seedCases(): Case[] {
           { dd: 'Magenkarzinom', unterscheidung: 'Mit 38 Jahren, ohne Gewichtsverlust, Schluckbeschwerden, Anämie oder familiäre Belastung unwahrscheinlich. Ein Ulcus ventriculi wird trotzdem immer biopsiert, und Beschwerden, die unter PPI zunehmen, sind ein Grund mehr.' },
           { dd: 'Cholezystolithiasis / Cholezystitis', unterscheidung: 'Keine Koliken, kein rechtsseitiger Schmerz, keine Auslösung durch fettes Essen und keine Ausstrahlung in die Schulter; Sonographie.' },
           { dd: 'Akute Pankreatitis', unterscheidung: 'Kein plötzlicher, gürtelförmiger Schmerz, keine Gallensteine, kein Alkoholexzess; die Lipase ist normal zu erwarten.' },
-          { dd: 'Kardiale Ursache (Myokardinfarkt, KHK)', unterscheidung: 'Ein Hinterwandinfarkt kann sich als Oberbauchschmerz zeigen. Bei 38 Jahren, nahrungs- statt belastungsabhängigen Beschwerden seit einem Jahr unwahrscheinlich, er raucht aber: EKG und Troponin gehören zum epigastrischen Schmerz.' },
+          { dd: 'Kardiale Ursache (Myokardinfarkt, KHK)', unterscheidung: 'Ein Hinterwandinfarkt kann sich als Oberbauchschmerz zeigen. Mit 38 Jahren, nahrungs- statt belastungsabhängigen Beschwerden seit einem Jahr unwahrscheinlich, er raucht aber: EKG und Troponin gehören zur Abklärung epigastrischer Schmerzen.' },
         ],
         diagnostik: [
           { stufe: 'Anamnese/Klinik', text: 'Körperliche Untersuchung: epigastrischer Druckschmerz, Abwehrspannung als Perforationszeichen, Hautblässe; digital-rektale Untersuchung auf Teerstuhl' },
@@ -2211,7 +2211,7 @@ export function seedCases(): Case[] {
           { stufe: 'Apparativ & Bildgebung', text: '12-Kanal-EKG' },
           { stufe: 'Apparativ & Bildgebung', text: 'Abdomen-Sonographie: Gallenblase, Pankreas' },
           { stufe: 'Invasiv & Speziell', text: 'ÖGD mit Biopsien, die nach einem Jahr PPI ohne Diagnose überfällig ist: mehrere Biopsien aus dem Ulkusrand (Malignomausschluss), dazu aus Antrum und Korpus für Urease-Schnelltest und Histologie auf Helicobacter pylori' },
-          { stufe: 'Invasiv & Speziell', text: 'Ist der Helicobacter-Befund unter dem laufenden PPI negativ, wird er nach zwei Wochen PPI-Pause mit Atemtest oder Stuhl-Antigen wiederholt' },
+          { stufe: 'Invasiv & Speziell', text: 'Ist der Helicobacter-Befund unter dem laufenden PPI negativ: Helicobacter-Serologie (IgG), die unter PPI nicht falsch negativ wird, oder Atemtest/Stuhl-Antigen nach zwei Wochen PPI-Pause, sobald das Ulkus abgeheilt ist' },
         ],
         therapie: [
           {
@@ -2239,7 +2239,7 @@ export function seedCases(): Case[] {
               'Einnahmetreue und Nebenwirkungen besprechen (Geschmacksstörung, Durchfall, schwarzer Stuhl unter Bismut)',
               'PPI nach der Eradikation bis zur endoskopisch gesicherten Abheilung fortführen',
               'Eradikationskontrolle frühestens 4 Wochen nach Therapieende mit Atemtest oder Stuhl-Antigen, PPI 2 Wochen vorher pausiert',
-              'Sind Helicobacter und NSAR beide negativ: seltene Ursachen suchen (verschwiegene Schmerzmittel, Gastrinom)',
+              'Sind Helicobacter-Test und NSAR-Anamnese negativ: seltene Ursachen suchen (verschwiegene Schmerzmittel, Gastrinom)',
             ],
             akut: false,
           },
@@ -2282,7 +2282,7 @@ export function seedCases(): Case[] {
         'Ein PPI-Versagen nach einem Jahr Therapie ohne Diagnose ist eine Indikation zur ÖGD — nicht zur alleinigen Dosiserhöhung.',
         'Fragen, ob vor einem Jahr ein Helicobacter-Test gemacht wurde: die Ursache des Ulkus entscheidet über die Therapie.',
         'Ein negativer Helicobacter-Befund unter laufendem PPI beweist nichts.',
-        'Schmerzmittel: Metamizol ist wegen der Allergie (Exanthem, Atemnot) verboten, NSAR verträgt er nicht — es bleibt Paracetamol.',
+        'Schmerzmittel: Metamizol ist wegen der Allergie (Exanthem, Atemnot) kontraindiziert, NSAR verträgt er nicht — es bleibt Paracetamol.',
       ],
       examinerSheet: [
         { title: 'Verdachtsdiagnose und Begründung', interactions: [
@@ -2294,9 +2294,9 @@ export function seedCases(): Case[] {
           { frage: 'Wie unterscheiden Sie ein Ulcus ventriculi von einem Ulcus duodeni?', reaktion: 'Klinisch über den Schmerzrhythmus: Magenulkus mit Schmerz kurz nach dem Essen, Duodenalulkus mit Nüchtern- und Nachtschmerz, der sich durch Essen bessert. Sicher nur in der ÖGD.' },
         ] },
         { title: 'Diagnostik', interactions: [
-          { frage: 'Wie sichern Sie die Diagnose?', reaktion: 'Körperliche Untersuchung mit rektaler Untersuchung, Labor, EKG, Sonographie und als Goldstandard die ÖGD mit Biopsien aus dem Ulkusrand sowie aus Antrum und Korpus.' },
+          { frage: 'Wie sichern Sie die Diagnose?', reaktion: 'Körperliche und digital-rektale Untersuchung, Labor, EKG, Sonographie und als Goldstandard die ÖGD mit Biopsien aus dem Ulkusrand sowie aus Antrum und Korpus.' },
           { frage: 'Welche Laborwerte sind wichtig?', reaktion: 'Blutbild und Ferritin wegen einer möglichen Anämie, Leberwerte, Lipase zum Ausschluss einer Pankreatitis sowie Troponin.' },
-          { frage: 'Wie weisen Sie Helicobacter pylori nach — auch unter dem laufenden PPI?', reaktion: 'Invasiv mit Urease-Schnelltest und Histologie aus der ÖGD, nicht-invasiv mit 13C-Harnstoff-Atemtest oder Stuhl-Antigen. Alle Tests werden unter PPI oft falsch negativ: ein negativer Befund wird nach zwei Wochen PPI-Pause wiederholt.' },
+          { frage: 'Wie weisen Sie Helicobacter pylori nach — auch unter dem laufenden PPI?', reaktion: 'Invasiv mit Urease-Schnelltest und Histologie aus der ÖGD, nicht-invasiv mit 13C-Harnstoff-Atemtest oder Stuhl-Antigen. Alle Tests werden unter PPI oft falsch negativ: ein negativer Befund wird mit einer Serologie oder nach Abheilung und zwei Wochen PPI-Pause überprüft.' },
         ] },
         { title: 'Therapie', interactions: [
           { frage: 'Wie behandeln Sie?', reaktion: 'Rauchstopp, kein Alkohol, Pantoprazol 40 mg für 6–8 Wochen. Bei Helicobacter-Nachweis Bismut-Quadrupeltherapie über 10 Tage; eine Clarithromycin-Tripeltherapie nur bei nachgewiesener Empfindlichkeit. Eradikationskontrolle nach frühestens 4 Wochen, Kontroll-ÖGD nach 6–8 Wochen.' },
@@ -2476,13 +2476,13 @@ export function seedCases(): Case[] {
         persona: 'Julian Brückner, 61 ans, ancien instituteur devenu homme au foyer. Très angoissé car son père est mort d\'un cancer de l\'estomac au même âge (61 ans). Tu parles beaucoup et vite et livres presque tous tes symptômes spontanément. Tu poses beaucoup de questions (est-ce un cancer ? dois-je continuer l\'Oméprazole du voisin ? le cannabis me calmerait-il ? peur de la gastroscopie). Tu minimises un peu ton tabagisme.',
       },
       medicalView: {
-        verdachtsdiagnose: 'Magenkarzinom mit chronischer oberer gastrointestinaler Blutung (Meläna) und Tumorkachexie (12 kg in vier Monaten, BMI 18,6). Risikofaktoren: 40 Packungsjahre, Vater mit 61 Jahren an einem Magenkarzinom verstorben.',
+        verdachtsdiagnose: 'Magenkarzinom mit Meläna und Tumorkachexie (12 kg Gewichtsverlust in vier Monaten). Risikofaktoren: 40 Packungsjahre, Vater mit 61 Jahren an einem Magenkarzinom verstorben.',
         patientWorte: { verdacht: 'sich in Ihrem Magen eine Gewebeveränderung gebildet hat, die bösartig sein könnte', diagnostik: 'machen wir eine Magenspiegelung mit Gewebeprobe, nehmen Blut ab und machen eine Computertomographie', therapie: 'planen mehrere Fachärzte gemeinsam die Behandlung, meist mit einer Operation und ergänzender Chemotherapie vor und nach dem Eingriff' },
         differenzialdiagnosen: [
           { dd: 'Ulcus ventriculi', unterscheidung: 'Kann ebenfalls bluten und Druck im Oberbauch machen. Gegen ein einfaches Ulkus sprechen der fehlende Schmerzrhythmus, die fehlende Besserung unter Omeprazol, 12 kg Gewichtsverlust und die Fleischabneigung. Jedes Magenulkus wird ohnehin biopsiert, weil ein ulzeriertes Karzinom gleich aussehen kann.' },
           { dd: 'Ösophaguskarzinom', unterscheidung: 'Raucher mit Gewichtsverlust, aber keine Dysphagie und kein Hochwürgen von Speisen. Ein Karzinom am Mageneingang (Kardia) kann beides zeigen; die ÖGD klärt den Sitz.' },
-          { dd: 'Pankreas-/Gallenwegskarzinom', unterscheidung: 'Ebenfalls Gewichtsverlust und Oberbauchdruck, aber kein Ikterus, kein heller Stuhl, kein dunkler Urin, kein Juckreiz und kein gürtelförmiger Rückenschmerz. Ein Teerstuhl passt nicht dazu; das CT des Stagings zeigt das Pankreas mit.' },
-          { dd: 'Magenlymphom (MALT)', unterscheidung: 'Gleiche Beschwerden und gleiche Endoskopie, oft Helicobacter-assoziiert; nur die Histologie unterscheidet.' },
+          { dd: 'Pankreas-/Gallenwegskarzinom', unterscheidung: 'Ebenfalls Gewichtsverlust und Oberbauchdruck, aber kein Ikterus, kein heller Stuhl, kein dunkler Urin, kein Juckreiz und kein gürtelförmiger Rückenschmerz. Ein Teerstuhl passt nicht dazu; das Staging-CT zeigt das Pankreas mit.' },
+          { dd: 'Magenlymphom (MALT)', unterscheidung: 'Gleiche Beschwerden und gleiche Endoskopie, oft Helicobacter-assoziiert; nur die Histologie unterscheidet. Nachtschweiß und Gewichtsverlust passen als B-Symptome auch zum Lymphom.' },
           { dd: 'Funktionelle Dyspepsie / GERD', unterscheidung: 'Bei einem 61-Jährigen mit Gewichtsverlust, Teerstuhl und familiärer Belastung nicht zu stellen: Alarmsymptome verlangen zuerst eine ÖGD.' },
           { dd: 'Kardiale Ursache (Hinterwandinfarkt)', unterscheidung: 'Diabetiker, Hypertoniker und Raucher können eine Ischämie als Oberbauchdruck spüren. Bei Dauerbeschwerden seit vier Monaten ohne Belastungsbezug unwahrscheinlich; ein EKG wird ohnehin präoperativ geschrieben.' },
         ],
@@ -2504,10 +2504,6 @@ export function seedCases(): Case[] {
               'Therapieentscheidung in der interdisziplinären Tumorkonferenz nach Histologie und Staging',
               'Perioperative Chemotherapie nach dem FLOT-Schema bei lokal fortgeschrittenem, resektablem Karzinom (cT3/cT4 oder Lymphknotenbefall)',
               'Im metastasierten Stadium palliative Chemotherapie, bei HER2-Positivität zusätzlich Trastuzumab',
-              'Ernährungstherapie schon vor der Operation, weil die Mangelernährung Komplikationen und Verträglichkeit der Chemotherapie verschlechtert',
-              'Diabetes: Metformin vor dem Kontrastmittel nur bei eGFR unter 30 pausieren; bei geringer Nahrungsaufnahme Blutzucker engmaschig kontrollieren und die Therapie anpassen',
-              'Helicobacter-pylori-Eradikation bei Nachweis; den Kindern als Verwandten ersten Grades einen Helicobacter-Test empfehlen',
-              'Psychoonkologische Anbindung früh anbieten: sein Vater starb im selben Alter an derselben Krankheit; Rauchstopp',
             ],
           },
           {
@@ -2523,6 +2519,15 @@ export function seedCases(): Case[] {
             items: [
               'Subtotale oder totale Gastrektomie mit D2-Lymphadenektomie in kurativer Situation',
               'Nach totaler Gastrektomie lebenslang Vitamin B12 parenteral',
+            ],
+          },
+          {
+            label: 'Supportive Therapie und Begleitmaßnahmen',
+            items: [
+              'Ernährungstherapie schon vor der Operation, weil die Mangelernährung die Komplikationsrate erhöht und die Verträglichkeit der Chemotherapie verschlechtert',
+              'Diabetes: Metformin vor dem Kontrastmittel nur bei eGFR unter 30 pausieren; bei geringer Nahrungsaufnahme Blutzucker engmaschig kontrollieren und die Therapie anpassen',
+              'Helicobacter-pylori-Eradikation bei Nachweis; den Kindern als Verwandten ersten Grades einen Helicobacter-Test empfehlen',
+              'Psychoonkologische Anbindung früh anbieten: sein Vater starb im selben Alter an derselben Krankheit; Rauchstopp',
             ],
           },
         ],
@@ -2572,7 +2577,7 @@ export function seedCases(): Case[] {
           { frage: 'Der Patient raucht viel — könnte er ein Bronchialkarzinom haben?', reaktion: 'Möglich, aber Teerstuhl, Völlegefühl und Fleischabneigung sprechen für den Magen. Das Staging-CT des Thorax beurteilt die Lunge ohnehin mit.' },
         ] },
         { title: 'Differenzialdiagnosen', interactions: [
-          { frage: 'Welche Differenzialdiagnosen stellen Sie?', reaktion: 'Blutendes Ulcus ventriculi, Ösophagus- bzw. Kardiakarzinom, Pankreas- und Gallenwegskarzinom (kein Ikterus), Magenlymphom; eine funktionelle Dyspepsie ist bei Alarmsymptomen nicht zulässig.' },
+          { frage: 'Welche Differenzialdiagnosen stellen Sie?', reaktion: 'Blutendes Ulcus ventriculi, Ösophagus- oder Kardiakarzinom, Pankreas- und Gallenwegskarzinom (kein Ikterus), Magenlymphom; eine funktionelle Dyspepsie ist bei Alarmsymptomen nicht zulässig.' },
           { frage: 'Warum steht auch ein Myokardinfarkt in der Differenzialdiagnose?', reaktion: 'Ein Hinterwandinfarkt kann sich bei Diabetikern als Oberbauchdruck mit Übelkeit zeigen; bei Diabetes, Hypertonie und Rauchen gehört ein EKG dazu, auch wenn die Dauerbeschwerden seit vier Monaten dagegen sprechen.' },
         ] },
         { title: 'Diagnostik und Staging', interactions: [
@@ -2582,7 +2587,7 @@ export function seedCases(): Case[] {
         ] },
         { title: 'Therapie', interactions: [
           { frage: 'Sollen wir den Patienten stationär aufnehmen?', reaktion: 'Ja: Teerstuhl mit möglicher Anämie, schwere Mangelernährung und ein dringender Tumorverdacht — zügige Abklärung mit ÖGD, Ernährungstherapie und Kreislaufüberwachung.' },
-          { frage: 'Was ist Iberogast und welche Medikamente geben Sie?', reaktion: 'Iberogast ist ein pflanzliches Kombinationspräparat bei funktioneller Dyspepsie und hier fehl am Platz. Bis zur ÖGD ein PPI i. v.; das Omeprazol vom Nachbarn wird abgesetzt. Ramipril und Metformin laufen weiter, Metformin wird bei eGFR unter 30 vor dem Kontrastmittel pausiert.' },
+          { frage: 'Was ist Iberogast und welche Medikamente geben Sie?', reaktion: 'Iberogast ist ein pflanzliches Kombinationspräparat bei funktioneller Dyspepsie und hier fehl am Platz. Bis zur ÖGD ein PPI intravenös; das Omeprazol vom Nachbarn wird abgesetzt. Ramipril und Metformin laufen weiter, Metformin wird bei eGFR unter 30 vor dem Kontrastmittel pausiert.' },
           { frage: 'Wie behandeln Sie das gesicherte Magenkarzinom?', reaktion: 'Nach Tumorkonferenz und Stadium: endoskopische Resektion nur beim Mukosakarzinom, sonst Gastrektomie mit D2-Lymphadenektomie und perioperativer FLOT-Chemotherapie; palliativ Chemotherapie, bei HER2-Positivität mit Trastuzumab, Stent oder Gastroenterostomie bei Stenose. Ernährungstherapie schon vor der Operation.' },
         ] },
         { title: 'Aufklärung des Patienten (2 Minuten)', interactions: [
@@ -2756,7 +2761,7 @@ export function seedCases(): Case[] {
         persona: 'Büroangestellter de 41 ans, coopérant et un peu inquiet. Tu as mal en bas à droite depuis hier soir, ça empire, tu ne peux pas t\'allonger à plat. Tu n\'as pas vomi, pas de diarrhée. Tu n\'as pas mesuré ta fièvre mais tu te sens chaud. N\'oublie pas ta cicatrice de hernie inguinale d\'enfant si on te demande des opérations.',
       },
       medicalView: {
-        verdachtsdiagnose: 'Akute Appendizitis ohne typische Schmerzwanderung, mit peritonealer Reizung im rechten Unterbauch. Schmerz im Flachliegen und bei Erschütterung, kein Hinweis auf Perforation; Ibuprofen bei Bedarf kann Schmerz und Fieber abschwächen.',
+        verdachtsdiagnose: 'Akute Appendizitis ohne typische Schmerzwanderung, mit peritonealer Reizung im rechten Unterbauch. Schmerz im Flachliegen und bei Erschütterung, kein Hinweis auf Perforation.',
         patientWorte: { verdacht: 'es sich um eine Entzündung des Blinddarms handelt, die die Schmerzen in Ihrem rechten Unterbauch erklärt', diagnostik: 'nehmen wir Ihnen Blut ab, machen einen Urintest und einen Ultraschall vom Bauch', therapie: 'müsste der Blinddarm noch heute operativ entfernt werden, das ist ein Routineeingriff mit guter Heilungsaussicht' },
         differenzialdiagnosen: [
           { dd: 'Gastroenteritis', unterscheidung: 'Diffuse, kolikartige Bauchschmerzen mit Durchfall und Erbrechen im Vordergrund. Er hat weder Durchfall noch Erbrechen, der Schmerz ist umschrieben und bewegungsabhängig.' },
@@ -2767,7 +2772,7 @@ export function seedCases(): Case[] {
           { dd: 'Terminale Ileitis bei Morbus Crohn', unterscheidung: 'Chronisch-rezidivierender Verlauf mit Durchfällen, Gewichtsverlust und extraintestinalen Zeichen; hier akuter Erstbeginn ohne Durchfall.' },
         ],
         diagnostik: [
-          { stufe: 'Anamnese/Klinik', text: 'Vitalparameter mit Temperatur (rektal und axillär): er hat Hitzegefühl und Nachtschweiß, aber nicht gemessen' },
+          { stufe: 'Anamnese/Klinik', text: 'Vitalparameter mit Temperatur (rektal und axillär): er hat Hitzegefühl und Nachtschweiß, aber kein Fieber gemessen' },
           { stufe: 'Anamnese/Klinik', text: 'Körperliche Untersuchung: Druck- und Loslassschmerz im rechten Unterbauch, Appendizitiszeichen (McBurney, Lanz, Blumberg, Rovsing, Psoas), Abwehrspannung; die rechte Leiste mit der alten Narbe inspizieren und tasten; digital-rektale Untersuchung' },
           { stufe: 'Labor', text: 'Blutbild (Leukozytose, Linksverschiebung), CRP, Elektrolyte, Kreatinin, Gerinnung, Blutgruppe' },
           { stufe: 'Labor', text: 'Urinstatus zum Ausschluss eines Harnwegsinfekts oder Steins' },
@@ -2799,7 +2804,7 @@ export function seedCases(): Case[] {
           {
             label: 'Sonderfall perityphlitischer Abszess und Konglomerattumor',
             items: [
-              'Zeigt die Bildgebung einen abgekapselten perityphlitischen Abszess: sonographisch oder CT-gesteuerte Drainage unter intravenöser Antibiose statt sofortiger Operation',
+              'Zeigt die Bildgebung einen abgekapselten perityphlitischen Abszess: sonographisch gesteuerte oder CT-gesteuerte Drainage unter intravenöser Antibiose statt sofortiger Operation',
               'Intervall-Appendektomie nach etwa 6–8 Wochen; mit 41 Jahren vorher Koloskopie, weil sich hinter einem Abszess ein perforiertes Kolonkarzinom verbergen kann',
               'Bei septischem Verlauf oder zunehmender Peritonitis sofortige operative Sanierung',
             ],
@@ -2849,7 +2854,7 @@ export function seedCases(): Case[] {
         'Cave: Eine fehlende Leukozytose ist kein Gegenbeweis (lokalisierte Entzündung).',
         'Cave: Plötzliche Schmerzlinderung mit anschließend diffusem Bauchschmerz und Abwehrspannung ist ein Warnsignal der Perforation.',
         'Cave: Nach der letzten Ibuprofen-Einnahme fragen — sie kann Fieber und Schmerz dämpfen und den Befund verharmlosen.',
-        'Cave: Die Rückfrage „Und wenn es eine Frau wäre?“ kommt fast immer: β-HCG, Extrauteringravidität, Ovarialtorsion, Adnexitis.',
+        'Cave: Auf die Rückfrage „Und wenn es eine Frau wäre?“ vorbereitet sein: β-HCG, Extrauteringravidität, Ovarialtorsion, Adnexitis.',
       ],
       status: 'À faire',
       confidence: 0,
@@ -2863,22 +2868,22 @@ export function seedCases(): Case[] {
         ] },
         { title: 'Verdachtsdiagnose & Differenzialdiagnosen', interactions: [
           { frage: 'Welche Verdachtsdiagnose haben Sie? Warum?', reaktion: 'Akute Appendizitis — umschriebener rechter Unterbauchschmerz, Übelkeit, Inappetenz, Hitzegefühl, Schmerzverstärkung im Liegen und bei Erschütterung.' },
-          { frage: 'Welche Differenzialdiagnosen?', reaktion: 'Gastroenteritis, Harnleiterstein rechts, inkarzerierte Leistenhernie rechts (Z. n. Hernien-OP), gedeckt perforiertes Ulkus (Sodbrennen, Ibuprofen), Zäkumdivertikulitis, Morbus Crohn; bei einer Frau zusätzlich Extrauteringravidität und Ovarialtorsion.' },
+          { frage: 'Welche Differenzialdiagnosen?', reaktion: 'Gastroenteritis, Harnleiterstein rechts, inkarzerierte Leistenhernie rechts, da ein Zustand nach Leistenhernien-Operation besteht, gedeckt perforiertes Ulkus (Sodbrennen, Ibuprofen), Zäkumdivertikulitis, Morbus Crohn; bei einer Frau zusätzlich Extrauteringravidität und Ovarialtorsion.' },
         ] },
         { title: 'Diagnostik', interactions: [
           { frage: 'Wie gehen Sie vor, um Ihren Verdacht zu bestätigen?', reaktion: 'Körperliche Untersuchung mit Appendizitiszeichen, Leiste und rektaler Untersuchung, Vitalparameter mit Temperatur, Labor (Blutbild, CRP), Urinstatus und Abdomensonographie, bei unklarem Befund CT.' },
           { frage: 'Welche Informationen liefert ein Blutbild?', reaktion: 'Leukozytenzahl (Leukozytose mit Linksverschiebung als Entzündungszeichen), Erythrozyten (Anämie/Blutung) und Thrombozyten.' },
           { frage: 'Würden Sie den Urin untersuchen? Warum?', reaktion: 'Ja — zum Ausschluss eines Harnwegsinfekts oder einer Urolithiasis als Differenzialdiagnose; bei pelviner Appendixlage kann der Urin ebenfalls leicht auffällig sein.' },
-          { frage: 'Falls die Entzündungsparameter nicht erhöht sind — was könnte der Grund sein?', reaktion: 'Ein frühes Stadium oder eine noch lokalisierte Entzündung; auch Ibuprofen kann die Entzündungszeichen abschwächen. Die Diagnose bleibt klinisch.' },
-          { frage: 'Was kann man in der Sonografie sehen?', reaktion: 'Eine aufgetriebene, nicht komprimierbare Appendix (Kokarde/Target-Zeichen), Wandverdickung, freie Flüssigkeit sowie ggf. einen Kotstein oder Abszess.' },
+          { frage: 'Falls die Entzündungsparameter nicht erhöht sind — was könnte der Grund sein?', reaktion: 'Ein frühes Stadium oder eine noch lokalisierte Entzündung; ein Schmerzmittel hat er seit Beginn nicht genommen. Die Diagnose bleibt klinisch.' },
+          { frage: 'Was kann man in der Sonografie sehen?', reaktion: 'Eine aufgetriebene, nicht komprimierbare Appendix (Kokarde/Target-Zeichen), Wandverdickung, freie Flüssigkeit sowie gegebenenfalls einen Kotstein oder Abszess.' },
         ] },
         { title: 'Therapie', interactions: [
-          { frage: 'Welche Therapie schlagen Sie vor?', reaktion: 'Stationäre Aufnahme, nüchtern lassen, i.v.-Flüssigkeit, Analgesie und perioperative Antibiotikaprophylaxe; als kausale Therapie die laparoskopische Appendektomie.' },
+          { frage: 'Welche Therapie schlagen Sie vor?', reaktion: 'Stationäre Aufnahme, nüchtern lassen, intravenöse Flüssigkeit, Analgesie und perioperative Antibiotikaprophylaxe; als kausale Therapie die laparoskopische Appendektomie.' },
           { frage: 'Kann man auch nur mit Antibiotika behandeln?', reaktion: 'Bei unkomplizierter Appendizitis ohne Kotstein möglich, aber etwa jeder Dritte wird innerhalb eines Jahres doch operiert. Bei diesem gesunden 41-Jährigen ist die Operation vorzuziehen, auch wegen der Histologie.' },
           { frage: 'Warum ist eine zeitnahe Operation wichtig?', reaktion: 'Um eine Perforation mit Peritonitis und Sepsis zu vermeiden — die Appendizitis ist eine dringliche OP-Indikation.' },
         ] },
         { title: 'Aufklärung des Patienten (2 Minuten)', interactions: [
-          { frage: 'Klären Sie den Patienten über die laparoskopische Appendektomie auf.', reaktion: 'Über drei kleine Bauchschnitte („Schlüssellochoperation“) wird der entzündete Wurmfortsatz in Vollnarkose entfernt; kurze Erholung, Risiken wie Blutung, Infektion, Verletzung von Nachbarorganen und selten Umstieg auf eine offene Operation.' },
+          { frage: 'Klären Sie den Patienten über die laparoskopische Appendektomie auf.', reaktion: 'Über drei kleine Bauchschnitte („Schlüssellochoperation“) wird der entzündete Wurmfortsatz in Vollnarkose entfernt; kurze Erholung, Risiken wie Blutung, Infektion, Verletzung von Nachbarorganen und selten Umstieg auf einen größeren Bauchschnitt.' },
         ] },
       ],
     },
@@ -4051,7 +4056,7 @@ export function seedCases(): Case[] {
         persona: 'Retraité de 60 ans, ancien chauffeur de bus, tranquille et un peu fataliste. Tu banalises le tabac (« ça n\'a quand même rien à voir avec ma jambe, non ? »). Tu décris clairement le lien entre la douleur du mollet et la marche si on te questionne. Tu ne signales ton allergie à la pénicilline que si on te pose la question — ou, si on l\'a oubliée, spontanément en toute fin d\'entretien.',
       },
       medicalView: {
-        verdachtsdiagnose: 'Periphere arterielle Verschlusskrankheit des rechten Beins, Fontaine-Stadium IIb (am ehesten femoropoplitealer Oberschenkeltyp). Ausdruck einer generalisierten Atherosklerose bei 45 Packungsjahren, Hypertonie und Hyperlipidämie.',
+        verdachtsdiagnose: 'Periphere arterielle Verschlusskrankheit vom Oberschenkeltyp rechts, Fontaine-Stadium IIb. Ausdruck einer generalisierten Atherosklerose bei 45 Packungsjahren, Hypertonie und Hyperlipidämie.',
         patientWorte: { verdacht: 'ein Gefäß in Ihrem rechten Bein verengt ist und deshalb beim Gehen zu wenig Blut ankommt', diagnostik: 'tasten wir die Fußpulse, messen den Blutdruck an Arm und Bein und lassen Sie auf dem Laufband gehen', therapie: 'helfen Ihnen Nikotinverzicht, Gehtraining und gefäßschützende Medikamente, bei stärkerer Verengung auch eine Gefäßaufdehnung oder Operation' },
         differenzialdiagnosen: [
           { dd: 'Claudicatio spinalis (Spinalkanalstenose)', unterscheidung: 'Bei seinem lumbalen Bandscheibenleiden aktiv abzugrenzen: der spinale Schmerz bessert sich erst beim Vornüberbeugen oder Hinsetzen, nicht beim bloßen Stehenbleiben, die Gehstrecke wechselt, die Fußpulse sind tastbar und der ABI ist normal.' },
@@ -4096,7 +4101,7 @@ export function seedCases(): Case[] {
             items: [
               'Im Stadium IIb relative Indikation: bei hohem Leidensdruck oder wenn Gehtraining und Basistherapie nach etwa drei Monaten nicht ausreichen',
               'Bei umschriebener Stenose oder kurzstreckigem Verschluss perkutane transluminale Angioplastie mit oder ohne Stent',
-              'Bei langstreckigem Verschluss femoropoplitealer Bypass, bevorzugt mit autologer Vena saphena magna, alternativ Thrombendarteriektomie an der Femoralisgabel',
+              'Bei langstreckigem Verschluss femoropoplitealer Bypass, bevorzugt mit autologer Vena saphena magna; Thrombendarteriektomie nur bei Stenose der Femoralisgabel',
               'Auch nach erfolgreicher Revaskularisation werden Basistherapie und Gehtraining unverändert fortgeführt',
             ],
             akut: false,
@@ -4160,22 +4165,22 @@ export function seedCases(): Case[] {
       ],
       examinerSheet: [
         { title: 'Verdachtsdiagnose und Klassifikation', interactions: [
-          { frage: 'Verdachtsdiagnose und Begründung?', reaktion: 'pAVK des rechten Beins — belastungsabhängiger, reproduzierbarer Wadenschmerz nach ca. 100 m mit Besserung beim Stehenbleiben (Claudicatio intermittens), blasses, kühles Bein; Risikofaktoren 45 Packungsjahre, Hypertonie, Hyperlipidämie, Vater mit Schlaganfall.' },
-          { frage: 'Welches Fontaine-Stadium liegt vor?', reaktion: 'Stadium IIb — schmerzfreie Gehstrecke unter 200 m. (I = beschwerdefrei, IIa > 200 m, IIb < 200 m, III = Ruheschmerz, IV = Nekrose/Gangrän.) Ergänzend Rutherford-Kategorien.' },
+          { frage: 'Verdachtsdiagnose und Begründung?', reaktion: 'pAVK des rechten Beins — belastungsabhängiger, reproduzierbarer Wadenschmerz nach etwa 100 Metern mit Besserung beim Stehenbleiben (Claudicatio intermittens), blasses, kühles Bein; Risikofaktoren 45 Packungsjahre, Hypertonie, Hyperlipidämie, Vater mit Schlaganfall.' },
+          { frage: 'Welches Fontaine-Stadium liegt vor?', reaktion: 'Stadium IIb — schmerzfreie Gehstrecke unter 200 m. Stadium I ist beschwerdefrei, IIa bedeutet eine schmerzfreie Gehstrecke über 200 Meter, IIb unter 200 Meter, Stadium III Ruheschmerz und Stadium IV Nekrose oder Gangrän. Ergänzend gibt es die Einteilung nach Rutherford.' },
           { frage: 'Warum spricht man von der Schaufensterkrankheit?', reaktion: 'Weil die Betroffenen wegen des belastungsabhängigen Schmerzes immer wieder stehen bleiben müssen — wie beim Schaufensterbummel.' },
         ] },
         { title: 'Differenzialdiagnosen', interactions: [
           { frage: 'Welche Differenzialdiagnose ist bei ihm besonders wichtig?', reaktion: 'Die Claudicatio spinalis wegen des lumbalen Bandscheibenleidens: Besserung erst beim Vornüberbeugen oder Sitzen, wechselnde Gehstrecke, tastbare Pulse, normaler ABI.' },
-          { frage: 'Wie unterscheiden Sie pAVK und TVT klinisch?', reaktion: 'TVT: akute Schwellung, Überwärmung, Rötung, Spannungsschmerz, Pulse erhalten; pAVK: blasses kühles Bein, abgeschwächte oder fehlende Pulse, belastungsabhängiger Schmerz.' },
-          { frage: 'Was ist das Leriche-Syndrom?', reaktion: 'Verschluss der distalen Aorta bzw. beider Beckenarterien mit der Trias beidseitige gluteale Claudicatio, fehlende Leistenpulse und erektile Dysfunktion.' },
+          { frage: 'Wie unterscheiden Sie pAVK und TVT klinisch?', reaktion: 'TVT: akute Schwellung, Überwärmung, Rötung, Spannungsschmerz, Pulse erhalten; pAVK: blasses, kühles Bein, abgeschwächte oder fehlende Pulse, belastungsabhängiger Schmerz.' },
+          { frage: 'Was ist das Leriche-Syndrom?', reaktion: 'Verschluss der distalen Aorta oder beider Beckenarterien mit der Trias aus beidseitiger glutealer Claudicatio, fehlenden Leistenpulsen und erektiler Dysfunktion.' },
         ] },
         { title: 'Untersuchung & Diagnostik', interactions: [
           { frage: 'Wo tasten Sie die Fußpulse?', reaktion: 'A. dorsalis pedis am Fußrücken und A. tibialis posterior hinter dem Innenknöchel, immer im Seitenvergleich; zusätzlich A. poplitea und A. femoralis.' },
-          { frage: 'Was ist der ABI und wie werten Sie ihn?', reaktion: 'Knöchel-Arm-Index = systolischer Knöcheldruck geteilt durch den höheren Armdruck; > 0,9 normal, 0,75–0,9 leichte, 0,5–0,75 mittelschwere, < 0,5 kritische pAVK; Werte > 1,3 sprechen für Mediasklerose (falsch hoch).' },
-          { frage: 'Welche Bildgebung, und was tun Sie bei Kontrastmittelallergie?', reaktion: 'Zuerst farbkodierte Duplexsonographie, dazu Karotis-Duplex wegen der generalisierten Atherosklerose; MR-/CT-Angiographie bzw. DSA nur zur Interventionsplanung; bei KM-Allergie CO2-Angiographie oder MR-Angiographie.' },
+          { frage: 'Was ist der ABI und wie werten Sie ihn?', reaktion: 'Der Knöchel-Arm-Index ist der systolische Knöcheldruck geteilt durch den höheren Armdruck. Über 0,9 ist er normal, zwischen 0,75 und 0,9 spricht er für eine leichte, zwischen 0,5 und 0,75 für eine mittelschwere und unter 0,5 für eine kritische pAVK. Werte über 1,3 sprechen für eine Mediasklerose, sind also falsch hoch.' },
+          { frage: 'Welche Bildgebung, und was tun Sie bei Kontrastmittelallergie?', reaktion: 'Zuerst farbkodierte Duplexsonographie, dazu Karotis-Duplex wegen der generalisierten Atherosklerose; MR- oder CT-Angiographie oder DSA nur zur Interventionsplanung; bei Kontrastmittelallergie eine CO2-Angiographie oder eine MR-Angiographie.' },
         ] },
         { title: 'Therapie', interactions: [
-          { frage: 'Wie behandeln Sie je nach Stadium?', reaktion: 'Alle Stadien: Nikotinkarenz, Thrombozytenaggregationshemmer, Statin, Blutdruck. Stadium II: strukturiertes Gehtraining, ggf. Cilostazol, bei Leidensdruck PTA/Stent oder Bypass. Stadium III/IV: dringliche Revaskularisation, Wundbehandlung, Analgesie.' },
+          { frage: 'Wie behandeln Sie je nach Stadium?', reaktion: 'Alle Stadien: Nikotinkarenz, Thrombozytenaggregationshemmer, Statin, Blutdruck. Stadium II: strukturiertes Gehtraining, gegebenenfalls Cilostazol, bei Leidensdruck PTA/Stent oder Bypass. Stadium III/IV: dringliche Revaskularisation, Wundbehandlung, Analgesie.' },
           { frage: 'Er nimmt Simvastatin 40 mg und bei Bedarf Ibuprofen — was ändern Sie?', reaktion: 'Umstellung auf ein hochpotentes Statin für LDL unter 55 mg/dl. Als Plättchenhemmer eher Clopidogrel, weil Ibuprofen die Wirkung von ASS abschwächt; Rückenschmerzen möglichst ohne Dauer-NSAR.' },
         ] },
         { title: 'Aufklärung des Patienten (2 Minuten)', interactions: [
@@ -4358,10 +4363,10 @@ export function seedCases(): Case[] {
         persona: 'Tu es Nadine Brückner, 44 ans, coiffeuse en formation, végane, plutôt calme et coopérante mais un peu inquiète pour cette rougeur qui s\'étend. Tu parles volontiers de ton compagnon et de ton séjour de randonnée près de la frontière suisse. Tu ne te souviens d\'aucune piqûre de tique. Tu insistes sur le sentiment grippal et la rougeur qui grandit, et tu poses des questions : est-ce grave, faut-il rester à l\'hôpital, le traitement est-il compatible avec ton fer ?',
       },
       medicalView: {
-        verdachtsdiagnose: 'Lyme-Borreliose im Stadium I mit Erythema migrans am rechten Oberschenkel nach einem Wanderurlaub im Wald. Kein Hinweis auf Dissemination (keine neurologischen, kardialen oder Gelenkzeichen); Zeckenstich nicht bemerkt.',
-        patientWorte: { verdacht: 'Sie sich durch einen Zeckenstich eine Infektion mit Bakterien zugezogen haben, eine sogenannte Borreliose, erkennbar an der wandernden Hautrötung', diagnostik: 'untersuche ich die Hautrötung genau und schließe mit Ihrer Reise- und Zeckenanamnese andere Ursachen aus', therapie: 'bekommen Sie zwei Wochen lang ein Antibiotikum zum Einnehmen, das die Erkrankung in diesem frühen Stadium gut heilt' },
+        verdachtsdiagnose: 'Lyme-Borreliose im Stadium I mit Erythema migrans am rechten Oberschenkel nach einem Wanderurlaub im Wald. Grippale Allgemeinsymptome mit Leistenlymphknoten deuten auf eine frühe Dissemination; keine neurologischen, kardialen oder Gelenkzeichen, Zeckenstich nicht bemerkt.',
+        patientWorte: { verdacht: 'Sie sich durch einen Zeckenstich eine Infektion mit Bakterien zugezogen haben, eine sogenannte Borreliose, erkennbar an der wandernden Hautrötung', diagnostik: 'untersuche ich die Hautrötung genau und frage Sie nach Ihrer Reise und nach Zeckenstichen, um andere Ursachen auszuschließen', therapie: 'bekommen Sie zwei bis drei Wochen lang ein Antibiotikum zum Einnehmen, das die Erkrankung in diesem frühen Stadium gut heilt' },
         differenzialdiagnosen: [
-          { dd: 'Frühsommer-Meningoenzephalitis (FSME)', unterscheidung: 'Dieselbe Zecke, aber ein Virus; kein Erythema migrans. Vorsicht: das grippale Bild kann die erste Phase einer FSME sein, und sie war in einem Risikogebiet an der Schweizer Grenze wandern — Impfstatus erfragen; ohne Impfung über Warnzeichen einer zweiten Phase aufklären (Kopfschmerz, Nackensteifigkeit, Verwirrtheit). Doxycyclin wirkt nicht gegen FSME.' },
+          { dd: 'Frühsommer-Meningoenzephalitis (FSME)', unterscheidung: 'Dieselbe Zecke, aber ein Virus; kein Erythema migrans. Vorsicht: das grippale Bild kann die erste Phase einer FSME sein, und sie war in einem Risikogebiet an der Schweizer Grenze wandern. Sie ist nicht gegen FSME geimpft: über Warnzeichen einer zweiten Phase aufklären (Kopfschmerz, Nackensteifigkeit, Verwirrtheit). Doxycyclin wirkt nicht gegen FSME.' },
           { dd: 'Erysipel (Wundrose)', unterscheidung: 'Scharf begrenzte, hochrote, überwärmte und deutlich schmerzhafte Rötung mit hohem Fieber und Schüttelfrost, oft mit Eintrittspforte. Bei ihr leichter Schmerz (2/10), keine Eintrittspforte, nur subfebril, zentrale Abblassung — CRP und Leukozyten zur Bestätigung.' },
           { dd: 'Tinea corporis (Dermatomykose)', unterscheidung: 'Ringförmig mit zentraler Abheilung, aber randständig schuppend, langsam über Wochen und ohne grippales Bild; Pilznachweis im Nativpräparat.' },
           { dd: 'Lokale Insektenstich- oder Kontaktreaktion', unterscheidung: 'Als Friseurin mit Kontaktekzem naheliegend, aber Kontaktekzeme jucken stark, bilden Bläschen und sitzen an den Händen; eine Stichreaktion wächst nicht über Tage ringförmig und bildet sich rasch zurück.' },
@@ -4380,10 +4385,10 @@ export function seedCases(): Case[] {
           {
             label: 'Antibiotische Therapie (Erstlinie)',
             items: [
-              'Doxycyclin 2 × 100 mg oder 1 × 200 mg oral über 14 Tage, sofort nach der klinischen Diagnose',
+              'Doxycyclin 2 × 100 mg oder 1 × 200 mg oral über 14–21 Tage, sofort nach der klinischen Diagnose — die grippalen Allgemeinsymptome gelten als frühe Dissemination (solitäres Erythema migrans ohne Allgemeinsymptome: 10–14 Tage); über eine mögliche Herxheimer-Reaktion in den ersten 24 Stunden aufklären',
               'Doxycyclin zwei bis drei Stunden getrennt vom Eisenpräparat und ohne Milchprodukte einnehmen (Chelatbildung); Sonnenschutz wegen der Photosensibilisierung',
               'Ambulante Behandlung, keine Isolation (keine Übertragung von Mensch zu Mensch)',
-              'Wiedervorstellung, wenn das Erythem unter Therapie nicht abblasst; bei fehlender FSME-Impfung die Impfung für künftige Wanderungen anbieten',
+              'Wiedervorstellung, wenn das Erythem unter Therapie nicht abblasst; die FSME-Grundimmunisierung nach Abklingen des akuten Infekts anbieten',
               'Zeckenschutz beim nächsten Wandern: bedeckende Kleidung, Repellent, abends die Haut absuchen',
             ],
             akut: true,
@@ -4392,14 +4397,14 @@ export function seedCases(): Case[] {
             label: 'Alternativen (KI / Schwangerschaft)',
             items: [
               'Bei ihr nicht erforderlich: eine Schwangerschaft ist nach der Hysterektomie ausgeschlossen, eine Doxycyclin-Unverträglichkeit nicht bekannt',
-              'Sonst Amoxicillin oder Cefuroxim-Axetil oral über 14 Tage',
+              'Sonst Amoxicillin oder Cefuroxim-Axetil oral über 14–21 Tage',
             ],
           },
           {
             label: 'Neuroborreliose / schwerer Verlauf',
             items: [
               'Warnzeichen erklären: Gesichtslähmung, nächtlich brennende Nervenschmerzen, Nackensteifigkeit, Herzstolpern oder Ohnmacht — dann sofort wiederkommen',
-              'Neuroborreliose: Lumbalpunktion, Ceftriaxon 2 g i. v. einmal täglich über 14 Tage (bei früher Neuroborreliose auch Doxycyclin oral)',
+              'Neuroborreliose: Lumbalpunktion, Ceftriaxon 2 g i. v. einmal täglich über 14–21 Tage (bei früher Neuroborreliose auch Doxycyclin oral)',
               'Lyme-Karditis mit höhergradigem AV-Block: Monitorüberwachung, Ceftriaxon i. v., gegebenenfalls passagerer Schrittmacher',
             ],
           },
@@ -4441,7 +4446,7 @@ export function seedCases(): Case[] {
         'Im Stadium I keine Serologie anfordern: Antikörper sind früh oft noch negativ, ein negatives Ergebnis wäre kein Gegenbeweis.',
         'Beim Zweistufentest niemals den Immunoblot allein werten.',
         'Ein Zeckenstich wird häufig nicht bemerkt — eine fehlende Stichanamnese schließt eine Borreliose nicht aus.',
-        'Der Zeckenstich selbst ist harmlos — gefährlich ist die Erregerübertragung; das Risiko steigt deutlich ab einer Saugdauer über 24 Stunden.',
+        'Der Zeckenstich selbst ist harmlos — gefährlich ist die Erregerübertragung; das Risiko steigt deutlich ab einer Saugdauer von mehr als 24 Stunden.',
       ],
       status: 'À faire',
       confidence: 0,
@@ -4486,7 +4491,7 @@ export function seedCases(): Case[] {
             },
             {
               frage: 'Kann das grippale Bild bei ihr auch eine FSME sein?',
-              reaktion: 'Ja: die erste Phase der FSME ist grippal, und sie war in einem Risikogebiet wandern. Deshalb FSME-Impfstatus erfragen und über die Warnzeichen einer zweiten Phase mit Meningitis oder Enzephalitis aufklären; Doxycyclin behandelt nur die Borreliose.',
+              reaktion: 'Ja: die erste Phase der FSME ist grippal, und sie war in einem Risikogebiet wandern. Sie ist nicht geimpft: über die Warnzeichen einer zweiten Phase mit Meningitis oder Enzephalitis aufklären; Doxycyclin behandelt nur die Borreliose.',
             },
           ],
         },
@@ -4525,7 +4530,7 @@ export function seedCases(): Case[] {
           interactions: [
             {
               frage: 'Welche Therapie schlagen Sie vor?',
-              reaktion: 'im Stadium I orales Doxycyclin, 200 mg täglich über etwa zwei Wochen.',
+              reaktion: 'im Stadium I orales Doxycyclin, 200 mg täglich über 14–21 Tage, weil die grippalen Allgemeinsymptome für eine frühe Dissemination sprechen.',
             },
             {
               frage: 'Wie wirkt Doxycyclin, und welche Nebenwirkungen hat es?',
@@ -5056,7 +5061,7 @@ export function seedCases(): Case[] {
               'Kurzfristig ein Muskelrelaxans bei ausgeprägter reflektorischer Verspannung',
               'KEINE strenge Bettruhe — frühe Mobilisation, Aktivität erhalten, in der Akutphase entlastende Stufenlagerung',
               'Physiotherapie und Rückenschule mit rückengerechtem Heben, Gewichtsreduktion (BMI 28) und Rauchstopp',
-              'Arbeitsunfähigkeit für die Akutphase bescheinigen; bei jahrelangem schwerem Heben als Lagerarbeiter den Verdacht auf eine Berufskrankheit (BK 2108) prüfen',
+              'Arbeitsunfähigkeit für die Akutphase bescheinigen; bei jahrelangem schwerem Heben als Lagerarbeiter bei begründetem Verdacht auf BK 2108 ärztliche Anzeige an die Berufsgenossenschaft (Pflicht, § 202 SGB VII); da der Schmerz beim Heben bei der Arbeit begann, zusätzlich Unfallanzeige',
             ],
             akut: true,
           },
@@ -5098,7 +5103,7 @@ export function seedCases(): Case[] {
         'Welche Warnsymptome (red flags) würden Sie an eine andere Ursache denken lassen?',
       ],
       pruefungsfallen: [
-        'Immer aktiv nach dem Cauda-equina-Syndrom fragen — das Übersehen ist der schwerste Fehler und ein Notfall.',
+        'Immer aktiv nach dem Cauda-equina-Syndrom fragen — ein übersehenes Cauda-Syndrom ist der schwerste Fehler, es ist ein Notfall.',
         'Kein konventionelles Röntgen zur Beurteilung der Bandscheibe — Mittel der Wahl ist das MRT der LWS.',
         'Nicht vorschnell die Operation nennen: rund 90 % heilen konservativ.',
         'Red flags nicht vergessen: Nachtschmerz/Gewichtsverlust/Tumoranamnese (Malignom), Fieber/Immunsuppression (Spondylodiszitis), Trauma/Osteoporose (Fraktur).',
@@ -5117,7 +5122,7 @@ export function seedCases(): Case[] {
           { frage: 'Warum MRT und kein Röntgen — und wann?', reaktion: 'Das MRT stellt Bandscheibe, Nervenwurzel und Spinalkanal ohne Strahlung am besten dar; das Röntgen zeigt nur Knochen. Sofort bei Cauda-Zeichen oder Parese; bei ihm ohne Parese erst, wenn die Beschwerden über etwa sechs Wochen anhalten oder eine Intervention geplant wird.' },
         ] },
         { title: 'Cauda-Syndrom & Therapie', interactions: [
-          { frage: 'Was ist das Cauda-equina-Syndrom?', reaktion: 'Eine Kompression der Cauda equina mit Reithosenanästhesie und Blasen-/Mastdarmstörung — ein Notfall, der ein sofortiges MRT und eine notfallmäßige operative Dekompression erfordert.' },
+          { frage: 'Was ist das Cauda-equina-Syndrom?', reaktion: 'Eine Kompression der Cauda equina mit Reithosenanästhesie und Blasen- und Mastdarmstörung — ein Notfall, der ein sofortiges MRT und eine notfallmäßige operative Dekompression erfordert.' },
           { frage: 'Wie behandeln Sie diesen Patienten konkret, und wann operieren Sie?', reaktion: 'Konservativ: Analgesie, frühe Mobilisation statt Bettruhe, Physiotherapie und Rückenschule, Gewichtsreduktion und Rauchstopp. Operiert wird nur bei Cauda-Syndrom, progredienter oder hochgradiger Parese oder anhaltendem Schmerz nach etwa sechs Wochen.' },
           { frage: 'Er nimmt seit drei Tagen mehrmals täglich Ibuprofen und Ramipril — was beachten Sie?', reaktion: 'NSAR und ACE-Hemmer zusammen belasten die Niere und heben den Blutdruck: Kreatinin und Blutdruck kontrollieren, Ibuprofen in festen Dosen, zeitlich begrenzt und mit Magenschutz, ergänzend Metamizol.' },
         ] },
