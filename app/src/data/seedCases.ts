@@ -30890,7 +30890,7 @@ export function seedCases(): Case[] {
         'auf-gastroskopie',
       ],
       caseSpecificQuestions: [
-        { frage: 'Wann genau haben Sie zuletzt Alkohol getrunken — Tag und Uhrzeit?', kapitel: 'noxen', sucht: ['letzte_einnahme'] },
+        { frage: 'Wann genau haben Sie zuletzt Alkohol getrunken — Tag und Uhrzeit?', kapitel: 'noxen', sucht: ['letzte_einnahme'], braucht: ['alkohol'] },
         { frage: 'Was trinken Sie genau?', kapitel: 'noxen', sucht: ['alkohol'], followUp: 'Wie viele Gläser oder Flaschen sind das am Tag?', followUps: ['Wie groß sind die Gläser?'] },
         { frage: 'Hatten Sie schon einmal einen Krampfanfall oder eine Phase, in der Sie verwirrt waren oder Dinge gesehen haben, die nicht da waren?', kapitel: 'vorerkrankungen', sucht: ['entzug_vorgeschichte'] },
         { frage: 'Haben Sie Blut erbrochen oder schwarzen Stuhlgang bemerkt?', kapitel: 'vegetativ', sucht: ['haematemesis', 'stuhl_blut'], relu: true },
@@ -35310,11 +35310,11 @@ export function seedCases(): Case[] {
         'auf-bronchoskopie',
       ],
       caseSpecificQuestions: [
+        { frage: 'Schlafen Sie tagsüber unwillkürlich ein — beim Fernsehen, beim Lesen, im Gespräch, im Wartezimmer?', kapitel: 'vegetativ', sucht: ['tagesschlaefrigkeit'], relu: true },
         { frage: 'Schlafen Sie ausreichend lange?', kapitel: 'vegetativ', sucht: ['schlaf'], followUp: 'Falls ja: Fühlen Sie sich morgens trotzdem wie gerädert?' },
         { frage: 'Schnarchen Sie?', kapitel: 'aktuell', sucht: ['schnarchen'], followUp: 'Falls ja: Ist das Schnarchen gleichmäßig oder unregelmäßig?' },
         { frage: 'Hat Ihre Frau schon einmal beobachtet, dass Sie im Schlaf eine Zeit lang nicht atmen?', kapitel: 'aktuell', sucht: ['schlafapnoe'], relu: true, followUp: 'Falls ja: Wie lange dauern diese Pausen etwa?' },
         { frage: 'Wachen Sie nachts manchmal mit einem Erstickungs- oder Würgegefühl auf, oder mit Herzrasen?', kapitel: 'aktuell', sucht: ['dpn', 'herzrasen'] },
-        { frage: 'Schlafen Sie tagsüber unwillkürlich ein — beim Fernsehen, beim Lesen, im Gespräch, im Wartezimmer?', kapitel: 'vegetativ', sucht: ['tagesschlaefrigkeit'], relu: true },
         { frage: 'Hatten Sie am Steuer schon einmal eine brenzlige Situation — an einer Ampel oder auf der Autobahn —, die gerade noch gut gegangen ist?', kapitel: 'aktuell', sucht: ['gefaehrdung'] },
         { frage: 'Ist Ihr Blutdruck mit den Tabletten gut eingestellt?', kapitel: 'medikamente', sucht: ['blutdruck'] },
         { frage: 'Haben Sie in letzter Zeit ein neues Medikament bekommen?', kapitel: 'medikamente', sucht: ['medikament_neu'] },
@@ -53041,7 +53041,7 @@ export function seedCases(): Case[] {
           'veg-ausscheidung': 'Stuhlgang und Wasserlassen sind ganz normal. Kein Blut, kein schwarzer Stuhl — darauf achte ich seit dem Magengeschwür.',
           'veg-gewicht': 'Ich wiege jetzt 62 Kilo. (Nur auf Nachfrage:) Vor etwa vier Wochen waren es noch 65. Ich habe nichts an meinem Essen geändert, ich wollte gar nicht abnehmen.',
           'veg-appetit': 'Der Appetit ist eigentlich normal, ich esse wie immer. Deswegen verstehe ich das mit dem Gewicht ja nicht.',
-          'veg-schlaf': 'Schlecht. Ich wache nachts klatschnass auf, zwei-, dreimal die Woche muss ich das Nachthemd wechseln, manchmal sogar das Laken. Und dann liege ich wach und grüble.',
+          'veg-schlaf': 'Schlecht. Ich liege nachts wach und grüble.',
           'vor-erkrank': 'Seit etwa zwanzig Jahren allergisches Asthma, gut eingestellt mit Spray bei Bedarf. Und vor vier Jahren ein Magengeschwür, das Bakterium, das wurde mit Tabletten behandelt.',
           'vor-op': 'Nein, operiert wurde ich noch nie. Nur die Geburt meines Sohnes, das war eine normale Geburt.',
           'vor-krankenhaus': 'Im Krankenhaus war ich nur bei der Geburt vor 19 Jahren. Das Magengeschwür wurde ambulant behandelt.',
@@ -53075,6 +53075,7 @@ export function seedCases(): Case[] {
           'frau-wechseljahre': 'Nein, ich glaube nicht, dass das die Wechseljahre sind. Die Regel ist regelmäßig, und tagsüber schwitze ich überhaupt nicht — nur nachts, und dann richtig.',
         },
         frageAntworten: [
+          { frage: 'Müssen Sie nachts den Schlafanzug oder das Bettzeug wechseln, weil Sie so stark schwitzen?', antwort: 'Ja. Ich wache nachts klatschnass auf, zwei-, dreimal die Woche muss ich das Nachthemd wechseln, manchmal sogar das Laken.', kapitel: 'vegetativ' },
           {
             frage: 'Wie ist Ihnen der Knoten aufgefallen?',
             antwort: 'Vor zwei Wochen, beim Duschen — da war er auf einmal da. Vorher hatte ich an der Stelle nie etwas bemerkt.',
@@ -53267,8 +53268,8 @@ export function seedCases(): Case[] {
         { frage: 'Ist der Knoten gerötet, oder fühlt er sich warm an?', kapitel: 'aktuell', sucht: ['lokalschmerz'] },
         { frage: 'Lässt sich der Knoten mit den Fingern hin- und herbewegen, oder sitzt er fest?', kapitel: 'aktuell', sucht: ['verschieblichkeit'] },
         { frage: 'Haben Sie Schmerzen im Knoten, wenn Sie Alkohol trinken?', kapitel: 'aktuell', sucht: ['alkoholschmerz'] },
-        { frage: 'Müssen Sie nachts den Schlafanzug oder das Bettzeug wechseln, weil Sie so stark schwitzen?', kapitel: 'vegetativ', sucht: ['nachtschweiss'], relu: true },
         { frage: 'Haben Sie Juckreiz am ganzen Körper bemerkt?', kapitel: 'vegetativ', sucht: ['pruritus'] },
+        { frage: 'Müssen Sie nachts den Schlafanzug oder das Bettzeug wechseln, weil Sie so stark schwitzen?', kapitel: 'vegetativ', sucht: ['nachtschweiss'], relu: true },
         { frage: 'Haben Sie Husten oder Luftnot bemerkt?', kapitel: 'aktuell', sucht: ['husten', 'atemnot'] },
         { frage: 'Haben Sie Schluckbeschwerden oder Herzrasen bemerkt?', kapitel: 'aktuell', sucht: ['schluck', 'herzrasen'] },
         { frage: 'Ist Ihr linkes Bein geschwollen, gerötet oder schmerzhaft?', kapitel: 'aktuell', sucht: ['beinschwellung'] },
