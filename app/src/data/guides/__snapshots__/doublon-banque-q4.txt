@@ -5,6 +5,7 @@ case-akutes-nierenversagen · miktion · akt-beginn → veg-ausscheidung
 case-fibromyalgie · gewicht · pers-groesse → veg-gewicht
 case-schlafapnoe · miktion · fach-pneumo-orthopnoe → veg-ausscheidung
 case-delir · gewicht · pers-groesse → veg-gewicht
+case-tia · sturz · akt-ausloeser → fach-neuro-koordination
 case-gastroenteritis · reise · pers-groesse → fach-infekt-reise
 case-rheumatisches-fieber · fieber · akt-motiv → fach-infekt-fieber
 case-rheumatisches-fieber · fieber · akt-begleit → fach-infekt-fieber
