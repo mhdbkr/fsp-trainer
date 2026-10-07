@@ -139,7 +139,10 @@ export function useLauf(c: Case | undefined, depart: SimTeil | null, taskId?: st
         muster: reglage.current.muster,
       });
       if (annule) return;
-      setLauf(transition(frisch, { typ: 'demarrer', teil: departRef.current ?? undefined, checkliste: DREI_TEILE.flatMap((t) => checklistFor(t, leitsymptomOf(c))) }));   // 2b : la nature du motif
+      // 2b : la checklist dit l'analyse que CE motif appelle. Un cas sans fiche patient (donnée partielle) garde le
+      // libellé neutre : rien ne doit bloquer la création de la partie.
+      const kategorie = c.patientSheet ? leitsymptomOf(c) : undefined;
+      setLauf(transition(frisch, { typ: 'demarrer', teil: departRef.current ?? undefined, checkliste: DREI_TEILE.flatMap((t) => checklistFor(t, kategorie)) }));
       setLaedt(false);
     })();
     return () => { annule = true; };
