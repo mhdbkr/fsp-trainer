@@ -281,13 +281,13 @@ export function seedFachwissen(): Fachwissen[] {
       pathology: 'Akute Pankreatitis',
       specialty: 'Gastroenterologie',
       definition:
-        'Akute Entzündung der Bauchspeicheldrüse durch vorzeitige Aktivierung der Verdauungsenzyme im Organ (Selbstverdauung). Die Diagnose steht bei zwei von drei Kriterien: typischer Oberbauchschmerz, Lipase über dem Dreifachen der Norm, typischer Befund in der Bildgebung. Meist interstitiell-ödematös, in 5–10 % nekrotisierend.',
+        'Akute Entzündung der Bauchspeicheldrüse durch vorzeitige Aktivierung der Verdauungsenzyme im Organ (Selbstverdauung). Die Diagnose gilt als gesichert, wenn zwei von drei Kriterien erfüllt sind: typischer Oberbauchschmerz, Lipase über dem Dreifachen der Norm, typischer Befund in der Bildgebung. Meist interstitiell-ödematös, in 5–10 % nekrotisierend.',
       aetiologie: 'Gallensteine (biliär) und Alkohol machen zusammen etwa 70–80 % aus. Seltener: Hypertriglyzeridämie (meist über 1 000 mg/dl), Hyperkalzämie, Medikamente, Zustand nach ERCP, Trauma, Pankreastumoren; ein Teil bleibt idiopathisch.',
       risikofaktoren: ['Cholelithiasis', 'Alkoholkonsum, Rauchen', 'Hypertriglyzeridämie', 'Zustand nach ERCP', 'Für einen schweren Verlauf: Alter über 60 Jahre, Adipositas, Begleiterkrankungen'],
       klinik: [
         { text: 'Akuter, heftiger, bohrender Oberbauchschmerz, gürtelförmig in den Rücken ausstrahlend, oft nach fettreichem Essen oder Alkohol; Linderung durch Vornüberbeugen' },
         { text: 'Übelkeit, Erbrechen' },
-        { text: 'Meteorismus, "Gummibauch" (elastische Abwehrspannung), paralytischer Begleitileus' },
+        { text: 'Meteorismus, „Gummibauch“ (elastische Abwehrspannung), paralytischer Begleitileus' },
         { text: 'Fieber, Tachykardie' },
         { text: 'Ikterus, dunkler Urin und heller Stuhl bei begleitender Choledocholithiasis' },
         { text: 'Schwere Verläufe: Kreislaufschock, Nierenversagen, respiratorische Insuffizienz (SIRS, Organversagen)', atypisch: true },
@@ -367,7 +367,7 @@ export function seedFachwissen(): Fachwissen[] {
       ],
       prognose: 'Die milde Form heilt meist folgenlos aus. Gefährlich sind der schwere Verlauf und die infizierte Nekrose: sie bestimmen die Letalität.',
       pruefungsfallen: [
-        'Die Höhe der Lipase korreliert NICHT mit dem Schweregrad.',
+        'Die Höhe der Lipase sagt nichts über den Schweregrad.',
         'Biliäre und alkoholische Genese unbedingt trennen: nur die biliäre braucht die Cholezystektomie, nur die alkoholische die Suchtbehandlung.',
         'Den Schweregrad sieht man bei Aufnahme nicht: jede akute Pankreatitis in den ersten 48 Stunden so überwachen, als könnte sie schwer werden.',
       ],
@@ -375,7 +375,7 @@ export function seedFachwissen(): Fachwissen[] {
         { frage: 'Was sind die zwei häufigsten Ursachen der akuten Pankreatitis?', antwort: 'Gallensteine (biliär) und Alkohol.' },
         { frage: 'Welcher Laborwert ist am wichtigsten?', antwort: 'Die Lipase.' },
         { frage: 'Wie sieht der Schmerz typischerweise aus?', antwort: 'Heftiger Oberbauchschmerz mit gürtelförmiger Ausstrahlung in den Rücken, oft nach fettigem Essen.' },
-        { frage: 'Wie behandeln Sie eine biliäre Pankreatitis?', antwort: 'Volumen, Schmerzmittel, früh essen lassen; eine Spiegelung nur bei Cholangitis oder Gangstein; die Gallenblase bei mildem Verlauf noch im selben Aufenthalt entfernen.' },
+        { frage: 'Wie behandeln Sie eine biliäre Pankreatitis?', antwort: 'Volumentherapie, Analgesie und früher Kostaufbau; eine ERCP nur bei Cholangitis oder bestätigtem Gangstein; die Cholezystektomie bei mildem Verlauf noch im selben Aufenthalt.' },
         { frage: 'Wie teilen Sie den Schweregrad ein?', antwort: 'Nach der revidierten Atlanta-Klassifikation; entscheidend ist, ob ein Organversagen auftritt und wie lange es anhält.' },
       ],
       linkedCaseIds: [],
@@ -511,7 +511,7 @@ export function seedFachwissen(): Fachwissen[] {
       pathology: 'Ulcus ventriculi / Gastritis',
       specialty: 'Gastroenterologie',
       definition: 'Umschriebener Substanzdefekt der Magen- (Ulcus ventriculi) oder Zwölffingerdarmschleimhaut (Ulcus duodeni), der die Muscularis mucosae durchbricht — im Gegensatz zur oberflächlichen Erosion bei der Gastritis. Ursache ist ein Ungleichgewicht zwischen aggressiven (Säure, Pepsin, H. pylori, NSAR) und protektiven Faktoren (Schleim, Bikarbonat, Durchblutung). Diese Fiche behandelt das Ulkus OHNE aktive Blutung; die akute obere GI-Blutung ist gesondert erfasst.',
-      aetiologie: 'Zwei Hauptursachen: Infektion mit Helicobacter pylori (verantwortlich für ca. 90 % der Ulcera duodeni und ca. 70 % der Ulcera ventriculi) und Einnahme von NSAR/ASS (Hemmung der protektiven Prostaglandinsynthese). Seltener: Kortikosteroide (v. a. in Kombination mit NSAR), schwerer Stress (Stressulkus bei Intensivpatienten), Rauchen, sowie das Gastrinom (Zollinger-Ellison-Syndrom).',
+      aetiologie: 'Zwei Hauptursachen: Infektion mit Helicobacter pylori (verantwortlich für ca. 90 % der Ulcera duodeni und ca. 70 % der Ulcera ventriculi) und Einnahme von NSAR/ASS (Hemmung der protektiven Prostaglandinsynthese). Seltener: Kortikosteroide (v. a. in Kombination mit NSAR), schwerer Stress (Stressulkus bei Intensivpatienten), Rauchen sowie das Gastrinom (Zollinger-Ellison-Syndrom).',
       risikofaktoren: [
         'Helicobacter-pylori-Infektion',
         'NSAR- und ASS-Einnahme (oft Selbstmedikation)',
@@ -581,7 +581,7 @@ export function seedFachwissen(): Fachwissen[] {
         {
           label: 'Helicobacter-pylori-Eradikation mit Erfolgskontrolle',
           items: [
-            'Erstlinie: Bismut-Quadrupeltherapie über 10 Tage (PPI + Bismut + Tetracyclin + Metronidazol), weil Clarithromycin in Deutschland häufig resistent ist',
+            'Erstlinie: Bismut-Quadrupeltherapie über 10 Tage (PPI + Bismut + Tetracyclin + Metronidazol), weil Helicobacter pylori in Deutschland häufig gegen Clarithromycin resistent ist',
             'Clarithromycin-Tripeltherapie (PPI + Clarithromycin + Amoxicillin oder Metronidazol) über 14 Tage nur bei nachgewiesener Clarithromycin-Empfindlichkeit',
             'Nach Therapieversagen Resistenztestung aus Biopsien und gezielte Zweitlinientherapie',
             'Patienten über Nebenwirkungen und Adhärenz aufklären: metallischer Geschmack, Diarrhoe, Schwarzfärbung des Stuhls unter Bismut, strikte Alkoholkarenz unter Metronidazol (Antabus-Effekt)',
@@ -611,7 +611,7 @@ export function seedFachwissen(): Fachwissen[] {
         'Beschwerden, die trotz PPI zunehmen, sind eine Indikation zur ÖGD und zur Helicobacter-Diagnostik, nicht zur alleinigen Dosiserhöhung.',
       ],
       askedInExam: [
-        { frage: 'Was ist der C13-Atemtest und wozu dient er?', antwort: 'Ein nicht-invasiver Test zum Nachweis von Helicobacter pylori: Der Patient trinkt 13C-markierten Harnstoff, den die bakterielle Urease spaltet; das markierte CO2 wird in der Ausatemluft gemessen.' },
+        { frage: 'Was ist der 13C-Atemtest und wozu dient er?', antwort: 'Ein nicht-invasiver Test zum Nachweis von Helicobacter pylori: Der Patient trinkt 13C-markierten Harnstoff, den die bakterielle Urease spaltet; das markierte CO2 wird in der Ausatemluft gemessen.' },
         { frage: 'Wie behandeln Sie ein Ulcus ventriculi?', antwort: 'Mit einem PPI über mehrere Wochen, Absetzen der NSAR und Noxenkarenz; bei Helicobacter-Nachweis zusätzlich eine Eradikation.' },
         { frage: 'Welche Eradikationstherapie wählen Sie heute?', antwort: 'Meist die Bismut-Quadrupeltherapie, weil Clarithromycin hierzulande oft nicht mehr wirkt.' },
         { frage: 'Welche Prädispositionsfaktoren für ein Ulkus kennen Sie?', antwort: 'Regelmäßige NSAR-Einnahme, eine H.-pylori-Infektion, Rauchen, Alkohol und beruflicher Stress.' },
@@ -756,9 +756,6 @@ export function seedFachwissen(): Fachwissen[] {
           items: [
             'Perioperative (neoadjuvante und adjuvante) Chemotherapie nach dem FLOT-Schema bei lokal fortgeschrittenem, resektablem Karzinom (cT3/cT4 oder Lymphknotenbefall)',
             'Palliative Chemotherapie bei metastasiertem Stadium; bei HER2-Überexpression zusätzlich Trastuzumab',
-            'Helicobacter-pylori-Eradikation (Erstlinie Bismut-Quadrupeltherapie) — kurativ beim frühen MALT-Lymphom, kausal bei Risikoschleimhaut; Verwandten ersten Grades einen Helicobacter-Test empfehlen',
-            'Ernährungstherapie / Ernährungsberatung, Substitution (Eisen, Vitamin B12 nach Gastrektomie)',
-            'Psychoonkologische Begleitung und Schmerz-/Palliativtherapie',
           ],
         },
         {
@@ -775,6 +772,14 @@ export function seedFachwissen(): Fachwissen[] {
             'Subtotale Gastrektomie bei distalem Sitz bzw. totale Gastrektomie bei proximalem/diffusem Befall, jeweils mit D2-Lymphadenektomie — kurativer Ansatz',
             'Bei ösophagogastralem Übergang (AEG) erweiterte transhiatale bzw. abdominothorakale Resektion',
             'Palliative Verfahren (Gastroenterostomie/Bypass) bei nicht resektabler Stenose',
+          ],
+        },
+        {
+          label: 'Supportive Therapie und Begleitmaßnahmen',
+          items: [
+            'Helicobacter-pylori-Eradikation (Erstlinie Bismut-Quadrupeltherapie) — kurativ beim frühen MALT-Lymphom, kausal bei Risikoschleimhaut; Verwandten ersten Grades einen Helicobacter-Test empfehlen',
+            'Ernährungstherapie / Ernährungsberatung, Substitution (Eisen, Vitamin B12 nach Gastrektomie)',
+            'Psychoonkologische Begleitung und Schmerz-/Palliativtherapie',
           ],
         },
       ],
@@ -804,7 +809,7 @@ export function seedFachwissen(): Fachwissen[] {
         },
         {
           frage: 'Erklären Sie die ÖGD.',
-          antwort: 'Eine Spiegelung von Speiseröhre, Magen und Zwölffingerdarm mit einem flexiblen Schlauch; sie erlaubt die Inspektion der Schleimhaut und die Entnahme von Gewebeproben.',
+          antwort: 'Eine Spiegelung von Speiseröhre, Magen und Zwölffingerdarm mit einem flexiblen Endoskop; sie erlaubt die Inspektion der Schleimhaut und die Entnahme von Gewebeproben.',
         },
         {
           frage: 'Der Patient hat einen Diabetes, ist aber untergewichtig — ist das wirklich ein Typ 2?',
@@ -876,7 +881,7 @@ export function seedFachwissen(): Fachwissen[] {
           atypisch: true,
         },
         {
-          text: 'Pelvine/retroiliakale Lage: Schmerz tief im Becken mit Dysurie oder Durchfall, kaum Bauchdeckenbefund',
+          text: 'Pelvine/retroileale Lage: Schmerz tief im Becken mit Dysurie oder Durchfall, kaum Bauchdeckenbefund',
           atypisch: true,
         },
         {
@@ -994,7 +999,7 @@ export function seedFachwissen(): Fachwissen[] {
       prognose: 'Bei rechtzeitiger Operation sehr gut mit niedriger Letalität und rascher Genesung. Prognose verschlechtert sich deutlich bei Perforation und Peritonitis (höhere Morbidität, Abszess-, Ileus- und Sepsisrisiko). Verzögerte Diagnose bei Kindern, Schwangeren und alten Patienten ist der Hauptrisikofaktor für Komplikationen.',
       pruefungsfallen: [
         'Den typischen Schmerzwechsel aktiv erfragen: erst periumbilikal/diffus, dann Wanderung in den rechten Unterbauch – das ist der klassische Hinweis, den die Prüfer hören wollen.',
-        'Die Rückfrage \'Und wenn es eine Frau wäre?\' kommt fast immer: gynäkologische Ursachen nennen.',
+        'Auf die Rückfrage „Und wenn es eine Frau wäre?“ vorbereitet sein: gynäkologische Ursachen nennen.',
         'Appendizitiszeichen (McBurney, Blumberg, Rovsing, Psoas) und den McBurney-Punkt exakt lokalisieren können – wird regelmäßig gefragt.',
         'Bei der Aufklärung den laienverständlichen Begriff \'Blinddarmentzündung\' und \'Schlüsselloch-Operation\' verwenden.',
       ],
@@ -1029,7 +1034,7 @@ export function seedFachwissen(): Fachwissen[] {
         },
         {
           frage: 'Welche Therapie schlagen Sie vor?',
-          antwort: 'Die operative Entfernung, in der Regel als laparoskopische Appendektomie, unter perioperativer Antibiotikaprophylaxe; bei Perforation offene Operation mit Lavage und therapeutischer Antibiose.',
+          antwort: 'Die operative Entfernung, in der Regel als laparoskopische Appendektomie, unter perioperativer Antibiotikaprophylaxe; bei Perforation ebenfalls meist laparoskopisch mit ausgiebiger Lavage (offen bei ausgedehnter Peritonitis) und therapeutischer Antibiose.',
         },
         {
           frage: 'Welche Appendizitiszeichen kennen Sie, zum Beispiel das Psoas-Zeichen?',
@@ -1635,7 +1640,7 @@ export function seedFachwissen(): Fachwissen[] {
           antwort: 'Ein chronischer Verschluss der distalen Aorta bzw. beider Beckenarterien mit der Trias aus beidseitiger (gluteal-/oberschenkelbetonter) Claudicatio, fehlenden Leistenpulsen und erektiler Dysfunktion.',
         },
       ],
-      merksatz: 'Claudicatio + kühles, pulsloses Bein = pAVK, ABI < 0,9 sichert die Diagnose. Basis: Rauchstopp und Gehtraining — und immer ASS und Statin, denn die pAVK warnt vor Herzinfarkt und Schlaganfall.',
+      merksatz: 'Claudicatio + kühles, pulsloses Bein = pAVK, ABI < 0,9 sichert die Diagnose. Basis: Rauchstopp und Gehtraining — und immer einen Plättchenhemmer (ASS oder Clopidogrel) und ein Statin, denn die pAVK warnt vor Herzinfarkt und Schlaganfall.',
       linkedCaseIds: [
         'case-pavk',
       ],
@@ -1713,7 +1718,7 @@ export function seedFachwissen(): Fachwissen[] {
       differenzialdiagnosen: [
         {
           dd: 'FSME (Frühsommer-Meningoenzephalitis)',
-          unterscheidung: 'Wird durch DIESELBE Zecke, aber durch ein VIRUS (Flavivirus) übertragen; kein Erythema migrans; meningoenzephalitisches Bild; NICHT antibiotisch behandelbar (nur symptomatisch), aber durch Impfung vermeidbar.',
+          unterscheidung: 'Wird durch dieselbe Zecke, aber durch ein Virus (Flavivirus) übertragen; kein Erythema migrans; meningoenzephalitisches Bild; nicht antibiotisch behandelbar (nur symptomatisch), aber durch Impfung vermeidbar.',
         },
         {
           dd: 'Erysipel (Wundrose)',
@@ -1740,8 +1745,8 @@ export function seedFachwissen(): Fachwissen[] {
         {
           label: 'Antibiotische Therapie (Erstlinie)',
           items: [
-            'Stadium I (Erythema migrans) und leichte Frühmanifestationen: Doxycyclin 2 x 100 mg/d p.o. für 10–21 Tage (üblich 14 Tage). Wirkprinzip: Hemmung der bakteriellen Proteinsynthese (Bindung an die 30S-Untereinheit des Ribosoms), bakteriostatisch. Nebenwirkungen: Photosensibilisierung (Sonnenschutz!), gastrointestinale Beschwerden.',
-            'Lyme-Arthritis: Doxycyclin p.o. über 28 Tage oder Ceftriaxon i.v.',
+            'Stadium I (Erythema migrans) und leichte Frühmanifestationen: Doxycyclin 2 × 100 mg/d p. o. — solitäres Erythema migrans ohne Allgemeinsymptome 10–14 Tage; mit grippeartigen Allgemeinsymptomen oder multiplen Erythemen (disseminierte Frühmanifestation) 14–21 Tage. Wirkprinzip: Hemmung der bakteriellen Proteinsynthese (Bindung an die 30S-Untereinheit des Ribosoms), bakteriostatisch. Nebenwirkungen: Photosensibilisierung (Sonnenschutz!), gastrointestinale Beschwerden.',
+            'Lyme-Arthritis: Doxycyclin p. o. über 28 Tage oder Ceftriaxon i. v.',
             'Symptomatisch: Analgetika und Antipyretika (z. B. Ibuprofen/Paracetamol) gegen Schmerzen und Fieber.',
             'Keine Isolation erforderlich, da keine Übertragung von Mensch zu Mensch. Nach reinem Zeckenstich ohne Symptome KEINE routinemäßige Antibiotikaprophylaxe — nur Beobachtung der Stichstelle (Rötung? → Wiedervorstellung).',
             'Prävention: Schutzkleidung, Repellents, Absuchen der Haut, frühzeitige mechanische Zeckenentfernung mit Pinzette hautnah ohne Quetschen.',
@@ -1750,20 +1755,20 @@ export function seedFachwissen(): Fachwissen[] {
         {
           label: 'Alternativen (KI / Schwangerschaft)',
           items: [
-            'Kontraindikationen von Doxycyclin — Schwangerschaft/Stillzeit und Kinder unter 9 Jahren (Zahnverfärbung, Einlagerung in Knochen): dann Amoxicillin p.o. (alternativ Cefuroximaxetil) für 14 Tage.',
+            'Kontraindikationen von Doxycyclin — Schwangerschaft/Stillzeit und Kinder unter 9 Jahren (Zahnverfärbung, Einlagerung in Knochen): dann Amoxicillin p. o. (alternativ Cefuroximaxetil) über dieselbe Dauer wie Doxycyclin.',
           ],
         },
         {
           label: 'Neuroborreliose / schwerer Verlauf',
           items: [
-            'Neuroborreliose und Lyme-Karditis: Ceftriaxon 2 g/d i.v. für 14–21 Tage (Alternativen: Cefotaxim oder Penicillin G i.v.). Ceftriaxon ist die intravenöse Alternative zu Doxycyclin, nach der Prüfer häufig fragen.',
-            'Temporärer Herzschrittmacher bei höhergradigem, symptomatischem AV-Block im Rahmen der Lyme-Karditis, bis die Reizleitungsstörung unter Antibiose reversibel ist.',
+            'Neuroborreliose und Lyme-Karditis: Ceftriaxon 2 g/d i. v. für 14–21 Tage (Alternativen: Cefotaxim oder Penicillin G i. v.). Ceftriaxon ist die intravenöse Alternative zu Doxycyclin, nach der Prüfer häufig fragen.',
+            'Temporärer Herzschrittmacher bei höhergradigem, symptomatischem AV-Block im Rahmen der Lyme-Karditis, bis sich die Reizleitungsstörung unter Antibiose zurückgebildet hat.',
             'Diagnostische/entlastende Gelenkpunktion bei ausgeprägtem Erguss der Lyme-Arthritis.',
             'Eine operative Therapie ist in aller Regel nicht erforderlich; in seltenen therapierefraktären Fällen einer chronischen Lyme-Arthritis kann eine (arthroskopische) Synovektomie erwogen werden.',
           ],
         },
       ],
-      prognose: 'Bei rechtzeitiger antibiotischer Therapie ist die Prognose sehr gut. Das Erythema migrans heilt unter Therapie folgenlos ab. Auch die Neuroborreliose hat eine gute Prognose; die Fazialisparese bildet sich in den meisten Fällen über Wochen bis Monate weitgehend zurück. Unbehandelt drohen die Progression in Stadium II und III mit Neuroborreliose, Karditis und chronischer Lyme-Arthritis. Ein sogenanntes Post-Lyme-Syndrom (persistierende unspezifische Beschwerden) ist selten; eine dauerhafte oder wiederholte Antibiotikatherapie ist dabei nicht indiziert.',
+      prognose: 'Bei rechtzeitiger antibiotischer Therapie ist die Prognose sehr gut. Das Erythema migrans heilt unter Therapie folgenlos ab. Auch die Neuroborreliose hat eine gute Prognose; die Fazialisparese bildet sich in den meisten Fällen über Wochen bis Monate weitgehend zurück. Unbehandelt droht die Progression in die Stadien II und III mit Neuroborreliose, Karditis und chronischer Lyme-Arthritis. Ein sogenanntes Post-Lyme-Syndrom (persistierende unspezifische Beschwerden) ist selten; eine dauerhafte oder wiederholte Antibiotikatherapie ist dabei nicht indiziert.',
       pruefungsfallen: [
         'Ein fehlender Zeckenstich in der Anamnese schließt eine Borreliose nicht aus — die meisten Stiche bleiben unbemerkt.',
         'Die FSME-Impfung schützt NICHT vor der Borreliose.',
@@ -1800,7 +1805,7 @@ export function seedFachwissen(): Fachwissen[] {
         },
         {
           frage: 'Welche Therapie schlagen Sie vor, und wie wirkt das Antibiotikum?',
-          antwort: 'Im Stadium I Doxycyclin 2 x 100 mg täglich über etwa 14 Tage. Doxycyclin hemmt die bakterielle Proteinsynthese an der 30S-Untereinheit des Ribosoms und wirkt bakteriostatisch; als Nebenwirkung ist die Photosensibilisierung zu beachten.',
+          antwort: 'Im Stadium I Doxycyclin 2 × 100 mg täglich, beim solitären Erythema migrans 10–14 Tage, mit grippeartigen Allgemeinsymptomen 14–21 Tage. Doxycyclin hemmt die bakterielle Proteinsynthese an der 30S-Untereinheit des Ribosoms und wirkt bakteriostatisch; als Nebenwirkung ist die Photosensibilisierung zu beachten.',
         },
         {
           frage: 'Gibt es eine Alternative zu Doxycyclin?',
@@ -12028,14 +12033,14 @@ export function seedFachwissen(): Fachwissen[] {
         },
         {
           frage: 'Wie lautet die Screening-Empfehlung für die Koloskopie in Deutschland?',
-          antwort: 'Die Vorsorgekoloskopie wird Männern und Frauen ab dem 50. Lebensjahr angeboten (Frauen seit April 2025, zuvor ab 55); bei unauffälligem Befund wird sie nach zehn Jahren wiederholt. Als Alternative steht der immunologische Test auf okkultes Blut im Stuhl zur Verfügung — jährlich ab 50, ab 55 Jahren alle zwei Jahre. Ein positiver Stuhltest führt immer zur Koloskopie. Für Risikopersonen gilt ein anderes Vorgehen: erstgradig Verwandte eines Patienten werden zehn Jahre vor dessen Erkrankungsalter koloskopiert, Anlageträger eines Lynch-Syndroms jährlich ab dem 25. Lebensjahr, bei familiärer adenomatöser Polyposis beginnt die Endoskopie bereits im Kindes- und Jugendalter.',
+          antwort: 'Die Vorsorgekoloskopie wird Männern und Frauen ab dem 50. Lebensjahr angeboten (Frauen seit April 2025, zuvor ab 55); bei unauffälligem Befund wird sie nach zehn Jahren wiederholt. Als Alternative steht der immunologische Test auf okkultes Blut im Stuhl zur Verfügung — seit April 2025 für Frauen und Männer ab 50 alle zwei Jahre (zuvor 50–54 jährlich). Ein positiver Stuhltest führt immer zur Koloskopie. Für Risikopersonen gilt ein anderes Vorgehen: erstgradig Verwandte eines Patienten werden zehn Jahre vor dessen Erkrankungsalter koloskopiert, Anlageträger eines Lynch-Syndroms jährlich ab dem 25. Lebensjahr, bei familiärer adenomatöser Polyposis beginnt die Endoskopie bereits im Kindes- und Jugendalter.',
         },
         {
           frage: 'Was ist das CEA und wofür setzen Sie es ein?',
           antwort: 'CEA ist das carcinoembryonale Antigen, ein Tumormarker, den wir vor der Operation als Ausgangswert bestimmen und danach im Verlauf kontrollieren. Es ist ausdrücklich kein Screening- und kein Diagnosemarker: Ein normales CEA schließt ein Karzinom nicht aus, und erhöhte Werte finden sich auch bei Leberzirrhose, Pankreatitis, chronisch entzündlichen Darmerkrankungen und bei Rauchern. Ein präoperativ erhöhter Wert sollte nach der Resektion abfallen; ein erneuter Anstieg in der Nachsorge ist verdächtig auf ein Rezidiv oder auf Metastasen und löst eine gezielte Bildgebung aus.',
         },
         {
-          frage: 'Wie stagen Sie diesen Patienten?',
+          frage: 'Wie gehen Sie beim Staging eines kolorektalen Karzinoms vor?',
           antwort: 'Zunächst die komplette Koloskopie mit Biopsie zur Histologie und zur genauen Höhenlokalisation, mit Tuschemarkierung und Suche nach einem Zweitkarzinom. Zum Ausschluss von Fernmetastasen ein CT von Thorax und Abdomen mit Kontrastmittel, ergänzt durch die Abdomensonographie. Liegt der Tumor im Rektum, kommen die starre Rektoskopie zur Höhenmessung, ein MRT des kleinen Beckens zur Beurteilung von T-Kategorie, Lymphknoten und mesorektaler Faszie sowie bei Frühstadien die rektale Endosonographie hinzu. Im Labor Blutbild, Leber- und Nierenwerte sowie das CEA als Ausgangswert. Anschließend Klassifikation nach TNM und UICC und Vorstellung im Tumorboard.',
         },
         {
@@ -13584,8 +13589,8 @@ export function seedFachwissen(): Fachwissen[] {
           antwort: 'Ich habe den dringenden Verdacht auf ein Ösophaguskarzinom. Dafür sprechen die seit vier Wochen rasch progrediente mechanische Dysphagie — zunächst für feste, jetzt für weiche Kost —, der ungewollte Gewichtsverlust von 15 Kilogramm im letzten Jahr, die Inappetenz, die Regurgitation unverdauter Speisereste und die neu aufgetretene Heiserkeit. Dazu kommen die klassischen Risikofaktoren: etwa 30 Packungsjahre, täglicher Alkoholkonsum und eine langjährige Refluxkrankheit. Die Kombination aus progredienter Dysphagie, Gewichtsverlust und Noxen ist eine Alarmkonstellation.',
         },
         {
-          frage: 'Welche Risikofaktoren des Ösophaguskarzinoms kennen Sie, und welche liegen bei dieser Patientin vor?',
-          antwort: 'Für das Plattenepithelkarzinom vor allem Rauchen und Alkohol, die sich gegenseitig verstärken, außerdem sehr heiße Getränke, Nitrosamine, Betelnuss, eine frühere Verätzung, eine langjährige Achalasie, das Plummer-Vinson-Syndrom und eine Bestrahlung des Mediastinums. Für das Adenokarzinom die Refluxkrankheit mit Barrett-Ösophagus, Adipositas und Hiatushernie. Bei dieser Patientin liegen beide Risikoprofile gleichzeitig vor: 30 Packungsjahre und täglicher Wein- und Schnapskonsum einerseits, eine jahrelange Refluxkrankheit andererseits. Welcher Typ vorliegt, entscheidet deshalb allein die Histologie.',
+          frage: 'Welche Risikofaktoren des Ösophaguskarzinoms kennen Sie?',
+          antwort: 'Für das Plattenepithelkarzinom vor allem Rauchen und Alkohol, die sich gegenseitig verstärken, außerdem sehr heiße Getränke, Nitrosamine, Betelnuss, eine frühere Verätzung, eine langjährige Achalasie, das Plummer-Vinson-Syndrom und eine Bestrahlung des Mediastinums. Für das Adenokarzinom die Refluxkrankheit mit Barrett-Ösophagus, Adipositas und Hiatushernie.',
         },
         {
           frage: 'Was unterscheidet das Adenokarzinom vom Plattenepithelkarzinom?',
@@ -13649,7 +13654,7 @@ export function seedFachwissen(): Fachwissen[] {
         },
         {
           frage: 'Wie erklären Sie der Patientin die geplante Untersuchung und Ihren Verdacht?',
-          antwort: 'Ich würde ihr in einfachen Worten sagen: „Frau Sichel, Ihre Beschwerden beim Schlucken und die starke Gewichtsabnahme müssen wir dringend abklären. Dafür machen wir eine Magenspiegelung — dabei schauen wir mit einem dünnen, biegsamen Schlauch in die Speiseröhre und entnehmen kleine Gewebeproben. Wir haben den Verdacht auf eine Veränderung der Speiseröhrenschleimhaut; ob sie gutartig oder bösartig ist, kann uns erst die Gewebeuntersuchung sagen. Ich verspreche Ihnen, dass wir Sie schnell abklären und dass wir jedes Ergebnis in Ruhe mit Ihnen besprechen.“ Die Diagnose Krebs stelle ich nicht in den Raum, bevor die Histologie vorliegt, nehme ihre Angst aber ernst und biete psychoonkologische Unterstützung an.',
+          antwort: 'Ich würde ihr in einfachen Worten sagen: „Ihre Beschwerden beim Schlucken und die starke Gewichtsabnahme müssen wir dringend abklären. Dafür machen wir eine Magenspiegelung — dabei schauen wir mit einem dünnen, biegsamen Schlauch in die Speiseröhre und entnehmen kleine Gewebeproben. Wir haben den Verdacht auf eine Veränderung der Speiseröhrenschleimhaut; ob sie gutartig oder bösartig ist, kann uns erst die Gewebeuntersuchung sagen. Ich verspreche Ihnen, dass wir Sie schnell abklären und dass wir jedes Ergebnis in Ruhe mit Ihnen besprechen.“ Die Diagnose Krebs stelle ich nicht in den Raum, bevor die Histologie vorliegt, nehme ihre Angst aber ernst und biete psychoonkologische Unterstützung an.',
         },
       ],
       merksatz: 'Progrediente Dysphagie fest → flüssig plus Gewichtsverlust = Ösophaguskarzinom bis zum Beweis des Gegenteils — sofort ÖGD MIT BIOPSIE, kein Breischluck, keine blinde Bougierung.',
