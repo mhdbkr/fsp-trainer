@@ -3258,18 +3258,8 @@ export function seedFachwissen(): Fachwissen[] {
         },
       ],
       klassifikation: [
-        {
-          name: 'Steintypen',
-          inhalt: 'Cholesterinsteine (ca. 80 %, oft gemischt, röntgennegativ, im Sono echoreich mit Schallschatten) vs. Pigmentsteine (Bilirubinsteine bei Hämolyse/Infektion).',
-        },
-        {
-          name: 'Lokalisation / Terminologie',
-          inhalt: 'Cholezystolithiasis = Steine in der Gallenblase; Choledocholithiasis = Steine im Ductus choledochus (Cholestase, Ikterus). Wichtig für Therapieweg (Cholezystektomie vs. ERCP).',
-        },
-        {
-          name: 'Charcot-Trias / Reynolds-Pentade',
-          inhalt: 'Charcot-Trias der Cholangitis: rechtsseitiger Oberbauchschmerz + Fieber/Schüttelfrost + Ikterus. Erweiterung zur Reynolds-Pentade um Hypotonie und Bewusstseinstrübung (septischer Verlauf).',
-        },
+        { name: 'Steintypen', inhalt: 'Cholesterinsteine (etwa 80 %, oft gemischt, im Ultraschall echoreich mit Schallschatten) und Pigmentsteine (bei Hämolyse oder Infektion).' },
+        { name: 'Charcot-Trias und Reynolds-Pentade', inhalt: 'Charcot-Trias der Cholangitis: rechtsseitiger Oberbauchschmerz, Fieber mit Schüttelfrost, Ikterus. Mit Hypotonie und Bewusstseinstrübung wird daraus die Reynolds-Pentade (septischer Verlauf).' },
       ],
       redFlags: [
         'Anhaltender Dauerschmerz mit Fieber, Schüttelfrost und Abwehrspannung → akute Cholezystitis',
@@ -3279,34 +3269,12 @@ export function seedFachwissen(): Fachwissen[] {
         'Bretthartes Abdomen / Peritonismus → Gallenblasenperforation oder -empyem',
       ],
       diagnostik: [
-        {
-          stufe: 'Anamnese/Klinik',
-          text: 'Anamnese: kolikartiger Schmerz nach fettreichem Essen, Ausstrahlung rechte Schulter/Rücken, frühere Episoden; gezielt nach Ikterus, dunklem Urin, hellem Stuhl und Fieber fragen',
-        },
-        {
-          stufe: 'Anamnese/Klinik',
-          text: 'Körperliche Untersuchung: Druckschmerz im rechten Oberbauch, Murphy-Zeichen; Courvoisier-Zeichen und Ikterus-Prüfung bei Cholestaseverdacht; Vitalparameter',
-        },
-        {
-          stufe: 'Labor',
-          text: 'Labor: Blutbild und CRP (Entzündung), Cholestasewerte GGT, AP und Bilirubin (gesamt/direkt), Transaminasen; Lipase zum Ausschluss einer biliären Pankreatitis',
-        },
-        {
-          stufe: 'Labor',
-          text: 'Bei Ikterus und zum Ausschluss eines Malignoms Tumormarker CA 19-9 und AFP',
-        },
-        {
-          stufe: 'Apparativ & Bildgebung',
-          text: 'Abdomen-Sonographie (Goldstandard): Steinnachweis mit Schallschatten, Wandverdickung/Dreischichtung, Gangstau bzw. erweiterter Ductus choledochus',
-        },
-        {
-          stufe: 'Apparativ & Bildgebung',
-          text: 'MRCP oder Endosonographie bei Verdacht auf Choledocholithiasis',
-        },
-        {
-          stufe: 'Invasiv & Speziell',
-          text: 'ERCP mit Papillotomie und Steinextraktion — therapeutisch bei nachgewiesener Choledocholithiasis',
-        },
+        { stufe: 'Anamnese/Klinik', text: 'Kolik nach fettem Essen mit Ausstrahlung in die rechte Schulter, frühere Episoden' },
+        { stufe: 'Anamnese/Klinik', text: 'Temperatur, Druckschmerz im rechten Oberbauch, Murphy-Zeichen, Ikterus' },
+        { stufe: 'Labor', text: 'Blutbild und CRP, Bilirubin, alkalische Phosphatase, γ-GT, Transaminasen, Lipase' },
+        { stufe: 'Apparativ & Bildgebung', text: 'Abdomen-Sonographie als Methode der Wahl: Steine mit Schallschatten, Wandverdickung, Weite des Ductus choledochus' },
+        { stufe: 'Apparativ & Bildgebung', text: 'EKG und Troponin bei kardiovaskulären Risikofaktoren (Hinterwandinfarkt)' },
+        { stufe: 'Invasiv & Speziell', text: 'Endosonographie oder MRCP bei Verdacht auf Gallengangsstein; ERCP mit Papillotomie therapeutisch' },
       ],
       differenzialdiagnosen: [
         {
@@ -3345,75 +3313,49 @@ export function seedFachwissen(): Fachwissen[] {
       therapie: [
         {
           label: 'Symptomatisch (Akut)',
-          items: [
-            'Nahrungskarenz und intravenöse Flüssigkeitsgabe',
-            'Analgesie mit Metamizol (Novalgin) i.v.',
-            'Spasmolyse mit Butylscopolamin (Buscopan) i.v.',
-            'Bei stärksten Schmerzen Pethidin; klassisches Morphin klassischerweise meiden wegen Kontraktion des Sphinkter Oddi',
-            'Antiemetikum (z. B. Metoclopramid) bei Übelkeit/Erbrechen',
-          ],
           akut: true,
+          items: [
+            'Nahrungskarenz während der Kolik, venöser Zugang',
+            'Analgesie laut S3-Leitlinie mit NSAR (zum Beispiel Diclofenac); alternativ Metamizol, wenn NSAR ungeeignet sind',
+            'Zusätzlich Spasmolyse mit Butylscopolamin; bei starken Schmerzen Opioide wie Pethidin oder Buprenorphin',
+            'Antiemetikum bei Übelkeit',
+          ],
         },
         {
           label: 'Kausal',
           items: [
-            'Elektive bzw. frühelektive laparoskopische Cholezystektomie bei symptomatischer Cholezystolithiasis',
-            'Fettarme Kost und Ernährungsberatung bis zur Operation',
-            'Asymptomatische Gallensteine: keine OP-Indikation — Ausnahmen: Porzellangallenblase, Steine > 3 cm, erhöhtes Karzinomrisiko',
+            'Laparoskopische Cholezystektomie bei symptomatischer Cholezystolithiasis',
+            'Asymptomatische Steine: keine Operation, außer bei Porzellangallenblase, Steinen über 3 cm oder Polypen ab 1 cm',
+            'Fettarme Kost bis zur Operation',
           ],
         },
         {
           label: 'Bei Komplikation',
           items: [
-            'Akute Cholezystitis: Antibiotikatherapie und frühe laparoskopische Cholezystektomie',
+            'Akute Cholezystitis: laparoskopische Cholezystektomie innerhalb von 24 Stunden nach Aufnahme; Antibiotika bei Sepsis, Cholangitis, Abszess oder Perforation',
             'Choledocholithiasis: ERCP mit Papillotomie und Steinextraktion, anschließend Cholezystektomie',
-            'Biliäre Pankreatitis / Cholangitis: stationäre bzw. intensivmedizinische Therapie und dringliche ERCP',
+            'Biliäre Pankreatitis oder Cholangitis: stationäre Therapie, ERCP bei Cholangitis',
           ],
         },
       ],
       prognose: 'Bei unkomplizierter, rechtzeitig operierter symptomatischer Cholelithiasis sehr gut. Ohne Therapie Rezidivkolik und Komplikationen (Cholezystitis, Choledocholithiasis, biliäre Pankreatitis, Cholangitis, selten Gallenblasenkarzinom). Nach Cholezystektomie können bei zuvor bestehender Choledocholithiasis erneut Steine im Ductus choledochus auftreten.',
       pruefungsfallen: [
-        'Reine Gallenkolik (wellenförmig, kein Fieber, beschwerdefreie Intervalle) klar von der akuten Cholezystitis (Dauerschmerz + Fieber + Entzündungszeichen) trennen.',
-        'Bei jeder Kolik aktiv nach Ikterus, dunklem Urin und hellem Stuhl fragen (Choledocholithiasis) und Lipase bestimmen (biliäre Pankreatitis).',
-        'Kein klassisches Morphin bei der Kolik (Sphinkter-Oddi-Tonus); zudem auf eine Metamizol-(Novalgin-)Allergie achten.',
-        'Asymptomatische Gallensteine werden nicht operiert — Cholezystektomie erst bei Symptomen/Komplikationen.',
-        'Rechtsseitiger Oberbauchschmerz kann ein inferiorer Myokardinfarkt sein — EKG nicht vergessen.',
+        'Reine Kolik (Attacken, schmerzfreie Intervalle, kein Fieber) von der Cholezystitis (Dauerschmerz, Fieber, Entzündungszeichen) trennen.',
+        'Bei jeder Kolik nach Ikterus, dunklem Urin und hellem Stuhl fragen und die Lipase bestimmen.',
+        '„Morphin ist verboten“ ist überholt: die S3-Leitlinie nennt Opioide wie Pethidin oder Buprenorphin für starke Schmerzen.',
+        'Asymptomatische Gallensteine werden in der Regel nicht operiert.',
+        'Rechtsseitiger Oberbauchschmerz kann ein Hinterwandinfarkt sein: EKG.',
       ],
       askedInExam: [
-        {
-          frage: 'Was bedeutet es, wenn ein Wort auf -itis endet?',
-          antwort: 'Es bezeichnet eine Entzündung; Cholezystitis ist also die Entzündung der Gallenblase, im Unterschied zur Cholezystolithiasis (Steine ohne Entzündung).',
-        },
-        {
-          frage: 'Welches Medikament haben Sie verabreicht und warum?',
-          antwort: 'Metamizol als Nicht-Opioid-Analgetikum kombiniert mit dem Spasmolytikum Butylscopolamin, weil der kolikartige Schmerz durch Krämpfe der glatten Muskulatur entsteht; klassisches Morphin wird gemieden, da es den Sphinkter Oddi kontrahiert.',
-        },
-        {
-          frage: 'Wie unterscheiden Sie eine Cholezystitis von einer Cholezystolithiasis?',
-          antwort: 'Bei der Cholezystitis bestehen Fieber, Schüttelfrost, ein Dauerschmerz, ein positives Murphy-Zeichen und erhöhte Entzündungswerte (Leukozytose, CRP); die reine Cholezystolithiasis verläuft kolikartig ohne Entzündungszeichen.',
-        },
-        {
-          frage: 'Kann man die Steine im Sono sehen?',
-          antwort: 'Ja, die Abdomen-Sonographie ist der Goldstandard; Cholesterinsteine stellen sich echoreich mit dorsalem Schallschatten dar.',
-        },
-        {
-          frage: 'Welche Tumormarker bestimmen Sie zum Ausschluss eines Malignoms?',
-          antwort: 'CA 19-9 (Gallenwegs-/Pankreaskarzinom) und AFP (hepatozelluläres Karzinom).',
-        },
-        {
-          frage: 'Ist das hepatozelluläre Karzinom eine Erbkrankheit?',
-          antwort: 'Nein, es ist keine klassische Erbkrankheit; Hauptrisikofaktoren sind Leberzirrhose sowie chronische Hepatitis B und C.',
-        },
-        {
-          frage: 'Wie entsteht eine Pankreatitis durch Cholelithiasis?',
-          antwort: 'Ein Stein verlegt die Papilla Vateri am gemeinsamen Endabschnitt von Ductus choledochus und Ductus pancreaticus; der Sekretrückstau aktiviert die Pankreasenzyme und löst die Selbstverdauung aus.',
-        },
-        {
-          frage: 'Was machen Sie, wenn im Sono kein Stein sichtbar ist, die Klinik aber typisch ist?',
-          antwort: 'Bei typischer symptomatischer Klinik erfolgt dennoch die weitere Abklärung (Endosonographie/MRCP) und ggf. die Cholezystektomie; kleine Steine und Sludge können sonographisch entgehen.',
-        },
+        { frage: 'Was bedeutet es, wenn ein Wort auf -itis endet?', antwort: 'Es bezeichnet eine Entzündung; Cholezystitis ist die Entzündung der Gallenblase, Cholezystolithiasis bezeichnet nur die Steine.' },
+        { frage: 'Welches Medikament geben Sie bei einer Gallenkolik?', antwort: 'Ein NSAR wie Diclofenac als erste Wahl, dazu Butylscopolamin gegen den Krampf; sind NSAR ungeeignet, Metamizol. Bei starken Schmerzen ein Opioid.' },
+        { frage: 'Kann man die Steine im Ultraschall sehen?', antwort: 'Ja, echoreich mit dorsalem Schallschatten; die Sonographie ist die Methode der Wahl.' },
+        { frage: 'Welche Tumormarker bestimmen Sie zum Ausschluss eines Malignoms?', antwort: 'Keine zur Diagnose: CA 19-9 steigt auch bei Cholestase, AFP dient der Überwachung einer Zirrhose. Ein Tumor wird bildgebend und histologisch abgeklärt.' },
+        { frage: 'Ist das hepatozelluläre Karzinom eine Erbkrankheit?', antwort: 'Nein; Hauptrisikofaktoren sind Zirrhose, Hepatitis B und C, Alkohol und Fettleber.' },
+        { frage: 'Wie entsteht eine Pankreatitis durch Gallensteine?', antwort: 'Ein Stein verlegt die Papille am gemeinsamen Endabschnitt von Gallen- und Pankreasgang; der Rückstau aktiviert die Pankreasenzyme.' },
+        { frage: 'Was machen Sie, wenn im Ultraschall kein Stein zu sehen ist, die Klinik aber typisch ist?', antwort: 'Endosonographie, weil kleine Steine und Sludge sonographisch entgehen können.' },
       ],
-      merksatz: '6 F (weiblich, fett, vierzig, fruchtbar, hell, familiär): bei symptomatischer Cholelithiasis Cholezystektomie — die Kolik selbst mit Metamizol und Butylscopolamin behandeln, nicht mit klassischem Morphin.',
+      merksatz: 'Kolik mit schmerzfreien Intervallen, kein Fieber: Analgesie, Spasmolyse, Ultraschall — und bei Beschwerden die Gallenblase laparoskopisch entfernen.',
       linkedCaseIds: [
         'case-gallenkolik',
       ],
@@ -3474,43 +3416,20 @@ export function seedFachwissen(): Fachwissen[] {
         },
       ],
       redFlags: [
-        'Plötzliche Dyspnoe, atemabhängiger Thoraxschmerz, Tachykardie, Husten oder Hämoptyse → Verdacht auf Lungenembolie',
-        'Synkope oder Kreislaufinstabilität → fulminante Lungenembolie',
-        'Massive Schwellung mit Zyanose und starkem Schmerz → Phlegmasia coerulea dolens (drohende venöse Gangrän)',
+        'Plötzliche Dyspnoe, atemabhängiger Thoraxschmerz, Tachykardie, Husten oder Hämoptyse: Verdacht auf Lungenembolie',
+        'Synkope oder Kreislaufinstabilität: fulminante Lungenembolie',
+        'Massive Schwellung mit Zyanose: sofort Gefäßchirurgie',
       ],
       diagnostik: [
-        {
-          stufe: 'Anamnese/Klinik',
-          text: 'Anamnese mit gezielter Frage nach Auslösern (langer Flug/Immobilisation, Östrogenpille, früherer Thrombose, familiärer Thrombophilie) und aktiver Abfrage von Lungenembolie-Zeichen',
-        },
-        {
-          stufe: 'Anamnese/Klinik',
-          text: 'Körperliche Untersuchung: Inspektion (einseitige Schwellung, Rötung, livide Verfärbung), seitenvergleichende Umfangmessung, Homans-/Meyer-/Payr-Zeichen (unspezifisch), Palpation der Fußpulse zur Abgrenzung einer pAVK, Vitalparameter',
-        },
-        {
-          stufe: 'Anamnese/Klinik',
-          text: 'Wells-Score zur Bestimmung der klinischen Vortestwahrscheinlichkeit',
-        },
-        {
-          stufe: 'Labor',
-          text: 'D-Dimer: hoher negativer prädiktiver Wert — bei niedriger Wahrscheinlichkeit und negativem Wert ist eine TVT nahezu ausgeschlossen; unspezifisch bei Erhöhung',
-        },
-        {
-          stufe: 'Labor',
-          text: 'Blutbild, CRP, Gerinnung (Quick/INR, aPTT) und Nierenwerte (vor Antikoagulation zur Substanz- und Dosiswahl)',
-        },
-        {
-          stufe: 'Apparativ & Bildgebung',
-          text: 'Kompressions-/Duplexsonographie der Beinvenen (Goldstandard): fehlende Komprimierbarkeit der Vene als Nachweis',
-        },
-        {
-          stufe: 'Apparativ & Bildgebung',
-          text: 'Bei Verdacht auf Lungenembolie CT-Angiographie des Thorax; ggf. Phlebographie bei unklarem Befund',
-        },
-        {
-          stufe: 'Invasiv & Speziell',
-          text: 'Bei unprovozierter TVT alters- und geschlechtsgerechte Tumorsuche; erweiterte Thrombophilie-Diagnostik (Faktor-V-Leiden u. a.) bei jungen Patienten, Rezidiv oder positiver Familienanamnese',
-        },
+        { stufe: 'Anamnese/Klinik', text: 'Auslöser erfragen (Immobilisation, Reise, Operation, Östrogene, Malignom, Familie) und aktiv nach Zeichen einer Lungenembolie fragen' },
+        { stufe: 'Anamnese/Klinik', text: 'Umfangdifferenz im Seitenvergleich, Fußpulse, Vitalparameter' },
+        { stufe: 'Anamnese/Klinik', text: 'Wells-Score für die Vortestwahrscheinlichkeit' },
+        { stufe: 'Labor', text: 'D-Dimer nur bei niedriger Wahrscheinlichkeit: negativ schließt er die Thrombose aus, positiv beweist er nichts' },
+        { stufe: 'Labor', text: 'Blutbild, Kreatinin und Gerinnung vor der Antikoagulation' },
+        { stufe: 'Apparativ & Bildgebung', text: 'Kompressionssonographie: fehlende Komprimierbarkeit der Vene beweist die Thrombose' },
+        { stufe: 'Apparativ & Bildgebung', text: 'CT-Angiographie des Thorax bei Verdacht auf Lungenembolie' },
+        { stufe: 'Invasiv & Speziell', text: 'Thrombophilie-Diagnostik nicht routinemäßig und nicht in der Akutphase; nur, wenn das Ergebnis die Behandlung ändert' },
+        { stufe: 'Invasiv & Speziell', text: 'Bei unprovozierter Thrombose Anamnese, Untersuchung, Basislabor und altersgerechte Vorsorge; keine routinemäßige Ganzkörpersuche' },
       ],
       differenzialdiagnosen: [
         {
@@ -3543,82 +3462,49 @@ export function seedFachwissen(): Fachwissen[] {
           label: 'Antikoagulation',
           akut: true,
           items: [
-            'Sofortige therapeutische Antikoagulation bereits bei hoher klinischer Wahrscheinlichkeit (noch vor Bildgebung)',
-            'Akut: DOAK (z. B. Rivaroxaban, Apixaban) oder gewichtsadaptiertes niedermolekulares Heparin (NMH) s. c.; alternativ Fondaparinux s. c. oder unfraktioniertes Heparin i. v. mit aPTT-Steuerung (bei Niereninsuffizienz)',
-            'Erhaltungstherapie mit DOAK oder Vitamin-K-Antagonist (Phenprocoumon/Marcumar, Ziel-INR 2–3) mit überlappendem Bridging',
-            'Therapiedauer nach Ursache: provozierte TVT mind. 3 Monate, unprovozierte/rezidivierende TVT 6 Monate bis dauerhaft, bei aktivem Malignom langfristig',
-            'Vor Beginn Blutungsrisiko und Nierenfunktion prüfen',
+            'Bei hoher klinischer Wahrscheinlichkeit sofort antikoagulieren, noch vor der Bildgebung',
+            'DOAK als erste Wahl (Apixaban, Rivaroxaban, Edoxaban, Dabigatran), alternativ niedermolekulares Heparin; Vitamin-K-Antagonisten nur, wenn DOAK ungeeignet sind',
+            'Vorher Nierenfunktion und Blutungsrisiko prüfen',
+            'Dauer: mindestens drei Monate bei Auslösung durch einen vorübergehenden Faktor; bei unprovozierter oder wiederholter Thrombose verlängert, bei aktivem Malignom langfristig',
           ],
         },
         {
           label: 'Kompressionstherapie',
           items: [
-            'Initial Kompressionsverband, nach Abschwellung medizinische Kompressionsstrümpfe (Klasse II)',
-            'Ziel: Beschwerdelinderung und Prophylaxe des postthrombotischen Syndroms',
+            'Frühe Kompression lindert Schwellung und Schmerz; ob sie einem postthrombotischen Syndrom vorbeugt, ist umstritten',
           ],
         },
         {
           label: 'Mobilisation & Allgemeinmaßnahmen',
           items: [
-            'Frühe Mobilisation — keine strikte Bettruhe mehr',
-            'Hochlagern des betroffenen Beins und ausreichende Analgesie',
-            'Ausschalten von Auslösern: Absetzen der Östrogenpille, Umstellung der Kontrazeption',
-            'Patientenschulung, ausreichende Hydratation, Bewegungsübungen bei langen Reisen als Rezidivprophylaxe',
+            'Frühe Mobilisation, keine Bettruhe',
+            'Auslöser beseitigen: östrogenhaltige Kontrazeptiva absetzen, unter Antikoagulation trotzdem sicher verhüten',
+            'Bei künftigen langen Reisen Bewegung, Trinken, Kompressionsstrümpfe',
           ],
         },
         {
           label: 'Interventionell (bei ausgedehnter TVT)',
           items: [
-            'Bei ausgedehnter deszendierender Becken-/Oberschenkelvenenthrombose oder Phlegmasia coerulea dolens: kathetergestützte Thrombolyse oder Thrombektomie',
-            'Vena-cava-Filter nur bei absoluter Kontraindikation gegen eine Antikoagulation oder Rezidiv trotz suffizienter Antikoagulation',
+            'Kathetergestützte Thrombolyse oder Thrombektomie nur bei ausgedehnter Becken- oder Oberschenkelvenenthrombose mit schwerer Symptomatik oder Phlegmasia coerulea dolens',
+            'Vena-cava-Filter nur bei absoluter Kontraindikation gegen eine Antikoagulation',
           ],
         },
       ],
       prognose: 'Unter suffizienter Antikoagulation günstig. Hauptrisiko der akuten Phase ist die Lungenembolie; häufigste Spätfolge ist das postthrombotische Syndrom mit chronischer Schwellung, Schmerz und Ulcus cruris. Rezidivrisiko besonders bei unprovozierter TVT und persistierenden Risikofaktoren (Thrombophilie, Malignom).',
       pruefungsfallen: [
-        'Frage nach einer FRÜHEREN Thrombose/Lungenembolie vergessen — ein Prüfer hat dies ausdrücklich als \'sehr wichtig in diesem Fall\' bemängelt.',
-        'Auslöser nicht herausgearbeitet: langer Flug/Immobilisation UND Östrogenpille müssen aktiv erfragt werden.',
-        'Familiäre Thrombophilie (Faktor-V-Leiden) nicht abgefragt — bei jungen Patienten und positiver Familienanamnese zentral.',
-        'Lungenembolie als Komplikation nicht aktiv abgefragt (Dyspnoe, Thoraxschmerz, Herzrasen, Hämoptyse) — die entscheidende Gefahr.',
-        'pAVK als DD nicht abgegrenzt — einfache Unterscheidung durch seitenvergleichendes Tasten der Fußpulse.',
-        'D-Dimer als Ausschluss überschätzt: nur bei niedriger Vortestwahrscheinlichkeit aussagekräftig; die Kompressionssonographie ist der Goldstandard.',
-        'Antikoagulationsdauer falsch: 3 Monate bei provozierter, länger/dauerhaft bei unprovozierter TVT oder Malignom.',
+        'Nach einer früheren Thrombose oder Lungenembolie fragen.',
+        'Die Lungenembolie aktiv abfragen: Luftnot, atemabhängiger Thoraxschmerz, Herzrasen, Hämoptyse.',
+        'D-Dimer nur bei niedriger Vortestwahrscheinlichkeit verwenden.',
+        'Keine Thrombophilie-Tests in der Akutphase.',
       ],
       askedInExam: [
-        {
-          frage: 'Was spricht bei dieser Patientin für eine TVT?',
-          antwort: 'Die einseitig geschwollene, überwärmte, gerötete und schmerzhafte rechte Wade mit Spannungsgefühl, der zeitliche Zusammenhang mit einem langen Flug und die Einnahme der Östrogenpille.',
-        },
-        {
-          frage: 'Welche Risikofaktoren hat die Patientin?',
-          antwort: 'Immobilisation durch den zwölfstündigen Flug aus Bangkok, orale Kontrazeptiva, Varikosis, Nikotinkonsum, arterielle Hypertonie sowie eine familiäre Gerinnungsstörung des Vaters.',
-        },
-        {
-          frage: 'Welche klinischen Zeichen prüfen Sie bei der Untersuchung?',
-          antwort: 'Homans-Zeichen (Wadenschmerz bei Dorsalflexion), Meyer-Zeichen (Wadenkompressionsschmerz) und Payr-Zeichen (Fußsohlendruckschmerz); sie sind allerdings unspezifisch. Zusätzlich seitenvergleichende Umfangmessung.',
-        },
-        {
-          frage: 'Was bestimmen Sie im Labor und warum?',
-          antwort: 'Die D-Dimere wegen des hohen negativen prädiktiven Werts sowie die Gerinnung; bei jungem Alter und positiver Familienanamnese eine Thrombophilie-Diagnostik auf eine Faktor-V-Leiden-Mutation.',
-        },
-        {
-          frage: 'Welche bildgebende Untersuchung ist der Goldstandard?',
-          antwort: 'Die Kompressions- bzw. Duplexsonographie der Beinvenen; die fehlende Komprimierbarkeit der Vene beweist die Thrombose.',
-        },
-        {
-          frage: 'Welche gefährliche Komplikation müssen Sie ausschließen?',
-          antwort: 'Die Lungenembolie — ich frage aktiv nach Dyspnoe, atemabhängigem Thoraxschmerz, Herzrasen, Husten und Hämoptyse; bei Verdacht folgt eine CT-Angiographie.',
-        },
-        {
-          frage: 'Wie unterscheiden Sie eine TVT von einer pAVK bei der Untersuchung?',
-          antwort: 'Durch seitenvergleichendes Tasten der Fußpulse: bei der TVT sind sie erhalten, das Bein ist warm und geschwollen; bei der pAVK ist das Bein blass und kühl mit abgeschwächten oder fehlenden Pulsen.',
-        },
-        {
-          frage: 'Wie lange muss antikoaguliert werden?',
-          antwort: 'Bei provozierter TVT mindestens drei Monate; bei unprovozierter oder rezidivierender TVT sechs Monate bis dauerhaft; bei aktivem Malignom langfristig.',
-        },
+        { frage: 'Was spricht für eine TVT?', antwort: 'Ein einseitig geschwollenes, überwärmtes, livides und schmerzhaftes Bein mit Spannungsgefühl, besonders nach Immobilisation oder unter Östrogenen.' },
+        { frage: 'Welche bildgebende Untersuchung ist der Goldstandard?', antwort: 'Die Kompressionssonographie der Beinvenen.' },
+        { frage: 'Wie unterscheiden Sie eine TVT von einer pAVK?', antwort: 'Über die Fußpulse und die Haut: bei der Thrombose Pulse erhalten, Bein warm und geschwollen; bei der pAVK Pulse schwach, Bein blass und kühl.' },
+        { frage: 'Wann testen Sie auf eine Thrombophilie?', antwort: 'Nicht routinemäßig, nicht in der Akutphase und nur, wenn sich daraus eine Konsequenz für die Behandlungsdauer oder die Beratung von Angehörigen ergibt, etwa bei jungen Patienten mit unprovozierter Thrombose und betroffenen Verwandten.' },
+        { frage: 'Wie lange muss antikoaguliert werden?', antwort: 'Mindestens drei Monate; danach nach Auslöser, Rezidivrisiko und Blutungsrisiko entscheiden.' },
       ],
-      merksatz: 'Einseitig geschwollenes, warmes, schmerzhaftes Bein nach langem Flug + Pille = an TVT denken — Wells-Score, D-Dimer, Kompressionssono, sofort antikoagulieren und immer aktiv nach Lungenembolie fragen.',
+      merksatz: 'Einseitig geschwollenes, warmes Bein: Wells-Score, dann Ultraschall oder D-Dimer, bei hoher Wahrscheinlichkeit sofort antikoagulieren — und immer nach Lungenembolie fragen.',
       linkedCaseIds: [
         'case-tvt',
       ],
@@ -11600,382 +11486,97 @@ export function seedFachwissen(): Fachwissen[] {
       id: 'fw-gerd',
       pathology: 'GERD (Refluxkrankheit)',
       specialty: 'Gastroenterologie',
-      definition: 'Die gastroösophageale Refluxkrankheit (GERD, Morbus refluxus) ist definiert als ein Rückfluss von Mageninhalt in die Speiseröhre, der zu belastenden Symptomen und/oder zu Schleimhautschäden und Komplikationen führt. Entscheidend ist der Krankheitswert: ein physiologischer, postprandialer Reflux kommt bei jedem Menschen vor. Pathophysiologisch liegt eine Insuffizienz der Antirefluxbarriere am ösophagogastralen Übergang vor — vor allem gehäufte transiente Relaxationen des unteren Ösophagussphinkters (TLESR), ein dauerhaft niedriger Sphinktertonus, der Verlust des spitzen His-Winkels und der Zwerchfellschenkelschlinge, häufig bei axialer Hiatushernie. Man unterscheidet die erosive Refluxkrankheit (ERD, endoskopisch sichtbare Erosionen, etwa 30–40 %) von der nicht-erosiven Refluxkrankheit (NERD, endoskopisch unauffällige Schleimhaut bei pathologischer Säureexposition, etwa 60–70 %). Die Beschwerdestärke korreliert NICHT mit dem endoskopischen Befund.',
-      aetiologie: 'Ursächlich ist ein Missverhältnis zwischen aggressiven Faktoren (Salzsäure, Pepsin, bei duodenogastralem Reflux auch Galle und Trypsin) und den Schutzmechanismen der Speiseröhre (Antirefluxbarriere, Ösophagusperistaltik als Clearance, Speichelbikarbonat, Schleimhautbarriere). Die primäre Form (über 90 %) entsteht durch eine funktionelle Insuffizienz des unteren Ösophagussphinkters mit vermehrten transienten Relaxationen, meist begünstigt durch eine axiale Hiatusgleithernie, erhöhten intraabdominellen Druck bei Adipositas oder Schwangerschaft und verzögerte Magenentleerung. Sekundäre Formen entstehen bei systemischer Sklerose und anderen Kollagenosen (Motilitätsverlust), Diabetes mellitus mit Gastroparese, Zustand nach Kardiaoperation oder Myotomie, Magenausgangsstenose, Schwangerschaft (Progesteron) sowie beim Zollinger-Ellison-Syndrom mit Hypersekretion. Sphinktertonussenkende Medikamente und Genussmittel (Nitrate, Kalziumantagonisten, Anticholinergika, Theophyllin, Benzodiazepine, Nikotin, Alkohol, Kaffee, Schokolade, Pfefferminze) sowie schleimhautschädigende Substanzen (NSAR, Bisphosphonate, Doxycyclin, Kaliumchlorid) unterhalten die Erkrankung.',
+      definition: 'Rückfluss von Mageninhalt in die Speiseröhre, der belastende Beschwerden oder Schleimhautschäden verursacht. Unterschieden werden die erosive Form (sichtbare Erosionen) und die häufigere nicht-erosive Form (normale Schleimhaut bei krankhafter Säureexposition).',
+      aetiologie: 'Ursache ist eine geschwächte Antirefluxbarriere: zu häufige Erschlaffung des unteren Ösophagussphinkters, Hiatushernie, erhöhter Bauchdruck bei Adipositas. Säure und Pepsin schädigen die Schleimhaut; chronisch kann ein Barrett-Ösophagus entstehen, die Vorstufe des Adenokarzinoms.',
       risikofaktoren: [
-        'Adipositas, besonders die stammbetonte Form mit erhöhtem intraabdominellem Druck (BMI über 30 verdoppelt das Risiko)',
-        'Axiale Hiatushernie (Gleithernie) mit Verlust des His-Winkels',
-        'Nikotinabusus — senkt den Sphinktertonus und vermindert die Speichelsekretion',
-        'Alkohol, insbesondere abends und in Kombination mit späten Mahlzeiten',
-        'Fettreiche, üppige und späte Mahlzeiten, Essen kurz vor dem Zubettgehen',
-        'Kaffee, Schwarztee, kohlensäurehaltige Getränke, Zitrusfrüchte, Tomaten, scharfe Gewürze, Schokolade, Pfefferminze',
-        'Sphinktertonussenkende Medikamente: Nitrate, Kalziumantagonisten, Anticholinergika, Theophyllin, Betasympathomimetika, Benzodiazepine, trizyklische Antidepressiva',
-        'Schleimhautschädigende Medikamente: NSAR, Acetylsalicylsäure, Bisphosphonate, Tetrazykline, Kaliumchlorid',
-        'Schwangerschaft (Progesteronwirkung und mechanischer Druck)',
-        'Stress, Schlafmangel und unregelmäßige Essenszeiten, Schichtarbeit',
-        'Systemische Sklerose, Diabetes mellitus mit Gastroparese, Zustand nach Kardiaresektion oder Myotomie',
-        'Männliches Geschlecht und höheres Lebensalter für die erosiven Formen und den Barrett-Ösophagus',
+        'Adipositas, axiale Hiatushernie',
+        'Rauchen, Alkohol, späte und fettreiche Mahlzeiten, Kaffee',
+        'Medikamente, die den Sphinkter senken (Nitrate, Kalziumantagonisten, Theophyllin) oder die Schleimhaut schädigen (NSAR, Bisphosphonate)',
+        'Schwangerschaft',
       ],
       klinik: [
-        {
-          text: 'Sodbrennen (Pyrosis): retrosternales Brennen, das vom Epigastrium aufsteigt — das Leitsymptom',
-        },
-        {
-          text: 'Saures oder bitteres Aufstoßen und Regurgitation von Speiseresten bis in den Rachen, teils mit unangenehmem Geschmack',
-        },
-        {
-          text: 'Verstärkung der Beschwerden im Liegen, beim Bücken, beim Pressen und nach üppigen, fettreichen oder späten Mahlzeiten',
-        },
-        {
-          text: 'Nächtliches Erwachen durch Brennen oder Hustenreiz, Besserung im Sitzen und bei Oberkörperhochlagerung',
-        },
-        {
-          text: 'Retrosternaler Druck oder Schmerz, der einer Angina pectoris ähneln kann, jedoch nicht belastungsabhängig ist',
-        },
-        {
-          text: 'Epigastrischer Druckschmerz, Völlegefühl, frühe Sättigung und Aufstoßen von Luft',
-        },
-        {
-          text: 'Rasche Besserung der Beschwerden nach Antazida oder nach einem Protonenpumpenhemmer',
-        },
-        {
-          text: 'Prompte Beschwerdefreiheit nach Nahrungskarenz und im Stehen; abdomineller Untersuchungsbefund im Übrigen unauffällig, kein Peritonismus',
-        },
-        {
-          text: 'Schlafstörung, Tagesmüdigkeit und Leistungsminderung als Folge der nächtlichen Beschwerden',
-        },
-        {
-          text: 'Chronischer Reizhusten, Heiserkeit und Räusperzwang, morgendlich betont (Laryngitis gastrica)',
-          atypisch: true,
-        },
-        {
-          text: 'Globusgefühl („Kloß im Hals“) und Schluckstörung ohne organische Stenose',
-          atypisch: true,
-        },
-        {
-          text: 'Nächtliche Dyspnoe, asthmaartige Anfälle und rezidivierende Bronchitiden durch Mikroaspiration',
-          atypisch: true,
-        },
-        {
-          text: 'Zahnschmelzerosionen, rezidivierende Aphthen und Halitosis als einziger Hinweis',
-          atypisch: true,
-        },
-        {
-          text: 'Nicht-kardialer Thoraxschmerz als alleinige Manifestation, häufig zunächst kardiologisch abgeklärt',
-          atypisch: true,
-        },
-        {
-          text: 'Beschwerdearmer oder stummer Verlauf trotz schwerer Ösophagitis, besonders bei älteren Patienten und bei Barrett-Ösophagus (die Metaplasie ist weniger schmerzempfindlich)',
-          atypisch: true,
-        },
-        {
-          text: 'Erstmanifestation über eine Komplikation: Eisenmangelanämie durch chronische Sickerblutung, Hämatemesis oder Dysphagie bei peptischer Striktur',
-          atypisch: true,
-        },
+        { text: 'Sodbrennen: retrosternales Brennen, das vom Oberbauch aufsteigt' },
+        { text: 'Saures Aufstoßen und Regurgitation, schlimmer im Liegen, beim Bücken und nach üppigen Mahlzeiten' },
+        { text: 'Besserung im Sitzen und nach Antazida' },
+        { text: 'Chronischer Husten, Heiserkeit, asthmaartige Beschwerden, Zahnschmelzerosionen', atypisch: true },
+        { text: 'Nicht-kardialer Brustschmerz als einziges Symptom', atypisch: true },
+        { text: 'Schwere Ösophagitis oder Barrett-Ösophagus mit wenig Beschwerden', atypisch: true },
       ],
       klassifikation: [
-        {
-          name: 'Montreal-Klassifikation (2006)',
-          inhalt: 'Einteilung in ösophageale Syndrome — symptomatisch (typisches Refluxsyndrom, nicht-kardialer Thoraxschmerz) und mit Schleimhautläsion (Refluxösophagitis, Striktur, Barrett-Ösophagus, Adenokarzinom) — sowie extraösophageale Syndrome mit gesicherter Assoziation (Husten, Laryngitis, Asthma, Zahnschmelzerosionen) und vermuteter Assoziation (Pharyngitis, Sinusitis, idiopathische Lungenfibrose, rezidivierende Otitis media).',
-        },
-        {
-          name: 'Endoskopische Grundeinteilung: ERD, NERD und funktionelles Sodbrennen',
-          inhalt: 'ERD (erosive reflux disease, 30–40 %): typische Beschwerden mit endoskopisch sichtbaren Erosionen. NERD (non-erosive reflux disease, 60–70 %): typische Beschwerden bei normaler Schleimhaut, aber pathologischer Säureexposition in der pH-Metrie. Hypersensitiver Ösophagus: normale Säureexposition, aber positive Symptomassoziation. Funktionelles Sodbrennen: normale Schleimhaut, normale pH-Metrie, negative Symptomassoziation — spricht typischerweise NICHT auf PPI an. Merke: Die Beschwerdeintensität korreliert nicht mit dem Schweregrad des endoskopischen Befundes.',
-        },
-        {
-          name: 'Los-Angeles-Klassifikation der Refluxösophagitis (heutiger Standard)',
-          inhalt: 'Grad A: eine oder mehrere Schleimhautläsionen unter 5 mm, auf eine Mukosafalte begrenzt. Grad B: mindestens eine Läsion über 5 mm, auf eine Falte begrenzt, ohne Konfluenz. Grad C: konfluierende Läsionen über mehrere Falten hinweg, weniger als 75 % der Zirkumferenz. Grad D: Läsionen über mindestens 75 % der Zirkumferenz. Ab Grad C/D besteht eine Indikation zur Langzeit-PPI-Therapie und zur endoskopischen Kontrolle nach 8 Wochen.',
-        },
-        {
-          name: 'Savary-Miller-Klassifikation (ältere, im Examen noch gefragte Einteilung)',
-          inhalt: 'Stadium I: einzelne, nicht konfluierende Erosionen. Stadium II: longitudinal konfluierende Erosionen entlang der Falten. Stadium III: zirkulär konfluierende Erosionen. Stadium IV: Komplikationsstadium mit Ulkus, peptischer Striktur, Brachyösophagus oder Zylinderepithelmetaplasie (Barrett).',
-        },
-        {
-          name: 'Barrett-Ösophagus und Prag-C&M-Klassifikation',
-          inhalt: 'Barrett-Ösophagus: Ersatz des Plattenepithels des distalen Ösophagus durch spezialisiertes intestinales Zylinderepithel mit Becherzellen (Präkanzerose des Adenokarzinoms). Beschreibung nach der Prag-Klassifikation mit C = zirkumferenzielle und M = maximale Ausdehnung in Zentimetern; Short-Segment-Barrett unter 3 cm, Long-Segment-Barrett ab 3 cm. Weiter unterteilt nach der Dysplasie: keine Dysplasie, unklare Dysplasie, niedriggradige (low-grade) und hochgradige (high-grade) intraepitheliale Neoplasie.',
-        },
+        { name: 'Los-Angeles-Klassifikation', inhalt: 'A: Läsionen unter 5 mm; B: über 5 mm, nicht über Faltenkämme hinweg; C: konfluierend, weniger als 75 % der Zirkumferenz; D: mindestens 75 %.' },
+        { name: 'Erosive und nicht-erosive Refluxkrankheit', inhalt: 'Die Mehrheit hat eine normale Schleimhaut; die Stärke der Beschwerden sagt nichts über den endoskopischen Befund.' },
       ],
       redFlags: [
-        'Progrediente Dysphagie für feste Speisen — Verdacht auf peptische Striktur oder Ösophaguskarzinom, sofortige ÖGD',
-        'Odynophagie (schmerzhaftes Schlucken) — Verdacht auf Ulkus, infektiöse oder medikamentöse Ösophagitis',
-        'Ungewollter Gewichtsverlust, Appetitlosigkeit, Leistungsknick — Malignitätsverdacht',
-        'Hämatemesis, Kaffeesatzerbrechen oder Teerstuhl (Meläna) — obere gastrointestinale Blutung, notfallmäßige Endoskopie',
-        'Eisenmangelanämie oder positiver Test auf okkultes Blut im Stuhl — chronische Sickerblutung aus Erosionen, Ulkus oder Tumor',
-        'Rezidivierendes Erbrechen — Magenausgangsstenose oder Obstruktion',
-        'Erstmanifestation jenseits des 45.–50. Lebensjahres oder rasche Symptomzunahme',
-        'Positive Familienanamnese für Ösophagus- oder Magenkarzinom, bekannter Barrett-Ösophagus',
-        'Tastbare epigastrische Resistenz oder Lymphknoten (Virchow-Lymphknoten links supraklavikulär)',
-        'Akuter retrosternaler Vernichtungsschmerz mit Dyspnoe, Kaltschweißigkeit, Ausstrahlung in Arm oder Kiefer — akutes Koronarsyndrom, Aortendissektion oder Boerhaave-Syndrom müssen zuerst ausgeschlossen werden',
-        'Ausbleibendes Ansprechen auf eine adäquate PPI-Therapie über 8 Wochen — Diagnose überprüfen, endoskopisch abklären',
+        'Dysphagie oder Odynophagie',
+        'Hämatemesis, Teerstuhl oder Eisenmangelanämie',
+        'Appetitverlust und ungewollter Gewichtsverlust',
+        'Wiederholtes Erbrechen',
+        'Tumoren des Magen-Darm-Trakts in der Familie',
       ],
       diagnostik: [
-        {
-          stufe: 'Anamnese/Klinik',
-          text: 'Typische Anamnese als tragende Säule: Sodbrennen und saures Aufstoßen mit Verstärkung im Liegen, beim Bücken und nach üppigen oder späten Mahlzeiten. Bei typischer Symptomatik ohne Alarmzeichen darf die Diagnose klinisch gestellt und ohne vorherige Endoskopie behandelt werden',
-        },
-        {
-          stufe: 'Anamnese/Klinik',
-          text: 'Empirischer PPI-Versuch als diagnostischer und therapeutischer Schritt zugleich („PPI-Test“): Standarddosis, z. B. Omeprazol oder Pantoprazol 40 mg morgens (in der Testsituation auch 2 × täglich) über 2–4 Wochen; ein prompter Beschwerderückgang stützt die Diagnose. Cave: Der Test ist weder sehr sensitiv noch spezifisch und beweist die GERD nicht',
-        },
-        {
-          stufe: 'Anamnese/Klinik',
-          text: 'Gezielte, aktive Abfrage der Alarmsymptome: Dysphagie, Odynophagie, Gewichtsverlust, Hämatemesis, Teerstuhl, Anämiezeichen, rezidivierendes Erbrechen, Alter über 45–50 Jahre bei Erstmanifestation, familiäre Karzinombelastung',
-        },
-        {
-          stufe: 'Anamnese/Klinik',
-          text: 'Medikamenten-, Genuss- und Ernährungsanamnese: Nitrate, Kalziumantagonisten, Anticholinergika, Theophyllin, NSAR, Acetylsalicylsäure, Bisphosphonate; Nikotin, Alkohol, Kaffee, Essenszeiten, Portionsgrößen, Gewichtsverlauf und BMI',
-        },
-        {
-          stufe: 'Anamnese/Klinik',
-          text: 'Körperliche Untersuchung — meist unauffällig; Abdomenpalpation (epigastrischer Druckschmerz, Resistenz), Lymphknotenstatus, Auskultation von Herz und Lunge, Zahnstatus (Schmelzerosionen), HNO-Inspektion bei Heiserkeit und Globusgefühl; standardisierte Fragebögen wie der GERD-Q können ergänzen',
-        },
-        {
-          stufe: 'Labor',
-          text: 'Blutbild und Eisenstatus (Ferritin, Transferrinsättigung) zur Erfassung einer Eisenmangelanämie durch chronische Sickerblutung; ggf. Test auf okkultes Blut im Stuhl',
-        },
-        {
-          stufe: 'Labor',
-          text: 'Bei retrosternalem Schmerz obligat der kardiale Ausschluss: hochsensitives Troponin im Verlauf, zusammen mit dem EKG — die Angina pectoris ist die gefährlichste Differenzialdiagnose',
-        },
-        {
-          stufe: 'Labor',
-          text: 'Helicobacter-pylori-Diagnostik (13C-Harnstoff-Atemtest, Stuhl-Antigen oder Urease-Schnelltest und Histologie aus der Endoskopie), insbesondere vor einer geplanten Langzeit-PPI-Therapie und bei ulkusverdächtiger Symptomatik',
-        },
-        {
-          stufe: 'Labor',
-          text: 'Zur differenzialdiagnostischen Abgrenzung nach Beschwerdebild: CRP und Blutbild, Lipase (Pankreatitis), Transaminasen, gamma-GT, alkalische Phosphatase und Bilirubin (biliäre Genese); vor einer Langzeittherapie Magnesium, Kalzium und Vitamin B12 als Ausgangswerte',
-        },
-        {
-          stufe: 'Apparativ & Bildgebung',
-          text: '12-Kanal-EKG bei jedem retrosternalen Schmerz zum Ausschluss eines akuten Koronarsyndroms; bei belastungsabhängiger Symptomatik ergänzend Ergometrie, Echokardiographie oder weiterführende Ischämiediagnostik',
-        },
-        {
-          stufe: 'Apparativ & Bildgebung',
-          text: 'Abdomensonographie: Ausschluss einer Cholezystolithiasis, Beurteilung von Leber, Pankreas und Aorta — differenzialdiagnostisch bei epigastrischen Beschwerden',
-        },
-        {
-          stufe: 'Apparativ & Bildgebung',
-          text: 'Röntgen-Breischluck mit wasserlöslichem Kontrastmittel bzw. Bariumbrei nur noch bei speziellen Fragestellungen: Größe und Typ einer Hiatushernie, Länge einer Stenose, Verdacht auf Achalasie oder Divertikel; als Refluxnachweis ist die Untersuchung ungeeignet',
-        },
-        {
-          stufe: 'Apparativ & Bildgebung',
-          text: 'Röntgen-Thorax bei pulmonalen Begleitsymptomen (Aspirationspneumonie, Ausschluss anderer Ursachen); Thorax-CT nur bei Tumor- oder Perforationsverdacht',
-        },
-        {
-          stufe: 'Invasiv & Speziell',
-          text: 'Ösophago-Gastro-Duodenoskopie (ÖGD) — die zentrale morphologische Untersuchung. Klare Indikationen: jedes Alarmsymptom, Erstmanifestation jenseits des 45.–50. Lebensjahres, fehlendes Ansprechen auf 8 Wochen PPI, Rezidiv nach Absetzen, langjähriger Verlauf, geplante Antirefluxoperation und die Frage nach einem Barrett-Ösophagus. Beurteilt werden Erosionen (Graduierung nach Los Angeles A–D), Ulzera, Strikturen, Hiatushernie und Zylinderepithelmetaplasie',
-        },
-        {
-          stufe: 'Invasiv & Speziell',
-          text: 'Biopsien im Rahmen der ÖGD: Stufenbiopsien aus dem distalen Ösophagus nach dem Seattle-Protokoll (vier Quadranten alle 1–2 cm) zum Nachweis eines Barrett-Ösophagus und zur Dysplasiegraduierung, zusätzliche Biopsien zum Ausschluss einer eosinophilen Ösophagitis sowie Antrum- und Korpusbiopsien zur Helicobacter-Diagnostik',
-        },
-        {
-          stufe: 'Invasiv & Speziell',
-          text: '24-Stunden-pH-Metrie, heute als kombinierte pH-Impedanz-Messung — der Goldstandard zur Objektivierung des Refluxes: pathologisch bei einer Säureexpositionszeit (pH unter 4) über 6 % der Messzeit bzw. einem DeMeester-Score über 14,7; die Impedanz erfasst zusätzlich nicht-saure und gasförmige Refluxepisoden und erlaubt die Symptomassoziation. Indiziert bei NERD, therapierefraktären Beschwerden, extraösophagealen Symptomen und obligat vor jeder Antirefluxoperation. PPI je nach Fragestellung 7 Tage vorher pausieren',
-        },
-        {
-          stufe: 'Invasiv & Speziell',
-          text: 'Hochauflösende Ösophagusmanometrie: obligat vor einer geplanten Fundoplikatio zum Ausschluss einer Achalasie oder einer schweren Motilitätsstörung (sonst droht postoperativ eine ausgeprägte Dysphagie) und zur korrekten Platzierung der pH-Sonde 5 cm oberhalb des unteren Ösophagussphinkters',
-        },
-        {
-          stufe: 'Invasiv & Speziell',
-          text: 'Ergänzende endoskopische Techniken bei Barrett und Dysplasieverdacht: hochauflösende Endoskopie mit Chromoendoskopie oder Narrow-Band-Imaging, endoskopische Mukosaresektion zur histologischen Sicherung, Endosonographie zum lokalen Staging bei Karzinomverdacht',
-        },
+        { stufe: 'Anamnese/Klinik', text: 'Typische Beschwerden ohne Alarmsymptome erlauben die klinische Diagnose und eine Behandlung ohne vorherige Spiegelung' },
+        { stufe: 'Anamnese/Klinik', text: 'Medikamente, Rauchen, Alkohol, Essgewohnheiten, Gewicht' },
+        { stufe: 'Apparativ & Bildgebung', text: 'EKG bei retrosternalem Schmerz und kardiovaskulären Risikofaktoren; Troponin bei akutem Brustschmerz' },
+        { stufe: 'Invasiv & Speziell', text: 'ÖGD mit Biopsien bei Alarmsymptomen, nach erfolgloser PPI-Therapie über acht Wochen und bei jahrelangen Beschwerden (Barrett-Suche)' },
+        { stufe: 'Invasiv & Speziell', text: '24-Stunden-pH-Impedanz-Messung zum objektiven Nachweis des Refluxes, wenn die Spiegelung unauffällig ist, und vor jeder Operation' },
+        { stufe: 'Invasiv & Speziell', text: 'Hochauflösende Manometrie vor einer Fundoplikatio, um eine Achalasie auszuschließen' },
       ],
       differenzialdiagnosen: [
-        {
-          dd: 'Angina pectoris / akutes Koronarsyndrom',
-          unterscheidung: 'Die wichtigste und gefährlichste Differenzialdiagnose. Der Schmerz ist belastungsabhängig, dauert Minuten, strahlt in linken Arm, Hals, Unterkiefer oder Rücken aus und wird von Dyspnoe, Kaltschweißigkeit, Übelkeit und Vernichtungsgefühl begleitet; Besserung auf Nitrat statt auf Antazida, kardiovaskuläres Risikoprofil. Klärung durch EKG, Troponin und Ergometrie. Cave: Auch ein Reflux kann auf Nitrate ansprechen — im Zweifel immer zuerst kardial abklären.',
-        },
-        {
-          dd: 'Ulcus ventriculi oder Ulcus duodeni',
-          unterscheidung: 'Der Schmerz ist epigastrisch und nicht retrosternal-brennend, beim Duodenalulkus typischerweise Nüchtern- und Nachtschmerz mit Besserung durch Nahrungsaufnahme, beim Magenulkus Verstärkung unmittelbar nach dem Essen. Anamnestisch häufig NSAR- oder Acetylsalicylsäure-Einnahme sowie eine Helicobacter-pylori-Infektion. Klärung durch ÖGD mit Biopsie und H.-pylori-Nachweis.',
-        },
-        {
-          dd: 'Ösophaguskarzinom (Adenokarzinom des distalen Ösophagus, Plattenepithelkarzinom)',
-          unterscheidung: 'Alarmzeichen: progrediente Dysphagie zunächst für feste, später auch für flüssige Speisen, Odynophagie, ungewollter Gewichtsverlust, Anämie, Heiserkeit bei Rekurrensparese und Leistungsknick. Risikofaktoren sind ein langjähriger Barrett-Ösophagus für das Adenokarzinom sowie Nikotin und Alkohol für das Plattenepithelkarzinom. Klärung ausschließlich endoskopisch-bioptisch, danach Staging mit Endosonographie und CT.',
-        },
-        {
-          dd: 'Peptische Striktur bei langjähriger Refluxösophagitis',
-          unterscheidung: 'Ebenfalls Dysphagie für feste Speisen, aber langsam progredient bei langer Refluxanamnese und ohne Gewichtsverlust; endoskopisch glatt begrenzte, kurzstreckige Stenose im distalen Ösophagus — die bioptische Abgrenzung vom Karzinom ist trotzdem obligat.',
-        },
-        {
-          dd: 'Achalasie und andere Motilitätsstörungen (diffuser Ösophagusspasmus, Nussknackerösophagus)',
-          unterscheidung: 'Dysphagie von Beginn an auch für Flüssigkeiten, Regurgitation unverdauter, nicht saurer Speisen, nächtlicher Husten, retrosternale Krampfschmerzen. Im Breischluck Sektglas- bzw. Vogelschnabelform, in der Manometrie fehlende Erschlaffung des unteren Ösophagussphinkters mit Aperistaltik. Die Achalasie muss vor jeder Antirefluxoperation ausgeschlossen sein.',
-        },
-        {
-          dd: 'Eosinophile Ösophagitis',
-          unterscheidung: 'Jüngere Patienten, oft mit Atopie, Asthma oder Nahrungsmittelallergien; führendes Symptom ist die Bolusimpaktation mit Dysphagie, das Ansprechen auf PPI ist unbefriedigend. Endoskopisch Ringbildung (Trachealisierung), Längsfurchen und weiße Exsudate; beweisend sind über 15 Eosinophile pro Gesichtsfeld in der Biopsie.',
-        },
-        {
-          dd: 'Infektiöse Ösophagitis (Candida, Herpes simplex, Zytomegalievirus) und medikamentös-toxische Ösophagitis',
-          unterscheidung: 'Führendes Symptom ist die Odynophagie. Bei der Soorösophagitis weiße Beläge und meist Immunsuppression, Diabetes, inhalative Steroide oder HIV-Infektion. Die medikamentöse Ösophagitis folgt der Einnahme von Bisphosphonaten, Doxycyclin oder Kaliumchlorid mit wenig Flüssigkeit im Liegen und zeigt umschriebene Ulzera.',
-        },
-        {
-          dd: 'Funktionelle Dyspepsie und funktionelles Sodbrennen / hypersensitiver Ösophagus',
-          unterscheidung: 'Typische Beschwerden ohne jeden objektivierbaren Befund: normale Endoskopie UND normale Säureexposition in der pH-Metrie mit negativer Symptomassoziation. Häufig Beschwerdewechsel, Stressbezug und begleitende Reizdarmsymptomatik; das Ansprechen auf PPI ist typischerweise schlecht — das ist der Grund für viele „therapierefraktäre“ Verläufe.',
-        },
-        {
-          dd: 'Cholezystolithiasis mit Gallenkolik, akute Cholezystitis',
-          unterscheidung: 'Kolikartiger Schmerz im rechten Oberbauch mit Ausstrahlung in die rechte Schulter, 1–4 Stunden nach fettreichem Essen, Übelkeit und Erbrechen, positives Murphy-Zeichen, ggf. Cholestaseparameter erhöht. Klärung durch Abdomensonographie.',
-        },
-        {
-          dd: 'Akute Pankreatitis',
-          unterscheidung: 'Gürtelförmiger, in den Rücken ausstrahlender Oberbauchschmerz, „Gummibauch“, Übelkeit und Erbrechen, Lipase über dem Dreifachen der Norm; Auslöser meist Gallensteine oder Alkohol.',
-        },
-        {
-          dd: 'Hiatushernie mit Roemheld-Syndrom, Aerophagie und Rumination',
-          unterscheidung: 'Postprandiales Völlegefühl, Herzstolpern, Palpitationen und Atemnot durch Zwerchfellhochstand bei großer Hernie; bei der Aerophagie steht das Aufstoßen von Luft ohne saure Regurgitation im Vordergrund. Die Hiatushernie ist ein begünstigender Faktor, aber allein keine Erklärung für die Beschwerden.',
-        },
-        {
-          dd: 'Zollinger-Ellison-Syndrom',
-          unterscheidung: 'An eine Gastrin-produzierende neuroendokrine Neoplasie denken bei multiplen, therapierefraktären Ulzera an atypischer Lokalisation, schwerer Ösophagitis, Diarrhoe und Steatorrhoe; deutlich erhöhtes Nüchtern-Gastrin (bei abgesetztem PPI), Sekretin-Test.',
-        },
+        { dd: 'Angina pectoris', unterscheidung: 'Belastungsabhängiger Druck mit Ausstrahlung in Arm oder Kiefer, Besserung in Ruhe; EKG, bei akutem Schmerz Troponin.' },
+        { dd: 'Ulcus ventriculi oder duodeni', unterscheidung: 'Epigastrischer Schmerz, beim Duodenalulkus nüchtern und nachts; oft NSAR oder Helicobacter pylori.' },
+        { dd: 'Eosinophile Ösophagitis', unterscheidung: 'Jüngere Atopiker mit Dysphagie und Bolusimpaktation; Diagnose durch Biopsien.' },
+        { dd: 'Ösophaguskarzinom', unterscheidung: 'Progrediente Dysphagie, Gewichtsverlust, Anämie; Spiegelung mit Biopsie.' },
+        { dd: 'Funktionelles Sodbrennen', unterscheidung: 'Normale Spiegelung und normale Säureexposition in der pH-Metrie; spricht auf PPI kaum an.' },
       ],
       therapie: [
         {
           label: 'Basistherapie: Lebensstil, Ernährung und Meidung der Auslöser (Grundlage jeder Stufe)',
           items: [
-            'Gewichtsreduktion bei Übergewicht — die einzige Maßnahme mit belegter Wirkung auf Symptome und Säureexposition; angestrebt werden 5–10 % des Körpergewichts, langsam und kontrolliert, ergänzt durch regelmäßige Bewegung',
-            'Nikotinkarenz und deutliche Reduktion des Alkoholkonsums, insbesondere abends — beide senken den Tonus des unteren Ösophagussphinkters',
-            'Mehrere kleine Mahlzeiten über den Tag statt weniger üppiger; letzte Mahlzeit mindestens 3 Stunden vor dem Zubettgehen, keine späten Snacks',
-            'Meidung individueller Auslöser: fettreiche und frittierte Speisen, Kaffee, Schwarztee, kohlensäurehaltige Getränke, Zitrusfrüchte, Tomatenprodukte, scharfe Gewürze, Schokolade, Pfefferminze',
-            'Schlafen mit erhöhtem Oberkörper (Kopfende des Bettes um 15–20 cm anheben, nicht nur zusätzliche Kissen); bevorzugt Linksseitenlage',
-            'Enge Gürtel, einschnürende Kleidung, schweres Heben und Bauchpresse meiden; Obstipation behandeln',
-            'Überprüfung der Dauermedikation: sphinktertonussenkende Substanzen (Nitrate, Kalziumantagonisten, Anticholinergika, Theophyllin) und schleimhautschädigende Präparate (NSAR, Acetylsalicylsäure, Bisphosphonate, Doxycyclin, Kaliumchlorid) nach Möglichkeit ersetzen oder korrekt einnehmen — aufrecht und mit reichlich Wasser',
-            'Stressreduktion, Schlafhygiene und geregelte Essenszeiten; Aufklärung, dass die Beschwerden gutartig, aber chronisch-rezidivierend sind',
+            'Gewichtsabnahme bei Übergewicht, Rauchstopp',
+            'Kopfende erhöhen bei nächtlichen Beschwerden, keine späten Mahlzeiten',
+            'Individuelle Auslöser meiden',
           ],
         },
         {
           label: 'Medikamentöse Säuresuppression: PPI-Standardtherapie und Step-down',
           items: [
-            'Protonenpumpenhemmer sind Mittel der ersten Wahl: Pantoprazol 40 mg, Omeprazol 20–40 mg oder Esomeprazol 40 mg — 30 bis 60 Minuten VOR dem Frühstück einnehmen, da nur aktive Protonenpumpen gehemmt werden',
-            'Standarddauer 4–8 Wochen bei NERD und Los-Angeles-Grad A/B; bei Grad C/D und bei Komplikationen 8 Wochen in doppelter Standarddosis (2 × täglich, die zweite Dosis vor dem Abendessen) mit anschließender endoskopischer Kontrolle',
-            'Nach Abheilung Step-down: Reduktion auf die niedrigste wirksame Dosis, Wechsel auf eine Bedarfstherapie („on demand“) oder intermittierende Kurzzyklen; bei Grad C/D, peptischer Striktur und Barrett-Ösophagus dagegen dauerhafte Erhaltungstherapie',
-            'Antazida (Magaldrat, Hydrotalcit) und Alginate (Natriumalginat als „Schaumbarriere“ auf dem Mageninhalt) für die rasche, kurzfristige Symptomlinderung und in der Schwangerschaft',
-            'H2-Rezeptor-Antagonisten (Famotidin, Ranitidin ist vom Markt) nur als Reserve, etwa zusätzlich zur Nacht bei nächtlichem Säuredurchbruch — Cave: rasche Tachyphylaxie',
-            'Prokinetika (Domperidon, Metoclopramid) nur bei nachgewiesener Magenentleerungsstörung und zeitlich begrenzt; Cave QT-Verlängerung und extrapyramidale Nebenwirkungen',
-            'Helicobacter pylori bei Nachweis eradizieren (französisches oder italienisches Tripelschema über 7–14 Tage) — vor allem vor einer geplanten Langzeit-PPI-Therapie und bei begleitender Ulkuskrankheit',
-            'Aufklärung über Nebenwirkungen der Langzeittherapie: Hypomagnesiämie, Vitamin-B12-Mangel, Eisenmangel, erhöhtes Risiko für Clostridioides-difficile- und ambulant erworbene Pneumonien, Osteoporose mit Frakturrisiko, interstitielle Nephritis; deshalb Indikation regelmäßig überprüfen und Rebound-Hypersekretion beim Absetzen durch Ausschleichen vermeiden',
-            'Bei Schwangerschaft: primär Lebensstil und Alginate/Antazida, bei Bedarf Omeprazol als am besten untersuchter PPI',
+            'PPI in Standarddosis 30 bis 60 Minuten vor dem Frühstück über vier bis acht Wochen',
+            'Danach niedrigste wirksame Dosis oder Bedarfstherapie; bei Ösophagitis Grad C oder D und bei Barrett dauerhaft',
+            'Langzeitrisiken: Magnesium- und Vitamin-B12-Mangel, Infekte, Frakturen; Indikation regelmäßig prüfen',
+            'Antazida und Alginate zur raschen Linderung',
           ],
         },
         {
           label: 'Vorgehen bei Therapieversagen und Langzeitüberwachung des Barrett-Ösophagus',
           items: [
-            'Bei fehlendem Ansprechen nach 8 Wochen zunächst die einfachen Ursachen prüfen: Einnahmezeitpunkt und Adhärenz, fortbestehende Auslöser, Nikotin, Alkohol, unveränderte Begleitmedikation',
-            'Danach Diagnose überprüfen: ÖGD mit Biopsien (eosinophile Ösophagitis, infektiöse Ösophagitis, Ulkus, Karzinom) und pH-Impedanz-Messung — häufig liegt ein funktionelles Sodbrennen oder ein hypersensitiver Ösophagus vor, die auf PPI nicht ansprechen',
-            'Bei nachgewiesener Hypersensitivität oder funktionellem Sodbrennen Neuromodulatoren in niedriger Dosis (z. B. trizyklische Antidepressiva) sowie psychosomatische Mitbehandlung erwägen',
-            'Barrett-Ösophagus ohne Dysplasie: dauerhafte PPI-Therapie und endoskopische Überwachung mit Stufenbiopsien alle 3–4 Jahre (bei Short-Segment ggf. länger); jeder Befund wird von zwei Pathologen bestätigt',
-            'Niedriggradige Dysplasie: Kontrolle nach 6 Monaten und dann jährlich oder — heute bevorzugt — endoskopische Ablation. Hochgradige Dysplasie und Mukosakarzinom: endoskopische Mukosaresektion des sichtbaren Herdes, anschließend Radiofrequenzablation des restlichen Barrett-Segments',
-            'Peptische Striktur: endoskopische Bougierung oder Ballondilatation, ggf. mehrfach, immer mit Biopsien zum Karzinomausschluss und obligater PPI-Dauertherapie zur Rezidivprophylaxe',
-            'Blutende Erosionen oder Ulzera: endoskopische Blutstillung und hochdosierte intravenöse PPI-Therapie',
-            'Bei gesichertem Adenokarzinom Übergabe an die onkologische Behandlung (Staging, Tumorboard, endoskopische Resektion im Frühstadium, sonst multimodale Therapie)',
+            'Bei Versagen zuerst Einnahme, Adhärenz und Auslöser prüfen, dann ÖGD mit Biopsien und pH-Impedanz-Messung',
+            'Funktionelles Sodbrennen oder hypersensitiver Ösophagus sprechen auf PPI nicht an',
+            'Barrett-Ösophagus: dauerhafter PPI und endoskopische Überwachung mit Biopsien; Dysplasien endoskopisch resezieren und abladieren',
           ],
         },
         {
           label: 'Antirefluxchirurgie und endoskopische Verfahren (bei Therapieversagen, Unverträglichkeit oder Patientenwunsch)',
           items: [
-            'Indikationen: objektiv gesicherte GERD mit unzureichendem Ansprechen trotz optimierter PPI-Therapie, PPI-Unverträglichkeit, ausgeprägte Volumenregurgitation, große symptomatische Hiatushernie sowie der Wunsch junger Patienten, eine lebenslange Medikamenteneinnahme zu vermeiden',
-            'Obligate präoperative Abklärung: ÖGD, 24-Stunden-pH-Impedanz-Messung zum Beweis des pathologischen Refluxes und hochauflösende Manometrie zum Ausschluss einer Achalasie oder schweren Motilitätsstörung — sonst droht eine postoperative Dysphagie',
-            'Standardverfahren: laparoskopische Fundoplikatio nach Nissen (360-Grad-Manschette) oder als partielle Manschette nach Toupet (270 Grad posterior) bzw. Dor (180 Grad anterior) bei eingeschränkter Peristaltik, jeweils kombiniert mit der Hiatoplastik (Einengung des Hiatus oesophageus durch Zwerchfellschenkelnaht)',
-            'Erfolgsquote 85–90 % nach fünf Jahren; typische Nebenwirkungen sind das Gas-bloat-Syndrom mit Unfähigkeit zu Aufstoßen und Erbrechen, eine passagere Dysphagie in den ersten Wochen, Blähungen und Diarrhoe; ein Teil der Patienten benötigt langfristig erneut PPI',
-            'Alternative bei ausgeprägter Adipositas (BMI über 35): Roux-Y-Magenbypass als kombinierte metabolische und Antireflux-Operation — die Sleeve-Gastrektomie verschlechtert den Reflux und ist hier ungeeignet',
-            'Endoskopische und minimal-invasive Alternativen mit begrenzter Datenlage: magnetischer Sphinkterring (LINX), transorale Fundoplikatio (TIF), Radiofrequenzapplikation (Stretta) — nur an spezialisierten Zentren und bei ausgewählten Patienten',
-            'Postoperative Nachsorge: für einige Wochen weiche Kost in kleinen Portionen, langsames Essen, kohlensäurehaltige Getränke meiden, schweres Heben vermeiden; Kontrolle von Beschwerden, Gewicht und Schluckvermögen',
+            'Laparoskopische Fundoplikatio bei objektiv gesichertem Reflux, wenn PPI nicht ausreichen oder nicht vertragen werden',
+            'Vorher ÖGD, pH-Impedanz-Messung und Manometrie; typische Folge ist das Gas-bloat-Syndrom',
           ],
         },
       ],
-      prognose: 'Die Refluxkrankheit ist eine gutartige, aber chronisch-rezidivierende Erkrankung. Unter Protonenpumpenhemmern werden 80–90 % der Patienten beschwerdefrei und erosive Läsionen heilen in 8 Wochen weitgehend ab; nach Absetzen kommt es jedoch bei etwa der Hälfte bis zwei Dritteln innerhalb eines Jahres zum Rezidiv, sodass viele Patienten eine Bedarfs- oder Dauertherapie benötigen. Die Lebensqualität ist bei nächtlichen Beschwerden erheblich beeinträchtigt, die Lebenserwartung dagegen nicht eingeschränkt. Etwa 10 % der Patienten mit langjähriger Refluxösophagitis entwickeln einen Barrett-Ösophagus; dessen Entartungsrisiko zum Adenokarzinom liegt bei etwa 0,1–0,5 % pro Jahr ohne Dysplasie und steigt bei hochgradiger intraepithelialer Neoplasie deutlich an — daher die endoskopische Überwachung. Weitere Komplikationen sind peptische Ulzera mit Blutung und Eisenmangelanämie, peptische Strikturen mit Dysphagie sowie extraösophageale Folgen wie Laryngitis, Asthma und Zahnschmelzerosionen. Entscheidend für den Verlauf sind Gewichtsreduktion, Nikotinkarenz und die Therapieadhärenz; die laparoskopische Fundoplikatio ist bei korrekter Indikation in 85–90 % über fünf Jahre erfolgreich.',
+      prognose: 'Gutartig, aber oft chronisch wiederkehrend; unter PPI werden die meisten Patienten beschwerdefrei, nach dem Absetzen kehren die Beschwerden häufig zurück. Wichtigste Spätfolge ist der Barrett-Ösophagus.',
       pruefungsfallen: [
-        'Die ÖGD ist NICHT bei jedem Sodbrennen indiziert. Bei typischer Symptomatik ohne Alarmzeichen darf zunächst empirisch mit einem PPI behandelt werden. Indiziert ist die Endoskopie bei Alarmsymptomen, bei Erstmanifestation jenseits des 45.–50. Lebensjahres, bei fehlendem Ansprechen nach 8 Wochen, bei Rezidiv nach Absetzen, bei langjährigem Verlauf, zur Barrett-Frage und vor einer Antirefluxoperation.',
-        'Die Alarmsymptome müssen flüssig und vollständig aufgezählt werden: Dysphagie, Odynophagie, ungewollter Gewichtsverlust, Hämatemesis oder Teerstuhl, Anämie, rezidivierendes Erbrechen, Alter über 45–50 Jahre bei Erstmanifestation, positive Familienanamnese für Ösophagus- oder Magenkarzinom — hier wird gerne nachgehakt.',
-        'Bei retrosternalem Schmerz IMMER zuerst kardial abklären: EKG und Troponin gehören in die Antwort, bevor über Reflux gesprochen wird. Ein Prüfer wertet es als schweren Fehler, wenn das akute Koronarsyndrom nicht ausgeschlossen wird.',
-        'Der Schweregrad der endoskopischen Ösophagitis korreliert NICHT mit der Beschwerdeintensität: 60–70 % der Patienten haben eine NERD mit völlig unauffälliger Schleimhaut, und umgekehrt kann eine Los-Angeles-Grad-D-Ösophagitis nahezu stumm verlaufen.',
-        'Der PPI muss 30–60 Minuten VOR dem Frühstück eingenommen werden — die häufigste Ursache eines „Therapieversagens“ ist der falsche Einnahmezeitpunkt, nicht die falsche Substanz.',
-        'Die 24-Stunden-pH-Metrie ist der Goldstandard zum BEWEIS des Refluxes, nicht die ÖGD — die Endoskopie zeigt die Schleimhautschäden und schließt ein Karzinom aus. Vor jeder Operation sind beide plus die Manometrie erforderlich.',
-        'Vor einer Fundoplikatio muss die Manometrie eine Achalasie und eine schwere Motilitätsstörung ausschließen, sonst droht postoperativ eine hochgradige Dysphagie. Typische Operationsfolge ist das Gas-bloat-Syndrom.',
-        'Der Barrett-Ösophagus ist eine Präkanzerose des ADENOkarzinoms des distalen Ösophagus (intestinale Metaplasie mit Becherzellen) — nicht des Plattenepithelkarzinoms; dieses ist mit Nikotin und Alkohol assoziiert und liegt eher im mittleren Drittel.',
-        'Die Hiatushernie ist ein begünstigender Faktor, aber KEIN Synonym für die Refluxkrankheit: viele Menschen haben eine Gleithernie ohne jede Beschwerde.',
-        'Die Langzeit-PPI-Therapie ist nicht harmlos: Hypomagnesiämie, Vitamin-B12- und Eisenmangel, Osteoporose, Clostridioides-difficile-Infektionen und Pneumonien; die Indikation ist regelmäßig zu überprüfen und beim Absetzen die Rebound-Hypersekretion zu beachten.',
-        'Dem Patienten gegenüber die Fachbegriffe übersetzen: Refluxkrankheit = Rückfluss von Magensäure in die Speiseröhre, Pyrosis = Sodbrennen, Dysphagie = Schluckstörung, Odynophagie = schmerzhaftes Schlucken, ÖGD = Magenspiegelung, Fundoplikatio = Manschettenbildung aus dem Magenanteil um die Speiseröhre.',
-        'Nicht jedes therapierefraktäre Sodbrennen ist eine GERD: funktionelles Sodbrennen und der hypersensitive Ösophagus sprechen auf PPI nicht an und werden mit pH-Impedanz-Messung abgegrenzt.',
+        'Nicht jedes Sodbrennen braucht eine Spiegelung.',
+        'Das Ansprechen auf einen PPI beweist die Diagnose nicht (S2k-Leitlinie 2023).',
+        'Das Alter allein ist kein Alarmsymptom der S2k-Leitlinie.',
+        'Den objektiven Refluxnachweis liefert die pH-Impedanz-Messung, nicht die Spiegelung.',
       ],
       askedInExam: [
-        {
-          frage: 'Wie lautet Ihre Verdachtsdiagnose und was spricht dafür?',
-          antwort: 'Eine gastroösophageale Refluxkrankheit, gegebenenfalls mit Refluxösophagitis. Dafür sprechen das retrosternale Brennen, das vom Oberbauch aufsteigt, das saure Aufstoßen, die Verstärkung im Liegen, beim Bücken und nach üppigen, späten oder fettreichen Mahlzeiten, die Besserung im Sitzen und nach Antazida sowie die typischen Risikofaktoren Übergewicht, Nikotin, Alkohol, Kaffee und späte Mahlzeiten.',
-        },
-        {
-          frage: 'Wann ist bei Sodbrennen eine ÖGD indiziert?',
-          antwort: 'Nicht bei jedem Sodbrennen. Bei typischer Symptomatik ohne Alarmzeichen darf man klinisch diagnostizieren und einen PPI-Versuch über vier bis acht Wochen unternehmen. Endoskopiert wird bei jedem Alarmsymptom, bei Erstmanifestation jenseits des 45. bis 50. Lebensjahres, wenn die Beschwerden nach acht Wochen PPI fortbestehen, bei Rezidiv nach dem Absetzen, bei langjährigem Verlauf, zur Frage eines Barrett-Ösophagus und obligat vor einer geplanten Antirefluxoperation.',
-        },
-        {
-          frage: 'Nennen Sie die Alarmsymptome.',
-          antwort: 'Progrediente Dysphagie, Odynophagie, ungewollter Gewichtsverlust, Hämatemesis oder Kaffeesatzerbrechen, Teerstuhl, Eisenmangelanämie, rezidivierendes Erbrechen, Erstmanifestation nach dem 45. bis 50. Lebensjahr, eine positive Familienanamnese für Ösophagus- oder Magenkarzinom sowie ein tastbarer Tumor oder Lymphknoten. Jedes dieser Zeichen erfordert eine zeitnahe Endoskopie.',
-        },
-        {
-          frage: 'Welche Differenzialdiagnosen kommen in Betracht und wie grenzen Sie sie ab?',
-          antwort: 'An erster Stelle die Angina pectoris beziehungsweise ein akutes Koronarsyndrom — dort ist der Schmerz belastungsabhängig, strahlt in den Arm, Hals oder Kiefer aus und geht mit Dyspnoe und Kaltschweißigkeit einher; ich schließe sie mit EKG und Troponin aus. Weiter das Ulcus ventriculi oder duodeni mit epigastrischem Nüchtern- oder Nachtschmerz, das Ösophaguskarzinom mit Dysphagie und Gewichtsverlust, die Achalasie mit Dysphagie auch für Flüssigkeiten, die eosinophile und die infektiöse Ösophagitis mit Odynophagie sowie biliäre und pankreatische Ursachen und die funktionelle Dyspepsie.',
-        },
-        {
-          frage: 'Warum müssen Sie bei dieser Patientin zuerst an das Herz denken?',
-          antwort: 'Weil ein retrosternaler Schmerz bis zum Beweis des Gegenteils kardial ist und ein Myokardinfarkt unmittelbar lebensbedrohlich wäre, während die Refluxkrankheit gutartig ist. Deshalb schreibe ich ein 12-Kanal-EKG, bestimme das hochsensitive Troponin im Verlauf und frage gezielt nach Belastungsabhängigkeit, Ausstrahlung, Dyspnoe und kardiovaskulären Risikofaktoren. Erst danach behandle ich den Reflux.',
-        },
-        {
-          frage: 'Was ist der PPI-Versuch, und beweist er die Diagnose?',
-          antwort: 'Der PPI-Versuch ist die probatorische Gabe eines Protonenpumpenhemmers in Standard- oder doppelter Standarddosis über zwei bis vier Wochen. Bessern sich die Beschwerden deutlich, stützt das die Diagnose. Beweisend ist er jedoch nicht, weil er weder sensitiv noch spezifisch genug ist: Auch ein Ulkus oder eine funktionelle Dyspepsie kann ansprechen, und ein funktionelles Sodbrennen spricht trotz Refluxbeschwerden nicht an.',
-        },
-        {
-          frage: 'Welche Untersuchung beweist den Reflux objektiv?',
-          antwort: 'Die 24-Stunden-pH-Metrie, heute als kombinierte pH-Impedanz-Messung — sie ist der Goldstandard. Pathologisch ist eine Säureexpositionszeit von über 6 Prozent beziehungsweise ein DeMeester-Score über 14,7. Die Impedanz erfasst zusätzlich nicht-saure Refluxepisoden und erlaubt die Zuordnung der Symptome zu den Refluxereignissen. Indiziert ist sie bei nicht-erosiver Refluxkrankheit, bei therapierefraktären oder extraösophagealen Beschwerden und obligat vor einer Operation.',
-        },
-        {
-          frage: 'Wie teilen Sie eine Refluxösophagitis endoskopisch ein?',
-          antwort: 'Nach der Los-Angeles-Klassifikation: Grad A einzelne Läsionen unter 5 mm auf einer Falte, Grad B mindestens eine Läsion über 5 mm auf einer Falte, Grad C konfluierende Läsionen über mehrere Falten unter 75 Prozent der Zirkumferenz, Grad D über mindestens 75 Prozent der Zirkumferenz. Die ältere Einteilung nach Savary-Miller unterscheidet vier Stadien bis hin zu Ulkus, Striktur und Zylinderepithelmetaplasie.',
-        },
-        {
-          frage: 'Der endoskopische Befund ist völlig unauffällig — hat der Patient dann keinen Reflux?',
-          antwort: 'Doch. 60 bis 70 Prozent der Patienten haben eine nicht-erosive Refluxkrankheit, also typische Beschwerden bei normaler Schleimhaut, aber pathologischer Säureexposition. Der Schweregrad des endoskopischen Befundes korreliert nicht mit der Beschwerdeintensität. Bleiben Endoskopie und pH-Metrie unauffällig und ist die Symptomassoziation negativ, spricht das für ein funktionelles Sodbrennen.',
-        },
-        {
-          frage: 'Wie behandeln Sie diesen Patienten?',
-          antwort: 'Zunächst Basismaßnahmen: Gewichtsreduktion, Nikotin- und Alkoholkarenz, mehrere kleine statt üppiger Mahlzeiten, letzte Mahlzeit drei Stunden vor dem Schlafengehen, Meidung von Kaffee, Fett und Scharfem sowie Schlafen mit erhöhtem Oberkörper. Medikamentös ein Protonenpumpenhemmer, zum Beispiel Pantoprazol 40 mg, 30 bis 60 Minuten vor dem Frühstück über vier bis acht Wochen, danach Reduktion auf die niedrigste wirksame Dosis oder eine Bedarfstherapie. Zusätzlich prüfe ich die Begleitmedikation auf sphinktertonussenkende und schleimhautschädigende Präparate.',
-        },
-        {
-          frage: 'Warum muss der PPI vor dem Essen eingenommen werden?',
-          antwort: 'Protonenpumpenhemmer wirken nur an aktivierten Protonenpumpen. Die Nahrungsaufnahme aktiviert die Belegzellen, deshalb muss der Wirkstoff 30 bis 60 Minuten vor der Mahlzeit eingenommen werden, damit der Wirkspiegel zum Zeitpunkt der Aktivierung vorliegt. Die falsche Einnahmezeit ist die häufigste Ursache eines vermeintlichen Therapieversagens.',
-        },
-        {
-          frage: 'Welche Risiken hat eine Langzeittherapie mit Protonenpumpenhemmern?',
-          antwort: 'Hypomagnesiämie, Vitamin-B12- und Eisenmangel, ein erhöhtes Risiko für Clostridioides-difficile-Infektionen und ambulant erworbene Pneumonien, Osteoporose mit erhöhtem Frakturrisiko sowie selten eine interstitielle Nephritis. Deshalb überprüfe ich die Indikation regelmäßig, gebe die niedrigste wirksame Dosis und setze ausschleichend ab, weil es sonst zu einer Rebound-Hypersekretion kommt.',
-        },
-        {
-          frage: 'Die Patientin nimmt seit acht Wochen einen PPI und hat weiterhin Beschwerden — wie gehen Sie vor?',
-          antwort: 'Ich prüfe zuerst Adhärenz und Einnahmezeitpunkt sowie fortbestehende Auslöser wie Nikotin, Alkohol, späte Mahlzeiten und auslösende Medikamente. Bleibt es dabei, führe ich eine ÖGD mit Biopsien durch, um eine eosinophile oder infektiöse Ösophagitis, ein Ulkus oder ein Karzinom auszuschließen, und ergänze eine pH-Impedanz-Messung. Häufig findet sich dann ein funktionelles Sodbrennen oder ein hypersensitiver Ösophagus, die auf PPI nicht ansprechen.',
-        },
-        {
-          frage: 'Was ist ein Barrett-Ösophagus und welche Bedeutung hat er?',
-          antwort: 'Der Ersatz des normalen Plattenepithels im distalen Ösophagus durch spezialisiertes intestinales Zylinderepithel mit Becherzellen als Folge des chronischen Refluxes. Er ist eine Präkanzerose des Adenokarzinoms des distalen Ösophagus mit einem Entartungsrisiko von etwa 0,1 bis 0,5 Prozent pro Jahr ohne Dysplasie. Deshalb dauerhafte PPI-Therapie und endoskopische Überwachung mit Vierquadranten-Stufenbiopsien alle drei bis vier Jahre, bei niedriggradiger Dysplasie engmaschiger oder Ablation, bei hochgradiger Dysplasie endoskopische Mukosaresektion und Radiofrequenzablation.',
-        },
-        {
-          frage: 'Wann operieren Sie, und wie heißt der Eingriff?',
-          antwort: 'Bei objektiv gesicherter Refluxkrankheit mit unzureichendem Ansprechen trotz optimierter Therapie, bei PPI-Unverträglichkeit, bei ausgeprägter Volumenregurgitation, bei großer symptomatischer Hiatushernie und auf Wunsch junger Patienten, die keine Dauermedikation möchten. Der Eingriff ist die laparoskopische Fundoplikatio nach Nissen mit einer 360-Grad-Manschette oder als partielle Manschette nach Toupet, jeweils kombiniert mit einer Hiatoplastik.',
-        },
-        {
-          frage: 'Was muss vor einer Fundoplikatio zwingend abgeklärt sein, und welche Komplikationen kennen Sie?',
-          antwort: 'Vor der Operation braucht es die ÖGD, die 24-Stunden-pH-Impedanz-Messung als Refluxnachweis und die hochauflösende Manometrie, um eine Achalasie oder eine schwere Motilitätsstörung auszuschließen — sonst droht eine hochgradige postoperative Dysphagie. Typische Komplikationen sind das Gas-bloat-Syndrom mit Unfähigkeit zum Aufstoßen und Erbrechen, eine passagere Dysphagie, Blähungen, Diarrhoe sowie ein Rezidiv, das erneut PPI erforderlich macht.',
-        },
-        {
-          frage: 'Welche Komplikationen der Refluxkrankheit kennen Sie?',
-          antwort: 'Die Refluxösophagitis mit Erosionen und Ulzera, die obere gastrointestinale Blutung mit Eisenmangelanämie, die peptische Striktur mit Dysphagie, den Barrett-Ösophagus als Präkanzerose und daraus das Adenokarzinom des distalen Ösophagus sowie extraösophageale Komplikationen wie Laryngitis, chronischer Husten, Asthma, Aspirationspneumonie und Zahnschmelzerosionen.',
-        },
-        {
-          frage: 'Wie erklären Sie dem Patienten die Erkrankung auf Deutsch, ohne Fachbegriffe?',
-          antwort: 'Ich würde sagen: Der Muskelring am Übergang zwischen Speiseröhre und Magen schließt nicht mehr richtig, deshalb fließt saurer Magensaft zurück in die Speiseröhre und reizt dort die Schleimhaut. Das erklärt Ihr Sodbrennen und das saure Aufstoßen, besonders im Liegen und nach schweren Mahlzeiten. Die Erkrankung ist gutartig, kehrt aber ohne Änderung der Lebensgewohnheiten häufig zurück. Zur Untersuchung schlage ich eine Magenspiegelung vor, bei der wir mit einem dünnen, biegsamen Schlauch die Speiseröhre und den Magen von innen ansehen und kleine Gewebeproben entnehmen können.',
-        },
+        { frage: 'Wie lautet Ihre Verdachtsdiagnose, und was spricht dafür?', antwort: 'Refluxkrankheit: Sodbrennen, saures Aufstoßen, schlimmer im Liegen und nach üppigem Essen, besser im Sitzen und nach Antazida; dazu Risikofaktoren wie Übergewicht und Rauchen.' },
+        { frage: 'Warum denken Sie bei retrosternalem Brennen auch an das Herz?', antwort: 'Weil eine Angina pectoris ähnlich beginnen kann und gefährlich ist. Ich frage nach Belastungsabhängigkeit und Ausstrahlung und schreibe ein EKG.' },
+        { frage: 'Warum muss der PPI vor dem Frühstück eingenommen werden?', antwort: 'Er hemmt nur aktivierte Protonenpumpen; das Essen aktiviert sie. Eine falsche Einnahme ist die häufigste Ursache eines scheinbaren Versagens.' },
+        { frage: 'Die Spiegelung ist unauffällig. Hat der Patient keinen Reflux?', antwort: 'Doch, die nicht-erosive Form ist häufiger als die erosive; den Nachweis erbringt eine Messung der Säureexposition über 24 Stunden.' },
+        { frage: 'Was ist ein Barrett-Ösophagus?', antwort: 'Ersatz des Plattenepithels im distalen Ösophagus durch intestinales Zylinderepithel als Folge chronischen Refluxes, Vorstufe des Adenokarzinoms; deshalb endoskopische Überwachung.' },
       ],
-      merksatz: 'Sodbrennen = GERD, aber erst EKG und Troponin. Ohne Alarmsymptome PPI 30–60 Minuten vor dem Frühstück; mit Alarmsymptomen, nach dem 45. Lebensjahr oder bei Therapieversagen sofort ÖGD.',
+      merksatz: 'Typisches Sodbrennen ohne Warnzeichen: Lebensstil und PPI vor dem Frühstück; gespiegelt wird bei Warnzeichen oder Versagen.',
       linkedCaseIds: [],
       keyFachbegriffeIds: [],
       linkedAufklaerungIds: [],
@@ -11984,396 +11585,94 @@ export function seedFachwissen(): Fachwissen[] {
       id: 'fw-cholezystitis',
       pathology: 'Akute Cholezystitis',
       specialty: 'Chirurgie',
-      definition: 'Die akute Cholezystitis ist die akute Entzündung der Gallenblasenwand. In 90–95 % der Fälle liegt eine kalkulöse Form vor: Ein Konkrement verlegt den Gallenblasenhals (Infundibulum, Hartmann-Pouch) oder den Ductus cysticus, es kommt zum Sekretstau mit Wanddehnung, chemisch-entzündlicher Schleimhautschädigung durch Lysolecithin und nachfolgender bakterieller Superinfektion. In 5–10 % handelt es sich um eine akalkulöse Cholezystitis ohne Steinnachweis, überwiegend beim schwerkranken Intensivpatienten. Klinisch entscheidend ist die Abgrenzung von der einfachen Gallenkolik: Diese ist ein wehenartiger, in der Regel innerhalb von Minuten bis wenigen Stunden (unter 6 Stunden) sistierender Schmerz ohne Fieber und ohne systemische Entzündungszeichen, während die Cholezystitis einen Dauerschmerz über mehr als 6 Stunden mit Fieber, Leukozytose und CRP-Anstieg zeigt. Die Cholezystolithiasis (Steine in der Gallenblase) ist von der Choledocholithiasis (Steine im Ductus choledochus) und der aszendierenden Cholangitis zu unterscheiden.',
-      aetiologie: 'Ursächlich ist fast immer eine Cholezystolithiasis. Etwa 80 % sind Cholesterin- bzw. gemischte Steine, die bei einem Missverhältnis von Cholesterin zu Gallensäuren und Lecithin (lithogene Galle) entstehen; etwa 20 % sind Pigment- bzw. Bilirubinsteine bei Hämolyse, Leberzirrhose oder chronischer biliärer Infektion. Die Steinverlegung des Ductus cysticus führt zu Stau, Wanddehnung, Mikrozirkulationsstörung und Entzündung; sekundär siedeln sich Darmkeime an, typischerweise Escherichia coli, Klebsiella, Enterobacter, Enterokokken und Anaerobier wie Bacteroides. Die akalkulöse Cholezystitis entsteht durch Gallestase und Minderperfusion bei Intensivpatienten (Sepsis, Polytrauma, Verbrennung, Langzeitbeatmung, totale parenterale Ernährung, nach großen Operationen, Schock, hoch dosierte Katecholamine) und verläuft deutlich schwerer. Seltene Ursachen sind Salmonellen (Dauerausscheider), CMV und Kryptosporidien bei Immunsuppression, Parasiten (Askariden), eine Kompression von außen beim Mirizzi-Syndrom sowie ein stenosierendes Gallenblasenkarzinom. Medikamentös kann Ceftriaxon eine Pseudolithiasis (Sludge) und Octreotid eine Gallestase auslösen.',
+      definition: 'Akute Entzündung der Gallenblase, in über 90 % durch einen im Gallenblasenhals oder Ductus cysticus eingeklemmten Stein (kalkulös); seltener ohne Steine bei schwerkranken Intensivpatienten (akalkulös).',
+      aetiologie: 'Der Stein verlegt den Abfluss, die gestaute Galle reizt chemisch die Wand, sekundär folgt eine bakterielle Infektion (E. coli, Klebsiellen, Enterokokken). Unbehandelt drohen Empyem, Gangrän, Perforation und Abszess.',
       risikofaktoren: [
-        'Die klassischen „6 F“: female (weibliches Geschlecht), fat (Adipositas), forty (Alter über 40), fertile (Multiparität), fair (heller Hauttyp) und family (positive Familienanamnese)',
-        'Weibliches Geschlecht und Östrogenexposition: Schwangerschaft, orale Kontrazeptiva, Hormonersatztherapie (Östrogene steigern die Cholesterinsekretion in die Galle)',
-        'Adipositas, metabolisches Syndrom, Diabetes mellitus, Hypertriglyzeridämie',
-        'Rasche Gewichtsabnahme, Nulldiät, Fasten und Zustand nach bariatrischer Operation (Gallenblasenhypomotilität, Sludgebildung)',
-        'Fett- und cholesterinreiche, ballaststoffarme Ernährung sowie Bewegungsmangel',
-        'Hämolytische Erkrankungen (Sphärozytose, Sichelzellanämie, Thalassämie) als Ursache von Bilirubinsteinen',
-        'Morbus Crohn mit Befall oder Resektion des terminalen Ileums (unterbrochener enterohepatischer Kreislauf der Gallensäuren)',
-        'Leberzirrhose und primär sklerosierende Cholangitis',
-        'Totale parenterale Ernährung, Langzeitfasten, Intensivbehandlung und Langzeitbeatmung (Risiko der akalkulösen Form)',
-        'Medikamente: Ceftriaxon (Pseudolithiasis), Octreotid/Somatostatin, Fibrate, Ciclosporin',
-        'Höheres Lebensalter, positive Familienanamnese und bereits bekannte, symptomatische Gallensteine',
+        'Gallensteine: weibliches Geschlecht, Alter um 40, Adipositas, Östrogene, familiäre Belastung',
+        'Rasche Gewichtsabnahme, Schwangerschaft',
+        'Akalkulös: Intensivtherapie, Sepsis, parenterale Ernährung, große Operationen',
       ],
       klinik: [
-        {
-          text: 'Anhaltender, dumpf-bohrender Schmerz im rechten Oberbauch bzw. Epigastrium über mehr als 6 Stunden — im Unterschied zur Gallenkolik nicht mehr wehenartig an- und abschwellend',
-        },
-        {
-          text: 'Ausstrahlung des Schmerzes in die rechte Schulter, das rechte Schulterblatt und den Rücken (Head-Zone über den N. phrenicus, C3–C5)',
-        },
-        {
-          text: 'Auslösung oder Verstärkung nach einer fettreichen, üppigen Mahlzeit, häufig abends oder nachts',
-        },
-        {
-          text: 'Übelkeit, Erbrechen, Appetitlosigkeit und ausgeprägtes Krankheitsgefühl',
-        },
-        {
-          text: 'Fieber, meist subfebril bis 38,5 °C, gelegentlich mit Schüttelfrost',
-        },
-        {
-          text: 'Positives Murphy-Zeichen: schmerzbedingter reflektorischer Abbruch der tiefen Inspiration, wenn der Untersucher unter dem rechten Rippenbogen palpiert',
-        },
-        {
-          text: 'Deutlicher Druckschmerz und lokale (umschriebene) Abwehrspannung im rechten Oberbauch',
-        },
-        {
-          text: 'Tastbare, prall-elastische, druckschmerzhafte Gallenblase bei Hydrops',
-        },
-        {
-          text: 'Unspezifische dyspeptische Vorgeschichte: Völlegefühl, Blähungen, Aufstoßen und Fettunverträglichkeit über Monate',
-        },
-        {
-          text: 'Tachykardie und trockene Schleimhäute als Ausdruck von Schmerz und Exsikkose bei Nahrungs- und Flüssigkeitskarenz',
-        },
-        {
-          text: 'Ikterus mit dunklem Urin und entfärbtem Stuhl — spricht für eine begleitende Choledocholithiasis, eine Cholangitis oder ein Mirizzi-Syndrom und nicht für die unkomplizierte Cholezystitis',
-          atypisch: true,
-        },
-        {
-          text: 'Beim älteren oder diabetischen Patienten nahezu schmerzfreier Verlauf mit lediglich Fieber, Verwirrtheit, Delir, Appetitlosigkeit oder Sturzneigung',
-          atypisch: true,
-        },
-        {
-          text: 'Rein epigastrischer oder linksbetonter Schmerz, der ein Ulkusleiden oder eine Pankreatitis imitiert',
-          atypisch: true,
-        },
-        {
-          text: 'Rechtsthorakaler Schmerz mit Atemabhängigkeit und Dyspnoe, der an eine Pneumonie, Pleuritis oder einen Hinterwandinfarkt denken lässt',
-          atypisch: true,
-        },
-        {
-          text: 'Akutes Abdomen mit brettharter, generalisierter Abwehrspannung und Kreislaufinstabilität bei Perforation und galliger Peritonitis',
-          atypisch: true,
-        },
-        {
-          text: 'Bei der akalkulösen Cholezystitis des beatmeten Intensivpatienten nur unklares Fieber, steigende Entzündungswerte und Sepsiszeichen ohne fassbaren Schmerz',
-          atypisch: true,
-        },
+        { text: 'Anhaltender Schmerz im rechten Oberbauch über Stunden, oft aus einer Kolik hervorgehend' },
+        { text: 'Ausstrahlung in die rechte Schulter, Fieber, Übelkeit, Erbrechen' },
+        { text: 'Positives Murphy-Zeichen, Abwehrspannung, gelegentlich tastbare Gallenblase' },
+        { text: 'Bei Älteren und Diabetikern wenig Schmerz trotz Gangrän', atypisch: true },
+        { text: 'Ikterus weist auf einen Gangstein oder ein Mirizzi-Syndrom hin', atypisch: true },
       ],
       klassifikation: [
-        {
-          name: 'Schweregradeinteilung nach den Tokyo Guidelines (TG18)',
-          inhalt: 'Grad I (mild): akute Cholezystitis beim ansonsten gesunden Patienten ohne Organdysfunktion und ohne ausgeprägte lokale Entzündung — frühe laparoskopische Cholezystektomie. Grad II (moderat): Leukozyten über 18 000/µl, tastbare druckschmerzhafte Resistenz im rechten Oberbauch, Beschwerdedauer über 72 Stunden oder ausgeprägte lokale Entzündung (Empyem, gangränöse Cholezystitis, pericholezystischer bzw. Leberabszess, biliäre Peritonitis) — Operation im spezialisierten Zentrum oder Drainage. Grad III (schwer): Cholezystitis mit Organdysfunktion (kardiovaskulär, neurologisch, respiratorisch, renal, hepatisch, hämatologisch) — Intensivtherapie, Antibiose und häufig zunächst perkutane Cholezystostomie.',
-        },
-        {
-          name: 'Diagnosekriterien der Tokyo Guidelines',
-          inhalt: 'A – lokale Entzündungszeichen: positives Murphy-Zeichen, Schmerz, Druckschmerz oder Resistenz im rechten Oberbauch. B – systemische Entzündungszeichen: Fieber, CRP-Erhöhung, Leukozytose. C – Bildgebung: für die Cholezystitis charakteristische Befunde in der Sonographie oder CT. Verdachtsdiagnose bei einem Kriterium aus A und einem aus B, gesicherte Diagnose bei zusätzlich erfülltem Kriterium C.',
-        },
-        {
-          name: 'Pathologisch-morphologische Verlaufsformen',
-          inhalt: 'Katarrhalisch (ödematöse Wandschwellung, reversibel) → phlegmonös (eitrige Wandinfiltration) → Gallenblasenempyem (eitergefülltes Organ) → gangränös-nekrotisierend mit Perforationsgefahr → gedeckte oder freie Perforation mit pericholezystischem Abszess bzw. galliger Peritonitis. Sonderform: emphysematöse Cholezystitis mit Gasbildnern (Clostridien, E. coli), typischerweise beim männlichen Diabetiker, mit hoher Letalität. Bei rezidivierenden Entzündungen entsteht die chronische Cholezystitis mit Schrumpfgallenblase und Porzellangallenblase.',
-        },
-        {
-          name: 'Einteilung des Gallensteinleidens nach Lokalisation und Symptomatik',
-          inhalt: 'Cholezystolithiasis (Steine in der Gallenblase): asymptomatisch — als Zufallsbefund in etwa 75 % lebenslang stumm, keine Operationsindikation; symptomatisch — Koliken, Cholezystitis, Operationsindikation. Choledocholithiasis: Steine im Ductus choledochus, mit Cholestase, Ikterus, Cholangitis oder biliärer Pankreatitis. Mirizzi-Syndrom: Kompression des Ductus hepaticus communis durch einen im Gallenblasenhals oder Ductus cysticus eingeklemmten Stein.',
-        },
+        { name: 'Tokyo-Kriterien 2018: Diagnose', inhalt: 'A lokale Zeichen (Murphy-Zeichen, Schmerz oder Resistenz im rechten Oberbauch), B systemische Zeichen (Fieber, CRP, Leukozyten), C passende Bildgebung. Verdacht bei A und B, gesichert bei A, B und C.' },
+        { name: 'Tokyo-Kriterien 2018: Schweregrad', inhalt: 'Grad III mit Organdysfunktion; Grad II bei Leukozyten über 18 000/µl, tastbarer schmerzhafter Resistenz, Dauer über 72 Stunden oder ausgeprägter lokaler Entzündung; sonst Grad I.' },
       ],
       redFlags: [
-        'Ikterus, dunkler Urin und entfärbter Stuhl → Choledocholithiasis, Mirizzi-Syndrom oder Tumor; sofortige Bestimmung von Bilirubin, AP und Gamma-GT sowie Darstellung der Gallenwege',
-        'Charcot-Trias aus Fieber mit Schüttelfrost, Ikterus und rechtsseitigem Oberbauchschmerz → akute Cholangitis; dringliche ERCP zur Entlastung der Gallenwege',
-        'Reynolds-Pentade (Charcot-Trias plus Hypotonie und Bewusstseinstrübung) → septische Cholangitis, akut lebensbedrohlich, Intensivtherapie und notfallmäßige Gallenwegsdrainage',
-        'Brettharte Bauchdecke, generalisierte Abwehrspannung, Loslassschmerz, fehlende Darmgeräusche → Perforation mit galliger Peritonitis, Notfalloperation',
-        'Sepsiszeichen: Hypotonie, Tachykardie, Tachypnoe, Oligurie, Laktaterhöhung, Verwirrtheit (qSOFA positiv)',
-        'Gas in der Gallenblasenwand oder im Lumen in Sonographie und CT → emphysematöse Cholezystitis, besonders beim Diabetiker; sofortige Cholezystektomie',
-        'Deutlich erhöhte Lipase → biliäre Pankreatitis als Komplikation der Steinwanderung',
-        'Ausbleibende klinische Besserung unter 48–72 Stunden Antibiose → Empyem, Gangrän oder Abszess; erneute Bildgebung und Intervention',
-        'Auffallende Schmerzarmut beim alten, immunsupprimierten oder diabetischen Patienten trotz hoher Entzündungswerte — die Klinik unterschätzt hier regelmäßig den Befund',
-        'Gewichtsverlust, derbe, unverschiebliche Resistenz im rechten Oberbauch oder verkalkte Porzellangallenblase → Verdacht auf Gallenblasenkarzinom',
-        'Thorakale Ausstrahlung, Dyspnoe, Kaltschweißigkeit oder vegetative Begleitsymptomatik → Hinterwandinfarkt ausschließen, EKG und Troponin',
+        'Ikterus mit Fieber und Schmerz (Charcot-Trias): Cholangitis',
+        'Hypotonie, Verwirrtheit, Oligurie: Sepsis, Grad III',
+        'Generalisierte Peritonitis: Perforation, sofortige Operation',
+        'Gas in der Gallenblasenwand: emphysematöse Cholezystitis, sofortige Operation',
       ],
       diagnostik: [
-        {
-          stufe: 'Anamnese/Klinik',
-          text: 'Gezielte Schmerzanamnese: Beginn, Lokalisation im rechten Oberbauch, Dauer über 6 Stunden, Charakter (Dauerschmerz statt Kolik), Ausstrahlung in rechte Schulter und Rücken, Auslösung durch eine fettreiche Mahlzeit, frühere Koliken und bekannte Gallensteine',
-        },
-        {
-          stufe: 'Anamnese/Klinik',
-          text: 'Begleitsymptome erfragen: Fieber, Schüttelfrost, Übelkeit, Erbrechen, Fettunverträglichkeit, Farbe von Urin und Stuhl, Gelbfärbung von Haut und Skleren, Juckreiz, Gewichtsverlust',
-        },
-        {
-          stufe: 'Anamnese/Klinik',
-          text: 'Vegetative Anamnese, Vor- und Begleiterkrankungen (Diabetes mellitus, Adipositas, Herz- und Lungenerkrankungen), Voroperationen am Abdomen, Medikamente einschließlich Antikoagulanzien und Kontrazeptiva, Allergien, Alkohol- und Nikotinkonsum, Schwangerschaft',
-        },
-        {
-          stufe: 'Anamnese/Klinik',
-          text: 'Körperliche Untersuchung: Inspektion von Haut und Skleren auf Ikterus, Auskultation der Darmgeräusche, Palpation mit Prüfung des Murphy-Zeichens, Druckschmerz und lokaler Abwehrspannung im rechten Oberbauch, tastbare Gallenblase, Prüfung von Loslassschmerz, Nierenlager und Bruchpforten sowie rektale Untersuchung',
-        },
-        {
-          stufe: 'Anamnese/Klinik',
-          text: 'Vitalparameter mit Temperatur, Blutdruck, Puls, Atemfrequenz, Sauerstoffsättigung und Bewusstseinslage zur Schweregradeinschätzung nach den Tokyo Guidelines und zur Sepsiserkennung (qSOFA)',
-        },
-        {
-          stufe: 'Labor',
-          text: 'Entzündungsparameter: CRP (typischerweise über 3 mg/dl) und Blutbild mit Leukozytose und Linksverschiebung; Procalcitonin bei Verdacht auf Sepsis oder Cholangitis',
-        },
-        {
-          stufe: 'Labor',
-          text: 'Cholestaseparameter: Gesamt- und direktes Bilirubin, alkalische Phosphatase und Gamma-GT — eine Erhöhung weist auf eine begleitende Choledocholithiasis, eine Cholangitis oder ein Mirizzi-Syndrom hin und ändert das therapeutische Vorgehen',
-        },
-        {
-          stufe: 'Labor',
-          text: 'Transaminasen GOT und GPT (bei akuter Steinpassage kurzfristig steilerer Anstieg möglich) sowie Lipase zur Abgrenzung bzw. zum Nachweis einer biliären Pankreatitis',
-        },
-        {
-          stufe: 'Labor',
-          text: 'Nierenretentionswerte, Elektrolyte, Blutzucker, Gerinnung mit Quick/INR und Thrombozyten sowie Blutgruppenbestimmung und Kreuzblut als präoperative Vorbereitung',
-        },
-        {
-          stufe: 'Labor',
-          text: 'Zwei Paar Blutkulturen bei Fieber über 38,5 °C oder Schüttelfrost, vor Beginn der Antibiotikatherapie',
-        },
-        {
-          stufe: 'Labor',
-          text: 'Troponin bei epigastrischem oder thorakal ausstrahlendem Schmerz zum Ausschluss eines Hinterwandinfarkts; Schwangerschaftstest (beta-HCG) bei Frauen im gebärfähigen Alter',
-        },
-        {
-          stufe: 'Apparativ & Bildgebung',
-          text: 'Abdomensonographie als Methode der ersten Wahl (Sensitivität über 90 %): Konkremente mit dorsalem Schallschatten, Wandverdickung über 4 mm mit Dreischichtung, pericholezystischer Flüssigkeitssaum, Hydrops (Querdurchmesser über 4 cm), Sludge und sonographisches Murphy-Zeichen (Druckschmerz unter dem Schallkopf über der Gallenblase)',
-        },
-        {
-          stufe: 'Apparativ & Bildgebung',
-          text: 'Im selben Untersuchungsgang Beurteilung der Gallenwege: Weite des Ductus choledochus (normal bis 7 mm, nach Cholezystektomie bis 10 mm), intrahepatische Cholestase, Leberparenchym, Pankreas, freie Flüssigkeit und Nieren',
-        },
-        {
-          stufe: 'Apparativ & Bildgebung',
-          text: 'EKG in zwölf Ableitungen — obligat bei jedem Oberbauchschmerz zum Ausschluss eines Hinterwandinfarkts',
-        },
-        {
-          stufe: 'Apparativ & Bildgebung',
-          text: 'Röntgen-Thorax und Abdomenübersicht bei Verdacht auf Perforation (freie Luft unter dem Zwerchfell), Aerobilie, Ileus oder Pneumonie; Cave: nur etwa 15 % der Gallensteine sind röntgendicht, das Röntgenbild eignet sich nicht zum Steinnachweis',
-        },
-        {
-          stufe: 'Apparativ & Bildgebung',
-          text: 'CT des Abdomens mit Kontrastmittel bei unklarem Sonographiebefund, Adipositas, Verdacht auf Perforation, Abszess, emphysematöse Cholezystitis oder Tumor sowie bei unklarem akutem Abdomen',
-        },
-        {
-          stufe: 'Apparativ & Bildgebung',
-          text: 'MRCP als nichtinvasive Darstellung der Gallenwege bei mittlerem Risiko einer Choledocholithiasis (erhöhte Cholestasewerte ohne sicheren Steinnachweis), alternativ die Endosonographie mit hoher Sensitivität für kleine präpapilläre Steine',
-        },
-        {
-          stufe: 'Invasiv & Speziell',
-          text: 'ERCP als primär therapeutisches Verfahren bei gesicherter Choledocholithiasis oder Cholangitis: endoskopische Papillotomie mit Steinextraktion mittels Dormia-Körbchen oder Ballon, bei Bedarf Einlage eines Stents; dringlich innerhalb von 24 Stunden bei septischer Cholangitis',
-        },
-        {
-          stufe: 'Invasiv & Speziell',
-          text: 'Intraoperative Cholangiographie oder laparoskopische Sonographie zur Darstellung der Gallenwege und zum Ausschluss von Restkonkrementen bei unklarer Anatomie',
-        },
-        {
-          stufe: 'Invasiv & Speziell',
-          text: 'Perkutane transhepatische Cholezystostomie unter Ultraschallkontrolle beim nicht operationsfähigen Hochrisikopatienten; alternativ die PTCD zur Gallenwegsentlastung, wenn die ERCP nicht gelingt',
-        },
-        {
-          stufe: 'Invasiv & Speziell',
-          text: 'Obligate histopathologische Untersuchung des Cholezystektomiepräparats — in etwa 1–2 % findet sich ein inzidentelles Gallenblasenkarzinom',
-        },
+        { stufe: 'Anamnese/Klinik', text: 'Dauer, Fieber, Ikterus, frühere Koliken; Vitalparameter, Murphy-Zeichen, Abwehrspannung' },
+        { stufe: 'Labor', text: 'Blutbild, CRP, Bilirubin, Cholestasewerte, Transaminasen, Lipase, Kreatinin, Gerinnung; Blutkulturen bei Fieber; β-HCG bei Frauen im gebärfähigen Alter' },
+        { stufe: 'Apparativ & Bildgebung', text: 'Sonographie als Methode der Wahl: Steine, Wandverdickung, Dreischichtung, Flüssigkeit um die Gallenblase, sonographisches Murphy-Zeichen, Gangweite' },
+        { stufe: 'Apparativ & Bildgebung', text: 'CT bei unklarem Befund oder Verdacht auf Komplikationen' },
+        { stufe: 'Invasiv & Speziell', text: 'MRCP oder Endosonographie bei Verdacht auf Gangstein; ERCP therapeutisch' },
       ],
       differenzialdiagnosen: [
-        {
-          dd: 'Einfache Gallenkolik bei Cholezystolithiasis (ohne Entzündung)',
-          unterscheidung: 'Wehenartig an- und abschwellender Schmerz, der nach Minuten bis wenigen Stunden — jedenfalls unter 6 Stunden — spontan oder auf Spasmolytika sistiert; kein Fieber, normales CRP und normale Leukozyten, sonographisch keine Wandverdickung und kein Flüssigkeitssaum.',
-        },
-        {
-          dd: 'Choledocholithiasis und akute Cholangitis',
-          unterscheidung: 'Führendes Zeichen ist der Ikterus mit dunklem Urin und hellem Stuhl; Bilirubin, AP und Gamma-GT deutlich erhöht, sonographisch erweiterter Ductus choledochus über 7 mm. Bei der Cholangitis zusätzlich hohes Fieber mit Schüttelfrost (Charcot-Trias) — Therapie ist die ERCP, nicht primär die Operation.',
-        },
-        {
-          dd: 'Akute Pankreatitis, häufig biliär',
-          unterscheidung: 'Gürtelförmiger, in den Rücken ausstrahlender Oberbauchschmerz mit prall-elastischem „Gummibauch“, Meteorismus und Übelkeit; Lipase über dem Dreifachen der Norm — beim Nachweis von Gallensteinen liegt eine biliäre Genese vor, was die Therapie mit ERCP und späterer Cholezystektomie bestimmt.',
-        },
-        {
-          dd: 'Ulcus ventriculi oder duodeni, ggf. perforiert',
-          unterscheidung: 'Epigastrisch lokalisierter, brennender Schmerz mit Bezug zur Nahrungsaufnahme (Ulcus duodeni nüchtern und nachts, Besserung nach dem Essen; Ulcus ventriculi Schmerzverstärkung nach dem Essen), Anamnese mit NSAR oder Helicobacter pylori; Klärung durch Gastroskopie, bei Perforation brettharte Bauchdecke und freie Luft im Röntgen.',
-        },
-        {
-          dd: 'Hinterwandinfarkt bzw. akutes Koronarsyndrom',
-          unterscheidung: 'Wichtigste nicht-abdominelle Differenzialdiagnose: epigastrischer Druck oder Brennen mit Vernichtungsgefühl, Kaltschweißigkeit, Dyspnoe und vegetativer Begleitsymptomatik, ohne Bezug zur Mahlzeit und ohne Murphy-Zeichen. Obligat sind EKG (ST-Hebungen in II, III und aVF) und Troponin — deshalb gehört das EKG zu jedem Oberbauchschmerz.',
-        },
-        {
-          dd: 'Rechtsseitige basale Pneumonie oder Pleuritis',
-          unterscheidung: 'Atemabhängiger Schmerz, Husten, Auswurf, Dyspnoe, abgeschwächtes Atemgeräusch mit Rasselgeräuschen; das Abdomen ist weich, das Murphy-Zeichen negativ. Klärung durch Auskultation und Röntgen-Thorax.',
-        },
-        {
-          dd: 'Akute Appendizitis, besonders bei hochstehender oder retrozökaler Lage sowie in der Schwangerschaft',
-          unterscheidung: 'Schmerzwanderung vom Epigastrium in den rechten Unterbauch, McBurney- und Lanz-Druckpunkt, Blumberg- und Psoas-Zeichen, axillär-rektale Temperaturdifferenz; die Sonographie zeigt eine kokardenförmige Appendix statt einer entzündeten Gallenblase.',
-        },
-        {
-          dd: 'Rechtsseitige Nierenkolik oder Pyelonephritis',
-          unterscheidung: 'Kolikartiger Flankenschmerz mit Ausstrahlung in Leiste und Genitale, klopfschmerzhaftes Nierenlager, Hämaturie bzw. Leukozyturie und Nitrit im Urinstatus, sonographisch Harnstau; kein Bezug zu fettreichem Essen.',
-        },
-        {
-          dd: 'Akute Hepatitis oder Stauungsleber bei Rechtsherzinsuffizienz',
-          unterscheidung: 'Dumpfer Kapselspannungsschmerz mit vergrößerter, glatt begrenzter Leber; bei der Hepatitis stehen die Transaminasen im Vordergrund (GPT über GOT, Werte im Tausenderbereich) mit positiver Virusserologie, bei der Stauungsleber bestehen obere Einflussstauung, Ödeme und Halsvenenstauung.',
-        },
-        {
-          dd: 'Funktionelle Dyspepsie und Refluxösophagitis',
-          unterscheidung: 'Chronisch rezidivierendes Sodbrennen, saures Aufstoßen, Druckgefühl ohne Fieber und ohne Entzündungszeichen, unauffällige Sonographie; Diagnose nach Ausschluss und durch Gastroskopie.',
-        },
-        {
-          dd: 'Gallenblasenkarzinom',
-          unterscheidung: 'Meist schmerzarmer Verlauf beim älteren Patienten mit B-Symptomatik, Gewichtsverlust, schmerzlosem Ikterus und derber, unverschieblicher Resistenz; Risikoindikatoren sind Porzellangallenblase, Steine über 3 cm und Polypen über 1 cm. Klärung durch CT/MRT und die obligate Histologie des Resektats.',
-        },
-        {
-          dd: 'Fitz-Hugh-Curtis-Syndrom (Perihepatitis)',
-          unterscheidung: 'Junge, sexuell aktive Frau mit rechtsseitigem Oberbauchschmerz bei aufsteigender Chlamydien- oder Gonokokkeninfektion; Unterbauchbeschwerden, Portioschiebeschmerz und Fluor in der gynäkologischen Untersuchung, unauffällige Gallenblase in der Sonographie.',
-        },
+        { dd: 'Gallenkolik', unterscheidung: 'Attacken mit schmerzfreien Intervallen, kein Fieber, keine Entzündungszeichen.' },
+        { dd: 'Cholangitis', unterscheidung: 'Ikterus, Fieber und Schmerz; erhöhte Cholestasewerte, erweiterter Gang.' },
+        { dd: 'Akute Pankreatitis', unterscheidung: 'Gürtelförmiger Schmerz in den Rücken, Lipase über dem Dreifachen der Norm.' },
+        { dd: 'Hinterwandinfarkt', unterscheidung: 'Oberbauchschmerz mit Übelkeit, besonders bei Frauen und Diabetikern; EKG und Troponin.' },
+        { dd: 'Rechtsseitige Pyelonephritis', unterscheidung: 'Flankenschmerz, Klopfschmerz des Nierenlagers, Dysurie, auffälliger Urin.' },
       ],
       therapie: [
         {
           label: 'Sofortmaßnahmen bei Aufnahme: Nahrungskarenz, Analgesie und kalkulierte Antibiose',
           akut: true,
           items: [
-            'Stationäre Aufnahme, absolute Nahrungs- und Flüssigkeitskarenz („nihil per os“) zur Ruhigstellung der Gallenblase, dazu großlumiger peripherer Venenzugang',
-            'Intravenöse Volumen- und Elektrolytsubstitution mit balancierter Vollelektrolytlösung (etwa 2–3 Liter in 24 Stunden, angepasst an Herz- und Nierenfunktion), Bilanzierung von Ein- und Ausfuhr',
-            'Analgesie: Metamizol 1 g als Kurzinfusion bis zu viermal täglich, ergänzt durch das Spasmolytikum Butylscopolamin 20 mg intravenös; bei stärksten Schmerzen Pethidin oder Buprenorphin. Klassisch wird Morphin wegen der Tonuserhöhung am Sphincter Oddi zurückhaltend eingesetzt',
-            'Antiemese mit Metoclopramid oder Ondansetron, Protonenpumpenhemmer (z. B. Pantoprazol 40 mg intravenös) als Stressulkusprophylaxe',
-            'Kalkulierte intravenöse Antibiotikatherapie nach Abnahme von Blutkulturen, gerichtet gegen gramnegative Enterobakterien, Enterokokken und Anaerobier: Ceftriaxon 2 g täglich in Kombination mit Metronidazol 3 × 500 mg, alternativ Ampicillin/Sulbactam oder Piperacillin/Tazobactam; bei schwerem Verlauf oder Sepsis ein Carbapenem. Dauer in der Regel 4–7 Tage, Deeskalation nach Antibiogramm',
-            'Thromboseprophylaxe mit niedermolekularem Heparin, engmaschige Kontrolle von Vitalparametern, Temperatur, CRP und Leukozyten sowie klinische Verlaufsuntersuchung des Abdomens',
-            'Wichtig für die Prüfung: Die Antibiose ersetzt die Operation nicht, sondern bereitet sie vor — die kausale Therapie ist die Entfernung der steintragenden Gallenblase',
+            'Stationäre Aufnahme, Nahrungskarenz, Infusion, Analgesie',
+            'Antibiose gegen gramnegative Erreger und Anaerobier (zum Beispiel Ceftriaxon plus Metronidazol); unverzüglich bei Sepsis, Cholangitis, Abszess oder Perforation',
+            'Bei leichtem Verlauf Antibiose nach der Cholezystektomie innerhalb von 24 Stunden beenden',
+            'Thromboseprophylaxe',
           ],
         },
         {
           label: 'Frühe laparoskopische Cholezystektomie als Standardtherapie (innerhalb von 24 Stunden)',
           items: [
-            'Operationsindikation ist die gesicherte akute Cholezystitis; die frühelektive laparoskopische Cholezystektomie erfolgt möglichst innerhalb von 24 Stunden nach Aufnahme, jedenfalls in derselben stationären Behandlung (Ergebnis der deutschen ACDC-Studie: weniger Komplikationen, kürzere Liegedauer und geringere Kosten als bei verzögerter Operation nach sechs Wochen)',
-            'Präoperative Vorbereitung: Aufklärung über Blutung, Infektion, Verletzung von Gallengang, Darm und Gefäßen, Konversion zur Laparotomie und Gallefistel, Nüchternheit, Gerinnung, Blutgruppe und Kreuzblut, anästhesiologische Vorstellung, Single-Shot-Antibiotikaprophylaxe',
-            'Operatives Vorgehen: Laparoskopie in Vier-Trokar-Technik, Darstellung des Calot-Dreiecks in der „critical view of safety“, Clippen und Durchtrennen von Arteria cystica und Ductus cysticus, retrograde Auslösung der Gallenblase aus dem Leberbett, Bergung im Bergebeutel, bei ausgeprägter Entzündung Einlage einer Zieldrainage',
-            'Konversion zur offenen Cholezystektomie über einen Rippenbogenrandschnitt bei unklarer Anatomie, ausgeprägten Verwachsungen, Blutung oder Verdacht auf Gallengangsverletzung — die Konversion ist kein Misserfolg, sondern eine Sicherheitsentscheidung; als Ausweichverfahren bei feindlichem Situs die subtotale Cholezystektomie nach Pribram',
-            'Bei sehr ausgeprägter lokaler Entzündung mit Beschwerdedauer über 72 Stunden kann alternativ zunächst konservativ behandelt und die Cholezystektomie im entzündungsfreien Intervall nach etwa 6 Wochen durchgeführt werden',
-            'Obligate histopathologische Aufarbeitung des Resektats zum Ausschluss eines inzidentellen Gallenblasenkarzinoms',
-            'Postoperativ rascher Kostaufbau ab dem Operationstag, frühe Mobilisation, Analgesie nach WHO-Stufenschema; Entlassung meist am 1. bis 3. postoperativen Tag. Eine spezielle Diät ist nach der Cholezystektomie nicht erforderlich, in den ersten Wochen werden sehr fettreiche Mahlzeiten jedoch häufig schlechter vertragen',
+            'Laparoskopische Cholezystektomie innerhalb von 24 Stunden nach stationärer Aufnahme (S3-Leitlinie)',
+            'Darstellung der „critical view of safety“ vor dem Durchtrennen von Ductus und Arteria cystica',
+            'Histologische Untersuchung der Gallenblase',
           ],
         },
         {
           label: 'Begleitende Choledocholithiasis und Cholangitis: ERCP und therapeutisches Splitting',
           akut: true,
           items: [
-            'Verdacht bei Ikterus, erhöhtem Bilirubin, AP und Gamma-GT oder erweitertem Ductus choledochus über 7 mm; bei mittlerem Risiko vorherige Sicherung durch MRCP oder Endosonographie, um eine unnötige ERCP zu vermeiden',
-            'Bei nachgewiesenem Stein im Ductus choledochus: ERCP mit endoskopischer Papillotomie und Steinextraktion mittels Dormia-Körbchen oder Ballonkatheter, bei nicht vollständiger Sanierung Einlage eines Stents oder einer nasobiliären Sonde',
-            'Bei akuter Cholangitis mit Charcot-Trias ist die endoskopische Gallenwegsentlastung dringlich und erfolgt zusammen mit Volumentherapie und intravenöser Antibiose innerhalb von 24 Stunden; bei Reynolds-Pentade mit Sepsis notfallmäßig unter intensivmedizinischer Überwachung',
-            '„Therapeutisches Splitting“: zuerst die endoskopische Sanierung des Gallengangs, anschließend die laparoskopische Cholezystektomie in derselben stationären Behandlung, in der Regel innerhalb von 72 Stunden — nicht die Gallenblase entfernen und den Gangstein belassen',
-            'Nach ERCP auf die typischen Komplikationen achten: Post-ERCP-Pankreatitis (Lipase- und Schmerzkontrolle, Prophylaxe mit rektalem Diclofenac oder Indometacin), Blutung nach Papillotomie, Cholangitis und Perforation',
-            'Bei begleitender biliärer Pankreatitis richtet sich das Vorgehen nach dem Schweregrad: bei Cholestase oder Cholangitis frühe ERCP, danach Cholezystektomie noch im selben Aufenthalt zur Rezidivprophylaxe',
+            'Gangstein: ERCP mit Papillotomie und Steinextraktion, danach Cholezystektomie im selben Aufenthalt',
+            'Cholangitis: Antibiose und ERCP, bei septischem Verlauf dringlich',
           ],
         },
         {
           label: 'Hochrisikopatient, Komplikationen und Langzeitberatung',
           items: [
-            'Beim nicht operationsfähigen Hochrisikopatienten (Tokyo Grad III, schwere Komorbidität, Sepsis): antibiotische Therapie plus perkutane transhepatische Cholezystostomie unter Ultraschallkontrolle zur Entlastung; die Cholezystektomie erfolgt gegebenenfalls elektiv nach Stabilisierung, wobei der Katheter frühestens nach 3 Wochen bei ausgereiftem Kanal entfernt wird',
-            'Notfallmäßige Cholezystektomie ohne Aufschub bei Perforation mit galliger Peritonitis, gangränöser oder emphysematöser Cholezystitis und bei pericholezystischem Abszess (ergänzend perkutane Abszessdrainage)',
-            'Weitere Komplikationen kennen und aktiv suchen: Gallenblasenempyem und -hydrops, Leberabszess, biliodigestive Fistel mit Gallensteinileus (Bouveret-Syndrom, Aerobilie im Röntgen), Mirizzi-Syndrom und Sepsis',
-            'Postoperative Komplikationen: Gallengangsverletzung (0,2–0,5 %), Gallefistel und Galleleck (Anstieg von Bilirubin im Drainagesekret, Sonographie, Therapie durch ERCP mit Stent), Nachblutung, Wundinfekt und Restkonkrement im Ductus choledochus',
-            'Beratung zum Postcholezystektomiesyndrom bei 10–15 % der Operierten: dyspeptische Beschwerden, Diarrhoe oder anhaltende Schmerzen; Abklärung von Restkonkrement, Papillenstenose, Reflux und funktionellen Ursachen',
-            'Prophylaxe und Lebensstil: fettarme, ballaststoffreiche Ernährung, langsame und kontrollierte Gewichtsreduktion (rasche Gewichtsabnahme begünstigt Steinbildung), regelmäßige Bewegung, gute Einstellung von Diabetes mellitus und Fettstoffwechselstörung',
-            'Umgang mit asymptomatischen Gallensteinen: keine Operationsindikation. Ausnahmen mit erhöhtem Karzinomrisiko oder Komplikationsrisiko sind die Porzellangallenblase, Konkremente über 3 cm, Gallenblasenpolypen über 1 cm, die Kombination von Polyp und Stein sowie eine geplante Organtransplantation oder ein bariatrischer Eingriff',
+            'Nicht operabel: Antibiose und perkutane Gallenblasendrainage, Operation nach Stabilisierung',
+            'Perforation, Gangrän oder emphysematöse Form: sofortige Operation',
+            'Keine Dauerdiät nach der Operation',
           ],
         },
       ],
-      prognose: 'Unter frühzeitiger laparoskopischer Cholezystektomie ist die Prognose der unkomplizierten akuten Cholezystitis sehr gut: Die Letalität liegt unter 1 %, die Konversionsrate zur offenen Operation bei 5–10 % und das Risiko einer Gallengangsverletzung bei 0,2–0,5 %. Die Beschwerden bilden sich in aller Regel vollständig zurück, die Verdauung ist nach dem Wegfall des Gallenblasenreservoirs langfristig nicht wesentlich beeinträchtigt; bei 10–15 % der Operierten bleiben im Sinne eines Postcholezystektomiesyndroms dyspeptische Beschwerden oder eine Neigung zu Fettstühlen bestehen. Ohne Therapie oder bei verzögerter Behandlung drohen Empyem, Gangrän und Perforation mit galliger Peritonitis; bei der gangränösen und besonders bei der emphysematösen Form steigt die Letalität deutlich an, die akalkulöse Cholezystitis des Intensivpatienten hat je nach Grunderkrankung eine Letalität von bis zu 30 %. Rein konservativ behandelte Patienten erleiden in etwa 20–30 % innerhalb eines Jahres ein Rezidiv — deshalb ist die Cholezystektomie in derselben stationären Behandlung anzustreben. Asymptomatische Gallensteine bleiben dagegen in etwa 75 % der Fälle lebenslang stumm und bedürfen keiner Operation.',
+      prognose: 'Nach früher laparoskopischer Cholezystektomie gut. Gangrän, Perforation und Sepsis verschlechtern die Prognose, besonders bei älteren und vorerkrankten Patienten.',
       pruefungsfallen: [
-        'Gallenkolik und akute Cholezystitis sauber trennen: Die Kolik dauert unter 6 Stunden, ist wehenartig und geht ohne Fieber und ohne Entzündungszeichen einher; die Cholezystitis ist ein Dauerschmerz über 6 Stunden mit Fieber, Leukozytose, CRP-Anstieg und sonographischer Wandverdickung. Wer nur „Gallenkolik“ sagt, verliert die Diagnose.',
-        'Das Murphy-Zeichen muss man beschreiben können und nicht nur nennen: schmerzbedingter reflektorischer Abbruch der tiefen Inspiration bei Palpation unter dem rechten Rippenbogen. „Sonographisches Murphy-Zeichen“ heißt dasselbe unter dem Schallkopf.',
-        'Auf die Frage „Wann operieren Sie?“ lautet die erwartete Antwort: früh, möglichst innerhalb von 24 Stunden nach Aufnahme und in jedem Fall in derselben stationären Behandlung — nicht erst nach sechs Wochen im entzündungsfreien Intervall (ACDC-Studie).',
-        'Steine im Ductus choledochus werden zuerst endoskopisch entfernt (ERCP mit Papillotomie), erst danach folgt die Cholezystektomie — das therapeutische Splitting. Die Gallenblase zu entfernen und den Gangstein zu belassen ist ein grober Fehler.',
-        'Charcot-Trias und Reynolds-Pentade gehören zur Cholangitis, nicht zur Cholezystitis. Wer den Ikterus als Symptom der unkomplizierten Cholezystitis angibt, wird korrigiert.',
-        'Bei der Analgesie an das Spasmolytikum denken (Butylscopolamin) und Metamizol nennen; klassisch wird Morphin wegen der Kontraktion des Sphincter Oddi zurückhaltend eingesetzt — diese Frage wird gern gestellt.',
-        'Die asymptomatische Cholezystolithiasis wird NICHT operiert. Ausnahmen sind Porzellangallenblase, Steine über 3 cm, Polypen über 1 cm, Polyp plus Stein sowie eine geplante Transplantation — Grund ist das erhöhte Karzinomrisiko.',
-        'Nur etwa 15 % der Gallensteine sind röntgendicht. Die Methode der Wahl ist die Abdomensonographie, nicht das Röntgenbild und nicht primär das CT.',
-        'Das EKG bei epigastrischem Schmerz nicht vergessen: Der Hinterwandinfarkt ist die gefährlichste Differenzialdiagnose des Oberbauchschmerzes; Troponin gehört ins Labor.',
-        'Die Lipase gehört immer ins Labor — sie trennt die Cholezystitis von der akuten (biliären) Pankreatitis und verändert das gesamte weitere Vorgehen.',
-        'Die Antibiotikatherapie ist keine kausale Therapie: Sie überbrückt und bereitet die Operation vor, ersetzt sie aber nicht.',
-        'Beim alten oder diabetischen Patienten kann die Klinik trotz schwerer Entzündung blande sein; Gas in der Gallenblasenwand spricht für eine emphysematöse Cholezystitis mit hoher Letalität.',
-        'Das Operationspräparat muss immer histologisch untersucht werden — in etwa 1–2 % findet sich ein inzidentelles Gallenblasenkarzinom.',
-        'Sprachfalle im Patientengespräch: „Cholezystitis“ heißt Gallenblasenentzündung, „Cholezystolithiasis“ Gallensteine, „Cholezystektomie“ Entfernung der Gallenblase, laparoskopisch bedeutet „über eine Bauchspiegelung, sogenannte Schlüssellochchirurgie“. „Ikterus“ vor dem Patienten als Gelbsucht bzw. Gelbfärbung der Haut und der Augen erklären.',
-        'Auf die Frage nach der Ernährung nach der Operation nicht „strenge Diät lebenslang“ sagen: Eine spezielle Diät ist nicht nötig, nur in den ersten Wochen werden sehr fettreiche Mahlzeiten oft schlechter vertragen.',
+        'Früh operieren, nicht im Intervall: die Operation innerhalb von 24 Stunden ist Standard.',
+        'Charcot-Trias kennen und eine Cholangitis nicht übersehen.',
+        '„Morphin ist verboten“ ist überholt; Opioide sind bei starken Schmerzen erlaubt.',
       ],
       askedInExam: [
-        {
-          frage: 'Wie lautet Ihre Verdachtsdiagnose, und was spricht dafür?',
-          antwort: 'Ich gehe von einer akuten Cholezystitis bei Cholezystolithiasis aus. Dafür sprechen der über sechs Stunden anhaltende Dauerschmerz im rechten Oberbauch mit Ausstrahlung in die rechte Schulter, der Beginn nach einer fettreichen Mahlzeit, Übelkeit und Erbrechen, das Fieber sowie in der Untersuchung das positive Murphy-Zeichen mit Druckschmerz und lokaler Abwehrspannung im rechten Oberbauch. Im Labor erwarte ich erhöhtes CRP und eine Leukozytose, in der Sonographie Konkremente mit Schallschatten und eine verdickte Gallenblasenwand.',
-        },
-        {
-          frage: 'Was ist das Murphy-Zeichen, und wie prüfen Sie es?',
-          antwort: 'Ich palpiere mit den Fingerspitzen unter dem rechten Rippenbogen in der Medioklavikularlinie und bitte den Patienten, tief einzuatmen. Beim Einatmen tritt die Gallenblase gegen meine Hand; ist sie entzündet, bricht der Patient die Inspiration schmerzbedingt reflektorisch ab. Das ist ein positives Murphy-Zeichen. Prüfe ich dasselbe mit dem Schallkopf über der sonographisch dargestellten Gallenblase, spricht man vom sonographischen Murphy-Zeichen.',
-        },
-        {
-          frage: 'Wie unterscheiden Sie eine Gallenkolik von einer akuten Cholezystitis?',
-          antwort: 'Die Gallenkolik ist ein wehenartig an- und abschwellender Schmerz, der in der Regel nach Minuten bis wenigen Stunden, jedenfalls unter sechs Stunden, sistiert; der Patient hat kein Fieber, die Entzündungswerte sind normal und die Gallenblasenwand ist sonographisch unauffällig. Bei der Cholezystitis besteht ein Dauerschmerz über mehr als sechs Stunden mit Fieber, erhöhtem CRP, Leukozytose, positivem Murphy-Zeichen sowie sonographisch einer Wandverdickung über vier Millimeter und einem pericholezystischen Flüssigkeitssaum.',
-        },
-        {
-          frage: 'Welche Differenzialdiagnosen kommen bei diesem Patienten in Betracht?',
-          antwort: 'Vor allem die akute Pankreatitis mit gürtelförmigem Schmerz und erhöhter Lipase, ein Ulcus ventriculi oder duodeni mit epigastrischem, nahrungsabhängigem Schmerz, und ein Hinterwandinfarkt, den ich mit EKG und Troponin ausschließe. Weiter denke ich an eine Choledocholithiasis oder Cholangitis, eine rechtsseitige basale Pneumonie, eine rechtsseitige Nierenkolik, eine hochstehende Appendizitis und eine akute Hepatitis.',
-        },
-        {
-          frage: 'Welche Untersuchung ist die Methode der ersten Wahl, und was erwarten Sie darin?',
-          antwort: 'Die Abdomensonographie. Ich erwarte Konkremente mit dorsalem Schallschatten, eine Wandverdickung über vier Millimeter mit Dreischichtung, einen pericholezystischen Flüssigkeitssaum, gegebenenfalls einen Hydrops und Sludge sowie ein positives sonographisches Murphy-Zeichen. Zusätzlich beurteile ich die Weite des Ductus choledochus, die normalerweise unter sieben Millimeter liegt.',
-        },
-        {
-          frage: 'Warum machen Sie kein Röntgenbild zum Steinnachweis?',
-          antwort: 'Weil nur etwa 15 Prozent der Gallensteine röntgendicht sind — das Röntgenbild würde die Steine also meist übersehen. Eine Abdomenübersicht mache ich nur bei bestimmten Fragestellungen: freie Luft bei Verdacht auf Perforation, Aerobilie beim Gallensteinileus oder eine begleitende Pneumonie im Röntgen-Thorax.',
-        },
-        {
-          frage: 'Welche Laborparameter bestimmen Sie, und was sagt Ihnen jeder einzelne?',
-          antwort: 'CRP und Blutbild zeigen mir die Entzündung. Bilirubin, alkalische Phosphatase und Gamma-GT sind die Cholestaseparameter — sind sie erhöht, muss ich an eine Choledocholithiasis oder ein Mirizzi-Syndrom denken. Die Lipase trennt die Cholezystitis von einer akuten Pankreatitis. Dazu Transaminasen, Nierenwerte, Elektrolyte, Gerinnung, Blutgruppe und Kreuzblut als Operationsvorbereitung, bei Fieber Blutkulturen und bei epigastrischem Schmerz Troponin.',
-        },
-        {
-          frage: 'Wann operieren Sie diesen Patienten?',
-          antwort: 'Früh. Der heutige Standard ist die frühe laparoskopische Cholezystektomie möglichst innerhalb von 24 Stunden nach Aufnahme, in jedem Fall in derselben stationären Behandlung. Das hat die deutsche ACDC-Studie gezeigt: weniger Komplikationen, kürzere Liegedauer und geringere Kosten als bei der früher üblichen verzögerten Operation nach sechs Wochen. Nur bei sehr langer Beschwerdedauer über 72 Stunden mit ausgeprägter lokaler Entzündung kann man zunächst konservativ behandeln und im entzündungsfreien Intervall operieren.',
-        },
-        {
-          frage: 'Wie behandeln Sie den Patienten bis zur Operation?',
-          antwort: 'Stationäre Aufnahme, absolute Nahrungskarenz, intravenöse Flüssigkeits- und Elektrolytsubstitution. Zur Analgesie Metamizol 1 g als Kurzinfusion und Butylscopolamin 20 mg als Spasmolytikum, bei stärksten Schmerzen Pethidin; Morphin verwende ich zurückhaltend, weil es den Sphincter Oddi kontrahiert. Dazu ein Antiemetikum, ein Protonenpumpenhemmer, Thromboseprophylaxe und nach Abnahme von Blutkulturen eine kalkulierte Antibiose mit Ceftriaxon plus Metronidazol.',
-        },
-        {
-          frage: 'Reicht die Antibiotikatherapie nicht aus?',
-          antwort: 'Nein. Die Antibiose bekämpft nur die bakterielle Superinfektion und stabilisiert den Patienten bis zur Operation. Die Ursache ist der Stein, der den Ductus cysticus verlegt; deshalb ist die kausale Therapie die Entfernung der Gallenblase. Rein konservativ behandelte Patienten erleiden in etwa 20 bis 30 Prozent innerhalb eines Jahres ein Rezidiv.',
-        },
-        {
-          frage: 'Der Patient ist ikterisch und hat erhöhte Cholestasewerte — wie ändert das Ihr Vorgehen?',
-          antwort: 'Dann muss ich an eine Choledocholithiasis oder eine Cholangitis denken. Ich sichere den Befund mit Sonographie und, falls nötig, mit MRCP oder Endosonographie. Bei nachgewiesenem Gangstein führe ich zuerst eine ERCP mit Papillotomie und Steinextraktion durch und erst danach die laparoskopische Cholezystektomie in derselben stationären Behandlung — das nennt man therapeutisches Splitting. Es wäre ein Fehler, die Gallenblase zu entfernen und den Stein im Gallengang zu belassen.',
-        },
-        {
-          frage: 'Was ist die Charcot-Trias, und wozu gehört sie?',
-          antwort: 'Die Charcot-Trias besteht aus Fieber mit Schüttelfrost, Ikterus und Schmerz im rechten Oberbauch und ist typisch für die akute Cholangitis, nicht für die unkomplizierte Cholezystitis. Kommen Hypotonie und Bewusstseinstrübung hinzu, spricht man von der Reynolds-Pentade — das ist eine septische Cholangitis, ein lebensbedrohlicher Notfall mit dringlicher endoskopischer Entlastung der Gallenwege.',
-        },
-        {
-          frage: 'Welche Komplikationen der akuten Cholezystitis kennen Sie?',
-          antwort: 'Gallenblasenempyem und Hydrops, gangränöse Cholezystitis mit gedeckter oder freier Perforation und galliger Peritonitis, pericholezystischer Abszess und Leberabszess, die emphysematöse Cholezystitis mit Gasbildnern beim Diabetiker, das Mirizzi-Syndrom, die biliodigestive Fistel mit Gallensteinileus sowie die Sepsis. Langfristig entstehen Schrumpf- und Porzellangallenblase mit erhöhtem Karzinomrisiko.',
-        },
-        {
-          frage: 'Wie erklären Sie dem Patienten die Operation in einfacher Sprache?',
-          antwort: 'Ich würde sagen: Ihre Gallenblase ist entzündet, weil ein Gallenstein den Ausgang verstopft. Wir müssen die Gallenblase entfernen. Das machen wir über eine Bauchspiegelung, also über vier kleine Schnitte mit einer Kamera — man nennt das Schlüssellochchirurgie. Sie bekommen eine Vollnarkose. Selten müssen wir während der Operation auf einen offenen Bauchschnitt umsteigen, wenn die Verhältnisse unübersichtlich sind. Die Gallenblase ist nur ein Speicher — Sie können auch ohne sie ganz normal leben.',
-        },
-        {
-          frage: 'Muss der Patient nach der Operation eine besondere Diät einhalten?',
-          antwort: 'Eine spezielle Diät ist nicht erforderlich. Die Leber produziert die Galle weiterhin, sie wird nur nicht mehr zwischengespeichert. In den ersten Wochen werden sehr fettreiche Mahlzeiten häufig schlechter vertragen, deshalb empfehle ich mehrere kleine, eher fettarme Mahlzeiten. Bei etwa zehn bis fünfzehn Prozent der Operierten bleiben dyspeptische Beschwerden im Sinne eines Postcholezystektomiesyndroms bestehen — das kläre ich dann weiter ab.',
-        },
-        {
-          frage: 'Ein anderer Patient hat Gallensteine als Zufallsbefund, aber keine Beschwerden. Operieren Sie?',
-          antwort: 'Nein. Asymptomatische Gallensteine bleiben in etwa 75 Prozent der Fälle lebenslang stumm und stellen keine Operationsindikation dar. Ausnahmen sind die Porzellangallenblase, Konkremente über drei Zentimeter, Gallenblasenpolypen über einem Zentimeter, die Kombination aus Polyp und Stein sowie eine geplante Organtransplantation — hier operiere ich wegen des erhöhten Karzinom- beziehungsweise Komplikationsrisikos prophylaktisch.',
-        },
-        {
-          frage: 'Welche Risikofaktoren für Gallensteine kennen Sie?',
-          antwort: 'Klassisch die sechs F: female, fat, forty, fertile, fair und family — also weibliches Geschlecht, Übergewicht, Alter über vierzig, Multiparität, heller Hauttyp und positive Familienanamnese. Dazu Östrogene und orale Kontrazeptiva, Diabetes mellitus und metabolisches Syndrom, rasche Gewichtsabnahme oder Fasten, hämolytische Anämien für Bilirubinsteine, Morbus Crohn mit Befall des terminalen Ileums, Leberzirrhose, parenterale Ernährung sowie Medikamente wie Ceftriaxon und Octreotid.',
-        },
-        {
-          frage: 'Warum ist bei jedem Oberbauchschmerz ein EKG obligat?',
-          antwort: 'Weil sich ein Hinterwandinfarkt sehr häufig als epigastrischer Schmerz mit Übelkeit und Erbrechen äußert und klinisch kaum von einer Gallenwegserkrankung zu unterscheiden ist. Ich schreibe deshalb immer ein Zwölf-Kanal-EKG und bestimme Troponin, bevor ich den Schmerz als rein abdominell einordne.',
-        },
-        {
-          frage: 'Was passiert mit der entfernten Gallenblase?',
-          antwort: 'Sie wird immer histopathologisch untersucht. In etwa ein bis zwei Prozent der Präparate findet sich ein inzidentelles, klinisch nicht vermutetes Gallenblasenkarzinom, das dann je nach Stadium eine erweiterte onkologische Nachresektion erfordert.',
-        },
-        {
-          frage: 'Was tun Sie, wenn der Patient wegen schwerer Begleiterkrankungen nicht operationsfähig ist?',
-          antwort: 'Dann behandele ich zunächst konservativ mit Antibiose, Volumentherapie und Analgesie und entlaste die Gallenblase durch eine perkutane transhepatische Cholezystostomie unter Ultraschallkontrolle. Nach Stabilisierung des Patienten kann die Cholezystektomie elektiv nachgeholt werden; der Drainagekatheter wird frühestens nach etwa drei Wochen entfernt, wenn der Punktionskanal ausgereift ist.',
-        },
+        { frage: 'Was ist das Murphy-Zeichen?', antwort: 'Schmerzbedingter Abbruch der tiefen Einatmung beim Tasten unter dem rechten Rippenbogen; typisch für die Cholezystitis.' },
+        { frage: 'Was sehen Sie im Ultraschall?', antwort: 'Steine mit Schallschatten, eine verdickte oder dreigeschichtete Wand, Flüssigkeit um die Gallenblase und ein sonographisches Murphy-Zeichen.' },
+        { frage: 'Wann operieren Sie?', antwort: 'Laparoskopisch innerhalb von 24 Stunden nach Aufnahme; nur wenn die Patientin nicht operabel ist, Drainage und Operation später.' },
+        { frage: 'Was ist die Charcot-Trias?', antwort: 'Fieber mit Schüttelfrost, Ikterus und rechtsseitiger Oberbauchschmerz: Zeichen der Cholangitis. Mit Hypotonie und Verwirrtheit wird daraus die Reynolds-Pentade.' },
+        { frage: 'Was ist ein Mirizzi-Syndrom?', antwort: 'Ein Stein im Gallenblasenhals drückt von außen auf den Ductus hepaticus communis und verursacht einen Ikterus ohne Gangstein.' },
       ],
-      merksatz: 'Dauerschmerz über 6 Stunden rechts oben plus Fieber, CRP und Murphy = Cholezystitis, keine Kolik mehr. Laparoskopische Cholezystektomie innerhalb von 24 Stunden; bei Ikterus erst ERCP, dann OP.',
+      merksatz: 'Kolik wird Dauerschmerz mit Fieber: Cholezystitis — Ultraschall, Antibiose und Operation innerhalb von 24 Stunden.',
       linkedCaseIds: [],
       keyFachbegriffeIds: [],
       linkedAufklaerungIds: [],
@@ -12382,384 +11681,99 @@ export function seedFachwissen(): Fachwissen[] {
       id: 'fw-myokardinfarkt',
       pathology: 'Myokardinfarkt',
       specialty: 'Kardiologie',
-      definition: 'Der Myokardinfarkt ist der ischämische Untergang von Herzmuskelgewebe (Koronarnekrose) infolge eines akuten, meist thrombotischen Verschlusses einer Koronararterie. Er gehört zusammen mit der instabilen Angina pectoris zum akuten Koronarsyndrom (ACS). Nach der Vierten Universellen Definition liegt ein Myokardinfarkt vor, wenn ein Anstieg und/oder Abfall des kardialen Troponins mit mindestens einem Wert oberhalb der 99. Perzentile nachgewiesen wird UND zusätzlich mindestens ein Ischämiekriterium besteht: typische Angina-pectoris-Symptomatik, neue ischämietypische EKG-Veränderungen, neue pathologische Q-Zacken, ein bildgebend neu nachgewiesener Verlust vitalen Myokards beziehungsweise eine neue regionale Wandbewegungsstörung oder der angiographische Nachweis eines Koronarthrombus. Klinisch-therapeutisch wird bereits an der EKG-Kurve entschieden: Beim ST-Hebungsinfarkt (STEMI) besteht ein kompletter Gefäßverschluss mit transmuraler Ischämie und die sofortige Reperfusion ist obligat; beim Nicht-ST-Hebungs-ACS (NSTE-ACS) ist das Gefäß meist inkomplett verschlossen, und die Unterscheidung zwischen NSTEMI und instabiler Angina pectoris gelingt erst über das Troponin.',
-      aetiologie: 'In über 90 % der Fälle liegt die Ruptur oder Erosion einer instabilen, lipidreichen atherosklerotischen Plaque mit dünner fibröser Kappe zugrunde. Das freigelegte thrombogene Material aktiviert Thrombozyten und die plasmatische Gerinnung, es entsteht ein okkludierender (STEMI) oder subokkludierender (NSTEMI) Thrombus. Entscheidend ist: nicht der Stenosegrad, sondern die Plaque-Instabilität bestimmt das Infarktrisiko — die meisten Infarkte entstehen aus zuvor nur mäßiggradigen Stenosen. Nach der Universellen Definition wird der Typ-1-Infarkt (Plaqueruptur) vom Typ-2-Infarkt durch Missverhältnis von Sauerstoffangebot und -bedarf abgegrenzt (Tachyarrhythmie, hypertensive Entgleisung, schwere Anämie, Sepsis, Schock, Hypoxie, Koronarspasmus, Prinzmetal-Angina, Kokainabusus, Koronarembolie, spontane Koronardissektion — SCAD, typischerweise bei jüngeren Frauen und peripartal). Auslösende Situationen sind körperliche oder emotionale Belastung, starke Blutdruckanstiege und Kälte; eine Häufung besteht in den frühen Morgenstunden durch den morgendlichen Katecholamin- und Kortisolgipfel.',
+      definition: 'Myokardnekrose durch akute Ischämie, nachgewiesen durch einen Anstieg oder Abfall des Troponins über die 99. Perzentile mit klinischen Ischämiezeichen. Das akute Koronarsyndrom umfasst den ST-Hebungsinfarkt (STEMI), den Nicht-ST-Hebungsinfarkt (NSTEMI) und die instabile Angina.',
+      aetiologie: 'Meist reißt eine atherosklerotische Plaque ein, ein Thrombus verschließt das Koronargefäß ganz (STEMI) oder teilweise (NSTEMI). Seltener entsteht der Infarkt durch ein Missverhältnis von Sauerstoffangebot und -bedarf, etwa bei Anämie oder Tachyarrhythmie.',
       risikofaktoren: [
-        'Nicht beeinflussbar: Lebensalter (Männer ab 45, Frauen ab 55 Jahren), männliches Geschlecht, positive Familienanamnese für frühzeitige kardiovaskuläre Ereignisse (Vater vor dem 55., Mutter vor dem 65. Lebensjahr)',
-        'Nikotinabusus — der stärkste beeinflussbare Einzelfaktor, dosisabhängig; Angabe in Pack Years erfragen',
-        'Arterielle Hypertonie mit linksventrikulärer Hypertrophie',
-        'Diabetes mellitus — gilt als kardiovaskulärer Hochrisikofaktor und ist zugleich die häufigste Ursache eines stummen Infarkts (autonome Neuropathie)',
-        'Fettstoffwechselstörung: erhöhtes LDL-Cholesterin und Lipoprotein(a), erniedrigtes HDL-Cholesterin, Hypertriglyzeridämie',
-        'Adipositas, insbesondere viszerale (stammbetonte) Adipositas, und metabolisches Syndrom',
-        'Bewegungsmangel und ungünstige Ernährung',
-        'Psychosozialer Stress, Depression, Schlafapnoe-Syndrom, Schichtarbeit',
-        'Chronische Niereninsuffizienz und chronisch-entzündliche Erkrankungen (rheumatoide Arthritis, Psoriasis, HIV)',
-        'Vorbestehende Atherosklerose in anderen Stromgebieten: pAVK, Karotisstenose, Zustand nach Schlaganfall — sowie eine bekannte KHK, Zustand nach Infarkt, Stent oder Bypass',
-        'Kokain- und Amphetaminkonsum (Koronarspasmus, auch bei jungen Patienten ohne Atherosklerose)',
+        'Rauchen, arterielle Hypertonie, Hypercholesterinämie, Diabetes mellitus',
+        'Männliches Geschlecht, Alter',
+        'Frühe koronare Herzkrankheit bei Verwandten ersten Grades',
+        'Adipositas, Bewegungsmangel, chronische Nierenerkrankung',
       ],
       klinik: [
-        {
-          text: 'Retrosternaler Vernichtungsschmerz von über 20 Minuten Dauer, in Ruhe auftretend und auf Nitroglycerin nicht oder nur unzureichend ansprechend',
-        },
-        {
-          text: 'Charakter als Druck-, Enge- oder Brennschmerz — Patienten beschreiben ein „Zuschnüren“, einen „Reifen um die Brust“ oder „als säße ein Elefant auf der Brust“',
-        },
-        {
-          text: 'Ausstrahlung in den linken Arm (ulnare Seite), in beide Arme, in Hals, Unterkiefer, Schulter, zwischen die Schulterblätter oder in den Oberbauch',
-        },
-        {
-          text: 'Ausgeprägte vegetative Begleitsymptomatik: Kaltschweißigkeit, fahle bis graue Blässe, Übelkeit und Erbrechen',
-        },
-        {
-          text: 'Todesangst, motorische Unruhe und Vernichtungsgefühl — ein anamnestisch sehr charakteristisches Zeichen',
-        },
-        {
-          text: 'Dyspnoe bis Orthopnoe als Ausdruck der akuten Linksherzinsuffizienz, gegebenenfalls mit Husten und schaumigem Auswurf beim Lungenödem',
-        },
-        {
-          text: 'Schwindel, Präsynkope oder Synkope bei Rhythmusstörungen oder kardiogenem Schock',
-        },
-        {
-          text: 'Tachykardie und Hypotonie; beim Hinterwand- und Rechtsherzinfarkt dagegen häufig Bradykardie und Hypotonie (Bezold-Jarisch-Reflex)',
-        },
-        {
-          text: 'Auskultatorisch feuchte, feinblasige Rasselgeräusche über den Lungenbasen bei pulmonaler Stauung, dritter oder vierter Herzton, gelegentlich ein neues Systolikum (Mitralinsuffizienz durch Papillarmuskeldysfunktion)',
-        },
-        {
-          text: 'Gestaute Halsvenen bei hypotonem Patienten mit freien Lungenfeldern — typische Trias des Rechtsherzinfarkts',
-        },
-        {
-          text: 'Blutdruckabfall unter 90 mmHg systolisch, Kaltschweißigkeit, Marmorierung, Oligurie und Bewusstseinstrübung als Zeichen des kardiogenen Schocks',
-        },
-        {
-          text: 'Stummer Infarkt ohne Schmerzen — vor allem bei Diabetikern mit autonomer Neuropathie, bei sehr alten Patienten und bei Niereninsuffizienz',
-          atypisch: true,
-        },
-        {
-          text: 'Alleinige Dyspnoe, plötzliche Leistungsminderung, Verwirrtheit oder Sturz als einziges Symptom beim geriatrischen Patienten',
-          atypisch: true,
-        },
-        {
-          text: 'Epigastrischer Schmerz mit Übelkeit und Erbrechen beim Hinterwandinfarkt — wird regelmäßig als Gastritis oder „verdorbener Magen“ verkannt',
-          atypisch: true,
-        },
-        {
-          text: 'Bei Frauen häufiger uncharakteristische Beschwerden: Müdigkeit, Schlafstörungen, Rücken-, Nacken- oder Kieferschmerz, Übelkeit statt klassischem Brustschmerz',
-          atypisch: true,
-        },
-        {
-          text: 'Erstmanifestation als plötzlicher Herztod durch Kammerflimmern oder als neu aufgetretene, therapierefraktäre Herzinsuffizienz',
-          atypisch: true,
-        },
-        {
-          text: 'Isolierter Schmerz in Unterkiefer, Zähnen, Schulter oder Ellenbogen ohne thorakale Komponente',
-          atypisch: true,
-        },
+        { text: 'Drückender Brustschmerz über 20 Minuten, nicht nitrat- oder ruhebedingt rückläufig' },
+        { text: 'Ausstrahlung in linken Arm, Hals, Unterkiefer oder Oberbauch' },
+        { text: 'Kaltschweiß, Übelkeit, Luftnot, Todesangst' },
+        { text: 'Stumme oder atypische Verläufe bei Diabetikern, Frauen und Älteren: nur Luftnot, Schwäche oder Oberbauchschmerz', atypisch: true },
+        { text: 'Hinterwandinfarkt mit Übelkeit, Bradykardie und Hypotonie', atypisch: true },
+        { text: 'Erstmanifestation als Kammerflimmern oder kardiogener Schock', atypisch: true },
       ],
       klassifikation: [
-        {
-          name: 'Einteilung des akuten Koronarsyndroms nach dem Aufnahme-EKG (therapieleitend)',
-          inhalt: 'STEMI (ST-Hebungsinfarkt): persistierende ST-Streckenhebungen oder ein neu aufgetretener Linksschenkelblock — kompletter Gefäßverschluss, sofortige Reperfusion ohne Warten auf das Troponin. NSTE-ACS (Nicht-ST-Hebungs-ACS): ST-Senkungen, T-Negativierungen oder unauffälliges EKG; hier entscheidet das hochsensitive Troponin zwischen NSTEMI (Troponin erhöht, also Nekrose) und instabiler Angina pectoris (Troponin negativ, keine Nekrose). Merke: STEMI und NSTEMI unterscheiden sich im EKG, NSTEMI und instabile Angina pectoris nur im Labor.',
-        },
-        {
-          name: 'Vierte Universelle Definition des Myokardinfarkts — Typen 1 bis 5',
-          inhalt: 'Typ 1: atherothrombotischer Infarkt durch Plaqueruptur oder -erosion. Typ 2: Ischämie durch Missverhältnis von Sauerstoffangebot und -bedarf ohne Plaqueruptur (Tachyarrhythmie, Anämie, Sepsis, Schock, hypertensive Krise, Spasmus, SCAD). Typ 3: kardialer Tod mit typischer Ischämiesymptomatik, bevor Biomarker bestimmt werden konnten. Typ 4a: PCI-assoziierter Infarkt; Typ 4b: Stentthrombose; Typ 4c: Restenose. Typ 5: Bypass-assoziierter Infarkt. Davon abzugrenzen ist die Myokardschädigung (myocardial injury) mit Troponinerhöhung ohne Ischämiekriterium — etwa bei Myokarditis, Lungenembolie, Sepsis, Tachykardie oder Niereninsuffizienz.',
-        },
-        {
-          name: 'Infarktlokalisation und Gefäßzuordnung im 12-Kanal-EKG',
-          inhalt: 'Vorderwand/anteroseptal: V1–V4 → RIVA (LAD). Lateral: I, aVL, V5–V6 → Ramus circumflexus oder Diagonalast. Hinterwand/inferior: II, III, aVF → rechte Koronararterie (bei Rechtsversorgungstyp, ca. 80 %) oder Ramus circumflexus. Strikt posteriorer Infarkt: spiegelbildliche ST-Senkung mit hohem R in V1–V3 → ergänzende Ableitungen V7–V9. Rechtsventrikulärer Infarkt: ST-Hebung in V4r bei jedem Hinterwandinfarkt suchen (rechtspräkordiale Ableitungen). Hauptstammstenose: ST-Hebung in aVR mit ausgedehnten ST-Senkungen.',
-        },
-        {
-          name: 'Killip-Klassifikation (Schweregrad der Herzinsuffizienz beim Infarkt, prognostisch)',
-          inhalt: 'Killip I: keine Zeichen der Herzinsuffizienz, Letalität etwa 5 %. Killip II: feuchte Rasselgeräusche über weniger als der Hälfte der Lungenfelder, dritter Herzton, Halsvenenstauung, Letalität etwa 10–20 %. Killip III: Lungenödem, Letalität etwa 40 %. Killip IV: kardiogener Schock mit systolischem Blutdruck unter 90 mmHg und peripherer Minderperfusion, Letalität über 50 %.',
-        },
-        {
-          name: 'Stadienhafter EKG-Verlauf des STEMI',
-          inhalt: 'Stadium 0 (Erstickungs-T): hohes, spitzes, positives T („hyperakutes T“) in den ersten Minuten. Stadium I (frisches Stadium): ST-Hebung aus dem absteigenden R-Schenkel mit monophasischer Deformierung, dazu spiegelbildliche ST-Senkung in den gegenüberliegenden Ableitungen. Zwischenstadium: Rückbildung der ST-Hebung, R-Verlust, terminale T-Negativierung, Ausbildung eines pathologischen Q (Pardee-Q: breiter als 0,04 s, tiefer als ein Viertel der R-Zacke). Stadium III (Endstadium, Wochen bis Monate): pathologisches Q bleibt als Infarktnarbe bestehen, T normalisiert sich wieder. Persistierende ST-Hebung über sechs Monate spricht für ein Herzwandaneurysma.',
-        },
+        { name: 'Einteilung des akuten Koronarsyndroms', inhalt: 'STEMI: ST-Hebung in mindestens zwei benachbarten Ableitungen, Troponin folgt. NSTEMI: keine ST-Hebung, Troponinanstieg. Instabile Angina: Ischämiebeschwerden ohne Troponinanstieg.' },
+        { name: 'Infarktlokalisation im EKG', inhalt: 'Vorderwand: V1 bis V4 (meist RIVA); Seitenwand: I, aVL, V5 und V6 (meist Ramus circumflexus); Hinterwand: II, III und aVF (meist rechte Koronararterie), dann rechtspräkordiale Ableitungen für den rechten Ventrikel.' },
+        { name: 'Killip-Klassifikation', inhalt: 'I keine Herzinsuffizienz; II Rasselgeräusche oder dritter Herzton; III Lungenödem; IV kardiogener Schock.' },
       ],
       redFlags: [
-        'Anhaltender Brustschmerz über 20 Minuten in Ruhe, nitrorefraktär → sofort 12-Kanal-EKG innerhalb von 10 Minuten und Notruf, keine weitere Anamnese vor dem EKG',
-        'ST-Streckenhebung oder neuer Linksschenkelblock → STEMI, sofortige Alarmierung des Herzkatheterlabors; die Reperfusion darf nicht auf das Troponin warten',
-        'Systolischer Blutdruck unter 90 mmHg, Kaltschweißigkeit, Marmorierung, Oligurie, Bewusstseinstrübung → kardiogener Schock, Killip IV',
-        'Kammertachykardie, Kammerflimmern oder höhergradiger AV-Block → sofortige Defibrillation beziehungsweise Schrittmachertherapie, Monitorüberwachung obligat',
-        'Hypotonie nach Nitrogabe bei Hinterwandinfarkt → Verdacht auf rechtsventrikuläre Beteiligung; Nitrate sind kontraindiziert, stattdessen Volumengabe',
-        'Neu aufgetretenes lautes Systolikum mit rascher hämodynamischer Verschlechterung → mechanische Komplikation: Ventrikelseptumruptur oder Papillarmuskelabriss mit akuter Mitralinsuffizienz',
-        'Plötzliche elektromechanische Entkopplung, Halsvenenstauung, Schock → freie Wandruptur mit Perikardtamponade, sofortige Echokardiographie',
-        'Reißender, in den Rücken ausstrahlender Schmerz mit Blutdruckdifferenz zwischen den Armen oder Pulsdefizit → Aortendissektion; Lyse und Antikoagulation wären fatal',
-        'Ausgeprägte Dyspnoe mit Orthopnoe, Rasselgeräuschen und schaumigem Auswurf → kardiales Lungenödem',
-        'Erneuter Brustschmerz mit erneuter ST-Hebung nach Stentimplantation → akute Stentthrombose, sofortige Re-Koronarangiographie',
+        'Hypotonie, kalte Haut, Verwirrtheit, Oligurie: kardiogener Schock',
+        'Kammertachykardie oder Kammerflimmern: sofort defibrillieren',
+        'Neues Systolikum mit akuter Herzinsuffizienz: Papillarmuskelabriss oder Ventrikelseptumdefekt',
+        'Reißender Schmerz in den Rücken oder Blutdruckdifferenz: Aortendissektion vor jeder Antikoagulation ausschließen',
       ],
       diagnostik: [
-        {
-          stufe: 'Anamnese/Klinik',
-          text: 'Fokussierte Notfallanamnese parallel zur Erstversorgung: Beginn und exakte Uhrzeit des Schmerzbeginns (steuert das Reperfusionsfenster), Dauer, Charakter, Lokalisation, Ausstrahlung, Auslöser, Ansprechen auf Nitroglycerin, Begleitsymptome (Kaltschweißigkeit, Übelkeit, Dyspnoe, Todesangst)',
-        },
-        {
-          stufe: 'Anamnese/Klinik',
-          text: 'Kardiovaskuläre Risikofaktoren, bekannte KHK, frühere Infarkte, Stents, Bypässe, Vormedikation (Thrombozytenaggregationshemmer, orale Antikoagulation, PDE-5-Hemmer wie Sildenafil innerhalb von 24–48 Stunden — absolute Kontraindikation für Nitrate)',
-        },
-        {
-          stufe: 'Anamnese/Klinik',
-          text: 'Gezielte Blutungsanamnese und Kontraindikationen für Antikoagulation und Lyse: Ulkusleiden, Operationen, Schlaganfall, Trauma, Tumorerkrankung, Schwangerschaft',
-        },
-        {
-          stufe: 'Anamnese/Klinik',
-          text: 'Körperliche Untersuchung: Blutdruck an BEIDEN Armen (Seitendifferenz spricht für Aortendissektion), Puls, Atemfrequenz, Sauerstoffsättigung, Temperatur; Auskultation von Herz (Geräusche, dritter/vierter Herzton, Perikardreiben) und Lunge (Rasselgeräusche, Killip-Grad), Halsvenen, periphere Pulse, Beinumfangsdifferenz und Ödeme',
-        },
-        {
-          stufe: 'Labor',
-          text: 'Hochsensitives kardiales Troponin T oder I als spezifischster Nekrosemarker: Bestimmung bei Aufnahme und Kontrolle nach 1 bis 3 Stunden (0/1-h- oder 0/3-h-Algorithmus); Anstieg nach 3–4 Stunden, Maximum nach 12–24 Stunden, erhöht bis zu 2 Wochen. Ein einzelner negativer Wert schließt einen Infarkt in der Frühphase NICHT aus — entscheidend ist die Dynamik',
-        },
-        {
-          stufe: 'Labor',
-          text: 'Weitere Marker in absteigender Bedeutung: CK und CK-MB (Anteil der CK-MB von 6–20 % der Gesamt-CK spricht für myokardiale Herkunft; geeignet zur Reinfarktdiagnostik, da rasch wieder abfallend), Myoglobin (früh, aber unspezifisch), LDH (Spätmarker)',
-        },
-        {
-          stufe: 'Labor',
-          text: 'Basislabor: Blutbild (Anämie als Auslöser eines Typ-2-Infarkts und als Blutungsrisiko), Kreatinin und eGFR (vor Kontrastmittelgabe und für die Dosierung der Antikoagulation), Elektrolyte einschließlich Kalium und Magnesium (Arrhythmierisiko), Blutzucker, Gerinnung mit INR und aPTT, CRP, TSH',
-        },
-        {
-          stufe: 'Labor',
-          text: 'Ergänzend: NT-proBNP zur Abschätzung der ventrikulären Belastung, D-Dimere NUR bei begründetem Verdacht auf Lungenembolie oder Dissektion (ein positiver Wert ist unspezifisch), Lipidstatus und HbA1c innerhalb der ersten 24 Stunden als Ausgangswert für die Sekundärprävention, Blutgasanalyse und Laktat bei Schock',
-        },
-        {
-          stufe: 'Apparativ & Bildgebung',
-          text: '12-Kanal-EKG innerhalb von 10 Minuten nach dem ersten medizinischen Kontakt — die wichtigste und dringlichste Einzelmaßnahme: ST-Hebung (in zwei benachbarten Ableitungen mindestens 0,1 mV, in V2–V3 mindestens 0,2 mV bei Männern beziehungsweise 0,15 mV bei Frauen), ST-Senkung, T-Negativierung, pathologisches Q, neuer Linksschenkelblock',
-        },
-        {
-          stufe: 'Apparativ & Bildgebung',
-          text: 'Ergänzende Ableitungen: rechtspräkordial V4r bei jedem Hinterwandinfarkt (Rechtsherzinfarkt) und dorsal V7–V9 bei Verdacht auf strikt posterioren Infarkt; EKG-Verlaufskontrollen alle 15–30 Minuten bei fortbestehendem Verdacht und unauffälligem Erst-EKG',
-        },
-        {
-          stufe: 'Apparativ & Bildgebung',
-          text: 'Kontinuierliches Monitoring von Rhythmus, Blutdruck und Sauerstoffsättigung auf der Intensiv- oder Chest-Pain-Unit mit Defibrillationsbereitschaft — die meisten Todesfälle der ersten Stunden sind rhythmogen',
-        },
-        {
-          stufe: 'Apparativ & Bildgebung',
-          text: 'Transthorakale Echokardiographie: regionale Wandbewegungsstörung (Hypo-, A- oder Dyskinesie) im Versorgungsgebiet, Bestimmung der linksventrikulären Ejektionsfraktion, Nachweis mechanischer Komplikationen (Ventrikelseptumdefekt, Mitralinsuffizienz, Thrombus, Perikarderguss, Aneurysma) und differenzialdiagnostisch Rechtsherzbelastung bei Lungenembolie oder Dissektionsmembran',
-        },
-        {
-          stufe: 'Apparativ & Bildgebung',
-          text: 'Röntgen-Thorax zur Beurteilung von Stauung, Lungenödem, Herzgröße und Mediastinalverbreiterung sowie zum Ausschluss eines Pneumothorax — darf die Reperfusion niemals verzögern',
-        },
-        {
-          stufe: 'Apparativ & Bildgebung',
-          text: 'CT-Angiographie des Thorax bei begründetem Verdacht auf Aortendissektion oder Lungenembolie; Koronar-CT nur bei niedriger bis mittlerer Vortestwahrscheinlichkeit im stabilen Verlauf, nicht in der Akutsituation',
-        },
-        {
-          stufe: 'Apparativ & Bildgebung',
-          text: 'Im Verlauf: Kardio-MRT zur Vitalitäts- und Narbendiagnostik (Late Gadolinium Enhancement) und zur Abgrenzung von Myokarditis und Tako-Tsubo-Syndrom bei MINOCA (Infarkt ohne obstruktive Koronarstenosen); Belastungs- oder Stressuntersuchungen erst nach Stabilisierung',
-        },
-        {
-          stufe: 'Invasiv & Speziell',
-          text: 'Sofortige Koronarangiographie mit Interventionsbereitschaft beim STEMI — Diagnostik und Therapie in einem Schritt: Darstellung des Verschlusses, Bestimmung des TIMI-Flusses und primäre perkutane Koronarintervention (PCI) mit Ballondilatation und medikamentenfreisetzendem Stent',
-        },
-        {
-          stufe: 'Invasiv & Speziell',
-          text: 'Beim NSTE-ACS risikoadaptierte Invasivstrategie nach GRACE-Score: sofort (unter 2 Stunden) bei hämodynamischer Instabilität, therapierefraktärem Schmerz, malignen Arrhythmien oder mechanischen Komplikationen, früh-invasiv innerhalb von 24 Stunden bei Hochrisiko',
-        },
-        {
-          stufe: 'Invasiv & Speziell',
-          text: 'Ergänzende invasive Verfahren: fraktionelle Flussreserve (FFR/iFR) zur funktionellen Beurteilung intermediärer Stenosen der Nicht-Infarktgefäße, intravaskulärer Ultraschall (IVUS) oder optische Kohärenztomographie (OCT) bei unklarer Läsion, Plaqueerosion oder spontaner Koronardissektion; Rechtsherzkatheter bei kardiogenem Schock',
-        },
+        { stufe: 'Anamnese/Klinik', text: 'Beginn, Charakter und Dauer des Schmerzes; Vitalparameter, Blutdruck an beiden Armen, Zeichen der Herzinsuffizienz' },
+        { stufe: 'Labor', text: 'Hochsensitives Troponin, ohne ST-Hebung nach dem 0/1-Stunden-Algorithmus; Blutbild, Kreatinin, Kalium, Glukose, Lipide' },
+        { stufe: 'Apparativ & Bildgebung', text: '12-Kanal-EKG innerhalb von 10 Minuten nach Erstkontakt, bei Bedarf wiederholt; rechtspräkordiale und posteriore Ableitungen bei Verdacht' },
+        { stufe: 'Apparativ & Bildgebung', text: 'Echokardiographie: Wandbewegungsstörung, Pumpfunktion, mechanische Komplikationen, Differenzialdiagnosen' },
+        { stufe: 'Invasiv & Speziell', text: 'Koronarangiographie: beim STEMI sofort; ohne ST-Hebung sofort bei sehr hohem Risiko (anhaltender Schmerz, Instabilität), sonst innerhalb von 24 Stunden bei hohem Risiko' },
       ],
       differenzialdiagnosen: [
-        {
-          dd: 'Lungenembolie',
-          unterscheidung: 'Plötzliche, häufig atemabhängige Dyspnoe und stechender, pleuritischer Thoraxschmerz, Tachypnoe, Hypoxie, Hämoptysen; Risikofaktoren Immobilisation, Operation, Tumor, Ovulationshemmer, Zustand nach Thrombose, einseitige Beinschwellung. D-Dimere hoch sensitiv, im EKG allenfalls SI-QIII-Typ, Rechtsschenkelblock oder T-Negativierung in V1–V3, keine typische ST-Hebungsdynamik; Nachweis durch CT-Angiographie, in der Echokardiographie Rechtsherzbelastung. Das Troponin kann auch hier erhöht sein — als Myokardschädigung, nicht als Infarkt.',
-        },
-        {
-          dd: 'Aortendissektion (Stanford A)',
-          unterscheidung: 'Perakuter, reißender oder vernichtender Schmerz mit Wanderung in Rücken und zwischen die Schulterblätter, Blutdruckdifferenz von über 20 mmHg zwischen beiden Armen, Pulsdefizit, neu aufgetretenes Diastolikum bei Aorteninsuffizienz, neurologische Ausfälle. Absolut ausschlusspflichtig VOR jeder Lyse oder Antikoagulation; Nachweis durch CT-Angiographie oder transösophageale Echokardiographie.',
-        },
-        {
-          dd: 'Akute Perikarditis',
-          unterscheidung: 'Scharfer, atem- und lageabhängiger Schmerz mit Besserung im Sitzen und Vornüberbeugen, Verschlechterung im Liegen und bei Inspiration; oft vorangegangener viraler Infekt, Fieber. Auskultatorisch ohrnahes Perikardreiben. Im EKG konkave ST-Hebungen aus dem aufsteigenden S-Schenkel in nahezu ALLEN Ableitungen ohne spiegelbildliche Senkungen, dazu PQ-Senkung; keine Q-Zacken, kein Gefäßterritorium.',
-        },
-        {
-          dd: 'Myokarditis',
-          unterscheidung: 'Jüngere Patienten, Infekt der oberen Atemwege ein bis drei Wochen zuvor, Abgeschlagenheit, Palpitationen, Herzinsuffizienzzeichen; Troponin erhöht bei unauffälligen Koronarien (MINOCA). Diagnosesicherung durch Kardio-MRT mit typischem subepikardialem Late Enhancement.',
-        },
-        {
-          dd: 'Tako-Tsubo-Syndrom (Stress-Kardiomyopathie)',
-          unterscheidung: 'Fast ausschließlich postmenopausale Frauen nach starker emotionaler oder körperlicher Belastung; klinisch und im EKG vom STEMI nicht zu unterscheiden, Troponin nur mäßig erhöht bei ausgedehnter Wandbewegungsstörung. In der Ventrikulographie apikales Ballooning bei unauffälligen Koronarien; meist vollständig reversibel.',
-        },
-        {
-          dd: 'Ösophagealer Schmerz: Refluxkrankheit, Ösophagusspasmus, Boerhaave-Syndrom',
-          unterscheidung: 'Brennender retrosternaler Schmerz mit Bezug zu Mahlzeiten und Liegen, saures Aufstoßen, Besserung auf Protonenpumpenhemmer. Cave: Auch ein Ösophagusspasmus bessert sich auf Nitroglycerin — das Ansprechen auf Nitrate beweist keine kardiale Genese. Beim Boerhaave-Syndrom Vernichtungsschmerz nach heftigem Erbrechen mit Hautemphysem und Mediastinitis.',
-        },
-        {
-          dd: 'Spannungspneumothorax / Pneumothorax',
-          unterscheidung: 'Plötzliche Dyspnoe mit einseitig fehlendem Atemgeräusch und hypersonorem Klopfschall, obere Einflussstauung und Kreislaufinstabilität beim Spannungspneumothorax; typischerweise junger, schlanker, großer Mann oder COPD-Patient. Klinische Blickdiagnose mit sofortiger Entlastungspunktion.',
-        },
-        {
-          dd: 'Pleuritis / Pneumonie',
-          unterscheidung: 'Atemabhängiger, streng lokalisierter Schmerz, Fieber, produktiver Husten, Auskultation mit Rasselgeräuschen oder Pleurareiben, erhöhte Entzündungsparameter, Infiltrat im Röntgenbild.',
-        },
-        {
-          dd: 'Vertebragener und muskuloskelettaler Thoraxschmerz: BWS-Blockade, Interkostalneuralgie, Tietze-Syndrom, Rippenfraktur',
-          unterscheidung: 'Schmerz durch Palpation und Bewegung reproduzierbar, lokaler Druckschmerz über den Kostosternalgelenken oder den Dornfortsätzen, Bezug zu Fehlhaltung oder Trauma, keine vegetative Begleitsymptomatik.',
-        },
-        {
-          dd: 'Herpes zoster',
-          unterscheidung: 'Brennender, streng segmental in einem Dermatom verlaufender Schmerz, der den Bläschen um Tage vorausgehen kann; Hyperästhesie der Haut.',
-        },
-        {
-          dd: 'Oberbauchursachen: akute Pankreatitis, Cholezystitis/Gallenkolik, perforiertes Ulcus ventriculi oder duodeni',
-          unterscheidung: 'Wichtige Verwechslungsgefahr in beide Richtungen — der Hinterwandinfarkt imponiert als Oberbauchbeschwerden. Gürtelförmiger Schmerz mit Lipase-Erhöhung bei der Pankreatitis, rechtsseitiger Oberbauchschmerz mit Murphy-Zeichen und sonographischen Konkrementen bei der Cholezystitis, bretthartes Abdomen mit freier Luft bei der Perforation.',
-        },
-        {
-          dd: 'Stabile Angina pectoris und instabile Angina pectoris',
-          unterscheidung: 'Stabile Angina: belastungsabhängiger, unter 20 Minuten dauernder Schmerz mit prompter Besserung in Ruhe und auf Nitrat, reproduzierbare Belastungsschwelle, Troponin negativ. Instabile Angina: Ruhe- oder Crescendo-Symptomatik beziehungsweise Erstmanifestation, aber Troponin negativ — ausschließlich der Troponinwert trennt sie vom NSTEMI.',
-        },
-        {
-          dd: 'Psychogener Thoraxschmerz: Panikattacke, Hyperventilationssyndrom, somatoforme Störung',
-          unterscheidung: 'Junge Patienten, Kribbelparästhesien perioral und an den Händen, Karpopedalspasmen, Hyperventilation mit respiratorischer Alkalose, Beschwerden in Ruhe und ohne Progredienz — eine Ausschlussdiagnose, die erst nach EKG und Troponin gestellt werden darf.',
-        },
+        { dd: 'Lungenembolie', unterscheidung: 'Plötzliche Luftnot, atemabhängiger Schmerz, Tachykardie, Risikofaktoren für Thrombosen; CT-Angiographie.' },
+        { dd: 'Aortendissektion', unterscheidung: 'Reißender, wandernder Rückenschmerz, Blutdruckdifferenz, Pulsdefizit; CT der Aorta, keine Antikoagulation vor dem Ausschluss.' },
+        { dd: 'Perikarditis', unterscheidung: 'Stechend, atem- und lageabhängig, besser im Vornüberbeugen; Reiben, ST-Hebungen in vielen Ableitungen ohne Spiegelbild.' },
+        { dd: 'Spannungspneumothorax', unterscheidung: 'Einseitig fehlendes Atemgeräusch, gestaute Halsvenen, Hypotonie.' },
+        { dd: 'Ösophagusruptur', unterscheidung: 'Nach heftigem Erbrechen, Hautemphysem; CT mit wasserlöslichem Kontrastmittel.' },
       ],
       therapie: [
         {
           label: 'Sofortmaßnahmen beim akuten Koronarsyndrom („Zeit ist Muskel“)',
           akut: true,
           items: [
-            'Notruf 112, Oberkörperhochlagerung mit hängenden Beinen, absolute körperliche Schonung, beruhigendes Auftreten; kontinuierliches Monitoring mit EKG, Blutdruck und Pulsoxymetrie bei ständiger Defibrillationsbereitschaft, zwei großlumige periphere Zugänge',
-            '12-Kanal-EKG innerhalb von 10 Minuten und unverzügliche Information des Oberarztes beziehungsweise Voranmeldung im Herzkatheterlabor — beim STEMI wird die Reperfusion sofort ausgelöst und NICHT auf das Troponinergebnis gewartet',
-            'Acetylsalicylsäure 150–300 mg oral (oder 250 mg intravenös) als Loading Dose so früh wie möglich, bereits präklinisch',
-            'Antikoagulation: unfraktioniertes Heparin 70–100 IE/kg intravenös als Bolus, alternativ Enoxaparin gewichtsadaptiert oder Bivalirudin',
-            'Analgesie mit Morphin 3–5 mg intravenös, fraktioniert und titriert bis zur Schmerzfreiheit — senkt zugleich Sympathikotonus, Vorlast und Sauerstoffverbrauch; Antiemetikum (Metoclopramid) bereithalten. Cave: Morphin verzögert die Resorption der oralen P2Y12-Hemmer',
-            'Nitroglycerin 0,4–0,8 mg sublingual als Spray oder Kapsel bei systolischem Blutdruck über 90–100 mmHg, gegebenenfalls als Perfusor bei Hypertonie oder Lungenstauung. STRENG KONTRAINDIZIERT bei Hypotonie, rechtsventrikulärem Infarkt, Aortenklappenstenose und Einnahme von PDE-5-Hemmern (Sildenafil, Tadalafil) in den letzten 24–48 Stunden',
-            'Sauerstoff NUR bei einer Sättigung unter 90 % beziehungsweise unter 94 % mit Dyspnoe (2–4 l/min über Nasensonde) — die routinemäßige Gabe beim normoxämischen Patienten ist obsolet und potenziell schädlich',
-            'Betablocker (Metoprolol) intravenös nur bei Tachykardie und Hypertonie ohne Zeichen der Herzinsuffizienz; kontraindiziert bei Bradykardie, Hypotonie, AV-Block, akuter Linksherzdekompensation und kardiogenem Schock — sonst orale Gabe in den ersten 24 Stunden',
-            'Komplikationsmanagement: Kammerflimmern und pulslose Kammertachykardie → sofortige Defibrillation und Reanimation nach ACLS-Algorithmus; symptomatische Bradykardie oder AV-Block III → Atropin 0,5 mg, gegebenenfalls transkutaner oder transvenöser Schrittmacher; kardiogener Schock → Katecholamine (Noradrenalin, Dobutamin), Volumen beim Rechtsherzinfarkt, gegebenenfalls mechanische Kreislaufunterstützung (Impella, ECMO) und Notfall-Revaskularisation',
-            'Merkhilfe MONA-B — Morphin, Sauerstoff (O2), Nitrat, ASS, Betablocker — heute mit den genannten Einschränkungen: Sauerstoff nur bei Hypoxie, Nitrat nur bei ausreichendem Blutdruck, Betablocker nur beim stabilen Patienten',
+            'Monitor, Defibrillationsbereitschaft, venöser Zugang',
+            'ASS-Ladedosis und unfraktioniertes Heparin 70–100 IE/kg intravenös',
+            'Sauerstoff nur bei einer Sättigung unter 90 %',
+            'Nitroglycerin bei systolischem Druck über 90 mmHg, nicht bei Rechtsherzinfarkt oder nach PDE-5-Hemmern; Opioide bei starken Schmerzen',
           ],
         },
         {
           label: 'Reperfusionstherapie: primäre PCI, Fibrinolyse und operative Revaskularisation',
           akut: true,
           items: [
-            'Primäre perkutane Koronarintervention (PCI) mit Ballondilatation und medikamentenfreisetzendem Stent ist die Therapie der Wahl beim STEMI und deutlich besser als die Lyse — Ziel ist die Wiedereröffnung des Infarktgefäßes mit TIMI-3-Fluss',
-            'Zeitfenster: Die Reperfusion ist beim STEMI innerhalb der ersten 12 Stunden nach Symptombeginn indiziert; bei fortbestehender Ischämiesymptomatik, hämodynamischer Instabilität oder malignen Arrhythmien auch nach 12 bis 48 Stunden. Ziel ist eine Kontakt-Ballon-Zeit unter 90 Minuten (bei direkter Aufnahme im PCI-Zentrum unter 60 Minuten)',
-            'Ist eine PCI nicht innerhalb von 120 Minuten nach der STEMI-Diagnose erreichbar, wird innerhalb von 10 Minuten eine Fibrinolyse begonnen (Tenecteplase, Alteplase, Reteplase — gewichtsadaptiert, beim über 75-Jährigen halbe Dosis), gefolgt vom Transfer in ein PCI-Zentrum zur Koronarangiographie innerhalb von 2 bis 24 Stunden; bei erfolgloser Lyse sofortige Rescue-PCI',
-            'Absolute Kontraindikationen der Lyse: intrakranielle Blutung in der Anamnese, ischämischer Schlaganfall innerhalb der letzten 6 Monate, Hirntumor oder arteriovenöse Malformation, Aortendissektion, aktive Blutung, Schädel-Hirn-Trauma oder größere Operation innerhalb der letzten 3 Wochen, gastrointestinale Blutung im letzten Monat',
-            'Beim NSTE-ACS richtet sich der Zeitpunkt nach dem Risiko (GRACE-Score): sofort invasiv bei Instabilität, innerhalb von 24 Stunden bei Hochrisiko, innerhalb von 72 Stunden bei intermediärem Risiko — eine Lyse ist beim NSTE-ACS ausdrücklich NICHT indiziert',
-            'Aortokoronare Bypassoperation (ACVB) mit A. mammaria interna und Venengrafts bei koronarer Anatomie, die für eine PCI ungeeignet ist: signifikante Hauptstammstenose, Dreigefäßerkrankung insbesondere beim Diabetiker (hoher SYNTAX-Score), erfolglose PCI oder gleichzeitig sanierungsbedürftige mechanische Komplikation (Ventrikelseptumruptur, Papillarmuskelabriss)',
-            'Bei Mehrgefäßerkrankung wird beim STEMI zunächst nur die Infarktarterie („culprit lesion“) versorgt; die Behandlung der übrigen Stenosen erfolgt in gleicher Sitzung oder im Intervall FFR-gesteuert — Ausnahme: kardiogener Schock',
+            'STEMI unter 12 Stunden: primäre PCI, von der Diagnose bis zur Wiedereröffnung höchstens 60 Minuten im PCI-Zentrum, 90 Minuten bei Verlegung',
+            'PCI nicht innerhalb von 120 Minuten möglich: Fibrinolyse innerhalb von 10 Minuten nach Diagnose, dann Angiographie nach 2 bis 24 Stunden',
+            'Mehrgefäßerkrankung beim STEMI: vollständige Revaskularisation während der Index-PCI oder innerhalb von 45 Tagen',
+            'Bypassoperation bei ungeeigneter Anatomie oder mechanischer Komplikation',
           ],
         },
         {
           label: 'Antithrombotische Begleittherapie nach der Intervention',
           items: [
-            'Duale Thrombozytenaggregationshemmung (DAPT) über in der Regel 12 Monate: Acetylsalicylsäure 100 mg täglich lebenslang PLUS ein P2Y12-Inhibitor',
-            'P2Y12-Inhibitoren der Wahl: Ticagrelor (180 mg Loading, dann 2 × 90 mg) oder Prasugrel (60 mg Loading, dann 10 mg; kontraindiziert nach Schlaganfall oder TIA, Vorsicht ab 75 Jahren und unter 60 kg Körpergewicht — dann 5 mg); Clopidogrel (600 mg Loading, dann 75 mg) bei Blutungsrisiko oder erforderlicher oraler Antikoagulation',
-            'Verkürzung der DAPT auf 1 bis 6 Monate bei hohem Blutungsrisiko, Verlängerung über 12 Monate hinaus bei hohem ischämischem und niedrigem Blutungsrisiko — immer eine individuelle Abwägung',
-            'Bei zusätzlicher Indikation für eine orale Antikoagulation (Vorhofflimmern, Ventrikelthrombus) Tripeltherapie nur so kurz wie möglich (in der Regel 1 Woche stationär), dann Zweifachtherapie aus DOAK und Clopidogrel für 6 bis 12 Monate',
-            'Magenschutz mit einem Protonenpumpenhemmer während der dualen Plättchenhemmung, insbesondere bei Ulkusanamnese, höherem Lebensalter und begleitender Antikoagulation',
-            'Patientenaufklärung mit Nachdruck: Der P2Y12-Hemmer darf nach Stentimplantation NIEMALS eigenmächtig abgesetzt werden — es droht die akute Stentthrombose mit erneutem Infarkt; jeder geplante Eingriff wird vorher mit dem Kardiologen abgestimmt',
+            'Duale Plättchenhemmung über 12 Monate mit ASS und Prasugrel oder Ticagrelor; Prasugrel bevorzugt, Clopidogrel bei hohem Blutungsrisiko',
+            'Vorbehandlung mit einem P2Y12-Hemmer beim NSTE-ACS nicht routinemäßig, wenn früh invasiv vorgegangen wird',
+            'PPI bei erhöhtem gastrointestinalem Blutungsrisiko',
           ],
         },
         {
           label: 'Sekundärprophylaxe, Rehabilitation und Nachsorge',
           items: [
-            'Fünf medikamentöse Säulen nach dem Infarkt: Thrombozytenaggregationshemmung, Betablocker, Statin, ACE-Hemmer sowie bei eingeschränkter Pumpfunktion ein Mineralokortikoidrezeptor-Antagonist',
-            'Hochdosierte Statintherapie unabhängig vom Ausgangswert (Atorvastatin 80 mg oder Rosuvastatin 20–40 mg) mit dem LDL-Zielwert unter 55 mg/dl und mindestens 50 % Reduktion; bei Nichterreichen zusätzlich Ezetimib und gegebenenfalls ein PCSK9-Inhibitor. Kontrolle der Transaminasen und der CK, Aufklärung über Myalgien',
-            'Betablocker (Metoprolol, Bisoprolol) zur Senkung von Herzfrequenz, Sauerstoffverbrauch und Reinfarkt- sowie Arrhythmierisiko; ACE-Hemmer (Ramipril) oder bei Husten ein Sartan, insbesondere bei Hypertonie, Diabetes, Niereninsuffizienz und eingeschränkter Ejektionsfraktion',
-            'Eplerenon oder Spironolacton bei einer Ejektionsfraktion unter 40 % mit Herzinsuffizienzzeichen oder Diabetes; bei persistierender Herzinsuffizienz Erweiterung um SGLT2-Inhibitor und Sacubitril/Valsartan, bei einer Ejektionsfraktion unter 35 % nach drei Monaten optimaler Therapie Prüfung der ICD-Indikation',
-            'Konsequente Behandlung der Risikofaktoren: Blutdruckziel unter 130/80 mmHg, HbA1c-Ziel individualisiert mit bevorzugtem Einsatz kardioprotektiver Antidiabetika (SGLT2-Inhibitoren, GLP-1-Rezeptoragonisten), Gewichtsreduktion, Behandlung eines Schlafapnoe-Syndroms',
-            'Absolute Nikotinkarenz — die wirksamste Einzelmaßnahme der Sekundärprävention; strukturierte Raucherentwöhnung mit Beratung, Verhaltenstherapie und gegebenenfalls Nikotinersatz anbieten',
-            'Mediterrane Kost, Alkoholreduktion, mindestens 150 Minuten moderates Ausdauertraining pro Woche und Anschlussheilbehandlung: kardiologische Rehabilitation mit überwachtem Training, Schulung, psychologischer Betreuung und beruflicher Wiedereingliederung',
-            'Impfungen gegen Influenza und Pneumokokken, Anbindung an eine kardiologische Nachsorge mit Echokardiographie-Kontrolle nach 6 bis 12 Wochen; Beratung zu Fahrtauglichkeit, Wiederaufnahme von Beruf und sexueller Aktivität sowie Aufklärung über die Warnzeichen eines Reinfarkts mit klarer Anweisung, sofort den Notruf zu wählen',
+            'Hochdosiertes Statin: LDL unter 55 mg/dl und mindestens 50 % Senkung, sonst Ezetimib und PCSK9-Hemmer',
+            'Rauchstopp, Bewegung, Gewichtsreduktion, kardiologische Rehabilitation',
+            'ACE-Hemmer bei Herzinsuffizienz, Pumpfunktion bis 40 %, Hypertonie oder Diabetes; Betablocker vor allem bei eingeschränkter Pumpfunktion',
+            'Grippeimpfung',
           ],
         },
       ],
-      prognose: 'Etwa 30–40 % aller Infarktpatienten versterben, mehr als die Hälfte davon präklinisch innerhalb der ersten Stunde, meist rhythmogen durch Kammerflimmern — die Prognose entscheidet sich daher wesentlich an der Zeit bis zum ersten medizinischen Kontakt und bis zur Reperfusion. Die Krankenhausletalität konnte durch die primäre PCI auf etwa 5–8 % gesenkt werden, steigt beim kardiogenen Schock (Killip IV) jedoch auf über 50 %. Prognosebestimmend sind Infarktgröße und Ejektionsfraktion, die Zahl der betroffenen Gefäße, das Alter, Diabetes und Niereninsuffizienz sowie das Zeitintervall bis zur Reperfusion. Frühkomplikationen sind Herzrhythmusstörungen (in bis zu 95 % der Fälle, darunter ventrikuläre Tachykardien, Kammerflimmern und AV-Blockierungen), Linksherzinsuffizienz und kardiogener Schock sowie in den ersten Tagen die mechanischen Komplikationen Ventrikelseptumruptur, Papillarmuskelabriss mit akuter Mitralinsuffizienz und freie Wandruptur mit Perikardtamponade. Spätkomplikationen sind Herzwandaneurysma mit Thrombenbildung und arterieller Embolie, chronische ischämische Herzinsuffizienz, Reinfarkt, das Dressler-Syndrom (Postmyokardinfarktsyndrom, autoimmune Perikarditis nach ein bis sechs Wochen) und der plötzliche Herztod. Unter konsequenter Sekundärprävention mit Nikotinkarenz, LDL-Zielwert unter 55 mg/dl, dualer Plättchenhemmung, Betablocker, ACE-Hemmer und kardiologischer Rehabilitation ist die Langzeitprognose bei erhaltener Pumpfunktion gut; die Therapieadhärenz ist dabei der entscheidende Faktor.',
+      prognose: 'Die Prognose hängt von der Zeit bis zur Reperfusion, der verbliebenen Pumpfunktion und den Komplikationen ab. Die meisten Todesfälle ereignen sich vor Erreichen der Klinik, meist durch Kammerflimmern.',
       pruefungsfallen: [
-        'Der Myokardinfarkt ist ein NOTFALL: In der Fallvorstellung zuerst sagen, dass Sie das 12-Kanal-EKG innerhalb von 10 Minuten schreiben, den Patienten monitorisieren und sofort den Oberarzt beziehungsweise das Herzkatheterlabor informieren — erst danach über weitere Diagnostik sprechen. Wer mit Anamnese und Labor beginnt, verliert Punkte.',
-        'Beim STEMI wird NICHT auf das Troponinergebnis gewartet. Die ST-Hebung im EKG allein begründet die sofortige Reperfusion; das Troponin dient der Bestätigung und der Verlaufsbeurteilung, nicht der Indikationsstellung.',
-        'Ein einmalig negatives Troponin schließt einen Infarkt in der Frühphase nicht aus — entscheidend ist die Dynamik in der Kontrolle nach 1 bis 3 Stunden. Umgekehrt ist ein erhöhtes Troponin nicht gleichbedeutend mit einem Infarkt: Lungenembolie, Myokarditis, Sepsis, Tachyarrhythmie und Niereninsuffizienz erhöhen es ebenfalls (Myokardschädigung ohne Ischämie).',
-        'STEMI und NSTEMI werden im EKG unterschieden, NSTEMI und instabile Angina pectoris nur über das Troponin. Diese beiden Trennlinien werden regelmäßig verwechselt.',
-        'Nitrate sind beim Hinterwand- mit Rechtsherzinfarkt sowie bei Hypotonie kontraindiziert — es droht ein dramatischer Blutdruckabfall durch Vorlastsenkung. Deshalb bei jedem inferioren Infarkt die rechtspräkordiale Ableitung V4r schreiben. Ebenso ist die Einnahme von PDE-5-Hemmern (Sildenafil) in den letzten 24 bis 48 Stunden aktiv zu erfragen.',
-        'Sauerstoff wird NICHT routinemäßig gegeben, sondern nur bei einer Sättigung unter 90 %. Die MONA-B-Merkhilfe darf nicht unkommentiert heruntergebetet werden.',
-        'Vor jeder Lyse und Antikoagulation muss die Aortendissektion ausgeschlossen werden: Blutdruck immer an BEIDEN Armen messen und nach reißendem Rückenschmerz fragen.',
-        'Der Hinterwandinfarkt kann sich als Oberbauchschmerz mit Übelkeit und Erbrechen zeigen und wird als Gastritis verkannt. Bei Diabetikern, alten Menschen und Frauen ist der stumme oder atypische Infarkt häufig — bei ihnen genügen Dyspnoe, Schwäche oder Verwirrtheit als einziges Symptom.',
-        'Das Zeitfenster korrekt angeben: Reperfusion innerhalb von 12 Stunden nach Symptombeginn, Kontakt-Ballon-Zeit unter 90 Minuten; Lyse nur, wenn eine PCI nicht innerhalb von 120 Minuten erreichbar ist. Der exakte Zeitpunkt des Schmerzbeginns gehört deshalb zwingend in die Anamnese und in den Arztbrief.',
-        'Vor dem Patienten laienverständlich sprechen: „Herzinfarkt“ statt Myokardinfarkt, „Herzkranzgefäße“ statt Koronararterien, „Herzkatheteruntersuchung mit Gefäßstütze“ statt PCI mit Stent, „Blutverdünner“ statt Thrombozytenaggregationshemmer, „Herzkranzgefäßverkalkung“ statt koronare Herzkrankheit.',
-        'Der P2Y12-Hemmer darf nach Stentimplantation nicht eigenmächtig abgesetzt werden — sonst droht die Stentthrombose. Diese Aufklärung wird in der Fallvorstellung erwartet.',
-        'Bei jungen Patienten ohne Risikofaktoren an Kokainkonsum, Koronarspasmus und spontane Koronardissektion denken; bei Frauen nach starker emotionaler Belastung an das Tako-Tsubo-Syndrom.',
-        'Ein „stummes“ oder unauffälliges Erst-EKG schließt ein akutes Koronarsyndrom nicht aus — EKG-Kontrollen alle 15 bis 30 Minuten und ergänzende Ableitungen V7–V9 und V4r nicht vergessen.',
+        'Ein normales erstes Troponin schließt einen Infarkt nicht aus.',
+        'Beim STEMI zählt jede Minute: das EKG entscheidet, nicht das Labor.',
+        'Vor Antikoagulation oder Lyse an die Aortendissektion denken.',
+        'Kein routinemäßiger Sauerstoff bei normaler Sättigung.',
       ],
       askedInExam: [
-        {
-          frage: 'Wie lautet Ihre Verdachtsdiagnose, und was spricht dafür?',
-          antwort: 'Ein akuter ST-Hebungsinfarkt, also ein STEMI im Rahmen eines akuten Koronarsyndroms. Dafür sprechen der anhaltende retrosternale Vernichtungsschmerz von über 20 Minuten Dauer in Ruhe mit Ausstrahlung in den linken Arm und den Unterkiefer, das fehlende Ansprechen auf Nitroglycerin, die vegetative Begleitsymptomatik mit Kaltschweißigkeit, Übelkeit und Todesangst sowie die kardiovaskulären Risikofaktoren. Beweisend sind die ST-Streckenhebungen im 12-Kanal-EKG in zwei benachbarten Ableitungen und der Troponinanstieg im Verlauf.',
-        },
-        {
-          frage: 'Was ist bei diesem Patienten Ihre allererste Maßnahme?',
-          antwort: 'Das ist ein Notfall. Ich schreibe innerhalb von zehn Minuten ein 12-Kanal-EKG, lege den Patienten an den Monitor mit Defibrillationsbereitschaft, messe Blutdruck an beiden Armen, Puls und Sättigung, lege zwei großlumige Zugänge und informiere sofort meinen Oberarzt und das Herzkatheterlabor. Parallel dazu gebe ich Acetylsalicylsäure, Heparin und titriertes Morphin. Erst danach folgen die weitere Anamnese und die Laborabnahme.',
-        },
-        {
-          frage: 'Was ist der Unterschied zwischen einem STEMI und einem NSTEMI?',
-          antwort: 'Beim STEMI zeigt das EKG persistierende ST-Streckenhebungen oder einen neu aufgetretenen Linksschenkelblock als Ausdruck eines kompletten Gefäßverschlusses mit transmuraler Ischämie; hier muss sofort reperfundiert werden, ohne das Troponin abzuwarten. Beim NSTEMI fehlen die ST-Hebungen — man findet ST-Senkungen, T-Negativierungen oder ein unauffälliges EKG bei meist inkomplettem Verschluss. Vom NSTEMI abzugrenzen ist die instabile Angina pectoris: Sie hat dieselbe Klinik und dasselbe EKG, aber ein negatives Troponin, also keine Myokardnekrose. Kurz gefasst: STEMI gegen NSTEMI entscheidet das EKG, NSTEMI gegen instabile Angina das Troponin.',
-        },
-        {
-          frage: 'In welchem Zeitfenster muss die PCI erfolgen?',
-          antwort: 'Die Reperfusion ist beim STEMI innerhalb der ersten zwölf Stunden nach Symptombeginn indiziert, bei fortbestehender Ischämie, Instabilität oder malignen Arrhythmien auch darüber hinaus. Angestrebt wird eine Kontakt-Ballon-Zeit unter 90 Minuten, bei direkter Aufnahme im Katheterzentrum unter 60 Minuten. Ist eine PCI nicht innerhalb von 120 Minuten erreichbar, wird innerhalb von zehn Minuten lysiert und der Patient anschließend in ein PCI-Zentrum verlegt. Deshalb frage ich immer nach der genauen Uhrzeit des Schmerzbeginns — „Zeit ist Muskel“.',
-        },
-        {
-          frage: 'Wie sieht die Akuttherapie aus?',
-          antwort: 'Oberkörperhochlagerung, Monitoring, Sauerstoff nur bei einer Sättigung unter 90 Prozent, Acetylsalicylsäure 150 bis 300 Milligramm, unfraktioniertes Heparin 70 bis 100 Einheiten pro Kilogramm, Morphin fraktioniert 3 bis 5 Milligramm intravenös und Nitroglycerin sublingual bei ausreichendem Blutdruck, dazu ein Betablocker beim stabilen, tachykarden und hypertonen Patienten. Merkhilfe MONA-B. Entscheidend ist aber nicht die Medikation, sondern die sofortige Reperfusion mittels primärer PCI mit Stentimplantation.',
-        },
-        {
-          frage: 'Warum geben Sie Sauerstoff nicht routinemäßig?',
-          antwort: 'Weil beim normoxämischen Patienten kein Nutzen besteht und eine Hyperoxie über Vasokonstriktion und Bildung freier Radikale die Infarktgröße sogar vergrößern kann. Sauerstoff wird deshalb nur bei einer Sättigung unter 90 Prozent beziehungsweise unter 94 Prozent mit Dyspnoe gegeben, mit 2 bis 4 Litern pro Minute über die Nasensonde.',
-        },
-        {
-          frage: 'Bei welchem Patienten dürfen Sie kein Nitroglycerin geben?',
-          antwort: 'Bei Hypotonie unter 90 mmHg systolisch, bei rechtsventrikulärem Infarkt beziehungsweise Hinterwandinfarkt, bei hochgradiger Aortenklappenstenose, bei hypertropher obstruktiver Kardiomyopathie und wenn der Patient in den letzten 24 bis 48 Stunden einen PDE-5-Hemmer wie Sildenafil eingenommen hat. Der Grund ist die Vorlastsenkung: Beim Rechtsherzinfarkt ist der Kreislauf vorlastabhängig, es droht ein dramatischer Blutdruckabfall. Deshalb schreibe ich bei jedem inferioren Infarkt zusätzlich die Ableitung V4r und gebe bei Hypotonie stattdessen Volumen.',
-        },
-        {
-          frage: 'Welche Laborwerte bestimmen Sie, und wann ist das Troponin verwertbar?',
-          antwort: 'An erster Stelle das hochsensitive kardiale Troponin T oder I bei Aufnahme und in der Kontrolle nach ein bis drei Stunden; entscheidend ist die Dynamik, denn ein einzelner negativer Wert schließt einen frischen Infarkt nicht aus. Es steigt nach drei bis vier Stunden, erreicht das Maximum nach 12 bis 24 Stunden und bleibt bis zu zwei Wochen erhöht. Ergänzend CK und CK-MB — geeignet zur Reinfarktdiagnostik, weil sie schneller abfallen —, dazu Blutbild, Kreatinin und eGFR vor der Kontrastmittelgabe, Elektrolyte, Blutzucker, Gerinnung, CRP und NT-proBNP.',
-        },
-        {
-          frage: 'Ist ein erhöhtes Troponin gleichbedeutend mit einem Herzinfarkt?',
-          antwort: 'Nein. Das Troponin ist herzmuskelspezifisch, aber nicht infarktspezifisch. Es ist auch bei Lungenembolie, Myokarditis, Perikarditis, Tako-Tsubo-Syndrom, hypertensiver Krise, Tachyarrhythmie, Sepsis, Herzinsuffizienz und Niereninsuffizienz erhöht. Man spricht dann von einer Myokardschädigung. Für die Diagnose Myokardinfarkt braucht es zusätzlich ein Ischämiekriterium: typische Klinik, ischämietypische EKG-Veränderungen, eine neue Wandbewegungsstörung oder einen angiographisch nachgewiesenen Thrombus.',
-        },
-        {
-          frage: 'Welche Differenzialdiagnosen kommen in Betracht, und wie grenzen Sie sie ab?',
-          antwort: 'Vor allem die drei lebensbedrohlichen: die Lungenembolie mit atemabhängiger Dyspnoe, Tachypnoe, Hypoxie und erhöhten D-Dimeren bei entsprechenden Risikofaktoren; die Aortendissektion mit reißendem, in den Rücken ausstrahlendem Schmerz, Blutdruckdifferenz zwischen beiden Armen und Pulsdefizit; und den Spannungspneumothorax mit einseitig fehlendem Atemgeräusch. Dazu die Perikarditis mit atem- und lageabhängigem Schmerz, Besserung beim Vornüberbeugen, Perikardreiben und konkaven ST-Hebungen in allen Ableitungen ohne spiegelbildliche Senkungen. Ferner Myokarditis, Tako-Tsubo-Syndrom, Refluxkrankheit und Ösophagusspasmus, muskuloskelettale Ursachen wie das Tietze-Syndrom, Herpes zoster sowie Oberbaucherkrankungen wie Pankreatitis, Cholezystitis und perforiertes Ulkus.',
-        },
-        {
-          frage: 'Warum ist der Ausschluss einer Aortendissektion so wichtig?',
-          antwort: 'Weil Lyse und hochdosierte Antikoagulation bei einer Dissektion fatal wären und zur Ruptur führen können. Deshalb messe ich den Blutdruck grundsätzlich an beiden Armen, achte auf eine Differenz über 20 mmHg, auf ein Pulsdefizit, ein neues Diastolikum und neurologische Ausfälle und frage gezielt nach einem reißenden, in den Rücken wandernden Schmerz. Bei Verdacht folgt eine CT-Angiographie des Thorax.',
-        },
-        {
-          frage: 'Wie deuten Sie die EKG-Veränderungen, und welches Gefäß ist betroffen?',
-          antwort: 'ST-Hebungen in V1 bis V4 sprechen für einen Vorderwandinfarkt bei Verschluss des Ramus interventricularis anterior, in I, aVL sowie V5 und V6 für einen Lateralinfarkt des Ramus circumflexus, in II, III und aVF für einen Hinterwand- beziehungsweise inferioren Infarkt der rechten Koronararterie. Eine ST-Hebung in aVR mit ausgedehnten ST-Senkungen weist auf eine Hauptstammstenose hin. Ein strikt posteriorer Infarkt zeigt nur spiegelbildliche Senkungen in V1 bis V3 und wird mit den Ableitungen V7 bis V9 erfasst, ein rechtsventrikulärer Infarkt mit V4r.',
-        },
-        {
-          frage: 'Wann operieren Sie statt zu katheterisieren?',
-          antwort: 'Eine aortokoronare Bypassoperation kommt in Betracht, wenn die Koronaranatomie für eine PCI ungeeignet ist: bei signifikanter Hauptstammstenose, bei einer Dreigefäßerkrankung mit hohem SYNTAX-Score, insbesondere beim Diabetiker, nach erfolgloser oder komplizierter PCI sowie wenn ohnehin eine mechanische Komplikation wie eine Ventrikelseptumruptur oder ein Papillarmuskelabriss operativ versorgt werden muss. Verwendet werden die Arteria mammaria interna und Venengrafts.',
-        },
-        {
-          frage: 'Welche Komplikationen erwarten Sie, und worauf achten Sie auf der Station?',
-          antwort: 'Früh vor allem Herzrhythmusstörungen bis zum Kammerflimmern — deshalb Monitorüberwachung mit Defibrillationsbereitschaft —, dann Linksherzinsuffizienz, Lungenödem und kardiogener Schock. In den ersten Tagen die mechanischen Komplikationen: Ventrikelseptumruptur und Papillarmuskelabriss, beide mit neuem lautem Systolikum und rascher Verschlechterung, sowie die freie Wandruptur mit Perikardtamponade. Spät folgen Herzwandaneurysma mit Thrombus und Embolierisiko, Reinfarkt, chronische ischämische Herzinsuffizienz, das Dressler-Syndrom nach ein bis sechs Wochen und der plötzliche Herztod.',
-        },
-        {
-          frage: 'Wie erklären Sie dem Patienten die Diagnose und die geplante Untersuchung in einfachen Worten?',
-          antwort: 'Ich würde sagen: „Ihre Beschwerden kommen vom Herzen. Eines der Blutgefäße, die den Herzmuskel mit Sauerstoff versorgen — wir nennen sie Herzkranzgefäße —, ist durch ein Blutgerinnsel verstopft. Dadurch bekommt ein Teil des Herzmuskels zu wenig Sauerstoff. Wir müssen dieses Gefäß so schnell wie möglich wieder öffnen, denn jede Minute zählt. Dafür führen wir eine Herzkatheteruntersuchung durch: Über eine Arterie am Handgelenk oder in der Leiste schieben wir einen dünnen Schlauch bis zum Herzen, stellen die Gefäße mit Kontrastmittel dar, weiten die Engstelle mit einem Ballon auf und setzen eine kleine Gefäßstütze ein, einen sogenannten Stent.“',
-        },
-        {
-          frage: 'Wie sieht die Therapie nach der Entlassung aus?',
-          antwort: 'Medikamentös auf fünf Säulen: lebenslang Acetylsalicylsäure 100 Milligramm, dazu für in der Regel zwölf Monate ein zweiter Blutverdünner — Ticagrelor, Prasugrel oder Clopidogrel —, ferner ein Betablocker, ein hochdosiertes Statin mit dem LDL-Zielwert unter 55 Milligramm pro Deziliter und ein ACE-Hemmer; bei einer Ejektionsfraktion unter 40 Prozent zusätzlich ein Aldosteronantagonist. Nicht medikamentös: absolute Nikotinkarenz, mediterrane Ernährung, Gewichtsreduktion, mindestens 150 Minuten Ausdauertraining pro Woche, Einstellung von Blutdruck und Blutzucker sowie eine kardiologische Anschlussrehabilitation. Wichtig ist die Aufklärung, dass der zweite Blutverdünner nach Stentimplantation nicht eigenmächtig abgesetzt werden darf, weil sonst eine Stentthrombose droht.',
-        },
-        {
-          frage: 'Was ist ein stummer Infarkt, und bei wem tritt er auf?',
-          antwort: 'Ein Myokardinfarkt ohne den typischen Brustschmerz. Er tritt vor allem bei Diabetikern mit autonomer Neuropathie auf, außerdem bei sehr alten Patienten, bei Niereninsuffizienz und häufiger bei Frauen. Statt Schmerz zeigen sich dann nur Dyspnoe, Übelkeit, Schwäche, Synkope oder Verwirrtheit. Deshalb muss man bei diesen Patientengruppen großzügig ein EKG schreiben und das Troponin bestimmen.',
-        },
+        { frage: 'Welche EKG-Veränderungen erwarten Sie beim STEMI?', antwort: 'ST-Hebungen in mindestens zwei benachbarten Ableitungen mit spiegelbildlichen Senkungen; im Verlauf Q-Zacken und T-Negativierung.' },
+        { frage: 'Welche Komplikationen kennen Sie?', antwort: 'Früh Rhythmusstörungen und Pumpversagen; nach Tagen Papillarmuskelabriss, Ventrikelseptumdefekt, Ruptur der freien Wand; später Aneurysma, Thrombus und Perikarditis.' },
+        { frage: 'Was bedeutet MONA, und gilt das noch?', antwort: 'Morphin, Sauerstoff, Nitrat, ASS. Heute gezielt: Sauerstoff nur bei Hypoxie, Morphin nur bei starkem Schmerz, Nitrat nur bei ausreichendem Blutdruck; ASS und Heparin für alle ohne Kontraindikation.' },
       ],
-      merksatz: 'Vernichtungsschmerz über 20 Minuten = Infarkt: EKG in 10 Minuten, beim STEMI sofort ins Katheterlabor ohne auf das Troponin zu warten. Kein Nitrat beim Hinterwand- und Rechtsherzinfarkt.',
+      merksatz: 'Brustschmerz: EKG in 10 Minuten. ST-Hebung: Katheter, nicht Labor.',
       linkedCaseIds: [],
       keyFachbegriffeIds: [],
       linkedAufklaerungIds: [],
