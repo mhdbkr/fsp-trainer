@@ -11422,7 +11422,7 @@ export function seedCases(): Case[] {
         ],
         antworten: {
           'pers-name': 'Müller, Jörg Müller. M-ü-l-l-e-r.',
-          'pers-alter': 'Ich bin 79 Jahre alt, geboren am zwölften März 1947.',
+          'pers-alter': 'Ich bin 79 Jahre alt, geboren am zwölften März neunzehnhundertsiebenundvierzig.',
           'pers-groesse': 'Ich bin 1,76 m groß und wiege 67 Kilo. Das ist seit Jahren so, ich habe nicht abgenommen.',
           'pers-beruf': 'Mit Staub oder Chemikalien hatte ich nie zu tun.',
           'pers-hausarzt': 'Ja, Dr. Baumgartner. Zu dem gehe ich alle drei Monate wegen des Zuckers.',
@@ -29026,7 +29026,7 @@ export function seedCases(): Case[] {
         ],
         antworten: {
           'pers-name': 'Müller, Lisele Müller. M-ü-l-l-e-r. Entschuldigen Sie, können Sie etwas lauter sprechen, ich höre nicht mehr so gut.',
-          'pers-alter': 'Ich bin neunzig. Neunzig Jahre, ja. Geboren am 11. Juni 1936.',
+          'pers-alter': 'Ich bin neunzig. Neunzig Jahre, ja. Geboren am elften Juni sechsunddreißig.',
           'pers-groesse': 'Ich war einmal 1,60 m, jetzt sind es noch 1,55 m. Und wiegen tue ich fünfzig Kilo. Früher waren es dreiundfünfzig, aber mir schmeckt seit ein paar Wochen nichts mehr.',
           'pers-beruf': 'Mit Chemikalien oder Staub hatte ich nie zu tun.',
           'pers-hausarzt': 'Ja, mein Hausarzt ist der Dr. Behringer. Der kennt mich seit Jahren.',
@@ -43342,7 +43342,7 @@ export function seedCases(): Case[] {
         ],
         antworten: {
           'pers-name': 'Hubertus, Gabi Hubertus. H-u-b-e-r-t-u-s. Den Vornamen bitte mit i am Ende: G-a-b-i.',
-          'pers-alter': 'Achtundvierzig. — Ach so, das Geburtsdatum wollen Sie auch? Geboren am 1. Dezember 1977.',
+          'pers-alter': 'Achtundvierzig. — Ach so, das Geburtsdatum wollen Sie auch noch? Geboren am 1. Dezember 1977.',
           'pers-groesse': '1,78 m. Und 78 Kilo — vor sechs Wochen waren es noch 83, ich wiege mich jeden Freitag, deswegen weiß ich das so genau.',
           'pers-beruf': 'Mit Holzstaub oder Chemikalien habe ich nichts zu tun, ich sitze vorne im Büro.',
           'pers-hausarzt': 'Ja, Dr. Brenner, bei dem bin ich seit Jahren. Der sagt jedes Mal, ich hätte einen Reizdarm.',
@@ -51526,7 +51526,7 @@ export function seedCases(): Case[] {
         ],
         antworten: {
           'pers-name': 'Weidel, Gotthielf Weidel. W-e-i-d-e-l. Ja, der Vorname ist ungewöhnlich, den hat mein Vater ausgesucht.',
-          'pers-alter': 'Ich bin 32, geboren am 17. Januar 1994. Zweiunddreißig, und ich fühle mich wie sechzig.',
+          'pers-alter': 'Ich bin 32. Zweiunddreißig, und ich fühle mich wie sechzig. Geboren bin ich am 17. Januar 1994.',
           'pers-groesse': '1,80 Meter, und ich wiege im Moment 76 Kilo. Vor einem halben Jahr waren es noch 82.',
           'pers-beruf': 'Im Lager damals war es staubig, Chemikalien gab es keine — und jetzt arbeite ich ja nicht.',
           'pers-hausarzt': 'Ja, Dr. Brenner. Der hat mich hierher geschickt. Er weiß auch nicht mehr weiter, glaube ich.',
@@ -61300,7 +61300,7 @@ export function seedCases(): Case[] {
           'akt-motiv': '(unruhig, wippt mit dem Bein) Mir geht es richtig schlecht seit gestern Abend. Ich schwitze, mir ist übel, alles tut weh. Meine Schmerztabletten sind alle — ich brauche eigentlich nur ein neues Rezept.',
           'akt-beginn': 'Gestern Abend, so gegen acht. Erst nur Unruhe und Gähnen, in der Nacht dann alles andere.',
           'akt-psych-stimmung': '(reibt sich die Arme) Beschissen, ehrlich gesagt. Gereizt bin ich, und irgendwie niedergeschlagen, schon länger, nicht erst seit heute. Besser ist es eigentlich nur kurz, wenn ich unter der heißen Dusche stehe oder wenn ich an die Tablette denke, die ich nehmen könnte — aber das hält ja nicht lange an.',
-          'akt-psych-antrieb': 'Ja, aufstehen fällt mir schon lange schwer. Und Freude, ehrlich, an nicht mehr viel. Früher bin ich gern angeln gegangen, das mache ich schon seit Monaten nicht mehr.',
+          'akt-psych-antrieb': 'Ja, das Aufstehen fällt mir schon lange schwer. Und Freude, ehrlich, an nicht mehr viel. Früher bin ich gern angeln gegangen, das mache ich seit Monaten nicht mehr.',
           'akt-psych-schlaf': 'Schlafen tue ich schlecht, seit zwei Nächten fast gar nicht, aber auch davor schon unruhig, ich nehme deswegen Zopiclon. Konzentrieren kann ich mich auch schlecht, im Moment denke ich sowieso nur an die Tabletten, an sonst was kann ich kaum denken.',
           'akt-psych-sicherheit': '(schaut auf den Boden, zögert) ...Nein, umbringen würde ich mich nicht, ich hab auch keinen Plan oder so. Aber ganz ehrlich, es gab schon Momente in letzter Zeit, wo ich dachte, es wäre einfacher, einfach nicht mehr aufzuwachen. Das macht mir selbst Angst, wenn ich es so sage.',
           'akt-verlauf': 'Seit gestern Abend jede Stunde schlimmer. Heute Nacht war es am schlimmsten, ich bin nur zwischen Bett, Dusche und Toilette gependelt. Eine Pause gab es nicht.',
