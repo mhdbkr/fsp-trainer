@@ -134,7 +134,7 @@ export function CasesPage() {
       {filtered.length === 0 ? (
         <EmptyState title="Aucun cas ne correspond" hint="Élargis les filtres." />
       ) : (
-        <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-3">
+        <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 xl:grid-cols-3">
           {filtered.map((c) => (
             <CaseCard key={c.id} c={c} cp={cpOf(c)} visite={visite} onPreview={apercu} active={previewCaseId === c.id} />
           ))}
@@ -153,13 +153,15 @@ const CaseCard = memo(function CaseCard({ c, cp, visite, onPreview, active }: { 
   const dial = dialDeCarte(cp, visite);
   const suite = actionSuivante(dial);        // UN bouton principal : la suite que le cadran propose
   return (
-    <div className={`card flex flex-col p-4 transition-all hover:shadow-md ${active ? 'ring-2 ring-brand-400' : ''}`}>
+    <div className={`card flex min-w-0 flex-col p-4 transition-all hover:shadow-md ${active ? 'ring-2 ring-brand-400' : ''}`}>
       <div className="flex items-start justify-between gap-2">
-        <button onClick={ouvrir} className="flex items-start gap-2.5 text-left">
+        <button onClick={ouvrir} className="flex min-w-0 items-start gap-2.5 text-left">
           <span className="mt-0.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-brand-50 text-brand-600 dark:bg-brand-900/30 dark:text-brand-300">
             <SpecialtyIcon specialty={c.specialty} className="h-5 w-5" />
           </span>
-          <span>
+          {/* Titre et spécialité en allemand dans une interface française : `lang="de"` pour la césure
+              (« Wortfindungsstörungen »), `break-words` en secours si le moteur n'a pas le dictionnaire. */}
+          <span lang="de" className="min-w-0 hyphens-auto break-words">
             <h3 className="font-semibold leading-tight hover:text-brand-600 dark:hover:text-brand-300">{c.name}</h3>
             <p className="mt-0.5 text-xs text-slate-400">{c.specialty}</p>
           </span>
