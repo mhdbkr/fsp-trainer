@@ -5166,11 +5166,11 @@ export function seedCases(): Case[] {
           {
             label: 'Konservativ (Basistherapie, ~90 %)',
             items: [
-              'Analgesie: Ibuprofen in festen Dosen und zeitlich begrenzt, mit PPI-Magenschutz; wegen Ramipril Kreatinin und Blutdruck im Blick behalten; ergänzend Metamizol, kurzfristig ein schwaches Opioid (Tilidin oder Tramadol)',
+              'Analgesie: Ibuprofen in festen Dosen und zeitlich begrenzt, mit PPI nur bei Magen-Darm-Risiko; wegen Ramipril Kreatinin und Blutdruck im Blick behalten; ergänzend Metamizol, kurzfristig ein schwaches Opioid (Tilidin oder Tramadol)',
               'Kurzfristig ein Muskelrelaxans bei ausgeprägter reflektorischer Verspannung',
               'KEINE strenge Bettruhe — frühe Mobilisation, Aktivität erhalten, in der Akutphase entlastende Stufenlagerung',
               'Physiotherapie und Rückenschule mit rückengerechtem Heben, Gewichtsreduktion (BMI 28) und Rauchstopp',
-              'Arbeitsunfähigkeit für die Akutphase bescheinigen; bei jahrelangem schwerem Heben als Lagerarbeiter bei begründetem Verdacht auf BK 2108 ärztliche Anzeige an die Berufsgenossenschaft (Pflicht, § 202 SGB VII); da der Schmerz beim Heben bei der Arbeit begann, zusätzlich Unfallanzeige',
+              'Arbeitsunfähigkeit für die Akutphase bescheinigen; bei jahrelangem schwerem Heben als Lagerarbeiter bei begründetem Verdacht auf BK 2108 ärztliche Anzeige an die Berufsgenossenschaft (Pflicht, § 202 SGB VII); da der Schmerz beim Heben bei der Arbeit begann, zusätzlich Vorstellung beim Durchgangsarzt',
             ],
             akut: true,
           },
@@ -5183,7 +5183,7 @@ export function seedCases(): Case[] {
           {
             label: 'Operativ (nur bei Indikation)',
             items: [
-              'Mikrochirurgische Dekompression nur bei Cauda-equina-Syndrom (Notfall), rasch progredienter oder hochgradiger Parese oder anhaltendem Schmerz trotz etwa sechs Wochen konservativer Therapie',
+              'Mikrochirurgische Dekompression nur bei Cauda-equina-Syndrom (Notfall), rasch progredienter oder hochgradiger Parese oder radikulärem Schmerz trotz sechs bis zwölf Wochen konservativer Therapie bei passendem MRT-Befund',
               'Warnzeichen erklären: neue Schwäche im Bein, Taubheit im Genitalbereich, Probleme beim Wasserlassen oder Stuhlgang — dann sofort wiederkommen',
             ],
             akut: true,
@@ -5232,8 +5232,8 @@ export function seedCases(): Case[] {
         ] },
         { title: 'Cauda-Syndrom & Therapie', interactions: [
           { frage: 'Was ist das Cauda-equina-Syndrom?', reaktion: 'Eine Kompression der Cauda equina mit Reithosenanästhesie und Blasen- und Mastdarmstörung — ein Notfall, der ein sofortiges MRT und eine notfallmäßige operative Dekompression erfordert.' },
-          { frage: 'Wie behandeln Sie diesen Patienten konkret, und wann operieren Sie?', reaktion: 'Konservativ: Analgesie, frühe Mobilisation statt Bettruhe, Physiotherapie und Rückenschule, Gewichtsreduktion und Rauchstopp. Operiert wird nur bei Cauda-Syndrom, progredienter oder hochgradiger Parese oder anhaltendem Schmerz nach etwa sechs Wochen.' },
-          { frage: 'Er nimmt seit drei Tagen mehrmals täglich Ibuprofen und Ramipril — was beachten Sie?', reaktion: 'NSAR und ACE-Hemmer zusammen belasten die Niere und heben den Blutdruck: Kreatinin und Blutdruck kontrollieren, Ibuprofen in festen Dosen, zeitlich begrenzt und mit Magenschutz, ergänzend Metamizol.' },
+          { frage: 'Wie behandeln Sie diesen Patienten konkret, und wann operieren Sie?', reaktion: 'Konservativ: Analgesie, frühe Mobilisation statt Bettruhe, Physiotherapie und Rückenschule, Gewichtsreduktion und Rauchstopp. Operiert wird nur bei Cauda-Syndrom, progredienter oder hochgradiger Parese oder radikulärem Schmerz, der trotz sechs bis zwölf Wochen konservativer Therapie anhält.' },
+          { frage: 'Er nimmt seit drei Tagen mehrmals täglich Ibuprofen und Ramipril — was beachten Sie?', reaktion: 'NSAR und ACE-Hemmer zusammen belasten die Niere und heben den Blutdruck: Kreatinin und Blutdruck kontrollieren, Ibuprofen in festen Dosen und zeitlich begrenzt, Magenschutz nur bei Magen-Darm-Risiko, ergänzend Metamizol.' },
         ] },
         { title: 'Aufklärung des Patienten (2 Minuten)', interactions: [
           { frage: '(als Patient) Muss ich operiert werden, und wann kann ich wieder arbeiten?', reaktion: 'Erwartet wird: Meist heilt der Vorfall ohne Operation in einigen Wochen; Bewegung hilft, Bettruhe schadet. Zurück an die Arbeit stufenweise, schweres Heben erst nach Abklingen und mit Rückenschule. Sofort wiederkommen bei Beinschwäche oder Problemen mit Blase oder Darm.' },
