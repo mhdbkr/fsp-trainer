@@ -1103,7 +1103,7 @@ export function seedCases(): Case[] {
           'keine Brustschmerzen, keine Atemnot',
           'kein gürtelförmiger Schmerz in den Rücken',
           'kein gürtelförmig in den Rücken ausstrahlender Schmerz (Ausstrahlung nur in die rechte Schulter), keine Besserung beim Vornüberbeugen, kein Alkoholkonsum in größeren Mengen, kein solcher Anfall nach Alkohol früher (gegen akute Pankreatitis)',
-          'kein Schmerzmaximum mittig in der Magengrube, keine Beschwerden auf nüchternen Magen oder nachts, keine Besserung nach dem Essen (die Schmerzen kamen gerade nach dem fettigen Essen), keine regelmäßige Einnahme von Schmerzmitteln oder Kortison, kein bekanntes Magengeschwür (gegen Ulcus)',
+          'kein Schmerzmaximum mittig in der Magengrube, keine Beschwerden auf nüchternen Magen oder nachts, keine Besserung nach dem Essen (die Schmerzen kamen gerade nach dem fettigen Essen), keine regelmäßige Einnahme von Schmerzmitteln oder Kortison, kein bekanntes Magengeschwür (gegen Ulkus)',
           'kein Druck- oder Engegefühl hinter dem Brustbein, keine Ausstrahlung in linken Arm, Hals oder Kiefer, keine Kaltschweißigkeit oder Todesangst, keine bekannte Herzerkrankung, kein bekannter Bluthochdruck oder Diabetes (gegen Hinterwandinfarkt)',
         ],
         vorerkrankungen: ['Gallensteine bekannt'], voroperationen: ['keine'],
@@ -1179,7 +1179,7 @@ export function seedCases(): Case[] {
         differenzialdiagnosen: [
           { dd: 'Cholangitis bei Choledocholithiasis', unterscheidung: 'Fieber und Schüttelfrost hat sie, aber keinen Ikterus, keinen dunklen Urin und keinen hellen Stuhl. Steigen Bilirubin und Cholestasewerte oder ist der Gallengang im Ultraschall erweitert, wird daraus eine Cholangitis mit ERCP-Indikation.' },
           { dd: 'Akute Pankreatitis', unterscheidung: 'Bei Gallensteinen möglich. Der Schmerz strahlt aber in die rechte Schulter und nicht gürtelförmig in den Rücken; die Lipase entscheidet.' },
-          { dd: 'Ulcus', unterscheidung: 'Kein epigastrischer Nüchternschmerz, keine Schmerzmittel, kein bekanntes Ulkus; ihre Schmerzen kamen nach fettem Essen.' },
+          { dd: 'Ulkus', unterscheidung: 'Kein epigastrischer Nüchternschmerz, keine Schmerzmittel, kein bekanntes Ulkus; ihre Schmerzen kamen nach fettem Essen.' },
           { dd: 'Hinterwandinfarkt', unterscheidung: 'Bei einer adipösen Frau um 50 kann er sich als Oberbauchschmerz mit Übelkeit zeigen. Kein Brustdruck, keine Ausstrahlung in Arm oder Kiefer; trotzdem EKG.' },
         ],
         diagnostik: [
@@ -1197,7 +1197,7 @@ export function seedCases(): Case[] {
             items: [
               'Stationäre Aufnahme, nüchtern, Infusion: sie hat seit gestern kaum getrunken',
               'Analgesie mit Metamizol, bei starken Schmerzen ein Opioid; Antiemetikum',
-              'Wegen Fieber und Schüttelfrost nach den Blutkulturen Antibiose, zum Beispiel Ceftriaxon plus Metronidazol; bei leichtem Verlauf nach der Operation innerhalb von 24 Stunden beenden',
+              'Wegen Fieber und Schüttelfrost nach den Blutkulturen Antibiose, zum Beispiel Ceftriaxon plus Metronidazol; bei leichtem oder mittelschwerem Verlauf (Tokyo Grad I–II) nach der Operation innerhalb von 24 Stunden beenden',
               'Thromboseprophylaxe mit niedermolekularem Heparin: Adipositas, Pille und Operation erhöhen ihr Thromboserisiko',
             ],
           },
@@ -1213,7 +1213,7 @@ export function seedCases(): Case[] {
             akut: true,
             items: [
               'Erhöhte Cholestasewerte oder erweiterter Gang: MRCP oder Endosonographie, bei Gangstein ERCP mit Steinextraktion vor der Cholezystektomie',
-              'Kommen Ikterus oder Kreislaufinstabilität hinzu: Cholangitis, dringliche ERCP und Antibiose',
+              'Kommen Ikterus, steigende Cholestasewerte oder ein erweiterter Gang hinzu: Cholangitis, dringliche ERCP und Antibiose; Kreislaufinstabilität bedeutet Sepsis (Grad III)',
             ],
           },
           {
@@ -1243,7 +1243,7 @@ export function seedCases(): Case[] {
       examinerQuestions: ['Was ist das Murphy-Zeichen?', 'Wann operieren?'],
       pruefungsfallen: [
         'Vom Kolikschmerz zum Dauerschmerz mit Fieber: genau dieser Wechsel macht aus der Gallenkolik eine Cholezystitis.',
-        'Nicht abwarten, bis die Entzündung abklingt: die frühe Operation ist besser als das Intervall.',
+        'Nicht abwarten, bis die Entzündung abklingt: die frühe Operation ist der Intervalloperation überlegen.',
         'Schüttelfrost ohne Ikterus ist noch keine Cholangitis, aber ein Grund für Blutkulturen und Laborkontrollen.',
         'Vor der Patientin „Entzündung der Gallenblase“ und „Entfernung durch kleine Schnitte“ sagen, nicht „Cholezystitis“ und „laparoskopische Cholezystektomie“.',
       ],
@@ -1259,13 +1259,13 @@ export function seedCases(): Case[] {
         {
           title: 'Differenzialdiagnosen',
           interactions: [
-            { frage: 'Welche Differenzialdiagnosen kommen in Betracht?', reaktion: 'Cholangitis bei Gangstein (kein Ikterus bisher), akute Pankreatitis (Ausstrahlung in die Schulter statt gürtelförmig, Lipase), Ulkus und Hinterwandinfarkt (EKG).' },
+            { frage: 'Welche Differenzialdiagnosen kommen in Betracht?', reaktion: 'Eine Cholangitis bei Gangstein, bisher allerdings ohne Ikterus; eine akute Pankreatitis, gegen die die Ausstrahlung in die Schulter statt gürtelförmig spricht und die die Lipase klärt; ein Ulkus und ein Hinterwandinfarkt, den das EKG ausschließt.' },
           ],
         },
         {
           title: 'Diagnostik',
           interactions: [
-            { frage: 'Welche Diagnostik ordnen Sie an?', reaktion: 'Blutbild, CRP, Leber- und Cholestasewerte, Lipase, Kreatinin, Blutkulturen, β-HCG; Abdomen-Sonographie mit Wanddicke, Steinen und Gangweite; EKG.' },
+            { frage: 'Welche Diagnostik ordnen Sie an?', reaktion: 'Blutbild, CRP, Leber- und Cholestasewerte, Lipase, Kreatinin, Blutkulturen, Beta-HCG; Abdomen-Sonographie mit Wanddicke, Steinen und Gangweite; EKG.' },
             { frage: 'Wie sichern Sie die Diagnose nach den Tokyo-Kriterien?', reaktion: 'Lokale Zeichen wie Murphy-Zeichen oder Druckschmerz, systemische Zeichen wie Fieber, CRP oder Leukozyten, und ein passender Ultraschallbefund. Der Schweregrad richtet sich nach Organfunktion, Leukozyten über 18 000, tastbarer Gallenblase und Dauer über 72 Stunden.' },
           ],
         },
@@ -1508,11 +1508,11 @@ export function seedCases(): Case[] {
           'kein belastungsabhängiger Brustschmerz, keine Ausstrahlung in den Arm',
           'keine Übelkeit, kein Erbrechen',
           'kein Druck hinter dem Brustbein bei Anstrengung oder Kälte, keine Ausstrahlung in Arm, Hals oder Kiefer, keine Luftnot oder Kaltschweißigkeit bei Belastung, keine Besserung in Ruhe nach wenigen Minuten (gegen Angina pectoris)',
-          'keine nüchternen oder nächtlichen Oberbauchschmerzen, keine Besserung der Beschwerden nach dem Essen, kein umschriebener Druckschmerz im Oberbauch, keine Einnahme von Schmerzmitteln (NSAR/ASS) (gegen Ulcus)',
+          'keine nüchternen oder nächtlichen Oberbauchschmerzen, keine Besserung der Beschwerden nach dem Essen, kein umschriebener Druckschmerz im Oberbauch, keine Einnahme von Schmerzmitteln (NSAR/ASS) (gegen Ulkus)',
           'keine Schluckbeschwerden für feste oder flüssige Kost, kein Steckenbleiben von Speisen hinter dem Brustbein, kein ungewollter Gewichtsverlust, keine Heiserkeit (gegen Ösophaguskarzinom)',
         ],
         vorerkrankungen: ['Übergewicht (BMI 29)'], voroperationen: ['keine'],
-        medikamente: ['gelegentlich Antazida (rezeptfrei)'], allergien: ['keine bekannt'],
+        medikamente: ['gelegentlich Antazida (rezeptfrei)', 'orales Kontrazeptivum (Pille)'], allergien: ['keine bekannt'],
         noxen: { tabak: '10 py', alkohol: 'Wein am Wochenende', drogen: 'keine' },
         familienanamnese: ['unauffällig'], sozialanamnese: ['ledig', 'arbeitet als Bürokauffrau'],
         antworten: {
@@ -1582,13 +1582,13 @@ export function seedCases(): Case[] {
         persona: 'Employée de bureau pressée qui banalise (« juste des brûlures d\'estomac »). Tu réponds bien aux questions mais tu ne t\'alarmes pas. Signes d\'alarme (dysphagie, perte de poids) NÉGATIFS — dis clairement « non ».',
       },
       medicalView: {
-        verdachtsdiagnose: 'Gastroösophageale Refluxkrankheit mit typischer Pyrosis und saurer Regurgitation seit Monaten, ohne Alarmsymptome. Der nächtliche Reizhusten passt zu einer Mitbeteiligung der Atemwege durch den Reflux; Auslöser sind Übergewicht, Rauchen, Kaffee und fettes Essen.',
-        patientWorte: { verdacht: 'Magensäure in die Speiseröhre zurückfließt und dort das Brennen verursacht', diagnostik: 'reicht vorerst das Gespräch und die Untersuchung; eine Magenspiegelung brauchen Sie nur, wenn die Tabletten nicht helfen oder Warnzeichen dazukommen', therapie: 'nehmen Sie einige Wochen lang morgens vor dem Frühstück einen Säureblocker, und Abnehmen und Rauchstopp helfen am meisten' },
+        verdachtsdiagnose: 'Gastroösophageale Refluxkrankheit mit typischer Pyrosis und saurer Regurgitation seit Monaten, ohne Alarmsymptome. Der nächtliche Reizhusten passt zu einer Mitbeteiligung der Atemwege durch den Reflux; begünstigende Faktoren sind Übergewicht, Rauchen, Kaffee und fettes Essen.',
+        patientWorte: { verdacht: 'Magensäure in die Speiseröhre zurückfließt und dort das Brennen verursacht', diagnostik: 'schreiben wir zur Sicherheit eine Herzstromkurve; eine Magenspiegelung brauchen Sie nur, wenn die Tabletten nicht helfen oder Warnzeichen dazukommen', therapie: 'nehmen Sie einige Wochen lang morgens vor dem Frühstück einen Säureblocker, und Abnehmen und Rauchstopp helfen am meisten' },
         differenzialdiagnosen: [
           { dd: 'Angina pectoris', unterscheidung: 'Der Schmerz käme bei Belastung oder Kälte und ließe in Ruhe nach; ihr Brennen kommt nach dem Essen und im Liegen. Als Raucherin, die die Pille nimmt, bekommt sie trotzdem ein Ruhe-EKG.' },
-          { dd: 'Ulcus', unterscheidung: 'Epigastrischer Nüchtern- oder Nachtschmerz mit Besserung durch Essen, oft unter NSAR. Sie hat keine Oberbauchschmerzen nüchtern oder nachts und nimmt keine Schmerzmittel.' },
-          { dd: 'Eosinophile Ösophagitis', unterscheidung: 'Leitsymptom wären Schluckbeschwerden mit steckenbleibenden Bissen, oft bei Allergikern. Sie hat keine Schluckbeschwerden und keine Allergien; sprechen die Beschwerden auf den Säureblocker nicht an, wird bei der Spiegelung danach biopsiert.' },
-          { dd: 'Ösophaguskarzinom', unterscheidung: 'Schluckstörung, Gewichtsverlust, Heiserkeit oder Blutung fehlen. Rauchen bleibt ein Risikofaktor; jedes neue Alarmsymptom führt zur Spiegelung.' },
+          { dd: 'Ulkus', unterscheidung: 'Epigastrischer Nüchtern- oder Nachtschmerz mit Besserung durch Essen, oft unter NSAR. Sie hat keine Oberbauchschmerzen nüchtern oder nachts und nimmt keine Schmerzmittel.' },
+          { dd: 'Eosinophile Ösophagitis', unterscheidung: 'Leitsymptom wären Schluckbeschwerden mit steckenbleibenden Bissen, oft bei Allergikern. Sie hat keine Schluckbeschwerden und keine Allergien; sprechen die Beschwerden nicht auf den PPI an, werden bei der anschließenden ÖGD Biopsien entnommen.' },
+          { dd: 'Ösophaguskarzinom', unterscheidung: 'Schluckstörung, Gewichtsverlust, Heiserkeit oder Blutung fehlen. Rauchen bleibt ein Risikofaktor; jedes neue Alarmsymptom führt zur ÖGD.' },
         ],
         diagnostik: [
           { stufe: 'Anamnese/Klinik', text: 'Alarmsymptome nach S2k-Leitlinie aktiv erfragen: Dysphagie, Odynophagie, Blutungszeichen oder Anämie, Appetitverlust, Gewichtsverlust, wiederholtes Erbrechen, Magen-Darm-Tumoren in der Familie (bei ihr alle verneint)' },
@@ -1596,17 +1596,18 @@ export function seedCases(): Case[] {
           { stufe: 'Labor', text: 'Kein Routinelabor nötig; Blutbild nur bei Verdacht auf Blutung oder Anämie' },
           { stufe: 'Apparativ & Bildgebung', text: 'Ruhe-EKG einmalig, weil sie raucht und die Pille nimmt; Troponin nur bei akutem Brustschmerz' },
           { stufe: 'Invasiv & Speziell', text: 'ÖGD mit Biopsien erst bei Alarmsymptomen, wenn der PPI nach acht Wochen nicht hilft, oder wenn die Beschwerden über Jahre bestehen (Barrett)' },
-          { stufe: 'Invasiv & Speziell', text: 'Bei der Spiegelung achtet man auf eine Refluxösophagitis, eine Hiatushernie und einen Barrett-Ösophagus' },
-          { stufe: 'Invasiv & Speziell', text: 'pH-Impedanz-Messung bei unauffälliger Spiegelung und weiterbestehenden Beschwerden oder vor einer Operation' },
+          { stufe: 'Invasiv & Speziell', text: 'Bei der ÖGD achtet man auf eine Refluxösophagitis, eine Hiatushernie und einen Barrett-Ösophagus' },
+          { stufe: 'Invasiv & Speziell', text: 'pH-Impedanz-Messung bei unauffälliger ÖGD und weiterbestehenden Beschwerden oder vor einer Operation' },
         ],
         therapie: [
           {
             label: 'Basistherapie: Lebensstil, Ernährung und Meidung der Auslöser (Grundlage jeder Stufe)',
             items: [
               'Gewichtsabnahme ist bei einem BMI von 29 die wirksamste Einzelmaßnahme',
-              'Rauchstopp anbieten: Rauchen schwächt den Schließmuskel und unterhält auch den Husten',
+              'Rauchstopp anbieten: Rauchen schwächt den unteren Ösophagussphinkter und unterhält auch den Husten',
               'Kopfende des Bettes erhöhen, weil die Beschwerden nachts und im Liegen kommen; drei Stunden vor dem Hinlegen nichts mehr essen',
-              'Ihre eigenen Auslöser meiden: fettes Essen, Kaffee, Wein am Wochenende reduzieren',
+              'Individuelle Auslöser reduzieren: fettes Essen, Kaffee, Wein am Wochenende',
+              'Als Raucherin über 35 mit kombinierter Pille: Verhütung mit der Frauenärztin überdenken',
             ],
           },
           {
@@ -1623,7 +1624,7 @@ export function seedCases(): Case[] {
             items: [
               'Nach acht Wochen Kontrolle: Einnahmezeitpunkt, Rauchen, Essgewohnheiten prüfen',
               'Hilft der PPI nicht: ÖGD mit Biopsien (eosinophile Ösophagitis, Ulkus, Barrett), danach pH-Impedanz-Messung',
-              'Bleibt der Husten trotz Besserung des Sodbrennens, Lungenfunktion und Abklärung eines Asthmas',
+              'Bleibt der Husten trotz Besserung des Sodbrennens bestehen: Lungenfunktionsprüfung und Asthma-Abklärung',
             ],
           },
           {
@@ -1667,7 +1668,7 @@ export function seedCases(): Case[] {
         {
           title: 'Differenzialdiagnosen',
           interactions: [
-            { frage: 'Welche Differenzialdiagnosen kommen in Betracht?', reaktion: 'Angina pectoris (nicht belastungsabhängig, trotzdem ein EKG), Ulkus (kein epigastrisches Nüchternmuster, keine NSAR), eosinophile Ösophagitis (keine Schluckbeschwerden) und Ösophaguskarzinom (keine Alarmsymptome).' },
+            { frage: 'Welche Differenzialdiagnosen kommen in Betracht?', reaktion: 'Eine Angina pectoris, die zwar nicht belastungsabhängig ist, aber trotzdem ein EKG verlangt; ein Ulkus ohne epigastrischen Nüchternschmerz und ohne NSAR-Einnahme; eine eosinophile Ösophagitis ohne Schluckbeschwerden und ein Ösophaguskarzinom ohne Alarmsymptome.' },
           ],
         },
         {
@@ -1836,7 +1837,7 @@ export function seedCases(): Case[] {
               'Rauchstopp mit konkretem Angebot (Beratung, Nikotinersatz): die wirksamste Einzelmaßnahme',
               'Wegen der Hypertonie ACE-Hemmer; Betablocker vor allem bei eingeschränkter Pumpfunktion; Blutdruckziel unter 130/80 mmHg',
               'Kardiologische Rehabilitation, danach schrittweise zurück auf die Baustelle; Grippeimpfung',
-              'Bruder mit Infarkt mit 55 und eigenes erhöhtes Cholesterin: an eine familiäre Hypercholesterinämie denken, Kinder auf Blutfette untersuchen lassen',
+              'Infarkt des Bruders mit 55 Jahren und eigene Hypercholesterinämie: an eine familiäre Hypercholesterinämie denken, besonders bei einem LDL über 190 mg/dl; Kinder auf Blutfette untersuchen lassen',
             ],
           },
         ],
@@ -1855,14 +1856,14 @@ export function seedCases(): Case[] {
         { frage: 'Waren Sie dabei kaltschweißig, und war Ihnen übel?', kapitel: 'aktuell', sucht: ['schwitzen', 'uebelkeit'] },
         { frage: 'Hatten Sie dabei ein Gefühl von Angst oder sogar Todesangst?', kapitel: 'aktuell', sucht: ['angst'] },
         { frage: 'Wurde bei Ihnen schon einmal ein Herzkatheter durchgeführt oder ein Stent gesetzt?', kapitel: 'vorerkrankungen', sucht: ['herz_vorgeschichte'] },
-        { frage: 'Gab es in Ihrer Familie einen Herzinfarkt vor dem 60. Lebensjahr?', kapitel: 'familie-sozial', sucht: ['familie_herz'] },
+        { frage: 'Hatte in Ihrer Familie ein Mann vor dem 55. oder eine Frau vor dem 60. Lebensjahr einen Herzinfarkt?', kapitel: 'familie-sozial', sucht: ['familie_herz'] },
       ],
       examinerQuestions: ['STEMI vs. NSTEMI?', 'Zeitfenster der PCI?', 'Akuttherapie?'],
       examinerSheet: [
         {
           title: 'Verdachtsdiagnose und Sofortmaßnahmen',
           interactions: [
-            { frage: 'Was ist Ihre Verdachtsdiagnose?', reaktion: 'Akutes Koronarsyndrom, am ehesten ein ST-Hebungsinfarkt: seit 45 Minuten anhaltender, drückender Ruheschmerz hinter dem Brustbein mit Ausstrahlung in linken Arm und Unterkiefer, Kaltschweiß, Übelkeit, Todesangst; Raucher mit 40 Packungsjahren, Hypertonie, unbehandeltem Cholesterin und einem Bruder mit Infarkt mit 55.' },
+            { frage: 'Was ist Ihre Verdachtsdiagnose?', reaktion: 'Akutes Koronarsyndrom, am ehesten ein ST-Hebungsinfarkt: seit 45 Minuten anhaltender, drückender Ruheschmerz hinter dem Brustbein mit Ausstrahlung in den linken Arm und den Unterkiefer, Kaltschweiß, Übelkeit, Todesangst; Raucher mit 40 Packungsjahren, Hypertonie, unbehandelter Hypercholesterinämie und einem Bruder, der mit 55 einen Infarkt hatte.' },
             { frage: 'Was tun Sie in den ersten 10 Minuten?', reaktion: '12-Kanal-EKG, Monitor mit Defibrillator, venöser Zugang mit Blutentnahme, Oberarzt und Herzkatheterlabor informieren.' },
           ],
         },
@@ -1884,22 +1885,22 @@ export function seedCases(): Case[] {
           title: 'Therapie',
           interactions: [
             { frage: 'Welche Akuttherapie geben Sie?', reaktion: 'ASS und Heparin intravenös, Nitroglycerin bei ausreichendem Blutdruck, Morphin bei starkem Schmerz, Sauerstoff nur bei Sättigung unter 90 %; danach primäre PCI mit Stent.' },
-            { frage: 'Wie ist das Zeitfenster der PCI?', reaktion: 'Bei Beschwerden unter 12 Stunden primäre PCI, innerhalb von 60 Minuten nach Diagnose im PCI-Zentrum und 90 Minuten bei Verlegung. Geht das nicht innerhalb von 120 Minuten, Lyse und danach Angiographie.' },
-            { frage: 'Was gehört zur Sekundärprophylaxe?', reaktion: 'Duale Plättchenhemmung über 12 Monate, hochdosiertes Statin mit LDL unter 55 mg/dl, ACE-Hemmer, Rauchstopp, Rehabilitation und Grippeimpfung.' },
+            { frage: 'Welches Zeitfenster gilt für die PCI?', reaktion: 'Bei einem Beschwerdebeginn vor weniger als 12 Stunden primäre PCI, innerhalb von 60 Minuten nach Diagnose im PCI-Zentrum und 90 Minuten bei Verlegung. Geht das nicht innerhalb von 120 Minuten, Lyse und danach Angiographie.' },
+            { frage: 'Was gehört zur Sekundärprophylaxe?', reaktion: 'Duale Plättchenhemmung über 12 Monate, hochdosiertes Statin mit LDL unter 55 Milligramm pro Deziliter, ACE-Hemmer, Rauchstopp, Rehabilitation und Grippeimpfung.' },
           ],
         },
         {
           title: 'Aufklärung des Patienten (2 Minuten)',
           interactions: [
             { frage: 'Erklären Sie dem Patienten, was jetzt passiert.', reaktion: 'Erwartet wird Ruhe und Alltagssprache: wahrscheinlich ein Herzinfarkt, ein Gefäß ist verstopft. Über die Leiste oder das Handgelenk wird ein dünner Schlauch zum Herzen geführt, das Gefäß geöffnet und mit einer Gefäßstütze offen gehalten.' },
-            { frage: '(als Patient) „Muss ich jetzt sterben? Und was wird aus meiner Baustelle?“', reaktion: 'Erwartet wird eine ehrliche, beruhigende Antwort: Es ist ernst, aber wir handeln jetzt sofort, und je schneller das Gefäß offen ist, desto besser. Um die Baustelle kümmert sich jetzt jemand anderes; nach Reha kann er meist wieder arbeiten.' },
+            { frage: '(als Patient) „Muss ich jetzt sterben? Und was wird aus meiner Baustelle?“', reaktion: 'Erwartet wird eine ehrliche, beruhigende Antwort: Es ist ernst, aber wir handeln jetzt sofort, und je schneller das Gefäß offen ist, desto besser. Um die Baustelle kümmert sich jetzt jemand anderes; nach der Reha kann er meist wieder arbeiten.' },
           ],
         },
       ],
       pruefungsfallen: [
         'Die Uhrzeit des Schmerzbeginns auf die Minute erfragen: sie entscheidet über das Reperfusionsfenster.',
         'Nicht auf das Troponin warten, wenn das EKG eine ST-Hebung zeigt.',
-        'Vor Nitrat nach Potenzmitteln der letzten zwei Tage fragen.',
+        'Vor der Nitratgabe nach der Einnahme von Potenzmitteln in den letzten zwei Tagen fragen.',
         'Kein Sauerstoff bei normaler Sättigung: er bringt keinen Nutzen.',
         'Vor dem Patienten „Herzinfarkt“, „Herzkatheter“ und „Gefäßstütze“ sagen, nicht „STEMI“, „PCI“ und „Stent“.',
       ],
@@ -5856,8 +5857,8 @@ export function seedCases(): Case[] {
         persona: 'Femme de 34 ans, informaticienne célibataire, articulée et coopérante : au tout début tu racontes spontanément presque toute l\'histoire actuelle d\'un trait, lentement et clairement (ne répète pas si le médecin n\'a pas noté). Tu es anxieuse et tu dors mal parce que tu rumines ; ta mère est en traitement pour un cancer du sein, donc tu as peur d\'avoir quelque chose de grave. Tu insistes : tu n\'as AUCUNE douleur. Tu ne parles de l\'épisode visuel d\'il y a trois ans, du phénomène de chaleur et de la décharge électrique dans le dos QUE si on te pose des questions ciblées. Tu demandes spontanément si la pilule est en cause, tu demandes ce que veut dire « Doppelbilder » si le médecin l\'emploie, et à la fin tu exiges qu\'on te promette une guérison complète parce que tu as lu des choses sur Internet.',
       },
       medicalView: {
-        verdachtsdiagnose: 'Schubförmige Multiple Sklerose mit Gefühlsstörung und Schwäche des linken Beins und früherer Sehnerventzündung rechts. Damit sind Ort und Zeit getrennt; die langsame Zunahme über drei Monate ist für einen Schub aber ungewöhnlich, deshalb muss das MRT auch eine spinale Raumforderung ausschließen.',
-        patientWorte: { verdacht: 'eine entzündliche Erkrankung des Nervensystems vorliegt, die als multiple Sklerose bezeichnet wird', diagnostik: 'machen wir eine Kernspintomographie des Kopfes und Rückenmarks sowie eine Untersuchung des Nervenwassers', therapie: 'behandeln wir den akuten Schub mit hochdosiertem Kortison über die Vene, und danach besprechen wir eine langfristige Basistherapie' },
+        verdachtsdiagnose: 'Schubförmige Multiple Sklerose mit Sensibilitätsstörung und Parese des linken Beins sowie abgelaufener Retrobulbärneuritis rechts. Damit ist eine Dissemination in Ort und Zeit gegeben; die langsame Zunahme über drei Monate ist für einen Schub aber ungewöhnlich, deshalb muss das MRT auch eine spinale Raumforderung ausschließen.',
+        patientWorte: { verdacht: 'eine entzündliche Erkrankung des Nervensystems vorliegt, die als multiple Sklerose bezeichnet wird', diagnostik: 'machen wir eine Kernspintomographie des Kopfes und Rückenmarks sowie eine Untersuchung des Nervenwassers', therapie: 'entscheiden wir nach dem MRT, ob ein hochdosiertes Kortison über die Vene hilft, und danach besprechen wir eine langfristige Basistherapie' },
         differenzialdiagnosen: [
           { dd: 'Spinalkanalstenose oder spinale Raumforderung', unterscheidung: 'Die Stenose macht belastungs- und lageabhängige Beschwerden bei Älteren; sie ist jung und hat keine Lageabhängigkeit. Ein langsam zunehmendes Defizit eines Beins kann aber auch ein Tumor im Spinalkanal sein: MRT der gesamten Wirbelsäule.' },
           { dd: 'Lumbaler Bandscheibenvorfall (Diskusprolaps) mit Radikulopathie', unterscheidung: 'akuter Beginn nach Hebetrauma, dermatombezogener Schmerz mit Husten-/Pressverstärkung, Lasègue positiv — hier vollständig schmerzfrei und nicht dermatomgebunden; MRT der LWS zum Ausschluss.' },
@@ -5882,7 +5883,7 @@ export function seedCases(): Case[] {
             label: 'Schubtherapie (akuter Schub)',
             akut: true,
             items: [
-              'Methylprednisolon 1000 mg täglich über drei bis fünf Tage, wenn das MRT einen aktiven Schub mit funktionell relevantem Defizit zeigt',
+              'Methylprednisolon 500–1000 mg täglich über drei bis fünf Tage bei einem klinischen Schub mit funktionell relevantem Defizit; bei drei Monaten schleichender Zunahme ist das unklar, deshalb entscheidet das MRT mit (S2k: MRT bei unklarer klinischer Situation)',
               'Vorher einen Infekt ausschließen: eine Verschlechterung durch Wärme oder Fieber ist ein Pseudoschub',
               'Unter Kortison Magenschutz und Blutzuckerkontrolle; bei unzureichender Besserung höhere Dosis oder Plasmapherese',
             ],
@@ -5975,8 +5976,8 @@ export function seedCases(): Case[] {
         {
           title: 'Verdachtsdiagnose & Differenzialdiagnosen',
           interactions: [
-            { frage: 'Wie lautet Ihre Verdachtsdiagnose und wie begründen Sie sie?', reaktion: 'Multiple Sklerose als Erstmanifestation: junge Patientin, seit drei Monaten schmerzlose sensomotorische Symptomatik eines Beins, anamnestisch vor drei Jahren eine spontan rückläufige einseitige Sehstörung mit Schmerz bei Augenbewegung — damit Dissemination in Ort und Zeit; zusätzlich Uhthoff-Phänomen und Lhermitte-Zeichen.' },
-            { frage: 'Welche Differenzialdiagnosen kommen in Betracht?', reaktion: 'Erwartet werden Spinalkanalstenose, Bandscheibenvorfall, Polyneuropathie, pAVK, Wirbelsäulenfraktur, Vitamin-B12-Mangel, Hypothyreose, Migräne sowie neurologisch die NMOSD/MOG-Antikörper-Erkrankung, ADEM, Neuroborreliose, Vaskulitis und eine funktionelle Störung.' },
+            { frage: 'Wie lautet Ihre Verdachtsdiagnose und wie begründen Sie sie?', reaktion: 'Erstdiagnose einer schubförmigen Multiplen Sklerose: junge Patientin, seit drei Monaten schmerzlose sensomotorische Symptomatik eines Beins, anamnestisch vor drei Jahren eine spontan rückläufige einseitige Sehstörung mit Schmerz bei Augenbewegung — damit Dissemination in Ort und Zeit; zusätzlich Uhthoff-Phänomen und Lhermitte-Zeichen. Die langsame Zunahme über drei Monate ist für einen Schub allerdings ungewöhnlich.' },
+            { frage: 'Welche Differenzialdiagnosen kommen in Betracht?', reaktion: 'Erwartet werden Spinalkanalstenose, Bandscheibenvorfall, Polyneuropathie, pAVK, Wirbelsäulenfraktur, Vitamin-B12-Mangel, Hypothyreose, Migräne sowie neurologisch die NMOSD oder die MOG-Antikörper-Erkrankung, ADEM, Neuroborreliose, Vaskulitis und eine spinale Raumforderung.' },
             { frage: 'Wie schließen Sie die Differenzialdiagnosen aus?', reaktion: 'Bandscheibenvorfall und Spinalkanalstenose: keine Schmerzen, keine Lageabhängigkeit, MRT der Wirbelsäule, das auch eine spinale Raumforderung zeigt. pAVK: Fußpulse und Knöchel-Arm-Index. Vitamin-B12-Mangel und Schilddrüse: Labor. Borreliose: Anamnese und Serologie. NMOSD: Aquaporin-4- und MOG-Antikörper.' },
           ],
         },
@@ -5994,7 +5995,7 @@ export function seedCases(): Case[] {
           interactions: [
             { frage: 'Was erwarten Sie bei der körperlichen Untersuchung?', reaktion: 'Ein zentrales Muster: Kraftminderung des linken Beins mit gesteigerten Muskeleigenreflexen, spastisch erhöhtem Tonus und positivem Babinski-Zeichen, dazu eine Hypästhesie und Pallhypästhesie am linken Bein sowie eine Gang- und Standunsicherheit; am Auge möglicherweise eine relative afferente Pupillenstörung und eine temporale Abblassung der Papille nach abgelaufener Optikusneuritis.' },
             { frage: 'Wie prüfen Sie die Muskelkraft?', reaktion: 'Im Seitenvergleich gegen Widerstand für jede Muskelgruppe, graduiert von 0 bis 5, ergänzt durch Halteversuche (Bein- und Armvorhalteversuch) sowie Zehen- und Hackengang.' },
-            { frage: 'Wie prüfen Sie die Sensibilität?', reaktion: 'Seitenvergleichend und nach Dermatomen: Berührung mit Wattebausch, Schmerz mit einem spitzen Gegenstand, Temperatur mit warm/kalt und die Vibration mit der Stimmgabel nach Rydel-Seiffer an den Knöcheln; ergänzend Lagesinn und Zwei-Punkte-Diskrimination.' },
+            { frage: 'Wie prüfen Sie die Sensibilität?', reaktion: 'Seitenvergleichend und nach Dermatomen: Berührung mit Wattebausch, Schmerz mit einem spitzen Gegenstand, Temperatur mit warm und kalt und die Vibration mit der Stimmgabel nach Rydel-Seiffer an den Knöcheln; ergänzend Lagesinn und Zwei-Punkte-Diskrimination.' },
           ],
         },
         {
@@ -6002,7 +6003,7 @@ export function seedCases(): Case[] {
           interactions: [
             { frage: 'Was sehen Sie im MRT und warum geben Sie Kontrastmittel?', reaktion: 'Entmarkungsherde beziehungsweise Plaques periventrikulär, juxtakortikal, infratentoriell und spinal; periventrikulär senkrecht zu den Ventrikeln stehende Läsionen, sogenannte Dawson-Finger. Das Kontrastmittel markiert aktive Läsionen mit gestörter Blut-Hirn-Schranke; das gleichzeitige Vorliegen anreichernder und nicht anreichernder Herde belegt die zeitliche Dissemination. Untersucht werden Schädel und gesamte Wirbelsäule.' },
             { frage: 'Wie sichern Sie die Diagnose?', reaktion: 'Nach den McDonald-Kriterien aus klinischem Bild, MRT und Liquor: im Liquor liquorspezifische oligoklonale Banden, erhöhter IgG-Index, leichte mononukleäre Pleozytose und positive MRZ-Reaktion; ergänzend evozierte Potenziale, vor allem VEP mit verlängerter P100-Latenz, und die Antikörperbestimmung gegen Aquaporin-4 und MOG zur Abgrenzung.' },
-            { frage: 'Welche Laboruntersuchungen ordnen Sie an?', reaktion: 'Blutbild, CRP, BSG, Elektrolyte, TSH, Vitamin B12 und Folsäure, HbA1c, Vitamin D sowie ANA/ENA, ANCA, Borrelien-Serologie, HIV und Lues und die Aquaporin-4-/MOG-Antikörper.' },
+            { frage: 'Welche Laboruntersuchungen ordnen Sie an?', reaktion: 'Blutbild, CRP, BSG, Elektrolyte, TSH, Vitamin B12 und Folsäure, HbA1c, Vitamin D sowie ANA und ENA, ANCA, Borrelien-Serologie, HIV und Lues und die Aquaporin-4- und MOG-Antikörper.' },
           ],
         },
         {
@@ -6080,10 +6081,10 @@ export function seedCases(): Case[] {
           'kein Erbrechen',
           'kein Ikterus, kein dunkler Urin, keine Stuhlentfärbung',
           'keine Dysphagie, kein Globusgefühl',
-          'keine Auslandsreise, kein Zeltlager, kein Brunnen- oder Bachwasser',
-          'keine Antibiotikaeinnahme in den letzten Monaten',
-          'keine Gelenkschmerzen, keine Augenentzündungen, keine Hautveränderungen, keine Aphthen',
-          'keine perianalen Fisteln oder Abszesse, keine analen Blutungen',
+          'keine Auslandsreise, kein Zeltlager, kein Brunnen- oder Bachwasser (gegen Giardiasis)',
+          'keine Antibiotikaeinnahme in den letzten Monaten (gegen Clostridioides-difficile-Infektion)',
+          'keine Gelenkschmerzen, keine Augenentzündungen, keine Hautveränderungen, keine Aphthen (gegen chronisch-entzündliche Darmerkrankung)',
+          'keine perianalen Fisteln oder Abszesse, keine analen Blutungen (gegen chronisch-entzündliche Darmerkrankung)',
           'keine Herzrasen, kein Zittern, keine Hitzeintoleranz, kein Schwitzen',
           'kein Kolonkarzinom und keine chronisch-entzündliche Darmerkrankung in der Familie',
           'keine Einnahme von NSAR, ASS oder Antikoagulanzien',
@@ -6093,7 +6094,7 @@ export function seedCases(): Case[] {
           'keine Durchfälle mit Gewichtsabnahme trotz guten Appetits, kein Herzrasen, kein Händezittern, keine Wärmeintoleranz, kein vermehrtes Schwitzen, keine innere Unruhe, kein Haarausfall (gegen Hyperthyreose)',
           'kein umschriebener, über Tage anhaltender Druckschmerz im linken Unterbauch, keine tastbare druckschmerzhafte Resistenz, keine schubweisen Schmerzattacken mit deutlichem Krankheitsgefühl, kein Luft- oder Stuhlabgang beim Wasserlassen (gegen Divertikelkrankheit)',
           'keine vaginale Blutung, kein ungewöhnlicher Ausfluss, keine Schmerzen beim Geschlechtsverkehr, keine einseitigen oder zyklusgebundenen Unterbauchschmerzen, kein Druckgefühl auf die Blase mit häufigem Wasserlassen, keine auffälligen gynäkologischen Vorbefunde (gegen Ovarialprozess/Endometriose)',
-          'keine allein auf den Oberbauch begrenzten, vom Stuhlgang unabhängigen Schmerzen, kein Fortbestehen der Schmerzen nach der Defäkation, kein nächtliches Aufsteigen von Magensäure im Liegen, kein Zusammenhang der Bauchschmerzen mit dem Sodbrennen (gegen funktionelle Dyspepsie/Refluxkrankheit)',
+          'keine allein auf den Oberbauch begrenzten, vom Stuhlgang unabhängigen Schmerzen, kein Fortbestehen der Schmerzen nach der Defäkation, kein nächtliches Aufsteigen von Magensäure im Liegen, kein Zusammenhang der Bauchschmerzen mit dem Sodbrennen (gegen funktionelle Dyspepsie als Ursache der Bauchschmerzen)',
         ],
         vorerkrankungen: [
           'keine chronischen Vorerkrankungen bekannt',
@@ -6202,24 +6203,24 @@ export function seedCases(): Case[] {
         patientWorte: { verdacht: 'es sich am ehesten um einen Reizdarm handelt, also eine gutartige Störung im Zusammenspiel von Darm und Nerven', diagnostik: 'nehmen wir Ihnen Blut ab, untersuchen eine Stuhlprobe und lassen Sie einige Wochen lang ein Ernährungs- und Stuhltagebuch führen', therapie: 'passen wir gemeinsam Ihre Ernährung an und besprechen Medikamente gegen die Krämpfe, eine Heilung braucht aber vor allem Geduld' },
         differenzialdiagnosen: [
           { dd: 'Kolorektales Karzinom', unterscheidung: 'Erstmanifestation typischerweise > 50 Jahre mit Alarmsymptomen: Blut im Stuhl, Gewichtsverlust, Anämie, neu aufgetretene Stuhlunregelmäßigkeit — hier fehlend, wegen des Alters von 52 Jahren dennoch koloskopisch auszuschließen.' },
-          { dd: 'Chronisch-entzündliche Darmerkrankung (Morbus Crohn, Colitis ulcerosa)', unterscheidung: 'Blutig-schleimige Diarrhoe, nächtliche Beschwerden, Fieber, Gewichtsverlust, extraintestinale Manifestationen, CRP↑ und fäkales Calprotectin↑ — bei dieser Patientin sämtlich fehlend bzw. negativ.' },
+          { dd: 'Chronisch-entzündliche Darmerkrankung (Morbus Crohn, Colitis ulcerosa)', unterscheidung: 'Blutig-schleimige Diarrhoe, nächtliche Beschwerden, Fieber, Gewichtsverlust, extraintestinale Manifestationen, CRP↑ und fäkales Calprotectin↑ — klinisch fehlend; CRP und Calprotectin stehen aus.' },
           { dd: 'Zöliakie (einheimische Sprue)', unterscheidung: 'Blähungen, Steatorrhoe, Eisenmangelanämie, Gewichtsverlust; Nachweis über Transglutaminase-IgA plus Gesamt-IgA und Duodenalbiopsie unter glutenhaltiger Kost.' },
           { dd: 'Laktose- bzw. Fruktoseintoleranz', unterscheidung: 'Reproduzierbarer zeitlicher Zusammenhang mit Milchprodukten oder Fruchtzucker; Beschwerdefreiheit unter Karenz; Sicherung mit dem H2-Atemtest.' },
           { dd: 'Gynäkologische Ursache (Ovarialprozess)', unterscheidung: 'Neue Blähungen und Unterbauchbeschwerden bei einer Frau nach den Wechseljahren können das erste Zeichen eines Ovarialkarzinoms sein. Keine Blutung, kein Ausfluss, zuletzt unauffällige Vorsorge; trotzdem gynäkologisch abklären.' },
-          { dd: 'Divertikelkrankheit', unterscheidung: 'Umschriebener Druckschmerz im linken Unterbauch mit Entzündungszeichen und Fieber im Schub; Nachweis in CT bzw. Koloskopie im Intervall.' },
+          { dd: 'Divertikelkrankheit', unterscheidung: 'Umschriebener Druckschmerz im linken Unterbauch mit Entzündungszeichen und Fieber im Schub; Nachweis im CT bzw. in der Koloskopie im Intervall.' },
           { dd: 'Infektiöse Ursachen (Giardiasis, chronische Gastroenteritis, Clostridioides difficile)', unterscheidung: 'Reise- oder Antibiotikaanamnese, akuter Beginn, Fieber; Stuhlkultur, Parasiten- und Giardia-Antigen-Nachweis.' },
-          { dd: 'Schilddrüsenfunktionsstörung (Hypo- oder Hyperthyreose)', unterscheidung: 'Eine Unterfunktion erklärt Verstopfung, eine Überfunktion Durchfall mit Gewichtsverlust, Zittern und Herzrasen; sie hat davon nichts. Das TSH klärt beides.' },
+          { dd: 'Schilddrüsenfunktionsstörung (Hypo- oder Hyperthyreose)', unterscheidung: 'Eine Unterfunktion kann ihre Verstopfung erklären (dazu Kälteintoleranz, Müdigkeit, Gewichtszunahme), eine Überfunktion Durchfall mit Gewichtsverlust, Zittern und Herzrasen; Letzteres verneint sie. Das TSH klärt beides.' },
         ],
         diagnostik: [
-          { stufe: 'Anamnese/Klinik', text: 'Rom-IV-Kriterien: wiederkehrende Bauchschmerzen an mindestens einem Tag pro Woche in den letzten drei Monaten, gebunden an Stuhlgang, Stuhlfrequenz oder Stuhlform (bei ihr alle drei erfüllt)' },
+          { stufe: 'Anamnese/Klinik', text: 'Rom-IV-Kriterien: wiederkehrende Bauchschmerzen an mindestens einem Tag pro Woche in den letzten drei Monaten, mit mindestens zwei von drei Merkmalen: Bezug zum Stuhlgang, veränderte Stuhlfrequenz, veränderte Stuhlform (bei ihr alle drei)' },
           { stufe: 'Anamnese/Klinik', text: 'Alarmsymptome vollständig erfragen und dokumentieren: Gewichtsverlust, Blut im Stuhl, Fieber, nächtliche Beschwerden, Darmkrebs in der Familie, Beginn nach dem 50. Lebensjahr (bei ihr nur Letzteres)' },
           { stufe: 'Anamnese/Klinik', text: 'Abdomen untersuchen und digital-rektal tasten; Stuhltagebuch mit Bristol-Skala über zwei Wochen zur Subtypisierung' },
           { stufe: 'Labor', text: 'Blutbild, CRP, Ferritin, TSH; Transglutaminase-IgA mit Gesamt-IgA (sonst bei IgA-Mangel falsch negativ)' },
-          { stufe: 'Labor', text: 'Fäkales Calprotectin gegen eine chronisch-entzündliche Darmerkrankung; Stuhl auf Erreger und Giardia nur bei Durchfall oder Reiseanamnese' },
+          { stufe: 'Labor', text: 'Fäkales Calprotectin gegen eine chronisch-entzündliche Darmerkrankung und Stuhl auf Erreger einschließlich Lamblien (Basisdiagnostik der S3-Leitlinie)' },
           { stufe: 'Apparativ & Bildgebung', text: 'Abdomensonographie; gynäkologische Untersuchung mit transvaginaler Sonographie' },
           { stufe: 'Apparativ & Bildgebung', text: 'H2-Atemtest auf Laktose, wenn sich der Zusammenhang mit Milch im Tagebuch bestätigt' },
           { stufe: 'Invasiv & Speziell', text: 'Ileokoloskopie mit Stufenbiopsien: neue Beschwerden mit 52 Jahren und noch nie eine Vorsorgekoloskopie' },
-          { stufe: 'Invasiv & Speziell', text: 'ÖGD mit Duodenalbiopsien nur bei positiver Zöliakie-Serologie oder wenn das Sodbrennen unter Therapie bleibt' },
+          { stufe: 'Invasiv & Speziell', text: 'ÖGD mit Duodenalbiopsien zur positiven Diagnosestellung (S3), zumal sie Sodbrennen hat' },
         ],
         therapie: [
           {
@@ -6253,7 +6254,7 @@ export function seedCases(): Case[] {
           'Patientin ausreden lassen, dann strukturieren',
           'Alarmsymptome erfragen und dokumentieren',
           'Körperliche Untersuchung mit digital-rektaler Untersuchung',
-          'Labor, Stuhl auf Calprotectin und Koloskopie veranlassen',
+          'Labor, Stuhluntersuchungen und Koloskopie veranlassen',
         ],
         notfall: false,
       },
@@ -6301,45 +6302,45 @@ export function seedCases(): Case[] {
           interactions: [
             { frage: 'Was hat die Patientin? Wie lautet Ihre Verdachtsdiagnose?', reaktion: 'Ein Reizdarmsyndrom, am ehesten vom Mischtyp; den Subtyp sichert ein Stuhltagebuch mit der Bristol-Skala. Weil die Beschwerden mit 52 Jahren neu begonnen haben, stelle ich die Diagnose erst nach der Koloskopie und dem Ausschluss der wichtigsten Differenzialdiagnosen.' },
             { frage: 'Woran machen Sie das fest?', reaktion: 'An den erfüllten Rom-IV-Kriterien: seit sechs Monaten mehrmals pro Woche Bauchschmerzen, die nach dem Stuhlgang nachlassen und mit veränderter Stuhlfrequenz und Stuhlform einhergehen. Blut, Gewichtsverlust, Fieber und nächtliche Beschwerden fehlen; nur der Beginn nach dem 50. Lebensjahr verlangt die Koloskopie.' },
-            { frage: 'Warum ist das eine Ausschlussdiagnose?', reaktion: 'weil es keinen positiven Test gibt: Die Diagnose steht erst, wenn Zöliakie, chronisch-entzündliche Darmerkrankung, Kolonkarzinom, Kohlenhydratmalabsorption, Infektion und Hyperthyreose ausgeschlossen sind.' },
+            { frage: 'Warum ist das eine Ausschlussdiagnose?', reaktion: 'Weil es keinen positiven Test gibt: Die Diagnose steht erst, wenn Zöliakie, chronisch-entzündliche Darmerkrankung, Kolonkarzinom, Kohlenhydratmalabsorption, Infektion und eine Schilddrüsenfunktionsstörung ausgeschlossen sind.' },
           ],
         },
         {
           title: 'Differenzialdiagnosen',
           interactions: [
             { frage: 'Welche Differenzialdiagnosen kommen in Betracht?', reaktion: 'Eine chronisch-entzündliche Darmerkrankung, eine Zöliakie, eine Laktose- oder Fruktoseintoleranz, ein kolorektales Karzinom, eine Divertikelkrankheit, eine chronische Infektion wie eine Giardiasis, eine Schilddrüsenfunktionsstörung und bei einer Frau nach den Wechseljahren mit neuen Blähungen immer auch ein Ovarialprozess.' },
-            { frage: 'Was spricht gegen eine chronisch-entzündliche Darmerkrankung?', reaktion: 'das Fehlen von Blut im Stuhl, von Fieber und von B-Symptomatik, der stabile Gewichtsverlauf, das Fehlen nächtlicher Beschwerden und extraintestinaler Manifestationen sowie ein zu erwartendes normales CRP und ein negatives fäkales Calprotectin.' },
-            { frage: 'Wie schließen Sie eine Zöliakie aus?', reaktion: 'serologisch mit der Transglutaminase-IgA zusammen mit dem Gesamt-IgA — sonst ist der Test bei IgA-Mangel falsch negativ — und bei positivem Befund mit Duodenalbiopsien im Rahmen einer ÖGD unter glutenhaltiger Kost.' },
-            { frage: 'Und eine Laktoseintoleranz?', reaktion: 'über den H2-Atemtest mit Laktose, alternativ über eine befristete Karenz mit anschließender Provokation.' },
-            { frage: 'Warum müssen Sie bei dieser Patientin ein Karzinom ausschließen?', reaktion: 'weil sie 52 Jahre alt ist und die Beschwerden neu aufgetreten sind — eine Erstmanifestation jenseits des 50. Lebensjahres ist per se ein Alarmzeichen und erfordert die Koloskopie.' },
+            { frage: 'Was spricht gegen eine chronisch-entzündliche Darmerkrankung?', reaktion: 'Das Fehlen von Blut im Stuhl, von Fieber und von B-Symptomatik, der stabile Gewichtsverlauf, das Fehlen nächtlicher Beschwerden und extraintestinaler Manifestationen sowie ein zu erwartendes normales CRP und ein negatives fäkales Calprotectin.' },
+            { frage: 'Wie schließen Sie eine Zöliakie aus?', reaktion: 'Serologisch mit der Transglutaminase-IgA zusammen mit dem Gesamt-IgA — sonst ist der Test bei IgA-Mangel falsch negativ — und bei positivem Befund mit Duodenalbiopsien im Rahmen einer ÖGD unter glutenhaltiger Kost.' },
+            { frage: 'Und eine Laktoseintoleranz?', reaktion: 'Über den H2-Atemtest mit Laktose, alternativ über eine befristete Karenz mit anschließender Provokation.' },
+            { frage: 'Warum müssen Sie bei dieser Patientin ein Karzinom ausschließen?', reaktion: 'Weil sie 52 Jahre alt ist und die Beschwerden neu aufgetreten sind — eine Erstmanifestation jenseits des 50. Lebensjahres ist per se ein Alarmzeichen und erfordert die Koloskopie.' },
           ],
         },
         {
           title: 'Diagnostik & Befunde',
           interactions: [
-            { frage: 'Wie gehen Sie konkret vor?', reaktion: 'vollständige Anamnese mit Alarmsymptomen, körperliche Untersuchung einschließlich digital-rektaler Untersuchung, dann Basislabor mit Blutbild, CRP, TSH und Zöliakie-Serologie, Stuhldiagnostik mit Calprotectin, okkultem Blut und Erregernachweis, Abdomensonographie, H2-Atemtest und schließlich die Ileokoloskopie mit Stufenbiopsien.' },
-            { frage: 'Welche Laborbefunde erwarten Sie?', reaktion: 'unauffällige Befunde: normales Blutbild ohne Anämie, normale Entzündungsparameter, normales TSH, negative Zöliakie-Serologie und ein negatives Calprotectin — gerade diese Normalität stützt die Diagnose.' },
-            { frage: 'Hatte die Patientin Blut im Stuhl? Hat sie Fieber? Wie ist der Appetit?', reaktion: 'Blut im Stuhl und Fieber wurden verneint, der Appetit ist erhalten und das Gewicht seit Jahren stabil. (Falls nicht erfragt: "Das werde ich bei der körperlichen Untersuchung nachholen.")' },
+            { frage: 'Wie gehen Sie konkret vor?', reaktion: 'Vollständige Anamnese mit Alarmsymptomen, körperliche Untersuchung einschließlich digital-rektaler Untersuchung, dann Basislabor mit Blutbild, CRP, Ferritin, TSH und Zöliakie-Serologie mit Gesamt-IgA, Stuhl auf Calprotectin und Erreger einschließlich Lamblien, Abdomensonographie, gynäkologische Untersuchung und schließlich die Ileokoloskopie mit Stufenbiopsien; ein H2-Atemtest nur, wenn das Tagebuch einen Zusammenhang mit Milch zeigt.' },
+            { frage: 'Welche Laborbefunde erwarten Sie?', reaktion: 'Unauffällige Befunde: normales Blutbild ohne Anämie, normale Entzündungsparameter, normales TSH, negative Zöliakie-Serologie und ein negatives Calprotectin — gerade diese Normalität stützt die Diagnose.' },
+            { frage: 'Hatte die Patientin Blut im Stuhl? Hat sie Fieber? Wie ist der Appetit?', reaktion: 'Blut im Stuhl und Fieber wurden verneint, der Appetit ist erhalten und das Gewicht seit Jahren stabil. (Falls nicht erfragt: „Das werde ich bei der körperlichen Untersuchung nachholen.“)' },
             { frage: 'Warum veranlassen Sie einen Test auf okkultes Blut im Stuhl? Erklären Sie bitte das Verfahren.', reaktion: 'Der immunologische Stuhltest weist nicht sichtbares menschliches Blut nach und ist ein Vorsorgetest für Menschen ohne Beschwerden: eine Stuhlprobe im Röhrchen, ohne Diät; ein positiver Test führt zur Koloskopie. Bei ihr ändert er nichts, weil sie wegen der neuen Beschwerden ohnehin koloskopiert wird, und ein negativer Test würde kein Karzinom ausschließen.' },
-            { frage: 'Warum eine digital-rektale Untersuchung?', reaktion: 'um Hämorrhoiden, Fissuren, Resistenzen und Blut am Fingerling zu erfassen — sie gehört bei jeder chronischen Stuhlveränderung zum Untersuchungsstandard.' },
+            { frage: 'Warum eine digital-rektale Untersuchung?', reaktion: 'Um Hämorrhoiden, Fissuren, Resistenzen und Blut am Fingerling zu erfassen — sie gehört bei jeder chronischen Stuhlveränderung zum Untersuchungsstandard.' },
           ],
         },
         {
           title: 'Aufklärung Koloskopie',
           interactions: [
-            { frage: 'Klären Sie die Patientin bitte über die Koloskopie auf.', reaktion: 'Indikation: Ausschluss von Polypen, Karzinom und chronischer Darmentzündung. Vorbereitung: am Vortag leichte Kost, ab mittags nur klare Flüssigkeit, abends und morgens jeweils zwei Liter Abführlösung bis der Stuhl klar ist; Absprache zu Blutverdünnern — die Patientin nimmt keine. Ablauf: Untersuchung in Linksseitenlage, ein biegsamer, daumendicker Schlauch mit Kamera wird über den After eingeführt, Luft beziehungsweise CO2 zur Entfaltung, Dauer etwa 20 bis 30 Minuten, Gewebeproben und Polypenabtragung sind schmerzlos möglich. Sedierung: auf Wunsch Propofol oder Midazolam — sie schläft und bekommt nichts mit, darf danach 24 Stunden nicht Auto fahren und muss abgeholt werden. Risiken: Blähungen und Krämpfe, selten Blutung nach Polypenabtragung, sehr selten eine Perforation, Kreislaufreaktionen auf die Sedierung.' },
-            { frage: 'Die Patientin sagt, sie habe Angst, einen Schlauch schlucken zu müssen — was antworten Sie?', reaktion: 'ich erkläre ihr, dass sie bei der Darmspiegelung nichts schlucken muss, dass der Schlauch von unten eingeführt wird, dass sie ein Beruhigungs- beziehungsweise Schlafmittel bekommt und während des Eingriffs nichts mitbekommt.' },
-            { frage: 'Die Patientin fragt: Habe ich Krebs?', reaktion: 'ich sage ihr ruhig und ehrlich: Nach allem, was Sie mir geschildert haben, sieht es nicht nach einem Tumor aus — es gibt kein Blut im Stuhl, kein Fieber und keine Gewichtsabnahme. Damit Sie und ich aber sicher sein können, machen wir die Darmspiegelung.' },
+            { frage: 'Klären Sie die Patientin bitte über die Koloskopie auf.', reaktion: 'Indikation: Ausschluss von Polypen, Karzinom und chronischer Darmentzündung. Vorbereitung: am Vortag leichte Kost, ab mittags nur klare Flüssigkeit, abends und morgens jeweils zwei Liter Abführlösung, bis der Stuhl klar ist; Absprache zu Blutverdünnern — die Patientin nimmt keine. Ablauf: Untersuchung in Linksseitenlage, ein biegsamer, daumendicker Schlauch mit Kamera wird über den After eingeführt, Luft beziehungsweise CO2 zur Entfaltung, Dauer etwa 20 bis 30 Minuten, Gewebeproben und Polypenabtragung sind schmerzlos möglich. Sedierung: auf Wunsch Propofol oder Midazolam — sie schläft und bekommt nichts mit, darf danach 24 Stunden nicht Auto fahren und muss abgeholt werden. Risiken: Blähungen und Krämpfe, selten Blutung nach Polypenabtragung, sehr selten eine Perforation, Kreislaufreaktionen auf die Sedierung.' },
+            { frage: 'Die Patientin sagt, sie habe Angst, einen Schlauch schlucken zu müssen — was antworten Sie?', reaktion: 'Ich erkläre ihr, dass sie bei der Darmspiegelung nichts schlucken muss, dass der Schlauch von unten eingeführt wird, dass sie ein Beruhigungs- beziehungsweise Schlafmittel bekommt und während des Eingriffs nichts mitbekommt.' },
+            { frage: 'Die Patientin fragt: Habe ich Krebs?', reaktion: 'Ich sage ihr ruhig und ehrlich: Nach allem, was Sie mir geschildert haben, sieht es nicht nach einem Tumor aus — es gibt kein Blut im Stuhl, kein Fieber und keine Gewichtsabnahme. Damit Sie und ich aber sicher sein können, machen wir die Darmspiegelung.' },
           ],
         },
         {
           title: 'Therapie & heikle Fragen',
           interactions: [
-            { frage: 'Wenn es ein Reizdarmsyndrom ist — wie behandeln Sie?', reaktion: 'auf drei Ebenen. Erstens die Basistherapie: ausführliche Aufklärung über die Gutartigkeit, Ernährungsumstellung mit befristeter FODMAP-armer Kost und löslichen Ballaststoffen, Ernährungstagebuch, Bewegung und Stressreduktion. Zweitens die symptomorientierte Medikation nach Subtyp: Spasmolytika und Pfefferminzöl gegen die Krämpfe, Macrogol und Quellstoffe in den Obstipationsphasen, Loperamid bedarfsweise bei Durchfall, Probiotika gegen die Blähungen und in schweren Fällen niedrig dosiertes Amitriptylin als Neuromodulator. Drittens Psychotherapie und Entspannungsverfahren: kognitive Verhaltenstherapie, bauchgerichtete Hypnotherapie, progressive Muskelrelaxation.' },
-            { frage: 'Ist das Colon irritabile eine psychosomatische Krankheit?', reaktion: 'so würde ich es nicht formulieren. Es ist eine funktionelle Störung der Darm-Hirn-Achse mit viszeraler Hypersensitivität und gestörter Motilität. Psychosozialer Stress ist ein wichtiger Trigger und Verstärker, aber nicht die Ursache — und die Beschwerden der Patientin sind real, nicht eingebildet.' },
-            { frage: 'Die Patientin fragt, ob Marihuana ihr helfen könnte — was antworten Sie?', reaktion: 'ich reagiere wertfrei und nehme die Frage ernst. Ich erkläre, dass Cannabis für das Reizdarmsyndrom nicht zugelassen ist, dass die Datenlage keinen gesicherten Nutzen zeigt und es die Beschwerden sogar verstärken kann, und dass wir mit Ernährung, Spasmolytika und Entspannungsverfahren gut belegte Alternativen haben.' },
-            { frage: 'Wie hätten Sie reagiert, wenn die Patientin 6 kg in vier Monaten abgenommen hätte?', reaktion: 'dann läge ein Alarmsymptom vor. Ein Reizdarmsyndrom wäre als Verdachtsdiagnose nicht mehr zulässig; ich müsste zügig ein Malignom, eine chronisch-entzündliche Darmerkrankung, eine Zöliakie und eine Hyperthyreose abklären — mit dringlicher Koloskopie und ÖGD.' },
-            { frage: 'Wie sagen Sie der Patientin, dass alle Befunde normal sind?', reaktion: 'nicht mit "wir haben nichts gefunden", sondern als positive Diagnose: Die Untersuchungen haben gefährliche Erkrankungen sicher ausgeschlossen, und das Beschwerdemuster passt zu einem Reizdarmsyndrom — einer gutartigen, aber gut behandelbaren Störung der Zusammenarbeit von Darm und Nervensystem.' },
+            { frage: 'Wenn es ein Reizdarmsyndrom ist — wie behandeln Sie?', reaktion: 'Auf drei Ebenen. Erstens die Basistherapie: ausführliche Aufklärung über die Gutartigkeit, Ernährungsumstellung mit befristeter FODMAP-armer Kost und löslichen Ballaststoffen, Ernährungstagebuch, Bewegung und Stressreduktion. Zweitens die symptomorientierte Medikation nach Subtyp: Spasmolytika und Pfefferminzöl gegen die Krämpfe, Macrogol und Quellstoffe in den Obstipationsphasen, Loperamid bedarfsweise bei Durchfall, Probiotika gegen die Blähungen und in schweren Fällen niedrig dosiertes Amitriptylin als Neuromodulator. Drittens Psychotherapie und Entspannungsverfahren: kognitive Verhaltenstherapie, bauchgerichtete Hypnotherapie, progressive Muskelrelaxation.' },
+            { frage: 'Ist das Colon irritabile eine psychosomatische Krankheit?', reaktion: 'So würde ich es nicht formulieren. Es ist eine funktionelle Störung der Darm-Hirn-Achse mit viszeraler Hypersensitivität und gestörter Motilität. Psychosozialer Stress ist ein wichtiger Trigger und Verstärker, aber nicht die Ursache — und die Beschwerden der Patientin sind real, nicht eingebildet.' },
+            { frage: 'Die Patientin fragt, ob Marihuana ihr helfen könnte — was antworten Sie?', reaktion: 'Ich reagiere wertfrei und nehme die Frage ernst. Ich erkläre, dass Cannabis für das Reizdarmsyndrom nicht zugelassen ist, dass die Datenlage keinen gesicherten Nutzen zeigt und es die Beschwerden sogar verstärken kann, und dass wir mit Ernährung, Spasmolytika und Entspannungsverfahren gut belegte Alternativen haben.' },
+            { frage: 'Wie hätten Sie reagiert, wenn die Patientin 6 kg in vier Monaten abgenommen hätte?', reaktion: 'Dann läge ein Alarmsymptom vor. Ein Reizdarmsyndrom wäre als Verdachtsdiagnose nicht mehr zulässig; ich müsste zügig ein Malignom, eine chronisch-entzündliche Darmerkrankung, eine Zöliakie und eine Schilddrüsenfunktionsstörung abklären — mit dringlicher Koloskopie und ÖGD.' },
+            { frage: 'Wie sagen Sie der Patientin, dass alle Befunde normal sind?', reaktion: 'Nicht mit „wir haben nichts gefunden“, sondern als positive Diagnose: Die Untersuchungen haben gefährliche Erkrankungen sicher ausgeschlossen, und das Beschwerdemuster passt zu einem Reizdarmsyndrom — einer gutartigen und gut behandelbaren Störung der Zusammenarbeit von Darm und Nervensystem.' },
           ],
         },
       ],
@@ -6838,13 +6839,13 @@ export function seedCases(): Case[] {
       },
       medicalView: {
         verdachtsdiagnose: 'Gallenkolik bei seit drei Jahren symptomatischer Cholezystolithiasis. Zwei Attacken seit gestern Abend nach fettem Essen, dazwischen weitgehend schmerzfrei; bisher kein Fieber, kein Ikterus und kein Hinweis auf eine Pankreatitis.',
-        patientWorte: { verdacht: 'ein Gallenstein den Ausgang der Gallenblase kurz verlegt und dadurch diese krampfartigen Schmerzen auslöst', diagnostik: 'nehmen wir Ihnen Blut ab, schreiben eine Herzstromkurve und machen einen Ultraschall vom Bauch', therapie: 'bekommen Sie jetzt ein Schmerzmittel und ein krampflösendes Mittel über die Vene, und die Gallenblase sollte bald in einer geplanten Operation entfernt werden, damit die Anfälle aufhören' },
+        patientWorte: { verdacht: 'ein Gallenstein den Ausgang der Gallenblase kurz verstopft und dadurch diese krampfartigen Schmerzen auslöst', diagnostik: 'nehmen wir Ihnen Blut ab, schreiben eine Herzstromkurve und machen einen Ultraschall vom Bauch', therapie: 'sollte die Gallenblase bald in einer geplanten Operation entfernt werden, damit die Anfälle aufhören; gegen die Schmerzen bekommen Sie aber schon jetzt ein Schmerzmittel und ein krampflösendes Mittel über die Vene' },
         differenzialdiagnosen: [
           { dd: 'Akute Cholezystitis', unterscheidung: 'Bei zwei Attacken innerhalb eines Tages der naheliegende nächste Schritt. Dafür sprächen ein Dauerschmerz über sechs Stunden, Fieber, ein positives Murphy-Zeichen und erhöhte Entzündungswerte; bisher ist er zwischen den Attacken fast schmerzfrei. Die Ibuprofen-Tabletten von heute früh können Fieber verdecken: Temperatur und CRP kontrollieren.' },
           { dd: 'Choledocholithiasis', unterscheidung: 'Kein Ikterus, kein dunkler Urin, kein heller Stuhl. Erhöhte Cholestasewerte oder ein erweiterter Gallengang im Ultraschall würden eine Endosonographie oder MRCP nach sich ziehen.' },
           { dd: 'Biliäre Pankreatitis', unterscheidung: 'Kein gürtelförmiger Schmerz, kein anhaltendes Erbrechen. Eine Lipase über dem Dreifachen der Norm würde sie trotzdem belegen, deshalb wird sie bestimmt.' },
           { dd: 'Inferiorer Myokardinfarkt', unterscheidung: 'Raucher mit Hypertonie, Hypercholesterinämie und Adipositas: ein Hinterwandinfarkt kann sich als Oberbauchschmerz mit Übelkeit zeigen. Der kolikartige, essensabhängige Verlauf spricht dagegen; EKG und Troponin schließen ihn aus.' },
-          { dd: 'Ulcus ventriculi', unterscheidung: 'Kein Nüchternschmerz, keine Besserung durch Essen, kein Teerstuhl, keine regelmäßigen NSAR. Bleibt der Ultraschall ohne Erklärung, folgt eine Magenspiegelung.' },
+          { dd: 'Ulcus ventriculi', unterscheidung: 'Kein Nüchternschmerz, keine Besserung durch Essen, kein Teerstuhl, keine regelmäßigen NSAR. Bleibt der Ultraschall ohne Erklärung, folgt eine ÖGD.' },
         ],
         diagnostik: [
           { stufe: 'Anamnese/Klinik', text: 'Vitalparameter mit Temperatur; Druckschmerz und Abwehrspannung im rechten Oberbauch, Murphy-Zeichen, Skleren auf Ikterus' },
@@ -6860,7 +6861,7 @@ export function seedCases(): Case[] {
             akut: true,
             items: [
               'Während der Kolik nüchtern, venöser Zugang, Antiemetikum bei Übelkeit',
-              'NSAR sind laut S3-Leitlinie erste Wahl, er hat aber heute früh schon zwei Ibuprofen genommen und nimmt Ramipril: deshalb Metamizol als Kurzinfusion plus Butylscopolamin zur Spasmolyse',
+              'NSAR sind laut S3-Leitlinie erste Wahl und senken das Cholezystitisrisiko; er hat aber vor wenigen Stunden schon zwei Ibuprofen genommen, deshalb keine zweite NSAR-Gabe (Ramipril, Kreatinin abwarten): Metamizol als Kurzinfusion plus Butylscopolamin zur Spasmolyse',
               'Bei weiter starken Schmerzen ein Opioid, zum Beispiel Pethidin oder Buprenorphin',
             ],
           },
@@ -6920,7 +6921,7 @@ export function seedCases(): Case[] {
         {
           title: 'Verdachtsdiagnose und Begründung',
           interactions: [
-            { frage: 'Was ist Ihre Verdachtsdiagnose?', reaktion: 'Gallenkolik bei bekannten Gallensteinen: krampfartige, wellenförmige Schmerzen im rechten Oberbauch nach fettem Essen, Ausstrahlung in die rechte Schulter, zwischen den Attacken fast schmerzfrei, ohne Fieber und ohne Gelbsucht. Ähnliche Episoden seit drei Jahren.' },
+            { frage: 'Was ist Ihre Verdachtsdiagnose?', reaktion: 'Gallenkolik bei bekannten Gallensteinen: krampfartige, wellenförmige Schmerzen im rechten Oberbauch nach fettem Essen, Ausstrahlung in die rechte Schulter, zwischen den Attacken fast schmerzfrei, ohne Fieber und ohne Ikterus. Ähnliche Episoden seit drei Jahren.' },
             { frage: 'Was bedeutet die Endung -itis?', reaktion: 'Eine Entzündung. Cholezystitis ist die Entzündung der Gallenblase, Cholezystolithiasis bezeichnet nur die Steine.' },
             { frage: 'Was ist das Murphy-Zeichen?', reaktion: 'Der Patient bricht die tiefe Einatmung ab, wenn man unter dem rechten Rippenbogen tastet. Es spricht für eine Cholezystitis und ist bei ihm laut Anamnese nicht zu erwarten.' },
           ],
@@ -6928,7 +6929,7 @@ export function seedCases(): Case[] {
         {
           title: 'Differenzialdiagnosen',
           interactions: [
-            { frage: 'Wie unterscheiden Sie Cholezystitis und Gallenkolik?', reaktion: 'Die Kolik kommt in Attacken mit schmerzfreien Intervallen, ohne Entzündungszeichen. Die Cholezystitis macht einen Dauerschmerz über Stunden, Fieber, ein positives Murphy-Zeichen, erhöhtes CRP und Leukozyten und im Ultraschall eine verdickte Wand.' },
+            { frage: 'Wie unterscheiden Sie Cholezystitis und Gallenkolik?', reaktion: 'Die Kolik kommt in Attacken mit schmerzfreien Intervallen, ohne Entzündungszeichen. Die Cholezystitis macht einen Dauerschmerz über Stunden, Fieber, ein positives Murphy-Zeichen, ein erhöhtes CRP, eine Leukozytose und im Ultraschall eine verdickte Wand.' },
             { frage: 'Welche Art von Herzinfarkt kann solche Beschwerden zeigen?', reaktion: 'Ein Hinterwandinfarkt. Bei diesem Raucher mit Hypertonie und Hypercholesterinämie schreibe ich deshalb ein EKG und bestimme Troponin.' },
             { frage: 'Wie entsteht aus Gallensteinen eine Pankreatitis?', reaktion: 'Ein Stein verlegt die Papille, an der Gallengang und Pankreasgang gemeinsam münden; der Rückstau aktiviert die Pankreasenzyme.' },
           ],
@@ -6939,7 +6940,7 @@ export function seedCases(): Case[] {
             { frage: 'Kann man die Steine im Ultraschall sehen?', reaktion: 'Ja, als echoreiche Struktur mit Schallschatten; die Sonographie ist die Methode der Wahl und zeigt auch Wanddicke und Gallengangsweite.' },
             { frage: 'Was machen Sie, wenn im Ultraschall kein Stein zu sehen ist?', reaktion: 'Bei typischer Klinik Endosonographie, weil kleine Steine und Sludge übersehen werden; bleibt sie unauffällig, an andere Ursachen denken, zum Beispiel ein Ulkus.' },
             { frage: 'Welche Tumormarker bestimmen Sie zum Ausschluss eines Malignoms?', reaktion: 'Keine zur Diagnose: CA 19-9 steigt auch bei Gallestau, und AFP dient der Überwachung einer Zirrhose. Hier gibt es keinen Anhalt für einen Tumor.' },
-            { frage: 'Ist das Leberzellkarzinom eine Erbkrankheit?', reaktion: 'Nein. Es entsteht meist auf dem Boden einer Zirrhose, Hepatitis B oder C, Alkohol oder Fettleber; beim Vater frage ich danach.' },
+            { frage: 'Ist das Leberzellkarzinom eine Erbkrankheit?', reaktion: 'Nein. Es entsteht meist auf dem Boden einer Zirrhose, einer Hepatitis B oder C, eines Alkoholabusus oder einer Fettleber; erbliche Ursachen wie die Hämochromatose führen über eine Zirrhose dazu. Beim Vater frage ich danach.' },
           ],
         },
         {
@@ -6953,7 +6954,7 @@ export function seedCases(): Case[] {
           title: 'Aufklärung des Patienten (2 Minuten)',
           interactions: [
             { frage: 'Erklären Sie dem Patienten Diagnose und Vorgehen.', reaktion: 'Erwartet wird Alltagssprache: Ein Gallenstein verlegt kurz den Ausgang der Gallenblase, daher die Krämpfe. Jetzt Schmerzmittel und Ultraschall; da die Anfälle seit drei Jahren wiederkommen, sollte die Gallenblase durch kleine Schnitte entfernt werden.' },
-            { frage: '(als Patient, ungeduldig) „I hab doch koi Zeit, i muss zurück in de Metzgerei!“', reaktion: 'Erwartet wird Verständnis und eine klare Antwort: Heute muss erst geklärt werden, dass keine Entzündung und kein Herzproblem vorliegt; die Operation planen wir mit ihm so, dass er danach meist nach wenigen Tagen wieder arbeiten kann. Ohne Operation kommen die Anfälle wieder, und es kann eine gefährliche Entzündung entstehen.' },
+            { frage: '(als Patient, ungeduldig) „I hab doch koi Zeit, i muss zurück in de Metzgerei!“', reaktion: 'Erwartet werden Verständnis und eine klare Antwort: Heute müssen wir erst eine Entzündung und ein Herzproblem ausschließen; die Operation planen wir mit ihm so, dass er meist nach wenigen Tagen wieder arbeiten kann. Ohne Operation kommen die Anfälle wieder, und es kann eine gefährliche Entzündung entstehen.' },
           ],
         },
       ],
@@ -7121,7 +7122,7 @@ export function seedCases(): Case[] {
           'frau-schwanger': 'Nein, schwanger bin ich nicht.',
           'frau-verhuetung': 'Ich nehme die Pille.',
           'frau-wechseljahre': 'In den Wechseljahren bin ich noch nicht; zum Frauenarzt gehe ich zur Vorsorge.',
-          'fach-gefaess-gehstrecke': 'Gehen tut mir seit drei Tagen weh, aber ich muss deswegen nicht extra stehen bleiben — es tut eigentlich die ganze Zeit weh, beim Stehen genauso wie beim Gehen. Wenn ich das Bein hochlege, wird es besser, aber eine kurze Pause im Stehen bringt nichts.',
+          'fach-gefaess-gehstrecke': 'Gehen tut mir seit drei Tagen weh, aber ich muss deswegen nicht extra stehen bleiben — es tut eigentlich die ganze Zeit weh, beim Gehen etwas mehr. Wenn ich das Bein hochlege, wird es besser, aber eine kurze Pause im Stehen bringt nichts.',
           'fach-gefaess-ruheschmerz': 'Ja, es tut auch weh, wenn ich still sitze oder liege, sogar nachts. Das Bein hängen lassen hilft nicht, im Gegenteil — hochlegen ist das Einzige, was ein bisschen hilft.',
           'fach-gefaess-schwellung': 'Ja, das rechte Bein ist deutlich dicker als das linke, und es fühlt sich wärmer an, fast heiß. Die Haut ist auch etwas rötlich-bläulich verfärbt, und die Wade spannt richtig.',
           'fach-gefaess-immobilisation': 'Ja, ich bin vor ein paar Tagen von einem zwölfstündigen Flug aus Bangkok zurückgekommen, geschäftlich. Sonst war ich nicht extra ruhiggestellt, kein Gips, keine Operation.',
@@ -7162,7 +7163,7 @@ export function seedCases(): Case[] {
         verdachtsdiagnose: 'Tiefe Beinvenenthrombose rechts nach einem zwölfstündigen Flug unter Östrogeneinnahme. Weitere Risikofaktoren sind Rauchen, eine operierte Varikosis rechts und Thrombosen beim Vater; bisher kein Hinweis auf eine Lungenembolie.',
         patientWorte: { verdacht: 'sich in einer tiefen Vene Ihres rechten Beins ein Blutgerinnsel gebildet hat', diagnostik: 'schauen wir uns die Beinvenen mit Ultraschall an und nehmen Ihnen Blut ab', therapie: 'bekommen Sie sofort einen Blutverdünner, damit das Gerinnsel nicht wächst oder in die Lunge wandert, und die Pille setzen wir ab' },
         differenzialdiagnosen: [
-          { dd: 'Erysipel / Zellulitis', unterscheidung: 'Scharf begrenzte, hochrote Rötung mit Fieber und Eintrittspforte. Sie hat kein Fieber, keine Wunde, und die Schwellung steht im Vordergrund, nicht die Hautentzündung.' },
+          { dd: 'Erysipel / Zellulitis', unterscheidung: 'Scharf begrenztes, hochrotes Erythem mit Fieber und Eintrittspforte. Sie hat kein Fieber, keine Wunde, und die Schwellung steht im Vordergrund, nicht die Hautentzündung.' },
           { dd: 'Oberflächliche Thrombophlebitis', unterscheidung: 'Bei ihren Krampfadern naheliegend: tastbarer, geröteter, druckschmerzhafter Venenstrang statt einer diffusen Wadenschwellung. Sie kann in die tiefen Venen übergehen, deshalb werden im Ultraschall oberflächliche und tiefe Venen untersucht.' },
           { dd: 'Rupturierte Baker-Zyste', unterscheidung: 'Plötzlicher Schmerz aus der Kniekehle bei Kniegelenkserkrankung. Bei ihr begann es schleichend, ohne Knieprobleme; im Ultraschall Zyste bei komprimierbarer Vene.' },
           { dd: 'Muskelfaserriss / Muskelhämatom', unterscheidung: 'Abrupter Schmerz bei Belastung, umschriebene Druckstelle. Kein Trauma, kein Sport, die Schwellung nahm über Tage zu.' },
@@ -7173,7 +7174,7 @@ export function seedCases(): Case[] {
           { stufe: 'Anamnese/Klinik', text: 'Umfang beider Waden im Seitenvergleich, Druckschmerz entlang der tiefen Venen, eindrückbares Ödem, Fußpulse, Varizenstrang' },
           { stufe: 'Anamnese/Klinik', text: 'Wells-Score nach der Untersuchung: bei wahrscheinlicher Thrombose direkt Kompressionssonographie, D-Dimer nur bei niedriger Wahrscheinlichkeit' },
           { stufe: 'Labor', text: 'Blutbild mit Thrombozyten, Kreatinin und eGFR (Typ-1-Diabetes, Ramipril; Wahl und Dosis des Antikoagulans), Quick und aPTT, Blutzucker' },
-          { stufe: 'Apparativ & Bildgebung', text: 'Kompressionssonographie der Beinvenen: nicht komprimierbare Vene beweist die Thrombose; Ausdehnung nach proximal und Varizen mitbeurteilen' },
+          { stufe: 'Apparativ & Bildgebung', text: 'Kompressionssonographie der Beinvenen: eine nicht komprimierbare Vene beweist die Thrombose; Ausdehnung nach proximal und Varizen mitbeurteilen' },
           { stufe: 'Apparativ & Bildgebung', text: 'Bei Zeichen einer Lungenembolie CT-Angiographie des Thorax' },
           { stufe: 'Invasiv & Speziell', text: 'Thrombophilie-Diagnostik nicht in der Akutphase und nur, wenn sie die Behandlung ändert; beim Vater erfragen, welche Gerinnungsstörung bekannt ist' },
           { stufe: 'Invasiv & Speziell', text: 'Keine erweiterte Tumorsuche bei klar provozierter Thrombose; prüfen, ob die altersgerechten Vorsorgeuntersuchungen aktuell sind' },
@@ -7183,8 +7184,8 @@ export function seedCases(): Case[] {
             label: 'Antikoagulation',
             akut: true,
             items: [
-              'Bei hoher klinischer Wahrscheinlichkeit sofort antikoagulieren, auch wenn der Ultraschall noch aussteht',
-              'DOAK als erste Wahl, zum Beispiel Apixaban 10 mg zweimal täglich für 7 Tage, dann 5 mg zweimal täglich; Dosis nach Nierenfunktion prüfen',
+              'Ist der Ultraschall nicht zeitnah verfügbar, bei hoher klinischer Wahrscheinlichkeit vorläufig therapeutisch antikoagulieren (S2k 2023)',
+              'DOAK als erste Wahl, zum Beispiel Apixaban 10 mg zweimal täglich für 7 Tage, dann 5 mg zweimal täglich; vorher Nierenfunktion prüfen (Apixaban ab einer GFR von 15 ml/min, ohne Dosisanpassung)',
               'Dauer mindestens drei Monate, da die Thrombose durch Flug und Pille ausgelöst wurde; danach Nutzen und Blutungsrisiko neu abwägen',
               'Ambulante Behandlung möglich, wenn keine Lungenembolie vorliegt und die Versorgung zu Hause gesichert ist',
             ],
@@ -7199,7 +7200,7 @@ export function seedCases(): Case[] {
             label: 'Mobilisation & Allgemeinmaßnahmen',
             items: [
               'Frühe Mobilisation statt Bettruhe, Hochlagern in Ruhe, Analgesie mit Paracetamol oder Metamizol statt NSAR unter Antikoagulation',
-              'Östrogenhaltige Pille absetzen: mit 52 Jahren, als Raucherin mit Diabetes und Hypertonie war sie schon vorher ungünstig. Unter DOAK weiter sicher verhüten, zum Beispiel mit einer Spirale; gynäkologische Beratung',
+              'Östrogenhaltige Pille absetzen: mit 52 Jahren, als Raucherin mit Diabetes und Hypertonie war sie schon vorher ungünstig. Unter DOAK weiter sicher verhüten, zum Beispiel mit einer Hormonspirale (Levonorgestrel), weil eine Kupferspirale die unter Antikoagulation häufige verstärkte Regelblutung verschlimmert; gynäkologische Beratung',
               'Rauchstopp anbieten',
               'Künftige Langstreckenflüge: Kompressionsstrümpfe, Bewegung, ausreichend trinken; eine medikamentöse Prophylaxe vorher besprechen',
             ],
@@ -7245,7 +7246,7 @@ export function seedCases(): Case[] {
         'Welche therapeutischen Maßnahmen ordnen Sie an, und wie lange muss antikoaguliert werden?',
       ],
       pruefungsfallen: [
-        'Nach einer früheren Thrombose oder Lungenembolie fragen: ein Prüfer hat genau das als „sehr wichtig in diesem Fall“ bemängelt.',
+        'Nach einer früheren Thrombose oder Lungenembolie fragen; ein Prüfer hat das Fehlen dieser Frage bemängelt („sehr wichtig in diesem Fall“).',
         'Die Pille als Auslöser benennen und erklären, warum sie bei einer 52-jährigen Raucherin mit Diabetes und Hypertonie ohnehin ungünstig war.',
         'Die D-Dimere sind bei hoher Vortestwahrscheinlichkeit überflüssig: ein positiver Wert beweist nichts, ein negativer schließt dann nicht sicher aus.',
         'Thrombophilie-Tests nicht in der akuten Phase anordnen: Thrombose und Antikoagulation verfälschen die Werte.',
@@ -7262,14 +7263,14 @@ export function seedCases(): Case[] {
         {
           title: 'Differenzialdiagnosen',
           interactions: [
-            { frage: 'Welche Differenzialdiagnosen kommen in Betracht?', reaktion: 'Erysipel (Fieber, scharf begrenzte Rötung, Eintrittspforte fehlen), oberflächliche Thrombophlebitis (bei ihren Krampfadern), rupturierte Baker-Zyste, Muskelfaserriss und eine pAVK.' },
+            { frage: 'Welche Differenzialdiagnosen kommen in Betracht?', reaktion: 'Ein Erysipel, gegen das das Fehlen von Fieber, scharf begrenzter Rötung und Eintrittspforte spricht, eine oberflächliche Thrombophlebitis, die bei ihrer Varikosis naheliegt, eine rupturierte Baker-Zyste, ein Muskelfaserriss und eine pAVK.' },
             { frage: 'Wie unterscheiden Sie eine TVT von einer pAVK bei der Untersuchung?', reaktion: 'Durch Tasten der Fußpulse im Seitenvergleich: bei der Thrombose erhalten, das Bein warm und geschwollen; bei der pAVK abgeschwächt, das Bein blass und kühl.' },
           ],
         },
         {
           title: 'Diagnostik',
           interactions: [
-            { frage: 'Welche klinischen Zeichen prüfen Sie?', reaktion: 'Umfangdifferenz der Waden, Druckschmerz entlang der tiefen Venen, eindrückbares Ödem; Homans-, Meyer- und Payr-Zeichen sind unspezifisch. Daraus der Wells-Score.' },
+            { frage: 'Welche klinischen Zeichen prüfen Sie?', reaktion: 'Umfangsdifferenz der Waden, Druckschmerz entlang der tiefen Venen, eindrückbares Ödem; Homans-, Meyer- und Payr-Zeichen sind unspezifisch; daraus ergibt sich der Wells-Score.' },
             { frage: 'Bestimmen Sie die D-Dimere?', reaktion: 'Nur bei niedriger Wahrscheinlichkeit, dann schließt ein negativer Wert die Thrombose aus. Bei ihr ist die Wahrscheinlichkeit hoch: direkt Kompressionssonographie, sie ist die entscheidende Untersuchung.' },
             { frage: 'Und die Familienanamnese? Testen Sie auf eine Thrombophilie?', reaktion: 'Ich erfrage, welche Gerinnungsstörung der Vater hat. Getestet wird nicht in der Akutphase, weil Thrombose und Antikoagulation die Werte verfälschen, und nur, wenn das Ergebnis die Dauer der Behandlung oder die Beratung der Kinder ändert.' },
             { frage: 'Welche gefährliche Komplikation müssen Sie ausschließen und wie?', reaktion: 'Die Lungenembolie: aktiv nach Luftnot, atemabhängigem Brustschmerz, Herzrasen und Bluthusten fragen, Sättigung messen; bei Verdacht CT-Angiographie.' },
@@ -7286,7 +7287,7 @@ export function seedCases(): Case[] {
           title: 'Aufklärung der Patientin (2 Minuten)',
           interactions: [
             { frage: 'Erklären Sie der Patientin die Diagnose und das Vorgehen.', reaktion: 'Erwartet wird Alltagssprache: ein Blutgerinnsel in einer tiefen Beinvene; die Tabletten verhindern, dass es wächst oder in die Lunge wandert. Bei plötzlicher Luftnot oder Brustschmerz sofort 112 rufen.' },
-            { frage: '(als Patientin) „Ich glaube nicht, dass das mit der Pille zu tun hat.“', reaktion: 'Erwartet wird eine ruhige, klare Antwort: Die Pille erhöht das Thromboserisiko, und mit Rauchen, Diabetes und Bluthochdruck ist sie für sie nicht mehr geeignet. Sie braucht aber weiter einen sicheren Schutz vor einer Schwangerschaft, zum Beispiel eine Spirale; das bespricht sie mit ihrer Frauenärztin.' },
+            { frage: '(als Patientin) „Ich glaube nicht, dass das mit der Pille zu tun hat.“', reaktion: 'Erwartet wird eine ruhige, klare Antwort: Die Pille erhöht das Thromboserisiko, und mit Rauchen, Diabetes und Bluthochdruck ist sie für sie nicht mehr geeignet. Sie braucht aber weiter einen sicheren Schutz vor einer Schwangerschaft, zum Beispiel eine Hormonspirale, weil eine Kupferspirale die unter Antikoagulation häufige verstärkte Regelblutung verschlimmert; das bespricht sie mit ihrer Frauenärztin.' },
           ],
         },
       ],
