@@ -230,3 +230,148 @@ bauchaortenaneurysma, typhus, leistenhernie, akute-leukaemie.
 Nettoyage : les sondes et le paquet d'items sont restés dans le scratchpad. Les 5 dossiers vitest
 `$TMPDIR/<nanoid>/client` créés par ce worktree ont été supprimés ; ils ont été identifiés par le chemin
 `doctopus-s3-vd` qu'ils contiennent. Ceux d'un autre worktree n'ont pas été touchés.
+
+## 8. Passe fixeur des revues (clinique + langue)
+
+Une seule passe sur `feat/s3-vd`, à partir de 8f01003e. Les textes exacts des revues ont été appliqués,
+avec les arbitrages du coordinateur. Les changements sont dans 59 VD et 2 lignes hors VD ; aucune ligne du
+lot Âges n'est touchée.
+
+### 8.1 Ce qui a été appliqué
+
+**Clinique, P1 1 à 7 :**
+- **demenz** : « Demenz, am ehesten vom Alzheimer-Typ, mit spätem Beginn, leicht- bis mittelgradig, mit
+  gefährdeter Alltagskompetenz, zumal er allein lebt. » (texte du coordinateur). La phrase sur la
+  compétence ne redit plus « allein lebend » ni l'âge. Codes « F00.1 und G30.1 ».
+- **nhl** : « …am ehesten vom Non-Hodgkin-Typ, histologisch noch nicht gesichert, vorläufig
+  Ann-Arbor-Stadium I mit B-Symptomatik. » La ligne fait 194 caractères, donc tout tient dans la
+  première phrase.
+- **typhus** : la première phrase s'arrête au point. La dernière devient « Die Malaria ist vorrangig
+  auszuschließen, weil die Chloroquin-Proguanil-Prophylaxe in Südafrika nicht ausreichend schützt. »
+- **psoriasis** : première phrase « Psoriasis vulgaris im mittelschweren bis schweren Schub, … :
+  Systemtherapie indiziert. ». La dernière phrase (Rule of Tens, Upgrade-Kriterium) et la phrase sur
+  l'ASS sont celles de la revue.
+- **coxarthrose** : « am ehesten primäre ». L'alcool sort des facteurs de la coxarthrose et devient le
+  facteur de risque d'une Hüftkopfnekrose à exclure.
+- **rheumatisches-fieber** : seul le critère mineur de la fièvre est rempli ; les marqueurs
+  d'inflammation sont « zu erwarten und laborchemisch zu bestätigen ».
+- **reaktive-arthritis** : la DD rhumatisme articulaire aigu reprend le texte de la revue (« Wandernde
+  Arthritis, Fieber über 38,5 °C und eine Latenz von zwei Wochen passen auch dazu »).
+
+**Clinique, P2 :**
+- vorhofflimmern : définition paroxystique/persistante selon l'ESC.
+- itp : texte de la revue ; « vermutlich » au lieu de « am ehesten » (M5). L'infection virale est passée
+  dans la phrase « Vorausgegangen ist … ».
+- covid19 : la SpO2 a sa propre proposition.
+- achalasie : le score d'Eckardt a sa propre phrase.
+- lymphom : « also mindestens Stadium III B ».
+- metabolisches-syndrom : « und bislang unerkanntem Typ-2-Diabetes ». La troisième phrase ne redit plus
+  « bislang nicht diagnostiziert ».
+- hueftkopfnekrose : « Risikofaktoren sind ».
+- tonsillitis : « (≥ 45) ».
+- Les deux options :
+  - influenza : 198 caractères ; détail plus bas ;
+  - aortendissektion : « : ein herzchirurgischer Notfall », 176 caractères.
+- **Pas appliqué**, sur instruction : nephrotisches-syndrom garde « membranöse Glomerulonephritis » ;
+  epilepsie (âge des myoclonies) est seulement signalé.
+
+**Hors VD :**
+- reaktive-arthritis, DD rheumatisches Fieber (L47052) : « Latenz 2–3 Wochen » retiré des différences.
+- psoriasis, anamnèse ciblée (L59865) : « Auslöser (Scheidung als Stressor, Metoprolol seit fünf
+  Monaten, Nikotin), ASS-Einnahme gegen die Gelenkschmerzen als unterhaltender Faktor ».
+
+**Langue :**
+- I1 : formulations « hochwahrscheinlich » (bronchial-, mamma-, prostatakarzinom, anorexia-nervosa).
+- I3 : pneumothorax.
+- I4 : demenz.
+- M1 à M9 : textes de la revue.
+- M10 : « Crescendo-TIA » est gardé.
+- Corrections de l'échantillon :
+  - nephrotisches-syndrom : « manifestiert sich mit » ;
+  - ptbs : « äußert sich in » ;
+  - akutes-nierenversagen : guillemets „ “ ;
+  - herzinsuffizienz : « ein NYHA-Stadium III » ;
+  - parkinson : « eine geringe Symptomatik », « Bradykinese und Rigor » ;
+  - opioidabhaengigkeit : ajout du verbe « begann » ;
+  - eug : « rechtsseitiger » seul ;
+  - adnexitis : « beginnend kurz nach » ;
+  - psoriasis : « Morgensteifigkeit von zwei Stunden » ;
+  - malaria : « Aufgrund des Zustands nach Splenektomie » ;
+  - ulcus-cruris : « befindet sich ».
+
+### 8.2 Écarts par rapport au texte des revues
+
+- **myokarditis (langue I2).** La revue proposait « Akute Perimyokarditis », ce qui rendrait certaine
+  l'atteinte péricardique que « (Peri-) » laissait ouverte. Par l'arbitrage sur la certitude :
+  « Akute Myokarditis nach COVID-19, mit belastungsinduzierter Präsynkope als Warnzeichen einer relevanten
+  Rhythmusstörung. Eine Perikardbeteiligung (Perimyokarditis) ist möglich. »
+- **influenza.** L'option clinique est fusionnée avec M4 (pas de « Echte Virusgrippe ») et I4 (« mit
+  Asthma bronchiale als Risikofaktor », pas « bei »). Le résultat : « Influenza, am ehesten vom Typ A, mit
+  Asthma bronchiale als Risikofaktor; nach dem Gambia-Aufenthalt ist eine Malaria auszuschließen. »
+  - La fenêtre des 48 heures passe en deuxième phrase.
+  - « Die Asthmatikerin ist damit eine Risikopatientin » est retiré, car le Risikofaktor est déjà dans la
+    première phrase.
+  - Cette première phrase garde une proposition verbale après le « ; », ce que M6 reproche au typhus.
+    C'est l'option demandée.
+- **Phrases suivantes réajustées** pour que rien ne reste sans antécédent ni redite :
+  - alkoholentzug : « Das Delirrisiko ist hoch » ;
+  - sturz-im-alter : « Ursachen der rezidivierenden Stürze » garde le fait retiré de la première phrase ;
+  - erysipel : « die Lymphadenitis ist regional » retiré, puisque « Leistenlymphadenitis » le dit.
+- **Tics (M5)** dans les phrases retouchées :
+  - « am ehesten » → « vermutlich » pour itp, ileus, meningitis, hueftkopfnekrose, perikarditis,
+    colitis-ulcerosa et nephrotisches-syndrom ;
+  - akute-leukaemie : « die wahrscheinliche febrile Neutropenie ist ein Notfall ».
+  - Dans les 99 premières phrases : « am ehesten » 23 → 18 ; « : ein Notfall. » 6 → 3.
+- **« Verdacht ».** Plus aucune des 99 premières phrases ne le contient. La seule du corpus est
+  angina-pectoris (Lc2, texte arbitré par la direction, hors lot).
+
+### 8.3 Mesure après la passe
+
+- **Longueurs :** 0 ligne coupée sur 130. Le maximum est 199 caractères (demenz), la médiane 173.
+- **Garde :** le test `vorstellungsSatz.test.ts` est vert sur les 130 cas.
+- **Liens de termes :** coxarthrose gagne `fb-sekundaer`, aucun lien n'est perdu.
+- **Âges :** 9 VD citent encore l'âge (demenz en sort), tous en accord avec `personalia.age`.
+
+**DOM, 10 cas retouchés** (même montage qu'au § 4 : port 5317, 20 s par étape, borne de 10 min, vite tué
+à la fin) :
+
+| Cas | Ligne | « … » | « Patient » | « Verdacht » | Mot répété |
+|---|---|---|---|---|---|
+| demenz | 199 | non | 1 | 1 | — |
+| nhl | 194 | non | 1 | 1 | — |
+| typhus | 143 | non | 1 | 1 | — |
+| psoriasis | 198 | non | 1 | 1 | — |
+| influenza | 198 | non | 1 | 1 | — |
+| aortendissektion | 176 | non | 1 | 1 | — |
+| schizophrenie | 197 | non | 1 | 1 | — |
+| myokarditis | 181 | non | 1 | 1 | — |
+| lungenembolie | 197 | non | 1 | 1 | — |
+| bronchialkarzinom | 141 | non | 1 | 1 | — |
+
+Le seul « Verdacht » est celui de l'en-tête « Verdachtsdiagnose: ».
+
+**Défaut de la sonde, corrigé.** Le premier passage a lu des valeurs décalées d'un cas : la navigation par
+hash garde l'ancien rendu un instant. La sonde attend désormais que la carte affiche le nom du patient
+attendu. Les 15 valeurs du § 4 étaient justes : chacune égale la longueur calculée de son propre cas, et
+non celle du cas précédent.
+
+### 8.4 Vérifications (code de sortie)
+
+| Commande | Sortie |
+|---|---|
+| `npx tsc -b` | 0 |
+| `npm test` (2 024 tests) | 0 |
+| `npm run test:c6` (212 tests) | 0 |
+| les 19 `check*.mjs` bloquants, `checkTermRegister --require-all`, `evalDoctopus --dry` | 0 chacun |
+| `node --test`, les 15 fichiers de la CI, chacun lancé seul | 0 chacun |
+| `checkCoherence.mjs --case`, 21 cas retouchés | 0 × 21 |
+| `checkBudgetFloor.mjs origin/main` | 0 |
+| `npm run build` | 0 |
+| `npm run content:link` | 0 |
+| `git merge-tree --write-tree origin/main HEAD` (origin/main c1f7b23a) | 0 |
+| Mesure DOM, 10 cas | 0 |
+
+Restent ouverts :
+- le doublon « Elisabeth Länge, 47 ans » (lymphom et nhl), question produit posée à Mehdi ;
+- l'âge des myoclonies (epilepsie) ;
+- la modernisation « membranöse Nephropathie », à faire sur tout le corpus.
