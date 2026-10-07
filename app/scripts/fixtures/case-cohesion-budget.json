@@ -1,0 +1,255 @@
+{
+ "note": "checkCaseCohesion.mjs (série 3, 1d) : plafonds par catégorie de constat, dégressifs — ne remontent jamais (checkBudgetFloor.mjs). `ddSansNegatif` : DD qu'aucun négatif anamnestique ne peut écarter (examen, imagerie, biologie, histologie, endoscopie, diagnostic d'exclusion, tableau positif, comorbidité), une raison par entrée ; son effectif est aussi un plafond.",
+ "budget": {
+  "ddNonNeutralisee": 0,
+  "piegeSansReponse": 6,
+  "arztbrief.vorerkrankungen": 44,
+  "arztbrief.medikamente": 19,
+  "arztbrief.allergien": 5,
+  "arztbrief.leitsymptome": 0,
+  "chiffreOrphelin": 0,
+  "reponseCourte": 16,
+  "dureeSuperieureAge": 0
+ },
+ "ddSansNegatif": {
+  "case-gib": {
+   "Blutendes Ulcus duodeni": "endoscopie — ulcère duodénal et gastrique ont les mêmes signes de saignement, seule la ÖGD tranche",
+   "Erosive Gastritis unter NSAR": "endoscopie — gastrite érosive et ulcère se distinguent à la ÖGD"
+  },
+  "case-divertikulitis": {
+   "Gynäkologische Ursache (Ovarialtumor, Adnexitis)": "imagerie — après la ménopause, un processus ovarien ne s'exclut qu'au scanner ou à l'échographie vaginale"
+  },
+  "case-kolorektales-ca": {
+   "Chronisch-entzündliche Darmerkrankung": "histologie — une MICI tardive ne s'écarte qu'à la coloscopie avec biopsies",
+   "Analfissur oder Analkarzinom": "examen — fissure ou carcinome anal se voient au toucher rectal et à la proctoscopie"
+  },
+  "case-oesophaguskarzinom": {
+   "Adenokarzinom des ösophagogastralen Übergangs (Kardia)": "histologie — siège et type du carcinome du cardia relèvent de la ÖGD avec biopsies",
+   "Bronchialkarzinom mit mediastinaler Kompression": "imagerie — la compression extrinsèque se voit au scanner, muqueuse intacte à la ÖGD"
+  },
+  "case-ulcus": {
+   "Funktionelle Dyspepsie": "exclusion — dyspepsie fonctionnelle : diagnostic d'exclusion après une ÖGD normale"
+  },
+  "case-magenkarzinom": {
+   "Magenlymphom (MALT)": "histologie — seul l'examen histologique sépare lymphome MALT et carcinome"
+  },
+  "case-appendizitis": {
+   "Zäkumdivertikulitis": "imagerie — diverticulite caecale et appendicite ne se séparent qu'à l'imagerie"
+  },
+  "case-lyme": {
+   "Viraler grippaler Infekt": "tableau — l'érythème migrant (Leitsymptom) écarte l'infection grippale banale, aucun négatif n'y ajoute"
+  },
+  "case-tvt": {
+   "Oberflächliche Thrombophlebitis": "examen — le cordon veineux palpable et l'échographie tranchent, pas l'interrogatoire"
+  },
+  "case-morbus-crohn": {
+   "Reizdarmsyndrom": "exclusion — syndrome de l'intestin irritable : diagnostic d'exclusion, déjà réfuté par les signes d'alarme",
+   "Kolorektales Karzinom oder Dünndarmlymphom": "histologie — carcinome ou lymphome ne s'écartent qu'à l'iléocoloscopie avec biopsies"
+  },
+  "case-prostatakarzinom": {
+   "Andere ossär metastasierende Tumoren und multiples Myelom": "imagerie — ostéolyse ou ostéocondensation à la radiographie, électrophorèse pour le myélome"
+  },
+  "case-hepatitis-b": {
+   "Pankreaskarzinom oder Gallengangskarzinom": "imagerie — l'échographie des voies biliaires et du pancréas tranche ; âge et prodrome orientent déjà"
+  },
+  "case-gonarthrose": {
+   "Pseudogicht (CPPD-Arthropathie)": "imagerie — chondrocalcinose à la radiographie, cristaux à la ponction articulaire"
+  },
+  "case-struma": {
+   "Mediane Halszyste (Ductus-thyreoglossus-Zyste)": "examen — mobilité à la protrusion de la langue et échographie"
+  },
+  "case-lagerungsschwindel": {
+   "Vestibularisparoxysmie (neurovaskuläre Kompression des VIII. Hirnnervs)": "tableau — la provocation par le positionnement (Leitsymptom) et l'IRM séparent la paroxysmie vestibulaire"
+  },
+  "case-zoeliakie": {
+   "Weizenallergie und Nicht-Zöliakie-Weizensensitivität": "exclusion — sensibilité au blé non cœliaque : exclusion après bilan cœliaque et allergologique négatifs"
+  },
+  "case-schenkelhalsfraktur": {
+   "Beckenfraktur, insbesondere Schambein- oder Sitzbeinastfraktur": "imagerie — fracture du bassin : examen clinique puis radiographie ou scanner",
+   "Azetabulumfraktur": "imagerie — fracture de l'acétabulum : scanner avec reconstruction",
+   "Traumatische Hüftgelenkluxation": "examen — la luxation se reconnaît à la position du membre (rotation interne) et à la radiographie",
+   "Okkulte, nicht dislozierte oder eingestauchte Schenkelhalsfraktur": "tableau — le raccourcissement en rotation externe (positif) exclut la forme occulte ; IRM si doute",
+   "Weichteilprellung, Muskelzerrung oder Bursitis trochanterica": "imagerie — contusion ou bursite ne se retiennent qu'après exclusion radiologique de la fracture"
+  },
+  "case-leistenhernie": {
+   "Femoralhernie (Schenkelhernie)": "examen — siège de l'orifice herniaire sous ou sur le ligament inguinal à l'examen"
+  },
+  "case-alkoholentzug": {
+   "Elektrolyt- und Stoffwechselentgleisung (Hyponatriämie, Hypokaliämie, Hypomagnesiämie, Hypophosphatämie)": "biologie — les troubles hydro-électrolytiques se prouvent au laboratoire"
+  },
+  "case-itp": {
+   "Gynäkologische Blutungsursache (Myom, Polyp, Zyklusstörung)": "tableau — une cause gynécologique n'explique pas pétéchies et hématomes ; examen gynécologique en complément"
+  },
+  "case-uterus-myomatosus": {
+   "Ovarialzyste oder Ovarialtumor": "imagerie — kyste ou tumeur ovarienne se séparent du myome à l'échographie"
+  },
+  "case-fibromyalgie": {
+   "Vitamin-D-Mangel bzw. Osteomalazie": "biologie — le dosage de la 25-OH-vitamine D tranche ; la patiente est déjà supplémentée",
+   "Polyneuropathie": "examen — la topographie des paresthésies et le statut neurologique tranchent, aucun négatif fiable à l'interrogatoire"
+  },
+  "case-polymyalgia": {
+   "Fibromyalgiesyndrom": "tableau — âge, amaigrissement, subfébrilité et syndrome inflammatoire réfutent la fibromyalgie"
+  },
+  "case-pneumothorax": {
+   "Pleuraerguss": "examen — matité à la percussion et imagerie séparent épanchement et pneumothorax"
+  },
+  "case-schizophrenie": {
+   "Schizotype (F21) und schizoide Persönlichkeitsstörung": "tableau — la rupture nette avec le fonctionnement antérieur (positif) écarte le trouble de la personnalité"
+  },
+  "case-delir": {
+   "Harnverhalt und Obstipation": "examen — rétention et fécalome se cherchent au résidu post-mictionnel échographique et à la palpation",
+   "Metabolische Enzephalopathie (Hypoglykämie, Hyponatriämie, Urämie, Hyperkalzämie)": "biologie — glycémie, électrolytes, créatinine et calcémie"
+  },
+  "case-achalasie": {
+   "Pseudoachalasie bei Kardiakarzinom oder Tumorinfiltration": "histologie — ÖGD avec biopsies du cardia obligatoire, l'anamnèse ne suffit pas"
+  },
+  "case-septische-arthritis": {
+   "Aktivierte Gonarthrose mit Reizerguss": "tableau — fièvre et ponction articulaire (positifs) réfutent la gonarthrose activée",
+   "Osteomyelitis der distalen Femur- bzw. proximalen Tibiametaphyse": "imagerie — l'ostéomyélite se prouve à l'IRM avec contraste"
+  },
+  "case-hws-diskusprolaps": {
+   "Neuralgische Schulteramyotrophie (Plexus-brachialis-Neuritis)": "tableau — le déclencheur mécanique et le déficit radiculaire systématisé (positifs) écartent l'amyotrophie névralgique"
+  },
+  "case-laktoseintoleranz": {
+   "Reizdarmsyndrom (Colon irritabile)": "exclusion — intestin irritable : diagnostic d'exclusion, la dépendance stricte au lait oriente",
+   "Bakterielle Fehlbesiedlung des Dünndarms (SIBO)": "biologie — test respiratoire à l'hydrogène (glucose ou lactulose)"
+  },
+  "case-tia": {
+   "Ischämischer Schlaganfall (Apoplex)": "imagerie — la réversibilité complète et l'IRM de diffusion séparent AIT et infarctus"
+  },
+  "case-rheumatisches-fieber": {
+   "Infektiöse Endokarditis": "biologie — hémocultures et échocardiographie (critères de Duke)",
+   "Systemischer Lupus erythematodes": "biologie — ANA et anti-dsDNA ; l'érythème marginé du tronc (positif) n'est pas l'érythème facial du lupus"
+  },
+  "case-coxarthrose": {
+   "Iliosakralgelenksyndrom": "examen — signes de Mennell et rotation interne de hanche conservée à l'examen"
+  },
+  "case-metabolisches-syndrom": {
+   "Alkoholkrankheit mit alkoholtoxischer Fettleber": "comorbidité — consommation d'alcool avérée (positif) : stéatose d'origine mixte, à quantifier au laboratoire",
+   "Binge-Eating-Störung": "exclusion — à rechercher activement (perte de contrôle, honte), aucun négatif n'est encore établi",
+   "Hypogonadismus des Mannes": "biologie — testostérone totale matinale, LH et FSH, après interrogatoire ciblé"
+  },
+  "case-karzinoid": {
+   "Asthma bronchiale": "tableau — l'asthme n'explique ni flush, ni diarrhée, ni amaigrissement ; pléthysmographie"
+  },
+  "case-abszess": {
+   "Noch nicht eingeschmolzene Phlegmone bzw. Zellulitis": "examen — fluctuation et échographie séparent abcès collecté et phlegmon"
+  },
+  "case-anorexia-nervosa": {
+   "Hypothyreose": "biologie — TSH et fT4 ; l'amaigrissement plaide déjà contre",
+   "Zwangsstörung": "tableau — compulsions centrées sur l'alimentation et le poids : partie du tableau ou comorbidité"
+  },
+  "case-malaria": {
+   "Typhus abdominalis": "biologie — courbe thermique et hémocultures avant toute antibiothérapie",
+   "Akute Schistosomiasis (Katayama-Syndrom)": "biologie — sérologie et éosinophilie",
+   "Bakterielle Sepsis, insbesondere OPSI (Overwhelming Post-Splenectomy Infection) durch Pneumokokken": "biologie — à évoquer chez une splénectomisée : hémocultures, procalcitonine",
+   "Leptospirose": "biologie — sérologie ; les myalgies diffuses empêchent un négatif fiable sur le mollet"
+  },
+  "case-endokarditis": {
+   "Vaskulitis (ANCA-assoziiert) mit pulmorenalem Syndrom": "biologie — ANCA, hémocultures et ETO",
+   "Vorhofmyxom": "imagerie — l'échocardiographie distingue myxome et végétation"
+  },
+  "case-covid19": {
+   "Myokarditis / Perikarditis": "biologie — ECG et troponine obligatoires, l'anamnèse ne l'écarte pas"
+  },
+  "case-anaphylaxie": {
+   "Akuter Asthmaanfall": "tableau — urticaire, angio-œdème et hypotension (positifs) dépassent la crise d'asthme isolée",
+   "Panikattacke mit Hyperventilation": "tableau — hypotension, urticaire et angio-œdème (positifs) excluent l'attaque de panique"
+  },
+  "case-colitis-ulcerosa": {
+   "Divertikulitis": "imagerie — échographie ; l'évolution sur des mois et les ténesmes (positifs) plaident contre",
+   "Hämorrhoidalblutung": "examen — inspection, toucher rectal et proctoscopie ; mucus et diarrhée non expliqués",
+   "Reizdarmsyndrom": "exclusion — intestin irritable : exclusion, déjà réfutée par les signes d'alarme"
+  },
+  "case-chronische-pankreatitis": {
+   "Ulcus ventriculi / Ulcus duodeni": "endoscopie — ÖGD avec test à Helicobacter",
+   "Alkoholische Leberzirrhose mit Ösophagusvarizen": "comorbidité — cirrhose attendue chez cette patiente, à rechercher par échographie et ÖGD",
+   "Zöliakie und andere Malabsorptionsursachen bei Steatorrhoe": "histologie — anticorps anti-transglutaminase et biopsie duodénale, élastase fécale",
+   "Bakterielle Fehlbesiedlung des Dünndarms": "biologie — test respiratoire à l'hydrogène"
+  },
+  "case-akute-leukaemie": {
+   "Aplastische Anämie": "histologie — seule la biopsie médullaire sépare aplasie et leucémie",
+   "Myelodysplastisches Syndrom": "histologie — myélogramme avec pourcentage de blastes",
+   "Immunthrombozytopenie (ITP)": "biologie — l'hémogramme complet (anémie, blastes) réfute la PTI isolée",
+   "Infektiöse Mononukleose (EBV)": "biologie — hémogramme et sérologie EBV",
+   "Sepsis mit Verbrauchskoagulopathie bzw. leukämoide Reaktion": "biologie — laboratoire et hémocultures ; fièvre traitée sans attendre",
+   "Chronische myeloische Leukämie": "biologie — hémogramme et BCR::ABL1"
+  },
+  "case-endometriose": {
+   "Primäre Dysmenorrhoe": "tableau — évolution progressive et dyspareunie (positifs) : dysménorrhée secondaire"
+  },
+  "case-ptbs": {
+   "Anpassungsstörung": "tableau — reviviscences et intrusions (positifs) excluent le trouble de l'adaptation",
+   "Anämie": "biologie — hémogramme et ferritine",
+   "Schädlicher Alkoholgebrauch / beginnende Abhängigkeit": "comorbidité — consommation avérée (positif), à évaluer par AUDIT et laboratoire"
+  },
+  "case-somatoforme-schmerzstoerung": {
+   "Fibromyalgiesyndrom": "comorbidité — chevauchement large avec la fibromyalgie, critères ACR ; souvent nommées ensemble",
+   "Medikamentenübergebrauchskopfschmerz und Opioidgebrauch": "comorbidité — surconsommation médicamenteuse avérée (positif)",
+   "Simulation / „Rentenneurose“": "exclusion — la simulation ne s'évoque qu'avec la plus grande réserve, aucun négatif ne la réfute"
+  },
+  "case-hueftkopfnekrose": {
+   "Femoroazetabuläres Impingement und Labrumläsion": "imagerie — radiographie (Cam/Pincer) ; les douleurs de repos et nocturnes plaident contre",
+   "Bursitis trochanterica / Glutealsehnen-Tendinopathie": "examen — douleur à la pression du trochanter à l'examen"
+  },
+  "case-glomerulonephritis": {
+   "IgA-Nephropathie": "biologie — C3, titre ASL, biopsie si doute ; la latence de 16 jours oriente"
+  },
+  "case-nhl": {
+   "Sarkoidose": "imagerie — radiographie thoracique et ECA"
+  },
+  "case-cml": {
+   "Chronische myelomonozytäre Leukämie und myelodysplastisches Syndrom": "biologie — hémogramme (monocytose, dysplasie), BCR-ABL1",
+   "Reaktive Leukozytose durch Rauchen, Stress oder Glukokortikoide": "biologie — le chiffre de leucocytes (132 G/l) réfute la réaction"
+  },
+  "case-typhus": {
+   "Malaria tropica": "biologie — goutte épaisse immédiate et répétée, le paludisme n'est pas exclu",
+   "Influenza / COVID-19": "biologie — test rapide ; l'évolution sur huit jours plaide contre",
+   "Lymphom, Tuberkulose (B-Symptome)": "biologie — à élargir si aucun germe n'est retrouvé",
+   "Appendizitis / Morbus Crohn": "tableau — appendicectomie antérieure (Voroperation) ; l'iléite se voit à l'échographie"
+  },
+  "case-obstipation": {
+   "Reizdarmsyndrom vom Obstipationstyp": "exclusion — après coloscopie seulement",
+   "Koprostase mit drohender Impaktion": "examen — toucher rectal et échographie"
+  },
+  "case-sturz-im-alter": {
+   "Exsikkose und Hyponatriämie unter Hydrochlorothiazid bei geringer Trinkmenge": "biologie — natrémie, créatinine, urée, hématocrite",
+   "Aortenstenose oder höhergradige Bradykardie": "examen — auscultation, ECG et échocardiographie",
+   "Depression, Sarkopenie und Sturzangst als Hintergrund": "tableau — terrain (positifs) à dépister par GDS, MNA et force de préhension"
+  },
+  "case-lumboischialgie": {
+   "Facettengelenksyndrom und Iliosakralgelenkblockade": "examen — reclinaison, rotation, Mennell à l'examen"
+  },
+  "case-aortendissektion": {
+   "Rupturiertes Bauchaortenaneurysma": "imagerie — angio-scanner de toute l'aorte ; début rétrosternal migrant"
+  },
+  "case-perikarditis": {
+   "Myokarditis / Perimyokarditis": "biologie — troponine et échocardiographie"
+  },
+  "case-hodentorsion": {
+   "Hydatidentorsion": "examen — âge, position du testicule et réflexe crémastérien"
+  },
+  "case-basaliom": {
+   "Dermaler Naevus, Talgdrüsenhyperplasie, Trichoepitheliom": "tableau — apparition récente, croissance et saignement (positifs) réfutent la lésion bénigne"
+  },
+  "case-psoriasis": {
+   "Aktivierte Fingerpolyarthrose / Gonarthrose": "tableau — raideur matinale de deux heures et rythme inflammatoire (positifs)",
+   "Tinea corporis / Onychomykose": "biologie — examen mycologique direct et culture",
+   "Mycosis fungoides": "histologie — biopsie avec immunohistochimie"
+  },
+  "case-perniziose-anaemie": {
+   "Depression oder beginnende Demenz": "exclusion — dépistage cognitif au décours ; anémie, glossite et paresthésies orientent vers une cause organique",
+   "Magenkarzinom bei atrophischer Gastritis": "histologie — gastroscopie avec biopsies"
+  },
+  "case-opioidabhaengigkeit": {
+   "Körperliche Abhängigkeit des Schmerzpatienten ohne Suchterkrankung": "tableau — les six critères CIM-10 sont remplis (positifs)"
+  },
+  "case-sinusitis": {
+   "Akute virale bzw. postvirale Rhinosinusitis (verlängerter Erkältungsschnupfen)": "tableau — les critères EPOS (positifs) orientent vers la surinfection bactérienne"
+  },
+  "case-arterielle-hypertonie": {
+   "Medikamentös induzierte Blutdruckerhöhung (NSAR)": "comorbidité — l'ibuprofène est un cofacteur avéré (positif)"
+  }
+ },
+ "hausses": []
+}
