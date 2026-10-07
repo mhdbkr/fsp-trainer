@@ -1,8 +1,8 @@
 import { PROBE_BY_ID } from './anamneseProbes';
 import { parseFollowUp } from './followUp';
-import { phraseFollowUps, phraseIsCaseSpecific, phraseProbes, splitDimension, type Phrase, type PhraseVariant } from './phrases';
+import { partNonAutonome, phraseFollowUps, phraseIsCaseSpecific, phraseProbes, splitDimension, type Phrase, type PhraseVariant } from './phrases';
 import { PROFIL_EXCLUT, PROFIL_EXIGE, SIGNES, SIGNE_DEF, SUCHT_AUSSER, tagsEffectifs, type ProfilCas, type ProfilTag, type Signe } from './signes';
-import { phraseSucht } from './symptoms';
+import { ditsDe, phraseSucht } from './symptoms';
 
 // ============================================================================
 // LE MOTEUR DE COHÉRENCE — lot K3 (ADR-0023, contrat `frage-atomique.md` §10.4).
@@ -13,6 +13,7 @@ import { phraseSucht } from './symptoms';
 //   r2  un signe, une question (gagnant : question du cas > Fach > aktuell > vegetativ > reste)
 //   r3  rien d'attendu absent (la sonde de banque du signe exigé, jamais un texte inventé)
 //   r4b rien avant son antécédent (`braucht`)
+//   r5  rien de déjà dit       (une question de banque ne redemande pas ce qu'une réplique jouée avant elle a dit — FB3-A2)
 // Pure : aucune entrée mutée, ni hasard, ni horloge, ni E/S ; seules les tables statiques
 // (lexique, PROBE_SUCHT, COHERENCE_ALLOWED) sont lues. Remplace `dedupeBySymptom` et `FACH_COVERS`.
 // ============================================================================
@@ -22,12 +23,12 @@ export interface TrameChapter { id: string; questions: Phrase[] }
 export type EcartAction = 'retire' | 'reduit' | 'non-reduit' | 'ajoute' | 'deplace'
   | 'detache' | 'garde-exception' | 'anomalie' | 'profil-absent';
 export interface Ecart {
-  regle: 0 | 1 | 2 | 3 | 4;      // 0 = profil absent
+  regle: 0 | 1 | 2 | 3 | 4 | 5;  // 0 = profil absent
   action: EcartAction;
   question: string;              // probeId · cas:<index> · <mère>#<n> (relance)
   signes: Signe[];
   mere?: string;                 // relance de précision : la mère dont elle suit l'écart
-  cause?: string;                // gagnant (r2) · tag / 'exige' (r3) · signe (r4b) · 'profil' / 'exclut' (r1)
+  cause?: string;                // gagnant (r2) · tag / 'exige' (r3) · signe (r4b) · 'profil' / 'exclut' (r1) · la réplique qui l'a dit (r5)
   de?: string; vers?: string;
   sansReponse?: true;            // r3 : la fiche n'a pas de réponse pour la banque ajoutée
   raison: string;
@@ -74,6 +75,7 @@ export interface CohereCtx {
   banque?: (probe: string) => Phrase | undefined;          // r3 : la phrase du guide de la sonde de banque
   allowed?: ReadonlyArray<CoherenceException>;            // défaut : COHERENCE_ALLOWED (paramètre pour les tests)
   casIndex?: (p: Phrase) => number | undefined;            // index d'une question du cas dans `caseSpecificQuestions` (id `cas:<index>`)
+  reponse?: (p: Phrase) => string | undefined;            // r5 : la réplique de la fiche à cette question (absent = r5 inactive)
 }
 
 /** D4-bis (décision de main, revue clinique P1-1) : le signe qui EST le motif du cas (fièvre d'un tableau infectieux,
@@ -91,6 +93,24 @@ export const SONDE_DU_MOTIF = 'akt-motiv';
 /** §10.4 (revue K5, décision de main) : les signes d'ALARME qu'une part ne demande jamais en relance — elle est posée en question
  *  autonome (commotio : l'instabilité à la marche après un traumatisme crânien ne se glisse pas sous le vertige). Liste fermée. */
 export const PART_ALARME: ReadonlySet<Signe> = new Set<Signe>(['gang']);
+/** r5 — les sondes de banque qui demandent une DIMENSION du signe (la mesure, l'effort, la localisation, Festes ou Flüssiges, où et
+ *  combien de temps) : que le patient ait nommé le signe n'y répond pas, elles restent posées. Liste fermée (précision d'abord). */
+export const SONDE_DIMENSION: ReadonlySet<string> = new Set([
+  'akt-atemnot-belastung', 'akt-ausscheid-schlucken', 'akt-infekt-fieber', 'fach-infekt-fieber', 'fach-pneumo-atemnot', 'fach-kardio-luft',
+  'fach-neuro-kopfschmerz', 'fach-neuro-sensibilitaet', 'fach-kardio-brust', 'fach-infekt-reise',
+]);
+/** r5 — les répliques qui ne disent pas le présent : antécédents, famille, traitements, toxiques, allergies, épisodes antérieurs
+ *  (règle (e) de l'identité : un antécédent est un autre signe que le symptôme actuel). */
+const HISTOIRE = /^(?:akt-frueher$|vor-|fam-|med-|nox-|all-)/;
+/** r5 : les chapitres hors de l'entretien clinique — une question n'y CHERCHE pas un signe exigé (même périmètre que la mesure). */
+const HORS_ENTRETIEN: ReadonlySet<string> = new Set(['eroeffnung', 'personalia', 'abschluss']);
+/** r5 : une relance de précision peut ouvrir la question si elle se dit seule — autonome (`partNonAutonome`), au moins quatre mots,
+ *  sans renvoi à ce qu'on vient de dire (« Seit wann? », « In welchem Zeitraum war das? » ne s'ouvrent pas). */
+const RENVOI = /\b(?:es|dabei|dann|davon|dort|dazu|beide)\b|\bdas\s*\?$/i;
+/** r5 : une question qui demande, outre la présence, une PRÉCISION (combien, depuis quand, où) reste posée quand seule la présence
+ *  est dite (« ich habe abgenommen » ne répond pas à « — wie viel in welcher Zeit? »). */
+const PRECISION = /\b(?:wie viele?|wie oft|wie lange|wie hoch|seit wann|wo genau|in welche[mr]? zeit\w*|welche[rnms]?)\b/i;
+const promouvable = (t: string): boolean => !partNonAutonome(t) && t.split(/\s+/).length >= 4 && !RENVOI.test(t);
 const motifsDeclares = (tags: readonly ProfilTag[]): Signe[] => tags.flatMap((t) => MOTIF_DECLARE[t] ?? []);
 
 /** Rang de conservation (D4, §10.4) : question du cas 0 · Fach 1 · aktuell 2 · vegetativ 3 · autres 4. */
@@ -106,6 +126,9 @@ interface U {
   enfants: U[];                       // relances qui cherchent un autre signe (unités à part, I1)
   relance?: { mere: U; i: number; cond: boolean; attachee: boolean };
   motifAjoute?: Signe[];              // K5 : signes du motif déclaré ajoutés à `akt-motiv` (MOTIF_DECLARE) — jamais perdus en r2 (I3)
+  obtient?: Signe[];                  // r5 : signes que SA réplique a dits et qu'une question de banque plus loin ne redemande plus
+  promues?: Map<number, Part>;        // r5 : part (index ; -1 = la question sans parts) remplacée par ses relances de précision ouvertes
+  relRetirees?: number[];             // r5 : relances (index) qui déclarent un signe déjà dit — elles ne se posent plus
 }
 
 const variant = (p: Phrase): PhraseVariant | undefined => (typeof p === 'string' ? undefined : p);
@@ -155,6 +178,8 @@ const RAISON: Record<string, (e: Ecart) => string> = {
   '2:anomalie': (e) => `DOUBLON DU CAS ${e.question} : ${e.signes.join(', ')} déjà cherché par la question du cas ${e.cause} (doublonsCas)`,
   '3:ajoute': (e) => `AJOUTÉ ${e.question} : ${e.signes.join(', ')} — exigé par « ${e.cause} »${e.sansReponse ? ' — SANS RÉPONSE dans la fiche' : ''}`,
   '4:deplace': (e) => `DÉPLACÉ ${e.question} : après la question qui cherche « ${e.cause} » (braucht)`,
+  '5:retire': (e) => `RETIRÉ ${e.question} : ${e.signes.join(', ')} — déjà dit par ${e.cause}`,
+  '5:reduit': (e) => `RÉDUIT ${e.question} : ${e.signes.join(', ')} déjà dit par ${e.cause} ; le reste et les précisions sont posés`,
 };
 
 /** Le moteur. `trame` : chapitres dans l'ordre de l'entretien, la Fach jouée sous l'id `fach`. */
@@ -207,6 +232,61 @@ export function cohere<T extends TrameChapter>(trame: readonly T[], profil: Prof
     ch.items.forEach((v, k) => { if (v.etat !== 'retire' && v.signes.length && ordreSigne(v.signes[0]) <= ordreSigne(s)) at = k + 1; });
     ch.items.splice(at, 0, u); u.ch = ch.id;
     return ch.id;
+  };
+
+  /** r5 : l'unité `u` ne redemande pas les signes `deja`, dits plus haut (voir r5). */
+  const direDeja = (u: U, deja: Signe[], dits: Map<Signe, { par: U; complet: boolean }>) => {
+    const v = variant(u.p)!;
+    const cause = uniq(deja.map((s) => dits.get(s)!.par.id)).join(', ');
+    const ouvre = (textes: string[], signes: Signe[]): Part | undefined => {
+      if (signes.every((s) => dits.get(s)!.complet)) return undefined;          // l'absence (ou le chiffre) répond aussi aux précisions
+      const qs = textes.map(parseFollowUp).filter((c) => !(c.kind === 'ja' && /^n(ein|icht)/i.test(c.label))).map((c) => ('question' in c ? c.question : ''));
+      // la première relance qui se dit seule ouvre ; les autres la suivent (« Seit wann? » se dit après « Wie oft …? », pas seul)
+      const k = qs.findIndex(promouvable);
+      const fu = qs.filter((_, j) => j !== k);
+      // la question ouverte cherche les DIMENSIONS du signe (règle (d) de l'identité), pas le signe : la réplique qui l'a dit le porte
+      return k < 0 ? undefined : { sucht: [], text: qs[k], ...(fu.length ? { followUp: fu } : {}) };
+    };
+    const porter = (perdus: Signe[]) => { for (const s of perdus) { const a = dits.get(s)!.par; a.obtient = uniq([...(a.obtient ?? []), s]); } };
+    const base = { regle: 5 as const, signes: deja, cause };
+    if (!v.parts) {
+      if (u.signes.some((s) => !deja.includes(s))) {
+        // une partie dite, sans parts : seules sortent les relances qui DÉCLARENT un signe dit (« Brennt es beim Wasserlassen? ») ;
+        // la question reste, entière sinon
+        const fus = phraseFollowUps(v);
+        const sortent = u.rels.filter((i) => fus[i].sucht?.length && fus[i].sucht!.every((s) => deja.includes(s as Signe)));
+        const perdus = deja.filter((s) => sortent.some((i) => fus[i].sucht!.includes(s)) && !u.rels.some((i) => !sortent.includes(i) && fus[i].sucht?.includes(s)));
+        if (!perdus.length || u.signes.every((s) => perdus.includes(s))) return;
+        u.relRetirees = sortent; u.rels = u.rels.filter((i) => !sortent.includes(i)); u.signes = u.signes.filter((s) => !perdus.includes(s));
+        ecart({ ...base, signes: perdus, action: 'reduit', question: u.id }); porter(perdus);
+        for (const i of sortent) ecart({ ...base, signes: perdus, action: 'retire', question: `${u.id}#${i + 1}`, mere: u.id });
+        return;
+      }
+      const promu = ouvre(u.rels.map((i) => phraseFollowUps(v)[i].text), deja.filter((s) => !dits.get(s)!.complet));
+      const precis = !deja.every((s) => dits.get(s)!.complet) && (u.rels.length > 0 || PRECISION.test(v.text));
+      if (!promu && precis) return;                                                // des précisions à poser, qui ne s'ouvrent pas seules
+      if (!promu) { u.etat = 'retire'; ecart({ ...base, action: 'retire', question: u.id }); suivent(u, { ...base, action: 'retire' }); porter(deja); return; }
+      u.promues = new Map([[-1, promu]]); u.signes = [];
+      ecart({ ...base, action: 'reduit', question: u.id }); suivent(u, { ...base, action: 'reduit' }); porter(deja);
+      return;
+    }
+    const cur = u.parts ?? v.parts.map((_, i) => i);
+    const promues = new Map<number, Part>();
+    const keep = cur.filter((i) => {
+      const sig = v.parts![i].sucht.filter((s) => u.signes.includes(s as Signe)) as Signe[];
+      if (!sig.length || !sig.every((s) => deja.includes(s))) return true;        // la part cherche encore un signe non dit
+      if (!v.parts![i].followUp?.length) return !sig.every((s) => dits.get(s)!.complet) && PRECISION.test(v.parts![i].text);
+      const promu = ouvre(v.parts![i].followUp!, sig.filter((s) => !dits.get(s)!.complet));
+      if (promu) { promues.set(i, promu); return true; }
+      return sig.every((s) => dits.get(s)!.complet) ? false : true;               // précisions qui ne s'ouvrent pas seules : la part reste
+    });
+    const signes = uniq(keep.flatMap((i) => (promues.get(i) ?? v.parts![i]).sucht.filter((s) => u.signes.includes(s as Signe)) as Signe[]));
+    const perdus = deja.filter((s) => !signes.includes(s));
+    if (!promues.size && keep.length === cur.length) return;                    // rien ne sort
+    if (!keep.length) { u.etat = 'retire'; ecart({ ...base, action: 'retire', question: u.id }); suivent(u, { ...base, action: 'retire' }); porter(deja); return; }
+    if (u.signes.some((s) => !deja.includes(s) && !signes.includes(s))) return;  // un signe non dit ne serait plus posé : gardée entière
+    u.parts = keep; u.promues = promues; u.signes = signes;
+    ecart({ ...base, action: 'reduit', question: u.id }); suivent(u, { ...base, action: 'reduit' }); porter(perdus);
   };
 
   // ── r1 — rien hors profil ───────────────────────────────────────────────────
@@ -330,17 +410,61 @@ export function cohere<T extends TrameChapter>(trame: readonly T[], profil: Prof
   }
   for (const u of avecBraucht()) if (viole(u).apres.length) ecart({ regle: 4, action: 'anomalie', question: u.id, signes: braucht(u), cause: 'cycle' });
 
+  // ── r5 — rien de déjà dit (lot Banque, FB3-A2), dans l'ordre FINAL de l'entretien ──────────────────────────────
+  // Une question de BANQUE dont un signe a été dit par une réplique jouée avant elle (`ditsDe` : présence ou absence) ne le
+  // redemande pas. Sa part (ou la question entière) sort ; si le patient a dit la PRÉSENCE sans les précisions, les relances de
+  // précision rédigées sous elle restent et s'ouvrent sans leur condition, remplie (« Falls ja: Wie viel …? » → « Wie viel …? ») —
+  // jamais un texte inventé. Ce qui ne se réduit pas (pas de parts pour le reste, relance non autonome) est gardé ENTIER, sans
+  // écart (jamais un « non réduit » de plus). Un signe qui quitte la trame est PORTÉ par la question dont la réplique l'a dit
+  // (`obtient`) : il reste cherché une fois (r2, r3 et la porte inchangés). Jamais une question du cas (lot de contenu), un signe de
+  // risque (RISIKO_SIGNES) ni une sonde de dimension (SONDE_DIMENSION).
+  if (ctx.reponse) {
+    const dits = new Map<Signe, { par: U; complet: boolean }>();
+    for (const u of flat()) {
+      // un signe EXIGÉ par le profil ne se porte pas par une question hors de l'entretien clinique (personalia : « wie viel wiegen
+      // Sie? ») — la porte et sa mesure ne l'y comptent pas ; la question de banque reste alors posée
+      const portable = (s: Signe) => !HORS_ENTRETIEN.has(dits.get(s)!.par.ch) || !(s in profil.exige);
+      const deja = !u.cas && u.etat === 'garde' && !phraseProbes(u.p).some((p) => SONDE_DIMENSION.has(p))
+        ? u.signes.filter((s) => dits.has(s) && !RISIKO_SIGNES.has(s) && portable(s)) : [];
+      if (deja.length) direDeja(u, deja, dits);
+      // ponytail : la réplique d'une question du cas ne compte pas — elle ne peut pas PORTER le signe (son identité est l'objet de la
+      // phrase, `casIndex` : une copie la perdrait). Ces constats restent au lot de contenu (garde Q4, `reponseDoublon.test.ts`).
+      if (u.cas || u.etat === 'retire' || phraseProbes(u.p).some((p) => HISTOIRE.test(p))) continue;
+      // « dabei » renvoie à la plainte d'Aktuelle Beschwerden ; ailleurs, au sujet de la question (« Übel ist mir dabei nicht » : pendant
+      // les maux de tête) — il ne vaut que là.
+      const dabei = phraseProbes(u.p).some((p) => p.startsWith('akt-'));
+      for (const [s, complet] of ditsDe(ctx.reponse(u.p) ?? '', dabei)) {
+        const d = dits.get(s);
+        // le porteur : la première réplique de l'entretien clinique qui l'a dit (à défaut, celle des Personalia) ; complet si l'une le dit
+        if (!d) dits.set(s, { par: u, complet });
+        else dits.set(s, { par: HORS_ENTRETIEN.has(d.par.ch) && !HORS_ENTRETIEN.has(u.ch) ? u : d.par, complet: d.complet || complet });
+      }
+    }
+  }
+
   // ── La trame jouée ──────────────────────────────────────────────────────────
+  // r5 : la question dont la réplique a dit un signe le déclare — tout lecteur de la trame jouée le voit (comme le motif, K5).
   const poser = (u: U): Phrase[] => {
+    const out = poserBase(u);
+    if (!u.obtient?.length || !out.length || typeof out[0] === 'string') return out;
+    return [{ ...out[0], sucht: uniq([...phraseSucht(out[0]), ...u.obtient]), porte: uniq([...(out[0].porte ?? []), ...u.obtient]) }, ...out.slice(1)];
+  };
+  const poserBase = (u: U): Phrase[] => {
     if (u.etat === 'retire') return [];
     const v = variant(u.p);
     if (!v || u.relance) return [u.p];
+    const promu = u.promues?.get(-1);
+    if (promu) {
+      const dim = splitDimension(v.text).dim;
+      return [{ ...v, text: dim && !splitDimension(promu.text).dim ? `${dim} — ${promu.text}` : promu.text, alts: undefined, followUp: promu.followUp,
+        followUpSucht: undefined, parts: undefined, enumere: undefined, sucht: u.signes }];
+    }
     // Les parts gardées d'UNE question se posent en une question : la première, puis les suivantes en relances (revue P2 :
     // deux questions de transpiration à la suite) — jamais recollées dans une même ligne (revue série 3, I4).
     if (u.parts) {
       // §10.4 (revue K5, décision de main) : une part qui cherche un signe d'alarme ouvre sa PROPRE question, jamais une relance.
       const groupes: Part[][] = [];
-      for (const pt of u.parts.map((i) => v.parts![i])) {
+      for (const pt of u.parts.map((i) => u.promues?.get(i) ?? v.parts![i])) {
         if (!groupes.length || pt.sucht.some((s) => PART_ALARME.has(s as Signe))) groupes.push([pt]); else groupes[groupes.length - 1].push(pt);
       }
       return groupes.map((pts) => {
@@ -360,12 +484,12 @@ export function cohere<T extends TrameChapter>(trame: readonly T[], profil: Prof
     // K5 : la question d'ouverture DIT ce qu'elle obtient du motif déclaré — tout lecteur de la trame jouée le voit (INV-88).
     if (phraseProbes(v).includes(SONDE_DU_MOTIF) && u.signes.some((s) => !phraseSucht(v).includes(s))) return [{ ...v, sucht: u.signes }];
     // Les relances hors signe parties : détachées (r4a) ou retirées pour leur propre compte (r1, r2).
-    const parties = u.enfants.filter((r) => !r.relance!.attachee || r.etat === 'retire').map((r) => r.relance!.i);
+    const parties = [...u.enfants.filter((r) => !r.relance!.attachee || r.etat === 'retire').map((r) => r.relance!.i), ...(u.relRetirees ?? [])];
     if (!parties.length) return [u.p];
     const idx = (v.followUp ?? []).map((_, i) => i).filter((i) => !parties.includes(i));
     const fu = idx.map((i) => v.followUp![i]);
     const fs = idx.map((i) => v.followUpSucht?.[i] ?? []);
-    return [{ ...v, followUp: fu.length ? fu : undefined, followUpSucht: fs.some((x) => x.length) ? fs : undefined }];
+    return [{ ...v, followUp: fu.length ? fu : undefined, followUpSucht: fs.some((x) => x.length) ? fs : undefined, ...(u.relRetirees?.length ? { sucht: u.signes } : {}) }];
   };
   return { trame: trame.map((ch, k) => ({ ...ch, questions: chapters[k].items.flatMap(poser) })), ecarts };
 }
