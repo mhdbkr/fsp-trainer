@@ -13032,7 +13032,7 @@ export function seedCases(): Case[] {
           'pers-groesse': 'Ich bin 1,78 m groß und wiege 96 Kilo. Ein bisschen zu viel, das weiß ich.',
           'pers-beruf': 'Holzstaub, mein Leben lang, und Lacke — in der Werkstatt hilft man ja auch jetzt nicht ohne Staub.',
           'pers-hausarzt': 'Ja, mein Hausarzt ist Dr. Neumann, bei dem bin ich seit vielen Jahren.',
-          'akt-motiv': 'Herr Doktor, mein Herz stolpert seit vier Tagen ununterbrochen. Es schlägt völlig durcheinander, und ich bekomme dabei schlechter Luft als sonst.',
+          'akt-motiv': 'Herr Doktor, mein Herz stolpert seit vier Tagen. Es schlägt völlig durcheinander, und ich bekomme dabei schlechter Luft als sonst.',
           'akt-beginn': 'Vor vier Tagen, in der Nacht nach unserem Vereinsfest. Ich bin aufgewacht, und das Herz raste. Seitdem hört es nicht mehr auf.',
           'akt-anfall-ablauf': 'Wie es angefangen hat, weiß ich genau: ich bin nachts aufgewacht, und das Herz ist schon losgerannt. Aufgehört hat es bisher nicht — es ist seitdem einfach durchgehend da, mal schneller, mal ruhiger. Während dem spüre ich dieses Stolpern und Rasen, und dass mir schneller die Luft ausgeht.',
           'akt-anfall-dauer': 'Das ist diesmal kein kurzer Anfall, das geht jetzt seit vier Tagen ohne Unterbrechung. So etwas Langes hatte ich noch nie — vorher wusste ich ja gar nicht, dass mit meinem Herz überhaupt was nicht stimmt, außer was der Hausarzt letztes Jahr im EKG gesehen hat.',
@@ -13282,7 +13282,8 @@ export function seedCases(): Case[] {
         'auf-koronarangiographie',
       ],
       caseSpecificQuestions: [
-        { frage: 'Seit wann genau stolpert Ihr Herz, und ist es seitdem ununterbrochen da oder kommt und geht es?', kapitel: 'aktuell', sucht: ['beginn', 'verlauf'] },
+        { frage: 'Seit wann genau stolpert Ihr Herz?', kapitel: 'aktuell', sucht: ['beginn'] },
+        { frage: 'Ist es seitdem ununterbrochen da, oder kommt und geht es?', kapitel: 'aktuell', sucht: ['verlauf'] },
         { frage: 'Was haben Sie an dem Abend vor Beginn der Beschwerden gegessen und getrunken?', kapitel: 'aktuell', sucht: ['alkohol_akut'], followUp: 'Falls Alkohol: Wie viel genau?' },
         { frage: 'Welches Medikament nehmen Sie wegen der Herzrhythmusstörung ein — Aspirin oder einen echten Blutverdünner wie Marcumar, Eliquis oder Xarelto?', kapitel: 'medikamente', sucht: ['antikoagulation'] },
         { frage: 'Hatten Sie jemals für ein paar Minuten eine Lähmung oder ein Taubheitsgefühl auf einer Körperseite?', kapitel: 'vorerkrankungen', sucht: ['tia_vorgeschichte'], followUp: 'Hatten Sie jemals eine kurze Seh- oder Sprachstörung?' },
@@ -17448,7 +17449,7 @@ export function seedCases(): Case[] {
           'pers-beruf': 'Mit gefährlichen Chemikalien habe ich nichts zu tun.',
           'pers-hausarzt': 'Ja, mein Hausarzt ist Dr. Neuhaus, hier im Ort. Er hat mich heute sofort in die Klinik geschickt, als er mich gesehen hat.',
           'akt-motiv': 'Herr Doktor, ich bin ganz gelb geworden. Seit drei Tagen sind meine Augen und meine Haut gelb, und dazu juckt es am ganzen Körper so, dass ich es kaum aushalte. Weh tut mir aber nichts.',
-          'akt-beginn': 'Die Gelbfärbung und der Juckreiz sind seit drei Tagen da. Müde und schlapp bin ich aber schon seit ungefähr sechs Wochen, und der Urin ist seit etwa drei Wochen dunkel.',
+          'akt-beginn': 'Seit drei Tagen, wie gesagt. Müde und schlapp bin ich aber schon seit ungefähr sechs Wochen, und der Urin ist seit etwa drei Wochen dunkel.',
           'akt-ausscheid-was': 'Verändert hat sich einiges: die Haut und die Augen sind gelb geworden, der Urin ist dunkel, und der Stuhl ist ganz hell, das hatte ich Ihnen ja schon erzählt.',
           'akt-ausscheid-haeufigkeit': 'Beim Stuhlgang — wie oft, das hat sich nicht verändert, nur eben wie er aussieht.',
           'akt-ausscheid-harn-haeufigkeit': 'Beim Wasserlassen selbst ist die Häufigkeit eigentlich gleich geblieben, nur die Farbe ist anders.',
@@ -17696,7 +17697,6 @@ export function seedCases(): Case[] {
         'auf-operation',
       ],
       caseSpecificQuestions: [
-        { frage: 'Seit wann sind Ihre Augen und Ihre Haut gelb, und hat jemand aus Ihrem Umfeld das zuerst bemerkt?', kapitel: 'aktuell', sucht: ['beginn'] },
         { frage: 'Wie sieht Ihr Stuhlgang aus — ist er heller geworden, vielleicht fast weiß oder lehmfarben?', kapitel: 'aktuell', sucht: ['stuhlaussehen'], followUp: 'Lässt er sich schlecht abspülen?' },
         { frage: 'Haben Sie Schmerzen im Oberbauch, die gürtelförmig in den Rücken ausstrahlen und sich bessern, wenn Sie sich nach vorne beugen?', kapitel: 'aktuell', sucht: ['ausstrahlung'] },
         { frage: 'Juckt Ihre Haut?', kapitel: 'aktuell', sucht: ['pruritus'], followUp: 'Falls ja: Seit wann juckt es?' },
@@ -19902,7 +19902,6 @@ export function seedCases(): Case[] {
         'auf-lumbalpunktion',
       ],
       caseSpecificQuestions: [
-        { frage: 'Seit wann fällt Ihnen die Vergesslichkeit auf, und ist sie langsam schlechter geworden oder plötzlich?', kapitel: 'aktuell', sucht: ['beginn', 'beginn_art'] },
         { frage: 'Vergessen Sie eher Dinge von früher oder das, was gerade eben war?', kapitel: 'aktuell', sucht: ['kurzzeitgedaechtnis'] },
         { frage: 'Kochen Sie noch selbst?', kapitel: 'aktuell', sucht: ['alltag_haushalt'], followUp: 'Falls ja: Haben Sie schon einmal vergessen, den Herd auszuschalten, oder ist etwas angebrannt?' },
         { frage: 'Wer regelt Ihre Bankgeschäfte und Rechnungen?', kapitel: 'aktuell', sucht: ['alltag_finanzen'], followUp: 'Sind schon Mahnungen gekommen?' },
@@ -26527,7 +26526,6 @@ export function seedCases(): Case[] {
       ],
       caseSpecificQuestions: [
         { frage: 'Bekommen Sie durch die Nase noch Luft, oder ist sie im Rahmen Ihrer Erkältung verstopft?', kapitel: 'aktuell', sucht: ['nasenatmung'] },
-        { frage: 'Ist der Schmerz im Ohr pulsierend, also im Takt des Herzschlags, und wird er schlimmer, wenn Sie liegen?', kapitel: 'aktuell', sucht: ['charakter', 'lageabhaengig'] },
         { frage: 'Ist Flüssigkeit oder Eiter aus dem Ohr gelaufen?', kapitel: 'aktuell', sucht: ['otorrhoe'], followUp: 'Falls ja: Hat der Schmerz dabei plötzlich nachgelassen?' },
         { frage: 'Ist die Haut hinter Ihrem Ohr gerötet oder geschwollen?', kapitel: 'aktuell', sucht: ['mastoiditis_zeichen'], followUp: 'Tut es dort besonders weh?', followUps: ['Steht Ihr Ohr weiter ab als sonst?'] },
         { frage: 'Haben Sie Schwindel, Erbrechen oder eine Gangunsicherheit bemerkt?', kapitel: 'aktuell', sucht: ['schwindel', 'erbrechen', 'gang'] },
@@ -34766,7 +34764,7 @@ export function seedCases(): Case[] {
       caseSpecificQuestions: [
         { frage: 'Setzte Ihr Schmerz schlagartig ein, von einer Sekunde auf die andere, oder hat er sich über Stunden entwickelt?', kapitel: 'aktuell', sucht: ['beginn_art'] },
         { frage: 'Was haben Sie genau gemacht, als es losging — waren Sie in Ruhe, haben Sie gehustet, gelacht oder etwas Schweres gehoben?', kapitel: 'aktuell', sucht: ['ausloeser'] },
-        { frage: 'Spüren Sie den Schmerz nur auf einer Seite, und wird er beim tiefen Einatmen und beim Husten deutlich stärker?', kapitel: 'aktuell', sucht: ['ort', 'atemabhaengig', 'brustschmerz'], relu: true },
+        { frage: 'Wird der Schmerz beim tiefen Einatmen und beim Husten deutlich stärker?', kapitel: 'aktuell', sucht: ['atemabhaengig', 'brustschmerz'], relu: true },
         { frage: 'Hatten Sie so ein Stechen schon einmal, auch wenn es damals schwächer war und von allein wieder verschwunden ist?', kapitel: 'aktuell', sucht: ['frueher'] },
         { frage: 'Gibt es in Ihrer Familie jemanden, bei dem schon einmal Luft in der Lunge war und der einen Schlauch in der Brust hatte?', kapitel: 'familie-sozial', sucht: ['familie_aehnlich'] },
         { frage: 'Ist bei Ihnen jemals eine Lungenerkrankung festgestellt worden — Asthma, eine chronische Bronchitis oder eine Lungenentzündung?', kapitel: 'vorerkrankungen', sucht: ['asthma', 'lungen_vorgeschichte'] },
