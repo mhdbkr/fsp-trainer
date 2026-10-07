@@ -63,6 +63,22 @@ export function AnamneseGuide({ c, assistance, checkliste, onItem, hinweise, onH
   const doneCount = Object.values(checked).filter(Boolean).length;
   const hints = hinweise;
 
+  // Saut vers un chapitre depuis la mini-barre : défilement doux (la marge
+  // haute du chapitre tient compte de l'en-tête collant ET de la barre), le
+  // chapitre s'ouvre, puis s'illumine à l'arrivée. `n` relance le même saut.
+  const [jump, setJump] = useState<{ id: string; n: number } | null>(null);
+  const jumpTo = (id: string) => {
+    setJump((j) => ({ id, n: (j?.n ?? 0) + 1 }));
+    const el = document.getElementById(chapterAnchor(id));
+    if (!el) return;
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    el.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'start' });
+    if (!reduce) el.animate(
+      [{ boxShadow: '0 0 0 0 rgb(13 148 136 / 0)' }, { boxShadow: '0 0 0 3px rgb(13 148 136 / 0.45)' }, { boxShadow: '0 0 0 0 rgb(13 148 136 / 0)' }],
+      { duration: 900, delay: 380, easing: 'cubic-bezier(0.32, 0.72, 0, 1)' },
+    );
+  };
+
   // Ordre d'affichage réel (Fachanamnese insérée juste après « Aktuelle Beschwerden »).
   const orderedIds = useMemo(() => {
     const ids: string[] = [];
@@ -79,21 +95,23 @@ export function AnamneseGuide({ c, assistance, checkliste, onItem, hinweise, onH
 
   return (
     <div className="space-y-3">
-      {/* Barre de progression + (Autonome) compteur de coups de pouce */}
-      <div className="card flex items-center gap-3 px-4 py-2">
+      {/* Barre de progression + (Autonome) compteur de coups de pouce.
+          Collante sous l'en-tête de la simulation (`--panel-offset`, publié
+          par le runner) : c'est la table des matières de l'entretien. */}
+      <nav aria-label="Chapitres de l'anamnèse" className="card sticky top-[var(--panel-offset,7rem)] z-20 flex items-center gap-3 px-4 py-2">
         <div className="flex flex-1 flex-wrap gap-1">
           {chapters.map((ch) => (
             <Fragment key={ch.id}>
-              <span title={ch.title}
-                className={`flex h-7 w-7 items-center justify-center rounded-lg ${checked[ch.id] ? 'bg-emerald-500 text-white' : 'bg-slate-100 text-slate-400 dark:bg-slate-800'}`}>
+              <button type="button" title={ch.title} aria-label={`Aller à : ${ch.title}`} onClick={() => jumpTo(ch.id)}
+                className={`flex h-7 w-7 items-center justify-center rounded-lg transition-transform duration-150 hover:scale-110 active:scale-95 ${checked[ch.id] ? 'bg-emerald-500 text-white' : 'bg-slate-100 text-slate-400 hover:text-brand-600 dark:bg-slate-800'}`}>
                 <Icon name={ch.icon} className="h-4 w-4" />
-              </span>
+              </button>
               {/* Fachanamnese placée juste après « Aktuelle Beschwerden » */}
               {fach && ch.id === 'aktuell' && (
-                <span title={fach.chapter.title}
-                  className={`flex h-7 w-7 items-center justify-center rounded-lg ring-1 ring-violet-300 ${checked[fach.chapter.id] ? 'bg-violet-500 text-white' : 'bg-violet-50 text-violet-400 dark:bg-violet-900/20'}`}>
+                <button type="button" title={fach.chapter.title} aria-label={`Aller à : ${fach.chapter.title}`} onClick={() => jumpTo(fach.chapter.id)}
+                  className={`flex h-7 w-7 items-center justify-center rounded-lg ring-1 ring-violet-300 transition-transform duration-150 hover:scale-110 active:scale-95 ${checked[fach.chapter.id] ? 'bg-violet-500 text-white' : 'bg-violet-50 text-violet-400 dark:bg-violet-900/20'}`}>
                   <Icon name={fach.icon} className="h-4 w-4" />
-                </span>
+                </button>
               )}
             </Fragment>
           ))}
@@ -105,7 +123,7 @@ export function AnamneseGuide({ c, assistance, checkliste, onItem, hinweise, onH
             <Icon name="bulb" className="mr-1 inline-block h-3.5 w-3.5 align-[-2px]" />{hints}
           </span>
         )}
-      </div>
+      </nav>
 
       {assistance === 'autonome' && (
         <div className="rounded-lg border border-violet-200 bg-violet-50 px-3 py-2 text-xs text-violet-700 dark:border-violet-900/50 dark:bg-violet-900/10 dark:text-violet-200">
@@ -116,7 +134,7 @@ export function AnamneseGuide({ c, assistance, checkliste, onItem, hinweise, onH
       {chapters.map((ch) => (
         <Fragment key={ch.id}>
           <ChapterToggle ch={ch} checked={!!checked[ch.id]} onToggle={() => toggle(ch.id)} assistance={assistance} asked={asked} onAsk={ask}
-            onHint={onHinweis} fachwissenId={ch.id === 'aktuell' ? c.linkedFachwissenId : undefined} />
+            jump={jump?.id === ch.id ? jump.n : 0} onHint={onHinweis} fachwissenId={ch.id === 'aktuell' ? c.linkedFachwissenId : undefined} />
 
           {/* Fachanamnese — juste après « Aktuelle Beschwerden » : ces questions
               ciblées se posent tôt, dans le prolongement du motif de consultation. */}
@@ -126,7 +144,7 @@ export function AnamneseGuide({ c, assistance, checkliste, onItem, hinweise, onH
                 Fachanamnese · {c.specialty}
               </div>
               <ChapterToggle ch={fach.chapter} checked={!!checked[fach.chapter.id]} onToggle={() => toggle(fach.chapter.id)}
-                assistance={assistance} asked={asked} onAsk={ask} onHint={onHinweis} fachwissenId={c.linkedFachwissenId} tone="violet" />
+                jump={jump?.id === fach.chapter.id ? jump.n : 0} assistance={assistance} asked={asked} onAsk={ask} onHint={onHinweis} fachwissenId={c.linkedFachwissenId} tone="violet" />
             </div>
           )}
         </Fragment>
@@ -135,10 +153,15 @@ export function AnamneseGuide({ c, assistance, checkliste, onItem, hinweise, onH
   );
 }
 
-function ChapterToggle({ ch, checked, onToggle, assistance, onHint, fachwissenId, tone = 'brand', asked = null, onAsk }: {
+/** Ancre d'un chapitre (cible de la mini-barre). */
+const chapterAnchor = (id: string) => `anamnese-kapitel-${id}`;
+
+function ChapterToggle({ ch, checked, onToggle, assistance, onHint, fachwissenId, tone = 'brand', asked = null, onAsk, jump = 0 }: {
   ch: AnamneseChapter; checked: boolean; onToggle: () => void; assistance: AssistanceMode;
   onHint: () => void; fachwissenId?: string; tone?: 'brand' | 'violet';
   asked?: string | null; onAsk?: (p: string | null) => void;
+  /** Compteur de sauts vers CE chapitre : chaque saut l'ouvre. */
+  jump?: number;
 }) {
   const isAssiste = assistance === 'assiste';
   const [open, setOpen] = useState(isAssiste);       // Assisté : ouvert d'emblée
@@ -146,9 +169,10 @@ function ChapterToggle({ ch, checked, onToggle, assistance, onHint, fachwissenId
   const accent = tone === 'violet' ? 'text-violet-600 dark:text-violet-300' : 'text-brand-600 dark:text-brand-300';
 
   const reveal = () => { setRevealed(true); onHint(); };
+  useEffect(() => { if (jump) setOpen(true); }, [jump]);
 
   return (
-    <div className={`card overflow-hidden ${checked ? 'border-emerald-300 dark:border-emerald-800' : ''}`}>
+    <div id={chapterAnchor(ch.id)} className={`card scroll-mt-[calc(var(--panel-offset,7rem)+3.75rem)] overflow-hidden ${checked ? 'border-emerald-300 dark:border-emerald-800' : ''}`}>
       <div className="flex items-center gap-2 px-3 py-2">
         <input type="checkbox" checked={checked} onChange={() => { if (!checked) setOpen(false); onToggle(); }} className="h-4 w-4 shrink-0 accent-emerald-600" title="Marquer comme abordé (ferme le chapitre)" />
         <button onClick={() => setOpen((o) => !o)} className="flex flex-1 items-center gap-2 text-left">
