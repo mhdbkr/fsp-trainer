@@ -215,7 +215,7 @@ Trias » → « der typischen Trias ».
 | `checkBudgetFloor.mjs origin/main` | 0 |
 | `npm run build` | 0 |
 | `npm run content:link` | 0 |
-| `git merge-tree --write-tree origin/main HEAD` (origin/main c3f0d058) | 0 |
+| `git merge-tree --write-tree origin/main HEAD` (origin/main 1df8ee8c ; ses 3 nouveaux commits ne touchent ni le contenu ni le test) | 0 |
 | Mesure DOM, 15 cas | 0 |
 
 Hors CI bloquante :
