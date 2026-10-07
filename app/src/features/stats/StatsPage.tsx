@@ -46,7 +46,7 @@ export function StatsPage() {
       <header>
         <div className="eyebrow">Analyse</div>
         <h1 className="mt-1.5 text-2xl font-bold tracking-tightish">Stats / Performances</h1>
-        <p className="text-slate-500 dark:text-slate-400">
+        <p className="text-slate-600 dark:text-slate-400">
           {sims.filter(isFullSimulation).length} simulations complètes · {sims.filter((x) => !isFullSimulation(x)).length} par partie ·{' '}
           <Link to="/historique" className="text-brand-600 hover:underline dark:text-brand-300">tout l'historique →</Link>
         </p>
@@ -55,7 +55,7 @@ export function StatsPage() {
       {/* Où j'en suis, et où ça mène — la même frise qu'à l'accueil. C'est le
           SEUL indice de préparation de l'app (D-I9) : une formule, un nom. */}
       <TrajectoryStrip config={config} cases={cases} events={events} />
-      <p className="-mt-3 px-1 text-[12px] text-slate-500 dark:text-slate-400">
+      <p className="-mt-3 px-1 text-[12px] text-slate-600 dark:text-slate-400">
         Ce chiffre mesure la part de toutes les parties de tous les cas que tu maîtrises déjà — pas la moyenne de tes scores : une partie jamais jouée compte pour zéro.
       </p>
 
