@@ -105,7 +105,8 @@ describe('K4 fixeur — la revue clinique : la question perdue revient dans la t
     ['case-malaria', 'fach-infekt-impfung', /Impfungen/], ['case-malaria', 'fach-infekt-zecke', /Insektenstich/],
     ['case-lagerungsschwindel', 'akt-neuro-lage', /Kopf drehen/],
     ['case-myokardinfarkt', 'veg-uebelkeit', /übergeben/],                        // P2 : übel | erbrochen
-    ['case-commotio', 'fach-neuro-koordination', /Schwindel/], ['case-commotio', 'veg-schuettelfrost', /Schweiß/],
+    // lot Banque (r5) : le vertige est dit (« Beim Aufstehen wird mir schwindelig », akt-neuro-lage) — la coordination reste, pour la marche
+    ['case-commotio', 'fach-neuro-koordination', /beim Gehen unsicher/], ['case-commotio', 'veg-schuettelfrost', /Schweiß/],
     ['case-ileus', 'fach-chir-ileus', /heute Stuhlgang/],
     ['case-perikarditis', 'fach-kardio-atem', /Atmen/], ['case-myokarditis', 'fach-kardio-atem', /Atmen/],
     ['case-adnexitis', 'akt-ausstrahlung', /irgendwohin/],                     // contre-revue P2 : n° 3 cherche `schulterschmerz`
