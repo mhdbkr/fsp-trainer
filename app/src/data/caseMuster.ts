@@ -175,7 +175,7 @@ export const CASE_MUSTER: Record<string, CaseMuster> = {
     arztbrief: {
       einleitung: 'wir berichten Ihnen nachfolgend über Frau Sabine Wolf, eine 42-jährige Patientin, die sich mit seit Monaten bestehendem Sodbrennen, besonders nach dem Essen und im Liegen, in unserer Sprechstunde vorstellte.',
       patientenzustand: 'Frau Wolf befand sich in gutem Allgemeinzustand und übergewichtigem Ernährungszustand (BMI 29 kg/m²) und war voll orientiert.',
-      'aktuelle-beschwerden': 'Die Patientin berichtete über seit Monaten bestehendes brennendes Sodbrennen hinter dem Brustbein (Intensität 4/10), das durch Liegen, fettiges Essen und Kaffee verstärkt und durch Aufrechtsitzen und Antazida gelindert werde. Begleitend bestünden saures Aufstoßen und gelegentlich ein nächtlicher Reizhusten. Schluckbeschwerden, ein Gewichtsverlust, Bluterbrechen oder ein belastungsabhängiger Brustschmerz wurden verneint (Alarmsymptome negativ).',
+      'aktuelle-beschwerden': 'Die Patientin berichtete über seit Monaten bestehendes Sodbrennen (Intensität 4/10), das durch Liegen, fettiges Essen und Kaffee verstärkt und durch Aufrechtsitzen und Antazida gelindert werde. Begleitend bestünden saures Aufstoßen und gelegentlich ein nächtlicher Reizhusten. Schluckbeschwerden, ein Gewichtsverlust, Bluterbrechen oder ein belastungsabhängiger Brustschmerz wurden verneint (Alarmsymptome negativ).',
       vorerkrankungen: 'An Vorerkrankungen bestehe ein Übergewicht (BMI 29 kg/m²). Voroperationen seien keine bekannt.',
       medikation: 'Die Patientin nehme ein orales Kontrazeptivum sowie gelegentlich rezeptfreie Antazida ein.',
       'allergien-noxen': 'Allergien seien keine bekannt. Es bestehe ein Nikotinkonsum von 10 Packungsjahren; Alkohol werde in Form von Wein am Wochenende konsumiert, ein Drogenkonsum werde verneint.',
@@ -186,7 +186,7 @@ export const CASE_MUSTER: Record<string, CaseMuster> = {
     vorstellung: {
       'persoenliche-daten': 'Ich möchte Ihnen Frau Sabine Wolf vorstellen, eine 42-jährige Patientin, die sich wegen seit Monaten bestehenden Sodbrennens in unserer Sprechstunde vorstellte.',
       allgemeinzustand: 'Frau Wolf befand sich in gutem Allgemeinzustand und übergewichtigem Ernährungszustand (BMI 29) und war voll orientiert.',
-      'aktuelle-beschwerden': 'Sie stellte sich wegen seit Monaten bestehenden brennenden Sodbrennens hinter dem Brustbein vor. Die Beschwerden würden durch Liegen und fettiges Essen verstärkt und durch Aufrechtsitzen gelindert. Begleitend träten saures Aufstoßen und ein nächtlicher Reizhusten auf. Schluckbeschwerden und ein Gewichtsverlust seien verneint worden.',
+      'aktuelle-beschwerden': 'Sie stellte sich wegen seit Monaten bestehenden Sodbrennens vor. Die Beschwerden würden durch Liegen und fettiges Essen verstärkt und durch Aufrechtsitzen gelindert. Begleitend träten saures Aufstoßen und ein nächtlicher Reizhusten auf. Schluckbeschwerden und ein Gewichtsverlust seien verneint worden.',
       allergien: 'Bei der Patientin seien keine Allergien bekannt.',
       rauchen: 'Die Patientin rauche, insgesamt 10 Packungsjahre.',
       alkohol: 'Sie trinke Wein am Wochenende.',
