@@ -425,3 +425,87 @@ Cohésion : 277 liens manquants, inchangé.
 **Non vérifié** : les textes ajoutés par cette passe n'ont été relus ni par la revue clinique ni par la revue langue ;
 ce delta est annoncé pour une relecture par le coordinateur. Je n'ai pas lancé le YAML de `quality.yml` sur un runner ;
 la modification reprend la forme des étapes voisines.
+
+## 11. Passe fixeur des mini-revues (delta `4bb2fff7..67b716e3`)
+
+21 remplacements, chacun unique dans son bloc. Là où les deux revues se recoupent, le fond vient de la revue clinique et
+la forme de la revue langue.
+
+**Clinique : P1-1 à P1-3, P2-1 à P2-8**
+- **P1-1, délai de la coloscopie après une divertikulitis.** J'ai vérifié en ligne la S3 Divertikelkrankheit/Divertikulitis
+  2021 (AWMF 021-020, dgvs.de, Empf. 5.12) : « Nach Ausheilung einer konservativ behandelten Divertikulitis (i.d.R.
+  nach 6-8 Wochen) sollte die Indikation zur Koloskopie in Abhängigkeit von klinisch-anamnestischen Faktoren
+  (protrahierter Verlauf, persistierende Beschwerden, Alter des Patienten, Bildgebung) gestellt werden. »
+  - Le délai est aligné sur « in der Regel nach 6–8 Wochen » aux 5 endroits : FW Thérapie, FW question
+    « Warum keine Koloskopie », FW explication au patient, fiche du cas, ES du cas. Le Muster est aligné lui aussi.
+  - L'indication dépend du cas. Dans la fiche : « bei ihr trotz der Koloskopie vor zwei Jahren wegen Alter, Fieber und
+    CT-Befund zu prüfen ». Le piège du FW, « nie auf die Koloskopie im Intervall verzichten », devient « nach der
+    Abheilung die Indikation zur Koloskopie aktiv stellen ».
+  - La réponse « Warum keine Koloskopie » est raccourcie (« Gespiegelt wird erst nach der Abheilung, wenn ein Karzinom
+    auszuschließen ist. ») pour ne pas redoubler la Thérapie.
+- **P1-2 et I-3, NSTE-ACS.** Réponse à la première personne, avec « Null-Eins-Stunden-Algorithmus ».
+  - Très haut risque (instabilité ou choc, douleur réfractaire, troubles du rythme menaçant le pronostic vital,
+    insuffisance cardiaque aiguë, complications mécaniques) : angiographie immédiate, sous deux heures.
+  - NSTEMI confirmé, modifications dynamiques du ST ou GRACE au-dessus de 140 : sous 24 heures.
+  - Risque bas : sélective, après diagnostic non invasif.
+- **P1-3, I-4 et M-6, annonce du Darmkrebs.** Déroulé SPIKES en phrases conjuguées ; dans la partie entre guillemets :
+  « … bösartig ist. Es handelt sich um Darmkrebs. »
+- **P2** :
+  - P2-1, reizdarm : la DD Divertikelkrankheit inclut la forme symptomatique sans inflammation (SUDD).
+  - P2-2 et I-1, MS : texte de l'arbitrage (contre une NMOSD à AQP4, sans exclure une MOGAD).
+  - P2-3 et M-9, explication du cathéter : texte de P2-3, avec « Herzstromkurve » au lieu de « EKG » dans la bouche du
+    médecin et « weiten die verschlossene Stelle mit einem Ballon ».
+  - P2-4, P2-5, M-1, M-2 et I-2, gallenkolik et cholezystitis : « verschließt kurzzeitig », « Weil solche Anfälle
+    meistens wiederkommen », « in einer geplanten Operation », « mit einer Kamera und feinen Instrumenten »,
+    « in aller Regel normal leben und essen ».
+  - P2-6 et M-3, TVT : signes de saignement, « wählen Sie sofort den Notruf 112 ».
+  - P2-7, GERD : signes d'alerte.
+  - P2-8, DD Cholangitis : Charcot et conduite d'urgence.
+
+**Langue : I-1 à I-4, M-1 à M-10**
+- Appliqués avec les points cliniques ci-dessus.
+- M-7 : « biliodigestive Fistel », « verlaufen diese Komplikationen oft beschwerdearm ».
+- M-8 : « Myokardschädigung », « ist … erforderlich ».
+- M-10 : « Die Ursache kann eine Engstelle sein ».
+- Non fait, comme arbitré : « ÖGD » reste tel quel. Les variantes « non bloquantes » de la revue n'ont pas été reprises.
+
+**« Wann operieren Sie die Patientin? ».** Aucun validateur ni affichage n'apparie `examinerQuestions` avec les `frage`
+de l'examinerSheet :
+- `ExaminerSheetView` ne lit `examinerQuestions` qu'en repli (`fallback`), quand il n'y a pas d'examinerSheet ;
+- `externalAi/prompt.ts` prend les questions de l'examinerSheet en priorité ;
+- `checkQuestionAtomicity` et `checkCaseCohesion` les lisent séparément.
+
+Les répliques « Wann operieren Sie? » restent donc inchangées.
+
+**Mesures DOM après la passe** (écrans au repos / ouvert, redites, questions) :
+
+| Fachwissen | Écrans | Redites | Questions |
+|---|---|---|---|
+| oesophaguskarzinom | 10,5 / 11,8 | 0 | 7 |
+| kolorektales-ca | 11,0 / 11,0 | 0 | 7 |
+| divertikulitis | 8,9 / 9,9 | 0 | 6 |
+| gerd | 8,4 / 8,4 | 0 | 6 |
+| myokardinfarkt | 9,4 / 9,4 | 0 | 6 |
+| cholezystitis | 7,9 / 7,9 | 0 | 6 |
+| gallenkolik | 9,7 / 10,1 | 0 | 8 |
+| tvt | 9,9 / 9,9 | 0 | 6 |
+
+Chacun a une question d'explication au patient. `checkFachwissenFloor` reste à 47 sans explication et à 199 questions mal
+formées. La cohésion est à 277, inchangée.
+
+**Vérifications (code de sortie)** :
+
+| Commande | Sortie |
+|---|---|
+| `npx tsc -b` | 0 |
+| `npm test -- --maxWorkers=2` | 0 (2 025 tests) |
+| `npm run test:c6 -- --maxWorkers=2` | 0 (212 tests) |
+| `node --test` sans checkProbeCoverage, puis checkProbeCoverage seul | 0 (204), 0 (4) |
+| les 19 `check*` de la CI, `checkTermRegister --require-all`, `evalDoctopus --dry` | 0 chacun |
+| `checkCoherence --case`, 10 cas | 0 × 10 |
+| `checkBudgetFloor.mjs origin/main` (`ccf94204`) | 0 |
+| `npm run build` | 0 |
+| `git merge-tree --write-tree origin/main HEAD` | 0 |
+| `npm run content:link` | 0 (`caseTermLinks.json` régénéré) |
+
+**Non vérifié** : les seuils ESC 2023 du NSTE-ACS sont repris de la revue clinique, sans relecture du texte de l'ESC.
