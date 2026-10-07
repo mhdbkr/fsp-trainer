@@ -105,7 +105,7 @@ export function PendingExternalSimCard({ onlyCaseId }: { onlyCaseId?: string } =
     return (
       <SelbstBewertung
         part={step}
-        kategorie={leitsymptomOf(c)}
+        kategorie={c.patientSheet ? leitsymptomOf(c) : undefined}
         durationSec={step === 'anamnese' ? anamneseSec : fallvorstellungSec}
         suivant={step === 'anamnese' && !p.teil ? 'Fallvorstellung' : null}
         onCancel={() => setStep('idle')}
