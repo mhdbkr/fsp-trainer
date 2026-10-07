@@ -144,6 +144,7 @@ export function seedFachwissen(): Fachwissen[] {
         { frage: 'Was bedeutet der Child-Pugh-Score?', antwort: 'Er schätzt Leberfunktion und Prognose anhand von Bilirubin, Albumin, INR, Aszites und Enzephalopathie (Stadien A–C).' },
         { frage: 'Was ist der MELD-Score?', antwort: 'Ein Score aus Bilirubin, Kreatinin und INR, der die 3-Monats-Mortalität schätzt und die Reihenfolge auf der Warteliste zur Lebertransplantation bestimmt.' },
         { frage: 'Hat sich der Patient schon einer Entwöhnungstherapie unterzogen?', antwort: 'Anamnestisch zu erfragen; entscheidend, da die absolute Alkoholabstinenz die einzige ätiologische Maßnahme und Voraussetzung für eine Transplantation ist.' },
+        { frage: 'Wie erklären Sie dem Patienten die Erkrankung und warum er ganz auf Alkohol verzichten muss?', antwort: '„Ihre Leber ist durch den Alkohol über viele Jahre vernarbt und kann ihre Arbeit nicht mehr richtig machen. Deshalb sammelt sich Wasser im Bauch und in den Beinen, und Sie bekommen leichter blaue Flecken. Die Narben bilden sich nicht zurück. Wenn Sie aber ganz mit dem Alkohol aufhören, kann sich die Leberfunktion bessern, und die Erkrankung schreitet langsamer fort. Den Entzug machen Sie bei uns unter ärztlicher Aufsicht, und danach unterstützen wir Sie weiter.“' },
       ],
       merksatz: 'Zirrhose = Leberinsuffizienz plus portale Hypertension; dekompensiert heißt Aszites, Varizenblutung, Enzephalopathie oder Ikterus. Fieber bei Aszites = Punktion. Abstinenz stoppt das Fortschreiten, kurativ nur die Transplantation.',
       linkedCaseIds: [],
@@ -268,6 +269,7 @@ export function seedFachwissen(): Fachwissen[] {
         { frage: 'Was ist der Unterschied zwischen NSTEMI und STEMI?', antwort: 'Beide mit Troponinanstieg; der STEMI zeigt ST-Hebungen (transmurale Ischämie, sofortige Koronarangiographie mit PCI), der NSTEMI nicht.' },
         { frage: 'Welche Diagnostik in welcher Reihenfolge?', antwort: 'Anamnese und Untersuchung, Ruhe-EKG und Troponin zum Ausschluss eines ACS, Labor mit Lipiden und HbA1c, Echokardiographie, dann je nach Wahrscheinlichkeit Koronar-CT oder bildgebende Ischämiediagnostik, bei Bestätigung Koronarangiographie.' },
         { frage: 'Welche Medikamente verbessern die Prognose, welche nur die Beschwerden?', antwort: 'Prognose: ASS, Statin, bei Indikation ACE-Hemmer. Beschwerden: Betablocker, Kalziumantagonisten, Nitrate.' },
+        { frage: 'Wie erklären Sie dem Patienten die Verdachtsdiagnose und die weitere Abklärung?', antwort: '„Ihre Beschwerden beim Treppensteigen sprechen dafür, dass Ihre Herzkranzgefäße verengt sind: Unter Belastung bekommt der Herzmuskel dann zu wenig Blut, daher der Druck in der Brust. Zuerst schließen wir mit einer Herzstromkurve und einer Blutprobe einen Herzinfarkt aus. Danach prüfen wir mit einem Belastungstest und, wenn nötig, einer Herzkatheteruntersuchung, wie eng die Gefäße sind. Das Wichtigste, was Sie selbst tun können, ist, mit dem Rauchen aufzuhören. Tritt der Druck in Ruhe auf oder hält er länger als 20 Minuten an, wählen Sie sofort den Notruf 112.“' },
       ],
       merksatz: 'Erst das ACS ausschließen (EKG, Troponin), dann die Prognose sichern (ASS, Statin, Rauchstopp) und erst danach über Stent oder Bypass sprechen.',
       linkedCaseIds: [],
@@ -377,6 +379,7 @@ export function seedFachwissen(): Fachwissen[] {
         { frage: 'Wie sieht der Schmerz typischerweise aus?', antwort: 'Heftiger Oberbauchschmerz mit gürtelförmiger Ausstrahlung in den Rücken, oft nach fettigem Essen.' },
         { frage: 'Wie behandeln Sie eine biliäre Pankreatitis?', antwort: 'Volumentherapie, Analgesie und früher Kostaufbau; eine ERCP nur bei Cholangitis oder bestätigtem Gangstein; die Cholezystektomie bei mildem Verlauf noch im selben Aufenthalt.' },
         { frage: 'Wie teilen Sie den Schweregrad ein?', antwort: 'Nach der revidierten Atlanta-Klassifikation; entscheidend ist, ob ein Organversagen auftritt und wie lange es anhält.' },
+        { frage: 'Wie erklären Sie der Patientin die Erkrankung und die Behandlung?', antwort: '„Ihre Bauchspeicheldrüse ist entzündet, wahrscheinlich weil ein Gallenstein ihren Ausgang in den Darm verstopft hat. Daher kommen die starken Schmerzen, die wie ein Gürtel in den Rücken ziehen. Sie bekommen Flüssigkeit über die Vene und starke Schmerzmittel. Steckt der Stein noch im Gallengang fest, holen wir ihn mit einer Spiegelung über den Mund heraus. Damit das nicht wieder passiert, entfernen wir die Gallenblase. Verläuft die Entzündung mild, geschieht das noch während dieses Aufenthalts, sonst einige Wochen später.“' },
       ],
       linkedCaseIds: [],
       keyFachbegriffeIds: [],
@@ -498,6 +501,7 @@ export function seedFachwissen(): Fachwissen[] {
         { frage: 'Was ändert sich bei Verdacht auf Varizenblutung?', antwort: 'Zusätzlich Terlipressin und eine Antibiotikaprophylaxe mit Ceftriaxon vor der ÖGD, Endoskopie innerhalb von 12 Stunden, Ligatur als Blutstillung.' },
         { frage: 'Wie behandeln Sie nach der Blutstillung weiter?', antwort: 'PPI hochdosiert, Helicobacter-Eradikation bei Nachweis, NSAR absetzen, ASS nur bei sekundärpräventiver Indikation unter PPI wieder ansetzen und Kontrollendoskopie bei Magenulkus.' },
         { frage: 'Warum ist der Harnstoff bei einer oberen GI-Blutung erhöht?', antwort: 'Das Blut wird im Darm verdaut und das Protein resorbiert; zusätzlich sinkt die Nierendurchblutung durch den Volumenmangel.' },
+        { frage: 'Wie erklären Sie dem Patienten den schwarzen Stuhl und die Magenspiegelung?', antwort: '„Der schwarze Stuhl und das Erbrechen kommen sehr wahrscheinlich von einer Blutung im Magen, am ehesten aus einem Geschwür. Ausgelöst haben es vermutlich die Ibuprofen-Tabletten zusammen mit Ihrer täglichen ASS-Tablette. Sie bekommen Flüssigkeit über die Vene und ein Mittel gegen die Magensäure. So bald wie möglich schauen wir mit einem dünnen, biegsamen Schlauch in Ihren Magen und stillen die Blutung dabei meist direkt. Ibuprofen nehmen Sie danach bitte nicht mehr. ASS brauchen Sie nach Ihren Vorerkrankungen nicht; wir setzen es ab und sprechen das mit Ihrem Hausarzt ab.“' },
       ],
       merksatz: 'Erst Kreislauf, dann Kamera: stabilisieren, PPI i. v., ÖGD innerhalb von 24 Stunden.',
       linkedCaseIds: [],
@@ -618,6 +622,7 @@ export function seedFachwissen(): Fachwissen[] {
         { frage: 'Wie unterscheiden Sie ein Ulcus ventriculi von einem Ulcus duodeni?', antwort: 'Über den Schmerzrhythmus: Das Magenulkus verursacht Sofortschmerz kurz nach dem Essen, das Duodenalulkus dagegen Nüchtern- und Nachtschmerz, der sich durch Essen bessert.' },
         { frage: 'Warum führen Sie eine ÖGD durch und warum eine Biopsie?', antwort: 'Sie zeigt das Ulkus direkt; die Biopsie schließt beim Magenulkus ein Karzinom aus und weist Helicobacter nach.' },
         { frage: 'Was erwarten Sie im Blutbild und wie weisen Sie eine Blutung nach?', antwort: 'Bei chronischem Blutverlust eine Anämie mit erniedrigtem Hämoglobin. Eine okkulte Blutung weist man über den Haemoccult-Test im Stuhl nach.' },
+        { frage: 'Wie erklären Sie dem Patienten die Diagnose und die Behandlung?', antwort: '„Sie haben sehr wahrscheinlich ein Geschwür in der Magenschleimhaut. Die häufigste Ursache ist ein Bakterium, das im Magen lebt; Rauchen, Alkohol und Stress kommen bei Ihnen hinzu. Bei einer Magenspiegelung entnehmen wir kleine Gewebeproben, um das Bakterium nachzuweisen und etwas Bösartiges auszuschließen. Findet sich das Bakterium, nehmen Sie zehn Tage lang eine Kombination aus Antibiotika und Magenschutz; danach heilt das Geschwür meist ab. Bis dahin bitte keinen Alkohol, und hören Sie möglichst mit dem Rauchen auf.“' },
       ],
       merksatz: 'Jedes Ulcus ventriculi muss bioptisch gesichert und nach 6–8 Wochen endoskopisch kontrolliert werden (Karzinomausschluss) — Basistherapie ist PPI plus H.-pylori-Eradikation und das Absetzen der NSAR.',
       linkedCaseIds: [
@@ -1048,6 +1053,7 @@ export function seedFachwissen(): Fachwissen[] {
           frage: 'Wie können Sie eine Divertikulitis ausschließen?',
           antwort: 'Durch die Bildgebung – Sonographie und gegebenenfalls CT –, die die entzündeten Darmwandabschnitte lokalisiert; die Divertikulitis betrifft meist das linksseitige Sigma.',
         },
+        { frage: 'Wie erklären Sie dem Patienten die Diagnose und die Operation?', antwort: '„Ihre Schmerzen im rechten Unterbauch kommen sehr wahrscheinlich von einer Entzündung des Wurmfortsatzes am Blinddarm. Damit er nicht durchbricht, entfernen wir ihn noch heute. Wir operieren in Vollnarkose mit einer Kamera durch drei kleine Schnitte am Bauch. Das ist ein Routineeingriff; die meisten Patienten können nach wenigen Tagen nach Hause.“' },
       ],
       merksatz: 'Wandernder Schmerz in den rechten Unterbauch mit lokalem Druck- und Loslassschmerz ist eine Appendizitis, bis das Gegenteil bewiesen ist.',
       linkedCaseIds: [
@@ -1183,6 +1189,7 @@ export function seedFachwissen(): Fachwissen[] {
         { frage: 'Was bedeutet Abusus, wenn der Patient täglich ein Schlafmittel einnimmt?', antwort: 'Die tägliche Einnahme eines Benzodiazepins birgt ein Abhängigkeitsrisiko. Ich würde den Patienten aufklären, das Medikament langsam ausschleichen und eine fachärztliche Beratung empfehlen.' },
         { frage: 'Warum ist es wichtig, den Patienten nach Suizidgedanken zu fragen?', antwort: 'Weil die Suizidalität über das weitere Vorgehen und die Notwendigkeit einer stationären Aufnahme entscheidet. Das offene Ansprechen erhöht das Risiko nicht, sondern entlastet den Patienten häufig.' },
         { frage: 'Wie schätzen Sie die Suizidalität ein?', antwort: 'Ich frage direkt nach Todeswunsch, Suizidgedanken, konkreten Plänen, Vorbereitungen und früheren Versuchen, prüfe die Absprachefähigkeit und erhebe die Risikofaktoren: männliches Geschlecht, Alter, Suizid in der Familie, Alkohol, Isolation und Hoffnungslosigkeit.' },
+        { frage: 'Wie erklären Sie dem Patienten seine Erkrankung?', antwort: '„Was Sie seit drei Monaten erleben, die Leere und die fehlende Kraft und Freude, ist eine Depression. Das ist eine Erkrankung und keine Schwäche; nach dem Tod Ihrer Schwester ist das gut nachvollziehbar. Eine Depression lässt sich in den meisten Fällen gut behandeln, bei Ihnen mit Gesprächen und zusätzlich mit einem Medikament, das nicht abhängig macht. Eine Besserung spüren Sie meist nach einigen Wochen. Werden die Gedanken an den Tod stärker, melden Sie sich bitte sofort, auch nachts.“' },
       ],
       merksatz: 'Merke: Hinter Kopf- und Ganzkörperschmerzen kann eine larvierte Depression stecken — Stimmung, Antrieb, Schlaf UND Suizidalität aktiv erfragen; vor jeder Therapie TSH bestimmen und eine bipolare Störung ausschließen.',
       linkedCaseIds: [
@@ -1307,6 +1314,7 @@ export function seedFachwissen(): Fachwissen[] {
         { frage: 'Welche Erreger sind bei der ambulant erworbenen Pneumonie am häufigsten?', antwort: 'Am häufigsten Streptococcus pneumoniae, außerdem Haemophilus influenzae, atypische Erreger wie Mykoplasmen und Legionellen sowie Viren, teils mit bakterieller Superinfektion.' },
         { frage: 'Welche Impfungen sind in Bezug auf die Pneumonie relevant?', antwort: 'Die Pneumokokkenimpfung und die jährliche Influenzaimpfung, ergänzend die COVID-19-Impfung.' },
         { frage: 'Warum bestimmen Sie bei einem Diabetiker mit Pneumonie den HbA1c?', antwort: 'Er zeigt die Einstellung der letzten 8–12 Wochen; ein schlecht eingestellter Diabetes schwächt die Abwehr und erhöht das Komplikationsrisiko. Akut steuert der aktuelle Blutzucker die Therapie.' },
+        { frage: 'Wie erklären Sie dem Patienten, warum er stationär aufgenommen wird?', antwort: '„Sie haben eine Lungenentzündung. Wegen der Atemnot, des hohen Fiebers und Ihrer Zuckerkrankheit behandeln wir Sie hier im Krankenhaus. Sie bekommen Sauerstoff und ein Antibiotikum über die Vene, das Sie trotz Ihrer Penicillinallergie bekommen dürfen; weil es den Zucker schwanken lassen kann, messen wir ihn häufiger. Meist geht es nach zwei bis drei Tagen deutlich besser; dann können wir auf Tabletten wechseln.“' },
       ],
       merksatz: 'CAP: Schweregrad mit CURB-65, Blut- und Sputumkultur VOR der kalkulierten Antibiose. Bei Penicillinallergie ambulant Makrolid, stationär respiratorisches Fluorchinolon.',
       linkedCaseIds: [
@@ -1639,6 +1647,7 @@ export function seedFachwissen(): Fachwissen[] {
           frage: 'Was ist das Leriche-Syndrom?',
           antwort: 'Ein chronischer Verschluss der distalen Aorta bzw. beider Beckenarterien mit der Trias aus beidseitiger (gluteal-/oberschenkelbetonter) Claudicatio, fehlenden Leistenpulsen und erektiler Dysfunktion.',
         },
+        { frage: 'Wie erklären Sie dem Patienten die Erkrankung und was er selbst tun kann?', antwort: '„Eine Schlagader in Ihrem rechten Bein ist durch Ablagerungen in der Gefäßwand verengt. Beim Gehen braucht die Wade mehr Blut, als durchkommt; daher die Schmerzen nach etwa hundert Metern. Das Wichtigste ist, mit dem Rauchen aufzuhören. Dazu kommt Gehtraining mindestens dreimal pro Woche 30 bis 60 Minuten: gehen, bis der Schmerz gerade beginnt, kurz stehen bleiben, weitergehen. Außerdem bekommen Sie Tabletten, die die Gefäße schützen. Dieselben Ablagerungen können auch Herz und Gehirn betreffen; deshalb behandeln wir auch Ihren Blutdruck und Ihre Blutfette.“' },
       ],
       merksatz: 'Claudicatio + kühles, pulsloses Bein = pAVK, ABI < 0,9 sichert die Diagnose. Basis: Rauchstopp und Gehtraining — und immer einen Plättchenhemmer (ASS oder Clopidogrel) und ein Statin, denn die pAVK warnt vor Herzinfarkt und Schlaganfall.',
       linkedCaseIds: [
@@ -1823,6 +1832,7 @@ export function seedFachwissen(): Fachwissen[] {
           frage: 'Was machen Sie, wenn die Zecke noch vorhanden ist, und geben Sie nach einem Stich vorsorglich Antibiotika?',
           antwort: 'Ich entferne die Zecke mechanisch mit einer Pinzette hautnah, ohne sie zu quetschen. Nach einem reinen Zeckenstich ohne Symptome gebe ich keine routinemäßige Antibiotikaprophylaxe, sondern beobachte die Stichstelle — bei Auftreten einer Rötung soll sich die Patientin wieder vorstellen.',
         },
+        { frage: 'Wie erklären Sie der Patientin die Diagnose und die Behandlung?', antwort: '„Die ringförmige, langsam größer werdende Rötung am Oberschenkel ist typisch für eine Borreliose: Eine Zecke hat Bakterien übertragen, auch wenn Sie den Stich nicht bemerkt haben. Eine Blutuntersuchung brauchen wir dafür nicht. Sie nehmen zwei bis drei Wochen lang ein Antibiotikum; in diesem frühen Stadium heilt die Erkrankung damit fast immer aus. Meiden Sie in dieser Zeit starke Sonne, weil das Medikament die Haut lichtempfindlich macht. Nehmen Sie es zwei bis drei Stunden getrennt von Ihrer Eisentablette und nicht mit Milchprodukten.“' },
       ],
       merksatz: 'Wanderröte nach Waldaufenthalt: sofort Doxycyclin, ohne auf Antikörper zu warten.',
       linkedCaseIds: [
@@ -2379,6 +2389,7 @@ export function seedFachwissen(): Fachwissen[] {
           frage: 'Warum treten die Beschwerden gerade nachts auf?',
           antwort: 'Nachts sinken die Temperatur im peripheren Gewebe und der Flüssigkeitsgehalt des Gelenks. Dadurch nimmt die Löslichkeit der Harnsäure ab und Natriumuratkristalle fallen aus — deshalb ist das kühle, periphere Großzehengrundgelenk der klassische Erstmanifestationsort.',
         },
+        { frage: 'Wie erklären Sie dem Patienten den Gichtanfall und wie er weiteren Anfällen vorbeugt?', antwort: '„In Ihrem Blut ist zu viel Harnsäure. Sie hat sich als feine Kristalle im Grundgelenk der großen Zehe abgelagert, und das Gelenk hat sich heftig entzündet: Das ist ein Gichtanfall. Ausgelöst hat ihn das Essen mit viel Fleisch, Bier und Schnaps, dazu das Entwässerungsmittel in Ihrer neuen Blutdrucktablette. Gegen die Entzündung bekommen Sie ein Schmerzmittel; Kühlen und Hochlegen helfen zusätzlich. Weil es schon Ihr zweiter Anfall ist, beginnen wir zwei bis vier Wochen nach dem Anfall zusätzlich mit einer Tablette, die die Harnsäure dauerhaft senkt; sie nehmen Sie meist lebenslang. Weniger Fleisch und Alkohol, viel Wasser und langsames Abnehmen helfen dabei, und Ihre Blutdrucktablette stellen wir um.“' },
       ],
       merksatz: 'Podagra = Gicht, aber normale Harnsäure schließt sie NIE aus; ohne Gelenkpunktion ist die septische Arthritis nicht ausgeschlossen. Allopurinol erst zwei Wochen nach dem Anfall.',
       linkedCaseIds: [
@@ -2737,6 +2748,7 @@ export function seedFachwissen(): Fachwissen[] {
         { frage: 'Welche Therapie ist bei Vorhofflimmern zur Sekundärprophylaxe angezeigt?', antwort: 'Eine orale Antikoagulation, bevorzugt mit einem DOAK, sonst mit einem Vitamin-K-Antagonisten (Marcumar), nicht ein alleiniger Thrombozytenaggregationshemmer.' },
         { frage: 'Wie berechnen Sie den CHA₂DS₂-VASc-Score?', antwort: 'Herzinsuffizienz, Hypertonie, Diabetes, Gefäßerkrankung, Alter 65–74 Jahre und weibliches Geschlecht je 1 Punkt; Alter ab 75 Jahren sowie Schlaganfall oder TIA je 2 Punkte.' },
         { frage: 'Wie unterscheiden Sie eine zentrale von einer peripheren Fazialisparese?', antwort: 'Zentral bleibt die Stirn verschont, weil sie von beiden Hemisphären versorgt wird; peripher ist die ganze Gesichtshälfte einschließlich Stirnrunzeln und Lidschluss betroffen.' },
+        { frage: 'Wie erklären Sie dem Patienten den Schlaganfall und warum Sie keine Zeit verlieren dürfen?', antwort: '„Sie haben sehr wahrscheinlich einen Schlaganfall, am ehesten weil ein Blutgerinnsel ein Gefäß im Gehirn verstopft; deshalb sind Ihr linker Arm schwach und Ihre Sprache verwaschen. Das Gerinnsel kommt wahrscheinlich aus dem Herzen, weil es bei Ihnen unregelmäßig schlägt. Jede Minute zählt: Mit einer Schichtaufnahme des Kopfes schließen wir zuerst eine Blutung aus; dann lösen wir das Gerinnsel, wenn möglich, mit einem Medikament auf oder holen es mit einem dünnen Schlauch heraus. Danach bekommen Sie statt ASS einen stärkeren Blutverdünner, damit es nicht wieder passiert.“' },
       ],
       merksatz: '„Time is brain" — jedes akute fokale Defizit ist ein Schlaganfall bis zum Beweis des Gegenteils: Blutzucker, sofort cCT zum Blutungsausschluss, dann Lyse im Zeitfenster und Thrombektomie bei großem Gefäßverschluss.',
       linkedCaseIds: [
@@ -3809,6 +3821,7 @@ export function seedFachwissen(): Fachwissen[] {
           frage: 'Welche Nebenwirkung der Thyreostatika ist die gefährlichste?',
           antwort: 'Die Agranulozytose. Deshalb Blutbild vor Therapiebeginn und in den ersten Wochen sowie die klare Anweisung an den Patienten, bei Fieber, Halsschmerzen oder Mundgeschwüren das Medikament sofort abzusetzen und sich umgehend vorzustellen. Daneben sind Leberwerterhöhungen, Exanthem und Geschmacksstörungen zu beachten.',
         },
+        { frage: 'Wie erklären Sie der Patientin die Schilddrüsenüberfunktion und die Behandlung?', antwort: '„Ihre Schilddrüse bildet zu viel Hormon, wahrscheinlich weil Ihr eigenes Abwehrsystem sie anregt. Das treibt den ganzen Körper an: Daher kommen das Herzrasen und der Gewichtsverlust, obwohl Sie mehr essen. Tabletten bremsen die Schilddrüse; nach einigen Wochen geht es Ihnen meist deutlich besser, die Behandlung dauert aber etwa ein bis eineinhalb Jahre. Die Überfunktion lässt auch Ihren Zucker steigen: Messen Sie ihn häufiger und ändern Sie das Insulin nur nach Absprache mit uns. Jetzt brauchen Sie eher mehr davon, wenn die Schilddrüse wieder normal arbeitet, wieder weniger. Bekommen Sie Fieber oder Halsschmerzen, melden Sie sich sofort, weil das Medikament in seltenen Fällen die Abwehrzellen im Blut gefährlich senken kann.“' },
       ],
       merksatz: 'TSH zuerst: supprimiert plus fT3/fT4 erhöht = Hyperthyreose, TRAK positiv plus Merseburger Trias = Basedow. Unter Thiamazol: Fieber und Halsschmerzen = Blutbild, Agranulozytose!',
       linkedCaseIds: [
@@ -7594,6 +7607,7 @@ export function seedFachwissen(): Fachwissen[] {
           frage: 'Welche Komplikationen kann ein Erysipel haben?',
           antwort: 'Abszedierung, Phlegmone, Nekrosen, Sepsis, chronisches Lymphödem bis zur Elephantiasis nostras, eine Poststreptokokken-Glomerulonephritis und beim Gesichtserysipel eine Sinus-cavernosus-Thrombose. Die schwerste Komplikation ist der Übergang in eine nekrotisierende Weichgewebeinfektion.',
         },
+        { frage: 'Wie erklären Sie dem Patienten die Erkrankung und warum auch der Fußpilz behandelt wird?', antwort: '„Sie haben eine Wundrose: Bakterien sind über kleine Risse zwischen den Zehen in die Haut eingedrungen und haben am Unterschenkel eine Entzündung ausgelöst. Die Risse kommen vom Fußpilz. Sie bekommen ein Antibiotikum über die Vene, und das Bein wird hochgelagert. Den Rand der Rötung zeichnen wir an, um zu sehen, ob sie zurückgeht. Damit die Wundrose nicht wiederkommt, behandeln wir auch den Fußpilz konsequent.“' },
       ],
       merksatz: 'Scharf begrenzt, flammend rot, heiß, mit Fieber = Wundrose. Erst Beinvenenthrombose und nekrotisierende Fasziitis ausschließen, dann Penicillin; ohne Sanierung des Fußpilzes kommt das Rezidiv.',
       linkedCaseIds: [
@@ -12571,6 +12585,7 @@ export function seedFachwissen(): Fachwissen[] {
           frage: 'Wie ist die Prognose?',
           antwort: 'Insgesamt ungünstig, mit einer 5-Jahres-Überlebensrate über alle Stadien von etwa 15–20 %. Beim NSCLC im Stadium I liegt sie nach Resektion bei etwa 70–90 %, im Stadium IV unter 10 %, wobei zielgerichtete Therapien und Immuntherapie das Überleben deutlich verbessert haben. Beim SCLC beträgt das mediane Überleben bei limited disease etwa 15–20 Monate, bei extensive disease etwa 8–13 Monate.',
         },
+        { frage: 'Der Patient fragt, ob er Lungenkrebs hat. Was antworten Sie?', antwort: '„Ich verstehe Ihre Sorge, und ich will offen mit Ihnen sein. Der veränderte Husten, das Blut im Auswurf und der Gewichtsverlust passen zu einem bösartigen Tumor in der Lunge; es gibt aber auch andere Ursachen. Sicher sagen kann ich es erst, wenn wir in den nächsten Tagen eine Schichtaufnahme der Lunge gemacht und eine Gewebeprobe untersucht haben. Das Ergebnis bespreche ich persönlich mit Ihnen, gern im Beisein eines Angehörigen, und ein Team aus Fachärzten plant dann die beste Behandlung.“' },
       ],
       merksatz: 'Merke: Jede Hämoptyse bei einem Raucher über 40 ist ein Bronchialkarzinom, bis das Gegenteil bewiesen ist — ein unauffälliges Röntgenbild beweist gar nichts, und ohne Histologie gibt es keine Therapie.',
       linkedCaseIds: [
@@ -13297,6 +13312,7 @@ export function seedFachwissen(): Fachwissen[] {
           frage: 'Wie ist die Prognose?',
           antwort: 'Unbehandelt entwickeln bis zu 70 % der Patienten innerhalb von zwei Jahren Erosionen. Unter früher, konsequenter Basistherapie erreicht heute etwa die Hälfte eine Remission oder niedrige Krankheitsaktivität. Ungünstig sind hohe Anti-CCP- und Rheumafaktor-Titer, frühe Erosionen, hohe Aktivität und fortgesetztes Rauchen. Die Lebenserwartung ist vor allem kardiovaskulär um etwa drei bis zehn Jahre verkürzt.',
         },
+        { frage: 'Wie erklären Sie dem Patienten die Erkrankung und warum die Behandlung früh beginnen muss?', antwort: '„Sie haben eine Form von Gelenkrheuma: Ihr eigenes Abwehrsystem greift die Innenhaut der Gelenke an. Daher die geschwollenen Finger und die lange Steifigkeit am Morgen. Unbehandelt kann die Entzündung die Gelenke dauerhaft zerstören. Deshalb beginnen wir früh mit einem Medikament, das die Entzündung auf Dauer bremst; Sie nehmen es nur einmal pro Woche. Bis es wirkt, vergehen einige Wochen; so lange hilft vorübergehend Kortison. Ihre Aspirin-Tabletten setzen Sie bitte ab, und hören Sie möglichst mit dem Rauchen auf: Das verbessert die Wirkung. Mit dieser Behandlung können die meisten Patienten weiter arbeiten und Sport treiben.“' },
       ],
       merksatz: 'Symmetrisch, klein, Endgelenke frei, über eine Stunde Morgensteifigkeit = RA. Anti-CCP statt Rheumafaktor; Methotrexat EINMAL pro Woche, Folsäure am Tag danach, Kortison nur als Brücke.',
       linkedCaseIds: [
@@ -13672,6 +13688,7 @@ export function seedFachwissen(): Fachwissen[] {
           frage: 'Welche Ernährungsempfehlungen geben Sie?',
           antwort: 'Es gibt keine allgemeingültige Crohn-Diät. Empfohlen werden eine ausgewogene, hochkalorische und individuell verträgliche Kost, im Schub ballaststoffarme Schonkost, bei Stenosen faserarme Ernährung, ausreichende Flüssigkeitszufuhr sowie die gezielte Substitution von Eisen, Vitamin B12, Vitamin D, Folsäure und Zink. Bei Kindern und Jugendlichen ist die exklusive enterale Ernährungstherapie zur Schubbehandlung den Steroiden gleichwertig.',
         },
+        { frage: 'Wie erklären Sie dem Patienten die Diagnose und was sie für seinen Alltag bedeutet?', antwort: '„Sie haben eine chronische Entzündung des Darms, die Morbus Crohn heißt. Sie betrifft bei Ihnen vor allem das Ende des Dünndarms im rechten Unterbauch; daher die Schmerzen nach dem Essen, die Durchfälle und der Gewichtsverlust. Die Krankheit kommt in Schüben und ist nicht heilbar, aber gut behandelbar: Medikamente beruhigen den Schub und können neue Schübe verhindern. Am meisten helfen Sie sich selbst, wenn Sie mit dem Rauchen aufhören. Ihr Studium und Ihr Auslandssemester sind in der Regel weiter möglich; vorher prüfen wir Ihre Impfungen.“' },
       ],
       merksatz: 'Crohn = diskontinuierlich, transmural, Mund bis Anus; Colitis ulcerosa = kontinuierlich vom Rektum, nur Mukosa. Zur Remissionserhaltung NIEMALS Steroide, und impfen VOR der Immunsuppression.',
       linkedCaseIds: [
@@ -16187,6 +16204,7 @@ export function seedFachwissen(): Fachwissen[] {
           frage: 'Worauf achten Sie nach der Operation, und welche Werte kontrollieren Sie?',
           antwort: 'Klinisch auf eine Nachblutung mit rasch zunehmender Halsschwellung und Atemnot, auf Heiserkeit als Hinweis auf eine Rekurrensparese und auf Zeichen der Hypokalzämie wie periorale Parästhesien, Muskelkrämpfe, positives Chvostek- und Trousseau-Zeichen. Laborchemisch kontrolliere ich Kalzium und Parathormon am ersten und zweiten postoperativen Tag und das TSH 6 bis 8 Wochen nach Beginn der Levothyroxin-Substitution; zusätzlich erfolgt eine laryngoskopische Kontrolle der Stimmbänder.',
         },
+        { frage: 'Wie erklären Sie der Patientin den Befund und das weitere Vorgehen?', antwort: '„Ihre Schilddrüse ist vergrößert und hat Knoten gebildet, am ehesten weil Sie über viele Jahre zu wenig Jod bekommen haben. Ihre Hormonwerte sind normal. Die Knoten untersuchen wir mit Ultraschall und, wenn nötig, mit einer feinen Nadel, um etwas Bösartiges auszuschließen. Jodtabletten und jodiertes Speisesalz können das weitere Wachstum bremsen; ganz verschwinden werden die Knoten dadurch nicht. Werden das Engegefühl und die Schluckbeschwerden stärker, kann eine Operation sinnvoll sein.“' },
       ],
       merksatz: 'Struma heißt nur GROSS: erst TSH, dann Sonographie, bei Knoten über 1 cm Szintigraphie — nur der KALTE Knoten wird punktiert. Nach der OP an Rekurrensparese und Hypoparathyreoidismus denken.',
       linkedCaseIds: [
@@ -18435,6 +18453,7 @@ export function seedFachwissen(): Fachwissen[] {
           frage: 'Die Patientin nimmt Acetylsalicylsäure. Verschieben Sie die Operation?',
           antwort: 'Nein. Acetylsalicylsäure 100 mg ist kein Grund zur Verzögerung; der Nutzen der frühen Versorgung überwiegt. Anders bei Vitamin-K-Antagonisten, die mit Vitamin K und PPSB antagonisiert werden müssen, und bei direkten oralen Antikoagulanzien, wo Einnahmezeitpunkt und Nierenfunktion den Operationszeitpunkt und die Möglichkeit einer rückenmarksnahen Anästhesie bestimmen.',
         },
+        { frage: 'Wie erklären Sie der Patientin die Verletzung und die Operation?', antwort: '„Bei dem Sturz ist Ihr Oberschenkelknochen am Hals direkt unterhalb des Hüftkopfes gebrochen; deshalb können Sie nicht mehr auftreten. Wir operieren möglichst innerhalb von 24 Stunden, denn je früher Sie wieder aufstehen, desto besser erholen Sie sich. Wahrscheinlich ersetzen wir dabei das Hüftgelenk ganz oder teilweise durch ein künstliches Gelenk. Schon am Tag nach der Operation stehen Sie mit Hilfe auf und dürfen das Bein voll belasten. Wir klären auch, warum Sie gestürzt sind, und stärken Ihre Knochen.“' },
       ],
       merksatz: 'Verkürzt und außenrotiert = Schenkelhalsfraktur; GARDEN entscheidet: jung und nicht disloziert Osteosynthese, alt und disloziert Prothese, immer innerhalb von 24 Stunden. Prüfungsfrage: WARUM gestürzt?',
       linkedCaseIds: [
@@ -19533,6 +19552,7 @@ export function seedFachwissen(): Fachwissen[] {
           frage: 'Was raten Sie dem Patienten nach dem Entzug?',
           antwort: 'Dass die Entgiftung erst der Anfang ist: eine qualifizierte Entzugsbehandlung mit Motivationsarbeit, anschließend eine Entwöhnungstherapie, die Anbindung an eine Suchtberatungsstelle und an eine Selbsthilfegruppe, eine Psychotherapie mit Rückfallprophylaxe, gegebenenfalls Acamprosat oder Naltrexon und die Behandlung begleitender Erkrankungen wie einer Depression — ohne Moralisieren und mit Einbezug der Angehörigen.',
         },
+        { frage: 'Wie erklären Sie dem Patienten die Entzugsbehandlung?', antwort: '„Ihr Körper hat sich an den Alkohol gewöhnt; ohne ihn reagiert er mit Zittern, Schwitzen, Herzrasen und Unruhe. Weil Sie vor zwei Jahren im Entzug schon einmal schwer verwirrt waren, behandeln wir Sie hier unter Aufsicht. Sie bekommen ein Beruhigungsmittel, das die Beschwerden lindert und Krampfanfällen vorbeugt, und Vitamin B1 zum Schutz der Nerven. Die Entgiftung ist der erste Schritt: Danach geht es mit Suchtberatung und Therapie weiter, und dabei helfen wir Ihnen.“' },
       ],
       merksatz: '6–12 h Tremor, 12–48 h Krampfanfall, 48–72 h Delirium tremens, unbehandelt bis 20 % letal. Benzodiazepine nach CIWA-Ar, Haloperidol nie allein — und immer THIAMIN VOR GLUKOSE.',
       linkedCaseIds: [
@@ -20982,6 +21002,7 @@ export function seedFachwissen(): Fachwissen[] {
           frage: 'Warum wird auch nach vollständiger Erholung eine Nachkontrolle empfohlen?',
           antwort: 'Weil ein durchgemachtes akutes Nierenversagen ein unabhängiger Risikofaktor für eine spätere chronische Niereninsuffizienz, für kardiovaskuläre Ereignisse und für eine erhöhte Langzeitsterblichkeit ist. Deshalb werden Kreatinin, eGFR und Albuminurie nach etwa drei Monaten kontrolliert und der Patient nephrologisch angebunden.',
         },
+        { frage: 'Wie erklären Sie dem Patienten die Nierenschwäche und die Änderung seiner Tabletten?', antwort: '„Ihre Nieren arbeiten im Moment deutlich schlechter. Durch Erbrechen und Durchfall haben Sie viel Flüssigkeit verloren, und zwei Ihrer Tabletten haben die Nieren zusätzlich belastet: die Blutdrucktablette mit dem entwässernden Wirkstoff und das Ibuprofen. Diese beiden setzen wir vorerst ab, ebenso das Zuckermedikament Metformin, das sich bei schwachen Nieren im Körper anreichern kann. Sie bekommen Flüssigkeit über die Vene; meist erholen sich die Nieren dann innerhalb einiger Tage, aber nicht immer ganz. Deshalb kontrollieren wir die Werte auch nach der Entlassung, und gegen die Knieschmerzen finden wir ein anderes Mittel.“' },
       ],
       merksatz: 'Beim akuten Nierenversagen zuerst Kalium, Sonographie mit Blasenentleerung und Medikamentenliste (Triple Whammy: NSAR + Diuretikum + ACE-Hemmer). Dialyse nach AEIOU.',
       linkedCaseIds: [
@@ -24621,6 +24642,7 @@ export function seedFachwissen(): Fachwissen[] {
           frage: 'Welches Konsil fordern Sie an?',
           antwort: 'Ein neurologisches Konsil zur Höhenlokalisation, zur elektrophysiologischen Abgrenzung peripherer Engpasssyndrome und zur Beurteilung von Myelopathiezeichen; bei Operationsindikation zusätzlich die Vorstellung in der Neurochirurgie beziehungsweise Wirbelsäulenchirurgie.',
         },
+        { frage: 'Wie erklären Sie dem Patienten die Diagnose und wann eine Operation nötig wird?', antwort: '„Eine Bandscheibe im unteren Halsbereich ist sehr wahrscheinlich vorgefallen und drückt auf einen Nerv, der zum Arm zieht; ausgelöst hat das wahrscheinlich das Heben der schweren Kiste. Daher die einschießenden Schmerzen bis in den Ring- und Kleinfinger. Mit Schmerzmitteln und Krankengymnastik bessert sich das meist innerhalb einiger Wochen. Weil Ihre Handmuskeln schon etwas schwächer sind, machen wir eine Kernspinuntersuchung und prüfen die Kraft regelmäßig. Nimmt die Schwäche zu, ist eine Operation nötig, damit der Nerv keinen bleibenden Schaden nimmt.“' },
       ],
       merksatz: 'Nackenschmerz plus Armschmerz im Dermatom, verstärkt durch Husten und Reklination: C6 Daumen, C7 Mittelfinger, C8 Kleinfinger. MRT erst nach vier bis sechs Wochen, SOFORT bei Parese oder Myelopathie.',
       linkedCaseIds: [
@@ -26120,6 +26142,7 @@ export function seedFachwissen(): Fachwissen[] {
           frage: 'Wie unterscheiden Sie eine virale von einer bakteriellen Gastroenteritis?',
           antwort: 'Viral: kurze Inkubationszeit, führendes, oft explosionsartiges Erbrechen, wässriger Durchfall ohne Blut, kein oder nur mäßiges Fieber, hohe Ansteckungsfähigkeit, Häufung im Winter und in Gemeinschaftseinrichtungen, Dauer 24 bis 72 Stunden. Bakteriell-invasiv: hohes Fieber, stärkere Bauchschmerzen, Tenesmen, blutig-schleimige Durchfälle, deutlich erhöhte Entzündungsparameter und Calprotectin. Die toxinvermittelte Lebensmittelvergiftung hat eine Latenz von nur ein bis sechs Stunden mit führendem Erbrechen ohne Fieber.',
         },
+        { frage: 'Wie erklären Sie dem Patienten die Ursache des Durchfalls und was er zu Hause beachten muss?', antwort: '„Sie haben sich auf der Reise wahrscheinlich einen Darminfekt zugezogen, möglicherweise durch einen kleinen Parasiten; nach zwei Wochen ist er noch nicht von selbst abgeheilt. Das prüfen wir mit Stuhlproben; davon hängt das passende Medikament ab. Trinken Sie viel, am besten eine Lösung mit Salz und Zucker aus der Apotheke. Waschen Sie sich nach jedem Toilettengang und vor dem Essen gründlich die Hände mit Seife. Mittel, die den Durchfall stoppen, nehmen Sie bitte nur nach Rücksprache mit uns.“' },
       ],
       merksatz: 'Durchfall: Erreger, Dehydratation, Red Flags. Therapie ist Volumen, nicht Antibiotikum; Loperamid nie bei Blut, Fieber, EHEC, C. difficile oder Kindern; nach dem Beruf fragen (Infektionsschutzgesetz).',
       linkedCaseIds: [
@@ -28902,6 +28925,7 @@ export function seedFachwissen(): Fachwissen[] {
           frage: 'Wie unterscheiden Sie die Anorexia nervosa von der Bulimia nervosa?',
           antwort: 'Entscheidend ist das Gewicht: Bei der Anorexia nervosa besteht ein Untergewicht mit einem BMI unter 17,5 kg/m², bei der Bulimia nervosa sind die Patientinnen meist normalgewichtig oder leicht übergewichtig. Bei der Bulimie stehen wiederkehrende Essanfälle mit Kontrollverlust und anschließendes kompensatorisches Verhalten im Vordergrund; die Krankheitseinsicht und das Schamgefühl sind meist größer. Erbrechen und Laxanzienabusus können bei beiden vorkommen — bei der Anorexia nervosa spricht man dann vom Purging-Typ.',
         },
+        { frage: 'Wie erklären Sie der Patientin, warum Sie sich Sorgen machen, obwohl sie sich gesund fühlt?', antwort: '„Sie fühlen sich gesund, und das nehme ich ernst. Ihre Werte zeigen aber, dass Ihr Körper auf Sparflamme läuft: Ihr Herz schlägt sehr langsam, Ihr Blutdruck ist niedrig, und Ihr Gewicht liegt deutlich unter dem gesunden Bereich. Das kann gefährlich werden, vor allem für das Herz. Ich möchte Sie nicht überreden, sondern mit Ihnen gemeinsam einen Weg finden: mit festen Terminen, mit Gesprächen und indem Sie Schritt für Schritt wieder mehr essen. Ihr Abitur planen wir dabei mit ein.“' },
       ],
       merksatz: 'Anorexie = BMI unter 17,5, Angst vor Gewichtszunahme, Körperschemastörung, Amenorrhoe — höchste Sterblichkeit (Hypokaliämie und Suizid). Immer EKG und Kalium, langsam aufnähren: Refeeding, Phosphat!',
       linkedCaseIds: [
@@ -29598,6 +29622,7 @@ export function seedFachwissen(): Fachwissen[] {
           frage: 'Warum ist die Zahnbehandlung für Sie wichtig?',
           antwort: 'Weil sie die Eintrittspforte ist: Bei einer Extraktion oder Wurzelbehandlung gelangen Viridans-Streptokokken der Mundflora in die Blutbahn und siedeln sich auf der vorgeschädigten Mitralklappe an. Das typische Intervall bis zum Symptombeginn beträgt zwei bis sechs Wochen. Deshalb gehören ein zahnärztliches Konsil und die Sanierung des Fokus zur Therapie.',
         },
+        { frage: 'Wie erklären Sie dem Patienten die Erkrankung und warum er mehrere Wochen behandelt werden muss?', antwort: '„Bei der Zahnbehandlung sind wahrscheinlich Bakterien ins Blut gelangt und haben sich an Ihrer schon vorgeschädigten Herzklappe festgesetzt. Dort verursachen sie eine Entzündung; daher das Fieber und die Schwäche. Wir nehmen mehrmals Blut ab, um die Bakterien zu bestimmen, und schauen uns die Klappe mit Ultraschall an, auch über die Speiseröhre. Anschließend bekommen Sie vier bis sechs Wochen lang Antibiotika, mindestens die ersten zehn Tage über die Vene hier im Krankenhaus; je nach Verlauf ist danach eine Fortsetzung zu Hause oder mit Tabletten möglich. Manchmal muss die Klappe zusätzlich operiert werden.“' },
       ],
       merksatz: 'Wochenlanges Fieber plus Klappe plus Zahnarzt = Endokarditis: drei Blutkulturpaare VOR dem Antibiotikum, dann Echo (transösophageal sensitiver). Vier bis sechs Wochen i.v.',
       linkedCaseIds: [
@@ -30598,6 +30623,7 @@ export function seedFachwissen(): Fachwissen[] {
           frage: 'Wie grenzen Sie eine Poststreptokokken-reaktive Arthritis vom rheumatischen Fieber ab?',
           antwort: 'Beide folgen einer Streptokokken-Angina mit ASL- und Anti-DNase-B-Anstieg. Das rheumatische Fieber erfüllt die Jones-Kriterien: Latenz zwei bis drei Wochen, wandernde Polyarthritis, Karditis, Erythema marginatum, Chorea, prompte Besserung auf NSAR. Die Poststreptokokken-Arthritis hat eine kürzere Latenz von ein bis zwei Wochen, verläuft additiv und protrahiert, spricht schlecht auf NSAR an und erfüllt die Jones-Kriterien nicht — trotzdem mache ich EKG und Echokardiographie, um eine Karditis auszuschließen.',
         },
+        { frage: 'Wie erklären Sie der Patientin, warum ihre Gelenke nach der Halsentzündung schmerzen?', antwort: '„Ihre Abwehr hat die Bakterien der Halsentzündung bekämpft und reagiert jetzt irrtümlich in den Gelenken weiter. In den Gelenken selbst sind wahrscheinlich keine Bakterien; um sie sicher auszuschließen, entnehmen wir aus dem Knie etwas Flüssigkeit. Es ist kein dauerhaftes Rheuma: Mit entzündungshemmenden Schmerzmitteln und Schonung heilt die Entzündung meist innerhalb von Wochen bis wenigen Monaten aus. Weil das Antibiotikum gegen die Halsentzündung zu früh abgesetzt wurde, nehmen Sie es jetzt noch einmal volle zehn Tage, damit keine Bakterien im Rachen bleiben, und wir untersuchen auch Ihr Herz.“' },
       ],
       merksatz: 'Steriles Gelenk nach Durchfall, Urethritis oder Angina = reaktive Arthritis: punktieren zum Sepsisausschluss, NSAR statt Antibiotikum (außer aktive Chlamydien: Doxycyclin PLUS Partner).',
       linkedCaseIds: [
@@ -30805,7 +30831,7 @@ export function seedFachwissen(): Fachwissen[] {
             'Makrolide sind Mittel der Wahl: Azithromycin 500 mg an Tag 1, dann 250 mg an Tag 2–5 (5 Tage) — oder Clarithromycin 2 × 500 mg über 7 Tage — oder Erythromycin 4 × 500 mg über 14 Tage (schlechter verträglich, in der Schwangerschaft neben Azithromycin bevorzugt)',
             'Bei Makrolid-Unverträglichkeit oder -Allergie: Cotrimoxazol 2 × 960 mg über 14 Tage (nicht im letzten Schwangerschaftsdrittel, nicht bei Säuglingen unter 2 Monaten)',
             'Das Ziel dem Patienten EHRLICH erklären: Nach Beginn des Stadium convulsivum verkürzt das Antibiotikum den Husten kaum noch, weil die Toxinschäden am Flimmerepithel bereits gesetzt sind — es beendet aber die Ansteckungsfähigkeit innerhalb von etwa 5 Tagen. Behandelt wird also vor allem, um andere zu schützen',
-            'Ein Nutzen für den eigenen Verlauf besteht nur bei sehr frühem Beginn im Stadium catarrhale oder in den ersten 1–2 Wochen des Hustens; die Behandlung ist dennoch bis zu 3 Wochen nach Hustenbeginn (bei Säuglingen, Schwangeren und Kontakt zu Risikopersonen bis 6 Wochen) indiziert',
+            'Ein Nutzen für den eigenen Verlauf besteht nur bei sehr frühem Beginn im Stadium catarrhale oder in den ersten 1–2 Wochen des Hustens; behandelt wird dennoch, solange Erreger ausgeschieden werden: bis 3 Wochen nach Beginn des Stadium convulsivum, bei Säuglingen und Schwangeren selbst bis 6 Wochen nach Hustenbeginn',
             'Bei typischer Klinik und passender Kontaktanamnese wird die Therapie sofort begonnen und NICHT auf das PCR-Ergebnis gewartet — jeder Tag Verzögerung ist ein Tag weiterer Ansteckung',
             'Cave Interaktionen der Makrolide: QT-Zeit-Verlängerung, CYP3A4-Hemmung (Clarithromycin mit Statinen, Colchicin, Antikoagulanzien); Azithromycin ist hier am wenigsten problematisch',
           ],
@@ -30898,6 +30924,7 @@ export function seedFachwissen(): Fachwissen[] {
           frage: 'Was empfehlen Sie der schwangeren Ehefrau des Patienten?',
           antwort: 'Sofortige Vorstellung mit Nasopharyngealabstrich und PCR, eine Chemoprophylaxe beziehungsweise Therapie mit Azithromycin — Cotrimoxazol ist im letzten Trimenon kontraindiziert —, Information der Frauenärztin und der Geburtsklinik sowie die Tdap-Impfung, die ohnehin in jeder Schwangerschaft ab der 28. Woche empfohlen ist, damit das Neugeborene über die mütterlichen Antikörper einen Nestschutz erhält.',
         },
+        { frage: 'Wie erklären Sie dem Patienten, warum er ein Antibiotikum bekommt, obwohl der Husten bleibt?', antwort: '„Sie haben Keuchhusten. Die Bakterien haben Ihre Atemwege so gereizt, dass der Husten noch Wochen anhalten kann; ein Antibiotikum verkürzt ihn jetzt kaum noch. Nach sechs Wochen Husten sind Sie wahrscheinlich nur noch wenig ansteckend. Weil Ihre Frau bald entbindet, gehen wir trotzdem auf Nummer sicher: Mit dem Antibiotikum sind Sie nach wenigen Tagen sicher nicht mehr ansteckend. Bis dahin meiden Sie engen Kontakt zu Schwangeren und Säuglingen, so gut es geht. Ihre Frau hustet schon etwas; sie sollte sich noch heute untersuchen lassen und bekommt wahrscheinlich selbst ein Antibiotikum. Ihre Schwester sollte mit der kleinen Nichte heute noch zur Kinderärztin gehen.“' },
       ],
       merksatz: 'Wochenlanger Anfallshusten ohne Fieber mit Erbrechen danach = Pertussis, auch beim Erwachsenen. Makrolid sofort gegen die Ansteckung, Meldung, und: Gibt es einen Säugling oder eine Schwangere?',
       linkedCaseIds: [
@@ -31542,6 +31569,7 @@ export function seedFachwissen(): Fachwissen[] {
           frage: 'Welche Getränke und Lebensmittel verschlimmern die Beschwerden?',
           antwort: 'Alkohol in jeder Form — Bier, Wein und Schnaps —, fettreiche und große Mahlzeiten, insbesondere fettes Fleisch, Wurst und Frittiertes; günstig sind häufige kleine, kohlenhydrat- und eiweißreiche Mahlzeiten unter Enzymsubstitution.',
         },
+        { frage: 'Wie erklären Sie der Patientin die Erkrankung und warum sie keinen Alkohol mehr trinken darf?', antwort: '„Ihre Bauchspeicheldrüse ist seit längerem entzündet, am ehesten durch den Alkohol, und hat dabei Schaden genommen. Sie bildet nicht mehr genug Verdauungssäfte; deshalb ist der Stuhl fettig, und Sie verlieren an Gewicht. Wenn Sie ganz auf Alkohol verzichten und mit dem Rauchen aufhören, werden die Schmerzen und Schübe seltener, und die Erkrankung schreitet langsamer fort. Beim Aufhören unterstützen wir Sie, auch mit einem begleiteten Entzug. Zu jeder Mahlzeit nehmen Sie Kapseln mit Verdauungsenzymen. Wir prüfen auch Ihren Blutzucker, weil die Drüse ihn mitsteuert.“' },
       ],
       merksatz: 'Gürtelförmiger Schmerz nach Essen und Alkohol, Fettstühle, Gewichtsverlust beim rauchenden Trinker = chronische Pankreatitis; Lipase darf normal sein. Bei Verschlechterung an das Karzinom denken.',
       linkedCaseIds: [
@@ -35630,6 +35658,7 @@ export function seedFachwissen(): Fachwissen[] {
           frage: 'Warum ist die Wahl des Antibiotikums schwierig?',
           antwort: 'Weil die Resistenzlage regional sehr unterschiedlich ist: In Südasien sind Fluorchinolone weitgehend unwirksam, und aus Pakistan werden extensiv resistente Stämme berichtet, die auch gegen Ceftriaxon resistent sind. Deshalb kalkuliert Ceftriaxon intravenös, Azithromycin als Alternative, Carbapeneme bei XDR, immer angepasst an das Antibiogramm.',
         },
+        { frage: 'Wie erklären Sie dem Patienten die Diagnose und warum er isoliert wird?', antwort: '„Sie haben sich in Südafrika wahrscheinlich über verunreinigtes Wasser oder Essen mit Typhus-Bakterien angesteckt. Ihre Impfung liegt vier Jahre zurück; sie schützt nur etwa drei Jahre und auch dann nicht vollständig. Zuerst schließen wir eine Malaria aus und nehmen Blut ab, um die Bakterien nachzuweisen. Danach bekommen Sie sofort ein Antibiotikum über die Vene. Weil die Bakterien über Stuhl und Urin weitergegeben werden können, liegen Sie in einem Einzelzimmer mit eigener Toilette. Waschen und desinfizieren Sie Ihre Hände besonders gründlich.“' },
       ],
       merksatz: 'Fieber nach der Reise: erst Malaria ausschließen, dann Blutkulturen VOR dem Antibiotikum. Typhus: Ceftriaxon statt Ciprofloxacin, Meldung schon bei Verdacht, am Ende drei negative Stühle.',
       linkedCaseIds: [
@@ -36302,6 +36331,7 @@ export function seedFachwissen(): Fachwissen[] {
           frage: 'Sollte man bei einem Patienten, der wiederholt stürzt, die Antikoagulation absetzen?',
           antwort: 'In der Regel nicht. Bei Vorhofflimmern überwiegt der Schutz vor einem Schlaganfall das Blutungsrisiko durch Stürze deutlich — rechnerisch müsste ein Patient sehr häufig im Jahr stürzen, bevor das Blutungsrisiko den Nutzen aufwiegt. Richtig ist, die Sturzursachen zu behandeln, NSAR abzusetzen, die Dosis an Nierenfunktion und Alter anzupassen und nach jedem Kopfanprall großzügig ein CT zu machen.',
         },
+        { frage: 'Wie erklären Sie dem Patienten, warum er gestürzt ist und was sich jetzt ändert?', antwort: '„Ihr Sturz hat mehrere Ursachen. Beim Aufstehen in der Nacht ist Ihr Blutdruck kurz abgesackt; dazu haben die neue Blutdrucktablette und die Prostatatablette beigetragen. Die Schlaftablette macht Sie nachts zusätzlich unsicher auf den Beinen, und der graue Star erschwert das Sehen im Dunkeln. Wir passen Ihre Tabletten an, und Sie stehen nachts langsam auf: erst sitzen, dann stehen. Zu Hause helfen ein Nachtlicht, ein rutschfester Badvorleger und ein Hausnotruf, damit Sie sicher und selbstständig zu Hause leben können.“' },
       ],
       merksatz: 'Ein Sturz im Alter ist ein Symptom: erst fragen, ob das Bewusstsein weg war (Synkope → Herz), CT bei Kopfanprall unter Blutverdünner — Antikoagulation bei Vorhofflimmern nicht reflexartig absetzen.',
       linkedCaseIds: [
@@ -39927,6 +39957,7 @@ export function seedFachwissen(): Fachwissen[] {
           frage: 'Was verstehen Sie unter Substitution, und darf jeder Arzt substituieren?',
           antwort: 'Die Substitution ersetzt das unkontrolliert konsumierte Opioid durch ein ärztlich verordnetes, lang wirksames Opioid — Methadon, Levomethadon, Buprenorphin oder retardiertes Morphin — in stabiler Dosis unter Sicht, um Entzug und Craving zu unterdrücken und den Patienten sozial zu stabilisieren. Sie ist in der Betäubungsmittel-Verschreibungsverordnung geregelt und setzt eine suchtmedizinische Qualifikation, die Meldung an das Substitutionsregister und eine psychosoziale Begleitung voraus.',
         },
+        { frage: 'Wie erklären Sie dem Patienten die Abhängigkeit und die Behandlung, ohne ihm Vorwürfe zu machen?', antwort: '„Sie haben das Schmerzmittel nach Ihrem Wirbelbruch vom Arzt bekommen. Mit der Zeit hat sich Ihr Körper so daran gewöhnt, dass er ohne das Mittel mit Unruhe, Schwitzen, Durchfall und Schmerzen reagiert. Das ist eine Abhängigkeit, eine Erkrankung und kein persönliches Versagen. Wir lindern die Entzugsbeschwerden mit einem Ersatzmedikament und entscheiden dann gemeinsam, ob wir das Mittel Schritt für Schritt verringern, bis Sie es nicht mehr brauchen, oder die Ersatzbehandlung länger fortführen. Wenn Ihnen der Gedanke kommt, nicht mehr leben zu wollen, sprechen Sie mich bitte sofort an.“' },
       ],
       merksatz: 'Entzug: weite Pupillen, qualvoll, nicht tödlich; Intoxikation: enge Pupillen, Atemdepression, Naloxon titriert. Nach dem Entzug ist die Toleranz weg — Substitution als Behandlung der Wahl.',
       linkedCaseIds: [
