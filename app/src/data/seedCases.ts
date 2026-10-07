@@ -1036,7 +1036,7 @@ export function seedCases(): Case[] {
           {
             label: 'Elektive Sigmaresektion, Intervallkoloskopie und Rezidivprophylaxe',
             items: [
-              'Koloskopie 4–6 Wochen nach Abklingen der Entzündung zum Ausschluss eines Karzinoms und einer chronisch-entzündlichen Darmerkrankung',
+              'Koloskopie nach Abheilung, in der Regel nach 6–8 Wochen, zum Ausschluss eines Karzinoms und einer chronisch-entzündlichen Darmerkrankung; bei ihr trotz der Koloskopie vor zwei Jahren wegen Alter, Fieber und CT-Befund zu prüfen',
               'Keine Operation nach einem unkomplizierten Schub; die Indikation zur elektiven Sigmaresektion richtet sich nach Komplikationen (Stenose, Fistel, durchgemachter Abszess) und nicht nach der Zahl der Schübe',
               'Rezidivprophylaxe: ballaststoffreiche Kost, Bewegung, Normalgewicht; bei künftigen Schmerzen NSAR meiden',
             ],
@@ -1068,7 +1068,7 @@ export function seedCases(): Case[] {
         ] },
         { title: 'Diagnostik & Cave', interactions: [
           { frage: 'Welche Diagnostik veranlassen Sie?', reaktion: 'Körperliche und digital-rektale Untersuchung, Labor mit Blutbild, CRP, Kreatinin und Urinstatus, Sonographie und CT-Abdomen mit Kontrastmittel zur Einteilung.' },
-          { frage: 'Warum keine Koloskopie im akuten Schub?', reaktion: 'Perforationsgefahr — Koloskopie erst 4–6 Wochen nach Abklingen; akut Labor und CT-Abdomen.' },
+          { frage: 'Warum keine Koloskopie im akuten Schub?', reaktion: 'Perforationsgefahr — Koloskopie erst nach Abheilung, in der Regel nach 6–8 Wochen; akut Labor und CT-Abdomen.' },
         ] },
         { title: 'Therapie', interactions: [
           { frage: 'Wie behandeln Sie diese Patientin?', reaktion: 'Bei Fieber mit 67 Jahren eher stationär; leichte Kost, Metamizol, und wegen Fieber und allergischer Disposition eine Antibiose, aufgrund der Penicillinallergie mit einem Cephalosporin plus Metronidazol statt Amoxicillin mit Clavulansäure, Ciprofloxacin nur als Reserve. Kontrolle nach 48–72 Stunden.' },
@@ -5862,7 +5862,7 @@ export function seedCases(): Case[] {
         differenzialdiagnosen: [
           { dd: 'Spinalkanalstenose oder spinale Raumforderung', unterscheidung: 'Die Stenose macht belastungs- und lageabhängige Beschwerden bei Älteren; sie ist jung und hat keine Lageabhängigkeit. Ein langsam zunehmendes Defizit eines Beins kann aber auch ein Tumor im Spinalkanal sein: MRT der gesamten Wirbelsäule.' },
           { dd: 'Lumbaler Bandscheibenvorfall (Diskusprolaps) mit Radikulopathie', unterscheidung: 'Akuter Beginn nach Hebetrauma, dermatombezogener Schmerz mit Husten-/Pressverstärkung, Lasègue positiv — hier vollständig schmerzfrei und nicht dermatomgebunden; MRT der LWS zum Ausschluss.' },
-          { dd: 'Neuromyelitis-optica-Spektrum-Erkrankung (NMOSD) / MOG-Antikörper-Erkrankung', unterscheidung: 'Schwere, oft beidseitige Optikusneuritis und langstreckige Myelitis über mindestens drei Wirbelkörper. Ihre Sehstörung war einseitig und hat sich vollständig erholt; Aquaporin-4- und MOG-Antikörper werden trotzdem bestimmt, weil Interferone eine NMOSD verschlechtern.' },
+          { dd: 'Neuromyelitis-optica-Spektrum-Erkrankung (NMOSD) / MOG-Antikörper-Erkrankung', unterscheidung: 'Schwere, oft beidseitige Optikusneuritis und langstreckige Myelitis über mindestens drei Wirbelkörper. Bei ihr war die Sehstörung einseitig und hat sich vollständig zurückgebildet; das spricht gegen eine AQP4-NMOSD, schließt eine MOG-Antikörper-Erkrankung aber nicht aus. Aquaporin-4- und MOG-Antikörper werden deshalb bestimmt, zumal Interferone eine NMOSD verschlechtern.' },
           { dd: 'Funikuläre Myelose bei Vitamin-B12-Mangel', unterscheidung: 'Symmetrische Hinterstrangsymptome und makrozytäre Anämie, bei Vegetarismus oder Magenerkrankung. Sie isst Mischkost, die Beschwerden sind einseitig; Vitamin B12 und Blutbild schließen sie aus.' },
           { dd: 'Polyneuropathie', unterscheidung: 'Seitengleiche, distal-symmetrische, sockenförmige Missempfindungen mit abgeschwächten Reflexen; hier einseitige Beteiligung mit gesteigerten Reflexen (zentrales Muster); Abklärung durch Elektroneurographie, HbA1c, Vitamin B12.' },
           { dd: 'Neuroborreliose', unterscheidung: 'Zeckenstich, Erythema migrans, schmerzhafte Radikulitis (Bannwarth-Syndrom), Fazialisparese; Liquor mit lymphozytärer Pleozytose und intrathekaler Borrelien-Antikörperbildung — hier anamnestisch kein Zeckenstich.' },
@@ -6206,7 +6206,7 @@ export function seedCases(): Case[] {
           { dd: 'Zöliakie (einheimische Sprue)', unterscheidung: 'Blähungen nach Brot passen dazu; sie hat aber nicht abgenommen, und in der Familie gibt es keine Zöliakie. Transglutaminase-IgA mit Gesamt-IgA unter glutenhaltiger Kost, Duodenalbiopsien bei der Gastroskopie.' },
           { dd: 'Laktose- bzw. Fruktoseintoleranz', unterscheidung: 'Einen Zusammenhang mit Milch hat sie nie gezielt geprüft; Bohnen, Zwiebeln und Kohl sprechen eher für eine FODMAP-Empfindlichkeit beim Reizdarm. H2-Atemtest nur, wenn das Ernährungstagebuch einen Bezug zu Milch zeigt.' },
           { dd: 'Gynäkologische Ursache (Ovarialprozess)', unterscheidung: 'Neue Blähungen und Unterbauchbeschwerden bei einer Frau nach den Wechseljahren können das erste Zeichen eines Ovarialkarzinoms sein. Keine Blutung, kein Ausfluss, zuletzt unauffällige Vorsorge; trotzdem gynäkologisch abklären.' },
-          { dd: 'Divertikelkrankheit', unterscheidung: 'Die Divertikulitis macht Fieber und einen umschriebenen Druckschmerz im linken Unterbauch; sie hatte nie Fieber. Divertikel würden bei der Koloskopie mitgesehen.' },
+          { dd: 'Divertikelkrankheit', unterscheidung: 'Eine Divertikulitis macht meist Fieber und einen umschriebenen Druckschmerz im linken Unterbauch; sie hatte nie Fieber. Eine symptomatische Divertikelkrankheit ohne Entzündung kann einem Reizdarm ähneln; Divertikel würden bei der Koloskopie mitgesehen.' },
           { dd: 'Infektiöse Ursachen (Giardiasis, chronische Gastroenteritis, Clostridioides difficile)', unterscheidung: 'Kein Auslandsaufenthalt, keine Antibiotika in den letzten Monaten, kein Fieber. Die Stuhluntersuchung auf Erreger und Lamblien gehört trotzdem zur Basisdiagnostik.' },
           { dd: 'Schilddrüsenfunktionsstörung (Hypo- oder Hyperthyreose)', unterscheidung: 'Eine Unterfunktion kann ihre Verstopfung erklären (dazu Kälteintoleranz, Müdigkeit, Gewichtszunahme), eine Überfunktion Durchfall mit Gewichtsverlust, Zittern und Herzrasen; Letzteres verneint sie. Das TSH klärt beides.' },
         ],
