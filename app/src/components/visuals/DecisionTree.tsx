@@ -260,7 +260,8 @@ function TreeItem({
             {signal && <ToneMark tone="signal" />}
             <div>
               <div className="font-medium">{node.answer}</div>
-              {node.text && <div className="mt-0.5 text-xs text-slate-500 dark:text-slate-400">{node.text}</div>}
+              {/* 2c : slate-600 — 6,85:1 sur signal-50 (slate-500 : 4,30), 6,92:1 sur papier. */}
+              {node.text && <div className="mt-0.5 text-xs text-slate-600 dark:text-slate-400">{node.text}</div>}
             </div>
           </div>
         </NodeBox>

@@ -147,6 +147,12 @@ export function ersterSatz(text: string): string {
   }
   return t;
 }
+/** Série 3, 3b : la première phrase (le titre) et la suite (le corps), pour la VD en tête de la fiche et de l'aperçu. */
+export function ersterSatzUndRest(text: string): { titel: string; rest: string } {
+  const t = text.trim();
+  const titel = ersterSatz(t);
+  return { titel, rest: t.slice(titel.length).trim() };
+}
 /** Le diagnostic de la phrase de Fallvorstellung (revue Q3) : sa première phrase ; si la ligne entière dépasse `max`
  *  caractères, coupée à la dernière articulation (« — », « ; », « , », « ( ») avant la borne. `offen` = la phrase est
  *  incomplète (coupée, ou sans ponctuation finale) : le rendu ajoute « … ». */

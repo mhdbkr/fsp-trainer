@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { seedCases } from '@/data/seedCases';
-import { ersterSatz, vorstellungsDiagnose, vorstellungsSatz } from './PreSimulationPage';
+import { ersterSatz, ersterSatzUndRest, vorstellungsDiagnose, vorstellungsSatz } from './PreSimulationPage';
 
 // Revue de langue Q3 : « … der sich mit Stabile Angina pectoris… » — un diagnostic libre ne se décline pas après « mit ».
 // La phrase s'arrête au patient ; le diagnostic suit à part (« Verdachtsdiagnose: … »), sans flexion, et seulement sa
@@ -54,5 +54,16 @@ describe('Fallvorstellung — la phrase d\'ouverture, sur les 130 cas', () => {
     expect(ersterSatz('Schlaganfall im Gebiet der A. cerebri media links. Rest.')).toBe('Schlaganfall im Gebiet der A. cerebri media links.');
     expect(ersterSatz('Adipositas (BMI ca. 34). Rest.')).toBe('Adipositas (BMI ca. 34).');
     expect(ersterSatz('Stabile Angina pectoris')).toBe('Stabile Angina pectoris');
+  });
+  // Série 3, 3b : la VD en tête de la fiche (et de l'aperçu) = sa première phrase en titre, la suite en corps de texte.
+  it('ersterSatzUndRest : la première phrase en titre, le reste à part, sans perte ni doublon (130 cas)', () => {
+    expect(ersterSatzUndRest('Ulcus ventriculi. Zweiter Satz.  Dritter.')).toEqual({ titel: 'Ulcus ventriculi.', rest: 'Zweiter Satz.  Dritter.' });
+    expect(ersterSatzUndRest(' Stabile Angina pectoris ')).toEqual({ titel: 'Stabile Angina pectoris', rest: '' });
+    for (const c of cases) {
+      const vd = c.medicalView.verdachtsdiagnose.trim();
+      const { titel, rest } = ersterSatzUndRest(c.medicalView.verdachtsdiagnose);
+      expect(titel).toBe(ersterSatz(vd));
+      expect(vd.replace(/\s+/g, ' ')).toBe(`${titel} ${rest}`.trim().replace(/\s+/g, ' '));
+    }
   });
 });

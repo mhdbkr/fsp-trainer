@@ -73,5 +73,6 @@ describe('B-C3 — fiche et Aufklärung écrivent leur événement', () => {
     await click(/aufklärung travaillée/i);
     const [te] = await db.training_events.toArray();
     expect([te.kind, te.spentMin, te.caseId]).toEqual(['aufklaerung', 4, undefined]);
+    expect(te.at).toBe(new Date(2026, 9, 1, 10, 0).getTime());       // série 3, 2d : `at` = début (l'ouverture), pas le clic
   });
 });

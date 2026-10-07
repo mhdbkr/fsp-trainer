@@ -21,7 +21,7 @@ export function MarkWorked({ kind, caseId, label }: { kind: 'fiche' | 'aufklaeru
       type="button" disabled={state === 'busy'}
       onClick={async () => {
         setState('busy');
-        const te = await logTraining({ kind, caseId, spentMin: (now() - since.current) / 60_000 });
+        const te = await logTraining({ kind, caseId, at: since.current, spentMin: (now() - since.current) / 60_000 });   // 2d : at = début
         setState(te.spentMin);
       }}
       className="btn-ghost gap-1.5 px-3 py-1.5 text-xs"

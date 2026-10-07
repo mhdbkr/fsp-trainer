@@ -99,7 +99,8 @@ export function DrillPage() {
   journaliser.current = () => {
     if (logged.current || startedAt.current === null || noted.current === 0) return;
     logged.current = true;
-    void logTraining({ kind: 'drill', spentMin: Math.max(1, Math.round((now() - startedAt.current) / 60_000)), ...(caseId ? { caseId } : {}) })
+    // 2d : `at` = le DÉBUT de la séance (TrainingEvent.at) — sinon une séance à cheval sur minuit compte pour le lendemain.
+    void logTraining({ kind: 'drill', at: startedAt.current, spentMin: Math.max(1, Math.round((now() - startedAt.current) / 60_000)), ...(caseId ? { caseId } : {}) })
       .catch((e) => console.warn('[journal]', e));
   };
   const finished = started && queue.length > 0 && idx >= queue.length;

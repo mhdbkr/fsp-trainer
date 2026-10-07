@@ -78,7 +78,7 @@ export function CasesPage() {
       <header>
         <div className="eyebrow">Bibliothèque</div>
         <h1 className="mt-1.5 text-2xl font-bold tracking-tightish">Cas cliniques</h1>
-        <p className="text-slate-500 dark:text-slate-400">
+        <p className="text-slate-600 dark:text-slate-400">
           <b>{total}</b> cas · <b className="text-brand-600 dark:text-brand-300">{solides}</b> solides · <b>{vierges}</b> pas encore travaillés{nonMesures > 0 && <> · <b>{nonMesures}</b> fait{nonMesures > 1 ? 's' : ''} — non mesuré{nonMesures > 1 ? 's' : ''}</>}
         </p>
         <div className="mt-2 flex flex-wrap gap-1.5">

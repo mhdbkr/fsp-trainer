@@ -92,7 +92,7 @@ export function FachbegriffePage() {
         <div>
           <div className="eyebrow">Vocabulaire</div>
           <h1 className="mt-1.5 text-2xl font-bold tracking-tightish">Fachbegriffe</h1>
-          <p className="text-slate-500 dark:text-slate-400">
+          <p className="text-slate-600 dark:text-slate-400">
             <b className="text-amber-600 dark:text-amber-400">{due} dus</b> · <b className="text-brand-600 dark:text-brand-400">{fresh} nouveaux proposés</b> · {c.learned} appris
           </p>
         </div>

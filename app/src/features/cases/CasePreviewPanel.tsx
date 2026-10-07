@@ -7,6 +7,7 @@ import { CenterBadge, FreqBadge } from '@/components/ui';
 import { SEC, SectionHead } from './medSections';
 import { termsInOrder } from '@/lib/collections/caseTerms';
 import { Portal } from '@/components/Portal';
+import { ersterSatzUndRest } from '@/features/simulation/PreSimulationPage';
 
 // Aperçu latéral d'un cas SANS quitter la liste (interconnexion + horizontalité).
 export function CasePreviewPanel() {
@@ -17,6 +18,7 @@ export function CasePreviewPanel() {
   if (!id) return null;
   const c = (cases ?? []).find((x) => x.id === id);
   if (!c) return null;
+  const vd = ersterSatzUndRest(c.medicalView.verdachtsdiagnose);
 
   // Ordre de `linkedFachbegriffeIds` conservé (diagnostic → spécifique → contextuel, cf. linkCaseTerms.mjs), pas de tri alphabétique.
   const terms = termsInOrder(c.linkedFachbegriffeIds, begriffe ?? []).slice(0, 8);
@@ -49,7 +51,9 @@ export function CasePreviewPanel() {
           <section className="relative overflow-hidden rounded-xl bg-gradient-to-br from-brand-50 to-transparent p-3 pl-4 dark:from-brand-900/20">
             <span className={`absolute inset-y-0 left-0 w-1 ${SEC.verdacht.edge}`} />
             <SectionHead sec="verdacht" className="mb-2" />
-            <p className="font-display text-base font-bold leading-snug text-brand-800 dark:text-brand-200"><AutoLink>{c.medicalView.verdachtsdiagnose}</AutoLink></p>
+            {/* 3b : la première phrase en titre, la suite en corps de texte. */}
+            <p lang="de" className="font-display text-base font-bold leading-snug text-brand-800 hyphens-auto [overflow-wrap:anywhere] dark:text-brand-200"><AutoLink>{vd.titel}</AutoLink></p>
+            {vd.rest && <p className="mt-1.5 text-sm leading-relaxed text-slate-700 dark:text-slate-300"><AutoLink>{vd.rest}</AutoLink></p>}
             {c.medicalView.notfall && <span className="mt-2 inline-flex items-center gap-1 rounded-full bg-rose-500 px-2.5 py-0.5 text-[11px] font-bold text-white"><Icon name="alert" className="h-3 w-3" />Notfall</span>}
           </section>
 
