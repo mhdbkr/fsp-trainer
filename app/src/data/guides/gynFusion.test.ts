@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { seedCases } from '@/data/seedCases';
 import type { Case } from '@/db/types';
-import { fusesFrauenanamnese, playedTrame } from './anamneseChapters';
+import { fusesFrauenanamnese, playedTrame, trameBrute } from './anamneseChapters';
 import { phraseAlts, phraseFollowUp, phraseProbes, phraseText, type Phrase } from './phrases';
 
 // Série 3, lot Q-gyn — garde CI : quand la Fachanamnese Gynäkologie est jouée,
@@ -213,9 +213,11 @@ describe('Q-gyn — revues clinique et langue', () => {
     expect(adnexitis.patientSheet.antworten!['fach-gyn-unterbauch']).toContain('Die Schmerzen haben etwa drei Tage nach dem Ende der letzten Periode begonnen.');
   });
   it('décision — dyspareunie : une question, deux relances', () => {
-    const q = parSonde(adnexitis, 'fach-gyn-dyspareunie');
-    expect(phraseText(q)).toBe('Haben Sie Schmerzen beim Geschlechtsverkehr?');
-    expect(phraseFollowUp(q)).toEqual(['Falls ja: Eher am Anfang oder tief im Inneren?', 'Brennt oder schmerzt es beim Wasserlassen?']);
+    const brute = trameBrute(adnexitis).flatMap((x) => x.questions).find((p) => phraseProbes(p).includes('fach-gyn-dyspareunie'))!;
+    expect(phraseText(brute)).toBe('Haben Sie Schmerzen beim Geschlechtsverkehr?');
+    expect(phraseFollowUp(brute)).toEqual(['Falls ja: Eher am Anfang oder tief im Inneren?', 'Brennt oder schmerzt es beim Wasserlassen?']);
+    // lot Banque (r5) : la patiente a dit « Seit zwei Tagen brennt es beim Wasserlassen » (akt-begleit) — la relance ne se pose plus
+    expect(phraseFollowUp(parSonde(adnexitis, 'fach-gyn-dyspareunie'))).toEqual(['Falls ja: Eher am Anfang oder tief im Inneren?']);
   });
   it('décision — opérations : Gebärmutter, Eileiter ou Eierstöcke', () => {
     expect(phraseText(parSonde(adnexitis, 'fach-gyn-eingriffe'))).toBe('Wurden Sie schon an der Gebärmutter, an den Eileitern oder an den Eierstöcken operiert?');
