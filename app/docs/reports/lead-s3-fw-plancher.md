@@ -277,3 +277,95 @@ Cohésion (`checkCaseCohesion`, non bloquant) : 263 liens manquants. Le chiffre 
 - Je n'ai fait aucun contrôle en navigateur ni en production : le lot n'est pas déployé.
 - Quelques dossiers `client` de vitest restent dans `$TMPDIR` (environ 20 Mo chacun). Ils ne sont pas supprimés, car
   ils ne sont pas attribuables avec certitude à ce lot (d'autres agents tournent en parallèle).
+
+## 7. Passe fixeur des revues
+
+Toutes les corrections des revues clinique et langue sont appliquées en une seule passe. Aucune revue ne relevait de
+P0. Les remplacements sont faits par sous-chaîne, et le script vérifie le nombre d'occurrences de chacune : 35 dans
+`seedFachwissen.ts`, 13 dans `seedCases.ts`.
+
+### 7.1 Fusion d'origin/main (Q9, #102)
+
+- J'ai fusionné, sans rebase. Le conflit attendu était dans `atomicity-budget.json`. J'ai gardé les clés de Q9 (`A3: 17`,
+  la note `q9`) et le `B: 53` de ce lot, puis relancé `--bless` : A=239 · A2=7 · A3=17 · B=53 · D2=450 · D3=12, sur
+  5 159 énoncés. Aucun compteur ne remonte (`checkBudgetFloor origin/main` = 0).
+- Le plancher Fachwissen reste à 0/0/0. Aucun Fachwissen n'a moins de 5 questions : le minimum est de 6, pour un total
+  de 1 921 questions.
+
+### 7.2 Clinique
+
+- **P1-1, pertussis.** L'explication reprend le texte de la revue, avec « …etwas; sie sollte sich… ». Elle dit que le
+  patient n'est probablement plus que peu contagieux, et qu'il est traité par précaution à cause de l'accouchement
+  proche. L'épouse est examinée et traitée elle-même, et la nièce de 5 mois est adressée à la pédiatre.
+- **Pertussis, hors lot (autorisé).** La fiche, ancienne ligne 30834, et le cas, ancienne ligne 47706, suivent maintenant
+  la règle du RKI : on traite tant qu'il y a excrétion, jusqu'à 3 semaines après le début du stade convulsif, et
+  jusqu'à 6 semaines après le début de la toux chez le nourrisson et la femme enceinte elle-même. Pour le cas, j'ai
+  écrit : quintes depuis plus de quatre semaines, donc excrétion peu probable ; traitement par précaution ; épouse et
+  nièce examinées en priorité, avec chimioprophylaxie. La fiche, le cas et l'explication ne se contredisent plus.
+- **P1-2, gicht.** Un hypo-uricémiant commence 2 à 4 semaines après le deuxième accès, à prendre en général à vie. Les
+  mineurs de langue sont appliqués : « im Grundgelenk der großen Zehe », « das Entwässerungsmittel in Ihrer neuen
+  Blutdrucktablette ».
+- **P1-3, reaktive-arthritis.** La pénicilline est reprise pour 10 jours complets, et le cœur est contrôlé.
+- **P2**, tous appliqués :
+  - depression : « bei Ihnen mit Gesprächen und zusätzlich mit einem Medikament », avec les corrections de langue
+    retenues par l'arbitrage ;
+  - pankreatitis : cholécystectomie pendant le séjour si l'évolution est bénigne, sinon quelques semaines plus tard ;
+  - gib : arrêt de l'ASS, en lien avec le médecin traitant ;
+  - pavk : marche au moins 3 fois par semaine, 30 à 60 minutes ;
+  - pneumonie : glycémie surveillée sous fluoroquinolone ;
+  - schlaganfall : « sehr wahrscheinlich », exclusion d'une hémorragie d'abord ;
+  - hws-diskusprolaps : « sehr wahrscheinlich » ;
+  - endokarditis : au moins 10 jours IV, relais possible ;
+  - typhus : vaccin d'il y a 4 ans, protection d'environ 3 ans ;
+  - schenkelhalsfraktur : « am Hals direkt unterhalb des Hüftkopfes » ;
+  - gastroenteritis : pas encore guérie après deux semaines ;
+  - chronische-pankreatitis : sevrage accompagné ;
+  - rheumatoide-arthritis : arrêt de l'aspirine et du tabac, avec « ; so lange hilft vorübergehend Kortison » ;
+  - lyme : à prendre à distance de la tablette de fer et des produits laitiers ;
+  - lymphom : question rendue autonome ;
+  - panikstoerung : texte de l'arbitrage, « Wie grenzen Sie die Panikstörung gegen eine generalisierte
+    Angststörung ab? ».
+
+### 7.3 Langue
+
+- **Les 8 MAJEUR** :
+  - opioid : « ausschleichen » et « ohne es », remplacés par les textes de la revue ;
+  - depression : « sie » devient « das ist gut nachvollziehbar » ;
+  - akutes-nierenversagen : « setzen wir vorerst ab » ;
+  - magenkarzinom : « bzw. » devient « oder » (2 occurrences) ;
+  - akute-leukaemie : « Piperacillin mit Tazobactam » à la ligne du diff et à la ligne `examinerQuestions` hors diff
+    (ancienne ligne 50291) ;
+  - panikstoerung, voir 7.2 ;
+  - nierenkolik : « und machen Sie es mit oder ohne Kontrastmittel? ».
+- **Tous les mineurs** :
+  - dans les explications : ulcus, depression, gicht, hyperthyreose, bronchialkarzinom, rheumatoide-arthritis,
+    akutes-nierenversagen, gastroenteritis, anorexia-nervosa, reaktive-arthritis, pertussis, chronische-pankreatitis,
+    typhus, sturz-im-alter (3) et opioid ;
+  - dans les questions : pneumonie, bandscheibenvorfall, oesophaguskarzinom, adnexitis, commotio (« Was spricht gegen
+    einen Tumor? ») et gib (« einer Blutung aus dem oberen Gastrointestinaltrakt »).
+- **Remarque sur hyperthyreose, ligne 3824.** Le conseil « Insulin nicht auf eigene Faust verringern » est cohérent avec
+  le cas : la patiente a réduit d'elle-même l'insuline rapide alors que ses glycémies montent, et le cas prévoit
+  « ärztlich gesteuerte Anpassung der Insulindosis statt eigenmächtiger Reduktion ». Le cas ajoute toutefois qu'une
+  fois l'euthyroïdie atteinte, le besoin baisse. La phrase devient donc : « ändern Sie das Insulin nur nach Absprache
+  mit uns. Jetzt brauchen Sie eher mehr davon, wenn die Schilddrüse wieder normal arbeitet, wieder weniger. »
+
+### 7.4 Vérifications (code de sortie)
+
+| Commande | Sortie |
+|---|---|
+| `npx tsc -b` | 0 |
+| `npm test -- --maxWorkers=2` | 0 (193 fichiers, 2 024 tests) |
+| `npm run test:c6 -- --maxWorkers=2` | 0 (212 tests) |
+| `node --test` sans checkProbeCoverage, puis checkProbeCoverage seul | 0 (224), 0 (4) |
+| les 21 `check*` de la CI, `checkTermRegister --require-all`, `evalDoctopus --dry` | 0 chacun |
+| `checkFachwissenFloor` | 0 (0/0/0, aucun Fachwissen sous 5 questions) |
+| `checkQuestionAtomicity` | 0 (778/778) |
+| `checkBudgetFloor.mjs origin/main` | 0 |
+| `npm run build` | 0 |
+| `npm run content:link` | 0 (`caseTermLinks.json` inchangé) |
+| `git merge-tree --write-tree` contre origin/main, origin/feat/s3-petits-contenus, feat/s3-petits-contenus (locale), feat/s3-banque, fix/s3-ui-petits | 0 chacun |
+
+**Non vérifié :**
+- Le nouveau texte de la fiche et du cas pertussis (règle RKI) et la précision sur l'insuline (hyperthyreose) sont de ma
+  main ; aucune revue ne les a relus.
+- Je n'ai fait aucun contrôle en navigateur ni en production.
