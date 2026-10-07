@@ -227,7 +227,8 @@ describe('r5 — passe fixeur de la revue clinique', () => {
   });
 
   it('P2-3 nierenkolik : la fièvre dite au motif ouvre sa hauteur et son début', () => {
-    expect(textes('case-nierenkolik')).toContain('Wie hoch war das Fieber, und seit wann?');
+    expect(textes('case-nierenkolik')).toContain('Wie hoch war das Fieber?');
+    expect(textes('case-nierenkolik')).toContain('Seit wann haben Sie Fieber?');
   });
 
   it('P2-4 pneumonie : « seit drei Tagen … Husten » dit déjà le début — « Seit wann husten Sie? » ne se pose pas', () => {
