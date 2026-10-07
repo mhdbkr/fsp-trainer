@@ -13,7 +13,7 @@ case-leberzirrhose
 case-angina-pectoris
   eroeffnung[· · · ·]
   personalia[pers-name pers-name pers-alter pers-groesse pers-hausarzt ·]
-  aktuell[akt-motiv akt-ort↳1 akt-beginn~beginn,beginn_art akt-charakter akt-intensitaet↳1 akt-verlauf↳2 akt-ausloeser akt-einfluss akt-frueher↳2 akt-begleit cas cas]
+  aktuell[akt-motiv akt-ort↳1 akt-beginn~beginn,beginn_art akt-charakter akt-intensitaet↳1 akt-verlauf↳2 akt-ausloeser akt-einfluss akt-frueher↳2 akt-begleit cas cas cas]
   fach-kardio[fach-kardio-brust↳1 fach-kardio-belastung fach-kardio-ausstrahlung fach-kardio-atem fach-kardio-nitro fach-kardio-herzrasen fach-kardio-luft fach-kardio-oedeme fach-kardio-nykturie fach-kardio-synkope]
   vegetativ[veg-fieber~fieber↳3 veg-schuettelfrost veg-uebelkeit↳3 veg-ausscheidung↳3 veg-gewicht↳2 veg-appetit veg-schlaf ^veg-fieber#5~impfung]
   vorerkrankungen[· vor-erkrank↳3 vor-op↳3 vor-krankenhaus cas↳1]
@@ -101,7 +101,7 @@ case-gerd
 case-myokardinfarkt
   eroeffnung[· · · ·]
   personalia[pers-name pers-name pers-alter pers-groesse pers-hausarzt ·]
-  aktuell[akt-motiv akt-ort↳1 akt-beginn~beginn_art akt-charakter akt-intensitaet↳1 akt-verlauf↳2 akt-ausloeser akt-einfluss akt-frueher↳2 akt-begleit cas cas cas]
+  aktuell[akt-motiv akt-ort↳1 akt-beginn~beginn_art akt-charakter akt-intensitaet↳1 akt-verlauf↳2 akt-ausloeser akt-einfluss akt-frueher↳2 akt-begleit cas cas cas cas]
   fach-kardio[fach-kardio-brust↳1 fach-kardio-belastung fach-kardio-ausstrahlung fach-kardio-atem fach-kardio-nitro fach-kardio-herzrasen fach-kardio-luft fach-kardio-oedeme fach-kardio-nykturie fach-kardio-synkope]
   vegetativ[veg-fieber~fieber↳3 veg-schuettelfrost~schuettelfrost,nachtschweiss↳1 veg-uebelkeit~erbrechen↳3 veg-ausscheidung↳3 veg-gewicht↳2 veg-appetit veg-schlaf ^veg-fieber#5~impfung]
   vorerkrankungen[· vor-erkrank↳3 vor-op↳3 vor-krankenhaus cas]
@@ -150,7 +150,7 @@ case-magenkarzinom
 case-appendizitis
   eroeffnung[· · · ·]
   personalia[pers-name pers-name pers-alter pers-groesse pers-hausarzt ·]
-  aktuell[akt-motiv akt-ort↳1 akt-beginn~beginn,beginn_art akt-charakter akt-intensitaet↳1 akt-ausstrahlung↳1 akt-verlauf↳2 akt-ausloeser akt-einfluss akt-frueher↳2 akt-begleit cas cas cas↳1 cas]
+  aktuell[akt-motiv akt-ort↳1 akt-beginn~beginn,beginn_art akt-charakter akt-intensitaet↳1 akt-ausstrahlung↳1 akt-verlauf↳2 akt-ausloeser akt-einfluss akt-frueher↳2 akt-begleit cas↳1 cas cas↳1 cas]
   fach-chirurgie[fach-chir-essen fach-chir-ileus fach-chir-op↳3 fach-chir-gallensteine]
   vegetativ[veg-fieber↳4 veg-schuettelfrost veg-ausscheidung~miktion↳3 veg-gewicht↳2 veg-schlaf ^veg-fieber#5~impfung]
   vorerkrankungen[· vor-erkrank↳3 vor-op↳3 vor-krankenhaus]
@@ -398,7 +398,7 @@ case-asthma
 case-herzinsuffizienz
   eroeffnung[· · · ·]
   personalia[pers-name pers-name pers-alter pers-groesse pers-hausarzt ·]
-  aktuell[akt-motiv akt-beginn akt-atemnot-belastung↳1 cas akt-atemnot-husten↳3 akt-atemnot-geraeusch akt-verlauf akt-ausloeser akt-einfluss akt-frueher↳2 akt-begleit cas↳1 cas↳1]
+  aktuell[akt-motiv akt-beginn akt-atemnot-belastung↳1 cas cas akt-atemnot-husten↳3 akt-atemnot-geraeusch akt-verlauf akt-ausloeser akt-einfluss akt-frueher↳2 akt-begleit cas↳1 cas↳1]
   fach-kardio[fach-kardio-brust↳1 fach-kardio-belastung fach-kardio-atem fach-kardio-nitro fach-kardio-herzrasen fach-kardio-oedeme~oedeme fach-kardio-nykturie fach-kardio-synkope]
   vegetativ[veg-fieber~fieber↳3 veg-schuettelfrost veg-uebelkeit↳3 veg-ausscheidung↳3 cas↳1 veg-appetit veg-schlaf ^veg-fieber#5~impfung]
   vorerkrankungen[· vor-erkrank↳3 vor-op↳3 vor-krankenhaus]
@@ -422,7 +422,7 @@ case-nierenkolik
 case-tonsillitis
   eroeffnung[· · · ·]
   personalia[pers-name pers-name pers-alter pers-groesse pers-hausarzt ·]
-  aktuell[akt-motiv cas akt-beginn~beginn,beginn_art akt-charakter akt-intensitaet↳1 akt-ausstrahlung↳1 akt-verlauf↳2 akt-ausloeser akt-einfluss akt-frueher↳2 akt-begleit cas akt-ausscheid-schlucken cas cas↳1 cas]
+  aktuell[akt-motiv cas akt-beginn~beginn,beginn_art akt-charakter akt-intensitaet↳1 akt-ausstrahlung↳1 akt-verlauf↳2 akt-ausloeser akt-einfluss akt-frueher↳2 akt-begleit cas akt-ausscheid-schlucken cas↳1 cas↳1 cas↳1]
   fach-infektio[fach-infekt-fieber fach-infekt-haut~ausschlag fach-infekt-neuro~kopfschmerz,meningismus,taubheit↳2 fach-infekt-reise fach-infekt-kontakt↳2 fach-infekt-impfung]
   vegetativ[veg-schuettelfrost veg-uebelkeit↳3 veg-ausscheidung↳3 veg-gewicht↳2 veg-appetit veg-schlaf]
   vorerkrankungen[· vor-erkrank↳3 vor-op↳3 vor-krankenhaus cas]
@@ -447,7 +447,7 @@ case-anaemie
 case-vorhofflimmern
   eroeffnung[· · · ·]
   personalia[pers-name pers-name pers-alter pers-groesse pers-hausarzt ·]
-  aktuell[akt-motiv cas akt-anfall-ablauf↳2 akt-ausloeser akt-einfluss akt-frueher↳2 akt-begleit~schwindel,uebelkeit,begleit↳2 cas↳1]
+  aktuell[akt-motiv cas akt-anfall-ablauf↳2 cas akt-ausloeser akt-einfluss akt-frueher↳2 akt-begleit~schwindel,uebelkeit,begleit↳2 cas↳1]
   fach-kardio[fach-kardio-brust↳1 fach-kardio-belastung fach-kardio-atem fach-kardio-herzrasen fach-kardio-luft fach-kardio-oedeme fach-kardio-nykturie fach-kardio-synkope]
   vegetativ[veg-fieber~fieber↳3 veg-schuettelfrost~schuettelfrost,nachtschweiss↳1 veg-uebelkeit~erbrechen↳3 veg-ausscheidung↳3 cas veg-appetit veg-schlaf cas cas cas cas cas ^veg-fieber#5~impfung]
   vorerkrankungen[· vor-erkrank↳3 vor-op↳3 vor-krankenhaus cas↳1 cas]
@@ -484,7 +484,7 @@ case-hypothyreose
 case-niereninsuffizienz
   eroeffnung[· · · ·]
   personalia[pers-name pers-name pers-alter pers-groesse pers-hausarzt ·]
-  aktuell[akt-motiv akt-beginn akt-allgemein-art akt-allgemein-alltag↳1 akt-allgemein-tageszeit↳1 akt-allgemein-gewicht~durst akt-verlauf akt-ausloeser akt-einfluss akt-frueher↳2 akt-begleit cas cas]
+  aktuell[akt-motiv akt-beginn akt-allgemein-art akt-allgemein-alltag↳1 akt-allgemein-tageszeit↳1 akt-allgemein-gewicht~durst akt-verlauf akt-ausloeser akt-einfluss akt-frueher↳2 akt-begleit cas cas cas]
   fach-nephro[fach-nephro-menge↳2 fach-nephro-aussehen fach-nephro-oedeme fach-nephro-blutdruck fach-nephro-nephrotoxisch fach-nephro-uraemie fach-nephro-infekt fach-nephro-vorgeschichte]
   vegetativ[veg-fieber~fieber↳3 veg-schuettelfrost veg-uebelkeit~erbrechen↳3 veg-ausscheidung↳3 veg-schlaf ^veg-fieber#5~impfung]
   vorerkrankungen[· vor-erkrank↳3 vor-op↳3 vor-krankenhaus cas cas]
@@ -533,7 +533,7 @@ case-eug
 case-meningitis
   eroeffnung[· · · ·]
   personalia[pers-name pers-name pers-alter pers-groesse pers-hausarzt ·]
-  aktuell[akt-motiv akt-ort↳1 akt-beginn~beginn,beginn_art akt-charakter akt-intensitaet↳1 akt-ausstrahlung↳1 akt-verlauf↳2 akt-ausloeser akt-einfluss akt-frueher↳2 akt-begleit cas↳1 cas cas cas cas cas cas]
+  aktuell[akt-motiv akt-ort↳1 akt-beginn~beginn,beginn_art akt-charakter akt-intensitaet↳1 akt-ausstrahlung↳1 akt-verlauf↳2 akt-ausloeser akt-einfluss akt-frueher↳2 akt-begleit cas↳2 cas cas↳1 cas cas cas]
   fach-infektio[fach-infekt-fieber fach-infekt-zecke fach-infekt-haut fach-infekt-gelenke fach-infekt-neuro~kopfschmerz,taubheit,fazialis↳2 fach-infekt-reise fach-infekt-kontakt~essen_expo fach-infekt-impfung]
   vegetativ[veg-schuettelfrost veg-ausscheidung↳3 veg-gewicht↳2 veg-appetit veg-schlaf]
   vorerkrankungen[· vor-erkrank↳3 vor-op↳3 vor-krankenhaus]
@@ -545,7 +545,7 @@ case-meningitis
 case-pankreaskarzinom
   eroeffnung[· · · ·]
   personalia[pers-name pers-name pers-alter pers-groesse pers-hausarzt ·]
-  aktuell[akt-motiv cas akt-ausscheid-was~miktion,stuhl,gelbfaerbung↳2 cas↳1 akt-verlauf akt-ausloeser akt-einfluss akt-frueher↳2 akt-begleit cas cas↳1]
+  aktuell[akt-motiv akt-beginn akt-ausscheid-was~miktion,stuhl,gelbfaerbung↳2 cas↳1 akt-verlauf akt-ausloeser akt-einfluss akt-frueher↳2 akt-begleit cas↳1]
   fach-onko[fach-onko-knoten↳4 fach-onko-bsymptomatik fach-onko-leistung fach-onko-schmerz fach-onko-blutung fach-onko-appetit~voellegefuehl,appetit↳1 fach-onko-vorbehandlung fach-onko-vorsorge]
   vegetativ[veg-schuettelfrost~schuettelfrost,schwitzen↳1 veg-uebelkeit↳3 veg-schlaf ^veg-fieber#5~impfung]
   vorerkrankungen[· vor-erkrank↳3 vor-op↳3 vor-krankenhaus cas cas↳1]
@@ -558,7 +558,7 @@ case-pankreaskarzinom
 case-zoster
   eroeffnung[· · · ·]
   personalia[pers-name pers-name pers-alter pers-groesse pers-hausarzt ·]
-  aktuell[akt-motiv akt-beginn~beginn_art akt-charakter akt-intensitaet↳1 akt-ausstrahlung↳1 akt-verlauf↳2 akt-einfluss akt-frueher↳2 akt-begleit cas cas cas cas cas cas]
+  aktuell[akt-motiv akt-beginn~beginn_art akt-charakter akt-intensitaet↳1 akt-ausstrahlung↳1 akt-verlauf↳2 akt-einfluss akt-frueher↳2 akt-begleit cas cas cas cas cas]
   fach-derma[fach-derma-beginn-ort~ort,entwicklung↳1 fach-derma-empfinden↳1 fach-derma-aussehen↳2 fach-derma-ausloeser fach-derma-systemisch~fieber,ulzera↳1 fach-derma-vorgeschichte fach-derma-vorbehandlung]
   vegetativ[veg-schuettelfrost veg-uebelkeit↳3 veg-ausscheidung↳3 veg-gewicht↳2 veg-appetit veg-schlaf ^veg-fieber#5~impfung]
   vorerkrankungen[· vor-erkrank↳3 vor-op↳3 vor-krankenhaus cas]
@@ -595,7 +595,7 @@ case-bph
 case-demenz
   eroeffnung[· · · ·]
   personalia[pers-name pers-name pers-alter pers-groesse pers-hausarzt ·]
-  aktuell[akt-motiv cas akt-verlauf~verlauf akt-einfluss akt-begleit cas cas↳1 cas↳1 cas cas↳1]
+  aktuell[akt-motiv akt-beginn akt-verlauf~verlauf akt-einfluss akt-begleit cas cas↳1 cas↳1 cas cas↳1]
   fach-psy[fach-psych-stimmung fach-psych-interesse fach-psych-antrieb fach-psych-schlaf fach-psych-tagesverlauf fach-psych-konzentration fach-psych-angst↳1 fach-psych-suizid↳7 fach-psych-ausloeser fach-psych-frueher]
   vegetativ[veg-fieber~fieber↳3 veg-schuettelfrost veg-uebelkeit↳3 veg-ausscheidung↳3 veg-gewicht↳2 veg-appetit ^veg-fieber#5~impfung]
   vorerkrankungen[· vor-erkrank↳3 vor-op↳3 vor-krankenhaus]
@@ -681,14 +681,14 @@ case-panikstoerung
 case-prostatakarzinom
   eroeffnung[· · · ·]
   personalia[pers-name pers-name pers-alter pers-groesse pers-hausarzt ·]
-  aktuell[akt-motiv akt-beginn akt-verlauf akt-ausloeser akt-einfluss akt-frueher↳2 akt-begleit cas↳1 cas cas cas]
+  aktuell[akt-motiv akt-beginn akt-verlauf akt-ausloeser akt-einfluss akt-frueher↳2 akt-begleit cas↳1 cas cas↳1]
   fach-uro[fach-uro-miktion↳1 fach-uro-frequenz↳1 fach-uro-drang~drang fach-uro-strahl fach-uro-flanke fach-uro-fieber fach-uro-sexualanamnese↳1 fach-uro-funktion fach-uro-vorgeschichte]
   vegetativ[veg-schuettelfrost~nachtschweiss,schwitzen↳1 veg-uebelkeit↳3 veg-ausscheidung~stuhl↳3 veg-gewicht↳2 veg-appetit veg-schlaf ^veg-fieber#5~impfung]
   vorerkrankungen[· vor-erkrank↳3 vor-op↳3 vor-krankenhaus cas cas cas]
   medikamente[med-regelmaessig↳4 med-blutverduenner med-otc]
   allergien[all-allergie↳1 all-unvertraeglich]
   noxen[nox-rauchen↳5 nox-alkohol↳3 nox-drogen]
-  familie-sozial[fam-familie↳2 fam-eltern↳2 fam-stand↳1 fam-beruf↳1 pers-beruf fam-wohnen fam-haustiere cas]
+  familie-sozial[fam-familie↳2 fam-eltern↳2 fam-stand↳1 fam-beruf↳1 pers-beruf fam-wohnen fam-haustiere]
   abschluss[· · · · ·]
 case-hepatitis-b
   eroeffnung[· · · ·]
@@ -729,24 +729,24 @@ case-gonarthrose
 case-struma
   eroeffnung[· · · ·]
   personalia[pers-name pers-name pers-alter pers-groesse pers-hausarzt ·]
-  aktuell[akt-motiv akt-veraend-was cas akt-veraend-blutung~lokalschmerz,juckreiz akt-verlauf akt-ausloeser akt-einfluss akt-frueher↳2 akt-begleit cas↳1 cas cas]
+  aktuell[akt-motiv akt-veraend-was cas cas akt-veraend-blutung~lokalschmerz,juckreiz akt-verlauf akt-ausloeser akt-einfluss akt-frueher↳2 akt-begleit cas↳1 cas cas↳1]
   fach-endo[fach-endo-durst fach-endo-gewicht↳2 fach-endo-temperatur fach-endo-herz-nerven fach-endo-hals fach-endo-augen fach-endo-haut-haare fach-endo-unterzucker fach-endo-folgeschaeden~taubheit,nierenprobleme↳1 fach-endo-familie-therapie]
   vegetativ[veg-fieber~fieber↳3 veg-schuettelfrost~schuettelfrost,nachtschweiss↳1 veg-uebelkeit↳3 veg-ausscheidung↳3 veg-schlaf ^veg-fieber#5~impfung cas]
   vorerkrankungen[· vor-erkrank↳3 vor-op↳3 vor-krankenhaus cas]
   medikamente[med-regelmaessig↳4 med-blutverduenner med-otc cas cas]
   allergien[all-allergie↳1 all-unvertraeglich]
   noxen[nox-rauchen↳5 nox-alkohol↳3 nox-drogen]
-  familie-sozial[fam-familie↳2 fam-eltern↳2 fam-stand↳1 fam-beruf↳1 pers-beruf fam-wohnen fam-haustiere cas]
+  familie-sozial[fam-familie↳2 fam-eltern↳2 fam-stand↳1 fam-beruf↳1 pers-beruf fam-wohnen fam-haustiere]
   frauenanamnese[frau-periode↳2 frau-schwanger frau-verhuetung↳1 frau-wechseljahre↳1]
   abschluss[· · · · ·]
 case-otitis-media
   eroeffnung[· · · ·]
   personalia[pers-name pers-name pers-alter pers-groesse pers-hausarzt ·]
-  aktuell[akt-motiv akt-ort↳1 akt-beginn~beginn,beginn_art cas akt-intensitaet↳1 akt-ausstrahlung↳1 akt-verlauf↳2 akt-ausloeser akt-einfluss akt-frueher↳2 akt-begleit cas cas↳1 cas cas cas]
+  aktuell[akt-motiv akt-ort↳1 akt-beginn~beginn,beginn_art akt-charakter akt-intensitaet↳1 akt-ausstrahlung↳1 akt-verlauf↳2 akt-ausloeser akt-einfluss akt-frueher↳2 akt-begleit cas cas↳1 cas↳2 cas cas]
   fach-infektio[fach-infekt-fieber fach-infekt-haut~ausschlag fach-infekt-neuro~kopfschmerz,meningismus,taubheit↳2 fach-infekt-reise fach-infekt-kontakt↳2 fach-infekt-impfung]
   vegetativ[veg-schuettelfrost veg-uebelkeit~uebelkeit veg-ausscheidung↳3 veg-gewicht↳2 veg-appetit veg-schlaf]
   vorerkrankungen[· vor-erkrank↳3 vor-op↳3 vor-krankenhaus]
-  medikamente[med-regelmaessig↳4 med-blutverduenner med-otc cas]
+  medikamente[med-regelmaessig↳4 med-blutverduenner med-otc]
   allergien[all-allergie↳1 all-unvertraeglich]
   noxen[nox-rauchen↳5 nox-alkohol↳3 nox-drogen]
   familie-sozial[fam-familie↳2 fam-eltern↳2 fam-stand↳1 fam-beruf↳1 pers-beruf fam-wohnen fam-haustiere]
@@ -755,7 +755,7 @@ case-otitis-media
 case-ileus
   eroeffnung[· · · ·]
   personalia[pers-name pers-name pers-alter pers-groesse pers-hausarzt ·]
-  aktuell[akt-motiv akt-ort↳1 akt-beginn~beginn,beginn_art akt-charakter akt-intensitaet↳1 akt-ausstrahlung↳1 cas akt-ausloeser akt-einfluss akt-begleit cas↳1 cas↳1 cas]
+  aktuell[akt-motiv akt-ort↳1 akt-beginn~beginn,beginn_art akt-charakter akt-intensitaet↳1 akt-ausstrahlung↳1 cas akt-ausloeser akt-einfluss akt-begleit cas↳1 cas↳1 cas cas]
   fach-chirurgie[fach-chir-essen fach-chir-ileus fach-chir-op↳3 fach-chir-gallensteine]
   vegetativ[veg-fieber~fieber↳3 veg-schuettelfrost veg-uebelkeit~uebelkeit veg-ausscheidung~miktion↳3 veg-gewicht↳2 veg-appetit veg-schlaf ^veg-fieber#5~impfung]
   vorerkrankungen[· vor-erkrank↳3 vor-op↳3 vor-krankenhaus cas cas↳1 cas]
@@ -796,7 +796,7 @@ case-zoeliakie
   aktuell[akt-motiv akt-ort↳1 akt-beginn~beginn,beginn_art akt-charakter akt-intensitaet↳1 akt-ausstrahlung↳1 akt-verlauf↳2 akt-ausloeser akt-einfluss akt-frueher↳2 akt-begleit akt-ausscheid-haeufigkeit~stuhlfrequenz↳1 cas cas cas cas cas↳1 cas]
   fach-gastro[fach-gastro-uebelkeit↳5 fach-gastro-sodbrennen fach-gastro-voelle fach-gastro-speisen~essen_expo fach-gastro-stuhl~stuhl,stuhl_blut↳2 fach-gastro-tenesmen fach-gastro-spiegelung]
   vegetativ[veg-fieber↳4 veg-schuettelfrost veg-ausscheidung~miktion↳3 veg-gewicht↳2 veg-appetit veg-schlaf ^veg-fieber#5~impfung]
-  vorerkrankungen[· vor-erkrank↳3 vor-op↳3 vor-krankenhaus cas]
+  vorerkrankungen[· vor-erkrank↳3 vor-op↳3 vor-krankenhaus cas↳1]
   medikamente[med-regelmaessig↳4 med-blutverduenner med-otc]
   allergien[all-allergie↳1]
   noxen[nox-rauchen↳5 nox-alkohol↳3 nox-drogen]
@@ -818,7 +818,7 @@ case-schenkelhalsfraktur
 case-ulcus-cruris
   eroeffnung[· · · ·]
   personalia[pers-name pers-name pers-alter pers-groesse pers-hausarzt ·]
-  aktuell[akt-motiv akt-veraend-was akt-beginn akt-veraend-entwicklung↳1 akt-veraend-blutung~lokalschmerz,juckreiz akt-verlauf cas akt-einfluss akt-frueher↳2 akt-begleit cas cas↳1 cas cas cas↳2]
+  aktuell[akt-motiv akt-veraend-was akt-beginn akt-veraend-entwicklung↳1 akt-veraend-blutung~lokalschmerz,juckreiz akt-verlauf cas akt-einfluss akt-frueher↳2 akt-begleit cas cas↳1 cas cas↳2]
   fach-gefaess[fach-gefaess-ruheschmerz fach-gefaess-schwellung↳1 fach-gefaess-immobilisation fach-gefaess-thrombose~familie_thrombose fach-gefaess-wunde fach-gefaess-vorgeschichte]
   vegetativ[veg-fieber~fieber↳3 veg-schuettelfrost veg-uebelkeit↳3 veg-ausscheidung↳3 veg-gewicht↳2 veg-appetit veg-schlaf ^veg-fieber#5~impfung]
   vorerkrankungen[· vor-erkrank↳3 vor-op↳3 vor-krankenhaus cas↳3 cas]
@@ -831,7 +831,7 @@ case-ulcus-cruris
 case-leistenhernie
   eroeffnung[· · · ·]
   personalia[pers-name pers-name pers-alter pers-groesse pers-hausarzt ·]
-  aktuell[akt-motiv akt-ort↳1 akt-veraend-was akt-beginn akt-charakter akt-intensitaet↳1 akt-veraend-entwicklung↳1 akt-veraend-blutung~lokalschmerz,juckreiz akt-verlauf akt-ausloeser cas akt-frueher↳2 akt-begleit cas cas↳1 cas]
+  aktuell[akt-motiv akt-ort↳1 akt-veraend-was akt-beginn akt-charakter akt-intensitaet↳1 akt-veraend-entwicklung↳1 akt-veraend-blutung~lokalschmerz,juckreiz akt-verlauf akt-ausloeser cas↳1 akt-frueher↳2 akt-begleit cas cas↳1 cas]
   fach-chirurgie[fach-chir-essen fach-chir-op↳3 fach-chir-gallensteine]
   vegetativ[veg-fieber~fieber↳3 veg-schuettelfrost veg-uebelkeit↳3 cas↳1 veg-gewicht↳2 veg-appetit veg-schlaf cas cas ^veg-fieber#5~impfung]
   vorerkrankungen[· vor-erkrank↳3 vor-op↳3 vor-krankenhaus]
@@ -855,7 +855,7 @@ case-alkoholentzug
 case-commotio
   eroeffnung[· · · ·]
   personalia[pers-name pers-name pers-alter pers-groesse pers-hausarzt ·]
-  aktuell[akt-motiv~motiv,sturz akt-ort↳1 akt-beginn↳2 akt-charakter akt-intensitaet↳1 cas akt-neuro-dauer↳1 akt-neuro-lage↳1 akt-ausloeser akt-einfluss akt-frueher↳2 akt-begleit~uebelkeit,begleit↳1 cas↳1 cas↳1 cas cas cas cas cas cas]
+  aktuell[akt-motiv~motiv,sturz akt-ort↳1 akt-beginn↳2 akt-charakter akt-intensitaet↳1 cas akt-neuro-dauer↳1 akt-neuro-lage↳1 akt-ausloeser akt-einfluss akt-frueher↳2 akt-begleit~uebelkeit,begleit↳1 cas↳1 cas↳1 cas cas↳1 cas↳1 cas cas cas]
   fach-neuro[fach-neuro-kopfschmerz↳2 fach-neuro-sensibilitaet fach-neuro-kraft↳2 fach-neuro-koordination~schwindel fach-neuro-koordination~gang fach-neuro-sprache~sprache fach-neuro-blase fach-neuro-anfall~krampf fach-neuro-anfallzeichen~zungenbiss,einnaessen↳1 fach-neuro-verlauf]
   vegetativ[veg-fieber~fieber↳3 veg-schuettelfrost veg-gewicht↳2 veg-appetit veg-schlaf ^veg-fieber#5~impfung]
   vorerkrankungen[· vor-erkrank↳3 vor-op↳3 vor-krankenhaus cas cas]
@@ -881,7 +881,7 @@ case-itp
 case-uterus-myomatosus
   eroeffnung[· · · ·]
   personalia[pers-name pers-name pers-alter pers-groesse pers-hausarzt ·]
-  aktuell[akt-motiv akt-beginn akt-veraend-entwicklung↳1 akt-verlauf akt-ausloeser akt-einfluss akt-frueher↳2 akt-begleit cas↳1 cas cas cas cas cas↳1 cas]
+  aktuell[akt-motiv akt-beginn akt-veraend-entwicklung↳1 akt-verlauf akt-ausloeser akt-einfluss akt-frueher↳2 akt-begleit cas↳1 cas↳1 cas cas cas cas↳1 cas]
   fach-gyn[frau-periode↳2 frau-schwanger frau-verhuetung↳1 fach-gyn-blutung↳1 fach-gyn-unterbauch↳2 fach-gyn-fluor↳5 fach-gyn-dyspareunie↳2 fach-gyn-schwangerschaften↳3 fach-gyn-kinderwunsch fach-gyn-brust fach-gyn-vorsorge fach-gyn-eingriffe↳1]
   vegetativ[veg-fieber~fieber↳3 veg-schuettelfrost veg-uebelkeit↳3 veg-ausscheidung~stuhl↳3 veg-gewicht↳2 veg-appetit veg-schlaf ^veg-fieber#5~impfung]
   vorerkrankungen[· vor-erkrank↳3 vor-op↳3 vor-krankenhaus]
@@ -931,7 +931,7 @@ case-polymyalgia
 case-pneumothorax
   eroeffnung[· · · ·]
   personalia[pers-name pers-name pers-alter pers-groesse pers-hausarzt ·]
-  aktuell[akt-motiv cas akt-beginn~beginn akt-charakter akt-intensitaet↳1 akt-ausstrahlung↳1 akt-verlauf↳2 cas akt-einfluss cas akt-begleit cas]
+  aktuell[akt-motiv akt-ort↳1 akt-beginn~beginn akt-charakter akt-intensitaet↳1 akt-ausstrahlung↳1 akt-verlauf↳2 cas akt-einfluss cas akt-begleit cas cas]
   fach-pneumo[fach-pneumo-husten↳2 fach-pneumo-auswurf↳2 fach-pneumo-atemnot fach-pneumo-orthopnoe fach-pneumo-fieber fach-pneumo-giemen fach-pneumo-infekt~atemwegsinfekt,kontakt↳1 fach-pneumo-noxen fach-pneumo-allergie~atopie]
   vegetativ[veg-schuettelfrost~nachtschweiss,schwitzen↳1 veg-uebelkeit↳3 veg-ausscheidung↳3 veg-gewicht↳2 veg-appetit veg-schlaf ^veg-fieber#5~impfung]
   vorerkrankungen[· vor-erkrank↳3 vor-op↳3 vor-krankenhaus cas]
@@ -945,7 +945,7 @@ case-schlafapnoe
   personalia[pers-name pers-name pers-alter pers-groesse pers-hausarzt ·]
   aktuell[akt-motiv akt-beginn akt-allgemein-art akt-allgemein-alltag↳1 akt-allgemein-tageszeit↳1 akt-allgemein-gewicht↳2 akt-allgemein-schwellung↳1 akt-verlauf akt-ausloeser akt-einfluss akt-frueher↳2 akt-begleit cas↳1 cas↳1 cas cas]
   fach-pneumo[fach-pneumo-husten↳2 fach-pneumo-auswurf↳2 fach-pneumo-atemnot fach-pneumo-orthopnoe~orthopnoe fach-pneumo-schmerz fach-pneumo-fieber fach-pneumo-giemen fach-pneumo-infekt~atemwegsinfekt,kontakt↳1 fach-pneumo-noxen fach-pneumo-allergie]
-  vegetativ[veg-schuettelfrost~nachtschweiss,schwitzen↳1 veg-uebelkeit↳3 veg-ausscheidung↳3 cas↳1 ^veg-fieber#5~impfung cas]
+  vegetativ[veg-schuettelfrost~nachtschweiss,schwitzen↳1 veg-uebelkeit↳3 veg-ausscheidung↳3 cas↳1 cas ^veg-fieber#5~impfung]
   vorerkrankungen[· vor-erkrank↳3 vor-op↳3 vor-krankenhaus]
   medikamente[med-regelmaessig↳4 med-blutverduenner med-otc cas cas]
   allergien[all-allergie↳1 all-unvertraeglich]
@@ -967,7 +967,7 @@ case-schizophrenie
 case-delir
   eroeffnung[· · · ·]
   personalia[pers-name pers-name pers-alter pers-groesse pers-hausarzt ·]
-  aktuell[akt-motiv cas akt-neuro-ausfall↳2 akt-neuro-dauer↳1 akt-neuro-lage↳1 akt-verlauf akt-einfluss akt-begleit~kopfschmerz,uebelkeit,bewusstlos,krampf,begleit↳4 cas↳2 cas↳1 cas cas]
+  aktuell[akt-motiv cas akt-neuro-ausfall↳2 akt-neuro-dauer↳1 akt-neuro-lage↳1 akt-verlauf akt-einfluss akt-begleit~kopfschmerz,uebelkeit,bewusstlos,krampf,begleit↳4 cas↳2 cas↳1 cas cas cas↳1]
   fach-psy[fach-psych-stimmung fach-psych-interesse fach-psych-antrieb fach-psych-schlaf fach-psych-konzentration fach-psych-angst↳1 fach-psych-suizid↳7 fach-psych-ausloeser fach-psych-frueher]
   vegetativ[veg-fieber~reise veg-schuettelfrost veg-uebelkeit~erbrechen↳3 veg-ausscheidung~stuhl↳3 veg-gewicht↳2 veg-appetit ^veg-fieber#5~impfung]
   vorerkrankungen[· vor-erkrank↳3 vor-op↳3 vor-krankenhaus cas↳1]
@@ -1028,7 +1028,7 @@ case-hws-diskusprolaps
 case-laktoseintoleranz
   eroeffnung[· · · ·]
   personalia[pers-name pers-name pers-alter pers-groesse pers-hausarzt ·]
-  aktuell[akt-motiv akt-ort↳1 akt-beginn akt-charakter akt-intensitaet↳1 akt-ausscheid-haeufigkeit~stuhlfrequenz↳1 cas cas akt-ausscheid-harn-haeufigkeit~miktion_frequenz↳1 akt-verlauf akt-ausloeser cas akt-frueher↳2 akt-begleit cas cas↳1 cas↳2 cas]
+  aktuell[akt-motiv akt-ort↳1 akt-beginn akt-charakter akt-intensitaet↳1 akt-ausscheid-haeufigkeit~stuhlfrequenz↳1 cas↳1 cas akt-ausscheid-harn-haeufigkeit~miktion_frequenz↳1 akt-verlauf akt-ausloeser cas akt-frueher↳2 akt-begleit cas cas↳1 cas↳2 cas]
   fach-gastro[fach-gastro-uebelkeit↳5 fach-gastro-sodbrennen fach-gastro-voelle fach-gastro-speisen fach-gastro-stuhl~stuhl↳1 fach-gastro-tenesmen fach-gastro-spiegelung]
   vegetativ[veg-fieber↳4 veg-schuettelfrost veg-ausscheidung~miktion↳3 veg-gewicht↳2 veg-appetit veg-schlaf ^veg-fieber#5~impfung]
   vorerkrankungen[· vor-erkrank↳3 vor-op↳3 vor-krankenhaus]
@@ -1052,7 +1052,7 @@ case-tia
 case-diabetes-typ1
   eroeffnung[· · · ·]
   personalia[pers-name pers-name pers-alter pers-groesse pers-hausarzt ·]
-  aktuell[akt-motiv akt-beginn akt-allgemein-art~schwindel↳1 akt-allgemein-alltag↳1 akt-allgemein-tageszeit↳1 cas↳2 akt-allgemein-schwellung↳1 akt-verlauf akt-ausloeser akt-einfluss akt-frueher↳2 akt-begleit fach-pneumo-atemnot cas cas cas cas cas]
+  aktuell[akt-motiv akt-beginn akt-allgemein-art~schwindel↳1 akt-allgemein-alltag↳1 akt-allgemein-tageszeit↳1 cas↳2 akt-allgemein-schwellung↳1 akt-verlauf akt-ausloeser akt-einfluss akt-frueher↳2 akt-begleit fach-pneumo-atemnot cas↳1 cas cas↳1 cas cas]
   fach-endo[cas↳2 fach-endo-temperatur fach-endo-herz-nerven fach-endo-hals~halsschwellung,stimme↳1 fach-endo-augen~augenveraenderung fach-endo-haut-haare~haut_haare fach-endo-unterzucker fach-endo-folgeschaeden~taubheit,nierenprobleme↳1 fach-endo-familie-therapie]
   vegetativ[veg-fieber~fieber↳3 veg-schuettelfrost~schuettelfrost,nachtschweiss↳1 veg-ausscheidung↳3 veg-schlaf ^veg-fieber#5~impfung]
   vorerkrankungen[· vor-erkrank↳3 vor-op↳3 vor-krankenhaus]
@@ -1064,7 +1064,7 @@ case-diabetes-typ1
 case-gastroenteritis
   eroeffnung[· · · ·]
   personalia[pers-name pers-name pers-alter pers-groesse pers-hausarzt ·]
-  aktuell[akt-motiv akt-ort↳1 akt-beginn akt-charakter akt-intensitaet↳1 akt-ausscheid-haeufigkeit~stuhlfrequenz,stuhl_nachts↳1 akt-ausscheid-aussehen~stuhl_blut akt-verlauf akt-ausloeser akt-einfluss akt-frueher↳2 akt-begleit cas cas cas]
+  aktuell[akt-motiv akt-ort↳1 akt-beginn akt-charakter akt-intensitaet↳1 akt-ausscheid-haeufigkeit~stuhlfrequenz,stuhl_nachts↳1 akt-ausscheid-aussehen~stuhl_blut akt-verlauf akt-ausloeser akt-einfluss akt-frueher↳2 akt-begleit cas↳3 cas cas]
   fach-infektio[fach-infekt-reise cas↳2 fach-infekt-kontakt~kontakt↳1 fach-infekt-impfung]
   vegetativ[veg-schuettelfrost~schwitzen veg-uebelkeit↳3 veg-ausscheidung~miktion↳3 veg-gewicht↳2 veg-appetit veg-schlaf cas cas cas cas]
   vorerkrankungen[· vor-erkrank↳3 vor-op↳3]
@@ -1088,7 +1088,7 @@ case-rheumatisches-fieber
 case-influenza
   eroeffnung[· · · ·]
   personalia[pers-name pers-name pers-alter pers-groesse pers-hausarzt ·]
-  aktuell[akt-motiv cas akt-infekt-fieber↳2 akt-verlauf akt-infekt-herd~husten,halsschmerzen,miktion,stuhl,wunde↳4 akt-ausloeser akt-einfluss akt-frueher↳2 akt-begleit cas cas↳2 cas↳1 cas]
+  aktuell[akt-motiv cas akt-infekt-fieber↳2 akt-verlauf akt-infekt-herd~husten,halsschmerzen,miktion,stuhl,wunde↳4 akt-ausloeser akt-einfluss akt-frueher↳2 akt-begleit cas cas↳2 cas↳1 cas cas]
   fach-infektio[fach-infekt-haut~ausschlag fach-infekt-neuro~kopfschmerz,meningismus,taubheit↳2 fach-infekt-reise fach-infekt-kontakt↳2]
   vegetativ[veg-schuettelfrost veg-uebelkeit↳3 veg-gewicht↳2 veg-appetit veg-schlaf]
   vorerkrankungen[· vor-erkrank↳3 vor-op↳3 vor-krankenhaus cas↳1]
@@ -1101,7 +1101,7 @@ case-influenza
 case-coxarthrose
   eroeffnung[· · · ·]
   personalia[pers-name pers-name pers-alter pers-groesse pers-hausarzt ·]
-  aktuell[akt-motiv akt-ort↳1 akt-beginn~beginn,beginn_art akt-charakter akt-intensitaet↳1 akt-verlauf↳2 akt-ausloeser akt-einfluss akt-frueher↳2 akt-begleit cas cas cas cas↳1 cas]
+  aktuell[akt-motiv akt-ort↳1 akt-beginn~beginn,beginn_art akt-charakter akt-intensitaet↳1 akt-verlauf↳2 akt-ausloeser akt-einfluss akt-frueher↳2 akt-begleit cas cas↳1 cas↳1]
   fach-ortho[fach-ortho-mechanismus~unfallhergang,sturz fach-ortho-bewegung fach-ortho-ausstrahlung fach-ortho-sensomotorik fach-ortho-durchblutung fach-ortho-schwellung fach-ortho-belastung]
   vegetativ[veg-fieber~fieber↳3 veg-schuettelfrost veg-uebelkeit↳3 veg-ausscheidung↳3 veg-gewicht↳2 veg-appetit veg-schlaf ^veg-fieber#5~impfung]
   vorerkrankungen[· vor-erkrank↳3 vor-op↳3 vor-krankenhaus cas↳1]
@@ -1125,7 +1125,7 @@ case-metabolisches-syndrom
 case-karzinoid
   eroeffnung[· · · ·]
   personalia[pers-name pers-name pers-alter pers-groesse pers-hausarzt ·]
-  aktuell[akt-motiv akt-ort↳1 akt-beginn~beginn,beginn_art akt-charakter akt-intensitaet↳1 akt-ausstrahlung↳1 akt-verlauf↳2 cas↳1 akt-einfluss cas akt-begleit cas cas cas]
+  aktuell[akt-motiv akt-ort↳1 akt-beginn~beginn,beginn_art akt-charakter akt-intensitaet↳1 akt-ausstrahlung↳1 akt-verlauf↳2 cas↳1 akt-einfluss cas akt-begleit cas↳1 cas cas cas cas cas]
   fach-onko[fach-onko-knoten↳4 fach-onko-bsymptomatik fach-onko-leistung fach-onko-schmerz fach-onko-blutung fach-onko-appetit~voellegefuehl,appetit↳1 fach-onko-vorbehandlung fach-onko-familie fach-onko-vorsorge]
   vegetativ[veg-fieber~reise veg-schuettelfrost~schuettelfrost veg-uebelkeit↳3 veg-ausscheidung↳3 veg-schlaf ^veg-fieber#5~impfung]
   vorerkrankungen[· vor-erkrank↳3 vor-op↳3 vor-krankenhaus cas]
@@ -1188,7 +1188,7 @@ case-endokarditis
 case-covid19
   eroeffnung[· · · ·]
   personalia[pers-name pers-name pers-alter pers-groesse pers-hausarzt ·]
-  aktuell[akt-motiv akt-beginn akt-infekt-fieber↳2 cas akt-infekt-herd~husten,halsschmerzen,miktion,stuhl,wunde↳4 akt-ausloeser akt-einfluss akt-frueher↳2 akt-begleit cas cas cas cas]
+  aktuell[akt-motiv akt-beginn akt-infekt-fieber↳2 cas akt-infekt-herd~husten,halsschmerzen,miktion,stuhl,wunde↳4 akt-ausloeser akt-einfluss akt-frueher↳2 akt-begleit cas cas cas]
   fach-infektio[fach-infekt-haut~ausschlag fach-infekt-neuro~kopfschmerz,meningismus,taubheit↳2 fach-infekt-reise fach-infekt-kontakt↳2]
   vegetativ[veg-schuettelfrost veg-uebelkeit↳3 veg-gewicht↳2 veg-appetit veg-schlaf]
   vorerkrankungen[· vor-erkrank↳3 vor-op↳3 vor-krankenhaus cas↳1 cas]
@@ -1214,7 +1214,7 @@ case-anaphylaxie
 case-reaktive-arthritis
   eroeffnung[· · · ·]
   personalia[pers-name pers-name pers-alter pers-groesse pers-hausarzt ·]
-  aktuell[akt-motiv akt-ort↳1 akt-beginn~beginn akt-charakter akt-intensitaet↳1 akt-ausstrahlung↳1 akt-verlauf↳2 akt-einfluss akt-begleit cas cas cas cas cas↳1 cas cas]
+  aktuell[akt-motiv akt-ort↳1 akt-beginn~beginn akt-charakter akt-intensitaet↳1 akt-ausstrahlung↳1 akt-verlauf↳2 akt-einfluss akt-begleit cas cas↳1 cas cas cas↳1 cas cas]
   fach-rheuma[fach-rheuma-gelenke↳1 fach-rheuma-morgensteifigkeit↳1 fach-rheuma-entzuendung fach-rheuma-verlauf fach-rheuma-ausloeser↳2 fach-rheuma-systemisch~fieber,stuhl↳1 fach-rheuma-vorgeschichte ^fach-rheuma-vorgeschichte#1~gicht ^fach-rheuma-vorgeschichte#2~nierensteine]
   vegetativ[veg-fieber~reise veg-schuettelfrost veg-uebelkeit↳3 veg-ausscheidung~miktion↳3 veg-gewicht↳2 veg-appetit veg-schlaf ^veg-fieber#5~impfung]
   vorerkrankungen[· vor-erkrank↳3 vor-op↳3 vor-krankenhaus]
@@ -1239,7 +1239,7 @@ case-pertussis
 case-colitis-ulcerosa
   eroeffnung[· · · ·]
   personalia[pers-name pers-name pers-alter pers-groesse pers-hausarzt ·]
-  aktuell[akt-motiv akt-ort↳1 akt-beginn akt-charakter akt-intensitaet↳1 cas cas↳1 akt-ausscheid-harn-haeufigkeit~miktion_frequenz↳1 akt-verlauf akt-ausloeser akt-einfluss akt-frueher↳2 akt-begleit fach-pneumo-atemnot cas cas cas cas cas cas]
+  aktuell[akt-motiv akt-ort↳1 akt-beginn akt-charakter akt-intensitaet↳1 cas cas cas↳1 akt-ausscheid-harn-haeufigkeit~miktion_frequenz↳1 akt-verlauf akt-ausloeser akt-einfluss akt-frueher↳2 akt-begleit fach-pneumo-atemnot cas↳1 cas cas cas cas cas]
   fach-gastro[fach-rheuma-gelenke↳1 fach-gastro-uebelkeit↳5 fach-gastro-sodbrennen fach-gastro-voelle fach-gastro-speisen fach-gastro-stuhl~stuhl,stuhlaussehen↳3 fach-gastro-spiegelung]
   vegetativ[veg-fieber↳4 veg-schuettelfrost veg-ausscheidung~miktion↳3 veg-gewicht↳2 veg-appetit veg-schlaf ^veg-fieber#5~impfung]
   vorerkrankungen[· vor-erkrank↳3 vor-op↳3 vor-krankenhaus]
@@ -1314,7 +1314,7 @@ case-endometriose
 case-ptbs
   eroeffnung[· · · ·]
   personalia[pers-name pers-name pers-alter pers-groesse pers-hausarzt ·]
-  aktuell[akt-motiv akt-ort↳1 akt-beginn~beginn,beginn_art akt-charakter akt-intensitaet↳1 akt-ausstrahlung↳1 akt-verlauf↳2 cas akt-einfluss akt-begleit cas cas cas↳1 cas cas]
+  aktuell[akt-motiv akt-ort↳1 akt-beginn~beginn,beginn_art akt-charakter akt-intensitaet↳1 akt-ausstrahlung↳1 akt-verlauf↳2 cas↳1 akt-einfluss akt-begleit cas cas cas↳1 cas cas]
   fach-psy[fach-psych-stimmung fach-psych-interesse fach-psych-antrieb fach-psych-schlaf fach-psych-tagesverlauf fach-psych-konzentration fach-psych-angst↳1 fach-psych-suizid↳7 fach-psych-frueher]
   vegetativ[veg-fieber~fieber↳3 veg-schuettelfrost veg-uebelkeit~uebelkeit veg-ausscheidung↳3 veg-gewicht↳2 veg-appetit ^veg-fieber#5~impfung]
   vorerkrankungen[· vor-erkrank↳3 vor-op↳3 vor-krankenhaus]
@@ -1327,7 +1327,7 @@ case-ptbs
 case-somatoforme-schmerzstoerung
   eroeffnung[· · · ·]
   personalia[pers-name pers-name pers-alter pers-groesse pers-hausarzt ·]
-  aktuell[akt-motiv akt-ort↳1 akt-beginn~beginn,beginn_art akt-charakter akt-intensitaet↳1 akt-ausstrahlung↳1 akt-verlauf↳2 cas akt-begleit cas↳1 cas]
+  aktuell[akt-motiv akt-ort↳1 akt-beginn~beginn,beginn_art akt-charakter akt-intensitaet↳1 akt-ausstrahlung↳1 akt-verlauf↳2 cas akt-begleit cas↳1 cas cas]
   fach-psy[fach-psych-stimmung fach-psych-interesse fach-psych-antrieb fach-psych-schlaf fach-psych-tagesverlauf fach-psych-konzentration fach-psych-angst↳1 fach-psych-suizid↳7 fach-psych-ausloeser fach-psych-frueher]
   vegetativ[veg-fieber~fieber↳3 veg-schuettelfrost veg-uebelkeit↳3 veg-ausscheidung↳3 veg-gewicht↳2 veg-appetit ^veg-fieber#5~impfung]
   vorerkrankungen[· vor-erkrank↳3 vor-op↳3 vor-krankenhaus cas cas]
@@ -1339,7 +1339,7 @@ case-somatoforme-schmerzstoerung
 case-hueftkopfnekrose
   eroeffnung[· · · ·]
   personalia[pers-name pers-name pers-alter pers-groesse pers-hausarzt ·]
-  aktuell[akt-motiv akt-ort↳1 akt-beginn~beginn,beginn_art akt-charakter akt-intensitaet↳1 cas akt-ausloeser akt-einfluss akt-frueher↳2 akt-begleit cas cas]
+  aktuell[akt-motiv akt-ort↳1 akt-beginn~beginn,beginn_art akt-charakter akt-intensitaet↳1 cas akt-ausloeser akt-einfluss akt-frueher↳2 akt-begleit cas↳1 cas]
   fach-ortho[fach-ortho-mechanismus~unfallhergang,sturz fach-ortho-bewegung fach-ortho-ausstrahlung fach-ortho-sensomotorik fach-ortho-durchblutung fach-ortho-schwellung fach-ortho-belastung fach-ortho-vorgeschichte cas]
   vegetativ[veg-fieber~fieber↳3 veg-schuettelfrost veg-uebelkeit↳3 veg-ausscheidung~miktion↳3 veg-gewicht↳2 veg-appetit veg-schlaf cas ^veg-fieber#5~impfung]
   vorerkrankungen[· vor-erkrank↳3 vor-op↳3 vor-krankenhaus cas cas]
@@ -1351,7 +1351,7 @@ case-hueftkopfnekrose
 case-glomerulonephritis
   eroeffnung[· · · ·]
   personalia[pers-name pers-name pers-alter pers-groesse pers-hausarzt ·]
-  aktuell[akt-motiv akt-beginn akt-ausscheid-was~miktion,stuhl,gelbfaerbung,stuhlaussehen↳3 akt-verlauf cas akt-einfluss akt-frueher↳2 akt-begleit cas cas cas]
+  aktuell[akt-motiv akt-beginn akt-ausscheid-was~miktion,stuhl,gelbfaerbung,stuhlaussehen↳3 akt-verlauf cas akt-einfluss akt-frueher↳2 akt-begleit cas cas cas cas]
   fach-nephro[fach-nephro-menge↳2 fach-nephro-aussehen fach-nephro-oedeme fach-nephro-blutdruck fach-nephro-nephrotoxisch fach-nephro-uraemie fach-nephro-vorgeschichte~nierenvorgeschichte]
   vegetativ[veg-fieber~fieber↳3 veg-schuettelfrost veg-uebelkeit~erbrechen↳3 veg-schlaf ^veg-fieber#5~impfung]
   vorerkrankungen[· vor-erkrank↳3 vor-op↳3 vor-krankenhaus]
@@ -1365,7 +1365,7 @@ case-nhl
   personalia[pers-name pers-name pers-alter pers-groesse pers-hausarzt ·]
   aktuell[akt-motiv akt-veraend-was~ausschlag,lokalblutung↳1 cas cas akt-veraend-blutung~juckreiz akt-verlauf akt-ausloeser akt-einfluss akt-frueher↳2 akt-begleit cas cas cas cas cas cas]
   fach-haemato[fach-haem-leistung fach-haem-belastung~schwindel fach-haem-blutung↳2 fach-haem-blutverlust↳2 fach-haem-ernaehrung fach-haem-bsymptomatik~fieber,gewicht↳3 fach-haem-lymphknoten fach-haem-infekte~infektneigung,wundheilung↳1 fach-haem-knochen fach-haem-thrombose]
-  vegetativ[veg-fieber~reise veg-schuettelfrost~schuettelfrost,schwitzen↳1 veg-uebelkeit↳3 veg-ausscheidung↳3 veg-appetit veg-schlaf cas ^veg-fieber#5~impfung cas]
+  vegetativ[veg-fieber~reise veg-schuettelfrost~schuettelfrost,schwitzen↳1 veg-uebelkeit↳3 veg-ausscheidung↳3 veg-appetit veg-schlaf cas cas ^veg-fieber#5~impfung]
   vorerkrankungen[· vor-erkrank↳3 vor-op↳3 vor-krankenhaus]
   medikamente[med-regelmaessig↳4 med-blutverduenner med-otc]
   allergien[all-allergie↳1 all-unvertraeglich]
@@ -1508,7 +1508,7 @@ case-epilepsie
 case-hodentorsion
   eroeffnung[· · · ·]
   personalia[pers-name pers-name pers-alter pers-groesse pers-hausarzt ·]
-  aktuell[akt-motiv cas akt-beginn~beginn,beginn_art akt-charakter akt-intensitaet↳1 akt-ausstrahlung↳1 akt-verlauf↳2 cas akt-einfluss cas akt-begleit cas]
+  aktuell[akt-motiv cas akt-beginn~beginn,beginn_art akt-charakter akt-intensitaet↳1 akt-ausstrahlung↳1 akt-verlauf↳2 cas akt-einfluss cas↳1 akt-begleit cas↳1]
   fach-uro[fach-uro-miktion↳1 fach-uro-frequenz↳1 fach-uro-drang fach-uro-farbe fach-uro-strahl fach-uro-flanke fach-uro-fieber fach-uro-sexualanamnese↳1 fach-uro-funktion fach-uro-vorgeschichte]
   vegetativ[veg-schuettelfrost~nachtschweiss,schwitzen↳1 veg-uebelkeit↳3 veg-ausscheidung~stuhl↳3 veg-gewicht↳2 veg-appetit veg-schlaf]
   vorerkrankungen[· vor-erkrank↳3 vor-op↳3 vor-krankenhaus cas cas]
@@ -1532,7 +1532,7 @@ case-basaliom
 case-psoriasis
   eroeffnung[· · · ·]
   personalia[pers-name pers-name pers-alter pers-groesse pers-hausarzt ·]
-  aktuell[akt-motiv akt-veraend-was akt-beginn akt-einfluss akt-frueher↳2 akt-begleit cas cas cas cas cas]
+  aktuell[akt-motiv akt-veraend-was akt-beginn akt-einfluss akt-frueher↳2 akt-begleit cas cas cas↳1 cas cas]
   fach-derma[fach-derma-beginn-ort↳1 fach-derma-empfinden↳1 fach-derma-aussehen↳2 fach-derma-ausloeser fach-derma-verlauf fach-rheuma-gelenke↳1 fach-derma-systemisch~fieber,ulzera,augenentzuendung↳2 fach-rheuma-entzuendung fach-derma-vorgeschichte fach-derma-vorbehandlung]
   vegetativ[veg-schuettelfrost veg-uebelkeit↳3 veg-ausscheidung↳3 veg-gewicht↳2 veg-appetit veg-schlaf ^veg-fieber#5~impfung]
   vorerkrankungen[· vor-erkrank↳3 vor-op↳3 vor-krankenhaus]
@@ -1582,7 +1582,7 @@ case-opioidabhaengigkeit
 case-sinusitis
   eroeffnung[· · · ·]
   personalia[pers-name pers-name pers-alter pers-groesse pers-hausarzt ·]
-  aktuell[akt-motiv akt-ort↳1 cas akt-charakter akt-intensitaet↳1 akt-infekt-fieber↳2 akt-infekt-herd~halsschmerzen,miktion,stuhl,ausschlag,wunde↳4 akt-ausloeser akt-einfluss akt-frueher↳2 akt-begleit cas↳1 cas cas cas]
+  aktuell[akt-motiv akt-ort↳1 cas akt-charakter akt-intensitaet↳1 akt-infekt-fieber↳2 cas akt-infekt-herd~halsschmerzen,miktion,stuhl,ausschlag,wunde↳4 akt-ausloeser akt-einfluss akt-frueher↳2 akt-begleit cas↳1 cas cas cas cas]
   fach-pneumo[fach-pneumo-husten↳2 fach-pneumo-auswurf↳2 fach-pneumo-atemnot fach-pneumo-orthopnoe fach-pneumo-schmerz fach-pneumo-fieber~schuettelfrost fach-pneumo-giemen fach-pneumo-infekt fach-pneumo-noxen fach-pneumo-allergie]
   vegetativ[veg-schuettelfrost~nachtschweiss,schwitzen↳1 veg-uebelkeit↳3 veg-gewicht↳2 veg-appetit veg-schlaf ^veg-fieber#5~impfung]
   vorerkrankungen[· vor-erkrank↳3 vor-op↳3 vor-krankenhaus]
