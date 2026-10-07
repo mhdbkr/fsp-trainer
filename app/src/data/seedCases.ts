@@ -58382,7 +58382,7 @@ export function seedCases(): Case[] {
           'Neurodermitis im Kindesalter, heute nur noch trockene Haut',
           'distale Radiusfraktur links mit 14 Jahren beim Skateboarden, konservativ mit Gips behandelt',
           'Heuschnupfen (Gräserpollen) im Frühjahr',
-          'seit etwa einem Jahr mehrfach morgens nach kurzen Nächten kurze Zuckungen beider Arme mit Fallenlassen der Zahnbürste oder Kaffeetasse — bislang als „Wackeligkeit vom Wenigschlafen“ abgetan',
+          'seit der Schulzeit morgens nach kurzen Nächten kurze Zuckungen beider Arme mit Fallenlassen der Zahnbürste oder Kaffeetasse, im letzten Jahr häufiger — bislang als „Wackeligkeit vom Wenigschlafen“ abgetan',
           'zweimal in den letzten Monaten morgens mit schmerzhafter, angebissener Zunge und Muskelkater aufgewacht, einmal davon war das Bett nass — auf den Alkohol vom Vorabend geschoben, kein Arztbesuch',
         ],
         voroperationen: [
@@ -58485,7 +58485,7 @@ export function seedCases(): Case[] {
           },
           {
             frage: 'Zucken Ihnen morgens manchmal die Arme, sodass Ihnen etwas aus der Hand fällt?',
-            antwort: 'Ja, beide Arme zucken kurz, blitzartig, und mir fällt was aus der Hand. Das ist mir im letzten Jahr bestimmt zehnmal passiert, immer morgens, immer nach wenig Schlaf.',
+            antwort: 'Ja, beide Arme zucken kurz, blitzartig, und mir fällt was aus der Hand. Das kenne ich eigentlich seit der Schulzeit, da war es selten; im letzten Jahr ist es bestimmt zehnmal passiert, immer morgens, immer nach wenig Schlaf.',
             kapitel: 'aktuell',
           },
         ],
@@ -58500,12 +58500,12 @@ export function seedCases(): Case[] {
         persona: 'Tu es Lukas Brenner, 27 ans, électricien, sportif, sympathique et un peu gêné d\'être là : tu ne te souviens de RIEN de la crise et tu répètes que c\'est ta copine Lena, assise dans la salle d\'attente, qui a tout vu — tu proposes spontanément au médecin de l\'interroger. Tu as mal à la langue (morsure à gauche), des courbatures, un mal de tête modéré, et tu es fatigué. Tu es surtout inquiet pour ton permis et ton travail (camionnette de la boîte, échelles, nacelle) : dès que le médecin parle d\'interdiction de conduire, tu deviens tendu et tu négocies. Tu attribues tout au manque de sommeil et aux six bières de samedi ; tu veux entendre que ce n\'était « qu\'une fois ». Point clé : tu ne mentionnes les secousses matinales des bras (brosse à dents, tasse qui tombe) et les deux réveils avec langue mordue / lit mouillé QUE si le médecin te demande explicitement des événements antérieurs, des tremblements ou des morsures au réveil — et tu les racontes en te justifiant (« ich dachte, das kommt vom Alkohol »). Tu minimises légèrement l\'alcool au début (« zwei, drei Bier ») avant d\'admettre que les fêtes arrosées reviennent régulièrement. Si le médecin explique calmement, sans te juger, tu coopères pleinement et tu poses des questions concrètes sur les médicaments et la conduite.',
       },
       medicalView: {
-        verdachtsdiagnose: 'Erster beobachteter generalisierter tonisch-klonischer Anfall, am ehesten bei juveniler myoklonischer Epilepsie. Ausgelöst wurde er durch Schlafentzug und Alkoholexzess. Für eine genetische generalisierte Epilepsie dieses Typs sprechen anamnestische Hinweise auf frühere unerkannte Anfälle (morgendliche Myoklonien beider Arme seit einem Jahr, zwei nächtliche Ereignisse mit Zungenbiss, Muskelkater und Einnässen) und die positive Familienanamnese. Differenzialdiagnose: akut symptomatischer (provozierter) Anfall.',
+        verdachtsdiagnose: 'Erster beobachteter generalisierter tonisch-klonischer Anfall, am ehesten bei juveniler myoklonischer Epilepsie. Ausgelöst wurde er durch Schlafentzug und Alkoholexzess. Für eine genetische generalisierte Epilepsie dieses Typs sprechen anamnestische Hinweise auf frühere unerkannte Anfälle (morgendliche Myoklonien beider Arme seit der Schulzeit, zuletzt häufiger, zwei nächtliche Ereignisse mit Zungenbiss, Muskelkater und Einnässen) und die positive Familienanamnese. Differenzialdiagnose: akut symptomatischer (provozierter) Anfall.',
         patientWorte: { verdacht: 'es sich um einen epileptischen Anfall handelt, möglicherweise im Rahmen einer angeborenen Form der Epilepsie', diagnostik: 'machen wir eine Blutuntersuchung, messen die elektrische Aktivität Ihres Gehirns und machen ein Bild von Ihrem Kopf', therapie: 'müssten Sie ausreichend schlafen, auf Alkohol verzichten und eventuell dauerhaft ein Medikament gegen Anfälle einnehmen' },
         differenzialdiagnosen: [
           {
             dd: 'Akut symptomatischer (provozierter) Anfall durch Schlafentzug und Alkohol',
-            unterscheidung: 'Schlafentzug und Alkoholexzess sind hier eindeutig als Auslöser vorhanden — allein wäre das Ereignis ein provozierter Anfall ohne Dauertherapie. Aber: Die morgendlichen Myoklonien seit einem Jahr, die zwei nächtlichen Ereignisse mit Zungenbiss und Einnässen und der Cousin mit Epilepsie sprechen dafür, dass die Auslöser lediglich die Anfallsschwelle einer bestehenden Epilepsie gesenkt haben. Kein Entzugskrampf: kein täglicher Konsum, kein Tremor, kein Schwitzen, Anfall etwa 30 Stunden nach dem letzten Konsum ohne Entzugssymptome.',
+            unterscheidung: 'Schlafentzug und Alkoholexzess sind hier eindeutig als Auslöser vorhanden — allein wäre das Ereignis ein provozierter Anfall ohne Dauertherapie. Aber: Die morgendlichen Myoklonien seit der Schulzeit, die zwei nächtlichen Ereignisse mit Zungenbiss und Einnässen und der Cousin mit Epilepsie sprechen dafür, dass die Auslöser lediglich die Anfallsschwelle einer bestehenden Epilepsie gesenkt haben. Kein Entzugskrampf: kein täglicher Konsum, kein Tremor, kein Schwitzen, Anfall etwa 30 Stunden nach dem letzten Konsum ohne Entzugssymptome.',
           },
           {
             dd: 'Synkope (vasovagal, kardial)',
@@ -58551,7 +58551,7 @@ export function seedCases(): Case[] {
           },
           {
             stufe: 'Anamnese/Klinik',
-            text: 'Frühere unerkannte Anfälle: seit einem Jahr etwa zehnmal morgendliche bilaterale Myoklonien der Arme nach kurzen Nächten (Zahnbürste, Kaffeetasse fallen), zweimal Erwachen mit Zungenbiss und Muskelkater, einmal nasses Bett — damit ist der heutige Anfall mutmaßlich nicht der erste; Fieberkrampf mit zwei Jahren, Cousin mit Epilepsie, normale Geburt und Entwicklung, kein Schädel-Hirn-Trauma, keine Meningitis',
+            text: 'Frühere unerkannte Anfälle: seit der Schulzeit morgendliche bilaterale Myoklonien der Arme nach kurzen Nächten, im letzten Jahr etwa zehnmal (Zahnbürste, Kaffeetasse fallen), zweimal Erwachen mit Zungenbiss und Muskelkater, einmal nasses Bett — damit ist der heutige Anfall mutmaßlich nicht der erste; Fieberkrampf mit zwei Jahren, Cousin mit Epilepsie, normale Geburt und Entwicklung, kein Schädel-Hirn-Trauma, keine Meningitis',
           },
           {
             stufe: 'Anamnese/Klinik',
@@ -58600,7 +58600,7 @@ export function seedCases(): Case[] {
           {
             label: 'Entscheidung über eine Dauertherapie und Wahl des Antiepileptikums',
             items: [
-              'Die Kernfrage des Falls: Isoliert betrachtet ist der heutige Anfall provoziert (Schlafentzug, Alkohol) und würde nicht dauerhaft behandelt. Die morgendlichen Myoklonien seit einem Jahr und die zwei nächtlichen Ereignisse mit Zungenbiss und Einnässen sprechen jedoch für bereits mehrere unprovozierte Anfälle — damit ist nach der ILAE-Definition eine Epilepsie wahrscheinlich, und bei epileptiformem EEG (Polyspike-Wave-Komplexe) besteht die Indikation zur Dauertherapie bereits jetzt',
+              'Die Kernfrage des Falls: Isoliert betrachtet ist der heutige Anfall provoziert (Schlafentzug, Alkohol) und würde nicht dauerhaft behandelt. Die morgendlichen Myoklonien seit der Schulzeit und die zwei nächtlichen Ereignisse mit Zungenbiss und Einnässen sprechen jedoch für bereits mehrere unprovozierte Anfälle — damit ist nach der ILAE-Definition eine Epilepsie wahrscheinlich, und bei epileptiformem EEG (Polyspike-Wave-Komplexe) besteht die Indikation zur Dauertherapie bereits jetzt',
               'Entscheidung gemeinsam mit dem Patienten nach dem EEG und im Rahmen einer neurologischen Vorstellung; bei unauffälligem EEG Wiederholung als Schlafentzugs-EEG, bevor über Abwarten oder Therapie entschieden wird — die beruflichen Umstände (Firmenwagen, Höhenarbeit) sprechen zusätzlich für einen frühen Therapiebeginn',
               'Mittel der Wahl bei juveniler myoklonischer Epilepsie beim MANN: Valproat (sehr wirksam gegen Myoklonien, Absencen und generalisierte tonisch-klonische Anfälle), einschleichend bis etwa 1 000–1 500 mg täglich, unter Kontrolle von Blutbild, Leberwerten und Lipase; Aufklärung über Gewichtszunahme, Tremor, Haarausfall, Thrombopenie — bei einer Frau im gebärfähigen Alter wäre stattdessen Levetiracetam erste Wahl',
               'Alternative bei Unverträglichkeit oder Wunsch: Levetiracetam 2 × 500–1 500 mg (Cave Reizbarkeit, Depression), Lamotrigin (langsam über 6–8 Wochen einschleichen wegen Hautausschlag; kann Myoklonien verstärken); KEIN Carbamazepin, Oxcarbazepin oder Phenytoin — sie verschlechtern Myoklonien und Absencen bei generalisierten Epilepsien',
@@ -58714,7 +58714,7 @@ export function seedCases(): Case[] {
             },
             {
               frage: 'Ist das ein provozierter Anfall? Warum haben Sie nach Schlaf und Alkohol gefragt?',
-              reaktion: 'Schlafentzug und Alkoholexzess sind die häufigsten Provokationsfaktoren beim jungen Erwachsenen und hier vorhanden — isoliert betrachtet ein akut symptomatischer Anfall ohne Dauertherapie. Aber die Anamnese zeigt seit einem Jahr morgendliche Myoklonien beider Arme und zwei nächtliche Ereignisse mit Zungenbiss und Einnässen: Die Auslöser haben mutmaßlich die Anfallsschwelle einer bestehenden genetischen generalisierten Epilepsie gesenkt. Ein Entzugskrampf ist unwahrscheinlich: kein täglicher Konsum, keine Entzugszeichen.',
+              reaktion: 'Schlafentzug und Alkoholexzess sind die häufigsten Provokationsfaktoren beim jungen Erwachsenen und hier vorhanden — isoliert betrachtet ein akut symptomatischer Anfall ohne Dauertherapie. Aber die Anamnese zeigt seit der Schulzeit morgendliche Myoklonien beider Arme und zwei nächtliche Ereignisse mit Zungenbiss und Einnässen: Die Auslöser haben mutmaßlich die Anfallsschwelle einer bestehenden genetischen generalisierten Epilepsie gesenkt. Ein Entzugskrampf ist unwahrscheinlich: kein täglicher Konsum, keine Entzugszeichen.',
             },
           ],
         },
