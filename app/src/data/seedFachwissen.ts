@@ -25341,7 +25341,7 @@ export function seedFachwissen(): Fachwissen[] {
           antwort: 'Nein. Eine Thrombolyse setzt ein persistierendes, relevantes neurologisches Defizit innerhalb des Zeitfensters voraus. Bei vollständig zurückgebildeten Symptomen besteht keine Lyseindikation; die Behandlung besteht in der sofortigen Abklärung und der ursachengerechten Sekundärprophylaxe. Umgekehrt gilt: Solange das Defizit besteht, wird der Patient als Schlaganfall behandelt und das Lysefenster geprüft.',
         },
       ],
-      merksatz: 'TIA = Warnsignal, kein Entwarnungssignal: Symptome weg, Gefahr da — höchstes Infarktrisiko in den ersten 48 Stunden, also SOFORT stationär abklären. Erst Blutzucker, dann Bildgebung zum Blutungsausschluss, dann Doppler, Langzeit-EKG und Echo. Und die Weichenstellung nie verwechseln: Vorhofflimmern → orale Antikoagulation, Arteriosklerose → Plättchenhemmer plus Statin, symptomatische Karotisstenose → Operation innerhalb von zwei Wochen.',
+      merksatz: 'Eine TIA ist ein Warnsignal, keine Entwarnung: Die Symptome sind weg, die Gefahr bleibt. Das Schlaganfallrisiko ist in den ersten 48 Stunden am höchsten, deshalb sofort stationär abklären. Erst Blutzucker, dann Bildgebung zum Blutungsausschluss, dann Doppler, Langzeit-EKG und Echo. Die Sekundärprophylaxe folgt der Ursache: bei Vorhofflimmern orale Antikoagulation, bei Arteriosklerose Plättchenhemmer und Statin, bei symptomatischer Karotisstenose Operation innerhalb von zwei Wochen.',
       linkedCaseIds: [
         'case-tia',
       ],
@@ -41007,7 +41007,7 @@ export function seedFachwissen(): Fachwissen[] {
           antwort: 'Über Wirkung und Ziel — Blutverdünnung zum Schutz vor Gerinnseln, INR-Zielbereich 2–3 mit regelmäßigen Kontrollen und Marcumar-Ausweis —, über Blutungszeichen wie schwarzen Stuhl, Blut im Urin, große Blutergüsse oder anhaltendes Nasenbluten, über das Vorgehen nach Sturz auf den Kopf mit sofortiger ärztlicher Vorstellung, über Interaktionen: keine Selbstmedikation mit Ibuprofen oder Diclofenac, jedes neue Medikament, vor allem Antibiotika, mit dem Arzt besprechen, keine intramuskulären Spritzen, Vitamin-K-reiche Kost wie Kohl und Spinat nicht meiden, sondern gleichmäßig essen, Alkohol nur maßvoll. Weiter: vor jeder Operation, Endoskopie und Zahnbehandlung rechtzeitig Bescheid geben, Marcumar nie eigenmächtig absetzen, bei Kinderwunsch sofort melden, weil Marcumar in der Schwangerschaft schädlich ist.',
         },
       ],
-      merksatz: 'Marcumar = INR 2–3, Vitamin K + PPSB; DOAK = feste Dosis nach Niere, kein Bridging, nie bei mechanischer Klappe; ASS ist KEIN Antikoagulans. Blutung → absetzen, Antidot, Endoskopie.',
+      merksatz: 'Marcumar: Ziel-INR meist 2–3, Antidot Vitamin K und PPSB, Bridging nur bei hohem Thromboembolierisiko. DOAK: feste Dosis nach Nierenfunktion, kein Bridging, nie bei mechanischer Herzklappe. ASS ist kein Antikoagulans. Bei Blutung: absetzen, Antidot geben, bei Magen-Darm-Blutung endoskopieren.',
       linkedCaseIds: [],
       keyFachbegriffeIds: [],
       linkedAufklaerungIds: [],
