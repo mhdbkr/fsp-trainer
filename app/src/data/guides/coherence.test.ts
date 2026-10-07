@@ -320,19 +320,22 @@ describe('SÉCURITÉ — aucun signe de risque n\'est perdu (r1 ne le retire jam
 describe('case-gastroenteritis et case-fibromyalgie — la trame jouée (cœur : Aktuelle Beschwerden, Fach, végétative)', () => {
   it('gastroenteritis : Schlucken et Gelenke retirés (r1), Ort / Charakter / Intensität ajoutés après le motif (r3, D2), fréquence des selles posée', () => {
     expect(coeur(byId('case-gastroenteritis'))).toEqual({
-      aktuell: ['akt-motiv', 'akt-ort', 'akt-beginn', 'akt-charakter', 'akt-intensitaet', 'akt-ausscheid-haeufigkeit~stuhlfrequenz,stuhl_nachts', 'akt-ausscheid-aussehen~stuhl_blut',
-        'akt-verlauf', 'akt-ausloeser', 'akt-einfluss', 'akt-frueher', 'akt-begleit', 'cas', 'cas', 'cas'],   // revue clinique : aktuellSkip « Was hat sich verändert » ; Q4 : Fieber / Schüttelfrost en deux questions
+      aktuell: ['akt-motiv~motiv,gewicht', 'akt-ort', 'akt-beginn', 'akt-charakter', 'akt-intensitaet', 'akt-ausscheid-haeufigkeit~stuhlfrequenz,stuhl_nachts', 'akt-ausscheid-aussehen~stuhl_blut',
+        'akt-verlauf', 'akt-ausloeser', 'akt-einfluss', 'akt-frueher', 'akt-begleit~begleit,uebelkeit', 'cas', 'cas', 'cas'],   // revue clinique : aktuellSkip « Was hat sich verändert » ; Q4 : Fieber / Schüttelfrost en deux questions
+      // lot Banque (r5) : « Dauernd übel » (akt-begleit) — la végétative ne redemande plus la nausée ; « ich habe schon fünf Kilo
+      // abgenommen » (akt-motiv, qui le porte) — ni le poids
       fach: ['fach-infekt-reise', 'cas', 'fach-infekt-kontakt~kontakt', 'fach-infekt-impfung'],   // « dort gegessen » suit le voyage (r4b) ; Lyme hors sujet (fachSkip)
       // Q7 : la question de la déshydratation (trois « ? ») devient quatre questions — boisson, fréquence, couleur, vertige
-      vegetativ: ['veg-schuettelfrost~schwitzen', 'veg-uebelkeit', 'veg-ausscheidung~miktion', 'veg-gewicht', 'veg-appetit', 'veg-schlaf', 'cas', 'cas', 'cas', 'cas'],
+      vegetativ: ['veg-schuettelfrost~schwitzen', 'veg-uebelkeit~erbrechen', 'veg-ausscheidung~miktion', 'veg-appetit', 'veg-schlaf', 'cas', 'cas', 'cas', 'cas'],
     });
   });
   it('fibromyalgie : Ausstrahlung, Welche Gelenke, Gicht retirés (r1) ; Auslöser, Früher, Fieber une fois ; « Seit wann » gardé ; Impfungen en végétative', () => {
     const k = coeur(byId('case-fibromyalgie'));
     expect(k).toEqual({
       aktuell: ['akt-motiv', 'cas', 'akt-beginn~beginn', 'akt-charakter', 'akt-intensitaet', 'cas', 'akt-ausloeser', 'akt-einfluss', 'akt-begleit', 'cas', 'cas', 'cas', 'cas'],
-      fach: ['fach-rheuma-verlauf', 'fach-rheuma-haut', 'fach-rheuma-systemisch', 'fach-rheuma-vorgeschichte'],
-      vegetativ: ['veg-schuettelfrost', 'veg-uebelkeit', 'veg-ausscheidung~miktion', 'veg-gewicht', 'veg-appetit', 'cas', '^veg-fieber#5'],
+      // lot Banque (r5) : « Kein Fieber, kein Nachtschweiß » (fach-rheuma-systemisch) — la végétative ne redemande plus le Nachtschweiß
+      fach: ['fach-rheuma-verlauf', 'fach-rheuma-haut', 'fach-rheuma-systemisch~fieber,augenentzuendung,ulzera,stuhl,nachtschweiss', 'fach-rheuma-vorgeschichte'],
+      vegetativ: ['veg-schuettelfrost~schuettelfrost,schwitzen', 'veg-uebelkeit', 'veg-ausscheidung~miktion', 'veg-gewicht', 'veg-appetit', 'cas', '^veg-fieber#5'],
     });
   });
   it('spec §3.3 « une fois annotés » (K4 simulé) : les questions du cas gagnent (Ort, Verlauf, Steifigkeit, Entzündung) ; « dort » suit le voyage', () => {

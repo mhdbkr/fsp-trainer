@@ -1,6 +1,6 @@
 import type { Case, CaseQuestionLue, LeitsymptomKategorie, PatientSheet, Specialty } from '@/db/types';
 import type { Phrase } from './phrases';
-import { PART_RELANCE_SEULE, partNonAutonome, phraseProbes, phraseText, splitDimension, type PhraseVariant } from './phrases';
+import { PART_RELANCE_SEULE, partNonAutonome, phraseIsCaseSpecific, phraseProbes, phraseText, splitDimension, type PhraseVariant } from './phrases';
 import { cqFollowUps, cqKapitel, cqText } from '@/lib/caseQuestions';
 import { FACH_PROBES } from './anamneseProbes';
 import { cohere, compteursApres, profilEffectif, type CohereCtx, type CompteursApres, type Ecart } from './coherence';
@@ -673,12 +673,13 @@ export const ALLGEMEINE_ANAMNESE: AnamneseChapter[] = [
       {
         text: 'Ist Ihnen übel? Mussten Sie sich übergeben?',
         probe: 'veg-uebelkeit',
-        followUp: ['Falls ja: Seit wann müssen Sie sich übergeben?', 'Falls ja: Wie oft haben Sie sich übergeben?', 'Falls ja: Wie sah das Erbrochene aus?'],
+        // Lot Banque (revue clinique P2-5) : « Wie oft » avant « Seit wann » (un patient qui s'est übergeben une fois), l'aspect avant le délai
+        followUp: ['Falls ja: Wie oft haben Sie sich übergeben?', 'Falls ja: Wie sah das Erbrochene aus?', 'Falls ja: Seit wann müssen Sie sich übergeben?'],
         // K4 fixeur (revue clinique P2) : la nausée et le vomissement, deux répliques — découpés du texte.
         parts: [
           { sucht: ['uebelkeit'], text: 'Ist Ihnen übel?' },
           // la relance de la sonde, découpée (règles A et A2 : une réplique, une question)
-          { sucht: ['erbrechen'], text: 'Mussten Sie sich übergeben?', followUp: ['Falls ja: Seit wann müssen Sie sich übergeben?', 'Falls ja: Wie oft haben Sie sich übergeben?', 'Falls ja: Wie sah das Erbrochene aus?'] },
+          { sucht: ['erbrechen'], text: 'Mussten Sie sich übergeben?', followUp: ['Falls ja: Wie oft haben Sie sich übergeben?', 'Falls ja: Wie sah das Erbrochene aus?', 'Falls ja: Seit wann müssen Sie sich übergeben?'] },
         ],
       },
       {
@@ -937,7 +938,7 @@ export const FACHANAMNESEN: FachanamneseGuide[] = [
         probe: 'fach-pneumo-husten',
         // K4 : parts découpées du texte — r1 / r2 ne retirent que ce qu'une autre question pose déjà.
         parts: [
-          { sucht: ['husten'], text: 'Haben Sie Husten?', followUp: ['Seit wann?'] },
+          { sucht: ['husten'], text: 'Haben Sie Husten?', followUp: ['Seit wann husten Sie?'] },   // lot Banque : la relance se dit seule (r5 l'ouvre quand le patient a dit la toux)
           { sucht: ['auswurf'], text: 'Ist der Husten trocken oder mit Auswurf?' },
           { sucht: ['stimme'], text: 'Sind Sie heiser?' },
           { sucht: ['verschlucken'], text: 'Haben Sie sich in letzter Zeit öfter verschluckt?' },
@@ -1017,17 +1018,19 @@ export const FACHANAMNESEN: FachanamneseGuide[] = [
       {
         text: 'Leiden Sie an Übelkeit oder Erbrechen?',
         probe: 'fach-gastro-uebelkeit',
+        // Lot Banque (revue clinique P2-5) : la question d'alarme (Kaffeesatz, Blut) avant la fréquence et le délai postprandial —
+        // r5 ouvre la première relance d'une part quand le patient a dit le signe.
         followUp: [
+          'Falls Sie sich übergeben haben: Wie sah das Erbrochene aus — wie Kaffeesatz, mit Blut?',
           'Falls Sie sich übergeben haben: Wie oft müssen Sie sich übergeben?',
           'Falls Sie sich übergeben haben: Wie viel erbrechen Sie dann jeweils?',
-          'Falls Sie sich übergeben haben: Wie sah das Erbrochene aus — wie Kaffeesatz, mit Blut?',
           'Falls ja: Wie lange nach dem Essen ist Ihnen übel?',
           'Falls ja: Geht es Ihnen besser, nachdem Sie sich erbrochen haben?',
         ],
         // K4 fixeur : la nausée et le vomissement, deux répliques ; chaque part garde ses relances.
         parts: [
+          { sucht: ['erbrechen'], text: 'Müssen Sie sich übergeben?', followUp: ['Falls Sie sich übergeben haben: Wie sah das Erbrochene aus — wie Kaffeesatz, mit Blut?', 'Falls Sie sich übergeben haben: Wie oft müssen Sie sich übergeben?', 'Falls Sie sich übergeben haben: Wie viel erbrechen Sie dann jeweils?', 'Falls ja: Geht es Ihnen besser, nachdem Sie sich erbrochen haben?'] },
           { sucht: ['uebelkeit'], text: 'Leiden Sie an Übelkeit?', followUp: ['Falls ja: Wie lange nach dem Essen ist Ihnen übel?'] },
-          { sucht: ['erbrechen'], text: 'Müssen Sie sich übergeben?', followUp: ['Falls Sie sich übergeben haben: Wie oft müssen Sie sich übergeben?', 'Falls Sie sich übergeben haben: Wie viel erbrechen Sie dann jeweils?', 'Falls Sie sich übergeben haben: Wie sah das Erbrochene aus — wie Kaffeesatz, mit Blut?', 'Falls ja: Geht es Ihnen besser, nachdem Sie sich erbrochen haben?'] },
         ],
       },
       { text: 'Haben Sie Sodbrennen? Müssen Sie aufstoßen?', probe: 'fach-gastro-sodbrennen' },
@@ -1049,7 +1052,7 @@ export const FACHANAMNESEN: FachanamneseGuide[] = [
         probe: 'fach-gastro-stuhl',
         // K4 : parts découpées du texte — r1 / r2 ne retirent que ce qu'une autre question pose déjà.
         parts: [
-          { sucht: ['stuhl'], text: 'Haben Sie Durchfall oder Verstopfung?', followUp: ['Wechseln sich beide ab?'] },
+          { sucht: ['stuhl'], text: 'Haben Sie Durchfall oder Verstopfung?', followUp: ['Wechseln sich Durchfall und Verstopfung ab?'] },   // lot Banque : la relance se dit seule (r5 l'ouvre quand le patient a dit la diarrhée)
           { sucht: ['stuhl_blut'], text: 'Ist der Stuhl blutig oder teerschwarz?' },
           { sucht: ['stuhlaussehen'], text: 'Welche Farbe hat der Stuhl — sehr hell, gelblich?', followUp: ['Welche Konsistenz — hart, fest, weich, schleimig, wässerig?'] },
         ],
@@ -1194,7 +1197,7 @@ export const FACHANAMNESEN: FachanamneseGuide[] = [
       {
         text: 'Haben Sie Schmerzen oder ein Brennen beim Wasserlassen?',
         probe: 'fach-uro-miktion',
-        followUp: ['Falls ja: Wo genau — vorne in der Harnröhre oder tief im Unterbauch?'],
+        followUp: ['Falls ja: Wo genau spüren Sie das Brennen — vorne in der Harnröhre oder eher tief im Unterbauch?'],   // lot Banque (langue) : r5 l'ouvre seule
       },
       {
         text: 'Müssen Sie häufiger als sonst Wasser lassen, auch nachts? Kommt dabei nur wenig?',
@@ -1236,6 +1239,9 @@ export const FACHANAMNESEN: FachanamneseGuide[] = [
         text: 'Haben Sie Fieber oder Schüttelfrost?',
         probe: 'fach-uro-fieber',
         label: 'Alarmzeichen',
+        // lot Banque : parts découpées du texte — r5 ne redemande pas la fièvre que le motif a dite (pyelonephritis)
+        // revue clinique P2-3 : la fièvre dite au motif ouvre sa hauteur et son début (nierenkolik, pyelonephritis, septische-arthritis)
+        parts: [{ sucht: ['fieber'], text: 'Haben Sie Fieber?', followUp: ['Falls ja: Wie hoch war das Fieber?', 'Falls ja: Seit wann haben Sie Fieber?'] }, { sucht: ['schuettelfrost'], text: 'Hatten Sie Schüttelfrost?' }],
       },
       {
         text: 'Darf ich Ihnen ein paar Fragen zu Ihrer Partnerschaft stellen — das gehört zur Untersuchung dazu? Wie verhüten Sie, und wie schützen Sie sich vor Geschlechtskrankheiten?',
@@ -2378,7 +2384,14 @@ export function playedTrame(c: Case): TrameJouee {
 
 /** Le profil effectif et le contexte que `playedTrame` passe à `cohere` (exportés pour les tests et la porte). */
 export const profilDuCas = (c: Case) => profilEffectif({ id: c.id, kategorie: leitsymptomOf(c), sheet: c.patientSheet });
-export const ctxDuCas = (c: Case): CohereCtx => ({ antworten: c.patientSheet.antworten, banque: phraseDeBanque, casIndex: casIndexDe });
+export const ctxDuCas = (c: Case): CohereCtx => ({ antworten: c.patientSheet.antworten, banque: phraseDeBanque, casIndex: casIndexDe, reponse: (p) => reponseDe(c, p) });
+/** r5 : la réplique de la fiche à une question jouée — celle de ses sondes (`antworten`), ou la réponse écrite d'une question du cas
+ *  (`frageAntworten`, au texte exact). La même que joue le patient simulé, le simulant et l'amorce IA : une seule source. */
+function reponseDe(c: Case, p: Phrase): string | undefined {
+  const s = c.patientSheet;
+  if (phraseIsCaseSpecific(p)) return s.frageAntworten?.find((f) => f.frage === phraseText(p))?.antwort;
+  return phraseProbes(p).map((id) => s.antworten?.[id]).filter(Boolean).join(' ') || undefined;
+}
 const FACH_ID = 'fach';   // le chapitre cible `fach` du lexique (SigneKapitel)
 /** La trame BRUTE d'un cas, entrée de `cohere` : chapitres dans l'ordre de l'entretien, la Fach (id `fach`) après
  *  « Aktuelle Beschwerden » ; FACH_RULES, aktuellSkip, fachSkip et les questions du cas déjà appliqués. */

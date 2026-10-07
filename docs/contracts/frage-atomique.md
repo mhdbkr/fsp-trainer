@@ -8,6 +8,9 @@
 > signes, `sucht` obligatoire, profil clinique, `cohere`, porte `checkCoherence`
 > (§10) ; contradictions §11. Consommé par les lots K0–K5. Révisé après revue
 > Opus (I1–I9, m1–m14, DM1–DM3 — ADR-0023 § Revue).
+> **7 oct. 2026 — r5 « rien de déjà dit » (lot Banque, FB3-A2, ADR-0023
+> § Amendement r5)** : une question de banque ne redemande pas ce qu'une
+> réplique jouée a dit ; champ calculé `porte` ; INV-92 (§10.4–§10.11, §11.13).
 
 ---
 
@@ -604,8 +607,12 @@ export function cohere(
   trame: TrameChapter[],         // trame brute, ordonnée, APRÈS FACH_RULES, aktuellSkip et fachSkip
   profil: ProfilEffectif,        // tags_derives toujours présents ; profil.* absent = contenu sans profil
   caseId: string,
+  ctx?: CohereCtx,               // antworten (r3), banque (r3), allowed, casIndex ; reponse? (r5, 7 oct.)
 ): { trame: TrameChapter[]; ecarts: Ecart[] };
 // playedTrame(c) gagne un champ additif : { chapters, fach?, ecarts }
+// CohereCtx.reponse?: (p: Phrase) => string | undefined — la réplique de la fiche (antworten des sondes,
+//   frageAntworten au texte exact d'une question du cas) ; absent = r5 inactive.
+// PhraseVariant.porte?: Signe[] — CALCULÉ par r5, jamais écrit à la main ni publié.
 ```
 
 **Ce que `cohere` ne fait pas (I3).** `FACH_RULES` reste la couche
@@ -644,7 +651,8 @@ absorbé, par r2.
     dans la trame (pas de Fach jouée, Frauenanamnese chez un homme), on insère
     **en fin d'Aktuelle Beschwerden**.
 
-**Ordre d'exécution, en une passe** : r1 → r4a → r2 → r3 → r4b.
+**Ordre d'exécution, en une passe** : r1 → r4a → r2 → r3 → r4b → r5 (r5 :
+7 oct. 2026, sur l'ordre final de l'entretien).
 
 **Précisions de K3 (revues Opus de `508639f6`, décisions de main).**
 - Une relance hors signe est une unité à part : elle suit **sa** décision même si sa mère est
@@ -684,6 +692,13 @@ et porte le signe.
 | **r2 — un signe, une question (D3, D4)** | Les gagnants sont calculés **en une fois** sur l'état d'après r4a. Pour chaque signe cherché par au moins deux unités, le **gagnant** est l'unité de rang minimal ; à rang égal, la première dans l'ordre de la trame. Deux **questions du cas** du même signe forment une **anomalie comptée** (`doublonsCas`) : la première gagne. Chaque perdante perd le signe : elle est retirée si elle n'en garde aucun ; sinon elle est réduite aux `parts` qui portent **au moins un** signe qu'elle garde ; sans `parts`, elle passe en `non-reduit`. Une question du cas gagnante prend la place de la première perdante **retirée** du **même chapitre** placée au-dessus d'elle (`symptoms.ts:215-233`, conservé) ; si la perdante est réduite ou non réduite, elle reste posée et la question du cas reste à sa place (K3, revue clinique R6, décision de main). Une entrée de `COHERENCE_ALLOWED` (r2) garde le signe sur la question nommée. | `retire` / `reduit` / `non-reduit` (`cause` = id du gagnant) ; `deplace` ; `garde-exception` ; `anomalie` |
 | **r3 — rien d'attendu absent** *(inactive sans profil)* | Pour chaque `s ∈ exige_eff` qu'aucune unité ne cherche, la sonde `SIGNE_DEF[s].bank` est insérée par la règle d'insertion. Si `antworten[bank]` manque, l'écart est marqué `sansReponse`, et ce marquage est **bloquant dès K3** (I6). **Jamais de texte inventé.** | `ajoute`, `cause` = tag ou `'exige'` |
 | **r4b — ordre sans présupposition** | Pour chaque question à `braucht`, dans l'ordre de la trame : si un signe de `braucht` n'est cherché que **plus bas**, la question est déplacée juste après la dernière des premières questions qui cherchent ces signes. Un signe de `braucht` cherché nulle part, ou un cycle, est une anomalie. On itère jusqu'au point fixe, en au plus *n* passes ; une question ne se déplace qu'une fois par passe. | `deplace` (`de`, `vers`, `cause` = signe) / `anomalie` |
+| **r5 — rien de déjà dit** *(7 oct. 2026 ; inactive sans `ctx.reponse`)* | Dans l'ordre final, chaque réplique jouée est lue par `ditsDe` (`symptoms.ts` : table fermée de motifs par signe, distincte de `TEXT_RE` ; présence ou absence ; l'absence et le chiffre d'une variation du poids sont **complets**). Une question de **banque** gardée dont un signe a été dit **plus haut** : **retirée** si tous ses signes sont dits ; **réduite** à ses `parts` si une partie l'est ; si la présence est dite sans les précisions, la part (ou la question) est **remplacée par sa première relance de précision qui se pose seule** (règle des auteurs ci-dessous), les suivantes en relances, sans leur condition ; une relance qui **déclare** un signe dit sort. Sinon, la question est **gardée entière, sans écart** (aucun `non-reduit` de plus). Une question qui demande une précision dans son texte (`PRECISION` : wie viel, seit wann, wo genau…) reste posée si seule la présence est dite. **Porteur** : la première réplique de l'entretien clinique qui a dit le signe (à défaut, celle des Personalia) le déclare dans `porte`, ajouté à son `sucht`. **Exclusions** : jamais une question du cas (rang 0) ; jamais un signe de `RISIKO_SIGNES` ; jamais une sonde de `SONDE_DIMENSION` (liste fermée dans `coherence.ts`) ; jamais un signe **exigé** dit aux seules Personalia, Eröffnung ou Abschluss (`HORS_ENTRETIEN`). Ne portent rien : la réplique d'une question du cas, celle d'une sonde d'antécédent (`akt-frueher`, `vor-`, `fam-`, `med-`, `nox-`, `all-` — identité (e)), un épisode passé dans la même phrase, un « dabei » hors d'Aktuelle Beschwerden. | `retire` / `reduit` (`cause` = id du ou des porteurs ; relances : `mere`) |
+
+**Règle r5 pour les auteurs de contenu (7 oct. 2026).**
+- **La réplique décide.** Une réplique de la fiche (`antworten`, `frageAntworten`) qui dit un signe, présent ou absent (« keinen Durchfall »), retire ou réduit la question de banque qui le demande plus loin. Écrire une réplique, c'est donc aussi écrire le guide : un signe cité à tort dans une réplique fait disparaître sa question.
+- **Une question de banque n'a pas de place fixe.** Selon les répliques du cas, elle peut disparaître, se réduire à une `part` ou céder sa place à sa relance.
+- **Une relance de précision doit pouvoir se poser seule**, puisque r5 peut l'ouvrir sans sa mère. Elle est autonome (`partNonAutonome` faux), fait au moins quatre mots et ne renvoie à rien de ce qui précède : ni `es`, `dabei`, `dann`, `davon`, `dort`, `dazu`, `beide`, ni un « das? » final. Écrire « Seit wann husten Sie? », pas « Seit wann? » ; écrire « Wechseln sich Durchfall und Verstopfung ab? », pas « Wechseln sich beide ab? ». Une relance qui ne se pose pas seule n'est pas fautive : la question reste alors posée entière.
+- **Une question de banque à plusieurs signes** a des `parts`. Sans elles, r5 ne peut que la garder entière.
 
 **Propriétés (opposables).**
 - **Pure** : aucune entrée mutée, ni `Date`, ni hasard, ni E/S. Seuls les
@@ -695,7 +710,12 @@ et porte le signe.
   `detache`. INV-77 et INV-80 garantissent que ce que r3 ajoute est mono-signe,
   pertinent, ni exclu ni skippé : ni r1 ni r2 ne peut donc le retirer au
   passage suivant. Sans eux, l'idempotence n'est pas promise.
-- **Sans texte inventé** et **sans toucher `antworten`**.
+- **Sans texte inventé** et **sans toucher `antworten`**. r5 **lit** les
+  répliques, sans les modifier. Une relance ouverte par r5 est une découpe de
+  sa variante, au sens de la précision K4, et garde au plus le préfixe de
+  dimension de sa mère.
+- **r5 conserve r4b** : le porteur est joué avant la question qu'il remplace.
+  Un `braucht` satisfait le reste.
 
 ### 10.5 Les écarts de cohérence
 
@@ -706,12 +726,12 @@ Le mot « journal » est réservé au journal d'entraînement (m10). Les traces 
 export type EcartAction = 'retire' | 'reduit' | 'non-reduit' | 'ajoute' | 'deplace'
   | 'detache' | 'garde-exception' | 'anomalie' | 'profil-absent';
 export interface Ecart {
-  regle: 0 | 1 | 2 | 3 | 4;        // 0 = profil absent
+  regle: 0 | 1 | 2 | 3 | 4 | 5;    // 0 = profil absent ; 5 = r5 (7 oct. 2026)
   action: EcartAction;
   question: string;                // identifiant §10.4
   signes: Signe[];
   mere?: string;                   // relance : id de la mère dont elle suit l'écart (même action)
-  cause?: string;                  // id gagnant (r2), tag / 'exige' (r3), signe (r4b), 'profil' / 'exclut' (r1)
+  cause?: string;                  // id gagnant (r2), tag / 'exige' (r3), signe (r4b), 'profil' / 'exclut' (r1), id(s) du porteur (r5)
   de?: KapitelId; vers?: KapitelId;
   sansReponse?: true;              // r3
   raison: string;                  // phrase française, gabarit fixe par (regle, action)
@@ -802,6 +822,18 @@ export const COHERENCE_ALLOWED: ReadonlyArray<{
   testiculaire est une règle générique (`SUCHT_AUSSER`, tag dérivé `hoden`),
   pas une entrée par cas (m11).
 
+**r5 et la porte (7 oct. 2026).** La porte monte la trame par `playedTrame`,
+dont le contexte fournit `reponse` : ses compteurs se mesurent donc **avec**
+r5, et `porte` compte dans `sucht`. Aucun compteur n'est ajouté par ce lot.
+Deux suites sont proposées, sans être écrites ici :
+- (P-r5a) Le plafond des constats de banque (`PLAFOND_BANQUE = 122`) vit
+  aujourd'hui dans `reponseDoublon.test.ts`. Il gagnerait à passer au fixture
+  `coherence-budget.json` (`brut.redites`), sous `checkBudgetFloor`, pour avoir
+  un seul mécanisme de plancher.
+- (P-r5b) `COHERENCE_ALLOWED` reste `regle: 1 | 2`. r5 n'a pas d'exception
+  nominative : une question que r5 retire à tort se corrige à la source (la
+  réplique ou les `parts`), ou par un motif de `ditsDe`.
+
 `checkPlayedTrame` (lexical, tolérance `deepens` **retirée**, D3) reste en
 filet secondaire. `checkProbeOverlap` et `checkQuestionOrder` restent
 informatifs.
@@ -817,7 +849,10 @@ informatifs.
    - une question du cas retirée ;
    - un `sansReponse` : il faut écrire la réponse dans `antworten` ;
    - un `non-reduit` : il faut écrire des `parts` ;
-   - une anomalie.
+   - une anomalie ;
+   - un écart r5 (7 oct.) : il vérifie que la réplique `cause` dit bien le
+     signe, et que la relance ouverte se pose seule (§10.4, règle r5 pour les
+     auteurs).
 3. **Relire.** Le relecteur clinique lit les écarts de tout nouveau cas, et
    1 cas sur 5 d'un lot de reprise.
 4. **Porte.** Le cas n'entre que si `checkCoherence` passe.
@@ -844,6 +879,11 @@ L'étape est inscrite en K5 dans `app/scripts/PIPELINE.md` et dans
   - r2 et r4 s'appliquent ;
   - une question du cas sans `sucht` est invisible à r2, comme aujourd'hui.
 - `playedTrame` garde sa forme et gagne `ecarts`.
+- **r5 (7 oct. 2026)** : `porte` est un champ du `PhraseVariant` joué,
+  **calculé** au montage. Il n'est jamais écrit dans `content_items` ni dans
+  le bundle. Un client ancien ne le connaît pas ; il garde son ancienne
+  trame, sans r5. `CohereCtx.reponse` et `Ecart.regle = 5` sont additifs.
+  Sans `reponse`, r5 est inactive.
 - Le Rollenskript et `antworten` ne sont pas touchés par `cohere`. Seul DM1
   supprime 18 clés, en K1 et après fusion.
 
@@ -866,6 +906,7 @@ L'étape est inscrite en K5 dans `app/scripts/PIPELINE.md` et dans
 | **INV-89** | La porte est bloquante (pas de `\|\| true`) ; les 6 compteurs après montage valent 0 dès K3 ; le plancher `brut` / `residu` ne remonte jamais ; `COHERENCE_ALLOWED` n'a ni entrée sans raison, ni entrée périmée. | ajouter `\|\| true` au job ; augmenter un compteur du fixture ; ajouter une exception sans `raison` |
 | **INV-90** | Contenu sans `profil` (compte dès K3) : FACH_RULES, `aktuellSkip`, `fachSkip`, tags dérivés et `SUCHT_AUSSER` s'appliquent ; seuls r1-hors-profil et r3 sont inactifs, avec un écart `profil-absent` ; r2 et r4 s'appliquent. | supprimer `profil` d'une fixture : une question hors profil est retirée (rouge), ou une sonde `fachSkip` réapparaît (rouge) |
 | **INV-91** | **Une relance de précision n'est pas une unité** : elle hérite du signe de sa mère et n'est jamais comptée comme doublon de celle-ci. Une relance qui déclare un autre signe est une unité (r2 et r4a s'appliquent). | traiter « Länger oder kürzer als eine halbe Stunde? » (sous `fach-rheuma-morgensteifigkeit`) comme une unité : r2 la retire comme doublon de `steifigkeit` |
+| **INV-92** *(7 oct. 2026)* | **r5 ne retire que ce qui a été dit.** Sur les 130 cas, les signes cherchés par la trame jouée sont les mêmes avec et sans r5. Tout signe perdu par une question l'a été parce qu'une réplique jouée **avant** elle le dit, et cette réplique le porte (`porte`). r5 ne touche jamais une question du cas, un signe de risque, une sonde de dimension, ni un signe exigé dit aux seules Personalia. Une réplique au passé, un facteur (« beim Husten ») ou une image ne valent pas réponse. INV-86 et INV-87 couvrent r5. | désactiver r5 (pankreatitis redemande « Übelkeit oder Erbrechen ») ; supprimer le porteur ; ôter le filtre du passé (myokarditis perd veg-fieber) ; ôter la polarité ; ôter la garde de dimension ou de précision ; compter une réplique jouée **après** la question |
 
 ### 10.10 Lots, ordre et tests de contrat
 
@@ -890,6 +931,7 @@ Q-gyn → K0 → K1 → K2 → K3 → K4 → K5 → Q3 → Q4 → Q5 → Q7 → 
 | **K3** | `cohere` au montage (remplace `dedupeBySymptom` et `FACH_COVERS`) ; `ecarts` ; porte bloquante après montage. **Merge seulement si `ajouteSansReponse = 0`.** Ne touche pas `features/simulation`. | `coherence.test.ts` : INV-81 à INV-88, INV-90 et INV-91, sur fixtures **et** sur `case-gastroenteritis` / `case-fibromyalgie` réels (trames de la spec §3.3 attendues ligne à ligne) ; `coherence.fachCovers.test.ts` : chaque paire de `FACH_COVERS` est retirée par r2 sur les cas qui jouent la Fach, ou l'écart est listé au rapport K3 avec sa raison ; sortie de `fachChapterRaw` (FACH_RULES) identique avant et après K3 (I3) |
 | **K4** | `sucht` et `braucht` des questions du cas ; `parts` manquants ; `residu` → 0 | plancher |
 | **K5** | `CaseQuestion.sucht` requis au type ; `residu` bloquant ; **DM3** : `app/scripts/PIPELINE.md` et `.claude/agents/content-case-author.md` | INV-89 complet ; `quality.yml` sans `\|\| true` |
+| **Banque** *(7 oct. 2026)* | r5 et `ditsDe` ; `porte` ; `CohereCtx.reponse` (`ctxDuCas`) ; trois relances de banque rendues autonomes ; parts de `fach-uro-fieber` | `coherenceBanque.test.ts` : INV-92 (130 cas : mêmes signes avec et sans r5 ; chaque perte dite plus haut et portée), lecture et garde-fous ; `coherence.test.ts` : INV-86 sur 130 cas **avec** `reponse` ; `reponseDoublon.test.ts` : `PLAFOND_BANQUE` ≤ 122. **À écrire** (proposé au plan, hors de ce contrat) : (a) un test de la règle des auteurs, pour vérifier que toute relance de précision de la banque, sous une part ou une question mono-signe, se pose seule ; (b) P-r5a (§10.6). **À ajouter au pipeline** (DM3) : la règle r5 pour les auteurs (§10.4) dans `PIPELINE.md` et `content-case-author.md`. |
 
 ### 10.11 Ce que la porte ne voit pas
 
@@ -903,6 +945,12 @@ Q-gyn → K0 → K1 → K2 → K3 → K4 → K5 → Q3 → Q4 → Q5 → Q7 → 
   précision ~55 %).
 - **La qualité d'une sonde de la banque** ajoutée dans un cas qu'elle ne
   connaît pas. La règle 5 (variante résolue) s'applique toujours.
+- **La justesse d'une lecture r5 (7 oct.)**. La porte ne voit pas qu'une
+  réplique a été lue comme disant un signe qu'elle ne dit pas : le signe passe
+  pour porté, et `exigeAbsent` reste à 0. Seules la relecture clinique des
+  écarts r5 et les tests de lecture de `coherenceBanque.test.ts` l'attrapent.
+  À l'inverse, un signe dit mais non lu laisse la question posée : la panne
+  est sûre.
 
 ---
 
@@ -945,3 +993,16 @@ Q-gyn → K0 → K1 → K2 → K3 → K4 → K5 → Q3 → Q4 → Q5 → Q7 → 
     par le bundle. C'est faux : `main.tsx:132` → `contentLoader.sync()` →
     fonction `content`. La compatibilité « sans profil » est donc réelle dès
     K3.
+13. **r5 lit du texte, alors qu'ADR-0023 a écarté « déduire signes et profil
+    du texte »** (7 oct. 2026). Avec `porte`, une lecture de réplique peut
+    satisfaire `exigeAbsent`. **Tranché : amendement, pas de nouvel ADR.**
+    L'alternative écartée visait les **déclarations** d'une question, lues par
+    `TEXT_RE` (précision de 50 à 74 %). r5 lit les **répliques**, avec une
+    table fermée qui privilégie la précision, et un signe non lu laisse la
+    question posée. INV-92 garantit qu'aucun signe ne quitte la trame. Reste
+    ouvert : aucune revue clinique formelle des 165 décisions de r5 (rapport du
+    lot, « Non vérifié »). Si la direction juge qu'une lecture de réplique ne
+    doit pas satisfaire un signe **exigé**, la correction est locale : élargir
+    à tous les chapitres la garde `portable` de r5 (`coherence.ts`), qui ne
+    s'applique aujourd'hui qu'aux Personalia, à l'Eröffnung et à l'Abschluss.
+    La décision lui revient.

@@ -6,6 +6,8 @@ prises par main, le 4 oct. 2026 ; révisé après revue Opus (§ Revue)
 · **Amende** : ADR-0019 (le lexique `Symptom` devient le lexique de signes, et
 `sucht` devient obligatoire) · **Contrat** : `docs/contracts/frage-atomique.md` §10
 · **Spec** : `docs/superpowers/specs/2026-10-04-moteur-coherence-anamnese.md`
+· **Amendé le 7 oct. 2026** : règle r5 et champ `porte` (lot Banque, FB3-A2 —
+§ Amendement r5)
 
 ## Contexte
 
@@ -65,7 +67,9 @@ chaque écart est tracé. Une porte CI bloquante vérifie la trame après montag
    - r2 : un signe, une question, dans l'ordre D4 ;
    - r3 : un signe exigé et absent est ajouté depuis la banque, jamais par du
      texte inventé ;
-   - r4b : aucune question avant le signe qu'elle présuppose.
+   - r4b : aucune question avant le signe qu'elle présuppose ;
+   - r5 *(amendement du 7 oct. 2026)* : une question de banque ne redemande
+     pas ce qu'une réplique jouée avant elle a déjà dit.
 
    Chaque écart est tracé avec sa raison.
 5. **La porte `checkCoherence.mjs`** (job `contrats`, bloquante). Après
@@ -168,3 +172,60 @@ décisions ci-dessous sont celles de main, appliquées au contrat §10–§11.
 | **m13** — `phraseFollowUp` point de normalisation unique | **Accepté** (avec I9). | §10.2 |
 | **m14** — K3 ne touche pas `features/simulation` | **Accepté.** | §10.5, §10.10 |
 | Questions de la première version (sondes `redundant`, relances conditionnelles et D7) | **Closes** par DM1 et DM2. | §10.0 |
+
+## Amendement r5 — « rien de déjà dit » (7 oct. 2026, lot Banque)
+
+**Motif.** FB3-A2 : le patient dit « mir ist sehr übel, ich habe mehrmals
+erbrochen », puis le guide demande « Leiden Sie an Übelkeit oder Erbrechen? ».
+r1 à r4b ne lisent que les questions (`sucht`), jamais les répliques. Mesure du
+lot (`app/docs/reports/lead-s3-banque.md` §3) : 369 constats de banque sur
+114 cas avant r5, 122 sur 73 cas après.
+
+**La règle.**
+- **Ordre** : r5 s'exécute **après r4b**, sur l'ordre final de l'entretien.
+  La chaîne devient r1 → r4a → r2 → r3 → r4b → r5.
+- **Entrée** : la réplique de la fiche à chaque question jouée
+  (`CohereCtx.reponse`, lue dans `antworten` et `frageAntworten`, la source du
+  patient simulé). Elle est lue par `ditsDe` (`symptoms.ts`), une table fermée
+  de motifs par signe, distincte de `TEXT_RE`. Elle donne la présence ou
+  l'absence ; l'absence et le chiffre d'une variation du poids sont
+  « complets ». Sans `reponse`, r5 est inactive.
+- **Effet** sur une question de banque dont un signe a été dit **plus haut** :
+  - **retirée** si tous ses signes sont dits ;
+  - **réduite** à ses `parts` si une partie seulement l'est ;
+  - **ouverte sur ses relances de précision** quand la présence est dite sans
+    les précisions : la relance rédigée devient la question, sans sa
+    condition (« Falls ja: Wie viel …? » → « Wie viel …? ») ;
+  - **gardée entière, sans écart**, quand rien de cela ne s'applique.
+- **Porteur** : la question dont la réplique a dit le signe le déclare dans
+  le champ calculé `PhraseVariant.porte`, compté dans son `sucht`. Le signe
+  reste cherché une fois : r2, r3 et la porte sont inchangés.
+- **Exclusions** : r5 ne touche jamais une question du cas (rang 0), un signe
+  de `RISIKO_SIGNES`, une sonde de `SONDE_DIMENSION`, ni un signe exigé qui
+  n'a été dit qu'aux Personalia (`HORS_ENTRETIEN`). La réplique d'une question
+  du cas ou d'une question d'antécédent ne porte rien.
+
+**Pourquoi un amendement, pas un nouvel ADR.** La règle ne renverse aucune
+décision :
+- D4 classe des questions qui *cherchent* le même signe. r5 compare une
+  question à une *réplique*, dans l'ordre joué. Les deux portent sur des objets
+  différents.
+- « Jamais de texte inventé » tient : une relance ouverte est une découpe de sa
+  variante (précision K4 du contrat §10.4).
+
+Un point de tension est relevé, tranché au contrat §11.13 : l'alternative
+écartée « déduire signes et profil du texte ». r5 lit du texte, et `porte`
+alimente `exigeAbsent`. Pourquoi c'est admis :
+- r5 lit des répliques, pas les déclarations d'une question ;
+- sa lecture privilégie la précision : un signe non lu laisse la question
+  posée ;
+- r5 ne retire rien que la porte ne voie : les signes cherchés sont les mêmes
+  avec et sans r5.
+
+**Compatibilité.** `porte` est calculé au montage et n'est jamais écrit dans
+le contenu publié. Aucun schéma SQL ni protocole de sync n'est touché. Les
+types `Ecart.regle` (0–5) et `CohereCtx.reponse?` sont additifs.
+
+**Preuves et suites** : INV-92 (nouveau), et INV-86 et INV-87 étendus à r5 ;
+`coherenceBanque.test.ts`, `coherence.test.ts` (INV-86 sur 130 cas, avec
+`reponse`). Propositions hors code au contrat §10.6 et §10.10.

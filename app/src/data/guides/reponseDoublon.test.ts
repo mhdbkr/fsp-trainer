@@ -34,7 +34,8 @@ function constats(c: Case): Constat[] {
     const cas = phraseIsCaseSpecific(p);
     const sonde = cas ? undefined : phraseProbes(p)[0];
     if (cas || sonde) {
-      for (const signe of phraseSucht(p)) for (const v of vus) if (v.signes.has(signe)) {
+      // Lot Banque : la question dont la réplique a DIT un signe le porte (`porte`, compté dans `sucht`) sans le demander.
+      for (const signe of phraseSucht(p).filter((x) => cas || typeof p === 'string' || !p.porte?.includes(x))) for (const v of vus) if (v.signes.has(signe)) {
         out.push({ cas: c.id, signe, sonde: v.sonde, question: cas ? phraseText(p) : sonde!, ...(cas ? {} : { banque: true as const }) });
       }
     }
@@ -128,7 +129,15 @@ describe('Q4 — une réplique jouée avant une question du cas ne dit pas déj�
 // structurel : le motif dit la plainte que la Fach redemande (fièvre, toux, poids), hors de portée d'un lot de contenu.
 // Q5 fixeur : 367 → 369, hausse écrite à la main — deux textes imposés par la relecture de langue reprennent ce que le motif a
 // déjà dit (pneumonie « das Fieber und der Husten reichen mir » ; appendizitis « ich glaube, ich habe Fieber ») : la lecture les compte.
-const PLAFOND_BANQUE = 369;
+// Lot Banque (FB3-A2) : 369 → 122 — r5 du moteur (`cohere`) : une question de banque ne redemande plus ce qu'une réplique jouée
+// avant elle a dit (retirée, réduite à ses parts, ou ouverte sur ses relances de précision). La lecture ne compte plus le signe
+// qu'une question PORTE (`porte`, sa réplique l'a dit) sans le demander : sans cette règle, 144. Le reste, par catégorie (rapport
+// `lead-s3-banque.md`) : 58 lectures par mots-clés que la lecture du moteur (`ditsDe`) ne tient pas pour dites (facteur, image,
+// poids du jour, autre signe de la même famille, « dabei », passé) ; 41 sondes de dimension (SONDE_DIMENSION) ; 9 poids exigés dits
+// aux seules Personalia ; 8 questions sans parts pour ce qui reste ; 5 répliques de questions du cas ; 1 antécédent.
+// Passe fixeur de la revue clinique : 122 → 131, hausse écrite à la main, voulue — 8 « gemessen? » de veg-fieber gardés quand la
+// fièvre n'est dite que présente (P1-1 : la mesure n'est pas la présence) ; 1 chute de tia (P1-2 : « vorher » est le passé).
+const PLAFOND_BANQUE = 131;
 
 describe('Q4 fixeur — les questions de BANQUE jouées après `cohere` : même lecture', () => {
   const banque = seedCases().flatMap(constats).filter((k) => k.banque);
