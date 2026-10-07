@@ -21,6 +21,9 @@ export const REFERENZDATUM = '2026-10-07';
  *  clinique, pas oubli. La date reste exigée au champ et dans l'Arztbrief. */
 export const REPLIQUE_SANS_DATE = {
   'case-demenz': 'le patient dément ne retrouve pas son année de naissance (« das müsste ich zu Hause nachschauen »)',
+  // Le patient confus ne sait pas son âge, la fille le corrige ; la réplique
+  // est déjà au plafond O3 du prompt externe (12 000 signes).
+  'case-delir': 'le patient délirant ignore son âge ; réplique au plafond O3 du prompt externe',
 };
 
 const MONATE = ['januar', 'februar', 'märz', 'april', 'mai', 'juni', 'juli', 'august', 'september', 'oktober', 'november', 'dezember'];
