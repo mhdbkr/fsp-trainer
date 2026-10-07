@@ -68,7 +68,7 @@ Méthode commune aux 10 cas :
 - la Diagnostik est rangée par étape ;
 - la thérapie est raisonnée sur ses médicaments, allergies, comorbidités et sa situation ;
 - les Erstmaßnahmen sont des consignes courtes ;
-- l'examinerSheet a 5 sections (6 pour lyme), avec une section « Aufklärung (2 Minuten) » ;
+- l'examinerSheet a 5 sections, dont une « Aufklärung (2 Minuten) » ; lyme garde ses 6 sections d'origine, sans section Aufklärung ;
 - les Prüfungsfallen ne recopient pas la fiche.
 
 Le Muster est aligné quand la fiche le contredisait.
@@ -278,7 +278,7 @@ C'est un point à trancher (§ 8).
 | CROSS, FLOT4, nivolumab adjuvant ; Mellow-Pinkas | oesophaguskarzinom | S3 (AWMF 021-023OL, 2023) ; *NEJM* 2012, *Lancet* 2019, *NEJM* 2021 ; *Arch Intern Med* 1985 |
 | Clopidogrel dans l'AOMI ; LDL < 55 mg/dl ; interaction ibuprofène–ASS | pavk | ESC PAD 2024 ; CAPRIE 1996 ; ESC/EAS 2019 ; FDA 2006 |
 | Doxycycline 14 j ; ceftriaxone dans la neuroborréliose ; zones FSME | lyme | S2k Kutane Lyme-Borreliose (AWMF 013-044) ; S3 Neuroborreliose (AWMF 030-071, 2018) ; RKI |
-| Coloscopie des femmes dès 50 ans depuis avril 2025 ; apparentés 10 ans avant, au plus tard à 40–45 ans | kolorektales-ca | G-BA KFE-RL (décision de 2024) ; S3 KRK (AWMF 021-007OL, 2019) |
+| Coloscopie des femmes dès 50 ans depuis avril 2025 ; apparentés 10 ans avant, au plus tard à 40–45 ans | kolorektales-ca | G-BA KFE-RL (décision du 16.01.2025, en vigueur au 1ᵉʳ avril 2025) ; S3 KRK (AWMF 021-007OL, 2019) |
 | IRM selon parésie, queue de cheval, 6 semaines ; BK 2108 | bandscheibenvorfall | DGN S2k Lumbale Radikulopathie (AWMF 030-058, 2018) ; BKV annexe 1 |
 | Facteurs de risque justifiant l'antibiothérapie ; avertissements sur les fluoroquinolones | divertikulitis | S3 Divertikelkrankheit (AWMF 021-020, 2021) ; BfArM Rote-Hand-Brief 2019 |
 
@@ -345,8 +345,15 @@ Compléments :
 - gerd et myokardinfarkt (fréq. 7, DD 3, Diag 3, ES 2) ;
 - cholezystitis (fréq. 4).
 
-Ensuite, un passage de concision sur les FW riches non touchés, dont les redites restent élevées (oesophaguskarzinom,
-kolorektales-ca, divertikulitis, bandscheibenvorfall).
+**Concision de trois Fachwissen de plus de 30 écrans** (revue direction I3), élément nommé de Lc4 :
+
+| FW | Écrans à 390 px, au repos / tout ouvert | Redites (méthode direction) | Cible |
+|---|---|---|---|
+| fw-oesophaguskarzinom | 30,4 / 37,1 | 16 | ≤ 16 écrans, ≤ 5 redites |
+| fw-kolorektales-ca | 31,2 / 32,5 | 26 | ≤ 16 écrans, ≤ 5 redites |
+| fw-divertikulitis | 29,7 / 31,4 | 18 | ≤ 16 écrans, ≤ 5 redites |
+
+fw-bandscheibenvorfall (14,1 écrans, 7 redites selon la méthode direction) peut suivre dans le même passage.
 
 ## Non vérifié
 
@@ -355,7 +362,96 @@ kolorektales-ca, divertikulitis, bandscheibenvorfall).
   - GPT > 150 U/l ;
   - CRP > 150 mg/l ;
   - APPAC et CODA ;
-  - la date G-BA d'avril 2025 ;
   - la durée de la ceftriaxone dans la neuroborréliose.
 - La langue (C1, registre) n'a été relue que par moi ; il n'y a pas eu de passe `fsp-language-reviewer`.
 - Le rendu des fiches dans le navigateur n'a pas été vérifié ; aucun composant n'a changé.
+
+## 10. Passe fixeur des 3 revues (clinique, direction, langue — sommet revu `da17e30c`)
+
+Les correctifs ont été appliqués en une passe : 115 remplacements scriptés, avec contrôle d'unicité dans le bloc de chaque cas. Le texte retenu est celui des revues, sauf pour les arbitrages du coordinateur ci-dessous.
+
+**Clinique : P1-1 à P1-4, tous les P2, 2 négatifs**
+- **P1-1, lyme : 14–21 Tage partout.** Les grippale Allgemeinsymptome sont une dissémination précoce (S2k 2023, tableau 5), d'où des modifications à chaque endroit qui donnait la durée :
+  - VD réécrite ;
+  - doxycycline sur 14–21 jours, avec une mise en garde contre la réaction de Herxheimer ;
+  - patientWorte « zwei bis drei Wochen » ;
+  - examinerSheet ;
+  - Muster (Arztbrief et Vorstellung) ;
+  - alternative (amoxicilline, céfuroxime) et ceftriaxone ;
+  - FW : thérapie (« 10–14 Tage » pour l'EM solitaire, « 14–21 Tage » s'il est disséminé), alternative « über dieselbe Dauer wie Doxycyclin », réponse d'examen.
+  - Vérifié sur les objets chargés : plus aucun « 14 Tage » seul ni « zwei Wochen » seul dans le cas ni dans fw-lyme.
+- **P1-2, appendizitis** : VD sans ibuprofène (texte M3 de la direction). Réponse « ein Schmerzmittel hat er seit Beginn nicht genommen ». La Falle « nach der letzten Ibuprofen-Einnahme fragen » est conservée.
+- **P1-3, fw-kolorektales-ca** : l'iFOBT se fait tous les 2 ans dès 50 ans, pour les femmes comme pour les hommes, depuis avril 2025 (avant : chaque année de 50 à 54 ans).
+- **P1-4, divertikulitis** : céphalosporine plus métronidazole (ceftriaxone i.v. puis céfuroxime per os). La ciprofloxacine reste seulement en réserve, si les céphalosporines sont exclues aussi. Il n'y a plus de ciprofloxacine en première intention, ni dans la fiche, ni dans l'examinerSheet, ni dans le Muster.
+- **P2 :**
+  - ulcus : sérologie H. pylori (IgG) ou test après cicatrisation et pause de l'IPP, dans la fiche et l'examinerSheet ;
+  - fw-pavk : le Merksatz dit « Plättchenhemmer (ASS oder Clopidogrel) » ;
+  - pavk : TEA seulement en cas de sténose de la bifurcation fémorale ;
+  - divertikulitis : hémocultures « ab 38,5 °C (bei ihr gegeben) » ;
+  - lyme : « nicht gegen FSME geimpft », primovaccination après le tableau aigu ;
+  - magenkarzinom : signes B en faveur d'un MALT ;
+  - bandscheibenvorfall : déclaration BK 2108 obligatoire (§ 202 SGB VII) et déclaration d'accident ;
+  - fw-appendizitis : perforation traitée le plus souvent par laparoscopie ;
+  - Muster oesophaguskarzinom : « postmenopausal ».
+- **P2, magenkarzinom (structure)** : la metformine, H. pylori, la nutrition et la psycho-oncologie quittent « Systemtherapie ». Elles vont dans une nouvelle section, **« Supportive Therapie und Begleitmaßnahmen »**, ajoutée en dernier dans la fiche **et** dans le FW, ce que `checkTherapieLabels` exige.
+- **Négatifs annotés** (seuls ceux-là, comme arbitré) :
+  - kolorektales-ca : « (gegen Divertikulitis und ischämische Kolitis) » ;
+  - divertikulitis : « kein Blut im Stuhl (gegen ischämische Kolitis) ».
+  - Liens manquants **279 → 277**.
+- **Rapport** : la décision du G-BA date du 16.01.2025.
+
+**Direction : I1, I2, M1 à M8 (M9 inchangé)**
+- **I1, Muster Vorstellung divertikulitis** : texte de la direction, sauf la dernière phrase, remplacée selon l'arbitrage (« stationäre Antibiose mit Ceftriaxon und Metronidazol — bei ihrem Hautausschlag auf Penicillin ist ein Cephalosporin vertretbar — »).
+- **I2, Muster Vorstellung kolorektales-ca** : « … auf ein kolorektales Karzinom im Rektum oder Sigma hin. », les DD en toutes lettres, « im Alter von 40 bis 45 Jahren ».
+- **M1 à M5, premières phrases** :
+  - M1, pavk : « vom Oberschenkeltyp rechts » ;
+  - M2, magenkarzinom : sans l'IMC ;
+  - M3, appendizitis : sans ibuprofène ;
+  - M4, Falle « vorbereitet sein » (cas et FW) ;
+  - M5, oesophaguskarzinom : « (nur noch Flüssiges passiert) ».
+- **M6, renvois au patient retirés du FW** :
+  - fw-oesophaguskarzinom : la question sur les facteurs de risque devient générale, et « Frau Sichel » est retiré. La phrase « Liegen beide Risikoprofile vor … » que j'avais prévue a aussi été retirée : elle redisait une phrase déjà présente et faisait monter les redites à 30.
+  - fw-kolorektales-ca : « Wie gehen Sie beim Staging eines kolorektalen Karzinoms vor? ».
+- **M7** : majuscules d'insistance retirées dans fw-pankreatitis (Lipase) et dans fw-lyme (DD FSME).
+- **M8** : la phrase du § 3 du rapport est corrigée (lyme garde ses 6 sections, sans section Aufklärung).
+- **Hors de ce fixeur, comme demandé** : I3 (concision des trois FW de plus de 30 écrans) est inscrit au § 9 avec sa cible chiffrée ; I4 (défilement horizontal) sera traité à part.
+
+**Langue : les 12 Important et tous les Mineurs**
+- **Accords** :
+  - « wurden » avec un sujet au singulier → « wurde » (Muster oesophaguskarzinom, ulcus, pavk) ;
+  - « droht die Progression » ;
+  - « Trias aus beidseitiger glutealer Claudicatio … ».
+- **Négation rapportée** : « Bluterbrechen habe sie verneint » (pankreatitis, oesophaguskarzinom).
+- **Oral sans symboles ni abréviations** :
+  - classification d'Adeno/Plattenepithel, Fontaine et ABI rédigés en phrases ;
+  - « Zustand nach Leistenhernien-Operation » ;
+  - « intravenöse Flüssigkeit », « Kontrastmittelallergie » ;
+  - « gegebenenfalls », « oder » à la place de « bzw. » ;
+  - « etwa 100 Metern », « intravenös ».
+- **Registre patient** : « Schlüssellochtechnik, also über kleine Schnitte », « den Abfluss verstopft », patientWorte de lyme sans « Anamnese ». La réponse au jury de fw-pankreatitis est en termes techniques.
+- **Mot juste** : c'est H. pylori qui est résistant à la clarithromycine, pas l'inverse ; « kontraindiziert » au lieu de « verboten » ; « Staging-CT » ; « 13C-Atemtest » ; « flexibles Endoskop » ; « p. o. » et « i. v. » ; guillemets allemands ; « retroileale Lage ».
+- **Divers** : la DD « CED » devient « Chronisch-entzündliche Darmerkrankung » (fiche et examinerSheet).
+- **Recoupements** : la langue n° 3 et n° 4 est couverte par les arbitrages I1 et I2.
+
+**Vérifications après la passe (code de sortie)**
+
+| Commande | Sortie |
+|---|---|
+| `npx tsc -b` | 0 |
+| `npm test -- --maxWorkers=2` | 0 (2 025 tests) |
+| `npm run test:c6 -- --maxWorkers=2` | 0 |
+| `node --test` sans `checkProbeCoverage`, puis `checkProbeCoverage.test.mjs` seul | 0, 0 |
+| les 18 `check*` de la CI, `checkTermRegister --require-all`, `evalDoctopus --dry` | 0 chacun |
+| `checkCoherence --case`, 10 cas | 0 × 10 |
+| `checkBudgetFloor.mjs origin/main` | 0 |
+| `npm run build` | 0 |
+| `git merge-tree --write-tree origin/main HEAD` | 0 |
+
+- Le test de garde passe : les 10 phrases de Fallvorstellung sont toujours sans « … ».
+- `caseTermLinks.json` a été régénéré.
+- **Redites** : aucune n'augmente.
+  - fiches : 0 × 10 ;
+  - FW, pour les 10 dans l'ordre du § 4 (fw-pankreatitis à fw-divertikulitis) : 0 / 1 / 1 / 3 / 29 / 1 / 11 / 34 / 19 / 36 ;
+  - c'est le même niveau qu'avant la passe : fw-oesophaguskarzinom est revenu à 29.
+
+**Toujours non vérifié** : la S3 Divertikelkrankheit 2021 n'a pas été lue dans le texte (schéma céphalosporine plus métronidazole). Le rendu dans le navigateur ne l'a pas été non plus.
