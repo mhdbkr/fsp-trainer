@@ -34,6 +34,8 @@ const FIXTURES = {
   // elle pousse à corriger la SOURCE. `null` (non mesurable avant K3) n'est pas un compteur.
   'app/scripts/fixtures/coherence-budget.json': (j) => ({ ...j.brut, ...j.residu }),
   'app/scripts/fixtures/trame-symptoms-baseline.json': (j) => ({ constats: j.findings?.length, relu: j.relu }),
+  // Lc4 (revue direction I6) : Fachwissen sans explication au patient, examinerQuestions mal formées.
+  'app/scripts/fixtures/fachwissen-floor-budget.json': (j) => ({ ...j.budget }),
   // Lot L0 : chaque paire (cas × sonde) est une clé — une paire retirée de la
   // liste est une clé disparue ; `kept` (paires conservées) ne remonte pas.
   'app/scripts/fixtures/fach-nature-pairs.json': (j) => {

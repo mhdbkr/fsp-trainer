@@ -1,0 +1,8 @@
+{
+  "note": "checkFachwissenFloor.mjs (Lc4, revue direction I6) : budgets dégressifs — Fachwissen sans question d'explication au patient, examinerQuestions sans « ? » final ou de moins de 4 mots. Ne remonte jamais (checkBudgetFloor.mjs).",
+  "budget": {
+    "sansExplication": 47,
+    "questionsMalFormees": 199
+  },
+  "hausses": []
+}
