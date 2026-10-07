@@ -1057,7 +1057,7 @@ export function seedCases(): Case[] {
         { frage: 'Hatten Sie schon einmal eine ähnliche Entzündung der Divertikel oder wurden deswegen behandelt?', kapitel: 'vorerkrankungen', sucht: ['frueher'] },
         { frage: 'Haben Sie beim Wasserlassen Luft oder Stuhlbeimengungen im Urin bemerkt?', kapitel: 'aktuell', sucht: ['miktion'] },
       ],
-      examinerQuestions: ['Warum keine Koloskopie im akuten Schub?', 'Wann operieren?'],
+      examinerQuestions: ['Warum keine Koloskopie im akuten Schub?', 'Wann operieren Sie die Patientin?'],
       examinerSheet: [
         { title: 'Verdachtsdiagnose und Begründung', interactions: [
           { frage: 'Was ist Ihre Verdachtsdiagnose?', reaktion: 'Akute Sigmadivertikulitis — seit drei Tagen Schmerzen im linken Unterbauch, Fieber bis 38,5 °C, Obstipation, bekannte Divertikulose.' },
@@ -1240,7 +1240,7 @@ export function seedCases(): Case[] {
         { frage: 'Hatten Sie schon einmal ähnliche Schmerzattacken, die von selbst wieder aufgehört haben?', kapitel: 'vorerkrankungen', sucht: ['frueher'] },
         { frage: 'Haben Sie eine Gelbfärbung der Haut oder der Augen bemerkt?', kapitel: 'aktuell', sucht: ['gelbfaerbung'] },
       ],
-      examinerQuestions: ['Was ist das Murphy-Zeichen?', 'Wann operieren?'],
+      examinerQuestions: ['Was ist das Murphy-Zeichen?', 'Wann operieren Sie die Patientin?'],
       pruefungsfallen: [
         'Vom Kolikschmerz zum Dauerschmerz mit Fieber: genau dieser Wechsel macht aus der Gallenkolik eine Cholezystitis.',
         'Nicht abwarten, bis die Entzündung abklingt: die frühe Operation ist der Intervalloperation überlegen.',
@@ -1650,7 +1650,7 @@ export function seedCases(): Case[] {
         { frage: 'Haben Sie nachts Husten oder eine heisere Stimme bemerkt?', kapitel: 'aktuell', sucht: ['husten', 'stimme'] },
         { frage: 'Verschlimmern sich die Beschwerden nach Kaffee, Alkohol oder fettigem Essen?', kapitel: 'aktuell', sucht: ['speisen'] },
       ],
-      examinerQuestions: ['Wann ÖGD indiziert?', 'Nennen Sie Alarmsymptome.'],
+      examinerQuestions: ['Wann ist eine ÖGD indiziert?', 'Welche Alarmsymptome kennen Sie?'],
       pruefungsfallen: [
         'Das Alter allein ist in der S2k-Leitlinie 2023 kein Alarmsymptom.',
         'Ein Ansprechen auf den PPI beweist die Refluxkrankheit nicht.',
@@ -1786,7 +1786,7 @@ export function seedCases(): Case[] {
         persona: 'Chef de chantier en pleine urgence : douleur écrasante 10/10, sueurs froides, angoisse de mort. Tu es agité, tu réponds vite et court, tu veux qu\'on agisse tout de suite.',
       },
       medicalView: {
-        verdachtsdiagnose: 'Akutes Koronarsyndrom, am ehesten ST-Hebungsinfarkt, bei seit 45 Minuten anhaltendem Ruheschmerz hinter dem Brustbein. Ob ein STEMI vorliegt, zeigt das EKG; Risikofaktoren sind 40 Packungsjahre, Hypertonie, eine unbehandelte Hypercholesterinämie und ein Infarkt des Bruders mit 55 Jahren.',
+        verdachtsdiagnose: 'Akutes Koronarsyndrom, am ehesten ST-Hebungsinfarkt, bei seit 45 Minuten anhaltendem retrosternalem Ruheschmerz. Ob ein STEMI vorliegt, zeigt das EKG; Risikofaktoren sind 40 Packungsjahre, Hypertonie, eine unbehandelte Hypercholesterinämie und ein Infarkt des Bruders mit 55 Jahren.',
         patientWorte: { verdacht: 'ein Herzkranzgefäß verschlossen ist und Ihr Herzmuskel deshalb zu wenig Blut bekommt', diagnostik: 'schreiben wir sofort eine Herzstromkurve und nehmen Blut ab, und dann bringen wir Sie direkt zur Herzkatheteruntersuchung', therapie: 'wird das verschlossene Gefäß im Herzkatheter wieder geöffnet und mit einer kleinen Gefäßstütze offen gehalten; je schneller, desto weniger Herzmuskel geht verloren' },
         differenzialdiagnosen: [
           { dd: 'Lungenembolie', unterscheidung: 'Plötzliche Luftnot und atemabhängiger Schmerz, oft nach Immobilisation oder mit geschwollenem Bein. Er hat keinen atemabhängigen Schmerz, keine Beinschwellung, keine Reise; sein schnelles Atmen erklärt sich durch Schmerz und Angst.' },
@@ -1858,7 +1858,7 @@ export function seedCases(): Case[] {
         { frage: 'Wurde bei Ihnen schon einmal ein Herzkatheter durchgeführt oder ein Stent gesetzt?', kapitel: 'vorerkrankungen', sucht: ['herz_vorgeschichte'] },
         { frage: 'Hatte in Ihrer Familie ein Mann vor dem 55. oder eine Frau vor dem 60. Lebensjahr einen Herzinfarkt?', kapitel: 'familie-sozial', sucht: ['familie_herz'] },
       ],
-      examinerQuestions: ['STEMI vs. NSTEMI?', 'Zeitfenster der PCI?', 'Akuttherapie?'],
+      examinerQuestions: ['Was ist der Unterschied zwischen einem STEMI und einem NSTEMI?', 'In welchem Zeitfenster muss die PCI erfolgen?', 'Wie sieht die Akuttherapie aus?'],
       examinerSheet: [
         {
           title: 'Verdachtsdiagnose und Sofortmaßnahmen',
@@ -5861,10 +5861,10 @@ export function seedCases(): Case[] {
         patientWorte: { verdacht: 'eine entzündliche Erkrankung des Nervensystems vorliegt, die als multiple Sklerose bezeichnet wird', diagnostik: 'machen wir eine Kernspintomographie des Kopfes und Rückenmarks sowie eine Untersuchung des Nervenwassers', therapie: 'entscheiden wir nach dem MRT, ob ein hochdosiertes Kortison über die Vene hilft, und danach besprechen wir eine langfristige Basistherapie' },
         differenzialdiagnosen: [
           { dd: 'Spinalkanalstenose oder spinale Raumforderung', unterscheidung: 'Die Stenose macht belastungs- und lageabhängige Beschwerden bei Älteren; sie ist jung und hat keine Lageabhängigkeit. Ein langsam zunehmendes Defizit eines Beins kann aber auch ein Tumor im Spinalkanal sein: MRT der gesamten Wirbelsäule.' },
-          { dd: 'Lumbaler Bandscheibenvorfall (Diskusprolaps) mit Radikulopathie', unterscheidung: 'akuter Beginn nach Hebetrauma, dermatombezogener Schmerz mit Husten-/Pressverstärkung, Lasègue positiv — hier vollständig schmerzfrei und nicht dermatomgebunden; MRT der LWS zum Ausschluss.' },
-          { dd: 'Neuromyelitis-optica-Spektrum-Erkrankung (NMOSD) / MOG-Antikörper-Erkrankung', unterscheidung: 'schwere, oft beidseitige Optikusneuritis und langstreckige (≥ 3 Wirbelkörper) Myelitis; Nachweis von Aquaporin-4- bzw. MOG-Antikörpern, oligoklonale Banden meist negativ — therapeutisch entscheidend, da Interferone hier schaden.' },
+          { dd: 'Lumbaler Bandscheibenvorfall (Diskusprolaps) mit Radikulopathie', unterscheidung: 'Akuter Beginn nach Hebetrauma, dermatombezogener Schmerz mit Husten-/Pressverstärkung, Lasègue positiv — hier vollständig schmerzfrei und nicht dermatomgebunden; MRT der LWS zum Ausschluss.' },
+          { dd: 'Neuromyelitis-optica-Spektrum-Erkrankung (NMOSD) / MOG-Antikörper-Erkrankung', unterscheidung: 'Schwere, oft beidseitige Optikusneuritis und langstreckige Myelitis über mindestens drei Wirbelkörper. Ihre Sehstörung war einseitig und hat sich vollständig erholt; Aquaporin-4- und MOG-Antikörper werden trotzdem bestimmt, weil Interferone eine NMOSD verschlechtern.' },
           { dd: 'Funikuläre Myelose bei Vitamin-B12-Mangel', unterscheidung: 'Symmetrische Hinterstrangsymptome und makrozytäre Anämie, bei Vegetarismus oder Magenerkrankung. Sie isst Mischkost, die Beschwerden sind einseitig; Vitamin B12 und Blutbild schließen sie aus.' },
-          { dd: 'Polyneuropathie', unterscheidung: 'seitengleiche, distal-symmetrische, sockenförmige Missempfindungen mit abgeschwächten Reflexen; hier einseitige Beteiligung mit gesteigerten Reflexen (zentrales Muster); Abklärung durch Elektroneurographie, HbA1c, Vitamin B12.' },
+          { dd: 'Polyneuropathie', unterscheidung: 'Seitengleiche, distal-symmetrische, sockenförmige Missempfindungen mit abgeschwächten Reflexen; hier einseitige Beteiligung mit gesteigerten Reflexen (zentrales Muster); Abklärung durch Elektroneurographie, HbA1c, Vitamin B12.' },
           { dd: 'Neuroborreliose', unterscheidung: 'Zeckenstich, Erythema migrans, schmerzhafte Radikulitis (Bannwarth-Syndrom), Fazialisparese; Liquor mit lymphozytärer Pleozytose und intrathekaler Borrelien-Antikörperbildung — hier anamnestisch kein Zeckenstich.' },
           { dd: 'Periphere arterielle Verschlusskrankheit (pAVK)', unterscheidung: 'Belastungsabhängiger Wadenschmerz bei Rauchern und Älteren. Sie ist schmerzfrei, raucht nicht, die Beschwerden sind sensibel und motorisch; Fußpulse tasten genügt.' },
         ],
@@ -5917,7 +5917,6 @@ export function seedCases(): Case[] {
           'Neurologischen Status dokumentieren',
           'MRT von Schädel und Wirbelsäule mit Kontrastmittel',
           'Lumbalpunktion und evozierte Potenziale planen',
-          'Keine notfallmäßige Aufnahme nötig',
           'Angst und Wohnsituation ansprechen',
         ],
         notfall: false,
@@ -5956,7 +5955,7 @@ export function seedCases(): Case[] {
         'Sie hat keine Schmerzen: eine schematisch durchgezogene Schmerzanamnese kostet Zeit, und gerade die Schmerzfreiheit spricht gegen Bandscheibenvorfall und pAVK.',
         'Die Spinalkanalstenose als Differenzialdiagnose nennen: eine Prüferin in Reutlingen wollte sie ausdrücklich hören.',
         'Die Fisch- und Meeresfrüchteallergie mit Angioödem dokumentieren; sie ist keine Kontraindikation für Gadolinium.',
-        '„Doppelbilder“ der Patientin erklären: „Sie sehen einen Gegenstand doppelt.“',
+        '„Doppelbilder“ beim Fragen erklären: „Sehen Sie einen Gegenstand manchmal doppelt?“',
         'Auf die Frage nach einer dringenden Aufnahme nicht reflexartig „ja“ sagen: die Abklärung kann geplant erfolgen.',
       ],
       status: 'À faire',
@@ -6199,16 +6198,16 @@ export function seedCases(): Case[] {
         persona: 'Tu es Frida Zimmermann, 52 ans, libraire, mariée, trois enfants. Tu es NERVEUSE, très bavarde et cancérophobe : ton père est mort d\'un cancer du poumon et tu es convaincue d\'avoir un cancer du côlon. Tu coupes la parole au candidat dès le début, tu pars dans des digressions sur ta famille et ton travail, et tu reviens sans cesse à ta peur. Si le candidat te recadre poliment, tu obéis — mais tu redéviens bavarde deux ou trois questions plus tard. Tu donnes spontanément le point clé (les douleurs s\'apaisent après être allée à la selle) et tu es persuadée d\'avoir une intolérance alimentaire. Tu as très peur de la coloscopie ("avaler un tuyau") et tu demandes si le cannabis pourrait t\'aider. Tu ne mentionnes tes troubles de l\'endormissement et ton stress au travail que si on te pose la question. Tu nies clairement tous les signes d\'alarme quand on te les demande.',
       },
       medicalView: {
-        verdachtsdiagnose: 'Reizdarmsyndrom vom Mischtyp: seit sechs Monaten Bauchschmerzen, die nach dem Stuhlgang nachlassen, mit wechselnder Stuhlform. Da die Beschwerden mit 52 Jahren neu begonnen haben, wird die Diagnose erst nach Koloskopie und Ausschluss von Zöliakie, chronisch-entzündlicher Darmerkrankung und Ovarialprozess gestellt.',
+        verdachtsdiagnose: 'Reizdarmsyndrom vom Mischtyp mit Bauchschmerzen seit sechs Monaten, die nach dem Stuhlgang nachlassen, und wechselnder Stuhlform. Da die Beschwerden mit 52 Jahren neu begonnen haben, wird die Diagnose erst nach Koloskopie und Ausschluss von Zöliakie, chronisch-entzündlicher Darmerkrankung und Ovarialprozess gestellt.',
         patientWorte: { verdacht: 'es sich am ehesten um einen Reizdarm handelt, also eine gutartige Störung im Zusammenspiel von Darm und Nerven', diagnostik: 'nehmen wir Ihnen Blut ab, untersuchen eine Stuhlprobe und lassen Sie einige Wochen lang ein Ernährungs- und Stuhltagebuch führen', therapie: 'passen wir gemeinsam Ihre Ernährung an und besprechen Medikamente gegen die Krämpfe, eine Heilung braucht aber vor allem Geduld' },
         differenzialdiagnosen: [
           { dd: 'Kolorektales Karzinom', unterscheidung: 'Erstmanifestation typischerweise > 50 Jahre mit Alarmsymptomen: Blut im Stuhl, Gewichtsverlust, Anämie, neu aufgetretene Stuhlunregelmäßigkeit — hier fehlend, wegen des Alters von 52 Jahren dennoch koloskopisch auszuschließen.' },
           { dd: 'Chronisch-entzündliche Darmerkrankung (Morbus Crohn, Colitis ulcerosa)', unterscheidung: 'Blutig-schleimige Diarrhoe, nächtliche Beschwerden, Fieber, Gewichtsverlust, extraintestinale Manifestationen, CRP↑ und fäkales Calprotectin↑ — klinisch fehlend; CRP und Calprotectin stehen aus.' },
-          { dd: 'Zöliakie (einheimische Sprue)', unterscheidung: 'Blähungen, Steatorrhoe, Eisenmangelanämie, Gewichtsverlust; Nachweis über Transglutaminase-IgA plus Gesamt-IgA und Duodenalbiopsie unter glutenhaltiger Kost.' },
-          { dd: 'Laktose- bzw. Fruktoseintoleranz', unterscheidung: 'Reproduzierbarer zeitlicher Zusammenhang mit Milchprodukten oder Fruchtzucker; Beschwerdefreiheit unter Karenz; Sicherung mit dem H2-Atemtest.' },
+          { dd: 'Zöliakie (einheimische Sprue)', unterscheidung: 'Blähungen nach Brot passen dazu; sie hat aber nicht abgenommen, und in der Familie gibt es keine Zöliakie. Transglutaminase-IgA mit Gesamt-IgA unter glutenhaltiger Kost, Duodenalbiopsien bei der Gastroskopie.' },
+          { dd: 'Laktose- bzw. Fruktoseintoleranz', unterscheidung: 'Einen Zusammenhang mit Milch hat sie nie gezielt geprüft; Bohnen, Zwiebeln und Kohl sprechen eher für eine FODMAP-Empfindlichkeit beim Reizdarm. H2-Atemtest nur, wenn das Ernährungstagebuch einen Bezug zu Milch zeigt.' },
           { dd: 'Gynäkologische Ursache (Ovarialprozess)', unterscheidung: 'Neue Blähungen und Unterbauchbeschwerden bei einer Frau nach den Wechseljahren können das erste Zeichen eines Ovarialkarzinoms sein. Keine Blutung, kein Ausfluss, zuletzt unauffällige Vorsorge; trotzdem gynäkologisch abklären.' },
-          { dd: 'Divertikelkrankheit', unterscheidung: 'Umschriebener Druckschmerz im linken Unterbauch mit Entzündungszeichen und Fieber im Schub; Nachweis im CT bzw. in der Koloskopie im Intervall.' },
-          { dd: 'Infektiöse Ursachen (Giardiasis, chronische Gastroenteritis, Clostridioides difficile)', unterscheidung: 'Reise- oder Antibiotikaanamnese, akuter Beginn, Fieber; Stuhlkultur, Parasiten- und Giardia-Antigen-Nachweis.' },
+          { dd: 'Divertikelkrankheit', unterscheidung: 'Die Divertikulitis macht Fieber und einen umschriebenen Druckschmerz im linken Unterbauch; sie hatte nie Fieber. Divertikel würden bei der Koloskopie mitgesehen.' },
+          { dd: 'Infektiöse Ursachen (Giardiasis, chronische Gastroenteritis, Clostridioides difficile)', unterscheidung: 'Kein Auslandsaufenthalt, keine Antibiotika in den letzten Monaten, kein Fieber. Die Stuhluntersuchung auf Erreger und Lamblien gehört trotzdem zur Basisdiagnostik.' },
           { dd: 'Schilddrüsenfunktionsstörung (Hypo- oder Hyperthyreose)', unterscheidung: 'Eine Unterfunktion kann ihre Verstopfung erklären (dazu Kälteintoleranz, Müdigkeit, Gewichtszunahme), eine Überfunktion Durchfall mit Gewichtsverlust, Zittern und Herzrasen; Letzteres verneint sie. Das TSH klärt beides.' },
         ],
         diagnostik: [
