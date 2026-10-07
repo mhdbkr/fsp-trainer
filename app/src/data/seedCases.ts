@@ -2768,7 +2768,7 @@ export function seedCases(): Case[] {
           'keine Einnahme von Blutverdünnern',
           'kein Diabetes mellitus',
           'kein Bluthochdruck',
-          'kein Schmerzbeginn im Oberbauch, kein schlagartiger Vernichtungsschmerz (gegen gedeckt perforiertes Ulcus duodeni)',
+          'kein Schmerzbeginn in der Magengrube, kein schlagartiger Vernichtungsschmerz (gegen gedeckt perforiertes Ulcus duodeni)',
           'kein Durchfall, kein Erbrechen, keine diffusen oder kolikartigen Bauchschmerzen, kein Kontakt zu Personen mit Magen-Darm-Infekt, kein Verzehr verdorbener Speisen (gegen Gastroenteritis)',
           'keine früheren, ähnlichen Bauchschmerzepisoden, keine seit Monaten wiederkehrenden Durchfälle, keine Schleimbeimengungen im Stuhl, keine Gelenkschmerzen, keine Augenentzündungen oder Hautveränderungen (gegen terminale Ileitis bei Morbus Crohn)',
         ],
