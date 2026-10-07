@@ -26,6 +26,12 @@ export const REPLIQUE_SANS_DATE = {
   'case-delir': 'le patient délirant ignore son âge ; réplique au plafond O3 du prompt externe',
 };
 
+/** « am Aufnahmetag » suppose une admission : en Sprechstunde/Ambulanz, on écrit
+ *  « am heutigen Tag », sauf si le cas prévoit l'admission depuis l'Ambulanz. */
+export const AUFNAHME_AUS_AMBULANZ = {
+  'case-itp': 'stationäre Aufnahme depuis l’Ambulanz (Thrombozyten 11 000/µl, Schleimhautblutungen)',
+};
+
 const MONATE = ['januar', 'februar', 'märz', 'april', 'mai', 'juni', 'juli', 'august', 'september', 'oktober', 'november', 'dezember'];
 const UNITS = ['', 'ein', 'zwei', 'drei', 'vier', 'fünf', 'sechs', 'sieben', 'acht', 'neun'];
 const TEENS = ['zehn', 'elf', 'zwölf', 'dreizehn', 'vierzehn', 'fünfzehn', 'sechzehn', 'siebzehn', 'achtzehn', 'neunzehn'];
@@ -47,6 +53,9 @@ for (let y = 1900; y <= 2030; y++) {
   const r = y % 100;
   JAHR_WORT.set((y < 2000 ? 'neunzehnhundert' : 'zweitausend') + (r ? zahlwort(r) : ''), y);
 }
+// Année abrégée (« sechsunddreißig ») : la plus récente qui ne dépasse pas REFERENZDATUM.
+const REF_JAHR = Number(REFERENZDATUM.slice(0, 4));
+const KURZJAHR_WORT = new Map(Array.from({ length: 99 }, (_, i) => [zahlwort(i + 1), 2000 + i + 1 <= REF_JAHR ? 2000 + i + 1 : 1900 + i + 1]));
 
 function gueltig(t, m, j) {
   const d = new Date(Date.UTC(j, m - 1, t));
@@ -65,12 +74,13 @@ export function parseFeld(s) {
 /** Toutes les dates « geboren am … » d'une réplique parlée. */
 export function parseReplik(text) {
   const out = [];
-  const re = new RegExp(`geboren am\\s+(\\d{1,2}\\.|[a-zäöüß]+)\\s+(${MONATE.join('|')})\\s+(\\d{4}|[a-zäöüß]+)`, 'gi');
+  const re = new RegExp(`geboren (?:bin ich )?am\\s+(\\d{1,2}\\.|[a-zäöüß]+)\\s+(${MONATE.join('|')})\\s+(\\d{4}|[a-zäöüß]+)`, 'gi');
   for (const r of String(text ?? '').matchAll(re)) {
     const tagRoh = r[1].toLowerCase();
     const t = tagRoh.endsWith('.') ? Number(tagRoh.slice(0, -1)) : TAG_WORT.get(tagRoh);
     const m = MONATE.indexOf(r[2].toLowerCase()) + 1;
-    const j = /^\d{4}$/.test(r[3]) ? Number(r[3]) : JAHR_WORT.get(r[3].toLowerCase());
+    const jw = r[3].toLowerCase();
+    const j = /^\d{4}$/.test(jw) ? Number(jw) : JAHR_WORT.get(jw) ?? KURZJAHR_WORT.get(jw);
     out.push(t && j && gueltig(t, m, j) ? { t, m, j } : { roh: r[0] });
   }
   return out;
@@ -109,6 +119,12 @@ export function checkCase(c, referenz = REFERENZDATUM) {
   // celle du protocole d'examen source) vieillit l'âge de la fiche. Seule la
   // date de naissance est admise dans les Muster. (Les dates de protocole de
   // `pruefungsfallen` et de l'examinerSheet sont légitimes et non contrôlées.)
+  const ein = String(c.musterSaetze?.arztbrief?.einleitung ?? '');
+  if (/Aufnahmetag/.test(ein) && /Sprechstunde|Ambulanz/.test(ein) && !AUFNAHME_AUS_AMBULANZ[c.id]) {
+    issues.push('arztbrief.einleitung : « am Aufnahmetag » pour une consultation en Sprechstunde/Ambulanz (→ « am heutigen Tag »)');
+  }
+  if (/heutigen Tage\b/.test(ein)) issues.push('arztbrief.einleitung : « am heutigen Tage » → « am heutigen Tag »');
+
   for (const sec of ['arztbrief', 'vorstellung']) {
     for (const [k, v] of Object.entries(c.musterSaetze?.[sec] || {})) {
       for (const r of String(v).matchAll(/\b\d{1,2}\.\s?\d{1,2}\.\s?(?:19|20)\d\d\b/g)) {
