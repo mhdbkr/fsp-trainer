@@ -42,6 +42,9 @@ export interface PhraseVariant {
   braucht?: string[];
   /** K3 — relance détachée de sa mère par r4a (elle cherche un autre signe) : son identifiant `<mère>#<n>`. */
   detacheDe?: string;
+  /** Lot Banque (r5) — signes que la RÉPLIQUE à cette question a dits, et qu'une question de banque plus loin ne redemande plus.
+   *  Comptés dans `sucht` (un signe reste cherché une fois : r2, r3, la porte), mais le texte ne les demande pas. */
+  porte?: string[];
 }
 
 export type Phrase = string | PhraseVariant;
@@ -82,9 +85,9 @@ export function splitDimension(text: string): { dim?: string; body: string } {
 const PART_VERBES = new Set(('ist sind war waren hat haben hatte hatten wird werden wurde wurden kann können konnten muss müssen '
   + 'mussten darf dürfen gibt gab geht gehen ging kommt kommen kam kamen tut tritt treten nehmen leiden fühlen bekommen '
   + 'strahlen wandern heilen sehen brennt schwitzen wachen trinken rauchen essen leben wohnen arbeiten verwenden vertragen '
-  + 'empfinden klagt erinnern blutet juckt').split(' '));
+  + 'empfinden klagt erinnern blutet juckt lassen bleiben wechseln').split(' '));   // lot Banque : + lassen, bleiben, wechseln (relances ouvertes par r5)
 const PART_INTERROG = /^(wie|was|wann|wo|woher|wohin|welche[rnms]?|wer|wem|wen|warum|weshalb|wieso|wodurch|womit|wovon|wofür|wozu)$/;
-const PART_PREP = /^(an|auf|aus|bei|für|in|mit|nach|seit|über|um|unter|von|vor|zu)$/;
+const PART_PREP = /^(ab|an|auf|aus|bei|für|in|mit|nach|seit|über|um|unter|von|vor|zu)$/;   // lot Banque : + ab (« Ab welcher Belastung …? »)
 const PART_LIEN = /^(und|oder|dabei|dazu|auch|sonst)$/;
 /** Les parts « relance seulement » : elles ne se disent qu'après leur mère (« Und… », « Falls …: »). Elles ne sont pas
  *  autonomes et ne doivent JAMAIS ouvrir une question jouée (`partsOuvertureFautes`, anamneseChapters.ts). */
